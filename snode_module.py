@@ -111,9 +111,10 @@ class SNode:
     def get_source_code(self) -> str:
         """
         自身のシンボルのソースコードを文字列として返す
+        コメントや返り値の型を含み、次のシンボルのコメントは除外する
         
         Returns:
-            str: ソースコード
+            str: ソースコード（ヘッダー情報付き）
         """
         # 既に読み込み済みの場合はそれを返す
         if self._contents is not None:
@@ -129,21 +130,231 @@ class SNode:
                 lines = f.readlines()
             
             # 行番号は1ベース、配列インデックスは0ベース
-            start_idx = self.line_num_start - 1
+            original_start_idx = self.line_num_start - 1
+            original_end_idx = self.line_num_end if self.line_num_end > 0 else len(lines)
             
-            # line_num_endが0の場合はファイル末尾まで
-            if self.line_num_end == 0:
-                end_idx = len(lines)
-            else:
-                end_idx = self.line_num_end
+            # 実際の開始位置と終了位置を調整
+            actual_start_idx = self._find_actual_start(lines, original_start_idx)
+            actual_end_idx = self._find_actual_end(lines, original_start_idx, original_end_idx)
+            
+            # 調整後の行番号（1ベース）
+            actual_start_line = actual_start_idx + 1
+            actual_end_line = actual_end_idx  # actual_end_idxはexclusiveなので、最終行はactual_end_idx
+            
+            # ヘッダー情報を作成
+            header = f"Source: {self.file_path}:{actual_start_line}-{actual_end_line}\n"
             
             # 該当範囲の行を結合
-            self._contents = ''.join(lines[start_idx:end_idx])
+            source_code = ''.join(lines[actual_start_idx:actual_end_idx])
+            
+            # ヘッダーとソースコードを結合
+            self._contents = header + source_code
             
         except Exception as e:
             raise RuntimeError(f"Error reading source file: {e}")
         
         return self._contents
+    
+    def _find_actual_start(self, lines: List[str], original_start_idx: int) -> int:
+        """
+        シンボル定義の実際の開始位置を見つける（コメントや返り値の型を含む）
+        
+        Args:
+            lines: ファイルの全行
+            original_start_idx: 元の開始インデックス（0ベース）
+            
+        Returns:
+            int: 実際の開始インデックス
+        """
+        if original_start_idx == 0:
+            return 0
+        
+        # 現在の位置から遡って探索
+        idx = original_start_idx - 1
+        actual_start = original_start_idx
+        in_comment = False
+        comment_start = -1
+        
+        while idx >= 0:
+            line = lines[idx].rstrip()
+            
+            # ブロックコメントの終了を検出
+            if '*/' in line and not in_comment:
+                in_comment = True
+                comment_start = idx
+            
+            # ブロックコメントの開始を検出
+            if '/*' in line and in_comment:
+                actual_start = idx
+                in_comment = False
+                idx -= 1
+                continue
+            
+            # コメント中の場合はスキップ
+            if in_comment:
+                idx -= 1
+                continue
+            
+            # 空行または空白のみの行
+            if not line or line.isspace():
+                idx -= 1
+                continue
+            
+            # 単一行コメント
+            if line.strip().startswith('//'):
+                actual_start = idx
+                idx -= 1
+                continue
+            
+            # プリプロセッサディレクティブ
+            if line.strip().startswith('#'):
+                # #defineや#ifdefなどは含めない（別のシンボル定義の可能性）
+                break
+            
+            # 関数の返り値の型やstatic/externなどの修飾子
+            # セミコロンや開き括弧で終わる行は別の定義の可能性
+            if line.endswith(';') or line.endswith('{'):
+                break
+            
+            # typedefやstruct/enum/unionキーワード
+            keywords = ['typedef', 'struct', 'enum', 'union', 'static', 'extern', 
+                       'const', 'volatile', 'inline', 'register']
+            line_lower = line.lower()
+            if any(keyword in line_lower for keyword in keywords):
+                # 次の行に続いている可能性があるので含める
+                actual_start = idx
+                idx -= 1
+                continue
+            
+            # その他の場合（変数の型など）
+            # アルファベットで始まる行は返り値の型の可能性
+            if line and line[0].isalpha():
+                actual_start = idx
+                idx -= 1
+                continue
+            
+            # それ以外の場合は探索を終了
+            break
+        
+        return actual_start
+    
+    def _find_actual_end(self, lines: List[str], start_idx: int, original_end_idx: int) -> int:
+        """
+        シンボル定義の実際の終了位置を見つける（次のシンボルのコメントを除外）
+        
+        Args:
+            lines: ファイルの全行
+            start_idx: 開始インデックス（0ベース）
+            original_end_idx: 元の終了インデックス（0ベース、exclusive）
+            
+        Returns:
+            int: 実際の終了インデックス
+        """
+        # デフォルトは元の終了位置
+        actual_end = original_end_idx
+        
+        # シンボルの種類を判定
+        if start_idx < len(lines):
+            first_line = lines[start_idx].strip()
+            
+            # マクロ定義の場合
+            if first_line.startswith('#define'):
+                # 継続行（\で終わる）を追跡
+                idx = start_idx
+                while idx < original_end_idx and idx < len(lines):
+                    line = lines[idx].rstrip()
+                    if not line.endswith('\\'):
+                        return min(idx + 1, original_end_idx)
+                    idx += 1
+                return original_end_idx
+        
+        # 関数や構造体の場合、括弧の対応を追跡
+        brace_count = 0
+        found_first_brace = False
+        idx = start_idx
+        
+        while idx < original_end_idx and idx < len(lines):
+            line = lines[idx]
+            
+            # 文字列リテラルやコメントを除外した括弧のカウント
+            in_string = False
+            in_char = False
+            in_line_comment = False
+            in_block_comment = False
+            prev_char = ''
+            
+            i = 0
+            while i < len(line):
+                char = line[i]
+                
+                # 文字列リテラル
+                if char == '"' and prev_char != '\\' and not in_char and not in_line_comment and not in_block_comment:
+                    in_string = not in_string
+                # 文字リテラル
+                elif char == "'" and prev_char != '\\' and not in_string and not in_line_comment and not in_block_comment:
+                    in_char = not in_char
+                # 行コメント
+                elif i < len(line) - 1 and line[i:i+2] == '//' and not in_string and not in_char and not in_block_comment:
+                    in_line_comment = True
+                    i += 1
+                # ブロックコメント開始
+                elif i < len(line) - 1 and line[i:i+2] == '/*' and not in_string and not in_char and not in_line_comment:
+                    in_block_comment = True
+                    i += 1
+                # ブロックコメント終了
+                elif i < len(line) - 1 and line[i:i+2] == '*/' and in_block_comment:
+                    in_block_comment = False
+                    i += 1
+                # 括弧のカウント
+                elif not in_string and not in_char and not in_line_comment and not in_block_comment:
+                    if char == '{':
+                        brace_count += 1
+                        found_first_brace = True
+                    elif char == '}':
+                        brace_count -= 1
+                        if found_first_brace and brace_count == 0:
+                            # 構造体の場合は}の後のセミコロンまで含める
+                            remaining = line[i+1:].strip()
+                            if remaining.startswith(';'):
+                                return min(idx + 1, original_end_idx)
+                            # typedef structの場合、型名の定義まで含める
+                            elif remaining and not remaining.startswith('/'):
+                                # 次の行も確認
+                                if idx + 1 < original_end_idx:
+                                    next_line = lines[idx + 1].strip()
+                                    if next_line.startswith(';'):
+                                        return min(idx + 2, original_end_idx)
+                                return min(idx + 1, original_end_idx)
+                            else:
+                                return min(idx + 1, original_end_idx)
+                
+                prev_char = char if char != '\\' else prev_char
+                i += 1
+            
+            idx += 1
+        
+        # 括弧の対応が見つからない場合、次のコメントを除外
+        # 終了位置から遡って、最後の非空白・非コメント行を探す
+        idx = original_end_idx - 1
+        while idx > start_idx:
+            line = lines[idx].strip()
+            
+            # 空行やコメント行でない行が見つかったら、そこまでを含める
+            if line and not line.startswith('/*') and not line.startswith('*') and not line.startswith('//'):
+                # ブロックコメントの途中でないかチェック
+                if '*/' in line:
+                    # この行がブロックコメントの終了を含む場合、コメント開始を探す
+                    comment_start = idx
+                    while comment_start > start_idx:
+                        if '/*' in lines[comment_start]:
+                            # コメントの開始が見つかったら、その前まで
+                            return comment_start
+                        comment_start -= 1
+                return min(idx + 1, original_end_idx)
+            
+            idx -= 1
+        
+        return original_end_idx
     
     def get_references_from_this(self) -> str:
         """
