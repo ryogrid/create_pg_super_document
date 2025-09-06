@@ -31,7 +31,7 @@ class DatabaseConnection:
         if self._connection is None:
             if not Path(DB_FILE).exists():
                 raise FileNotFoundError(f"Database file '{DB_FILE}' not found.")
-            self._connection = duckdb.connect(DB_FILE, read_only=True)
+            self._connection = duckdb.connect(DB_FILE, read_only=False)
         return self._connection
     
     def close(self):
@@ -60,7 +60,7 @@ class SNode:
         # データベースからシンボル情報を取得（最小IDのレコードを使用）
         conn = self._db.get_connection()
         result = conn.execute(f"""
-            SELECT id, file_path, line_num_start, line_num_end
+            SELECT id, file_path, line_num_start, line_num_end, symbol_type
             FROM {SYMBOL_TABLE}
             WHERE symbol_name = ?
             ORDER BY id
@@ -75,7 +75,8 @@ class SNode:
         self.file_path = result[1]
         self.line_num_start = result[2]
         self.line_num_end = result[3]
-    
+        self.symbol_type = result[4]
+
     @classmethod
     def from_id(cls, record_id: int) -> 'SNode':
         """

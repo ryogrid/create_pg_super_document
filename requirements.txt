@@ -1,1 +1,5 @@
+cogdb==3.0.7
 duckdb==1.3.2
+graphlite==1.0.5
+tqdm==4.67.1
+xxhash==3.2.0
