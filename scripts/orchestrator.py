@@ -145,7 +145,7 @@ class DocumentationOrchestrator:
                 [
                     'claude', '--allowedTools', 'Bash(python3*),Read', '-p', f"{prompt}",
                     '--model', 'claude-sonnet-4-20250514',
-                    '--max-turns', str(min(len(symbols) * 5, 25)),
+                    '--max-turns', str(min(len(symbols) * 8, 40)),
                     '--permission-mode', 'bypassPermissions',
                 ],
                 capture_output=True,
