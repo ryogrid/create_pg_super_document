@@ -150,7 +150,7 @@ class DocumentationOrchestrator:
                 ],
                 capture_output=True,
                 text=True,
-                timeout=300,
+                timeout=1200,
                 cwd=str(Path.cwd())
             )
             
