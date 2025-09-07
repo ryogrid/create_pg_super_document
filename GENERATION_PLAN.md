@@ -377,7 +377,7 @@ from datetime import datetime
 from typing import List, Dict, Optional, Set
 
 class DocumentationOrchestrator:
-    def __init__(self, global_symbols_db: str = 'data/global_symbols.db'):
+    def __init__(self, global_symbols_db: str = 'global_symbols.db'):
         # 処理バッチをロード (IDベース)
         with open('data/processing_batches.json') as f:
             self.batches = json.load(f)
