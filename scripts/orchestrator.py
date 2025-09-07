@@ -279,10 +279,9 @@ All commands return results in JSON format.
 (Briefly explain the purpose and role of this symbol in 1-2 sentences)
 
 ## Definition
-(Provide the function signature or struct/enum definition in a code block)
-```c
-// Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)
-```
+(Provide the function signature or struct/enum definition)
+Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)
+
 
 ## Detailed Description
 (Provide specific explanation of the symbol's functionality, behavior, design philosophy, etc.)
@@ -294,11 +293,11 @@ All commands return results in JSON format.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `func_a`
-  - `TYPE_B`
+  - func_a
+  - TYPE_B
 - Called from (representative examples):
-  - `caller_func_x`
-  - `caller_func_y`
+  - caller_func_x
+  - caller_func_y
 
 ## Notes and Other Information
 (Notable points, usage precautions, related background knowledge, etc.)
@@ -357,11 +356,11 @@ All commands return results in JSON format.
         """ドキュメントから関係性を抽出"""
         import re
         deps = re.findall(r'-\s*Functions called/Symbols referenced:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
-        deps_list = re.findall(r'-\s*`(\w+)`', ''.join(deps))
+        deps_list = re.findall(r'-\s*(\w+)', ''.join(deps))
 
         related = re.findall(r'-\s*Called from \(representative examples\):\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
-        related_list = re.findall(r'-\s*`(\w+)`', ''.join(related))
-        
+        related_list = re.findall(r'-\s*(\w+)', ''.join(related))
+
         return list(set(deps_list)), list(set(related_list))
 
     def show_progress(self):

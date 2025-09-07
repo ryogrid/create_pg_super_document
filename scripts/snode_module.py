@@ -390,8 +390,7 @@ class SNode:
             # ファイル名のみ抽出
             filename = Path(file_path).name
             lines.append(
-                f"Line {line_num_in_from:5d}: {symbol_name:30s} "
-                f"({filename}:{line_num_start})"
+                f"{symbol_name:30s} at Line {line_num_in_from:5d}"
             )
         
         return '\n'.join(lines)
@@ -426,11 +425,8 @@ class SNode:
         # 結果を整形
         lines = []
         for from_node, line_num_in_from, symbol_name, file_path, line_num_start in results:
-            # ファイル名のみ抽出
-            filename = Path(file_path).name
             lines.append(
-                f"{symbol_name:30s} at line {line_num_in_from:5d} "
-                f"({filename}:{line_num_start})"
+                f"{symbol_name:30s} at {file_path}:{line_num_in_from:5d}"
             )
         
         return '\n'.join(lines)

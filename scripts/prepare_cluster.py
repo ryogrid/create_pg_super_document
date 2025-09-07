@@ -202,7 +202,7 @@ class SymbolClusterer:
             if not symbols:
                 continue
             # 大きすぎるグループは分割
-            if len(symbols) <= 8:
+            if len(symbols) <= 3:
                 cluster_id_counter += 1
                 self.save_cluster(cluster_id_counter, 'file', symbols)
             else:
