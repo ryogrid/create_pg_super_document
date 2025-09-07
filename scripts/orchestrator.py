@@ -67,7 +67,7 @@ class DocumentationOrchestrator:
                 related_symbols JSON,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
+            );
         """)
         
         # 処理ログテーブル (バッチIDを主キーとする)
@@ -81,7 +81,7 @@ class DocumentationOrchestrator:
                 completed_at TIMESTAMP,
                 error_message TEXT,
                 processed_count INTEGER
-            )
+            );
         """)
 
     def get_processed_symbol_ids(self) -> Set[int]:
@@ -144,8 +144,8 @@ class DocumentationOrchestrator:
             result = subprocess.run(
                 [
                     'claude', '--allowedTools', 'Bash(python3*),Read', '-p', f"{prompt}",
-                    '--model', 'claude-3-7-sonnet-latest',
-                    '--max-turns', str(min(len(symbols) * 2, 15)),
+                    '--model', 'claude-sonnet-4-20250514',
+                    '--max-turns', str(min(len(symbols) * 5, 25)),
                     '--permission-mode', 'bypassPermissions',
                 ],
                 capture_output=True,
@@ -163,6 +163,8 @@ class DocumentationOrchestrator:
                     WHERE batch_id = ?
                 """, (datetime.now(), len(symbol_ids), batch_id))
                 
+                time.sleep(2);
+
                 # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
                 self.store_generated_documents(symbol_ids, batch['layer'])
                 
@@ -172,14 +174,14 @@ class DocumentationOrchestrator:
                 print(f"✗ Failed to process batch {batch_id}: {error_msg}")
                 self.doc_db.execute("""
                     UPDATE processing_log SET status = 'failed', completed_at = ?, error_message = ?
-                    WHERE batch_id = ?
+                    WHERE batch_id = ?;
                 """, (datetime.now(), error_msg, batch_id))
                 return False
                 
         except subprocess.TimeoutExpired:
             print(f"✗ Batch {batch_id} timed out")
             self.doc_db.execute("""
-                UPDATE processing_log SET status = 'timeout', completed_at = ? WHERE batch_id = ?
+                UPDATE processing_log SET status = 'timeout', completed_at = ? WHERE batch_id = ?;
             """, (datetime.now(), batch_id))
             return False
             
@@ -188,7 +190,7 @@ class DocumentationOrchestrator:
             print(f"✗ Unexpected error in batch {batch_id}: {error_msg}")
             self.doc_db.execute("""
                 UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
-                WHERE batch_id = ?
+                WHERE batch_id = ?;
             """, (datetime.now(), error_msg, batch_id))
             return False
         finally:
@@ -198,7 +200,7 @@ class DocumentationOrchestrator:
         """処理済みシンボルの要約を取得 (名前 -> 要約)"""
         result = self.doc_db.execute("""
             SELECT symbol_name, summary FROM documents WHERE summary IS NOT NULL AND summary != ''
-            LIMIT 2000
+            LIMIT 2000;
         """).fetchall()
         return {row[0]: row[1] for row in result}
 
@@ -213,7 +215,7 @@ class DocumentationOrchestrator:
         for symbol_id in symbol_ids:
             # このシンボルの依存先を取得 (IDベース)
             deps = self.meta_db.execute("""
-                SELECT to_node FROM dependencies WHERE from_node = ?
+                SELECT to_node FROM dependencies WHERE from_node = ?;
             """, (symbol_id,)).fetchall()
             
             for (dep_id,) in deps:
@@ -240,9 +242,9 @@ Below are summaries of already processed symbols that the current symbols may de
 
 ## Instructions
 1. Process each symbol in the "Target Symbol List for Processing" above, in order.
-2. Search and analyze each symbol's source code, definition, and reference locations with execution of mcp_tools.py.
+2. Search and analyze each symbol's source code, definition, and reference locations with execution of scripts/mcp_tool.py.
 3. Generate documentation for each symbol following the Markdown format below.
-4. Save the generated documentation with execution of mcp_tools.py.
+4. Save the generated document with execution of scripts/mcp_tool.py.
 
 ## Available Tools
 
@@ -326,8 +328,7 @@ All commands return results in JSON format.
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     ON CONFLICT (symbol_id) DO UPDATE SET
                         content = EXCLUDED.content, summary = EXCLUDED.summary,
-                        dependencies = EXCLUDED.dependencies, related_symbols = EXCLUDED.related_symbols,
-                        updated_at = CURRENT_TIMESTAMP
+                        dependencies = EXCLUDED.dependencies, related_symbols = EXCLUDED.related_symbols;
                 """, (sid, symbol_name, symbol_type, layer, content, summary, json.dumps(deps), json.dumps(related)))
                 
                 doc_path.unlink() # 一時ファイルを削除
