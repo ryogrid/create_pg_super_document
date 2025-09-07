@@ -143,10 +143,10 @@ class DocumentationOrchestrator:
             print("Invoking Claude Code CLI...")
             result = subprocess.run(
                 [
-                    'claude', '-p',
+                    'claude', '--allowedTools', 'Bash(python3*),Read', '-p', f"{prompt}",
                     '--model', 'claude-3-7-sonnet-latest',
                     '--max-turns', str(min(len(symbols) * 2, 15)),
-                    prompt
+                    '--permission-mode', 'bypassPermissions',
                 ],
                 capture_output=True,
                 text=True,
@@ -240,9 +240,9 @@ Below are summaries of already processed symbols that the current symbols may de
 
 ## Instructions
 1. Process each symbol in the "Target Symbol List for Processing" above, in order.
-2. Search and analyze each symbol's source code, definition, and reference locations throughout the entire codebase.
+2. Search and analyze each symbol's source code, definition, and reference locations with execution of mcp_tools.py.
 3. Generate documentation for each symbol following the Markdown format below.
-4. Save the generated documentation locally in the `output/temp/` directory with the filename `[symbol_name].md`.
+4. Save the generated documentation with execution of mcp_tools.py.
 
 ## Available Tools
 
@@ -302,8 +302,6 @@ All commands return results in JSON format.
 (Notable points, usage precautions, related background knowledge, etc.)
 
 ```
-
-Complete file output for all symbols according to the above instructions.
 """
         return (prompt, symbol_names)
         
