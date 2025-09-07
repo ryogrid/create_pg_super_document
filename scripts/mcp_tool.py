@@ -87,7 +87,7 @@ def search_symbols_wrapper(pattern: str) -> dict:
         return {"error": f"Failed to search symbols: {e}"}
 
 
-def save_document(symbol_name: str, content: str) -> dict:
+def return_document(symbol_name: str, content: str) -> dict:
     """ドキュメントを一時ファイルとして保存"""
     try:
         TEMP_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -125,7 +125,7 @@ Examples:
             'get_references_from_this',
             'get_references_to_this',
             'search_symbols',
-            'save_document'
+            'return_document'
         ],
         help='Method to call'
     )
@@ -152,9 +152,9 @@ Examples:
             params = json.loads(args.json_args)
         else:
             # 位置引数から適切なパラメータを構築
-            if args.method == 'save_document':
+            if args.method == 'return_document':
                 if len(args.args) < 2:
-                    print(json.dumps({"error": "save_document requires 2 arguments: symbol_name and content"}))
+                    print(json.dumps({"error": "return_document requires 2 arguments: symbol_name and content"}))
                     sys.exit(1)
                 params = {
                     'symbol_name': args.args[0],
@@ -198,14 +198,14 @@ Examples:
             else:
                 result = search_symbols_wrapper(params)
                 
-        elif args.method == 'save_document':
+        elif args.method == 'return_document':
             if isinstance(params, dict):
-                result = save_document(
+                result = return_document(
                     params.get('symbol_name', ''),
                     params.get('content', '')
                 )
             else:
-                print(json.dumps({"error": "save_document requires dict params"}))
+                print(json.dumps({"error": "return_document requires dict params"}))
                 sys.exit(1)
         
         # 結果をJSONで出力

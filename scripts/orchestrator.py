@@ -246,7 +246,7 @@ Below are summaries of already processed symbols that the current symbols may de
 
 ## Available Tools
 
-Access PostgreSQL symbol information using these command-line tools:
+Access PostgreSQL symbol information and return generated documents using these command-line tools:
 
 ```bash
 # Get symbol details (type, file, line numbers, etc.)
@@ -264,8 +264,8 @@ python3 scripts/mcp_tool.py get_references_to_this [symbol_name]
 # Search symbols by pattern
 python3 scripts/mcp_tool.py search_symbols [pattern]
 
-# Save documentation
-python3 scripts/mcp_tool.py save_document [symbol_name] [content]
+# Return generated document
+python3 scripts/mcp_tool.py return_document [symbol_name] [content]
 ```
 All commands return results in JSON format.
 
