@@ -29,40 +29,67 @@ postgresql-docs/
 #!/usr/bin/env python3
 """
 事前にシンボルをクラスタリングして効率的なバッチを準備
-DuckDB版
+DuckDBの生データを直接読み込むバージョン
 """
 import json
 import duckdb
 from pathlib import Path
-from collections import defaultdict
-from typing import List, Dict, Set
+from collections import defaultdict, deque
+from typing import List, Dict, Set, Tuple
 
 class SymbolClusterer:
-    def __init__(self, symbols_file: str, dependencies_file: str):
-        # シンボル情報をロード
-        with open(symbols_file) as f:
-            self.all_symbols = json.load(f)
-        
-        # 依存関係グラフをロード
-        with open(dependencies_file) as f:
-            self.dependencies = json.load(f)
-            
-        # DuckDBの初期化
+    def __init__(self, db_file: str):
+        # DuckDBからグラフ構造とシンボル情報をメモリにロード
+        self._load_graph_from_db(db_file)
+
+        # 出力用DuckDBの初期化
+        self.meta_db = duckdb.connect('data/metadata.duckdb')
         self.init_database()
-        
+
         # 結果を格納
         self.clusters = []
         self.layers = []
-        
+
+    def _load_graph_from_db(self, db_file: str):
+        """DuckDBからデータを読み込み、オンメモリグラフを構築する"""
+        print(f"Loading graph data from {db_file}...")
+        con = duckdb.connect(db_file, read_only=True)
+
+        # シンボル定義をロード (id -> details)
+        self.symbol_details: Dict[int, Dict] = {
+            row[0]: {
+                'id': row[0],
+                'symbol_name': row[1],
+                'file_path': row[2],
+                'line_num_start': row[3],
+                'line_num_end': row[4],
+                'symbol_type': row[7]
+            } for row in con.execute("SELECT * FROM symbol_definitions").fetchall()
+        }
+        self.all_nodes: Set[int] = set(self.symbol_details.keys())
+        print(f"Loaded {len(self.symbol_details)} symbol definitions.")
+
+        # 参照関係からグラフを構築
+        references: List[Tuple[int, int]] = con.execute("SELECT from_node, to_node FROM symbol_reference").fetchall()
+        con.close()
+
+        self.adj: Dict[int, Set[int]] = defaultdict(set)  # 依存先 (自分がどのノードに依存しているか)
+        self.rev_adj: Dict[int, Set[int]] = defaultdict(set) # 依存元 (どのノードから依存されているか)
+
+        for from_node, to_node in references:
+            if from_node in self.all_nodes and to_node in self.all_nodes:
+                self.adj[from_node].add(to_node)
+                self.rev_adj[to_node].add(from_node)
+        print(f"Built graph with {len(references)} references.")
+
+
     def init_database(self):
-        """DuckDBデータベースを初期化"""
-        # メタデータ用DB
-        self.meta_db = duckdb.connect('data/metadata.duckdb')
-        
-        # シンボル情報テーブル
+        """出力用DuckDBデータベースを初期化"""
+        # シンボル情報テーブル (主キーをidに変更)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS symbols (
-                symbol_name VARCHAR PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
+                symbol_name VARCHAR,
                 symbol_type VARCHAR,
                 file_path VARCHAR,
                 module VARCHAR,
@@ -73,17 +100,16 @@ class SymbolClusterer:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
-        # 依存関係テーブル
+
+        # 依存関係テーブル (idベース)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS dependencies (
-                from_symbol VARCHAR,
-                to_symbol VARCHAR,
-                dependency_type VARCHAR,
-                PRIMARY KEY (from_symbol, to_symbol)
+                from_node INTEGER,
+                to_node INTEGER,
+                PRIMARY KEY (from_node, to_node)
             )
         """)
-        
+
         # クラスタテーブル
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS clusters (
@@ -95,148 +121,140 @@ class SymbolClusterer:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        
+        # 既存データをクリア
+        self.meta_db.execute("DELETE FROM symbols")
+        self.meta_db.execute("DELETE FROM dependencies")
+        self.meta_db.execute("DELETE FROM clusters")
+
         # データを投入
         self.populate_initial_data()
-        
+
     def populate_initial_data(self):
         """初期データをDuckDBに投入"""
+        print("Populating metadata database...")
         # シンボル情報を投入
-        for symbol_name, info in self.all_symbols.items():
+        for symbol_id, info in self.symbol_details.items():
             self.meta_db.execute("""
-                INSERT OR REPLACE INTO symbols 
-                (symbol_name, symbol_type, file_path, module, start_line, end_line)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT OR REPLACE INTO symbols
+                (id, symbol_name, symbol_type, file_path, module, start_line, end_line)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (
-                symbol_name,
-                info.get('type', 'unknown'),
-                info.get('file', ''),
-                self.get_symbol_module(symbol_name),
-                info.get('start_line', 0),
-                info.get('end_line', 0)
+                symbol_id,
+                info['symbol_name'],
+                info.get('symbol_type', 'unknown'),
+                info.get('file_path', ''),
+                self.get_symbol_module(symbol_id),
+                info.get('line_num_start', 0),
+                info.get('line_num_end', 0)
             ))
-        
+
         # 依存関係を投入
-        for symbol, deps in self.dependencies.items():
-            for dep in deps.get('depends_on', []):
+        for from_node, to_nodes in self.adj.items():
+            for to_node in to_nodes:
                 self.meta_db.execute("""
-                    INSERT OR REPLACE INTO dependencies 
-                    (from_symbol, to_symbol, dependency_type)
-                    VALUES (?, ?, 'uses')
-                """, (symbol, dep))
-        
+                    INSERT OR REPLACE INTO dependencies
+                    (from_node, to_node)
+                    VALUES (?, ?)
+                """, (from_node, to_node))
+
         self.meta_db.commit()
-        
+        print("Finished populating metadata database.")
+
     def analyze_dependencies(self):
-        """依存関係を解析して処理順序の階層を作成（DuckDB版）"""
-        # 依存数を計算
-        result = self.meta_db.execute("""
-            WITH dependency_counts AS (
-                SELECT 
-                    s.symbol_name,
-                    COALESCE(COUNT(DISTINCT d_in.from_symbol), 0) as in_degree,
-                    COALESCE(COUNT(DISTINCT d_out.to_symbol), 0) as out_degree
-                FROM symbols s
-                LEFT JOIN dependencies d_in ON s.symbol_name = d_in.to_symbol
-                LEFT JOIN dependencies d_out ON s.symbol_name = d_out.from_symbol
-                GROUP BY s.symbol_name
-            )
-            SELECT symbol_name, in_degree, out_degree
-            FROM dependency_counts
-            ORDER BY in_degree, symbol_name
-        """).fetchall()
+        """オンメモリグラフで依存関係を解析し、トポロジカルソートで階層を作成"""
+        in_degree = {node: len(self.rev_adj.get(node, set())) for node in self.all_nodes}
+        queue = deque([node for node, degree in in_degree.items() if degree == 0])
         
-        # トポロジカルソートで階層を作成
-        symbol_degrees = {row[0]: {'in': row[1], 'out': row[2]} for row in result}
-        processed = set()
         layers = []
-        layer_num = 0
+        processed_count = 0
         
-        while len(processed) < len(self.all_symbols):
-            current_layer = []
-            
-            for symbol, degrees in symbol_degrees.items():
-                if symbol not in processed:
-                    # このシンボルが依存する未処理シンボルがあるか確認
-                    deps_result = self.meta_db.execute("""
-                        SELECT to_symbol 
-                        FROM dependencies 
-                        WHERE from_symbol = ?
-                    """, (symbol,)).fetchall()
-                    
-                    unprocessed_deps = [d[0] for d in deps_result if d[0] not in processed]
-                    
-                    if not unprocessed_deps:
-                        current_layer.append(symbol)
-                        processed.add(symbol)
-            
-            if current_layer:
-                layers.append(current_layer)
-                # DBにレイヤー情報を更新
-                for symbol in current_layer:
-                    self.meta_db.execute("""
-                        UPDATE symbols SET layer = ? WHERE symbol_name = ?
-                    """, (layer_num, symbol))
-                layer_num += 1
-            else:
-                # 循環依存の処理
-                remaining = [s for s in self.all_symbols if s not in processed]
-                if remaining:
-                    layers.append(remaining)
-                    for symbol in remaining:
-                        self.meta_db.execute("""
-                            UPDATE symbols SET layer = ? WHERE symbol_name = ?
-                        """, (layer_num, symbol))
+        while queue:
+            current_layer_size = len(queue)
+            if current_layer_size == 0:
                 break
+            
+            current_layer = []
+            for _ in range(current_layer_size):
+                node = queue.popleft()
+                current_layer.append(node)
+                processed_count += 1
+                
+                # このノードが依存している先のノードのin-degreeを減らす
+                for neighbor in self.adj.get(node, set()):
+                    in_degree[neighbor] -= 1
+                    if in_degree[neighbor] == 0:
+                        queue.append(neighbor)
+            
+            layers.append(current_layer)
+
+        # 循環依存のチェックと処理
+        if processed_count < len(self.all_nodes):
+            remaining = [node for node in self.all_nodes if in_degree[node] > 0]
+            print(f"Warning: Circular dependency detected involving {len(remaining)} symbols. Grouping them into the last layer.")
+            layers.append(remaining)
+
+        # DBにレイヤー情報を更新
+        for i, layer in enumerate(layers):
+            for node_id in layer:
+                self.meta_db.execute("UPDATE symbols SET layer = ? WHERE id = ?", (i, node_id))
         
         self.meta_db.commit()
         self.layers = layers
         return layers
-        
+
     def create_file_based_clusters(self):
-        """ファイルベースでシンボルをクラスタリング（DuckDB版）"""
-        # ファイルごとにグループ化
+        """ファイルベースでシンボルをクラスタリング"""
+        # ファイルごとにグループ化 (idも取得)
         result = self.meta_db.execute("""
-            SELECT 
+            SELECT
                 file_path,
-                symbol_name,
+                id,
                 symbol_type,
                 layer
             FROM symbols
-            ORDER BY file_path, symbol_type, symbol_name
+            ORDER BY file_path, symbol_type, id
         """).fetchall()
-        
+
         file_groups = defaultdict(list)
         for row in result:
-            file_path, symbol_name, symbol_type, layer = row
+            file_path, symbol_id, symbol_type, layer = row
             file_groups[file_path].append({
-                'name': symbol_name,
+                'id': symbol_id,
                 'type': symbol_type,
                 'layer': layer
             })
-        
-        cluster_id = 0
+
+        cluster_id_counter = 0
         for file_path, symbols in file_groups.items():
+            if not symbols:
+                continue
             # 大きすぎるグループは分割
             if len(symbols) <= 8:
-                cluster_id += 1
-                self.save_cluster(cluster_id, 'file', symbols)
+                cluster_id_counter += 1
+                self.save_cluster(cluster_id_counter, 'file', symbols)
             else:
                 # タイプ別に分割
-                for symbol_type in ['function', 'struct']:
+                for symbol_type in ['function', 'struct', 'typedef']: # 型を増やす
                     typed_symbols = [s for s in symbols if s['type'] == symbol_type]
+                    if not typed_symbols: continue
                     for i in range(0, len(typed_symbols), 5):
-                        cluster_id += 1
+                        cluster_id_counter += 1
                         batch = typed_symbols[i:i+5]
-                        self.save_cluster(cluster_id, f'file_{symbol_type}', batch)
+                        self.save_cluster(cluster_id_counter, f'file_{symbol_type}', batch)
         
-        return cluster_id
-    
+        self.meta_db.commit()
+        return cluster_id_counter
+
     def save_cluster(self, cluster_id: int, cluster_type: str, symbols: List[Dict]):
-        """クラスタをDBに保存"""
-        symbol_names = [s['name'] for s in symbols]
-        avg_layer = sum(s.get('layer', 0) for s in symbols) // len(symbols) if symbols else 0
-        
+        """クラスタをDBに保存 (IDベース)"""
+        symbol_ids = [s['id'] for s in symbols]
+        # symbolsが空でないことを確認
+        if not symbols:
+            return
+        # layerがNoneの場合を考慮
+        valid_layers = [s.get('layer') for s in symbols if s.get('layer') is not None]
+        avg_layer = sum(valid_layers) // len(valid_layers) if valid_layers else 0
+
         self.meta_db.execute("""
             INSERT INTO clusters (cluster_id, cluster_type, layer, symbols, estimated_tokens)
             VALUES (?, ?, ?, ?, ?)
@@ -244,98 +262,99 @@ class SymbolClusterer:
             cluster_id,
             cluster_type,
             avg_layer,
-            json.dumps(symbol_names),
-            len(symbols) * 3000  # 推定トークン数
+            json.dumps(symbol_ids),  # IDのリストをJSONとして保存
+            len(symbol_ids) * 3000  # 推定トークン数
         ))
-        
+
         # シンボルにクラスタIDを設定
         for symbol in symbols:
-            self.meta_db.execute("""
-                UPDATE symbols SET cluster_id = ? WHERE symbol_name = ?
-            """, (cluster_id, symbol['name']))
-    
-    def get_symbol_module(self, symbol: str) -> str:
-        """シンボルのモジュールを取得"""
-        if symbol in self.dependencies:
-            file_path = self.dependencies[symbol].get('file', '')
+            self.meta_db.execute("UPDATE symbols SET cluster_id = ? WHERE id = ?", (cluster_id, symbol['id']))
+
+    def get_symbol_module(self, symbol_id: int) -> str:
+        """シンボルIDからモジュールを取得"""
+        info = self.symbol_details.get(symbol_id)
+        if info:
+            file_path = info.get('file_path', '')
             if '/' in file_path:
                 parts = file_path.split('/')
                 if 'backend' in parts:
-                    idx = parts.index('backend')
-                    if idx + 1 < len(parts):
-                        return parts[idx + 1]
+                    try:
+                        idx = parts.index('backend')
+                        if idx + 1 < len(parts):
+                            return parts[idx + 1]
+                    except ValueError:
+                        pass
                 return parts[0]
         return 'core'
-    
+
     def generate_processing_batches(self):
-        """処理用バッチを生成（DuckDB版）"""
+        """処理用バッチを生成"""
         result = self.meta_db.execute("""
-            SELECT 
+            SELECT
                 c.cluster_id,
                 c.cluster_type,
                 c.layer,
                 c.symbols,
-                c.estimated_tokens,
-                COUNT(DISTINCT s.symbol_name) as symbol_count
+                c.estimated_tokens
             FROM clusters c
-            JOIN symbols s ON s.cluster_id = c.cluster_id
-            GROUP BY c.cluster_id, c.cluster_type, c.layer, c.symbols, c.estimated_tokens
             ORDER BY c.layer, c.cluster_id
         """).fetchall()
-        
+
         batches = []
         for row in result:
-            cluster_id, cluster_type, layer, symbols_json, tokens, count = row
+            cluster_id, cluster_type, layer, symbols_json, tokens = row
+            symbol_ids = json.loads(symbols_json)
             batches.append({
                 'batch_id': cluster_id,
                 'type': cluster_type,
                 'layer': layer,
-                'symbols': json.loads(symbols_json),
+                'symbol_ids': symbol_ids, # キーを 'symbol_ids' に変更して明確化
                 'estimated_tokens': tokens,
-                'symbol_count': count
+                'symbol_count': len(symbol_ids)
             })
-        
+
         # ファイルに保存
+        Path("data").mkdir(exist_ok=True)
         with open('data/processing_batches.json', 'w') as f:
             json.dump(batches, f, indent=2)
-        
+
         return batches
 
 def main():
-    # 入力ファイル
-    symbols_file = 'data/all_symbols.json'
-    dependencies_file = 'data/symbol_dependencies.json'
+    # 入力DBファイル
+    db_file = 'data/global_symbols.db'
     
-    clusterer = SymbolClusterer(symbols_file, dependencies_file)
-    
+    clusterer = SymbolClusterer(db_file=db_file)
+
     # 依存関係の階層を作成
     layers = clusterer.analyze_dependencies()
     print(f"Created {len(layers)} dependency layers")
-    
+
     # クラスタを作成
     num_clusters = clusterer.create_file_based_clusters()
     print(f"Created {num_clusters} clusters")
-    
+
     # 処理用バッチを生成
     batches = clusterer.generate_processing_batches()
     print(f"Generated {len(batches)} processing batches")
-    
+
     # 統計情報を表示
-    stats = clusterer.meta_db.execute("""
-        SELECT 
-            COUNT(DISTINCT symbol_name) as total_symbols,
-            COUNT(DISTINCT cluster_id) as total_clusters,
-            COUNT(DISTINCT layer) as total_layers,
-            AVG(estimated_tokens) as avg_tokens_per_cluster
-        FROM symbols s
-        JOIN clusters c ON s.cluster_id = c.cluster_id
+    stats_result = clusterer.meta_db.execute("""
+        SELECT
+            (SELECT COUNT(id) FROM symbols) as total_symbols,
+            (SELECT COUNT(cluster_id) FROM clusters) as total_clusters,
+            (SELECT COUNT(DISTINCT layer) FROM symbols WHERE layer IS NOT NULL) as total_layers,
+            (SELECT AVG(estimated_tokens) FROM clusters) as avg_tokens_per_cluster
     """).fetchone()
     
-    print(f"\nStatistics:")
-    print(f"  Total symbols: {stats[0]}")
-    print(f"  Total clusters: {stats[1]}")
-    print(f"  Total layers: {stats[2]}")
-    print(f"  Avg tokens per cluster: {stats[3]:.0f}")
+    if stats_result:
+        print("\nStatistics:")
+        print(f"  Total symbols: {stats_result[0]}")
+        print(f"  Total clusters: {stats_result[1]}")
+        print(f"  Total layers: {stats_result[2]}")
+        print(f"  Avg tokens per cluster: {stats_result[3]:.0f}")
+    
+    clusterer.meta_db.close()
 
 if __name__ == "__main__":
     main()
@@ -347,7 +366,7 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 """
 Claude Codeを使用したドキュメント生成のメイン処理
-DuckDB版 - ドキュメントもDB内に格納
+DuckDB版 - ドキュメントもDB内に格納 (IDベース処理)
 """
 import json
 import duckdb
@@ -358,10 +377,13 @@ from datetime import datetime
 from typing import List, Dict, Optional, Set
 
 class DocumentationOrchestrator:
-    def __init__(self):
-        # 処理バッチをロード
+    def __init__(self, global_symbols_db: str = 'data/global_symbols.db'):
+        # 処理バッチをロード (IDベース)
         with open('data/processing_batches.json') as f:
             self.batches = json.load(f)
+
+        # シンボル詳細情報をメモリにロード
+        self._load_symbol_details(global_symbols_db)
         
         # DuckDBの初期化
         self.init_databases()
@@ -371,22 +393,37 @@ class DocumentationOrchestrator:
             'total_batches': len(self.batches),
             'processed_batches': 0,
             'failed_batches': 0,
-            'total_symbols': sum(len(b['symbols']) for b in self.batches),
+            'total_symbols': sum(len(b['symbol_ids']) for b in self.batches),
             'processed_symbols': 0
         }
-        
+
+    def _load_symbol_details(self, db_file: str):
+        """global_symbols.dbからシンボル詳細をメモリにキャッシュする"""
+        print(f"Loading symbol details from {db_file}...")
+        con = duckdb.connect(db_file, read_only=True)
+        self.symbol_details: Dict[int, Dict] = {
+            row[0]: {
+                'id': row[0],
+                'name': row[1],
+                'type': row[7] if row[7] else 'unknown',
+            } for row in con.execute("SELECT * FROM symbol_definitions").fetchall()
+        }
+        con.close()
+        print(f"Loaded {len(self.symbol_details)} symbol details into memory.")
+
     def init_databases(self):
         """DuckDBデータベースの初期化"""
         # メタデータDB（既存）
-        self.meta_db = duckdb.connect('data/metadata.duckdb')
+        self.meta_db = duckdb.connect('data/metadata.duckdb', read_only=True)
         
         # ドキュメント専用DB
         self.doc_db = duckdb.connect('data/documents.duckdb')
         
-        # ドキュメントテーブル
+        # ドキュメントテーブル (IDベースに修正)
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS documents (
-                symbol_name VARCHAR PRIMARY KEY,
+                symbol_id INTEGER PRIMARY KEY,
+                symbol_name VARCHAR,
                 symbol_type VARCHAR,
                 layer INTEGER,
                 content TEXT,
@@ -398,11 +435,12 @@ class DocumentationOrchestrator:
             )
         """)
         
-        # 処理ログテーブル
-        self.meta_db.execute("""
+        # 処理ログテーブル (バッチIDを主キーとする)
+        # metadata.duckdbはread-onlyで開いているため、ログはdoc_dbに書く
+        self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS processing_log (
                 batch_id INTEGER PRIMARY KEY,
-                symbols JSON,
+                symbol_ids JSON,
                 status VARCHAR,
                 started_at TIMESTAMP,
                 completed_at TIMESTAMP,
@@ -410,52 +448,37 @@ class DocumentationOrchestrator:
                 processed_count INTEGER
             )
         """)
-        
-        # 処理済みシンボルのビュー
-        self.meta_db.execute("""
-            CREATE OR REPLACE VIEW processed_symbols AS
-            SELECT 
-                s.symbol_name,
-                s.symbol_type,
-                s.layer,
-                p.batch_id,
-                p.completed_at as processed_at
-            FROM symbols s
-            JOIN processing_log p ON p.symbols::JSON ? s.symbol_name
-            WHERE p.status = 'completed'
-        """)
-        
-    def get_processed_symbols(self) -> Set[str]:
-        """処理済みシンボルを取得"""
-        result = self.doc_db.execute("""
-            SELECT symbol_name FROM documents
-        """).fetchall()
+
+    def get_processed_symbol_ids(self) -> Set[int]:
+        """処理済みシンボルIDを取得"""
+        result = self.doc_db.execute("SELECT symbol_id FROM documents").fetchall()
         return set(row[0] for row in result)
         
     def process_all_batches(self):
         """全バッチを順次処理"""
-        processed = self.get_processed_symbols()
+        processed_ids = self.get_processed_symbol_ids()
         
-        for batch_idx, batch in enumerate(self.batches):
-            # スキップ判定
-            unprocessed = [s for s in batch['symbols'] if s not in processed]
-            if not unprocessed:
-                print(f"Batch {batch_idx}: All symbols already processed, skipping")
+        for batch in self.batches:
+            batch_id = batch['batch_id']
+            # スキップ判定 (IDベース)
+            unprocessed_ids = [sid for sid in batch['symbol_ids'] if sid not in processed_ids]
+            if not unprocessed_ids:
+                print(f"Batch {batch_id}: All symbols already processed, skipping")
                 continue
                 
             print(f"\n{'='*60}")
-            print(f"Processing batch {batch_idx + 1}/{len(self.batches)}")
-            print(f"Layer: {batch['layer']}, Symbols: {len(unprocessed)}")
+            print(f"Processing batch {batch_id}/{len(self.batches)}")
+            print(f"Layer: {batch['layer']}, Symbols: {len(unprocessed_ids)}")
             print(f"Type: {batch['type']}, Estimated tokens: {batch['estimated_tokens']}")
             print(f"{'='*60}")
             
             # バッチを処理
-            success = self.process_batch(batch_idx, batch, unprocessed)
+            success = self.process_batch(batch, unprocessed_ids)
             
             if success:
                 self.stats['processed_batches'] += 1
-                self.stats['processed_symbols'] += len(unprocessed)
-                processed.update(unprocessed)
+                self.stats['processed_symbols'] += len(unprocessed_ids)
+                processed_ids.update(unprocessed_ids)
             else:
                 self.stats['failed_batches'] += 1
                 
@@ -465,376 +488,238 @@ class DocumentationOrchestrator:
             # レート制限対策
             time.sleep(2)
             
-    def process_batch(self, batch_idx: int, batch: Dict, symbols: List[str]) -> bool:
+    def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
         """単一バッチを処理"""
-        # 処理済みシンボルの要約を取得
-        processed_summaries = self.get_processed_summaries()
+        batch_id = batch['batch_id']
         
-        # バッチ情報を保存
-        batch_info = {
-            'batch_id': batch_idx,
-            'layer': batch['layer'],
-            'symbols': symbols,
-            'processed_available': list(processed_summaries.keys()),
-            'timestamp': datetime.now().isoformat()
-        }
-        
-        with open('data/current_batch.json', 'w') as f:
-            json.dump(batch_info, f, indent=2)
-            
         # ログ記録開始
-        self.meta_db.execute("""
-            INSERT INTO processing_log 
-            (batch_id, symbols, status, started_at, processed_count)
+        self.doc_db.execute("""
+            INSERT OR REPLACE INTO processing_log 
+            (batch_id, symbol_ids, status, started_at, processed_count)
             VALUES (?, ?, 'processing', ?, 0)
-        """, (batch_idx, json.dumps(symbols), datetime.now()))
-        
+        """, (batch_id, json.dumps(symbol_ids), datetime.now()))
+        self.doc_db.commit()
+
         # プロンプトを構築
-        prompt = self.build_prompt(symbols, batch['layer'], processed_summaries)
+        prompt = self.build_prompt(symbol_ids, batch['layer'])
         
         try:
             # Claude Codeを実行
+            # claude-code-cli を想定したコマンドラインに修正
+            # 例: claude-code chat --prompt "..."
+            # ※ツール名や引数は環境に合わせて調整してください
+            print("Invoking Claude Code CLI...")
             result = subprocess.run(
-                [
-                    'claude', '-p',
-                    '--model', 'claude-3-5-sonnet-20241022',
-                    '--max-turns', str(min(len(symbols) * 2, 15)),
-                    prompt
-                ],
+                ['claude-code', 'chat', '--prompt', prompt],
                 capture_output=True,
                 text=True,
-                timeout=300,
-                cwd=str(Path.cwd())
+                timeout=600, # タイムアウトを延長
+                cwd=str(Path.cwd()),
+                encoding='utf-8'
             )
             
             if result.returncode == 0:
-                print(f"✓ Successfully processed batch {batch_idx}")
+                print(f"✓ Successfully processed batch {batch_id}")
                 
                 # 成功をログに記録
-                self.meta_db.execute("""
-                    UPDATE processing_log 
-                    SET status = 'completed', 
-                        completed_at = ?,
-                        processed_count = ?
+                self.doc_db.execute("""
+                    UPDATE processing_log SET status = 'completed', completed_at = ?, processed_count = ?
                     WHERE batch_id = ?
-                """, (datetime.now(), len(symbols), batch_idx))
+                """, (datetime.now(), len(symbol_ids), batch_id))
                 
-                # 生成されたドキュメントをDBに格納
-                self.store_generated_documents(symbols, batch['layer'])
+                # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
+                self.store_generated_documents(symbol_ids, batch['layer'])
                 
                 return True
             else:
-                error_msg = result.stderr[:500] if result.stderr else 'Unknown error'
-                print(f"✗ Failed to process batch {batch_idx}: {error_msg}")
-                
-                self.meta_db.execute("""
-                    UPDATE processing_log 
-                    SET status = 'failed', 
-                        completed_at = ?,
-                        error_message = ?
+                error_msg = result.stderr[:1000] if result.stderr else 'Unknown error'
+                print(f"✗ Failed to process batch {batch_id}: {error_msg}")
+                self.doc_db.execute("""
+                    UPDATE processing_log SET status = 'failed', completed_at = ?, error_message = ?
                     WHERE batch_id = ?
-                """, (datetime.now(), error_msg, batch_idx))
-                
+                """, (datetime.now(), error_msg, batch_id))
                 return False
                 
         except subprocess.TimeoutExpired:
-            print(f"✗ Batch {batch_idx} timed out")
-            self.meta_db.execute("""
-                UPDATE processing_log 
-                SET status = 'timeout', completed_at = ?
-                WHERE batch_id = ?
-            """, (datetime.now(), batch_idx))
+            print(f"✗ Batch {batch_id} timed out")
+            self.doc_db.execute("""
+                UPDATE processing_log SET status = 'timeout', completed_at = ? WHERE batch_id = ?
+            """, (datetime.now(), batch_id))
             return False
             
         except Exception as e:
-            print(f"✗ Unexpected error in batch {batch_idx}: {e}")
-            self.meta_db.execute("""
-                UPDATE processing_log 
-                SET status = 'error', 
-                    completed_at = ?,
-                    error_message = ?
+            error_msg = str(e)[:1000]
+            print(f"✗ Unexpected error in batch {batch_id}: {error_msg}")
+            self.doc_db.execute("""
+                UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
                 WHERE batch_id = ?
-            """, (datetime.now(), str(e)[:500], batch_idx))
+            """, (datetime.now(), error_msg, batch_id))
             return False
-            
+        finally:
+            self.doc_db.commit()
+
     def get_processed_summaries(self) -> Dict[str, str]:
-        """処理済みシンボルの要約を取得"""
+        """処理済みシンボルの要約を取得 (名前 -> 要約)"""
         result = self.doc_db.execute("""
-            SELECT symbol_name, summary 
-            FROM documents 
-            WHERE summary IS NOT NULL
-            LIMIT 1000
+            SELECT symbol_name, summary FROM documents WHERE summary IS NOT NULL AND summary != ''
+            LIMIT 2000
         """).fetchall()
         return {row[0]: row[1] for row in result}
         
-    def build_prompt(self, symbols: List[str], layer: int, processed_summaries: Dict[str, str]) -> str:
+    def build_prompt(self, symbol_ids: List[int], layer: int) -> str:
         """バッチ処理用のプロンプトを構築"""
-        symbol_list = '\n'.join([f'- {s}' for s in symbols])
+        symbol_names = [self.symbol_details[sid]['name'] for sid in symbol_ids]
+        symbol_list_str = '\n'.join([f'- {name}' for name in symbol_names])
+
+        processed_summaries = self.get_processed_summaries()
         
-        # 関連する処理済みシンボルを選択
-        relevant_processed = []
-        for symbol in symbols:
-            # このシンボルの依存を取得
+        relevant_processed = set()
+        for symbol_id in symbol_ids:
+            # このシンボルの依存先を取得 (IDベース)
             deps = self.meta_db.execute("""
-                SELECT to_symbol 
-                FROM dependencies 
-                WHERE from_symbol = ?
-            """, (symbol,)).fetchall()
+                SELECT to_node FROM dependencies WHERE from_node = ?
+            """, (symbol_id,)).fetchall()
             
-            for dep in deps:
-                dep_name = dep[0]
-                if dep_name in processed_summaries:
-                    relevant_processed.append(f"- {dep_name}: {processed_summaries[dep_name][:100]}")
+            for (dep_id,) in deps:
+                dep_name = self.symbol_details.get(dep_id, {}).get('name')
+                if dep_name and dep_name in processed_summaries:
+                    summary = processed_summaries[dep_name]
+                    relevant_processed.add(f"- {dep_name}: {summary[:120]}")
                     
-        relevant_list = '\n'.join(relevant_processed[:10])
+        relevant_list_str = '\n'.join(sorted(list(relevant_processed))[:15])
         
-        prompt = f'''PostgreSQLコードベースのドキュメント生成タスク
+        # プロンプトテンプレート
+        # claude-code-cli が index を参照することを前提としたプロンプト
+        prompt = f"""# PostgreSQLコードベースのドキュメント生成タスク
 
-現在の進捗: {len(processed_summaries)}/{self.stats["total_symbols"]} シンボル処理済み
-処理レイヤー: {layer}
+あなたはPostgreSQLのソースコードに精通したエキスパートです。
+インデックスされたPostgreSQLのコードベース全体を参照し、以下の未処理シンボルについて詳細なドキュメントを生成してください。
 
-## 処理対象シンボル
-{symbol_list}
+## 処理コンテキスト
+- 現在の処理レイヤー: {layer} (依存関係の末端に近いレイヤーから処理しています)
+- 処理済みシンボル総数: {len(processed_summaries)} / {self.stats["total_symbols"]}
 
-## 処理手順
-1. 各シンボルについて、MCPツール postgresql_codebase を使用
-2. check_symbol_status または get_symbol_with_deps_status で処理状態を確認
-3. 処理済みシンボルは get_processed_summary で要約のみ取得
-4. 未処理シンボルは get_symbol_source でソースを取得
-5. 生成したドキュメントを output/temp/ ディレクトリに一時保存:
-   - output/temp/[symbol_name].md
+## 処理対象シンボルリスト
+{symbol_list_str}
 
-## 関連する処理済みシンボル（要約）
-{relevant_list if relevant_list else '（該当なし）'}
+## 関連する処理済みシンボルの要約
+以下は、今回処理するシンボルが依存している可能性のある、既に処理済みのシンボルの要約です。文脈の理解に役立ててください。
+{relevant_list_str if relevant_list_str else '（特に関連情報なし）'}
 
-## ドキュメント形式
+## 指示
+1.  上記の「処理対象シンボルリスト」内の各シンボルについて、順番に処理してください。
+2.  各シンボルのソースコード、定義、および参照箇所をコードベース全体から検索・分析してください。
+3.  以下のMarkdownフォーマットに従って、各シンボルの解説を生成してください。
+4.  生成したドキュメントは、ローカルの `output/temp/` ディレクトリに `[シンボル名].md` というファイル名で保存してください。
+
+## 出力Markdownフォーマット
 ```markdown
 # [シンボル名]
 
 ## 概要
-[1-2文での簡潔な説明]
+(このシンボルの目的や役割を1〜2文で簡潔に説明)
 
 ## 定義
-｀｀｀c
-[関数シグネチャまたは構造体定義]
-｀｀｀
+(関数シグネチャまたは構造体/enumの定義をコードブロックで記述)
+```c
+// 例: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)
+```
 
 ## 詳細説明
-[詳細な機能説明]
+(シンボルの機能、動作、設計思想などを具体的に解説)
 
-## パラメータ/フィールド
-[パラメータまたはフィールドの説明]
+## パラメータ / メンバー変数
+(関数パラメータや構造体の各メンバーについて、役割や意味を箇条書きで説明)
+- `param1`: (説明)
+- `member1`: (説明)
 
 ## 依存関係
-- 使用シンボル: [リスト]
-- 被使用シンボル: [リスト]
+- **呼び出している関数/参照しているシンボル**:
+  - `func_a`
+  - `TYPE_B`
+- **呼び出されている箇所 (代表例)**:
+  - `caller_func_x`
+  - `caller_func_y`
 
-## 関連項目
-[関連するシンボルのリスト]
+## 注意事項・その他
+(特筆すべき点、利用上の注意、関連する背景知識など)
 
-一時ファイル: output/temp/[symbol_name].md
-'''
-        
+```
+
+全てのシンボルについて、上記の指示通りにファイル出力を完了させてください。
+"""
         return prompt
         
-    def store_generated_documents(self, symbols: List[str], layer: int):
+    def store_generated_documents(self, symbol_ids: List[int], layer: int):
         """生成されたドキュメントをDuckDBに格納"""
         temp_dir = Path('output/temp')
+        temp_dir.mkdir(exist_ok=True)
         
-        for symbol in symbols:
-            doc_path = temp_dir / f"{symbol}.md"
+        for sid in symbol_ids:
+            symbol_name = self.symbol_details[sid]['name']
+            symbol_type = self.symbol_details[sid]['type']
+            doc_path = temp_dir / f"{symbol_name}.md"
+            
             if doc_path.exists():
-                content = doc_path.read_text()
+                content = doc_path.read_text(encoding='utf-8')
                 summary = self.extract_summary(content)
                 deps, related = self.extract_relationships(content)
                 
-                # ドキュメントをDBに格納
+                # ドキュメントをDBに格納 (IDベース)
                 self.doc_db.execute("""
-                    INSERT INTO documents 
-                    (symbol_name, symbol_type, layer, content, summary, 
-                     dependencies, related_symbols)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    ON CONFLICT (symbol_name) 
-                    DO UPDATE SET 
-                        content = EXCLUDED.content,
-                        summary = EXCLUDED.summary,
-                        dependencies = EXCLUDED.dependencies,
-                        related_symbols = EXCLUDED.related_symbols,
+                    INSERT INTO documents (symbol_id, symbol_name, symbol_type, layer, content, summary, dependencies, related_symbols)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    ON CONFLICT (symbol_id) DO UPDATE SET
+                        content = EXCLUDED.content, summary = EXCLUDED.summary,
+                        dependencies = EXCLUDED.dependencies, related_symbols = EXCLUDED.related_symbols,
                         updated_at = CURRENT_TIMESTAMP
-                """, (
-                    symbol,
-                    self.get_symbol_type(symbol),
-                    layer,
-                    content,
-                    summary,
-                    json.dumps(deps),
-                    json.dumps(related)
-                ))
+                """, (sid, symbol_name, symbol_type, layer, content, summary, json.dumps(deps), json.dumps(related)))
                 
-                # 一時ファイルを削除
-                doc_path.unlink()
-                print(f"  Stored: {symbol}")
+                doc_path.unlink() # 一時ファイルを削除
+                print(f"  Stored document for: {symbol_name} (ID: {sid})")
             else:
-                print(f"  Warning: Document not found for {symbol}")
+                print(f"  Warning: Document file not found for {symbol_name}")
                 
         self.doc_db.commit()
-        
-    def get_symbol_type(self, symbol: str) -> str:
-        """シンボルタイプを取得"""
-        result = self.meta_db.execute("""
-            SELECT symbol_type FROM symbols WHERE symbol_name = ?
-        """, (symbol,)).fetchone()
-        return result[0] if result else 'unknown'
-        
+
     def extract_summary(self, content: str) -> str:
         """ドキュメントから概要を抽出"""
         lines = content.split('\n')
         in_summary = False
         summary_lines = []
-        
         for line in lines:
             if '## 概要' in line:
                 in_summary = True
                 continue
-            elif in_summary and line.startswith('##'):
+            if in_summary and line.startswith('##'):
                 break
-            elif in_summary and line.strip():
+            if in_summary and line.strip():
                 summary_lines.append(line.strip())
-                
         return ' '.join(summary_lines[:2])
-        
+
     def extract_relationships(self, content: str) -> tuple:
         """ドキュメントから関係性を抽出"""
         import re
+        deps = re.findall(r'-\s*\*\*呼び出している関数/参照しているシンボル\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
+        deps_list = re.findall(r'-\s*`(\w+)`', ''.join(deps))
         
-        deps = []
-        related = []
+        related = re.findall(r'-\s*\*\*呼び出されている箇所 \(代表例\)\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
+        related_list = re.findall(r'-\s*`(\w+)`', ''.join(related))
         
-        # 依存関係セクションを探す
-        deps_match = re.search(
-            r'## 依存関係\s*\n(.*?)(?=\n##|\Z)',
-            content,
-            re.DOTALL
-        )
-        if deps_match:
-            deps_text = deps_match.group(1)
-            deps = re.findall(r'[-*]\s*(\w+)', deps_text)
-            
-        # 関連項目セクションを探す
-        related_match = re.search(
-            r'## 関連項目\s*\n(.*?)(?=\n##|\Z)',
-            content,
-            re.DOTALL
-        )
-        if related_match:
-            related_text = related_match.group(1)
-            related = re.findall(r'[-*]\s*(\w+)', related_text)
-            
-        return list(set(deps)), list(set(related))
-        
+        return list(set(deps_list)), list(set(related_list))
+
     def show_progress(self):
         """進捗を表示"""
+        if self.stats['total_symbols'] == 0: return
         progress = (self.stats['processed_symbols'] / self.stats['total_symbols']) * 100
-        print(f"\n進捗: {progress:.1f}% ({self.stats['processed_symbols']}/{self.stats['total_symbols']})")
-        print(f"完了バッチ: {self.stats['processed_batches']}/{self.stats['total_batches']}")
-        
-    def generate_report(self):
-        """最終レポートを生成"""
-        # DuckDBから統計を取得
-        stats = self.doc_db.execute("""
-            SELECT 
-                COUNT(*) as total_docs,
-                COUNT(DISTINCT layer) as total_layers,
-                AVG(LENGTH(content)) as avg_doc_length,
-                AVG(LENGTH(summary)) as avg_summary_length
-            FROM documents
-        """).fetchone()
-        
-        layer_stats = self.doc_db.execute("""
-            SELECT 
-                layer,
-                COUNT(*) as count,
-                AVG(LENGTH(content)) as avg_length
-            FROM documents
-            GROUP BY layer
-            ORDER BY layer
-        """).fetchall()
-        
-        report = f"""# PostgreSQL Documentation Generation Report
-
-生成日時: {datetime.now().isoformat()}
-
-## 統計情報
-- 総シンボル数: {self.stats['total_symbols']}
-- 処理済みシンボル数: {stats[0]}
-- 完了率: {(stats[0] / self.stats['total_symbols']) * 100:.1f}%
-- 総バッチ数: {self.stats['total_batches']}
-- 成功バッチ数: {self.stats['processed_batches']}
-- 失敗バッチ数: {self.stats['failed_batches']}
-
-## ドキュメント統計
-- 平均ドキュメント長: {stats[2]:.0f} 文字
-- 平均要約長: {stats[3]:.0f} 文字
-- レイヤー数: {stats[1]}
-
-## レイヤー別統計
-"""
-        
-        for layer, count, avg_len in layer_stats:
-            report += f"- Layer {layer}: {count} symbols (avg {avg_len:.0f} chars)\n"
-        
-        # レポートをDBに保存
-        self.doc_db.execute("""
-            CREATE TABLE IF NOT EXISTS reports (
-                report_id INTEGER PRIMARY KEY,
-                report_type VARCHAR,
-                content TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-        
-        self.doc_db.execute("""
-            INSERT INTO reports (report_type, content)
-            VALUES ('generation_report', ?)
-        """, (report,))
-        
-        print(f"\nReport saved to database")
-        print(report)
-        
-    def export_documents(self, output_dir: str = 'output/exported'):
-        """必要に応じてドキュメントをファイルにエクスポート"""
-        output_path = Path(output_dir)
-        output_path.mkdir(parents=True, exist_ok=True)
-        
-        docs = self.doc_db.execute("""
-            SELECT symbol_name, symbol_type, content
-            FROM documents
-        """).fetchall()
-        
-        for symbol_name, symbol_type, content in docs:
-            subdir = output_path / f"{symbol_type}s"
-            subdir.mkdir(exist_ok=True)
-            
-            file_path = subdir / f"{symbol_name}.md"
-            file_path.write_text(content)
-            
-        print(f"Exported {len(docs)} documents to {output_dir}")
+        print(f"\nProgress: {progress:.1f}% ({self.stats['processed_symbols']}/{self.stats['total_symbols']})")
+        print(f"Completed Batches: {self.stats['processed_batches']}/{self.stats['total_batches']}")
 
 def main():
     orchestrator = DocumentationOrchestrator()
-    
-    print("PostgreSQL Documentation Generation (DuckDB)")
+    print("PostgreSQL Documentation Generation Orchestrator (ID-based)")
     print("=" * 60)
-    
-    # 全バッチを処理
     orchestrator.process_all_batches()
-    
-    # レポート生成
-    orchestrator.generate_report()
-    
-    # オプション: ファイルへのエクスポート
-    # orchestrator.export_documents()
-    
     print("\n" + "=" * 60)
     print("Documentation generation completed!")
 
@@ -850,257 +735,172 @@ if __name__ == "__main__":
 PostgreSQLコードベース用のMCPサーバー
 DuckDB版
 """
+
 import json
-import duckdb
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
-from typing import Dict, List, Optional, Set
 
-class PostgreSQLMCPServer:
-    def __init__(self, codebase_root: str):
-        self.codebase_root = Path(codebase_root)
-        
-        # DuckDB接続
-        self.meta_db = duckdb.connect('data/metadata.duckdb', read_only=True)
-        self.doc_db = duckdb.connect('data/documents.duckdb', read_only=True)
-        
-        # シンボル情報をロード
-        with open('data/symbol_info.json') as f:
-            self.symbol_info = json.load(f)
-            
-        # 処理済みシンボルのセットをメモリにキャッシュ
-        self.update_processed_cache()
-            
-    def update_processed_cache(self):
-        """処理済みシンボルのキャッシュを更新"""
-        result = self.doc_db.execute("""
-            SELECT symbol_name FROM documents
-        """).fetchall()
-        self.processed_symbols = set(row[0] for row in result)
-        
-    def check_symbol_status(self, symbol_name: str) -> Dict:
-        """シンボルの処理状態を確認"""
-        is_processed = symbol_name in self.processed_symbols
-        
-        result = {
-            'symbol': symbol_name,
-            'is_processed': is_processed,
-            'exists': symbol_name in self.symbol_info
-        }
-        
-        if is_processed:
-            # 処理済みの場合は要約も含める
-            doc_result = self.doc_db.execute("""
-                SELECT summary, layer FROM documents 
-                WHERE symbol_name = ?
-            """, (symbol_name,)).fetchone()
-            
-            if doc_result:
-                result['summary'] = doc_result[0]
-                result['layer'] = doc_result[1]
-                
-        return result
-        
-    def batch_check_status(self, symbol_names: List[str]) -> Dict:
-        """複数シンボルの処理状態を一括確認"""
-        # DuckDBのIN句を使って効率的に取得
-        placeholders = ','.join(['?' for _ in symbol_names])
-        query = f"""
-            SELECT symbol_name, summary, layer
-            FROM documents
-            WHERE symbol_name IN ({placeholders})
-        """
-        
-        processed_docs = {}
-        if symbol_names:
-            results = self.doc_db.execute(query, symbol_names).fetchall()
-            for name, summary, layer in results:
-                processed_docs[name] = {
-                    'summary': summary,
-                    'layer': layer
-                }
-        
-        # 結果を構築
-        status_results = {}
-        for symbol in symbol_names:
-            if symbol in processed_docs:
-                status_results[symbol] = {
-                    'is_processed': True,
-                    'summary': processed_docs[symbol]['summary'],
-                    'layer': processed_docs[symbol]['layer'],
-                    'exists': symbol in self.symbol_info
-                }
-            else:
-                status_results[symbol] = {
-                    'is_processed': False,
-                    'exists': symbol in self.symbol_info
-                }
-                
-        return status_results
-        
-    def get_symbol_with_deps_status(self, symbol_name: str) -> Dict:
-        """シンボルの情報と依存関係の処理状態を一括取得"""
-        if symbol_name not in self.symbol_info:
-            return {'error': f'Symbol {symbol_name} not found'}
-            
-        info = self.symbol_info[symbol_name]
-        
-        # 依存シンボルのリストを取得
-        deps_result = self.meta_db.execute("""
-            SELECT to_symbol FROM dependencies
-            WHERE from_symbol = ?
-        """, (symbol_name,)).fetchall()
-        
-        depends_on = [row[0] for row in deps_result]
-        
-        # 依存シンボルの処理状態を一括確認
-        deps_status = {}
-        if depends_on:
-            processed_deps = self.batch_check_status(depends_on)
-            for dep, status in processed_deps.items():
-                deps_status[dep] = {
-                    'is_processed': status['is_processed'],
-                    'summary': status.get('summary')
-                }
-        
-        # ソースコード取得
-        file_path = self.codebase_root / info['file']
-        source = ''
-        if file_path.exists():
-            with open(file_path) as f:
-                lines = f.readlines()
-            start_line = info.get('start_line', 0)
-            end_line = info.get('end_line', len(lines))
-            source = ''.join(lines[start_line:end_line])
-            
-        return {
-            'symbol': symbol_name,
-            'type': info.get('type', 'unknown'),
-            'file': str(info['file']),
-            'source': source,
-            'depends_on': depends_on,
-            'deps_status': deps_status
-        }
-        
-    def get_processed_summary(self, symbol_name: str) -> Dict:
-        """処理済みシンボルの要約を返す"""
-        if symbol_name not in self.processed_symbols:
-            return {
-                'symbol': symbol_name,
-                'is_processed': False,
-                'summary': None
-            }
-            
-        result = self.doc_db.execute("""
-            SELECT summary, content FROM documents 
-            WHERE symbol_name = ?
-        """, (symbol_name,)).fetchone()
-        
-        if result:
-            return {
-                'symbol': symbol_name,
-                'is_processed': True,
-                'summary': result[0],
-                'has_full_content': bool(result[1])
-            }
-        return {
-            'symbol': symbol_name,
-            'is_processed': True,
-            'summary': None
-        }
-        
-    def get_symbol_source(self, symbol_name: str) -> Dict:
-        """シンボルのソースコードを返す"""
-        if symbol_name not in self.symbol_info:
-            return {'error': f'Symbol {symbol_name} not found'}
-            
-        info = self.symbol_info[symbol_name]
-        file_path = self.codebase_root / info['file']
-        
-        if not file_path.exists():
-            return {'error': f'File {file_path} not found'}
-            
-        with open(file_path) as f:
-            lines = f.readlines()
-            
-        start_line = info.get('start_line', 0)
-        end_line = info.get('end_line', len(lines))
-        source = ''.join(lines[start_line:end_line])
-        
-        return {
-            'symbol': symbol_name,
-            'type': info.get('type', 'unknown'),
-            'file': str(info['file']),
-            'source': source
-        }
-        
-    def get_context_info(self, file_path: str) -> Dict:
-        """ファイルのコンテキスト情報を返す"""
-        full_path = self.codebase_root / file_path
-        context = {}
-        
-        # READMEファイルを探す
-        readme_path = full_path.parent / 'README'
-        if readme_path.exists():
-            with open(readme_path) as f:
-                context['readme'] = f.read()
-                
-        # ファイルの先頭コメントを抽出
-        if full_path.exists():
-            with open(full_path) as f:
-                lines = f.readlines()
-                
-            comment_lines = []
-            in_comment = False
-            
-            for line in lines[:100]:
-                if '/*' in line:
-                    in_comment = True
-                if in_comment:
-                    comment_lines.append(line)
-                if '*/' in line:
-                    break
-                    
-            if comment_lines:
-                context['file_comment'] = ''.join(comment_lines)
-                
-        return context
+try:
+    from snode_module import SNode, search_symbols, DatabaseConnection
+except ImportError:
+    print("FATAL: snode_module.py not found. Please place it in the same directory.")
+    exit(1)
+except FileNotFoundError as e:
+    print(f"FATAL: Database file not found as specified in snode_module.py.")
+    print(f"Error: {e}")
+    exit(1)
 
-# MCPサーバーとして実行
-if __name__ == "__main__":
-    import sys
-    server = PostgreSQLMCPServer(
-        sys.argv[1] if len(sys.argv) > 1 else '/path/to/postgresql/src'
-    )
-    
-    # MCPプロトコルに従って通信を処理
-    while True:
+
+# AIエージェントが生成したドキュメントを一時保存するディレクトリ
+TEMP_OUTPUT_DIR = Path("output/temp")
+
+
+class MCPRequestHandler(BaseHTTPRequestHandler):
+    """
+    AIエージェントからのツール利用リクエストを処理するハンドラ。
+    snode_moduleの機能をAPIとして提供する。
+    """
+    def do_POST(self):
+        """POSTリクエストを処理する"""
         try:
-            request = json.loads(input())
-            method = request.get('method')
-            params = request.get('params', {})
-            
-            result = None
-            if method == 'check_symbol_status':
-                result = server.check_symbol_status(params['symbol_name'])
-            elif method == 'batch_check_status':
-                result = server.batch_check_status(params['symbol_names'])
-            elif method == 'get_symbol_with_deps_status':
-                result = server.get_symbol_with_deps_status(params['symbol_name'])
-            elif method == 'get_symbol_source':
-                result = server.get_symbol_source(params['symbol_name'])
-            elif method == 'get_processed_summary':
-                result = server.get_processed_summary(params['symbol_name'])
-            elif method == 'get_context_info':
-                result = server.get_context_info(params['file_path'])
-            else:
-                result = {'error': f'Unknown method: {method}'}
+            # リクエストボディをJSONとして読み込む
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            request = json.loads(post_data)
+
+            method = request.get("method")
+            params = request.get("params", {})
+
+            # methodの値に応じて処理を分岐
+            if method == "get_symbol_details":
+                symbol_name = params.get("symbol_name")
+                if not symbol_name:
+                    return self._send_response(400, {"error": "Missing parameter: symbol_name"})
                 
-            print(json.dumps(result))
+                node = SNode(symbol_name)
+                response_data = {
+                    "id": node.id,
+                    "symbol_name": node.symbol_name,
+                    "file_path": node.file_path,
+                    "start_line": node.line_num_start,
+                    "end_line": node.line_num_end,
+                    "type": node.symbol_type
+                }
+                self._send_response(200, response_data)
+
+            elif method == "get_symbol_source":
+                symbol_name = params.get("symbol_name")
+                if not symbol_name:
+                    return self._send_response(400, {"error": "Missing parameter: symbol_name"})
+                
+                node = SNode(symbol_name)
+                source_code = node.get_source_code()
+                self._send_response(200, {"source_code": source_code})
+
+            elif method == "get_references_from_this":
+                symbol_name = params.get("symbol_name")
+                if not symbol_name:
+                    return self._send_response(400, {"error": "Missing parameter: symbol_name"})
+
+                node = SNode(symbol_name)
+                references = node.get_references_from_this()
+                self._send_response(200, {"references": references})
+
+            elif method == "get_references_to_this":
+                symbol_name = params.get("symbol_name")
+                if not symbol_name:
+                    return self._send_response(400, {"error": "Missing parameter: symbol_name"})
+
+                node = SNode(symbol_name)
+                referenced_by = node.get_references_to_this()
+                self._send_response(200, {"referenced_by": referenced_by})
+
+            elif method == "search_symbols":
+                pattern = params.get("pattern")
+                if not pattern:
+                    return self._send_response(400, {"error": "Missing parameter: pattern"})
+                
+                symbols = search_symbols(pattern)
+                self._send_response(200, {"symbols": symbols})
             
-        except EOFError:
-            break
+            elif method == "save_document":
+                # ファイル保存はサーバー側の機能として実装
+                self._save_document(params)
+
+            else:
+                self._send_response(404, {"error": f"Unknown method: {method}"})
+
+        except json.JSONDecodeError:
+            self._send_response(400, {"error": "Invalid JSON format in request body."})
+        except ValueError as e:
+            # SNodeでシンボルが見つからなかった場合に発生
+            self._send_response(404, {"error": str(e)})
+        except FileNotFoundError as e:
+            # ソースコードファイルが見つからなかった場合に発生
+            self._send_response(404, {"error": str(e)})
         except Exception as e:
-            print(json.dumps({'error': str(e)}))
+            # その他のサーバー内部エラー
+            print(f"Unhandled error processing request: {type(e).__name__} - {e}")
+            self._send_response(500, {"error": "An internal server error occurred.", "details": str(e)})
+
+    def _send_response(self, status_code: int, data: dict):
+        """HTTPレスポンスをJSON形式で送信するヘルパー関数"""
+        self.send_response(status_code)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(data, indent=2).encode('utf-8'))
+
+    def _save_document(self, params: dict):
+        """
+        AIエージェントが生成したドキュメントを一時ファイルとして保存する。
+        """
+        symbol_name = params.get("symbol_name")
+        content = params.get("content")
+
+        if not symbol_name or not isinstance(symbol_name, str):
+            self._send_response(400, {"error": "'symbol_name' parameter is required and must be a string."})
+            return
+        if content is None:
+            self._send_response(400, {"error": "'content' parameter is required."})
+            return
+        
+        try:
+            TEMP_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+            file_path = TEMP_OUTPUT_DIR / f"{symbol_name}.md"
+            file_path.write_text(content, encoding='utf-8')
+            
+            message = f"Document for '{symbol_name}' saved to {file_path}"
+            print(message)
+            self._send_response(200, {"status": "success", "message": message})
+        
+        except IOError as e:
+            error_message = f"Failed to write document for '{symbol_name}': {e}"
+            print(error_message)
+            self._send_response(500, {"error": "Failed to save document on server."})
+
+
+def run_server(server_class=HTTPServer, handler_class=MCPRequestHandler, port=8080):
+    """サーバーを起動し、終了時にリソースをクリーンアップする"""
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f"Starting MCP server on http://localhost:{port}...")
+    print("This server provides tools for the AI agent.")
+    print("Press Ctrl+C to stop the server.")
+    
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        # Ctrl+C が押されたらループを抜ける
+        pass
+    finally:
+        # サーバー終了時にデータベース接続を閉じる
+        print("\nStopping server...")
+        DatabaseConnection().close()
+        httpd.server_close()
+        print("Server stopped and database connection closed.")
+
+if __name__ == '__main__':
+    run_server()
 ```
 
 ### 4. ドキュメント検索・閲覧ツール (scripts/doc_viewer.py)
