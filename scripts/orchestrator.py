@@ -120,8 +120,8 @@ class DocumentationOrchestrator:
             # 進捗表示
             self.show_progress()
             
-            # レート制限対策
-            time.sleep(2)
+            # # レート制限対策
+            # time.sleep(2)
             
     def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
         """単一バッチを処理"""
@@ -163,7 +163,10 @@ class DocumentationOrchestrator:
                     WHERE batch_id = ?
                 """, (datetime.now(), len(symbol_ids), batch_id))
                 
-                time.sleep(2);
+                if len(symbols) == 1:
+                    time.sleep(5)
+                else:
+                    time.sleep(2)
 
                 # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
                 self.store_generated_documents(symbol_ids, batch['layer'])
