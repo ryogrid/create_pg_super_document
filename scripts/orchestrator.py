@@ -145,12 +145,12 @@ class DocumentationOrchestrator:
                 [
                     'claude', '--allowedTools', 'Bash(python3*),Read', '-p', f"{prompt}",
                     '--model', 'claude-sonnet-4-20250514',
-                    '--max-turns', str(min(len(symbols) * 8, 40)),
+                    '--max-turns', str(min(len(symbols) * 20, 80)),
                     '--permission-mode', 'bypassPermissions',
                 ],
                 capture_output=True,
                 text=True,
-                timeout=1200,
+                timeout=3600,
                 cwd=str(Path.cwd())
             )
             
