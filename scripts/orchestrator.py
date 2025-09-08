@@ -162,11 +162,8 @@ class DocumentationOrchestrator:
                     UPDATE processing_log SET status = 'completed', completed_at = ?, processed_count = ?
                     WHERE batch_id = ?
                 """, (datetime.now(), len(symbol_ids), batch_id))
-                
-                if len(symbols) == 1:
-                    time.sleep(5)
-                else:
-                    time.sleep(2)
+
+                time.sleep(1)
 
                 # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
                 self.store_generated_documents(symbol_ids, batch['layer'])
@@ -322,8 +319,12 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
             if doc_path.exists():
                 content = doc_path.read_text(encoding='utf-8')
                 summary = self.extract_summary(content)
-                deps, related = self.extract_relationships(content)
-                
+                try:
+                    deps, related = self.extract_relationships(content)
+                except Exception as e:
+                    print(f"  Error extracting relationships for {symbol_name}: {e}")
+                    deps, related = [], []
+
                 # ドキュメントをDBに格納 (IDベース)
                 self.doc_db.execute("""
                     INSERT INTO documents (symbol_id, symbol_name, symbol_type, layer, content, summary, dependencies, related_symbols)
