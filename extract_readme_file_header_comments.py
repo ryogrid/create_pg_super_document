@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-C言語のコードツリーを解析し、ドキュメント情報をDuckDBに格納するスクリプト。
+Script to analyze a C language code tree and store documentation information in DuckDB.
 
-- src/ と contrib/ ディレクトリを再帰的に走査します。
-- 各ディレクトリのREADME*ファイルの内容を'dir_info'テーブルに集約します。
-- 各C/Hファイルのヘッダーコメントを'file_info'テーブルに抽出します。
+- Recursively traverses src/ and contrib/ directories.
+- Aggregates README* file contents of each directory into the 'dir_info' table.
+- Extracts header comments of each C/H file into the 'file_info' table.
 """
 
 import duckdb
@@ -13,13 +13,13 @@ import re
 from pathlib import Path
 from typing import List, Optional
 
-# --- 設定 ---
+# --- Configuration ---
 DB_FILE = "assistive_info.db"
 TARGET_DIRS = ["src", "contrib"]
 README_SEPARATOR = "\n\n---\n\n"
 
 def setup_database(conn: duckdb.DuckDBPyConnection):
-    """データベースとテーブルの初期設定を行う"""
+    """Perform initial setup of database and tables"""
     print("Setting up database tables...")
     conn.execute("""
         CREATE TABLE IF NOT EXISTS dir_info (
@@ -37,8 +37,8 @@ def setup_database(conn: duckdb.DuckDBPyConnection):
 
 def extract_header_comment(file_path: Path) -> Optional[str]:
     """
-    ファイルの先頭からC形式のブロックコメントを抽出し、整形する。
-    コメントが見つからないか、コードがコメントより先にある場合はNoneを返す。
+    Extract and format C-style block comments from the beginning of a file.
+    Returns None if no comment is found or if code appears before the comment.
     """
     try:
         with file_path.open('r', encoding='utf-8', errors='ignore') as f:
@@ -52,7 +52,7 @@ def extract_header_comment(file_path: Path) -> Optional[str]:
     for line in lines:
         stripped_line = line.strip()
 
-        # コメントが開始される前にコードやプリプロセッサ命令があれば終了
+        # Exit if code or preprocessor directives appear before comment starts
         if not in_comment and stripped_line and not stripped_line.startswith('/*'):
             return None
 
@@ -68,35 +68,35 @@ def extract_header_comment(file_path: Path) -> Optional[str]:
     if not comment_lines:
         return None
 
-    # コメントブロック全体を一つの文字列に
+    # Combine entire comment block into one string
     full_comment = "".join(comment_lines)
     
-    # /* と */ 及びその間のハイフンなどを除去
+    # Remove /* and */ and hyphens in between
     match = re.search(r'/\*(-*)\n(.*?)\n\s*(-*)\*/', full_comment, re.DOTALL)
     if not match:
-        # シンプルな /* comment */ 形式の場合
+        # For simple /* comment */ format
         match = re.search(r'/\*\s*(.*?)\s*\*/', full_comment, re.DOTALL)
         if not match:
-            return None # 期待する形式のコメントではない
+            return None # Not the expected comment format
         content = match.group(1)
     else:
         content = match.group(2)
 
-    # 各行の先頭にある '*' を除去
+    # Remove leading '*' from each line
     lines_without_stars = [re.sub(r'^\s*\*\s?', '', line) for line in content.splitlines()]
     
-    # ★★★ 修正点 ★★★
-    # "Copyright" という文字列を含む行を除去 (大文字小文字を区別しない)
+    # ★★★ Modified Section ★★★
+    # Remove lines containing "Copyright" (case insensitive)
     final_lines = [line for line in lines_without_stars if 'copyright' not in line.lower()]
 
-    # 最終的な文字列を生成
+    # Generate final string
     final_comment = "\n".join(final_lines).strip()
     
-    # Copyright行などを除去した結果、コメントが空になった場合はNoneを返す
+    # Return None if comment becomes empty after removing Copyright lines
     return final_comment if final_comment else None
 
 def process_directory(base_path: Path, conn: duckdb.DuckDBPyConnection):
-    """指定されたディレクトリを再帰的に処理する"""
+    """Process the specified directory recursively"""
     if not base_path.is_dir():
         print(f"Warning: Directory '{base_path}' not found. Skipping.")
         return
@@ -109,7 +109,7 @@ def process_directory(base_path: Path, conn: duckdb.DuckDBPyConnection):
         current_dir = Path(dirpath)
         relative_dir_path = current_dir.relative_to(cwd).as_posix()
 
-        # --- READMEファイルの処理 ---
+        # --- README file processing ---
         readme_files = sorted([
             f for f in filenames if f.lower().startswith('readme')
         ])
@@ -130,7 +130,7 @@ def process_directory(base_path: Path, conn: duckdb.DuckDBPyConnection):
                     (relative_dir_path, aggregated_content)
                 )
 
-        # --- .c, .h ファイルの処理 ---
+        # --- .c, .h file processing ---
         for filename in filenames:
             if filename.endswith(('.c', '.h')):
                 file_path = current_dir / filename
@@ -144,7 +144,7 @@ def process_directory(base_path: Path, conn: duckdb.DuckDBPyConnection):
                     )
 
 def main():
-    """メイン処理"""
+    """Main processing"""
     print("Starting codebase analysis script.")
     try:
         with duckdb.connect(DB_FILE) as conn:

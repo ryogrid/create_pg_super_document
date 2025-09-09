@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GNU GLOBALの参照情報を使用してシンボル間の参照関係をCSVファイルに整理するスクリプト
+Script to organize symbol reference relationships into a CSV file using GNU GLOBAL's reference information
 """
 
 import sys
@@ -10,22 +10,22 @@ import duckdb
 from pathlib import Path
 from typing import Optional, List, Tuple, Set
 
-# データベース設定
+# Database configuration
 DB_FILE = "global_symbols.db"
 TABLE_NAME = "symbol_definitions"
 OUTPUT_CSV = "symbol_references.csv"
 
 
 def run_global_rx_command(symbol_name: str) -> Optional[str]:
-    """global -rx コマンドを実行してシンボルの参照情報を取得"""
+    """Execute global -rx command to get symbol reference information"""
     try:
         result = subprocess.run(
             ['global', '-rx', symbol_name],
             capture_output=True,
             text=True,
-            check=False  # シンボルが見つからない場合もエラーにしない
+            check=False  # Don't treat as error when symbol is not found
         )
-        # 出力がある場合のみ返す
+        # Return only if there's output
         if result.stdout.strip():
             return result.stdout
         return None
@@ -68,9 +68,9 @@ def find_referencing_symbol_id(conn: duckdb.DuckDBPyConnection,
                                file_path: str, 
                                line_num: int) -> Optional[int]:
     """
-    指定されたファイルパスと行番号から、その位置を含むシンボル定義のIDを検索
+    Search for the ID of a symbol definition that contains the specified file path and line number
     """
-    # line_num_end = 0 の場合も考慮（ファイル末尾まで）
+    # Also consider cases where line_num_end = 0 (to end of file)
     query = f"""
         SELECT id 
         FROM {TABLE_NAME}
@@ -90,7 +90,7 @@ def find_referencing_symbol_id(conn: duckdb.DuckDBPyConnection,
 def get_symbol_definition_id(conn: duckdb.DuckDBPyConnection, 
                              symbol_name: str) -> Optional[int]:
     """
-    指定されたシンボル名に対応する最小のIDを取得
+    Get the minimum ID corresponding to the specified symbol name
     """
     query = f"""
         SELECT MIN(id) 
@@ -106,12 +106,12 @@ def get_symbol_definition_id(conn: duckdb.DuckDBPyConnection,
 
 def process_symbol_references(conn: duckdb.DuckDBPyConnection) -> List[Tuple[int, int, int]]:
     """
-    全シンボルの参照関係を処理
+    Process reference relationships for all symbols
     Returns: List of (referencing_id, referenced_id, line_num)
     """
     references = []
     
-    # ユニークなシンボル名を取得（symbol_nameでソート）
+    # Get unique symbol names (sorted by symbol_name)
     unique_symbols = conn.execute(f"""
         SELECT DISTINCT symbol_name 
         FROM {TABLE_NAME}
@@ -127,34 +127,34 @@ def process_symbol_references(conn: duckdb.DuckDBPyConnection) -> List[Tuple[int
     for (symbol_name,) in unique_symbols:
         processed_count += 1
         
-        # 進捗表示
+        # Progress display
         if processed_count % 100 == 0:
             print(f"  Progress: {processed_count}/{total_symbols} symbols processed, "
                   f"{found_references} references found...")
         
-        # global -rx コマンドを実行
+        # Execute global -rx command
         output = run_global_rx_command(symbol_name)
         if not output:
             continue
         
-        # 出力を解析
+        # Parse output
         reference_locations = parse_global_rx_output(output)
         if not reference_locations:
             continue
         
-        # 参照先（定義）のIDを取得
+        # Get ID of reference target (definition)
         referenced_id = get_symbol_definition_id(conn, symbol_name)
         if referenced_id is None:
             print(f"  Warning: No definition found for symbol '{symbol_name}'")
             continue
         
-        # 各参照位置について処理
+        # Process each reference location
         for _, file_path, line_num in reference_locations:
-            # 参照元のIDを検索
+            # Search for referencing ID
             referencing_id = find_referencing_symbol_id(conn, file_path, line_num)
             
             if referencing_id is not None:
-                # 自己参照（定義内での参照）は除外するオプション
+                # Option to exclude self-reference (reference within definition)
                 # if referencing_id != referenced_id:
                 references.append((referencing_id, referenced_id, line_num))
                 found_references += 1
@@ -166,10 +166,10 @@ def process_symbol_references(conn: duckdb.DuckDBPyConnection) -> List[Tuple[int
 
 
 def write_csv(references: List[Tuple[int, int, int]], output_file: str) -> None:
-    """参照関係をCSVファイルに書き出し"""
+    """Write reference relationships to CSV file"""
     with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
-        # ヘッダーは書かない（要件通り）
+        # Don't write header (as per requirements)
         # writer.writerow(['referencing_id', 'referenced_id', 'line_num'])
         
         for ref in references:
@@ -180,7 +180,7 @@ def write_csv(references: List[Tuple[int, int, int]], output_file: str) -> None:
 
 def show_statistics(conn: duckdb.DuckDBPyConnection, 
                    references: List[Tuple[int, int, int]]) -> None:
-    """統計情報を表示"""
+    """Display statistics"""
     print("\n" + "=" * 60)
     print("Statistics")
     print("=" * 60)
@@ -189,17 +189,17 @@ def show_statistics(conn: duckdb.DuckDBPyConnection,
         print("No references found")
         return
     
-    # 基本統計
+    # Basic statistics
     print(f"Total references: {len(references)}")
     
-    # 参照元と参照先のユニーク数
+    # Number of unique referencing and referenced
     referencing_ids = set(ref[0] for ref in references)
     referenced_ids = set(ref[1] for ref in references)
     
     print(f"Unique referencing symbols: {len(referencing_ids)}")
     print(f"Unique referenced symbols: {len(referenced_ids)}")
     
-    # 最も多く参照されているシンボルTOP10
+    # Top 10 most referenced symbols
     reference_counts = {}
     for _, referenced_id, _ in references:
         reference_counts[referenced_id] = reference_counts.get(referenced_id, 0) + 1
@@ -209,7 +209,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection,
     if top_referenced:
         print("\nTop 10 most referenced symbols:")
         for ref_id, count in top_referenced:
-            # シンボル名を取得
+            # Get symbol name
             result = conn.execute(f"""
                 SELECT symbol_name, file_path, line_num_start
                 FROM {TABLE_NAME}
@@ -218,7 +218,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection,
             
             if result:
                 symbol_name, file_path, line_start = result
-                # ファイルパスを短縮表示
+                # Shorten file path for display
                 if len(file_path) > 40:
                     short_path = "..." + file_path[-37:]
                 else:
@@ -227,17 +227,17 @@ def show_statistics(conn: duckdb.DuckDBPyConnection,
 
 
 def main():
-    """メイン処理"""
-    # データベースファイルの確認
+    """Main processing"""
+    # Check database file
     if not Path(DB_FILE).exists():
         print(f"Error: Database file '{DB_FILE}' not found.", file=sys.stderr)
         sys.exit(1)
     
-    # データベース接続
+    # Database connection
     conn = duckdb.connect(DB_FILE)
     
     try:
-        # テーブルの存在確認
+        # Check table existence
         table_exists = conn.execute(f"""
             SELECT COUNT(*) 
             FROM information_schema.tables 
@@ -248,7 +248,7 @@ def main():
             print(f"Error: Table '{TABLE_NAME}' not found in database.", file=sys.stderr)
             sys.exit(1)
         
-        # テーブルの基本情報を表示
+        # Display basic table information
         total_symbols = conn.execute(f"SELECT COUNT(*) FROM {TABLE_NAME}").fetchone()[0]
         unique_symbols = conn.execute(f"SELECT COUNT(DISTINCT symbol_name) FROM {TABLE_NAME}").fetchone()[0]
         
@@ -262,14 +262,14 @@ def main():
         print(f"Output file: {OUTPUT_CSV}")
         print()
         
-        # 参照関係を処理
+        # Process reference relationships
         references = process_symbol_references(conn)
         
-        # CSVファイルに書き出し
+        # Write to CSV file
         if references:
             write_csv(references, OUTPUT_CSV)
             
-            # 統計情報を表示
+            # Display statistics
             show_statistics(conn, references)
         else:
             print("No references found to write to CSV")

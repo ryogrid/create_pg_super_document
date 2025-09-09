@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GNU GLOBALのインデックス情報をDuckDBデータベースに整理するスクリプト
+Script to organize GNU GLOBAL index information into a DuckDB database
 """
 
 import os
@@ -10,15 +10,15 @@ import duckdb
 from pathlib import Path
 from typing import List, Tuple, Optional
 
-# データベース設定
+# Database configuration
 DB_FILE = "global_symbols.db"
 TABLE_NAME = "symbol_definitions"
 
 
 def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> None:
-    """テーブルが存在しない場合、テーブルとインデックスを作成"""
+    """Create table and indexes if they don't exist"""
     
-    # テーブル作成
+    # Create table
     conn.execute(f"""
         CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
             id INTEGER PRIMARY KEY,
@@ -31,11 +31,11 @@ def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> None:
         )
     """)
     
-    # インデックス作成（既に存在する場合はエラーを無視）
+    # Create indexes (ignore errors if they already exist)
     try:
         conn.execute(f"CREATE INDEX idx_symbol_name ON {TABLE_NAME} (symbol_name)")
     except:
-        pass  # インデックスが既に存在する場合
+        pass  # Index already exists
     
     try:
         conn.execute(f"CREATE INDEX idx_file_line_start ON {TABLE_NAME} (file_path, line_num_start)")
@@ -49,19 +49,19 @@ def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> None:
 
 
 def get_next_id(conn: duckdb.DuckDBPyConnection) -> int:
-    """次のIDを取得（単調増加）"""
+    """Get the next ID (monotonically increasing)"""
     result = conn.execute(f"SELECT COALESCE(MAX(id), 0) + 1 FROM {TABLE_NAME}").fetchone()
     return result[0]
 
 
 def get_processed_files(conn: duckdb.DuckDBPyConnection) -> set:
-    """既に処理済みのファイルパスのセットを取得"""
+    """Get a set of already processed file paths"""
     result = conn.execute(f"SELECT DISTINCT file_path FROM {TABLE_NAME}").fetchall()
     return {row[0] for row in result}
 
 
 def find_c_and_h_files(src_dir: Path) -> List[Path]:
-    """srcディレクトリ内のCファイルとヘッダファイルを再帰的に検索"""
+    """Recursively search for C files and header files in the src directory"""
     files = []
     for ext in ['*.c', '*.h']:
         files.extend(src_dir.rglob(ext))
@@ -101,9 +101,9 @@ def parse_global_output(output: str, file_path: str) -> List[Tuple[str, str, int
 
 
 def run_global_command(file_path: Path) -> Optional[str]:
-    """globalコマンドを実行してシンボル情報を取得"""
+    """Execute global command to get symbol information"""
     try:
-        # GNU GLOBALのインデックスがあるディレクトリで実行
+        # Execute in directory with GNU GLOBAL index
         result = subprocess.run(
             ['global', '-fx', str(file_path)],
             capture_output=True,
@@ -121,7 +121,7 @@ def run_global_command(file_path: Path) -> Optional[str]:
 
 def insert_symbols(conn: duckdb.DuckDBPyConnection, symbols: List[Tuple[str, str, int, str]], 
                    start_id: int) -> int:
-    """シンボル情報をデータベースに挿入"""
+    """Insert symbol information into database"""
     current_id = start_id
     
     for symbol_name, file_path, line_num, line_content in symbols:
@@ -136,33 +136,33 @@ def insert_symbols(conn: duckdb.DuckDBPyConnection, symbols: List[Tuple[str, str
 
 
 def main():
-    """メイン処理"""
-    # srcディレクトリの確認
+    """Main processing"""
+    # Check src directory
     src_dir = Path.cwd() / 'src'
     if not src_dir.exists():
         print(f"Error: 'src' directory not found in current directory: {Path.cwd()}", file=sys.stderr)
         sys.exit(1)
     
-    # データベース接続
+    # Database connection
     conn = duckdb.connect(DB_FILE)
     
     try:
-        # テーブル作成（必要な場合）
+        # Create table (if needed)
         create_table_if_not_exists(conn)
         
-        # 処理済みファイルのセットを取得
+        # Get set of processed files
         processed_files = get_processed_files(conn)
         if processed_files:
             print(f"Found {len(processed_files)} already processed files. Continuing from where we left off...")
         
-        # 次のIDを取得
+        # Get next ID
         next_id = get_next_id(conn)
         
-        # CファイルとHファイルを検索
+        # Search for C and H files
         files = find_c_and_h_files(src_dir)
         print(f"Found {len(files)} C/H files in {src_dir}")
         
-        # 各ファイルを処理
+        # Process each file
         processed_count = 0
         skipped_count = 0
         total_symbols = 0
@@ -170,34 +170,34 @@ def main():
         for file_path in files:
             file_path_str = str(file_path)
             
-            # 既に処理済みの場合はスキップ
+            # Skip if already processed
             if file_path_str in processed_files:
                 skipped_count += 1
                 continue
             
             print(f"Processing: {file_path_str}")
             
-            # globalコマンドを実行
+            # Execute global command
             output = run_global_command(file_path)
             if output is None:
                 continue
             
-            # 出力を解析
+            # Parse output
             symbols = parse_global_output(output, file_path_str)
             
             if symbols:
-                # データベースに挿入
+                # Insert into database
                 next_id = insert_symbols(conn, symbols, next_id)
                 total_symbols += len(symbols)
                 print(f"  -> Inserted {len(symbols)} symbols")
             
             processed_count += 1
             
-            # 定期的にコミット
+            # Commit periodically
             if processed_count % 10 == 0:
                 conn.commit()
         
-        # 最終コミット
+        # Final commit
         conn.commit()
         
         print("\n" + "="*50)
@@ -208,7 +208,7 @@ def main():
         print(f"  Database: {DB_FILE}")
         print(f"  Table: {TABLE_NAME}")
         
-        # 統計情報を表示
+        # Display statistics
         total_rows = conn.execute(f"SELECT COUNT(*) FROM {TABLE_NAME}").fetchone()[0]
         unique_symbols = conn.execute(f"SELECT COUNT(DISTINCT symbol_name) FROM {TABLE_NAME}").fetchone()[0]
         unique_files = conn.execute(f"SELECT COUNT(DISTINCT file_path) FROM {TABLE_NAME}").fetchone()[0]

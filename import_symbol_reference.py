@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-symbol_references_filtered.csvをDuckDBのsymbol_referenceテーブルにインポートするスクリプト
+Script to import symbol_references_filtered.csv into DuckDB's symbol_reference table
 """
 
 import sys
@@ -9,19 +9,19 @@ import duckdb
 from pathlib import Path
 from typing import List, Tuple
 
-# データベース設定
+# Database configuration
 DB_FILE = "global_symbols.db"
 TABLE_NAME = "symbol_reference"
-CSV_FILE = "symbol_references_filtered.csv"  # ファイル名はユーザー指定通り
+CSV_FILE = "symbol_references_filtered.csv"  # Filename as specified by user
 
 
 def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> bool:
     """
-    symbol_referenceテーブルが存在しない場合、テーブルとインデックスを作成
+    Create symbol_reference table and indexes if they don't exist
     Returns: True if table was created, False if it already existed
     """
     
-    # テーブルの存在確認
+    # Check table existence
     table_exists = conn.execute(f"""
         SELECT COUNT(*) 
         FROM information_schema.tables 
@@ -34,7 +34,7 @@ def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> bool:
     
     print(f"Creating table '{TABLE_NAME}'...")
     
-    # テーブル作成
+    # Create table
     conn.execute(f"""
         CREATE TABLE {TABLE_NAME} (
             from_node INTEGER NOT NULL,
@@ -43,15 +43,15 @@ def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> bool:
         )
     """)
     
-    # インデックス作成
+    # Create indexes
     print("Creating indexes...")
     
-    # from_nodeカラムのインデックス
+    # Index for from_node column
     conn.execute(f"""
         CREATE INDEX idx_{TABLE_NAME}_from_node ON {TABLE_NAME} (from_node)
     """)
     
-    # to_nodeカラムのインデックス
+    # Index for to_node column
     conn.execute(f"""
         CREATE INDEX idx_{TABLE_NAME}_to_node ON {TABLE_NAME} (to_node)
     """)
@@ -62,7 +62,7 @@ def create_table_if_not_exists(conn: duckdb.DuckDBPyConnection) -> bool:
 
 def read_csv_file(csv_file: str) -> List[Tuple[int, int, int]]:
     """
-    CSVファイルを読み込み、整数値のタプルのリストとして返す
+    Read CSV file and return as a list of integer value tuples
     """
     records = []
     
@@ -71,17 +71,17 @@ def read_csv_file(csv_file: str) -> List[Tuple[int, int, int]]:
             reader = csv.reader(f)
             
             for row_num, row in enumerate(reader, 1):
-                # 空行をスキップ
+                # Skip empty rows
                 if not row:
                     continue
                 
-                # 3要素のチェック
+                # Check for 3 elements
                 if len(row) != 3:
                     print(f"Warning: Line {row_num} has {len(row)} elements instead of 3. Skipping.")
                     continue
                 
                 try:
-                    # 整数値に変換
+                    # Convert to integer values
                     from_id = int(row[0])
                     to_id = int(row[1])
                     line_num = int(row[2])
@@ -105,7 +105,7 @@ def read_csv_file(csv_file: str) -> List[Tuple[int, int, int]]:
 def insert_records(conn: duckdb.DuckDBPyConnection, 
                   records: List[Tuple[int, int, int]]) -> None:
     """
-    レコードをテーブルに挿入
+    Insert records into table
     """
     if not records:
         print("No records to insert.")
@@ -113,7 +113,7 @@ def insert_records(conn: duckdb.DuckDBPyConnection,
     
     print(f"Inserting {len(records)} records into {TABLE_NAME}...")
     
-    # バッチ挿入（効率的）
+    # Batch insert (efficient)
     conn.executemany(f"""
         INSERT INTO {TABLE_NAME} (from_node, to_node, line_num_in_from)
         VALUES (?, ?, ?)
@@ -125,25 +125,25 @@ def insert_records(conn: duckdb.DuckDBPyConnection,
 
 def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
     """
-    テーブルの統計情報を表示
+    Display table statistics
     """
     print("\n" + "=" * 60)
     print("Table Statistics")
     print("=" * 60)
     
-    # 総レコード数
+    # Total record count
     total_records = conn.execute(f'SELECT COUNT(*) FROM {TABLE_NAME}').fetchone()[0]
     print(f"Total records: {total_records}")
     
     if total_records > 0:
-        # ユニークなfrom_nodeとto_nodeの数
+        # Number of unique from_node and to_node
         unique_from = conn.execute(f'SELECT COUNT(DISTINCT from_node) FROM {TABLE_NAME}').fetchone()[0]
         unique_to = conn.execute(f'SELECT COUNT(DISTINCT to_node) FROM {TABLE_NAME}').fetchone()[0]
         
         print(f"Unique 'from_node' values: {unique_from}")
         print(f"Unique 'to_node' values: {unique_to}")
         
-        # 最も多く参照されているシンボル（to_nodeカラム）のトップ10
+        # Top 10 most referenced symbols (by to_node column)
         print("\nTop 10 most referenced symbols (by 'to_node' ID):")
         top_referenced = conn.execute(f"""
             SELECT to_node, COUNT(*) as ref_count
@@ -154,7 +154,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
         """).fetchall()
         
         for to_id, count in top_referenced:
-            # symbol_definitionsテーブルから名前を取得（存在する場合）
+            # Get name from symbol_definitions table (if exists)
             try:
                 symbol_info = conn.execute("""
                     SELECT symbol_name, file_path, line_num_start
@@ -164,7 +164,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
                 
                 if symbol_info:
                     symbol_name, file_path, line_start = symbol_info
-                    # ファイルパスを短縮表示
+                    # Shorten file path for display
                     if len(file_path) > 40:
                         short_path = "..." + file_path[-37:]
                     else:
@@ -175,7 +175,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
             except:
                 print(f"  ID {to_id:6d}: - {count} references")
         
-        # 最も多く参照しているシンボル（from_nodeカラム）のトップ10
+        # Top 10 symbols with most references (by from_node column)
         print("\nTop 10 symbols with most references (by 'from_node' ID):")
         top_referencing = conn.execute(f"""
             SELECT from_node, COUNT(*) as ref_count
@@ -186,7 +186,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
         """).fetchall()
         
         for from_id, count in top_referencing:
-            # symbol_definitionsテーブルから名前を取得（存在する場合）
+            # Get name from symbol_definitions table (if exists)
             try:
                 symbol_info = conn.execute("""
                     SELECT symbol_name, file_path, line_num_start
@@ -196,7 +196,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
                 
                 if symbol_info:
                     symbol_name, file_path, line_start = symbol_info
-                    # ファイルパスを短縮表示
+                    # Shorten file path for display
                     if len(file_path) > 40:
                         short_path = "..." + file_path[-37:]
                     else:
@@ -209,7 +209,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
 
 
 def main():
-    """メイン処理"""
+    """Main processing"""
     print("=" * 60)
     print("Symbol References Import Tool")
     print("=" * 60)
@@ -218,32 +218,32 @@ def main():
     print(f"CSV file: {CSV_FILE}")
     print()
     
-    # データベースファイルの確認
+    # Check database file
     if not Path(DB_FILE).exists():
         print(f"Error: Database file '{DB_FILE}' not found.", file=sys.stderr)
         print("Please run global_to_duckdb.py first to create the database.", file=sys.stderr)
         sys.exit(1)
     
-    # CSVファイルの確認
+    # Check CSV file
     if not Path(CSV_FILE).exists():
         print(f"Error: CSV file '{CSV_FILE}' not found.", file=sys.stderr)
         sys.exit(1)
     
-    # データベース接続
+    # Database connection
     conn = duckdb.connect(DB_FILE)
     
     try:
-        # テーブル作成（必要な場合）
+        # Create table (if needed)
         table_created = create_table_if_not_exists(conn)
         
-        # CSVファイルを読み込み
+        # Read CSV file
         print(f"\nReading CSV file '{CSV_FILE}'...")
         records = read_csv_file(CSV_FILE)
         
         if records:
             print(f"Read {len(records)} valid records from CSV.")
             
-            # 既存のレコード数を確認
+            # Check existing record count
             existing_records = conn.execute(f'SELECT COUNT(*) FROM {TABLE_NAME}').fetchone()[0]
             if existing_records > 0 and not table_created:
                 print(f"\nWarning: Table already contains {existing_records} records.")
@@ -252,10 +252,10 @@ def main():
                     print("Import cancelled.")
                     return
             
-            # レコードを挿入
+            # Insert records
             insert_records(conn, records)
             
-            # 統計情報を表示
+            # Display statistics
             show_statistics(conn)
         else:
             print("No valid records found in CSV file.")

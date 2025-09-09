@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-symbol_definitionsテーブルのline_num_endを設定し、重複を除去するスクリプト
+Script to set line_num_end in the symbol_definitions table and remove duplicates
 """
 
 import sys
@@ -8,20 +8,20 @@ import duckdb
 from pathlib import Path
 from typing import List, Tuple, Dict
 
-# データベース設定
+# Database configuration
 DB_FILE = "global_symbols.db"
 TABLE_NAME = "symbol_definitions"
 
 
 def process_line_num_end(conn: duckdb.DuckDBPyConnection) -> None:
     """
-    処理1: line_num_endを設定する
+    Processing 1: Set line_num_end
     """
     print("=" * 60)
     print("Processing line_num_end values...")
     print("=" * 60)
     
-    # IDの昇順で全レコードを取得
+    # Get all records in ID ascending order
     records = conn.execute(f"""
         SELECT id, symbol_name, file_path, line_num_start, line_num_end
         FROM {TABLE_NAME}
@@ -32,9 +32,9 @@ def process_line_num_end(conn: duckdb.DuckDBPyConnection) -> None:
         print("No records found in the table.")
         return
     
-    # 削除するIDのリスト
+    # List of IDs to delete
     ids_to_delete = []
-    # 更新するレコードのリスト: (id, line_num_end)
+    # List of records to update: (id, line_num_end)
     updates = []
     
     i = 0
@@ -52,25 +52,25 @@ def process_line_num_end(conn: duckdb.DuckDBPyConnection) -> None:
         next_file = next_rec[2]
         next_line_start = next_rec[3]
         
-        # file_pathが同一の連続するレコード
+        # Consecutive records with the same file_path
         if current_file == next_file:
-            # symbol_nameも同一の場合（構造体のtypedef対応）
+            # When symbol_name is also the same (handling typedef for structs)
             if current_symbol == next_symbol:
-                # 現在のレコードのline_num_endに次のレコードのline_num_startを設定
+                # Set line_num_end of current record to line_num_start of next record
                 updates.append((current_id, next_line_start))
-                # 次のレコードを削除対象に追加
+                # Add next record to deletion list
                 ids_to_delete.append(next_id)
                 print(f"  Merging typedef: {current_symbol} in {current_file} (lines {current_line_start}-{next_line_start})")
             else:
-                # 通常の連続レコード: line_num_end = next_line_start - 1
+                # Normal consecutive records: line_num_end = next_line_start - 1
                 updates.append((current_id, next_line_start - 1))
         
         i += 1
     
-    # 最後のレコードまたはファイルの最後のレコードはline_num_endを0のまま残す（または適切な値を設定）
-    # ここでは処理しない（0のまま）
+    # Leave line_num_end as 0 for last record or last record of file (or set appropriate value)
+    # No processing here (leave as 0)
     
-    # 更新を実行
+    # Execute updates
     print(f"\nApplying {len(updates)} updates...")
     for id_val, line_end in updates:
         conn.execute(f"""
@@ -79,7 +79,7 @@ def process_line_num_end(conn: duckdb.DuckDBPyConnection) -> None:
             WHERE id = ?
         """, (line_end, id_val))
     
-    # 削除を実行
+    # Execute deletions
     if ids_to_delete:
         print(f"Deleting {len(ids_to_delete)} merged records...")
         for id_val in ids_to_delete:
@@ -91,13 +91,13 @@ def process_line_num_end(conn: duckdb.DuckDBPyConnection) -> None:
 
 def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
     """
-    処理2: symbol_nameの重複を取り除く
+    Processing 2: Remove symbol_name duplicates
     """
     print("\n" + "=" * 60)
     print("Processing symbol name duplicates...")
     print("=" * 60)
     
-    # symbol_nameでソートして全レコードを取得
+    # Get all records sorted by symbol_name
     records = conn.execute(f"""
         SELECT id, symbol_name, file_path, line_num_start, line_num_end, line_content
         FROM {TABLE_NAME}
@@ -108,9 +108,9 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
         print("No records found in the table.")
         return
     
-    # 削除するIDのリスト
+    # List of IDs to delete
     ids_to_delete = []
-    # 処理できない重複のリスト
+    # List of unhandled duplicates
     unhandled_duplicates = []
     
     i = 0
@@ -130,15 +130,15 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
         next_line_start = next_rec[3]
         next_line_content = next_rec[5]
         
-        # symbol_nameが同一の連続レコード
+        # Consecutive records with the same symbol_name
         if current_symbol == next_symbol:
-            # ファイル拡張子を取得
+            # Get file extensions
             current_ext = Path(current_file).suffix
             next_ext = Path(next_file).suffix
             
-            # hファイルとcファイルの組み合わせ
+            # Combination of h file and c file
             if {current_ext, next_ext} == {'.h', '.c'}:
-                # hファイルのレコードを削除
+                # Delete h file record
                 if current_ext == '.h':
                     ids_to_delete.append(current_id)
                     print(f"  Removing extern declaration: {current_symbol} from {current_file}")
@@ -146,9 +146,9 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
                     ids_to_delete.append(next_id)
                     print(f"  Removing extern declaration: {next_symbol} from {next_file}")
             
-            # 両方ともcファイルで、かつ同一ファイル
+            # Both are c files and same file
             elif current_ext == '.c' and next_ext == '.c' and current_file == next_file:
-                # line_num_startが小さい方を削除（プロトタイプ宣言と見なす）
+                # Delete the one with smaller line_num_start (consider as prototype declaration)
                 if current_line_start < next_line_start:
                     ids_to_delete.append(current_id)
                     print(f"  Removing prototype: {current_symbol} at line {current_line_start} in {current_file}")
@@ -156,13 +156,13 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
                     ids_to_delete.append(next_id)
                     print(f"  Removing prototype: {next_symbol} at line {next_line_start} in {next_file}")
             
-            # 上記のいずれにも当てはまらない場合
+            # Cases that don't match any of the above
             else:
                 unhandled_duplicates.append((current, next_rec))
         
         i += 1
     
-    # 処理できない重複を標準エラー出力に出力
+    # Output unhandled duplicates to stderr
     if unhandled_duplicates:
         print("\n" + "=" * 60, file=sys.stderr)
         print("WARNING: Unhandled duplicate symbols:", file=sys.stderr)
@@ -174,7 +174,7 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
             print(f"  Record 2: ID={next_rec[0]}, File={next_rec[2]}, Line={next_rec[3]}", file=sys.stderr)
             print(f"    Content: {next_rec[5][:80]}...", file=sys.stderr)
     
-    # 削除を実行
+    # Execute deletions
     if ids_to_delete:
         print(f"\nDeleting {len(ids_to_delete)} duplicate records...")
         for id_val in ids_to_delete:
@@ -186,29 +186,29 @@ def process_symbol_duplicates(conn: duckdb.DuckDBPyConnection) -> None:
 
 def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
     """
-    処理後の統計情報を表示
+    Display post-processing statistics
     """
     print("\n" + "=" * 60)
     print("Database Statistics")
     print("=" * 60)
     
-    # 総レコード数
+    # Total record count
     total_records = conn.execute(f"SELECT COUNT(*) FROM {TABLE_NAME}").fetchone()[0]
     print(f"Total records: {total_records}")
     
-    # ユニークシンボル数
+    # Unique symbol count
     unique_symbols = conn.execute(f"SELECT COUNT(DISTINCT symbol_name) FROM {TABLE_NAME}").fetchone()[0]
     print(f"Unique symbols: {unique_symbols}")
     
-    # ユニークファイル数
+    # Unique file count
     unique_files = conn.execute(f"SELECT COUNT(DISTINCT file_path) FROM {TABLE_NAME}").fetchone()[0]
     print(f"Unique files: {unique_files}")
     
-    # line_num_endが設定されたレコード数
+    # Record count with line_num_end set
     records_with_end = conn.execute(f"SELECT COUNT(*) FROM {TABLE_NAME} WHERE line_num_end > 0").fetchone()[0]
     print(f"Records with line_num_end set: {records_with_end}")
     
-    # ファイル拡張子別の統計
+    # Statistics by file extension
     print("\nRecords by file extension:")
     ext_stats = conn.execute(f"""
         SELECT 
@@ -226,7 +226,7 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
     for ext, count in ext_stats:
         print(f"  {ext}: {count}")
     
-    # 重複シンボルの統計
+    # Duplicate symbol statistics
     print("\nSymbols with multiple definitions:")
     duplicates = conn.execute(f"""
         SELECT symbol_name, COUNT(*) as count
@@ -245,18 +245,18 @@ def show_statistics(conn: duckdb.DuckDBPyConnection) -> None:
 
 
 def main():
-    """メイン処理"""
-    # データベースファイルの確認
+    """Main processing"""
+    # Check database file
     if not Path(DB_FILE).exists():
         print(f"Error: Database file '{DB_FILE}' not found.", file=sys.stderr)
         print("Please run global_to_duckdb.py first to create the database.", file=sys.stderr)
         sys.exit(1)
     
-    # データベース接続
+    # Database connection
     conn = duckdb.connect(DB_FILE)
     
     try:
-        # テーブルの存在確認
+        # Check table existence
         table_exists = conn.execute(f"""
             SELECT COUNT(*) 
             FROM information_schema.tables 
@@ -267,17 +267,17 @@ def main():
             print(f"Error: Table '{TABLE_NAME}' not found in database.", file=sys.stderr)
             sys.exit(1)
         
-        # 処理前の統計
+        # Statistics before processing
         print("Initial database state:")
         show_statistics(conn)
         
-        # 処理1: line_num_endを設定
+        # Processing 1: Set line_num_end
         process_line_num_end(conn)
         
-        # 処理2: symbol_nameの重複を除去
+        # Processing 2: Remove symbol_name duplicates
         process_symbol_duplicates(conn)
         
-        # 処理後の統計
+        # Statistics after processing
         print("\nFinal database state:")
         show_statistics(conn)
         

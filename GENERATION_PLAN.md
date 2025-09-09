@@ -1,4 +1,4 @@
-DuckDBを使用した改善版を提示します。DuckDBは分析的なワークロードに優れており、大規模なドキュメント管理により適しています。
+We present an improved version using DuckDB. DuckDB excels at analytical workloads and is better suited for large-scale document management.
 
 ```
 postgresql-docs/
@@ -8,28 +8,28 @@ postgresql-docs/
 ├── .mcp.json
 ├── CLAUDE.md
 ├── scripts/
-│   ├── prepare_clusters.py      # 事前クラスタリング処理
-│   ├── orchestrator.py          # メイン処理
-│   ├── mcp_server.py           # MCPサーバー
-│   └── cache_manager.py        # キャッシュ管理
+│   ├── prepare_clusters.py      # Pre-clustering processing
+│   ├── orchestrator.py          # Main processing
+│   ├── mcp_server.py           # MCP server
+│   └── cache_manager.py        # Cache management
 ├── data/
-│   ├── symbol_clusters.json    # クラスタリング結果
-│   ├── dependency_layers.json  # 依存関係の階層
-│   ├── processed_cache.db      # 処理済みキャッシュ
-│   ├── その他dbファイル
-│   └── current_batch.json      # 現在のバッチ情報
-├── output/temp/               # 一時ファイル置き場
+│   ├── symbol_clusters.json    # Clustering results
+│   ├── dependency_layers.json  # Dependency hierarchy
+│   ├── processed_cache.db      # Processed cache
+│   ├── Other DB files
+│   └── current_batch.json      # Current batch information
+├── output/temp/               # Temporary file storage
 ```
 
-## DuckDB版の完全実装
+## Complete DuckDB Version Implementation
 
-### 1. 事前処理: クラスタリング (scripts/prepare_clusters.py)
+### 1. Pre-processing: Clustering (scripts/prepare_clusters.py)
 
 ```python
 #!/usr/bin/env python3
 """
-事前にシンボルをクラスタリングして効率的なバッチを準備
-DuckDBの生データを直接読み込むバージョン
+Pre-cluster symbols to prepare efficient batches
+DuckDB version that directly reads raw data
 """
 import json
 import duckdb
@@ -39,23 +39,23 @@ from typing import List, Dict, Set, Tuple
 
 class SymbolClusterer:
     def __init__(self, db_file: str):
-        # DuckDBからグラフ構造とシンボル情報をメモリにロード
+        # Load graph structure and symbol information from DuckDB into memory
         self._load_graph_from_db(db_file)
 
-        # 出力用DuckDBの初期化
+        # Initialize output DuckDB
         self.meta_db = duckdb.connect('data/metadata.duckdb')
         self.init_database()
 
-        # 結果を格納
+        # Store results
         self.clusters = []
         self.layers = []
 
     def _load_graph_from_db(self, db_file: str):
-        """DuckDBからデータを読み込み、オンメモリグラフを構築する"""
+        """Load data from DuckDB and build in-memory graph"""
         print(f"Loading graph data from {db_file}...")
         con = duckdb.connect(db_file, read_only=True)
 
-        # シンボル定義をロード (id -> details)
+        # Load symbol definitions (id -> details)
         self.symbol_details: Dict[int, Dict] = {
             row[0]: {
                 'id': row[0],
@@ -69,12 +69,12 @@ class SymbolClusterer:
         self.all_nodes: Set[int] = set(self.symbol_details.keys())
         print(f"Loaded {len(self.symbol_details)} symbol definitions.")
 
-        # 参照関係からグラフを構築
+        # Build graph from reference relationships
         references: List[Tuple[int, int]] = con.execute("SELECT from_node, to_node FROM symbol_reference").fetchall()
         con.close()
 
-        self.adj: Dict[int, Set[int]] = defaultdict(set)  # 依存先 (自分がどのノードに依存しているか)
-        self.rev_adj: Dict[int, Set[int]] = defaultdict(set) # 依存元 (どのノードから依存されているか)
+        self.adj: Dict[int, Set[int]] = defaultdict(set)  # Dependencies (which nodes this node depends on)
+        self.rev_adj: Dict[int, Set[int]] = defaultdict(set) # Dependents (which nodes depend on this node)
 
         for from_node, to_node in references:
             if from_node in self.all_nodes and to_node in self.all_nodes:
@@ -84,8 +84,8 @@ class SymbolClusterer:
 
 
     def init_database(self):
-        """出力用DuckDBデータベースを初期化"""
-        # シンボル情報テーブル (主キーをidに変更)
+        """Initialize output DuckDB database"""
+        # Symbol information table (change primary key to id)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS symbols (
                 id INTEGER PRIMARY KEY,
@@ -101,7 +101,7 @@ class SymbolClusterer:
             )
         """)
 
-        # 依存関係テーブル (idベース)
+        # Dependency table (id-based)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS dependencies (
                 from_node INTEGER,
@@ -110,7 +110,7 @@ class SymbolClusterer:
             )
         """)
 
-        # クラスタテーブル
+        # Cluster table
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS clusters (
                 cluster_id INTEGER PRIMARY KEY,
@@ -121,18 +121,18 @@ class SymbolClusterer:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        # 既存データをクリア
+        # Clear existing data
         self.meta_db.execute("DELETE FROM symbols")
         self.meta_db.execute("DELETE FROM dependencies")
         self.meta_db.execute("DELETE FROM clusters")
 
-        # データを投入
+        # Populate data
         self.populate_initial_data()
 
     def populate_initial_data(self):
-        """初期データをDuckDBに投入"""
+        """Populate initial data into DuckDB"""
         print("Populating metadata database...")
-        # シンボル情報を投入
+        # Insert symbol information
         for symbol_id, info in self.symbol_details.items():
             self.meta_db.execute("""
                 INSERT OR REPLACE INTO symbols
@@ -148,7 +148,7 @@ class SymbolClusterer:
                 info.get('line_num_end', 0)
             ))
 
-        # 依存関係を投入
+        # Insert dependencies
         for from_node, to_nodes in self.adj.items():
             for to_node in to_nodes:
                 self.meta_db.execute("""
@@ -161,7 +161,7 @@ class SymbolClusterer:
         print("Finished populating metadata database.")
 
     def analyze_dependencies(self):
-        """オンメモリグラフで依存関係を解析し、トポロジカルソートで階層を作成"""
+        """Analyze dependencies with in-memory graph and create layers using topological sort"""
         in_degree = {node: len(self.rev_adj.get(node, set())) for node in self.all_nodes}
         queue = deque([node for node, degree in in_degree.items() if degree == 0])
         
@@ -179,7 +179,7 @@ class SymbolClusterer:
                 current_layer.append(node)
                 processed_count += 1
                 
-                # このノードが依存している先のノードのin-degreeを減らす
+                # Reduce in-degree for nodes that this node depends on
                 for neighbor in self.adj.get(node, set()):
                     in_degree[neighbor] -= 1
                     if in_degree[neighbor] == 0:
@@ -187,13 +187,13 @@ class SymbolClusterer:
             
             layers.append(current_layer)
 
-        # 循環依存のチェックと処理
+        # Check and handle circular dependencies
         if processed_count < len(self.all_nodes):
             remaining = [node for node in self.all_nodes if in_degree[node] > 0]
             print(f"Warning: Circular dependency detected involving {len(remaining)} symbols. Grouping them into the last layer.")
             layers.append(remaining)
 
-        # DBにレイヤー情報を更新
+        # Update layer information in DB
         for i, layer in enumerate(layers):
             for node_id in layer:
                 self.meta_db.execute("UPDATE symbols SET layer = ? WHERE id = ?", (i, node_id))
@@ -203,8 +203,8 @@ class SymbolClusterer:
         return layers
 
     def create_file_based_clusters(self):
-        """ファイルベースでシンボルをクラスタリング"""
-        # ファイルごとにグループ化 (idも取得)
+        """Cluster symbols based on files"""
+        # Group by file (also get id)
         result = self.meta_db.execute("""
             SELECT
                 file_path,
@@ -228,13 +228,13 @@ class SymbolClusterer:
         for file_path, symbols in file_groups.items():
             if not symbols:
                 continue
-            # 大きすぎるグループは分割
+            # Split groups that are too large
             if len(symbols) <= 8:
                 cluster_id_counter += 1
                 self.save_cluster(cluster_id_counter, 'file', symbols)
             else:
-                # タイプ別に分割
-                for symbol_type in ['function', 'struct', 'typedef']: # 型を増やす
+                # Split by type
+                for symbol_type in ['function', 'struct', 'typedef']: # Add more types
                     typed_symbols = [s for s in symbols if s['type'] == symbol_type]
                     if not typed_symbols: continue
                     for i in range(0, len(typed_symbols), 5):
@@ -246,12 +246,12 @@ class SymbolClusterer:
         return cluster_id_counter
 
     def save_cluster(self, cluster_id: int, cluster_type: str, symbols: List[Dict]):
-        """クラスタをDBに保存 (IDベース)"""
+        """Save cluster to DB (ID-based)"""
         symbol_ids = [s['id'] for s in symbols]
-        # symbolsが空でないことを確認
+        # Verify symbols is not empty
         if not symbols:
             return
-        # layerがNoneの場合を考慮
+        # Handle cases where layer is None
         valid_layers = [s.get('layer') for s in symbols if s.get('layer') is not None]
         avg_layer = sum(valid_layers) // len(valid_layers) if valid_layers else 0
 
@@ -262,16 +262,16 @@ class SymbolClusterer:
             cluster_id,
             cluster_type,
             avg_layer,
-            json.dumps(symbol_ids),  # IDのリストをJSONとして保存
-            len(symbol_ids) * 3000  # 推定トークン数
+            json.dumps(symbol_ids),  # Save ID list as JSON
+            len(symbol_ids) * 3000  # Estimated token count
         ))
 
-        # シンボルにクラスタIDを設定
+        # Set cluster ID for symbols
         for symbol in symbols:
             self.meta_db.execute("UPDATE symbols SET cluster_id = ? WHERE id = ?", (cluster_id, symbol['id']))
 
     def get_symbol_module(self, symbol_id: int) -> str:
-        """シンボルIDからモジュールを取得"""
+        """Get module from symbol ID"""
         info = self.symbol_details.get(symbol_id)
         if info:
             file_path = info.get('file_path', '')
@@ -288,7 +288,7 @@ class SymbolClusterer:
         return 'core'
 
     def generate_processing_batches(self):
-        """処理用バッチを生成"""
+        """Generate processing batches"""
         result = self.meta_db.execute("""
             SELECT
                 c.cluster_id,
@@ -308,12 +308,12 @@ class SymbolClusterer:
                 'batch_id': cluster_id,
                 'type': cluster_type,
                 'layer': layer,
-                'symbol_ids': symbol_ids, # キーを 'symbol_ids' に変更して明確化
+                'symbol_ids': symbol_ids, # Change key to 'symbol_ids' for clarity
                 'estimated_tokens': tokens,
                 'symbol_count': len(symbol_ids)
             })
 
-        # ファイルに保存
+        # Save to file
         Path("data").mkdir(exist_ok=True)
         with open('data/processing_batches.json', 'w') as f:
             json.dump(batches, f, indent=2)
@@ -321,24 +321,24 @@ class SymbolClusterer:
         return batches
 
 def main():
-    # 入力DBファイル
+    # Input DB file
     db_file = 'data/global_symbols.db'
     
     clusterer = SymbolClusterer(db_file=db_file)
 
-    # 依存関係の階層を作成
+    # Create dependency layers
     layers = clusterer.analyze_dependencies()
     print(f"Created {len(layers)} dependency layers")
 
-    # クラスタを作成
+    # Create clusters
     num_clusters = clusterer.create_file_based_clusters()
     print(f"Created {num_clusters} clusters")
 
-    # 処理用バッチを生成
+    # Generate processing batches
     batches = clusterer.generate_processing_batches()
     print(f"Generated {len(batches)} processing batches")
 
-    # 統計情報を表示
+    # Display statistics
     stats_result = clusterer.meta_db.execute("""
         SELECT
             (SELECT COUNT(id) FROM symbols) as total_symbols,
@@ -360,13 +360,13 @@ if __name__ == "__main__":
     main()
 ```
 
-### 2. メイン処理 (scripts/orchestrator.py)
+### 2. Main Processing (scripts/orchestrator.py)
 
 ```python
 #!/usr/bin/env python3
 """
-Claude Codeを使用したドキュメント生成のメイン処理
-DuckDB版 - ドキュメントもDB内に格納 (IDベース処理)
+Main processing for document generation using Claude Code
+DuckDB version - Store documents in DB (ID-based processing)
 """
 import json
 import duckdb
@@ -378,17 +378,17 @@ from typing import List, Dict, Optional, Set
 
 class DocumentationOrchestrator:
     def __init__(self, global_symbols_db: str = 'global_symbols.db'):
-        # 処理バッチをロード (IDベース)
+        # Load processing batches (ID-based)
         with open('data/processing_batches.json') as f:
             self.batches = json.load(f)
 
-        # シンボル詳細情報をメモリにロード
+        # Load symbol details into memory
         self._load_symbol_details(global_symbols_db)
         
-        # DuckDBの初期化
+        # Initialize DuckDB
         self.init_databases()
         
-        # 処理統計
+        # Processing statistics
         self.stats = {
             'total_batches': len(self.batches),
             'processed_batches': 0,
@@ -398,7 +398,7 @@ class DocumentationOrchestrator:
         }
 
     def _load_symbol_details(self, db_file: str):
-        """global_symbols.dbからシンボル詳細をメモリにキャッシュする"""
+        """Cache symbol details from global_symbols.db into memory"""
         print(f"Loading symbol details from {db_file}...")
         con = duckdb.connect(db_file, read_only=True)
         self.symbol_details: Dict[int, Dict] = {
@@ -412,14 +412,14 @@ class DocumentationOrchestrator:
         print(f"Loaded {len(self.symbol_details)} symbol details into memory.")
 
     def init_databases(self):
-        """DuckDBデータベースの初期化"""
-        # メタデータDB（既存）
+        """Initialize DuckDB databases"""
+        # Metadata DB (existing)
         self.meta_db = duckdb.connect('data/metadata.duckdb', read_only=True)
         
-        # ドキュメント専用DB
+        # Document-specific DB
         self.doc_db = duckdb.connect('data/documents.duckdb')
         
-        # ドキュメントテーブル (IDベースに修正)
+        # Document table (modified to ID-based)
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS documents (
                 symbol_id INTEGER PRIMARY KEY,
@@ -435,8 +435,8 @@ class DocumentationOrchestrator:
             )
         """)
         
-        # 処理ログテーブル (バッチIDを主キーとする)
-        # metadata.duckdbはread-onlyで開いているため、ログはdoc_dbに書く
+        # Processing log table (batch ID as primary key)
+        # Since metadata.duckdb is opened read-only, write logs to doc_db
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS processing_log (
                 batch_id INTEGER PRIMARY KEY,
@@ -450,17 +450,17 @@ class DocumentationOrchestrator:
         """)
 
     def get_processed_symbol_ids(self) -> Set[int]:
-        """処理済みシンボルIDを取得"""
+        """Get processed symbol IDs"""
         result = self.doc_db.execute("SELECT symbol_id FROM documents").fetchall()
         return set(row[0] for row in result)
         
     def process_all_batches(self):
-        """全バッチを順次処理"""
+        """Process all batches sequentially"""
         processed_ids = self.get_processed_symbol_ids()
         
         for batch in self.batches:
             batch_id = batch['batch_id']
-            # スキップ判定 (IDベース)
+            # Skip determination (ID-based)
             unprocessed_ids = [sid for sid in batch['symbol_ids'] if sid not in processed_ids]
             if not unprocessed_ids:
                 print(f"Batch {batch_id}: All symbols already processed, skipping")
@@ -472,7 +472,7 @@ class DocumentationOrchestrator:
             print(f"Type: {batch['type']}, Estimated tokens: {batch['estimated_tokens']}")
             print(f"{'='*60}")
             
-            # バッチを処理
+            # Process batch
             success = self.process_batch(batch, unprocessed_ids)
             
             if success:
@@ -482,17 +482,17 @@ class DocumentationOrchestrator:
             else:
                 self.stats['failed_batches'] += 1
                 
-            # 進捗表示
+            # Show progress
             self.show_progress()
             
-            # レート制限対策
+            # Rate limiting
             time.sleep(2)
             
     def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
-        """単一バッチを処理"""
+        """Process a single batch"""
         batch_id = batch['batch_id']
         
-        # ログ記録開始
+        # Start logging
         self.doc_db.execute("""
             INSERT OR REPLACE INTO processing_log 
             (batch_id, symbol_ids, status, started_at, processed_count)
@@ -500,20 +500,20 @@ class DocumentationOrchestrator:
         """, (batch_id, json.dumps(symbol_ids), datetime.now()))
         self.doc_db.commit()
 
-        # プロンプトを構築
+        # Build prompt
         prompt = self.build_prompt(symbol_ids, batch['layer'])
         
         try:
-            # Claude Codeを実行
-            # claude-code-cli を想定したコマンドラインに修正
-            # 例: claude-code chat --prompt "..."
-            # ※ツール名や引数は環境に合わせて調整してください
+            # Execute Claude Code
+            # Modified for claude-code-cli command line
+            # Example: claude-code chat --prompt "..."
+            # ※ Adjust tool name and arguments according to your environment
             print("Invoking Claude Code CLI...")
             result = subprocess.run(
                 ['claude-code', 'chat', '--prompt', prompt],
                 capture_output=True,
                 text=True,
-                timeout=600, # タイムアウトを延長
+                timeout=600, # Extended timeout
                 cwd=str(Path.cwd()),
                 encoding='utf-8'
             )
@@ -521,13 +521,13 @@ class DocumentationOrchestrator:
             if result.returncode == 0:
                 print(f"✓ Successfully processed batch {batch_id}")
                 
-                # 成功をログに記録
+                # Log success
                 self.doc_db.execute("""
                     UPDATE processing_log SET status = 'completed', completed_at = ?, processed_count = ?
                     WHERE batch_id = ?
                 """, (datetime.now(), len(symbol_ids), batch_id))
                 
-                # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
+                # Instead of parsing directly, assume agent outputs to file
                 self.store_generated_documents(symbol_ids, batch['layer'])
                 
                 return True
@@ -559,7 +559,7 @@ class DocumentationOrchestrator:
             self.doc_db.commit()
 
     def get_processed_summaries(self) -> Dict[str, str]:
-        """処理済みシンボルの要約を取得 (名前 -> 要約)"""
+        """Get summaries of processed symbols (name -> summary)"""
         result = self.doc_db.execute("""
             SELECT symbol_name, summary FROM documents WHERE summary IS NOT NULL AND summary != ''
             LIMIT 2000
@@ -567,7 +567,7 @@ class DocumentationOrchestrator:
         return {row[0]: row[1] for row in result}
         
     def build_prompt(self, symbol_ids: List[int], layer: int) -> str:
-        """バッチ処理用のプロンプトを構築"""
+        """Build prompt for batch processing"""
         symbol_names = [self.symbol_details[sid]['name'] for sid in symbol_ids]
         symbol_list_str = '\n'.join([f'- {name}' for name in symbol_names])
 
@@ -575,7 +575,7 @@ class DocumentationOrchestrator:
         
         relevant_processed = set()
         for symbol_id in symbol_ids:
-            # このシンボルの依存先を取得 (IDベース)
+            # Get dependencies of this symbol (ID-based)
             deps = self.meta_db.execute("""
                 SELECT to_node FROM dependencies WHERE from_node = ?
             """, (symbol_id,)).fetchall()
@@ -588,70 +588,70 @@ class DocumentationOrchestrator:
                     
         relevant_list_str = '\n'.join(sorted(list(relevant_processed))[:15])
         
-        # プロンプトテンプレート
-        # claude-code-cli が index を参照することを前提としたプロンプト
-        prompt = f"""# PostgreSQLコードベースのドキュメント生成タスク
+        # Prompt template
+        # Prompt assuming claude-code-cli references index
+        prompt = f"""# PostgreSQL Codebase Documentation Generation Task
 
-あなたはPostgreSQLのソースコードに精通したエキスパートです。
-インデックスされたPostgreSQLのコードベース全体を参照し、以下の未処理シンボルについて詳細なドキュメントを生成してください。
+You are an expert familiar with PostgreSQL source code.
+Please reference the entire indexed PostgreSQL codebase and generate detailed documentation for the following unprocessed symbols.
 
-## 処理コンテキスト
-- 現在の処理レイヤー: {layer} (依存関係の末端に近いレイヤーから処理しています)
-- 処理済みシンボル総数: {len(processed_summaries)} / {self.stats["total_symbols"]}
+## Processing Context
+- Current processing layer: {layer} (processing from layers closer to dependency endpoints)
+- Total processed symbols: {len(processed_summaries)} / {self.stats["total_symbols"]}
 
-## 処理対象シンボルリスト
+## Target Symbol List
 {symbol_list_str}
 
-## 関連する処理済みシンボルの要約
-以下は、今回処理するシンボルが依存している可能性のある、既に処理済みのシンボルの要約です。文脈の理解に役立ててください。
-{relevant_list_str if relevant_list_str else '（特に関連情報なし）'}
+## Related Processed Symbol Summaries
+The following are summaries of already processed symbols that the current symbols may depend on. Use them to understand the context.
+{relevant_list_str if relevant_list_str else '(No particular related information)'}
 
-## 指示
-1.  上記の「処理対象シンボルリスト」内の各シンボルについて、順番に処理してください。
-2.  各シンボルのソースコード、定義、および参照箇所をコードベース全体から検索・分析してください。
-3.  以下のMarkdownフォーマットに従って、各シンボルの解説を生成してください。
-4.  生成したドキュメントは、ローカルの `output/temp/` ディレクトリに `[シンボル名].md` というファイル名で保存してください。
+## Instructions
+1.  Process each symbol in the above "Target Symbol List" in order.
+2.  Search and analyze the source code, definitions, and reference locations for each symbol throughout the codebase.
+3.  Generate explanations for each symbol following the Markdown format below.
+4.  Save the generated documents in the local `output/temp/` directory with the filename `[symbol_name].md`.
 
-## 出力Markdownフォーマット
+## Output Markdown Format
 ```markdown
-# [シンボル名]
+# [Symbol Name]
 
-## 概要
-(このシンボルの目的や役割を1〜2文で簡潔に説明)
+## Overview
+(Concisely explain the purpose and role of this symbol in 1-2 sentences)
 
-## 定義
-(関数シグネチャまたは構造体/enumの定義をコードブロックで記述)
+## Definition
+(Describe function signature or struct/enum definition in code block)
 ```c
-// 例: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)
+// Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)
 ```
 
-## 詳細説明
-(シンボルの機能、動作、設計思想などを具体的に解説)
+## Detailed Description
+(Specifically explain the symbol's functionality, behavior, design philosophy, etc.)
 
-## パラメータ / メンバー変数
-(関数パラメータや構造体の各メンバーについて、役割や意味を箇条書きで説明)
-- `param1`: (説明)
-- `member1`: (説明)
+## Parameters / Member Variables
+(List and explain the role and meaning of function parameters or struct members)
+- `param1`: (description)
+- `member1`: (description)
 
-## 依存関係
-- **呼び出している関数/参照しているシンボル**:
+## Dependencies
+- **Called functions/Referenced symbols**:
   - `func_a`
   - `TYPE_B`
-- **呼び出されている箇所 (代表例)**:
+- **Called from (representative examples)**:
   - `caller_func_x`
   - `caller_func_y`
 
-## 注意事項・その他
-(特筆すべき点、利用上の注意、関連する背景知識など)
+## Notes & Other Information
+(Notable points, usage precautions, related background knowledge, etc.)
 
 ```
 
-全てのシンボルについて、上記の指示通りにファイル出力を完了させてください。
+Please complete file output for all symbols according to the above instructions.
 """
         return prompt
         
     def store_generated_documents(self, symbol_ids: List[int], layer: int):
-        """生成されたドキュメントをDuckDBに格納"""
+        """Store generated documents in DuckDB"""
         temp_dir = Path('output/temp')
         temp_dir.mkdir(exist_ok=True)
         
@@ -665,7 +665,7 @@ class DocumentationOrchestrator:
                 summary = self.extract_summary(content)
                 deps, related = self.extract_relationships(content)
                 
-                # ドキュメントをDBに格納 (IDベース)
+                # Store document in DB (ID-based)
                 self.doc_db.execute("""
                     INSERT INTO documents (symbol_id, symbol_name, symbol_type, layer, content, summary, dependencies, related_symbols)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -675,7 +675,7 @@ class DocumentationOrchestrator:
                         updated_at = CURRENT_TIMESTAMP
                 """, (sid, symbol_name, symbol_type, layer, content, summary, json.dumps(deps), json.dumps(related)))
                 
-                doc_path.unlink() # 一時ファイルを削除
+                doc_path.unlink() # Delete temporary file
                 print(f"  Stored document for: {symbol_name} (ID: {sid})")
             else:
                 print(f"  Warning: Document file not found for {symbol_name}")
@@ -683,12 +683,12 @@ class DocumentationOrchestrator:
         self.doc_db.commit()
 
     def extract_summary(self, content: str) -> str:
-        """ドキュメントから概要を抽出"""
+        """Extract overview from document"""
         lines = content.split('\n')
         in_summary = False
         summary_lines = []
         for line in lines:
-            if '## 概要' in line:
+            if '## Overview' in line:
                 in_summary = True
                 continue
             if in_summary and line.startswith('##'):
@@ -698,18 +698,18 @@ class DocumentationOrchestrator:
         return ' '.join(summary_lines[:2])
 
     def extract_relationships(self, content: str) -> tuple:
-        """ドキュメントから関係性を抽出"""
+        """Extract relationships from document"""
         import re
-        deps = re.findall(r'-\s*\*\*呼び出している関数/参照しているシンボル\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
+        deps = re.findall(r'-\s*\*\*Called functions/Referenced symbols\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
         deps_list = re.findall(r'-\s*`(\w+)`', ''.join(deps))
         
-        related = re.findall(r'-\s*\*\*呼び出されている箇所 \(代表例\)\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
+        related = re.findall(r'-\s*\*\*Called from \(representative examples\)\*\*:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
         related_list = re.findall(r'-\s*`(\w+)`', ''.join(related))
         
         return list(set(deps_list)), list(set(related_list))
 
     def show_progress(self):
-        """進捗を表示"""
+        """Show progress"""
         if self.stats['total_symbols'] == 0: return
         progress = (self.stats['processed_symbols'] / self.stats['total_symbols']) * 100
         print(f"\nProgress: {progress:.1f}% ({self.stats['processed_symbols']}/{self.stats['total_symbols']})")
@@ -727,13 +727,13 @@ if __name__ == "__main__":
     main()
 ```
 
-### 3. MCPサーバー (scripts/mcp_server.py)
+### 3. MCP Server (scripts/mcp_server.py)
 
 ```python
 #!/usr/bin/env python3
 """
-PostgreSQLコードベース用のMCPサーバー
-DuckDB版
+MCP server for PostgreSQL codebase
+DuckDB version
 """
 
 import json
@@ -751,19 +751,19 @@ except FileNotFoundError as e:
     exit(1)
 
 
-# AIエージェントが生成したドキュメントを一時保存するディレクトリ
+# Directory for temporarily storing documents generated by AI agent
 TEMP_OUTPUT_DIR = Path("output/temp")
 
 
 class MCPRequestHandler(BaseHTTPRequestHandler):
     """
-    AIエージェントからのツール利用リクエストを処理するハンドラ。
-    snode_moduleの機能をAPIとして提供する。
+    Handler for processing tool usage requests from AI agents.
+    Provides snode_module functionality as API.
     """
     def do_POST(self):
-        """POSTリクエストを処理する"""
+        """Process POST requests"""
         try:
-            # リクエストボディをJSONとして読み込む
+            # Read request body as JSON
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             request = json.loads(post_data)
@@ -771,7 +771,7 @@ class MCPRequestHandler(BaseHTTPRequestHandler):
             method = request.get("method")
             params = request.get("params", {})
 
-            # methodの値に応じて処理を分岐
+            # Branch processing based on method value
             if method == "get_symbol_details":
                 symbol_name = params.get("symbol_name")
                 if not symbol_name:
@@ -824,7 +824,7 @@ class MCPRequestHandler(BaseHTTPRequestHandler):
                 self._send_response(200, {"symbols": symbols})
             
             elif method == "save_document":
-                # ファイル保存はサーバー側の機能として実装
+                # File saving implemented as server-side functionality
                 self._save_document(params)
 
             else:
@@ -833,18 +833,18 @@ class MCPRequestHandler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             self._send_response(400, {"error": "Invalid JSON format in request body."})
         except ValueError as e:
-            # SNodeでシンボルが見つからなかった場合に発生
+            # Raised when symbol not found in SNode
             self._send_response(404, {"error": str(e)})
         except FileNotFoundError as e:
-            # ソースコードファイルが見つからなかった場合に発生
+            # Raised when source code file not found
             self._send_response(404, {"error": str(e)})
         except Exception as e:
-            # その他のサーバー内部エラー
+            # Other internal server errors
             print(f"Unhandled error processing request: {type(e).__name__} - {e}")
             self._send_response(500, {"error": "An internal server error occurred.", "details": str(e)})
 
     def _send_response(self, status_code: int, data: dict):
-        """HTTPレスポンスをJSON形式で送信するヘルパー関数"""
+        """Helper function to send HTTP response in JSON format"""
         self.send_response(status_code)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
@@ -852,7 +852,7 @@ class MCPRequestHandler(BaseHTTPRequestHandler):
 
     def _save_document(self, params: dict):
         """
-        AIエージェントが生成したドキュメントを一時ファイルとして保存する。
+        Save documents generated by AI agent as temporary files.
         """
         symbol_name = params.get("symbol_name")
         content = params.get("content")
@@ -880,7 +880,7 @@ class MCPRequestHandler(BaseHTTPRequestHandler):
 
 
 def run_server(server_class=HTTPServer, handler_class=MCPRequestHandler, port=8080):
-    """サーバーを起動し、終了時にリソースをクリーンアップする"""
+    """Start server and clean up resources on exit"""
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting MCP server on http://localhost:{port}...")
@@ -890,10 +890,10 @@ def run_server(server_class=HTTPServer, handler_class=MCPRequestHandler, port=80
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        # Ctrl+C が押されたらループを抜ける
+        # Exit loop when Ctrl+C is pressed
         pass
     finally:
-        # サーバー終了時にデータベース接続を閉じる
+        # Close database connection when server stops
         print("\nStopping server...")
         DatabaseConnection().close()
         httpd.server_close()
@@ -903,12 +903,12 @@ if __name__ == '__main__':
     run_server()
 ```
 
-### 4. ドキュメント検索・閲覧ツール (scripts/doc_viewer.py)
+### 4. Document Search & Viewing Tool (scripts/doc_viewer.py)
 
 ```python
 #!/usr/bin/env python3
 """
-生成されたドキュメントを検索・閲覧するツール
+Tool for searching and viewing generated documents
 """
 import duckdb
 import argparse
@@ -919,7 +919,7 @@ class DocumentViewer:
         self.doc_db = duckdb.connect('data/documents.duckdb', read_only=True)
         
     def search_documents(self, query: str, limit: int = 10):
-        """ドキュメントを検索"""
+        """Search documents"""
         results = self.doc_db.execute("""
             SELECT 
                 symbol_name,
@@ -934,14 +934,14 @@ class DocumentViewer:
             LIMIT ?
         """, (f'%{query}%', f'%{query}%', f'%{query}%', limit)).fetchall()
         
-        print(f"\n検索結果: '{query}'")
+        print(f"\nSearch results: '{query}'")
         print("=" * 60)
         for name, type_, summary, layer in results:
             print(f"\n[{type_}] {name} (Layer {layer})")
             print(f"  {summary[:100]}...")
             
     def get_document(self, symbol_name: str):
-        """特定のドキュメントを取得"""
+        """Get specific document"""
         result = self.doc_db.execute("""
             SELECT content, dependencies, related_symbols
             FROM documents
@@ -958,7 +958,7 @@ class DocumentViewer:
             print(f"Document not found: {symbol_name}")
             
     def show_statistics(self):
-        """統計情報を表示"""
+        """Show statistics"""
         stats = self.doc_db.execute("""
             SELECT 
                 COUNT(*) as total,
@@ -979,7 +979,7 @@ class DocumentViewer:
         print(f"First created: {stats[4]}")
         print(f"Last updated: {stats[5]}")
         
-        # タイプ別統計
+        # Statistics by type
         type_stats = self.doc_db.execute("""
             SELECT symbol_type, COUNT(*) as count
             FROM documents
@@ -1011,32 +1011,32 @@ if __name__ == "__main__":
     main()
 ```
 
-## DuckDB版の主な改善点
+## Key Improvements in DuckDB Version
 
-1. **高速な分析クエリ**: DuckDBは列指向ストレージで分析クエリが高速
-2. **JSON型サポート**: 依存関係などをJSON型で効率的に格納
-3. **大規模データ対応**: 大量のドキュメントも効率的に管理
-4. **統合管理**: メタデータとドキュメントを別々のDBファイルで管理
-5. **検索性能**: LIKE検索やJOIN操作が高速
-6. **エクスポート機能**: 必要に応じてファイルにエクスポート可能
+1. **Fast analytical queries**: DuckDB's columnar storage enables fast analytical queries
+2. **JSON type support**: Efficiently store dependencies and other data as JSON
+3. **Large-scale data support**: Efficiently manage large volumes of documents
+4. **Integrated management**: Manage metadata and documents in separate DB files
+5. **Search performance**: Fast LIKE searches and JOIN operations
+6. **Export functionality**: Export to files as needed
 
-## 使用方法
+## Usage
 
 ```bash
-# 1. 事前準備
+# 1. Preparation
 pip install duckdb
 python scripts/prepare_clusters.py
 
-# 2. ドキュメント生成
+# 2. Document generation
 python scripts/orchestrator.py
 
-# 3. ドキュメント検索・閲覧
+# 3. Document search & viewing
 python scripts/doc_viewer.py search "heap_insert"
 python scripts/doc_viewer.py get heap_insert
 python scripts/doc_viewer.py stats
 
-# 4. 必要に応じてエクスポート
-# orchestrator.py内でexport_documents()を呼び出し
+# 4. Export as needed
+# Call export_documents() in orchestrator.py
 ```
 
-DuckDBにより、大規模なドキュメント管理がより効率的になり、検索や分析も高速に実行できます。
+With DuckDB, large-scale document management becomes more efficient, and searches and analysis can be executed at high speed.

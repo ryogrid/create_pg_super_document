@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SNodeモジュール - シンボル情報を扱うクラスを提供
+SNode module - Provides classes for handling symbol information
 """
 
 import os
@@ -10,14 +10,16 @@ from pathlib import Path
 from typing import Optional, List, Dict, Any, Union
 from functools import lru_cache
 
-# データベース設定
+ # Database settings
 DB_FILE = "global_symbols.db"
 SYMBOL_TABLE = "symbol_definitions"
 REFERENCE_TABLE = "symbol_reference"
 
 
 class DatabaseConnection:
-    """データベース接続を管理するシングルトンクラス"""
+    """
+    Singleton class to manage database connections
+    """
     _instance = None
     _connection = None
     
@@ -27,7 +29,7 @@ class DatabaseConnection:
         return cls._instance
     
     def get_connection(self):
-        """データベース接続を取得"""
+        """Get database connection"""
         if self._connection is None:
             if not Path(DB_FILE).exists():
                 raise FileNotFoundError(f"Database file '{DB_FILE}' not found.")
@@ -35,29 +37,31 @@ class DatabaseConnection:
         return self._connection
     
     def close(self):
-        """データベース接続を閉じる"""
+        """Close database connection"""
         if self._connection:
             self._connection.close()
             self._connection = None
 
 
 class SNode:
-    """シンボル情報を表すノードクラス"""
+    """
+    Node class representing symbol information
+    """
     
-    # データベース接続（クラス変数）
+    # Database connection（class variable）
     _db = DatabaseConnection()
     
     def __init__(self, symbol_name: str):
         """
-        シンボル名からSNodeオブジェクトを作成
+        Create an SNode object from a symbol name
         
         Args:
-            symbol_name: シンボル名
+            symbol_name: Symbol name
         """
         self.symbol_name = symbol_name
-        self._contents = None  # 遅延読み込み用
-        
-        # データベースからシンボル情報を取得（最小IDのレコードを使用）
+        self._contents = None  # for lazy loading of source code
+
+        # Retrieve symbol information from the database (using the record with the smallest ID)
         conn = self._db.get_connection()
         result = conn.execute(f"""
             SELECT id, file_path, line_num_start, line_num_end, symbol_type
@@ -80,13 +84,13 @@ class SNode:
     @classmethod
     def from_id(cls, record_id: int) -> 'SNode':
         """
-        レコードIDからSNodeオブジェクトを作成するファクトリ関数
+        Factory function to create an SNode object from a record ID.
         
         Args:
-            record_id: symbol_definitionsテーブルのID
-            
+            record_id: ID of the symbol_definitions table
+        
         Returns:
-            SNode: 作成されたSNodeオブジェクト
+            SNode: Created SNode object
         """
         conn = cls._db.get_connection()
         result = conn.execute(f"""
@@ -98,7 +102,7 @@ class SNode:
         if not result:
             raise ValueError(f"Record with ID {record_id} not found in database")
         
-        # SNodeオブジェクトを作成（コンストラクタを迂回して直接設定）
+    # Create SNode object (bypassing constructor and setting directly)
         node = object.__new__(cls)
         node.id = record_id
         node.symbol_name = result[0]
@@ -111,44 +115,44 @@ class SNode:
     
     def get_source_code(self) -> str:
         """
-        自身のシンボルのソースコードを文字列として返す
-        コメントや返り値の型を含み、次のシンボルのコメントは除外する
+        Returns the source code of this symbol as a string.
+        Includes comments and return type, but excludes comments for the next symbol.
         
         Returns:
-            str: ソースコード（ヘッダー情報付き）
+            str: Source code (with header information)
         """
-        # 既に読み込み済みの場合はそれを返す
+    # Return if already loaded
         if self._contents is not None:
             return self._contents
         
-        # ファイルが存在するか確認
+    # Check if file exists
         if not Path(self.file_path).exists():
             raise FileNotFoundError(f"Source file '{self.file_path}' not found")
         
-        # ファイルから該当行を読み込む
+    # Read the relevant lines from the file
         try:
             with open(self.file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 lines = f.readlines()
             
-            # 行番号は1ベース、配列インデックスは0ベース
+            # Line numbers are 1-based, array indices are 0-based
             original_start_idx = self.line_num_start - 1
             original_end_idx = self.line_num_end if self.line_num_end > 0 else len(lines)
             
-            # 実際の開始位置と終了位置を調整
+            # Adjust actual start and end positions
             actual_start_idx = self._find_actual_start(lines, original_start_idx)
             actual_end_idx = self._find_actual_end(lines, original_start_idx, original_end_idx)
             
-            # 調整後の行番号（1ベース）
+            # Adjusted line numbers (1-based)
             actual_start_line = actual_start_idx + 1
-            actual_end_line = actual_end_idx  # actual_end_idxはexclusiveなので、最終行はactual_end_idx
+            actual_end_line = actual_end_idx  # actual_end_idx is exclusive, so the last line is actual_end_idx
             
-            # ヘッダー情報を作成
+            # Create header information
             header = f"Source: {self.file_path}:{actual_start_line}-{actual_end_line}\n"
             
-            # 該当範囲の行を結合
+            # Join the relevant lines
             source_code = ''.join(lines[actual_start_idx:actual_end_idx])
             
-            # ヘッダーとソースコードを結合
+            # Combine header and source code
             self._contents = header + source_code
             
         except Exception as e:
@@ -158,19 +162,19 @@ class SNode:
     
     def _find_actual_start(self, lines: List[str], original_start_idx: int) -> int:
         """
-        シンボル定義の実際の開始位置を見つける（コメントや返り値の型を含む）
+        Find the actual start position of the symbol definition (including comments and return type).
         
         Args:
-            lines: ファイルの全行
-            original_start_idx: 元の開始インデックス（0ベース）
-            
+            lines: All lines of the file
+            original_start_idx: Original start index (0-based)
+        
         Returns:
-            int: 実際の開始インデックス
+            int: Actual start index
         """
         if original_start_idx == 0:
             return 0
         
-        # 現在の位置から遡って探索
+    # Search backward from the current position
         idx = original_start_idx - 1
         actual_start = original_start_idx
         in_comment = False
@@ -179,88 +183,88 @@ class SNode:
         while idx >= 0:
             line = lines[idx].rstrip()
             
-            # ブロックコメントの終了を検出
+            # Detect end of block comment
             if '*/' in line and not in_comment:
                 in_comment = True
                 comment_start = idx
             
-            # ブロックコメントの開始を検出
+            # Detect start of block comment
             if '/*' in line and in_comment:
                 actual_start = idx
                 in_comment = False
                 idx -= 1
                 continue
             
-            # コメント中の場合はスキップ
+            # Skip if inside a comment
             if in_comment:
                 idx -= 1
                 continue
             
-            # 空行または空白のみの行
+            # Blank line or line with only whitespace
             if not line or line.isspace():
                 idx -= 1
                 continue
             
-            # 単一行コメント
+            # Single-line comment
             if line.strip().startswith('//'):
                 actual_start = idx
                 idx -= 1
                 continue
             
-            # プリプロセッサディレクティブ
+            # Preprocessor directive
             if line.strip().startswith('#'):
-                # #defineや#ifdefなどは含めない（別のシンボル定義の可能性）
+                # Do not include #define or #ifdef, as it may be another symbol definition
                 break
             
-            # 関数の返り値の型やstatic/externなどの修飾子
-            # セミコロンや開き括弧で終わる行は別の定義の可能性
+            # Return type of function or modifiers like static/extern
+            # Lines ending with semicolon or opening brace may be another definition
             if line.endswith(';') or line.endswith('{'):
                 break
             
-            # typedefやstruct/enum/unionキーワード
+            # typedef, struct/enum/union keywords
             keywords = ['typedef', 'struct', 'enum', 'union', 'static', 'extern', 
                        'const', 'volatile', 'inline', 'register']
             line_lower = line.lower()
             if any(keyword in line_lower for keyword in keywords):
-                # 次の行に続いている可能性があるので含める
+                # May continue to the next line, so include it
                 actual_start = idx
                 idx -= 1
                 continue
             
-            # その他の場合（変数の型など）
-            # アルファベットで始まる行は返り値の型の可能性
+            # Other cases (such as variable types)
+            # Lines starting with an alphabet may be a return type
             if line and line[0].isalpha():
                 actual_start = idx
                 idx -= 1
                 continue
             
-            # それ以外の場合は探索を終了
+            # In other cases, stop searching
             break
         
         return actual_start
     
     def _find_actual_end(self, lines: List[str], start_idx: int, original_end_idx: int) -> int:
         """
-        シンボル定義の実際の終了位置を見つける（次のシンボルのコメントを除外）
+        Find the actual end position of the symbol definition (excluding comments for the next symbol).
         
         Args:
-            lines: ファイルの全行
-            start_idx: 開始インデックス（0ベース）
-            original_end_idx: 元の終了インデックス（0ベース、exclusive）
-            
-        Returns:
-            int: 実際の終了インデックス
-        """
-        # デフォルトは元の終了位置
-        actual_end = original_end_idx
+            lines: All lines of the file
+            start_idx: Start index (0-based)
+            original_end_idx: Original end index (0-based, exclusive)
         
-        # シンボルの種類を判定
+        Returns:
+            int: Actual end index
+        """
+        # Default is the original end position
+        actual_end = original_end_idx
+
+        # Determine the type of symbol
         if start_idx < len(lines):
             first_line = lines[start_idx].strip()
             
-            # マクロ定義の場合
+            # In case of macro definition
             if first_line.startswith('#define'):
-                # 継続行（\で終わる）を追跡
+                # Track continuation lines (ending with \)
                 idx = start_idx
                 while idx < original_end_idx and idx < len(lines):
                     line = lines[idx].rstrip()
@@ -269,7 +273,7 @@ class SNode:
                     idx += 1
                 return original_end_idx
         
-        # 関数や構造体の場合、括弧の対応を追跡
+    # For functions or structs, track matching braces
         brace_count = 0
         found_first_brace = False
         idx = start_idx
@@ -277,7 +281,7 @@ class SNode:
         while idx < original_end_idx and idx < len(lines):
             line = lines[idx]
             
-            # 文字列リテラルやコメントを除外した括弧のカウント
+            # Count braces excluding string literals and comments
             in_string = False
             in_char = False
             in_line_comment = False
@@ -288,25 +292,25 @@ class SNode:
             while i < len(line):
                 char = line[i]
                 
-                # 文字列リテラル
+                # String literal
                 if char == '"' and prev_char != '\\' and not in_char and not in_line_comment and not in_block_comment:
                     in_string = not in_string
-                # 文字リテラル
+                # Character literal
                 elif char == "'" and prev_char != '\\' and not in_string and not in_line_comment and not in_block_comment:
                     in_char = not in_char
-                # 行コメント
+                # Line comment
                 elif i < len(line) - 1 and line[i:i+2] == '//' and not in_string and not in_char and not in_block_comment:
                     in_line_comment = True
                     i += 1
-                # ブロックコメント開始
+                # Block comment start
                 elif i < len(line) - 1 and line[i:i+2] == '/*' and not in_string and not in_char and not in_line_comment:
                     in_block_comment = True
                     i += 1
-                # ブロックコメント終了
+                # Block comment end
                 elif i < len(line) - 1 and line[i:i+2] == '*/' and in_block_comment:
                     in_block_comment = False
                     i += 1
-                # 括弧のカウント
+                # Count braces
                 elif not in_string and not in_char and not in_line_comment and not in_block_comment:
                     if char == '{':
                         brace_count += 1
@@ -314,13 +318,13 @@ class SNode:
                     elif char == '}':
                         brace_count -= 1
                         if found_first_brace and brace_count == 0:
-                            # 構造体の場合は}の後のセミコロンまで含める
+                            # For struct, include up to semicolon after }
                             remaining = line[i+1:].strip()
                             if remaining.startswith(';'):
                                 return min(idx + 1, original_end_idx)
-                            # typedef structの場合、型名の定義まで含める
+                            # For typedef struct, include up to type name definition
                             elif remaining and not remaining.startswith('/'):
-                                # 次の行も確認
+                                # Check the next line as well
                                 if idx + 1 < original_end_idx:
                                     next_line = lines[idx + 1].strip()
                                     if next_line.startswith(';'):
@@ -334,21 +338,21 @@ class SNode:
             
             idx += 1
         
-        # 括弧の対応が見つからない場合、次のコメントを除外
-        # 終了位置から遡って、最後の非空白・非コメント行を探す
+    # If matching braces are not found, exclude the next comment
+    # Search backward from the end position for the last non-blank, non-comment line
         idx = original_end_idx - 1
         while idx > start_idx:
             line = lines[idx].strip()
             
-            # 空行やコメント行でない行が見つかったら、そこまでを含める
+            # If a non-blank, non-comment line is found, include up to there
             if line and not line.startswith('/*') and not line.startswith('*') and not line.startswith('//'):
-                # ブロックコメントの途中でないかチェック
+                # Check if not in the middle of a block comment
                 if '*/' in line:
-                    # この行がブロックコメントの終了を含む場合、コメント開始を探す
+                    # If this line contains the end of a block comment, search for the comment start
                     comment_start = idx
                     while comment_start > start_idx:
                         if '/*' in lines[comment_start]:
-                            # コメントの開始が見つかったら、その前まで
+                            # If the start of the comment is found, include up to before that
                             return comment_start
                         comment_start -= 1
                 return min(idx + 1, original_end_idx)
@@ -359,15 +363,15 @@ class SNode:
     
     def get_references_from_this(self) -> str:
         """
-        自身が参照するシンボルを一行ずつ並べた文字列を返す
-        line_num_in_fromでソートし、ファイル名と行番号も含める
+        Returns a string listing the symbols referenced by this symbol, one per line.
+        Sorted by line_num_in_from, including file name and line number.
         
         Returns:
-            str: 参照情報の文字列
+            str: Reference information string
         """
         conn = self._db.get_connection()
         
-        # 自身が参照するシンボルを取得
+    # Get symbols referenced by this symbol
         results = conn.execute(f"""
             SELECT 
                 sr.to_node,
@@ -384,10 +388,10 @@ class SNode:
         if not results:
             return "No references from this symbol"
         
-        # 結果を整形
+    # Format results
         lines = []
         for to_node, line_num_in_from, symbol_name, file_path, line_num_start in results:
-            # ファイル名のみ抽出
+            # Extract only the file name
             filename = Path(file_path).name
             lines.append(
                 f"{symbol_name:30s} at Line {line_num_in_from:5d}"
@@ -397,15 +401,15 @@ class SNode:
     
     def get_references_to_this(self) -> str:
         """
-        自身を参照するシンボルを一行ずつ並べた文字列を返す
-        ファイル名と行番号も含める
+        Returns a string listing the symbols that reference this symbol, one per line.
+        Includes file name and line number.
         
         Returns:
-            str: 参照元情報の文字列
+            str: Reference source information string
         """
         conn = self._db.get_connection()
         
-        # 自身を参照するシンボルを取得
+    # Get symbols that reference this symbol
         results = conn.execute(f"""
             SELECT 
                 sr.from_node,
@@ -422,7 +426,7 @@ class SNode:
         if not results:
             return "No references to this symbol"
         
-        # 結果を整形
+    # Format results
         lines = []
         for from_node, line_num_in_from, symbol_name, file_path, line_num_start in results:
             lines.append(
@@ -432,23 +436,23 @@ class SNode:
         return '\n'.join(lines)
     
     def __str__(self) -> str:
-        """文字列表現"""
+        """String representation"""
         return (f"SNode(id={self.id}, symbol='{self.symbol_name}', "
                 f"file='{self.file_path}', lines={self.line_num_start}-{self.line_num_end})")
     
     def __repr__(self) -> str:
-        """開発者向け文字列表現"""
+        """Developer string representation"""
         return self.__str__()
 
 
-# ユーティリティ関数
+# Utility functions
 @lru_cache(maxsize=128)
 def get_symbol_names() -> List[str]:
     """
-    データベース内の全ユニークシンボル名を取得
+    Get all unique symbol names in the database.
     
     Returns:
-        List[str]: シンボル名のリスト
+        List[str]: List of symbol names
     """
     db = DatabaseConnection()
     conn = db.get_connection()
@@ -463,13 +467,13 @@ def get_symbol_names() -> List[str]:
 
 def search_symbols(pattern: str) -> List[str]:
     """
-    パターンにマッチするシンボル名を検索
+    Search for symbol names matching the pattern.
     
     Args:
-        pattern: 検索パターン（SQL LIKE構文）
-        
+        pattern: Search pattern (SQL LIKE syntax)
+    
     Returns:
-        List[str]: マッチしたシンボル名のリスト
+        List[str]: List of matching symbol names
     """
     db = DatabaseConnection()
     conn = db.get_connection()
@@ -485,14 +489,14 @@ def search_symbols(pattern: str) -> List[str]:
 
 def get_symbol_by_file_and_line(file_path: str, line_num: int) -> Optional[SNode]:
     """
-    ファイルパスと行番号からシンボルを取得
+    Get a symbol by file path and line number.
     
     Args:
-        file_path: ファイルパス
-        line_num: 行番号
-        
+        file_path: File path
+        line_num: Line number
+    
     Returns:
-        SNode: 該当するシンボル、見つからない場合はNone
+        SNode: Corresponding symbol, or None if not found
     """
     db = DatabaseConnection()
     conn = db.get_connection()
@@ -511,27 +515,27 @@ def get_symbol_by_file_and_line(file_path: str, line_num: int) -> Optional[SNode
     return None
 
 
-# テスト用のメイン関数
+# Main function for testing
 def main():
-    """テスト用のメイン関数"""
+    """Main function for testing"""
     print("SNode Module Test")
     print("=" * 60)
     
-    # シンボル名のリストを取得
+    # Get list of symbol names
     symbols = get_symbol_names()
     print(f"Total unique symbols: {len(symbols)}")
     
-    # サンプルシンボルを検索
+    # Search for a sample symbol
     if symbols:
-        # 最初のシンボルでテスト
+        # Test with the first symbol
         test_symbol = symbols[0]
         print(f"\nTesting with symbol: {test_symbol}")
         
-        # SNodeオブジェクトを作成
+        # Create SNode object
         node = SNode(test_symbol)
         print(f"Created: {node}")
         
-        # ソースコードを取得
+        # Get source code
         try:
             code = node.get_source_code()
             print(f"\nSource code (first 200 chars):")
@@ -539,14 +543,14 @@ def main():
         except Exception as e:
             print(f"Error getting source code: {e}")
         
-        # 参照情報を表示
+        # Display reference information
         print("\n--- References FROM this symbol ---")
         print(node.get_references_from_this())
         
         print("\n--- References TO this symbol ---")
         print(node.get_references_to_this())
         
-        # IDからの作成テスト
+        # Test creation from ID
         print("\n" + "=" * 60)
         print("Testing factory function from_id...")
         node2 = SNode.from_id(node.id)

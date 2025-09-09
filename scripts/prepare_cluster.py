@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-事前にシンボルをクラスタリングして効率的なバッチを準備
-DuckDBの生データを直接読み込むバージョン
+Pre-cluster symbols and prepare efficient batches
+Version that directly reads raw data from DuckDB
 """
 import json
 import duckdb
@@ -11,25 +11,24 @@ from typing import List, Dict, Set, Tuple
 
 class SymbolClusterer:
     def __init__(self, db_file: str):
-        # DuckDBからグラフ構造とシンボル情報をメモリにロード
+        # Load graph structure and symbol information from DuckDB into memory
         self._load_graph_from_db(db_file)
 
-        # 出力用DuckDBの初期化
+        # Initialize output DuckDB
         self.meta_db = duckdb.connect('data/metadata.duckdb')
         self.init_database()
 
-        # 結果を格納
+        # Store results
         self.clusters = []
         self.layers = []
 
     def _load_graph_from_db(self, db_file: str):
-        """DuckDBからデータを読み込み、オンメモリグラフを構築する"""
+        """Read data from DuckDB and build in-memory graph"""
         print(f"Loading graph data from {db_file}...")
         con = duckdb.connect(db_file, read_only=True)
 
-        # シンボル定義をロード (id -> details)
-        # exclude symbols in contrib/
-        self.symbol_details: Dict[int, Dict] = {
+        # Load symbol definitions (id -> details), exclude symbols in contrib/
+        self.symbol_details = {
             row[0]: {
                 'id': row[0],
                 'symbol_name': row[1],
@@ -39,15 +38,15 @@ class SymbolClusterer:
                 'symbol_type': row[7]
             } for row in con.execute("SELECT * FROM symbol_definitions where (symbol_type = 'f' OR symbol_type = 's' OR symbol_type = 'v') AND NOT starts_with(file_path, 'contrib/')").fetchall()
         }
-        self.all_nodes: Set[int] = set(self.symbol_details.keys())
+        self.all_nodes = set(self.symbol_details.keys())
         print(f"Loaded {len(self.symbol_details)} symbol definitions.")
 
-        # 参照関係からグラフを構築
-        references: List[Tuple[int, int]] = con.execute("SELECT from_node, to_node FROM symbol_reference").fetchall()
+        # Build graph from reference relationships
+        references = con.execute("SELECT from_node, to_node FROM symbol_reference").fetchall()
         con.close()
 
-        self.adj: Dict[int, Set[int]] = defaultdict(set)  # 依存先 (自分がどのノードに依存しているか)
-        self.rev_adj: Dict[int, Set[int]] = defaultdict(set) # 依存元 (どのノードから依存されているか)
+        self.adj = defaultdict(set)  # Dependencies (which nodes this node depends on)
+        self.rev_adj = defaultdict(set) # Dependents (which nodes depend on this node)
 
         for from_node, to_node in references:
             if from_node in self.all_nodes and to_node in self.all_nodes:
@@ -57,8 +56,8 @@ class SymbolClusterer:
 
 
     def init_database(self):
-        """出力用DuckDBデータベースを初期化"""
-        # シンボル情報テーブル (主キーをidに変更)
+        """Initialize output DuckDB database"""
+        # Symbol information table (primary key changed to id)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS symbols (
                 id INTEGER PRIMARY KEY,
@@ -74,7 +73,7 @@ class SymbolClusterer:
             )
         """)
 
-        # 依存関係テーブル (idベース)
+    # Dependency table (id-based)
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS dependencies (
                 from_node INTEGER,
@@ -83,7 +82,7 @@ class SymbolClusterer:
             )
         """)
 
-        # クラスタテーブル
+    # Cluster table
         self.meta_db.execute("""
             CREATE TABLE IF NOT EXISTS clusters (
                 cluster_id INTEGER PRIMARY KEY,
@@ -94,18 +93,20 @@ class SymbolClusterer:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
-        # 既存データをクリア
+    # Clear existing data
         self.meta_db.execute("DELETE FROM symbols")
         self.meta_db.execute("DELETE FROM dependencies")
         self.meta_db.execute("DELETE FROM clusters")
 
-        # データを投入
+    # Insert data
         self.populate_initial_data()
 
     def populate_initial_data(self):
-        """初期データをDuckDBに投入"""
+        """
+        Insert initial data into DuckDB
+        """
         print("Populating metadata database...")
-        # シンボル情報を投入
+        # Insert symbol information
         for symbol_id, info in self.symbol_details.items():
             self.meta_db.execute("""
                 INSERT OR REPLACE INTO symbols
@@ -121,7 +122,7 @@ class SymbolClusterer:
                 info.get('line_num_end', 0)
             ))
 
-        # 依存関係を投入
+        # Insert dependency relationships
         for from_node, to_nodes in self.adj.items():
             for to_node in to_nodes:
                 self.meta_db.execute("""
@@ -134,7 +135,9 @@ class SymbolClusterer:
         print("Finished populating metadata database.")
 
     def analyze_dependencies(self):
-        """オンメモリグラフで依存関係を解析し、トポロジカルソートで階層を作成"""
+        """
+        Analyze dependencies in an in-memory graph and create layers using topological sort
+        """
         in_degree = {node: len(self.rev_adj.get(node, set())) for node in self.all_nodes}
         queue = deque([node for node, degree in in_degree.items() if degree == 0])
         
@@ -152,7 +155,7 @@ class SymbolClusterer:
                 current_layer.append(node)
                 processed_count += 1
                 
-                # このノードが依存している先のノードのin-degreeを減らす
+                # Decrease the in-degree of nodes that this node depends on
                 for neighbor in self.adj.get(node, set()):
                     in_degree[neighbor] -= 1
                     if in_degree[neighbor] == 0:
@@ -160,13 +163,13 @@ class SymbolClusterer:
             
             layers.append(current_layer)
 
-        # 循環依存のチェックと処理
+    # Check and handle circular dependencies
         if processed_count < len(self.all_nodes):
             remaining = [node for node in self.all_nodes if in_degree[node] > 0]
             print(f"Warning: Circular dependency detected involving {len(remaining)} symbols. Grouping them into the last layer.")
             layers.append(remaining)
 
-        # DBにレイヤー情報を更新
+    # Update layer information in the DB
         for i, layer in enumerate(layers):
             for node_id in layer:
                 self.meta_db.execute("UPDATE symbols SET layer = ? WHERE id = ?", (i, node_id))
@@ -176,8 +179,10 @@ class SymbolClusterer:
         return layers
 
     def create_file_based_clusters(self):
-        """ファイルベースでシンボルをクラスタリング"""
-        # ファイルごとにグループ化 (idも取得)
+        """
+        Cluster symbols based on files
+        """
+    # Group by file (also get id)
         result = self.meta_db.execute("""
             SELECT
                 file_path,
@@ -201,13 +206,13 @@ class SymbolClusterer:
         for file_path, symbols in file_groups.items():
             if not symbols:
                 continue
-            # 大きすぎるグループは分割
+            # Split groups that are too large
             if len(symbols) <= 3:
                 cluster_id_counter += 1
                 self.save_cluster(cluster_id_counter, 'file', symbols)
             else:
-                # タイプ別に分割
-                for symbol_type in ['f', 's', 'v']: # 型を増やす
+                # Split by type
+                for symbol_type in ['f', 's', 'v']:
                     typed_symbols = [s for s in symbols if s['type'] == symbol_type]
                     if not typed_symbols: continue
                     for i in range(0, len(typed_symbols), 5):
@@ -219,12 +224,14 @@ class SymbolClusterer:
         return cluster_id_counter
 
     def save_cluster(self, cluster_id: int, cluster_type: str, symbols: List[Dict]):
-        """クラスタをDBに保存 (IDベース)"""
+        """
+        Save cluster to DB (ID-based)
+        """
         symbol_ids = [s['id'] for s in symbols]
-        # symbolsが空でないことを確認
+    # Ensure symbols is not empty
         if not symbols:
             return
-        # layerがNoneの場合を考慮
+    # Handle case where layer is None
         valid_layers = [s.get('layer') for s in symbols if s.get('layer') is not None]
         avg_layer = sum(valid_layers) // len(valid_layers) if valid_layers else 0
 
@@ -235,16 +242,18 @@ class SymbolClusterer:
             cluster_id,
             cluster_type,
             avg_layer,
-            json.dumps(symbol_ids),  # IDのリストをJSONとして保存
-            len(symbol_ids) * 3000  # 推定トークン数
+            json.dumps(symbol_ids),  # Save list of IDs as JSON
+            len(symbol_ids) * 3000  # Estimated token count
         ))
 
-        # シンボルにクラスタIDを設定
+    # Set cluster ID for symbols
         for symbol in symbols:
             self.meta_db.execute("UPDATE symbols SET cluster_id = ? WHERE id = ?", (cluster_id, symbol['id']))
 
     def get_symbol_module(self, symbol_id: int) -> str:
-        """シンボルIDからモジュールを取得"""
+        """
+        Get module from symbol ID
+        """
         info = self.symbol_details.get(symbol_id)
         if info:
             file_path = info.get('file_path', '')
@@ -261,7 +270,9 @@ class SymbolClusterer:
         return 'core'
 
     def generate_processing_batches(self):
-        """処理用バッチを生成"""
+        """
+        Generate processing batches
+        """
         result = self.meta_db.execute("""
             SELECT
                 c.cluster_id,
@@ -281,12 +292,12 @@ class SymbolClusterer:
                 'batch_id': cluster_id,
                 'type': cluster_type,
                 'layer': layer,
-                'symbol_ids': symbol_ids, # キーを 'symbol_ids' に変更して明確化
+                'symbol_ids': symbol_ids, # Changed key to 'symbol_ids' for clarity
                 'estimated_tokens': tokens,
                 'symbol_count': len(symbol_ids)
             })
 
-        # ファイルに保存
+    # Save to file
         Path("data").mkdir(exist_ok=True)
         with open('data/processing_batches.json', 'w') as f:
             json.dump(batches, f, indent=2)
@@ -294,24 +305,24 @@ class SymbolClusterer:
         return batches
 
 def main():
-    # 入力DBファイル
+    # Input DB file
     db_file = 'global_symbols.db'
     
     clusterer = SymbolClusterer(db_file=db_file)
 
-    # 依存関係の階層を作成
+    # Create dependency layers
     layers = clusterer.analyze_dependencies()
     print(f"Created {len(layers)} dependency layers")
 
-    # クラスタを作成
+    # Create clusters
     num_clusters = clusterer.create_file_based_clusters()
     print(f"Created {num_clusters} clusters")
 
-    # 処理用バッチを生成
+    # Generate processing batches
     batches = clusterer.generate_processing_batches()
     print(f"Generated {len(batches)} processing batches")
 
-    # 統計情報を表示
+    # Display statistics
     stats_result = clusterer.meta_db.execute("""
         SELECT
             (SELECT COUNT(id) FROM symbols) as total_symbols,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Claude Codeを使用したドキュメント生成のメイン処理
-DuckDB版 - ドキュメントもDB内に格納 (IDベース処理)
+Main processing for documentation generation using Claude Code.
+DuckDB version - Documents are also stored in the DB (ID-based processing).
 """
 import json
 import duckdb
@@ -13,17 +13,17 @@ from typing import List, Dict, Optional, Set, Tuple
 
 class DocumentationOrchestrator:
     def __init__(self, global_symbols_db: str = 'global_symbols.db'):
-        # 処理バッチをロード (IDベース)
+    # Load processing batches (ID-based)
         with open('data/processing_batches.json') as f:
             self.batches = json.load(f)
 
-        # シンボル詳細情報をメモリにロード
+    # Load symbol details into memory
         self._load_symbol_details(global_symbols_db)
         
-        # DuckDBの初期化
+    # Initialize DuckDB
         self.init_databases()
         
-        # 処理統計
+    # Processing statistics
         self.stats = {
             'total_batches': len(self.batches),
             'processed_batches': 0,
@@ -33,7 +33,9 @@ class DocumentationOrchestrator:
         }
 
     def _load_symbol_details(self, db_file: str):
-        """global_symbols.dbからシンボル詳細をメモリにキャッシュする"""
+        """
+        Cache symbol details from global_symbols.db into memory
+        """
         print(f"Loading symbol details from {db_file}...")
         con = duckdb.connect(db_file, read_only=True)
         self.symbol_details: Dict[int, Dict] = {
@@ -47,14 +49,16 @@ class DocumentationOrchestrator:
         print(f"Loaded {len(self.symbol_details)} symbol details into memory.")
 
     def init_databases(self):
-        """DuckDBデータベースの初期化"""
-        # メタデータDB（既存）
+        """
+        Initialize DuckDB databases
+        """
+        # Metadata DB (existing)
         self.meta_db = duckdb.connect('data/metadata.duckdb', read_only=True)
         
-        # ドキュメント専用DB
+    # Document-specific DB
         self.doc_db = duckdb.connect('data/documents.duckdb')
         
-        # ドキュメントテーブル (IDベースに修正)
+    # Document table (revised to be ID-based)
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS documents (
                 symbol_id INTEGER PRIMARY KEY,
@@ -70,8 +74,8 @@ class DocumentationOrchestrator:
             );
         """)
         
-        # 処理ログテーブル (バッチIDを主キーとする)
-        # metadata.duckdbはread-onlyで開いているため、ログはdoc_dbに書く
+    # Processing log table (batch_id as primary key)
+    # Since metadata.duckdb is opened as read-only, logs are written to doc_db
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS processing_log (
                 batch_id INTEGER PRIMARY KEY,
@@ -85,17 +89,21 @@ class DocumentationOrchestrator:
         """)
 
     def get_processed_symbol_ids(self) -> Set[int]:
-        """処理済みシンボルIDを取得"""
+        """
+        Get processed symbol IDs
+        """
         result = self.doc_db.execute("SELECT symbol_id FROM documents").fetchall()
         return set(row[0] for row in result)
         
     def process_all_batches(self):
-        """全バッチを順次処理"""
+        """
+        Process all batches sequentially
+        """
         processed_ids = self.get_processed_symbol_ids()
         
         for batch in self.batches:
             batch_id = batch['batch_id']
-            # スキップ判定 (IDベース)
+            # Skip check (ID-based)
             unprocessed_ids = [sid for sid in batch['symbol_ids'] if sid not in processed_ids]
             if not unprocessed_ids:
                 print(f"Batch {batch_id}: All symbols already processed, skipping")
@@ -107,7 +115,7 @@ class DocumentationOrchestrator:
             print(f"Type: {batch['type']}, Estimated tokens: {batch['estimated_tokens']}")
             print(f"{'='*60}")
             
-            # バッチを処理
+            # Process batch
             success = self.process_batch(batch, unprocessed_ids)
             
             if success:
@@ -117,17 +125,19 @@ class DocumentationOrchestrator:
             else:
                 self.stats['failed_batches'] += 1
                 
-            # 進捗表示
+            # Show progress
             self.show_progress()
             
-            # # レート制限対策
+            # # Rate limiting countermeasure
             time.sleep(15)
             
     def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
-        """単一バッチを処理"""
+        """
+        Process a single batch
+        """
         batch_id = batch['batch_id']
         
-        # ログ記録開始
+    # Start log recording
         self.doc_db.execute("""
             INSERT OR REPLACE INTO processing_log 
             (batch_id, symbol_ids, status, started_at, processed_count)
@@ -135,11 +145,11 @@ class DocumentationOrchestrator:
         """, (batch_id, json.dumps(symbol_ids), datetime.now()))
         self.doc_db.commit()
 
-        # プロンプトを構築
+    # Build prompt
         prompt, symbols = self.build_prompt(symbol_ids, batch['layer'])
         
         try:
-            # Claude Codeを実行
+            # Run Claude Code
             print("Invoking Claude Code CLI...")
             result = subprocess.run(
                 [
@@ -157,7 +167,7 @@ class DocumentationOrchestrator:
             if result.returncode == 0:
                 print(f"✓ Successfully processed batch {batch_id}")
                 
-                # 成功をログに記録
+                # Log success
                 self.doc_db.execute("""
                     UPDATE processing_log SET status = 'completed', completed_at = ?, processed_count = ?
                     WHERE batch_id = ?
@@ -165,7 +175,7 @@ class DocumentationOrchestrator:
 
                 time.sleep(1)
 
-                # ここでは直接パースする代わりに、エージェントがファイルに出力したと仮定
+                # Here, instead of parsing directly, assume the agent outputs to a file
                 self.store_generated_documents(symbol_ids, batch['layer'])
                 
                 return True
@@ -197,7 +207,9 @@ class DocumentationOrchestrator:
             self.doc_db.commit()
 
     def get_processed_summaries(self) -> Dict[str, str]:
-        """処理済みシンボルの要約を取得 (名前 -> 要約)"""
+        """
+        Get summaries of processed symbols (name -> summary)
+        """
         result = self.doc_db.execute("""
             SELECT symbol_name, summary FROM documents WHERE summary IS NOT NULL AND summary != ''
             LIMIT 2000;
@@ -205,7 +217,9 @@ class DocumentationOrchestrator:
         return {row[0]: row[1] for row in result}
 
     def build_prompt(self, symbol_ids: List[int], layer: int) -> Tuple[str, List[str]]:
-        """バッチ処理用のプロンプトを構築"""
+        """
+        Build prompt for batch processing
+        """
         symbol_names = [self.symbol_details[sid]['name'] for sid in symbol_ids]
         symbol_list_str = '\n'.join([f'- {name}' for name in symbol_names])
 
@@ -213,7 +227,7 @@ class DocumentationOrchestrator:
         
         relevant_processed = set()
         for symbol_id in symbol_ids:
-            # このシンボルの依存先を取得 (IDベース)
+            # Get dependencies for this symbol (ID-based)
             deps = self.meta_db.execute("""
                 SELECT to_node FROM dependencies WHERE from_node = ?;
             """, (symbol_id,)).fetchall()
@@ -226,8 +240,8 @@ class DocumentationOrchestrator:
                     
         relevant_list_str = '\n'.join(sorted(list(relevant_processed))[:15])
         
-        # プロンプトテンプレート
-        # claudeコマンドでindex を参照することを前提としたプロンプト
+    # Prompt template
+    # Prompt assumes referencing index with claude command
         prompt = f"""# PostgreSQL Codebase Documentation Generation Task
 
 You are an expert deeply familiar with PostgreSQL source code.
@@ -307,7 +321,9 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
         return (prompt, symbol_names)
         
     def store_generated_documents(self, symbol_ids: List[int], layer: int):
-        """生成されたドキュメントをDuckDBに格納"""
+        """
+        Store generated documents in DuckDB
+        """
         temp_dir = Path('output/temp')
         temp_dir.mkdir(exist_ok=True)
         
@@ -325,7 +341,7 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
                     print(f"  Error extracting relationships for {symbol_name}: {e}")
                     deps, related = [], []
 
-                # ドキュメントをDBに格納 (IDベース)
+                # Store document in DB (ID-based)
                 self.doc_db.execute("""
                     INSERT INTO documents (symbol_id, symbol_name, symbol_type, layer, content, summary, dependencies, related_symbols)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -334,7 +350,7 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
                         dependencies = EXCLUDED.dependencies, related_symbols = EXCLUDED.related_symbols;
                 """, (sid, symbol_name, symbol_type, layer, content, summary, json.dumps(deps), json.dumps(related)))
                 
-                doc_path.unlink() # 一時ファイルを削除
+                doc_path.unlink() # Delete temporary file
                 print(f"  Stored document for: {symbol_name} (ID: {sid})")
             else:
                 print(f"  Warning: Document file not found for {symbol_name}")
@@ -342,7 +358,9 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
         self.doc_db.commit()
 
     def extract_summary(self, content: str) -> str:
-        """ドキュメントから概要を抽出"""
+        """
+        Extract summary from document
+        """
         lines = content.split('\n')
         in_summary = False
         summary_lines = []
@@ -357,7 +375,9 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
         return ' '.join(summary_lines[:2])
 
     def extract_relationships(self, content: str) -> tuple:
-        """ドキュメントから関係性を抽出"""
+        """
+        Extract relationships from document
+        """
         import re
         deps = re.findall(r'-\s*Functions called/Symbols referenced:\s*\n(.*?)(?=\n-|\n##|\Z)', content, re.DOTALL)
         deps_list = re.findall(r'-\s*(\w+)', ''.join(deps))
@@ -368,7 +388,9 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
         return list(set(deps_list)), list(set(related_list))
 
     def show_progress(self):
-        """進捗を表示"""
+        """
+        Show progress
+        """
         if self.stats['total_symbols'] == 0: return
         processed_ids = self.get_processed_symbol_ids()
         progress = (float(len(processed_ids)) / self.stats['total_symbols']) * 100

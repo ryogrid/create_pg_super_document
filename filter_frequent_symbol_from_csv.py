@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-CSVファイルの第2要素（2番目のカラム）について、
-同一値の行数を集計し、多い順に上位40位を表示するスクリプト
---excludeオプションで上位40位の値を含む行を除外してから再集計可能
---excludeオプション使用時は除外後のCSVデータを自動的に出力
+Script to count the occurrences of the 2nd element (2nd column) in a CSV file,
+and display the top 40 most frequent values in descending order.
+--exclude option allows exclusion of rows containing top 40 values before recounting.
+When --exclude option is used, the filtered CSV data is automatically output.
 """
 
 import csv
@@ -14,14 +14,14 @@ from typing import List, Optional
 
 def get_top_values_from_csv(filepath: str, top_n: int = 40) -> List[str]:
     """
-    CSVファイルの第2要素を集計し、上位N位の値のリストを返す
+    Count the 2nd elements in a CSV file and return a list of top N values
     
     Args:
-        filepath: CSVファイルのパス
-        top_n: 上位何位まで取得するか
+        filepath: Path to the CSV file
+        top_n: How many top values to retrieve
         
     Returns:
-        上位N位の値のリスト
+        List of top N values
     """
     second_elements = []
     
@@ -30,25 +30,25 @@ def get_top_values_from_csv(filepath: str, top_n: int = 40) -> List[str]:
             csv_reader = csv.reader(file)
             
             for row_num, row in enumerate(csv_reader, 1):
-                # 空行をスキップ
+                # Skip empty rows
                 if not row:
                     continue
                     
-                # 2つ以上の要素があることを確認
+                # Ensure there are at least 2 elements
                 if len(row) < 2:
                     continue
                 
-                second_element = row[1].strip()  # 空白を除去
+                second_element = row[1].strip()  # Remove whitespace
                 second_elements.append(second_element)
                     
     except FileNotFoundError:
-        print(f"エラー: ファイル '{filepath}' が見つかりません")
+        print(f"Error: File '{filepath}' not found")
         return []
     except Exception as e:
-        print(f"エラー: ファイル読み込み中にエラーが発生しました: {e}")
+        print(f"Error: An error occurred while reading the file: {e}")
         return []
     
-    # 出現回数をカウントして上位N位の値を取得
+    # Count occurrences and get top N values
     counter = Counter(second_elements)
     top_items = counter.most_common(top_n)
     
@@ -61,17 +61,17 @@ def filter_csv_excluding_top_values(
     exclude_top40: bool = False
 ) -> int:
     """
-    上位40位の値を含む行を除外したCSVファイルを出力する
+    Output a CSV file excluding rows containing top 40 values
     
     Args:
-        input_filepath: 入力CSVファイルのパス
-        output_filepath: 出力CSVファイルのパス
-        exclude_top40: 上位40位の値を除外するかどうか
+        input_filepath: Path to the input CSV file
+        output_filepath: Path to the output CSV file
+        exclude_top40: Whether to exclude top 40 values
         
     Returns:
-        出力された行数
+        Number of output rows
     """
-    # 除外する値のリストを取得
+    # Get list of values to exclude
     exclude_values = []
     if exclude_top40:
         exclude_values = get_top_values_from_csv(input_filepath, 40)
@@ -85,36 +85,36 @@ def filter_csv_excluding_top_values(
             csv_reader = csv.reader(file)
             
             for row_num, row in enumerate(csv_reader, 1):
-                # 空行をスキップ
+                # Skip empty rows
                 if not row:
                     continue
                     
-                # 2つ以上の要素があることを確認
+                # Ensure there are at least 2 elements
                 if len(row) < 2:
-                    print(f"警告: 行{row_num}に十分な要素がありません: {row}")
+                    print(f"Warning: Row {row_num} does not have enough elements: {row}")
                     continue
                 
-                second_element = row[1].strip()  # 空白を除去
+                second_element = row[1].strip()  # Remove whitespace
                 
-                # 除外リストに含まれていない場合のみ追加
+                # Add only if not in exclude list
                 if not exclude_top40 or second_element not in exclude_values:
                     filtered_rows.append(row)
                     
     except FileNotFoundError:
-        print(f"エラー: ファイル '{input_filepath}' が見つかりません")
+        print(f"Error: File '{input_filepath}' not found")
         return 0
     except Exception as e:
-        print(f"エラー: ファイル読み込み中にエラーが発生しました: {e}")
+        print(f"Error: An error occurred while reading the file: {e}")
         return 0
     
-    # フィルター後のデータを出力
+    # Output filtered data
     try:
         with open(output_filepath, 'w', encoding='utf-8', newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerows(filtered_rows)
             
     except Exception as e:
-        print(f"エラー: ファイル出力中にエラーが発生しました: {e}")
+        print(f"Error: An error occurred while writing the file: {e}")
         return 0
     
     return len(filtered_rows)
@@ -126,24 +126,24 @@ def analyze_csv_second_column(
     top_n: int = 40
 ) -> List[tuple]:
     """
-    CSVファイルの第2要素を集計し、出現回数の多い順に返す
+    Count the 2nd elements in a CSV file and return them in descending order of frequency
     
     Args:
-        filepath: CSVファイルのパス
-        exclude_top40: 上位40位の値を除外するかどうか
-        top_n: 上位何位まで表示するか
+        filepath: Path to the CSV file
+        exclude_top40: Whether to exclude top 40 values
+        top_n: How many top values to display
         
     Returns:
-        (値, 出現回数)のタプルのリスト
+        List of (value, frequency) tuples
     """
-    # 除外する値のリストを取得
+    # Get list of values to exclude
     exclude_values = []
     if exclude_top40:
         exclude_values = get_top_values_from_csv(filepath, 40)
         if not exclude_values:
             return []
     
-    # 第2要素を格納するリスト
+    # List to store 2nd elements
     second_elements = []
     
     try:
@@ -151,32 +151,32 @@ def analyze_csv_second_column(
             csv_reader = csv.reader(file)
             
             for row_num, row in enumerate(csv_reader, 1):
-                # 空行をスキップ
+                # Skip empty rows
                 if not row:
                     continue
                     
-                # 2つ以上の要素があることを確認
+                # Ensure there are at least 2 elements
                 if len(row) < 2:
-                    print(f"警告: 行{row_num}に十分な要素がありません: {row}")
+                    print(f"Warning: Row {row_num} does not have enough elements: {row}")
                     continue
                 
-                second_element = row[1].strip()  # 空白を除去
+                second_element = row[1].strip()  # Remove whitespace
                 
-                # 除外リストに含まれていない場合のみ追加
+                # Add only if not in exclude list
                 if second_element not in exclude_values:
                     second_elements.append(second_element)
                     
     except FileNotFoundError:
-        print(f"エラー: ファイル '{filepath}' が見つかりません")
+        print(f"Error: File '{filepath}' not found")
         return []
     except Exception as e:
-        print(f"エラー: ファイル読み込み中にエラーが発生しました: {e}")
+        print(f"Error: An error occurred while reading the file: {e}")
         return []
     
-    # 出現回数をカウント
+    # Count occurrences
     counter = Counter(second_elements)
     
-    # 多い順にソートして上位N位を取得
+    # Sort by frequency and get top N
     top_items = counter.most_common(top_n)
     
     return top_items
@@ -184,51 +184,51 @@ def analyze_csv_second_column(
 
 def main():
     parser = argparse.ArgumentParser(
-        description='CSVファイルの第2要素の出現回数を集計します'
+        description='Count occurrences of the 2nd element in a CSV file'
     )
     
     parser.add_argument(
         'filepath',
-        help='CSVファイルのパス'
+        help='Path to the CSV file'
     )
     
     parser.add_argument(
         '-e', '--exclude',
         action='store_true',
-        help='上位40位の値を含む行を除外してから再集計する'
+        help='Exclude rows containing top 40 values and then recount'
     )
     
     parser.add_argument(
         '-o', '--output',
         type=str,
-        help='除外後のCSVデータの出力ファイルパス（--excludeと組み合わせて使用）'
+        help='Output file path for filtered CSV data (use with --exclude)'
     )
     
     parser.add_argument(
         '-n', '--top',
         type=int,
         default=40,
-        help='表示する上位N位（デフォルト: 40）'
+        help='Number of top entries to display (default: 40)'
     )
     
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',
-        help='詳細情報を表示'
+        help='Display verbose information'
     )
     
     args = parser.parse_args()
     
     if args.verbose:
-        print(f"ファイル: {args.filepath}")
+        print(f"File: {args.filepath}")
         if args.exclude:
-            print("除外モード: 上位40位の値を除外してから再集計")
+            print("Exclude mode: Exclude rows containing top 40 values and then recount")
             if args.output:
-                print(f"除外後CSVファイル出力: {args.output}")
-        print(f"表示件数: {args.top}")
+                print(f"Output filtered CSV file: {args.output}")
+        print(f"Display count: {args.top}")
         print("-" * 50)
     
-    # 除外後のCSVファイル出力（--excludeと--outputが指定された場合）
+    # Output filtered CSV file (when --exclude and --output are specified)
     if args.exclude and args.output:
         output_rows = filter_csv_excluding_top_values(
             args.filepath,
@@ -237,15 +237,15 @@ def main():
         )
         
         if output_rows > 0:
-            print(f"除外後のCSVデータを '{args.output}' に出力しました ({output_rows} 行)")
+            print(f"Filtered CSV data output to '{args.output}' ({output_rows} rows)")
             print("-" * 50)
         else:
-            print("CSVデータの出力に失敗しました")
+            print("Failed to output CSV data")
             return
     elif args.exclude and not args.output:
-        # --excludeが指定されているが--outputが指定されていない場合
-        # 自動的に出力ファイル名を生成
-        input_name = args.filepath.rsplit('.', 1)[0]  # 拡張子を除去
+        # When --exclude is specified but --output is not
+        # Automatically generate output filename
+        input_name = args.filepath.rsplit('.', 1)[0]  # Remove extension
         auto_output = f"{input_name}_filtered.csv"
         
         output_rows = filter_csv_excluding_top_values(
@@ -255,13 +255,13 @@ def main():
         )
         
         if output_rows > 0:
-            print(f"除外後のCSVデータを '{auto_output}' に出力しました ({output_rows} 行)")
+            print(f"Filtered CSV data output to '{auto_output}' ({output_rows} rows)")
             print("-" * 50)
         else:
-            print("CSVデータの出力に失敗しました")
+            print("Failed to output CSV data")
             return
     
-    # 分析実行
+    # Execute analysis
     results = analyze_csv_second_column(
         args.filepath,
         args.exclude,
@@ -269,16 +269,16 @@ def main():
     )
     
     if not results:
-        print("結果が得られませんでした")
+        print("No results obtained")
         return
     
-    # 結果表示
+    # Display results
     if args.exclude:
-        print(f"第2要素の出現回数 上位{min(len(results), args.top)}位 (上位40位除外後):")
+        print(f"Top {min(len(results), args.top)} occurrences of 2nd element (after excluding top 40):")
     else:
-        print(f"第2要素の出現回数 上位{min(len(results), args.top)}位:")
+        print(f"Top {min(len(results), args.top)} occurrences of 2nd element:")
     print("-" * 50)
-    print(f"{'順位':<4} {'値':<15} {'出現回数':<8}")
+    print(f"{'Rank':<4} {'Value':<15} {'Count':<8}")
     print("-" * 50)
     
     for rank, (value, count) in enumerate(results, 1):
@@ -287,7 +287,7 @@ def main():
     if args.verbose:
         total_rows = sum(count for _, count in results)
         print("-" * 50)
-        print(f"集計対象行数: {total_rows}")
+        print(f"Total counted rows: {total_rows}")
 
 
 if __name__ == "__main__":
