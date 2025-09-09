@@ -121,7 +121,7 @@ class DocumentationOrchestrator:
             self.show_progress()
             
             # # レート制限対策
-            # time.sleep(2)
+            time.sleep(15)
             
     def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
         """単一バッチを処理"""
@@ -370,8 +370,9 @@ Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *usernam
     def show_progress(self):
         """進捗を表示"""
         if self.stats['total_symbols'] == 0: return
-        progress = (self.stats['processed_symbols'] / self.stats['total_symbols']) * 100
-        print(f"\nProgress: {progress:.1f}% ({self.stats['processed_symbols']}/{self.stats['total_symbols']})")
+        processed_ids = self.get_processed_symbol_ids()
+        progress = (float(len(processed_ids)) / self.stats['total_symbols']) * 100
+        print(f"\nProgress: {progress:.1f}% ({len(processed_ids)}/{self.stats['total_symbols']})")
         print(f"Completed Batches: {self.stats['processed_batches']}/{self.stats['total_batches']}")
 
 def main():
