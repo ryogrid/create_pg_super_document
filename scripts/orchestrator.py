@@ -13,17 +13,18 @@ from typing import List, Dict, Optional, Set, Tuple
 
 class DocumentationOrchestrator:
     def __init__(self, global_symbols_db: str = 'global_symbols.db'):
-    # Load processing batches (ID-based)
+        self.retry_attempts = 0        
+        # Load processing batches (ID-based)        
         with open('data/processing_batches.json') as f:
             self.batches = json.load(f)
 
-    # Load symbol details into memory
+        # Load symbol details into memory
         self._load_symbol_details(global_symbols_db)
         
-    # Initialize DuckDB
+        # Initialize DuckDB
         self.init_databases()
         
-    # Processing statistics
+        # Processing statistics
         self.stats = {
             'total_batches': len(self.batches),
             'processed_batches': 0,
@@ -55,10 +56,10 @@ class DocumentationOrchestrator:
         # Metadata DB (existing)
         self.meta_db = duckdb.connect('data/metadata.duckdb', read_only=True)
         
-    # Document-specific DB
+        # Document-specific DB
         self.doc_db = duckdb.connect('data/documents.duckdb')
         
-    # Document table (revised to be ID-based)
+        # Document table (revised to be ID-based)
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS documents (
                 symbol_id INTEGER PRIMARY KEY,
@@ -74,8 +75,8 @@ class DocumentationOrchestrator:
             );
         """)
         
-    # Processing log table (batch_id as primary key)
-    # Since metadata.duckdb is opened as read-only, logs are written to doc_db
+        # Processing log table (batch_id as primary key)
+        # Since metadata.duckdb is opened as read-only, logs are written to doc_db
         self.doc_db.execute("""
             CREATE TABLE IF NOT EXISTS processing_log (
                 batch_id INTEGER PRIMARY KEY,
@@ -128,8 +129,8 @@ class DocumentationOrchestrator:
             # Show progress
             self.show_progress()
             
-            # # Rate limiting countermeasure
-            time.sleep(15)
+            # Rate limiting countermeasure
+            time.sleep(45)
             
     def process_batch(self, batch: Dict, symbol_ids: List[int]) -> bool:
         """
@@ -137,7 +138,7 @@ class DocumentationOrchestrator:
         """
         batch_id = batch['batch_id']
         
-    # Start log recording
+        # Start log recording
         self.doc_db.execute("""
             INSERT OR REPLACE INTO processing_log 
             (batch_id, symbol_ids, status, started_at, processed_count)
@@ -145,7 +146,7 @@ class DocumentationOrchestrator:
         """, (batch_id, json.dumps(symbol_ids), datetime.now()))
         self.doc_db.commit()
 
-    # Build prompt
+        # Build prompt
         prompt, symbols = self.build_prompt(symbol_ids, batch['layer'])
         
         try:
@@ -181,12 +182,21 @@ class DocumentationOrchestrator:
                 return True
             else:
                 error_msg = result.stderr[:1000] if result.stderr else 'Unknown error'
-                print(f"✗ Failed to process batch {batch_id}: {error_msg}")
-                self.doc_db.execute("""
-                    UPDATE processing_log SET status = 'failed', completed_at = ?, error_message = ?
+                if error_msg == "Unknown error":
+                    self.retry_attempts += 1
+                    self.doc_db.execute("""
+                    UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
                     WHERE batch_id = ?;
-                """, (datetime.now(), error_msg, batch_id))
-                return False
+                    """, (datetime.now(), error_msg, batch_id))                
+                    # wait 10 seconds and retry up to 12 times (2 hours) for rate limit reached case
+                    if self.retry_attempts <= 12:
+                        print("wait 10 minutes before retry...")
+                        time.sleep(600)  # Wait 10 minutes before retry
+                        print(f"Retrying batch {batch_id} (Attempt {retry_attempts}/12)...")
+                        # retry
+                        ret = self.process_batch(batch, symbol_ids)
+                        retry_attempts = 0
+                        return ret                                    
                 
         except subprocess.TimeoutExpired:
             print(f"✗ Batch {batch_id} timed out")
@@ -198,10 +208,22 @@ class DocumentationOrchestrator:
         except Exception as e:
             error_msg = str(e)[:1000]
             print(f"✗ Unexpected error in batch {batch_id}: {error_msg}")
-            self.doc_db.execute("""
+            if error_msg == "Unknown error":
+                retry_attempts += 1
+                self.doc_db.execute("""
                 UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
                 WHERE batch_id = ?;
-            """, (datetime.now(), error_msg, batch_id))
+                """, (datetime.now(), error_msg, batch_id))                
+                # wait 10 seconds and retry up to 12 times (2 hours) for rate limit reached case
+                if self.retry_attempts <= 12:
+                    print("wait 10 minutes before retry...")
+                    time.sleep(600)  # Wait 10 minutes before retry
+                    print(f"Retrying batch {batch_id} (Attempt {retry_attempts}/12)...")
+                    # retry
+                    ret = self.process_batch(batch, symbol_ids)
+                    retry_attempts = 0
+                    return ret
+
             return False
         finally:
             self.doc_db.commit()
@@ -240,8 +262,8 @@ class DocumentationOrchestrator:
                     
         relevant_list_str = '\n'.join(sorted(list(relevant_processed))[:15])
         
-    # Prompt template
-    # Prompt assumes referencing index with claude command
+        # Prompt template
+        # Prompt assumes referencing index with claude command
         prompt = f"""# PostgreSQL Codebase Documentation Generation Task
 
 You are an expert deeply familiar with PostgreSQL source code.
