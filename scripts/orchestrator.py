@@ -188,14 +188,14 @@ class DocumentationOrchestrator:
                     UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
                     WHERE batch_id = ?;
                     """, (datetime.now(), error_msg, batch_id))                
-                    # wait 10 seconds and retry up to 12 times (2 hours) for rate limit reached case
+                    # wait 10 mins and retry up to 12 times (2 hours) for rate limit reached case
                     if self.retry_attempts <= 12:
                         print("wait 10 minutes before retry...")
                         time.sleep(600)  # Wait 10 minutes before retry
                         print(f"Retrying batch {batch_id} (Attempt {retry_attempts}/12)...")
                         # retry
                         ret = self.process_batch(batch, symbol_ids)
-                        retry_attempts = 0
+                        self.retry_attempts = 0
                         return ret                                    
                 
         except subprocess.TimeoutExpired:
@@ -209,7 +209,7 @@ class DocumentationOrchestrator:
             error_msg = str(e)[:1000]
             print(f"✗ Unexpected error in batch {batch_id}: {error_msg}")
             if error_msg == "Unknown error":
-                retry_attempts += 1
+                self.retry_attempts += 1
                 self.doc_db.execute("""
                 UPDATE processing_log SET status = 'error', completed_at = ?, error_message = ?
                 WHERE batch_id = ?;
@@ -221,7 +221,7 @@ class DocumentationOrchestrator:
                     print(f"Retrying batch {batch_id} (Attempt {retry_attempts}/12)...")
                     # retry
                     ret = self.process_batch(batch, symbol_ids)
-                    retry_attempts = 0
+                    self.retry_attempts = 0
                     return ret
 
             return False
