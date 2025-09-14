@@ -1,1 +1,6 @@
 __pycache__/
+postgres/
+src/
+contrib/
+current_batch.json
+output/temp/

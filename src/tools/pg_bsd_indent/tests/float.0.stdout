@@ -1,8 +1,0 @@
-/* $FreeBSD$ */
-/* See r303499 */
-void
-t(void)
-{
-	unsigned long	x = 314UL;
-	float		y = 3.14f;
-}

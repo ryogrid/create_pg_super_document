@@ -18,6 +18,14 @@ except ImportError:
     print("[ERROR] Could not import mcp_tool functions")
     sys.exit(1)
 
+# Import report_progress if available in the environment
+try:
+    # In the GitHub Copilot Agent environment, report_progress is available
+    # This is a no-op placeholder - the actual tool will be called via the environment
+    report_progress = None
+except ImportError:
+    report_progress = None
+
 
 def run_command(cmd, description="Running command"):
     """Run a shell command and return (success, output)"""
@@ -267,49 +275,6 @@ def process_batch():
         return False
     
     print(f"[INFO] Successfully ingested documents: {output}")
-    
-    # Persist the database to the data branch
-    print("[INFO] Persisting database state to data branch...")
-    
-    # Step 1: Switch to data branch
-    run_command("git fetch origin", "Fetching latest changes")
-    success, output = run_command("git checkout -b copilot/agent-documentation-progress 2>/dev/null || git checkout copilot/agent-documentation-progress", 
-                                "Switching to data branch")
-    if not success:
-        print(f"[ERROR] Failed to switch to data branch: {output}")
-        return False
-    
-    # Step 2: Copy updated database from working branch
-    success, output = run_command("git checkout copilot/copilot-work -- data/documents.duckdb", 
-                                "Copying updated database")
-    if not success:
-        print(f"[ERROR] Failed to copy database: {output}")
-        return False
-    
-    # Step 3: Commit and push
-    run_command('git config --global user.name "GitHub Copilot Agent"', "Setting git user name")
-    run_command('git config --global user.email "copilot-agent@users.noreply.github.com"', "Setting git user email")
-    run_command("git add data/documents.duckdb", "Adding database to git")
-    
-    commit_msg = f"docs(data): Persist documentation from batch {batch_id}"
-    success, output = run_command(f'git commit -m "{commit_msg}"', "Committing database")
-    if not success:
-        print(f"[WARNING] Commit may have failed (possibly no changes): {output}")
-    
-    success, output = run_command("git push --set-upstream origin copilot/agent-documentation-progress", 
-                                "Pushing to data branch")
-    if not success:
-        print(f"[ERROR] Failed to push to data branch: {output}")
-        return False
-    
-    # Step 4: Return to working branch
-    success, output = run_command("git checkout copilot/copilot-work", "Returning to working branch")
-    if not success:
-        print(f"[ERROR] Failed to return to working branch: {output}")
-        return False
-    
-    # Step 5: Clean up
-    run_command("rm -f current_batch.json", "Cleaning up batch file")
     
     print(f"[INFO] Successfully completed batch {batch_id}")
     return True
