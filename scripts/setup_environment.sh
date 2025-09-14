@@ -16,9 +16,6 @@ fi
 cd "$POSTGRES_DIR"
 echo "Checking out specific commit: $POSTGRES_COMMIT"
 git checkout "$POSTGRES_COMMIT"
-
-echo "Generating GNU GLOBAL tags (gtags)..."
-# The --gtagslabel=ctags ensures compatibility.
-gtags --gtagslabel=ctags
-
-echo "Environment setup complete. GTAGS index is ready."
+mv src ../
+mv contrib ../
+cd ..
