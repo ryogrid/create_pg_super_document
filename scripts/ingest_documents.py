@@ -46,6 +46,21 @@ def ingest_all_documents(
     doc_con = duckdb.connect(doc_db_file)
     sym_con = duckdb.connect(symbols_db_file, read_only=True)
     
+    # Create the documents table if it doesn't exist
+    doc_con.execute("""
+        CREATE TABLE IF NOT EXISTS documents (
+            symbol_id INTEGER PRIMARY KEY,
+            symbol_name VARCHAR,
+            symbol_type VARCHAR,
+            content TEXT,
+            summary TEXT,
+            dependencies JSON,
+            related_symbols JSON,
+            created_at TIMESTAMP DEFAULT NOW(),
+            updated_at TIMESTAMP DEFAULT NOW()
+        )
+    """)
+    
     ingested_symbols = []
     for doc_path in TEMP_DIR.glob("*.md"):
         symbol_name = doc_path.stem
@@ -70,15 +85,15 @@ def ingest_all_documents(
         doc_con.execute("""
             INSERT INTO documents (
                 symbol_id, symbol_name, symbol_type, content, summary, 
-                dependencies, related_symbols
+                dependencies, related_symbols, updated_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
             ON CONFLICT (symbol_id) DO UPDATE SET
                 content = EXCLUDED.content,
                 summary = EXCLUDED.summary,
                 dependencies = EXCLUDED.dependencies,
                 related_symbols = EXCLUDED.related_symbols,
-                updated_at = CURRENT_TIMESTAMP;
+                updated_at = NOW()
         """, (
             sid, symbol_name, symbol_type, content, summary, 
             json.dumps(dependencies), json.dumps(related_symbols)
