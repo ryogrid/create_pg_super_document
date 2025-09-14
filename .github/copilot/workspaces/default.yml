@@ -1,0 +1,24 @@
+# .github/copilot/workspaces/default.yml
+# This file defines the development container environment for the Copilot agent.
+name: copilot-agent-workspace
+
+# Use a base Ubuntu image with pre-installed development tools.
+image: mcr.microsoft.com/devcontainers/base:ubuntu
+
+# Add features to the container, such as Python and Git.
+features:
+  "ghcr.io/devcontainers/features/python:1":
+    version: "3.11"
+  "ghcr.io/devcontainers/features/git:1": {}
+
+# Commands to run after the container is created.
+# This is where we install all necessary system and Python dependencies.
+postCreateCommand: |
+  # Install system dependencies for GNU Global
+  sudo apt-get update && sudo apt-get install -y global exuberant-ctags
+
+  # Install Python packages
+  pip install --upgrade pip
+  pip install -r requirements.txt
+
+  echo "Dev container is ready for the Copilot Agent."
