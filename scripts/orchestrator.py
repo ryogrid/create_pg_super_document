@@ -276,11 +276,7 @@ class DocumentationOrchestrator:
                     if self.retry_attempts <= 5:
                         wait_time = 60 * (2 ** self.retry_attempts)
                         print(f"Rate limit reached. Waiting for {wait_time} seconds before retry (Attempt {self.retry_attempts}/5)...")
-                        time.sleep(wait_time)
-                        
-                        # We must decrement the count before retrying, as this attempt failed
-                        # and the retry logic will increment it again.
-                        self.request_count -= 1
+                        time.sleep(wait_time)                                              
                         
                         ret = self.process_batch(batch, symbol_ids)
                         if ret:
