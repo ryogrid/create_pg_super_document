@@ -73,4 +73,4 @@ Your primary working branch is `copilot`. You will perform all tasks on this bra
            rm current_batch.json
            ```
 
-3.  **Finalize**: Once the loop is complete, create a pull request from the `agent-documentation-progress` branch to `copilot`. You can also create a PR from `copilot` to `main` if any scripts or configurations were changed during your work.
+3.  **Finalize**: Once the loop is complete, create a pull request from the `agent-documentation-progress` branch to `copilot`.
