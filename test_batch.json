@@ -1,0 +1,41 @@
+{
+  "batch_id": 3841,
+  "symbols_to_process": [
+    {
+      "symbol_name": "resolve_anyelement_from_others",
+      "definition": "// Symbol: resolve_anyelement_from_others\n// Definition not available",
+      "references_from_this": "polymorphic_actuals            at Line   589\ngetBaseType                    at Line   594\nget_element_type               at Line   595\ngetBaseType                    at Line   608\nget_range_subtype              at Line   609\ngetBaseType                    at Line   627\nget_multirange_range           at Line   628\ngetBaseType                    at Line   636\nget_range_subtype              at Line   637",
+      "references_to_this": "resolve_anyarray_from_others   at src/backend/utils/fmgr/funcapi.c:  659\nresolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  910\nresolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  922\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1255\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1267",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "resolve_anyarray_from_others",
+      "definition": "// Symbol: resolve_anyarray_from_others\n// Definition not available",
+      "references_from_this": "polymorphic_actuals            at Line   655\nresolve_anyelement_from_others at Line   659\nget_array_type                 at Line   664",
+      "references_to_this": "resolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  913\nresolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  925\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1258\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1270",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "resolve_anyrange_from_others",
+      "definition": "// Symbol: resolve_anyrange_from_others\n// Definition not available",
+      "references_from_this": "polymorphic_actuals            at Line   681\ngetBaseType                    at Line   691\nget_multirange_range           at Line   692",
+      "references_to_this": "resolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  916\nresolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  928\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1261\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1273",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "resolve_anymultirange_from_others",
+      "definition": "// Symbol: resolve_anymultirange_from_others\n// Definition not available",
+      "references_from_this": "polymorphic_actuals            at Line   710\ngetBaseType                    at Line   719\nget_range_multirange           at Line   720",
+      "references_to_this": "resolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  919\nresolve_polymorphic_tupdesc    at src/backend/utils/fmgr/funcapi.c:  931\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1264\nresolve_polymorphic_argtypes   at src/backend/utils/fmgr/funcapi.c: 1276",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "resolve_polymorphic_tupdesc",
+      "definition": "// Symbol: resolve_polymorphic_tupdesc\n// Definition not available",
+      "references_from_this": "oidvector                      at Line   744\npolymorphic_actuals            at Line   758\npolymorphic_actuals            at Line   759\nget_call_expr_argtype          at Line   834\nget_call_expr_argtype          at Line   843\nget_call_expr_argtype          at Line   852\nget_call_expr_argtype          at Line   861\nget_call_expr_argtype          at Line   871\nget_call_expr_argtype          at Line   880\nget_call_expr_argtype          at Line   889\nget_call_expr_argtype          at Line   898\nresolve_anyelement_from_others at Line   910\nresolve_anyarray_from_others   at Line   913\nresolve_anyrange_from_others   at Line   916\nresolve_anymultirange_from_others at Line   919\nresolve_anyelement_from_others at Line   922\nresolve_anyarray_from_others   at Line   925\nresolve_anyrange_from_others   at Line   928\nresolve_anymultirange_from_others at Line   931\nget_typcollation               at Line   941\nget_typcollation               at Line   943\nget_typcollation               at Line   946\nget_typcollation               at Line   948\nexprInputCollation             at Line   957\nTupleDescInitEntry             at Line   978\nTupleDescInitEntryCollation    at Line   983\nTupleDescInitEntry             at Line   986\nTupleDescInitEntryCollation    at Line   991\nTupleDescInitEntry             at Line   994\nTupleDescInitEntry             at Line  1002\nTupleDescInitEntry             at Line  1011\nTupleDescInitEntryCollation    at Line  1016\nTupleDescInitEntry             at Line  1019\nTupleDescInitEntryCollation    at Line  1024\nTupleDescInitEntry             at Line  1027\nTupleDescInitEntry             at Line  1035",
+      "references_to_this": "internal_get_result_type       at src/backend/utils/fmgr/funcapi.c:  463",
+      "related_symbol_summaries": []
+    }
+  ],
+  "required_markdown_format": "\n# [Symbol Name]\n\n## Overview\n(Briefly explain the purpose and role of this symbol in 1-2 sentences)\n\n## Definition\n(Provide the function signature or struct/enum definition)\nExample: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)\n\n\n## Detailed Description\n(Provide specific explanation of the symbol's functionality, behavior, design philosophy, etc.)\n\n## Parameters / Member Variables\n(Explain the role and meaning of each function parameter or struct member in a bulleted list)\n- `param1`: (description)\n- `member1`: (description)\n\n## Dependencies\n- Functions called/Symbols referenced:\n  - func_a\n  - TYPE_B\n- Called from (representative examples):\n  - caller_func_x\n  - caller_func_y\n\n## Notes and Other Information\n(Notable points, usage precautions, related background knowledge, etc.)\n"
+}

@@ -91,9 +91,31 @@ def get_next_unprocessed_batch_with_context(
                         summary = processed_summaries[dep_name]
                         relevant_summaries.append(f"- {dep_name}: {summary[:120]}")
 
+                # Handle missing source files gracefully - use database content
+                try:
+                    definition = node.get_source_code()
+                except FileNotFoundError:
+                    # Use symbol definition from database when source files are not available
+                    try:
+                        # Get connection to the symbol definitions database
+                        db_con = duckdb.connect(symbols_db_file, read_only=True)
+                        db_def = db_con.execute(
+                            "SELECT line_content, file_path, line_num_start, line_num_end FROM symbol_definitions WHERE symbol_name = ?", 
+                            (symbol_name,)
+                        ).fetchone()
+                        db_con.close()
+                        
+                        if db_def and db_def[0]:
+                            definition = f"{db_def[0]}\n\n// Source: {db_def[1]} lines {db_def[2]}-{db_def[3]}"
+                        else:
+                            definition = f"// Symbol: {symbol_name}\n// No source definition available"
+                    except Exception as db_error:
+                        print(f"Warning: Could not get definition for {symbol_name}: {db_error}", file=sys.stderr)
+                        definition = f"// Symbol: {symbol_name}\n// Definition not available"
+                
                 enriched_symbols.append({
                     "symbol_name": node.symbol_name,
-                    "definition": node.get_source_code(),
+                    "definition": definition,
                     "references_from_this": node.get_references_from_this(),
                     "references_to_this": node.get_references_to_this(),
                     "related_symbol_summaries": sorted(list(set(relevant_summaries)))[:15],
