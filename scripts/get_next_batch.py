@@ -19,7 +19,7 @@ def get_processed_symbol_ids(doc_db_file: str) -> set:
         processed_ids = set(row[0] for row in doc_con.execute("SELECT symbol_id FROM documents").fetchall())
         doc_con.close()
         return processed_ids
-    except duckdb.IOException:
+    except (duckdb.IOException, duckdb.CatalogException):
         return set()
 
 def get_symbol_details_map(db_file: str) -> dict:
@@ -42,7 +42,7 @@ def get_processed_summaries(doc_db_file: str) -> dict:
         }
         doc_con.close()
         return summaries
-    except duckdb.IOException:
+    except (duckdb.IOException, duckdb.CatalogException):
         return {}
 
 
@@ -75,7 +75,12 @@ def get_next_unprocessed_batch_with_context(
         enriched_symbols = []
         for symbol_id in unprocessed_ids:
             try:
-                node = SNode(symbol_id)
+                # Get symbol name from symbol_details_map
+                symbol_name = symbol_details_map.get(symbol_id, {}).get('name')
+                if not symbol_name:
+                    continue  # Skip if symbol not found
+                    
+                node = SNode(symbol_name)
                 
                 # Gather related symbol summaries
                 relevant_summaries = []

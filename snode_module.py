@@ -126,13 +126,12 @@ class SNode:
             return self._contents
         
     # Check if file exists
-        postgres_path = Path("postgres") / self.file_path
-        if not postgres_path.exists():
-            raise FileNotFoundError(f"Source file '{postgres_path}' not found")
+        if not Path(self.file_path).exists():
+            raise FileNotFoundError(f"Source file '{self.file_path}' not found")
         
     # Read the relevant lines from the file
         try:
-            with open(postgres_path, 'r', encoding='utf-8', errors='ignore') as f:
+            with open(self.file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 lines = f.readlines()
             
             # Line numbers are 1-based, array indices are 0-based
