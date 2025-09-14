@@ -78,7 +78,7 @@ def ingest_all_documents(
                 summary = EXCLUDED.summary,
                 dependencies = EXCLUDED.dependencies,
                 related_symbols = EXCLUDED.related_symbols,
-                updated_at = CURRENT_TIMESTAMP;
+                updated_at = now();
         """, (
             sid, symbol_name, symbol_type, content, summary, 
             json.dumps(dependencies), json.dumps(related_symbols)

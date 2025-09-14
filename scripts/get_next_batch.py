@@ -75,7 +75,12 @@ def get_next_unprocessed_batch_with_context(
         enriched_symbols = []
         for symbol_id in unprocessed_ids:
             try:
-                node = SNode(symbol_id)
+                # Convert symbol_id to symbol_name first
+                symbol_name = symbol_details_map.get(symbol_id, {}).get('name')
+                if not symbol_name:
+                    print(f"Warning: Symbol ID {symbol_id} not found in symbol_details_map", file=sys.stderr)
+                    continue
+                node = SNode(symbol_name)
                 
                 # Gather related symbol summaries
                 relevant_summaries = []
