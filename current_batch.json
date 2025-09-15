@@ -1,0 +1,46 @@
+{
+  "batch_id": 3821,
+  "symbols_to_process": [
+    {
+      "symbol_name": "EstimateLibraryStateSpace",
+      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:632-648\n/*\n * Estimate the amount of space needed to serialize the list of libraries\n * we have loaded.\n */\nSize\nEstimateLibraryStateSpace(void)\n{\n\tDynamicFileList *file_scanner;\n\tSize\t\tsize = 1;\n\n\tfor (file_scanner = file_list;\n\t\t file_scanner != NULL;\n\t\t file_scanner = file_scanner->next)\n\t\tsize = add_size(size, strlen(file_scanner->filename) + 1);\n\n\treturn size;\n}\n",
+      "references_from_this": "DynamicFileList                at Line   639\nadd_size                       at Line   645",
+      "references_to_this": "InitializeParallelDSM          at src/backend/access/transam/parallel.c:  266\nOidFunctionCall9               at src/include/fmgr.h:  749",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "SerializeLibraryState",
+      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:650-670\n/*\n * Serialize the list of libraries we have loaded to a chunk of memory.\n */\nvoid\nSerializeLibraryState(Size maxsize, char *start_address)\n{\n\tDynamicFileList *file_scanner;\n\n\tfor (file_scanner = file_list;\n\t\t file_scanner != NULL;\n\t\t file_scanner = file_scanner->next)\n\t{\n\t\tSize\t\tlen;\n\n\t\tlen = strlcpy(start_address, file_scanner->filename, maxsize) + 1;\n\t\tAssert(len < maxsize);\n\t\tmaxsize -= len;\n\t\tstart_address += len;\n\t}\n\tstart_address[0] = '\\0';\n}\n",
+      "references_from_this": "DynamicFileList                at Line   656\nstrlcpy                        at Line   664",
+      "references_to_this": "InitializeParallelDSM          at src/backend/access/transam/parallel.c:  379\nOidFunctionCall9               at src/include/fmgr.h:  750",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "RestoreLibraryState",
+      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:672-683\n/*\n * Load every library the serializing backend had loaded.\n */\nvoid\nRestoreLibraryState(char *start_address)\n{\n\twhile (*start_address != '\\0')\n\t{\n\t\tinternal_load_library(start_address);\n\t\tstart_address += strlen(start_address) + 1;\n\t}\n}\n",
+      "references_from_this": "internal_load_library          at Line   680",
+      "references_to_this": "ParallelWorkerMain             at src/backend/access/transam/parallel.c: 1446\nOidFunctionCall9               at src/include/fmgr.h:  751",
+      "related_symbol_summaries": [
+        "- internal_load_library: internal_load_library is PostgreSQL's core dynamic library loading function that manages shared library loading with intelligent caching, version comp"
+      ]
+    }
+  ],
+  "context_reset_instruction": "IMPORTANT: You are starting fresh with this batch. Previous conversations are irrelevant.",
+  "copilot_specific_instructions": {
+    "focus_areas": [
+      "Write comprehensive, detailed explanations",
+      "Include specific technical details and implementation context",
+      "Provide thorough parameter/member descriptions",
+      "Explain the 'why' behind each symbol's design",
+      "Include concrete usage examples where possible"
+    ],
+    "quality_requirements": [
+      "Each overview should be 2-3 sentences minimum",
+      "Detailed descriptions should be at least 3-4 sentences",
+      "Every parameter must be thoroughly explained",
+      "Dependencies section should include reasoning for relationships"
+    ]
+  },
+  "quality_example": "\nEXAMPLE OF HIGH-QUALITY DOCUMENTATION:\n\n# heap_insert\n\n## Overview\nInserts a new tuple into a heap table, handling MVCC versioning and triggering necessary maintenance operations.\n\n## Definition\n```c\nHeapTuple heap_insert(Relation relation, HeapTuple tup, CommandId cid, \n                      int options, BulkInsertState bistate)\n```\n\n## Detailed Description\nheap_insert performs the fundamental operation of adding a new tuple to a PostgreSQL heap table. It manages transaction visibility information through MVCC (Multi-Version Concurrency Control) by setting the appropriate transaction ID and command ID in the tuple header. The function also handles various optimization strategies including bulk insert operations and handles toast operations for large values. It coordinates with the buffer manager to ensure proper page allocation and maintains WAL (Write-Ahead Log) records for crash recovery.\n\n## Parameters / Member Variables\n- `relation`: The target relation (table) where the tuple will be inserted\n- `tup`: The HeapTuple structure containing the data to be inserted  \n- `cid`: Command ID for MVCC visibility determination\n- `options`: Bitmask of insert options (e.g., HEAP_INSERT_SKIP_WAL)\n- `bistate`: State for bulk insert optimizations, can be NULL for single inserts\n\n## Dependencies\n- **Called functions/Referenced symbols**:\n  - `RelationGetBufferForTuple` - Allocates buffer space for the new tuple\n  - `PageAddItem` - Adds the tuple to the page\n  - `XLogInsert` - Creates WAL record for the insertion\n  - `toast_insert_or_update` - Handles large attribute values\n- **Called from (representative examples)**:\n  - `table_tuple_insert` - Generic table insertion interface\n  - `CatalogTupleInsert` - System catalog insertions\n  - `ExecInsert` - Executor node for INSERT statements\n\n## Notes & Other Information\nThis function is performance-critical and includes several optimizations for bulk operations. When using BulkInsertState, multiple insertions can share buffer and WAL optimizations. The function must be called within a valid transaction context and proper locking must be established on the relation before calling.\n",
+  "required_markdown_format": "\n# [Symbol Name]\n\n## Overview\n(Provide a comprehensive 2-3 sentence explanation of the symbol's purpose, role in PostgreSQL, and its significance in the codebase. Be specific about what it does and why it exists.)\n\n## Definition\n(Provide the complete function signature, struct definition, or enum definition in a code block)\n```c\n// Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)\n```\n\n## Detailed Description\n(Write a comprehensive 4-6 sentence explanation covering:\n- What the symbol does technically\n- How it fits into PostgreSQL's architecture\n- Key algorithms or logic it implements\n- Important behavioral characteristics\n- Performance considerations if relevant)\n\n## Parameters / Member Variables\n(For each parameter/member, provide detailed explanations including purpose, expected values, constraints, and relationships to other parameters)\n- `param1`: (Detailed description including type information, purpose, valid range/values, and how it affects behavior)\n- `member1`: (For struct members, explain the data stored, when it's set, and how it's used)\n\n## Dependencies\n- **Functions called/Symbols referenced**:\n  (List key functions this symbol calls, with brief explanations of why)\n  - `func_a` - Brief explanation of why this dependency exists\n  - `TYPE_B` - Description of how this type is used\n- **Called from (representative examples)**:\n  (List important callers, explaining the context of the calls)\n  - `caller_func_x` - Context of when/why this calls our symbol\n  - `caller_func_y` - Another important usage context\n\n## Notes & Other Information\n(Include important implementation notes, performance considerations, thread safety notes, error handling behavior, historical context, or related design decisions. This section should provide insights that help developers understand the broader context.)\n"
+}
