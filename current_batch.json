@@ -1,26 +1,21 @@
 {
-  "batch_id": 3948,
+  "batch_id": 3950,
   "symbols_to_process": [
     {
-      "symbol_name": "read_gucstate",
-      "definition": "Source: src/backend/utils/misc/guc.c:6135-6161\n/*\n * read_gucstate:\n * Actually it does not read anything, just returns the srcptr. But it does\n * move the srcptr past the terminating zero byte, so that the caller is ready\n * to read the next string.\n */\nstatic char *\nread_gucstate(char **srcptr, char *srcend)\n{\n\tchar\t   *retptr = *srcptr;\n\tchar\t   *ptr;\n\n\tif (*srcptr >= srcend)\n\t\telog(ERROR, \"incomplete GUC state\");\n\n\t/* The string variables are all null terminated */\n\tfor (ptr = *srcptr; ptr < srcend && *ptr != '\\0'; ptr++)\n\t\t;\n\n\tif (ptr >= srcend)\n\t\telog(ERROR, \"could not find null terminator in GUC state\");\n\n\t/* Set the new position to the byte following the terminating NUL */\n\t*srcptr = ptr + 1;\n\n\treturn retptr;\n}\n",
+      "symbol_name": "GUC_check_errcode",
+      "definition": "Source: src/backend/utils/misc/guc.c:6790-6802\n/*\n * Called by check_hooks that want to override the normal\n * ERRCODE_INVALID_PARAMETER_VALUE SQLSTATE for check hook failures.\n *\n * Note that GUC_check_errmsg() etc are just macros that result in a direct\n * assignment to the associated variables.  That is ugly, but forced by the\n * limitations of C's macro mechanisms.\n */\nvoid\nGUC_check_errcode(int sqlerrcode)\n{\n\tGUC_check_errcode_value = sqlerrcode;\n}\n",
       "references_from_this": "No references from this symbol",
-      "references_to_this": "RestoreGUCState                at src/backend/utils/misc/guc.c: 6329\nRestoreGUCState                at src/backend/utils/misc/guc.c: 6330\nRestoreGUCState                at src/backend/utils/misc/guc.c: 6331",
+      "references_to_this": "check_transaction_read_only    at src/backend/commands/variable.c:  551\ncheck_transaction_read_only    at src/backend/commands/variable.c:  558\ncheck_transaction_read_only    at src/backend/commands/variable.c:  565\ncheck_transaction_isolation    at src/backend/commands/variable.c:  591\ncheck_transaction_isolation    at src/backend/commands/variable.c:  598\ncheck_transaction_isolation    at src/backend/commands/variable.c:  605\ncheck_transaction_deferrable   at src/backend/commands/variable.c:  624\ncheck_transaction_deferrable   at src/backend/commands/variable.c:  630\ncheck_client_encoding          at src/backend/commands/variable.c:  712\ncheck_session_authorization    at src/backend/commands/variable.c:  880\ncheck_role                     at src/backend/commands/variable.c:  995\ncheck_default_with_oids        at src/backend/commands/variable.c: 1213\ncheck_synchronous_standby_names at src/backend/replication/syncrep.c: 1076\nEmitWarningsOnPlaceholders     at src/include/utils/guc.h:  442",
       "related_symbol_summaries": []
     },
     {
-      "symbol_name": "read_gucstate_binary",
-      "definition": "Source: src/backend/utils/misc/guc.c:6163-6172\n/* Binary read version of read_gucstate(). Copies into dest */\nstatic void\nread_gucstate_binary(char **srcptr, char *srcend, void *dest, Size size)\n{\n\tif (*srcptr + size > srcend)\n\t\telog(ERROR, \"incomplete GUC state\");\n\n\tmemcpy(dest, *srcptr, size);\n\t*srcptr += size;\n}\n",
-      "references_from_this": "No references from this symbol",
-      "references_to_this": "RestoreGUCState                at src/backend/utils/misc/guc.c: 6333\nRestoreGUCState                at src/backend/utils/misc/guc.c: 6337\nRestoreGUCState                at src/backend/utils/misc/guc.c: 6339\nRestoreGUCState                at src/backend/utils/misc/guc.c: 6341",
-      "related_symbol_summaries": []
-    },
-    {
-      "symbol_name": "guc_restore_error_context_callback",
-      "definition": "Source: src/backend/utils/misc/guc.c:6174-6187\n/*\n * Callback used to add a context message when reporting errors that occur\n * while trying to restore GUCs in parallel workers.\n */\nstatic void\nguc_restore_error_context_callback(void *arg)\n{\n\tchar\t  **error_context_name_and_value = (char **) arg;\n\n\tif (error_context_name_and_value)\n\t\terrcontext(\"while setting parameter \\\"%s\\\" to \\\"%s\\\"\",\n\t\t\t\t   error_context_name_and_value[0],\n\t\t\t\t   error_context_name_and_value[1]);\n}\n",
-      "references_from_this": "errcontext                     at Line  6184",
-      "references_to_this": "RestoreGUCState                at src/backend/utils/misc/guc.c: 6318",
-      "related_symbol_summaries": []
+      "symbol_name": "call_bool_check_hook",
+      "definition": "Source: src/backend/utils/misc/guc.c:6805-6843\n/*\n * Convenience functions to manage calling a variable's check_hook.\n * These mostly take care of the protocol for letting check hooks supply\n * portions of the error report on failure.\n */\n\nstatic bool\ncall_bool_check_hook(struct config_bool *conf, bool *newval, void **extra,\n\t\t\t\t\t GucSource source, int elevel)\n{\n\t/* Quick success if no hook */\n\tif (!conf->check_hook)\n\t\treturn true;\n\n\t/* Reset variables that might be set by hook */\n\tGUC_check_errcode_value = ERRCODE_INVALID_PARAMETER_VALUE;\n\tGUC_check_errmsg_string = NULL;\n\tGUC_check_errdetail_string = NULL;\n\tGUC_check_errhint_string = NULL;\n\n\tif (!conf->check_hook(newval, extra, source))\n\t{\n\t\tereport(elevel,\n\t\t\t\t(errcode(GUC_check_errcode_value),\n\t\t\t\t GUC_check_errmsg_string ?\n\t\t\t\t errmsg_internal(\"%s\", GUC_check_errmsg_string) :\n\t\t\t\t errmsg(\"invalid value for parameter \\\"%s\\\": %d\",\n\t\t\t\t\t\tconf->gen.name, (int) *newval),\n\t\t\t\t GUC_check_errdetail_string ?\n\t\t\t\t errdetail_internal(\"%s\", GUC_check_errdetail_string) : 0,\n\t\t\t\t GUC_check_errhint_string ?\n\t\t\t\t errhint(\"%s\", GUC_check_errhint_string) : 0));\n\t\t/* Flush any strings created in ErrorContext */\n\t\tFlushErrorState();\n\t\treturn false;\n\t}\n\n\treturn true;\n}\n",
+      "references_from_this": "config_bool                    at Line  6812\nGucSource                      at Line  6813\nerrdetail_internal             at Line  6834\nFlushErrorState                at Line  6838",
+      "references_to_this": "InitializeOneGUCOption         at src/backend/utils/misc/guc.c: 1669\nparse_and_validate_value       at src/backend/utils/misc/guc.c: 3152\nnewval                         at src/backend/utils/misc/guc.c: 3724",
+      "related_symbol_summaries": [
+        "- FlushErrorState: FlushErrorState completes the error handling cycle by resetting PostgreSQL's error subsystem to a clean state after error recovery operations have bee"
+      ]
     }
   ],
   "context_reset_instruction": "IMPORTANT: You are starting fresh with this batch. Previous conversations are irrelevant.",
