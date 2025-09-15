@@ -1,6 +1,116 @@
 {
-  "total_documents": 2,
+  "total_documents": 7,
   "document_assessments": [
+    {
+      "symbol_name": "cache_array_element_properties",
+      "total_length": 3241,
+      "line_count": 62,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 9.6,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.65,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "array_element_has_hashing",
+      "total_length": 2540,
+      "line_count": 42,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 9.6,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.65,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "array_element_has_extended_hashing",
+      "total_length": 2585,
+      "line_count": 42,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 9.6,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.65,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "record_fields_have_equality",
+      "total_length": 2614,
+      "line_count": 46,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 9.6,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.65,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "array_element_has_compare",
+      "total_length": 2666,
+      "line_count": 44,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 9.6,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.65,
+      "quality_level": "MEDIUM"
+    },
     {
       "symbol_name": "plpgsql_compile",
       "total_length": 522,
@@ -47,8 +157,8 @@
   ],
   "summary_stats": {
     "high_quality_count": 1,
-    "medium_quality_count": 0,
+    "medium_quality_count": 5,
     "low_quality_count": 1,
-    "average_overall_score": 5.2625
+    "average_overall_score": 6.9678571428571425
   }
 }
