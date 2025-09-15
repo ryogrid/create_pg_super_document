@@ -54,8 +54,7 @@ jobs:
     - name: Run autonomous documentation completion
       id: run_autonomous
       run: |
-        echo "🚀 Starting autonomous documentation completion..."
-        python3 autonomous_complete_documentation.py
+        ./run_autonomous_documentation.sh
         
         # Check final status
         FINAL_DOCS=$(python3 -c "import duckdb; conn = duckdb.connect('data/documents.duckdb'); print(conn.execute('SELECT COUNT(*) FROM documents').fetchone()[0]); conn.close()")
