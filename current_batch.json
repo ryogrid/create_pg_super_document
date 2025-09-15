@@ -1,28 +1,12 @@
 {
-  "batch_id": 3821,
+  "batch_id": 3822,
   "symbols_to_process": [
     {
-      "symbol_name": "EstimateLibraryStateSpace",
-      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:632-648\n/*\n * Estimate the amount of space needed to serialize the list of libraries\n * we have loaded.\n */\nSize\nEstimateLibraryStateSpace(void)\n{\n\tDynamicFileList *file_scanner;\n\tSize\t\tsize = 1;\n\n\tfor (file_scanner = file_list;\n\t\t file_scanner != NULL;\n\t\t file_scanner = file_scanner->next)\n\t\tsize = add_size(size, strlen(file_scanner->filename) + 1);\n\n\treturn size;\n}\n",
-      "references_from_this": "DynamicFileList                at Line   639\nadd_size                       at Line   645",
-      "references_to_this": "InitializeParallelDSM          at src/backend/access/transam/parallel.c:  266\nOidFunctionCall9               at src/include/fmgr.h:  749",
+      "symbol_name": "df_files",
+      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:51-63\n/*\n * List of dynamically loaded files (kept in malloc'd memory).\n */\n\ntypedef struct df_files\n{\n\tstruct df_files *next;\t\t/* List link */\n\tdev_t\t\tdevice;\t\t\t/* Device file is on */\n#ifndef WIN32\t\t\t\t\t/* ensures we never again depend on this under\n\t\t\t\t\t\t\t\t * win32 */\n\tino_t\t\tinode;\t\t\t/* Inode number of file */\n#endif\n\tvoid\t   *handle;\t\t\t/* a handle for pg_dl* functions */\n",
+      "references_from_this": "df_files                       at Line    57\nFLEXIBLE_ARRAY_MEMBER          at Line    64",
+      "references_to_this": "df_files                       at src/backend/utils/fmgr/dfmgr.c:   57",
       "related_symbol_summaries": []
-    },
-    {
-      "symbol_name": "SerializeLibraryState",
-      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:650-670\n/*\n * Serialize the list of libraries we have loaded to a chunk of memory.\n */\nvoid\nSerializeLibraryState(Size maxsize, char *start_address)\n{\n\tDynamicFileList *file_scanner;\n\n\tfor (file_scanner = file_list;\n\t\t file_scanner != NULL;\n\t\t file_scanner = file_scanner->next)\n\t{\n\t\tSize\t\tlen;\n\n\t\tlen = strlcpy(start_address, file_scanner->filename, maxsize) + 1;\n\t\tAssert(len < maxsize);\n\t\tmaxsize -= len;\n\t\tstart_address += len;\n\t}\n\tstart_address[0] = '\\0';\n}\n",
-      "references_from_this": "DynamicFileList                at Line   656\nstrlcpy                        at Line   664",
-      "references_to_this": "InitializeParallelDSM          at src/backend/access/transam/parallel.c:  379\nOidFunctionCall9               at src/include/fmgr.h:  750",
-      "related_symbol_summaries": []
-    },
-    {
-      "symbol_name": "RestoreLibraryState",
-      "definition": "Source: src/backend/utils/fmgr/dfmgr.c:672-683\n/*\n * Load every library the serializing backend had loaded.\n */\nvoid\nRestoreLibraryState(char *start_address)\n{\n\twhile (*start_address != '\\0')\n\t{\n\t\tinternal_load_library(start_address);\n\t\tstart_address += strlen(start_address) + 1;\n\t}\n}\n",
-      "references_from_this": "internal_load_library          at Line   680",
-      "references_to_this": "ParallelWorkerMain             at src/backend/access/transam/parallel.c: 1446\nOidFunctionCall9               at src/include/fmgr.h:  751",
-      "related_symbol_summaries": [
-        "- internal_load_library: internal_load_library is PostgreSQL's core dynamic library loading function that manages shared library loading with intelligent caching, version comp"
-      ]
     }
   ],
   "context_reset_instruction": "IMPORTANT: You are starting fresh with this batch. Previous conversations are irrelevant.",
