@@ -1,75 +1,9 @@
 {
-  "total_documents": 7,
+  "total_documents": 20,
   "document_assessments": [
     {
-      "symbol_name": "cache_array_element_properties",
-      "total_length": 3241,
-      "line_count": 62,
-      "sections_found": [
-        "Overview",
-        "Definition",
-        "Detailed Description",
-        "Parameters",
-        "Dependencies",
-        "Notes"
-      ],
-      "quality_scores": {
-        "overview": 8.0,
-        "description": 9.6,
-        "parameters": 3.0,
-        "dependencies": 10.0
-      },
-      "issues": [],
-      "overall_score": 7.65,
-      "quality_level": "MEDIUM"
-    },
-    {
-      "symbol_name": "array_element_has_hashing",
-      "total_length": 2540,
-      "line_count": 42,
-      "sections_found": [
-        "Overview",
-        "Definition",
-        "Detailed Description",
-        "Parameters",
-        "Dependencies",
-        "Notes"
-      ],
-      "quality_scores": {
-        "overview": 8.0,
-        "description": 9.6,
-        "parameters": 3.0,
-        "dependencies": 10.0
-      },
-      "issues": [],
-      "overall_score": 7.65,
-      "quality_level": "MEDIUM"
-    },
-    {
-      "symbol_name": "array_element_has_extended_hashing",
-      "total_length": 2585,
-      "line_count": 42,
-      "sections_found": [
-        "Overview",
-        "Definition",
-        "Detailed Description",
-        "Parameters",
-        "Dependencies",
-        "Notes"
-      ],
-      "quality_scores": {
-        "overview": 8.0,
-        "description": 9.6,
-        "parameters": 3.0,
-        "dependencies": 10.0
-      },
-      "issues": [],
-      "overall_score": 7.65,
-      "quality_level": "MEDIUM"
-    },
-    {
-      "symbol_name": "record_fields_have_equality",
-      "total_length": 2614,
+      "symbol_name": "ParallelState",
+      "total_length": 4314,
       "line_count": 46,
       "sections_found": [
         "Overview",
@@ -81,18 +15,18 @@
       ],
       "quality_scores": {
         "overview": 8.0,
-        "description": 9.6,
+        "description": 10.0,
         "parameters": 3.0,
         "dependencies": 10.0
       },
       "issues": [],
-      "overall_score": 7.65,
+      "overall_score": 7.75,
       "quality_level": "MEDIUM"
     },
     {
-      "symbol_name": "array_element_has_compare",
-      "total_length": 2666,
-      "line_count": 44,
+      "symbol_name": "FilterObjectType",
+      "total_length": 4816,
+      "line_count": 49,
       "sections_found": [
         "Overview",
         "Definition",
@@ -103,39 +37,18 @@
       ],
       "quality_scores": {
         "overview": 8.0,
-        "description": 9.6,
+        "description": 10.0,
         "parameters": 3.0,
         "dependencies": 10.0
       },
       "issues": [],
-      "overall_score": 7.65,
+      "overall_score": 7.75,
       "quality_level": "MEDIUM"
     },
     {
-      "symbol_name": "plpgsql_compile",
-      "total_length": 522,
-      "line_count": 1,
-      "sections_found": [
-        "Overview",
-        "Definition",
-        "Detailed Description"
-      ],
-      "quality_scores": {
-        "overview": 0.0,
-        "description": 0.0,
-        "parameters": 5.0,
-        "dependencies": 3.0
-      },
-      "issues": [
-        "Overall documentation quality below acceptable threshold"
-      ],
-      "overall_score": 2.0,
-      "quality_level": "LOW"
-    },
-    {
-      "symbol_name": "heap_insert",
-      "total_length": 1757,
-      "line_count": 31,
+      "symbol_name": "filter_get_keyword",
+      "total_length": 4504,
+      "line_count": 64,
       "sections_found": [
         "Overview",
         "Definition",
@@ -145,20 +58,394 @@
         "Notes"
       ],
       "quality_scores": {
-        "overview": 8.5,
-        "description": 8.6,
-        "parameters": 7.0,
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 9.0
+      },
+      "issues": [],
+      "overall_score": 7.5,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "filter_read_item",
+      "total_length": 7219,
+      "line_count": 137,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
         "dependencies": 10.0
       },
       "issues": [],
-      "overall_score": 8.525,
-      "quality_level": "HIGH"
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "read_quoted_string",
+      "total_length": 5359,
+      "line_count": 103,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "read_pattern",
+      "total_length": 5746,
+      "line_count": 107,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "CompressFileHandle",
+      "total_length": 4000,
+      "line_count": 42,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "CompressorState",
+      "total_length": 4004,
+      "line_count": 39,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "CatalogIdMapEntry",
+      "total_length": 4230,
+      "line_count": 43,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "strInArray",
+      "total_length": 3939,
+      "line_count": 51,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 9.0
+      },
+      "issues": [],
+      "overall_score": 7.5,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "parseOidArray",
+      "total_length": 4874,
+      "line_count": 81,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findOwningExtension",
+      "total_length": 4044,
+      "line_count": 50,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findExtensionByOid",
+      "total_length": 4385,
+      "line_count": 54,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findSubscriptionByOid",
+      "total_length": 4420,
+      "line_count": 54,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findPublicationByOid",
+      "total_length": 4532,
+      "line_count": 55,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findNamespaceByOid",
+      "total_length": 4501,
+      "line_count": 55,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "recordExtensionMembership",
+      "total_length": 4453,
+      "line_count": 59,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findFuncByOid",
+      "total_length": 4662,
+      "line_count": 57,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findOprByOid",
+      "total_length": 4335,
+      "line_count": 54,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
+    },
+    {
+      "symbol_name": "findTypeByOid",
+      "total_length": 4700,
+      "line_count": 58,
+      "sections_found": [
+        "Overview",
+        "Definition",
+        "Detailed Description",
+        "Parameters",
+        "Dependencies",
+        "Notes"
+      ],
+      "quality_scores": {
+        "overview": 8.0,
+        "description": 10.0,
+        "parameters": 3.0,
+        "dependencies": 10.0
+      },
+      "issues": [],
+      "overall_score": 7.75,
+      "quality_level": "MEDIUM"
     }
   ],
   "summary_stats": {
-    "high_quality_count": 1,
-    "medium_quality_count": 5,
-    "low_quality_count": 1,
-    "average_overall_score": 6.9678571428571425
+    "high_quality_count": 0,
+    "medium_quality_count": 20,
+    "low_quality_count": 0,
+    "average_overall_score": 7.725
   }
 }

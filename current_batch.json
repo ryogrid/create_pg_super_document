@@ -1,0 +1,58 @@
+{
+  "batch_id": 3789,
+  "symbols_to_process": [
+    {
+      "symbol_name": "array_element_has_compare",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1434-1440\nstatic bool\narray_element_has_compare(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_COMPARE) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1437\ncache_array_element_properties at Line  1438\nTCFLAGS_HAVE_ELEM_COMPARE      at Line  1439",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  613\nlookup_type_cache              at src/backend/utils/cache/typcache.c:  638\nlookup_type_cache              at src/backend/utils/cache/typcache.c:  663",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "array_element_has_hashing",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1442-1448\nstatic bool\narray_element_has_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_HASHING) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1445\ncache_array_element_properties at Line  1446\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1447",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  701",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "array_element_has_extended_hashing",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1450-1456\nstatic bool\narray_element_has_extended_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1453\ncache_array_element_properties at Line  1454\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1455",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  750",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "cache_array_element_properties",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1458-1482\nstatic void\ncache_array_element_properties(TypeCacheEntry *typentry)\n{\n\tOid\t\t\telem_type = get_base_element_type(typentry->type_id);\n\n\tif (OidIsValid(elem_type))\n\t{\n\t\tTypeCacheEntry *elementry;\n\n\t\telementry = lookup_type_cache(elem_type,\n\t\t\t\t\t\t\t\t\t  TYPECACHE_EQ_OPR |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_CMP_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_EXTENDED_PROC);\n\t\tif (OidIsValid(elementry->eq_opr))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EQUALITY;\n\t\tif (OidIsValid(elementry->cmp_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_COMPARE;\n\t\tif (OidIsValid(elementry->hash_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;\n\t\tif (OidIsValid(elementry->hash_extended_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;\n\t}\n\ttypentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;\n}\n",
+      "references_from_this": "get_base_element_type          at Line  1461\nlookup_type_cache              at Line  1467\nTYPECACHE_EQ_OPR               at Line  1468\nTYPECACHE_CMP_PROC             at Line  1469\nTYPECACHE_HASH_PROC            at Line  1470\nTYPECACHE_HASH_EXTENDED_PROC   at Line  1471\nTCFLAGS_HAVE_ELEM_EQUALITY     at Line  1473\nTCFLAGS_HAVE_ELEM_COMPARE      at Line  1475\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1477\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1479\nTCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1481",
+      "references_to_this": "array_element_has_equality     at src/backend/utils/cache/typcache.c: 1430\narray_element_has_compare      at src/backend/utils/cache/typcache.c: 1438\narray_element_has_hashing      at src/backend/utils/cache/typcache.c: 1446\narray_element_has_extended_hashing at src/backend/utils/cache/typcache.c: 1454",
+      "related_symbol_summaries": []
+    },
+    {
+      "symbol_name": "record_fields_have_equality",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1484-1494\n/*\n * Likewise, some helper functions for composite types.\n */\n\nstatic bool\nrecord_fields_have_equality(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES))\n\t\tcache_record_field_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_FIELD_EQUALITY) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_FIELD_PROPERTIES at Line  1491\ncache_record_field_properties  at Line  1492\nTCFLAGS_HAVE_FIELD_EQUALITY    at Line  1493",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  579",
+      "related_symbol_summaries": []
+    }
+  ],
+  "context_reset_instruction": "IMPORTANT: You are starting fresh with this batch. Previous conversations are irrelevant.",
+  "copilot_specific_instructions": {
+    "focus_areas": [
+      "Write comprehensive, detailed explanations",
+      "Include specific technical details and implementation context",
+      "Provide thorough parameter/member descriptions",
+      "Explain the 'why' behind each symbol's design",
+      "Include concrete usage examples where possible"
+    ],
+    "quality_requirements": [
+      "Each overview should be 2-3 sentences minimum",
+      "Detailed descriptions should be at least 3-4 sentences",
+      "Every parameter must be thoroughly explained",
+      "Dependencies section should include reasoning for relationships"
+    ]
+  },
+  "quality_example": "\nEXAMPLE OF HIGH-QUALITY DOCUMENTATION:\n\n# heap_insert\n\n## Overview\nInserts a new tuple into a heap table, handling MVCC versioning and triggering necessary maintenance operations.\n\n## Definition\n```c\nHeapTuple heap_insert(Relation relation, HeapTuple tup, CommandId cid, \n                      int options, BulkInsertState bistate)\n```\n\n## Detailed Description\nheap_insert performs the fundamental operation of adding a new tuple to a PostgreSQL heap table. It manages transaction visibility information through MVCC (Multi-Version Concurrency Control) by setting the appropriate transaction ID and command ID in the tuple header. The function also handles various optimization strategies including bulk insert operations and handles toast operations for large values. It coordinates with the buffer manager to ensure proper page allocation and maintains WAL (Write-Ahead Log) records for crash recovery.\n\n## Parameters / Member Variables\n- `relation`: The target relation (table) where the tuple will be inserted\n- `tup`: The HeapTuple structure containing the data to be inserted  \n- `cid`: Command ID for MVCC visibility determination\n- `options`: Bitmask of insert options (e.g., HEAP_INSERT_SKIP_WAL)\n- `bistate`: State for bulk insert optimizations, can be NULL for single inserts\n\n## Dependencies\n- **Called functions/Referenced symbols**:\n  - `RelationGetBufferForTuple` - Allocates buffer space for the new tuple\n  - `PageAddItem` - Adds the tuple to the page\n  - `XLogInsert` - Creates WAL record for the insertion\n  - `toast_insert_or_update` - Handles large attribute values\n- **Called from (representative examples)**:\n  - `table_tuple_insert` - Generic table insertion interface\n  - `CatalogTupleInsert` - System catalog insertions\n  - `ExecInsert` - Executor node for INSERT statements\n\n## Notes & Other Information\nThis function is performance-critical and includes several optimizations for bulk operations. When using BulkInsertState, multiple insertions can share buffer and WAL optimizations. The function must be called within a valid transaction context and proper locking must be established on the relation before calling.\n",
+  "required_markdown_format": "\n# [Symbol Name]\n\n## Overview\n(Provide a comprehensive 2-3 sentence explanation of the symbol's purpose, role in PostgreSQL, and its significance in the codebase. Be specific about what it does and why it exists.)\n\n## Definition\n(Provide the complete function signature, struct definition, or enum definition in a code block)\n```c\n// Example: void InitPostgres(const char *in_dbname, Oid dboid, const char *username, Oid useroid, char *out_dbname)\n```\n\n## Detailed Description\n(Write a comprehensive 4-6 sentence explanation covering:\n- What the symbol does technically\n- How it fits into PostgreSQL's architecture\n- Key algorithms or logic it implements\n- Important behavioral characteristics\n- Performance considerations if relevant)\n\n## Parameters / Member Variables\n(For each parameter/member, provide detailed explanations including purpose, expected values, constraints, and relationships to other parameters)\n- `param1`: (Detailed description including type information, purpose, valid range/values, and how it affects behavior)\n- `member1`: (For struct members, explain the data stored, when it's set, and how it's used)\n\n## Dependencies\n- **Functions called/Symbols referenced**:\n  (List key functions this symbol calls, with brief explanations of why)\n  - `func_a` - Brief explanation of why this dependency exists\n  - `TYPE_B` - Description of how this type is used\n- **Called from (representative examples)**:\n  (List important callers, explaining the context of the calls)\n  - `caller_func_x` - Context of when/why this calls our symbol\n  - `caller_func_y` - Another important usage context\n\n## Notes & Other Information\n(Include important implementation notes, performance considerations, thread safety notes, error handling behavior, historical context, or related design decisions. This section should provide insights that help developers understand the broader context.)\n"
+}
