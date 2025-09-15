@@ -1,39 +1,39 @@
 {
-  "batch_id": 3789,
+  "batch_id": 3791,
   "symbols_to_process": [
     {
-      "symbol_name": "array_element_has_compare",
-      "definition": "Source: src/backend/utils/cache/typcache.c:1434-1440\nstatic bool\narray_element_has_compare(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_COMPARE) != 0;\n}\n",
-      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1437\ncache_array_element_properties at Line  1438\nTCFLAGS_HAVE_ELEM_COMPARE      at Line  1439",
-      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  613\nlookup_type_cache              at src/backend/utils/cache/typcache.c:  638\nlookup_type_cache              at src/backend/utils/cache/typcache.c:  663",
+      "symbol_name": "range_element_has_extended_hashing",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1633-1639\nstatic bool\nrange_element_has_extended_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_range_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1636\ncache_range_element_properties at Line  1637\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1638",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  756",
       "related_symbol_summaries": []
     },
     {
-      "symbol_name": "array_element_has_hashing",
-      "definition": "Source: src/backend/utils/cache/typcache.c:1442-1448\nstatic bool\narray_element_has_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_HASHING) != 0;\n}\n",
-      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1445\ncache_array_element_properties at Line  1446\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1447",
-      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  701",
+      "symbol_name": "cache_range_element_properties",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1641-1663\nstatic void\ncache_range_element_properties(TypeCacheEntry *typentry)\n{\n\t/* load up subtype link if we didn't already */\n\tif (typentry->rngelemtype == NULL &&\n\t\ttypentry->typtype == TYPTYPE_RANGE)\n\t\tload_rangetype_info(typentry);\n\n\tif (typentry->rngelemtype != NULL)\n\t{\n\t\tTypeCacheEntry *elementry;\n\n\t\t/* might need to calculate subtype's hash function properties */\n\t\telementry = lookup_type_cache(typentry->rngelemtype->type_id,\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_EXTENDED_PROC);\n\t\tif (OidIsValid(elementry->hash_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;\n\t\tif (OidIsValid(elementry->hash_extended_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;\n\t}\n\ttypentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;\n}\n",
+      "references_from_this": "TYPTYPE_RANGE                  at Line  1646\nload_rangetype_info            at Line  1647\nlookup_type_cache              at Line  1654\nTYPECACHE_HASH_PROC            at Line  1655\nTYPECACHE_HASH_EXTENDED_PROC   at Line  1656\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1658\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1660\nTCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1662",
+      "references_to_this": "range_element_has_hashing      at src/backend/utils/cache/typcache.c: 1629\nrange_element_has_extended_hashing at src/backend/utils/cache/typcache.c: 1637",
       "related_symbol_summaries": []
     },
     {
-      "symbol_name": "array_element_has_extended_hashing",
-      "definition": "Source: src/backend/utils/cache/typcache.c:1450-1456\nstatic bool\narray_element_has_extended_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_array_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;\n}\n",
-      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1453\ncache_array_element_properties at Line  1454\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1455",
-      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  750",
+      "symbol_name": "multirange_element_has_hashing",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1665-1671\nstatic bool\nmultirange_element_has_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_multirange_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_HASHING) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1668\ncache_multirange_element_properties at Line  1669\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1670",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  714",
       "related_symbol_summaries": []
     },
     {
-      "symbol_name": "cache_array_element_properties",
-      "definition": "Source: src/backend/utils/cache/typcache.c:1458-1482\nstatic void\ncache_array_element_properties(TypeCacheEntry *typentry)\n{\n\tOid\t\t\telem_type = get_base_element_type(typentry->type_id);\n\n\tif (OidIsValid(elem_type))\n\t{\n\t\tTypeCacheEntry *elementry;\n\n\t\telementry = lookup_type_cache(elem_type,\n\t\t\t\t\t\t\t\t\t  TYPECACHE_EQ_OPR |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_CMP_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_EXTENDED_PROC);\n\t\tif (OidIsValid(elementry->eq_opr))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EQUALITY;\n\t\tif (OidIsValid(elementry->cmp_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_COMPARE;\n\t\tif (OidIsValid(elementry->hash_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;\n\t\tif (OidIsValid(elementry->hash_extended_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;\n\t}\n\ttypentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;\n}\n",
-      "references_from_this": "get_base_element_type          at Line  1461\nlookup_type_cache              at Line  1467\nTYPECACHE_EQ_OPR               at Line  1468\nTYPECACHE_CMP_PROC             at Line  1469\nTYPECACHE_HASH_PROC            at Line  1470\nTYPECACHE_HASH_EXTENDED_PROC   at Line  1471\nTCFLAGS_HAVE_ELEM_EQUALITY     at Line  1473\nTCFLAGS_HAVE_ELEM_COMPARE      at Line  1475\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1477\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1479\nTCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1481",
-      "references_to_this": "array_element_has_equality     at src/backend/utils/cache/typcache.c: 1430\narray_element_has_compare      at src/backend/utils/cache/typcache.c: 1438\narray_element_has_hashing      at src/backend/utils/cache/typcache.c: 1446\narray_element_has_extended_hashing at src/backend/utils/cache/typcache.c: 1454",
+      "symbol_name": "multirange_element_has_extended_hashing",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1673-1679\nstatic bool\nmultirange_element_has_extended_hashing(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))\n\t\tcache_multirange_element_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;\n}\n",
+      "references_from_this": "TCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1676\ncache_multirange_element_properties at Line  1677\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1678",
+      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  763",
       "related_symbol_summaries": []
     },
     {
-      "symbol_name": "record_fields_have_equality",
-      "definition": "Source: src/backend/utils/cache/typcache.c:1484-1494\n/*\n * Likewise, some helper functions for composite types.\n */\n\nstatic bool\nrecord_fields_have_equality(TypeCacheEntry *typentry)\n{\n\tif (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES))\n\t\tcache_record_field_properties(typentry);\n\treturn (typentry->flags & TCFLAGS_HAVE_FIELD_EQUALITY) != 0;\n}\n",
-      "references_from_this": "TCFLAGS_CHECKED_FIELD_PROPERTIES at Line  1491\ncache_record_field_properties  at Line  1492\nTCFLAGS_HAVE_FIELD_EQUALITY    at Line  1493",
-      "references_to_this": "lookup_type_cache              at src/backend/utils/cache/typcache.c:  579",
+      "symbol_name": "cache_multirange_element_properties",
+      "definition": "Source: src/backend/utils/cache/typcache.c:1681-1703\nstatic void\ncache_multirange_element_properties(TypeCacheEntry *typentry)\n{\n\t/* load up range link if we didn't already */\n\tif (typentry->rngtype == NULL &&\n\t\ttypentry->typtype == TYPTYPE_MULTIRANGE)\n\t\tload_multirangetype_info(typentry);\n\n\tif (typentry->rngtype != NULL && typentry->rngtype->rngelemtype != NULL)\n\t{\n\t\tTypeCacheEntry *elementry;\n\n\t\t/* might need to calculate subtype's hash function properties */\n\t\telementry = lookup_type_cache(typentry->rngtype->rngelemtype->type_id,\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_PROC |\n\t\t\t\t\t\t\t\t\t  TYPECACHE_HASH_EXTENDED_PROC);\n\t\tif (OidIsValid(elementry->hash_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;\n\t\tif (OidIsValid(elementry->hash_extended_proc))\n\t\t\ttypentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;\n\t}\n\ttypentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;\n}\n",
+      "references_from_this": "TYPTYPE_MULTIRANGE             at Line  1686\nload_multirangetype_info       at Line  1687\nlookup_type_cache              at Line  1694\nTYPECACHE_HASH_PROC            at Line  1695\nTYPECACHE_HASH_EXTENDED_PROC   at Line  1696\nTCFLAGS_HAVE_ELEM_HASHING      at Line  1698\nTCFLAGS_HAVE_ELEM_EXTENDED_HASHING at Line  1700\nTCFLAGS_CHECKED_ELEM_PROPERTIES at Line  1702",
+      "references_to_this": "multirange_element_has_hashing at src/backend/utils/cache/typcache.c: 1669\nmultirange_element_has_extended_hashing at src/backend/utils/cache/typcache.c: 1677",
       "related_symbol_summaries": []
     }
   ],
