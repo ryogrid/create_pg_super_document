@@ -59,6 +59,8 @@ def ingest_all_documents(
             continue
         
         sid, symbol_type = symbol_info
+        if symbol_type is None:
+            symbol_type = "unknown"  # Handle NULL symbol types
         
         content = doc_path.read_text(encoding='utf-8')
         
@@ -69,18 +71,18 @@ def ingest_all_documents(
         # Store the full content and the extracted metadata in the database
         doc_con.execute("""
             INSERT INTO documents (
-                symbol_id, symbol_name, symbol_type, content, summary, 
+                symbol_id, symbol_name, symbol_type, layer, content, summary, 
                 dependencies, related_symbols
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT (symbol_id) DO UPDATE SET
                 content = EXCLUDED.content,
                 summary = EXCLUDED.summary,
                 dependencies = EXCLUDED.dependencies,
                 related_symbols = EXCLUDED.related_symbols,
-                updated_at = CURRENT_TIMESTAMP;
+                updated_at = now();
         """, (
-            sid, symbol_name, symbol_type, content, summary, 
+            sid, symbol_name, symbol_type, 0, content, summary, 
             json.dumps(dependencies), json.dumps(related_symbols)
         ))
         

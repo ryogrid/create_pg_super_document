@@ -118,7 +118,13 @@ def get_next_unprocessed_batch_with_context(
         enriched_symbols = []
         for symbol_id in unprocessed_ids:
             try:
-                node = SNode(symbol_id)
+                # Get symbol name from the details map
+                symbol_name = symbol_details_map.get(symbol_id, {}).get('name')
+                if not symbol_name:
+                    print(f"Warning: Symbol ID {symbol_id} not found in details map")
+                    continue
+                
+                node = SNode(symbol_name)
                 
                 # Gather related symbol summaries
                 relevant_summaries = []
@@ -129,15 +135,30 @@ def get_next_unprocessed_batch_with_context(
                         summary = processed_summaries[dep_name]
                         relevant_summaries.append(f"- {dep_name}: {summary[:150]}")
 
+                try:
+                    definition = node.get_source_code()
+                except (FileNotFoundError, OSError):
+                    definition = "// Source file not available - run setup_environment.sh first"
+                
+                try:
+                    references_from = node.get_references_from_this()
+                except (FileNotFoundError, OSError):
+                    references_from = []
+                    
+                try:
+                    references_to = node.get_references_to_this()
+                except (FileNotFoundError, OSError):
+                    references_to = []
+
                 enriched_symbols.append({
                     "symbol_name": node.symbol_name,
-                    "definition": node.get_source_code(),
-                    "references_from_this": node.get_references_from_this(),
-                    "references_to_this": node.get_references_to_this(),
+                    "definition": definition,
+                    "references_from_this": references_from,
+                    "references_to_this": references_to,
                     "related_symbol_summaries": sorted(list(set(relevant_summaries)))[:20],
                 })
-            except ValueError:
-                # If a symbol is not found (should be rare), we skip it.
+            except (ValueError, FileNotFoundError, OSError):
+                # If a symbol is not found or source files are missing, we skip it.
                 continue
         
         meta_con.close()
