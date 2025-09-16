@@ -91,7 +91,7 @@ This function is performance-critical and includes several optimizations for bul
 
 def get_next_unprocessed_batch_with_context(
     batches_file: str = 'data/processing_batches.json',
-    doc_db_file: str = 'data/documents.duckdb',
+    doc_db_file: str = 'documents.duckdb',
     symbols_db_file: str = 'global_symbols.db',
     meta_db_file: str = 'data/metadata.duckdb'
 ) -> dict:

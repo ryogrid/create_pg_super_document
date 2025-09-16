@@ -32,7 +32,7 @@ def extract_relationships(content: str) -> tuple:
 
 
 def ingest_all_documents(
-    doc_db_file: str = 'data/documents.duckdb',
+    doc_db_file: str = 'documents.duckdb',
     symbols_db_file: str = 'global_symbols.db'
 ):
     """

@@ -21,7 +21,7 @@ import duckdb
 def get_current_progress():
     """Get current documentation progress."""
     try:
-        conn = duckdb.connect('data/documents.duckdb')
+        conn = duckdb.connect('documents.duckdb')
         count = conn.execute('SELECT COUNT(*) FROM documents').fetchone()[0]
         conn.close()
         return count
