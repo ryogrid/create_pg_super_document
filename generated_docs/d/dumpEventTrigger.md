@@ -1,7 +1,7 @@
 # dumpEventTrigger
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18019 - 18103
+[src/bin/pg_dump/pg_dump.c:18019-18103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18019-L18103)
 
 ## Overview
 Writes the SQL declaration of one user-defined event trigger, including its event type, optional tag filters, and enabled state.

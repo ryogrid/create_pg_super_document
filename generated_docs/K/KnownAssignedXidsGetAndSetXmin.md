@@ -1,7 +1,7 @@
 # KnownAssignedXidsGetAndSetXmin
 
 ## Location
-src/backend/storage/ipc/procarray.c: 5126 - 5181
+[src/backend/storage/ipc/procarray.c:5126-5181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L5126-L5181)
 
 ## Overview
 KnownAssignedXidsGetAndSetXmin retrieves an array of known assigned transaction IDs while simultaneously updating the minimum transaction ID (xmin) to the lowest value encountered during the scan.

@@ -1,7 +1,7 @@
 # toast_open_indexes
 
 ## Location
-src/backend/access/common/toast_internals.c: 564 - 622
+[src/backend/access/common/toast_internals.c:564-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L564-L622)
 
 ## Overview
 Opens all indexes associated with a given TOAST relation and returns an array of these indexes along with the position of the valid index used by the TOAST relation.

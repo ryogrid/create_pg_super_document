@@ -1,7 +1,7 @@
 # XmlTableSetColumnFilter
 
 ## Location
-src/backend/utils/adt/xml.c: 4847 - 4881
+[src/backend/utils/adt/xml.c:4847-4881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4847-L4881)
 
 ## Overview
 Installs the column-filter XPath expression for a specific column in XML table processing, compiling and storing the XPath expression for later use in extracting column values.

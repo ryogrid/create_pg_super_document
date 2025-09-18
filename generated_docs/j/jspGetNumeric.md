@@ -1,7 +1,7 @@
 # jspGetNumeric
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1211 - 1218
+[src/backend/utils/adt/jsonpath.c:1211-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1211-L1218)
 
 ## Overview
 Extracts and returns the numeric value from a JSON path numeric item.

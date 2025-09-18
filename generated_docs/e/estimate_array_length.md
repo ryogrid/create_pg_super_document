@@ -1,7 +1,7 @@
 # estimate_array_length
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2140 - 2205
+[src/backend/utils/adt/selfuncs.c:2140-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2140-L2205)
 
 ## Overview
 Estimates the number of elements in an array expression, providing a crucial component for PostgreSQL's query planner to make cost-based decisions about array operations.

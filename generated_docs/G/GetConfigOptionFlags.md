@@ -1,7 +1,7 @@
 # GetConfigOptionFlags
 
 ## Location
-src/backend/utils/misc/guc.c: 4455 - 4471
+[src/backend/utils/misc/guc.c:4455-4471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4455-L4471)
 
 ## Overview
 Retrieves the GUC (Grand Unified Configuration) flags associated with a specified PostgreSQL configuration option, providing metadata about the parameter's behavior and characteristics.

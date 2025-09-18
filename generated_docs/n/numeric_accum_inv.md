@@ -1,7 +1,7 @@
 # numeric_accum_inv
 
 ## Location
-src/backend/utils/adt/numeric.c: 5447 - 5482
+[src/backend/utils/adt/numeric.c:5447-5482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5447-L5482)
 
 ## Overview
 Generic inverse transition function for numeric aggregates that removes a value from the aggregate state, supporting both simple and complex aggregates with or without sumX2 requirements.

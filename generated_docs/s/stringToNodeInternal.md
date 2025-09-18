@@ -1,7 +1,7 @@
 # stringToNodeInternal
 
 ## Location
-src/backend/nodes/read.c: 49 - 89
+[src/backend/nodes/read.c:49-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L49-L89)
 
 ## Overview
 A static internal function that converts string representations of PostgreSQL Node trees back into actual Node data structures, with support for optionally restoring location fields during parsing.

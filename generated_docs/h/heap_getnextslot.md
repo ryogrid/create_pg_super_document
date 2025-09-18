@@ -1,7 +1,7 @@
 # heap_getnextslot
 
 ## Location
-src/backend/access/heap/heapam.c: 1345 - 1374
+[src/backend/access/heap/heapam.c:1345-1374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1345-L1374)
 
 ## Overview
 Retrieves the next tuple from a heap table scan and stores it in a provided TupleTableSlot, returning a boolean indicating whether a tuple was found.

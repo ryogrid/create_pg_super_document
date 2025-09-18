@@ -1,7 +1,7 @@
 # range_before_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 664 - 688
+[src/backend/utils/adt/rangetypes.c:664-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L664-L688)
 
 ## Overview
 The  function determines whether one range is strictly positioned before (to the left of) another range, implementing the core logic for range ordering comparisons.

@@ -1,7 +1,7 @@
 # RunObjectTruncateHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 76 - 91
+[src/backend/catalog/objectaccess.c:76-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L76-L91)
 
 ## Overview
 Executes registered object access hooks for truncate events, allowing extensions to perform actions when a PostgreSQL table is truncated.

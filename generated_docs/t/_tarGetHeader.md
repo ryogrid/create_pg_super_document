@@ -1,7 +1,7 @@
 # _tarGetHeader
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 1140 - 1211
+[src/bin/pg_dump/pg_backup_tar.c:1140-1211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L1140-L1211)
 
 ## Overview
 Reads and verifies a TAR header block from a tar archive file during PostgreSQL pg_dump restore operations.

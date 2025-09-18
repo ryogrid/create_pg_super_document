@@ -1,7 +1,7 @@
 # DropSetting
 
 ## Location
-src/backend/catalog/pg_db_role_setting.c: 170 - 219
+[src/backend/catalog/pg_db_role_setting.c:170-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_db_role_setting.c#L170-L219)
 
 ## Overview
 DropSetting removes configuration parameter settings from the pg_db_role_setting catalog when databases or roles are dropped from the system.

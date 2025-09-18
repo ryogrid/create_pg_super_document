@@ -1,7 +1,7 @@
 # colname_is_unique
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4766 - 4819
+[src/backend/utils/adt/ruleutils.c:4766-4819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4766-L4819)
 
 ## Overview
 Checks whether a proposed column name is distinct from all already-chosen column names in the current RTE and global naming context.

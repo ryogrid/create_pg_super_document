@@ -1,7 +1,7 @@
 # spgRedoPickSplit
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 529 - 750
+[src/backend/access/spgist/spgxlog.c:529-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L529-L750)
 
 ## Overview
 Replays a pick-split operation from the WAL for SP-GiST indexes, reconstructing the complex redistribution of tuples across multiple pages during crash recovery.

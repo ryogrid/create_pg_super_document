@@ -1,7 +1,7 @@
 # parser_coercion_errposition
 
 ## Location
-src/backend/parser/parse_coerce.c: 1314 - 1343
+[src/backend/parser/parse_coerce.c:1314-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1314-L1343)
 
 ## Overview
 Reports the source location of type coercion errors with preference for explicit coercion syntax (CAST, ::) over implicit coercion locations for better error reporting.

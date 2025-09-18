@@ -1,7 +1,7 @@
 # transformFkeyCheckAttrs
 
 ## Location
-src/backend/commands/tablecmds.c: 12044 - 12182
+[src/backend/commands/tablecmds.c:12044-12182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12044-L12182)
 
 ## Overview
 Validates that the specified columns in a referenced table can support a foreign key constraint by finding a suitable unique index and returning its opclasses.

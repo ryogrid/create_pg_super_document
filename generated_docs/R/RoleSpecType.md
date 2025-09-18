@@ -1,7 +1,7 @@
 # RoleSpecType
 
 ## Location
-src/include/nodes/parsenodes.h: 399 - 400
+[src/include/nodes/parsenodes.h:399-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L399-L400)
 
 ## Overview
 RoleSpecType is an enumeration that defines the different types of role specifications that can be used in PostgreSQL SQL commands, including explicit role names and special built-in role identifiers.

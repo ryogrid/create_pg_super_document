@@ -1,7 +1,7 @@
 # YY_BUFFER_STATE
 
 ## Location
-src/include/fe_utils/psqlscan_int.h: 56 - 58
+[src/include/fe_utils/psqlscan_int.h:56-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/psqlscan_int.h#L56-L58)
 
 ## Overview
 YY_BUFFER_STATE is a typedef for a pointer to the flex lexer's buffer state structure, used to manage input buffers in PostgreSQL's lexical scanner system.

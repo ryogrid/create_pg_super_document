@@ -1,7 +1,7 @@
 # cookDefault
 
 ## Location
-src/backend/catalog/heap.c: 2806 - 2882
+[src/backend/catalog/heap.c:2806-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2806-L2882)
 
 ## Overview
 Transforms raw default expressions into cooked format ready for storage, handling both regular column defaults and generated column expressions with appropriate validation and type coercion.

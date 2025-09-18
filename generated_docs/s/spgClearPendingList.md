@@ -1,7 +1,7 @@
 # spgClearPendingList
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 89 - 124
+[src/backend/access/spgist/spgvacuum.c:89-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L89-L124)
 
 ## Overview
 Clears and deallocates all items from the pending list used during SP-GiST vacuum operations.

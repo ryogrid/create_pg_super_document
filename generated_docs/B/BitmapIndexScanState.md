@@ -1,7 +1,7 @@
 # BitmapIndexScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1736 - 1750
+[src/include/nodes/execnodes.h:1736-1750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1736-L1750)
 
 ## Overview
 BitmapIndexScanState is an execution state structure that manages bitmap index scan operations, creating a bitmap of tuple identifiers (TIDs) from index scans that can be used by subsequent bitmap heap scans for efficient multi-index access patterns.

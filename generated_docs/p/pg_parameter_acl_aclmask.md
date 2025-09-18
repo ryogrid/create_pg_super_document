@@ -1,7 +1,7 @@
 # pg_parameter_acl_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3533 - 3591
+[src/backend/catalog/aclchk.c:3533-3591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3533-L3591)
 
 ## Overview
 A function that examines a user's privileges for PostgreSQL configuration parameters by looking up the access control list using the parameter's pg_parameter_acl OID.

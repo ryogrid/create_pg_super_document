@@ -1,7 +1,7 @@
 # BackgroundWorkerInitializeConnectionByOid
 
 ## Location
-src/backend/postmaster/postmaster.c: 4191 - 4224
+[src/backend/postmaster/postmaster.c:4191-4224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4191-L4224)
 
 ## Overview
 Establishes a database connection for a background worker process using Object Identifiers (OIDs) instead of names for database and user identification.

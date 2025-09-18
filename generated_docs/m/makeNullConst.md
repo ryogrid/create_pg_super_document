@@ -1,7 +1,7 @@
 # makeNullConst
 
 ## Location
-src/backend/nodes/makefuncs.c: 386 - 405
+[src/backend/nodes/makefuncs.c:386-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L386-L405)
 
 ## Overview
 Creates a Const node representing a NULL value of a specified data type, providing a convenient wrapper around makeConst for NULL constants.

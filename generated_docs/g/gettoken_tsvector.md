@@ -1,7 +1,7 @@
 # gettoken_tsvector
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 176 - 388
+[src/backend/utils/adt/tsvector_parser.c:176-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L176-L388)
 
 ## Overview
 Parses and extracts the next token from a tsvector or tsquery input string, including associated positional and weight information.

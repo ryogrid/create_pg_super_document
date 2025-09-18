@@ -1,7 +1,7 @@
 # chareq
 
 ## Location
-src/backend/utils/adt/char.c: 127 - 135
+[src/backend/utils/adt/char.c:127-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L127-L135)
 
 ## Overview
 Compares two character values for equality, treating them as unsigned 8-bit integers for comparison purposes.

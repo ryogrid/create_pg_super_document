@@ -1,7 +1,7 @@
 # IdentifySystem
 
 ## Location
-src/backend/replication/walsender.c: 411 - 493
+[src/backend/replication/walsender.c:411-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L411-L493)
 
 ## Overview
 IdentifySystem handles the IDENTIFY_SYSTEM replication command by returning system identification information including system ID, timeline ID, current WAL position, and database name in a single-row result set.

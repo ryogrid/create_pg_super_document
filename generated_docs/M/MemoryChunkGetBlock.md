@@ -1,7 +1,7 @@
 # MemoryChunkGetBlock
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 235 - 242
+[src/include/utils/memutils_memorychunk.h:235-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L235-L242)
 
 ## Overview
 Calculates and returns the pointer to the memory block that contains a given non-external MemoryChunk by using the block offset stored in the chunk's header mask.

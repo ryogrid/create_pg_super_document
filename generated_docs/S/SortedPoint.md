@@ -1,7 +1,7 @@
 # SortedPoint
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 78 - 82
+[src/backend/access/spgist/spgkdtreeproc.c:78-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L78-L82)
 
 ## Overview
 SortedPoint is a utility structure used in PostgreSQL's SP-GiST k-d tree implementation to associate geometric Point data with their original indices during sorting operations.

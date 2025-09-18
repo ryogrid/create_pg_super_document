@@ -1,7 +1,7 @@
 # send_repl_origin
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 2406 - 2432
+[src/backend/replication/pgoutput/pgoutput.c:2406-2432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L2406-L2432)
 
 ## Overview
 Sends a replication origin message to the logical replication subscriber when origin tracking is enabled and the origin information is available.

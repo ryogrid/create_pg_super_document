@@ -1,7 +1,7 @@
 # show_merge_append_keys
 
 ## Location
-src/backend/commands/explain.c: 2591 - 2606
+[src/backend/commands/explain.c:2591-2606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2591-L2606)
 
 ## Overview
 Displays the sort keys for a MergeAppend node during query execution plan explanation.

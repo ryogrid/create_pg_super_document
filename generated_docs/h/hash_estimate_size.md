@@ -1,7 +1,7 @@
 # hash_estimate_size
 
 ## Location
-src/backend/utils/hash/dynahash.c: 784 - 830
+[src/backend/utils/hash/dynahash.c:784-830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L784-L830)
 
 ## Overview
 Estimates the memory footprint required for a shared memory hashtable with a given number of entries and entry size.

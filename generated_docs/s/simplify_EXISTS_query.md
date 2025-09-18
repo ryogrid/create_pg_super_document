@@ -1,7 +1,7 @@
 # simplify_EXISTS_query
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1540 - 1627
+[src/backend/optimizer/plan/subselect.c:1540-1627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1540-L1627)
 
 ## Overview
 Removes unnecessary SQL features from an EXISTS subquery that don't affect whether it returns zero or more than zero rows, primarily simplifying the target list and various clauses to optimize query execution.

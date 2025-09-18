@@ -1,7 +1,7 @@
 # SH_ALLOCATE
 
 ## Location
-src/include/lib/simplehash.h: 412 - 423
+[src/include/lib/simplehash.h:412-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L412-L423)
 
 ## Overview
 Allocates memory for hash table data structures in PostgreSQL's simplehash implementation, providing a configurable memory allocation interface.

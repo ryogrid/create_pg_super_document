@@ -1,7 +1,7 @@
 # report_extension_updates
 
 ## Location
-src/bin/pg_upgrade/version.c: 147 - 211
+[src/bin/pg_upgrade/version.c:147-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/version.c#L147-L211)
 
 ## Overview
 A PostgreSQL upgrade utility function that identifies extensions requiring updates and generates an update script to bring them to their latest versions.

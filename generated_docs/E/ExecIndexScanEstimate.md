@@ -1,7 +1,7 @@
 # ExecIndexScanEstimate
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 1641 - 1660
+[src/backend/executor/nodeIndexscan.c:1641-1660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L1641-L1660)
 
 ## Overview
 ExecIndexScanEstimate computes the amount of shared memory space needed for a parallel index scan and informs the parallel context estimator about the requirements.

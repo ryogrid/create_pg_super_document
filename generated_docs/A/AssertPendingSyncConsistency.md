@@ -1,7 +1,7 @@
 # AssertPendingSyncConsistency
 
 ## Location
-src/backend/utils/cache/relcache.c: 3144 - 3165
+[src/backend/utils/cache/relcache.c:3144-3165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3144-L3165)
 
 ## Overview
 Validates the consistency between relation cache state and WAL-skipping behavior for relations with pending synchronization requirements.

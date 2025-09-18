@@ -1,7 +1,7 @@
 # ParallelApplyWorkerShared
 
 ## Location
-src/include/replication/worker_internal.h: 138 - 183
+[src/include/replication/worker_internal.h:138-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L138-L183)
 
 ## Overview
 ParallelApplyWorkerShared is a shared memory structure that facilitates communication and coordination between the leader apply worker and parallel apply workers in PostgreSQL's logical replication system.

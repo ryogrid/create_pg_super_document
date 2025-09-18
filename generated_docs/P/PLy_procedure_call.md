@@ -1,7 +1,7 @@
 # PLy_procedure_call
 
 ## Location
-src/pl/plpython/plpy_exec.c: 1062 - 1103
+[src/pl/plpython/plpy_exec.c:1062-1103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L1062-L1103)
 
 ## Overview
 Executes a compiled PL/Python procedure with the provided arguments, handling subtransaction management and error propagation between Python and PostgreSQL.

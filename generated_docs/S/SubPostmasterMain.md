@@ -1,7 +1,7 @@
 # SubPostmasterMain
 
 ## Location
-src/backend/postmaster/launch_backend.c: 581 - 695
+[src/backend/postmaster/launch_backend.c:581-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L581-L695)
 
 ## Overview
 Entry point for PostgreSQL child processes launched via EXEC_BACKEND mode, responsible for restoring the child process to an equivalent state as if it had been created by simple fork().

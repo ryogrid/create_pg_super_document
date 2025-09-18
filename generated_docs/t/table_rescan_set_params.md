@@ -1,7 +1,7 @@
 # table_rescan_set_params
 
 ## Location
-src/include/access/tableam.h: 1044 - 1055
+[src/include/access/tableam.h:1044-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1044-L1055)
 
 ## Overview
 Restarts a table scan with the ability to modify scan parameters including buffer strategy, synchronized scanning, and page mode options.

@@ -1,7 +1,7 @@
 # numeric_mod
 
 ## Location
-src/backend/utils/adt/numeric.c: 3364 - 3383
+[src/backend/utils/adt/numeric.c:3364-3383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3364-L3383)
 
 ## Overview
 PostgreSQL function that calculates the modulo (remainder) of two numeric values, providing the standard modulo operation for the Numeric data type.

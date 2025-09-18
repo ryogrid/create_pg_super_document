@@ -1,7 +1,7 @@
 # PGLC_localeconv
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 547 - 757
+[src/backend/utils/adt/pg_locale.c:547-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L547-L757)
 
 ## Overview
 PGLC_localeconv returns a POSIX lconv struct containing locale-specific number and money formatting information for all categories, handling encoding conversion and caching for PostgreSQL's locale system.

@@ -1,7 +1,7 @@
 # JsonbArraySize
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3225 - 3241
+[src/backend/utils/adt/jsonpath_exec.c:3225-3241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3225-L3241)
 
 ## Overview
 Returns the size (number of elements) of a JSONB array, or -1 if the item is not an array.

@@ -1,7 +1,7 @@
 # to_json_is_immutable
 
 ## Location
-src/backend/utils/adt/json.c: 691 - 729
+[src/backend/utils/adt/json.c:691-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L691-L729)
 
 ## Overview
 Determines whether a given PostgreSQL data type produces immutable JSON output when converted from a JSON context.

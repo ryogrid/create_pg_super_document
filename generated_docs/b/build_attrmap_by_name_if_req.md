@@ -1,7 +1,7 @@
 # build_attrmap_by_name_if_req
 
 ## Location
-src/backend/access/common/attmap.c: 263 - 289
+[src/backend/access/common/attmap.c:263-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L263-L289)
 
 ## Overview
 A convenience wrapper function that builds an attribute map by name but returns NULL if no conversion is required, optimizing for cases where runtime conversion might be unnecessary.

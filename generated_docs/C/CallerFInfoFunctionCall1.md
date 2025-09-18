@@ -1,7 +1,7 @@
 # CallerFInfoFunctionCall1
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1065 - 1084
+[src/backend/utils/fmgr/fmgr.c:1065-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1065-L1084)
 
 ## Overview
 CallerFInfoFunctionCall1 is a utility function that calls a PostgreSQL function with 1 argument using caller-provided function information (FmgrInfo), allowing for enhanced context and state sharing between caller and callee.

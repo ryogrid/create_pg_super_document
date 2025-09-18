@@ -1,7 +1,7 @@
 # DecodeXLogRecordRequiredSpace
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1639 - 1671
+[src/backend/access/transam/xlogreader.c:1639-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1639-L1671)
 
 ## Overview
 DecodeXLogRecordRequiredSpace computes the maximum possible buffer space required to decode an XLog record, providing a pessimistic estimate based on the record's total length.

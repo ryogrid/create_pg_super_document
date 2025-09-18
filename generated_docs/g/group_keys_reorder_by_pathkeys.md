@@ -1,7 +1,7 @@
 # group_keys_reorder_by_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 368 - 464
+[src/backend/optimizer/path/pathkeys.c:368-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L368-L464)
 
 ## Overview
 Reorders GROUP BY pathkeys and clauses to match a given input pathkey ordering, optimizing for cases where existing sort order can be leveraged for grouping operations.

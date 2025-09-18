@@ -1,7 +1,7 @@
 # xl_hash_init_bitmap_page
 
 ## Location
-src/include/access/hash_xlog.h: 234 - 237
+[src/include/access/hash_xlog.h:234-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L234-L237)
 
 ## Overview
 The xl_hash_init_bitmap_page struct represents the WAL record data for hash index bitmap page initialization operations, used to log the creation and setup of bitmap pages that track overflow page allocation.

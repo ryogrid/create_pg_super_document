@@ -1,7 +1,7 @@
 # stop_streaming
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 184 - 234
+[src/bin/pg_basebackup/pg_receivewal.c:184-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L184-L234)
 
 ## Overview
 A control function that determines whether WAL streaming should be stopped based on specified end positions, timeline changes, and interrupt signals.

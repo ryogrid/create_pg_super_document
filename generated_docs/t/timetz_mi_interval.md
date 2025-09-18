@@ -1,7 +1,7 @@
 # timetz_mi_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2623 - 2649
+[src/backend/utils/adt/date.c:2623-2649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2623-L2649)
 
 ## Overview
 Subtracts an interval from a time-with-timezone value, producing a new time-with-timezone result while preserving the original timezone.

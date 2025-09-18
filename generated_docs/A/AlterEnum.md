@@ -1,7 +1,7 @@
 # AlterEnum
 
 ## Location
-src/backend/commands/typecmds.c: 1271 - 1318
+[src/backend/commands/typecmds.c:1271-1318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1271-L1318)
 
 ## Overview
 AlterEnum modifies existing enumeration types by either adding new enum values or renaming existing enum labels, providing the core functionality for the ALTER TYPE ... ADD VALUE and RENAME VALUE commands.

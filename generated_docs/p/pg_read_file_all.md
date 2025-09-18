@@ -1,7 +1,7 @@
 # pg_read_file_all
 
 ## Location
-src/backend/utils/adt/genfile.c: 319 - 332
+[src/backend/utils/adt/genfile.c:319-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L319-L332)
 
 ## Overview
 Wrapper function for the SQL function pg_read_file() that reads an entire text file from beginning to end.

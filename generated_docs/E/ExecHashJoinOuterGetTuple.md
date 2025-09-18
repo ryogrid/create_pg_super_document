@@ -1,7 +1,7 @@
 # ExecHashJoinOuterGetTuple
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 890 - 963
+[src/backend/executor/nodeHashjoin.c:890-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L890-L963)
 
 ## Overview
 ExecHashJoinOuterGetTuple retrieves the next outer tuple for a non-parallel hash join, handling both initial tuple fetching from the outer plan node and subsequent tuple reading from batch files.

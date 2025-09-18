@@ -1,7 +1,7 @@
 # pull_paramids_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 5428 - 5441
+[src/backend/optimizer/util/clauses.c:5428-5441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L5428-L5441)
 
 ## Overview
 A static walker function that recursively traverses an expression tree to collect parameter IDs from Param nodes and accumulates them into a Bitmapset.

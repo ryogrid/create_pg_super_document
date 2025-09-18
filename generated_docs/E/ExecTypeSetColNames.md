@@ -1,7 +1,7 @@
 # ExecTypeSetColNames
 
 ## Location
-src/backend/executor/execTuples.c: 2117 - 2157
+[src/backend/executor/execTuples.c:2117-2157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2117-L2157)
 
 ## Overview
 ExecTypeSetColNames sets column names in a RECORD TupleDesc using an alias list, allowing dynamic assignment of column names to previously unnamed tuple descriptor attributes.

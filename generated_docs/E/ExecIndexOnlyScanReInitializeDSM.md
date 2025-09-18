@@ -1,7 +1,7 @@
 # ExecIndexOnlyScanReInitializeDSM
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 764 - 776
+[src/backend/executor/nodeIndexonlyscan.c:764-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L764-L776)
 
 ## Overview
 Resets the shared state of a parallel index-only scan before beginning a fresh scan, ensuring all parallel workers start from a clean state.

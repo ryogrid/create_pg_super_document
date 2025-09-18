@@ -1,7 +1,7 @@
 # GenerationAllocFromNewBlock
 
 ## Location
-src/backend/utils/mmgr/generation.c: 461 - 526
+[src/backend/utils/mmgr/generation.c:461-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L461-L526)
 
 ## Overview
 A helper function for GenerationAlloc() that allocates a new memory block and returns a chunk allocated from it, implementing the generation memory context's block allocation strategy with progressive size doubling.

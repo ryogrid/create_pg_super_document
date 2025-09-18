@@ -1,7 +1,7 @@
 # DelRoleMems
 
 ## Location
-src/backend/commands/user.c: 1978 - 2109
+[src/backend/commands/user.c:1978-2109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1978-L2109)
 
 ## Overview
 DelRoleMems removes specified member roles from a target role, handling cascade/restrict behavior for dependent privileges and updating the pg_auth_members catalog appropriately.

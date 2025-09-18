@@ -1,7 +1,7 @@
 # dropDatabaseDependencies
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 999 - 1046
+[src/backend/catalog/pg_shdepend.c:999-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L999-L1046)
 
 ## Overview
 Removes all shared dependency entries associated with a database that is being dropped, cleaning up both dependencies owned by the database and dependencies on the database itself.

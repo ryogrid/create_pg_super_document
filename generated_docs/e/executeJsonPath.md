@@ -1,7 +1,7 @@
 # executeJsonPath
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 679 - 734
+[src/backend/utils/adt/jsonpath_exec.c:679-734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L679-L734)
 
 ## Overview
 Core internal function that serves as the main interface to the JSONPath executor, responsible for executing JSONPath expressions against JSONB documents and collecting results.

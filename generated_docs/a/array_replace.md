@@ -1,7 +1,7 @@
 # array_replace
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6649 - 6677
+[src/backend/utils/adt/arrayfuncs.c:6649-6677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6649-L6677)
 
 ## Overview
 A SQL function that replaces all occurrences of a specified search element with a replacement element in an array, returning a new array with the substitutions made.

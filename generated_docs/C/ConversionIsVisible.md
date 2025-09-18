@@ -1,7 +1,7 @@
 # ConversionIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2509 - 2520
+[src/backend/catalog/namespace.c:2509-2520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2509-L2520)
 
 ## Overview
 Determines whether a conversion (identified by OID) is visible in the current search path, meaning it would be found when searching for the unqualified conversion name.

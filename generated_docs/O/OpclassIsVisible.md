@@ -1,7 +1,7 @@
 # OpclassIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2154 - 2165
+[src/backend/catalog/namespace.c:2154-2165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2154-L2165)
 
 ## Overview
 Determines whether an operator class (identified by OID) is visible in the current search path, meaning it would be found by searching for the unqualified operator class name.

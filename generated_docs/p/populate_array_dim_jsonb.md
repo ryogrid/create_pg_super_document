@@ -1,7 +1,7 @@
 # populate_array_dim_jsonb
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2823 - 2912
+[src/backend/utils/adt/jsonfuncs.c:2823-2912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2823-L2912)
 
 ## Overview
 Recursively iterates through JSONB sub-array elements to populate a PostgreSQL array structure, handling multi-dimensional arrays with proper dimension validation.

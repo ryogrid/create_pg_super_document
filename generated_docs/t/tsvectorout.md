@@ -1,7 +1,7 @@
 # tsvectorout
 
 ## Location
-src/backend/utils/adt/tsvector.c: 314 - 406
+[src/backend/utils/adt/tsvector.c:314-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L314-L406)
 
 ## Overview
 The  function converts a PostgreSQL TSVector data type to its textual string representation for output and display purposes.

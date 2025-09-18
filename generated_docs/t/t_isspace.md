@@ -1,7 +1,7 @@
 # t_isspace
 
 ## Location
-src/backend/tsearch/ts_locale.c: 50 - 64
+[src/backend/tsearch/ts_locale.c:50-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L50-L64)
 
 ## Overview
 The t_isspace function checks whether a character is whitespace, with proper support for multi-byte characters and locale-aware whitespace classification in text search contexts.

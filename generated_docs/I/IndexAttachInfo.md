@@ -1,7 +1,7 @@
 # IndexAttachInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 432 - 433
+[src/bin/pg_dump/pg_dump.h:432-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L432-L433)
 
 ## Overview
 IndexAttachInfo represents the relationship between a partitioned index and its partition indexes in PostgreSQL's pg_dump utility, managing index attachment operations during database dumping and restoration.

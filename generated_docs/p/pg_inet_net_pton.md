@@ -1,7 +1,7 @@
 # pg_inet_net_pton
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 62 - 96
+[src/backend/utils/adt/inet_net_pton.c:62-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L62-L96)
 
 ## Overview
 Converts network numbers from presentation format to network format, supporting both IPv4 and IPv6 addresses with CIDR notation.

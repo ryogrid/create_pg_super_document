@@ -1,7 +1,7 @@
 # exec_command_cd
 
 ## Location
-src/bin/psql/command.c: 607 - 670
+[src/bin/psql/command.c:607-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L607-L670)
 
 ## Overview
 Implements the psql  command for changing the current working directory of the psql process.

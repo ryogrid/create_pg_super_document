@@ -1,7 +1,7 @@
 # ArrayBuildStateAny
 
 ## Location
-src/include/utils/array.h: 226 - 231
+[src/include/utils/array.h:226-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L226-L231)
 
 ## Overview
 ArrayBuildStateAny is a polymorphic working state structure that can handle both scalar and array inputs for array construction, providing a unified interface for different types of array building operations.

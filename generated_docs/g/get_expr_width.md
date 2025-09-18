@@ -1,7 +1,7 @@
 # get_expr_width
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6297 - 6344
+[src/backend/optimizer/path/costsize.c:6297-6344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6297-L6344)
 
 ## Overview
 Estimates the width of a given expression by attempting to use cached width data from RelOptInfo for Vars, or falling back to datatype-based width estimates for other node types.

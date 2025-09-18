@@ -1,7 +1,7 @@
 # deallocate_one
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 260 - 314
+[src/interfaces/ecpg/ecpglib/prepare.c:260-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L260-L314)
 
 ## Overview
 A static function that deallocates a single prepared statement from the ECPG (Embedded SQL in C for PostgreSQL) library, removing both the backend prepared statement and freeing associated memory resources.

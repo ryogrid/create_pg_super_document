@@ -1,7 +1,7 @@
 # sql_inline_error_callback
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4949 - 4972
+[src/backend/optimizer/util/clauses.c:4949-4972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4949-L4972)
 
 ## Overview
 An error context callback function that provides call-stack traceback information during SQL function inlining errors, converting syntax errors to internal error reports with proper context.

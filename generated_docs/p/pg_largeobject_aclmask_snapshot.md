@@ -1,7 +1,7 @@
 # pg_largeobject_aclmask_snapshot
 
 ## Location
-src/backend/catalog/aclchk.c: 3592 - 3664
+[src/backend/catalog/aclchk.c:3592-3664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3592-L3664)
 
 ## Overview
 A specialized function that examines a user's privileges for PostgreSQL large objects using a specific MVCC snapshot to ensure consistent permission checking relative to the data access context.

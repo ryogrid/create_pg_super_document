@@ -1,7 +1,7 @@
 # power_ten_int
 
 ## Location
-src/backend/utils/adt/numeric.c: 11314 - 11338
+[src/backend/utils/adt/numeric.c:11314-11338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11314-L11338)
 
 ## Overview
 Raises ten to the power of an integer exponent and stores the result in a NumericVar structure, used for exact decimal arithmetic in PostgreSQL's numeric type implementation.

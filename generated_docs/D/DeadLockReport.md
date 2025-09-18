@@ -1,7 +1,7 @@
 # DeadLockReport
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 1072 - 1143
+[src/backend/storage/lmgr/deadlock.c:1072-1143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L1072-L1143)
 
 ## Overview
 Reports a detected deadlock with detailed information for both client and server log, including process IDs, lock types, and query details.

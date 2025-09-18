@@ -1,7 +1,7 @@
 # pg_strxfrm_enabled
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2372 - 2403
+[src/backend/utils/adt/pg_locale.c:2372-2403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2372-L2403)
 
 ## Overview
 Determines whether the given locale provider supports PostgreSQL's string transformation functions (pg_strxfrm and pg_strnxfrm) for generating sort keys.

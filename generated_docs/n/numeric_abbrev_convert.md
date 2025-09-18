@@ -1,7 +1,7 @@
 # numeric_abbrev_convert
 
 ## Location
-src/backend/utils/adt/numeric.c: 2062 - 2123
+[src/backend/utils/adt/numeric.c:2062-2123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2062-L2123)
 
 ## Overview
 Converts numeric values to abbreviated forms for optimized sorting, handling special values (NaN, infinity) and efficiently managing memory for packed datums.

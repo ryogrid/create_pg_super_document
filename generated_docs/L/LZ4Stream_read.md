@@ -1,7 +1,7 @@
 # LZ4Stream_read
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 610 - 624
+[src/bin/pg_dump/compress_lz4.c:610-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L610-L624)
 
 ## Overview
 Provides a fread() equivalent interface for reading decompressed data from LZ4 compressed files in PostgreSQL's pg_dump utility.

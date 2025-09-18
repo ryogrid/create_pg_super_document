@@ -1,7 +1,7 @@
 # LookupBackgroundWorkerFunction
 
 ## Location
-src/backend/postmaster/bgworker.c: 1262 - 1295
+[src/backend/postmaster/bgworker.c:1262-1295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1262-L1295)
 
 ## Overview
 Looks up and possibly loads a background worker entry point function by name, handling both internal PostgreSQL functions and external library functions.

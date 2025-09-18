@@ -1,7 +1,7 @@
 # find_placeholders_in_jointree
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 185 - 206
+[src/backend/optimizer/util/placeholder.c:185-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L185-L206)
 
 ## Overview
 Initiates a recursive search through the query jointree to discover all PlaceHolderVars and ensure corresponding PlaceHolderInfos are created for optimization planning.

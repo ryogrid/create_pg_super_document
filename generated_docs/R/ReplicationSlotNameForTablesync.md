@@ -1,7 +1,7 @@
 # ReplicationSlotNameForTablesync
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1293 - 1308
+[src/backend/replication/logical/tablesync.c:1293-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1293-L1308)
 
 ## Overview
 ReplicationSlotNameForTablesync generates a standardized replication slot name for table synchronization during logical replication, ensuring uniqueness across different subscriptions and clusters.

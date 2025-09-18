@@ -1,7 +1,7 @@
 # walsummary_read_callback
 
 ## Location
-src/bin/pg_walsummary/pg_walsummary.c: 246 - 264
+[src/bin/pg_walsummary/pg_walsummary.c:246-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_walsummary/pg_walsummary.c#L246-L264)
 
 ## Overview
 Read callback function for WAL summary file operations that performs file I/O with error handling and returns bytes read.

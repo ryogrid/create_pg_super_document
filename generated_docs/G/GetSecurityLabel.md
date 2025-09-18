@@ -1,7 +1,7 @@
 # GetSecurityLabel
 
 ## Location
-src/backend/commands/seclabel.c: 272 - 328
+[src/backend/commands/seclabel.c:272-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L272-L328)
 
 ## Overview
 Retrieves the security label for any database object (shared or unshared) from the appropriate system catalog for a specified provider.

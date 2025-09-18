@@ -1,7 +1,7 @@
 # ExecMergeNotMatched
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3401 - 3483
+[src/backend/executor/nodeModifyTable.c:3401-3483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3401-L3483)
 
 ## Overview
 Executes the first qualifying WHEN NOT MATCHED [BY TARGET] action in MERGE statements for source tuples that have no corresponding target tuple.

@@ -1,7 +1,7 @@
 # inetmi
 
 ## Location
-src/backend/utils/adt/network.c: 2018 - 2094
+[src/backend/utils/adt/network.c:2018-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L2018-L2094)
 
 ## Overview
 A PostgreSQL built-in function that computes the difference between two inet addresses, returning a 64-bit signed integer representing the numerical distance between them.

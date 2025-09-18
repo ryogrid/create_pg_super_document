@@ -1,7 +1,7 @@
 # TransactionIdIsCurrentTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 938 - 1038
+[src/backend/access/transam/xact.c:938-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L938-L1038)
 
 ## Overview
 Determines whether a given transaction ID belongs to the current transaction context, including the main transaction and any subtransactions or parallel worker transactions.

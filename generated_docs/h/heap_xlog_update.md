@@ -1,7 +1,7 @@
 # heap_xlog_update
 
 ## Location
-src/backend/access/heap/heapam.c: 9858 - 10129
+[src/backend/access/heap/heapam.c:9858-10129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9858-L10129)
 
 ## Overview
 Handles the replay of UPDATE and HOT_UPDATE operations during WAL (Write-Ahead Log) recovery by reconstructing the heap tuple update transaction from the logged information.

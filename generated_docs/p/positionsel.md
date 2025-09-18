@@ -1,7 +1,7 @@
 # positionsel
 
 ## Location
-src/backend/utils/adt/geo_selfuncs.c: 67 - 72
+[src/backend/utils/adt/geo_selfuncs.c:67-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_selfuncs.c#L67-L72)
 
 ## Overview
 A selectivity estimation function for geometric positional operators that determine relative positioning between geometric objects.

@@ -1,7 +1,7 @@
 # personal_indicator
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 87 - 96
+[src/interfaces/ecpg/test/expected/preproc-variable.c:87-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L87-L96)
 
 ## Overview
 A struct definition in ECPG test cases that represents indicator variables for tracking null values and data status in embedded SQL operations.

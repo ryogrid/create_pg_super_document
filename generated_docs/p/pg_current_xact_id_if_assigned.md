@@ -1,7 +1,7 @@
 # pg_current_xact_id_if_assigned
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 352 - 369
+[src/backend/utils/adt/xid8funcs.c:352-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L352-L369)
 
 ## Overview
 A PostgreSQL built-in function that returns the current toplevel full transaction ID (xid8) only if one is already assigned, returning NULL otherwise.

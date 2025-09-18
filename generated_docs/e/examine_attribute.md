@@ -1,7 +1,7 @@
 # examine_attribute
 
 ## Location
-src/backend/statistics/extended_stats.c: 528 - 606
+[src/backend/statistics/extended_stats.c:528-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L528-L606)
 
 ## Overview
 Performs pre-analysis examination of a single column to determine if it's analyzable and creates a VacAttrStats structure containing metadata needed for statistical analysis.

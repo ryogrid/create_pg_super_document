@@ -1,7 +1,7 @@
 # cash_lt
 
 ## Location
-src/backend/utils/adt/cash.c: 634 - 642
+[src/backend/utils/adt/cash.c:634-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L634-L642)
 
 ## Overview
 Implements the less-than comparison operator (<) for PostgreSQL's cash/money data type.

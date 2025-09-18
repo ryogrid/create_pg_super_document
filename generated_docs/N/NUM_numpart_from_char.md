@@ -1,7 +1,7 @@
 # NUM_numpart_from_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 5405 - 5608
+[src/backend/utils/adt/formatting.c:5405-5608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5405-L5608)
 
 ## Overview
 Extracts numeric parts (digits, signs, decimal points) from input strings during TO_NUMBER() processing, handling locale-specific formatting and various sign conventions.

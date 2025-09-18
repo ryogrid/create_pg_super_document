@@ -1,7 +1,7 @@
 # qual_is_pushdown_safe
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3855 - 3955
+[src/backend/optimizer/path/allpaths.c:3855-3955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3855-L3955)
 
 ## Overview
 This function determines whether a specific restriction clause (qualifier) can be safely pushed down into a subquery during query optimization, checking various safety conditions to prevent semantic errors.

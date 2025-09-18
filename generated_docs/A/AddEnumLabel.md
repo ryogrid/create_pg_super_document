@@ -1,7 +1,7 @@
 # AddEnumLabel
 
 ## Location
-src/backend/catalog/pg_enum.c: 292 - 606
+[src/backend/catalog/pg_enum.c:292-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L292-L606)
 
 ## Overview
 Adds a new label to an existing enum type, with support for positioning the label before/after existing values and handling concurrent modifications through sophisticated OID allocation and transaction tracking.

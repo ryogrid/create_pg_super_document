@@ -1,7 +1,7 @@
 # network_network
 
 ## Location
-src/backend/utils/adt/network.c: 1330 - 1373
+[src/backend/utils/adt/network.c:1330-1373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1330-L1373)
 
 ## Overview
 Extracts the network portion of an IP address by zeroing out all host bits, effectively returning the network address of a subnet.

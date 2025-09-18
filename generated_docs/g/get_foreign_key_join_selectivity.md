@@ -1,7 +1,7 @@
 # get_foreign_key_join_selectivity
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5544 - 5794
+[src/backend/optimizer/path/costsize.c:5544-5794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5544-L5794)
 
 ## Overview
 Analyzes join restriction clauses to identify those matching foreign key constraints and provides specialized selectivity estimates based on FK semantics rather than generic statistical methods.

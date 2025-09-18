@@ -1,7 +1,7 @@
 # create_lateral_join_info
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 501 - 739
+[src/backend/optimizer/plan/initsplan.c:501-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L501-L739)
 
 ## Overview
 Analyzes and establishes lateral dependency relationships between base relations by computing direct and transitive lateral reference sets.

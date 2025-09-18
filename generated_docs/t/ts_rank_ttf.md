@@ -1,7 +1,7 @@
 # ts_rank_ttf
 
 ## Location
-src/backend/utils/adt/tsrank.c: 471 - 485
+[src/backend/utils/adt/tsrank.c:471-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L471-L485)
 
 ## Overview
 A PostgreSQL function that calculates the rank of a TSVector against a TSQuery using default weights and a custom normalization method.

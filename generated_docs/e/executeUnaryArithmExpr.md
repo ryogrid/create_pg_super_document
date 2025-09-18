@@ -1,7 +1,7 @@
 # executeUnaryArithmExpr
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2176 - 2242
+[src/backend/utils/adt/jsonpath_exec.c:2176-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2176-L2242)
 
 ## Overview
 Executes unary arithmetic expressions on each numeric item in the operand sequence with automatic array unwrapping in lax mode, supporting unary operations like plus and minus.

@@ -1,7 +1,7 @@
 # RemoveWalSummaryIfOlderThan
 
 ## Location
-src/backend/backup/walsummary.c: 230 - 262
+[src/backend/backup/walsummary.c:230-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L230-L262)
 
 ## Overview
 Conditionally removes a WAL summary file from the filesystem if its modification time is older than a specified cutoff time.

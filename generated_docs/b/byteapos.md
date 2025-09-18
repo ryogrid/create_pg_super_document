@@ -1,7 +1,7 @@
 # byteapos
 
 ## Location
-src/backend/utils/adt/varlena.c: 3165 - 3208
+[src/backend/utils/adt/varlena.c:3165-3208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3165-L3208)
 
 ## Overview
 A PostgreSQL function that finds and returns the position of a specified substring within a bytea value, implementing the SQL POSITION() function for binary string data types.

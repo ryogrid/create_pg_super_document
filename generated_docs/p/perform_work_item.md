@@ -1,7 +1,7 @@
 # perform_work_item
 
 ## Location
-src/backend/postmaster/autovacuum.c: 2588 - 2701
+[src/backend/postmaster/autovacuum.c:2588-2701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L2588-L2701)
 
 ## Overview
 perform_work_item executes a previously registered work item that was requested by backends, currently supporting BRIN index summarization operations.

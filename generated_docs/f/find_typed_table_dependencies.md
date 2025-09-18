@@ -1,7 +1,7 @@
 # find_typed_table_dependencies
 
 ## Location
-src/backend/commands/tablecmds.c: 6896 - 6944
+[src/backend/commands/tablecmds.c:6896-6944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6896-L6944)
 
 ## Overview
 Identifies typed tables that depend on a specified composite type and either returns their list or raises an error based on the specified drop behavior.

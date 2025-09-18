@@ -1,7 +1,7 @@
 # on_ps
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3117 - 3129
+[src/backend/utils/adt/geo_ops.c:3117-3129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3117-L3129)
 
 ## Overview
 PostgreSQL function that tests whether a point lies on a line segment, serving as the SQL-callable interface for point-segment containment testing.

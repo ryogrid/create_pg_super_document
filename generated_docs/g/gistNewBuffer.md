@@ -1,7 +1,7 @@
 # gistNewBuffer
 
 ## Location
-src/backend/access/gist/gistutil.c: 823 - 886
+[src/backend/access/gist/gistutil.c:823-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L823-L886)
 
 ## Overview
 gistNewBuffer allocates a new page for a GiST index by either recycling a deleted page from the Free Space Map (FSM) or extending the index file with a new page.

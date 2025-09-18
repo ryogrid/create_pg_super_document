@@ -1,7 +1,7 @@
 # ExecTidScan
 
 ## Location
-src/backend/executor/nodeTidscan.c: 433 - 446
+[src/backend/executor/nodeTidscan.c:433-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L433-L446)
 
 ## Overview
 ExecTidScan executes a TID (tuple identifier) scan operation, retrieving the next qualifying tuple from a relation using specific tuple identifiers.

@@ -1,7 +1,7 @@
 # verify_backup_file
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 675 - 757
+[src/bin/pg_verifybackup/pg_verifybackup.c:675-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L675-L757)
 
 ## Overview
 Verifies a single file system entry (file, directory, or symlink) against the backup manifest, handling size validation, manifest lookup, and delegating to appropriate verification functions.

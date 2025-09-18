@@ -1,7 +1,7 @@
 # slist_iter
 
 ## Location
-src/include/lib/ilist.h: 257 - 260
+[src/include/lib/ilist.h:257-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L257-L260)
 
 ## Overview
 An iterator structure for safely traversing singly linked lists, maintaining state during iteration operations.

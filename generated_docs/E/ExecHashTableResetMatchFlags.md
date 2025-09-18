@@ -1,7 +1,7 @@
 # ExecHashTableResetMatchFlags
 
 ## Location
-src/backend/executor/nodeHash.c: 2334 - 2359
+[src/backend/executor/nodeHash.c:2334-2359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2334-L2359)
 
 ## Overview
 Clears all match flags in a hash table, resetting tuples to an unmatched state for reprocessing in hash join operations.

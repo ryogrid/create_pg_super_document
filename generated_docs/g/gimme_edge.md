@@ -1,7 +1,7 @@
 # gimme_edge
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 154 - 195
+[src/backend/optimizer/geqo/geqo_erx.c:154-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L154-L195)
 
 ## Overview
 Registers an edge from one city to another in the edge table for the ERX crossover algorithm, tracking both new and shared edges.

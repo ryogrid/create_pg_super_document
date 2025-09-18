@@ -1,7 +1,7 @@
 # conditional_active
 
 ## Location
-src/fe_utils/conditional.c: 140 - 150
+[src/fe_utils/conditional.c:140-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L140-L150)
 
 ## Overview
 Determines whether commands should execute normally by checking if the current conditional branch is active or if there are no open conditional blocks.

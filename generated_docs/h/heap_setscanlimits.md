@@ -1,7 +1,7 @@
 # heap_setscanlimits
 
 ## Location
-src/backend/access/heap/heapam.c: 466 - 487
+[src/backend/access/heap/heapam.c:466-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L466-L487)
 
 ## Overview
 Sets the scan range limits for a heap table scan by specifying the starting block and number of blocks to scan.

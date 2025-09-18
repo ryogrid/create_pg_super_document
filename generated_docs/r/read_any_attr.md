@@ -1,7 +1,7 @@
 # read_any_attr
 
 ## Location
-src/backend/libpq/auth-scram.c: 841 - 898
+[src/backend/libpq/auth-scram.c:841-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L841-L898)
 
 ## Overview
 A parser function that extracts the next attribute-value pair from a SCRAM authentication message string according to the SCRAM protocol specification.

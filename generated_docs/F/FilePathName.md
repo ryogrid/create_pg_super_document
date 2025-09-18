@@ -1,7 +1,7 @@
 # FilePathName
 
 ## Location
-src/backend/storage/file/fd.c: 2458 - 2473
+[src/backend/storage/file/fd.c:2458-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2458-L2473)
 
 ## Overview
 FilePathName is a utility function that returns the pathname associated with an open file descriptor in PostgreSQL's virtual file descriptor system.

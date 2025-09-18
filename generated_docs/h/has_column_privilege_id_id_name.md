@@ -1,7 +1,7 @@
 # has_column_privilege_id_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2738 - 2762
+[src/backend/utils/adt/acl.c:2738-2762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2738-L2762)
 
 ## Overview
 This function checks column-level privileges for a specific role by taking a role OID, table OID, column name as text, and privilege type as text, returning whether the role has the specified privilege on the named column.

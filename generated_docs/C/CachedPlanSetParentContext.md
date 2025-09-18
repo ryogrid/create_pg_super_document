@@ -1,7 +1,7 @@
 # CachedPlanSetParentContext
 
 ## Location
-src/backend/utils/cache/plancache.c: 1498 - 1535
+[src/backend/utils/cache/plancache.c:1498-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1498-L1535)
 
 ## Overview
 Moves a CachedPlanSource and its associated generic plan to a new memory context, allowing for flexible memory management of unsaved cached plans.

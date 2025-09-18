@@ -1,7 +1,7 @@
 # plperl_modify_tuple
 
 ## Location
-src/pl/plperl/plperl.c: 1762 - 1851
+[src/pl/plperl/plperl.c:1762-1851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1762-L1851)
 
 ## Overview
 Constructs a modified tuple to be returned from a Perl trigger function by converting Perl hash data back to PostgreSQL heap tuple format.

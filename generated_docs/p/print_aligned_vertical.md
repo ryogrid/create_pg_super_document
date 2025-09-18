@@ -1,7 +1,7 @@
 # print_aligned_vertical
 
 ## Location
-src/fe_utils/print.c: 1324 - 1839
+[src/fe_utils/print.c:1324-1839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L1324-L1839)
 
 ## Overview
 Prints tabular data in vertical format where each record is displayed with column names on the left and values on the right, with support for wrapping, borders, and multiline content.

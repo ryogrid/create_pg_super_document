@@ -1,7 +1,7 @@
 # json_array_length
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1850 - 1875
+[src/backend/utils/adt/jsonfuncs.c:1850-1875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1850-L1875)
 
 ## Overview
 A SQL function that returns the number of elements in a JSON array as an integer.

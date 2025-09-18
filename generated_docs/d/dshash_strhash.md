@@ -1,7 +1,7 @@
 # dshash_strhash
 
 ## Location
-src/backend/lib/dshash.c: 611 - 621
+[src/backend/lib/dshash.c:611-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L611-L621)
 
 ## Overview
 A utility function that provides a standardized interface for string hashing in the dshash (dynamic shared hash) system by forwarding calls to PostgreSQL's string_hash function with safety validation.

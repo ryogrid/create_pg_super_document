@@ -1,7 +1,7 @@
 # greek_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3461 - 3669
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3461-3669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3461-L3669)
 
 ## Overview
 The main entry point function for the Snowball Greek language stemming algorithm that processes UTF-8 encoded Greek text to reduce words to their morphological roots through a systematic series of transformation steps.

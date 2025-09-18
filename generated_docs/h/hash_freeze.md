@@ -1,7 +1,7 @@
 # hash_freeze
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1494 - 1510
+[src/backend/utils/hash/dynahash.c:1494-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1494-L1510)
 
 ## Overview
 Freezes a hash table against future insertions while still allowing deletions, preventing bucket splits and eliminating the need for careful sequential scan management.

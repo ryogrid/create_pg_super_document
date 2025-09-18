@@ -1,7 +1,7 @@
 # reform_and_rewrite_tuple
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2513 - 2542
+[src/backend/access/heap/heapam_handler.c:2513-2542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2513-L2542)
 
 ## Overview
 reform_and_rewrite_tuple reconstructs and rewrites a tuple during table rewrite operations, handling dropped columns and ensuring compatibility with the new table structure.

@@ -1,7 +1,7 @@
 # XLogSaveBufferForHint
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1065 - 1142
+[src/backend/access/transam/xloginsert.c:1065-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1065-L1142)
 
 ## Overview
 XLogSaveBufferForHint writes a backup block to WAL when setting hint bits on a page that requires protection for crash recovery.

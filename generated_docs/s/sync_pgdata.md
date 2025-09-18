@@ -1,7 +1,7 @@
 # sync_pgdata
 
 ## Location
-src/common/file_utils.c: 97 - 219
+[src/common/file_utils.c:97-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L97-L219)
 
 ## Overview
 Synchronizes a PostgreSQL data directory (PGDATA) and all its contents to ensure data durability by flushing all data to persistent storage using either syncfs() or fsync() methods.

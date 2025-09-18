@@ -1,7 +1,7 @@
 # fix_merged_indexes
 
 ## Location
-src/backend/partitioning/partbounds.c: 2385 - 2438
+[src/backend/partitioning/partbounds.c:2385-2438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2385-L2438)
 
 ## Overview
 Adjusts merged indexes of re-merged partitions during partition bound merging operations to maintain correct index mapping after partition restructuring.

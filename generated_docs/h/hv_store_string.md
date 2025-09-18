@@ -1,7 +1,7 @@
 # hv_store_string
 
 ## Location
-src/pl/plperl/plperl.c: 4093 - 4119
+[src/pl/plperl/plperl.c:4093-4119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L4093-L4119)
 
 ## Overview
 A utility function that stores a Perl scalar value (SV) into a Perl hash table using a string key, with proper encoding conversion from the database encoding to UTF-8.

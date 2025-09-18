@@ -1,7 +1,7 @@
 # SetLatestXTime
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4586 - 4596
+[src/backend/access/transam/xlogrecovery.c:4586-4596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4586-L4596)
 
 ## Overview
 SetLatestXTime saves the timestamp of the latest processed commit/abort record during PostgreSQL recovery operations.

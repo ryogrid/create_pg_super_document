@@ -1,7 +1,7 @@
 # pg_mcv_list_recv
 
 ## Location
-src/backend/statistics/mcv.c: 1507 - 1522
+[src/backend/statistics/mcv.c:1507-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1507-L1522)
 
 ## Overview
 Binary input routine for the pg_mcv_list data type that explicitly disallows binary input operations, maintaining the type's read-only nature.

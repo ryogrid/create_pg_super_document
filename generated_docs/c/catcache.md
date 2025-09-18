@@ -1,7 +1,7 @@
 # catcache
 
 ## Location
-src/include/utils/catcache.h: 44 - 84
+[src/include/utils/catcache.h:44-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/catcache.h#L44-L84)
 
 ## Overview
 The catcache struct represents an individual catalog cache in PostgreSQL, serving as a low-level cache for system catalog tuples to improve performance by avoiding repeated catalog table lookups.

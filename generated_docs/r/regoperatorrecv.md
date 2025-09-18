@@ -1,7 +1,7 @@
 # regoperatorrecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 856 - 865
+[src/backend/utils/adt/regproc.c:856-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L856-L865)
 
 ## Overview
 Converts external binary format to regoperator data type, used for deserializing regoperator values from binary representation.

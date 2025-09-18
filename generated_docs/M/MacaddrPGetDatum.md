@@ -1,7 +1,7 @@
 # MacaddrPGetDatum
 
 ## Location
-src/include/utils/inet.h: 153 - 157
+[src/include/utils/inet.h:153-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L153-L157)
 
 ## Overview
 Converts a macaddr pointer to a Datum value for use in PostgreSQL's function manager interface.

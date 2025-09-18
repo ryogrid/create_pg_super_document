@@ -1,7 +1,7 @@
 # english_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 1059 - 1060
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:1059-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L1059-L1060)
 
 ## Overview
 Factory function that creates and initializes a new Snowball environment structure specifically configured for English stemming with ISO-8859-1 character encoding.

@@ -1,7 +1,7 @@
 # get_rule_groupingset
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6388 - 6447
+[src/backend/utils/adt/ruleutils.c:6388-6447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6388-L6447)
 
 ## Overview
 Formats and outputs a GroupingSet clause as a string representation for SQL rule deparsing, handling different types of grouping operations including simple grouping, ROLLUP, CUBE, and GROUPING SETS.

@@ -1,7 +1,7 @@
 # LogicalRepCommitPreparedTxnData
 
 ## Location
-src/include/replication/logicalproto.h: 156 - 163
+[src/include/replication/logicalproto.h:156-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L156-L163)
 
 ## Overview
 LogicalRepCommitPreparedTxnData is a structure that holds protocol information for committing prepared transactions in PostgreSQL logical replication.

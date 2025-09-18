@@ -1,7 +1,7 @@
 # latin2mic
 
 ## Location
-src/backend/utils/mb/conv.c: 89 - 126
+[src/backend/utils/mb/conv.c:89-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conv.c#L89-L126)
 
 ## Overview
 Converts Latin character encodings to MIC (Multi-byte Internal Code) format when the local character codes map directly to MIC codes.

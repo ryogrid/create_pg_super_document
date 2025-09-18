@@ -1,7 +1,7 @@
 # IsPostmasterChildWalSender
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 307 - 322
+[src/backend/storage/ipc/pmsignal.c:307-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L307-L322)
 
 ## Overview
 Checks if a given slot is currently in use by a WAL sender process, returning true if the slot contains a WAL sender.

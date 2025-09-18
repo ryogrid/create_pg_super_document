@@ -1,7 +1,7 @@
 # TidStoreDestroy
 
 ## Location
-src/backend/access/common/tidstore.c: 328 - 355
+[src/backend/access/common/tidstore.c:328-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L328-L355)
 
 ## Overview
 Destroys a TidStore and frees all associated memory, including the underlying radix tree and memory contexts.

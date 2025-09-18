@@ -1,7 +1,7 @@
 # RegisterRelcacheInvalidation
 
 ## Location
-src/backend/utils/cache/inval.c: 571 - 600
+[src/backend/utils/cache/inval.c:571-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L571-L600)
 
 ## Overview
 Registers a relcache invalidation event for a specific relation, ensuring relation cache entries are marked for invalidation and handles special cases for cached init files.

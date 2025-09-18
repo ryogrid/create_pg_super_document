@@ -1,7 +1,7 @@
 # PQconninfoFree
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6990 - 7002
+[src/interfaces/libpq/fe-connect.c:6990-7002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6990-L7002)
 
 ## Overview
 A public libpq API function that properly deallocates memory for a PQconninfoOption array and all its associated string values.

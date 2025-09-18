@@ -1,7 +1,7 @@
 # namenlike
 
 ## Location
-src/backend/utils/adt/like.c: 261 - 281
+[src/backend/utils/adt/like.c:261-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L261-L281)
 
 ## Overview
 Implements the NOT LIKE operator for PostgreSQL's Name data type, returning true when a name does not match a given text pattern.

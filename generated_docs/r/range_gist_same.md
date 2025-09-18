@@ -1,7 +1,7 @@
 # range_gist_same
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 778 - 820
+[src/backend/utils/adt/rangetypes_gist.c:778-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L778-L820)
 
 ## Overview
 The GiST equality comparison method for range types that determines whether two range entries are identical for GiST index operations.

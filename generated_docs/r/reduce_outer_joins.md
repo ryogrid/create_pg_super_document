@@ -1,7 +1,7 @@
 # reduce_outer_joins
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2933 - 3005
+[src/backend/optimizer/prep/prepjointree.c:2933-3005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2933-L3005)
 
 ## Overview
 Attempts to reduce outer joins to plain inner joins by analyzing strictness constraints, and converts other outer join patterns into more efficient forms like anti-semijoins.

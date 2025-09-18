@@ -1,7 +1,7 @@
 # try_partial_hashjoin_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1173 - 1233
+[src/backend/optimizer/path/joinpath.c:1173-1233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1173-L1233)
 
 ## Overview
 Considers a partial hashjoin join path and adds it to the joinrel's partial pathlist if it appears useful for parallel query execution.

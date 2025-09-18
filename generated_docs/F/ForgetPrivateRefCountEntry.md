@@ -1,7 +1,7 @@
 # ForgetPrivateRefCountEntry
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 438 - 472
+[src/backend/storage/buffer/bufmgr.c:438-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L438-L472)
 
 ## Overview
 ForgetPrivateRefCountEntry releases resources used to track the reference count of a buffer that is no longer pinned and won't be pinned again immediately.

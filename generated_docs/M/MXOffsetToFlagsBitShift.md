@@ -1,7 +1,7 @@
 # MXOffsetToFlagsBitShift
 
 ## Location
-src/backend/access/transam/multixact.c: 195 - 204
+[src/backend/access/transam/multixact.c:195-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L195-L204)
 
 ## Overview
 Calculates the bit shift position within a flag word for a specific MultiXact member, used to access the correct bits that store the member's status flags.

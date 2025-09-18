@@ -1,7 +1,7 @@
 # psql_setup_cancel_handler
 
 ## Location
-src/bin/psql/common.c: 313 - 323
+[src/bin/psql/common.c:313-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L313-L323)
 
 ## Overview
 psql_setup_cancel_handler is a function that initializes the cancellation signal handler for psql by registering the psql-specific cancel callback.

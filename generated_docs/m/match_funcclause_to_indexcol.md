@@ -1,7 +1,7 @@
 # match_funcclause_to_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2511 - 2556
+[src/backend/optimizer/path/indxpath.c:2511-2556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2511-L2556)
 
 ## Overview
 Handles FuncExpr (function expression) cases for index clause matching by leveraging planner support functions to determine indexability.

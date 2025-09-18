@@ -1,7 +1,7 @@
 # pq_getbytes
 
 ## Location
-src/backend/libpq/pqcomm.c: 1062 - 1095
+[src/backend/libpq/pqcomm.c:1062-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1062-L1095)
 
 ## Overview
 Reads a specified number of bytes from the client connection into a provided buffer, handling partial reads and buffer management automatically.

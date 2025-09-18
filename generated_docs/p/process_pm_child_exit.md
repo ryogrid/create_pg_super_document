@@ -1,7 +1,7 @@
 # process_pm_child_exit
 
 ## Location
-src/backend/postmaster/postmaster.c: 2354 - 2695
+[src/backend/postmaster/postmaster.c:2354-2695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2354-L2695)
 
 ## Overview
 Handles cleanup and state transitions when child processes exit, managing different types of PostgreSQL processes and coordinating proper shutdown or restart procedures.

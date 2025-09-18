@@ -1,7 +1,7 @@
 # inet_net_ntop_ipv4
 
 ## Location
-src/port/inet_net_ntop.c: 114 - 154
+[src/port/inet_net_ntop.c:114-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/inet_net_ntop.c#L114-L154)
 
 ## Overview
 Converts IPv4 network addresses from binary network format to presentation format with CIDR notation, formatting all four octets regardless of mask length.

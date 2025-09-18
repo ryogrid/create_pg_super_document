@@ -1,7 +1,7 @@
 # websearch_to_tsquery_byid
 
 ## Location
-src/backend/tsearch/to_tsany.c: 692 - 717
+[src/backend/tsearch/to_tsany.c:692-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L692-L717)
 
 ## Overview
 Converts web search-style query text to a TSQuery using a specific text search configuration by OID, supporting web search syntax like quoted phrases and boolean operators.

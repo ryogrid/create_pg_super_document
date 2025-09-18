@@ -1,7 +1,7 @@
 # SlruScanDirCbDeleteCutoff
 
 ## Location
-src/backend/access/transam/slru.c: 1725 - 1740
+[src/backend/access/transam/slru.c:1725-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1725-L1740)
 
 ## Overview
 A static callback function used by SlruScanDirectory to delete SLRU segments that are prior to a specified cutoff page.

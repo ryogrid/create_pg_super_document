@@ -1,7 +1,7 @@
 # bbstreamer_gzip_decompressor
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 33 - 38
+[src/bin/pg_basebackup/bbstreamer_gzip.c:33-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L33-L38)
 
 ## Overview
 A structure representing a gzip decompression stream processor that decompresses gzip-compressed data and forwards it to the next streamer in the pipeline.

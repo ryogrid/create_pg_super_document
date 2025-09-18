@@ -1,7 +1,7 @@
 # xmlparse
 
 ## Location
-src/backend/utils/adt/xml.c: 993 - 1010
+[src/backend/utils/adt/xml.c:993-1010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L993-L1010)
 
 ## Overview
 Parses and validates text data as XML according to specified XML option types, providing input validation for XML data in PostgreSQL.

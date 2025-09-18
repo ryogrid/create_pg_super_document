@@ -1,7 +1,7 @@
 # GetCatalogSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 352 - 373
+[src/backend/utils/time/snapmgr.c:352-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L352-L373)
 
 ## Overview
 Provides a snapshot that is sufficiently up-to-date for scanning system catalog relations, with special handling for logical decoding scenarios.

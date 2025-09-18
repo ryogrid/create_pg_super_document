@@ -1,7 +1,7 @@
 # range_union_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1052 - 1097
+[src/backend/utils/adt/rangetypes.c:1052-1097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1052-L1097)
 
 ## Overview
 The range_union_internal function computes the set union of two ranges, with optional strict mode that requires ranges to be adjacent or overlapping.

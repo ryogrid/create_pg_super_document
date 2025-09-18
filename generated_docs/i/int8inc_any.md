@@ -1,7 +1,7 @@
 # int8inc_any
 
 ## Location
-src/backend/utils/adt/int8.c: 804 - 809
+[src/backend/utils/adt/int8.c:804-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L804-L809)
 
 ## Overview
 A wrapper function for int8inc specifically designed for aggregates that count only non-null values.

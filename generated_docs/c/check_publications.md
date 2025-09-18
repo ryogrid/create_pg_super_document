@@ -1,7 +1,7 @@
 # check_publications
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 486 - 548
+[src/backend/commands/subscriptioncmds.c:486-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L486-L548)
 
 ## Overview
 Validates that all specified publications exist on the publisher server by querying the remote pg_publication catalog and reports warnings for any missing publications.

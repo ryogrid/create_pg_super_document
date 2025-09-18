@@ -1,7 +1,7 @@
 # EmitErrorReport
 
 ## Location
-src/backend/utils/error/elog.c: 1687 - 1745
+[src/backend/utils/error/elog.c:1687-1745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1687-L1745)
 
 ## Overview
 Outputs the top-of-stack error message to the appropriate destinations (server log, client, or custom hooks) in PostgreSQL's error reporting system.

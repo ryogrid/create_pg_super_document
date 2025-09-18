@@ -1,7 +1,7 @@
 # getJsonPathItem
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2958 - 2990
+[src/backend/utils/adt/jsonpath_exec.c:2958-2990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2958-L2990)
 
 ## Overview
 Converts a jsonpath scalar or variable node to an actual JsonbValue, handling different data types including null, boolean, numeric, string, and variable references.

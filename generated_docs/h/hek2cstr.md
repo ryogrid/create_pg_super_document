@@ -1,7 +1,7 @@
 # hek2cstr
 
 ## Location
-src/pl/plperl/plperl.c: 323 - 379
+[src/pl/plperl/plperl.c:323-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L323-L379)
 
 ## Overview
 A static function that converts a Perl hash entry (HE) key to a C string in the current database encoding, handling Unicode and character encoding complexities.

@@ -1,7 +1,7 @@
 # WriteDataToArchiveGzip
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 152 - 162
+[src/bin/pg_dump/compress_gzip.c:152-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L152-L162)
 
 ## Overview
 Public interface function for compressing and writing data to the archive using gzip compression.

@@ -1,7 +1,7 @@
 # list_copy_head
 
 ## Location
-src/backend/nodes/list.c: 1593 - 1612
+[src/backend/nodes/list.c:1593-1612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1593-L1612)
 
 ## Overview
 Creates a shallow copy of a PostgreSQL list containing only the first 'len' elements of the original list.

@@ -1,7 +1,7 @@
 # OpenWalSummaryFile
 
 ## Location
-src/backend/backup/walsummary.c: 205 - 229
+[src/backend/backup/walsummary.c:205-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L205-L229)
 
 ## Overview
 Opens a WAL summary file for reading based on a WalSummaryFile structure, with optional error handling for missing files.

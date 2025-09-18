@@ -1,7 +1,7 @@
 # ClearPendingActionsAndNotifies
 
 ## Location
-src/backend/commands/async.c: 2387 - 2402
+[src/backend/commands/async.c:2387-2402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2387-L2402)
 
 ## Overview
 Clears the pending actions and notifications lists by resetting global pointers, relying on PostgreSQL's memory context system for automatic memory cleanup.

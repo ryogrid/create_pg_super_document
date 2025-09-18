@@ -1,7 +1,7 @@
 # SendXlogRecPtrResult
 
 ## Location
-src/backend/backup/basebackup_copy.c: 341 - 377
+[src/backend/backup/basebackup_copy.c:341-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L341-L377)
 
 ## Overview
 SendXlogRecPtrResult is a static function that sends a result set containing a single XLogRecPtr record and TimeLineID in text format as part of PostgreSQL base backup operations.

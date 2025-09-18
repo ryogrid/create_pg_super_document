@@ -1,7 +1,7 @@
 # OnCommitItem
 
 ## Location
-src/backend/commands/tablecmds.c: 113 - 127
+[src/backend/commands/tablecmds.c:113-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L113-L127)
 
 ## Overview
 OnCommitItem is a structure that manages ON COMMIT actions for temporary tables and other relations in PostgreSQL. It tracks what action should be performed on a relation at transaction commit or abort time.

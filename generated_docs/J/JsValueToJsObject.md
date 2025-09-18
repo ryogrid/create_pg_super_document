@@ -1,7 +1,7 @@
 # JsValueToJsObject
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2980 - 3026
+[src/backend/utils/adt/jsonfuncs.c:2980-3026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2980-L3026)
 
 ## Overview
 Converts a JsValue structure into a JsObject structure, handling both plain JSON strings and JsonB binary data formats for object population operations.

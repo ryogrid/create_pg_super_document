@@ -1,7 +1,7 @@
 # BitmapAndState
 
 ## Location
-src/include/nodes/execnodes.h: 1527 - 1532
+[src/include/nodes/execnodes.h:1527-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1527-L1532)
 
 ## Overview
 BitmapAndState is the runtime state structure for the BitmapAnd executor node, which performs logical AND operations on bitmap indexes from multiple child plans.

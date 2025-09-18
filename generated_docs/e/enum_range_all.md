@@ -1,7 +1,7 @@
 # enum_range_all
 
 ## Location
-src/backend/utils/adt/enum.c: 527 - 546
+[src/backend/utils/adt/enum.c:527-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L527-L546)
 
 ## Overview
 A PostgreSQL built-in function that returns an array containing all values of an enum type in their sort order.

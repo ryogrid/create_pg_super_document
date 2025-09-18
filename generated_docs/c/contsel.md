@@ -1,7 +1,7 @@
 # contsel
 
 ## Location
-src/backend/utils/adt/geo_selfuncs.c: 86 - 91
+[src/backend/utils/adt/geo_selfuncs.c:86-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_selfuncs.c#L86-L91)
 
 ## Overview
 A selectivity estimation function for geometric containment operators that test whether one geometric object contains or is contained by another.

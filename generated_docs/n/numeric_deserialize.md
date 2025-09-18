@@ -1,7 +1,7 @@
 # numeric_deserialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5386 - 5446
+[src/backend/utils/adt/numeric.c:5386-5446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5386-L5446)
 
 ## Overview
 Deserializes a bytea back into NumericAggState for numeric aggregates that require sumX2 (sum of squares), reconstructing the complete aggregate state for statistical calculations.

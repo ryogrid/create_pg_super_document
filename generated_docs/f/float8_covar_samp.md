@@ -1,7 +1,7 @@
 # float8_covar_samp
 
 ## Location
-src/backend/utils/adt/float.c: 3625 - 3643
+[src/backend/utils/adt/float.c:3625-3643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3625-L3643)
 
 ## Overview
 Computes the sample covariance from a regression transition array, measuring the degree to which two variables vary together in a sample dataset.

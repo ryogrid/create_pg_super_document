@@ -1,7 +1,7 @@
 # record_type_typmod_hash
 
 ## Location
-src/backend/utils/cache/typcache.c: 1926 - 1936
+[src/backend/utils/cache/typcache.c:1926-1936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1926-L1936)
 
 ## Overview
 A hash function used by the hash table that stores RecordCacheEntry structures, providing efficient lookups for record type typmod assignments.

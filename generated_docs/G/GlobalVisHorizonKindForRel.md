@@ -1,7 +1,7 @@
 # GlobalVisHorizonKindForRel
 
 ## Location
-src/backend/storage/ipc/procarray.c: 1971 - 2004
+[src/backend/storage/ipc/procarray.c:1971-2004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L1971-L2004)
 
 ## Overview
 GlobalVisHorizonKindForRel determines the appropriate visibility horizon kind for a given relation, helping PostgreSQL decide which vacuum and transaction cleanup strategy to apply based on the relation type and system state.

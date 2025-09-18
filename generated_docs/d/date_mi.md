@@ -1,7 +1,7 @@
 # date_mi
 
 ## Location
-src/backend/utils/adt/date.c: 487 - 503
+[src/backend/utils/adt/date.c:487-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L487-L503)
 
 ## Overview
 Computes the difference between two dates in days, returning the result as an integer.

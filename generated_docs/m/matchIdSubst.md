@@ -1,7 +1,7 @@
 # matchIdSubst
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 676 - 695
+[src/backend/tsearch/dict_thesaurus.c:676-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L676-L695)
 
 ## Overview
 Checks if a lexeme information structure contains a variant with a specific substitution ID.

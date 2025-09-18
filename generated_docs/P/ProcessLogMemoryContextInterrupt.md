@@ -1,7 +1,7 @@
 # ProcessLogMemoryContextInterrupt
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1288 - 1315
+[src/backend/utils/mmgr/mcxt.c:1288-1315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1288-L1315)
 
 ## Overview
 ProcessLogMemoryContextInterrupt performs the actual logging of memory contexts for the current backend process, implementing the deferred work from HandleLogMemoryContextInterrupt in a safe context outside of signal handlers.

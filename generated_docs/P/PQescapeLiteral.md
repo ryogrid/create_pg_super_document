@@ -1,7 +1,7 @@
 # PQescapeLiteral
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4365 - 4370
+[src/interfaces/libpq/fe-exec.c:4365-4370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4365-L4370)
 
 ## Overview
 PQescapeLiteral escapes a string for use as a SQL literal value in PostgreSQL queries, ensuring proper handling of special characters and preventing SQL injection.

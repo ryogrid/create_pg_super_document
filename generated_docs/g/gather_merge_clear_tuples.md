@@ -1,7 +1,7 @@
 # gather_merge_clear_tuples
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 519 - 539
+[src/backend/executor/nodeGatherMerge.c:519-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L519-L539)
 
 ## Overview
 Clears all tuple table slots and frees any unused pending tuples from worker tuple buffers to prevent memory leaks during GatherMerge operations.

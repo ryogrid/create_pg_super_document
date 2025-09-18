@@ -1,7 +1,7 @@
 # setPath
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5180 - 5261
+[src/backend/utils/adt/jsonfuncs.c:5180-5261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5180-L5261)
 
 ## Overview
 setPath is the core function that performs heavy lifting for jsonb_set and jsonb_insert operations, handling path-based modifications to JSON structures with various operation types and creation flags.

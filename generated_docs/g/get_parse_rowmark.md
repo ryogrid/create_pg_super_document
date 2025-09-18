@@ -1,7 +1,7 @@
 # get_parse_rowmark
 
 ## Location
-src/backend/parser/parse_relation.c: 3459 - 3482
+[src/backend/parser/parse_relation.c:3459-3482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3459-L3482)
 
 ## Overview
 Searches a Query's rowMarks list to find and return the RowMarkClause for a specified range table entry.

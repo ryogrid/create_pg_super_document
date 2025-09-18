@@ -1,7 +1,7 @@
 # PipeProtoHeader
 
 ## Location
-src/include/postmaster/syslogger.h: 51 - 56
+[src/include/postmaster/syslogger.h:51-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postmaster/syslogger.h#L51-L56)
 
 ## Overview
 PipeProtoHeader is a structure that defines the header format for pipe protocol communication in PostgreSQL's system logger, providing metadata for chunks of log data transmitted through pipes.

@@ -1,7 +1,7 @@
 # SummarizeWAL
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 906 - 1245
+[src/backend/postmaster/walsummarizer.c:906-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L906-L1245)
 
 ## Overview
 Summarizes a range of WAL records on a single timeline, creating a compact representation of modified blocks and storing it as a WAL summary file.

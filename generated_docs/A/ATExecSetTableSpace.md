@@ -1,7 +1,7 @@
 # ATExecSetTableSpace
 
 ## Location
-src/backend/commands/tablecmds.c: 15253 - 15345
+[src/backend/commands/tablecmds.c:15253-15345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15253-L15345)
 
 ## Overview
 ATExecSetTableSpace executes the ALTER TABLE SET TABLESPACE command by physically moving table data to a new tablespace without tuple rewriting, optimizing for fast data copy operations.

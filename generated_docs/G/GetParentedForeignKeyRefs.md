@@ -1,7 +1,7 @@
 # GetParentedForeignKeyRefs
 
 ## Location
-src/backend/commands/tablecmds.c: 20128 - 20180
+[src/backend/commands/tablecmds.c:20128-20180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L20128-L20180)
 
 ## Overview
 Retrieves a list of foreign key constraint OIDs that reference the given partition table and are part of a partitioned constraint hierarchy (having parent constraints).

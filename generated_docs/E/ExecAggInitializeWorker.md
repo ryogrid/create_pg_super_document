@@ -1,7 +1,7 @@
 # ExecAggInitializeWorker
 
 ## Location
-src/backend/executor/nodeAgg.c: 4729 - 4741
+[src/backend/executor/nodeAgg.c:4729-4741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4729-L4741)
 
 ## Overview
 This function attaches a worker process to DSM (Dynamic Shared Memory) space for aggregate statistics in PostgreSQL's parallel query execution framework.

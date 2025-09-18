@@ -1,7 +1,7 @@
 # tsqueryin
 
 ## Location
-src/backend/utils/adt/tsquery.c: 952 - 973
+[src/backend/utils/adt/tsquery.c:952-973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L952-L973)
 
 ## Overview
 The  function is a PostgreSQL I/O function that converts a text string into a TSQuery data type without applying any morphological processing or text search configuration.

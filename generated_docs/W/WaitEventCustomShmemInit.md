@@ -1,7 +1,7 @@
 # WaitEventCustomShmemInit
 
 ## Location
-src/backend/utils/activity/wait_event.c: 120 - 163
+[src/backend/utils/activity/wait_event.c:120-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L120-L163)
 
 ## Overview
 Initializes shared memory structures for custom wait events, including the allocation counter and two hash tables for efficient lookup by event information and name.

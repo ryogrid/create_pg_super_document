@@ -1,7 +1,7 @@
 # IpcSemaphoreCreate
 
 ## Location
-src/backend/port/sysv_sema.c: 229 - 312
+[src/backend/port/sysv_sema.c:229-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_sema.c#L229-L312)
 
 ## Overview
 Creates a System V IPC semaphore set with the specified number of semaphores, detecting and recycling dead PostgreSQL semaphore sets while avoiding conflicts with non-PostgreSQL applications.

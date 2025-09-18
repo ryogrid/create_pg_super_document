@@ -1,7 +1,7 @@
 # ConditionalLockTuple
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 578 - 594
+[src/backend/storage/lmgr/lmgr.c:578-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L578-L594)
 
 ## Overview
 Attempt to obtain a tuple-level lock without blocking, returning true if the lock was successfully acquired on the specified tuple.

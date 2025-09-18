@@ -1,7 +1,7 @@
 # contjoinsel
 
 ## Location
-src/backend/utils/adt/geo_selfuncs.c: 92 - 95
+[src/backend/utils/adt/geo_selfuncs.c:92-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_selfuncs.c#L92-L95)
 
 ## Overview
 A join selectivity function for geometric containment operators that estimates the selectivity of joins involving box containment and "contained by" operations.

@@ -1,7 +1,7 @@
 # anyarray_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 158 - 163
+[src/backend/utils/adt/pseudotypes.c:158-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L158-L163)
 
 ## Overview
 The `anyarray_out` function is an output conversion function for the `anyarray` pseudo-type in PostgreSQL, serving as a wrapper that delegates to the standard array output function.

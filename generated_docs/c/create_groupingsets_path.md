@@ -1,7 +1,7 @@
 # create_groupingsets_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3237 - 3396
+[src/backend/optimizer/util/pathnode.c:3237-3396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3237-L3396)
 
 ## Overview
 Creates a pathnode that represents performing GROUPING SETS aggregation with one or more grouping sets, where the input path's result must be sorted to match the last entry in rollup_groupclauses.

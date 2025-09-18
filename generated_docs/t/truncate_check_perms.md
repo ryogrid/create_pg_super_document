@@ -1,7 +1,7 @@
 # truncate_check_perms
 
 ## Location
-src/backend/commands/tablecmds.c: 2350 - 2367
+[src/backend/commands/tablecmds.c:2350-2367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L2350-L2367)
 
 ## Overview
 truncate_check_perms verifies that the current user has the necessary TRUNCATE permission on a given relation, raising an appropriate error if access is denied.

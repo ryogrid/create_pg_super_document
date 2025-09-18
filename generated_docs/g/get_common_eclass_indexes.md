@@ -1,7 +1,7 @@
 # get_common_eclass_indexes
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 3358 - 3377
+[src/backend/optimizer/path/equivclass.c:3358-3377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L3358-L3377)
 
 ## Overview
 Builds and returns a Bitmapset containing the indexes of equivalence classes that mention relations in both of two specified relation ID sets.

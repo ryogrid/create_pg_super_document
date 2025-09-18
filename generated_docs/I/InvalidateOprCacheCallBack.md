@@ -1,7 +1,7 @@
 # InvalidateOprCacheCallBack
 
 ## Location
-src/backend/parser/parse_oper.c: 1036 - 1053
+[src/backend/parser/parse_oper.c:1036-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L1036-L1053)
 
 ## Overview
 Callback function that flushes all entries from the operator cache when pg_operator or pg_cast system catalogs are modified.

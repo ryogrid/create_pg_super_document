@@ -1,7 +1,7 @@
 # jsonb_ge
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 208 - 221
+[src/backend/utils/adt/jsonb_op.c:208-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L208-L221)
 
 ## Overview
 The `jsonb_ge` function implements the "greater than or equal to" comparison operator (>=) for JSONB data types, serving as a B-Tree operator class operator for ordering and range operations.

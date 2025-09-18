@@ -1,7 +1,7 @@
 # ShutdownAuxiliaryProcess
 
 ## Location
-src/backend/postmaster/auxprocess.c: 101 - 106
+[src/backend/postmaster/auxprocess.c:101-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/auxprocess.c#L101-L106)
 
 ## Overview
 Shutdown callback function for auxiliary processes that performs essential cleanup operations, equivalent to ShutdownPostgres() but simplified for non-transactional auxiliary processes.

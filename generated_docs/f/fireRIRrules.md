@@ -1,7 +1,7 @@
 # fireRIRrules
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1982 - 2310
+[src/backend/rewrite/rewriteHandler.c:1982-2310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1982-L2310)
 
 ## Overview
 Applies all RIR (Rules Instead Rewrite) rules on each range table entry in the given query, handling view expansion, rule recursion detection, and row-level security policies.

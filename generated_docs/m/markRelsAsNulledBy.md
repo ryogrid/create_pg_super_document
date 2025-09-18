@@ -1,7 +1,7 @@
 # markRelsAsNulledBy
 
 ## Location
-src/backend/parser/parse_clause.c: 1774 - 1814
+[src/backend/parser/parse_clause.c:1774-1814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1774-L1814)
 
 ## Overview
 Recursively marks relations in a jointree node and its children as being nulled by a specific outer join.

@@ -1,7 +1,7 @@
 # exprCollation
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 816 - 1067
+[src/backend/nodes/nodeFuncs.c:816-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L816-L1067)
 
 ## Overview
 Returns the OID of the collation associated with an expression's result, handling all PostgreSQL expression node types to determine their appropriate collation properties.

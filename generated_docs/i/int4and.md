@@ -1,7 +1,7 @@
 # int4and
 
 ## Location
-src/backend/utils/adt/int.c: 1393 - 1401
+[src/backend/utils/adt/int.c:1393-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1393-L1401)
 
 ## Overview
 Performs bitwise AND operation on two 32-bit signed integers (int32).

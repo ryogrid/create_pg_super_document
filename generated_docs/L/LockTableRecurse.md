@@ -1,7 +1,7 @@
 # LockTableRecurse
 
 ## Location
-src/backend/commands/lockcmds.c: 117 - 173
+[src/backend/commands/lockcmds.c:117-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L117-L173)
 
 ## Overview
 Recursively applies table locks across an inheritance hierarchy, locking all child tables that inherit from the specified parent table.

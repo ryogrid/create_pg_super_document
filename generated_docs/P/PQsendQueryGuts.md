@@ -1,7 +1,7 @@
 # PQsendQueryGuts
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1757 - 1924
+[src/interfaces/libpq/fe-exec.c:1757-1924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1757-L1924)
 
 ## Overview
 PQsendQueryGuts is a static function that implements the common code for sending a query using PostgreSQL's extended query protocol, handling the construction and transmission of Parse, Bind, Describe, Execute, and optionally Sync messages.

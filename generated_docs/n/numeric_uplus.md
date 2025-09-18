@@ -1,7 +1,7 @@
 # numeric_uplus
 
 ## Location
-src/backend/utils/adt/numeric.c: 1460 - 1475
+[src/backend/utils/adt/numeric.c:1460-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1460-L1475)
 
 ## Overview
 The numeric_uplus function implements the unary plus operator for PostgreSQL's NUMERIC data type, returning a copy of the input numeric value.

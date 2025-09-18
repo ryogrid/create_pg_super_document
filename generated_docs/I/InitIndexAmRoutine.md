@@ -1,7 +1,7 @@
 # InitIndexAmRoutine
 
 ## Location
-src/backend/utils/cache/relcache.c: 1402 - 1425
+[src/backend/utils/cache/relcache.c:1402-1425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1402-L1425)
 
 ## Overview
 InitIndexAmRoutine fills in the IndexAmRoutine structure for an index relation by calling the access method handler and caching the result in the relation's index context.

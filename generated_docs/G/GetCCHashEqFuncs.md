@@ -1,7 +1,7 @@
 # GetCCHashEqFuncs
 
 ## Location
-src/backend/utils/cache/catcache.c: 274 - 343
+[src/backend/utils/cache/catcache.c:274-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L274-L343)
 
 ## Overview
 A static function that determines the appropriate hash function, equality function, and fast equality function for a given PostgreSQL data type, used by the catalog cache system to optimize key comparisons and hash computations.

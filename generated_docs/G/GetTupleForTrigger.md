@@ -1,7 +1,7 @@
 # GetTupleForTrigger
 
 ## Location
-src/backend/commands/trigger.c: 3371 - 3508
+[src/backend/commands/trigger.c:3371-3508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3371-L3508)
 
 ## Overview
 Fetches a tuple into a slot for trigger processing, handling tuple locking and Eval Plan Qual (EPQ) operations as necessary to ensure consistent access in concurrent environments.

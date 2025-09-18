@@ -1,7 +1,7 @@
 # get_index_clause_from_support
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2557 - 2622
+[src/backend/optimizer/path/indxpath.c:2557-2622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2557-L2622)
 
 ## Overview
 Creates an IndexClause by leveraging a function's planner support function to generate optimized index conditions for query optimization.

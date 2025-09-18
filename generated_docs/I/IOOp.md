@@ -1,7 +1,7 @@
 # IOOp
 
 ## Location
-src/include/pgstat.h: 306 - 307
+[src/include/pgstat.h:306-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L306-L307)
 
 ## Overview
 IOOp is an enumeration that defines the different types of I/O operations that can be tracked and measured in PostgreSQL's statistics collection system.

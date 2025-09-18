@@ -1,7 +1,7 @@
 # pg_atomic_fetch_and_u64
 
 ## Location
-src/include/port/atomics.h: 536 - 544
+[src/include/port/atomics.h:536-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L536-L544)
 
 ## Overview
 Atomically performs a bitwise AND operation on a 64-bit unsigned integer and returns the original value before the operation.

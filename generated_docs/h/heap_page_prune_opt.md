@@ -1,7 +1,7 @@
 # heap_page_prune_opt
 
 ## Location
-src/backend/access/heap/pruneheap.c: 193 - 349
+[src/backend/access/heap/pruneheap.c:193-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L193-L349)
 
 ## Overview
 heap_page_prune_opt is an opportunistic page maintenance function that performs housekeeping on heap pages by pruning dead tuples and repairing fragmentation when certain heuristics indicate the page would benefit from cleanup.

@@ -1,7 +1,7 @@
 # df_files
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 55 - 64
+[src/backend/utils/fmgr/dfmgr.c:55-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L55-L64)
 
 ## Overview
 The df_files struct is a node in a linked list that tracks dynamically loaded library files in PostgreSQL's dynamic function manager, storing file metadata and handles to prevent duplicate loading.

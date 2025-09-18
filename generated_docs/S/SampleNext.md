@@ -1,7 +1,7 @@
 # SampleNext
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 42 - 59
+[src/backend/executor/nodeSamplescan.c:42-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L42-L59)
 
 ## Overview
 SampleNext is an internal helper function that retrieves the next tuple from a table sampling scan operation, handling initialization on the first call and delegating to the sampling method's specific tuple retrieval logic.

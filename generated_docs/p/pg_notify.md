@@ -1,7 +1,7 @@
 # pg_notify
 
 ## Location
-src/backend/commands/async.c: 557 - 590
+[src/backend/commands/async.c:557-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L557-L590)
 
 ## Overview
 A SQL-callable function that implements the NOTIFY command functionality, allowing users to send asynchronous notification events with an optional payload.

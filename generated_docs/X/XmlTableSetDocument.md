@@ -1,7 +1,7 @@
 # XmlTableSetDocument
 
 ## Location
-src/backend/utils/adt/xml.c: 4732 - 4788
+[src/backend/utils/adt/xml.c:4732-4788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4732-L4788)
 
 ## Overview
 Parses and installs an XML document into the XmlTable processing context, setting up the document and XPath context for subsequent XML table operations.

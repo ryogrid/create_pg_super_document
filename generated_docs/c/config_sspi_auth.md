@@ -1,7 +1,7 @@
 # config_sspi_auth
 
 ## Location
-src/test/regress/pg_regress.c: 999 - 1053
+[src/test/regress/pg_regress.c:999-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L999-L1053)
 
 ## Overview
 Configures SSPI authentication for PostgreSQL regression tests by rewriting pg_hba.conf and pg_ident.conf to permit the current Windows OS user to authenticate as the bootstrap superuser and any user specified via --create-role option.

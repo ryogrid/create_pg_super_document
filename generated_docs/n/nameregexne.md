@@ -1,7 +1,7 @@
 # nameregexne
 
 ## Location
-src/backend/utils/adt/regexp.c: 473 - 486
+[src/backend/utils/adt/regexp.c:473-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L473-L486)
 
 ## Overview
 The nameregexne function performs negated regular expression matching on PostgreSQL name data types, returning true if the name does NOT match the provided regular expression pattern.

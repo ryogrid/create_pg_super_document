@@ -1,7 +1,7 @@
 # mdregistersync
 
 ## Location
-src/backend/storage/smgr/md.c: 1242 - 1292
+[src/backend/storage/smgr/md.c:1242-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1242-L1292)
 
 ## Overview
 mdregistersync marks an entire PostgreSQL relation as needing fsync by registering all segments (both active and inactive) for synchronization.

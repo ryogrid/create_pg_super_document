@@ -1,7 +1,7 @@
 # build_client_first_message
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 345 - 449
+[src/interfaces/libpq/fe-auth-scram.c:345-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L345-L449)
 
 ## Overview
 Builds the first SCRAM authentication exchange message sent by the client to the PostgreSQL server, including nonce generation and channel binding setup.

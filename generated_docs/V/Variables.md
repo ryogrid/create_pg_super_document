@@ -1,7 +1,7 @@
 # Variables
 
 ## Location
-src/bin/pgbench/pgbench.c: 345 - 346
+[src/bin/pgbench/pgbench.c:345-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L345-L346)
 
 ## Overview
 The Variables structure is a container that manages a dynamic array of Variable instances for client-side variable storage in pgbench, providing efficient organization and lookup capabilities.

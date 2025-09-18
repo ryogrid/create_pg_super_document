@@ -1,7 +1,7 @@
 # merge_map_updates
 
 ## Location
-src/backend/utils/cache/relmapper.c: 416 - 437
+[src/backend/utils/cache/relmapper.c:416-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L416-L437)
 
 ## Overview
 A static helper function that applies multiple relation mapping updates in bulk by merging all mappings from a pending-update map into a target map.

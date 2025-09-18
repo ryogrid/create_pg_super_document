@@ -1,7 +1,7 @@
 # extract_actual_join_clauses
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 522 - 583
+[src/backend/optimizer/util/restrictinfo.c:522-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L522-L583)
 
 ## Overview
 Separates join clauses into two categories: those that semantically belong to the current join level and those that were pushed down from higher levels, specifically designed for outer join processing.

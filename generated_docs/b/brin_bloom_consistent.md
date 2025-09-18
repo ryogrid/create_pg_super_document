@@ -1,7 +1,7 @@
 # brin_bloom_consistent
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 594 - 665
+[src/backend/access/brin/brin_bloom.c:594-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L594-L665)
 
 ## Overview
 Determines whether scan keys are consistent with an index tuple's bloom filter, used during BRIN index scans to eliminate page ranges that cannot contain matching values.

@@ -1,7 +1,7 @@
 # PerformAuthentication
 
 ## Location
-src/backend/utils/init/postinit.c: 190 - 312
+[src/backend/utils/init/postinit.c:190-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L190-L312)
 
 ## Overview
 PerformAuthentication is a static function that handles the complete authentication process for a remote client connection during PostgreSQL backend startup.

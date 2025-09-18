@@ -1,7 +1,7 @@
 # GenerationRealloc
 
 ## Location
-src/backend/utils/mmgr/generation.c: 800 - 946
+[src/backend/utils/mmgr/generation.c:800-946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L800-L946)
 
 ## Overview
 GenerationRealloc implements memory reallocation for the Generation allocator, optimizing for in-place resizing when possible, otherwise performing allocation-copy-free operations.

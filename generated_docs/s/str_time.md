@@ -1,7 +1,7 @@
 # str_time
 
 ## Location
-src/backend/access/transam/xlog.c: 5154 - 5168
+[src/backend/access/transam/xlog.c:5154-5168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L5154-L5168)
 
 ## Overview
 A utility function that converts a PostgreSQL timestamp to a human-readable string representation using the configured log timezone.

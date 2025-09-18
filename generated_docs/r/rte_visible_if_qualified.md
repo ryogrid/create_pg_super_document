@@ -1,7 +1,7 @@
 # rte_visible_if_qualified
 
 ## Location
-src/backend/parser/parse_relation.c: 3806 - 3823
+[src/backend/parser/parse_relation.c:3806-3823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3806-L3823)
 
 ## Overview
 Determines whether columns in a RangeTblEntry would become visible if accessed using table-qualified names, helping to generate appropriate hints in error messages.

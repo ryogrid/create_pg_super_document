@@ -1,7 +1,7 @@
 # aclitemComparator
 
 ## Location
-src/backend/utils/adt/acl.c: 724 - 747
+[src/backend/utils/adt/acl.c:724-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L724-L747)
 
 ## Overview
 A static comparison function used by qsort to order AclItem structures in a canonical order for access control list processing.

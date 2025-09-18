@@ -1,7 +1,7 @@
 # on_exit_nicely
 
 ## Location
-src/bin/pg_dump/pg_backup_utils.c: 63 - 89
+[src/bin/pg_dump/pg_backup_utils.c:63-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_utils.c#L63-L89)
 
 ## Overview
 Registers callback functions to be executed when the program exits via exit_nicely, providing cleanup functionality for pg_dump utilities.

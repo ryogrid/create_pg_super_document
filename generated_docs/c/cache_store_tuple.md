@@ -1,7 +1,7 @@
 # cache_store_tuple
 
 ## Location
-src/backend/executor/nodeMemoize.c: 625 - 696
+[src/backend/executor/nodeMemoize.c:625-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L625-L696)
 
 ## Overview
 Adds a tuple from a TupleTableSlot to the current cache entry, managing memory allocation, linked list maintenance, and memory limit enforcement during the storage process.

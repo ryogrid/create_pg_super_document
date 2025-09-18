@@ -1,7 +1,7 @@
 # process_startup_options
 
 ## Location
-src/backend/utils/init/postinit.c: 1262 - 1326
+[src/backend/utils/init/postinit.c:1262-1326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1262-L1326)
 
 ## Overview
 process_startup_options processes command-line switches and GUC variable settings passed in the client startup packet, applying them with appropriate security context based on user privileges.

@@ -1,7 +1,7 @@
 # CatalogTupleCheckConstraints
 
 ## Location
-src/backend/catalog/indexing.c: 195 - 217
+[src/backend/catalog/indexing.c:195-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L195-L217)
 
 ## Overview
 CatalogTupleCheckConstraints validates that a heap tuple satisfies all constraints defined on a system catalog relation, currently focusing on NOT NULL constraints.

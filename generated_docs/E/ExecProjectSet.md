@@ -1,7 +1,7 @@
 # ExecProjectSet
 
 ## Location
-src/backend/executor/nodeProjectSet.c: 42 - 138
+[src/backend/executor/nodeProjectSet.c:42-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeProjectSet.c#L42-L138)
 
 ## Overview
 ExecProjectSet is the main execution function for ProjectSet plan nodes that handles evaluation of target lists containing set-returning functions (SRFs).

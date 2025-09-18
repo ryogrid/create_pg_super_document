@@ -1,7 +1,7 @@
 # SetAuthenticatedUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 598 - 657
+[src/backend/utils/init/miscinit.c:598-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L598-L657)
 
 ## Overview
 Sets the authenticated user ID for the current session exactly once during connection establishment, also updating the corresponding PGPROC entry to record the authenticated user.

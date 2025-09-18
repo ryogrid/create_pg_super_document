@@ -1,7 +1,7 @@
 # widget_in
 
 ## Location
-src/test/regress/regress.c: 171 - 204
+[src/test/regress/regress.c:171-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L171-L204)
 
 ## Overview
 The widget_in function is an input function for the custom WIDGET data type, converting string representations into internal WIDGET structures in PostgreSQL's regression testing framework.

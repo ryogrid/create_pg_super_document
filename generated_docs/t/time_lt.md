@@ -1,7 +1,7 @@
 # time_lt
 
 ## Location
-src/backend/utils/adt/date.c: 1698 - 1706
+[src/backend/utils/adt/date.c:1698-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1698-L1706)
 
 ## Overview
 Compares two time values to determine if the first time is less than the second time.

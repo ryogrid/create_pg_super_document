@@ -1,7 +1,7 @@
 # btnametextcmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 2700 - 2715
+[src/backend/utils/adt/varlena.c:2700-2715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2700-L2715)
 
 ## Overview
 The  function implements a three-way comparison between a name type and a text type, returning an integer indicating their relative ordering.

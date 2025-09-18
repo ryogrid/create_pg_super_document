@@ -1,7 +1,7 @@
 # SpecialJoinInfo
 
 ## Location
-src/include/optimizer/optimizer.h: 44 - 44
+[src/include/optimizer/optimizer.h:44-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/optimizer.h#L44-L44)
 
 ## Overview
 SpecialJoinInfo represents information about special join types (outer joins, semi-joins, anti-joins) that require specific ordering constraints and optimization considerations during query planning.

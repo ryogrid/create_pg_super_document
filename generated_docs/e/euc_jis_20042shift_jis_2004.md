@@ -1,7 +1,7 @@
 # euc_jis_20042shift_jis_2004
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c: 75 - 221
+[src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c:75-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c#L75-L221)
 
 ## Overview
 Core conversion function that performs the actual character-by-character conversion from EUC-JIS-2004 encoding to Shift-JIS-2004 encoding.

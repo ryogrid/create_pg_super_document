@@ -1,7 +1,7 @@
 # gistxlogPageDelete
 
 ## Location
-src/include/access/gistxlog.h: 86 - 91
+[src/include/access/gistxlog.h:86-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gistxlog.h#L86-L91)
 
 ## Overview
 The  structure represents a WAL record for GiST index page deletion operations, capturing information needed to replay page deletions during recovery.

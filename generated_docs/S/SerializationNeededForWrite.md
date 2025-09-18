@@ -1,7 +1,7 @@
 # SerializationNeededForWrite
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 560 - 581
+[src/backend/storage/lmgr/predicate.c:560-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L560-L581)
 
 ## Overview
 Determines whether serialization conflict detection is needed for write operations in a serializable transaction, providing a simpler counterpart to SerializationNeededForRead.

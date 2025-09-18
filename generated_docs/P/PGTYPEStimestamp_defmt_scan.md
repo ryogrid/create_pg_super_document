@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_defmt_scan
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 2519 - 3010
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:2519-3010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L2519-L3010)
 
 ## Overview
 A comprehensive date/time format string parser that converts formatted string input into PostgreSQL timestamp values according to strftime-style format specifiers.

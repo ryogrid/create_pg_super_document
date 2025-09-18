@@ -1,7 +1,7 @@
 # pgwin32_setlocale
 
 ## Location
-src/port/win32setlocale.c: 172 - 193
+[src/port/win32setlocale.c:172-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32setlocale.c#L172-L193)
 
 ## Overview
 A Windows-specific wrapper around the standard  function that works around two known bugs in the Windows implementation related to locale name handling.

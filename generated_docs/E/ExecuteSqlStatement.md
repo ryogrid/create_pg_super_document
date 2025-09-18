@@ -1,7 +1,7 @@
 # ExecuteSqlStatement
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 278 - 289
+[src/bin/pg_dump/pg_backup_db.c:278-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L278-L289)
 
 ## Overview
 A utility function in pg_dump that executes SQL statements that do not return result sets, with automatic error handling and cleanup.

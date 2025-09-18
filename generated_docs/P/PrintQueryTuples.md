@@ -1,7 +1,7 @@
 # PrintQueryTuples
 
 ## Location
-src/bin/psql/common.c: 738 - 761
+[src/bin/psql/common.c:738-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L738-L761)
 
 ## Overview
 PrintQueryTuples is a static helper function that formats and prints query result tuples using configurable output options and destination streams.

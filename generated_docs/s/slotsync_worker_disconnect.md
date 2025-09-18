@@ -1,7 +1,7 @@
 # slotsync_worker_disconnect
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1177 - 1189
+[src/backend/replication/logical/slotsync.c:1177-1189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1177-L1189)
 
 ## Overview
 slotsync_worker_disconnect is a cleanup function that handles disconnection of the WAL receiver connection when the slot synchronization worker exits.

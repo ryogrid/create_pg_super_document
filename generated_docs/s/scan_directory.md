@@ -1,7 +1,7 @@
 # scan_directory
 
 ## Location
-src/bin/pg_checksums/pg_checksums.c: 300 - 432
+[src/bin/pg_checksums/pg_checksums.c:300-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_checksums/pg_checksums.c#L300-L432)
 
 ## Overview
 The `scan_directory` function recursively traverses PostgreSQL data directories to discover and process data files for checksum operations, handling complex directory structures including tablespaces and relation segments.

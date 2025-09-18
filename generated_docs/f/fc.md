@@ -1,7 +1,7 @@
 # fc
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 99 - 104
+[src/interfaces/ecpg/test/expected/preproc-init.c:99-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L99-L104)
 
 ## Overview
 A static test function used in ECPG (Embedded SQL in C) test cases that demonstrates string parameter handling and character extraction.

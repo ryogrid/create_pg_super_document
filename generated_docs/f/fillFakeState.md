@@ -1,7 +1,7 @@
 # fillFakeState
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 35 - 49
+[src/backend/access/spgist/spgxlog.c:35-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L35-L49)
 
 ## Overview
 Prepares a minimal SpGistState structure with only the essential information needed for WAL replay operations in SP-GiST indexes.

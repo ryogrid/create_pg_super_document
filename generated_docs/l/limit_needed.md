@@ -1,7 +1,7 @@
 # limit_needed
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2658 - 2716
+[src/backend/optimizer/plan/planner.c:2658-2716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2658-L2716)
 
 ## Overview
 Determines whether a Limit plan node is actually required by checking if OFFSET and LIMIT clauses have meaningful constant values.

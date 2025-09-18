@@ -1,7 +1,7 @@
 # pgstat_drop_function
 
 ## Location
-src/backend/utils/activity/pgstat_function.c: 60 - 71
+[src/backend/utils/activity/pgstat_function.c:60-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_function.c#L60-L71)
 
 ## Overview
 Removes a function from PostgreSQL's statistics tracking system when the function is dropped, ensuring proper cleanup of statistics data upon transaction commit.

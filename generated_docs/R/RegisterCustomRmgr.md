@@ -1,7 +1,7 @@
 # RegisterCustomRmgr
 
 ## Location
-src/backend/access/transam/rmgr.c: 107 - 149
+[src/backend/access/transam/rmgr.c:107-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/rmgr.c#L107-L149)
 
 ## Overview
 Registers a new custom WAL resource manager with the PostgreSQL system, allowing extensions to handle their own WAL record types.

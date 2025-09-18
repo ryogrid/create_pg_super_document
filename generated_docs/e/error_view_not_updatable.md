@@ -1,7 +1,7 @@
 # error_view_not_updatable
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 3109 - 3203
+[src/backend/rewrite/rewriteHandler.c:3109-3203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L3109-L3203)
 
 ## Overview
 Reports an error due to an attempt to update a non-updatable view, providing appropriate error messages and hints based on the specific command type.

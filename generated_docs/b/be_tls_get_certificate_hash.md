@@ -1,7 +1,7 @@
 # be_tls_get_certificate_hash
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1555 - 1617
+[src/backend/libpq/be-secure-openssl.c:1555-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1555-L1617)
 
 ## Overview
 Generates a cryptographic hash of the server's TLS certificate following RFC 5929 specifications for channel binding.

@@ -1,7 +1,7 @@
 # btadjustmembers
 
 ## Location
-src/backend/access/nbtree/nbtvalidate.c: 293 - 380
+[src/backend/access/nbtree/nbtvalidate.c:293-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtvalidate.c#L293-L380)
 
 ## Overview
 Pre-processing function that adjusts dependency relationships when adding operators and functions to a btree operator family, determining whether each member should be tied to a specific operator class or the operator family.

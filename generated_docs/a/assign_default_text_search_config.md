@@ -1,7 +1,7 @@
 # assign_default_text_search_config
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 670 - 674
+[src/backend/utils/cache/ts_cache.c:670-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L670-L674)
 
 ## Overview
 A GUC assign hook function that invalidates the cached text search configuration when the default_text_search_config parameter is changed.

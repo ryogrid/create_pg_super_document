@@ -1,7 +1,7 @@
 # pqBuildErrorMessage3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1014 - 1184
+[src/interfaces/libpq/fe-protocol3.c:1014-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1014-L1184)
 
 ## Overview
 Constructs a formatted error message from the fields in a PGresult structure, with support for different verbosity levels and context visibility options.

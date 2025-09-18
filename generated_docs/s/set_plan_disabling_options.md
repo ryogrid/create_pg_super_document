@@ -1,7 +1,7 @@
 # set_plan_disabling_options
 
 ## Location
-src/backend/tcop/postgres.c: 3795 - 3836
+[src/backend/tcop/postgres.c:3795-3836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3795-L3836)
 
 ## Overview
 A utility function that disables specific query execution plan strategies based on single-character command line arguments, used for testing and debugging query optimization behavior.

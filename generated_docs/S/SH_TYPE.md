@@ -1,7 +1,7 @@
 # SH_TYPE
 
 ## Location
-src/include/lib/simplehash.h: 145 - 173
+[src/include/lib/simplehash.h:145-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L145-L173)
 
 ## Overview
 SH_TYPE is a macro that generates the type name for specialized hash table implementations in PostgreSQL's templated simplehash system.

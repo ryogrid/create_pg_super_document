@@ -1,7 +1,7 @@
 # interval_smaller
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3418 - 3432
+[src/backend/utils/adt/timestamp.c:3418-3432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3418-L3432)
 
 ## Overview
 The `interval_smaller` function implements the PostgreSQL `LEAST` operation for interval data types, returning the smaller of two interval values.

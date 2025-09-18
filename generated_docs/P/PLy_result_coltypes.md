@@ -1,7 +1,7 @@
 # PLy_result_coltypes
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 135 - 160
+[src/pl/plpython/plpy_resultobject.c:135-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L135-L160)
 
 ## Overview
 Returns a Python list containing the column type OIDs of the result set represented by a PLyResultObject.

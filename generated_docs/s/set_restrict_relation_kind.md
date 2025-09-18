@@ -1,7 +1,7 @@
 # set_restrict_relation_kind
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4777 - 4797
+[src/bin/pg_dump/pg_dump.c:4777-4797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4777-L4797)
 
 ## Overview
 Sets the restrict_nonsystem_relation_kind configuration parameter in PostgreSQL by executing a dynamic SQL query to conditionally apply this setting only when it's available in the server version.

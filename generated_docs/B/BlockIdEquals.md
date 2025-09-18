@@ -1,7 +1,7 @@
 # BlockIdEquals
 
 ## Location
-src/include/storage/block.h: 92 - 102
+[src/include/storage/block.h:92-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/block.h#L92-L102)
 
 ## Overview
 BlockIdEquals is an inline function that compares two block identifiers for equality by checking if both their high and low 16-bit components match.

@@ -1,7 +1,7 @@
 # listTSDictionaries
 
 ## Location
-src/bin/psql/describe.c: 5394 - 5458
+[src/bin/psql/describe.c:5394-5458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5394-L5458)
 
 ## Overview
 Lists PostgreSQL text search dictionaries with optional verbose details including template information and initialization options.

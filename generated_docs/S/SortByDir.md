@@ -1,7 +1,7 @@
 # SortByDir
 
 ## Location
-src/include/nodes/parsenodes.h: 50 - 51
+[src/include/nodes/parsenodes.h:50-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L50-L51)
 
 ## Overview
 SortByDir is an enumeration type that defines sort ordering options used in ORDER BY clauses and CREATE INDEX statements to specify the direction of sorting.

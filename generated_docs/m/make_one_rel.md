@@ -1,7 +1,7 @@
 # make_one_rel
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 171 - 246
+[src/backend/optimizer/path/allpaths.c:171-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L171-L246)
 
 ## Overview
 The main entry point for finding all possible access paths for executing a query, returning a single RelOptInfo that represents the join of all base relations in the query.

@@ -1,7 +1,7 @@
 # AllocSetAllocLarge
 
 ## Location
-src/backend/utils/mmgr/aset.c: 696 - 773
+[src/backend/utils/mmgr/aset.c:696-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L696-L773)
 
 ## Overview
 Allocates large memory chunks that require their own dedicated block, implementing PostgreSQL's allocation strategy for requests exceeding the standard chunk size limits.

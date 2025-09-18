@@ -1,7 +1,7 @@
 # create_tidscan_paths
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 487 - 556
+[src/backend/optimizer/path/tidpath.c:487-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L487-L556)
 
 ## Overview
 Creates and adds TID scan paths to a relation's path list, including both regular TID scans and parameterized TID scans based on CTID equality conditions.

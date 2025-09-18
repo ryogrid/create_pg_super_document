@@ -1,7 +1,7 @@
 # gistcostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7239 - 7293
+[src/backend/utils/adt/selfuncs.c:7239-7293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7239-L7293)
 
 ## Overview
 A cost estimation function for GiST (Generalized Search Tree) index access paths that extends generic cost estimation with GiST-specific tree descent modeling and fanout assumptions.

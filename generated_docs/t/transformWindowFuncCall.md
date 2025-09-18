@@ -1,7 +1,7 @@
 # transformWindowFuncCall
 
 ## Location
-src/backend/parser/parse_agg.c: 820 - 1077
+[src/backend/parser/parse_agg.c:820-1077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L820-L1077)
 
 ## Overview
 Completes the initial transformation of a window function call after parse_func.c recognizes it as a window function, handling window definition management and validation of window function placement within queries.

@@ -1,7 +1,7 @@
 # scanGetCandidate
 
 ## Location
-src/backend/access/gin/ginget.c: 1454 - 1540
+[src/backend/access/gin/ginget.c:1454-1540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1454-L1540)
 
 ## Overview
 Retrieves the next heap row's ItemPointer to be checked from the GIN pending list, handling page transitions and setting offset ranges for the row's tuples.

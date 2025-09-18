@@ -1,7 +1,7 @@
 # r_aditzak
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c: 1001 - 1043
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c:1001-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c#L1001-L1043)
 
 ## Overview
 This function handles the removal of Basque verb suffixes ("aditzak" means "verbs" in Basque) as part of the Basque language stemming algorithm in PostgreSQL's Snowball stemmer.

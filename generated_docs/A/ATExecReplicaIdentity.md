@@ -1,7 +1,7 @@
 # ATExecReplicaIdentity
 
 ## Location
-src/backend/commands/tablecmds.c: 16760 - 16867
+[src/backend/commands/tablecmds.c:16760-16867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16760-L16867)
 
 ## Overview
 Implements the `ALTER TABLE REPLICA IDENTITY` command by validating and setting the table's replica identity configuration for logical replication.

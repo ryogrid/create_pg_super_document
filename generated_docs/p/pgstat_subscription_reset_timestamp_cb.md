@@ -1,7 +1,7 @@
 # pgstat_subscription_reset_timestamp_cb
 
 ## Location
-src/backend/utils/activity/pgstat_subscription.c: 111 - 114
+[src/backend/utils/activity/pgstat_subscription.c:111-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_subscription.c#L111-L114)
 
 ## Overview
 A callback function that updates the statistics reset timestamp for subscription statistics when reset operations are performed.

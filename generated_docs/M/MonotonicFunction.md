@@ -1,7 +1,7 @@
 # MonotonicFunction
 
 ## Location
-src/include/nodes/plannodes.h: 1591 - 1593
+[src/include/nodes/plannodes.h:1591-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1591-L1593)
 
 ## Overview
 A bitflag enumeration that allows the PostgreSQL planner to track monotonic properties of functions, particularly window functions, for query optimization purposes.

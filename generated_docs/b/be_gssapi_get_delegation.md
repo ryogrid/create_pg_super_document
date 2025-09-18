@@ -1,7 +1,7 @@
 # be_gssapi_get_delegation
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 779 - 785
+[src/backend/libpq/be-secure-gssapi.c:779-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L779-L785)
 
 ## Overview
 Returns whether GSSAPI delegated credentials were included during authentication on the given connection.

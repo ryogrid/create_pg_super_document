@@ -1,7 +1,7 @@
 # XLogWalRcvFlush
 
 ## Location
-src/backend/replication/walreceiver.c: 993 - 1047
+[src/backend/replication/walreceiver.c:993-1047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L993-L1047)
 
 ## Overview
 Forces WAL data written to disk to be synchronized (flushed) to persistent storage and notifies other processes of the flushed data availability during streaming replication.

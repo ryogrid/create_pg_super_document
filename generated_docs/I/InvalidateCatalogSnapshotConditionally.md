@@ -1,7 +1,7 @@
 # InvalidateCatalogSnapshotConditionally
 
 ## Location
-src/backend/utils/time/snapmgr.c: 443 - 455
+[src/backend/utils/time/snapmgr.c:443-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L443-L455)
 
 ## Overview
 Conditionally invalidates the catalog snapshot when it's the only active snapshot, preventing it from blocking global xmin advancement during client input waits.

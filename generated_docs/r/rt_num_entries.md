@@ -1,7 +1,7 @@
 # rt_num_entries
 
 ## Location
-src/test/modules/test_radixtree/test_radixtree.c: 115 - 124
+[src/test/modules/test_radixtree/test_radixtree.c:115-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_radixtree/test_radixtree.c#L115-L124)
 
 ## Overview
 A utility function that returns the number of keys currently stored in a radix tree data structure.

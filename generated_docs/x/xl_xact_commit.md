@@ -1,7 +1,7 @@
 # xl_xact_commit
 
 ## Location
-src/include/access/xact.h: 314 - 327
+[src/include/access/xact.h:314-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L314-L327)
 
 ## Overview
 Structure representing the core transaction commit record in PostgreSQL's Write-Ahead Log (WAL), containing commit timestamp and variable-length additional information.

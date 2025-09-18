@@ -1,7 +1,7 @@
 # make_grouping_rel
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3933 - 3985
+[src/backend/optimizer/plan/planner.c:3933-3985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3933-L3985)
 
 ## Overview
 Creates a new grouping relation and sets its basic properties for the GROUP BY/aggregation planning phase.

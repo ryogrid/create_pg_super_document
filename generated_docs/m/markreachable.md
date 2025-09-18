@@ -1,7 +1,7 @@
 # markreachable
 
 ## Location
-src/backend/regex/regc_nfa.c: 2999 - 3024
+[src/backend/regex/regc_nfa.c:2999-3024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2999-L3024)
 
 ## Overview
 The markreachable function is a recursive utility function in PostgreSQL's regex engine that marks all states reachable from a given starting state within an NFA (Nondeterministic Finite Automaton).

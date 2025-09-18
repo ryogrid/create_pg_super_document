@@ -1,7 +1,7 @@
 # recordDependencyOnTablespace
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 370 - 390
+[src/backend/catalog/pg_shdepend.c:370-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L370-L390)
 
 ## Overview
 A convenience wrapper function that records a tablespace dependency relationship between a database object and its default tablespace.

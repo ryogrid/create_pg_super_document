@@ -1,7 +1,7 @@
 # overHigher2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 310 - 317
+[src/backend/utils/adt/geo_spgist.c:310-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L310-L317)
 
 ## Overview
 The `overHigher2D` function determines whether any range from a `RangeBox` does not extend beyond the left side of a given `Range` query in 2-dimensional space.

@@ -1,7 +1,7 @@
 # bbstreamer_recovery_injector
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 18 - 27
+[src/bin/pg_basebackup/bbstreamer_inject.c:18-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L18-L27)
 
 ## Overview
 A specialized bbstreamer implementation that injects recovery configuration files into a PostgreSQL base backup archive stream during pg_basebackup operations.

@@ -1,7 +1,7 @@
 # FormPartitionKeyDatum
 
 ## Location
-src/backend/executor/execPartition.c: 1294 - 1347
+[src/backend/executor/execPartition.c:1294-1347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1294-L1347)
 
 ## Overview
 Constructs values[] and isnull[] arrays for the partition key of a tuple by extracting and evaluating partition key attributes and expressions.

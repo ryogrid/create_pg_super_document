@@ -1,7 +1,7 @@
 # AtSubAbort_Portals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 979 - 1091
+[src/backend/utils/mmgr/portalmem.c:979-1091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L979-L1091)
 
 ## Overview
 Subtransaction abort handling function that deactivates and safely handles portals created or used during a failed subtransaction.

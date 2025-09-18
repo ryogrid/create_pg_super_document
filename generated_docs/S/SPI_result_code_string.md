@@ -1,7 +1,7 @@
 # SPI_result_code_string
 
 ## Location
-src/backend/executor/spi.c: 1972 - 2056
+[src/backend/executor/spi.c:1972-2056](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1972-L2056)
 
 ## Overview
 Converts any SPI return code to a human-readable string representation, useful for error messages and debugging.

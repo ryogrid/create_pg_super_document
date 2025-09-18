@@ -1,7 +1,7 @@
 # RememberIndexForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13760 - 13810
+[src/backend/commands/tablecmds.c:13760-13810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13760-L13810)
 
 ## Overview
 RememberIndexForRebuilding records an index that needs to be rebuilt during ALTER TABLE operations, with deduplication to ensure the same index isn't processed twice and proper handling of constraint-associated indexes.

@@ -1,7 +1,7 @@
 # allocate_recordbuf
 
 ## Location
-src/backend/access/transam/xlogreader.c: 190 - 206
+[src/backend/access/transam/xlogreader.c:190-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L190-L206)
 
 ## Overview
 This function allocates or reallocates the readRecordBuf in an XLogReaderState to accommodate WAL records of at least the specified length.

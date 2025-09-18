@@ -1,7 +1,7 @@
 # report_extra_backup_files
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 791 - 810
+[src/bin/pg_verifybackup/pg_verifybackup.c:791-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L791-L810)
 
 ## Overview
 Reports files that are present in the backup manifest but not found on disk during backup verification.

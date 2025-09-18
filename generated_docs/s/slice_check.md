@@ -1,7 +1,7 @@
 # slice_check
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 405 - 421
+[src/backend/snowball/libstemmer/utilities.c:405-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L405-L421)
 
 ## Overview
 Validates the consistency and bounds of slice operation parameters in a Snowball environment to ensure safe string manipulation operations.

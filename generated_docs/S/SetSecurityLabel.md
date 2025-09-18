@@ -1,7 +1,7 @@
 # SetSecurityLabel
 
 ## Location
-src/backend/commands/seclabel.c: 404 - 490
+[src/backend/commands/seclabel.c:404-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L404-L490)
 
 ## Overview
 SetSecurityLabel sets or deletes a security label for a specified database object with a given security provider.

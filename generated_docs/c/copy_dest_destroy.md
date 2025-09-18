@@ -1,7 +1,7 @@
 # copy_dest_destroy
 
 ## Location
-src/backend/commands/copyto.c: 1263 - 1271
+[src/backend/commands/copyto.c:1263-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1263-L1271)
 
 ## Overview
 Releases memory allocated for the COPY destination receiver when it's no longer needed.

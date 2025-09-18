@@ -1,7 +1,7 @@
 # has_database_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 3121 - 3149
+[src/backend/utils/adt/acl.c:3121-3149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3121-L3149)
 
 ## Overview
 Checks database privileges for a specific user given the user role ID, database OID, and privilege name.

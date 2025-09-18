@@ -1,7 +1,7 @@
 # exec_command_encoding
 
 ## Location
-src/bin/psql/command.c: 1338 - 1376
+[src/bin/psql/command.c:1338-1376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1338-L1376)
 
 ## Overview
 Implements the \encoding command in psql, which allows users to set or display the client-side character encoding.

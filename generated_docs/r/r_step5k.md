@@ -1,7 +1,7 @@
 # r_step5k
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3372 - 3390
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3372-3390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3372-L3390)
 
 ## Overview
 A static function within the Greek language stemmer that implements step 5k of the Greek stemming algorithm, performing length-restricted and character-specific suffix processing with dual-phase pattern matching.

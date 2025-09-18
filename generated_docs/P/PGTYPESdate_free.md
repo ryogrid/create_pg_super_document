@@ -1,7 +1,7 @@
 # PGTYPESdate_free
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 25 - 30
+[src/interfaces/ecpg/pgtypeslib/datetime.c:25-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L25-L30)
 
 ## Overview
 Deallocates memory for a date object that was previously allocated by PGTYPESdate_new or other date allocation functions in the PostgreSQL ECPG pgtypeslib.

@@ -1,7 +1,7 @@
 # fix_dependencies
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4675 - 4804
+[src/bin/pg_dump/pg_backup_archiver.c:4675-4804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4675-L4804)
 
 ## Overview
 Processes and fixes dependency information to prepare data structures for efficient parallel restore operations.

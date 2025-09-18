@@ -1,7 +1,7 @@
 # plperl_sv_to_datum
 
 ## Location
-src/pl/plperl/plperl.c: 1323 - 1443
+[src/pl/plperl/plperl.c:1323-1443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1323-L1443)
 
 ## Overview
 The primary function for converting Perl Scalar Values (SV) to PostgreSQL Datums, handling all major Perl data types including scalars, arrays, hashes, and references.

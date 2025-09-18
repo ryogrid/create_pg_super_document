@@ -1,7 +1,7 @@
 # dsa_minimum_size
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1196 - 1217
+[src/backend/utils/mmgr/dsa.c:1196-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1196-L1217)
 
 ## Overview
 Returns the smallest size in bytes that can be successfully provided to dsa_create_in_place when creating a new dynamic shared memory area.

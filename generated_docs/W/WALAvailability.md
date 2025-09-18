@@ -1,7 +1,7 @@
 # WALAvailability
 
 ## Location
-src/include/access/xlog.h: 194 - 283
+[src/include/access/xlog.h:194-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog.h#L194-L283)
 
 ## Overview
 An enumeration that represents the availability status of WAL (Write-Ahead Log) segments, used to track whether specific WAL segments are still available on disk.

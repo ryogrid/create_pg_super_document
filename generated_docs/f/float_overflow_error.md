@@ -1,7 +1,7 @@
 # float_overflow_error
 
 ## Location
-src/backend/utils/adt/float.c: 79 - 86
+[src/backend/utils/adt/float.c:79-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L79-L86)
 
 ## Overview
 A utility function that reports floating-point overflow errors using PostgreSQL's error reporting mechanism.

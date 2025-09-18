@@ -1,7 +1,7 @@
 # ReindexMultipleInternal
 
 ## Location
-src/backend/commands/indexcmds.c: 3311 - 3436
+[src/backend/commands/indexcmds.c:3311-3436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L3311-L3436)
 
 ## Overview
 ReindexMultipleInternal reindexes a list of relations, with each relation being processed in its own separate transaction to ensure proper isolation and error recovery.

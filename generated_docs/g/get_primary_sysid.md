@@ -1,7 +1,7 @@
 # get_primary_sysid
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 560 - 600
+[src/bin/pg_basebackup/pg_createsubscriber.c:560-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L560-L600)
 
 ## Overview
 Retrieves the system identifier from a PostgreSQL publisher database, which is used to verify that a data directory is a clone of another database instance.

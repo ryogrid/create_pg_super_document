@@ -1,7 +1,7 @@
 # GetSearchPathMatcher
 
 ## Location
-src/backend/catalog/namespace.c: 3852 - 3888
+[src/backend/catalog/namespace.c:3852-3888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3852-L3888)
 
 ## Overview
 Fetches the current search path definition and creates a SearchPathMatcher structure that encapsulates the namespace search order and characteristics.

@@ -1,7 +1,7 @@
 # ExecutePlan
 
 ## Location
-src/backend/executor/execMain.c: 1597 - 1718
+[src/backend/executor/execMain.c:1597-1718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1597-L1718)
 
 ## Overview
 ExecutePlan is a static function that processes the query plan until a specified number of tuples have been retrieved, moving in the specified direction and handling parallel execution as needed.

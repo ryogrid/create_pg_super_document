@@ -1,7 +1,7 @@
 # IsoLocaleName
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1201 - 1218
+[src/backend/utils/adt/pg_locale.c:1201-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1201-L1218)
 
 ## Overview
 IsoLocaleName is a static function that normalizes Windows locale names to ISO standard format, specifically handling the conversion of locale names for message localization.

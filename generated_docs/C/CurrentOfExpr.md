@@ -1,7 +1,7 @@
 # CurrentOfExpr
 
 ## Location
-src/include/nodes/primnodes.h: 2094 - 2100
+[src/include/nodes/primnodes.h:2094-2100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2094-L2100)
 
 ## Overview
 A node representing the "[WHERE] CURRENT OF cursor_name" clause, used to identify the current row of a cursor for UPDATE or DELETE operations.

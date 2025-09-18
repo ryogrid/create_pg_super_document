@@ -1,7 +1,7 @@
 # range_gist_consider_split
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1621 - 1703
+[src/backend/utils/adt/rangetypes_gist.c:1621-1703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1621-L1703)
 
 ## Overview
 Evaluates and selects the best split candidate during the double sorting split algorithm by comparing overlap and distribution ratios.

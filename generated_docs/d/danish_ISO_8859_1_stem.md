@@ -1,7 +1,7 @@
 # danish_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 274 - 310
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:274-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L274-L310)
 
 ## Overview
 The main stemming function for Danish text using ISO 8859-1 encoding that applies the complete Danish stemming algorithm to reduce words to their root forms.

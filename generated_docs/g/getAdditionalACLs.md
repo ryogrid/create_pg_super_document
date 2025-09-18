@@ -1,7 +1,7 @@
 # getAdditionalACLs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10017 - 10145
+[src/bin/pg_dump/pg_dump.c:10017-10145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10017-L10145)
 
 ## Overview
 Collects additional ACL-related information for database objects that was not captured during initial object collection, including per-column ACLs and initial privileges from pg_init_privs catalog.

@@ -1,7 +1,7 @@
 # IsBooleanOpfamily
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2280 - 2304
+[src/backend/optimizer/path/indxpath.c:2280-2304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2280-L2304)
 
 ## Overview
 Detects whether an operator family supports boolean equality operations, enabling special handling of boolean index columns in query optimization.

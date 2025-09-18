@@ -1,7 +1,7 @@
 # PLy_procedure_create
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 133 - 351
+[src/pl/plpython/plpy_procedure.c:133-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L133-L351)
 
 ## Overview
 Creates a new PLyProcedure structure by parsing function metadata, setting up input/output conversion functions, and compiling the Python source code into a callable procedure object.

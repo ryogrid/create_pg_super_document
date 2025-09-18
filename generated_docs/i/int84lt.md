@@ -1,7 +1,7 @@
 # int84lt
 
 ## Location
-src/backend/utils/adt/int8.c: 188 - 196
+[src/backend/utils/adt/int8.c:188-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L188-L196)
 
 ## Overview
 Compares a 64-bit integer with a 32-bit integer for less-than relationship, returning true if the 64-bit value is less than the 32-bit value.

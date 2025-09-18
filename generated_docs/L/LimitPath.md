@@ -1,7 +1,7 @@
 # LimitPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2400 - 2407
+[src/include/nodes/pathnodes.h:2400-2407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2400-L2407)
 
 ## Overview
 LimitPath represents a query execution path node for applying LIMIT/OFFSET restrictions to limit the number of rows returned by a query, including support for FETCH FIRST WITH TIES semantics.

@@ -1,7 +1,7 @@
 # initialize_brin_insertstate
 
 ## Location
-src/backend/access/brin/brin.c: 306 - 334
+[src/backend/access/brin/brin.c:306-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L306-L334)
 
 ## Overview
 The `initialize_brin_insertstate` function creates and initializes a `BrinInsertState` structure that maintains persistent state information across multiple tuple insertions within the same command for BRIN indexes.

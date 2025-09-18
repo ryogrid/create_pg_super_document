@@ -1,7 +1,7 @@
 # smgrwritev
 
 ## Location
-src/backend/storage/smgr/smgr.c: 631 - 642
+[src/backend/storage/smgr/smgr.c:631-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L631-L642)
 
 ## Overview
 The smgrwritev function performs vectorized write operations on existing blocks of a PostgreSQL relation, writing multiple buffers in a single operation.

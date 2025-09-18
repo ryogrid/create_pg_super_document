@@ -1,7 +1,7 @@
 # process_settings
 
 ## Location
-src/backend/utils/init/postinit.c: 1327 - 1360
+[src/backend/utils/init/postinit.c:1327-1360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1327-L1360)
 
 ## Overview
 process_settings loads and applies database and role-specific GUC configuration settings from the pg_db_role_setting system catalog in hierarchical order from most specific to most general.

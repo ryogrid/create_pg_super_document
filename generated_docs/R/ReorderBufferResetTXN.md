@@ -1,7 +1,7 @@
 # ReorderBufferResetTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2081 - 2126
+[src/backend/replication/logical/reorderbuffer.c:2081-2126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2081-L2126)
 
 ## Overview
 Helper function that resets a transaction's state after streaming abort scenarios, enabling continued processing of remaining transaction data while preserving necessary state for streaming continuation.

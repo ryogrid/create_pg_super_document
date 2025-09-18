@@ -1,7 +1,7 @@
 # proclock_hash
 
 ## Location
-src/backend/storage/lmgr/lock.c: 521 - 551
+[src/backend/storage/lmgr/lock.c:521-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L521-L551)
 
 ## Overview
 A specialized hash function that computes the hash code for a PROCLOCKTAG, ensuring that PROCLOCKs fall into the same partition as their associated LOCKs in the shared hash tables.

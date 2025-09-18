@@ -1,7 +1,7 @@
 # selectDumpableNamespace
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1784 - 1869
+[src/bin/pg_dump/pg_dump.c:1784-1869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1784-L1869)
 
 ## Overview
 Policy-setting function that determines which components of a namespace (schema) should be dumped based on dump options, schema type, inclusion/exclusion lists, and extension membership.

@@ -1,7 +1,7 @@
 # generate_useful_gather_paths
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3190 - 3305
+[src/backend/optimizer/path/allpaths.c:3190-3305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3190-L3305)
 
 ## Overview
 Generates optimized parallel access paths by creating Gather and GatherMerge paths with intelligent sorting strategies, including both full and incremental sort options for useful orderings.

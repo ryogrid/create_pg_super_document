@@ -1,7 +1,7 @@
 # pgstat_progress_parallel_incr_param
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 92 - 121
+[src/backend/utils/activity/backend_progress.c:92-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L92-L121)
 
 ## Overview
 Provides progress increment functionality for parallel operations, allowing worker processes to send progress updates to the leader process for coordinated progress tracking.

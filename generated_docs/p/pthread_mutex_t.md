@@ -1,7 +1,7 @@
 # pthread_mutex_t
 
 ## Location
-src/port/pthread-win32.h: 9 - 14
+[src/port/pthread-win32.h:9-14](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pthread-win32.h#L9-L14)
 
 ## Overview
 A Windows-specific implementation of pthread mutex type for PostgreSQL's ECPG (Embedded SQL in C) interface that provides thread synchronization using Win32 CRITICAL_SECTION.

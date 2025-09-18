@@ -1,7 +1,7 @@
 # bpcharle
 
 ## Location
-src/backend/utils/adt/varchar.c: 854 - 874
+[src/backend/utils/adt/varchar.c:854-874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L854-L874)
 
 ## Overview
 This function implements the "less than or equal to" comparison operator (<=) for the BpChar data type (blank-padded character strings) in PostgreSQL.

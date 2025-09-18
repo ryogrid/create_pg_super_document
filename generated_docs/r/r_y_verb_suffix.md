@@ -1,7 +1,7 @@
 # r_y_verb_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_spanish.c: 884 - 901
+[src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:884-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_spanish.c#L884-L901)
 
 ## Overview
 This function removes specific Spanish verb suffixes ending in 'y' that are preceded by 'u', operating within the RV region for proper morphological analysis.

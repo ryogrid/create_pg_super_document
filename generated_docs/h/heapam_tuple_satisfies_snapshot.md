@@ -1,7 +1,7 @@
 # heapam_tuple_satisfies_snapshot
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 214 - 241
+[src/backend/access/heap/heapam_handler.c:214-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L214-L241)
 
 ## Overview
 This function determines whether a tuple stored in a table slot satisfies the visibility requirements of a given snapshot, providing thread-safe access to the tuple's visibility information through proper buffer locking.

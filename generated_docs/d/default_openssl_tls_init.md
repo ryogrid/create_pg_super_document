@@ -1,7 +1,7 @@
 # default_openssl_tls_init
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1747 - 1768
+[src/backend/libpq/be-secure-openssl.c:1747-1768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1747-L1768)
 
 ## Overview
 Configures OpenSSL password callback handlers for SSL/TLS contexts based on server startup state and passphrase command configuration.

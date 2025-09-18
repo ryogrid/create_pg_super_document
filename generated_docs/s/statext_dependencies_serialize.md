@@ -1,7 +1,7 @@
 # statext_dependencies_serialize
 
 ## Location
-src/backend/statistics/dependencies.c: 444 - 498
+[src/backend/statistics/dependencies.c:444-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L444-L498)
 
 ## Overview
 Serializes a list of functional dependencies into a bytea value for persistent storage in the PostgreSQL system catalogs.

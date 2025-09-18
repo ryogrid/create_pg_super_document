@@ -1,7 +1,7 @@
 # processCancelRequest
 
 ## Location
-src/backend/postmaster/postmaster.c: 1837 - 1896
+[src/backend/postmaster/postmaster.c:1837-1896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1837-L1896)
 
 ## Overview
 Processes client cancel requests by locating the target backend process and sending a SIGINT signal to interrupt its current operation.

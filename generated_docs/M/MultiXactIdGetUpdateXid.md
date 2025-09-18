@@ -1,7 +1,7 @@
 # MultiXactIdGetUpdateXid
 
 ## Location
-src/backend/access/heap/heapam.c: 7506 - 7557
+[src/backend/access/heap/heapam.c:7506-7557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7506-L7557)
 
 ## Overview
 Static function that extracts and returns the transaction ID of the updating transaction from a MultiXactId, given that the MultiXactId contains an update (not lock-only).

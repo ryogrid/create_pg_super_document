@@ -1,7 +1,7 @@
 # hashagg_finish_initial_spills
 
 ## Location
-src/backend/executor/nodeAgg.c: 3059 - 3092
+[src/backend/executor/nodeAgg.c:3059-3092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L3059-L3092)
 
 ## Overview
 Converts spilled hash aggregation partitions into new processing batches after the initial hash table processing is complete.

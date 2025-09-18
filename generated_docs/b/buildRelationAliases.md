@@ -1,7 +1,7 @@
 # buildRelationAliases
 
 ## Location
-src/backend/parser/parse_relation.c: 1177 - 1253
+[src/backend/parser/parse_relation.c:1177-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1177-L1253)
 
 ## Overview
 Constructs the eref column name list for a relation RTE (Range Table Entry), handling user-supplied column aliases and dropped columns.

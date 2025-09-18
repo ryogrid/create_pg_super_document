@@ -1,7 +1,7 @@
 # IsTransactionStmtList
 
 ## Location
-src/backend/tcop/postgres.c: 2862 - 2876
+[src/backend/tcop/postgres.c:2862-2876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2862-L2876)
 
 ## Overview
 Tests whether a list of PlannedStmt nodes contains a single TransactionStmt (BEGIN, COMMIT, ROLLBACK, SAVEPOINT, etc.).

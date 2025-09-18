@@ -1,7 +1,7 @@
 # pg_clock_gettime_ns
 
 ## Location
-src/include/portability/instr_time.h: 111 - 121
+[src/include/portability/instr_time.h:111-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/portability/instr_time.h#L111-L121)
 
 ## Overview
 A helper function that retrieves the current time using clock_gettime() and converts it to PostgreSQL's internal instr_time format for performance measurement purposes.

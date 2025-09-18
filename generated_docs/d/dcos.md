@@ -1,7 +1,7 @@
 # dcos
 
 ## Location
-src/backend/utils/adt/float.c: 1862 - 1902
+[src/backend/utils/adt/float.c:1862-1902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1862-L1902)
 
 ## Overview
 The dcos function computes the cosine of a floating-point argument given in radians and returns the trigonometric cosine value.

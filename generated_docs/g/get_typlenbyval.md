@@ -1,7 +1,7 @@
 # get_typlenbyval
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2251 - 2270
+[src/backend/utils/cache/lsyscache.c:2251-2270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2251-L2270)
 
 ## Overview
 Efficiently retrieves both the storage length and pass-by-value status of a PostgreSQL data type in a single system cache lookup, providing essential type information needed for proper Datum handling and memory management.

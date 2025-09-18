@@ -1,7 +1,7 @@
 # AddAcl
 
 ## Location
-src/bin/pg_dump/dumputils.c: 655 - 674
+[src/bin/pg_dump/dumputils.c:655-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L655-L674)
 
 ## Overview
 Appends a privilege keyword to a privilege list buffer, automatically inserting commas between entries as needed.

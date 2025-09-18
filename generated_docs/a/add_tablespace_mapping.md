@@ -1,7 +1,7 @@
 # add_tablespace_mapping
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 436 - 500
+[src/bin/pg_combinebackup/pg_combinebackup.c:436-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L436-L500)
 
 ## Overview
 Processes the argument for the -T, --tablespace-mapping switch in pg_combinebackup, parsing and validating tablespace directory mappings from command line input.

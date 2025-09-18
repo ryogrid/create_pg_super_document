@@ -1,7 +1,7 @@
 # pg_logical_emit_message_text
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 382 - 386
+[src/backend/replication/logical/logicalfuncs.c:382-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L382-L386)
 
 ## Overview
 Writes a logical decoding message with textual data into the Write-Ahead Log (WAL), serving as a SQL function wrapper that delegates to the binary message variant for compatibility.

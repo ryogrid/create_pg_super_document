@@ -1,7 +1,7 @@
 # portuguese_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c: 878 - 957
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:878-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c#L878-L957)
 
 ## Overview
 The main stemming function that implements the complete Portuguese Snowball stemming algorithm for ISO-8859-1 encoded text, reducing Portuguese words to their stem form through a multi-stage process.

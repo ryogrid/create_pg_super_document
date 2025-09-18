@@ -1,7 +1,7 @@
 # relation_close
 
 ## Location
-src/backend/access/common/relation.c: 205 - 216
+[src/backend/access/common/relation.c:205-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/relation.c#L205-L216)
 
 ## Overview
 Closes a relation and optionally releases the specified lock, serving as the counterpart to the relation opening functions.

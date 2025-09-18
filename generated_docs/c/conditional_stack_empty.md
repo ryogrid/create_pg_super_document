@@ -1,7 +1,7 @@
 # conditional_stack_empty
 
 ## Location
-src/fe_utils/conditional.c: 130 - 139
+[src/fe_utils/conditional.c:130-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L130-L139)
 
 ## Overview
 Determines whether the conditional stack is empty, indicating that there are no active \if-blocks currently being processed.

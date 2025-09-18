@@ -1,7 +1,7 @@
 # expand_inherited_rtentry
 
 ## Location
-src/backend/optimizer/util/inherit.c: 86 - 317
+[src/backend/optimizer/util/inherit.c:86-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L86-L317)
 
 ## Overview
 Expands a range table entry (RTE) that has inheritance enabled, adding child relations to the query's range table and building necessary planner data structures for inheritance hierarchies and partitioned tables.

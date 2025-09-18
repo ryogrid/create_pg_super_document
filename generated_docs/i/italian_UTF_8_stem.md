@@ -1,7 +1,7 @@
 # italian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_italian.c: 974 - 1026
+[src/backend/snowball/libstemmer/stem_UTF_8_italian.c:974-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_italian.c#L974-L1026)
 
 ## Overview
 The italian_UTF_8_stem function implements the main stemming algorithm for Italian text encoded in UTF-8, reducing words to their root forms by applying a sequence of morphological transformations.

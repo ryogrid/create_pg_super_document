@@ -1,7 +1,7 @@
 # assign_backendlist_entry
 
 ## Location
-src/backend/postmaster/postmaster.c: 4347 - 4410
+[src/backend/postmaster/postmaster.c:4347-4410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4347-L4410)
 
 ## Overview
 Allocates and initializes a Backend structure for a background worker without adding it to the active backend list, performing necessary resource checks and setup.

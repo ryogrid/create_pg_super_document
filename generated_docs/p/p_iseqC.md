@@ -1,7 +1,7 @@
 # p_iseqC
 
 ## Location
-src/backend/tsearch/wparser_def.c: 481 - 486
+[src/backend/tsearch/wparser_def.c:481-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L481-L486)
 
 ## Overview
 A convenience wrapper function that checks if the current character in the parser matches the stored current character (prs->c).

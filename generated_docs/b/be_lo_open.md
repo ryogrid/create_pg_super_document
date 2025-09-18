@@ -1,7 +1,7 @@
 # be_lo_open
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 87 - 125
+[src/backend/libpq/be-fsstubs.c:87-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L87-L125)
 
 ## Overview
 Opens a PostgreSQL large object and returns a file descriptor that can be used for subsequent read/write operations on the large object.

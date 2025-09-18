@@ -1,7 +1,7 @@
 # show_group_keys
 
 ## Location
-src/backend/commands/explain.c: 2739 - 2758
+[src/backend/commands/explain.c:2739-2758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2739-L2758)
 
 ## Overview
 A static function that displays the grouping keys for a Group node in PostgreSQL's query execution plan output during EXPLAIN operations.

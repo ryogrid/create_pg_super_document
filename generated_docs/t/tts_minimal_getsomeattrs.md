@@ -1,7 +1,7 @@
 # tts_minimal_getsomeattrs
 
 ## Location
-src/backend/executor/execTuples.c: 543 - 556
+[src/backend/executor/execTuples.c:543-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L543-L556)
 
 ## Overview
 Extracts a specified number of attributes from a minimal tuple stored in a TupleTableSlot, ensuring the slot's attribute values are available for access up to the requested attribute count.

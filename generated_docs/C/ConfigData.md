@@ -1,7 +1,7 @@
 # ConfigData
 
 ## Location
-src/include/common/config_info.h: 12 - 16
+[src/include/common/config_info.h:12-16](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/config_info.h#L12-L16)
 
 ## Overview
 ConfigData is a simple structure that holds PostgreSQL build and installation configuration information as name-value pairs for use by the pg_config utility and related configuration reporting functions.

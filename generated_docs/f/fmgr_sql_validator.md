@@ -1,7 +1,7 @@
 # fmgr_sql_validator
 
 ## Location
-src/backend/catalog/pg_proc.c: 811 - 977
+[src/backend/catalog/pg_proc.c:811-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L811-L977)
 
 ## Overview
 Validates SQL language functions by parsing and analyzing the function body to ensure syntactic correctness and proper return type matching.

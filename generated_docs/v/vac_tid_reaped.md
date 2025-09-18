@@ -1,7 +1,7 @@
 # vac_tid_reaped
 
 ## Location
-src/backend/commands/vacuum.c: 2584 - 2589
+[src/backend/commands/vacuum.c:2584-2589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2584-L2589)
 
 ## Overview
 A callback function that determines whether a specific tuple identifier (TID) has been marked for deletion during vacuum operations, serving as an IndexBulkDeleteCallback for index bulk deletion processes.

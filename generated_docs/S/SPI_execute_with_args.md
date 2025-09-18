@@ -1,7 +1,7 @@
 # SPI_execute_with_args
 
 ## Location
-src/backend/executor/spi.c: 812 - 859
+[src/backend/executor/spi.c:812-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L812-L859)
 
 ## Overview
 SPI_execute_with_args plans and executes a query with supplied arguments in a single operation, providing a convenient alternative to separate SPI_prepare and SPI_execute_plan calls.

@@ -1,7 +1,7 @@
 # bbsink_gzip
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 22 - 35
+[src/backend/backup/basebackup_gzip.c:22-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L22-L35)
 
 ## Overview
 A structure that extends the base backup sink () to provide gzip compression functionality for PostgreSQL base backups.

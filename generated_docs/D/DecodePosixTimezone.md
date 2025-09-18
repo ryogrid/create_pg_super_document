@@ -1,7 +1,7 @@
 # DecodePosixTimezone
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1545 - 1597
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1545-1597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1545-L1597)
 
 ## Overview
 DecodePosixTimezone parses POSIX-compatible timezone strings that combine timezone abbreviations with numeric offsets.

@@ -1,7 +1,7 @@
 # PageIsNew
 
 ## Location
-src/include/storage/bufpage.h: 231 - 240
+[src/include/storage/bufpage.h:231-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L231-L240)
 
 ## Overview
 PageIsNew is an inline function that determines whether a database page has been initialized by checking if the page header's pd_upper field is zero.

@@ -1,7 +1,7 @@
 # pg_unicode_to_server_noerror
 
 ## Location
-src/backend/utils/mb/mbutils.c: 926 - 978
+[src/backend/utils/mb/mbutils.c:926-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L926-L978)
 
 ## Overview
 A non-throwing variant of pg_unicode_to_server() that converts Unicode code points to server encoding and returns success/failure status instead of raising errors.

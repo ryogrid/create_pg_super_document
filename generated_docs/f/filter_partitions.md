@@ -1,7 +1,7 @@
 # filter_partitions
 
 ## Location
-src/backend/catalog/pg_publication.c: 201 - 235
+[src/backend/catalog/pg_publication.c:201-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L201-L235)
 
 ## Overview
 A static helper function that removes partition tables from a list of published relations when their parent/ancestor tables are already present in the same list.

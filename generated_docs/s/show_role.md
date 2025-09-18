@@ -1,7 +1,7 @@
 # show_role
 
 ## Location
-src/backend/commands/variable.c: 1022 - 1046
+[src/backend/commands/variable.c:1022-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1022-L1046)
 
 ## Overview
 The `show_role` function returns the current role name for display purposes, handling special cases where no role is set or when SET SESSION AUTHORIZATION affects role visibility.

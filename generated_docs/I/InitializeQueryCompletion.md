@@ -1,7 +1,7 @@
 # InitializeQueryCompletion
 
 ## Location
-src/backend/tcop/cmdtag.c: 40 - 46
+[src/backend/tcop/cmdtag.c:40-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L40-L46)
 
 ## Overview
 Initializes a QueryCompletion structure to its default values, setting the command tag to unknown and the processed row count to zero.

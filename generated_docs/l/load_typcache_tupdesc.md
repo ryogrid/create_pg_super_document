@@ -1,7 +1,7 @@
 # load_typcache_tupdesc
 
 ## Location
-src/backend/utils/cache/typcache.c: 880 - 913
+[src/backend/utils/cache/typcache.c:880-913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L880-L913)
 
 ## Overview
 A helper function that loads and caches the tuple descriptor for composite types by opening the associated relation and storing a reference to its descriptor.

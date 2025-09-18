@@ -1,7 +1,7 @@
 # libpq_binddomain
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1280 - 1328
+[src/interfaces/libpq/fe-misc.c:1280-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1280-L1328)
 
 ## Overview
 Initializes the text domain binding for libpq internationalization support in a thread-safe manner.

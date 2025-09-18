@@ -1,7 +1,7 @@
 # ExecGetResultSlotOps
 
 ## Location
-src/backend/executor/execUtils.c: 502 - 537
+[src/backend/executor/execUtils.c:502-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L502-L537)
 
 ## Overview
 Returns the tuple table slot operations structure for a plan state's result slot, providing information about the slot's storage type and whether it uses fixed-format tuples.

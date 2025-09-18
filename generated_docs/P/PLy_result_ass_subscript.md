@@ -1,7 +1,7 @@
 # PLy_result_ass_subscript
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 245 - 250
+[src/pl/plpython/plpy_resultobject.c:245-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L245-L250)
 
 ## Overview
 PLy_result_ass_subscript is a static function that implements the subscript assignment operation for PLyResultObject instances in the PL/Python extension, allowing Python code to modify individual rows using bracket notation assignment.

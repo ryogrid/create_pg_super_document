@@ -1,7 +1,7 @@
 # SPI_datumTransfer
 
 ## Location
-src/backend/executor/spi.c: 1361 - 1378
+[src/backend/executor/spi.c:1361-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1361-L1378)
 
 ## Overview
 Transfers a Datum value to the SPI upper execution context, ensuring the data persists beyond individual SPI operations.

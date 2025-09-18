@@ -1,7 +1,7 @@
 # pg_replication_origin_oid
 
 ## Location
-src/backend/replication/logical/origin.c: 1329 - 1349
+[src/backend/replication/logical/origin.c:1329-1349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1329-L1349)
 
 ## Overview
 SQL-callable function that returns the OID (object identifier) of a replication origin given its name, providing a way to look up origin identifiers from SQL.

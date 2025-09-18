@@ -1,7 +1,7 @@
 # TidRangeNext
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 220 - 272
+[src/backend/executor/nodeTidrangescan.c:220-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L220-L272)
 
 ## Overview
 TidRangeNext retrieves the next tuple from a TID range scan by managing the scan descriptor and coordinating with the table access method to fetch tuples within the computed TID range.

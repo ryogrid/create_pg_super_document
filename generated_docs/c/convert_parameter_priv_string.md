@@ -1,7 +1,7 @@
 # convert_parameter_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 4676 - 4704
+[src/backend/utils/adt/acl.c:4676-4704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4676-L4704)
 
 ## Overview
 A static function that converts text string representations of parameter privileges into PostgreSQL's internal AclMode bitmask format.

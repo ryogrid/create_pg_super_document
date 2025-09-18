@@ -1,7 +1,7 @@
 # GetResultRTEPermissionInfo
 
 ## Location
-src/backend/executor/execUtils.c: 1344 - 1394
+[src/backend/executor/execUtils.c:1344-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1344-L1394)
 
 ## Overview
 GetResultRTEPermissionInfo is a static utility function that looks up RTEPermissionInfo for ExecGet*Cols() routines, handling both regular result relations and inheritance child relations.

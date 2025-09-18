@@ -1,7 +1,7 @@
 # pq_endtypsend
 
 ## Location
-src/backend/libpq/pqformat.c: 346 - 366
+[src/backend/libpq/pqformat.c:346-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L346-L366)
 
 ## Overview
 Finalizes the construction of a bytea result by setting the correct length header and returning the completed bytea value.

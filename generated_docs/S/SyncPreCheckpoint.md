@@ -1,7 +1,7 @@
 # SyncPreCheckpoint
 
 ## Location
-src/backend/storage/sync/sync.c: 177 - 201
+[src/backend/storage/sync/sync.c:177-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L177-L201)
 
 ## Overview
 Performs pre-checkpoint synchronization work by absorbing pending unlink requests and incrementing the checkpoint cycle counter to distinguish between requests that arrived before and during the checkpoint.

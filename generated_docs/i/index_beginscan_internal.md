@@ -1,7 +1,7 @@
 # index_beginscan_internal
 
 ## Location
-src/backend/access/index/indexam.c: 310 - 351
+[src/backend/access/index/indexam.c:310-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L310-L351)
 
 ## Overview
 The  function is the common internal implementation for all index scan initialization variants, handling the core setup logic shared across different scan types.

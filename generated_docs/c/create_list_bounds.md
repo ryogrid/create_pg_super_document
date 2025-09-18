@@ -1,7 +1,7 @@
 # create_list_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 462 - 676
+[src/backend/partitioning/partbounds.c:462-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L462-L676)
 
 ## Overview
 Creates a PartitionBoundInfo structure specifically for list partitioned tables, converting list partition bound specifications into the internal representation with support for null, default, and interleaved partitions.

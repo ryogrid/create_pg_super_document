@@ -1,7 +1,7 @@
 # pg_time_now
 
 ## Location
-src/bin/pgbench/pgbench.c: 851 - 860
+[src/bin/pgbench/pgbench.c:851-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L851-L860)
 
 ## Overview
 A static inline function that returns the current time in microseconds as a pg_time_usec_t value, primarily used by pgbench for timing operations.

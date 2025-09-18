@@ -1,7 +1,7 @@
 # pqsecure_raw_read
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 208 - 281
+[src/interfaces/libpq/fe-secure.c:208-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L208-L281)
 
 ## Overview
 Performs unencrypted socket-based reading from a PostgreSQL connection, handling various error conditions and providing appropriate error messages.

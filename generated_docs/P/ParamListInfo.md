@@ -1,7 +1,7 @@
 # ParamListInfo
 
 ## Location
-src/include/nodes/params.h: 98 - 109
+[src/include/nodes/params.h:98-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/params.h#L98-L109)
 
 ## Overview
 ParamListInfo is a pointer typedef to ParamListInfoData struct that provides a framework for managing query parameters in PostgreSQL, supporting both static parameter arrays and dynamic parameter fetching through hook functions.

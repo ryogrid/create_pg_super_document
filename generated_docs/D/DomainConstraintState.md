@@ -1,7 +1,7 @@
 # DomainConstraintState
 
 ## Location
-src/include/nodes/execnodes.h: 1007 - 1014
+[src/include/nodes/execnodes.h:1007-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1007-L1014)
 
 ## Overview
 DomainConstraintState represents the execution state for validating domain constraints during type coercion operations, supporting both NOT NULL and CHECK constraints.

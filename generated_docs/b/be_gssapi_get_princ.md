@@ -1,7 +1,7 @@
 # be_gssapi_get_princ
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 766 - 778
+[src/backend/libpq/be-secure-gssapi.c:766-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L766-L778)
 
 ## Overview
 Returns the GSSAPI principal used for authentication on the given connection, or NULL if GSSAPI authentication was not performed.

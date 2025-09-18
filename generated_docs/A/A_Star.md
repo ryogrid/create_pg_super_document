@@ -1,7 +1,7 @@
 # A_Star
 
 ## Location
-src/include/nodes/parsenodes.h: 445 - 448
+[src/include/nodes/parsenodes.h:445-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L445-L448)
 
 ## Overview
 A_Star represents the '*' wildcard symbol in SQL queries, used to indicate all columns of a table or all elements of a compound field.

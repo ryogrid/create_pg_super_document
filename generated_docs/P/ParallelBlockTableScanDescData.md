@@ -1,7 +1,7 @@
 # ParallelBlockTableScanDescData
 
 ## Location
-src/include/access/relscan.h: 75 - 84
+[src/include/access/relscan.h:75-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L75-L84)
 
 ## Overview
 ParallelBlockTableScanDescData extends ParallelTableScanDescData to provide shared state coordination specifically for block-oriented storage parallel table scans.

@@ -1,7 +1,7 @@
 # ginHeapTupleInsert
 
 ## Location
-src/backend/access/gin/gininsert.c: 465 - 482
+[src/backend/access/gin/gininsert.c:465-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L465-L482)
 
 ## Overview
 The ginHeapTupleInsert function handles the insertion of index entries for a single indexable item during normal (non-fast-update) insertion operations in GIN indexes.

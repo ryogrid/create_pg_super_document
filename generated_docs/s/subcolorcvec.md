@@ -1,7 +1,7 @@
 # subcolorcvec
 
 ## Location
-src/backend/regex/regc_color.c: 522 - 623
+[src/backend/regex/regc_color.c:522-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L522-L623)
 
 ## Overview
 Allocates new subcolors for all characters and ranges in a character vector (cvec) and creates corresponding NFA arcs between two states.

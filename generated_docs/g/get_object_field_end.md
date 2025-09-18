@@ -1,7 +1,7 @@
 # get_object_field_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1242 - 1292
+[src/backend/utils/adt/jsonfuncs.c:1242-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1242-L1292)
 
 ## Overview
 A JSON semantic action callback function that handles the completion of object field processing, extracting the field value and performing cleanup operations when a target field has been processed.

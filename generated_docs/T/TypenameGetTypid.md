@@ -1,7 +1,7 @@
 # TypenameGetTypid
 
 ## Location
-src/backend/catalog/namespace.c: 995 - 1007
+[src/backend/catalog/namespace.c:995-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L995-L1007)
 
 ## Overview
 Wrapper function for binary compatibility that retrieves the OID of a type given its name.

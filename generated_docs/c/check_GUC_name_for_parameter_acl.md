@@ -1,7 +1,7 @@
 # check_GUC_name_for_parameter_acl
 
 ## Location
-src/backend/utils/misc/guc.c: 1412 - 1437
+[src/backend/utils/misc/guc.c:1412-1437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1412-L1437)
 
 ## Overview
 Validates whether a given parameter name is eligible for creating a pg_parameter_acl entry, ensuring the name refers to either an existing GUC parameter or a valid custom GUC name pattern.

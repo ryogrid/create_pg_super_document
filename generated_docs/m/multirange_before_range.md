@@ -1,7 +1,7 @@
 # multirange_before_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2340 - 2351
+[src/backend/utils/adt/multirangetypes.c:2340-2351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2340-L2351)
 
 ## Overview
 Determines if a multirange is strictly positioned before (to the left of) a range, implemented by checking if the range is strictly after the multirange.

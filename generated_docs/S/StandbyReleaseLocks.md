@@ -1,7 +1,7 @@
 # StandbyReleaseLocks
 
 ## Location
-src/backend/storage/ipc/standby.c: 1067 - 1090
+[src/backend/storage/ipc/standby.c:1067-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1067-L1090)
 
 ## Overview
 StandbyReleaseLocks is a static function that releases AccessExclusive locks for a specific transaction ID or all locks if InvalidXid is provided during recovery cleanup.

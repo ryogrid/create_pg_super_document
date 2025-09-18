@@ -1,7 +1,7 @@
 # current_query
 
 ## Location
-src/backend/utils/adt/misc.c: 212 - 223
+[src/backend/utils/adt/misc.c:212-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L212-L223)
 
 ## Overview
 A PostgreSQL built-in function that returns the text of the currently executing SQL query, primarily useful for debugging and logging purposes in stored procedures and functions.

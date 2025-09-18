@@ -1,7 +1,7 @@
 # AlterTableGetLockLevel
 
 ## Location
-src/backend/commands/tablecmds.c: 4473 - 4743
+[src/backend/commands/tablecmds.c:4473-4743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4473-L4743)
 
 ## Overview
 AlterTableGetLockLevel determines the minimum lock level required for a list of ALTER TABLE subcommands, implementing PostgreSQL's lock level policy to ensure safe concurrent access during table alterations.

@@ -1,7 +1,7 @@
 # ExecGrant_Attribute
 
 ## Location
-src/backend/catalog/aclchk.c: 1680 - 1824
+[src/backend/catalog/aclchk.c:1680-1824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1680-L1824)
 
 ## Overview
 Processes GRANT/REVOKE operations on individual column attributes, handling ACL modifications and dependency tracking for column-level privileges.

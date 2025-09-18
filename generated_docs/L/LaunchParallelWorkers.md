@@ -1,7 +1,7 @@
 # LaunchParallelWorkers
 
 ## Location
-src/backend/access/transam/parallel.c: 569 - 688
+[src/backend/access/transam/parallel.c:569-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L569-L688)
 
 ## Overview
 Launches the actual background worker processes for a parallel context, registering them with PostgreSQL's background worker infrastructure and establishing communication channels.

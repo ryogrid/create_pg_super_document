@@ -1,7 +1,7 @@
 # threadRun
 
 ## Location
-src/bin/pgbench/pgbench.c: 7431 - 7730
+[src/bin/pgbench/pgbench.c:7431-7730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7431-L7730)
 
 ## Overview
 The main worker thread function for pgbench that executes database transactions concurrently, manages connection states, and coordinates progress reporting across multiple client connections.

@@ -1,7 +1,7 @@
 # r_noun_sfx
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 333 - 359
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:333-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L333-L359)
 
 ## Overview
 The r_noun_sfx function removes Irish noun suffixes during the stemming process, handling both R1 and R2 region-based suffix removal according to Irish morphological rules.

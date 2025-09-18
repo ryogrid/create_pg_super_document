@@ -1,7 +1,7 @@
 # pgstat_io_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 277 - 318
+[src/backend/utils/activity/pgstat_io.c:277-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L277-L318)
 
 ## Overview
 This function creates a consistent snapshot of I/O statistics for all backend types by copying statistics from shared memory to the local snapshot area under appropriate locking.

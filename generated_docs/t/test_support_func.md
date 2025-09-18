@@ -1,7 +1,7 @@
 # test_support_func
 
 ## Location
-src/test/regress/regress.c: 1030 - 1102
+[src/test/regress/regress.c:1030-1102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1030-L1102)
 
 ## Overview
 A PostgreSQL test function that implements a support function interface for testing query planning support mechanisms, specifically handling selectivity estimation, cost estimation, and row count estimation.

@@ -1,7 +1,7 @@
 # timestamp_larger
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2771 - 2785
+[src/backend/utils/adt/timestamp.c:2771-2785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2771-L2785)
 
 ## Overview
 Returns the larger of two timestamp values, implementing the PostgreSQL GREATEST() function for timestamp types.

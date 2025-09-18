@@ -1,7 +1,7 @@
 # set_worktable_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2993 - 3051
+[src/backend/optimizer/path/allpaths.c:2993-3051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2993-L3051)
 
 ## Overview
 Builds the access path for a self-reference CTE (Common Table Expression) RTE, creating a single WorktableScan path for recursive CTE references.

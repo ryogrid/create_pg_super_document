@@ -1,7 +1,7 @@
 # sn_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4388 - 4397
+[src/backend/utils/adt/jsonfuncs.c:4388-4397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4388-L4397)
 
 ## Overview
 This function handles the start of JSON objects during null-stripping operations, appending an opening brace to the output string buffer.

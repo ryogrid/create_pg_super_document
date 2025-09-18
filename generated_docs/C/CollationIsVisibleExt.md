@@ -1,7 +1,7 @@
 # CollationIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2419 - 2476
+[src/backend/catalog/namespace.c:2419-2476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2419-L2476)
 
 ## Overview
 The extended version of collation visibility checking that determines whether a collation is visible in the current search path, with optional error handling for missing collations.

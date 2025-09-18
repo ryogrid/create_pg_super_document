@@ -1,7 +1,7 @@
 # btvacuumcleanup
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 851 - 938
+[src/backend/access/nbtree/nbtree.c:851-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L851-L938)
 
 ## Overview
 Performs post-VACUUM cleanup operations for B-tree indexes, including determining whether a physical scan is needed and maintaining cleanup metadata.

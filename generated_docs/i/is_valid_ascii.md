@@ -1,7 +1,7 @@
 # is_valid_ascii
 
 ## Location
-src/include/utils/ascii.h: 25 - 84
+[src/include/utils/ascii.h:25-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/ascii.h#L25-L84)
 
 ## Overview
 A high-performance inline function that validates whether a chunk of bytes contains only valid ASCII characters using SIMD optimization techniques.

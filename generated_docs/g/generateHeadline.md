@@ -1,7 +1,7 @@
 # generateHeadline
 
 ## Location
-src/backend/tsearch/ts_parse.c: 607 - 679
+[src/backend/tsearch/ts_parse.c:607-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L607-L679)
 
 ## Overview
 A function that generates the final text headline from a processed HeadlineParsedText structure, incorporating highlighting markup and fragment delimiters.

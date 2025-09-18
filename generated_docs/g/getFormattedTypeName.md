@@ -1,7 +1,7 @@
 # getFormattedTypeName
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18942 - 18992
+[src/bin/pg_dump/pg_dump.c:18942-18992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18942-L18992)
 
 ## Overview
 Retrieves a nicely-formatted type name for a given type OID, with caching support and special handling for zero OID values.

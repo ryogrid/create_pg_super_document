@@ -1,7 +1,7 @@
 # is_publishable_relation
 
 ## Location
-src/backend/catalog/pg_publication.c: 150 - 162
+[src/backend/catalog/pg_publication.c:150-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L150-L162)
 
 ## Overview
 A convenience wrapper function that determines if an opened relation is publishable by delegating to `is_publishable_class()`.

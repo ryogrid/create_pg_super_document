@@ -1,7 +1,7 @@
 # MarkAsPreparing
 
 ## Location
-src/backend/access/transam/twophase.c: 359 - 432
+[src/backend/access/transam/twophase.c:359-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L359-L432)
 
 ## Overview
 Reserves a Global Identifier (GID) for a two-phase commit transaction, transitioning it to the preparing state within the PostgreSQL two-phase commit system.

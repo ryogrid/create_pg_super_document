@@ -1,7 +1,7 @@
 # CreateExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 304 - 318
+[src/backend/executor/execUtils.c:304-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L304-L318)
 
 ## Overview
 Creates a standard ExprContext for expression evaluation within an EState, using default memory allocation parameters.

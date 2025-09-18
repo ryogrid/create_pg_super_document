@@ -1,7 +1,7 @@
 # UnlinkLockFiles
 
 ## Location
-src/backend/utils/init/miscinit.c: 1170 - 1204
+[src/backend/utils/init/miscinit.c:1170-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1170-L1204)
 
 ## Overview
 A proc_exit callback function that removes PostgreSQL lockfiles during server shutdown and logs the completion of database system shutdown.

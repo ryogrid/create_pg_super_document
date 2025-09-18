@@ -1,7 +1,7 @@
 # transformUpdateTargetList
 
 ## Location
-src/backend/parser/analyze.c: 2485 - 2559
+[src/backend/parser/analyze.c:2485-2559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2485-L2559)
 
 ## Overview
 Handles the SET clause transformation in UPDATE, MERGE, and INSERT...ON CONFLICT UPDATE statements by converting target expressions to proper target list entries with correct column assignments and permission tracking.

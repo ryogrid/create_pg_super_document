@@ -1,7 +1,7 @@
 # get_str_from_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 7510 - 7662
+[src/backend/utils/adt/numeric.c:7510-7662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7510-L7662)
 
 ## Overview
 Converts a NumericVar to its text representation, handling proper formatting of digits before and after the decimal point according to the variable's display scale.

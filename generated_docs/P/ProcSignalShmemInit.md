@@ -1,7 +1,7 @@
 # ProcSignalShmemInit
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 125 - 157
+[src/backend/storage/ipc/procsignal.c:125-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L125-L157)
 
 ## Overview
 Allocates and initializes the shared memory structures used by PostgreSQL's process signaling system, setting up the process signal header and all individual process signal slots.

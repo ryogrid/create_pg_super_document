@@ -1,7 +1,7 @@
 # DataPageDeleteStack
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 114 - 123
+[src/backend/access/gin/ginvacuum.c:114-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L114-L123)
 
 ## Overview
 DataPageDeleteStack is a doubly-linked list structure used during GIN index vacuum operations to track and manage the hierarchical deletion of data pages in posting trees.

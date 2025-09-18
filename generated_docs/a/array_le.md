@@ -1,7 +1,7 @@
 # array_le
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3949 - 3954
+[src/backend/utils/adt/arrayfuncs.c:3949-3954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3949-L3954)
 
 ## Overview
 array_le is a PostgreSQL function that determines whether one array is less than or equal to another array based on lexicographic comparison.

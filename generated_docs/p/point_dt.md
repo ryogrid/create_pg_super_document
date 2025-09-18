@@ -1,7 +1,7 @@
 # point_dt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2002 - 2007
+[src/backend/utils/adt/geo_ops.c:2002-2007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2002-L2007)
 
 ## Overview
 Calculates the Euclidean distance between two points in 2D space using the standard distance formula.

@@ -1,7 +1,7 @@
 # freesrnode
 
 ## Location
-src/backend/regex/regcomp.c: 2187 - 2217
+[src/backend/regex/regcomp.c:2187-2217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2187-L2217)
 
 ## Overview
 A memory management function that frees a single subRE node while optionally reusing it for future allocations during regex compilation.

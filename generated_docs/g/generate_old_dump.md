@@ -1,7 +1,7 @@
 # generate_old_dump
 
 ## Location
-src/bin/pg_upgrade/dump.c: 16 - 71
+[src/bin/pg_upgrade/dump.c:16-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/dump.c#L16-L71)
 
 ## Overview
 Generates database dumps from the old PostgreSQL cluster during pg_upgrade operations, creating both global objects dump and individual database schema dumps.

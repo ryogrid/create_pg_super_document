@@ -1,7 +1,7 @@
 # ExecInitPartitionDispatchInfo
 
 ## Location
-src/backend/executor/execPartition.c: 1094 - 1232
+[src/backend/executor/execPartition.c:1094-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1094-L1232)
 
 ## Overview
 Locks a partitioned table and initializes PartitionDispatch structure for efficient partition key evaluation and tuple routing, managing the hierarchical dispatch system for multi-level partitioning.

@@ -1,7 +1,7 @@
 # pgstat_database_reset_timestamp_cb
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 438 - 441
+[src/backend/utils/activity/pgstat_database.c:438-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L438-L441)
 
 ## Overview
 A callback function that updates the statistics reset timestamp for database-level statistics in PostgreSQL's statistics collection system.

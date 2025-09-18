@@ -1,7 +1,7 @@
 # RelationBuildTupleDesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 521 - 732
+[src/backend/utils/cache/relcache.c:521-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L521-L732)
 
 ## Overview
 RelationBuildTupleDesc constructs the complete tuple descriptor for a relation by scanning pg_attribute and incorporating constraint, default, and missing value information.

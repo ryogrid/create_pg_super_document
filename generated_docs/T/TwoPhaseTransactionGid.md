@@ -1,7 +1,7 @@
 # TwoPhaseTransactionGid
 
 ## Location
-src/backend/replication/logical/worker.c: 4418 - 4437
+[src/backend/replication/logical/worker.c:4418-4437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4418-L4437)
 
 ## Overview
 A static function that generates a standardized Global Transaction Identifier (GID) for two-phase commit transactions in logical replication.

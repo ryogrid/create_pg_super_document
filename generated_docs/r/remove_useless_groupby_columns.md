@@ -1,7 +1,7 @@
 # remove_useless_groupby_columns
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2717 - 2883
+[src/backend/optimizer/plan/planner.c:2717-2883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2717-L2883)
 
 ## Overview
 Optimizes GROUP BY clauses by removing columns that are functionally dependent on other GROUP BY columns, specifically those made redundant by primary key constraints.

@@ -1,7 +1,7 @@
 # pg_strnxfrm
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2440 - 2462
+[src/backend/utils/adt/pg_locale.c:2440-2462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2440-L2462)
 
 ## Overview
 Transforms a string of specified length into a sort key that can be compared using ordinary strcmp() instead of locale-aware comparison, without requiring null-terminated input.

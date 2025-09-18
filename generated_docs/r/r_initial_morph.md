@@ -1,7 +1,7 @@
 # r_initial_morph
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 257 - 317
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:257-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L257-L317)
 
 ## Overview
 The r_initial_morph function handles initial morphological transformations for Irish language stemming by processing word prefixes and applying appropriate substitutions or deletions.

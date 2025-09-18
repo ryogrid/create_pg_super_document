@@ -1,7 +1,7 @@
 # ReorderBufferTXNSizeCompare
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3667 - 3682
+[src/backend/replication/logical/reorderbuffer.c:3667-3682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3667-L3682)
 
 ## Overview
 A comparison function that orders ReorderBufferTXN transactions by their memory size, used for maintaining a priority queue of transactions in the reorder buffer.

@@ -1,7 +1,7 @@
 # lseg_ne
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2246 - 2255
+[src/backend/utils/adt/geo_ops.c:2246-2255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2246-L2255)
 
 ## Overview
 Determines if two line segments are not equal by comparing their corresponding endpoints.

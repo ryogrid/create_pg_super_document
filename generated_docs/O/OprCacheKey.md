@@ -1,7 +1,7 @@
 # OprCacheKey
 
 ## Location
-src/backend/parser/parse_oper.c: 51 - 57
+[src/backend/parser/parse_oper.c:51-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L51-L57)
 
 ## Overview
 OprCacheKey is a structure that serves as the hash table lookup key for caching operator resolution results in PostgreSQL's parser.

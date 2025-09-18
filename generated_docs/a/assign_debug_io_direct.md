@@ -1,7 +1,7 @@
 # assign_debug_io_direct
 
 ## Location
-src/backend/storage/file/fd.c: 4021 - 4030
+[src/backend/storage/file/fd.c:4021-4030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L4021-L4030)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that sets the global io_direct_flags variable based on validated configuration values from the debug_io_direct parameter.

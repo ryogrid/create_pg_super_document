@@ -1,7 +1,7 @@
 # jsonb_subscript_handler
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 402 - 413
+[src/backend/utils/adt/jsonbsubs.c:402-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L402-L413)
 
 ## Overview
 Main subscripting handler for JSONB data type that provides the interface for subscript operations on JSONB values by returning a pointer to subscript routine definitions.

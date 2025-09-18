@@ -1,7 +1,7 @@
 # assign_param_for_var
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 66 - 119
+[src/backend/optimizer/util/paramassign.c:66-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L66-L119)
 
 ## Overview
 Selects a PARAM_EXEC number to identify the given Var as a parameter for the current subquery and records the need for the Var in the proper upper-level root->plan_params.

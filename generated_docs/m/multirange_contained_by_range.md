@@ -1,7 +1,7 @@
 # multirange_contained_by_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1758 - 1773
+[src/backend/utils/adt/multirangetypes.c:1758-1773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1758-L1773)
 
 ## Overview
 A PostgreSQL function that checks if a multirange is completely contained within a single range.

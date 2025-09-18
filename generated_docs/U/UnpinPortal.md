@@ -1,7 +1,7 @@
 # UnpinPortal
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 380 - 394
+[src/backend/utils/mmgr/portalmem.c:380-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L380-L394)
 
 ## Overview
 Removes the pinned protection from a portal, allowing it to be dropped again through normal cleanup operations.

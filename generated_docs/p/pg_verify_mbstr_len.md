@@ -1,7 +1,7 @@
 # pg_verify_mbstr_len
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1597 - 1668
+[src/backend/utils/mb/mbutils.c:1597-1668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1597-L1668)
 
 ## Overview
 Verifies that a multibyte string is validly encoded in the specified character encoding and returns the character count in that encoding.

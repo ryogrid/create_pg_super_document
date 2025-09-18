@@ -1,7 +1,7 @@
 # ExecGetResultType
 
 ## Location
-src/backend/executor/execUtils.c: 493 - 501
+[src/backend/executor/execUtils.c:493-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L493-L501)
 
 ## Overview
 Returns the result tuple descriptor for a given plan state, providing type information about the tuples that the executor plan node will produce.

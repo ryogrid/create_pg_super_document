@@ -1,7 +1,7 @@
 # setNamespaceForMergeWhen
 
 ## Location
-src/backend/parser/parse_merge.c: 52 - 106
+[src/backend/parser/parse_merge.c:52-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_merge.c#L52-L106)
 
 ## Overview
 A static function that manages namespace visibility for different types of MERGE statement action clauses by controlling which relations (source and/or target) are visible during expression transformation.

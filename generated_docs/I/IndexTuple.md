@@ -1,7 +1,7 @@
 # IndexTuple
 
 ## Location
-src/include/access/itup.h: 53 - 54
+[src/include/access/itup.h:53-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/itup.h#L53-L54)
 
 ## Overview
 IndexTuple is a typedef that represents a pointer to an IndexTupleData structure, which is the fundamental data structure used to represent index entries in PostgreSQL's indexing system.

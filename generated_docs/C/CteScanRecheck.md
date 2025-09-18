@@ -1,7 +1,7 @@
 # CteScanRecheck
 
 ## Location
-src/backend/executor/nodeCtescan.c: 145 - 159
+[src/backend/executor/nodeCtescan.c:145-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCtescan.c#L145-L159)
 
 ## Overview
 CteScanRecheck is an access method routine used during EvalPlanQual processing to recheck a tuple from a CTE scan, but currently implements no actual checking logic.

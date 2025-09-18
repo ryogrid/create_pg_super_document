@@ -1,7 +1,7 @@
 # init_allowed_encryption_methods
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4291 - 4355
+[src/interfaces/libpq/fe-connect.c:4291-4355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4291-L4355)
 
 ## Overview
 `init_allowed_encryption_methods` is a static function that initializes the connection encryption state machine based on sslmode and gssencmode settings, determining which encryption methods are allowed for the connection.

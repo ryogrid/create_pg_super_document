@@ -1,7 +1,7 @@
 # decsub
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 359 - 380
+[src/interfaces/ecpg/compatlib/informix.c:359-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L359-L380)
 
 ## Overview
 Performs subtraction operation on two decimal numbers using ECPG Informix compatibility library.

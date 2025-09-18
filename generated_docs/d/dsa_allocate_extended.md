@@ -1,7 +1,7 @@
 # dsa_allocate_extended
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 671 - 825
+[src/backend/utils/mmgr/dsa.c:671-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L671-L825)
 
 ## Overview
 Allocates memory in a dynamic shared memory area and returns a portable dsa_pointer that can be shared across processes.

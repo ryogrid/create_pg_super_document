@@ -1,7 +1,7 @@
 # find_in_dynamic_libpath
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 515 - 598
+[src/backend/utils/fmgr/dfmgr.c:515-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L515-L598)
 
 ## Overview
 Searches for a library file by basename in the configured dynamic library search path and returns the full path if found.

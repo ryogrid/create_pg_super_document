@@ -1,7 +1,7 @@
 # secure_loaded_verify_locations
 
 ## Location
-src/backend/libpq/be-secure.c: 97 - 109
+[src/backend/libpq/be-secure.c:97-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L97-L109)
 
 ## Overview
 Returns a boolean indicating whether PostgreSQL has successfully loaded root CA certificates for verifying SSL/TLS client certificates during authentication.

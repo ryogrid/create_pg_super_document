@@ -1,7 +1,7 @@
 # gin_extract_tsvector_2args
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 304 - 315
+[src/backend/utils/adt/tsginidx.c:304-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L304-L315)
 
 ## Overview
 The gin_extract_tsvector_2args function serves as a compatibility wrapper for the older two-argument version of gin_extract_tsvector, maintaining backward compatibility with pre-9.1 contrib/tsearch2 opclass declarations.

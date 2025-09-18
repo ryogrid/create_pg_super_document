@@ -1,7 +1,7 @@
 # MTTargetRelLookup
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 75 - 79
+[src/backend/executor/nodeModifyTable.c:75-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L75-L79)
 
 ## Overview
 MTTargetRelLookup is a hash table entry structure used by ModifyTable execution nodes to efficiently map relation OIDs to their corresponding indexes in the resultRelInfo array during UPDATE and DELETE operations on inherited tables.

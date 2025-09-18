@@ -1,7 +1,7 @@
 # RemoveFunctionById
 
 ## Location
-src/backend/commands/functioncmds.c: 1293 - 1342
+[src/backend/commands/functioncmds.c:1293-1342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L1293-L1342)
 
 ## Overview
 Removes a function or aggregate from the PostgreSQL system catalogs by deleting its entries from pg_proc and potentially pg_aggregate tables.

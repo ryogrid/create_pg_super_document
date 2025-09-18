@@ -1,7 +1,7 @@
 # SetReindexPending
 
 ## Location
-src/backend/catalog/index.c: 4123 - 4138
+[src/backend/catalog/index.c:4123-4138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4123-L4138)
 
 ## Overview
 Marks a list of indexes as pending reindex by storing them in the global pendingReindexedIndexes list, with safety checks to prevent re-entrant operations and parallel execution conflicts.

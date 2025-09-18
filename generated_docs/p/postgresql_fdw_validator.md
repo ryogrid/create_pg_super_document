@@ -1,7 +1,7 @@
 # postgresql_fdw_validator
 
 ## Location
-src/backend/foreign/foreign.c: 625 - 680
+[src/backend/foreign/foreign.c:625-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L625-L680)
 
 ## Overview
 Validates generic options given to SERVER or USER MAPPING for PostgreSQL foreign data wrapper, raising errors for invalid options and providing helpful suggestions.

@@ -1,7 +1,7 @@
 # _mdfd_openseg
 
 ## Location
-src/backend/storage/smgr/md.c: 1551 - 1595
+[src/backend/storage/smgr/md.c:1551-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1551-L1595)
 
 ## Overview
 Opens a specific segment file of a relation fork and creates a MdfdVec descriptor for it, expanding the segment file descriptor array as needed.

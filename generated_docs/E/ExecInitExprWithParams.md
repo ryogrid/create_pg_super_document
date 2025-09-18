@@ -1,7 +1,7 @@
 # ExecInitExprWithParams
 
 ## Location
-src/backend/executor/execExpr.c: 172 - 220
+[src/backend/executor/execExpr.c:172-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L172-L220)
 
 ## Overview
 ExecInitExprWithParams prepares a standalone expression tree for execution, similar to ExecInitExpr but designed for expressions not associated with a plan tree and supporting external parameters.

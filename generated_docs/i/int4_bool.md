@@ -1,7 +1,7 @@
 # int4_bool
 
 ## Location
-src/backend/utils/adt/int.c: 362 - 371
+[src/backend/utils/adt/int.c:362-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L362-L371)
 
 ## Overview
 Converts a 32-bit integer (int4) value to a boolean value, following PostgreSQL's type casting semantics.

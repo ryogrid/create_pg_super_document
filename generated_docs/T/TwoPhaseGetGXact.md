@@ -1,7 +1,7 @@
 # TwoPhaseGetGXact
 
 ## Location
-src/backend/access/transam/twophase.c: 800 - 851
+[src/backend/access/transam/twophase.c:800-851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L800-L851)
 
 ## Overview
 TwoPhaseGetGXact retrieves the GlobalTransaction structure for a prepared transaction identified by its transaction ID (XID).

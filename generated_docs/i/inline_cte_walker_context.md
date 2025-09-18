@@ -1,7 +1,7 @@
 # inline_cte_walker_context
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 60 - 65
+[src/backend/optimizer/plan/subselect.c:60-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L60-L65)
 
 ## Overview
 A context structure used during Common Table Expression (CTE) inlining to track the target CTE information and provide the replacement query during tree traversal.

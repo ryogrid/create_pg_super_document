@@ -1,7 +1,7 @@
 # circle_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5225 - 5284
+[src/backend/utils/adt/geo_ops.c:5225-5284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5225-L5284)
 
 ## Overview
 Converts a circle to a polygon with a specified number of vertices by approximating the circle's circumference with straight line segments.

@@ -1,7 +1,7 @@
 # RemoveTwoPhaseFile
 
 ## Location
-src/backend/access/transam/twophase.c: 1708 - 1726
+[src/backend/access/transam/twophase.c:1708-1726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1708-L1726)
 
 ## Overview
 RemoveTwoPhaseFile deletes the two-phase commit state file from the filesystem for a specified transaction ID.

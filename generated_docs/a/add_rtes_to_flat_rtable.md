@@ -1,7 +1,7 @@
 # add_rtes_to_flat_rtable
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 391 - 479
+[src/backend/optimizer/plan/setrefs.c:391-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L391-L479)
 
 ## Overview
 Extracts RangeTblEntries from the plan's rangetable and adds them to the flat rangetable, handling both live and dead subqueries.

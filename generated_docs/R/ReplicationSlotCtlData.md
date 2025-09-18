@@ -1,7 +1,7 @@
 # ReplicationSlotCtlData
 
 ## Location
-src/include/replication/slot.h: 219 - 226
+[src/include/replication/slot.h:219-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/slot.h#L219-L226)
 
 ## Overview
 ReplicationSlotCtlData is the shared memory control structure that manages the array of all replication slots in the PostgreSQL system, serving as the top-level container for slot management.

@@ -1,7 +1,7 @@
 # ExecProjectSRF
 
 ## Location
-src/backend/executor/nodeProjectSet.c: 139 - 226
+[src/backend/executor/nodeProjectSet.c:139-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeProjectSet.c#L139-L226)
 
 ## Overview
 ExecProjectSRF projects a targetlist containing one or more set-returning functions, handling the complex evaluation state of SRFs.

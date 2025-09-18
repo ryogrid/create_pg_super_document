@@ -1,7 +1,7 @@
 # pgstat_restore_stats
 
 ## Location
-src/backend/utils/activity/pgstat.c: 407 - 418
+[src/backend/utils/activity/pgstat.c:407-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L407-L418)
 
 ## Overview
 Restores PostgreSQL statistics from the on-disk statistics file into shared memory at server startup. This function serves as the entry point for loading previously persisted statistics data.

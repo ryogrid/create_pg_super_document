@@ -1,7 +1,7 @@
 # ginvalidate
 
 ## Location
-src/backend/access/gin/ginvalidate.c: 31 - 276
+[src/backend/access/gin/ginvalidate.c:31-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvalidate.c#L31-L276)
 
 ## Overview
 Validates a GIN (Generalized Inverted Index) operator class to ensure it contains all required support functions and operators with correct signatures and parameters.

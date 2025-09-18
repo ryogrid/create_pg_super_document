@@ -1,7 +1,7 @@
 # LockTagType
 
 ## Location
-src/include/storage/lock.h: 150 - 151
+[src/include/storage/lock.h:150-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L150-L151)
 
 ## Overview
 LockTagType is an enumeration that defines the different kinds of objects that can be locked in PostgreSQL's lock management system. It serves as a key component in the LOCKTAG structure to uniquely identify lockable objects.

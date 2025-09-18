@@ -1,7 +1,7 @@
 # gistScanPage
 
 ## Location
-src/backend/access/gist/gistget.c: 328 - 537
+[src/backend/access/gist/gistget.c:328-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L328-L537)
 
 ## Overview
 gistScanPage scans all items on a GiST index page and processes them according to the scan type, handling concurrent splits and managing output to search queues or result arrays.

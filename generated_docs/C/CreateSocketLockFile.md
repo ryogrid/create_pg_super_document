@@ -1,7 +1,7 @@
 # CreateSocketLockFile
 
 ## Location
-src/backend/utils/init/miscinit.c: 1519 - 1536
+[src/backend/utils/init/miscinit.c:1519-1536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1519-L1536)
 
 ## Overview
 Creates a lock file for a specified Unix socket file to prevent conflicts when multiple PostgreSQL instances attempt to use the same socket path.

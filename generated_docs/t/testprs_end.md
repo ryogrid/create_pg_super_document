@@ -1,7 +1,7 @@
 # testprs_end
 
 ## Location
-src/test/modules/test_parser/test_parser.c: 99 - 107
+[src/test/modules/test_parser/test_parser.c:99-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_parser/test_parser.c#L99-L107)
 
 ## Overview
 Clean up and deallocate parser state resources at the end of parsing operations in PostgreSQL test parser module.

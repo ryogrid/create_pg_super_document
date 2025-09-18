@@ -1,7 +1,7 @@
 # dsa_attach
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 510 - 544
+[src/backend/utils/mmgr/dsa.c:510-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L510-L544)
 
 ## Overview
 Attaches to an existing Dynamic Shared Area (DSA) using a handle obtained from another process, enabling inter-process shared memory access.

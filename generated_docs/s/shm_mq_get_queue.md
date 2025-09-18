@@ -1,7 +1,7 @@
 # shm_mq_get_queue
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 905 - 913
+[src/backend/storage/ipc/shm_mq.c:905-913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L905-L913)
 
 ## Overview
 Retrieves the underlying shared memory message queue structure from a message queue handle, providing direct access to the queue for low-level operations.

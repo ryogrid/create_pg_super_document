@@ -1,7 +1,7 @@
 # logicalrep_partmap_reset_relmap
 
 ## Location
-src/backend/replication/logical/relation.c: 540 - 566
+[src/backend/replication/logical/relation.c:540-566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L540-L566)
 
 ## Overview
 Resets partition map entries that reference a specific remote relation when the publisher sends new relation mapping information.

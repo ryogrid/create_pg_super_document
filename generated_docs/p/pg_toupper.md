@@ -1,7 +1,7 @@
 # pg_toupper
 
 ## Location
-src/port/pgstrcasecmp.c: 105 - 121
+[src/port/pgstrcasecmp.c:105-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrcasecmp.c#L105-L121)
 
 ## Overview
 Converts a single character to uppercase in a safe manner that works with both ASCII and extended character sets.

@@ -1,7 +1,7 @@
 # PQgetssl
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1796 - 1803
+[src/interfaces/libpq/fe-secure-openssl.c:1796-1803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1796-L1803)
 
 ## Overview
 Returns a pointer to the OpenSSL object (SSL structure) associated with a PostgreSQL connection, allowing direct access to SSL-specific functionality.

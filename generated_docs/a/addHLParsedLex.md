@@ -1,7 +1,7 @@
 # addHLParsedLex
 
 ## Location
-src/backend/tsearch/ts_parse.c: 499 - 539
+[src/backend/tsearch/ts_parse.c:499-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L499-L539)
 
 ## Overview
 A static function that processes parsed lexemes and normalized forms, adding them to the HeadlineParsedText structure while managing position tracking and memory cleanup.

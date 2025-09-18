@@ -1,7 +1,7 @@
 # JitContext
 
 ## Location
-src/include/jit/jit.h: 57 - 63
+[src/include/jit/jit.h:57-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/jit.h#L57-L63)
 
 ## Overview
 JitContext is the main context structure that tracks the state and configuration of JIT compilation operations in PostgreSQL.

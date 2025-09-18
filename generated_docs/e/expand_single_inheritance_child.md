@@ -1,7 +1,7 @@
 # expand_single_inheritance_child
 
 ## Location
-src/backend/optimizer/util/inherit.c: 461 - 655
+[src/backend/optimizer/util/inherit.c:461-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L461-L655)
 
 ## Overview
 Builds a RangeTblEntry and AppendRelInfo for a single child relation in an inheritance hierarchy, along with optional PlanRowMark for row locking support.

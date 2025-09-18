@@ -1,7 +1,7 @@
 # brtuple_disk_tupdesc
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 61 - 98
+[src/backend/access/brin/brin_tuple.c:61-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L61-L98)
 
 ## Overview
 Returns a tuple descriptor used for on-disk storage of BRIN tuples, providing the structure needed to serialize BRIN index data to disk.

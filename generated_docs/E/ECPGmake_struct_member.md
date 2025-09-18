@@ -1,7 +1,7 @@
 # ECPGmake_struct_member
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 77 - 95
+[src/interfaces/ecpg/preproc/type.c:77-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L77-L95)
 
 ## Overview
 Creates and appends a new struct member to a linked list of struct members for ECPG type system, managing both the member name and type information.

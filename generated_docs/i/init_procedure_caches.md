@@ -1,7 +1,7 @@
 # init_procedure_caches
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 33 - 48
+[src/pl/plpython/plpy_procedure.c:33-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L33-L48)
 
 ## Overview
 Initializes the global procedure cache hash table used by the PL/Python procedural language extension to store compiled Python procedures.

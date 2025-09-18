@@ -1,7 +1,7 @@
 # brinrescan
 
 ## Location
-src/backend/access/brin/brin.c: 948 - 967
+[src/backend/access/brin/brin.c:948-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L948-L967)
 
 ## Overview
 Re-initializes state for a BRIN index scan by updating the scan keys if provided, allowing the scan to be restarted with new search conditions.

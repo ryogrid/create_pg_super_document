@@ -1,7 +1,7 @@
 # renameatt_internal
 
 ## Location
-src/backend/commands/tablecmds.c: 3712 - 3856
+[src/backend/commands/tablecmds.c:3712-3856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3712-L3856)
 
 ## Overview
 renameatt_internal is the core workhorse function that performs attribute (column) renaming operations, handling inheritance hierarchies, typed table dependencies, and all necessary catalog updates.

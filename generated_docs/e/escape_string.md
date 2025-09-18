@@ -1,7 +1,7 @@
 # escape_string
 
 ## Location
-src/bin/psql/tab-complete.c: 5930 - 5952
+[src/bin/psql/tab-complete.c:5930-5952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5930-L5952)
 
 ## Overview
 Escapes a string for safe use as a PostgreSQL string literal by applying proper SQL escaping rules.

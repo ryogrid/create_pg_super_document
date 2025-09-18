@@ -1,7 +1,7 @@
 # BoolTestType
 
 ## Location
-src/include/nodes/primnodes.h: 1977 - 1978
+[src/include/nodes/primnodes.h:1977-1978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1977-L1978)
 
 ## Overview
 BoolTestType is an enumeration that defines the types of boolean testing operations for determining whether a boolean value is TRUE, FALSE, or UNKNOWN (NULL) in PostgreSQL's three-valued logic system.

@@ -1,7 +1,7 @@
 # ends_with
 
 ## Location
-src/bin/psql/tab-complete.c: 1635 - 1650
+[src/bin/psql/tab-complete.c:1635-1650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1635-L1650)
 
 ## Overview
 A simple utility function that checks if a string ends with a specific character, used throughout the tab completion system for string pattern matching.

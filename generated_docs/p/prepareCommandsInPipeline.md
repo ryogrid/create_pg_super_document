@@ -1,7 +1,7 @@
 # prepareCommandsInPipeline
 
 ## Location
-src/bin/pgbench/pgbench.c: 3122 - 3154
+[src/bin/pgbench/pgbench.c:3122-3154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3122-L3154)
 
 ## Overview
 The prepareCommandsInPipeline function prepares all SQL commands within a pipeline block (between \startpipeline and \endpipeline) for efficient batch execution.

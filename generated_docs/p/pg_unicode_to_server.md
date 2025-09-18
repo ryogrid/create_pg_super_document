@@ -1,7 +1,7 @@
 # pg_unicode_to_server
 
 ## Location
-src/backend/utils/mb/mbutils.c: 864 - 925
+[src/backend/utils/mb/mbutils.c:864-925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L864-L925)
 
 ## Overview
 Converts a single Unicode code point into a string representation in the server's encoding, providing essential Unicode-to-database encoding conversion functionality.

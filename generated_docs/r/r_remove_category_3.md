@@ -1,7 +1,7 @@
 # r_remove_category_3
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 366 - 375
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:366-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L366-L375)
 
 ## Overview
 Removes category 3 suffixes from Nepali words using simple pattern matching and deletion in the Snowball stemming algorithm.

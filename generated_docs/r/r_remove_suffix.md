@@ -1,7 +1,7 @@
 # r_remove_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 171 - 182
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:171-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L171-L182)
 
 ## Overview
 Removes suffixes ('i', 'an', 'kan') from Indonesian words as part of the Snowball stemming algorithm for Indonesian language text processing.

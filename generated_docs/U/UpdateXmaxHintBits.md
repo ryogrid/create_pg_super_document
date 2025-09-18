@@ -1,7 +1,7 @@
 # UpdateXmaxHintBits
 
 ## Location
-src/backend/access/heap/heapam.c: 1949 - 1970
+[src/backend/access/heap/heapam.c:1949-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1949-L1970)
 
 ## Overview
 This static function updates tuple hint bits in the heap after an xmax transaction completes, setting appropriate flags to indicate whether the transaction committed or aborted.

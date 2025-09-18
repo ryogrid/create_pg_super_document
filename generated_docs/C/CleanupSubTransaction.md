@@ -1,7 +1,7 @@
 # CleanupSubTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 5321 - 5353
+[src/backend/access/transam/xact.c:5321-5353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5321-L5353)
 
 ## Overview
 CleanupSubTransaction performs final cleanup of a subtransaction that has been aborted, removing its transaction state and transferring control back to the parent transaction.

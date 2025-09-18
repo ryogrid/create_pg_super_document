@@ -1,7 +1,7 @@
 # create_projection_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2019 - 2120
+[src/backend/optimizer/plan/createplan.c:2019-2120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2019-L2120)
 
 ## Overview
 Creates a projection plan that computes a specific target list of expressions, optionally adding a Result node if the subplan cannot directly produce the required output.

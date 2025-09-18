@@ -1,7 +1,7 @@
 # MemoryContextCheck
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1052 - 1099
+[src/backend/utils/mmgr/mcxt.c:1052-1099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1052-L1099)
 
 ## Overview
 MemoryContextCheck performs comprehensive integrity validation of a memory context and all its descendant contexts using context-specific checking methods.

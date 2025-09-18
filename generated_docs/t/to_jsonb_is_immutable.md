@@ -1,7 +1,7 @@
 # to_jsonb_is_immutable
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1049 - 1087
+[src/backend/utils/adt/jsonb.c:1049-1087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1049-L1087)
 
 ## Overview
 A function that determines whether a given PostgreSQL type is immutable when converted to JSONB format, which is important for query optimization and caching decisions.

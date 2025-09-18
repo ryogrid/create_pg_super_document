@@ -1,7 +1,7 @@
 # PrefetchSharedBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 548 - 637
+[src/backend/storage/buffer/bufmgr.c:548-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L548-L637)
 
 ## Overview
 Implements buffer prefetching for shared buffers by checking if a block is already cached and initiating asynchronous I/O if needed.

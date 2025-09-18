@@ -1,7 +1,7 @@
 # CatalogId
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 272 - 273
+[src/bin/pg_dump/pg_backup.h:272-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L272-L273)
 
 ## Overview
 CatalogId is a compact structure used by pg_dump to uniquely identify database objects by their system catalog entries, consisting of a table OID and object OID pair.

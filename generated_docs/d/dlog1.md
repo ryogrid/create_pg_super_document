@@ -1,7 +1,7 @@
 # dlog1
 
 ## Location
-src/backend/utils/adt/float.c: 1683 - 1714
+[src/backend/utils/adt/float.c:1683-1714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1683-L1714)
 
 ## Overview
 The dlog1 function implements PostgreSQL's natural logarithm function, returning the natural logarithm (base e) of the input argument.

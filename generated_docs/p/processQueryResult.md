@@ -1,7 +1,7 @@
 # processQueryResult
 
 ## Location
-src/fe_utils/parallel_slot.c: 39 - 57
+[src/fe_utils/parallel_slot.c:39-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L39-L57)
 
 ## Overview
 A static helper function that processes and deletes a query result from a parallel slot, returning whether the processing was successful.

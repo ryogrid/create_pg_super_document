@@ -1,7 +1,7 @@
 # get_rel_type_id
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1979 - 2002
+[src/backend/utils/cache/lsyscache.c:1979-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1979-L2002)
 
 ## Overview
 Returns the pg_type OID associated with a given relation, providing type information for database relations that have corresponding composite types.

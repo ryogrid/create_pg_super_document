@@ -1,7 +1,7 @@
 # aclnewowner
 
 ## Location
-src/backend/utils/adt/acl.c: 1119 - 1221
+[src/backend/utils/adt/acl.c:1119-1221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1119-L1221)
 
 ## Overview
 Updates an ACL array to reflect a change of ownership, substituting the new owner ID for the old owner ID wherever it appears as either grantor or grantee.

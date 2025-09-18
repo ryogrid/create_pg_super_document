@@ -1,7 +1,7 @@
 # DebugFileOpen
 
 ## Location
-src/backend/utils/error/elog.c: 2108 - 2163
+[src/backend/utils/error/elog.c:2108-2163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2108-L2163)
 
 ## Overview
 DebugFileOpen initializes debug output file redirection by opening a specified debug output file and redirecting stderr (and optionally stdout) to it.

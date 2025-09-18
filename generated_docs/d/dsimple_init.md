@@ -1,7 +1,7 @@
 # dsimple_init
 
 ## Location
-src/backend/tsearch/dict_simple.c: 30 - 74
+[src/backend/tsearch/dict_simple.c:30-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_simple.c#L30-L74)
 
 ## Overview
 Initializes a simple dictionary for PostgreSQL's text search system by parsing configuration options and creating a DictSimple structure.

@@ -1,7 +1,7 @@
 # pqFreeCommandQueue
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 558 - 583
+[src/interfaces/libpq/fe-connect.c:558-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L558-L583)
 
 ## Overview
 Frees all entries in a PGcmdQueueEntry linked list, deallocating memory for queued PostgreSQL commands.

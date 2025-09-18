@@ -1,7 +1,7 @@
 # wal_level_str
 
 ## Location
-src/bin/pg_controldata/pg_controldata.c: 73 - 88
+[src/bin/pg_controldata/pg_controldata.c:73-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_controldata/pg_controldata.c#L73-L88)
 
 ## Overview
 The  function converts a  enumeration value into its corresponding string representation for display and logging purposes.

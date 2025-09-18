@@ -1,7 +1,7 @@
 # exec_command_watch
 
 ## Location
-src/bin/psql/command.c: 2853 - 2999
+[src/bin/psql/command.c:2853-2999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2853-L2999)
 
 ## Overview
 Implements the psql \watch command, which repeatedly executes a query at specified intervals with optional iteration count and minimum row filtering.

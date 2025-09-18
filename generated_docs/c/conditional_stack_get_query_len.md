@@ -1,7 +1,7 @@
 # conditional_stack_get_query_len
 
 ## Location
-src/fe_utils/conditional.c: 162 - 172
+[src/fe_utils/conditional.c:162-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L162-L172)
 
 ## Overview
 Retrieves the previously saved query buffer length from the topmost entry of a conditional stack, returning -1 if the stack is empty or no length was recorded.

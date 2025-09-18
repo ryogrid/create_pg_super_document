@@ -1,7 +1,7 @@
 # ginInsertCleanup
 
 ## Location
-src/backend/access/gin/ginfast.c: 780 - 1030
+[src/backend/access/gin/ginfast.c:780-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L780-L1030)
 
 ## Overview
 Moves tuples from pending pages into the regular GIN index structure, handling the transition from fast insertion to the main index with crash-safe cleanup processing.

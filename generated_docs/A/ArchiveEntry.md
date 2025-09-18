@@ -1,7 +1,7 @@
 # ArchiveEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1222 - 1280
+[src/bin/pg_dump/pg_backup_archiver.c:1222-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1222-L1280)
 
 ## Overview
 ArchiveEntry creates a new Table of Contents (TOC) entry that serves as the central metadata repository for all database objects during PostgreSQL dump operations, managing object information, dependencies, and dump context.

@@ -1,7 +1,7 @@
 # adjust_group_pathkeys_for_groupagg
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3285 - 3508
+[src/backend/optimizer/plan/planner.c:3285-3508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3285-L3508)
 
 ## Overview
 Optimizes pathkeys for ordered aggregates by finding the best set of pre-ordered input that suits the largest number of aggregate functions, reducing sorting overhead.

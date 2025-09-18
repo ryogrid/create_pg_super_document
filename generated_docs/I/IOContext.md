@@ -1,7 +1,7 @@
 # IOContext
 
 ## Location
-src/include/pgstat.h: 292 - 293
+[src/include/pgstat.h:292-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L292-L293)
 
 ## Overview
 IOContext is an enumeration that defines different operational contexts for I/O operations, helping PostgreSQL categorize and track I/O statistics based on the type of database activity being performed.

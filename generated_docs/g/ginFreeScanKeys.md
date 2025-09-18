@@ -1,7 +1,7 @@
 # ginFreeScanKeys
 
 ## Location
-src/backend/access/gin/ginscan.c: 238 - 267
+[src/backend/access/gin/ginscan.c:238-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L238-L267)
 
 ## Overview
 Releases and cleans up all current scan keys and associated resources in a GIN index scan, preparing for scan termination or restart.

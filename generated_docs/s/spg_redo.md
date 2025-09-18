@@ -1,7 +1,7 @@
 # spg_redo
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 935 - 975
+[src/backend/access/spgist/spgxlog.c:935-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L935-L975)
 
 ## Overview
 The main entry point function for replaying SP-GiST (Space-Partitioned GiST) index Write-Ahead Log (WAL) records during PostgreSQL recovery operations.

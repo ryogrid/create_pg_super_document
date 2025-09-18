@@ -1,7 +1,7 @@
 # list_copy
 
 ## Location
-src/backend/nodes/list.c: 1573 - 1592
+[src/backend/nodes/list.c:1573-1592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1573-L1592)
 
 ## Overview
 Creates a shallow copy of a PostgreSQL list structure, duplicating only the list container and its element pointers but not the actual data elements themselves.

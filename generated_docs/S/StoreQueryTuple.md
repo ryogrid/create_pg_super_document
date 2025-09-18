@@ -1,7 +1,7 @@
 # StoreQueryTuple
 
 ## Location
-src/bin/psql/common.c: 762 - 825
+[src/bin/psql/common.c:762-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L762-L825)
 
 ## Overview
 Stores the result of a query execution into psql variables as part of the \gset command functionality, extracting column values from a single-row result set and setting them as named variables.

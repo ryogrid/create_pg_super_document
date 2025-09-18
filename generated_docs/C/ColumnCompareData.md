@@ -1,7 +1,7 @@
 # ColumnCompareData
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 54 - 57
+[src/backend/utils/adt/rowtypes.c:54-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L54-L57)
 
 ## Overview
 A simple structure that caches metadata needed for record column comparison operations by wrapping a TypeCacheEntry pointer.

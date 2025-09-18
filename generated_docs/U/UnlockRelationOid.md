@@ -1,7 +1,7 @@
 # UnlockRelationOid
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 227 - 243
+[src/backend/storage/lmgr/lmgr.c:227-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L227-L243)
 
 ## Overview
 UnlockRelationOid releases a lock on a relation using only the relation's OID, though UnlockRelationId is preferred when available for better performance.

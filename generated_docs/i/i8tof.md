@@ -1,7 +1,7 @@
 # i8tof
 
 ## Location
-src/backend/utils/adt/int8.c: 1318 - 1331
+[src/backend/utils/adt/int8.c:1318-1331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1318-L1331)
 
 ## Overview
 Converts a PostgreSQL int8 (64-bit integer) value to a single-precision floating-point number (float4).

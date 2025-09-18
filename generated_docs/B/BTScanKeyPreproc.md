@@ -1,7 +1,7 @@
 # BTScanKeyPreproc
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 42 - 47
+[src/backend/access/nbtree/nbtutils.c:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L42-L47)
 
 ## Overview
 BTScanKeyPreproc is a preprocessing structure used during B-tree scan key analysis to track scan keys by strategy type while maintaining references to their original positions and array indices.

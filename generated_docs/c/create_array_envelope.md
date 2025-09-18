@@ -1,7 +1,7 @@
 # create_array_envelope
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6056 - 6072
+[src/backend/utils/adt/arrayfuncs.c:6056-6072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6056-L6072)
 
 ## Overview
 A static utility function that creates the structural envelope (header) of a PostgreSQL ArrayType, initializing metadata and dimension information but not the actual data contents.

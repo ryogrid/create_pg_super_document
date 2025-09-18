@@ -1,7 +1,7 @@
 # fd
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 105 - 110
+[src/interfaces/ecpg/test/expected/preproc-init.c:105-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L105-L110)
 
 ## Overview
 A static test function used in ECPG (Embedded SQL in C) test cases that demonstrates multi-parameter function calls with mixed data types.

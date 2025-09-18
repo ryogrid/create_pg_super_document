@@ -1,7 +1,7 @@
 # ExplainPrintTriggers
 
 ## Location
-src/backend/commands/explain.c: 942 - 984
+[src/backend/commands/explain.c:942-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L942-L984)
 
 ## Overview
 ExplainPrintTriggers converts trigger execution statistics from a QueryDesc into formatted output and appends it to the EXPLAIN results during ANALYZE operations.

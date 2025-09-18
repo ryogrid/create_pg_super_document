@@ -1,7 +1,7 @@
 # set_rel_width
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6102 - 6258
+[src/backend/optimizer/path/costsize.c:6102-6258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6102-L6258)
 
 ## Overview
 Estimates the output width of a base relation by calculating the sum of per-attribute width estimates for referenced columns plus any placeholder variables and expressions, while also computing evaluation costs.

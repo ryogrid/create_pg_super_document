@@ -1,7 +1,7 @@
 # apply_handle_stream_prepare
 
 ## Location
-src/backend/replication/logical/worker.c: 1273 - 1409
+[src/backend/replication/logical/worker.c:1273-1409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1273-L1409)
 
 ## Overview
 Handles the prepare phase of streamed transactions in PostgreSQL logical replication, managing the preparation of large transactions across different execution modes including parallel processing.

@@ -1,7 +1,7 @@
 # xact_desc_relations
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 282 - 300
+[src/backend/access/rmgrdesc/xactdesc.c:282-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L282-L300)
 
 ## Overview
 xact_desc_relations is a static helper function that formats relation file locator information into a human-readable string for WAL record descriptions.

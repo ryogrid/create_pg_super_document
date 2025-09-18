@@ -1,7 +1,7 @@
 # hasnonemptyout
 
 ## Location
-src/backend/regex/regc_nfa.c: 575 - 591
+[src/backend/regex/regc_nfa.c:575-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L575-L591)
 
 ## Overview
 Checks whether a state in a regular expression NFA has at least one outgoing arc that is not an EMPTY arc.

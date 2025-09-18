@@ -3,7 +3,7 @@ Documentation for getSubscriptionTables function.
 # getSubscriptionTables
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4998 - 5083
+[src/bin/pg_dump/pg_dump.c:4998-5083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4998-L5083)
 
 ## Overview
 Retrieves subscription table membership information from pg_subscription_rel system catalog, used exclusively in binary-upgrade mode for PostgreSQL 17 and later versions.

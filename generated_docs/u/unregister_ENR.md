@@ -1,7 +1,7 @@
 # unregister_ENR
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 82 - 95
+[src/backend/utils/misc/queryenvironment.c:82-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L82-L95)
 
 ## Overview
 Removes an ephemeral named relation (ENR) from a query environment by name, making it no longer available for query processing.

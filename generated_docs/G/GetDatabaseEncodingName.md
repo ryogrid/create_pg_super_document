@@ -1,7 +1,7 @@
 # GetDatabaseEncodingName
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1267 - 1272
+[src/backend/utils/mb/mbutils.c:1267-1272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1267-L1272)
 
 ## Overview
 Returns the string name of the current database encoding, providing a human-readable representation of the database's character encoding.

@@ -1,7 +1,7 @@
 # lrq_free
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 227 - 232
+[src/backend/access/transam/xlogprefetcher.c:227-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L227-L232)
 
 ## Overview
 Deallocates memory for an LSN read queue structure used by the WAL prefetcher.

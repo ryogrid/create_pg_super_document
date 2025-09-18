@@ -1,7 +1,7 @@
 # ResetPlanCache
 
 ## Location
-src/backend/utils/cache/plancache.c: 2187 - 2233
+[src/backend/utils/cache/plancache.c:2187-2233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L2187-L2233)
 
 ## Overview
 A global function that invalidates all cached plans and expressions in the plan cache.

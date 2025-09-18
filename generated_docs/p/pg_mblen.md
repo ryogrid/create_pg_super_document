@@ -1,7 +1,7 @@
 # pg_mblen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1023 - 1029
+[src/backend/utils/mb/mbutils.c:1023-1029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1023-L1029)
 
 ## Overview
 Returns the byte length of a multibyte character at the beginning of a string.

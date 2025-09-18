@@ -1,7 +1,7 @@
 # ExecReScanAgg
 
 ## Location
-src/backend/executor/nodeAgg.c: 4364 - 4510
+[src/backend/executor/nodeAgg.c:4364-4510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4364-L4510)
 
 ## Overview
 ExecReScanAgg resets an aggregate node to its initial state for rescanning, handling both hash-based and sort-based aggregate strategies.

@@ -1,7 +1,7 @@
 # WriteWalSummary
 
 ## Location
-src/backend/backup/walsummary.c: 294 - 321
+[src/backend/backup/walsummary.c:294-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L294-L321)
 
 ## Overview
 A data write callback function designed for use with WriteBlockRefTable to write WAL summary file data to disk with comprehensive error handling.

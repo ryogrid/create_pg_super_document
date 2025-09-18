@@ -1,7 +1,7 @@
 # char2wchar
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 3138 - 3209
+[src/backend/utils/adt/pg_locale.c:3138-3209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L3138-L3209)
 
 ## Overview
 Converts multibyte character strings to wide character format (wchar_t), providing a PostgreSQL wrapper around the standard mbstowcs family of functions with enhanced error handling.

@@ -1,7 +1,7 @@
 # timestamptz_part
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5883 - 5888
+[src/backend/utils/adt/timestamp.c:5883-5888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5883-L5888)
 
 ## Overview
 A PostgreSQL function that extracts specified date/time fields from timestamp with time zone values, serving as a wrapper around the internal `timestamptz_part_common` function.

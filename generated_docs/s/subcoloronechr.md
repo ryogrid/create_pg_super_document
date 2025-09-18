@@ -1,7 +1,7 @@
 # subcoloronechr
 
 ## Location
-src/backend/regex/regc_color.c: 624 - 746
+[src/backend/regex/regc_color.c:624-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L624-L746)
 
 ## Overview
 Handles subcolor allocation for a single character, creating NFA arcs and managing colormap ranges by splitting or creating ranges as needed.

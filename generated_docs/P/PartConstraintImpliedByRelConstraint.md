@@ -1,7 +1,7 @@
 # PartConstraintImpliedByRelConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 18304 - 18356
+[src/backend/commands/tablecmds.c:18304-18356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18304-L18356)
 
 ## Overview
 Determines whether a relation's existing constraints (check constraints and NOT NULL constraints) logically imply a given partition constraint, enabling optimization of partition constraint validation.

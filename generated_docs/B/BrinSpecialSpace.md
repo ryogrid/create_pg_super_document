@@ -1,7 +1,7 @@
 # BrinSpecialSpace
 
 ## Location
-src/include/access/brin_page.h: 29 - 32
+[src/include/access/brin_page.h:29-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_page.h#L29-L32)
 
 ## Overview
 BrinSpecialSpace is a structure that defines the special area of BRIN (Block Range Index) pages, designed to always occupy the last MAXALIGN-sized element of each page.

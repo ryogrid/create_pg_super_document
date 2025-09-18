@@ -1,7 +1,7 @@
 # tts_virtual_materialize
 
 ## Location
-src/backend/executor/execTuples.c: 176 - 268
+[src/backend/executor/execTuples.c:176-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L176-L268)
 
 ## Overview
 Materializes a VirtualTupleTableSlot by copying all non-pass-by-value datums into the slot's memory context, ensuring the slot owns its data and doesn't depend on external references.

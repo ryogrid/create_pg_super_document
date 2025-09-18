@@ -1,7 +1,7 @@
 # test_atomic_flag
 
 ## Location
-src/test/regress/regress.c: 712 - 727
+[src/test/regress/regress.c:712-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L712-L727)
 
 ## Overview
 A static test function that validates the functionality of PostgreSQL's atomic flag operations by testing initialization, set/test operations, and clearing behaviors.

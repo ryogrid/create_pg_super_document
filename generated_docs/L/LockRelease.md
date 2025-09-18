@@ -1,7 +1,7 @@
 # LockRelease
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1964 - 2168
+[src/backend/storage/lmgr/lock.c:1964-2168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1964-L2168)
 
 ## Overview
 LockRelease releases one lock of a specified mode on a given lock tag, handling both session and transaction locks while waking up any processes that can now be granted locks.

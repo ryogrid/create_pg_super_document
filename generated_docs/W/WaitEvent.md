@@ -1,7 +1,7 @@
 # WaitEvent
 
 ## Location
-src/include/storage/latch.h: 152 - 161
+[src/include/storage/latch.h:152-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/latch.h#L152-L161)
 
 ## Overview
 WaitEvent is a structure that represents individual events returned from PostgreSQL's wait event system, containing information about triggered I/O, latch, or timeout conditions during event-driven waiting operations.

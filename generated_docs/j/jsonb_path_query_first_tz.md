@@ -1,7 +1,7 @@
 # jsonb_path_query_first_tz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 649 - 678
+[src/backend/utils/adt/jsonpath_exec.c:649-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L649-L678)
 
 ## Overview
 SQL function that executes a JSONPath expression against a JSONB document with timezone-aware processing and returns the first matching result item, or NULL if no items match.

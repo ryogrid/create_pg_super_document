@@ -1,7 +1,7 @@
 # fix_scan_expr
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2160 - 2194
+[src/backend/optimizer/plan/setrefs.c:2160-2194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2160-L2194)
 
 ## Overview
 Performs set_plan_references processing on scan-level expressions by adjusting variable references, replacing parameters, and updating operator information.

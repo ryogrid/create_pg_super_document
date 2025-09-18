@@ -1,7 +1,7 @@
 # arguments
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 196 - 202
+[src/interfaces/ecpg/preproc/type.h:196-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L196-L202)
 
 ## Overview
 A linked list structure used in ECPG (Embedded C for PostgreSQL) to represent function arguments and their associated indicator variables during SQL preprocessing.

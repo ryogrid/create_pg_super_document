@@ -1,7 +1,7 @@
 # xactGetCommittedInvalidationMessages
 
 ## Location
-src/backend/utils/cache/inval.c: 883 - 961
+[src/backend/utils/cache/inval.c:883-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L883-L961)
 
 ## Overview
 Collects all invalidation messages from the current transaction for inclusion in the commit record before the transaction officially commits.

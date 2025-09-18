@@ -1,7 +1,7 @@
 # check_synchronous_standby_names
 
 ## Location
-src/backend/replication/syncrep.c: 1058 - 1114
+[src/backend/replication/syncrep.c:1058-1114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L1058-L1114)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the syntax and semantics of the synchronous_standby_names configuration parameter when it is being set.

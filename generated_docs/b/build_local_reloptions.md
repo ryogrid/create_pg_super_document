@@ -1,7 +1,7 @@
 # build_local_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1954 - 1992
+[src/backend/access/common/reloptions.c:1954-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1954-L1992)
 
 ## Overview
 A function that builds relation options structures specifically for local (unregistered) options, creating a parsing table dynamically from the local_relopts configuration.

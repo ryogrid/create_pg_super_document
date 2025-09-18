@@ -1,7 +1,7 @@
 # pg_atomic_test_set_flag
 
 ## Location
-src/include/port/atomics.h: 178 - 190
+[src/include/port/atomics.h:178-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L178-L190)
 
 ## Overview
 Atomically tests and sets an atomic flag, implementing a Test-And-Set (TAS) operation with acquire memory barrier semantics.

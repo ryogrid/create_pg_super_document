@@ -1,7 +1,7 @@
 # pgwin32_SharedMemoryDelete
 
 ## Location
-src/backend/port/win32_shmem.c: 549 - 572
+[src/backend/port/win32_shmem.c:549-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32_shmem.c#L549-L572)
 
 ## Overview
 A Windows-specific callback function that detaches from and cleans up the shared memory segment during process shutdown.

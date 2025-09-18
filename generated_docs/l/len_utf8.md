@@ -1,7 +1,7 @@
 # len_utf8
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 478 - 488
+[src/backend/snowball/libstemmer/utilities.c:478-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L478-L488)
 
 ## Overview
 Calculates the number of UTF-8 characters in a symbol string by counting UTF-8 character boundaries.

@@ -1,7 +1,7 @@
 # pg_bindtextdomain
 
 ## Location
-src/backend/utils/init/miscinit.c: 1935 - 1947
+[src/backend/utils/init/miscinit.c:1935-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1935-L1947)
 
 ## Overview
 Initializes the gettext message catalog binding for internationalization (i18n) support in PostgreSQL by setting up the correct locale directory path and codeset encoding.

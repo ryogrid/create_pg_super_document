@@ -1,7 +1,7 @@
 # BrinValues
 
 ## Location
-src/include/access/brin_tuple.h: 29 - 38
+[src/include/access/brin_tuple.h:29-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_tuple.h#L29-L38)
 
 ## Overview
 BrinValues is a structure that represents the summary information for a single indexed column within a BRIN index tuple, storing accumulated values and metadata for efficient range-based indexing.

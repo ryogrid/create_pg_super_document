@@ -1,7 +1,7 @@
 # set_null_conf
 
 ## Location
-src/bin/initdb/initdb.c: 1042 - 1070
+[src/bin/initdb/initdb.c:1042-1070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1042-L1070)
 
 ## Overview
 A static utility function in initdb that creates an empty postgresql.conf configuration file for initial testing purposes during database cluster initialization.

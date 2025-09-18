@@ -1,7 +1,7 @@
 # get_extension_name
 
 ## Location
-src/backend/commands/extension.c: 190 - 228
+[src/backend/commands/extension.c:190-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L190-L228)
 
 ## Overview
 Performs a reverse lookup to retrieve the name of a PostgreSQL extension given its Object Identifier (OID).

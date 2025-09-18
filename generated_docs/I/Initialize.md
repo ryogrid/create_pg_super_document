@@ -1,7 +1,7 @@
 # Initialize
 
 ## Location
-src/bin/pg_archivecleanup/pg_archivecleanup.c: 57 - 74
+[src/bin/pg_archivecleanup/pg_archivecleanup.c:57-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_archivecleanup/pg_archivecleanup.c#L57-L74)
 
 ## Overview
 Initializes the pg_archivecleanup program by validating that the specified archive location exists and is accessible as a directory.

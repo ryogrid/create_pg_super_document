@@ -1,7 +1,7 @@
 # RelationClearRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2561 - 2753
+[src/backend/utils/cache/relcache.c:2561-2753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2561-L2753)
 
 ## Overview
 RelationClearRelation either destroys a relation cache entry completely or rebuilds it from scratch depending on whether it's still in use, handling special cases for nailed relations and open indexes.

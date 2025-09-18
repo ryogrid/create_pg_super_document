@@ -1,7 +1,7 @@
 # reorderqueue_push
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 458 - 491
+[src/backend/executor/nodeIndexscan.c:458-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L458-L491)
 
 ## Overview
 A helper function that adds a tuple to the reorder queue in PostgreSQL's index scan operations, creating a deep copy of the tuple and its ordering values for later retrieval in sorted order.

@@ -1,7 +1,7 @@
 # pull_up_sublinks_jointree_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 480 - 636
+[src/backend/optimizer/prep/prepjointree.c:480-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L480-L636)
 
 ## Overview
 Recursively processes jointree nodes for pull_up_sublinks, transforming SubLinks into semijoins while collecting relids of contained relations.

@@ -1,7 +1,7 @@
 # range_deparse
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2507 - 2536
+[src/backend/utils/adt/rangetypes.c:2507-2536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2507-L2536)
 
 ## Overview
 Converts a deserialized range value to its textual representation, formatting the range bounds and flags into a human-readable string format.

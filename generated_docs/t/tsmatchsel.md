@@ -1,7 +1,7 @@
 # tsmatchsel
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 67 - 138
+[src/backend/tsearch/ts_selfuncs.c:67-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L67-L138)
 
 ## Overview
 Computes the selectivity estimate for the "@@" operator between tsvector and tsquery data types in PostgreSQL's text search functionality.

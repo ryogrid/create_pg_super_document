@@ -1,7 +1,7 @@
 # RemoveNonParentXlogFiles
 
 ## Location
-src/backend/access/transam/xlog.c: 3917 - 3985
+[src/backend/access/transam/xlog.c:3917-3985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3917-L3985)
 
 ## Overview
 Removes or recycles WAL files that are not part of the current timeline's history during recovery timeline switches, preventing garbage data from being archived.

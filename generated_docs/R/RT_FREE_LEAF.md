@@ -1,7 +1,7 @@
 # RT_FREE_LEAF
 
 ## Location
-src/include/lib/radixtree.h: 959 - 982
+[src/include/lib/radixtree.h:959-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L959-L982)
 
 ## Overview
 RT_FREE_LEAF is a macro that resolves to a function for deallocating radix tree leaf nodes and updating debug statistics.

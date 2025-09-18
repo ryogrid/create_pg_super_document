@@ -1,7 +1,7 @@
 # variable_is_guc_list_quote
 
 ## Location
-src/bin/pg_dump/dumputils.c: 727 - 760
+[src/bin/pg_dump/dumputils.c:727-760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L727-L760)
 
 ## Overview
 Detects whether a given PostgreSQL GUC (Grand Unified Configuration) variable is of GUC_LIST_QUOTE type, which requires special quoting handling.

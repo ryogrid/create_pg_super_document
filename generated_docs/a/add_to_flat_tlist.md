@@ -1,7 +1,7 @@
 # add_to_flat_tlist
 
 ## Location
-src/backend/optimizer/util/tlist.c: 132 - 162
+[src/backend/optimizer/util/tlist.c:132-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L132-L162)
 
 ## Overview
 Extends a flattened target list by adding new expressions, avoiding duplicates by checking for existing entries.

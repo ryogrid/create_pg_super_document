@@ -1,7 +1,7 @@
 # read_stream_look_ahead
 
 ## Location
-src/backend/storage/aio/read_stream.c: 302 - 388
+[src/backend/storage/aio/read_stream.c:302-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/aio/read_stream.c#L302-L388)
 
 ## Overview
 Implements read-ahead logic by fetching block numbers from the callback and building optimal read requests while respecting I/O limits and distance constraints.

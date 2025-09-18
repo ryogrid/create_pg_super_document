@@ -1,7 +1,7 @@
 # standard_ProcessUtility
 
 ## Location
-src/backend/tcop/utility.c: 540 - 1088
+[src/backend/tcop/utility.c:540-1088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L540-L1088)
 
 ## Overview
 standard_ProcessUtility is the core implementation function that handles execution of utility commands that do not require event trigger support, implementing PostgreSQL's default utility command processing logic.

@@ -1,7 +1,7 @@
 # pg_atomic_unlocked_write_u32
 
 ## Location
-src/include/port/atomics.h: 290 - 309
+[src/include/port/atomics.h:290-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L290-L309)
 
 ## Overview
 An unlocked atomic write function that provides high-performance writes with atomicity guarantees but without proper interaction with read-modify-write operations.

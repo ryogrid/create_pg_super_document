@@ -1,7 +1,7 @@
 # ginarrayextract
 
 ## Location
-src/backend/access/gin/ginarrayproc.c: 33 - 67
+[src/backend/access/gin/ginarrayproc.c:33-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginarrayproc.c#L33-L67)
 
 ## Overview
 This is a PostgreSQL GIN (Generalized Inverted Index) support function that extracts individual elements from an array for indexing purposes.

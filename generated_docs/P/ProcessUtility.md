@@ -1,7 +1,7 @@
 # ProcessUtility
 
 ## Location
-src/backend/tcop/utility.c: 499 - 539
+[src/backend/tcop/utility.c:499-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L499-L539)
 
 ## Overview
 ProcessUtility is the main entry point and dispatcher for executing all utility commands in PostgreSQL, providing a hook mechanism for extensions and delegating actual execution to standard_ProcessUtility.

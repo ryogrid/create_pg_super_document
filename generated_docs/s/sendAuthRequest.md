@@ -1,7 +1,7 @@
 # sendAuthRequest
 
 ## Location
-src/backend/libpq/auth.c: 684 - 713
+[src/backend/libpq/auth.c:684-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L684-L713)
 
 ## Overview
 Sends authentication request packets to the frontend client during the authentication process, handling message formatting and transmission according to PostgreSQL's protocol.

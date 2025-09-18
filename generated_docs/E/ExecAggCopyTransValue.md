@@ -1,7 +1,7 @@
 # ExecAggCopyTransValue
 
 ## Location
-src/backend/executor/execExprInterp.c: 5070 - 5118
+[src/backend/executor/execExprInterp.c:5070-5118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5070-L5118)
 
 ## Overview
 ExecAggCopyTransValue manages memory for aggregate transition values, ensuring proper copying and cleanup of pass-by-reference data in the aggregation context.

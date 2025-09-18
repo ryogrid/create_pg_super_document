@@ -1,7 +1,7 @@
 # set_var_from_num
 
 ## Location
-src/backend/utils/adt/numeric.c: 7436 - 7466
+[src/backend/utils/adt/numeric.c:7436-7466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7436-L7466)
 
 ## Overview
 Converts a packed database format Numeric value into a NumericVar variable representation for internal computation.

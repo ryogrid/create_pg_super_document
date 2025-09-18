@@ -1,7 +1,7 @@
 # ReorderBufferInvalidate
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3103 - 3133
+[src/backend/replication/logical/reorderbuffer.c:3103-3133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3103-L3133)
 
 ## Overview
 Invalidates cache for transactions that need to be skipped, specifically designed for prepared transactions where catalog manipulations require cache updates.

@@ -1,7 +1,7 @@
 # set_cancel_pstate
 
 ## Location
-src/bin/pg_dump/parallel.c: 789 - 808
+[src/bin/pg_dump/parallel.c:789-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L789-L808)
 
 ## Overview
 Sets the global parallel state pointer for signal handling in pg_dump's parallel backup system, providing thread-safe access to the ParallelState structure.

@@ -1,7 +1,7 @@
 # append_depends_on_extension
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5300 - 5344
+[src/bin/pg_dump/pg_dump.c:5300-5344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5300-L5344)
 
 ## Overview
 Appends ALTER ... DEPENDS ON EXTENSION statements to a create query for objects that depend on PostgreSQL extensions.

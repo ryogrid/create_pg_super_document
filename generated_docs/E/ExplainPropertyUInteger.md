@@ -1,7 +1,7 @@
 # ExplainPropertyUInteger
 
 ## Location
-src/backend/commands/explain.c: 4824 - 4837
+[src/backend/commands/explain.c:4824-4837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4824-L4837)
 
 ## Overview
 Explains an unsigned integer-valued property in PostgreSQL EXPLAIN output by formatting a uint64 value and passing it to the generic property explanation function.

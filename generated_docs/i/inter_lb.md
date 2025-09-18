@@ -1,7 +1,7 @@
 # inter_lb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3328 - 3375
+[src/backend/utils/adt/geo_ops.c:3328-3375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3328-L3375)
 
 ## Overview
 Tests whether an infinite line intersects with a box by checking intersection with each box edge.

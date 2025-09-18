@@ -1,7 +1,7 @@
 # text_le
 
 ## Location
-src/backend/utils/adt/varlena.c: 1746 - 1760
+[src/backend/utils/adt/varlena.c:1746-1760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1746-L1760)
 
 ## Overview
 A PostgreSQL function that implements the "less than or equal to" comparison operator (<=) for the text data type, returning true if the first text argument is lexicographically less than or equal to the second.

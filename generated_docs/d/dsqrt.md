@@ -1,7 +1,7 @@
 # dsqrt
 
 ## Location
-src/backend/utils/adt/float.c: 1439 - 1462
+[src/backend/utils/adt/float.c:1439-1462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1439-L1462)
 
 ## Overview
 The dsqrt function computes the square root of a double-precision floating-point number with comprehensive error handling and domain validation.

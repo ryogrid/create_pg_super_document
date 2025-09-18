@@ -1,7 +1,7 @@
 # FindEndOfXLOG
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 907 - 972
+[src/bin/pg_resetwal/pg_resetwal.c:907-972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L907-L972)
 
 ## Overview
 FindEndOfXLOG scans existing WAL files to determine the highest WAL address in use and calculates a safe starting point for new WAL segments after a reset operation.

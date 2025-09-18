@@ -1,7 +1,7 @@
 # WaitEventCustomNew
 
 ## Location
-src/backend/utils/activity/wait_event.c: 176 - 276
+[src/backend/utils/activity/wait_event.c:176-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L176-L276)
 
 ## Overview
 Core function that creates new custom wait events with proper concurrency control, name validation, and duplicate detection.

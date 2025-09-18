@@ -1,7 +1,7 @@
 # _EndData
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 329 - 349
+[src/bin/pg_dump/pg_backup_custom.c:329-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L329-L349)
 
 ## Overview
 Finalizes the data writing process by terminating compression and writing an end marker to indicate the completion of table data dumping.

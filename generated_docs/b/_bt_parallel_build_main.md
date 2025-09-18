@@ -1,7 +1,7 @@
 # _bt_parallel_build_main
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1740 - 1861
+[src/backend/access/nbtree/nbtsort.c:1740-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1740-L1861)
 
 ## Overview
 Entry point function executed by parallel worker processes during B-tree index construction, responsible for setting up the worker environment and coordinating the parallel sorting process.

@@ -1,7 +1,7 @@
 # XactLockTableDelete
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 633 - 656
+[src/backend/storage/lmgr/lmgr.c:633-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L633-L656)
 
 ## Overview
 XactLockTableDelete explicitly removes the exclusive lock on a transaction ID, primarily used for subtransaction IDs when they are committed or aborted.

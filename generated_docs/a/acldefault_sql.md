@@ -1,7 +1,7 @@
 # acldefault_sql
 
 ## Location
-src/backend/utils/adt/acl.c: 920 - 991
+[src/backend/utils/adt/acl.c:920-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L920-L991)
 
 ## Overview
 SQL-accessible version of the acldefault() function that provides default ACL (Access Control List) privileges for various PostgreSQL object types.

@@ -1,7 +1,7 @@
 # heap_tuple_from_minimal_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1554 - 1575
+[src/backend/access/common/heaptuple.c:1554-1575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1554-L1575)
 
 ## Overview
 Creates a full HeapTuple structure from a MinimalTuple by adding a HeapTupleData header and system columns filled with default values.

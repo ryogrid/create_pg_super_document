@@ -1,7 +1,7 @@
 # HeapDetermineColumnsInfo
 
 ## Location
-src/backend/access/heap/heapam.c: 4354 - 4443
+[src/backend/access/heap/heapam.c:4354-4443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4354-L4443)
 
 ## Overview
 HeapDetermineColumnsInfo analyzes two heap tuples to determine which columns have been modified, returning a bitmapset of changed columns from those specified as interesting for HOT (Heap-Only Tuple) update optimization.

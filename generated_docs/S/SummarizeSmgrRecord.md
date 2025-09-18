@@ -1,7 +1,7 @@
 # SummarizeSmgrRecord
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1315 - 1363
+[src/backend/postmaster/walsummarizer.c:1315-1363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1315-L1363)
 
 ## Overview
 Handles special processing of storage manager WAL records (RM_SMGR_ID) during WAL summarization to properly track relation file creation and truncation operations.

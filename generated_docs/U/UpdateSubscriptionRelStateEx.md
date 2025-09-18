@@ -1,7 +1,7 @@
 # UpdateSubscriptionRelStateEx
 
 ## Location
-src/backend/catalog/pg_subscription.c: 290 - 353
+[src/backend/catalog/pg_subscription.c:290-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L290-L353)
 
 ## Overview
 Updates the replication state of an existing subscription table in the pg_subscription_rel system catalog, providing flexible lock management for different execution contexts.

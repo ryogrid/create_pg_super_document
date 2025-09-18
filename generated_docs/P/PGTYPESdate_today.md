@@ -1,7 +1,7 @@
 # PGTYPESdate_today
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 148 - 156
+[src/interfaces/ecpg/pgtypeslib/datetime.c:148-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L148-L156)
 
 ## Overview
 Retrieves the current system date and converts it to PostgreSQL's Julian date format.

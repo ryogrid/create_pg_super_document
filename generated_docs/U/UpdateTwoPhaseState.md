@@ -1,7 +1,7 @@
 # UpdateTwoPhaseState
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1782 - 1816
+[src/backend/replication/logical/tablesync.c:1782-1816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1782-L1816)
 
 ## Overview
 UpdateTwoPhaseState updates the two-phase commit state of a specified subscription in the pg_subscription catalog table. It modifies the subtwophasestate column to reflect the current two-phase commit capability.

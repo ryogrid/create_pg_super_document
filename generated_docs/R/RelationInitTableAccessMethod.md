@@ -1,7 +1,7 @@
 # RelationInitTableAccessMethod
 
 ## Location
-src/backend/utils/cache/relcache.c: 1810 - 1874
+[src/backend/utils/cache/relcache.c:1810-1874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1810-L1874)
 
 ## Overview
 Initializes table access method support for a table-like relation by setting up the appropriate access method handler based on the relation's type and characteristics.

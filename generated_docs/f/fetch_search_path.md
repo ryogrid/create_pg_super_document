@@ -1,7 +1,7 @@
 # fetch_search_path
 
 ## Location
-src/backend/catalog/namespace.c: 4819 - 4858
+[src/backend/catalog/namespace.c:4819-4858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4819-L4858)
 
 ## Overview
 Retrieves the active search path as a palloc'ed list of namespace OIDs, with options to include or exclude implicitly-prepended namespaces.

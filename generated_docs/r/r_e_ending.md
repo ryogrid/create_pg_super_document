@@ -1,7 +1,7 @@
 # r_e_ending
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_dutch.c: 345 - 367
+[src/backend/snowball/libstemmer/stem_UTF_8_dutch.c:345-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_dutch.c#L345-L367)
 
 ## Overview
 r_e_ending is a specialized function in the Dutch Snowball stemming algorithm that handles the removal of trailing 'e' endings from words with specific vowel pattern requirements.

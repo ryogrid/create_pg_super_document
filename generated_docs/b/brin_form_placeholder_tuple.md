@@ -1,7 +1,7 @@
 # brin_form_placeholder_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 388 - 432
+[src/backend/access/brin/brin_tuple.c:388-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L388-L432)
 
 ## Overview
 Generates a new on-disk tuple with no data values, marked as placeholder, representing a range with no meaningful data in a BRIN index.

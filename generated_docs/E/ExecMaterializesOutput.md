@@ -1,7 +1,7 @@
 # ExecMaterializesOutput
 
 ## Location
-src/backend/executor/execAmi.c: 635 - 653
+[src/backend/executor/execAmi.c:635-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L635-L653)
 
 ## Overview
 ExecMaterializesOutput determines whether a plan node type automatically materializes its output, which affects rescan performance characteristics and cost estimation.

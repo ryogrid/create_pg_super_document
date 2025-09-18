@@ -1,7 +1,7 @@
 # bpchar_input
 
 ## Location
-src/backend/utils/adt/varchar.c: 130 - 197
+[src/backend/utils/adt/varchar.c:130-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L130-L197)
 
 ## Overview
 A static utility function that serves as the common implementation for processing BPCHAR (fixed-length character) input from both text and binary sources, handling length validation, truncation, and blank-padding.

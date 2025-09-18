@@ -1,7 +1,7 @@
 # RoleMembershipCacheCallback
 
 ## Location
-src/backend/utils/adt/acl.c: 4937 - 4958
+[src/backend/utils/adt/acl.c:4937-4958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4937-L4958)
 
 ## Overview
 This function serves as a system cache invalidation callback that clears role membership caches when relevant system catalog changes occur, ensuring cache consistency for role-based access control.

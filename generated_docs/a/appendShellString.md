@@ -1,7 +1,7 @@
 # appendShellString
 
 ## Location
-src/fe_utils/string_utils.c: 582 - 593
+[src/fe_utils/string_utils.c:582-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L582-L593)
 
 ## Overview
 Safely appends a string to a shell command buffer with proper quoting, terminating the program if dangerous characters (LF or CR) are detected.

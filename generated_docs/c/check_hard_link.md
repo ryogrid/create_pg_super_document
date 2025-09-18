@@ -1,7 +1,7 @@
 # check_hard_link
 
 ## Location
-src/bin/pg_upgrade/file.c: 437 - 451
+[src/bin/pg_upgrade/file.c:437-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L437-L451)
 
 ## Overview
 Tests the ability to create hard links between the old and new data directories during pg_upgrade operations in link mode.

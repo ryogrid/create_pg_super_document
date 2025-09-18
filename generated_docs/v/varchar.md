@@ -1,7 +1,7 @@
 # varchar
 
 ## Location
-src/backend/utils/adt/varchar.c: 609 - 647
+[src/backend/utils/adt/varchar.c:609-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L609-L647)
 
 ## Overview
 Converts a VARCHAR value to a specified size with configurable truncation behavior, serving as the length coercion function for the VARCHAR data type.

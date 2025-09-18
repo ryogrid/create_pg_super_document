@@ -1,7 +1,7 @@
 # ReorderBufferRestoreCleanup
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4698 - 4727
+[src/backend/replication/logical/reorderbuffer.c:4698-4727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4698-L4727)
 
 ## Overview
 ReorderBufferRestoreCleanup removes all on-disk serialized files for a given transaction by iterating through WAL segments and deleting the associated spill files.

@@ -1,7 +1,7 @@
 # set_base_rel_consider_startup
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 247 - 289
+[src/backend/optimizer/path/allpaths.c:247-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L247-L289)
 
 ## Overview
 Sets the consider_param_startup flags for each base-relation entry to optimize fast-start plans for parameterized paths in SEMI and ANTI join scenarios.

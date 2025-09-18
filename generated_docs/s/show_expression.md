@@ -1,7 +1,7 @@
 # show_expression
 
 ## Location
-src/backend/commands/explain.c: 2487 - 2509
+[src/backend/commands/explain.c:2487-2509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2487-L2509)
 
 ## Overview
 A static helper function in PostgreSQL's EXPLAIN command implementation that displays generic expressions in query execution plans with proper formatting and context.

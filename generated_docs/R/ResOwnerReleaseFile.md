@@ -1,7 +1,7 @@
 # ResOwnerReleaseFile
 
 ## Location
-src/backend/storage/file/fd.c: 4031 - 4044
+[src/backend/storage/file/fd.c:4031-4044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L4031-L4044)
 
 ## Overview
 A ResourceOwner callback function that releases virtual file descriptors when they are being cleaned up by the resource owner mechanism.

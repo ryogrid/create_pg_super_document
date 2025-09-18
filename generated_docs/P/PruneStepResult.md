@@ -1,7 +1,7 @@
 # PruneStepResult
 
 ## Location
-src/backend/partitioning/partprune.c: 127 - 137
+[src/backend/partitioning/partprune.c:127-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L127-L137)
 
 ## Overview
 PruneStepResult represents the outcome of executing a single partition pruning step, containing information about which partitions should be included in the scan.

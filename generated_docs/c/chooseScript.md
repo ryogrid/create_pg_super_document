@@ -1,7 +1,7 @@
 # chooseScript
 
 ## Location
-src/bin/pgbench/pgbench.c: 3047 - 3068
+[src/bin/pgbench/pgbench.c:3047-3068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3047-L3068)
 
 ## Overview
 The chooseScript function selects a SQL script with weighted random choice from available scripts in pgbench.

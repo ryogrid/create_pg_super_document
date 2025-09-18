@@ -1,7 +1,7 @@
 # dir_close
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 385 - 513
+[src/bin/pg_basebackup/walmethods.c:385-513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L385-L513)
 
 ## Overview
 Closes a WAL file in the directory-based method, handling compression finalization, file operations (rename/unlink), and resource cleanup based on the specified close method.

@@ -1,7 +1,7 @@
 # EncodeInterval
 
 ## Location
-src/backend/utils/adt/datetime.c: 4585 - 4778
+[src/backend/utils/adt/datetime.c:4585-4778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4585-L4778)
 
 ## Overview
 Converts a PostgreSQL interval structure to its string representation, supporting multiple output formats including SQL Standard, ISO 8601, traditional PostgreSQL, and verbose PostgreSQL styles.

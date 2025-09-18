@@ -1,7 +1,7 @@
 # ATExecSetOptions
 
 ## Location
-src/backend/commands/tablecmds.c: 8745 - 8823
+[src/backend/commands/tablecmds.c:8745-8823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8745-L8823)
 
 ## Overview
 ATExecSetOptions executes the SET OPTIONS or RESET OPTIONS command for ALTER TABLE operations, modifying or resetting the storage options for a specified column.

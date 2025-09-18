@@ -1,7 +1,7 @@
 # create_logical_replication_slots
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 929 - 979
+[src/bin/pg_upgrade/pg_upgrade.c:929-979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L929-L979)
 
 ## Overview
 Restores logical replication slots in the new cluster during pg_upgrade by recreating them with their original configuration and properties.

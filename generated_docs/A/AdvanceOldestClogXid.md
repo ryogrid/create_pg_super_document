@@ -1,7 +1,7 @@
 # AdvanceOldestClogXid
 
 ## Location
-src/backend/access/transam/varsup.c: 355 - 371
+[src/backend/access/transam/varsup.c:355-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L355-L371)
 
 ## Overview
 Advances the cluster-wide value for the oldest valid commit log (CLOG) entry, providing a mechanism for transaction ID truncation coordination across the database cluster.

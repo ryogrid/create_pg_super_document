@@ -1,7 +1,7 @@
 # AffixNodeData
 
 ## Location
-src/include/tsearch/dicts/spell.h: 136 - 137
+[src/include/tsearch/dicts/spell.h:136-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/spell.h#L136-L137)
 
 ## Overview
 AffixNodeData is a structure that represents data stored in nodes of a prefix tree (Trie) used to efficiently store and organize affix lists in PostgreSQL's ISpell dictionary system.

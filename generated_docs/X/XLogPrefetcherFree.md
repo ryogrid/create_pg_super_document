@@ -1,7 +1,7 @@
 # XLogPrefetcherFree
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 392 - 402
+[src/backend/access/transam/xlogprefetcher.c:392-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L392-L402)
 
 ## Overview
 Deallocates an XLogPrefetcher instance and releases all associated resources including streaming read queues and hash tables.

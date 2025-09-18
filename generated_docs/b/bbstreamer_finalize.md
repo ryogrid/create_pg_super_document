@@ -1,7 +1,7 @@
 # bbstreamer_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 136 - 143
+[src/bin/pg_basebackup/bbstreamer.h:136-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L136-L143)
 
 ## Overview
 This function finalizes a bbstreamer object by calling its finalize callback, allowing the streamer to perform cleanup operations and complete any pending work.

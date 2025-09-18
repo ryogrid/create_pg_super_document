@@ -1,7 +1,7 @@
 # shimBoolConsistentFn
 
 ## Location
-src/backend/access/gin/ginlogic.c: 108 - 147
+[src/backend/access/gin/ginlogic.c:108-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L108-L147)
 
 ## Overview
 A shim function that implements binary logic consistency checking using a ternary logic consistent function, converting GIN_MAYBE results to true with recheck flag.

@@ -1,7 +1,7 @@
 # A_Const
 
 ## Location
-src/include/nodes/parsenodes.h: 357 - 365
+[src/include/nodes/parsenodes.h:357-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L357-L365)
 
 ## Overview
 A_Const represents a constant value in PostgreSQL's parse tree, used to store literal values encountered during SQL parsing such as numbers, strings, booleans, and NULL constants.

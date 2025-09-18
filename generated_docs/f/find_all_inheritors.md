@@ -1,7 +1,7 @@
 # find_all_inheritors
 
 ## Location
-src/backend/catalog/pg_inherits.c: 255 - 354
+[src/backend/catalog/pg_inherits.c:255-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L255-L354)
 
 ## Overview
 Returns a list of relation OIDs including the given relation plus all relations that inherit from it, directly or indirectly, with optional parent count tracking.

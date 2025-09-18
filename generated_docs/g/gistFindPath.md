@@ -1,7 +1,7 @@
 # gistFindPath
 
 ## Location
-src/backend/access/gist/gist.c: 909 - 1021
+[src/backend/access/gist/gist.c:909-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L909-L1021)
 
 ## Overview
 Traverses the GiST tree to find the path from the root page to a specified child block, returning a stack of pages representing the path from parent to root.

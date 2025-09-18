@@ -1,7 +1,7 @@
 # SearchPathMatchesCurrentEnvironment
 
 ## Location
-src/backend/catalog/namespace.c: 3911 - 3970
+[src/backend/catalog/namespace.c:3911-3970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3911-L3970)
 
 ## Overview
 Determines whether a given SearchPathMatcher matches the current active search path environment, optimized for frequent validation scenarios.

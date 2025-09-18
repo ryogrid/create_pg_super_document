@@ -1,7 +1,7 @@
 # _bt_insertonpg
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 1105 - 1466
+[src/backend/access/nbtree/nbtinsert.c:1105-1466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L1105-L1466)
 
 ## Overview
 _bt_insertonpg is a recursive function that performs tuple insertion on a specific page in a B-tree index, handling posting list splits, page splits, and parent insertions as needed.

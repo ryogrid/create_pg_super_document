@@ -1,7 +1,7 @@
 # gincostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7649 - 8038
+[src/backend/utils/adt/selfuncs.c:7649-8038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7649-L8038)
 
 ## Overview
 Main cost estimation function for GIN (Generalized Inverted Index) access paths in PostgreSQL's query planner.

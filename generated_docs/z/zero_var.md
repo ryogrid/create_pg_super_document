@@ -1,7 +1,7 @@
 # zero_var
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 374 - 384
+[src/interfaces/ecpg/pgtypeslib/numeric.c:374-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L374-L384)
 
 ## Overview
 Sets a PostgreSQL NumericVar variable to represent the value zero while preserving its decimal scale setting.

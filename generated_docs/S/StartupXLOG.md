@@ -1,7 +1,7 @@
 # StartupXLOG
 
 ## Location
-src/backend/access/transam/xlog.c: 5384 - 6187
+[src/backend/access/transam/xlog.c:5384-6187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L5384-L6187)
 
 ## Overview
 StartupXLOG is the main recovery function that must be called ONCE during postmaster or standalone-backend startup to perform WAL (Write-Ahead Log) recovery and bring the database system to a consistent state.

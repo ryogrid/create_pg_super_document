@@ -1,7 +1,7 @@
 # ATDetachCheckNoForeignKeyRefs
 
 ## Location
-src/backend/commands/tablecmds.c: 20181 - 20229
+[src/backend/commands/tablecmds.c:20181-20229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L20181-L20229)
 
 ## Overview
 Verifies that foreign keys pointing to a partitioned table will not become invalid during a DETACH PARTITION operation, raising an error if any referenced values exist.

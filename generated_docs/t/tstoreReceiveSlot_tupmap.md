@@ -1,7 +1,7 @@
 # tstoreReceiveSlot_tupmap
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 192 - 205
+[src/backend/executor/tstoreReceiver.c:192-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L192-L205)
 
 ## Overview
 A specialized callback function that receives tuples from the executor, applies tuple format conversion using an attribute mapping, and stores the converted tuples in a tuplestore.

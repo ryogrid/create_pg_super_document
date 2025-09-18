@@ -1,7 +1,7 @@
 # RenameRelationInternal
 
 ## Location
-src/backend/commands/tablecmds.c: 4135 - 4227
+[src/backend/commands/tablecmds.c:4135-4227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4135-L4227)
 
 ## Overview
 RenameRelationInternal is the core internal function that performs the actual relation renaming operation, handling all necessary catalog updates and associated object renaming.

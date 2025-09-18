@@ -1,7 +1,7 @@
 # uuid_fast_cmp
 
 ## Location
-src/backend/utils/adt/uuid.c: 277 - 291
+[src/backend/utils/adt/uuid.c:277-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L277-L291)
 
 ## Overview
 Provides an optimized comparison function specifically designed for PostgreSQL's SortSupport infrastructure, enabling high-performance UUID sorting operations.

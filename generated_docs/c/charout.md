@@ -1,7 +1,7 @@
 # charout
 
 ## Location
-src/backend/utils/adt/char.c: 64 - 93
+[src/backend/utils/adt/char.c:64-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L64-L93)
 
 ## Overview
 Converts a single character value to its string representation, formatting high-bit characters as octal escape sequences.

@@ -1,7 +1,7 @@
 # QTW_IGNORE_RANGE_TABLE
 
 ## Location
-src/include/nodes/nodeFuncs.h: 26 - 26
+[src/include/nodes/nodeFuncs.h:26-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L26-L26)
 
 ## Overview
 A flag bit used by query_tree_walker and query_tree_mutator functions to control whether the entire range table should be skipped during tree traversal.

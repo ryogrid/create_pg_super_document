@@ -1,7 +1,7 @@
 # remove_target_dir
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 243 - 256
+[src/bin/pg_rewind/file_ops.c:243-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L243-L256)
 
 ## Overview
 Removes an empty directory from the target data directory during PostgreSQL rewind operations.

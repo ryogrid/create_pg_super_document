@@ -1,7 +1,7 @@
 # make_time
 
 ## Location
-src/backend/utils/adt/date.c: 1577 - 1604
+[src/backend/utils/adt/date.c:1577-1604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1577-L1604)
 
 ## Overview
 Constructs a TIME value from individual hour, minute, and second components with validation and overflow checking.

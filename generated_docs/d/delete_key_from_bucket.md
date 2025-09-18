@@ -1,7 +1,7 @@
 # delete_key_from_bucket
 
 ## Location
-src/backend/lib/dshash.c: 1006 - 1034
+[src/backend/lib/dshash.c:1006-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L1006-L1034)
 
 ## Overview
 Searches a hash bucket for an entry matching the given key and removes it from the bucket chain.

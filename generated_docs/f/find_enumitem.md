@@ -1,7 +1,7 @@
 # find_enumitem
 
 ## Location
-src/backend/utils/cache/typcache.c: 2705 - 2721
+[src/backend/utils/cache/typcache.c:2705-2721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2705-L2721)
 
 ## Overview
 Locates an EnumItem with a given OID within the enum type's cached data structure using binary search.

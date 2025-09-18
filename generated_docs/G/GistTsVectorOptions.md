@@ -1,7 +1,7 @@
 # GistTsVectorOptions
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 33 - 34
+[src/backend/utils/adt/tsgistidx.c:33-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L33-L34)
 
 ## Overview
 A structure that defines opclass options for the tsvector_ops GiST index opclass, specifically controlling the signature length used in the indexing operations.

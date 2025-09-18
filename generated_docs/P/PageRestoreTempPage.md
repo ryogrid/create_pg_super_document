@@ -1,7 +1,7 @@
 # PageRestoreTempPage
 
 ## Location
-src/backend/storage/page/bufpage.c: 424 - 436
+[src/backend/storage/page/bufpage.c:424-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L424-L436)
 
 ## Overview
 Copies the contents of a temporary page back to the original permanent page and releases the temporary page memory.

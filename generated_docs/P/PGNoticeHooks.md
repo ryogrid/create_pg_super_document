@@ -1,7 +1,7 @@
 # PGNoticeHooks
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 159 - 160
+[src/interfaces/libpq/libpq-int.h:159-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L159-L160)
 
 ## Overview
 PGNoticeHooks is a structure that encapsulates callback procedures for handling notice messages in the PostgreSQL libpq client library, providing a centralized way to process notices and notifications from the database server.

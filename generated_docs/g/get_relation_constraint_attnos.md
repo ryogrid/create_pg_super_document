@@ -1,7 +1,7 @@
 # get_relation_constraint_attnos
 
 ## Location
-src/backend/catalog/pg_constraint.c: 954 - 1042
+[src/backend/catalog/pg_constraint.c:954-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L954-L1042)
 
 ## Overview
 Finds a constraint on a specified relation by name and returns the constrained columns as a bitmap set of column attribute numbers.

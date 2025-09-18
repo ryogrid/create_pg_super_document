@@ -1,7 +1,7 @@
 # apply_handle_insert
 
 ## Location
-src/backend/replication/logical/worker.c: 2373 - 2463
+[src/backend/replication/logical/worker.c:2373-2463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2373-L2463)
 
 ## Overview
 Handles INSERT messages in PostgreSQL logical replication by processing incoming tuple data and inserting it into the appropriate target relation, with support for partitioned tables and proper security context management.

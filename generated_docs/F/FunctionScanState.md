@@ -1,7 +1,7 @@
 # FunctionScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1904 - 1914
+[src/include/nodes/execnodes.h:1904-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1904-L1914)
 
 ## Overview
 FunctionScanState is a runtime state structure for PostgreSQL's function scan executor node, which executes table-valued functions and set-returning functions in FROM clauses.

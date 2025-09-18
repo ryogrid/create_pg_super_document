@@ -1,7 +1,7 @@
 # pq_startmsgread
 
 ## Location
-src/backend/libpq/pqcomm.c: 1140 - 1163
+[src/backend/libpq/pqcomm.c:1140-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1140-L1163)
 
 ## Overview
 Initiates the process of reading a message from the client by setting the global message reading state and performing protocol synchronization validation.

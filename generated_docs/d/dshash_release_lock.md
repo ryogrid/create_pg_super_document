@@ -1,7 +1,7 @@
 # dshash_release_lock
 
 ## Location
-src/backend/lib/dshash.c: 558 - 571
+[src/backend/lib/dshash.c:558-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L558-L571)
 
 ## Overview
 The  function releases the lock on an entry that was previously acquired through  or .

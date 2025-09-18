@@ -1,7 +1,7 @@
 # pgwin32_doUnregister
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1535 - 1573
+[src/bin/pg_ctl/pg_ctl.c:1535-1573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1535-L1573)
 
 ## Overview
 Unregisters PostgreSQL from the Windows Service Control Manager (SCM), removing the service entry and preventing it from running as a Windows service.

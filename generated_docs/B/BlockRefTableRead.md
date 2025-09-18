@@ -1,7 +1,7 @@
 # BlockRefTableRead
 
 ## Location
-src/common/blkreftable.c: 1196 - 1260
+[src/common/blkreftable.c:1196-1260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1196-L1260)
 
 ## Overview
 Reads data from a BlockRefTableBuffer with buffering optimization and maintains a running CRC calculation for data integrity verification.

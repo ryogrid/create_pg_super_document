@@ -1,7 +1,7 @@
 # CheckAlterPublication
 
 ## Location
-src/backend/commands/publicationcmds.c: 1333 - 1370
+[src/backend/commands/publicationcmds.c:1333-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1333-L1370)
 
 ## Overview
 CheckAlterPublication validates whether relations and schemas can be legally added to or modified in a publication, enforcing permission and consistency constraints.

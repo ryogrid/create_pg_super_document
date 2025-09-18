@@ -1,7 +1,7 @@
 # ExecGetUpdateNewTuple
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 741 - 778
+[src/backend/executor/nodeModifyTable.c:741-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L741-L778)
 
 ## Overview
 Prepares a new tuple for UPDATE operations by combining changed column values from the subplan with unchanged columns from the old tuple.

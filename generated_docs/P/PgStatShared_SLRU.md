@@ -1,7 +1,7 @@
 # PgStatShared_SLRU
 
 ## Location
-src/include/utils/pgstat_internal.h: 362 - 367
+[src/include/utils/pgstat_internal.h:362-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L362-L367)
 
 ## Overview
 A shared memory structure that holds SLRU (Simple Least Recently Used) statistics for all SLRU types in PostgreSQL, protected by a lightweight lock for concurrent access.

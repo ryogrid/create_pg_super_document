@@ -1,7 +1,7 @@
 # AtEOSubXact_LargeObject
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 648 - 674
+[src/backend/libpq/be-fsstubs.c:648-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L648-L674)
 
 ## Overview
 Handles large object resource management at subtransaction commit or abort by reassigning ownership to parent subtransactions on commit or closing file descriptors on abort.

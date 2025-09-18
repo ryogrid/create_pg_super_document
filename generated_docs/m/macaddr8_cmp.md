@@ -1,7 +1,7 @@
 # macaddr8_cmp
 
 ## Location
-src/backend/utils/adt/mac8.c: 325 - 337
+[src/backend/utils/adt/mac8.c:325-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L325-L337)
 
 ## Overview
 PostgreSQL function interface for comparing two macaddr8 values, returning a tri-state comparison result for use in SQL queries and B-tree operations.

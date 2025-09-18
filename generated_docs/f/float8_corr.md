@@ -1,7 +1,7 @@
 # float8_corr
 
 ## Location
-src/backend/utils/adt/float.c: 3644 - 3672
+[src/backend/utils/adt/float.c:3644-3672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3644-L3672)
 
 ## Overview
 Computes the correlation coefficient between two sets of values from statistical aggregate data stored in a transition array.

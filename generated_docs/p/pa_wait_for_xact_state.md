@@ -1,7 +1,7 @@
 # pa_wait_for_xact_state
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1244 - 1273
+[src/backend/replication/logical/applyparallelworker.c:1244-1273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1244-L1273)
 
 ## Overview
 Waits until a parallel apply workers transaction state reaches or exceeds a specified target state, providing synchronization between the leader and parallel workers.

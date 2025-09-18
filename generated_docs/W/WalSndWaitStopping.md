@@ -1,7 +1,7 @@
 # WalSndWaitStopping
 
 ## Location
-src/backend/replication/walsender.c: 3813 - 3850
+[src/backend/replication/walsender.c:3813-3850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3813-L3850)
 
 ## Overview
 WalSndWaitStopping blocks until all WAL sender processes have either quit or reached the stopping state, ensuring safe timing for shutdown checkpoints.

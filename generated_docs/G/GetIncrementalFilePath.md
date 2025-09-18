@@ -1,7 +1,7 @@
 # GetIncrementalFilePath
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 627 - 666
+[src/backend/backup/basebackup_incremental.c:627-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L627-L666)
 
 ## Overview
 Generates the destination pathname for a file when it needs to be sent as part of an incremental backup, creating an "INCREMENTAL." prefixed filename in the same directory.

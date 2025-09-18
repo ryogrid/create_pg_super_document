@@ -1,7 +1,7 @@
 # json_populate_record
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2493 - 2499
+[src/backend/utils/adt/jsonfuncs.c:2493-2499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2493-L2499)
 
 ## Overview
 Populates fields of an existing PostgreSQL record using values from a JSON object, creating a new record with updated field values.

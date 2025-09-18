@@ -1,7 +1,7 @@
 # lookup_external_function
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 166 - 183
+[src/backend/utils/fmgr/dfmgr.c:166-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L166-L183)
 
 ## Overview
 This function looks up a named function within an already loaded library using a file handle, providing an efficient way to retrieve multiple functions from the same shared library.

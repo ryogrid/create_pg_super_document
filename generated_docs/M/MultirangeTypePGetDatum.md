@@ -1,7 +1,7 @@
 # MultirangeTypePGetDatum
 
 ## Location
-src/include/utils/multirangetypes.h: 60 - 64
+[src/include/utils/multirangetypes.h:60-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/multirangetypes.h#L60-L64)
 
 ## Overview
 MultirangeTypePGetDatum is an inline function that converts a MultirangeType pointer to a PostgreSQL Datum value for use in the function manager (fmgr) system.

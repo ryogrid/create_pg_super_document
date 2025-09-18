@@ -1,7 +1,7 @@
 # bbstreamer_gzip_writer
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 26 - 31
+[src/bin/pg_basebackup/bbstreamer_gzip.c:26-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L26-L31)
 
 ## Overview
 A structure representing a gzip compression stream writer that compresses data using zlib and writes it to a file.

@@ -1,7 +1,7 @@
 # gintuple_get_key
 
 ## Location
-src/backend/access/gin/ginutil.c: 259 - 299
+[src/backend/access/gin/ginutil.c:259-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L259-L299)
 
 ## Overview
 Extracts the stored datum (key value) and its null category from a GIN index tuple, handling both single-column and multi-column index formats.

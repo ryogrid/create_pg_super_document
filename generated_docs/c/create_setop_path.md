@@ -1,7 +1,7 @@
 # create_setop_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3555 - 3616
+[src/backend/optimizer/util/pathnode.c:3555-3616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3555-L3616)
 
 ## Overview
 Creates a pathnode that represents computation of INTERSECT or EXCEPT set operations, supporting both sorted and hashed implementation strategies.

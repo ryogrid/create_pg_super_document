@@ -1,7 +1,7 @@
 # ginhandler
 
 ## Location
-src/backend/access/gin/ginutil.c: 37 - 96
+[src/backend/access/gin/ginutil.c:37-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L37-L96)
 
 ## Overview
 A PostgreSQL GIN (Generalized Inverted Index) access method handler function that returns an IndexAmRoutine structure populated with GIN-specific access method parameters and callback functions.

@@ -1,7 +1,7 @@
 # parse_func_options
 
 ## Location
-src/backend/commands/foreigncmds.c: 529 - 568
+[src/backend/commands/foreigncmds.c:529-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L529-L568)
 
 ## Overview
 Processes the function options (handler and validator) for CREATE and ALTER FOREIGN DATA WRAPPER commands, validating and extracting the function OIDs for the FDW handler and validator functions.

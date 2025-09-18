@@ -1,7 +1,7 @@
 # sql_fn_resolve_param_name
 
 ## Location
-src/backend/executor/functions.c: 440 - 463
+[src/backend/executor/functions.c:440-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L440-L463)
 
 ## Overview
 Searches for a function parameter by name and constructs a Param node if found, serving as a helper function for SQL function parameter resolution during parsing.

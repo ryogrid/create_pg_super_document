@@ -1,7 +1,7 @@
 # GetFdwRoutineByServerId
 
 ## Location
-src/backend/foreign/foreign.c: 377 - 418
+[src/backend/foreign/foreign.c:377-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L377-L418)
 
 ## Overview
 Retrieves the FdwRoutine structure for a foreign data wrapper by looking up the handler function associated with a given foreign server ID.

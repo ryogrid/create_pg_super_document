@@ -1,7 +1,7 @@
 # GetLockmodeName
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4070 - 4083
+[src/backend/storage/lmgr/lock.c:4070-4083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4070-L4083)
 
 ## Overview
 GetLockmodeName provides the textual name of any lock mode given a lock method ID and mode number, serving as a utility function for debugging and user-facing lock information display.

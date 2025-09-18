@@ -1,7 +1,7 @@
 # getInstallationPaths
 
 ## Location
-src/backend/postmaster/postmaster.c: 1435 - 1488
+[src/backend/postmaster/postmaster.c:1435-1488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1435-L1488)
 
 ## Overview
 getInstallationPaths determines and validates the filesystem paths to PostgreSQL installation directories based on the location of the postgres executable, ensuring the installation is complete and accessible.

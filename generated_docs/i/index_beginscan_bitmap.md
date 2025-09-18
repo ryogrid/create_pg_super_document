@@ -1,7 +1,7 @@
 # index_beginscan_bitmap
 
 ## Location
-src/backend/access/index/indexam.c: 287 - 309
+[src/backend/access/index/indexam.c:287-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L287-L309)
 
 ## Overview
 The  function initiates a bitmap index scan operation using the amgetbitmap access method, which is optimized for bulk retrieval of matching tuple identifiers.

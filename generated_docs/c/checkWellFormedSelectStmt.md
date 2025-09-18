@@ -1,7 +1,7 @@
 # checkWellFormedSelectStmt
 
 ## Location
-src/backend/parser/parse_cte.c: 1207 - 1270
+[src/backend/parser/parse_cte.c:1207-1270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L1207-L1270)
 
 ## Overview
 checkWellFormedSelectStmt is a specialized subroutine that validates SELECT statements within recursive CTE contexts, applying different recursion validation rules based on the type of set operation being performed.

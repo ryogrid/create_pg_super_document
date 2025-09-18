@@ -1,7 +1,7 @@
 # pgstat_twophase_postcommit
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 733 - 768
+[src/backend/utils/activity/pgstat_relation.c:733-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L733-L768)
 
 ## Overview
 Handles the post-commit processing for two-phase commit transactions by restoring saved statistics counts into the local pgstats state.

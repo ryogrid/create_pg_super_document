@@ -1,7 +1,7 @@
 # xid_age
 
 ## Location
-src/backend/utils/adt/xid.c: 104 - 119
+[src/backend/utils/adt/xid.c:104-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L104-L119)
 
 ## Overview
 The `xid_age` function computes the age of a transaction ID (XID) relative to the latest stable transaction ID in PostgreSQL.

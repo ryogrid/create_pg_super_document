@@ -1,7 +1,7 @@
 # read_binary_file
 
 ## Location
-src/backend/utils/adt/genfile.c: 103 - 154
+[src/backend/utils/adt/genfile.c:103-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L103-L154)
 
 ## Overview
 Reads a section of a file and returns it as a bytea (binary data) object, with support for seeking to specific offsets and reading specified byte ranges.

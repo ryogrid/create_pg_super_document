@@ -1,7 +1,7 @@
 # hexval_n
 
 ## Location
-src/backend/utils/adt/varlena.c: 6488 - 6501
+[src/backend/utils/adt/varlena.c:6488-6501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6488-L6501)
 
 ## Overview
 Translates a string containing hexadecimal digits to an unsigned integer value by processing exactly n characters from the input string.

@@ -1,7 +1,7 @@
 # _outList
 
 ## Location
-src/backend/nodes/outfuncs.c: 275 - 324
+[src/backend/nodes/outfuncs.c:275-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L275-L324)
 
 ## Overview
 Serializes PostgreSQL List structures into a parenthesized format, handling different list types (generic node lists, integer lists, OID lists, and XID lists) with appropriate type indicators and formatting.

@@ -1,7 +1,7 @@
 # make_limit
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6961 - 6988
+[src/backend/optimizer/plan/createplan.c:6961-6988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6961-L6988)
 
 ## Overview
 Creates a Limit plan node that restricts the number of tuples returned by its child plan, implementing SQL LIMIT and OFFSET clauses.

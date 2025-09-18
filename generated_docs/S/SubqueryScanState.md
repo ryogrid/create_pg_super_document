@@ -1,7 +1,7 @@
 # SubqueryScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1880 - 1884
+[src/include/nodes/execnodes.h:1880-1884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1880-L1884)
 
 ## Overview
 SubqueryScanState is a runtime state structure for PostgreSQL's subquery scan executor node, which executes and retrieves tuples from a sub-query within a larger query plan.

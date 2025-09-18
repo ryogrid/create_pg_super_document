@@ -1,7 +1,7 @@
 # PLy_result_new
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 68 - 91
+[src/pl/plpython/plpy_resultobject.c:68-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L68-L91)
 
 ## Overview
 Creates and initializes a new PLyResultObject instance that represents the results of a PostgreSQL query in PL/Python.

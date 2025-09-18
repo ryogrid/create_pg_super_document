@@ -1,7 +1,7 @@
 # ExecReScanBitmapHeapScan
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 595 - 639
+[src/backend/executor/nodeBitmapHeapscan.c:595-639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L595-L639)
 
 ## Overview
 ExecReScanBitmapHeapScan resets a bitmap heap scan node to restart scanning from the beginning, cleaning up all associated resources including bitmaps, iterators, and buffers, then rescanning the outer plan if needed.

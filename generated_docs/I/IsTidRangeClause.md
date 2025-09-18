@@ -1,7 +1,7 @@
 # IsTidRangeClause
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 150 - 171
+[src/backend/optimizer/path/tidpath.c:150-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L150-L171)
 
 ## Overview
 IsTidRangeClause is a static function that identifies whether a RestrictInfo represents a CTID range comparison clause suitable for TID range scanning.

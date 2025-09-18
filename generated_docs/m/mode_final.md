@@ -1,7 +1,7 @@
 # mode_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1033 - 1141
+[src/backend/utils/adt/orderedsetaggs.c:1033-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1033-L1141)
 
 ## Overview
 Implements the final phase of the PostgreSQL aggregate function `mode() within group (anyelement)`, which finds the most frequently occurring value in a dataset.

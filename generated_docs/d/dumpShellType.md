@@ -1,7 +1,7 @@
 # dumpShellType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12082 - 12127
+[src/bin/pg_dump/pg_dump.c:12082-12127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12082-L12127)
 
 ## Overview
 The dumpShellType function generates a CREATE TYPE statement for a shell type, which is a placeholder type definition created before the actual type implementation.

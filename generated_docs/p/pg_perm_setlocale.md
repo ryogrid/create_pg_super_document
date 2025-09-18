@@ -1,7 +1,7 @@
 # pg_perm_setlocale
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 213 - 315
+[src/backend/utils/adt/pg_locale.c:213-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L213-L315)
 
 ## Overview
 A PostgreSQL wrapper around the standard setlocale() function that provides additional functionality for environment variable management and Windows-specific message locale handling.

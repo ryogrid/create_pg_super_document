@@ -1,7 +1,7 @@
 # spgAllocSearchItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 114 - 129
+[src/backend/access/spgist/spgscan.c:114-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L114-L129)
 
 ## Overview
 A memory allocation function that creates and initializes a new SpGistSearchItem structure with appropriate sizing for distance arrays based on the number of ORDER BY clauses in KNN searches.

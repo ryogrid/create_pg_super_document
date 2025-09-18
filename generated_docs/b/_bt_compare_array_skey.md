@@ -1,7 +1,7 @@
 # _bt_compare_array_skey
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1131 - 1200
+[src/backend/access/nbtree/nbtutils.c:1131-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1131-L1200)
 
 ## Overview
 Compares a tuple attribute value to a scan key/array element during binary searches of SK_SEARCHARRAY arrays in PostgreSQL's B-tree index operations.

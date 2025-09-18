@@ -1,7 +1,7 @@
 # pgstat_count_slru_page_zeroed
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 59 - 64
+[src/backend/utils/activity/pgstat_slru.c:59-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L59-L64)
 
 ## Overview
 Increments the count of zeroed pages for a specific SLRU buffer cache, tracking when new pages are initialized to zero values.

@@ -1,7 +1,7 @@
 # add_base_rels_to_query
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 157 - 194
+[src/backend/optimizer/plan/initsplan.c:157-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L157-L194)
 
 ## Overview
 Scans the query's jointree and creates baserel RelOptInfos for all the base relations (tables, subqueries, and function RTEs) appearing in the jointree.

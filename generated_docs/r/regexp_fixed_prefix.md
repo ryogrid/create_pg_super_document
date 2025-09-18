@@ -1,7 +1,7 @@
 # regexp_fixed_prefix
 
 ## Location
-src/backend/utils/adt/regexp.c: 1979 - 2035
+[src/backend/utils/adt/regexp.c:1979-2035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1979-L2035)
 
 ## Overview
 Extracts a fixed prefix from a regular expression pattern, returning the longest literal string that must appear at the beginning of any string matching the regular expression.

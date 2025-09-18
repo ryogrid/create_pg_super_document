@@ -1,7 +1,7 @@
 # find_indexpath_quals
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1657 - 1703
+[src/backend/optimizer/path/indxpath.c:1657-1703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1657-L1703)
 
 ## Overview
 Recursively extracts lists of all index clauses and index predicate conditions used in a Path structure for plain or bitmap index scans, flattening complex AND/OR path structures.

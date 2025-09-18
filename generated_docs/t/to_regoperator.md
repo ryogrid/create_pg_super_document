@@ -1,7 +1,7 @@
 # to_regoperator
 
 ## Location
-src/backend/utils/adt/regproc.c: 694 - 721
+[src/backend/utils/adt/regproc.c:694-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L694-L721)
 
 ## Overview
 Converts an operator name with argument types (in the format "oprname(args)") to the corresponding operator OID, returning NULL if the operator is not found.

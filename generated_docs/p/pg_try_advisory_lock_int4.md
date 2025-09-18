@@ -1,7 +1,7 @@
 # pg_try_advisory_lock_int4
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 880 - 900
+[src/backend/utils/adt/lockfuncs.c:880-900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L880-L900)
 
 ## Overview
 Attempts to acquire a session-scoped exclusive advisory lock using two 32-bit integer keys without blocking, returning success status.

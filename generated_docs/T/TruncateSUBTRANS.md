@@ -1,7 +1,7 @@
 # TruncateSUBTRANS
 
 ## Location
-src/backend/access/transam/subtrans.c: 411 - 434
+[src/backend/access/transam/subtrans.c:411-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L411-L434)
 
 ## Overview
 Removes all SUBTRANS segments before the one containing the oldest active transaction, helping to reclaim disk space and prevent infinite growth of subtransaction status files.

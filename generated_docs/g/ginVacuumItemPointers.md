@@ -1,7 +1,7 @@
 # ginVacuumItemPointers
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 48 - 89
+[src/backend/access/gin/ginvacuum.c:48-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L48-L89)
 
 ## Overview
 Vacuums an uncompressed posting list by removing dead tuple identifiers and returns a new array containing only the remaining valid items.

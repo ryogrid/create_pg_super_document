@@ -1,7 +1,7 @@
 # FixedParallelExecutorState
 
 ## Location
-src/backend/executor/execParallel.c: 73 - 79
+[src/backend/executor/execParallel.c:73-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L73-L79)
 
 ## Overview
 FixedParallelExecutorState is a structure that contains fixed-size configuration and state information that needs to be passed from the leader process to parallel worker processes during parallel query execution.

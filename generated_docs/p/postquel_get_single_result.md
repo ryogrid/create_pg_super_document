@@ -1,7 +1,7 @@
 # postquel_get_single_result
 
 ## Location
-src/backend/executor/functions.c: 986 - 1028
+[src/backend/executor/functions.c:986-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L986-L1028)
 
 ## Overview
 Extracts the SQL function's return value from a single result row, handling both scalar functions and individual rows from set-returning functions.

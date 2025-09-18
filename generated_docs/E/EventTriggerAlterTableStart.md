@@ -1,7 +1,7 @@
 # EventTriggerAlterTableStart
 
 ## Location
-src/backend/commands/event_trigger.c: 1626 - 1659
+[src/backend/commands/event_trigger.c:1626-1659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1626-L1659)
 
 ## Overview
 Prepares to receive data on an ALTER TABLE command about to be executed by setting up a CollectedCommand structure as the current command.

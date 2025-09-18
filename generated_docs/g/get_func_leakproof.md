@@ -1,7 +1,7 @@
 # get_func_leakproof
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1837 - 1857
+[src/backend/utils/cache/lsyscache.c:1837-1857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1837-L1857)
 
 ## Overview
 Returns the leakproof field of a function given its OID, used to determine whether a function is safe to execute with sensitive data in security-restricted contexts.

@@ -1,7 +1,7 @@
 # ProcLockHashCode
 
 ## Location
-src/backend/storage/lmgr/lock.c: 552 - 569
+[src/backend/storage/lmgr/lock.c:552-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L552-L569)
 
 ## Overview
 An optimized inline hash function that computes the hash code for a PROCLOCKTAG when the underlying LOCK's hash code is already known, avoiding redundant hash calculations.

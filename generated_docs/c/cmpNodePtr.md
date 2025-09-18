@@ -1,7 +1,7 @@
 # cmpNodePtr
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 324 - 332
+[src/backend/access/spgist/spgtextproc.c:324-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L324-L332)
 
 ## Overview
 A static comparison function used as a qsort comparator to sort spgNodePtr structures by their 'c' field in ascending order.

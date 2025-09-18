@@ -1,7 +1,7 @@
 # TransitionTableAddTuple
 
 ## Location
-src/backend/commands/trigger.c: 5584 - 5623
+[src/backend/commands/trigger.c:5584-5623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5584-L5623)
 
 ## Overview
 Adds a tuple to a transition table tuplestore, applying necessary tuple conversion when dealing with inheritance hierarchies or partitioned tables.

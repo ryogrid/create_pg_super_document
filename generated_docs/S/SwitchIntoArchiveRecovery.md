@@ -1,7 +1,7 @@
 # SwitchIntoArchiveRecovery
 
 ## Location
-src/backend/access/transam/xlog.c: 6188 - 6225
+[src/backend/access/transam/xlog.c:6188-6225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6188-L6225)
 
 ## Overview
 SwitchIntoArchiveRecovery transitions the database system from crash recovery mode to archive recovery mode, updating control file state and recovery parameters accordingly.

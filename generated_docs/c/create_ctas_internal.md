@@ -1,7 +1,7 @@
 # create_ctas_internal
 
 ## Location
-src/backend/commands/createas.c: 80 - 152
+[src/backend/commands/createas.c:80-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L80-L152)
 
 ## Overview
 Internal utility function used for creating the physical relation definition for both CREATE TABLE AS statements and materialized views in PostgreSQL.

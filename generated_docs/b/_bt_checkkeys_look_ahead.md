@@ -1,7 +1,7 @@
 # _bt_checkkeys_look_ahead
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4072 - 4170
+[src/backend/access/nbtree/nbtutils.c:4072-4170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4072-L4170)
 
 ## Overview
 Optimizes B-tree array key scans by performing look-ahead analysis to skip over uninteresting tuples that fall between array key values.

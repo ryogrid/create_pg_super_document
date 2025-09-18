@@ -1,7 +1,7 @@
 # sts_flush_chunk
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 196 - 212
+[src/backend/utils/sort/sharedtuplestore.c:196-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L196-L212)
 
 ## Overview
 Flushes the current write chunk buffer to the backing file and resets the buffer for the next chunk of data.

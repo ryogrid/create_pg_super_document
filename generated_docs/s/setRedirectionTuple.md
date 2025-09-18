@@ -1,7 +1,7 @@
 # setRedirectionTuple
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 568 - 598
+[src/backend/access/spgist/spgdoinsert.c:568-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L568-L598)
 
 ## Overview
 This function updates a previously-created redirection tuple with the appropriate destination block and offset when the final destination wasn't known at creation time.

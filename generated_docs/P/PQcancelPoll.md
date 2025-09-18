@@ -1,7 +1,7 @@
 # PQcancelPoll
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 208 - 283
+[src/interfaces/libpq/fe-cancel.c:208-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L208-L283)
 
 ## Overview
 Polls a cancel connection to advance the non-blocking cancellation process, handling the server response and determining completion status.

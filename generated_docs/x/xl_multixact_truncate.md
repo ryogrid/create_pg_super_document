@@ -1,7 +1,7 @@
 # xl_multixact_truncate
 
 ## Location
-src/include/access/multixact.h: 83 - 94
+[src/include/access/multixact.h:83-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/multixact.h#L83-L94)
 
 ## Overview  
 xl_multixact_truncate is a WAL record structure used to log the truncation of old multi-transaction data files, enabling cleanup of obsolete multi-transaction information.

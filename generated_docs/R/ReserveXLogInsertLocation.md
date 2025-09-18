@@ -1,7 +1,7 @@
 # ReserveXLogInsertLocation
 
 ## Location
-src/backend/access/transam/xlog.c: 1110 - 1165
+[src/backend/access/transam/xlog.c:1110-1165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1110-L1165)
 
 ## Overview
 ReserveXLogInsertLocation is a performance-critical function that atomically reserves space in the WAL buffer for a new record, updating the current insertion position while minimizing lock contention.

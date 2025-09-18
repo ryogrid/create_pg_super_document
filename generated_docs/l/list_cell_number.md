@@ -1,7 +1,7 @@
 # list_cell_number
 
 ## Location
-src/include/nodes/pg_list.h: 333 - 342
+[src/include/nodes/pg_list.h:333-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L333-L342)
 
 ## Overview
 Returns the zero-based index position of a given ListCell within its containing List, providing reverse lookup from cell pointer to index.

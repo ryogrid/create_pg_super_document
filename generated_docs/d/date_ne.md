@@ -1,7 +1,7 @@
 # date_ne
 
 ## Location
-src/backend/utils/adt/date.c: 392 - 400
+[src/backend/utils/adt/date.c:392-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L392-L400)
 
 ## Overview
 date_ne is a comparison function that tests whether two date values are not equal, implementing the inequality operator (<> or !=) for the DATE data type.

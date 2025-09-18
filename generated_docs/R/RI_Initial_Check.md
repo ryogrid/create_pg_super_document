@@ -1,7 +1,7 @@
 # RI_Initial_Check
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1359 - 1653
+[src/backend/utils/adt/ri_triggers.c:1359-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1359-L1653)
 
 ## Overview
 Validates an entire table for foreign key constraint violations using a single query during ALTER TABLE ADD FOREIGN KEY operations.

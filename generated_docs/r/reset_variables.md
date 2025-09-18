@@ -1,7 +1,7 @@
 # reset_variables
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 367 - 376
+[src/interfaces/ecpg/preproc/variable.c:367-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L367-L376)
 
 ## Overview
 Resets the global variables that track argument lists for SQL statement parameters, clearing both the insert and result argument lists.

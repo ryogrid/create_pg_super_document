@@ -1,7 +1,7 @@
 # server_get_sink
 
 ## Location
-src/backend/backup/basebackup_target.c: 203 - 212
+[src/backend/backup/basebackup_target.c:203-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L203-L212)
 
 ## Overview
 Creates a bbsink implementation for server-side backup operations as part of PostgreSQL's base backup target system.

@@ -1,7 +1,7 @@
 # TSConfigIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 3222 - 3300
+[src/backend/catalog/namespace.c:3222-3300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3222-L3300)
 
 ## Overview
 An extended version of TSConfigIsVisible that determines whether a text search configuration is visible in the current search path, with optional error handling for missing configurations.

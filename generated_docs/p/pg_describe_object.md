@@ -1,7 +1,7 @@
 # pg_describe_object
 
 ## Location
-src/backend/catalog/objectaddress.c: 4205 - 4232
+[src/backend/catalog/objectaddress.c:4205-4232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4205-L4232)
 
 ## Overview
 A SQL-callable function that provides a PostgreSQL SQL interface to getObjectDescription, allowing users to retrieve human-readable descriptions of database objects from SQL queries.

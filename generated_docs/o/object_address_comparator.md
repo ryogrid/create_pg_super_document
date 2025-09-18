@@ -1,7 +1,7 @@
 # object_address_comparator
 
 ## Location
-src/backend/catalog/dependency.c: 2443 - 2486
+[src/backend/catalog/dependency.c:2443-2486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2443-L2486)
 
 ## Overview
 A static comparison function used by qsort to order ObjectAddress items for dependency processing, with primary sorting by OID in descending order to prioritize newer objects for deletion.

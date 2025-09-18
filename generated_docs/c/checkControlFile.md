@@ -1,7 +1,7 @@
 # checkControlFile
 
 ## Location
-src/backend/postmaster/postmaster.c: 1489 - 1517
+[src/backend/postmaster/postmaster.c:1489-1517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1489-L1517)
 
 ## Overview
 checkControlFile performs a basic existence check for the pg_control file in the data directory to verify that the directory contains a valid PostgreSQL database cluster.

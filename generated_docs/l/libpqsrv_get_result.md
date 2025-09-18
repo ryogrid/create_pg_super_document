@@ -1,7 +1,7 @@
 # libpqsrv_get_result
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 334 - 385
+[src/include/libpq/libpq-be-fe-helpers.h:334-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L334-L385)
 
 ## Overview
 Performs the equivalent of PQgetResult() while watching for interrupts and processing them appropriately during result retrieval.

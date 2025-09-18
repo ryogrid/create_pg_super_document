@@ -1,7 +1,7 @@
 # mcelem_array_contain_overlap_selec
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 521 - 695
+[src/backend/utils/adt/array_selfuncs.c:521-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L521-L695)
 
 ## Overview
 Estimates selectivity for array containment (@>) and overlap (&&) operators based on most common element statistics, assuming independent element occurrences.

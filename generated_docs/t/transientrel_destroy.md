@@ -1,7 +1,7 @@
 # transientrel_destroy
 
 ## Location
-src/backend/commands/matview.c: 537 - 553
+[src/backend/commands/matview.c:537-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L537-L553)
 
 ## Overview
 transientrel_destroy is a cleanup callback function that deallocates the DestReceiver object used for transient relation operations.

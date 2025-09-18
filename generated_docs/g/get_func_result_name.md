@@ -1,7 +1,7 @@
 # get_func_result_name
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1607 - 1704
+[src/backend/utils/fmgr/funcapi.c:1607-1704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1607-L1704)
 
 ## Overview
 Retrieves the name of a function's single named output parameter, used to determine default column names for scalar function results.

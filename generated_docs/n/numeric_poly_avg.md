@@ -1,7 +1,7 @@
 # numeric_poly_avg
 
 ## Location
-src/backend/utils/adt/numeric.c: 6114 - 6143
+[src/backend/utils/adt/numeric.c:6114-6143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6114-L6143)
 
 ## Overview
 Final function for polymorphic average aggregate operations that computes the final average result by dividing the accumulated sum by the count.

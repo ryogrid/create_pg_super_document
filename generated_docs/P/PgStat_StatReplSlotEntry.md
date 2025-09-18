@@ -1,7 +1,7 @@
 # PgStat_StatReplSlotEntry
 
 ## Location
-src/include/pgstat.h: 367 - 378
+[src/include/pgstat.h:367-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L367-L378)
 
 ## Overview
 PgStat_StatReplSlotEntry is a structure that tracks statistics for logical replication slots in PostgreSQL, monitoring data spilling, streaming operations, and overall transaction processing metrics.

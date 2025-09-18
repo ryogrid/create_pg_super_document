@@ -1,7 +1,7 @@
 # transformJsonTableColumn
 
 ## Location
-src/backend/parser/parse_jsontable.c: 399 - 453
+[src/backend/parser/parse_jsontable.c:399-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L399-L453)
 
 ## Overview
 Transforms a JSON_TABLE column definition into a JsonFuncExpr node, converting regular columns to JSON_VALUE(), FORMAT JSON columns to JSON_QUERY(), and EXISTS columns to JSON_EXISTS().

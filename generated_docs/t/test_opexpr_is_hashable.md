@@ -1,7 +1,7 @@
 # test_opexpr_is_hashable
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 792 - 831
+[src/backend/optimizer/plan/subselect.c:792-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L792-L831)
 
 ## Overview
 Tests whether an OpExpr can be used for hash-based subplan execution by checking if the operator is hashable and the operands are properly structured for outer/inner query relationships.

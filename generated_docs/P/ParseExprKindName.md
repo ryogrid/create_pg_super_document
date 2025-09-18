@@ -1,7 +1,7 @@
 # ParseExprKindName
 
 ## Location
-src/backend/parser/parse_expr.c: 3121 - 3226
+[src/backend/parser/parse_expr.c:3121-3226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3121-L3226)
 
 ## Overview
 Returns a human-readable string description for a ParseExprKind enumeration value, primarily used for error reporting and debugging.

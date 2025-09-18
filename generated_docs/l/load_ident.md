@@ -1,7 +1,7 @@
 # load_ident
 
 ## Location
-src/backend/libpq/hba.c: 2959 - 3047
+[src/backend/libpq/hba.c:2959-3047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2959-L3047)
 
 ## Overview
 Reads and parses the PostgreSQL ident configuration file to create a list of IdentLine records that define user name mapping rules for authentication.

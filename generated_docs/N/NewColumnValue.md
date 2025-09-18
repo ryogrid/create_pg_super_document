@@ -1,7 +1,7 @@
 # NewColumnValue
 
 ## Location
-src/backend/commands/tablecmds.c: 231 - 237
+[src/backend/commands/tablecmds.c:231-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L231-L237)
 
 ## Overview
 NewColumnValue is a structure used during PostgreSQL's ALTER TABLE operations to represent column values that need to be computed during the Phase 3 table rewrite. It handles both new columns with defaults and columns undergoing type changes.

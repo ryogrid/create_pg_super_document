@@ -1,7 +1,7 @@
 # RemoveGXact
 
 ## Location
-src/backend/access/transam/twophase.c: 628 - 665
+[src/backend/access/transam/twophase.c:628-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L628-L665)
 
 ## Overview
 RemoveGXact removes a prepared transaction from the shared memory array and returns it to the freelist for reuse.

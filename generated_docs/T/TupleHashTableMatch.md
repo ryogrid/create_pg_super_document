@@ -1,7 +1,7 @@
 # TupleHashTableMatch
 
 ## Location
-src/backend/executor/execGrouping.c: 535 - 558
+[src/backend/executor/execGrouping.c:535-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L535-L558)
 
 ## Overview
 Hash table comparison function that determines whether two tuples with the same hash value are actually equal by performing a detailed tuple comparison.

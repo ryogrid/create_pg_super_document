@@ -1,7 +1,7 @@
 # TransactionIdInArray
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5303 - 5312
+[src/backend/replication/logical/reorderbuffer.c:5303-5312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5303-L5312)
 
 ## Overview
 Efficiently searches for a transaction ID within a pre-sorted array using binary search to determine transaction visibility for PostgreSQL's MVCC system.

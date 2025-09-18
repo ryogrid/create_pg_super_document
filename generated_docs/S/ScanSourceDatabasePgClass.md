@@ -1,7 +1,7 @@
 # ScanSourceDatabasePgClass
 
 ## Location
-src/backend/commands/dbcommands.c: 250 - 327
+[src/backend/commands/dbcommands.c:250-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L250-L327)
 
 ## Overview
 ScanSourceDatabasePgClass scans the pg_class system catalog table in a source database to identify all relations that need to be copied to the destination database during database creation.

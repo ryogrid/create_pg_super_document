@@ -1,7 +1,7 @@
 # bbsink_lz4_begin_backup
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 93 - 131
+[src/backend/backup/basebackup_lz4.c:93-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L93-L131)
 
 ## Overview
 Initializes the LZ4 compression sink for beginning a base backup operation, setting up compression preferences and buffer allocations.

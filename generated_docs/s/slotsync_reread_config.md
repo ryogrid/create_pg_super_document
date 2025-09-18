@@ -1,7 +1,7 @@
 # slotsync_reread_config
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1106 - 1154
+[src/backend/replication/logical/slotsync.c:1106-1154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1106-L1154)
 
 ## Overview
 Handles configuration file reloading for the slot synchronization worker process, exiting appropriately when critical parameters change.

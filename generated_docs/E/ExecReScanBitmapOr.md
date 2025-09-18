@@ -1,7 +1,7 @@
 # ExecReScanBitmapOr
 
 ## Location
-src/backend/executor/nodeBitmapOr.c: 219 - 241
+[src/backend/executor/nodeBitmapOr.c:219-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapOr.c#L219-L241)
 
 ## Overview
 ExecReScanBitmapOr handles parameter changes and initiates rescanning of all child subplans when the BitmapOr node needs to be re-executed.

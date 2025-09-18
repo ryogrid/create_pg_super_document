@@ -1,7 +1,7 @@
 # AlenState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 101 - 105
+[src/backend/utils/adt/jsonfuncs.c:101-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L101-L105)
 
 ## Overview
 AlenState is a simple structure that maintains state information for the json_array_length function, which counts the number of elements in a JSON array.

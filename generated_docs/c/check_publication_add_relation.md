@@ -1,7 +1,7 @@
 # check_publication_add_relation
 
 ## Location
-src/backend/catalog/pg_publication.c: 59 - 97
+[src/backend/catalog/pg_publication.c:59-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L59-L97)
 
 ## Overview
 A static validation function that checks if a relation (table) can be added to a publication, throwing appropriate errors if the relation is not suitable for publication.

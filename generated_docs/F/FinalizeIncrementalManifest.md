@@ -1,7 +1,7 @@
 # FinalizeIncrementalManifest
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 229 - 264
+[src/backend/backup/basebackup_incremental.c:229-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L229-L264)
 
 ## Overview
 Completes the processing of incremental backup manifest data by parsing the final buffer chunk and cleaning up associated memory resources.

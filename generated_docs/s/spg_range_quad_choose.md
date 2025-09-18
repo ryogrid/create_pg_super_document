@@ -1,7 +1,7 @@
 # spg_range_quad_choose
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 131 - 185
+[src/backend/utils/adt/rangetypes_spgist.c:131-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L131-L185)
 
 ## Overview
 SP-GiST choose function that determines the appropriate child node path for inserting a new range into the quadtree index structure.

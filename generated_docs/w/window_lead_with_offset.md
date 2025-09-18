@@ -1,7 +1,7 @@
 # window_lead_with_offset
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 627 - 637
+[src/backend/utils/adt/windowfuncs.c:627-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L627-L637)
 
 ## Overview
 The window_lead_with_offset function implements the LEAD window function with an offset parameter, returning the value of a column from a row that is a specified number of positions after the current row within a partition.

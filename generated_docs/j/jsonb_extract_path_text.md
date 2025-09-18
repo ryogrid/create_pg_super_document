@@ -1,7 +1,7 @@
 # jsonb_extract_path_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1492 - 1497
+[src/backend/utils/adt/jsonfuncs.c:1492-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1492-L1497)
 
 ## Overview
 A PostgreSQL function that extracts a JSONB value at a specified path, returning the result as text format.

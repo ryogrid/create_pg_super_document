@@ -1,7 +1,7 @@
 # dataPlaceToPageLeafSplit
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1034 - 1118
+[src/backend/access/gin/gindatapage.c:1034-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1034-L1118)
 
 ## Overview
 dataPlaceToPageLeafSplit reconstructs a disassembled GIN data leaf page into two separate pages when a page split is required, distributing segments between left and right pages according to predefined boundaries.

@@ -1,7 +1,7 @@
 # pg_SSPI_recvauth
 
 ## Location
-src/backend/libpq/auth.c: 1206 - 1492
+[src/backend/libpq/auth.c:1206-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1206-L1492)
 
 ## Overview
 The main server-side function that handles SSPI (Security Support Provider Interface) authentication for PostgreSQL client connections on Windows platforms.

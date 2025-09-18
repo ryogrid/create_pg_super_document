@@ -1,7 +1,7 @@
 # AlterTypeOwnerInternal
 
 ## Location
-src/backend/commands/typecmds.c: 3987 - 4054
+[src/backend/commands/typecmds.c:3987-4054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3987-L4054)
 
 ## Overview
 Core implementation function that performs the actual pg_type catalog modifications for type ownership changes and recursively handles dependent array and multirange types.

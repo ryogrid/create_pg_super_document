@@ -1,7 +1,7 @@
 # parse
 
 ## Location
-src/tools/pg_bsd_indent/parse.c: 49 - 259
+[src/tools/pg_bsd_indent/parse.c:49-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/parse.c#L49-L259)
 
 ## Overview
 The parse function is the top-level parser for regular expressions in PostgreSQL's regex engine, handling the parsing of multiple branches connected by the '|' (alternation) operator.

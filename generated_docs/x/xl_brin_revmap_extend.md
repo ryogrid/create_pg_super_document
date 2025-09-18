@@ -1,7 +1,7 @@
 # xl_brin_revmap_extend
 
 ## Location
-src/include/access/brin_xlog.h: 115 - 122
+[src/include/access/brin_xlog.h:115-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_xlog.h#L115-L122)
 
 ## Overview
 A WAL record structure for logging the extension of a BRIN index's revmap (reverse mapping) when additional space is needed to track new heap block ranges.

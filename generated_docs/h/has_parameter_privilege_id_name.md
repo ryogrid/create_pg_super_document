@@ -1,7 +1,7 @@
 # has_parameter_privilege_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4658 - 4675
+[src/backend/utils/adt/acl.c:4658-4675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4658-L4675)
 
 ## Overview
 A PostgreSQL function that checks if a user (identified by role OID) has specific privileges on a parameter, with the parameter name and privilege name as text arguments.

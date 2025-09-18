@@ -1,7 +1,7 @@
 # heapam_relation_needs_toast_table
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2040 - 2087
+[src/backend/access/heap/heapam_handler.c:2040-2087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2040-L2087)
 
 ## Overview
 Determines whether a heap relation requires a TOAST table by analyzing tuple size and the presence of toastable attributes.

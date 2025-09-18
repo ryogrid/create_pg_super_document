@@ -1,7 +1,7 @@
 # array_cat
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 240 - 478
+[src/backend/utils/adt/array_userfuncs.c:240-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L240-L478)
 
 ## Overview
 PostgreSQL function that concatenates two n-dimensional arrays to form an n-dimensional array, or pushes an (n-1)-dimensional array onto the end of an n-dimensional array.

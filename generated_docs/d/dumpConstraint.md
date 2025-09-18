@@ -1,7 +1,7 @@
 # dumpConstraint
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17237 - 17548
+[src/bin/pg_dump/pg_dump.c:17237-17548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17237-L17548)
 
 ## Overview
 Writes out user-defined constraints to the dump archive, handling multiple constraint types including primary keys, unique constraints, foreign keys, and check constraints on both tables and domains.

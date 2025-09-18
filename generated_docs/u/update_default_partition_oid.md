@@ -1,7 +1,7 @@
 # update_default_partition_oid
 
 ## Location
-src/backend/catalog/partition.c: 340 - 369
+[src/backend/catalog/partition.c:340-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L340-L369)
 
 ## Overview
 Updates the default partition OID for a partitioned table by modifying the partdefid field in the pg_partitioned_table system catalog.

@@ -1,7 +1,7 @@
 # WalSndResourceCleanup
 
 ## Location
-src/backend/replication/walsender.c: 366 - 393
+[src/backend/replication/walsender.c:366-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L366-L393)
 
 ## Overview
 WalSndResourceCleanup properly releases and deletes a ResourceOwner that was created by WAL sender processes, ensuring systematic cleanup of all associated resources in the correct order.

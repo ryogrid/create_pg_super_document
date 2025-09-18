@@ -1,7 +1,7 @@
 # heapam_scan_sample_next_tuple
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2396 - 2512
+[src/backend/access/heap/heapam_handler.c:2396-2512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2396-L2512)
 
 ## Overview
 Retrieves the next sampled tuple from the current page during a heap sample scan, applying visibility checks and tuple sampling logic.

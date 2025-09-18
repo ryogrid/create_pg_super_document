@@ -1,7 +1,7 @@
 # local_sync_slot_required
 
 ## Location
-src/backend/replication/logical/slotsync.c: 364 - 416
+[src/backend/replication/logical/slotsync.c:364-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L364-L416)
 
 ## Overview
 Helper function that determines whether a local synchronized slot should be retained by checking if it exists in the remote slots list and validating its invalidation status.

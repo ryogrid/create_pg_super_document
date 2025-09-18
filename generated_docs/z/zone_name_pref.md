@@ -1,7 +1,7 @@
 # zone_name_pref
 
 ## Location
-src/bin/initdb/findtimezone.c: 615 - 656
+[src/bin/initdb/findtimezone.c:615-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L615-L656)
 
 ## Overview
 Determines the preference ranking for timezone names when multiple names provide equally good matches to the system timezone behavior.

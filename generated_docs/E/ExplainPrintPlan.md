@@ -1,7 +1,7 @@
 # ExplainPrintPlan
 
 ## Location
-src/backend/commands/explain.c: 877 - 941
+[src/backend/commands/explain.c:877-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L877-L941)
 
 ## Overview
 ExplainPrintPlan converts a QueryDesc's plan tree into textual representation and handles the core logic of generating EXPLAIN output for the execution plan structure.

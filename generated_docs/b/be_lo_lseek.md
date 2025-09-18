@@ -1,7 +1,7 @@
 # be_lo_lseek
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 206 - 230
+[src/backend/libpq/be-fsstubs.c:206-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L206-L230)
 
 ## Overview
 Seeks to a specific position within a PostgreSQL large object, similar to the standard C library lseek function, and returns the new absolute position.

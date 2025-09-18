@@ -1,7 +1,7 @@
 # pg_get_triggerdef_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 865 - 879
+[src/backend/utils/adt/ruleutils.c:865-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L865-L879)
 
 ## Overview
 A SQL-callable function that returns the complete CREATE TRIGGER statement for a given trigger OID with formatting options.

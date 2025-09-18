@@ -1,7 +1,7 @@
 # transformFromClause
 
 ## Location
-src/backend/parser/parse_clause.c: 114 - 179
+[src/backend/parser/parse_clause.c:114-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L114-L179)
 
 ## Overview
 Processes the FROM clause of SQL queries by transforming each FROM clause item and adding them to the query's range table, join list, and namespace for proper parsing and execution.

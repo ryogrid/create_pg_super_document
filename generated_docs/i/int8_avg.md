@@ -1,7 +1,7 @@
 # int8_avg
 
 ## Location
-src/backend/utils/adt/numeric.c: 6816 - 6842
+[src/backend/utils/adt/numeric.c:6816-6842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6816-L6842)
 
 ## Overview
 Computes the average of integer values by performing division of the accumulated sum by the count from an Int8TransTypeData transition array.

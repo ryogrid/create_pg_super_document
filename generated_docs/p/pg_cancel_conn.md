@@ -1,7 +1,7 @@
 # pg_cancel_conn
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 31 - 39
+[src/interfaces/libpq/fe-cancel.c:31-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L31-L39)
 
 ## Overview
 The pg_cancel_conn structure serves as a wrapper around a PGconn to send query cancellations using PQcancelBlocking and PQcancelStart functions, providing type safety by preventing accidental interchange with regular PGconn pointers.

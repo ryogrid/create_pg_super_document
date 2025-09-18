@@ -1,7 +1,7 @@
 # pqSaveWriteError
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 820 - 850
+[src/interfaces/libpq/fe-exec.c:820-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L820-L850)
 
 ## Overview
 pqSaveWriteError is an internal libpq function that reports write failures by appending write error messages to the connection's error buffer and marking the connection as having an error condition.

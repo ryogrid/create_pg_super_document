@@ -1,7 +1,7 @@
 # list_member_int
 
 ## Location
-src/backend/nodes/list.c: 702 - 721
+[src/backend/nodes/list.c:702-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L702-L721)
 
 ## Overview
 Tests whether a given integer value is a member of an integer list using direct integer comparison for equality determination.

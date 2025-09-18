@@ -1,7 +1,7 @@
 # exprSetInputCollation
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1316 - 1379
+[src/backend/nodes/nodeFuncs.c:1316-1379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1316-L1379)
 
 ## Overview
 Assigns input collation information to expression tree nodes that support input collation, used during parse analysis for collation-sensitive operations.

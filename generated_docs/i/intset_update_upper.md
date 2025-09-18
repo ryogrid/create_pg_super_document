@@ -1,7 +1,7 @@
 # intset_update_upper
 
 ## Location
-src/backend/lib/integerset.c: 481 - 553
+[src/backend/lib/integerset.c:481-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L481-L553)
 
 ## Overview
 A recursive static function that manages the insertion of downlinks into parent nodes of the IntegerSet B-tree, handling node splits and tree growth as necessary.

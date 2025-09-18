@@ -1,7 +1,7 @@
 # XLogBeginInsert
 
 ## Location
-src/backend/access/transam/xloginsert.c: 149 - 174
+[src/backend/access/transam/xloginsert.c:149-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L149-L174)
 
 ## Overview
 XLogBeginInsert initializes the WAL record construction process and must be called before any XLogRegister* functions and XLogInsert().

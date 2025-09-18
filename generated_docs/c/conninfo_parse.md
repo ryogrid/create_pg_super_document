@@ -1,7 +1,7 @@
 # conninfo_parse
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5853 - 6028
+[src/interfaces/libpq/fe-connect.c:5853-6028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5853-L6028)
 
 ## Overview
 Parses a PostgreSQL connection string containing key=value pairs and returns a structured array of connection options.

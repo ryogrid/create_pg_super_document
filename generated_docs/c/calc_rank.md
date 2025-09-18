@@ -1,7 +1,7 @@
 # calc_rank
 
 ## Location
-src/backend/utils/adt/tsrank.c: 357 - 399
+[src/backend/utils/adt/tsrank.c:357-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L357-L399)
 
 ## Overview
 Main ranking function that determines the appropriate ranking algorithm (AND or OR) and applies various normalization methods to compute the final text search relevance score.

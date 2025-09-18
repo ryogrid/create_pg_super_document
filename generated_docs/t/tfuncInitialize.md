@@ -1,7 +1,7 @@
 # tfuncInitialize
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 340 - 434
+[src/backend/executor/nodeTableFuncscan.c:340-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L340-L434)
 
 ## Overview
 This static function initializes a table function builder context by setting up the document, namespace declarations, row filters, and column filters for table functions like XMLTABLE or JSON_TABLE.

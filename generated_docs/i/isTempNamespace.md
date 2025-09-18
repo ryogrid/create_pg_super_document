@@ -1,7 +1,7 @@
 # isTempNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3649 - 3660
+[src/backend/catalog/namespace.c:3649-3660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3649-L3660)
 
 ## Overview
 Determines whether a given namespace OID corresponds to the current session's temporary table namespace.

@@ -1,7 +1,7 @@
 # RelInfo
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 145 - 150
+[src/bin/pg_upgrade/pg_upgrade.h:145-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L145-L150)
 
 ## Overview
 RelInfo is a structure that stores metadata information for a PostgreSQL relation (table, index, or toast table) used during the pg_upgrade process to map relations between old and new clusters.

@@ -1,7 +1,7 @@
 # remap_groupColIdx
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2355 - 2392
+[src/backend/optimizer/plan/createplan.c:2355-2392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2355-L2392)
 
 ## Overview
 Maps target list entry references in a group clause to actual column positions in the input tuple using the planner's grouping map.

@@ -1,7 +1,7 @@
 # dtcurrent
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 612 - 617
+[src/interfaces/ecpg/compatlib/informix.c:612-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L612-L617)
 
 ## Overview
 The dtcurrent function obtains the current timestamp and stores it in the provided timestamp variable. It serves as a compatibility wrapper for Informix ESQL/C applications.

@@ -1,7 +1,7 @@
 # IsBinaryCoercibleWithCast
 
 ## Location
-src/backend/parser/parse_coerce.c: 3047 - 3154
+[src/backend/parser/parse_coerce.c:3047-3154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3047-L3154)
 
 ## Overview
 Extended variant of IsBinaryCoercible that also returns the OID of the pg_cast entry when determining if a source type can be binary-coercible to a target type.

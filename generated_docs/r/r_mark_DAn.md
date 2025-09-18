@@ -1,7 +1,7 @@
 # r_mark_DAn
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 742 - 750
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:742-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L742-L750)
 
 ## Overview
 A static function in the Turkish snowball stemmer that checks for the accusative case suffix "DAn" while ensuring vowel harmony compliance.

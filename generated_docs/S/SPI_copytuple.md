@@ -1,7 +1,7 @@
 # SPI_copytuple
 
 ## Location
-src/backend/executor/spi.c: 1047 - 1073
+[src/backend/executor/spi.c:1047-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1047-L1073)
 
 ## Overview
 Creates a copy of a HeapTuple in the SPI procedures saved memory context, allowing the tuple to persist beyond the current query execution context.

@@ -1,7 +1,7 @@
 # pgoutput_pubctx_reset_callback
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 425 - 433
+[src/backend/replication/pgoutput/pgoutput.c:425-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L425-L433)
 
 ## Overview
 A static callback function responsible for cleaning up the global publication context when the memory context is reset.

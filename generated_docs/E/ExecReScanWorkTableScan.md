@@ -1,7 +1,7 @@
 # ExecReScanWorkTableScan
 
 ## Location
-src/backend/executor/nodeWorktablescan.c: 191 - 201
+[src/backend/executor/nodeWorktablescan.c:191-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWorktablescan.c#L191-L201)
 
 ## Overview  
 ExecReScanWorkTableScan resets a worktable scan to restart from the beginning, clearing any cached state and repositioning the tuplestore scan to the start.

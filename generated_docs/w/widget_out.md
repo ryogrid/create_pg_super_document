@@ -1,7 +1,7 @@
 # widget_out
 
 ## Location
-src/test/regress/regress.c: 205 - 216
+[src/test/regress/regress.c:205-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L205-L216)
 
 ## Overview
 The widget_out function is an output function for the custom WIDGET data type, converting internal WIDGET structures into their string representations in PostgreSQL's regression testing framework.

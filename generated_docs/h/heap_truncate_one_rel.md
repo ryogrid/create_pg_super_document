@@ -1,7 +1,7 @@
 # heap_truncate_one_rel
 
 ## Location
-src/backend/catalog/heap.c: 3110 - 3153
+[src/backend/catalog/heap.c:3110-3153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3110-L3153)
 
 ## Overview
 heap_truncate_one_rel deletes all data within a single specified relation, including its indexes and associated TOAST table if present.

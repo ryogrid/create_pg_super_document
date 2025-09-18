@@ -1,7 +1,7 @@
 # r_verb
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 474 - 505
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:474-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L474-L505)
 
 ## Overview
 The r_verb function removes verbal endings from Russian words during the stemming process in the KOI8-R encoding variant of the Snowball Russian stemmer.

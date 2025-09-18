@@ -1,7 +1,7 @@
 # SharedRecordTableEntry
 
 ## Location
-src/backend/utils/cache/typcache.c: 196 - 199
+[src/backend/utils/cache/typcache.c:196-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L196-L199)
 
 ## Overview
 SharedRecordTableEntry is a structure used in PostgreSQL's type cache system to represent shared record table entries that enable lookup of typmod values using TupleDesc structures that may reside in either local or shared memory.

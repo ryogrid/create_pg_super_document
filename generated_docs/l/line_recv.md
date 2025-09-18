@@ -1,7 +1,7 @@
 # line_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1038 - 1060
+[src/backend/utils/adt/geo_ops.c:1038-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1038-L1060)
 
 ## Overview
 Converts external binary format to the internal LINE data structure. This function serves as the binary input function for the PostgreSQL line data type.

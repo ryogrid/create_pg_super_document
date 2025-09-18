@@ -1,7 +1,7 @@
 # itmin2interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2115 - 2127
+[src/backend/utils/adt/timestamp.c:2115-2127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2115-L2127)
 
 ## Overview
 Converts a pg_itm_in input structure to a PostgreSQL Interval data type, with special handling for infinite intervals and compatibility with pre-17 database formats.

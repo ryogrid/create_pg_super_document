@@ -1,7 +1,7 @@
 # StandbyTimeoutHandler
 
 ## Location
-src/backend/storage/ipc/standby.c: 944 - 952
+[src/backend/storage/ipc/standby.c:944-952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L944-L952)
 
 ## Overview
 StandbyTimeoutHandler is a signal handler function that sets a flag when the standby timeout period is exceeded during hot standby operations.

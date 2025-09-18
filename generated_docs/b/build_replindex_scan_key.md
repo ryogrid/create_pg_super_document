@@ -1,7 +1,7 @@
 # build_replindex_scan_key
 
 ## Location
-src/backend/executor/execReplication.c: 96 - 175
+[src/backend/executor/execReplication.c:96-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L96-L175)
 
 ## Overview
 Constructs a ScanKey array for searching a relation using an index, specifically designed for replication identity operations including primary keys, replica identity, and REPLICA IDENTITY FULL indexes.

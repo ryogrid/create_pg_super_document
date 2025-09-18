@@ -1,7 +1,7 @@
 # ReplicationSlotCleanup
 
 ## Location
-src/backend/replication/slot.c: 745 - 783
+[src/backend/replication/slot.c:745-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L745-L783)
 
 ## Overview
 Cleans up temporary replication slots created in the current session, with an option to clean up only synced temporary slots or all temporary slots.

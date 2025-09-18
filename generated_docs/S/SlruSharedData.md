@@ -1,7 +1,7 @@
 # SlruSharedData
 
 ## Location
-src/include/access/slru.h: 61 - 119
+[src/include/access/slru.h:61-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/slru.h#L61-L119)
 
 ## Overview
 SlruSharedData is a shared-memory structure that maintains the complete state information for PostgreSQL's Simple LRU (SLRU) buffer management system, including buffer metadata, locking mechanisms, and statistical tracking.

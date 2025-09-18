@@ -1,7 +1,7 @@
 # ParallelAppendState
 
 ## Location
-src/backend/executor/nodeAppend.c: 69 - 82
+[src/backend/executor/nodeAppend.c:69-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L69-L82)
 
 ## Overview
 ParallelAppendState is a shared state structure used for coordinating parallel execution in parallel-aware Append nodes, providing synchronization mechanisms for multiple worker processes to select and execute subplans.

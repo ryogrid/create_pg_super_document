@@ -1,7 +1,7 @@
 # ATPrepSetNotNull
 
 ## Location
-src/backend/commands/tablecmds.c: 7691 - 7759
+[src/backend/commands/tablecmds.c:7691-7759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7691-L7759)
 
 ## Overview
 ATPrepSetNotNull is a preparation phase function for the ALTER TABLE ALTER COLUMN SET NOT NULL command, handling recursion logic and optimization for partitioned tables before the actual constraint enforcement.

@@ -1,7 +1,7 @@
 # dlist_delete
 
 ## Location
-src/include/lib/ilist.h: 405 - 415
+[src/include/lib/ilist.h:405-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L405-L415)
 
 ## Overview
 Removes a node from its doubly-linked list by updating the neighboring nodes' pointers to bypass the removed node.

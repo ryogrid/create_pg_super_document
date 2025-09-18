@@ -1,7 +1,7 @@
 # MemoizeHash_equal
 
 ## Location
-src/backend/executor/nodeMemoize.c: 221 - 282
+[src/backend/executor/nodeMemoize.c:221-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L221-L282)
 
 ## Overview
 Equality function for confirming hash value matches during hash table lookups in the Memoize executor node, comparing cached tuple keys with probe values.

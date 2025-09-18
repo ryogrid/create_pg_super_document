@@ -1,7 +1,7 @@
 # get_parallel_object_list
 
 ## Location
-src/bin/scripts/reindexdb.c: 636 - 819
+[src/bin/scripts/reindexdb.c:636-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/reindexdb.c#L636-L819)
 
 ## Overview
 Queries the database catalogs to build lists of objects (tables, schemas, indexes) suitable for parallel reindex operations.

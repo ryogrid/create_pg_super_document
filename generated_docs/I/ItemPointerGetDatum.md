@@ -1,7 +1,7 @@
 # ItemPointerGetDatum
 
 ## Location
-src/include/storage/itemptr.h: 237 - 241
+[src/include/storage/itemptr.h:237-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L237-L241)
 
 ## Overview
 Converts an ItemPointer to a PostgreSQL Datum value, used in the function call interface for returning ItemPointer values.

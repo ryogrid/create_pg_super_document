@@ -1,7 +1,7 @@
 # ttinfo
 
 ## Location
-src/timezone/pgtz.h: 26 - 34
+[src/timezone/pgtz.h:26-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.h#L26-L34)
 
 ## Overview
 The ttinfo struct represents time type information for timezone transitions, storing offset data and characteristics for specific timezone states.

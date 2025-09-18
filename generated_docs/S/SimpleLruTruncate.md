@@ -1,7 +1,7 @@
 # SimpleLruTruncate
 
 ## Location
-src/backend/access/transam/slru.c: 1405 - 1499
+[src/backend/access/transam/slru.c:1405-1499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1405-L1499)
 
 ## Overview
 Removes all segments before the one holding the specified cutoff page number, safely truncating old SLRU data while handling concurrent access and I/O operations.

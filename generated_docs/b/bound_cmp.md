@@ -1,7 +1,7 @@
 # bound_cmp
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 186 - 199
+[src/backend/utils/adt/rangetypes_spgist.c:186-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L186-L199)
 
 ## Overview
 Comparison function for sorting range bounds, used as a callback for qsort operations in SP-GiST range quadtree splitting.

@@ -1,7 +1,7 @@
 # array_to_text
 
 ## Location
-src/backend/utils/adt/varlena.c: 4766 - 4781
+[src/backend/utils/adt/varlena.c:4766-4781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4766-L4781)
 
 ## Overview
 PostgreSQL built-in function that concatenates array elements into a single text string using a specified field separator.

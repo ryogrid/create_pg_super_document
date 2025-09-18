@@ -1,7 +1,7 @@
 # tsvector_setweight
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 211 - 272
+[src/backend/utils/adt/tsvector_op.c:211-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L211-L272)
 
 ## Overview
 PostgreSQL function that sets the weight for all positional entries in a TSVector to a specified weight class (A, B, C, or D).

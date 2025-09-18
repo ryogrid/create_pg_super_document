@@ -1,7 +1,7 @@
 # dumpIndex
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 16966 - 17116
+[src/bin/pg_dump/pg_dump.c:16966-17116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L16966-L17116)
 
 ## Overview
 Writes out a user-defined index to the dump archive, handling both standalone indexes and constraint-associated indexes with appropriate SQL generation and metadata handling.

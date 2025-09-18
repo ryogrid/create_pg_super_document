@@ -1,7 +1,7 @@
 # WithCheckOption
 
 ## Location
-src/include/nodes/parsenodes.h: 1368 - 1376
+[src/include/nodes/parsenodes.h:1368-1376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1368-L1376)
 
 ## Overview
 WithCheckOption represents a WITH CHECK OPTION constraint used in views and Row Level Security (RLS) policies to enforce data validation during INSERT and UPDATE operations.

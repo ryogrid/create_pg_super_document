@@ -1,7 +1,7 @@
 # IPCompareMethod
 
 ## Location
-src/include/libpq/hba.h: 55 - 56
+[src/include/libpq/hba.h:55-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L55-L56)
 
 ## Overview
 IPCompareMethod is an enumeration that defines different methods for comparing IP addresses in PostgreSQL's host-based authentication (HBA) system.

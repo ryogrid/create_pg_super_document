@@ -1,7 +1,7 @@
 # filter_free
 
 ## Location
-src/bin/pg_dump/filter.c: 61 - 82
+[src/bin/pg_dump/filter.c:61-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/filter.c#L61-L82)
 
 ## Overview
 Releases allocated resources and properly closes files associated with a filter state structure.

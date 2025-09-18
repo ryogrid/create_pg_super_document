@@ -1,7 +1,7 @@
 # regress_setenv
 
 ## Location
-src/test/regress/regress.c: 674 - 691
+[src/test/regress/regress.c:674-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L674-L691)
 
 ## Overview
 A PostgreSQL regression test function that allows setting environment variables during testing, restricted to superusers only for security purposes.

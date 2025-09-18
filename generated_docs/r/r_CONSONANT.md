@@ -1,7 +1,7 @@
 # r_CONSONANT
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hindi.c: 297 - 301
+[src/backend/snowball/libstemmer/stem_UTF_8_hindi.c:297-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hindi.c#L297-L301)
 
 ## Overview
 A static function in the Hindi stemmer that checks if the current cursor position is at a consonant character in the Devanagari Unicode range.

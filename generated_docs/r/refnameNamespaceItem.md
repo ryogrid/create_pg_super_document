@@ -1,7 +1,7 @@
 # refnameNamespaceItem
 
 ## Location
-src/backend/parser/parse_relation.c: 129 - 199
+[src/backend/parser/parse_relation.c:129-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L129-L199)
 
 ## Overview
 Searches for a namespace item (table, view, CTE, etc.) that matches a given reference name, supporting both qualified and unqualified names across nested parsing contexts.

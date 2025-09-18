@@ -1,7 +1,7 @@
 # XLogWrite
 
 ## Location
-src/backend/access/transam/xlog.c: 2297 - 2613
+[src/backend/access/transam/xlog.c:2297-2613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2297-L2613)
 
 ## Overview
 Core function responsible for writing WAL (Write-Ahead Log) data from memory buffers to disk files, with optional fsync operations, segment management, and checkpoint triggering.

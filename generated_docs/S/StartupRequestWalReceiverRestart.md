@@ -1,7 +1,7 @@
 # StartupRequestWalReceiverRestart
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4376 - 4394
+[src/backend/access/transam/xlogrecovery.c:4376-4394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4376-L4394)
 
 ## Overview
 Signals the WAL receiver process to restart when called by the startup process upon detecting relevant configuration changes.

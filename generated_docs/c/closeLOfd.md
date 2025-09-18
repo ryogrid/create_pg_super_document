@@ -1,7 +1,7 @@
 # closeLOfd
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 716 - 740
+[src/backend/libpq/be-fsstubs.c:716-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L716-L740)
 
 ## Overview
 Safely closes a large object file descriptor by cleaning up associated resources including snapshots and invoking the low-level close operation.

@@ -1,7 +1,7 @@
 # bool_alltrue
 
 ## Location
-src/backend/utils/adt/bool.c: 370 - 384
+[src/backend/utils/adt/bool.c:370-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L370-L384)
 
 ## Overview
 Final function for the EVERY/ALL boolean aggregate, returning true only if all non-null input values were true.

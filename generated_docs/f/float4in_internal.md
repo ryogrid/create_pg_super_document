@@ -1,7 +1,7 @@
 # float4in_internal
 
 ## Location
-src/backend/utils/adt/float.c: 176 - 311
+[src/backend/utils/adt/float.c:176-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L176-L311)
 
 ## Overview
 Internal function that provides the core logic for parsing string representations into single-precision floating-point values (float4) with platform-independent behavior and comprehensive error handling.

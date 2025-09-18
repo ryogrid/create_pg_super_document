@@ -1,7 +1,7 @@
 # check_log_timezone
 
 ## Location
-src/backend/commands/variable.c: 416 - 453
+[src/backend/commands/variable.c:416-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L416-L453)
 
 ## Overview
 This is a GUC check hook function that validates timezone strings for the log_timezone configuration parameter in PostgreSQL.

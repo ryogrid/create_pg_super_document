@@ -1,7 +1,7 @@
 # gin_extract_jsonb_path
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1090 - 1179
+[src/backend/utils/adt/jsonb_gin.c:1090-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1090-L1179)
 
 ## Overview
 The value extraction function for the jsonb_path_ops GIN opclass that generates hash-based index entries incorporating both JSON values and their hierarchical key paths.

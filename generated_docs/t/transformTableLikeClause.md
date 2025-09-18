@@ -1,7 +1,7 @@
 # transformTableLikeClause
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 980 - 1168
+[src/backend/parser/parse_utilcmd.c:980-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L980-L1168)
 
 ## Overview
 Processes LIKE clauses in CREATE TABLE statements, copying column definitions and optionally other attributes from an existing table or view to the new table being created.

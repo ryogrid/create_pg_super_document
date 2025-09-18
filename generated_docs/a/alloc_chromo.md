@@ -1,7 +1,7 @@
 # alloc_chromo
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 162 - 175
+[src/backend/optimizer/geqo/geqo_pool.c:162-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L162-L175)
 
 ## Overview
 The  function allocates memory for a new chromosome structure and its associated gene string space in PostgreSQL's Genetic Query Optimizer (GEQO).

@@ -1,7 +1,7 @@
 # create_final_distinct_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5099 - 5305
+[src/backend/optimizer/plan/planner.c:5099-5305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5099-L5305)
 
 ## Overview
 Creates final distinct paths by implementing both sort-based and hash-based DISTINCT operations, optimizing for various scenarios including DISTINCT ON and handling pathkey requirements.

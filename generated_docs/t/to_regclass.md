@@ -1,7 +1,7 @@
 # to_regclass
 
 ## Location
-src/backend/utils/adt/regproc.c: 925 - 942
+[src/backend/utils/adt/regproc.c:925-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L925-L942)
 
 ## Overview
 Converts a class name to class OID with NULL return on failure, providing a safe alternative to regclass input conversion.

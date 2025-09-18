@@ -1,7 +1,7 @@
 # cleanup_subxact_info
 
 ## Location
-src/backend/replication/logical/worker.c: 4401 - 4417
+[src/backend/replication/logical/worker.c:4401-4417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4401-L4417)
 
 ## Overview
 A static inline function that cleans up memory allocated for subtransaction information and resets related variables in logical replication workers.

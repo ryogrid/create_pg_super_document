@@ -1,7 +1,7 @@
 # varcharsend
 
 ## Location
-src/backend/utils/adt/varchar.c: 548 - 564
+[src/backend/utils/adt/varchar.c:548-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L548-L564)
 
 ## Overview
 Converts a VARCHAR value to binary format for transmission, delegating the actual work to the text type's send function.

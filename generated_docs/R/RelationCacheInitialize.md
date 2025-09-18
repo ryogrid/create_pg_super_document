@@ -1,7 +1,7 @@
 # RelationCacheInitialize
 
 ## Location
-src/backend/utils/cache/relcache.c: 3997 - 4042
+[src/backend/utils/cache/relcache.c:3997-4042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3997-L4042)
 
 ## Overview
 RelationCacheInitialize initializes the relation cache system, setting up the hash table for storing relation descriptors and allocating necessary data structures.

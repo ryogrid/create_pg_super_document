@@ -1,7 +1,7 @@
 # LockAcquire
 
 ## Location
-src/backend/storage/lmgr/lock.c: 756 - 779
+[src/backend/storage/lmgr/lock.c:756-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L756-L779)
 
 ## Overview
 LockAcquire is the primary entry point for acquiring locks in PostgreSQL, providing a simplified interface that delegates to LockAcquireExtended for the actual lock acquisition logic.

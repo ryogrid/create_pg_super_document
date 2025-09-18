@@ -1,7 +1,7 @@
 # multirange_intersect_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1260 - 1339
+[src/backend/utils/adt/multirangetypes.c:1260-1339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1260-L1339)
 
 ## Overview
 The core internal function that implements the intersection algorithm for two multiranges, computing overlapping portions between all ranges in both multiranges.

@@ -1,7 +1,7 @@
 # ResetCatalogCaches
 
 ## Location
-src/backend/utils/cache/catcache.c: 798 - 803
+[src/backend/utils/cache/catcache.c:798-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L798-L803)
 
 ## Overview
 Resets all catalog caches when a shared cache invalidation event forces it, serving as a simple wrapper function.

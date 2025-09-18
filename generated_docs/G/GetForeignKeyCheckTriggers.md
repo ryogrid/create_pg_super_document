@@ -1,7 +1,7 @@
 # GetForeignKeyCheckTriggers
 
 ## Location
-src/backend/commands/tablecmds.c: 11350 - 11415
+[src/backend/commands/tablecmds.c:11350-11415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11350-L11415)
 
 ## Overview
 GetForeignKeyCheckTriggers retrieves the insert and update check triggers associated with a foreign key constraint on the referencing (foreign key) side.

@@ -1,7 +1,7 @@
 # timestamp2tm
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1901 - 1996
+[src/backend/utils/adt/timestamp.c:1901-1996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1901-L1996)
 
 ## Overview
 Converts a PostgreSQL timestamp data type to a POSIX time structure (struct pg_tm), handling timezone conversion and time component extraction.

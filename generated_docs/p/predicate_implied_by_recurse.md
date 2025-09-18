@@ -1,7 +1,7 @@
 # predicate_implied_by_recurse
 
 ## Location
-src/backend/optimizer/util/predtest.c: 290 - 530
+[src/backend/optimizer/util/predtest.c:290-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L290-L530)
 
 ## Overview
 Recursively performs the core logical implication testing between clauses and predicates using comprehensive case analysis of AND/OR expression structures.

@@ -1,7 +1,7 @@
 # initDropTables
 
 ## Location
-src/bin/pgbench/pgbench.c: 4732 - 4753
+[src/bin/pgbench/pgbench.c:4732-4753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4732-L4753)
 
 ## Overview
 Removes existing pgbench tables from the database before initializing new ones, ensuring a clean state for benchmark operations.

@@ -1,7 +1,7 @@
 # xl_testcustomrmgrs_message
 
 ## Location
-src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c: 32 - 36
+[src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c:32-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c#L32-L36)
 
 ## Overview
 A struct that defines the format of WAL records for the test custom resource manager, containing a message size field and a flexible array member for the actual message payload.

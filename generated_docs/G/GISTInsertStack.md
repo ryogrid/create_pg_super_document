@@ -1,7 +1,7 @@
 # GISTInsertStack
 
 ## Location
-src/include/access/gist_private.h: 207 - 232
+[src/include/access/gist_private.h:207-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L207-L232)
 
 ## Overview
 GISTInsertStack is a structure used during GiST index insertions to maintain a stack of pages from root to leaf, tracking buffer locks and managing the descent path for tuple insertion and potential page splits.

@@ -1,7 +1,7 @@
 # _hash_initbitmapbuffer
 
 ## Location
-src/backend/access/hash/hashovfl.c: 777 - 841
+[src/backend/access/hash/hashovfl.c:777-841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L777-L841)
 
 ## Overview
 Initializes a new bitmap page in the PostgreSQL hash index, setting all bits to "1" to indicate that all corresponding overflow pages are "in use".

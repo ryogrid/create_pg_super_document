@@ -1,7 +1,7 @@
 # fasthash_final32
 
 ## Location
-src/include/common/hashfn_unstable.h: 348 - 359
+[src/include/common/hashfn_unstable.h:348-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L348-L359)
 
 ## Overview
 A composite finalizer function that produces a 32-bit hash value by combining the 64-bit finalization process with intelligent reduction to preserve hash quality.

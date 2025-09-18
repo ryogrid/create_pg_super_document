@@ -1,7 +1,7 @@
 # compare
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 145 - 161
+[src/backend/optimizer/geqo/geqo_pool.c:145-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L145-L161)
 
 ## Overview
 A static comparison function used by qsort to compare two Chromosome structures based on their fitness values (worth) for sorting genetic algorithm pools.

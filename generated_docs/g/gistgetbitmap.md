@@ -1,7 +1,7 @@
 # gistgetbitmap
 
 ## Location
-src/backend/access/gist/gistget.c: 743 - 792
+[src/backend/access/gist/gistget.c:743-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L743-L792)
 
 ## Overview
 gistgetbitmap performs a bitmap index scan on a GiST index, collecting all matching heap tuple locations into a TID bitmap for efficient batch retrieval.

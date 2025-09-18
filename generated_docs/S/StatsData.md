@@ -1,7 +1,7 @@
 # StatsData
 
 ## Location
-src/bin/pgbench/pgbench.c: 376 - 443
+[src/bin/pgbench/pgbench.c:376-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L376-L443)
 
 ## Overview
 The StatsData structure is a comprehensive statistics container in pgbench that tracks various transaction execution metrics including successes, failures, retries, and timing information for performance analysis.

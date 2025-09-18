@@ -1,7 +1,7 @@
 # alloc_edge_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 56 - 75
+[src/backend/optimizer/geqo/geqo_erx.c:56-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L56-L75)
 
 ## Overview
 Allocates memory for an edge table used in the GEQO (Genetic Query Optimizer) ERX (Edge Recombination Crossover) algorithm.

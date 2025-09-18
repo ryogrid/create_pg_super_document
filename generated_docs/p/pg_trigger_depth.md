@@ -1,7 +1,7 @@
 # pg_trigger_depth
 
 ## Location
-src/backend/commands/trigger.c: 6680 - 6683
+[src/backend/commands/trigger.c:6680-6683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6680-L6683)
 
 ## Overview
 Returns the current nesting level of PostgreSQL triggers, allowing stored procedures to determine how deeply nested they are within trigger execution.

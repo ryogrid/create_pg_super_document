@@ -1,7 +1,7 @@
 # text_gt
 
 ## Location
-src/backend/utils/adt/varlena.c: 1761 - 1775
+[src/backend/utils/adt/varlena.c:1761-1775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1761-L1775)
 
 ## Overview
 A PostgreSQL function that implements the "greater than" comparison operator (>) for the text data type, returning true if the first text argument is lexicographically greater than the second.

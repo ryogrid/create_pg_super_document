@@ -1,7 +1,7 @@
 # EventTriggerCollectAlterDefPrivs
 
 ## Location
-src/backend/commands/event_trigger.c: 1897 - 1924
+[src/backend/commands/event_trigger.c:1897-1924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1897-L1924)
 
 ## Overview
 Collects metadata about an ALTER DEFAULT PRIVILEGES command being executed for event trigger processing.

@@ -1,7 +1,7 @@
 # injection_points_attach
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 268 - 309
+[src/test/modules/injection_points/injection_points.c:268-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L268-L309)
 
 ## Overview
 A SQL-callable function that creates and registers injection points with specified actions, enabling dynamic testing point insertion during PostgreSQL execution.

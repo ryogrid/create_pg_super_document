@@ -1,7 +1,7 @@
 # sql_fn_parser_setup
 
 ## Location
-src/backend/executor/functions.c: 265 - 277
+[src/backend/executor/functions.c:265-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L265-L277)
 
 ## Overview
 Sets up parser hooks for parsing a SQL function body by configuring column reference and parameter reference handlers.

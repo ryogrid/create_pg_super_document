@@ -1,7 +1,7 @@
 # mq_flush_if_writable
 
 ## Location
-src/backend/libpq/pqmq.c: 99 - 105
+[src/backend/libpq/pqmq.c:99-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L99-L105)
 
 ## Overview
 A no-op function that serves as a placeholder implementation for the flush_if_writable method in PostgreSQL's shared memory message queue communication interface.

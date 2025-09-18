@@ -1,7 +1,7 @@
 # find_var_for_subquery_tle
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1249 - 1291
+[src/backend/optimizer/path/pathkeys.c:1249-1291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1249-L1291)
 
 ## Overview
 Determines if a subquery target list entry is visible to the outer query and returns the corresponding Var reference if available.

@@ -1,7 +1,7 @@
 # findFkeyCast
 
 ## Location
-src/backend/commands/tablecmds.c: 12183 - 12211
+[src/backend/commands/tablecmds.c:12183-12211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12183-L12211)
 
 ## Overview
 A wrapper function around find_coercion_pathway() specifically designed for foreign key constraint validation that determines if type coercion is possible between source and target types.

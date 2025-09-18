@@ -1,7 +1,7 @@
 # tsquery_and
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 54 - 83
+[src/backend/utils/adt/tsquery_op.c:54-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L54-L83)
 
 ## Overview
 Implements the logical AND operation between two TSQuery objects, combining them to create a new TSQuery that matches documents containing terms from both input queries.

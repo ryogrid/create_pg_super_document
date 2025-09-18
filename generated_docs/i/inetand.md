@@ -1,7 +1,7 @@
 # inetand
 
 ## Location
-src/backend/utils/adt/network.c: 1882 - 1913
+[src/backend/utils/adt/network.c:1882-1913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1882-L1913)
 
 ## Overview
 Performs a bitwise AND operation between two inet addresses, returning the bitwise conjunction of corresponding address bits.

@@ -1,7 +1,7 @@
 # CachedPlanIsValid
 
 ## Location
-src/backend/utils/cache/plancache.c: 1627 - 1639
+[src/backend/utils/cache/plancache.c:1627-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1627-L1639)
 
 ## Overview
 Tests whether the rewritten querytree within a CachedPlanSource is currently valid and not marked as being in need of revalidation.

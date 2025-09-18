@@ -1,7 +1,7 @@
 # test_slru_page_precedes_logically
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 208 - 213
+[src/test/modules/test_slru/test_slru.c:208-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L208-L213)
 
 ## Overview
 A comparison function that determines the logical ordering of SLRU pages by comparing their page numbers for the test SLRU module.

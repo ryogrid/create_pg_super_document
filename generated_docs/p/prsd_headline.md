@@ -1,7 +1,7 @@
 # prsd_headline
 
 ## Location
-src/backend/tsearch/wparser_def.c: 2616 - 2724
+[src/backend/tsearch/wparser_def.c:2616-2724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L2616-L2724)
 
 ## Overview
 The main headline function for PostgreSQL's default text search parser, responsible for generating highlighted text excerpts from documents based on search queries and configuration options.

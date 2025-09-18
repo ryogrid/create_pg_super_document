@@ -1,7 +1,7 @@
 # ExecJustInnerVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2167 - 2173
+[src/backend/executor/execExprInterp.c:2167-2173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2167-L2173)
 
 ## Overview
 ExecJustInnerVar is a fast-path function for evaluating simple expressions that reference a variable from the inner tuple in join operations.

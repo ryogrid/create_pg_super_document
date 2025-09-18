@@ -1,7 +1,7 @@
 # btoidfastcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 273 - 286
+[src/backend/access/nbtree/nbtcompare.c:273-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L273-L286)
 
 ## Overview
 A fast comparison function for OID (Object Identifier) values used within PostgreSQL's sort support framework for optimized B-tree operations.

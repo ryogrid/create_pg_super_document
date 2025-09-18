@@ -1,7 +1,7 @@
 # xl_heap_delete
 
 ## Location
-src/include/access/heapam_xlog.h: 112 - 118
+[src/include/access/heapam_xlog.h:112-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L112-L118)
 
 ## Overview
 The xl_heap_delete struct represents the WAL (Write-Ahead Logging) record data for heap tuple deletion operations in PostgreSQL's recovery and replication system.

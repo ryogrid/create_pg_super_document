@@ -1,7 +1,7 @@
 # PrepareForIncrementalBackup
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 265 - 626
+[src/backend/backup/basebackup_incremental.c:265-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L265-L626)
 
 ## Overview
 Validates manifest data and prepares the WAL summary infrastructure required to perform an incremental backup by analyzing timeline history, verifying WAL ranges, and building an in-memory block reference table.

@@ -1,7 +1,7 @@
 # text_reverse
 
 ## Location
-src/backend/utils/adt/varlena.c: 5583 - 5622
+[src/backend/utils/adt/varlena.c:5583-5622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5583-L5622)
 
 ## Overview
 The  function reverses the character order of a text string while properly handling multibyte character encodings.

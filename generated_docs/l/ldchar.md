@@ -1,7 +1,7 @@
 # ldchar
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 977 - 985
+[src/interfaces/ecpg/compatlib/informix.c:977-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L977-L985)
 
 ## Overview
 The ldchar function copies a fixed-length string to a destination buffer, automatically trimming trailing spaces and null-terminating the result.

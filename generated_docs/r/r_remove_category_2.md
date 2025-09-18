@@ -1,7 +1,7 @@
 # r_remove_category_2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 327 - 365
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:327-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L327-L365)
 
 ## Overview
 Removes category 2 suffixes from Nepali words with complex conditional pattern matching as part of the Snowball stemming algorithm.

@@ -1,7 +1,7 @@
 # sts_begin_parallel_scan
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 253 - 280
+[src/backend/utils/sort/sharedtuplestore.c:253-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L253-L280)
 
 ## Overview
 Initiates a parallel scan of a shared tuplestore, setting up the accessor to begin reading tuples from the store.

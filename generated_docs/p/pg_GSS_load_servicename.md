@@ -1,7 +1,7 @@
 # pg_GSS_load_servicename
 
 ## Location
-src/interfaces/libpq/fe-gssapi-common.c: 82 - 128
+[src/interfaces/libpq/fe-gssapi-common.c:82-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-gssapi-common.c#L82-L128)
 
 ## Overview
 Client-side function that constructs and imports a GSS-API service principal name for the target PostgreSQL server.

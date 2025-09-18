@@ -1,7 +1,7 @@
 # ExecReindex
 
 ## Location
-src/backend/commands/indexcmds.c: 2693 - 2787
+[src/backend/commands/indexcmds.c:2693-2787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2693-L2787)
 
 ## Overview
 ExecReindex is the primary entry point for manual REINDEX commands, serving as a preparation wrapper that parses options and delegates to appropriate subroutines based on the type of object being reindexed.

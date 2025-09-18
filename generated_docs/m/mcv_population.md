@@ -1,7 +1,7 @@
 # mcv_population
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 539 - 603
+[src/backend/utils/adt/network_selfuncs.c:539-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L539-L603)
 
 ## Overview
 Calculates the total fraction of a relation's population that is represented by the Most Common Values (MCV) statistics array.

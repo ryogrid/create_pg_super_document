@@ -1,7 +1,7 @@
 # show_grouping_sets
 
 ## Location
-src/backend/commands/explain.c: 2630 - 2660
+[src/backend/commands/explain.c:2630-2660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2630-L2660)
 
 ## Overview
 Displays detailed grouping set information for advanced GROUP BY operations including ROLLUP, CUBE, and GROUPING SETS during query execution plan explanation.

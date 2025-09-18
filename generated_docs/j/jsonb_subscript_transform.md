@@ -1,7 +1,7 @@
 # jsonb_subscript_transform
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 43 - 174
+[src/backend/utils/adt/jsonbsubs.c:43-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L43-L174)
 
 ## Overview
 Finishes parse analysis of a SubscriptingRef expression for JSONB by transforming subscript expressions, coercing them to appropriate types, and determining the result type.

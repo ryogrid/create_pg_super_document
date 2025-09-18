@@ -1,7 +1,7 @@
 # ExecBRInsertTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2460 - 2535
+[src/backend/commands/trigger.c:2460-2535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2460-L2535)
 
 ## Overview
 Executes BEFORE ROW INSERT triggers for each tuple being inserted, allowing triggers to modify tuple data or skip the insert operation entirely while ensuring partition constraints are maintained.

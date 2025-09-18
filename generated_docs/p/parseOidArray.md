@@ -1,7 +1,7 @@
 # parseOidArray
 
 ## Location
-src/bin/pg_dump/common.c: 1100 - 1146
+[src/bin/pg_dump/common.c:1100-1146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L1100-L1146)
 
 ## Overview
 Parses a space-delimited string of numbers into an array of Oid values, handling both Oids and potentially-signed attribute numbers.

@@ -1,7 +1,7 @@
 # WorkerInfo
 
 ## Location
-src/bin/pg_dump/parallel.c: 127 - 130
+[src/bin/pg_dump/parallel.c:127-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L127-L130)
 
 ## Overview
 A typedef pointer to WorkerInfoData structure that holds information about a single autovacuum worker's state and whereabouts in PostgreSQL's autovacuum system.

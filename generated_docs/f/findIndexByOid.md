@@ -1,7 +1,7 @@
 # findIndexByOid
 
 ## Location
-src/bin/pg_dump/common.c: 870 - 887
+[src/bin/pg_dump/common.c:870-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L870-L887)
 
 ## Overview
 Finds and returns the DumpableObject for an index with the specified OID, returning NULL if not found.

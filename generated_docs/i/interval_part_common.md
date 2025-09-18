@@ -1,7 +1,7 @@
 # interval_part_common
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5951 - 6142
+[src/backend/utils/adt/timestamp.c:5951-6142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5951-L6142)
 
 ## Overview
 Core implementation function for extracting specified fields from PostgreSQL interval values, handling both finite and infinite intervals with optional numeric or float8 return types.

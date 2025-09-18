@@ -1,7 +1,7 @@
 # slot_deform_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 1008 - 1198
+[src/backend/executor/execTuples.c:1008-1198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1008-L1198)
 
 ## Overview
 Incrementally extracts attribute data from a HeapTuple into a TupleTableSlot's Datum/isnull arrays, optimizing performance by caching offset information and avoiding re-computation of previously extracted attributes.

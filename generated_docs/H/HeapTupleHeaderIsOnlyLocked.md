@@ -1,7 +1,7 @@
 # HeapTupleHeaderIsOnlyLocked
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1520 - 1565
+[src/backend/access/heap/heapam_visibility.c:1520-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1520-L1565)
 
 ## Overview
 HeapTupleHeaderIsOnlyLocked determines whether a tuple is only locked (not updated) by examining infomask bits and, for MultiXacts, verifying that the updating transaction has not committed.

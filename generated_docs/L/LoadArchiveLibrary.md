@@ -1,7 +1,7 @@
 # LoadArchiveLibrary
 
 ## Location
-src/backend/postmaster/pgarch.c: 911 - 952
+[src/backend/postmaster/pgarch.c:911-952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L911-L952)
 
 ## Overview
 Loads the archiving callbacks into the local ArchiveCallbacks global variable, initializing either shell-based archiving or external library-based archiving based on configuration.

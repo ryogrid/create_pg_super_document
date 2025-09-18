@@ -1,7 +1,7 @@
 # ExplainPropertyFloat
 
 ## Location
-src/backend/commands/explain.c: 4838 - 4851
+[src/backend/commands/explain.c:4838-4851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4838-L4851)
 
 ## Overview
 Explains a floating-point-valued property in PostgreSQL EXPLAIN output by formatting a double value with specified precision and passing it to the generic property explanation function.

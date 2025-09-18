@@ -1,7 +1,7 @@
 # finishCon
 
 ## Location
-src/bin/pgbench/pgbench.c: 7731 - 7746
+[src/bin/pgbench/pgbench.c:7731-7746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7731-L7746)
 
 ## Overview
 A utility function that safely closes and cleans up a PostgreSQL database connection for a pgbench client state.

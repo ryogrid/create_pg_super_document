@@ -1,7 +1,7 @@
 # TargetEntry
 
 ## Location
-src/include/nodes/primnodes.h: 2186 - 2203
+[src/include/nodes/primnodes.h:2186-2203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2186-L2203)
 
 ## Overview
 A fundamental node representing entries in query target lists, used throughout PostgreSQL's query processing system to describe expressions and their metadata in SELECT, INSERT, and UPDATE operations.

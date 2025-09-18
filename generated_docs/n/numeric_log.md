@@ -1,7 +1,7 @@
 # numeric_log
 
 ## Location
-src/backend/utils/adt/numeric.c: 3880 - 3950
+[src/backend/utils/adt/numeric.c:3880-3950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3880-L3950)
 
 ## Overview
 Computes the logarithm of one numeric value using another numeric value as the base, with comprehensive special value handling and mathematical constraint validation.

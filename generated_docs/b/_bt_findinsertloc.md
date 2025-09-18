@@ -1,7 +1,7 @@
 # _bt_findinsertloc
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 815 - 1026
+[src/backend/access/nbtree/nbtinsert.c:815-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L815-L1026)
 
 ## Overview
 Finds the exact insertion location for a tuple within a B-tree leaf page, handling page movement and space optimization.

@@ -1,7 +1,7 @@
 # rangeTableEntry_used_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 900 - 966
+[src/backend/rewrite/rewriteManip.c:900-966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L900-L966)
 
 ## Overview
 A tree walker function that determines whether a specific range table entry is referenced by any Var nodes, CurrentOfExpr nodes, RangeTblRef nodes, or JoinExpr nodes within a query tree or expression.

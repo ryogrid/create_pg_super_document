@@ -1,7 +1,7 @@
 # ExplainFormat
 
 ## Location
-src/include/commands/explain.h: 33 - 34
+[src/include/commands/explain.h:33-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/explain.h#L33-L34)
 
 ## Overview
 ExplainFormat is an enumeration that specifies the output format for EXPLAIN command results, controlling how query execution plans are presented to users.

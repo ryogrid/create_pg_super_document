@@ -1,7 +1,7 @@
 # thesaurus_init
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 596 - 656
+[src/backend/tsearch/dict_thesaurus.c:596-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L596-L656)
 
 ## Overview
 Initializes a thesaurus dictionary for text search, setting up the dictionary structure and loading thesaurus data from configuration files.

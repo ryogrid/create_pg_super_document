@@ -1,7 +1,7 @@
 # StoreRelCheck
 
 ## Location
-src/backend/catalog/heap.c: 2130 - 2239
+[src/backend/catalog/heap.c:2130-2239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2130-L2239)
 
 ## Overview
 StoreRelCheck stores a check constraint expression for a relation in PostgreSQL's system catalogs and returns the OID of the newly created constraint.

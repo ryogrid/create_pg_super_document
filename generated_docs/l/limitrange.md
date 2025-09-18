@@ -1,7 +1,7 @@
 # limitrange
 
 ## Location
-src/timezone/zic.c: 2055 - 2081
+[src/timezone/zic.c:2055-2081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2055-L2081)
 
 ## Overview
 A static function that adjusts a timerange structure to fit within specified time bounds by trimming transitions and leap seconds outside the given range.

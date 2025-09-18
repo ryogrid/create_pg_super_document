@@ -1,7 +1,7 @@
 # get_am_type_oid
 
 ## Location
-src/backend/commands/amcmds.c: 129 - 162
+[src/backend/commands/amcmds.c:129-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L129-L162)
 
 ## Overview
 Internal worker function that looks up an access method by name and optionally validates its type, returning the corresponding OID.

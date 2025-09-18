@@ -1,7 +1,7 @@
 # tuplesort_putdatum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 826 - 889
+[src/backend/utils/sort/tuplesortvariants.c:826-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L826-L889)
 
 ## Overview
 Accepts one Datum value while collecting input data for sorting operations, handling both pass-by-value and pass-by-reference data types with appropriate memory management.

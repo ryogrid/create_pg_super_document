@@ -1,7 +1,7 @@
 # AlterPublication
 
 ## Location
-src/backend/commands/publicationcmds.c: 1371 - 1440
+[src/backend/commands/publicationcmds.c:1371-1440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1371-L1440)
 
 ## Overview
 AlterPublication is the main dispatcher function for modifying existing publications, coordinating table/schema changes and option updates while enforcing security and consistency constraints.

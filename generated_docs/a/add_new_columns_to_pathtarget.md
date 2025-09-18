@@ -1,7 +1,7 @@
 # add_new_columns_to_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 752 - 773
+[src/backend/optimizer/util/tlist.c:752-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L752-L773)
 
 ## Overview
 Applies add_new_column_to_pathtarget() for each element in a list of expressions, efficiently adding multiple columns to a PathTarget while avoiding duplicates.

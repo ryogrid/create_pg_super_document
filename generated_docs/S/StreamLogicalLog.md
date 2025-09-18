@@ -1,7 +1,7 @@
 # StreamLogicalLog
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 213 - 673
+[src/bin/pg_basebackup/pg_recvlogical.c:213-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L213-L673)
 
 ## Overview
 StreamLogicalLog is the core function that implements the logical replication streaming protocol in pg_recvlogical, handling the complete lifecycle of receiving and writing logical WAL data from a PostgreSQL server.

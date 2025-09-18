@@ -1,7 +1,7 @@
 # findLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 842 - 926
+[src/bin/pg_dump/pg_dump_sort.c:842-926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L842-L926)
 
 ## Overview
 findLoop performs recursive depth-first search to detect circular dependency loops starting from a specific object in pg_dump's dependency graph.

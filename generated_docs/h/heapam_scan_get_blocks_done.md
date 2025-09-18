@@ -1,7 +1,7 @@
 # heapam_scan_get_blocks_done
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 1995 - 2039
+[src/backend/access/heap/heapam_handler.c:1995-2039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L1995-L2039)
 
 ## Overview
 Returns the number of blocks read by a heap scan since starting, handling both serial and parallel scan scenarios for progress reporting.

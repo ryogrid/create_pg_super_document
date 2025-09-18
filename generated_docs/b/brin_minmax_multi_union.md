@@ -1,7 +1,7 @@
 # brin_minmax_multi_union
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2735 - 2862
+[src/backend/access/brin/brin_minmax_multi.c:2735-2862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2735-L2862)
 
 ## Overview
 Union operation for BRIN minmax-multi operator class that merges two BrinValues summary structures into a single combined summary.

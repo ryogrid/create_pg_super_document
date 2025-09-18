@@ -1,7 +1,7 @@
 # replace_rte_variables_mutator
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1393 - 1488
+[src/backend/rewrite/rewriteManip.c:1393-1488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1393-L1488)
 
 ## Overview
 The core mutator function that implements the recursive tree walking and variable replacement logic for replace_rte_variables, handling different node types and maintaining sublevel tracking.

@@ -1,7 +1,7 @@
 # xact_desc_commit
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 333 - 368
+[src/backend/access/rmgrdesc/xactdesc.c:333-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L333-L368)
 
 ## Overview
 A static function that formats WAL commit record information into human-readable descriptions for debugging and logging purposes.

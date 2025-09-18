@@ -1,7 +1,7 @@
 # indent_lines
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1006 - 1036
+[src/bin/pg_amcheck/pg_amcheck.c:1006-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1006-L1036)
 
 ## Overview
 A utility function that creates a copy of the input string with all lines indented by four spaces, used for formatting output text in pg_amcheck.

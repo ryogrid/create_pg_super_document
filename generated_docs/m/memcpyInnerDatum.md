@@ -1,7 +1,7 @@
 # memcpyInnerDatum
 
 ## Location
-src/backend/access/spgist/spgutils.c: 789 - 809
+[src/backend/access/spgist/spgutils.c:789-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L789-L809)
 
 ## Overview
 Copies a non-null datum to a target memory location for storage in an SP-GiST inner tuple, handling both pass-by-value and pass-by-reference data types appropriately.

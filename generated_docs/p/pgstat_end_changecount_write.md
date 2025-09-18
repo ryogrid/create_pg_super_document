@@ -1,7 +1,7 @@
 # pgstat_end_changecount_write
 
 ## Location
-src/include/utils/pgstat_internal.h: 722 - 733
+[src/include/utils/pgstat_internal.h:722-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L722-L733)
 
 ## Overview
 This inline function completes a write operation to change-counted statistics by incrementing the change counter again and releasing the critical section, signaling that the write operation has finished.

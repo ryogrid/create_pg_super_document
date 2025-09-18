@@ -1,7 +1,7 @@
 # timestamptz_send
 
 ## Location
-src/backend/utils/adt/timestamp.c: 847 - 857
+[src/backend/utils/adt/timestamp.c:847-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L847-L857)
 
 ## Overview
 Converts PostgreSQL's internal timestamptz representation to binary format for efficient data transmission.

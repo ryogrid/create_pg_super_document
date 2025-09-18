@@ -1,7 +1,7 @@
 # varchar_2
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 99 - 99
+[src/interfaces/ecpg/test/expected/preproc-variable.c:99-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L99-L99)
 
 ## Overview
  is a struct definition used in PostgreSQL's ECPG (Embedded C for PostgreSQL) test framework to represent variable-length character strings with a fixed buffer size.

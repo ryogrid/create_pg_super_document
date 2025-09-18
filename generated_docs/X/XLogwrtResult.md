@@ -1,7 +1,7 @@
 # XLogwrtResult
 
 ## Location
-src/backend/access/transam/xlog.c: 326 - 330
+[src/backend/access/transam/xlog.c:326-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L326-L330)
 
 ## Overview
 XLogwrtResult is a shared-memory data structure that tracks the actual completion status of WAL write and flush operations, recording the byte positions that have already been successfully written to disk and fsynced.

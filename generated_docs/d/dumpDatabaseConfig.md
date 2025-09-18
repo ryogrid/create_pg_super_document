@@ -1,7 +1,7 @@
 # dumpDatabaseConfig
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3521 - 3564
+[src/bin/pg_dump/pg_dump.c:3521-3564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3521-L3564)
 
 ## Overview
 Collects and formats database-specific and role-and-database-specific SET configuration options for inclusion in database dump output.

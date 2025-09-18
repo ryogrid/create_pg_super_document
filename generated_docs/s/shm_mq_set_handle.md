@@ -1,7 +1,7 @@
 # shm_mq_set_handle
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 319 - 328
+[src/backend/storage/ipc/shm_mq.c:319-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L319-L328)
 
 ## Overview
 Associates a BackgroundWorkerHandle with an existing shared memory queue handle after attachment.

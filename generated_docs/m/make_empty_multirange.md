@@ -1,7 +1,7 @@
 # make_empty_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 848 - 857
+[src/backend/utils/adt/multirangetypes.c:848-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L848-L857)
 
 ## Overview
 Creates an empty multirange of the specified multirange type, containing no ranges.

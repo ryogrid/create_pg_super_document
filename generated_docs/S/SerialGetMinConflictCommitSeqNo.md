@@ -1,7 +1,7 @@
 # SerialGetMinConflictCommitSeqNo
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 949 - 989
+[src/backend/storage/lmgr/predicate.c:949-989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L949-L989)
 
 ## Overview
 SerialGetMinConflictCommitSeqNo retrieves the minimum commit sequence number for any conflict out for a given transaction ID, which is essential for serializable isolation level conflict detection in PostgreSQL.

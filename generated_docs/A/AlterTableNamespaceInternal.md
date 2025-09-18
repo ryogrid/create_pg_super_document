@@ -1,7 +1,7 @@
 # AlterTableNamespaceInternal
 
 ## Location
-src/backend/commands/tablecmds.c: 17278 - 17314
+[src/backend/commands/tablecmds.c:17278-17314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17278-L17314)
 
 ## Overview
 AlterTableNamespaceInternal performs the core work of moving a table or materialized view to another namespace by relocating the relation itself and all its dependent objects to the new schema.

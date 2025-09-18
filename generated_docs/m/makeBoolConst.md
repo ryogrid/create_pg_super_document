@@ -1,7 +1,7 @@
 # makeBoolConst
 
 ## Location
-src/backend/nodes/makefuncs.c: 406 - 417
+[src/backend/nodes/makefuncs.c:406-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L406-L417)
 
 ## Overview
 Creates a Const node representing a boolean value, which can also represent NULL boolean values.

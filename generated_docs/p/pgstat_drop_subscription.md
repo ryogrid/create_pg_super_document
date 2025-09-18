@@ -1,7 +1,7 @@
 # pgstat_drop_subscription
 
 ## Location
-src/backend/utils/activity/pgstat_subscription.c: 64 - 74
+[src/backend/utils/activity/pgstat_subscription.c:64-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_subscription.c#L64-L74)
 
 ## Overview
 Schedules the removal of statistics for a logical replication subscription when the drop transaction commits, ensuring proper cleanup of statistics data.

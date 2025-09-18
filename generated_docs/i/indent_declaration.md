@@ -1,7 +1,7 @@
 # indent_declaration
 
 ## Location
-src/tools/pg_bsd_indent/indent.c: 1243 - 1275
+[src/tools/pg_bsd_indent/indent.c:1243-1275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/indent.c#L1243-L1275)
 
 ## Overview
 The indent_declaration function handles proper indentation formatting for variable declarations in the pg_bsd_indent tool.

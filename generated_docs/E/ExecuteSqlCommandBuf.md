@@ -1,7 +1,7 @@
 # ExecuteSqlCommandBuf
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 445 - 499
+[src/bin/pg_dump/pg_backup_db.c:445-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L445-L499)
 
 ## Overview
 Implements the ahwrite() function for direct-to-database restore operations, routing different types of data (COPY data, INSERT commands, general SQL) to appropriate handlers based on output type.

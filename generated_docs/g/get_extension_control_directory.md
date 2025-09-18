@@ -1,7 +1,7 @@
 # get_extension_control_directory
 
 ## Location
-src/backend/commands/extension.c: 376 - 388
+[src/backend/commands/extension.c:376-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L376-L388)
 
 ## Overview
 Returns the absolute path to the directory where PostgreSQL extension control files are stored, typically $SHAREPATH/extension.

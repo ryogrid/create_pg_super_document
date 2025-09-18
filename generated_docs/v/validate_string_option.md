@@ -1,7 +1,7 @@
 # validate_string_option
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 64 - 75
+[src/test/modules/dummy_index_am/dummy_index_am.c:64-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L64-L75)
 
 ## Overview
 A validation function for string relation options that reports when a new string parameter value is set.

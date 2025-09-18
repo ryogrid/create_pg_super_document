@@ -1,7 +1,7 @@
 # set_var_from_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 7484 - 7509
+[src/backend/utils/adt/numeric.c:7484-7509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7484-L7509)
 
 ## Overview
 Copies one NumericVar variable into another, allocating new memory for the destination and including a spare digit for rounding operations.

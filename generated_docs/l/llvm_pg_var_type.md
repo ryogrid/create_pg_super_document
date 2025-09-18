@@ -1,7 +1,7 @@
 # llvm_pg_var_type
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 455 - 474
+[src/backend/jit/llvm/llvmjit.c:455-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L455-L474)
 
 ## Overview
 Retrieves LLVM type definitions for PostgreSQL data structures by looking up global variables from the types module, ensuring type consistency between C and JIT code.

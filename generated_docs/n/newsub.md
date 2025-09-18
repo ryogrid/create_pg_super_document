@@ -1,7 +1,7 @@
 # newsub
 
 ## Location
-src/backend/regex/regc_color.c: 389 - 419
+[src/backend/regex/regc_color.c:389-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L389-L419)
 
 ## Overview
 Allocates a new subcolor for a given color if necessary, implementing an optimization to avoid creating subcolors for singly-referenced colors.

@@ -1,7 +1,7 @@
 # pg_get_querydef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1568 - 1587
+[src/backend/utils/adt/ruleutils.c:1568-1587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1568-L1587)
 
 ## Overview
 Public entry point function that decompiles a PostgreSQL query parse tree into a readable SQL statement string with configurable formatting options.

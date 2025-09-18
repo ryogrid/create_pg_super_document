@@ -1,7 +1,7 @@
 # printTableContent
 
 ## Location
-src/include/fe_utils/print.h: 163 - 181
+[src/include/fe_utils/print.h:163-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L163-L181)
 
 ## Overview
 The printTableContent struct holds all the information that will be displayed by printTable(), serving as a comprehensive data container for tabular output formatting in PostgreSQL's frontend utilities.

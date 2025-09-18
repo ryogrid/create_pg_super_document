@@ -1,7 +1,7 @@
 # addBoundaryDependencies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18722 - 18837
+[src/bin/pg_dump/pg_dump.c:18722-18837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18722-L18837)
 
 ## Overview
 Adds dependency relationships between database objects and dump section boundary objects to enforce the three-phase dump structure (pre-data, data, post-data).

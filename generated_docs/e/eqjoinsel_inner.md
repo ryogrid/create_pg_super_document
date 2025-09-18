@@ -1,7 +1,7 @@
 # eqjoinsel_inner
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2438 - 2634
+[src/backend/utils/adt/selfuncs.c:2438-2634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2438-L2634)
 
 ## Overview
 Computes join selectivity for normal inner joins (and LEFT/FULL outer joins) using detailed statistical analysis, particularly leveraging Most Common Values (MCVs) when available for highly accurate estimates.

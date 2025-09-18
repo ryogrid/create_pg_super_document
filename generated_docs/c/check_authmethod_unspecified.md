@@ -1,7 +1,7 @@
 # check_authmethod_unspecified
 
 ## Location
-src/bin/initdb/initdb.c: 2550 - 2559
+[src/bin/initdb/initdb.c:2550-2559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2550-L2559)
 
 ## Overview
 Sets default authentication method to "trust" when no authentication method is explicitly specified and marks that an authentication warning should be displayed.

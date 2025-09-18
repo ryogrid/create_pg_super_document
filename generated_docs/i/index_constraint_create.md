@@ -1,7 +1,7 @@
 # index_constraint_create
 
 ## Location
-src/backend/catalog/index.c: 1881 - 2113
+[src/backend/catalog/index.c:1881-2113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L1881-L2113)
 
 ## Overview
 Creates and configures a constraint (PRIMARY KEY, UNIQUE, or EXCLUSION) associated with an index, handling all necessary catalog entries, dependencies, and trigger creation.

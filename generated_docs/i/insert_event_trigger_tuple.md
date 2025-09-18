@@ -1,7 +1,7 @@
 # insert_event_trigger_tuple
 
 ## Location
-src/backend/commands/event_trigger.c: 273 - 355
+[src/backend/commands/event_trigger.c:273-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L273-L355)
 
 ## Overview
 Inserts a new event trigger tuple into the pg_event_trigger system catalog and records all necessary dependencies for the trigger.

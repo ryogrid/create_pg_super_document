@@ -1,7 +1,7 @@
 # XLogReaderRoutine
 
 ## Location
-src/include/access/xlogreader.h: 72 - 115
+[src/include/access/xlogreader.h:72-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L72-L115)
 
 ## Overview
 XLogReaderRoutine is a callback interface structure that defines the essential I/O operations required for WAL reading, providing customizable page reading and segment management functions.

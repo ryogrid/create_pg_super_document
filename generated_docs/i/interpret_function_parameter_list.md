@@ -1,7 +1,7 @@
 # interpret_function_parameter_list
 
 ## Location
-src/backend/commands/functioncmds.c: 183 - 499
+[src/backend/commands/functioncmds.c:183-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L183-L499)
 
 ## Overview
 Interprets and validates the function parameter list of CREATE FUNCTION, CREATE PROCEDURE, or CREATE AGGREGATE statements, extracting type information, parameter modes, names, and default values while enforcing various constraints.

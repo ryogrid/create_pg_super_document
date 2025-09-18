@@ -1,7 +1,7 @@
 # dsa_get_total_size
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1027 - 1042
+[src/backend/utils/mmgr/dsa.c:1027-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1027-L1042)
 
 ## Overview
 Returns the total size in bytes of all active segments currently allocated in a dynamic shared memory area.

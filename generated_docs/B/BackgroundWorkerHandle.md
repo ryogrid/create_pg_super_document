@@ -1,7 +1,7 @@
 # BackgroundWorkerHandle
 
 ## Location
-src/backend/postmaster/bgworker.c: 102 - 145
+[src/backend/postmaster/bgworker.c:102-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L102-L145)
 
 ## Overview
 BackgroundWorkerHandle is a lightweight reference structure that provides safe access to background worker slots using a slot index and generation number to prevent stale references.

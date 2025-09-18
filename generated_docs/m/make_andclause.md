@@ -1,7 +1,7 @@
 # make_andclause
 
 ## Location
-src/backend/nodes/makefuncs.c: 701 - 716
+[src/backend/nodes/makefuncs.c:701-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L701-L716)
 
 ## Overview
 Creates an AND boolean expression node from a list of subclauses, used in PostgreSQL's query planning and execution system.

@@ -1,7 +1,7 @@
 # json_parse_manifest_incremental_init
 
 ## Location
-src/common/parse_manifest.c: 129 - 168
+[src/common/parse_manifest.c:129-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L129-L168)
 
 ## Overview
 Sets up and initializes an incremental JSON manifest parser state for processing PostgreSQL backup manifests in chunks.

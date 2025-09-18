@@ -1,7 +1,7 @@
 # BTPageIsRecyclable
 
 ## Location
-src/include/access/nbtree.h: 291 - 323
+[src/include/access/nbtree.h:291-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L291-L323)
 
 ## Overview
 BTPageIsRecyclable is a static inline function that determines whether a deleted B-tree page can be safely recycled and reused for new data.

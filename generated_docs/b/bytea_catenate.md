@@ -1,7 +1,7 @@
 # bytea_catenate
 
 ## Location
-src/backend/utils/adt/varlena.c: 2953 - 2985
+[src/backend/utils/adt/varlena.c:2953-2985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2953-L2985)
 
 ## Overview
 bytea_catenate is a static internal function that performs the core concatenation logic for bytea values, serving as the implementation foundation for byteacat and other bytea manipulation functions.

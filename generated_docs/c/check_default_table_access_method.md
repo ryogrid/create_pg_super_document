@@ -1,7 +1,7 @@
 # check_default_table_access_method
 
 ## Location
-src/backend/access/table/tableamapi.c: 105 - 152
+[src/backend/access/table/tableamapi.c:105-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableamapi.c#L105-L152)
 
 ## Overview
 check_default_table_access_method is a PostgreSQL GUC (Grand Unified Configuration) check hook function that validates new values for the default_table_access_method configuration parameter.

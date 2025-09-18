@@ -1,7 +1,7 @@
 # setup_subscriber
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1143 - 1182
+[src/bin/pg_basebackup/pg_createsubscriber.c:1143-1182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1143-L1182)
 
 ## Overview
 Creates and configures logical replication subscriptions on the newly formed subscriber, completing the transformation from physical standby to logical replica.

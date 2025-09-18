@@ -1,7 +1,7 @@
 # ProcessClientWriteInterrupt
 
 ## Location
-src/backend/tcop/postgres.c: 559 - 614
+[src/backend/tcop/postgres.c:559-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L559-L614)
 
 ## Overview
 Processes interrupts specific to client writes, handling process termination requests during write operations while preventing protocol synchronization issues.

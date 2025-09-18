@@ -1,7 +1,7 @@
 # rte_visible_if_lateral
 
 ## Location
-src/backend/parser/parse_relation.c: 3786 - 3805
+[src/backend/parser/parse_relation.c:3786-3805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3786-L3805)
 
 ## Overview
 Determines whether a RangeTblEntry would become visible if the user had specified the LATERAL keyword, helping to generate helpful hints in error messages.

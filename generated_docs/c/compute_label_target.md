@@ -1,7 +1,7 @@
 # compute_label_target
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 252 - 274
+[src/tools/pg_bsd_indent/io.c:252-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L252-L274)
 
 ## Overview
 Calculates the target column position for labels including goto labels, case labels, and preprocessor directives.

@@ -1,7 +1,7 @@
 # jsonb_path_exists_opr
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 444 - 455
+[src/backend/utils/adt/jsonpath_exec.c:444-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L444-L455)
 
 ## Overview
 PostgreSQL operator function that implements the "@?" operator for checking JSONPath existence against JSONB values, providing a 2-argument operator interface.

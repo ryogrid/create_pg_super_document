@@ -1,7 +1,7 @@
 # pg_popcount_available
 
 ## Location
-src/port/pg_bitutils.c: 134 - 155
+[src/port/pg_bitutils.c:134-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L134-L155)
 
 ## Overview
 Detects whether the CPU supports the POPCNT instruction by examining CPUID flags.

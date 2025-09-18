@@ -1,7 +1,7 @@
 # pg_get_functiondef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2881 - 3132
+[src/backend/utils/adt/ruleutils.c:2881-3132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2881-L3132)
 
 ## Overview
 Generates the complete "CREATE OR REPLACE FUNCTION/PROCEDURE" SQL statement for a specified function or procedure, including all attributes and the function body.

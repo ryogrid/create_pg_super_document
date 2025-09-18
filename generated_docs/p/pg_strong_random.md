@@ -1,7 +1,7 @@
 # pg_strong_random
 
 ## Location
-src/port/pg_strong_random.c: 153 - 182
+[src/port/pg_strong_random.c:153-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_strong_random.c#L153-L182)
 
 ## Overview
 Generates cryptographically secure random bytes suitable for authentication, key generation, and other security-sensitive operations.

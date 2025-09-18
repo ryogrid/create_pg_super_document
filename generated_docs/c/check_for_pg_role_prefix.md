@@ -1,7 +1,7 @@
 # check_for_pg_role_prefix
 
 ## Location
-src/bin/pg_upgrade/check.c: 1673 - 1727
+[src/bin/pg_upgrade/check.c:1673-1727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1673-L1727)
 
 ## Overview
 Validates that the old PostgreSQL cluster does not contain any user-created roles with names starting with "pg_", which is a reserved prefix for system roles.

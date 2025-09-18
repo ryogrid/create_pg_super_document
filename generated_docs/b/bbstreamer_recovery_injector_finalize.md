@@ -1,7 +1,7 @@
 # bbstreamer_recovery_injector_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 200 - 208
+[src/bin/pg_basebackup/bbstreamer_inject.c:200-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L200-L208)
 
 ## Overview
 Performs end-of-stream processing for the recovery injector bbstreamer by forwarding the finalization call to the next bbstreamer in the chain.

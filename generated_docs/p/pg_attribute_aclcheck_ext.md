@@ -1,7 +1,7 @@
 # pg_attribute_aclcheck_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3937 - 3966
+[src/backend/catalog/aclchk.c:3937-3966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3937-L3966)
 
 ## Overview
 This function checks a user's access privileges to a specific column of a table, with additional support for detecting missing attributes.

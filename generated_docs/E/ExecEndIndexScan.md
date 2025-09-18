@@ -1,7 +1,7 @@
 # ExecEndIndexScan
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 785 - 812
+[src/backend/executor/nodeIndexscan.c:785-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L785-L812)
 
 ## Overview
 Terminates an index scan operation and properly releases all associated resources including the index scan descriptor and index relation.

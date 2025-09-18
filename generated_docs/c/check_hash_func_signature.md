@@ -1,7 +1,7 @@
 # check_hash_func_signature
 
 ## Location
-src/backend/access/hash/hashvalidate.c: 275 - 351
+[src/backend/access/hash/hashvalidate.c:275-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashvalidate.c#L275-L351)
 
 ## Overview
 The check_hash_func_signature function is a static helper function that validates hash function signatures specifically for PostgreSQL hash operator classes, including custom validation rules to accommodate built-in hash opclass implementation quirks.

@@ -1,7 +1,7 @@
 # GetUserNameFromId
 
 ## Location
-src/backend/utils/init/miscinit.c: 1034 - 1070
+[src/backend/utils/init/miscinit.c:1034-1070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1034-L1070)
 
 ## Overview
 GetUserNameFromId retrieves the user name (role name) from a given user OID, with optional error handling for nonexistent roles.

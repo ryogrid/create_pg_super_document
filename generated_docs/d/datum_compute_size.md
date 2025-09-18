@@ -1,7 +1,7 @@
 # datum_compute_size
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2683 - 2708
+[src/backend/utils/adt/rangetypes.c:2683-2708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2683-L2708)
 
 ## Overview
 A static utility function that calculates the space needed by a datum in serialized form, including any preceding alignment padding.

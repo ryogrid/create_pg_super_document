@@ -1,7 +1,7 @@
 # numeric_var_samp
 
 ## Location
-src/backend/utils/adt/numeric.c: 6306 - 6322
+[src/backend/utils/adt/numeric.c:6306-6322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6306-L6322)
 
 ## Overview
 Computes the sample variance of accumulated numeric values during aggregate operations.

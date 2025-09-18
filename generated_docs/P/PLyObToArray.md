@@ -1,7 +1,7 @@
 # PLyObToArray
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 99 - 103
+[src/pl/plpython/plpy_typeio.h:99-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L99-L103)
 
 ## Overview
 PLyObToArray is a specialized conversion structure used within PostgreSQL's PLpython extension to handle conversion of Python sequences to PostgreSQL array data types.

@@ -1,7 +1,7 @@
 # heap_log_freeze_cmp
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1912 - 1957
+[src/backend/access/heap/pruneheap.c:1912-1957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1912-L1957)
 
 ## Overview
 A comparator function used to sort and deduplicate HeapTupleFreeze structures for efficient WAL logging of XLOG_HEAP2_FREEZE_PAGE operations.

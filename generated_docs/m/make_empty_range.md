@@ -1,7 +1,7 @@
 # make_empty_range
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2165 - 2186
+[src/backend/utils/adt/rangetypes.c:2165-2186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2165-L2186)
 
 ## Overview
 Creates and returns an empty range of the specified type by constructing dummy bounds and calling make_range with the empty flag set to true.

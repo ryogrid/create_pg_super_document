@@ -1,7 +1,7 @@
 # ResetProcSignalBarrierBits
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 601 - 613
+[src/backend/storage/ipc/procsignal.c:601-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L601-L613)
 
 ## Overview
 Resets barrier check mask bits and interrupt flags to arrange for barrier processing to be retried later when barrier absorption fails.

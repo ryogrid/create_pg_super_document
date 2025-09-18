@@ -1,7 +1,7 @@
 # transformJsonReturning
 
 ## Location
-src/backend/parser/parse_expr.c: 4113 - 4152
+[src/backend/parser/parse_expr.c:4113-4152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4113-L4152)
 
 ## Overview
 Transforms and validates the RETURNING clause of JSON expressions, creating default JSON output specifications when none are provided.

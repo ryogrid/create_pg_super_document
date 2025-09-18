@@ -1,7 +1,7 @@
 # pstrdup
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1695 - 1705
+[src/backend/utils/mmgr/mcxt.c:1695-1705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1695-L1705)
 
 ## Overview
 A utility function that duplicates a null-terminated string using the current memory context, providing a convenient wrapper around MemoryContextStrdup.

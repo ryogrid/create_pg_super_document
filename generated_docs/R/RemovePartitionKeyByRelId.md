@@ -1,7 +1,7 @@
 # RemovePartitionKeyByRelId
 
 ## Location
-src/backend/catalog/heap.c: 3501 - 3531
+[src/backend/catalog/heap.c:3501-3531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3501-L3531)
 
 ## Overview
 Removes the pg_partitioned_table catalog entry for a relation, effectively removing all partition key metadata when a partitioned table is dropped or converted.

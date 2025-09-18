@@ -1,7 +1,7 @@
 # check_for_column_name_collision
 
 ## Location
-src/backend/commands/tablecmds.c: 7438 - 7490
+[src/backend/commands/tablecmds.c:7438-7490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7438-L7490)
 
 ## Overview
 Checks if a new or renamed column name would collide with an existing column name in a relation, handling both error and if-not-exists scenarios.

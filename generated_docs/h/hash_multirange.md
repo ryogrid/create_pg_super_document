@@ -1,7 +1,7 @@
 # hash_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2787 - 2857
+[src/backend/utils/adt/multirangetypes.c:2787-2857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2787-L2857)
 
 ## Overview
 Computes a 32-bit hash value for a multirange data type, which is used for hash-based operations like hash joins and hash indexes.

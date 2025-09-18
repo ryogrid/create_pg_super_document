@@ -1,7 +1,7 @@
 # dead_items_cleanup
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2930 - 2954
+[src/backend/access/heap/vacuumlazy.c:2930-2954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2930-L2954)
 
 ## Overview
 `dead_items_cleanup` is a static cleanup function that performs resource deallocation for vacuum operations, specifically handling parallel vacuum mode termination and cleanup.

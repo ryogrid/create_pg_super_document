@@ -1,7 +1,7 @@
 # heap_prune_record_dead_or_unused
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1280 - 1296
+[src/backend/access/heap/pruneheap.c:1280-1296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1280-L1296)
 
 ## Overview
 A decision function that records a line pointer as either dead or unused based on the pruning state configuration, providing flexibility in how dead tuples are handled during pruning.

@@ -1,7 +1,7 @@
 # get_modifiers
 
 ## Location
-src/backend/utils/adt/tsquery.c: 114 - 164
+[src/backend/utils/adt/tsquery.c:114-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L114-L164)
 
 ## Overview
 A static helper function that parses modifier characters from tsquery strings to extract weight and prefix flag information.

@@ -1,7 +1,7 @@
 # to_regtypemod
 
 ## Location
-src/backend/utils/adt/regproc.c: 1229 - 1246
+[src/backend/utils/adt/regproc.c:1229-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1229-L1246)
 
 ## Overview
 Converts a textual type name to its type modifier value, returning NULL if the type name is not found.

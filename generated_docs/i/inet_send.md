@@ -1,7 +1,7 @@
 # inet_send
 
 ## Location
-src/backend/utils/adt/network.c: 292 - 299
+[src/backend/utils/adt/network.c:292-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L292-L299)
 
 ## Overview
 Converts an INET data type to its binary representation for transmission over the network or storage in binary format.

@@ -1,7 +1,7 @@
 # quiet_hook
 
 ## Location
-src/bin/psql/startup.c: 887 - 892
+[src/bin/psql/startup.c:887-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L887-L892)
 
 ## Overview
 A hook function used in PostgreSQL's psql client to validate and set the QUIET variable, which controls whether psql should suppress informational output and run in quiet mode.

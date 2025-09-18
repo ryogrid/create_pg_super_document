@@ -1,7 +1,7 @@
 # hash_array_extended
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4279 - 4368
+[src/backend/utils/adt/arrayfuncs.c:4279-4368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4279-L4368)
 
 ## Overview
 Enhanced array hashing function that produces 64-bit hash values with seed support for improved hash distribution and security in hash-based operations.

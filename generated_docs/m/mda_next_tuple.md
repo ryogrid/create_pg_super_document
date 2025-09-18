@@ -1,7 +1,7 @@
 # mda_next_tuple
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 208 - 232
+[src/backend/utils/adt/arrayutils.c:208-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L208-L232)
 
 ## Overview
 Generates the lexicographically next n-tuple for iterating through multidimensional array coordinates within specified bounds.

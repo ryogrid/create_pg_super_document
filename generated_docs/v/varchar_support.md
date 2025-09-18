@@ -1,7 +1,7 @@
 # varchar_support
 
 ## Location
-src/backend/utils/adt/varchar.c: 565 - 608
+[src/backend/utils/adt/varchar.c:565-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L565-L608)
 
 ## Overview
 Provides planner support for VARCHAR length coercion functions, optimizing cases where length constraints can be simplified or eliminated.

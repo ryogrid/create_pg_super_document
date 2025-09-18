@@ -1,7 +1,7 @@
 # appendTypeNameToBuffer
 
 ## Location
-src/backend/parser/parse_type.c: 439 - 477
+[src/backend/parser/parse_type.c:439-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L439-L477)
 
 ## Overview
 A static utility function that formats a TypeName structure into a human-readable string representation and appends it to a StringInfo buffer, serving as the core implementation for both TypeNameToString and TypeNameListToString functions.

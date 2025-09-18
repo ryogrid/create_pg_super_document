@@ -1,7 +1,7 @@
 # GetAttrDefaultColumnAddress
 
 ## Location
-src/backend/catalog/pg_attrdef.c: 387 - 416
+[src/backend/catalog/pg_attrdef.c:387-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_attrdef.c#L387-L416)
 
 ## Overview
 GetAttrDefaultColumnAddress retrieves the relation OID and column number of the owning column for a given pg_attrdef entry, returning the information as an ObjectAddress structure.

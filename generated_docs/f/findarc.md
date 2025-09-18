@@ -1,7 +1,7 @@
 # findarc
 
 ## Location
-src/backend/regex/regc_nfa.c: 592 - 607
+[src/backend/regex/regc_nfa.c:592-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L592-L607)
 
 ## Overview
 Searches for and returns an arc from a given state that matches specified type and color criteria.

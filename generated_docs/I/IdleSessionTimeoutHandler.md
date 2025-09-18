@@ -1,7 +1,7 @@
 # IdleSessionTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1426 - 1433
+[src/backend/utils/init/postinit.c:1426-1433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1426-L1433)
 
 ## Overview
 IdleSessionTimeoutHandler is a signal handler function that responds to idle session timeout events by setting flags for graceful session termination when database sessions remain completely idle for too long.

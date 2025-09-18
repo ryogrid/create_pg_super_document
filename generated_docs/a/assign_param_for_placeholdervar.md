@@ -1,7 +1,7 @@
 # assign_param_for_placeholdervar
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 149 - 196
+[src/backend/optimizer/util/paramassign.c:149-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L149-L196)
 
 ## Overview
 Selects a PARAM_EXEC number to identify the given PlaceHolderVar as a parameter for the current subquery and records the need for the PHV in the proper upper-level root->plan_params.

@@ -1,7 +1,7 @@
 # pq_copymsgbytes
 
 ## Location
-src/backend/libpq/pqformat.c: 528 - 545
+[src/backend/libpq/pqformat.c:528-545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L528-L545)
 
 ## Overview
 Copies raw data from a message buffer into a caller-provided buffer, ensuring data isolation and safety.

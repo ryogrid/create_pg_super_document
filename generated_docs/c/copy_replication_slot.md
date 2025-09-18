@@ -1,7 +1,7 @@
 # copy_replication_slot
 
 ## Location
-src/backend/replication/slotfuncs.c: 601 - 857
+[src/backend/replication/slotfuncs.c:601-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L601-L857)
 
 ## Overview
 A comprehensive helper function that creates a new replication slot by copying the configuration and state from an existing source slot, supporting both logical and physical replication slots.

@@ -1,7 +1,7 @@
 # CheckCertAuth
 
 ## Location
-src/backend/libpq/auth.c: 2689 - 2778
+[src/backend/libpq/auth.c:2689-2778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2689-L2778)
 
 ## Overview
 Performs SSL client certificate authentication by validating the certificate's subject DN or CN against the requested username using usermap rules.

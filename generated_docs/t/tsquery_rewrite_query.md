@@ -1,7 +1,7 @@
 # tsquery_rewrite_query
 
 ## Location
-src/backend/utils/adt/tsquery_rewrite.c: 280 - 409
+[src/backend/utils/adt/tsquery_rewrite.c:280-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_rewrite.c#L280-L409)
 
 ## Overview
 The `tsquery_rewrite_query` function is a PostgreSQL SQL function that applies multiple rewrite rules to a TSQuery by executing a SQL query that returns replacement patterns.

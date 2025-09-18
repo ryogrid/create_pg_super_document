@@ -1,7 +1,7 @@
 # set_backtrace
 
 ## Location
-src/backend/utils/error/elog.c: 1116 - 1156
+[src/backend/utils/error/elog.c:1116-1156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1116-L1156)
 
 ## Overview
 Captures call stack backtrace information and attaches it to PostgreSQL error data for debugging purposes.

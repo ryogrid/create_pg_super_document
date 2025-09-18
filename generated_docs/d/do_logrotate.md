@@ -1,7 +1,7 @@
 # do_logrotate
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1255 - 1311
+[src/bin/pg_ctl/pg_ctl.c:1255-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1255-L1311)
 
 ## Overview
 Triggers log file rotation for a running PostgreSQL server by creating a logrotate signal file and sending a rotation signal to the postmaster process.

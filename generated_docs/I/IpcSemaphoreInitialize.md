@@ -1,7 +1,7 @@
 # IpcSemaphoreInitialize
 
 ## Location
-src/backend/port/sysv_sema.c: 163 - 185
+[src/backend/port/sysv_sema.c:163-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_sema.c#L163-L185)
 
 ## Overview
 IpcSemaphoreInitialize is a static function that sets a specific semaphore within a semaphore set to a given initial value using the System V IPC semctl() system call.

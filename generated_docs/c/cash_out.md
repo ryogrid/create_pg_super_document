@@ -1,7 +1,7 @@
 # cash_out
 
 ## Location
-src/backend/utils/adt/cash.c: 387 - 589
+[src/backend/utils/adt/cash.c:387-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L387-L589)
 
 ## Overview
 A PostgreSQL output function that converts a Cash data type to its string representation, formatting it according to the system's locale-specific monetary conventions.

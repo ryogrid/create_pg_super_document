@@ -1,7 +1,7 @@
 # palloc_aligned
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1510 - 1519
+[src/backend/utils/mmgr/mcxt.c:1510-1519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1510-L1519)
 
 ## Overview
 A convenience wrapper function that allocates memory with custom byte alignment from the current memory context.

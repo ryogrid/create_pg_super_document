@@ -1,7 +1,7 @@
 # pg_plan_query
 
 ## Location
-src/backend/tcop/postgres.c: 890 - 975
+[src/backend/tcop/postgres.c:890-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L890-L975)
 
 ## Overview
 Generates an execution plan for a single already-rewritten query by serving as a thin wrapper around the PostgreSQL planner with additional debugging and performance monitoring capabilities.

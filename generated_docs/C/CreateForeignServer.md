@@ -1,7 +1,7 @@
 # CreateForeignServer
 
 ## Location
-src/backend/commands/foreigncmds.c: 849 - 984
+[src/backend/commands/foreigncmds.c:849-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L849-L984)
 
 ## Overview
 Creates a new foreign server definition in PostgreSQL, establishing a logical connection endpoint for accessing external data through a specified foreign-data wrapper.

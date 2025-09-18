@@ -1,7 +1,7 @@
 # ResOwnerReleaseRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 6888 - 6901
+[src/backend/utils/cache/relcache.c:6888-6901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6888-L6901)
 
 ## Overview
 ResOwnerReleaseRelation is a resource owner callback function that handles the cleanup of relation cache references when they are released from a resource owner.

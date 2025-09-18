@@ -1,7 +1,7 @@
 # sendMessageToLeader
 
 ## Location
-src/bin/pg_dump/parallel.c: 1527 - 1539
+[src/bin/pg_dump/parallel.c:1527-1539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1527-L1539)
 
 ## Overview
 Sends a status message from a worker process to the leader process through a communication pipe in the PostgreSQL parallel dump utility.

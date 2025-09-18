@@ -1,7 +1,7 @@
 # MININT
 
 ## Location
-src/backend/snowball/dict_snowball.c: 24 - 84
+[src/backend/snowball/dict_snowball.c:24-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L24-L84)
 
 ## Overview
 MININT is a preprocessor directive used to undefine a potentially conflicting MININT macro that may be defined on some platforms before including Snowball stemmer library headers.

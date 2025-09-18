@@ -1,7 +1,7 @@
 # record_type_typmod_compare
 
 ## Location
-src/backend/utils/cache/typcache.c: 1937 - 1952
+[src/backend/utils/cache/typcache.c:1937-1952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1937-L1952)
 
 ## Overview
 A comparison function used by the hash table that stores RecordCacheEntry structures, determining equality between two record cache entries based on their TupleDesc structures.

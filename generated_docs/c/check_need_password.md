@@ -1,7 +1,7 @@
 # check_need_password
 
 ## Location
-src/bin/initdb/initdb.c: 2575 - 2588
+[src/bin/initdb/initdb.c:2575-2588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2575-L2588)
 
 ## Overview
 Validates whether a password must be specified for the superuser when password-based authentication methods are configured for both local and host connections in PostgreSQL initialization.

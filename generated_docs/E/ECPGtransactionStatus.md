@@ -1,7 +1,7 @@
 # ECPGtransactionStatus
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 145 - 159
+[src/interfaces/ecpg/ecpglib/misc.c:145-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L145-L159)
 
 ## Overview
 Returns the current transaction status for a specified ECPG database connection.

@@ -1,7 +1,7 @@
 # PatternInfo
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 32 - 45
+[src/bin/pg_amcheck/pg_amcheck.c:32-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L32-L45)
 
 ## Overview
 PatternInfo is a structure used in PostgreSQL's pg_amcheck utility to store and manage pattern matching information for database objects (databases, schemas, and relations) along with type-specific constraints.

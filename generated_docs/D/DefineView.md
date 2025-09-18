@@ -1,7 +1,7 @@
 # DefineView
 
 ## Location
-src/backend/commands/view.c: 356 - 510
+[src/backend/commands/view.c:356-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/view.c#L356-L510)
 
 ## Overview
 DefineView executes a CREATE VIEW command, performing parsing, validation, and view creation by coordinating the entire view definition process from SQL statement to database object.

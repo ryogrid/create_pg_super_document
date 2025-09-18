@@ -1,7 +1,7 @@
 # set_namedtuplestore_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2939 - 2965
+[src/backend/optimizer/path/allpaths.c:2939-2965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2939-L2965)
 
 ## Overview
 Builds the single access path for a named tuplestore RTE (Range Table Entry), handling pathlist generation for named tuplestore scans in PostgreSQL's query planner.

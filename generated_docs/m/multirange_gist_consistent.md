@@ -1,7 +1,7 @@
 # multirange_gist_consistent
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 270 - 323
+[src/backend/utils/adt/rangetypes_gist.c:270-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L270-L323)
 
 ## Overview
 Implements the GiST consistency check operation for multirange types, determining whether a query matches an index entry during multirange index searches.

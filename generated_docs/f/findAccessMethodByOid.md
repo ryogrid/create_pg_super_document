@@ -1,7 +1,7 @@
 # findAccessMethodByOid
 
 ## Location
-src/bin/pg_dump/common.c: 943 - 960
+[src/bin/pg_dump/common.c:943-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L943-L960)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL access method with the given OID, used in pg_dump operations for access method lookup during database dumping.

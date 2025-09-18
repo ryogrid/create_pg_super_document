@@ -1,7 +1,7 @@
 # InjectionPointConditionType
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 53 - 54
+[src/test/modules/injection_points/injection_points.c:53-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L53-L54)
 
 ## Overview
 An enumerated type that defines the different types of runtime conditions that can be applied to injection points in PostgreSQL's testing framework.

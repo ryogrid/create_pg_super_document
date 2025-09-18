@@ -1,7 +1,7 @@
 # ts_setup_firstcall
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2448 - 2488
+[src/backend/utils/adt/tsvector_op.c:2448-2488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2448-L2488)
 
 ## Overview
 Sets up the function call context for the first call of a set-returning function that iterates over TSVectorStat entries using an in-order traversal of the statistics tree.

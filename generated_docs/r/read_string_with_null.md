@@ -1,7 +1,7 @@
 # read_string_with_null
 
 ## Location
-src/backend/utils/misc/guc.c: 5717 - 5748
+[src/backend/utils/misc/guc.c:5717-5748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5717-L5748)
 
 ## Overview
 read_string_with_null reads a null-terminated string from a binary file, with dynamic memory allocation and error handling for malformed input.

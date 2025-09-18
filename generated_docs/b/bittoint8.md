@@ -1,7 +1,7 @@
 # bittoint8
 
 ## Location
-src/backend/utils/adt/varbit.c: 1666 - 1697
+[src/backend/utils/adt/varbit.c:1666-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1666-L1697)
 
 ## Overview
 Converts a PostgreSQL variable-length bit string (VarBit) to a 64-bit signed integer (int8/bigint).

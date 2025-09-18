@@ -1,7 +1,7 @@
 # get_record_type_from_argument
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3634 - 3659
+[src/backend/utils/adt/jsonfuncs.c:3634-3659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3634-L3659)
 
 ## Overview
 A static function that extracts and validates the record type from the first argument of JSON populate functions, setting up the necessary cache structures for type handling.

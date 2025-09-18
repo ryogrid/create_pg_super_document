@@ -1,7 +1,7 @@
 # transformUpdateStmt
 
 ## Location
-src/backend/parser/analyze.c: 2419 - 2484
+[src/backend/parser/analyze.c:2419-2484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2419-L2484)
 
 ## Overview
 Transforms an UPDATE statement from the parse tree into a Query node structure, handling all aspects including WITH clauses, target relations, FROM clauses, WHERE conditions, and RETURNING clauses.

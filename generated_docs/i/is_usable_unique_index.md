@@ -1,7 +1,7 @@
 # is_usable_unique_index
 
 ## Location
-src/backend/commands/matview.c: 898 - 951
+[src/backend/commands/matview.c:898-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L898-L951)
 
 ## Overview
 Determines whether a given index meets all the requirements to be used for materialized view match-merge refresh operations.

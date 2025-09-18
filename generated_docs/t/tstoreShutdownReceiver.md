@@ -1,7 +1,7 @@
 # tstoreShutdownReceiver
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 206 - 228
+[src/backend/executor/tstoreReceiver.c:206-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L206-L228)
 
 ## Overview
 Performs cleanup operations when a tuplestore destination receiver is being shut down, releasing all allocated workspace memory and resources.

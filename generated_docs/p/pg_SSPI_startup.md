@@ -1,7 +1,7 @@
 # pg_SSPI_startup
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 351 - 421
+[src/interfaces/libpq/fe-auth.c:351-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L351-L421)
 
 ## Overview
 Initiates SSPI authentication by acquiring credentials, setting up the target principal, and delegating to the continuation function for the first authentication exchange.

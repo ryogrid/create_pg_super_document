@@ -1,7 +1,7 @@
 # numeric_to_number
 
 ## Location
-src/backend/utils/adt/formatting.c: 6343 - 6401
+[src/backend/utils/adt/formatting.c:6343-6401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L6343-L6401)
 
 ## Overview
 A PostgreSQL built-in function that converts a formatted text string to a numeric value using a specified format pattern.

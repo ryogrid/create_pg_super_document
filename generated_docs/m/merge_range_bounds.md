@@ -1,7 +1,7 @@
 # merge_range_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 1506 - 1810
+[src/backend/partitioning/partbounds.c:1506-1810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1506-L1810)
 
 ## Overview
 Creates partition bounds for a join relation between range-partitioned tables by merging overlapping partitions using an algorithm similar to merge join.

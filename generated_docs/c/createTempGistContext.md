@@ -1,7 +1,7 @@
 # createTempGistContext
 
 ## Location
-src/backend/access/gist/gist.c: 122 - 132
+[src/backend/access/gist/gist.c:122-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L122-L132)
 
 ## Overview
 Creates and returns a temporary memory context specifically for GiST operations to ensure proper memory management and prevent memory leaks in user-provided functions.

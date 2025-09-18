@@ -1,7 +1,7 @@
 # addressOK
 
 ## Location
-src/backend/utils/adt/network.c: 1641 - 1689
+[src/backend/utils/adt/network.c:1641-1689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1641-L1689)
 
 ## Overview
 Verifies that a CIDR address is valid by ensuring it doesn't have bits set beyond the specified mask length.

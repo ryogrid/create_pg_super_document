@@ -1,7 +1,7 @@
 # CopyMultiInsertBufferFlush
 
 ## Location
-src/backend/commands/copyfrom.c: 304 - 477
+[src/backend/commands/copyfrom.c:304-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L304-L477)
 
 ## Overview
 Writes the tuples stored in a CopyMultiInsertBuffer out to the target table, handling both regular tables and foreign data wrapper (FDW) tables with different insertion strategies.

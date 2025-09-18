@@ -1,7 +1,7 @@
 # publication_add_schema
 
 ## Location
-src/backend/catalog/pg_publication.c: 606 - 686
+[src/backend/catalog/pg_publication.c:606-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L606-L686)
 
 ## Overview
 Inserts a new publication/schema mapping into the pg_publication_namespace catalog table, establishing a relationship between a publication and a schema.

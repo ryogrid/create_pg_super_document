@@ -1,7 +1,7 @@
 # pqTraceOutput_ParameterStatus
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 435 - 442
+[src/interfaces/libpq/fe-trace.c:435-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L435-L442)
 
 ## Overview
 Outputs a formatted trace message for ParameterStatus protocol messages in PostgreSQL client tracing.

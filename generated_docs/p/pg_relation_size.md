@@ -1,7 +1,7 @@
 # pg_relation_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 346 - 377
+[src/backend/utils/adt/dbsize.c:346-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L346-L377)
 
 ## Overview
 A PostgreSQL system function that returns the disk space used by a specific fork of a relation identified by its OID.

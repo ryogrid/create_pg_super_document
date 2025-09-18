@@ -1,7 +1,7 @@
 # bbsink_zstd
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 23 - 33
+[src/backend/backup/basebackup_zstd.c:23-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L23-L33)
 
 ## Overview
 A PostgreSQL structure that represents a base backup sink implementing zstd compression, extending the base bbsink functionality to compress archive data during backup operations.

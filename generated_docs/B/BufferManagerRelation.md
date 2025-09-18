@@ -1,7 +1,7 @@
 # BufferManagerRelation
 
 ## Location
-src/include/storage/bufmgr.h: 100 - 105
+[src/include/storage/bufmgr.h:100-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L100-L105)
 
 ## Overview
 BufferManagerRelation is a structure that provides a unified way to identify database relations for buffer management operations, supporting both normal operation and recovery scenarios.

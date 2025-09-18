@@ -1,7 +1,7 @@
 # has_drive_prefix
 
 ## Location
-src/port/path.c: 93 - 108
+[src/port/path.c:93-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L93-L108)
 
 ## Overview
 A platform-specific utility function that determines whether a given pathname contains a drive prefix (Windows drive letters or UNC paths).

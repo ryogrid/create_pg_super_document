@@ -1,7 +1,7 @@
 # JsonPathQuery
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3911 - 4004
+[src/backend/utils/adt/jsonpath_exec.c:3911-4004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3911-L4004)
 
 ## Overview
 An executor-callable function that implements JSON_QUERY functionality, extracting JSON values from a document using a JSON path expression with sophisticated wrapping behavior control.

@@ -1,7 +1,7 @@
 # PlanCacheComputeResultDesc
 
 ## Location
-src/backend/utils/cache/plancache.c: 1949 - 1984
+[src/backend/utils/cache/plancache.c:1949-1984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1949-L1984)
 
 ## Overview
 Determines the result tuple descriptor for a list of analyzed and rewritten queries based on the portal strategy, returning NULL if no tuples will be produced.

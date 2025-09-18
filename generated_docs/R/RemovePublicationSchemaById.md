@@ -1,7 +1,7 @@
 # RemovePublicationSchemaById
 
 ## Location
-src/backend/commands/publicationcmds.c: 1511 - 1548
+[src/backend/commands/publicationcmds.c:1511-1548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1511-L1548)
 
 ## Overview
 RemovePublicationSchemaById removes a schema from a publication using its publication-schema mapping OID, performing comprehensive cache invalidation for all affected relations and partitions.

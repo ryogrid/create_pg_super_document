@@ -1,7 +1,7 @@
 # SimpleStringListCell
 
 ## Location
-src/include/fe_utils/simple_list.h: 32 - 38
+[src/include/fe_utils/simple_list.h:32-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L32-L38)
 
 ## Overview
 SimpleStringListCell is a linked list node structure designed to store null-terminated strings with tracking functionality, providing an efficient way to manage collections of string data in PostgreSQL frontend utilities.

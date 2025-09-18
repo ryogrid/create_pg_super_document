@@ -1,7 +1,7 @@
 # assign_transaction_timeout
 
 ## Location
-src/backend/tcop/postgres.c: 3683 - 3701
+[src/backend/tcop/postgres.c:3683-3701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3683-L3701)
 
 ## Overview
 A GUC assign hook function that manages the transaction timeout mechanism when the  configuration parameter is changed during runtime.

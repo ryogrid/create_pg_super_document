@@ -1,7 +1,7 @@
 # get_tablespace_io_concurrency
 
 ## Location
-src/backend/utils/cache/spccache.c: 215 - 228
+[src/backend/utils/cache/spccache.c:215-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/spccache.c#L215-L228)
 
 ## Overview
 Returns the I/O concurrency setting for a specified tablespace, falling back to the global default when no tablespace-specific value is configured.

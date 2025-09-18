@@ -1,7 +1,7 @@
 # heap_prune_record_unchanged_lp_unused
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1319 - 1329
+[src/backend/access/heap/pruneheap.c:1319-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1319-L1329)
 
 ## Overview
 Records an unused line pointer that remains unchanged during heap page pruning, marking it as processed in the pruning state.

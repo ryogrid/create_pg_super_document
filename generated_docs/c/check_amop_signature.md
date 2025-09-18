@@ -1,7 +1,7 @@
 # check_amop_signature
 
 ## Location
-src/backend/access/index/amvalidate.c: 206 - 235
+[src/backend/access/index/amvalidate.c:206-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L206-L235)
 
 ## Overview
 Validates the signature (argument and result types) of an operator class operator to ensure it matches expected types exactly.

@@ -1,7 +1,7 @@
 # tuplestore_advance
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1110 - 1134
+[src/backend/utils/sort/tuplestore.c:1110-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1110-L1134)
 
 ## Overview
 Exported function that advances the position in a tuplestore without actually fetching the tuple data, useful for skipping over tuples when only position advancement is needed.

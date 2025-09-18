@@ -1,7 +1,7 @@
 # RelationInfo
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 156 - 166
+[src/bin/pg_amcheck/pg_amcheck.c:156-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L156-L166)
 
 ## Overview
 RelationInfo is a structure used in PostgreSQL's pg_amcheck utility to store detailed information about a specific relation (table or index) that needs integrity checking, including metadata and runtime state.

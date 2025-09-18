@@ -1,7 +1,7 @@
 # poly_left
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3533 - 3555
+[src/backend/utils/adt/geo_ops.c:3533-3555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3533-L3555)
 
 ## Overview
 Determines if polygon A is strictly to the left of polygon B by comparing their bounding box coordinates.

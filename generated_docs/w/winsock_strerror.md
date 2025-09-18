@@ -1,7 +1,7 @@
 # winsock_strerror
 
 ## Location
-src/interfaces/libpq/win32.c: 277 - 320
+[src/interfaces/libpq/win32.c:277-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/win32.c#L277-L320)
 
 ## Overview
 winsock_strerror is a function that provides human-readable error descriptions for Windows socket error codes, using both a static lookup table and dynamic loading of Windows system DLLs as fallback mechanisms.

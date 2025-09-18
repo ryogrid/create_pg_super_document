@@ -1,7 +1,7 @@
 # get_windowclause_startup_tuples
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2854 - 3067
+[src/backend/optimizer/path/costsize.c:2854-3067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2854-L3067)
 
 ## Overview
 Estimates how many tuples a WindowAgg node needs to fetch from its subnode before it can output the first tuple, based on the window clause specifications including partitioning, ordering, and frame options.

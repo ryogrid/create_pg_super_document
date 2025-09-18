@@ -1,7 +1,7 @@
 # list_make2_impl
 
 ## Location
-src/backend/nodes/list.c: 246 - 256
+[src/backend/nodes/list.c:246-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L246-L256)
 
 ## Overview
 A convenience function that creates a new List containing exactly two elements, providing the implementation for the list_make2 family of macros.

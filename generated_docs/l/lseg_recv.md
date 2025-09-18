@@ -1,7 +1,7 @@
 # lseg_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2092 - 2110
+[src/backend/utils/adt/geo_ops.c:2092-2110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2092-L2110)
 
 ## Overview
 Converts external binary format data to an internal line segment (LSEG) representation for PostgreSQL binary protocol communication.

@@ -1,7 +1,7 @@
 # SyncRepCancelWait
 
 ## Location
-src/backend/replication/syncrep.c: 406 - 415
+[src/backend/replication/syncrep.c:406-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L406-L415)
 
 ## Overview
 Cancels any synchronous replication wait currently in progress by removing the process from the wait queue and resetting its synchronization state.

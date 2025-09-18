@@ -1,7 +1,7 @@
 # CopyGetAttnums
 
 ## Location
-src/backend/commands/copy.c: 896 - 970
+[src/backend/commands/copy.c:896-970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L896-L970)
 
 ## Overview
 CopyGetAttnums builds an integer list of attribute numbers (column numbers) to be copied during PostgreSQL COPY operations, either from a user-specified column list or generating a default list of all non-dropped, non-generated columns.

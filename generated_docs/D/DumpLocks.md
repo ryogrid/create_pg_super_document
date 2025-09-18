@@ -1,7 +1,7 @@
 # DumpLocks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4084 - 4116
+[src/backend/storage/lmgr/lock.c:4084-4116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4084-L4116)
 
 ## Overview
 Dumps all locks held by a given PostgreSQL process (PGPROC) for debugging purposes.

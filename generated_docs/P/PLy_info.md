@@ -1,7 +1,7 @@
 # PLy_info
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 293 - 298
+[src/pl/plpython/plpy_plpymodule.c:293-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L293-L298)
 
 ## Overview
 PLy_info is a Python-callable function that provides informational logging capabilities for PL/Python stored procedures and functions in PostgreSQL.

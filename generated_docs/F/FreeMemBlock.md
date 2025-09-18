@@ -1,7 +1,7 @@
 # FreeMemBlock
 
 ## Location
-src/include/jit/SectionMemoryManager.h: 181 - 190
+[src/include/jit/SectionMemoryManager.h:181-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/SectionMemoryManager.h#L181-L190)
 
 ## Overview
 FreeMemBlock is a private struct within PostgreSQL's JIT compilation system that represents a block of available memory along with metadata to optimize memory allocation and manage pending allocations.

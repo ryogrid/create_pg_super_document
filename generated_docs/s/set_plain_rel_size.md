@@ -1,7 +1,7 @@
 # set_plain_rel_size
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 572 - 588
+[src/backend/optimizer/path/allpaths.c:572-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L572-L588)
 
 ## Overview
 Estimates the size and output characteristics for a plain base relation without subqueries or inheritance.

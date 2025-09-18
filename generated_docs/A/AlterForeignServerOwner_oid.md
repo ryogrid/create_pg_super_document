@@ -1,7 +1,7 @@
 # AlterForeignServerOwner_oid
 
 ## Location
-src/backend/commands/foreigncmds.c: 461 - 485
+[src/backend/commands/foreigncmds.c:461-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L461-L485)
 
 ## Overview
 OID-based interface function for changing a foreign server's owner, providing direct object ID lookup without name resolution.

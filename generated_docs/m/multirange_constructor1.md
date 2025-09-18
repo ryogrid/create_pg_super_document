@@ -1,7 +1,7 @@
 # multirange_constructor1
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1023 - 1058
+[src/backend/utils/adt/multirangetypes.c:1023-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1023-L1058)
 
 ## Overview
 Constructs a multirange value from a single range input, primarily used to enable casting from a range type to its corresponding multirange type.

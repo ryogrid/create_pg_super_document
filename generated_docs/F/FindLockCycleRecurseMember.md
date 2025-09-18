@@ -1,7 +1,7 @@
 # FindLockCycleRecurseMember
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 533 - 786
+[src/backend/storage/lmgr/deadlock.c:533-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L533-L786)
 
 ## Overview
 FindLockCycleRecurseMember is a detailed helper function that examines the lock dependencies of a specific process member, checking for both hard-blocking and soft-blocking relationships in PostgreSQL's deadlock detection algorithm.

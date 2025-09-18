@@ -1,7 +1,7 @@
 # pg_TZDIR
 
 ## Location
-src/bin/initdb/findtimezone.c: 37 - 64
+[src/bin/initdb/findtimezone.c:37-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L37-L64)
 
 ## Overview
 Returns the full pathname of the timezone data directory for PostgreSQL to use when reading timezone files.

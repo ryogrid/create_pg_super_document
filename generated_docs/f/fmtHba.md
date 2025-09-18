@@ -1,7 +1,7 @@
 # fmtHba
 
 ## Location
-src/test/regress/pg_regress.c: 923 - 948
+[src/test/regress/pg_regress.c:923-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L923-L948)
 
 ## Overview
 Formats a string for use in PostgreSQL HBA (Host-Based Authentication) configuration by properly escaping quotes and wrapping in double quotes.

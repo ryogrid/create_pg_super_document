@@ -1,7 +1,7 @@
 # pg_current_wal_lsn
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 273 - 293
+[src/backend/access/transam/xlogfuncs.c:273-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L273-L293)
 
 ## Overview
 Returns the current WAL write location, indicating how much WAL data has been written out to the kernel.

@@ -1,7 +1,7 @@
 # update_metainfo_datafile
 
 ## Location
-src/backend/postmaster/syslogger.c: 1476 - 1572
+[src/backend/postmaster/syslogger.c:1476-1572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1476-L1572)
 
 ## Overview
 Maintains a metadata file containing the current names of active log files, enabling external tools to identify current log files during time-based rotation.

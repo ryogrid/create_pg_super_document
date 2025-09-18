@@ -1,7 +1,7 @@
 # PlanState
 
 ## Location
-src/include/nodes/execnodes.h: 1113 - 1205
+[src/include/nodes/execnodes.h:1113-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1113-L1205)
 
 ## Overview
 PlanState serves as the abstract base class for all plan node execution states in PostgreSQL, providing common infrastructure for query plan execution including tuple processing, expression evaluation, and runtime instrumentation.

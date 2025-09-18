@@ -1,7 +1,7 @@
 # transformSelectStmt
 
 ## Location
-src/backend/parser/analyze.c: 1337 - 1479
+[src/backend/parser/analyze.c:1337-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1337-L1479)
 
 ## Overview
 Transforms a SELECT statement AST node into a Query tree structure, handling all SELECT-specific clauses except set operations and VALUES lists.

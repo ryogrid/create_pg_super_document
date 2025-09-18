@@ -1,7 +1,7 @@
 # gb_unlinear
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 44 - 59
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:44-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L44-L59)
 
 ## Overview
 Converts a linear code space representation back to 4-byte GB18030 encoded characters, serving as the inverse operation to gb_linear.

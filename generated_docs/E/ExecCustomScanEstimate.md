@@ -1,7 +1,7 @@
 # ExecCustomScanEstimate
 
 ## Location
-src/backend/executor/nodeCustom.c: 161 - 173
+[src/backend/executor/nodeCustom.c:161-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L161-L173)
 
 ## Overview
 Estimates the shared memory requirements for a custom scan node in a parallel query execution context.

@@ -1,7 +1,7 @@
 # ginxlogDeletePage
 
 ## Location
-src/include/access/ginxlog.h: 155 - 160
+[src/include/access/ginxlog.h:155-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L155-L160)
 
 ## Overview
 Structure used for WAL (Write-Ahead Logging) record when deleting pages from a GIN index during vacuum operations.

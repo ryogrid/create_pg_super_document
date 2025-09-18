@@ -1,7 +1,7 @@
 # BuildParameterizedTidPaths
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 415 - 469
+[src/backend/optimizer/path/tidpath.c:415-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L415-L469)
 
 ## Overview
 A static function that creates parameterized TID scan paths for join clauses involving the specified relation, enabling efficient tuple access through external parameter values.

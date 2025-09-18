@@ -1,7 +1,7 @@
 # parallel_exec_prog
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 62 - 152
+[src/bin/pg_upgrade/parallel.c:62-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L62-L152)
 
 ## Overview
 Executes a command in parallel mode as part of PostgreSQL's pg_upgrade utility, providing concurrent execution capabilities for improved performance during database upgrades.

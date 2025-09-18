@@ -1,7 +1,7 @@
 # interval_recv
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1006 - 1030
+[src/backend/utils/adt/timestamp.c:1006-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1006-L1030)
 
 ## Overview
 Converts PostgreSQL's external binary format to the internal Interval data type, used in binary protocol communication between client and server.

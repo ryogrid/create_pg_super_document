@@ -1,7 +1,7 @@
 # textarray_to_stringlist
 
 ## Location
-src/backend/catalog/pg_subscription.c: 210 - 235
+[src/backend/catalog/pg_subscription.c:210-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L210-L235)
 
 ## Overview
 Converts a PostgreSQL text array (ArrayType) into a List of String nodes, with memory allocated in the current memory context.

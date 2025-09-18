@@ -1,7 +1,7 @@
 # _bt_checkkeys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3508 - 3681
+[src/backend/access/nbtree/nbtutils.c:3508-3681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3508-L3681)
 
 ## Overview
 Tests whether an index tuple satisfies all scankey conditions and manages array key advancement and scan continuation decisions during B-tree index scans.

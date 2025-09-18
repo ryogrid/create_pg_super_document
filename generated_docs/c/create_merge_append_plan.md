@@ -1,7 +1,7 @@
 # create_merge_append_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1438 - 1587
+[src/backend/optimizer/plan/createplan.c:1438-1587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1438-L1587)
 
 ## Overview
 Creates a MergeAppend plan node that merges multiple sorted child plans into a single sorted output stream, commonly used for partitioned table queries where results need to be returned in sorted order.

@@ -1,7 +1,7 @@
 # hashbuild
 
 ## Location
-src/backend/access/hash/hash.c: 115 - 200
+[src/backend/access/hash/hash.c:115-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L115-L200)
 
 ## Overview
 Builds a new hash index by scanning the heap relation and inserting all tuples into the newly created hash index structure.

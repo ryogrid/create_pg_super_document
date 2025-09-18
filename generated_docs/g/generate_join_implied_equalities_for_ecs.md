@@ -1,7 +1,7 @@
 # generate_join_implied_equalities_for_ecs
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1476 - 1546
+[src/backend/optimizer/path/equivclass.c:1476-1546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1476-L1546)
 
 ## Overview
 A specialized version of generate_join_implied_equalities that processes only a specific list of equivalence classes rather than discovering them automatically.

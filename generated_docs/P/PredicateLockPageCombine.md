@@ -1,7 +1,7 @@
 # PredicateLockPageCombine
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3219 - 3240
+[src/backend/storage/lmgr/predicate.c:3219-3240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3219-L3240)
 
 ## Overview
 Handles predicate lock management during page combine operations by delegating to PredicateLockPageSplit to maintain serializable isolation guarantees.

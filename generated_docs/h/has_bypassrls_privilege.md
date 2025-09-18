@@ -1,7 +1,7 @@
 # has_bypassrls_privilege
 
 ## Location
-src/backend/catalog/aclchk.c: 4247 - 4270
+[src/backend/catalog/aclchk.c:4247-4270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4247-L4270)
 
 ## Overview
 Checks whether a specified role has BYPASSRLS (Bypass Row Level Security) privilege or is a superuser, determining if the role can bypass row-level security policies.

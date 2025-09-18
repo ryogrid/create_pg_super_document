@@ -1,7 +1,7 @@
 # r_cleaning
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_catalan.c: 1215 - 1269
+[src/backend/snowball/libstemmer/stem_UTF_8_catalan.c:1215-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_catalan.c#L1215-L1269)
 
 ## Overview
 r_cleaning is a static function that performs character normalization and cleaning operations on words as part of the Catalan language stemming process, replacing specific character combinations with their canonical forms.

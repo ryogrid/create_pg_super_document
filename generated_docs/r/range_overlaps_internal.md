@@ -1,7 +1,7 @@
 # range_overlaps_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 841 - 873
+[src/backend/utils/adt/rangetypes.c:841-873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L841-L873)
 
 ## Overview
 Determines if two ranges overlap by checking if they share any common values within their boundaries.

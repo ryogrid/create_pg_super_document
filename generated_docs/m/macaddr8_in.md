@@ -1,7 +1,7 @@
 # macaddr8_in
 
 ## Location
-src/backend/utils/adt/mac8.c: 97 - 233
+[src/backend/utils/adt/mac8.c:97-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L97-L233)
 
 ## Overview
 A PostgreSQL input function that parses string representations of MAC addresses and converts them to the internal macaddr8 format, supporting both EUI-48 (6-byte) and EUI-64 (8-byte) MAC addresses.

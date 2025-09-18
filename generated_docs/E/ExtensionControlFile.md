@@ -1,7 +1,7 @@
 # ExtensionControlFile
 
 ## Location
-src/backend/commands/extension.c: 77 - 93
+[src/backend/commands/extension.c:77-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L77-L93)
 
 ## Overview
 ExtensionControlFile is an internal data structure that holds the parsed contents of a PostgreSQL extension control file, containing metadata and configuration information necessary for extension management operations.

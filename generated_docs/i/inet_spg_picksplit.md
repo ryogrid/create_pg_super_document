@@ -1,7 +1,7 @@
 # inet_spg_picksplit
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 165 - 238
+[src/backend/utils/adt/network_spgist.c:165-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L165-L238)
 
 ## Overview
 SP-GiST picksplit function for inet/cidr data types that partitions a set of network address values into child nodes when a leaf page overflows.

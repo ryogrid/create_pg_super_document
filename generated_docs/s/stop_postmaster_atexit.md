@@ -1,7 +1,7 @@
 # stop_postmaster_atexit
 
 ## Location
-src/bin/pg_upgrade/server.c: 191 - 197
+[src/bin/pg_upgrade/server.c:191-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L191-L197)
 
 ## Overview
 A cleanup function registered as an atexit handler to ensure the postmaster process is properly stopped when pg_upgrade exits.

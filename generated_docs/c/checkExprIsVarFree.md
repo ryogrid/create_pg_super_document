@@ -1,7 +1,7 @@
 # checkExprIsVarFree
 
 ## Location
-src/backend/parser/parse_clause.c: 1925 - 1949
+[src/backend/parser/parse_clause.c:1925-1949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1925-L1949)
 
 ## Overview
 Validates that a given expression contains no variable references from the current query level, ensuring expressions are constant across all rows.

@@ -1,7 +1,7 @@
 # footers_with_default
 
 ## Location
-src/fe_utils/print.c: 398 - 421
+[src/fe_utils/print.c:398-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L398-L421)
 
 ## Overview
 Returns either explicitly-requested table footers or generates a default row count footer based on table printing options and content.

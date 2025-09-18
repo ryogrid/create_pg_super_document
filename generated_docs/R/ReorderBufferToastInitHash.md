@@ -1,7 +1,7 @@
 # ReorderBufferToastInitHash
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4818 - 4837
+[src/backend/replication/logical/reorderbuffer.c:4818-4837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4818-L4837)
 
 ## Overview
 Initializes a hash table for TOAST (The Oversized-Attribute Storage Technique) chunk reassembly within a reorder buffer transaction to reconstruct large column values during logical replication.

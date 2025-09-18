@@ -1,7 +1,7 @@
 # spgxlogVacuumRoot
 
 ## Location
-src/include/access/spgxlog.h: 225 - 234
+[src/include/access/spgxlog.h:225-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L225-L234)
 
 ## Overview
 The spgxlogVacuumRoot struct is a PostgreSQL WAL record structure used to log vacuum operations on SP-GiST root pages that are also leaf pages, handling the special case where the index has only one page.

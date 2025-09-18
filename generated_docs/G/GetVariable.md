@@ -1,7 +1,7 @@
 # GetVariable
 
 ## Location
-src/bin/psql/variables.c: 71 - 106
+[src/bin/psql/variables.c:71-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L71-L106)
 
 ## Overview
 Retrieves the string value of a variable from a variable space, or returns NULL if the variable is not defined.

@@ -1,7 +1,7 @@
 # UnregisterResourceReleaseCallback
 
 ## Location
-src/backend/utils/resowner/resowner.c: 958 - 981
+[src/backend/utils/resowner/resowner.c:958-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L958-L981)
 
 ## Overview
 Removes a previously registered resource release callback from the global callback list, allowing dynamically loaded modules to clean up their callback registrations.

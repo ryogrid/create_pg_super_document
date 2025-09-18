@@ -1,7 +1,7 @@
 # getIthJsonbValueFromContainer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 465 - 501
+[src/backend/utils/adt/jsonb_util.c:465-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L465-L501)
 
 ## Overview
 Retrieves the element at a specified index position from a JSONB array container with bounds checking.

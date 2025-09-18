@@ -1,7 +1,7 @@
 # pgreadlink
 
 ## Location
-src/port/dirmod.c: 309 - 422
+[src/port/dirmod.c:309-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirmod.c#L309-L422)
 
 ## Overview
 A Windows-specific function that reads the target path of symbolic links by examining junction points using Win32 reparse point mechanisms, providing cross-platform readlink functionality.

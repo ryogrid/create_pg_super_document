@@ -1,7 +1,7 @@
 # RecheckDataDirLockFile
 
 ## Location
-src/backend/utils/init/miscinit.c: 1693 - 1764
+[src/backend/utils/init/miscinit.c:1693-1764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1693-L1764)
 
 ## Overview
 Periodically verifies that the data directory lock file still exists and contains the expected process ID to detect unauthorized access or lock file tampering.

@@ -1,7 +1,7 @@
 # gin_extract_tsquery
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 94 - 176
+[src/backend/utils/adt/tsginidx.c:94-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L94-L176)
 
 ## Overview
 Extracts searchable terms from a TSQuery (text search query) for GIN index lookups, determining search strategy and handling partial matches.

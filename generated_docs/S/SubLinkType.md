@@ -1,7 +1,7 @@
 # SubLinkType
 
 ## Location
-src/include/nodes/primnodes.h: 1005 - 1007
+[src/include/nodes/primnodes.h:1005-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1005-L1007)
 
 ## Overview
 SubLinkType is an enumeration that defines the different types of subselect expressions supported in PostgreSQL, specifying how subqueries are combined with their surrounding expressions.

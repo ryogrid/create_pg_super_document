@@ -1,7 +1,7 @@
 # trueTriConsistentFn
 
 ## Location
-src/backend/access/gin/ginlogic.c: 56 - 64
+[src/backend/access/gin/ginlogic.c:56-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L56-L64)
 
 ## Overview
 A dummy ternary consistent function for GIN index EVERYTHING keys that always returns GIN_TRUE, indicating definitive match for any query.

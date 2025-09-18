@@ -1,7 +1,7 @@
 # list_deduplicate_oid
 
 ## Location
-src/backend/nodes/list.c: 1495 - 1519
+[src/backend/nodes/list.c:1495-1519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1495-L1519)
 
 ## Overview
 Removes adjacent duplicates from a sorted list of OIDs, modifying the list in-place to contain only unique values.

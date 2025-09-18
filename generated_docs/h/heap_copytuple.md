@@ -1,7 +1,7 @@
 # heap_copytuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 776 - 801
+[src/backend/access/common/heaptuple.c:776-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L776-L801)
 
 ## Overview
 Creates a complete copy of a HeapTuple including the tuple header and data, allocating the entire structure as a single palloc() block for memory efficiency.

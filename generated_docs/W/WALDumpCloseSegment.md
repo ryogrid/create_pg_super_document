@@ -1,7 +1,7 @@
 # WALDumpCloseSegment
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 380 - 388
+[src/bin/pg_waldump/pg_waldump.c:380-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L380-L388)
 
 ## Overview
 Serves as the XLogReaderRoutine segment_close callback function that properly closes WAL segment files and resets the file descriptor state.

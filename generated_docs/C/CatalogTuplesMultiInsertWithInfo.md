@@ -1,7 +1,7 @@
 # CatalogTuplesMultiInsertWithInfo
 
 ## Location
-src/backend/catalog/indexing.c: 273 - 312
+[src/backend/catalog/indexing.c:273-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L273-L312)
 
 ## Overview
 CatalogTuplesMultiInsertWithInfo efficiently inserts multiple tuples into a system catalog relation in a single operation, optimizing performance by using bulk heap insertion while maintaining individual index updates.

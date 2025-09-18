@@ -1,7 +1,7 @@
 # ReadPageInternal
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1010 - 1122
+[src/backend/access/transam/xlogreader.c:1010-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1010-L1122)
 
 ## Overview
 Reads a single WAL page through the page_read callback with caching, validation, and comprehensive error handling for both blocking and non-blocking scenarios.

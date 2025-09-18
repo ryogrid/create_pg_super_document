@@ -1,7 +1,7 @@
 # XLogReaderResetError
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1375 - 1392
+[src/backend/access/transam/xlogreader.c:1375-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1375-L1392)
 
 ## Overview
 XLogReaderResetError clears error state in an XLogReaderState structure, typically used to reset error conditions after handling validation failures.

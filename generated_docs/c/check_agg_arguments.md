@@ -1,7 +1,7 @@
 # check_agg_arguments
 
 ## Location
-src/backend/parser/parse_agg.c: 636 - 716
+[src/backend/parser/parse_agg.c:636-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L636-L716)
 
 ## Overview
 Analyzes aggregate function arguments to determine the semantic nesting level of the aggregate and validates that nested aggregates and variables are used correctly.

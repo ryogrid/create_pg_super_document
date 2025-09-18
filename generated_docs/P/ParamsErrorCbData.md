@@ -1,7 +1,7 @@
 # ParamsErrorCbData
 
 ## Location
-src/include/nodes/params.h: 154 - 158
+[src/include/nodes/params.h:154-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/params.h#L154-L158)
 
 ## Overview
 ParamsErrorCbData is a struct that serves as the argument for parameter error callback functions, providing context information for error reporting when parameter-related issues occur during query execution.

@@ -1,7 +1,7 @@
 # RollbackAndReleaseCurrentSubTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 4745 - 4810
+[src/backend/access/transam/xact.c:4745-4810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4745-L4810)
 
 ## Overview
 RollbackAndReleaseCurrentSubTransaction aborts and completely cleans up the innermost subtransaction, combining rollback and release operations in a single function for internal use.

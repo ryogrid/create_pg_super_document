@@ -1,7 +1,7 @@
 # read_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 87 - 99
+[src/bin/pg_dump/compress_none.c:87-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L87-L99)
 
 ## Overview
 Reads data from an uncompressed file, implementing the compress file API for reading operations when no compression is used in pg_dump.

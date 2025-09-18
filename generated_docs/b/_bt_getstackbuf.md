@@ -1,7 +1,7 @@
 # _bt_getstackbuf
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2319 - 2443
+[src/backend/access/nbtree/nbtinsert.c:2319-2443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2319-L2443)
 
 ## Overview
 _bt_getstackbuf re-finds and locks a parent page containing the downlink to a specified child page, updating the stack information to reflect any changes due to concurrent operations.

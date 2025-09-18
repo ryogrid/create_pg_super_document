@@ -1,7 +1,7 @@
 # get_negator
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1533 - 1556
+[src/backend/utils/cache/lsyscache.c:1533-1556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1533-L1556)
 
 ## Overview
 Returns the corresponding negator operator for a given operator OID, or InvalidOid if the operator has no negator or doesn't exist.

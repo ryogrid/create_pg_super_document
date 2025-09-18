@@ -1,7 +1,7 @@
 # pg_saslprep
 
 ## Location
-src/common/saslprep.c: 1049 - 1252
+[src/common/saslprep.c:1049-1252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/saslprep.c#L1049-L1252)
 
 ## Overview
 The main function implementing SASLprep string normalization according to RFC 3454, used to normalize passwords and usernames for SASL authentication in PostgreSQL.

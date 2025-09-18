@@ -1,7 +1,7 @@
 # vac_update_relstats
 
 ## Location
-src/backend/commands/vacuum.c: 1409 - 1584
+[src/backend/commands/vacuum.c:1409-1584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1409-L1584)
 
 ## Overview
 Updates the whole-relation statistics stored in the pg_class system catalog row for a given relation, including both heap and index relations, using in-place tuple updates to avoid transaction semantics issues during vacuum operations.

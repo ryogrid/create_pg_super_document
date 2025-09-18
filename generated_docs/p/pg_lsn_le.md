@@ -1,7 +1,7 @@
 # pg_lsn_le
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 154 - 162
+[src/backend/utils/adt/pg_lsn.c:154-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L154-L162)
 
 ## Overview
 Compares two PostgreSQL Log Sequence Number (LSN) values to determine if the first is less than or equal to the second, useful for range checks and inclusive chronological ordering.

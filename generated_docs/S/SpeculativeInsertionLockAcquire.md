@@ -1,7 +1,7 @@
 # SpeculativeInsertionLockAcquire
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 778 - 803
+[src/backend/storage/lmgr/lmgr.c:778-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L778-L803)
 
 ## Overview
 Acquires a lock to indicate that a transaction is performing a speculative insertion but hasn't yet decided whether to commit or abort it.

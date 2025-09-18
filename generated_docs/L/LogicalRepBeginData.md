@@ -1,7 +1,7 @@
 # LogicalRepBeginData
 
 ## Location
-src/include/replication/logicalproto.h: 127 - 132
+[src/include/replication/logicalproto.h:127-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L127-L132)
 
 ## Overview
 LogicalRepBeginData is a structure that contains transaction information for the beginning of a logical replication transaction, providing essential metadata needed to start transaction processing.

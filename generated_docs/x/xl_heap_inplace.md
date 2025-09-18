@@ -1,7 +1,7 @@
 # xl_heap_inplace
 
 ## Location
-src/include/access/heapam_xlog.h: 425 - 428
+[src/include/access/heapam_xlog.h:425-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L425-L428)
 
 ## Overview
 A WAL record structure used to log in-place update operations on tuples in PostgreSQL heap tables, capturing minimal information for non-MVCC updates.

@@ -1,7 +1,7 @@
 # apply_handle_tuple_routing
 
 ## Location
-src/backend/replication/logical/worker.c: 2908 - 3156
+[src/backend/replication/logical/worker.c:2908-3156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2908-L3156)
 
 ## Overview
 Handles insert, update, and delete operations on partitioned tables in PostgreSQL's logical replication worker, managing tuple routing to appropriate partitions.

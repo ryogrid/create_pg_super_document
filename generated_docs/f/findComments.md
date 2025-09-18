@@ -1,7 +1,7 @@
 # findComments
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10360 - 10436
+[src/bin/pg_dump/pg_dump.c:10360-10436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10360-L10436)
 
 ## Overview
 Performs a binary search on the global comments array to find all comment entries associated with a specific database object identified by classoid and objoid.

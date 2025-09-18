@@ -1,7 +1,7 @@
 # int4range_subdiff
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1621 - 1629
+[src/backend/utils/adt/rangetypes.c:1621-1629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1621-L1629)
 
 ## Overview
 Computes the difference between two 32-bit integer values, used as a subtype difference function for int4range operations.

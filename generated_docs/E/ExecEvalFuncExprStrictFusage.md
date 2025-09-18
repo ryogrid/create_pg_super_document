@@ -1,7 +1,7 @@
 # ExecEvalFuncExprStrictFusage
 
 ## Location
-src/backend/executor/execExprInterp.c: 2473 - 2509
+[src/backend/executor/execExprInterp.c:2473-2509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2473-L2509)
 
 ## Overview
 Out-of-line helper function that executes a strict function call expression (EEOP_FUNCEXPR_STRICT_FUSAGE) with NULL argument checking and function usage statistics tracking.

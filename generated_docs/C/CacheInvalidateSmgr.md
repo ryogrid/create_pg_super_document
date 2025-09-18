@@ -1,7 +1,7 @@
 # CacheInvalidateSmgr
 
 ## Location
-src/backend/utils/cache/inval.c: 1462 - 1491
+[src/backend/utils/cache/inval.c:1462-1491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1462-L1491)
 
 ## Overview
 Registers invalidation of storage manager (smgr) references to a physical relation, forcing other backends to close open smgr entries for the relation.

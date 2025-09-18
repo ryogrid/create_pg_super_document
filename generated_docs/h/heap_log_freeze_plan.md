@@ -1,7 +1,7 @@
 # heap_log_freeze_plan
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1978 - 2052
+[src/backend/access/heap/pruneheap.c:1978-2052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1978-L2052)
 
 ## Overview
 Deduplicates tuple-based freeze plans so that each distinct set of processing steps is stored only once in XLOG_HEAP2_FREEZE_PAGE records, called during original execution of freezing for logged relations.

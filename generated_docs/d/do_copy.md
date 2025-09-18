@@ -1,7 +1,7 @@
 # do_copy
 
 ## Location
-src/bin/psql/copy.c: 268 - 433
+[src/bin/psql/copy.c:268-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L268-L433)
 
 ## Overview
 Executes a psql \copy command by opening the appropriate file/stream and coordinating with the PostgreSQL backend to perform the data transfer.

@@ -1,7 +1,7 @@
 # ColumnIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 210 - 226
+[src/backend/utils/adt/jsonfuncs.c:210-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L210-L226)
 
 ## Overview
 ColumnIOData is a structure that caches record metadata needed for populating record fields during JSON processing and record I/O operations in PostgreSQL.

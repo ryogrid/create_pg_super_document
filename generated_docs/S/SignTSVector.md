@@ -1,7 +1,7 @@
 # SignTSVector
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 68 - 69
+[src/backend/utils/adt/tsgistidx.c:68-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L68-L69)
 
 ## Overview
 A structure that represents the type of GiST index key used for tsvector indexing, supporting different key formats including array keys, signature keys, and all-true bitmaps.

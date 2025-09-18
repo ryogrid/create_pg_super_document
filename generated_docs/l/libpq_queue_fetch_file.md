@@ -1,7 +1,7 @@
 # libpq_queue_fetch_file
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 326 - 355
+[src/bin/pg_rewind/libpq_source.c:326-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L326-L355)
 
 ## Overview
 Queues a request to fetch an entire file from the remote PostgreSQL system during pg_rewind operations, handling the file preparation and delegating the actual fetch request.

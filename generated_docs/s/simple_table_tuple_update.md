@@ -1,7 +1,7 @@
 # simple_table_tuple_update
 
 ## Location
-src/backend/access/table/tableam.c: 336 - 382
+[src/backend/access/table/tableam.c:336-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L336-L382)
 
 ## Overview
 A simplified interface for updating a tuple in a table when concurrent updates are not expected, providing error handling for all failure cases through ereport().

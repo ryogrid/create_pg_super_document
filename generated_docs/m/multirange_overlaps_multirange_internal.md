@@ -1,7 +1,7 @@
 # multirange_overlaps_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2015 - 2072
+[src/backend/utils/adt/multirangetypes.c:2015-2072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2015-L2072)
 
 ## Overview
 Internal function that efficiently determines if two multiranges have any overlapping ranges using an optimized two-pointer algorithm.

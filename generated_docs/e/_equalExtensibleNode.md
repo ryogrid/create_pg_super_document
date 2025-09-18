@@ -1,7 +1,7 @@
 # _equalExtensibleNode
 
 ## Location
-src/backend/nodes/equalfuncs.c: 117 - 133
+[src/backend/nodes/equalfuncs.c:117-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L117-L133)
 
 ## Overview
 A static comparison function that determines if two ExtensibleNode instances are equal by first comparing their extension names and then delegating to the extension-specific equality function.

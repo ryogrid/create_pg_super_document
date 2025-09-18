@@ -1,7 +1,7 @@
 # byteaout
 
 ## Location
-src/backend/utils/adt/varlena.c: 388 - 470
+[src/backend/utils/adt/varlena.c:388-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L388-L470)
 
 ## Overview
 Converts bytea (binary data array) to its printable string representation for output. Supports both hexadecimal and traditional escaped output formats based on the bytea_output configuration setting.

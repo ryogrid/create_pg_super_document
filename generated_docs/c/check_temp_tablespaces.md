@@ -1,7 +1,7 @@
 # check_temp_tablespaces
 
 ## Location
-src/backend/commands/tablespace.c: 1198 - 1305
+[src/backend/commands/tablespace.c:1198-1305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1198-L1305)
 
 ## Overview
 Validates new values for the temp_tablespaces GUC parameter, ensuring all specified tablespace names exist and the user has CREATE permission on them.

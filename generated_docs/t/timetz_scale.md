@@ -1,7 +1,7 @@
 # timetz_scale
 
 ## Location
-src/backend/utils/adt/date.c: 2425 - 2442
+[src/backend/utils/adt/date.c:2425-2442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2425-L2442)
 
 ## Overview
 Adjusts a TIMETZ (time with time zone) value to conform to a specified precision scale factor, typically used when casting between TIMETZ types with different precision specifications.

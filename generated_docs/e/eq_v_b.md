@@ -1,7 +1,7 @@
 # eq_v_b
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 229 - 232
+[src/backend/snowball/libstemmer/utilities.c:229-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L229-L232)
 
 ## Overview
 A convenience wrapper function that performs backward string matching for variable-length symbol arrays in Snowball stemming operations.

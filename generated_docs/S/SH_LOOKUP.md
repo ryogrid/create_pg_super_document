@@ -1,7 +1,7 @@
 # SH_LOOKUP
 
 ## Location
-src/include/lib/simplehash.h: 834 - 846
+[src/include/lib/simplehash.h:834-846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L834-L846)
 
 ## Overview
 A macro that defines the public hash table lookup function name using the SH_MAKE_NAME naming convention for PostgreSQL's generic simple hash table implementation.

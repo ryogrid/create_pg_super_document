@@ -1,7 +1,7 @@
 # ArrayMetaState
 
 ## Location
-src/include/utils/array.h: 236 - 246
+[src/include/utils/array.h:236-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L236-L246)
 
 ## Overview
 ArrayMetaState is a cache structure that stores type metadata needed for efficient array manipulation operations, avoiding repeated lookups of type information during array processing.

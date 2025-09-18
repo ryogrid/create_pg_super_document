@@ -1,7 +1,7 @@
 # wildcard_certificate_match
 
 ## Location
-src/interfaces/libpq/fe-secure-common.c: 45 - 86
+[src/interfaces/libpq/fe-secure-common.c:45-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-common.c#L45-L86)
 
 ## Overview
 Validates whether a wildcard certificate pattern matches a given hostname string according to RFC2818 guidelines with stricter security constraints.

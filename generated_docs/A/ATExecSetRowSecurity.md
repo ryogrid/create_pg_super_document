@@ -1,7 +1,7 @@
 # ATExecSetRowSecurity
 
 ## Location
-src/backend/commands/tablecmds.c: 16868 - 16897
+[src/backend/commands/tablecmds.c:16868-16897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16868-L16897)
 
 ## Overview
 Enables or disables row-level security (RLS) for a table by updating the relrowsecurity field in the pg_class catalog.

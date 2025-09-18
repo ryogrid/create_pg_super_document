@@ -1,7 +1,7 @@
 # get_user_name_or_exit
 
 ## Location
-src/common/username.c: 74 - 87
+[src/common/username.c:74-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/username.c#L74-L87)
 
 ## Overview
 A convenience wrapper around `get_user_name` that terminates the program with an error message if user name lookup fails.

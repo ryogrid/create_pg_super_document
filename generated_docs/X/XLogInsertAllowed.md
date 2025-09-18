@@ -1,7 +1,7 @@
 # XLogInsertAllowed
 
 ## Location
-src/backend/access/transam/xlog.c: 6368 - 6400
+[src/backend/access/transam/xlog.c:6368-6400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6368-L6400)
 
 ## Overview
 XLogInsertAllowed determines whether the current process is permitted to insert new WAL (Write-Ahead Log) records into the transaction log.

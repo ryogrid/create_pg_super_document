@@ -1,7 +1,7 @@
 # pg_stat_get_wal_receiver
 
 ## Location
-src/backend/replication/walreceiver.c: 1401 - 1530
+[src/backend/replication/walreceiver.c:1401-1530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1401-L1530)
 
 ## Overview
 Returns activity information of the WAL receiver process, including process ID, state, and WAL locations received from the WAL sender of another server in a PostgreSQL streaming replication setup.

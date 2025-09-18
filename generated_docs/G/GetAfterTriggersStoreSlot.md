@@ -1,7 +1,7 @@
 # GetAfterTriggersStoreSlot
 
 ## Location
-src/backend/commands/trigger.c: 4920 - 4968
+[src/backend/commands/trigger.c:4920-4968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4920-L4968)
 
 ## Overview
 Returns a TupleTableSlot suitable for holding tuples that will be stored in AfterTriggersTableData's transition table tuplestores, creating the slot lazily if it doesn't exist.

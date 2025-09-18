@@ -1,7 +1,7 @@
 # get_update_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6863 - 6918
+[src/backend/utils/adt/ruleutils.c:6863-6918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6863-L6918)
 
 ## Overview
 Generates the text representation of an UPDATE SQL statement from a parsed Query structure, reconstructing the complete UPDATE command with all its clauses.

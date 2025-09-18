@@ -1,7 +1,7 @@
 # pg_queue_signal
 
 ## Location
-src/backend/port/win32/signal.c: 259 - 273
+[src/backend/port/win32/signal.c:259-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L259-L273)
 
 ## Overview
 Queues a signal for delivery to the main PostgreSQL thread on Windows by setting appropriate flags and triggering an event notification.

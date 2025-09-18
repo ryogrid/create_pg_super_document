@@ -1,7 +1,7 @@
 # REGRESS_utility_command
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 380 - 418
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:380-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L380-L418)
 
 ## Overview
 A test hook function that intercepts utility command processing for regression testing, providing auditing capabilities and enforcing restrictions on utility command execution.

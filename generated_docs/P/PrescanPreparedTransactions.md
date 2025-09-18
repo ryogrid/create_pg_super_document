@@ -1,7 +1,7 @@
 # PrescanPreparedTransactions
 
 ## Location
-src/backend/access/transam/twophase.c: 1953 - 2032
+[src/backend/access/transam/twophase.c:1953-2032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1953-L2032)
 
 ## Overview
 PrescanPreparedTransactions scans prepared transactions in shared memory to determine the valid XID range and returns the oldest valid XID for proper pg_subtrans synchronization during database startup.

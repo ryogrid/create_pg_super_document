@@ -1,7 +1,7 @@
 # array_remove
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6627 - 6648
+[src/backend/utils/adt/arrayfuncs.c:6627-6648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6627-L6648)
 
 ## Overview
 A SQL function that removes all occurrences of a specified element from a one-dimensional array, returning a new array with matching elements deleted.

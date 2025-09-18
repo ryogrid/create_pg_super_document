@@ -1,7 +1,7 @@
 # hlfinditem
 
 ## Location
-src/backend/tsearch/ts_parse.c: 464 - 498
+[src/backend/tsearch/ts_parse.c:464-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L464-L498)
 
 ## Overview
 A static function that associates position data and matching query items with the most recently added word in the HeadlineParsedText structure during headline generation.

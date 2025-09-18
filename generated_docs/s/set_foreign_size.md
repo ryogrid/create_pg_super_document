@@ -1,7 +1,7 @@
 # set_foreign_size
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 902 - 925
+[src/backend/optimizer/path/allpaths.c:902-925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L902-L925)
 
 ## Overview
 Sets size estimates for a foreign table by calling the Foreign Data Wrapper's size estimation routine and ensuring the resulting estimates are reasonable.

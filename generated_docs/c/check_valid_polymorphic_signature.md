@@ -1,7 +1,7 @@
 # check_valid_polymorphic_signature
 
 ## Location
-src/backend/parser/parse_coerce.c: 2877 - 2953
+[src/backend/parser/parse_coerce.c:2877-2953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L2877-L2953)
 
 ## Overview
 Validates whether a proposed function signature is valid according to PostgreSQL's polymorphism rules.

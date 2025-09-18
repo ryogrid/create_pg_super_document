@@ -1,7 +1,7 @@
 # dump_binary
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-bytea.c: 30 - 39
+[src/interfaces/ecpg/test/expected/sql-bytea.c:30-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-bytea.c#L30-L39)
 
 ## Overview
 A utility function for debugging binary data by printing its contents in hexadecimal format, used in PostgreSQL's ECPG (Embedded C for PostgreSQL) test suite.

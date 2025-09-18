@@ -1,7 +1,7 @@
 # CStringGetDatum
 
 ## Location
-src/include/postgres.h: 350 - 359
+[src/include/postgres.h:350-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L350-L359)
 
 ## Overview
 CStringGetDatum converts a C string (null-terminated string) to PostgreSQL's internal Datum representation for use in the type system and function interfaces.

@@ -1,7 +1,7 @@
 # CopyReadLine
 
 ## Location
-src/backend/commands/copyfromparse.c: 1099 - 1174
+[src/backend/commands/copyfromparse.c:1099-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1099-L1174)
 
 ## Overview
 CopyReadLine reads the next complete input line from a COPY FROM operation and stores it in the line buffer, handling different end-of-line markers and EOF conditions.

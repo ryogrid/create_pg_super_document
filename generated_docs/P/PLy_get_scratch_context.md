@@ -1,7 +1,7 @@
 # PLy_get_scratch_context
 
 ## Location
-src/pl/plpython/plpy_main.c: 376 - 390
+[src/pl/plpython/plpy_main.c:376-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L376-L390)
 
 ## Overview
 Returns a scratch memory context for temporary allocations during PL/Python procedure execution, creating it lazily on first request.

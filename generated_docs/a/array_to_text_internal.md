@@ -1,7 +1,7 @@
 # array_to_text_internal
 
 ## Location
-src/backend/utils/adt/varlena.c: 4808 - 4929
+[src/backend/utils/adt/varlena.c:4808-4929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4808-L4929)
 
 ## Overview
 Core internal function that implements the array-to-text conversion logic shared by both array_to_text and array_to_text_null functions, handling element iteration, NULL value processing, and output formatting.

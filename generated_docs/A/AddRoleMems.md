@@ -1,7 +1,7 @@
 # AddRoleMems
 
 ## Location
-src/backend/commands/user.c: 1681 - 1977
+[src/backend/commands/user.c:1681-1977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1681-L1977)
 
 ## Overview
 AddRoleMems adds specified member roles to a target role with various grant options, handling membership validation, circular dependency checks, and catalog updates.

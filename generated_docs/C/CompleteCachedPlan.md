@@ -1,7 +1,7 @@
 # CompleteCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 366 - 481
+[src/backend/utils/cache/plancache.c:366-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L366-L481)
 
 ## Overview
 CompleteCachedPlan is the second step in creating a plan cache entry that finalizes a CachedPlanSource with the analyzed-and-rewritten query forms and all required subsidiary data.

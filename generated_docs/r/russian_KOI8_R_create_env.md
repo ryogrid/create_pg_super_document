@@ -1,7 +1,7 @@
 # russian_KOI8_R_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 679 - 680
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:679-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L679-L680)
 
 ## Overview
 Creates and initializes a new Snowball environment structure specifically configured for Russian KOI8-R stemming operations.

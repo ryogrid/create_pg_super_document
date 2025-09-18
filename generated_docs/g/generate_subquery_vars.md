@@ -1,7 +1,7 @@
 # generate_subquery_vars
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 613 - 641
+[src/backend/optimizer/plan/subselect.c:613-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L613-L641)
 
 ## Overview
 Builds a list of Var nodes representing the output columns of a subquery's target list, using a specified varno (RTE index) for subquery-to-join conversions.

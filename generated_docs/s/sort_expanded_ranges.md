@@ -1,7 +1,7 @@
 # sort_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1179 - 1230
+[src/backend/access/brin/brin_minmax_multi.c:1179-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1179-L1230)
 
 ## Overview
 Sorts and deduplicates an array of ExpandedRange structures using quicksort algorithm and range comparison functions.

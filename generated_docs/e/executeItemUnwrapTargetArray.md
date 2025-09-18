@@ -1,7 +1,7 @@
 # executeItemUnwrapTargetArray
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1674 - 1693
+[src/backend/utils/adt/jsonpath_exec.c:1674-1693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1674-L1693)
 
 ## Overview
 This function unwraps a current array item and executes a JSONPath expression for each of its elements.

@@ -1,7 +1,7 @@
 # CatalogTupleUpdate
 
 ## Location
-src/backend/catalog/indexing.c: 313 - 336
+[src/backend/catalog/indexing.c:313-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L313-L336)
 
 ## Overview
 CatalogTupleUpdate is a convenience function that updates a single tuple in a system catalog relation by replacing the tuple identified by an item pointer with new data, maintaining all associated indexes.

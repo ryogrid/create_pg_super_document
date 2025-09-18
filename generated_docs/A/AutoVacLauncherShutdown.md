@@ -1,7 +1,7 @@
 # AutoVacLauncherShutdown
 
 ## Location
-src/backend/postmaster/autovacuum.c: 775 - 791
+[src/backend/postmaster/autovacuum.c:775-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L775-L791)
 
 ## Overview
 Performs a clean shutdown of the autovacuum launcher process, logging the shutdown event and clearing the launcher's process ID from shared memory.

@@ -1,7 +1,7 @@
 # IsToastNamespace
 
 ## Location
-src/backend/catalog/catalog.c: 230 - 246
+[src/backend/catalog/catalog.c:230-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L230-L246)
 
 ## Overview
 Determines whether a given namespace OID represents either the global pg_toast namespace or the current session's temporary-toast-table namespace.

@@ -1,7 +1,7 @@
 # PLyUnicode_ToComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1281 - 1341
+[src/pl/plpython/plpy_typeio.c:1281-1341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1281-L1341)
 
 ## Overview
 Converts a Python string to a PostgreSQL composite type by parsing it as a record literal using the record_in function.

@@ -1,7 +1,7 @@
 # is_ident_cont
 
 ## Location
-src/backend/utils/adt/misc.c: 846 - 860
+[src/backend/utils/adt/misc.c:846-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L846-L860)
 
 ## Overview
 A static utility function that determines whether a character is valid as a continuation character within a PostgreSQL identifier.

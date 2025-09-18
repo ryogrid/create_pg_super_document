@@ -1,7 +1,7 @@
 # findDumpableDependencies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18886 - 18941
+[src/bin/pg_dump/pg_dump.c:18886-18941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18886-L18941)
 
 ## Overview
 A recursive function that searches through DumpableObject dependencies to build a list of dependencies that will actually be included in the dump, resolving dependency chains through non-dumped objects.

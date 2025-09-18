@@ -1,7 +1,7 @@
 # be_tls_close
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 731 - 760
+[src/backend/libpq/be-secure-openssl.c:731-760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L731-L760)
 
 ## Overview
 Cleanly shuts down an SSL/TLS connection and frees all associated SSL resources and client certificate data for a given port.

@@ -1,7 +1,7 @@
 # int48mi
 
 ## Location
-src/backend/utils/adt/int8.c: 985 - 998
+[src/backend/utils/adt/int8.c:985-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L985-L998)
 
 ## Overview
 The int48mi function performs subtraction of a 64-bit integer from a 32-bit integer, returning the result as a 64-bit integer with overflow detection.

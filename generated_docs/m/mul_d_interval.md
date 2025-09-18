@@ -1,7 +1,7 @@
 # mul_d_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3687 - 3696
+[src/backend/utils/adt/timestamp.c:3687-3696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3687-L3696)
 
 ## Overview
 A PostgreSQL function that provides a wrapper for interval multiplication with reversed argument order (factor * interval).

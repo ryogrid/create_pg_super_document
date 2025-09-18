@@ -1,7 +1,7 @@
 # processExtensionTables
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18364 - 18544
+[src/bin/pg_dump/pg_dump.c:18364-18544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18364-L18544)
 
 ## Overview
 Handles extension configuration tables by identifying them for data dumping and managing foreign key dependencies between configuration tables to ensure proper restoration order.

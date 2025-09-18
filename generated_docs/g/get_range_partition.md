@@ -1,7 +1,7 @@
 # get_range_partition
 
 ## Location
-src/backend/partitioning/partbounds.c: 2581 - 2601
+[src/backend/partitioning/partbounds.c:2581-2601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2581-L2601)
 
 ## Overview
 Gets the next non-dummy partition of a range-partitioned relation, skipping over dummy partitions to return only valid partition indexes with their corresponding bounds.

@@ -1,7 +1,7 @@
 # ExecTargetListLength
 
 ## Location
-src/backend/executor/execUtils.c: 1109 - 1118
+[src/backend/executor/execUtils.c:1109-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1109-L1118)
 
 ## Overview
 ExecTargetListLength returns the total number of items in a target list, including any resjunk (result junk) items that are used internally but not part of the final result.

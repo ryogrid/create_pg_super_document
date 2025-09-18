@@ -1,7 +1,7 @@
 # cluster_all_databases
 
 ## Location
-src/bin/scripts/clusterdb.c: 228 - 271
+[src/bin/scripts/clusterdb.c:228-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/clusterdb.c#L228-L271)
 
 ## Overview
 Iterates through all accessible databases in a PostgreSQL cluster and performs clustering operations on each one, either for specific tables or all eligible tables.

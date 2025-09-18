@@ -1,7 +1,7 @@
 # get_opclass_input_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1212 - 1234
+[src/backend/utils/cache/lsyscache.c:1212-1234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1212-L1234)
 
 ## Overview
 Returns the OID of the data type that the specified operator class is designed to index.

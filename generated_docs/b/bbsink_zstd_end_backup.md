@@ -1,7 +1,7 @@
 # bbsink_zstd_end_backup
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 282 - 301
+[src/backend/backup/basebackup_zstd.c:282-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L282-L301)
 
 ## Overview
 Finalizes a Zstandard-compressed base backup operation by releasing compression resources and calling the next sink in the chain.

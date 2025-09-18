@@ -1,7 +1,7 @@
 # MergeJoinState
 
 ## Location
-src/include/nodes/execnodes.h: 2136 - 2156
+[src/include/nodes/execnodes.h:2136-2156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2136-L2156)
 
 ## Overview
 MergeJoinState represents the execution state for merge join operations, maintaining all state information needed to perform sorted merge joins between two pre-sorted input relations.

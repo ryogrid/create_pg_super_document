@@ -1,7 +1,7 @@
 # path_is_relative_and_below_cwd
 
 ## Location
-src/port/path.c: 603 - 635
+[src/port/path.c:603-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L603-L635)
 
 ## Overview
 Determines whether a canonicalized path is relative and guaranteed to remain within or below the current working directory.

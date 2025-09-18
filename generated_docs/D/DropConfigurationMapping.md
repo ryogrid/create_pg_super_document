@@ -1,7 +1,7 @@
 # DropConfigurationMapping
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1491 - 1564
+[src/backend/commands/tsearchcmds.c:1491-1564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1491-L1564)
 
 ## Overview
 A static function that implements the ALTER TEXT SEARCH CONFIGURATION DROP MAPPING command, removing specified token-to-dictionary mappings from a text search configuration.

@@ -1,7 +1,7 @@
 # ObjectAddress
 
 ## Location
-src/include/catalog/objectaddress.h: 24 - 29
+[src/include/catalog/objectaddress.h:24-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/objectaddress.h#L24-L29)
 
 ## Overview
 ObjectAddress is a fundamental data structure that represents any database object in PostgreSQL, providing a unified way to identify tables, functions, types, constraints, and other database entities through a three-component addressing scheme.

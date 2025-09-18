@@ -1,7 +1,7 @@
 # BufferGetBlock
 
 ## Location
-src/include/storage/bufmgr.h: 371 - 392
+[src/include/storage/bufmgr.h:371-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L371-L392)
 
 ## Overview
 BufferGetBlock is a static inline function that returns a reference to a disk page image associated with a buffer in PostgreSQLs buffer management system.

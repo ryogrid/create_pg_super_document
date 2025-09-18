@@ -1,7 +1,7 @@
 # ParallelQueryMain
 
 ## Location
-src/backend/executor/execParallel.c: 1400 - 1503
+[src/backend/executor/execParallel.c:1400-1503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1400-L1503)
 
 ## Overview
 Main entrypoint function for parallel query worker processes that executes the serialized query plan and writes results to the appropriate tuple queue.

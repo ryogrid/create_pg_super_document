@@ -1,7 +1,7 @@
 # range_contains_elem_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2627 - 2674
+[src/backend/utils/adt/rangetypes.c:2627-2674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2627-L2674)
 
 ## Overview
 Tests whether a range contains a specific element value by comparing the element against the range's lower and upper bounds, respecting bound inclusivity and infinity.

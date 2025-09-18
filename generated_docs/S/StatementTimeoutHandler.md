@@ -1,7 +1,7 @@
 # StatementTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1378 - 1399
+[src/backend/utils/init/postinit.c:1378-1399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1378-L1399)
 
 ## Overview
 StatementTimeoutHandler is a signal handler function that responds to statement timeout events by triggering query cancellation or process termination, depending on the current authentication state.

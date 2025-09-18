@@ -1,7 +1,7 @@
 # TrackItem
 
 ## Location
-src/backend/commands/analyze.c: 2032 - 2355
+[src/backend/commands/analyze.c:2032-2355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2032-L2355)
 
 ## Overview
 A local structure used within statistical analysis functions to track distinct values and their occurrence counts during sample data processing.

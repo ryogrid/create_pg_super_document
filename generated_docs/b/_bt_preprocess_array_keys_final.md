@@ -1,7 +1,7 @@
 # _bt_preprocess_array_keys_final
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 551 - 711
+[src/backend/access/nbtree/nbtutils.c:551-711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L551-L711)
 
 ## Overview
 Finalizes array scan key preprocessing by fixing up scan key references, setting up ORDER procedures, and converting single-element arrays into equivalent non-array equality scan keys.

@@ -1,7 +1,7 @@
 # SpGistInitPage
 
 ## Location
-src/backend/access/spgist/spgutils.c: 700 - 713
+[src/backend/access/spgist/spgutils.c:700-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L700-L713)
 
 ## Overview
 Initializes an SP-GiST page to an empty state with specified flags, setting up the basic page structure and opaque data.

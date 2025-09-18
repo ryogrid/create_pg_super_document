@@ -1,7 +1,7 @@
 # guc_malloc
 
 ## Location
-src/backend/utils/misc/guc.c: 640 - 653
+[src/backend/utils/misc/guc.c:640-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L640-L653)
 
 ## Overview
 GUC-related memory allocation function that allocates memory in the GUC memory context with configurable error reporting level.

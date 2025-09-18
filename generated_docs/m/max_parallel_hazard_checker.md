@@ -1,7 +1,7 @@
 # max_parallel_hazard_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 822 - 828
+[src/backend/optimizer/util/clauses.c:822-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L822-L828)
 
 ## Overview
 A callback function that checks the parallel safety of individual functions during expression tree traversal by retrieving their parallel classification and delegating to the core hazard testing logic.

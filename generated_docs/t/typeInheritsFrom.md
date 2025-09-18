@@ -1,7 +1,7 @@
 # typeInheritsFrom
 
 ## Location
-src/backend/catalog/pg_inherits.c: 406 - 507
+[src/backend/catalog/pg_inherits.c:406-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L406-L507)
 
 ## Overview
 Determines whether one type inherits from another by checking the inheritance hierarchy in the PostgreSQL catalog system.

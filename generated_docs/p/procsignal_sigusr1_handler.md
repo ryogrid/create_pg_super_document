@@ -1,7 +1,7 @@
 # procsignal_sigusr1_handler
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 635 - 680
+[src/backend/storage/ipc/procsignal.c:635-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L635-L680)
 
 ## Overview
 procsignal_sigusr1_handler is the central SIGUSR1 signal handler that dispatches various types of inter-process signals to their appropriate handler functions in PostgreSQL.

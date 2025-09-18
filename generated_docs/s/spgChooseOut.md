@@ -1,7 +1,7 @@
 # spgChooseOut
 
 ## Location
-src/include/access/spgist.h: 74 - 105
+[src/include/access/spgist.h:74-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L74-L105)
 
 ## Overview
 A struct that serves as output parameter for the SP-GiST opclass choose method, containing the decision about how to proceed with tree traversal or modification during insertion.

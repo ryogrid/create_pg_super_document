@@ -1,7 +1,7 @@
 # pg_sub_u64_overflow
 
 ## Location
-src/include/common/int.h: 398 - 413
+[src/include/common/int.h:398-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L398-L413)
 
 ## Overview
 A safe unsigned 64-bit integer subtraction function that detects arithmetic underflow, preventing wraparound behavior that can occur with unsigned integer subtraction.

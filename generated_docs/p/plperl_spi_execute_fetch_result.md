@@ -1,7 +1,7 @@
 # plperl_spi_execute_fetch_result
 
 ## Location
-src/pl/plperl/plperl.c: 3193 - 3244
+[src/pl/plperl/plperl.c:3193-3244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3193-L3244)
 
 ## Overview
 Converts PostgreSQL SPI execution results into a structured Perl hash containing status information and result rows.

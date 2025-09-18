@@ -1,7 +1,7 @@
 # create_physical_replication_slot
 
 ## Location
-src/backend/replication/slotfuncs.c: 40 - 68
+[src/backend/replication/slotfuncs.c:40-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L40-L68)
 
 ## Overview
 A static helper function for creating a new physical replication slot with given arguments without releasing the created slot afterward.

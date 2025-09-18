@@ -1,7 +1,7 @@
 # ExecHashJoinNewBatch
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1031 - 1171
+[src/backend/executor/nodeHashjoin.c:1031-1171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1031-L1171)
 
 ## Overview
 Switches to a new hashjoin batch when the current batch has been completed, managing the transition between batches in a multi-batch hash join operation.

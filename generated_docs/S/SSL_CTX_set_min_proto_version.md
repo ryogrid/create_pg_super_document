@@ -1,7 +1,7 @@
 # SSL_CTX_set_min_proto_version
 
 ## Location
-src/common/protocol_openssl.c: 41 - 79
+[src/common/protocol_openssl.c:41-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/protocol_openssl.c#L41-L79)
 
 ## Overview
 Sets the minimum SSL/TLS protocol version for an SSL context by disabling older protocol versions through SSL options.

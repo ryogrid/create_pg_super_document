@@ -1,7 +1,7 @@
 # r_steps7
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2769 - 2788
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2769-2788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2769-L2788)
 
 ## Overview
 The r_steps7 function is part of the Greek stemming algorithm in PostgreSQL's snowball stemmer library, implementing the final step 7 of the stemming process with specific character-based pattern matching and transformation.

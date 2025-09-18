@@ -1,7 +1,7 @@
 # CheckFunctionValidatorAccess
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 2145 - 2200
+[src/backend/utils/fmgr/fmgr.c:2145-2200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L2145-L2200)
 
 ## Overview
 Verifies that a validator function is properly associated with a procedural language and that the user has appropriate access privileges to both the language and the function being validated.

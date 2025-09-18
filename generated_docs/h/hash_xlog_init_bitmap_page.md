@@ -1,7 +1,7 @@
 # hash_xlog_init_bitmap_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 63 - 124
+[src/backend/access/hash/hash_xlog.c:63-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L63-L124)
 
 ## Overview
 Replays the initialization of a hash index bitmap page during WAL recovery, including updating the metapage to register the new bitmap page.

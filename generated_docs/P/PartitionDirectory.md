@@ -1,7 +1,7 @@
 # PartitionDirectory
 
 ## Location
-src/include/partitioning/partdefs.h: 24 - 26
+[src/include/partitioning/partdefs.h:24-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdefs.h#L24-L26)
 
 ## Overview
 A pointer to PartitionDirectoryData structure that provides a caching mechanism for partition descriptors, allowing efficient lookup and reuse of PartitionDesc objects across multiple operations.

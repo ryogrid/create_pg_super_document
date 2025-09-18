@@ -1,7 +1,7 @@
 # intset_iterate_next
 
 ## Location
-src/backend/lib/integerset.c: 643 - 713
+[src/backend/lib/integerset.c:643-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L643-L713)
 
 ## Overview
 Returns the next integer when iterating through an IntegerSet, providing sequential access to all values stored in the set.

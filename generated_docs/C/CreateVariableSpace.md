@@ -1,7 +1,7 @@
 # CreateVariableSpace
 
 ## Location
-src/bin/psql/variables.c: 51 - 70
+[src/bin/psql/variables.c:51-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L51-L70)
 
 ## Overview
 Creates and initializes a new variable space that serves as a container for managing psql variables in a linked list structure.

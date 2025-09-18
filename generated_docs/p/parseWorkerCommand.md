@@ -1,7 +1,7 @@
 # parseWorkerCommand
 
 ## Location
-src/bin/pg_dump/parallel.c: 1123 - 1155
+[src/bin/pg_dump/parallel.c:1123-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1123-L1155)
 
 ## Overview
 Parses command strings received by worker processes from the leader, extracting the action type and target table of contents entry.

@@ -1,7 +1,7 @@
 # simple_oid_list_append
 
 ## Location
-src/fe_utils/simple_list.c: 26 - 44
+[src/fe_utils/simple_list.c:26-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L26-L44)
 
 ## Overview
 Appends an OID (Object Identifier) value to a simple linked list structure designed for frontend PostgreSQL utilities.

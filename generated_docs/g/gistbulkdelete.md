@@ -1,7 +1,7 @@
 # gistbulkdelete
 
 ## Location
-src/backend/access/gist/gistvacuum.c: 59 - 74
+[src/backend/access/gist/gistvacuum.c:59-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvacuum.c#L59-L74)
 
 ## Overview
 Entry point for VACUUM bulk delete stage in GiST indexes, removing index entries based on callback criteria and updating statistics.

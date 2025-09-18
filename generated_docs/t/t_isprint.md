@@ -1,7 +1,7 @@
 # t_isprint
 
 ## Location
-src/backend/tsearch/ts_locale.c: 95 - 133
+[src/backend/tsearch/ts_locale.c:95-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L95-L133)
 
 ## Overview
 The t_isprint function checks whether a character is printable, with proper support for multi-byte characters and locale-aware printable character classification in text search contexts.

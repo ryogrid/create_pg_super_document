@@ -1,7 +1,7 @@
 # DestroyTupleQueueReader
 
 ## Location
-src/backend/executor/tqueue.c: 155 - 175
+[src/backend/executor/tqueue.c:155-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L155-L175)
 
 ## Overview
 Destroys and deallocates a TupleQueueReader object, freeing the memory used by the reader structure.

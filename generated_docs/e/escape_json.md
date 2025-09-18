@@ -1,7 +1,7 @@
 # escape_json
 
 ## Location
-src/backend/utils/adt/json.c: 1563 - 1605
+[src/backend/utils/adt/json.c:1563-1605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1563-L1605)
 
 ## Overview
 Utility function that produces properly escaped JSON string literals by converting input strings to valid JSON format.

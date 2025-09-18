@@ -1,7 +1,7 @@
 # LoadPublications
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1746 - 1767
+[src/backend/replication/pgoutput/pgoutput.c:1746-1767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1746-L1767)
 
 ## Overview
 LoadPublications loads Publication objects from a list of publication names, used in PostgreSQL logical replication to retrieve publication metadata.

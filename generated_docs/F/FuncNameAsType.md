@@ -1,7 +1,7 @@
 # FuncNameAsType
 
 ## Location
-src/backend/parser/parse_func.c: 1881 - 1911
+[src/backend/parser/parse_func.c:1881-1911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1881-L1911)
 
 ## Overview
 A convenience routine that checks if a function name matches an existing type name, returning the type's OID if found.

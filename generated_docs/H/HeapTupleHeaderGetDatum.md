@@ -1,7 +1,7 @@
 # HeapTupleHeaderGetDatum
 
 ## Location
-src/backend/executor/execTuples.c: 2311 - 2341
+[src/backend/executor/execTuples.c:2311-2341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2311-L2341)
 
 ## Overview
 Converts a HeapTupleHeader pointer to a Datum, ensuring that any external TOAST references are flattened into inline values to create a proper composite Datum.

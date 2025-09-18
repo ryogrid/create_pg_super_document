@@ -1,7 +1,7 @@
 # XLogPrefetchShmemInit
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 315 - 339
+[src/backend/access/transam/xlogprefetcher.c:315-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L315-L339)
 
 ## Overview
 Initializes the shared memory structure for XLog prefetch statistics, creating and setting up the statistics counters during PostgreSQL startup.

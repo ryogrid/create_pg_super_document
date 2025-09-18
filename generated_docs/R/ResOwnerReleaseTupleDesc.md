@@ -1,7 +1,7 @@
 # ResOwnerReleaseTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 923 - 933
+[src/backend/access/common/tupdesc.c:923-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L923-L933)
 
 ## Overview
 A ResourceOwner callback function that decrements the reference count of a tuple descriptor and frees it when the count reaches zero.

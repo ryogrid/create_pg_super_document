@@ -1,7 +1,7 @@
 # CacheInvalidateRelcacheAll
 
 ## Location
-src/backend/utils/cache/inval.c: 1387 - 1398
+[src/backend/utils/cache/inval.c:1387-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1387-L1398)
 
 ## Overview
 Registers invalidation of the entire relcache at the end of the current command, used when operations may affect a large number of tables.

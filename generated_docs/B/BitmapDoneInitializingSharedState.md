@@ -1,7 +1,7 @@
 # BitmapDoneInitializingSharedState
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 346 - 357
+[src/backend/executor/nodeBitmapHeapscan.c:346-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L346-L357)
 
 ## Overview
 Signals completion of shared state initialization in parallel bitmap heap scans by updating the state and waking up waiting worker processes.

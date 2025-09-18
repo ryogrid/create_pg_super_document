@@ -1,7 +1,7 @@
 # setCorrLex
 
 ## Location
-src/backend/tsearch/ts_parse.c: 120 - 141
+[src/backend/tsearch/ts_parse.c:120-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L120-L141)
 
 ## Overview
 Sets the corresponding lexeme for a text search parsing operation by managing the waste list of parsed lexemes, either returning it to the caller or cleaning it up.

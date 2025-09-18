@@ -1,7 +1,7 @@
 # pgtypes_alloc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/common.c: 10 - 19
+[src/interfaces/ecpg/pgtypeslib/common.c:10-19](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/common.c#L10-L19)
 
 ## Overview
 A memory allocation wrapper function in the PostgreSQL ECPG pgtypeslib that allocates zero-filled memory blocks and sets errno on allocation failure.

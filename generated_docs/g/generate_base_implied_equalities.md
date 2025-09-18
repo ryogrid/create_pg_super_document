@@ -1,7 +1,7 @@
 # generate_base_implied_equalities
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1028 - 1107
+[src/backend/optimizer/path/equivclass.c:1028-1107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1028-L1107)
 
 ## Overview
 Generates restriction clauses that can be deduced from equivalence classes, providing the foundation for equality constraint propagation throughout the query plan.

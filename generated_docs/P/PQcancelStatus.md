@@ -1,7 +1,7 @@
 # PQcancelStatus
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 284 - 294
+[src/interfaces/libpq/fe-cancel.c:284-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L284-L294)
 
 ## Overview
 Retrieves the current connection status of a cancel connection, providing insight into the state of the cancellation process.

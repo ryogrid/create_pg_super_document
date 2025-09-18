@@ -1,7 +1,7 @@
 # uuid_hash
 
 ## Location
-src/backend/utils/adt/uuid.c: 395 - 402
+[src/backend/utils/adt/uuid.c:395-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L395-L402)
 
 ## Overview  
 A hash function that computes a hash value for UUID data to support hash index operations and hash-based query processing.

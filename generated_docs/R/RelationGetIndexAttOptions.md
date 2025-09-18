@@ -1,7 +1,7 @@
 # RelationGetIndexAttOptions
 
 ## Location
-src/backend/utils/cache/relcache.c: 5896 - 5956
+[src/backend/utils/cache/relcache.c:5896-5956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5896-L5956)
 
 ## Overview
 Retrieves and parses AM/opclass-specific options for an index into binary format, providing cached access to parsed index attribute options.

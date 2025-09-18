@@ -1,7 +1,7 @@
 # DecodeDelete
 
 ## Location
-src/backend/replication/logical/decode.c: 1032 - 1085
+[src/backend/replication/logical/decode.c:1032-1085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L1032-L1085)
 
 ## Overview
 DecodeDelete processes HEAP_DELETE WAL records in PostgreSQL's logical replication, extracting delete operations and converting them into reorder buffer changes with old tuple data when available.

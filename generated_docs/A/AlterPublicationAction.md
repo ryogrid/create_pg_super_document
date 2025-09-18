@@ -1,7 +1,7 @@
 # AlterPublicationAction
 
 ## Location
-src/include/nodes/parsenodes.h: 4174 - 4175
+[src/include/nodes/parsenodes.h:4174-4175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4174-L4175)
 
 ## Overview
 AlterPublicationAction is an enumeration that specifies the type of modification action to perform on objects within a PostgreSQL logical replication publication.

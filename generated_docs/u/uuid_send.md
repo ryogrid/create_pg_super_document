@@ -1,7 +1,7 @@
 # uuid_send
 
 ## Location
-src/backend/utils/adt/uuid.c: 156 - 167
+[src/backend/utils/adt/uuid.c:156-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L156-L167)
 
 ## Overview
 PostgreSQL binary send function that serializes a UUID to binary wire format for client-server communication.

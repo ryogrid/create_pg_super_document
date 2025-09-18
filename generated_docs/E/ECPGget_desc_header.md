@@ -1,7 +1,7 @@
 # ECPGget_desc_header
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 84 - 107
+[src/interfaces/ecpg/ecpglib/descriptor.c:84-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L84-L107)
 
 ## Overview
 Retrieves the header information (field count) from an SQL descriptor in ECPG, providing the number of columns in a prepared statement or cursor result set.

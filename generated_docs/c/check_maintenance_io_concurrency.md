@@ -1,7 +1,7 @@
 # check_maintenance_io_concurrency
 
 ## Location
-src/backend/commands/variable.c: 1236 - 1248
+[src/backend/commands/variable.c:1236-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1236-L1248)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the maintenance_io_concurrency parameter, ensuring it is set to 0 on platforms that lack posix_fadvise() support.

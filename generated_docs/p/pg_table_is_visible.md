@@ -1,7 +1,7 @@
 # pg_table_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4894 - 4907
+[src/backend/catalog/namespace.c:4894-4907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4894-L4907)
 
 ## Overview
 SQL-callable function that determines whether a table, view, or other relation is visible in the current search path.

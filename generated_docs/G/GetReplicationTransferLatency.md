@@ -1,7 +1,7 @@
 # GetReplicationTransferLatency
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 394 - 407
+[src/backend/replication/walreceiverfuncs.c:394-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L394-L407)
 
 ## Overview
 Calculates and returns the network transfer latency in milliseconds between the primary and standby servers during WAL replication.

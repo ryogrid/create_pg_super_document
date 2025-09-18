@@ -1,7 +1,7 @@
 # PQbackendPID
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7193 - 7200
+[src/interfaces/libpq/fe-connect.c:7193-7200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7193-L7200)
 
 ## Overview
 Returns the process ID (PID) of the PostgreSQL backend server process that is handling the current connection.

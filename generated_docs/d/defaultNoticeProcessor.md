@@ -1,7 +1,7 @@
 # defaultNoticeProcessor
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7376 - 7387
+[src/interfaces/libpq/fe-connect.c:7376-7387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7376-L7387)
 
 ## Overview
 The default notice message processor function that outputs PostgreSQL notice messages to stderr, providing a simple default behavior for client applications.

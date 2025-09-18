@@ -1,7 +1,7 @@
 # check_control_files
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 594 - 670
+[src/bin/pg_combinebackup/pg_combinebackup.c:594-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L594-L670)
 
 ## Overview
 Performs sanity checks on PostgreSQL control files across multiple backup directories and returns the consistent system identifier found in all backups.

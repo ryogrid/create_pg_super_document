@@ -1,7 +1,7 @@
 # network_abbrev_convert
 
 ## Location
-src/backend/utils/adt/network.c: 625 - 795
+[src/backend/utils/adt/network.c:625-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L625-L795)
 
 ## Overview
 SortSupport conversion routine that transforms inet/cidr values into abbreviated keys suitable for fast integer-based comparisons during sorting operations.

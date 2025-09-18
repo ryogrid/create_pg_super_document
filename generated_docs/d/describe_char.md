@@ -1,7 +1,7 @@
 # describe_char
 
 ## Location
-src/test/locale/test-ctype.c: 43 - 59
+[src/test/locale/test-ctype.c:43-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/locale/test-ctype.c#L43-L59)
 
 ## Overview
 A utility function that displays detailed character classification information for a given character, showing all relevant ctype properties in a formatted table row.

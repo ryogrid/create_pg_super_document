@@ -1,7 +1,7 @@
 # addTargetToGroupList
 
 ## Location
-src/backend/parser/parse_clause.c: 3536 - 3590
+[src/backend/parser/parse_clause.c:3536-3590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3536-L3590)
 
 ## Overview
 Adds a target list entry to a SortGroupClause list for grouping operations if not already present, using default sort/group semantics.

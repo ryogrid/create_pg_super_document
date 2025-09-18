@@ -1,7 +1,7 @@
 # AtAbort_Portals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 781 - 857
+[src/backend/utils/mmgr/portalmem.c:781-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L781-L857)
 
 ## Overview
 AtAbort_Portals handles portal cleanup during transaction abort, ensuring proper resource management and portal state transitions when transactions fail.

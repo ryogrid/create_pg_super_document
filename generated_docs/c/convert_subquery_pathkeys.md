@@ -1,7 +1,7 @@
 # convert_subquery_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1052 - 1248
+[src/backend/optimizer/path/pathkeys.c:1052-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1052-L1248)
 
 ## Overview
 Converts a subquery's output pathkeys into equivalent pathkeys in the context of the outer query, handling volatile expressions and multiple equivalence class representations.

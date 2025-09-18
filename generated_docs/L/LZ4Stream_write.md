@@ -1,7 +1,7 @@
 # LZ4Stream_write
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 573 - 609
+[src/bin/pg_dump/compress_lz4.c:573-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L573-L609)
 
 ## Overview
 Compresses data from a source buffer and writes it to the LZ4 compressed stream in chunks, handling lazy initialization and error management.

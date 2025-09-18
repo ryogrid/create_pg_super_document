@@ -1,7 +1,7 @@
 # map_multipart_sql_identifier_to_xml_name
 
 ## Location
-src/backend/utils/adt/xml.c: 3485 - 3515
+[src/backend/utils/adt/xml.c:3485-3515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3485-L3515)
 
 ## Overview
 Maps a multi-part SQL identifier (up to four components) to a qualified XML name following SQL/XML:2008 section 9.2 specification.

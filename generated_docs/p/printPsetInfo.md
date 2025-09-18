@@ -1,7 +1,7 @@
 # printPsetInfo
 
 ## Location
-src/bin/psql/command.c: 4886 - 5085
+[src/bin/psql/command.c:4886-5085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4886-L5085)
 
 ## Overview
 A comprehensive display function in psql that prints the current state of formatting parameters, providing users with detailed information about their output settings.

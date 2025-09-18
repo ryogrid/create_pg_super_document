@@ -1,7 +1,7 @@
 # XLogRecGetLen
 
 ## Location
-src/backend/access/transam/xlogstats.c: 22 - 53
+[src/backend/access/transam/xlogstats.c:22-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogstats.c#L22-L53)
 
 ## Overview
 Calculates the size of a WAL record, splitting it into record data size (without full-page images) and full-page image (FPI) data size.

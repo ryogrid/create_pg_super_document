@@ -1,7 +1,7 @@
 # statext_mcv_load
 
 ## Location
-src/backend/statistics/mcv.c: 558 - 620
+[src/backend/statistics/mcv.c:558-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L558-L620)
 
 ## Overview
 Loads and deserializes an MCV (Most Common Values) list from the PostgreSQL system catalog for a given statistics object.

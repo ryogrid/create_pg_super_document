@@ -1,7 +1,7 @@
 # cost_tidscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1249 - 1356
+[src/backend/optimizer/path/costsize.c:1249-1356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1249-L1356)
 
 ## Overview
 Determines and returns the cost of scanning a relation using TIDs (tuple identifiers), calculating both startup and per-tuple costs for TID-based access paths.

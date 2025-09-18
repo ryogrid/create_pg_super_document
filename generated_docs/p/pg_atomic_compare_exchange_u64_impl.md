@@ -1,7 +1,7 @@
 # pg_atomic_compare_exchange_u64_impl
 
 ## Location
-src/include/port/atomics/generic-gcc.h: 252 - 274
+[src/include/port/atomics/generic-gcc.h:252-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic-gcc.h#L252-L274)
 
 ## Overview
 Implements atomic compare-and-swap operation for 64-bit unsigned integers using spinlock-based fallback implementation when hardware atomic operations are not available.

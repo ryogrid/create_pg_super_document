@@ -1,7 +1,7 @@
 # log_locus_callback
 
 ## Location
-src/bin/psql/startup.c: 99 - 114
+[src/bin/psql/startup.c:99-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L99-L114)
 
 ## Overview
 A static callback function in psql that provides location information (filename and line number) for log messages when processing SQL input files.

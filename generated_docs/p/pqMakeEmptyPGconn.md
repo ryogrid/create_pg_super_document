@@ -1,7 +1,7 @@
 # pqMakeEmptyPGconn
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4535 - 4633
+[src/interfaces/libpq/fe-connect.c:4535-4633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4535-L4633)
 
 ## Overview
 Creates and initializes an empty PGconn data structure with default values, serving as the foundation for PostgreSQL client connections.

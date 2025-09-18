@@ -1,7 +1,7 @@
 # database_is_invalid_form
 
 ## Location
-src/backend/commands/dbcommands.c: 3198 - 3207
+[src/backend/commands/dbcommands.c:3198-3207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3198-L3207)
 
 ## Overview
 A utility function that checks whether a database is marked as invalid by examining its pg_database catalog entry form.

@@ -1,7 +1,7 @@
 # LexemeKey
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 46 - 55
+[src/backend/tsearch/ts_selfuncs.c:46-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L46-L55)
 
 ## Overview
 LexemeKey is a key structure used for binary searching through arrays of TextFreq elements, providing efficient lookup capabilities in PostgreSQL's text search selectivity estimation system.

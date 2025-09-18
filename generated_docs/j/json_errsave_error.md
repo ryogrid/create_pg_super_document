@@ -1,7 +1,7 @@
 # json_errsave_error
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 639 - 674
+[src/backend/utils/adt/jsonfuncs.c:639-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L639-L674)
 
 ## Overview
 This function provides centralized error reporting for JSON parsing failures, handling different error types with appropriate error codes and context information.

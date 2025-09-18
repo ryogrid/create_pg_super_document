@@ -1,7 +1,7 @@
 # EstimateTransactionStateSpace
 
 ## Location
-src/backend/access/transam/xact.c: 5450 - 5477
+[src/backend/access/transam/xact.c:5450-5477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5450-L5477)
 
 ## Overview
 EstimateTransactionStateSpace calculates the amount of memory space required to serialize the current transaction state hierarchy, providing accurate size estimation for parallel processing operations.

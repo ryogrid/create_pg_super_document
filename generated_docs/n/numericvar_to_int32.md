@@ -1,7 +1,7 @@
 # numericvar_to_int32
 
 ## Location
-src/backend/utils/adt/numeric.c: 4476 - 4492
+[src/backend/utils/adt/numeric.c:4476-4492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4476-L4492)
 
 ## Overview
 Converts a NumericVar to a 32-bit signed integer with range validation, returning false if the value exceeds int32 bounds.

@@ -1,7 +1,7 @@
 # sqlda_native_empty_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 171 - 185
+[src/interfaces/ecpg/ecpglib/sqlda.c:171-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L171-L185)
 
 ## Overview
 Calculates the minimum memory size required for an empty native-mode SQLDA structure that can hold metadata for a given PostgreSQL result set.

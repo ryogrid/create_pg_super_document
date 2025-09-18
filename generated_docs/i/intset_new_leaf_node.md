@@ -1,7 +1,7 @@
 # intset_new_leaf_node
 
 ## Location
-src/backend/lib/integerset.c: 331 - 349
+[src/backend/lib/integerset.c:331-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L331-L349)
 
 ## Overview
 Allocates and initializes a new leaf node for the IntegerSet B-tree structure that stores compressed integer data.

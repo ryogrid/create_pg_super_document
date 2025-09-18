@@ -1,7 +1,7 @@
 # pg_hmac_ctx
 
 ## Location
-src/common/hmac_openssl.c: 64 - 90
+[src/common/hmac_openssl.c:64-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L64-L90)
 
 ## Overview
 A structure that represents the internal context for HMAC (Hash-based Message Authentication Code) operations in PostgreSQL, providing a unified interface for computing HMACs using different cryptographic hash algorithms.

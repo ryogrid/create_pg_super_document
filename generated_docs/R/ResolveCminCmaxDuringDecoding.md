@@ -1,7 +1,7 @@
 # ResolveCminCmaxDuringDecoding
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5404 - 5477
+[src/backend/replication/logical/reorderbuffer.c:5404-5477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5404-L5477)
 
 ## Overview
 ResolveCminCmaxDuringDecoding looks up the command IDs (cmin/cmax) of a tuple during logical decoding when combo CIDs cannot be relied upon.

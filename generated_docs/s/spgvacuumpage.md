@@ -1,7 +1,7 @@
 # spgvacuumpage
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 621 - 691
+[src/backend/access/spgist/spgvacuum.c:621-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L621-L691)
 
 ## Overview
 Processes a single page during an SP-GiST index bulkdelete scan, handling different page types and performing vacuum operations as needed.

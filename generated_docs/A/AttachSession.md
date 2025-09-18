@@ -1,7 +1,7 @@
 # AttachSession
 
 ## Location
-src/backend/access/common/session.c: 155 - 200
+[src/backend/access/common/session.c:155-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/session.c#L155-L200)
 
 ## Overview
 Attaches a worker process to an existing per-session DSM segment created by the parallel leader process, enabling access to shared session state.

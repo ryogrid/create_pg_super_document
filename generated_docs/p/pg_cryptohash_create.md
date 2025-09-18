@@ -1,7 +1,7 @@
 # pg_cryptohash_create
 
 ## Location
-src/common/cryptohash_openssl.c: 122 - 177
+[src/common/cryptohash_openssl.c:122-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L122-L177)
 
 ## Overview
 Allocates and initializes a cryptographic hash context structure, with backend implementations for both generic and OpenSSL-specific environments.

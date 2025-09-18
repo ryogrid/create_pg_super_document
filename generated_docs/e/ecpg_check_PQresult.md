@@ -1,7 +1,7 @@
 # ecpg_check_PQresult
 
 ## Location
-src/interfaces/ecpg/ecpglib/error.c: 281 - 333
+[src/interfaces/ecpg/ecpglib/error.c:281-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/error.c#L281-L333)
 
 ## Overview
 A validation function that checks PostgreSQL query results and handles various result status codes, determining whether operations succeeded or failed and triggering appropriate error handling.

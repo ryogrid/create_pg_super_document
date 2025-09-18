@@ -1,7 +1,7 @@
 # XLogEnsureRecordSpace
 
 ## Location
-src/backend/access/transam/xloginsert.c: 175 - 221
+[src/backend/access/transam/xloginsert.c:175-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L175-L221)
 
 ## Overview
 XLogEnsureRecordSpace ensures sufficient buffer and data slots are available for subsequent XLogRegister* calls when constructing WAL records that require more resources than the default allocation.

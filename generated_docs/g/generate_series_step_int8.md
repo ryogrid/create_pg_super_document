@@ -1,7 +1,7 @@
 # generate_series_step_int8
 
 ## Location
-src/backend/utils/adt/int8.c: 1383 - 1458
+[src/backend/utils/adt/int8.c:1383-1458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1383-L1458)
 
 ## Overview
 Implements the core logic for generating a series of 64-bit integers with configurable start, finish, and step values, using PostgreSQL's set-returning function framework.

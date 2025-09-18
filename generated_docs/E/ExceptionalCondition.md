@@ -1,7 +1,7 @@
 # ExceptionalCondition
 
 ## Location
-src/backend/utils/error/assert.c: 30 - 67
+[src/backend/utils/error/assert.c:30-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/assert.c#L30-L67)
 
 ## Overview
 ExceptionalCondition is a low-level function that handles the failure of Assert() conditions in PostgreSQL, providing diagnostic output and terminating the process when assertions fail.

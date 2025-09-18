@@ -1,7 +1,7 @@
 # pg_checksum_block
 
 ## Location
-src/include/storage/checksum_impl.h: 146 - 186
+[src/include/storage/checksum_impl.h:146-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/checksum_impl.h#L146-L186)
 
 ## Overview
 Computes a 32-bit checksum for a PostgreSQL page block using a parallel FNV-1a hash algorithm with multiple independent hash calculations.

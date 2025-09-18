@@ -1,7 +1,7 @@
 # getIdentitySequence
 
 ## Location
-src/backend/catalog/pg_depend.c: 946 - 988
+[src/backend/catalog/pg_depend.c:946-988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L946-L988)
 
 ## Overview
 Retrieves the identity sequence associated with a specific column of a relation, with error handling for cases where exactly one sequence is not found.

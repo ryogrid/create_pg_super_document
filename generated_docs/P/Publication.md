@@ -1,7 +1,7 @@
 # Publication
 
 ## Location
-src/include/catalog/pg_publication.h: 100 - 107
+[src/include/catalog/pg_publication.h:100-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_publication.h#L100-L107)
 
 ## Overview
 Publication is the main structure representing a logical replication publication object in PostgreSQL, containing its identity, configuration, and operational settings.

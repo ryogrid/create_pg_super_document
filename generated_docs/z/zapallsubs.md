@@ -1,7 +1,7 @@
 # zapallsubs
 
 ## Location
-src/backend/regex/regexec.c: 663 - 678
+[src/backend/regex/regexec.c:663-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L663-L678)
 
 ## Overview
 Initializes all subexpression matches in a regmatch_t array to "no match" state, while preserving the overall match location.

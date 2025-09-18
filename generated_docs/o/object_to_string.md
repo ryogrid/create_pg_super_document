@@ -1,7 +1,7 @@
 # object_to_string
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 377 - 397
+[src/pl/plpython/plpy_plpymodule.c:377-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L377-L397)
 
 ## Overview
 A utility function that safely converts a Python object to a C string representation within PL/Python extension.

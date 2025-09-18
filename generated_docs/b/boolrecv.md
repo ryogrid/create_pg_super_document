@@ -1,7 +1,7 @@
 # boolrecv
 
 ## Location
-src/backend/utils/adt/bool.c: 174 - 186
+[src/backend/utils/adt/bool.c:174-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L174-L186)
 
 ## Overview
 PostgreSQL binary input function for the boolean data type that converts external binary format to internal boolean values using a single-byte representation.

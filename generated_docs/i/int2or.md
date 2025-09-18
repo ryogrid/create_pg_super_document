@@ -1,7 +1,7 @@
 # int2or
 
 ## Location
-src/backend/utils/adt/int.c: 1455 - 1463
+[src/backend/utils/adt/int.c:1455-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1455-L1463)
 
 ## Overview
 Performs bitwise OR operation between two 16-bit signed integers (smallint type in PostgreSQL).

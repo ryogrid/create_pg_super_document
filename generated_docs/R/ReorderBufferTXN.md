@@ -1,7 +1,7 @@
 # ReorderBufferTXN
 
 ## Location
-src/include/replication/reorderbuffer.h: 259 - 438
+[src/include/replication/reorderbuffer.h:259-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/reorderbuffer.h#L259-L438)
 
 ## Overview
 ReorderBufferTXN represents a complete transaction in PostgreSQL's logical replication system, containing all changes, metadata, and state information necessary to reconstruct and replay the transaction.

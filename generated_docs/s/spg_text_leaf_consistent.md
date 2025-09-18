@@ -1,7 +1,7 @@
 # spg_text_leaf_consistent
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 574 - 701
+[src/backend/access/spgist/spgtextproc.c:574-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L574-L701)
 
 ## Overview
 The leaf consistent function for SP-GiST text operator class that tests search conditions against actual stored text values at leaf nodes to determine if they match the query.

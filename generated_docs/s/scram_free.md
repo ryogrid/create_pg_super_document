@@ -1,7 +1,7 @@
 # scram_free
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 178 - 204
+[src/interfaces/libpq/fe-auth-scram.c:178-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L178-L204)
 
 ## Overview
 Frees all memory and resources associated with a client-side SCRAM authentication exchange state structure.

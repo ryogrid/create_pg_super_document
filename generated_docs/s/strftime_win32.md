@@ -1,7 +1,7 @@
 # strftime_win32
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 758 - 796
+[src/backend/utils/adt/pg_locale.c:758-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L758-L796)
 
 ## Overview
 A Windows-specific wrapper function that provides locale-aware string formatting for date/time values, converting between different character encodings to ensure proper UTF-8 output.

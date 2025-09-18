@@ -1,7 +1,7 @@
 # get_gist_range_class
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1704 - 1730
+[src/backend/utils/adt/rangetypes_gist.c:1704-1730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1704-L1730)
 
 ## Overview
 Determines the class number for a range type to categorize its properties for GiST indexing operations.

@@ -1,7 +1,7 @@
 # is_conninfo_option
 
 ## Location
-src/backend/foreign/foreign.c: 601 - 624
+[src/backend/foreign/foreign.c:601-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L601-L624)
 
 ## Overview
 Checks if a provided option is one of the libpq connection information options, with context-aware validation.

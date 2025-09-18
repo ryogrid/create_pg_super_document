@@ -1,7 +1,7 @@
 # TemporalSimplify
 
 ## Location
-src/backend/utils/adt/datetime.c: 4840 - 4872
+[src/backend/utils/adt/datetime.c:4840-4872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4840-L4872)
 
 ## Overview
 TemporalSimplify optimizes temporal type length-coercion function calls by simplifying or eliminating unnecessary precision conversions when the target precision is equal to or less restrictive than the source precision.

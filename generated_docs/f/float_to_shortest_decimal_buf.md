@@ -1,7 +1,7 @@
 # float_to_shortest_decimal_buf
 
 ## Location
-src/common/f2s.c: 780 - 796
+[src/common/f2s.c:780-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L780-L796)
 
 ## Overview
 A wrapper function that converts a single-precision floating-point number to its shortest decimal string representation and stores it as a null-terminated string in the caller-supplied buffer.

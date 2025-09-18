@@ -1,7 +1,7 @@
 # report_backup_error
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 983 - 999
+[src/bin/pg_verifybackup/pg_verifybackup.c:983-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L983-L999)
 
 ## Overview
 Reports backup verification errors with formatted messages and manages error state tracking and exit behavior based on verification context settings.

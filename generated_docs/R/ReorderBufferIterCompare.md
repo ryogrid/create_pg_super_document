@@ -1,7 +1,7 @@
 # ReorderBufferIterCompare
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1257 - 1279
+[src/backend/replication/logical/reorderbuffer.c:1257-1279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1257-L1279)
 
 ## Overview
 A binary heap comparison function used for efficiently iterating over transaction changes in LSN order during logical replication.

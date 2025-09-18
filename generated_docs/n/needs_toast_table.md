@@ -1,7 +1,7 @@
 # needs_toast_table
 
 ## Location
-src/backend/catalog/toasting.c: 401 - 427
+[src/backend/catalog/toasting.c:401-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L401-L427)
 
 ## Overview
 Determines whether a given relation requires a TOAST table by applying various exclusion criteria and delegating the final decision to the access method.

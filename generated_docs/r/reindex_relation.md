@@ -1,7 +1,7 @@
 # reindex_relation
 
 ## Location
-src/backend/catalog/index.c: 3887 - 4057
+[src/backend/catalog/index.c:3887-4057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3887-L4057)
 
 ## Overview
 The  function recreates all indexes of a relation and optionally its associated toast table indexes, providing comprehensive index rebuilding with various control flags for different use cases.

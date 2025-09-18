@@ -1,7 +1,7 @@
 # check_list_invariants
 
 ## Location
-src/backend/nodes/list.c: 65 - 80
+[src/backend/nodes/list.c:65-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L65-L80)
 
 ## Overview
 A static validation function that verifies the integrity and consistency of PostgreSQL's List data structure by checking fundamental invariants.

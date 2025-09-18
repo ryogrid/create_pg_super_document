@@ -1,7 +1,7 @@
 # pg_ctl_status
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1413 - 1442
+[src/bin/pg_basebackup/pg_createsubscriber.c:1413-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1413-L1442)
 
 ## Overview
 A utility function that analyzes and reports the exit status of pg_ctl commands, providing detailed error messages and terminating the program on failure.

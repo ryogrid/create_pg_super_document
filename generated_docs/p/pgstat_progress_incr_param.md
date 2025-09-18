@@ -1,7 +1,7 @@
 # pgstat_progress_incr_param
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 70 - 91
+[src/backend/utils/activity/backend_progress.c:70-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L70-L91)
 
 ## Overview
 Atomically increments a specific progress parameter by a given amount, providing an efficient way to update cumulative metrics during long-running PostgreSQL operations.

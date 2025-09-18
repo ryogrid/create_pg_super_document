@@ -1,7 +1,7 @@
 # fix_join_expr
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3033 - 3054
+[src/backend/optimizer/plan/setrefs.c:3033-3054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3033-L3054)
 
 ## Overview
 Creates a new set of targetlist entries or join qual clauses by changing varno/varattno values of variables to reference target list values from outer and inner join relations.

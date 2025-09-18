@@ -1,7 +1,7 @@
 # findRangeSubtypeDiffFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2362 - 2409
+[src/backend/commands/typecmds.c:2362-2409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2362-L2409)
 
 ## Overview
 This function validates and retrieves the OID of a user-specified subtype difference function for a PostgreSQL range type, ensuring it meets signature, return type, immutability, and permission requirements.

@@ -1,7 +1,7 @@
 # ECPGconnect
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 260 - 677
+[src/interfaces/ecpg/ecpglib/connect.c:260-677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L260-L677)
 
 ## Overview
 ECPGconnect establishes a connection to a PostgreSQL database with extensive parameter parsing, connection string handling, and connection management for ECPG embedded SQL applications.

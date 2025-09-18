@@ -1,7 +1,7 @@
 # timestamptz_ne_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2418 - 2426
+[src/backend/utils/adt/timestamp.c:2418-2426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2418-L2426)
 
 ## Overview
 A PostgreSQL function that tests inequality between a timestamptz (with timezone) value and a timestamp (without timezone) value, returning a boolean result.

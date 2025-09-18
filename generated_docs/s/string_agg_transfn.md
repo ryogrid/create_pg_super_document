@@ -1,7 +1,7 @@
 # string_agg_transfn
 
 ## Location
-src/backend/utils/adt/varlena.c: 5186 - 5240
+[src/backend/utils/adt/varlena.c:5186-5240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5186-L5240)
 
 ## Overview
 The transition function for PostgreSQL's string_agg() aggregate that concatenates text values with a specified delimiter.

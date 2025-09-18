@@ -1,7 +1,7 @@
 # test_one_vector_escape
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 637 - 865
+[src/test/modules/test_escape/test_escape.c:637-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L637-L865)
 
 ## Overview
 A comprehensive test function that validates the security and correctness of a specific escape function by testing it against a single test vector, including encoding validation, boundary checking, and SQL injection protection.

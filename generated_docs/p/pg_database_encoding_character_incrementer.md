@@ -1,7 +1,7 @@
 # pg_database_encoding_character_incrementer
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1523 - 1545
+[src/backend/utils/mb/mbutils.c:1523-1545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1523-L1545)
 
 ## Overview
 A dispatcher function that returns the appropriate character incrementer function based on the current database's encoding.

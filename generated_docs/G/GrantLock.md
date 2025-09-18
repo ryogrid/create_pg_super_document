@@ -1,7 +1,7 @@
 # GrantLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1558 - 1580
+[src/backend/storage/lmgr/lock.c:1558-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1558-L1580)
 
 ## Overview
 GrantLock updates the lock and proclock data structures to reflect that a lock request has been granted, modifying the granted counts and bitmasks appropriately.

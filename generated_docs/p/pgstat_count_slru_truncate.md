@@ -1,7 +1,7 @@
 # pgstat_count_slru_truncate
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 95 - 104
+[src/backend/utils/activity/pgstat_slru.c:95-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L95-L104)
 
 ## Overview
 Increments the truncate counter for a specific SLRU (Simple LRU) buffer cache to track statistics about truncation operations.

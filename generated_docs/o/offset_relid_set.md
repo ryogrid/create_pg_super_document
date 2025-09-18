@@ -1,7 +1,7 @@
 # offset_relid_set
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 533 - 561
+[src/backend/rewrite/rewriteManip.c:533-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L533-L561)
 
 ## Overview
 A static utility function that applies a relation table offset to all members of a Relids (relation identifier set), creating a new set with adjusted relation IDs.

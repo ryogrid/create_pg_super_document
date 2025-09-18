@@ -1,7 +1,7 @@
 # lookup_am_handler_func
 
 ## Location
-src/backend/commands/amcmds.c: 234 - 269
+[src/backend/commands/amcmds.c:234-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L234-L269)
 
 ## Overview
 Resolves and validates an access method handler function name to its OID, ensuring the function signature matches the expected access method type.

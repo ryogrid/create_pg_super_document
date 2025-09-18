@@ -1,7 +1,7 @@
 # elements_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2416 - 2430
+[src/backend/utils/adt/jsonfuncs.c:2416-2430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2416-L2430)
 
 ## Overview
 This function serves as a JSON parser callback that validates JSON structure when processing array elements, ensuring that objects are not encountered at the top level when array processing is expected.

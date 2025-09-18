@@ -1,7 +1,7 @@
 # GetForeignDataWrapper
 
 ## Location
-src/backend/foreign/foreign.c: 37 - 48
+[src/backend/foreign/foreign.c:37-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L37-L48)
 
 ## Overview
 Retrieves a foreign-data wrapper object by its Object ID (OID), providing a simplified interface to access FDW information without error handling options.

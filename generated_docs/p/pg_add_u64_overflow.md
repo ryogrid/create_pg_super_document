@@ -1,7 +1,7 @@
 # pg_add_u64_overflow
 
 ## Location
-src/include/common/int.h: 380 - 397
+[src/include/common/int.h:380-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L380-L397)
 
 ## Overview
 A safe unsigned 64-bit integer addition function that detects arithmetic overflow, preventing undefined behavior that can occur with standard arithmetic operations.

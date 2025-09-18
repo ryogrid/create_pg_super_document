@@ -1,7 +1,7 @@
 # canonicalize_path_enc
 
 ## Location
-src/port/path.c: 343 - 575
+[src/port/path.c:343-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L343-L575)
 
 ## Overview
 The encoding-aware version of path canonicalization that cleans up and normalizes file system paths while properly handling character encoding considerations.

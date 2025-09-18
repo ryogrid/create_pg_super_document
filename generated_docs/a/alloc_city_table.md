@@ -1,7 +1,7 @@
 # alloc_city_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_recombination.c: 69 - 86
+[src/backend/optimizer/geqo/geqo_recombination.c:69-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_recombination.c#L69-L86)
 
 ## Overview
 Allocates memory for a city table used in PostgreSQL's genetic query optimizer (GEQO) to represent relations in join optimization.

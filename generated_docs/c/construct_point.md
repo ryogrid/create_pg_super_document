@@ -1,7 +1,7 @@
 # construct_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4096 - 4110
+[src/backend/utils/adt/geo_ops.c:4096-4110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4096-L4110)
 
 ## Overview
 PostgreSQL function that creates a new Point structure from two floating-point coordinates (x, y) and returns it as a PostgreSQL geometric data type.

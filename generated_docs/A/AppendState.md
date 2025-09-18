@@ -1,7 +1,7 @@
 # AppendState
 
 ## Location
-src/include/nodes/execnodes.h: 1434 - 1435
+[src/include/nodes/execnodes.h:1434-1435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1434-L1435)
 
 ## Overview
 AppendState is an execution state structure for Append nodes in PostgreSQL's executor, which manages the sequential and parallel execution of multiple child plans, commonly used for UNION operations and partitioned table access.

@@ -1,7 +1,7 @@
 # query_supports_distinctness
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 958 - 994
+[src/backend/optimizer/plan/analyzejoins.c:958-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L958-L994)
 
 ## Overview
 A pre-checking function that determines whether a query could possibly be proven distinct on some set of output columns, serving as an optimization to avoid expensive analysis when distinctness is impossible.

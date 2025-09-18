@@ -1,7 +1,7 @@
 # XmlExprOp
 
 ## Location
-src/include/nodes/primnodes.h: 1588 - 1589
+[src/include/nodes/primnodes.h:1588-1589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1588-L1589)
 
 ## Overview
 XmlExprOp is an enumeration that defines the types of SQL/XML functions that require special grammar productions in PostgreSQL's XML functionality.

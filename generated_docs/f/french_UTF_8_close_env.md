@@ -1,7 +1,7 @@
 # french_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_french.c: 1261 - 1262
+[src/backend/snowball/libstemmer/stem_UTF_8_french.c:1261-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_french.c#L1261-L1262)
 
 ## Overview
 The french_UTF_8_close_env function properly deallocates and cleans up a Snowball environment structure that was created for French UTF-8 text stemming operations.

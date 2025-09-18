@@ -1,7 +1,7 @@
 # remove_useless_result_rtes
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3427 - 3499
+[src/backend/optimizer/prep/prepjointree.c:3427-3499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3427-L3499)
 
 ## Overview
 Attempts to remove RTE_RESULT RTEs from the join tree and elides single-child FromExprs where possible, optimizing the query plan by eliminating unnecessary intermediate nodes.

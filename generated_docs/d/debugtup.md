@@ -1,7 +1,7 @@
 # debugtup
 
 ## Location
-src/backend/access/common/printtup.c: 462 - 488
+[src/backend/access/common/printtup.c:462-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L462-L488)
 
 ## Overview
 The debugtup function prints debug information for a single tuple to standard output, designed for interactive backend debugging sessions where developers need to examine tuple contents.

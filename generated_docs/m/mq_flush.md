@@ -1,7 +1,7 @@
 # mq_flush
 
 ## Location
-src/backend/libpq/pqmq.c: 92 - 98
+[src/backend/libpq/pqmq.c:92-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L92-L98)
 
 ## Overview
 A no-op implementation of the flush method for shared memory message queue communication in PostgreSQL's parallel processing infrastructure.

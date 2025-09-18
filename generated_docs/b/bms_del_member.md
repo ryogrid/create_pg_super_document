@@ -1,7 +1,7 @@
 # bms_del_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 868 - 916
+[src/backend/nodes/bitmapset.c:868-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L868-L916)
 
 ## Overview
 Removes a specified member from a bitmapset, automatically trimming trailing empty words and freeing the set if it becomes empty.

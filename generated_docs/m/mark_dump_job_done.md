@@ -1,7 +1,7 @@
 # mark_dump_job_done
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2541 - 2555
+[src/bin/pg_dump/pg_backup_archiver.c:2541-2555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2541-L2555)
 
 ## Overview
 A callback function invoked in the leader process after a step has been parallel dumped, primarily used to check for worker process failures and log completion status.

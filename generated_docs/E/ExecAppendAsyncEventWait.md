@@ -1,7 +1,7 @@
 # ExecAppendAsyncEventWait
 
 ## Location
-src/backend/executor/nodeAppend.c: 1017 - 1126
+[src/backend/executor/nodeAppend.c:1017-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L1017-L1126)
 
 ## Overview
 Waits or polls for file descriptor events and fires callbacks for asynchronous subplans in an Append node execution context.

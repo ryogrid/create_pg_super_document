@@ -1,7 +1,7 @@
 # dist_pathp
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2490 - 2501
+[src/backend/utils/adt/geo_ops.c:2490-2501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2490-L2501)
 
 ## Overview
 PostgreSQL SQL function that calculates the distance from a PATH to a Point (reverse parameter order of dist_ppath).

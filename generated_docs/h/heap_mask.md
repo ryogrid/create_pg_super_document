@@ -1,7 +1,7 @@
 # heap_mask
 
 ## Location
-src/backend/access/heap/heapam.c: 10423 - 10518
+[src/backend/access/heap/heapam.c:10423-10518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10423-L10518)
 
 ## Overview
 Masks volatile fields in heap pages before consistency checks to normalize differences between primary and standby servers during WAL replay verification.

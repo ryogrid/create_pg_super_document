@@ -1,7 +1,7 @@
 # test_re_execute
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 202 - 249
+[src/test/modules/test_regex/test_regex.c:202-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L202-L249)
 
 ## Overview
 test_re_execute is a static function that executes a compiled regular expression against wide character data, providing a convenient wrapper around PostgreSQL's core regex execution functionality.

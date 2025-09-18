@@ -1,7 +1,7 @@
 # SendCopyBegin
 
 ## Location
-src/backend/commands/copyto.c: 133 - 149
+[src/backend/commands/copyto.c:133-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L133-L149)
 
 ## Overview
 SendCopyBegin is a static function that initiates the COPY TO protocol by sending a CopyOutResponse message to the frontend client, establishing the format and column information for the data transfer.

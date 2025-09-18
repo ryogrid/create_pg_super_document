@@ -1,7 +1,7 @@
 # GetOldestUnsummarizedLSN
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 505 - 636
+[src/backend/postmaster/walsummarizer.c:505-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L505-L636)
 
 ## Overview
 Determines the oldest LSN that has not yet been summarized and updates shared memory state accordingly.

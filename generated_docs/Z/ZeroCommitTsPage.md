@@ -1,7 +1,7 @@
 # ZeroCommitTsPage
 
 ## Location
-src/backend/access/transam/commit_ts.c: 615 - 631
+[src/backend/access/transam/commit_ts.c:615-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L615-L631)
 
 ## Overview
 ZeroCommitTsPage initializes or reinitializes a page of commit timestamp data to zeroes in shared memory, optionally writing an XLOG record for crash recovery.

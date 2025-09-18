@@ -1,7 +1,7 @@
 # initClosestMatch
 
 ## Location
-src/backend/utils/adt/varlena.c: 6188 - 6207
+[src/backend/utils/adt/varlena.c:6188-6207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6188-L6207)
 
 ## Overview
 Initializes a ClosestMatchState structure for finding the best string match using Levenshtein distance, commonly used for providing helpful hints in error messages.

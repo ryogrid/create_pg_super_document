@@ -1,7 +1,7 @@
 # find_ec_member_matching_expr
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 759 - 832
+[src/backend/optimizer/path/equivclass.c:759-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L759-L832)
 
 ## Overview
 Locates an EquivalenceMember within an EquivalenceClass that matches a given expression, ignoring binary-compatible RelabelType nodes for flexible matching.

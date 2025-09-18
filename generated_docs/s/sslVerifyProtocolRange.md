@@ -1,7 +1,7 @@
 # sslVerifyProtocolRange
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7614 - 7666
+[src/interfaces/libpq/fe-connect.c:7614-7666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7614-L7666)
 
 ## Overview
 Validates that the SSL protocol version range (minimum and maximum) is logically correct and consistent.

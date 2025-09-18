@@ -1,7 +1,7 @@
 # WriteMZeroPageXlogRec
 
 ## Location
-src/backend/access/transam/multixact.c: 3347 - 3360
+[src/backend/access/transam/multixact.c:3347-3360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3347-L3360)
 
 ## Overview
 WriteMZeroPageXlogRec writes a WAL (Write-Ahead Log) record to document the zeroing of either a MultiXact MEMBERs or OFFSETs page for crash recovery purposes.

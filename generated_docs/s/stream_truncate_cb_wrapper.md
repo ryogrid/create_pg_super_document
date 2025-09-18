@@ -1,7 +1,7 @@
 # stream_truncate_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1601 - 1647
+[src/backend/replication/logical/logical.c:1601-1647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1601-L1647)
 
 ## Overview
 A wrapper function that safely invokes the optional output plugin's stream_truncate_cb callback during logical replication streaming for handling TRUNCATE operations on multiple relations.

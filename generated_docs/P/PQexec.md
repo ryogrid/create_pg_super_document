@@ -1,7 +1,7 @@
 # PQexec
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2262 - 2275
+[src/interfaces/libpq/fe-exec.c:2262-2275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2262-L2275)
 
 ## Overview
 High-level libpq function that sends a query to the backend and returns a complete result, providing a simple synchronous interface for SQL execution.

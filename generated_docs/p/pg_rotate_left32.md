@@ -1,7 +1,7 @@
 # pg_rotate_left32
 
 ## Location
-src/include/port/pg_bitutils.h: 404 - 411
+[src/include/port/pg_bitutils.h:404-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L404-L411)
 
 ## Overview
 The pg_rotate_left32 function performs a bitwise left rotation of a 32-bit unsigned integer, widely used throughout PostgreSQL's hash functions and data type hashing for improved bit distribution and hash quality.

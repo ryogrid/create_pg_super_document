@@ -1,7 +1,7 @@
 # jsonb_subscript_assign
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 261 - 322
+[src/backend/utils/adt/jsonbsubs.c:261-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L261-L322)
 
 ## Overview
 Evaluates a SubscriptingRef assignment operation to set an element within a JSONB container, creating the container if it doesn't exist.

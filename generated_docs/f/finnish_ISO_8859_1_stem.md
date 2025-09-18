@@ -1,7 +1,7 @@
 # finnish_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c: 654 - 714
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c:654-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c#L654-L714)
 
 ## Overview
 The finnish_ISO_8859_1_stem function is the main entry point for Finnish text stemming using the ISO-8859-1 character encoding, orchestrating a complete morphological analysis and reduction process.

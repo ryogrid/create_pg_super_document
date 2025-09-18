@@ -1,7 +1,7 @@
 # lrq_inflight
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 233 - 238
+[src/backend/access/transam/xlogprefetcher.c:233-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L233-L238)
 
 ## Overview
 Returns the current number of inflight (pending) I/O operations in an LSN read queue.

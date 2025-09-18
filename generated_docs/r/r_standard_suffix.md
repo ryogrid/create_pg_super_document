@@ -1,7 +1,7 @@
 # r_standard_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 741 - 1208
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:741-1208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L741-L1208)
 
 ## Overview
 The r_standard_suffix function performs the main suffix removal operations in the Snowball stemming algorithm by identifying and removing common suffixes according to morphological region constraints.

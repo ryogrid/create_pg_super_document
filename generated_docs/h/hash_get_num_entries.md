@@ -1,7 +1,7 @@
 # hash_get_num_entries
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1344 - 1387
+[src/backend/utils/hash/dynahash.c:1344-1387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1344-L1387)
 
 ## Overview
 Returns the total number of entries currently stored in a PostgreSQL dynamic hash table, handling both partitioned and non-partitioned tables.

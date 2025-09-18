@@ -1,7 +1,7 @@
 # collectMatchesForHeapRow
 
 ## Location
-src/backend/access/gin/ginget.c: 1609 - 1823
+[src/backend/access/gin/ginget.c:1609-1823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1609-L1823)
 
 ## Overview
 Examines all pending list entries for a current heap row and populates the entryRes array for each scan key, determining if the row satisfies search criteria.

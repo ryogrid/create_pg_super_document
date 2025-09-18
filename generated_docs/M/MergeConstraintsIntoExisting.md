@@ -1,7 +1,7 @@
 # MergeConstraintsIntoExisting
 
 ## Location
-src/backend/commands/tablecmds.c: 16016 - 16140
+[src/backend/commands/tablecmds.c:16016-16140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16016-L16140)
 
 ## Overview
 MergeConstraintsIntoExisting is a static function that validates constraint compatibility between child and parent relations during inheritance creation, and increments the inheritance count for matching constraints.

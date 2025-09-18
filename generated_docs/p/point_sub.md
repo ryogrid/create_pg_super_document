@@ -1,7 +1,7 @@
 # point_sub
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4142 - 4156
+[src/backend/utils/adt/geo_ops.c:4142-4156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4142-L4156)
 
 ## Overview
 A PostgreSQL function that provides the SQL-callable interface for subtracting one geometric point from another.

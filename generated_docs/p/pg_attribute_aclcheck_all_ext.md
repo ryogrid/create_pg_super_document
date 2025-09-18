@@ -1,7 +1,7 @@
 # pg_attribute_aclcheck_all_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3978 - 4095
+[src/backend/catalog/aclchk.c:3978-4095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3978-L4095)
 
 ## Overview
 This function checks a user's access privileges to any or all columns in a table with extended support for detecting missing relations.

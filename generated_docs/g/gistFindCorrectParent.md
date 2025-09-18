@@ -1,7 +1,7 @@
 # gistFindCorrectParent
 
 ## Location
-src/backend/access/gist/gist.c: 1022 - 1134
+[src/backend/access/gist/gist.c:1022-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1022-L1134)
 
 ## Overview
 Updates the insertion stack to ensure that child->parent points to the correct parent page, handling cases where the parent has been modified due to concurrent operations or page splits.

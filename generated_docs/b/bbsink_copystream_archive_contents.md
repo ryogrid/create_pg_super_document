@@ -1,7 +1,7 @@
 # bbsink_copystream_archive_contents
 
 ## Location
-src/backend/backup/basebackup_copy.c: 183 - 240
+[src/backend/backup/basebackup_copy.c:183-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L183-L240)
 
 ## Overview
 Sends a CopyData message containing a chunk of archive content and manages progress reporting to the client during backup transmission.

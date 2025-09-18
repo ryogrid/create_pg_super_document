@@ -1,7 +1,7 @@
 # XLogRecoveryShmemInit
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 458 - 477
+[src/backend/access/transam/xlogrecovery.c:458-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L458-L477)
 
 ## Overview
 Initializes the shared memory structures and synchronization objects required for WAL recovery operations across PostgreSQL backend processes.

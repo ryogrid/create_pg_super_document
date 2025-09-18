@@ -1,7 +1,7 @@
 # DOTypeNameCompare
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 199 - 470
+[src/bin/pg_dump/pg_dump_sort.c:199-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L199-L470)
 
 ## Overview
 A static comparison function that provides comprehensive sorting logic for DumpableObject instances, implementing a multi-level sorting hierarchy based on type priority, namespace, name, and object-specific natural keys.

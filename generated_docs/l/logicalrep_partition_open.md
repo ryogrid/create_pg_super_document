@@ -1,7 +1,7 @@
 # logicalrep_partition_open
 
 ## Location
-src/backend/replication/logical/relation.c: 602 - 744
+[src/backend/replication/logical/relation.c:602-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L602-L744)
 
 ## Overview
 Opens and manages cached logical replication relation map entries for table partitions, handling attribute mapping differences between partitions and their root tables.

@@ -1,7 +1,7 @@
 # copy_file_clone
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 213 - 258
+[src/bin/pg_combinebackup/copy_file.c:213-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L213-L258)
 
 ## Overview
 Clones or reflinks a file from source to destination using platform-specific optimization techniques, with optional checksum calculation.

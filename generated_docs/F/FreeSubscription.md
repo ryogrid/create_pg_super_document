@@ -1,7 +1,7 @@
 # FreeSubscription
 
 ## Location
-src/backend/catalog/pg_subscription.c: 155 - 168
+[src/backend/catalog/pg_subscription.c:155-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L155-L168)
 
 ## Overview
 Frees all memory allocated for a Subscription structure and its associated string and list data members.

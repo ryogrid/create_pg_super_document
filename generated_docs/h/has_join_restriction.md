@@ -1,7 +1,7 @@
 # has_join_restriction
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1185 - 1240
+[src/backend/optimizer/path/joinrels.c:1185-1240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1185-L1240)
 
 ## Overview
 Detects whether a relation has join-order restrictions due to outer joins, subqueries, lateral references, or multi-relation PlaceHolderVars.

@@ -1,7 +1,7 @@
 # dcs_cmp
 
 ## Location
-src/backend/utils/cache/typcache.c: 1230 - 1242
+[src/backend/utils/cache/typcache.c:1230-1242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1230-L1242)
 
 ## Overview
 A qsort comparator function that sorts DomainConstraintState pointers by their constraint names in alphabetical order.

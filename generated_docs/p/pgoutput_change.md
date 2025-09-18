@@ -1,7 +1,7 @@
 # pgoutput_change
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1429 - 1597
+[src/backend/replication/pgoutput/pgoutput.c:1429-1597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1429-L1597)
 
 ## Overview
 Processes and sends decoded DML (Data Manipulation Language) operations over the wire during logical replication in both streaming and non-streaming modes.

@@ -1,7 +1,7 @@
 # BuildSpeculativeIndexInfo
 
 ## Location
-src/backend/catalog/index.c: 2642 - 2701
+[src/backend/catalog/index.c:2642-2701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2642-L2701)
 
 ## Overview
 BuildSpeculativeIndexInfo augments an IndexInfo structure with additional metadata required for speculative insertion operations on unique indexes.

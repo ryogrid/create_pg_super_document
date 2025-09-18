@@ -1,7 +1,7 @@
 # partkey_datum_from_expr
 
 ## Location
-src/backend/partitioning/partprune.c: 3760 - 3792
+[src/backend/partitioning/partprune.c:3760-3792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3760-L3792)
 
 ## Overview
 Evaluates an expression to extract a Datum value and null flag for use in partition pruning operations.

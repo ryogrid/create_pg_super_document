@@ -1,7 +1,7 @@
 # bbstreamer_buffer_until
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 175 - 226
+[src/bin/pg_basebackup/bbstreamer.h:175-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L175-L226)
 
 ## Overview
 This convenience function attempts to accumulate data in a bbstreamer's buffer until it reaches a target length, returning true if the target is achieved and false otherwise.

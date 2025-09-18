@@ -1,7 +1,7 @@
 # json_to_tsvector
 
 ## Location
-src/backend/tsearch/to_tsany.c: 423 - 442
+[src/backend/tsearch/to_tsany.c:423-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L423-L442)
 
 ## Overview
 A PostgreSQL function that converts JSON text data to a text search vector (TSVector) using JSON flags and the current default text search configuration.

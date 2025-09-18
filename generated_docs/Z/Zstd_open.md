@@ -1,7 +1,7 @@
 # Zstd_open
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 504 - 541
+[src/bin/pg_dump/compress_zstd.c:504-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L504-L541)
 
 ## Overview
 Opens a file for Zstd compression or decompression, initializing the necessary state structures.

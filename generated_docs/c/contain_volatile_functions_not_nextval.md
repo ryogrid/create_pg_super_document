@@ -1,7 +1,7 @@
 # contain_volatile_functions_not_nextval
 
 ## Location
-src/backend/optimizer/util/clauses.c: 673 - 678
+[src/backend/optimizer/util/clauses.c:673-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L673-L678)
 
 ## Overview
 A specialized version of volatile function detection designed for COPY operations that ignores nextval() calls while treating all other functions normally.

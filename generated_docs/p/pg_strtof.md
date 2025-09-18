@@ -1,7 +1,7 @@
 # pg_strtof
 
 ## Location
-src/port/strtof.c: 30 - 89
+[src/port/strtof.c:30-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strtof.c#L30-L89)
 
 ## Overview
 A PostgreSQL-specific wrapper for the strtof() function that provides correct overflow/underflow handling and avoids double-rounding problems on platforms with buggy strtof() implementations.

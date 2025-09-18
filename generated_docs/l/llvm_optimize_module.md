@@ -1,7 +1,7 @@
 # llvm_optimize_module
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 636 - 732
+[src/backend/jit/llvm/llvmjit.c:636-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L636-L732)
 
 ## Overview
 Optimizes LLVM IR code in a module using the optimization flags set in the JIT context, applying different optimization passes based on the configured optimization level.

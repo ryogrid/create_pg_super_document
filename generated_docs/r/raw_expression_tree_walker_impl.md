@@ -1,7 +1,7 @@
 # raw_expression_tree_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 3964 - 4675
+[src/backend/nodes/nodeFuncs.c:3964-4675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L3964-L4675)
 
 ## Overview
 A comprehensive tree walker function that traverses raw parse trees (pre-analysis) for DML statements, handling all node types found in raw grammar output.

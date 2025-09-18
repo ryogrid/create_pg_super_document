@@ -1,7 +1,7 @@
 # pgstat_count_slru_page_exists
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 71 - 76
+[src/backend/utils/activity/pgstat_slru.c:71-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L71-L76)
 
 ## Overview
 Increments the counter for page existence checks in a specific SLRU buffer cache, tracking operations that verify whether pages physically exist on disk.

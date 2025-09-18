@@ -1,7 +1,7 @@
 # compute_index_stats
 
 ## Location
-src/backend/commands/analyze.c: 828 - 998
+[src/backend/commands/analyze.c:828-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L828-L998)
 
 ## Overview
 Computes statistics for index expressions and partial index predicates by evaluating them against sampled table rows.

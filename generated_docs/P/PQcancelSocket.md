@@ -1,7 +1,7 @@
 # PQcancelSocket
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 295 - 306
+[src/interfaces/libpq/fe-cancel.c:295-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L295-L306)
 
 ## Overview
 Retrieves the socket file descriptor from a cancel connection, allowing direct access to the underlying socket for query cancellation operations.

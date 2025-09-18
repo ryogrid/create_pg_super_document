@@ -1,7 +1,7 @@
 # spin_delay
 
 ## Location
-src/include/storage/s_lock.h: 240 - 260
+[src/include/storage/s_lock.h:240-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/s_lock.h#L240-L260)
 
 ## Overview
 The `spin_delay` function provides a CPU-specific hint to optimize performance during spinlock waiting by preventing pipeline stalls and reducing resource consumption in tight polling loops.

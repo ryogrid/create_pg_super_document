@@ -1,7 +1,7 @@
 # handle_help_version_opts
 
 ## Location
-src/fe_utils/option_utils.c: 24 - 49
+[src/fe_utils/option_utils.c:24-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/option_utils.c#L24-L49)
 
 ## Overview
 Provides standardized handling of --help and --version command-line options across PostgreSQL client utilities.

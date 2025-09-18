@@ -1,7 +1,7 @@
 # HeapTupleIsSurelyDead
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1465 - 1519
+[src/backend/access/heap/heapam_visibility.c:1465-1519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1465-L1519)
 
 ## Overview
 HeapTupleIsSurelyDead provides a fast way to determine whether a tuple is surely dead to all onlookers by examining hint bits without consulting the process array or commit log.

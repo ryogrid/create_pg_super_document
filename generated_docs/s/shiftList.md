@@ -1,7 +1,7 @@
 # shiftList
 
 ## Location
-src/backend/access/gin/ginfast.c: 554 - 674
+[src/backend/access/gin/ginfast.c:554-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L554-L674)
 
 ## Overview
 A static function that deletes pending list pages up to a specified head page, updating metadata and optionally recording freed pages in the free space map.

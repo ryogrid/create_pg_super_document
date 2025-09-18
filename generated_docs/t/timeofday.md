@@ -1,7 +1,7 @@
 # timeofday
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1700 - 1729
+[src/backend/utils/adt/timestamp.c:1700-1729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1700-L1729)
 
 ## Overview
 Returns the current system time as a formatted text string, providing high-precision timing information including microseconds and timezone.

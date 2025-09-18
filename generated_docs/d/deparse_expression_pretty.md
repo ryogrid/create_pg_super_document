@@ -1,7 +1,7 @@
 # deparse_expression_pretty
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3626 - 3661
+[src/backend/utils/adt/ruleutils.c:3626-3661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3626-L3661)
 
 ## Overview
 A comprehensive utility function for deparsing expressions with full control over pretty printing and formatting options.

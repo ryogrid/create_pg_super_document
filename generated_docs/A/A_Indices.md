@@ -1,7 +1,7 @@
 # A_Indices
 
 ## Location
-src/include/nodes/parsenodes.h: 456 - 462
+[src/include/nodes/parsenodes.h:456-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L456-L462)
 
 ## Overview
 A_Indices represents array subscript or slice bounds in PostgreSQL parse trees, handling both single element access and range slicing operations.

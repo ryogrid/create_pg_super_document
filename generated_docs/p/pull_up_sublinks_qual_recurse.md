@@ -1,7 +1,7 @@
 # pull_up_sublinks_qual_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 637 - 886
+[src/backend/optimizer/prep/prepjointree.c:637-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L637-L886)
 
 ## Overview
 Recursively processes qualification clauses to identify and transform SubLinks (ANY and EXISTS) into semijoin or anti-semijoin operations.

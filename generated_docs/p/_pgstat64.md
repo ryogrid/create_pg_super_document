@@ -1,7 +1,7 @@
 # _pgstat64
 
 ## Location
-src/port/win32stat.c: 198 - 254
+[src/port/win32stat.c:198-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L198-L254)
 
 ## Overview
 Windows implementation of the stat() system call that follows symbolic links (junction points) to retrieve information about the target file or directory.

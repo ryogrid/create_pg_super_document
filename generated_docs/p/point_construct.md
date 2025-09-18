@@ -1,7 +1,7 @@
 # point_construct
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1884 - 1900
+[src/backend/utils/adt/geo_ops.c:1884-1900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1884-L1900)
 
 ## Overview
 A utility function that initializes a Point structure with given x and y coordinate values.

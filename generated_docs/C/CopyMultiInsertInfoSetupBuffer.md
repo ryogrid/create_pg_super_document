@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoSetupBuffer
 
 ## Location
-src/backend/commands/copyfrom.c: 238 - 257
+[src/backend/commands/copyfrom.c:238-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L238-L257)
 
 ## Overview
 CopyMultiInsertInfoSetupBuffer creates a new CopyMultiInsertBuffer for a specific ResultRelInfo and establishes the necessary links to track and manage the buffer within the multi-insert framework.

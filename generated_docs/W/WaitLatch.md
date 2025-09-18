@@ -1,7 +1,7 @@
 # WaitLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 517 - 564
+[src/backend/storage/ipc/latch.c:517-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L517-L564)
 
 ## Overview
 Waits for a latch to be set, postmaster death, or timeout expiration, providing the core blocking mechanism for inter-process synchronization.

@@ -1,7 +1,7 @@
 # register_reloptions_validator
 
 ## Location
-src/backend/access/common/reloptions.c: 747 - 756
+[src/backend/access/common/reloptions.c:747-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L747-L756)
 
 ## Overview
 The register_reloptions_validator function registers a custom validation callback that will be called at the end of build_local_reloptions().

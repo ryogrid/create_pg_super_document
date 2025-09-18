@@ -1,7 +1,7 @@
 # ExtendBufferedRelTo
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 909 - 1017
+[src/backend/storage/buffer/bufmgr.c:909-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L909-L1017)
 
 ## Overview
 Extends a relation to ensure it contains at least a specified number of blocks, returning a buffer for the target block, commonly used for visibility maps, free space maps, and crash recovery scenarios.

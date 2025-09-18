@@ -1,7 +1,7 @@
 # CloseServerPorts
 
 ## Location
-src/backend/postmaster/postmaster.c: 1389 - 1422
+[src/backend/postmaster/postmaster.c:1389-1422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1389-L1422)
 
 ## Overview
 CloseServerPorts is an on_proc_exit callback function that safely closes all server listening sockets and removes Unix socket files during postmaster shutdown to prevent race conditions with new postmaster instances.

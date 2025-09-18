@@ -1,7 +1,7 @@
 # macaddr8tomacaddr
 
 ## Location
-src/backend/utils/adt/mac8.c: 545 - 569
+[src/backend/utils/adt/mac8.c:545-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L545-L569)
 
 ## Overview
 Converts an 8-byte MAC address (macaddr8) to a 6-byte MAC address (macaddr) by removing the EUI-64 expansion bytes, with validation to ensure proper format.

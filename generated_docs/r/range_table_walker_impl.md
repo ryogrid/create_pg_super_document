@@ -1,7 +1,7 @@
 # range_table_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 2789 - 2809
+[src/backend/nodes/nodeFuncs.c:2789-2809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L2789-L2809)
 
 ## Overview
 This function walks through a query's range table, visiting each RangeTblEntry with a user-provided walker callback function.

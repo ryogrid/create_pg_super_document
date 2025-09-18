@@ -1,7 +1,7 @@
 # RelationIdGetRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2063 - 2141
+[src/backend/utils/cache/relcache.c:2063-2141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2063-L2141)
 
 ## Overview
 Looks up a relation descriptor by OID, either retrieving it from the relation cache or building a new one if not already cached.

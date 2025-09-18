@@ -1,7 +1,7 @@
 # ecpg_find_prepared_statement
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 239 - 259
+[src/interfaces/ecpg/ecpglib/prepare.c:239-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L239-L259)
 
 ## Overview
 Searches for a prepared statement by name within a specific database connection's prepared statement list, returning the matching statement and optionally its predecessor in the linked list.

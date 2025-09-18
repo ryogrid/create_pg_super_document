@@ -1,7 +1,7 @@
 # TransactionIdPrecedesOrEquals
 
 ## Location
-src/backend/access/transam/transam.c: 299 - 313
+[src/backend/access/transam/transam.c:299-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L299-L313)
 
 ## Overview
 Determines whether one transaction ID logically precedes or equals another, using PostgreSQL's modular transaction ID arithmetic.

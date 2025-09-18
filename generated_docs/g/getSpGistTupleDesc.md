@@ -1,7 +1,7 @@
 # getSpGistTupleDesc
 
 ## Location
-src/backend/access/spgist/spgutils.c: 309 - 339
+[src/backend/access/spgist/spgutils.c:309-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L309-L339)
 
 ## Overview
 getSpGistTupleDesc computes a tuple descriptor for leaf tuples or index-only-scan result tuples, adjusting the key column type as needed while preserving INCLUDE columns.

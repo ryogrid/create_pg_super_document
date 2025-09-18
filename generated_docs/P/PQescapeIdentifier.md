@@ -1,7 +1,7 @@
 # PQescapeIdentifier
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4371 - 4390
+[src/interfaces/libpq/fe-exec.c:4371-4390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4371-L4390)
 
 ## Overview
 PQescapeIdentifier escapes a string for use as a SQL identifier (table name, column name, etc.) in PostgreSQL queries, ensuring proper handling of special characters and reserved words.

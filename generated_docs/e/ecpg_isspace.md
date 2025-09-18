@@ -1,7 +1,7 @@
 # ecpg_isspace
 
 ## Location
-src/interfaces/ecpg/preproc/parser.c: 244 - 253
+[src/interfaces/ecpg/preproc/parser.c:244-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/parser.c#L244-L253)
 
 ## Overview
 A utility function that determines whether a character is considered whitespace according to the flex scanner used in the ECPG preprocessor.

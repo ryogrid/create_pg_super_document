@@ -1,7 +1,7 @@
 # ExecUpdateLockMode
 
 ## Location
-src/backend/executor/execMain.c: 2353 - 2378
+[src/backend/executor/execMain.c:2353-2378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2353-L2378)
 
 ## Overview
 Determines the appropriate tuple lock mode for UPDATE operations based on whether key columns are being modified, enabling better concurrency when only non-key columns are updated.

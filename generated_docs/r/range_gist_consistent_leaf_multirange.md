@@ -1,7 +1,7 @@
 # range_gist_consistent_leaf_multirange
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1093 - 1127
+[src/backend/utils/adt/rangetypes_gist.c:1093-1127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1093-L1127)
 
 ## Overview
 Performs GiST consistent test on an index leaf page with multirange query, determining whether a stored range matches the multirange query criteria using the specified spatial relationship strategy.

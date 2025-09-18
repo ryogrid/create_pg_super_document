@@ -1,7 +1,7 @@
 # BackgroundWorkerUnblockSignals
 
 ## Location
-src/backend/postmaster/postmaster.c: 4231 - 4245
+[src/backend/postmaster/postmaster.c:4231-4245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4231-L4245)
 
 ## Overview
 Unblocks signal delivery to a background worker process by setting the process signal mask to allow signals defined in UnBlockSig.

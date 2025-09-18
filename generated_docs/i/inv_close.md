@@ -1,7 +1,7 @@
 # inv_close
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 337 - 348
+[src/backend/storage/large_object/inv_api.c:337-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L337-L348)
 
 ## Overview
 Closes a large object descriptor and releases its associated memory, complementing the inv_open function.

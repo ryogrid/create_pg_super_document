@@ -1,7 +1,7 @@
 # SpGistInitMetapage
 
 ## Location
-src/backend/access/spgist/spgutils.c: 724 - 750
+[src/backend/access/spgist/spgutils.c:724-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L724-L750)
 
 ## Overview
 Initializes the metadata page for an SP-GiST index, setting up the essential metadata structure and cache initialization required for index operations.

@@ -1,7 +1,7 @@
 # RT_NODE_48
 
 ## Location
-src/include/lib/radixtree.h: 542 - 561
+[src/include/lib/radixtree.h:542-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L542-L561)
 
 ## Overview
 RT_NODE_48 is a macro that generates a type name for a 48-slot adaptive radix tree node structure used in PostgreSQL's templated radix tree implementation.

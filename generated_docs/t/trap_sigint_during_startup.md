@@ -1,7 +1,7 @@
 # trap_sigint_during_startup
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 849 - 866
+[src/bin/pg_ctl/pg_ctl.c:849-866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L849-L866)
 
 ## Overview
 A SIGINT signal handler that forwards interrupt signals to the PostgreSQL postmaster process during startup, enabling graceful shutdown when users press CTRL-C while waiting for the server to start.

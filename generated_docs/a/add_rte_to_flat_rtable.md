@@ -1,7 +1,7 @@
 # add_rte_to_flat_rtable
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 538 - 607
+[src/backend/optimizer/plan/setrefs.c:538-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L538-L607)
 
 ## Overview
 Adds a copy of a given RangeTblEntry and its corresponding RTEPermissionInfo to the flattened global rangetable while optimizing storage for executor use.

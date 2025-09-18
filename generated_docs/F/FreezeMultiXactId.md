@@ -1,7 +1,7 @@
 # FreezeMultiXactId
 
 ## Location
-src/backend/access/heap/heapam.c: 6659 - 7008
+[src/backend/access/heap/heapam.c:6659-7008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6659-L7008)
 
 ## Overview
 A static function that determines how to handle MultiXactId values during tuple freezing, deciding whether to preserve, replace, or invalidate the MultiXactId based on vacuum cutoffs and the status of member transactions.

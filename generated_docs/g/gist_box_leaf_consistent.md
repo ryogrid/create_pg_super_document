@@ -1,7 +1,7 @@
 # gist_box_leaf_consistent
 
 ## Location
-src/backend/access/gist/gistproc.c: 872 - 956
+[src/backend/access/gist/gistproc.c:872-956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L872-L956)
 
 ## Overview
 Performs leaf-level consistency checking for box data types in GiST (Generalized Search Tree) indexes by applying the appropriate spatial query operator based on the strategy number.

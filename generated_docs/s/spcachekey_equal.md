@@ -1,7 +1,7 @@
 # spcachekey_equal
 
 ## Location
-src/backend/catalog/namespace.c: 274 - 279
+[src/backend/catalog/namespace.c:274-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L274-L279)
 
 ## Overview
 Equality comparison function that determines if two SearchPathCacheKey structures are identical, used in PostgreSQL's search path caching system for hash table key comparison.

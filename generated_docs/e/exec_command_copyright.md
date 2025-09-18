@@ -1,7 +1,7 @@
 # exec_command_copyright
 
 ## Location
-src/bin/psql/command.c: 737 - 748
+[src/bin/psql/command.c:737-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L737-L748)
 
 ## Overview
 Implements the psql  command for displaying the PostgreSQL copyright notice.

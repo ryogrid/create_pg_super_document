@@ -1,7 +1,7 @@
 # rfmtdate
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 579 - 591
+[src/interfaces/ecpg/compatlib/informix.c:579-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L579-L591)
 
 ## Overview
 Formats a date value into a string according to a specified format, providing Informix-compatible error handling.

@@ -1,7 +1,7 @@
 # SInvalShmemSize
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 218 - 233
+[src/backend/storage/ipc/sinvaladt.c:218-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L218-L233)
 
 ## Overview
 SInvalShmemSize calculates and returns the amount of shared memory space required for the shared invalidation subsystem's data structures.

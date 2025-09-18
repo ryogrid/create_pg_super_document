@@ -1,7 +1,7 @@
 # pg_options_to_table
 
 ## Location
-src/backend/foreign/foreign.c: 522 - 563
+[src/backend/foreign/foreign.c:522-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L522-L563)
 
 ## Overview
 Converts options array to a name/value table format, useful for providing details to information_schema and pg_dump.

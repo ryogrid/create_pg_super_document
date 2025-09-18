@@ -1,7 +1,7 @@
 # makeParserDependencies
 
 ## Location
-src/backend/commands/tsearchcmds.c: 137 - 183
+[src/backend/commands/tsearchcmds.c:137-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L137-L183)
 
 ## Overview
 This function creates pg_depend entries for a new text search parser, establishing all necessary dependencies including namespace, functions, and extension relationships.

@@ -1,7 +1,7 @@
 # distribute_qual_to_rels
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2197 - 2583
+[src/backend/optimizer/plan/initsplan.c:2197-2583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2197-L2583)
 
 ## Overview
 Distributes a qualification clause to appropriate base relations by creating RestrictInfo nodes and adding them to baserestrictinfo or joininfo lists, or processes them through the EquivalenceClass machinery.

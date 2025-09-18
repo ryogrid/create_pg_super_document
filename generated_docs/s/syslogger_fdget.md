@@ -1,7 +1,7 @@
 # syslogger_fdget
 
 ## Location
-src/backend/postmaster/syslogger.c: 802 - 823
+[src/backend/postmaster/syslogger.c:802-823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L802-L823)
 
 ## Overview
 syslogger_fdget is a utility wrapper function that extracts the file descriptor from an opened FILE stream, used for passing file descriptors to the logging collector in EXEC_BACKEND builds.

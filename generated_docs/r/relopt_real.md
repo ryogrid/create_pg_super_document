@@ -1,7 +1,7 @@
 # relopt_real
 
 ## Location
-src/include/access/reloptions.h: 105 - 111
+[src/include/access/reloptions.h:105-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L105-L111)
 
 ## Overview
 relopt_real is a structure that defines a floating-point (real) type relation option, extending the base relopt_gen structure with a default value and min/max constraints.

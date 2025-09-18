@@ -1,7 +1,7 @@
 # dclist_head_node
 
 ## Location
-src/include/lib/ilist.h: 900 - 908
+[src/include/lib/ilist.h:900-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L900-L908)
 
 ## Overview
 Returns the first node in a doubly-linked counted list, providing access to the head element with the assumption that the list contains at least one node.

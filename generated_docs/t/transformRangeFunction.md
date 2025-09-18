@@ -1,7 +1,7 @@
 # transformRangeFunction
 
 ## Location
-src/backend/parser/parse_clause.c: 465 - 687
+[src/backend/parser/parse_clause.c:465-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L465-L687)
 
 ## Overview
 Transforms function calls appearing in FROM clauses into ParseNamespaceItems, handling special cases like multi-argument UNNEST() expansion and column definition lists.

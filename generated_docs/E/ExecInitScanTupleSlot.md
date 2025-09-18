@@ -1,7 +1,7 @@
 # ExecInitScanTupleSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1898 - 1917
+[src/backend/executor/execTuples.c:1898-1917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1898-L1917)
 
 ## Overview
 Initializes the scan tuple slot for a scan node, allocating a new TupleTableSlot with a specified tuple descriptor and configuring scan-related state information.

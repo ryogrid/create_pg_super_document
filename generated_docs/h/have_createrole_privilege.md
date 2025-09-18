@@ -1,7 +1,7 @@
 # have_createrole_privilege
 
 ## Location
-src/backend/commands/user.c: 122 - 131
+[src/backend/commands/user.c:122-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L122-L131)
 
 ## Overview
 A utility function that checks whether the current user has the CREATEROLE privilege required to manage database roles.

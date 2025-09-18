@@ -1,7 +1,7 @@
 # IndexNext
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 80 - 167
+[src/backend/executor/nodeIndexscan.c:80-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L80-L167)
 
 ## Overview
 The IndexNext function retrieves a tuple from the IndexScan node's current relation using the index specified in the IndexScanState information.

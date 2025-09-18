@@ -1,7 +1,7 @@
 # QTW_IGNORE_JOINALIASES
 
 ## Location
-src/include/nodes/nodeFuncs.h: 25 - 25
+[src/include/nodes/nodeFuncs.h:25-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L25-L25)
 
 ## Overview
 A flag bit used by query_tree_walker and query_tree_mutator functions to control whether JOIN alias variable lists should be ignored during tree traversal.

@@ -1,7 +1,7 @@
 # palloc_extended
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1367 - 1407
+[src/backend/utils/mmgr/mcxt.c:1367-1407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1367-L1407)
 
 ## Overview
 Allocates memory from the current memory context with extended options, providing flags to control allocation behavior such as zero-initialization and handling of allocation failures.

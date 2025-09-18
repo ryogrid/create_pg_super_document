@@ -1,7 +1,7 @@
 # has_lock_conflicts
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4429 - 4453
+[src/bin/pg_dump/pg_backup_archiver.c:4429-4453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4429-L4453)
 
 ## Overview
 Determines if one TOC entry has exclusive lock requirements that conflict with another entry's dependencies.

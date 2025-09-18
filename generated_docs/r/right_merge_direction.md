@@ -1,7 +1,7 @@
 # right_merge_direction
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2100 - 2136
+[src/backend/optimizer/path/pathkeys.c:2100-2136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2100-L2136)
 
 ## Overview
 Determines whether a pathkey embodies the preferred sort direction for merging its target column by comparing it against query pathkeys.

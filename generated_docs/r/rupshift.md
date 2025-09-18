@@ -1,7 +1,7 @@
 # rupshift
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 962 - 969
+[src/interfaces/ecpg/compatlib/informix.c:962-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L962-L969)
 
 ## Overview
 The rupshift function converts all lowercase characters in a string to uppercase characters in-place.

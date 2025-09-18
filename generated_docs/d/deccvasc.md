@@ -1,7 +1,7 @@
 # deccvasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 198 - 245
+[src/interfaces/ecpg/compatlib/informix.c:198-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L198-L245)
 
 ## Overview
 Converts a character string to a decimal value with length specification, providing Informix-compatible decimal conversion functionality in PostgreSQL ECPG.

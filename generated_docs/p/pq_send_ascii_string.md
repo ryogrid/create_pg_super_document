@@ -1,7 +1,7 @@
 # pq_send_ascii_string
 
 ## Location
-src/backend/libpq/pqformat.c: 227 - 251
+[src/backend/libpq/pqformat.c:227-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L227-L251)
 
 ## Overview
 Appends a null-terminated text string to a StringInfo buffer without encoding conversion, replacing non-ASCII characters with question marks for safe error message transmission.

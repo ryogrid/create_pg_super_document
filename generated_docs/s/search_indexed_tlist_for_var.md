@@ -1,7 +1,7 @@
 # search_indexed_tlist_for_var
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2797 - 2861
+[src/backend/optimizer/plan/setrefs.c:2797-2861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2797-L2861)
 
 ## Overview
 Searches for a Var node in an indexed target list and returns a modified copy with updated varno/varattno if found.

@@ -1,7 +1,7 @@
 # BufTagSetRelForkDetails
 
 ## Location
-src/include/storage/buf_internals.h: 115 - 122
+[src/include/storage/buf_internals.h:115-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L115-L122)
 
 ## Overview
 Sets the relation number and fork number fields in a BufferTag structure for buffer identification.

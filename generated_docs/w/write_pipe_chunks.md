@@ -1,7 +1,7 @@
 # write_pipe_chunks
 
 ## Location
-src/backend/utils/error/elog.c: 3426 - 3476
+[src/backend/utils/error/elog.c:3426-3476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3426-L3476)
 
 ## Overview
 Safely transmits log data to the syslogger process using a chunked protocol that ensures atomic writes and prevents message interleaving.

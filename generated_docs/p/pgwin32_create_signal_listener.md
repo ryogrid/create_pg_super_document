@@ -1,7 +1,7 @@
 # pgwin32_create_signal_listener
 
 ## Location
-src/backend/port/win32/signal.c: 227 - 258
+[src/backend/port/win32/signal.c:227-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L227-L258)
 
 ## Overview
 Creates a named pipe for signal communication between PostgreSQL processes on Windows, serving as the signal listener mechanism for a specific process ID.

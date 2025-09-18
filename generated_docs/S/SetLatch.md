@@ -1,7 +1,7 @@
 # SetLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 632 - 723
+[src/backend/storage/ipc/latch.c:632-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L632-L723)
 
 ## Overview
 SetLatch signals a latch to wake up any processes or threads waiting on it, providing a thread-safe mechanism for inter-process communication and coordination.

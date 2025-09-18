@@ -1,7 +1,7 @@
 # ReportBackgroundWorkerExit
 
 ## Location
-src/backend/postmaster/bgworker.c: 486 - 519
+[src/backend/postmaster/bgworker.c:486-519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L486-L519)
 
 ## Overview
 Reports that a background worker has exited by updating the shared memory slot and optionally notifying the requesting process, with logic to handle worker deregistration before notification.

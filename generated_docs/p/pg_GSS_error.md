@@ -1,7 +1,7 @@
 # pg_GSS_error
 
 ## Location
-src/interfaces/libpq/fe-gssapi-common.c: 47 - 60
+[src/interfaces/libpq/fe-gssapi-common.c:47-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-gssapi-common.c#L47-L60)
 
 ## Overview
 Public function that reports GSS-API errors by combining major and minor status codes into a comprehensive error message.

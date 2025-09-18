@@ -1,7 +1,7 @@
 # yiddish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 1232 - 1233
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1232-1233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L1232-L1233)
 
 ## Overview
 Cleanup function that properly deallocates and closes a Snowball environment structure that was created for Yiddish UTF-8 stemming operations.

@@ -1,7 +1,7 @@
 # analyze_rel
 
 ## Location
-src/backend/commands/analyze.c: 111 - 279
+[src/backend/commands/analyze.c:111-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L111-L279)
 
 ## Overview
 The main entry point function for analyzing a single relation (table, materialized view, or foreign table) to gather statistics for the query planner.

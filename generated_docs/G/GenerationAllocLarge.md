@@ -1,7 +1,7 @@
 # GenerationAllocLarge
 
 ## Location
-src/backend/utils/mmgr/generation.c: 343 - 412
+[src/backend/utils/mmgr/generation.c:343-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L343-L412)
 
 ## Overview
 Allocates an entire dedicated block for a single large chunk in a Generation memory context, used when the requested size exceeds the context's chunk allocation limit.

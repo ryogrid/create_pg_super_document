@@ -1,7 +1,7 @@
 # ginFindLeafPage
 
 ## Location
-src/backend/access/gin/ginbtree.c: 83 - 176
+[src/backend/access/gin/ginbtree.c:83-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L83-L176)
 
 ## Overview
 ginFindLeafPage descends the GIN B-tree to locate the leaf page that contains or would contain a specified key, handling path maintenance and locking appropriately based on the operation type.

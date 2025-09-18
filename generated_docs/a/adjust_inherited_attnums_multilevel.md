@@ -1,7 +1,7 @@
 # adjust_inherited_attnums_multilevel
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 662 - 689
+[src/backend/optimizer/util/appendinfo.c:662-689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L662-L689)
 
 ## Overview
 Translates attribute numbers through multiple inheritance levels, handling complex inheritance hierarchies where a child relation may be separated from the target parent by intermediate inheritance levels.

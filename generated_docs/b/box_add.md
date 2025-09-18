@@ -1,7 +1,7 @@
 # box_add
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4231 - 4245
+[src/backend/utils/adt/geo_ops.c:4231-4245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4231-L4245)
 
 ## Overview
 The box_add function translates a BOX by adding a Point offset to both corners, effectively moving the entire box in 2D space.

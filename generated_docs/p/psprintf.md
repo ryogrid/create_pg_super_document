@@ -1,7 +1,7 @@
 # psprintf
 
 ## Location
-src/common/psprintf.c: 46 - 105
+[src/common/psprintf.c:46-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/psprintf.c#L46-L105)
 
 ## Overview
 A PostgreSQL utility function that formats text data using sprintf-style formatting and returns it in a dynamically allocated buffer, handling memory allocation and resizing automatically.

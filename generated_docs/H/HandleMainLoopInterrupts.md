@@ -1,7 +1,7 @@
 # HandleMainLoopInterrupts
 
 ## Location
-src/backend/postmaster/interrupt.c: 34 - 60
+[src/backend/postmaster/interrupt.c:34-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/interrupt.c#L34-L60)
 
 ## Overview
 HandleMainLoopInterrupts is a centralized interrupt handler designed for main loops of background processes in PostgreSQL, providing a consistent way to handle various system signals and pending operations.

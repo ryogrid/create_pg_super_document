@@ -1,7 +1,7 @@
 # cache_reduce_memory
 
 ## Location
-src/backend/executor/nodeMemoize.c: 440 - 527
+[src/backend/executor/nodeMemoize.c:440-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L440-L527)
 
 ## Overview
 Evicts cache entries using an LRU (Least Recently Used) strategy to reduce memory consumption below the configured limit, with special handling to protect entries currently being populated.

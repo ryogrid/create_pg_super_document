@@ -1,7 +1,7 @@
 # bloom_get_procinfo
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 717 - 746
+[src/backend/access/brin/brin_bloom.c:717-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L717-L746)
 
 ## Overview
 Caches and returns operator class support procedure information for BRIN bloom filters, avoiding repetitive system catalog lookups.

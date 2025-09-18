@@ -1,7 +1,7 @@
 # PQinitSSL
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 115 - 126
+[src/interfaces/libpq/fe-secure.c:115-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L115-L126)
 
 ## Overview
 Allows client applications to control SSL library initialization by indicating whether OpenSSL has already been initialized.

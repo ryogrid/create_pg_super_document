@@ -1,7 +1,7 @@
 # set_rel_size
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 360 - 468
+[src/backend/optimizer/path/allpaths.c:360-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L360-L468)
 
 ## Overview
 Sets size estimates for a base relation by analyzing the relation type and characteristics, handling various cases including constraint exclusion, inheritance, and different RTE types.

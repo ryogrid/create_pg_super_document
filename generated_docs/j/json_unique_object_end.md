@@ -1,7 +1,7 @@
 # json_unique_object_end
 
 ## Location
-src/backend/utils/adt/json.c: 1624 - 1638
+[src/backend/utils/adt/json.c:1624-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1624-L1638)
 
 ## Overview
 Semantic action function for JSON parsing that handles cleanup when finishing JSON object processing during key uniqueness validation.

@@ -1,7 +1,7 @@
 # expand_indexqual_rowcompare
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2798 - 3019
+[src/backend/optimizer/path/indxpath.c:2798-3019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2798-L3019)
 
 ## Overview
 Constructs detailed index scan conditions from RowCompareExpr clauses by analyzing additional columns beyond the first one and building optimized index qualifications.

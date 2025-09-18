@@ -1,7 +1,7 @@
 # construct_empty_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3568 - 3584
+[src/backend/utils/adt/arrayfuncs.c:3568-3584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3568-L3584)
 
 ## Overview
 Creates a zero-dimensional empty array object of a specified element type, providing the simplest possible array structure in PostgreSQL.

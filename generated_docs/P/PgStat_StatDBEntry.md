@@ -1,7 +1,7 @@
 # PgStat_StatDBEntry
 
 ## Location
-src/include/pgstat.h: 323 - 357
+[src/include/pgstat.h:323-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L323-L357)
 
 ## Overview
 PgStat_StatDBEntry is a comprehensive structure that tracks per-database statistics in PostgreSQL, including transaction counts, block access patterns, tuple operations, conflicts, session information, and various database-level performance metrics.

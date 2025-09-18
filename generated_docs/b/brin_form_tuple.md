@@ -1,7 +1,7 @@
 # brin_form_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 99 - 387
+[src/backend/access/brin/brin_tuple.c:99-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L99-L387)
 
 ## Overview
 Generates a new on-disk tuple to be inserted in a BRIN index, converting in-memory BRIN summary data into a serialized format suitable for storage.

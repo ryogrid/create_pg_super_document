@@ -1,7 +1,7 @@
 # binary_upgrade_set_type_oids_by_type_oid
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5376 - 5460
+[src/bin/pg_dump/pg_dump.c:5376-5460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5376-L5460)
 
 ## Overview
 Generates binary upgrade commands to preserve type OIDs and their associated array and multirange type OIDs during PostgreSQL binary upgrades.

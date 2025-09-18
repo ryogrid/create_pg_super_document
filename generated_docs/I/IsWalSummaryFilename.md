@@ -1,7 +1,7 @@
 # IsWalSummaryFilename
 
 ## Location
-src/backend/backup/walsummary.c: 263 - 272
+[src/backend/backup/walsummary.c:263-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L263-L272)
 
 ## Overview
 A static helper function that validates whether a given filename conforms to the expected naming pattern for PostgreSQL WAL summary files.

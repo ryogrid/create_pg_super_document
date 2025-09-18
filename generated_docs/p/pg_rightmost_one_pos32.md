@@ -1,7 +1,7 @@
 # pg_rightmost_one_pos32
 
 ## Location
-src/include/port/pg_bitutils.h: 111 - 144
+[src/include/port/pg_bitutils.h:111-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L111-L144)
 
 ## Overview
 Returns the position of the least significant set bit in a 32-bit word, providing efficient trailing zero counting for various PostgreSQL bit manipulation operations.

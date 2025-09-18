@@ -1,7 +1,7 @@
 # bbstreamer_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 126 - 135
+[src/bin/pg_basebackup/bbstreamer.h:126-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L126-L135)
 
 ## Overview
 This function sends content data to a bbstreamer object through its content callback, serving as the primary mechanism for passing archive data through the bbstreamer pipeline.

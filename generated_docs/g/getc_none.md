@@ -1,7 +1,7 @@
 # getc_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 126 - 143
+[src/bin/pg_dump/compress_none.c:126-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L126-L143)
 
 ## Overview
 The `getc_none` function provides character-level reading functionality with error handling for uncompressed files in PostgreSQL's pg_dump utility compression framework.

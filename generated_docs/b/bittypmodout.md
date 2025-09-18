@@ -1,7 +1,7 @@
 # bittypmodout
 
 ## Location
-src/backend/utils/adt/varbit.c: 437 - 451
+[src/backend/utils/adt/varbit.c:437-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L437-L451)
 
 ## Overview
 Converts the internal type modifier representation for the bit data type back into a human-readable string format for display purposes.

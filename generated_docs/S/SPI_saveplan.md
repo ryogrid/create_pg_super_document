@@ -1,7 +1,7 @@
 # SPI_saveplan
 
 ## Location
-src/backend/executor/spi.c: 1003 - 1024
+[src/backend/executor/spi.c:1003-1024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1003-L1024)
 
 ## Overview
 Creates a saved copy of an SPI execution plan that persists beyond the current memory context, allowing the plan to be reused across different procedure calls and contexts.

@@ -1,7 +1,7 @@
 # poly_contain_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3938 - 3965
+[src/backend/utils/adt/geo_ops.c:3938-3965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3938-L3965)
 
 ## Overview
 poly_contain_poly is a static function that determines whether the first polygon completely contains the second polygon.

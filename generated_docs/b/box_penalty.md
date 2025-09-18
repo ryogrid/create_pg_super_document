@@ -1,7 +1,7 @@
 # box_penalty
 
 ## Location
-src/backend/access/gist/gistproc.c: 97 - 112
+[src/backend/access/gist/gistproc.c:97-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L97-L112)
 
 ## Overview
 Calculates the penalty (area increase) that would result from adding a new box to an existing box in GiST indexing operations.

@@ -1,7 +1,7 @@
 # enum_oid_cmp
 
 ## Location
-src/backend/utils/cache/typcache.c: 2722 - 2734
+[src/backend/utils/cache/typcache.c:2722-2734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2722-L2734)
 
 ## Overview
 A comparison function used for sorting and searching EnumItem structures by their OID values in ascending order.

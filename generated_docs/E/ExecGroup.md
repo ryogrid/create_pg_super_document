@@ -1,7 +1,7 @@
 # ExecGroup
 
 ## Location
-src/backend/executor/nodeGroup.c: 36 - 160
+[src/backend/executor/nodeGroup.c:36-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGroup.c#L36-L160)
 
 ## Overview
 ExecGroup is the main execution function for PostgreSQL's Group plan node that returns one representative tuple for each group of matching input tuples based on grouping columns.

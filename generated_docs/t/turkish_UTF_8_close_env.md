@@ -1,7 +1,7 @@
 # turkish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2095 - 2096
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2095-2096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2095-L2096)
 
 ## Overview
 Cleanup function that properly deallocates and closes a Turkish UTF-8 Snowball environment structure, releasing all associated memory resources.

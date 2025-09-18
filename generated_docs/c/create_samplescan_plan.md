@@ -1,7 +1,7 @@
 # create_samplescan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2955 - 3005
+[src/backend/optimizer/plan/createplan.c:2955-3005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2955-L3005)
 
 ## Overview
 Creates a sample scan plan node for scanning a base relation using table sampling with specified target list and restriction clauses.

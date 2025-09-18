@@ -1,7 +1,7 @@
 # win866_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c: 403 - 418
+[src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c:403-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c#L403-L418)
 
 ## Overview
 Converts text from Windows Cyrillic encoding (WIN866) to PostgreSQL internal MULE encoding (MIC), handling Cyrillic character conversion through an intermediate KOI8-R encoding.

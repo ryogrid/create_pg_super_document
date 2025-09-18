@@ -1,7 +1,7 @@
 # extract_link
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 342 - 354
+[src/bin/pg_basebackup/bbstreamer_file.c:342-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L342-L354)
 
 ## Overview
 This function creates symbolic links during archive extraction, primarily for tablespace links in the pg_tblspc directory with support for tablespace mapping transformations.

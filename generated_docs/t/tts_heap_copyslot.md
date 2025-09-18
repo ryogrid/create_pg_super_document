@@ -1,7 +1,7 @@
 # tts_heap_copyslot
 
 ## Location
-src/backend/executor/execTuples.c: 438 - 450
+[src/backend/executor/execTuples.c:438-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L438-L450)
 
 ## Overview
 Copies the contents of one tuple table slot to another heap tuple table slot, creating a materialized heap tuple in the destination slot's memory context.

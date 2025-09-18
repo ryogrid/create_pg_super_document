@@ -1,7 +1,7 @@
 # bbstreamer_zstd_decompressor_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_zstd.c: 258 - 295
+[src/bin/pg_basebackup/bbstreamer_zstd.c:258-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_zstd.c#L258-L295)
 
 ## Overview
 Creates a new base backup streamer that performs Zstandard (zstd) decompression of compressed tar blocks in PostgreSQL's backup streaming pipeline.

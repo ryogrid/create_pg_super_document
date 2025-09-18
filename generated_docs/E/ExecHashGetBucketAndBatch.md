@@ -1,7 +1,7 @@
 # ExecHashGetBucketAndBatch
 
 ## Location
-src/backend/executor/nodeHash.c: 1939 - 1970
+[src/backend/executor/nodeHash.c:1939-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1939-L1970)
 
 ## Overview
 Determines the bucket number and batch number for a given hash value in a hash join table, using bit manipulation techniques to ensure proper distribution across buckets and batches.

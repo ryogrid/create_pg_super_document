@@ -1,7 +1,7 @@
 # get_type_io_data
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2325 - 2398
+[src/backend/utils/cache/lsyscache.c:2325-2398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2325-L2398)
 
 ## Overview
 Retrieves type metadata and I/O function information for a given PostgreSQL data type OID, including type length, alignment, delimiter, and the appropriate I/O function based on the requested operation.

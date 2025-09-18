@@ -1,7 +1,7 @@
 # ExecEvalRowNull
 
 ## Location
-src/backend/executor/execExprInterp.c: 2743 - 2751
+[src/backend/executor/execExprInterp.c:2743-2751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2743-L2751)
 
 ## Overview
 ExecEvalRowNull evaluates a NULL test (IS NULL) for row expressions, serving as a wrapper that delegates to the internal row null testing implementation.

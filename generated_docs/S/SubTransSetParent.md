@@ -1,7 +1,7 @@
 # SubTransSetParent
 
 ## Location
-src/backend/access/transam/subtrans.c: 85 - 121
+[src/backend/access/transam/subtrans.c:85-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L85-L121)
 
 ## Overview
 Records the parent transaction ID of a subtransaction in the subtransaction log, establishing the parent-child relationship hierarchy for nested transactions.

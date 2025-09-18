@@ -1,7 +1,7 @@
 # checkEnumOwner
 
 ## Location
-src/backend/commands/typecmds.c: 1319 - 1345
+[src/backend/commands/typecmds.c:1319-1345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1319-L1345)
 
 ## Overview
 checkEnumOwner is a static validation function that verifies a PostgreSQL type is an enum and that the current user has permission to perform ALTER TYPE operations on it.

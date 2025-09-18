@@ -1,7 +1,7 @@
 # iterate_values_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5733 - 5760
+[src/backend/utils/adt/jsonfuncs.c:5733-5760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5733-L5760)
 
 ## Overview
 An auxiliary callback function for JSON parsing that processes scalar values (strings, numbers, booleans) and conditionally invokes a user-defined action based on type flags.

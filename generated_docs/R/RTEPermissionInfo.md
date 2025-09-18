@@ -1,7 +1,7 @@
 # RTEPermissionInfo
 
 ## Location
-src/include/nodes/parsenodes.h: 1286 - 1297
+[src/include/nodes/parsenodes.h:1286-1297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1286-L1297)
 
 ## Overview
 RTEPermissionInfo contains per-relation information for permission checking, storing access control requirements and column-level permissions needed for query execution.

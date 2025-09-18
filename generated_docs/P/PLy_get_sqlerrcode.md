@@ -1,7 +1,7 @@
 # PLy_get_sqlerrcode
 
 ## Location
-src/pl/plpython/plpy_elog.c: 357 - 380
+[src/pl/plpython/plpy_elog.c:357-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L357-L380)
 
 ## Overview
 PLy_get_sqlerrcode extracts and validates SQL state error codes from Python SPIError exception objects, converting 5-character SQL state strings into PostgreSQL's internal error code format.

@@ -1,7 +1,7 @@
 # PLy_output_setup_record
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 261 - 295
+[src/pl/plpython/plpy_typeio.c:261-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L261-L295)
 
 ## Overview
 PLy_output_setup_record sets up output conversion information for PL/Python functions that return a RECORD type, ensuring the tuple descriptor is properly blessed and configured for composite type output.

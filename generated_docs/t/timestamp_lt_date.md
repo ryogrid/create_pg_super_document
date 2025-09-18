@@ -1,7 +1,7 @@
 # timestamp_lt_date
 
 ## Location
-src/backend/utils/adt/date.c: 925 - 933
+[src/backend/utils/adt/date.c:925-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L925-L933)
 
 ## Overview
 Compares a timestamp value against a date value and returns true if the timestamp is less than the date.

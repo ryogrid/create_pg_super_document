@@ -1,7 +1,7 @@
 # MinMaxMultiOptions
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 121 - 125
+[src/backend/access/brin/brin_minmax_multi.c:121-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L121-L125)
 
 ## Overview
 MinMaxMultiOptions is a storage structure for BRIN minmax-multi operator class reloptions (relation options) that configures how many values are stored per range in the index.

@@ -1,7 +1,7 @@
 # exec_command_conninfo
 
 ## Location
-src/bin/psql/command.c: 671 - 714
+[src/bin/psql/command.c:671-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L671-L714)
 
 ## Overview
 Implements the psql  command for displaying detailed information about the current database connection.

@@ -1,7 +1,7 @@
 # ATExecAlterColumnType
 
 ## Location
-src/backend/commands/tablecmds.c: 13146 - 13462
+[src/backend/commands/tablecmds.c:13146-13462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13146-L13462)
 
 ## Overview
 ATExecAlterColumnType executes the ALTER COLUMN .. SET DATA TYPE command, handling the complex process of changing a column's data type while managing dependencies, defaults, and constraints.

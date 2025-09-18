@@ -1,7 +1,7 @@
 # make_bitmap_or
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5934 - 5948
+[src/backend/optimizer/plan/createplan.c:5934-5948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5934-L5948)
 
 ## Overview
 Creates a BitmapOr plan node that represents the logical OR operation between multiple bitmap index scans in PostgreSQL's query execution plan tree.

@@ -1,7 +1,7 @@
 # alloc_socket_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 7896 - 7901
+[src/bin/pgbench/pgbench.c:7896-7901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7896-L7901)
 
 ## Overview
 A function in pgbench that allocates and initializes a socket set data structure used for managing multiple socket connections during benchmark execution, with different implementations for ppoll() and select() based polling.

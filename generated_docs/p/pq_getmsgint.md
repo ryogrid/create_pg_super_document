@@ -1,7 +1,7 @@
 # pq_getmsgint
 
 ## Location
-src/backend/libpq/pqformat.c: 415 - 452
+[src/backend/libpq/pqformat.c:415-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L415-L452)
 
 ## Overview
 Extracts a binary integer of specified byte size from a message buffer, handling network byte order conversion.

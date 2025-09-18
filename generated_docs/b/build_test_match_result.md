@@ -1,7 +1,7 @@
 # build_test_match_result
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 692 - 763
+[src/test/modules/test_regex/test_regex.c:692-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L692-L763)
 
 ## Overview
 A static helper function in PostgreSQL's test_regex module that builds an output array containing regex match results or indices for testing purposes.

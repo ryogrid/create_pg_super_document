@@ -1,7 +1,7 @@
 # ATExecAttachPartition
 
 ## Location
-src/backend/commands/tablecmds.c: 18487 - 18802
+[src/backend/commands/tablecmds.c:18487-18802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18487-L18802)
 
 ## Overview
 ATExecAttachPartition implements the ALTER TABLE ATTACH PARTITION command, performing comprehensive validation and setup to attach a new table as a partition to a partitioned table.

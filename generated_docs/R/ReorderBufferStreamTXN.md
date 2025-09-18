@@ -1,7 +1,7 @@
 # ReorderBufferStreamTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4185 - 4301
+[src/backend/replication/logical/reorderbuffer.c:4185-4301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4185-L4301)
 
 ## Overview
 Sends data of a large transaction (and its subtransactions) to the output plugin using the streaming API instead of waiting for commit, enabling processing of large transactions without memory exhaustion.

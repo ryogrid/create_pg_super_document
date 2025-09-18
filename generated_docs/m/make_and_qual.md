@@ -1,7 +1,7 @@
 # make_and_qual
 
 ## Location
-src/backend/nodes/makefuncs.c: 754 - 772
+[src/backend/nodes/makefuncs.c:754-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L754-L772)
 
 ## Overview
 A specialized variant of `make_andclause` designed for combining two qualifier conditions with NULL-handling semantics where NULL represents 'true'.

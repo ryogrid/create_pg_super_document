@@ -1,7 +1,7 @@
 # EndTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3993 - 4152
+[src/backend/access/transam/xact.c:3993-4152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3993-L4152)
 
 ## Overview
 EndTransactionBlock implements the SQL COMMIT command by managing transaction block state transitions, handling various transaction states including subtransactions, aborted transactions, and implicit transactions.

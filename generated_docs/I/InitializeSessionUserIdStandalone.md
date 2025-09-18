@@ -1,7 +1,7 @@
 # InitializeSessionUserIdStandalone
 
 ## Location
-src/backend/utils/init/miscinit.c: 886 - 919
+[src/backend/utils/init/miscinit.c:886-919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L886-L919)
 
 ## Overview
 Initializes user identity during special backend startup for single-user mode, autovacuum workers, slot sync workers, and background workers using the bootstrap superuser.

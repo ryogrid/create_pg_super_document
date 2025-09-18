@@ -1,7 +1,7 @@
 # RewriteQuery
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 3865 - 4410
+[src/backend/rewrite/rewriteHandler.c:3865-4410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L3865-L4410)
 
 ## Overview
 Recursively rewrites a query by applying rules and handling view updatability, forming the core of PostgreSQL's rule system processing.

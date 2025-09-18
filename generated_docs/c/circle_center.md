@@ -1,7 +1,7 @@
 # circle_center
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5143 - 5158
+[src/backend/utils/adt/geo_ops.c:5143-5158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5143-L5158)
 
 ## Overview
 Returns the center point of a circle as a Point data type.

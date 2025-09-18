@@ -1,7 +1,7 @@
 # transformRuleStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2967 - 3272
+[src/backend/parser/parse_utilcmd.c:2967-3272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2967-L3272)
 
 ## Overview
 Transforms a CREATE RULE statement by parsing and analyzing the rule actions and WHERE clause, setting up proper OLD/NEW tuple references, and validating rule constraints.

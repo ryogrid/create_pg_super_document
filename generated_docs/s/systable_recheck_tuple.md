@@ -1,7 +1,7 @@
 # systable_recheck_tuple
 
 ## Location
-src/backend/access/index/genam.c: 564 - 597
+[src/backend/access/index/genam.c:564-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L564-L597)
 
 ## Overview
 systable_recheck_tuple is a specialized function that rechecks the visibility of a previously fetched tuple to determine if it would still be visible to a catalog scan started at the current time.

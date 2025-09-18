@@ -1,7 +1,7 @@
 # ri_GenerateQualCollation
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1939 - 1979
+[src/backend/utils/adt/ri_triggers.c:1939-1979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1939-L1979)
 
 ## Overview
 A utility function that adds a COLLATE specification to a WHERE clause in dynamically constructed SQL queries, ensuring proper collation handling for referential integrity operations.

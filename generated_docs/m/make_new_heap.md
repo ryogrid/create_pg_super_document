@@ -1,7 +1,7 @@
 # make_new_heap
 
 ## Location
-src/backend/commands/cluster.c: 688 - 813
+[src/backend/commands/cluster.c:688-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L688-L813)
 
 ## Overview
 Creates a transient table with the same logical structure as an existing table but with specified physical storage properties, used during CLUSTER, ALTER TABLE, and similar operations.

@@ -1,7 +1,7 @@
 # GetJsonPathVar
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2991 - 3035
+[src/backend/utils/adt/jsonpath_exec.c:2991-3035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2991-L3035)
 
 ## Overview
 Returns the computed value of a JSON path variable with a given name by searching through a list of available variables and converting the found value to a JsonbValue.

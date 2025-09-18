@@ -1,7 +1,7 @@
 # llvm_split_symbol_name
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1145 - 1178
+[src/backend/jit/llvm/llvmjit.c:1145-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1145-L1178)
 
 ## Overview
 Parses PostgreSQL external symbol names and splits them into separate module and function name components for dynamic symbol resolution.

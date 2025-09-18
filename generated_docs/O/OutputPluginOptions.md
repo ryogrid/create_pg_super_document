@@ -1,7 +1,7 @@
 # OutputPluginOptions
 
 ## Location
-src/include/replication/output_plugin.h: 26 - 30
+[src/include/replication/output_plugin.h:26-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/output_plugin.h#L26-L30)
 
 ## Overview
 OutputPluginOptions is a structure that defines configuration options set by logical replication output plugins during their startup callback to control decoding behavior.

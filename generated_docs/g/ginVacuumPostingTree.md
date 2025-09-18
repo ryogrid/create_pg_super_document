@@ -1,7 +1,7 @@
 # ginVacuumPostingTree
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 409 - 455
+[src/backend/access/gin/ginvacuum.c:409-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L409-L455)
 
 ## Overview
 A static function that performs vacuum operations on posting trees in GIN indexes by identifying and deleting empty pages to reclaim storage space.

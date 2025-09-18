@@ -1,7 +1,7 @@
 # spg_quad_inner_consistent
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 227 - 406
+[src/backend/access/spgist/spgquadtreeproc.c:227-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L227-L406)
 
 ## Overview
 An SP-GiST operator function that determines which child nodes should be visited during quadtree traversal based on query constraints, implementing the inner_consistent operation for spatial index queries.

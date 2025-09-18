@@ -1,7 +1,7 @@
 # assign_log_timezone
 
 ## Location
-src/backend/commands/variable.c: 454 - 462
+[src/backend/commands/variable.c:454-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L454-L462)
 
 ## Overview
 This is a GUC assign hook function that sets the log_timezone global variable when the log_timezone configuration parameter is changed in PostgreSQL.

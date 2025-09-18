@@ -1,7 +1,7 @@
 # build_function_result_tupdesc_d
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1751 - 1869
+[src/backend/utils/fmgr/funcapi.c:1751-1869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1751-L1869)
 
 ## Overview
 Constructs a tuple descriptor for RECORD functions from argument type, mode, and name arrays, handling the core logic for building result rowtypes from function metadata.

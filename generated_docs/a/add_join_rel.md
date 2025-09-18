@@ -1,7 +1,7 @@
 # add_join_rel
 
 ## Location
-src/backend/optimizer/util/relnode.c: 627 - 664
+[src/backend/optimizer/util/relnode.c:627-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L627-L664)
 
 ## Overview
 Adds a given join relation to the list of join relations in the PlannerInfo structure and also adds it to the auxiliary hashtable if one exists.

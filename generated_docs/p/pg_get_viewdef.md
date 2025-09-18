@@ -1,7 +1,7 @@
 # pg_get_viewdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 657 - 675
+[src/backend/utils/adt/ruleutils.c:657-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L657-L675)
 
 ## Overview
 PostgreSQL SQL function that returns the SELECT statement definition of a view in text format suitable for recreation.

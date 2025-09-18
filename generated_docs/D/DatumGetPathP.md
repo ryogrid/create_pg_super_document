@@ -1,7 +1,7 @@
 # DatumGetPathP
 
 ## Location
-src/include/utils/geo_decls.h: 202 - 206
+[src/include/utils/geo_decls.h:202-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L202-L206)
 
 ## Overview
 DatumGetPathP is an inline function that converts a PostgreSQL Datum value to a PATH pointer, handling TOAST decompression if necessary.

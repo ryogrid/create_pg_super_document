@@ -1,7 +1,7 @@
 # truncate_useless_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2212 - 2257
+[src/backend/optimizer/path/pathkeys.c:2212-2257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2212-L2257)
 
 ## Overview
 Shortens a given pathkey list to only include the useful pathkeys by evaluating their utility across multiple optimization contexts (merging, ordering, grouping, and set operations).

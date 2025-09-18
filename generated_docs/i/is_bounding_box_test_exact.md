@@ -1,7 +1,7 @@
 # is_bounding_box_test_exact
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 508 - 530
+[src/backend/utils/adt/geo_spgist.c:508-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L508-L530)
 
 ## Overview
 A static helper function that determines whether a bounding box test for a given spatial query strategy provides an exact result or requires further refinement.

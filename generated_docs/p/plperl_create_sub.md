@@ -1,7 +1,7 @@
 # plperl_create_sub
 
 ## Location
-src/pl/plperl/plperl.c: 2095 - 2167
+[src/pl/plperl/plperl.c:2095-2167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2095-L2167)
 
 ## Overview
 Creates a Perl subroutine from source code text and stores a reference to it in the procedure descriptor for later execution.

@@ -1,7 +1,7 @@
 # rescanLatestTimeLine
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4105 - 4191
+[src/backend/access/transam/xlogrecovery.c:4105-4191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4105-L4191)
 
 ## Overview
 Scans for new timelines that might have appeared in the archive since recovery started, and switches the recovery target to the latest valid timeline if found.

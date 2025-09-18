@@ -1,7 +1,7 @@
 # resolve_polymorphic_argtypes
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1064 - 1327
+[src/backend/utils/fmgr/funcapi.c:1064-1327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1064-L1327)
 
 ## Overview
 Resolves polymorphic argument types (ANYELEMENT, ANYARRAY, etc.) in function signatures by deducing concrete data types from input arguments in a function call expression.

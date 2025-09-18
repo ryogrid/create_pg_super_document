@@ -1,7 +1,7 @@
 # getEventTriggers
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8421 - 8507
+[src/bin/pg_dump/pg_dump.c:8421-8507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8421-L8507)
 
 ## Overview
 Retrieves information about all PostgreSQL event triggers from the system catalog, supporting databases running PostgreSQL 9.3 and later versions.

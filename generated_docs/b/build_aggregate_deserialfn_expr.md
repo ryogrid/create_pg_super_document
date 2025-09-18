@@ -1,7 +1,7 @@
 # build_aggregate_deserialfn_expr
 
 ## Location
-src/backend/parser/parse_agg.c: 2119 - 2142
+[src/backend/parser/parse_agg.c:2119-2142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L2119-L2142)
 
 ## Overview
 Constructs an expression tree for the deserialization function of an aggregate, creating the necessary function call structure for deserializing aggregate state data.

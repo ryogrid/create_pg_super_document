@@ -1,7 +1,7 @@
 # pgstat_reset_slru
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 45 - 58
+[src/backend/utils/activity/pgstat_slru.c:45-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L45-L58)
 
 ## Overview
 Resets all statistical counters for a single SLRU (Simple Least Recently Used) buffer cache, providing a way to clear accumulated performance metrics for specific SLRU instances.

@@ -1,7 +1,7 @@
 # _bt_compare_array_scankey_args
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 976 - 1098
+[src/backend/access/nbtree/nbtutils.c:976-1098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L976-L1098)
 
 ## Overview
 Compares an array scan key against a scalar scan key to eliminate contradictory array elements, making the scalar scan key redundant when possible.

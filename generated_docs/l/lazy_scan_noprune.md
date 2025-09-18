@@ -1,7 +1,7 @@
 # lazy_scan_noprune
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1654 - 1864
+[src/backend/access/heap/vacuumlazy.c:1654-1864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1654-L1864)
 
 ## Overview
 A lightweight heap page scanning function that processes pages without performing pruning or freezing, collecting dead items and statistics while requiring only a shared buffer lock.

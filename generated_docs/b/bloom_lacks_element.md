@@ -1,7 +1,7 @@
 # bloom_lacks_element
 
 ## Location
-src/backend/lib/bloomfilter.c: 157 - 186
+[src/backend/lib/bloomfilter.c:157-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L157-L186)
 
 ## Overview
 Tests whether an element is definitely absent from the Bloom filter, providing probabilistic set membership testing with no false negatives.

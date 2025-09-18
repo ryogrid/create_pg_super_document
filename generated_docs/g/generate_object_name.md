@@ -1,7 +1,7 @@
 # generate_object_name
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 685 - 733
+[src/bin/pg_basebackup/pg_createsubscriber.c:685-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L685-L733)
 
 ## Overview
 Generates unique object names for PostgreSQL logical replication objects (publications, subscriptions, replication slots) when not explicitly specified by the user.

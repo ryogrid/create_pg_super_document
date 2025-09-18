@@ -1,7 +1,7 @@
 # eclass
 
 ## Location
-src/backend/regex/regc_locale.c: 500 - 535
+[src/backend/regex/regc_locale.c:500-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_locale.c#L500-L535)
 
 ## Overview
 The eclass function creates a character vector representing an equivalence class for collating elements in PostgreSQL's regular expression engine, with optional case variant inclusion.

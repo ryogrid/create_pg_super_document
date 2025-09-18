@@ -1,7 +1,7 @@
 # GISTSearchHeapItem
 
 ## Location
-src/include/access/gist_private.h: 118 - 127
+[src/include/access/gist_private.h:118-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L118-L127)
 
 ## Overview
 GISTSearchHeapItem represents an individual heap tuple that needs to be visited during a GiST index search operation, containing pointer information and metadata for processing.

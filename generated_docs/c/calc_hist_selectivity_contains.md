@@ -1,7 +1,7 @@
 # calc_hist_selectivity_contains
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 1252 - 1336
+[src/backend/utils/adt/multirangetypes_selfuncs.c:1252-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L1252-L1336)
 
 ## Overview
 Calculates selectivity of the "var @> const" operator, estimating the fraction of multiranges that contain the constant lower and upper bounds using histograms.

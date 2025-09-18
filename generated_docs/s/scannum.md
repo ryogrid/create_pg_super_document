@@ -1,7 +1,7 @@
 # scannum
 
 ## Location
-src/backend/regex/regcomp.c: 1555 - 1585
+[src/backend/regex/regcomp.c:1555-1585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1555-L1585)
 
 ## Overview
 The scannum function scans and parses a numeric value from the regular expression input stream, used primarily for parsing repetition counts in quantifiers like {n,m}.

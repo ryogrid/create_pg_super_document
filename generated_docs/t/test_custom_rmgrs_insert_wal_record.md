@@ -1,7 +1,7 @@
 # test_custom_rmgrs_insert_wal_record
 
 ## Location
-src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c: 120 - 140
+[src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c:120-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c#L120-L140)
 
 ## Overview
 A PostgreSQL SQL function that inserts a custom WAL record containing a text message using the test custom resource manager.

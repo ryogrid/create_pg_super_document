@@ -1,7 +1,7 @@
 # CachedPlanGetTargetList
 
 ## Location
-src/backend/utils/cache/plancache.c: 1640 - 1676
+[src/backend/utils/cache/plancache.c:1640-1676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1640-L1676)
 
 ## Overview
 Returns the target list (tlist) that describes the output columns of a cached plan, ensuring the result is up-to-date by revalidating the cached query if necessary.

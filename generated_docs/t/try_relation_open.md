@@ -1,7 +1,7 @@
 # try_relation_open
 
 ## Location
-src/backend/access/common/relation.c: 88 - 136
+[src/backend/access/common/relation.c:88-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/relation.c#L88-L136)
 
 ## Overview
 Opens a relation by its OID with the same functionality as relation_open, but returns NULL instead of raising an error if the relation does not exist.

@@ -1,7 +1,7 @@
 # JsonbType
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3614 - 3637
+[src/backend/utils/adt/jsonpath_exec.c:3614-3637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3614-L3637)
 
 ## Overview
 JsonbType is a static function that determines the actual type of a JsonbValue, resolving binary containers to their underlying object or array types.

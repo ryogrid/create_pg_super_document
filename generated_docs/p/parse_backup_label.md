@@ -1,7 +1,7 @@
 # parse_backup_label
 
 ## Location
-src/bin/pg_combinebackup/backup_label.c: 45 - 126
+[src/bin/pg_combinebackup/backup_label.c:45-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/backup_label.c#L45-L126)
 
 ## Overview
 Parses a PostgreSQL backup label file to extract essential information required for backup recovery, including start LSN, start timeline ID, and optional incremental backup information.

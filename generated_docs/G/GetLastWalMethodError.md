@@ -1,7 +1,7 @@
 # GetLastWalMethodError
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1383 - 1388
+[src/bin/pg_basebackup/walmethods.c:1383-1388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1383-L1388)
 
 ## Overview
 GetLastWalMethodError retrieves the last error message or error description from a WAL writing method, providing a human-readable error string for diagnostic purposes.

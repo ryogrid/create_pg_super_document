@@ -1,7 +1,7 @@
 # autovac_recalculate_workers_for_balance
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1752 - 1791
+[src/backend/postmaster/autovacuum.c:1752-1791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1752-L1791)
 
 ## Overview
 autovac_recalculate_workers_for_balance recalculates the number of active autovacuum workers that should participate in cost limit balancing, excluding workers with storage parameter overrides.

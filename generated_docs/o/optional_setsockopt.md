@@ -1,7 +1,7 @@
 # optional_setsockopt
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 432 - 463
+[src/interfaces/libpq/fe-cancel.c:432-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L432-L463)
 
 ## Overview
 A static helper function that conditionally sets socket options, providing graceful handling of optional socket configuration parameters.

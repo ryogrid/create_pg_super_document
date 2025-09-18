@@ -1,7 +1,7 @@
 # assign_wal_consistency_checking
 
 ## Location
-src/backend/access/transam/xlog.c: 4712 - 4738
+[src/backend/access/transam/xlog.c:4712-4738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4712-L4738)
 
 ## Overview
 A GUC assign hook function that assigns the validated wal_consistency_checking configuration to the global variable after successful validation.

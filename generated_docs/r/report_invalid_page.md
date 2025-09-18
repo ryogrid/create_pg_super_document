@@ -1,7 +1,7 @@
 # report_invalid_page
 
 ## Location
-src/backend/access/transam/xlogutils.c: 86 - 101
+[src/backend/access/transam/xlogutils.c:86-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L86-L101)
 
 ## Overview
 Reports an invalid page reference by logging an appropriate error message, differentiating between uninitialized pages and non-existent pages.

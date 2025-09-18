@@ -1,7 +1,7 @@
 # int8dec_any
 
 ## Location
-src/backend/utils/adt/int8.c: 816 - 825
+[src/backend/utils/adt/int8.c:816-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L816-L825)
 
 ## Overview
 A wrapper function that provides an alternative entry point to the int8dec function for decrementing 64-bit signed integers by 1.

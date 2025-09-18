@@ -1,7 +1,7 @@
 # BuildArchiveDependencies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18838 - 18885
+[src/bin/pg_dump/pg_dump.c:18838-18885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18838-L18885)
 
 ## Overview
 BuildArchiveDependencies creates dependency data for archive TOC entries by adjusting raw dependency data to handle dependency chains that link through objects not explicitly appearing in the dump.

@@ -1,7 +1,7 @@
 # int2out
 
 ## Location
-src/backend/utils/adt/int.c: 74 - 86
+[src/backend/utils/adt/int.c:74-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L74-L86)
 
 ## Overview
 The int2out function converts a PostgreSQL int2 (16-bit signed integer) value to its string representation.

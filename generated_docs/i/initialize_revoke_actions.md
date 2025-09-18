@@ -1,7 +1,7 @@
 # initialize_revoke_actions
 
 ## Location
-src/backend/commands/user.c: 2288 - 2318
+[src/backend/commands/user.c:2288-2318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2288-L2318)
 
 ## Overview
 initialize_revoke_actions creates and initializes an array of RevokeRoleGrantAction objects, setting all elements to RRG_NOOP to represent no planned actions.

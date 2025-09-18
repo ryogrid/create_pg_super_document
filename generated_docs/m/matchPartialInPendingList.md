@@ -1,7 +1,7 @@
 # matchPartialInPendingList
 
 ## Location
-src/backend/access/gin/ginget.c: 1541 - 1608
+[src/backend/access/gin/ginget.c:1541-1608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1541-L1608)
 
 ## Overview
 Scans a pending list page to find partial matches for a given scan entry, using cached datum extraction and the comparePartial function.

@@ -1,7 +1,7 @@
 # PrepareRedoRemove
 
 ## Location
-src/backend/access/transam/twophase.c: 2572 - 2623
+[src/backend/access/transam/twophase.c:2572-2623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2572-L2623)
 
 ## Overview
 PrepareRedoRemove removes a global transaction entry from shared memory during WAL recovery and cleans up any associated two-phase commit disk files.

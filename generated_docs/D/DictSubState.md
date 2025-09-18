@@ -1,7 +1,7 @@
 # DictSubState
 
 ## Location
-src/include/tsearch/ts_public.h: 157 - 159
+[src/include/tsearch/ts_public.h:157-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_public.h#L157-L159)
 
 ## Overview
 DictSubState is a structure used to support complex dictionaries like thesaurus in PostgreSQL's text search system, providing state management for multi-step lexicalization processes.

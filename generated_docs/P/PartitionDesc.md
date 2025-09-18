@@ -1,7 +1,7 @@
 # PartitionDesc
 
 ## Location
-src/include/partitioning/partdefs.h: 22 - 23
+[src/include/partitioning/partdefs.h:22-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdefs.h#L22-L23)
 
 ## Overview
 A pointer to PartitionDescData structure that contains comprehensive information about all partitions of a partitioned table, including their OIDs, bounds, and caching information for efficient partition lookup.

@@ -1,7 +1,7 @@
 # _bt_savepostingitem
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2013 - 2040
+[src/backend/access/nbtree/nbtsearch.c:2013-2040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2013-L2040)
 
 ## Overview
 Saves subsequent TIDs from a posting list tuple into the scan position's item array, after initial setup by _bt_setuppostingitems().

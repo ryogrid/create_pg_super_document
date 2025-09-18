@@ -1,7 +1,7 @@
 # brin_bloom_get_ndistinct
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 496 - 538
+[src/backend/access/brin/brin_bloom.c:496-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L496-L538)
 
 ## Overview
 Determines the ndistinct value used to size bloom filter for BRIN (Block Range Index) bloom operators, adjusting the value based on the pages per range configuration.

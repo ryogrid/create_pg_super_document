@@ -1,7 +1,7 @@
 # database_to_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 3399 - 3410
+[src/backend/utils/adt/xml.c:3399-3410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3399-L3410)
 
 ## Overview
 PostgreSQL SQL function wrapper that generates XML representation of an entire database by converting all visible schemas and their tables to XML format without XML Schema definition.

@@ -1,7 +1,7 @@
 # CachedPlanIsSimplyValid
 
 ## Location
-src/backend/utils/cache/plancache.c: 1451 - 1497
+[src/backend/utils/cache/plancache.c:1451-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1451-L1497)
 
 ## Overview
 Provides a fast validity check for simple cached plans that have been pre-approved by CachedPlanAllowsSimpleValidityCheck, avoiding expensive revalidation operations.

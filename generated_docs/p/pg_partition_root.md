@@ -1,7 +1,7 @@
 # pg_partition_root
 
 ## Location
-src/backend/utils/adt/partitionfuncs.c: 164 - 200
+[src/backend/utils/adt/partitionfuncs.c:164-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/partitionfuncs.c#L164-L200)
 
 ## Overview
 A PostgreSQL system function that finds and returns the top-most parent (root) relation in a partition tree hierarchy for a given relation OID.

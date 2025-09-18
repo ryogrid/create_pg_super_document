@@ -1,7 +1,7 @@
 # cidout
 
 ## Location
-src/backend/utils/adt/xid.c: 335 - 347
+[src/backend/utils/adt/xid.c:335-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L335-L347)
 
 ## Overview
 A PostgreSQL internal function that converts a CommandId (cid) value to its external string representation for output purposes.

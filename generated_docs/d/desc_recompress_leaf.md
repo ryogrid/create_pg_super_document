@@ -1,7 +1,7 @@
 # desc_recompress_leaf
 
 ## Location
-src/backend/access/rmgrdesc/gindesc.c: 21 - 71
+[src/backend/access/rmgrdesc/gindesc.c:21-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gindesc.c#L21-L71)
 
 ## Overview
 Formats human-readable descriptions of GIN index leaf page recompression operations for WAL (Write-Ahead Log) replay debugging and analysis.

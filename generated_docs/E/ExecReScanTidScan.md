@@ -1,7 +1,7 @@
 # ExecReScanTidScan
 
 ## Location
-src/backend/executor/nodeTidscan.c: 447 - 469
+[src/backend/executor/nodeTidscan.c:447-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L447-L469)
 
 ## Overview
 ExecReScanTidScan resets a TID scan operation to its initial state, allowing the scan to be restarted from the beginning.

@@ -1,7 +1,7 @@
 # rel_is_distinct_for
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 861 - 957
+[src/backend/optimizer/plan/analyzejoins.c:861-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L861-L957)
 
 ## Overview
 Determines whether a relation returns only distinct rows according to a given set of join restriction clauses, ensuring no two rows could join to the same row of another relation.

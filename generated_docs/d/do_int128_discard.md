@@ -1,7 +1,7 @@
 # do_int128_discard
 
 ## Location
-src/backend/utils/adt/numeric.c: 5547 - 5555
+[src/backend/utils/adt/numeric.c:5547-5555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5547-L5555)
 
 ## Overview
 Removes an input value from the aggregated state for 128-bit aggregate functions, performing the inverse operation of accumulation.

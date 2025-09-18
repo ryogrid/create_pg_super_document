@@ -1,7 +1,7 @@
 # accesstype_arg_to_string
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 458 - 518
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:458-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L458-L518)
 
 ## Overview
 Converts object access type-specific argument structures to human-readable strings for audit logging and error reporting in PostgreSQL's object access hook testing framework.

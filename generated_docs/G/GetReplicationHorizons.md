@@ -1,7 +1,7 @@
 # GetReplicationHorizons
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2047 - 2068
+[src/backend/storage/ipc/procarray.c:2047-2068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2047-L2068)
 
 ## Overview
 GetReplicationHorizons provides visibility horizon information specifically for hot standby feedback messages, enabling efficient replication coordination between primary and standby servers.

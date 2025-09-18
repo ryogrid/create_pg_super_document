@@ -1,7 +1,7 @@
 # pg_ls_logicalsnapdir
 
 ## Location
-src/backend/utils/adt/genfile.c: 696 - 704
+[src/backend/utils/adt/genfile.c:696-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L696-L704)
 
 ## Overview
 A SQL-callable function that lists files in the logical replication snapshots directory.

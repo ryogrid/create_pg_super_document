@@ -1,7 +1,7 @@
 # ProcArrayInstallImportedXmin
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2536 - 2619
+[src/backend/storage/ipc/procarray.c:2536-2619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2536-L2619)
 
 ## Overview
 Installs an imported xmin from another transaction into the current backend's MyProc->xmin, ensuring OldestXmin cannot go backwards by verifying the source transaction is still running.

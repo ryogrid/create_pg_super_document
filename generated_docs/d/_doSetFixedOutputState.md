@@ -1,7 +1,7 @@
 # _doSetFixedOutputState
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3255 - 3321
+[src/bin/pg_dump/pg_backup_archiver.c:3255-3321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3255-L3321)
 
 ## Overview
 A static function that establishes consistent PostgreSQL session state by issuing SET commands for parameters that should remain constant throughout the execution of a restore script.

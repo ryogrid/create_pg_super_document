@@ -1,7 +1,7 @@
 # formrdesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 1875 - 2062
+[src/backend/utils/cache/relcache.c:1875-2062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1875-L2062)
 
 ## Overview
 A special cut-down version of RelationBuildDesc() used during relcache initialization to build relation descriptors from supplied parameters without accessing system tables.

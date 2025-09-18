@@ -1,7 +1,7 @@
 # numericvar_to_int128
 
 ## Location
-src/backend/utils/adt/numeric.c: 8240 - 8310
+[src/backend/utils/adt/numeric.c:8240-8310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8240-L8310)
 
 ## Overview
 Converts a PostgreSQL NumericVar to a 128-bit signed integer, performing rounding if necessary and detecting overflow conditions.

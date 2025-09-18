@@ -1,7 +1,7 @@
 # int2_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5566 - 5588
+[src/backend/utils/adt/numeric.c:5566-5588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5566-L5588)
 
 ## Overview
 PostgreSQL aggregate function that accumulates smallint (int2) values for statistical calculations like variance, standard deviation, and population statistics.

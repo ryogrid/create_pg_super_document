@@ -1,7 +1,7 @@
 # setup_parse_variable_parameters
 
 ## Location
-src/backend/parser/parse_param.c: 83 - 98
+[src/backend/parser/parse_param.c:83-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L83-L98)
 
 ## Overview
 Configures a ParseState structure to handle references to variable parameters during query parsing by setting up the necessary hooks and state information for dynamically typed parameters.

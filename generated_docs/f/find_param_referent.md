@@ -1,7 +1,7 @@
 # find_param_referent
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8162 - 8275
+[src/backend/utils/adt/ruleutils.c:8162-8275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8162-L8275)
 
 ## Overview
 Locates the referenced expression for a PARAM_EXEC parameter by searching through ancestor plan nodes (NestLoop and SubPlan) to find matching parameter definitions.

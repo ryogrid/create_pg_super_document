@@ -1,7 +1,7 @@
 # shouldPrintColumn
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 9362 - 9379
+[src/bin/pg_dump/pg_dump.c:9362-9379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L9362-L9379)
 
 ## Overview
 This function determines whether a specific column should be printed as part of a table's CREATE TABLE statement during PostgreSQL database dumps.

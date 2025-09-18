@@ -1,7 +1,7 @@
 # MergeActionState
 
 ## Location
-src/include/nodes/execnodes.h: 423 - 431
+[src/include/nodes/execnodes.h:423-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L423-L431)
 
 ## Overview
 MergeActionState holds the executor state for a MERGE action, managing the execution of individual WHEN clauses within MERGE statements.

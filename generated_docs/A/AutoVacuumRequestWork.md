@@ -1,7 +1,7 @@
 # AutoVacuumRequestWork
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3245 - 3286
+[src/backend/postmaster/autovacuum.c:3245-3286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3245-L3286)
 
 ## Overview
 Submits a work item request to the autovacuum system for processing in the next autovacuum run on the current database.

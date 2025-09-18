@@ -1,7 +1,7 @@
 # AddSubscriptionRelState
 
 ## Location
-src/backend/catalog/pg_subscription.c: 236 - 289
+[src/backend/catalog/pg_subscription.c:236-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L236-L289)
 
 ## Overview
 Adds a new state record for a subscription table to the pg_subscription_rel system catalog, establishing the replication state tracking for a specific relation within a logical replication subscription.

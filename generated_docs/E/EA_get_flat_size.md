@@ -1,7 +1,7 @@
 # EA_get_flat_size
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 233 - 292
+[src/backend/utils/adt/array_expanded.c:233-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L233-L292)
 
 ## Overview
 A method function that calculates the size in bytes required to flatten an expanded array into its standard serialized array representation.

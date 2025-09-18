@@ -1,7 +1,7 @@
 # pg_event_trigger_dropped_objects
 
 ## Location
-src/backend/commands/event_trigger.c: 1397 - 1492
+[src/backend/commands/event_trigger.c:1397-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1397-L1492)
 
 ## Overview
 A PostgreSQL built-in function that returns information about objects dropped during the current DDL command, available only within sql_drop event trigger functions.

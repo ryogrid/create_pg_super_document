@@ -1,7 +1,7 @@
 # ReplicationSlotsShmemInit
 
 ## Location
-src/backend/replication/slot.c: 189 - 223
+[src/backend/replication/slot.c:189-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L189-L223)
 
 ## Overview
 Allocates and initializes shared memory for the replication slot subsystem, setting up the control structure and individual slot synchronization primitives.

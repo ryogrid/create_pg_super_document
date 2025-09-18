@@ -1,7 +1,7 @@
 # plperl_return_next
 
 ## Location
-src/pl/plperl/plperl.c: 3245 - 3274
+[src/pl/plperl/plperl.c:3245-3274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3245-L3274)
 
 ## Overview
 Safely handles the return_next operation for PL/Perl set-returning functions, converting PostgreSQL errors to Perl exceptions.

@@ -1,7 +1,7 @@
 # xmltotext_with_options
 
 ## Location
-src/backend/utils/adt/xml.c: 656 - 868
+[src/backend/utils/adt/xml.c:656-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L656-L868)
 
 ## Overview
 Converts XML data to text with advanced formatting options including indentation support and proper XML parsing validation, providing comprehensive XML-to-text conversion functionality.

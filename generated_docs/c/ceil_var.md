@@ -1,7 +1,7 @@
 # ceil_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 9961 - 9984
+[src/backend/utils/adt/numeric.c:9961-9984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9961-L9984)
 
 ## Overview
 The `ceil_var` function returns the smallest integer greater than or equal to the given numeric value, implementing the mathematical ceiling function for PostgreSQL's `NumericVar` data type.

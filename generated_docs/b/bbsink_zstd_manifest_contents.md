@@ -1,7 +1,7 @@
 # bbsink_zstd_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 302 - 312
+[src/backend/backup/basebackup_zstd.c:302-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L302-L312)
 
 ## Overview
 Handles backup manifest content by copying it uncompressed to the next sink in the chain, as manifest contents are not compressed in the Zstandard backup sink.

@@ -1,7 +1,7 @@
 # CopySendEndOfRow
 
 ## Location
-src/backend/commands/copyto.c: 187 - 264
+[src/backend/commands/copyto.c:187-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L187-L264)
 
 ## Overview
 Finalizes and sends a complete row of data in PostgreSQL's COPY operation, handling different output destinations and performing necessary cleanup.

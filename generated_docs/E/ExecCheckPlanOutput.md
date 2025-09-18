@@ -1,7 +1,7 @@
 # ExecCheckPlanOutput
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 188 - 276
+[src/backend/executor/nodeModifyTable.c:188-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L188-L276)
 
 ## Overview
 Verifies that tuples to be produced by INSERT operations match the target relation's row type, guarding against stale execution plans and ensuring data consistency.

@@ -1,7 +1,7 @@
 # IsLogicalWorker
 
 ## Location
-src/backend/replication/logical/worker.c: 4812 - 4820
+[src/backend/replication/logical/worker.c:4812-4820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4812-L4820)
 
 ## Overview
 IsLogicalWorker is a simple utility function that determines whether the current process is a logical replication worker by checking the global worker state.

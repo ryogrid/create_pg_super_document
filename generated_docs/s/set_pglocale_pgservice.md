@@ -1,7 +1,7 @@
 # set_pglocale_pgservice
 
 ## Location
-src/common/exec.c: 448 - 497
+[src/common/exec.c:448-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L448-L497)
 
 ## Overview
 Sets up application-specific locale and service directory paths for PostgreSQL programs, configuring internationalization and system configuration directories.

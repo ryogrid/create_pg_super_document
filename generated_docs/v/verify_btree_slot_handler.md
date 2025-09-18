@@ -1,7 +1,7 @@
 # verify_btree_slot_handler
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1118 - 1180
+[src/bin/pg_amcheck/pg_amcheck.c:1118-1180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1118-L1180)
 
 ## Overview
 A ParallelSlotHandler function that processes and displays results from btree index verification commands in the pg_amcheck utility.

@@ -1,7 +1,7 @@
 # llvm_resolve_symbols
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1220 - 1264
+[src/backend/jit/llvm/llvmjit.c:1220-1264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1220-L1264)
 
 ## Overview
 LLVM ORC JIT callback function that resolves multiple undefined symbols simultaneously by creating absolute symbol definitions for the JIT execution engine.

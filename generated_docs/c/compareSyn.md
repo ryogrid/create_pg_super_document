@@ -1,7 +1,7 @@
 # compareSyn
 
 ## Location
-src/backend/tsearch/dict_synonym.c: 85 - 91
+[src/backend/tsearch/dict_synonym.c:85-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_synonym.c#L85-L91)
 
 ## Overview
 A comparison function used for sorting and searching synonym entries by their input words.

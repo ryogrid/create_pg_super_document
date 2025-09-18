@@ -1,7 +1,7 @@
 # ExecIndexScan
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 519 - 550
+[src/backend/executor/nodeIndexscan.c:519-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L519-L550)
 
 ## Overview
 The main execution function for PostgreSQL's index scan node, responsible for retrieving tuples from an index while handling runtime keys and choosing appropriate scan methods based on ordering requirements.

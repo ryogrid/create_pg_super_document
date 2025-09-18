@@ -1,7 +1,7 @@
 # IndexBuildResult
 
 ## Location
-src/include/access/genam.h: 30 - 34
+[src/include/access/genam.h:30-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L30-L34)
 
 ## Overview
 IndexBuildResult is a structure that holds statistics returned by the ambuild function during index construction, providing essential metrics about the indexing process.

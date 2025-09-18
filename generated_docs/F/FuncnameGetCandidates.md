@@ -1,7 +1,7 @@
 # FuncnameGetCandidates
 
 ## Location
-src/backend/catalog/namespace.c: 1192 - 1584
+[src/backend/catalog/namespace.c:1192-1584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1192-L1584)
 
 ## Overview
 Retrieves a list of function candidates that match a given function name and argument criteria, supporting various call conventions and argument matching strategies.

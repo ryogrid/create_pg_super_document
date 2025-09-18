@@ -1,7 +1,7 @@
 # ECPGmake_array_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 111 - 120
+[src/interfaces/ecpg/preproc/type.c:111-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L111-L120)
 
 ## Overview
 Creates an ECPGtype structure representing an array type with a specified element type and size in the ECPG preprocessor.

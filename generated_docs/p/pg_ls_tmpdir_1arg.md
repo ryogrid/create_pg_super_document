@@ -1,7 +1,7 @@
 # pg_ls_tmpdir_1arg
 
 ## Location
-src/backend/utils/adt/genfile.c: 678 - 686
+[src/backend/utils/adt/genfile.c:678-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L678-L686)
 
 ## Overview
 A SQL-callable function that lists files in the temporary directory of a user-specified tablespace.

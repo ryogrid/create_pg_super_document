@@ -1,7 +1,7 @@
 # LogCurrentRunningXacts
 
 ## Location
-src/backend/storage/ipc/standby.c: 1345 - 1404
+[src/backend/storage/ipc/standby.c:1345-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1345-L1404)
 
 ## Overview
 Records an enhanced snapshot of currently running transactions into the Write-Ahead Log (WAL) for standby server replication purposes.

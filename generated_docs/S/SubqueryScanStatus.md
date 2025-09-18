@@ -1,7 +1,7 @@
 # SubqueryScanStatus
 
 ## Location
-src/include/nodes/plannodes.h: 596 - 597
+[src/include/nodes/plannodes.h:596-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L596-L597)
 
 ## Overview
 An enumeration that caches the trivial_subqueryscan property of a SubqueryScan node, used during query planning to determine if a SubqueryScan node can be optimized away.

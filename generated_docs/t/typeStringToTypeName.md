@@ -1,7 +1,7 @@
 # typeStringToTypeName
 
 ## Location
-src/backend/parser/parse_type.c: 738 - 784
+[src/backend/parser/parse_type.c:738-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L738-L784)
 
 ## Overview
 Parses a SQL-compatible type declaration string and returns a TypeName node representing the parsed type information.

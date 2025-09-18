@@ -1,7 +1,7 @@
 # get_typ_typrelid
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2731 - 2758
+[src/backend/utils/cache/lsyscache.c:2731-2758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2731-L2758)
 
 ## Overview
 A system cache utility function that retrieves the relation OID (typrelid) associated with a given PostgreSQL type OID, returning InvalidOid for non-complex types.

@@ -1,7 +1,7 @@
 # elements_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2348 - 2369
+[src/backend/utils/adt/jsonfuncs.c:2348-2369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2348-L2369)
 
 ## Overview
 A semantic action callback function invoked when the JSON parser encounters the start of an array element during JSON array processing.

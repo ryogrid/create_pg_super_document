@@ -1,7 +1,7 @@
 # _bt_delitems_delete_check
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1513 - 1694
+[src/backend/access/nbtree/nbtpage.c:1513-1694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1513-L1694)
 
 ## Overview
 Main entry point for single-page cleanup operations that coordinates with the tableam to determine which index tuples are safe to delete and physically removes them from a B-tree leaf page.

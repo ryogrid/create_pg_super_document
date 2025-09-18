@@ -1,7 +1,7 @@
 # InjectionPointCondition
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 55 - 62
+[src/test/modules/injection_points/injection_points.c:55-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L55-L62)
 
 ## Overview
 A structure that defines runtime conditions for controlling when injection points are allowed to execute, primarily used for testing and debugging purposes.

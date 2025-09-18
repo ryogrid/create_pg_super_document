@@ -1,7 +1,7 @@
 # ExecParallelReportInstrumentation
 
 ## Location
-src/backend/executor/execParallel.c: 1268 - 1308
+[src/backend/executor/execParallel.c:1268-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1268-L1308)
 
 ## Overview
 Copies instrumentation information from a plan node and its descendants into shared memory so the parallel leader can retrieve execution statistics from parallel workers.

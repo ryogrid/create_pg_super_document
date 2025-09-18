@@ -1,7 +1,7 @@
 # enum_le
 
 ## Location
-src/backend/utils/adt/enum.c: 315 - 323
+[src/backend/utils/adt/enum.c:315-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L315-L323)
 
 ## Overview
 PostgreSQL built-in function that implements the less-than-or-equal comparison operator (<=) for enum data types.

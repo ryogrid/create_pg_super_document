@@ -1,7 +1,7 @@
 # tqueueDestroyReceiver
 
 ## Location
-src/backend/executor/tqueue.c: 105 - 118
+[src/backend/executor/tqueue.c:105-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L105-L118)
 
 ## Overview
 Destroys a tuple queue destination receiver by detaching from the shared memory queue and freeing the allocated memory.

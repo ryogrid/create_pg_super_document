@@ -1,7 +1,7 @@
 # rbt_find_great
 
 ## Location
-src/backend/lib/rbtree.c: 172 - 202
+[src/backend/lib/rbtree.c:172-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L172-L202)
 
 ## Overview
 Searches for the smallest value in a Red-Black Tree that is greater than or optionally equal to the provided data.

@@ -1,7 +1,7 @@
 # selectDumpableDefaultACL
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1954 - 1975
+[src/bin/pg_dump/pg_dump.c:1954-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1954-L1975)
 
 ## Overview
 This function determines whether a default ACL (Access Control List) should be included in a PostgreSQL database dump based on dump configuration and schema selection criteria.

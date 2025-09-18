@@ -1,7 +1,7 @@
 # find_among_b
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 298 - 354
+[src/backend/snowball/libstemmer/utilities.c:298-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L298-L354)
 
 ## Overview
 The backward-processing counterpart to  that performs binary search through a sorted array of string patterns, matching from the current cursor position backward.

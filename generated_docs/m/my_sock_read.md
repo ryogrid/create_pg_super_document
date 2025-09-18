@@ -1,7 +1,7 @@
 # my_sock_read
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1908 - 1941
+[src/interfaces/libpq/fe-secure-openssl.c:1908-1941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1908-L1941)
 
 ## Overview
 A BIO read callback function that wraps PostgreSQL's secure_raw_read for use with OpenSSL's BIO (Basic Input/Output) abstraction layer.

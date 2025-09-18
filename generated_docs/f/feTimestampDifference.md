@@ -1,7 +1,7 @@
 # feTimestampDifference
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 888 - 909
+[src/bin/pg_basebackup/streamutil.c:888-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L888-L909)
 
 ## Overview
 A frontend version of PostgreSQL's TimestampDifference() function that calculates the time difference between two timestamps and returns the result in seconds and microseconds.

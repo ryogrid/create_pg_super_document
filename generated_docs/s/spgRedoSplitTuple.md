@@ -1,7 +1,7 @@
 # spgRedoSplitTuple
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 451 - 528
+[src/backend/access/spgist/spgxlog.c:451-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L451-L528)
 
 ## Overview
 Replays a split tuple operation from the WAL (Write-Ahead Log) for SP-GiST indexes, handling the reconstruction of prefix and postfix tuples during crash recovery.

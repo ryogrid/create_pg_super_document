@@ -1,7 +1,7 @@
 # heapgettup_start_page
 
 ## Location
-src/backend/access/heap/heapam.c: 721 - 751
+[src/backend/access/heap/heapam.c:721-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L721-L751)
 
 ## Overview
 heapgettup_start_page is a helper function that prepares page scanning parameters by determining the starting offset and line count for tuple-by-tuple scanning in both forward and backward directions.

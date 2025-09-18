@@ -1,7 +1,7 @@
 # logicalmsg_desc
 
 ## Location
-src/backend/access/rmgrdesc/logicalmsgdesc.c: 19 - 45
+[src/backend/access/rmgrdesc/logicalmsgdesc.c:19-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/logicalmsgdesc.c#L19-L45)
 
 ## Overview
 A function that generates human-readable descriptions of logical message WAL (Write-Ahead Log) records for debugging and diagnostic purposes.

@@ -1,7 +1,7 @@
 # pg_atomic_init_flag
 
 ## Location
-src/include/port/atomics.h: 165 - 177
+[src/include/port/atomics.h:165-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L165-L177)
 
 ## Overview
 Initializes an atomic flag structure for thread-safe boolean operations with no memory barrier semantics.

@@ -1,7 +1,7 @@
 # MaybeStartSlotSyncWorker
 
 ## Location
-src/backend/postmaster/postmaster.c: 4091 - 4102
+[src/backend/postmaster/postmaster.c:4091-4102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4091-L4102)
 
 ## Overview
 MaybeStartSlotSyncWorker conditionally starts a slot synchronization worker process specifically for hot standby servers to synchronize replication slots with the primary server.

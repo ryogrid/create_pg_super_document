@@ -1,7 +1,7 @@
 # DisableSubscriptionAndExit
 
 ## Location
-src/backend/replication/logical/worker.c: 4765 - 4811
+[src/backend/replication/logical/worker.c:4765-4811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4765-L4811)
 
 ## Overview
 DisableSubscriptionAndExit is a critical error recovery function that handles subscription failures by disabling the subscription and cleanly terminating the logical replication worker process.

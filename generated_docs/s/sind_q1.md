@@ -1,7 +1,7 @@
 # sind_q1
 
 ## Location
-src/backend/utils/adt/float.c: 2272 - 2291
+[src/backend/utils/adt/float.c:2272-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2272-L2291)
 
 ## Overview
 The `sind_q1` function computes the sine of an angle in degrees for the first quadrant (0 to 90 degrees), providing a continuous monotonic function with exact results at key angles.

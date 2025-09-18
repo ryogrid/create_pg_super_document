@@ -1,7 +1,7 @@
 # PQresultMemorySize
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 663 - 674
+[src/interfaces/libpq/fe-exec.c:663-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L663-L674)
 
 ## Overview
 PQresultMemorySize returns the total amount of memory allocated for a PGresult object, providing a way to monitor memory usage.

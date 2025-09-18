@@ -1,7 +1,7 @@
 # entry_purge_tuples
 
 ## Location
-src/backend/executor/nodeMemoize.c: 344 - 373
+[src/backend/executor/nodeMemoize.c:344-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L344-L373)
 
 ## Overview
 Removes all cached tuples from a MemoizeEntry while updating memory accounting, leaving an empty but valid cache entry.

@@ -1,7 +1,7 @@
 # scanNameSpaceForCTE
 
 ## Location
-src/backend/parser/parse_relation.c: 282 - 312
+[src/backend/parser/parse_relation.c:282-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L282-L312)
 
 ## Overview
 Searches through the CTE (Common Table Expression) namespace hierarchy to find a CTE matching a given unqualified reference name.

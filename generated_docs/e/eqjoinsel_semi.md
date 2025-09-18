@@ -1,7 +1,7 @@
 # eqjoinsel_semi
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2635 - 2822
+[src/backend/utils/adt/selfuncs.c:2635-2822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2635-L2822)
 
 ## Overview
 Computes join selectivity for semi and anti joins, implementing specialized logic that differs significantly from inner joins by estimating the fraction of outer relation rows that have at least one matching partner in the inner relation.

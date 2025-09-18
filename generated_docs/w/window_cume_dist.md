@@ -1,7 +1,7 @@
 # window_cume_dist
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 330 - 370
+[src/backend/utils/adt/windowfuncs.c:330-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L330-L370)
 
 ## Overview
 Implements the SQL CUME_DIST() window function, which returns the cumulative distribution as a fraction between 0 and 1, calculated as the number of rows preceding or peer to the current row divided by the total number of rows.

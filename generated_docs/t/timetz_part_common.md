@@ -1,7 +1,7 @@
 # timetz_part_common
 
 ## Location
-src/backend/utils/adt/date.c: 2927 - 3043
+[src/backend/utils/adt/date.c:2927-3043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2927-L3043)
 
 ## Overview
 A common implementation function that extracts specified time components (hour, minute, second, timezone, etc.) from a time with timezone (TimeTzADT) value, with support for both numeric and floating-point return types.

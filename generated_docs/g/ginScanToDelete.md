@@ -1,7 +1,7 @@
 # ginScanToDelete
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 247 - 345
+[src/backend/access/gin/ginvacuum.c:247-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L247-L345)
 
 ## Overview
 Recursively scans a GIN posting tree to identify and delete empty pages while maintaining proper locking to prevent deadlocks and ensure consistency.

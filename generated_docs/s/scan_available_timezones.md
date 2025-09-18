@@ -1,7 +1,7 @@
 # scan_available_timezones
 
 ## Location
-src/bin/initdb/findtimezone.c: 657 - 1564
+[src/bin/initdb/findtimezone.c:657-1564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L657-L1564)
 
 ## Overview
 Recursively scans the timezone database directory looking for the best match to the system timezone behavior, comparing timezone files against system timezone characteristics.

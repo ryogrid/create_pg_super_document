@@ -1,7 +1,7 @@
 # show_config_by_name_missing_ok
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 825 - 845
+[src/backend/utils/misc/guc_funcs.c:825-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L825-L845)
 
 ## Overview
 A PostgreSQL system function that retrieves the current value of a configuration parameter by name with optional error suppression for non-existent parameters.

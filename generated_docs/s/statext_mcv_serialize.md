@@ -1,7 +1,7 @@
 # statext_mcv_serialize
 
 ## Location
-src/backend/statistics/mcv.c: 621 - 995
+[src/backend/statistics/mcv.c:621-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L621-L995)
 
 ## Overview
 Serializes an MCVList structure into a compact binary format for storage in PostgreSQL's system catalog, with deduplication and space optimization.

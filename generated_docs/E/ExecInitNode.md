@@ -1,7 +1,7 @@
 # ExecInitNode
 
 ## Location
-src/backend/executor/execProcnode.c: 142 - 424
+[src/backend/executor/execProcnode.c:142-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L142-L424)
 
 ## Overview
 ExecInitNode recursively initializes all nodes in a PostgreSQL execution plan tree, creating the corresponding execution state structures for each node type.

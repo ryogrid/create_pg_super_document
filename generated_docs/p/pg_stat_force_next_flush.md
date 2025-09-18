@@ -1,7 +1,7 @@
 # pg_stat_force_next_flush
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1678 - 1687
+[src/backend/utils/adt/pgstatfuncs.c:1678-1687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1678-L1687)
 
 ## Overview
 A PostgreSQL function that forces the statistics system to flush pending statistics data to the statistics collector at the next available opportunity.

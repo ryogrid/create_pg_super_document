@@ -1,7 +1,7 @@
 # add_function_defaults
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4326 - 4349
+[src/backend/optimizer/util/clauses.c:4326-4349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4326-L4349)
 
 ## Overview
 Appends missing function arguments with their default values when the argument list contains only positional arguments.

@@ -1,7 +1,7 @@
 # pg_tablespace_databases
 
 ## Location
-src/backend/utils/adt/misc.c: 224 - 300
+[src/backend/utils/adt/misc.c:224-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L224-L300)
 
 ## Overview
 Returns a set of database OIDs that have objects stored in a specified tablespace by examining the filesystem directories under the tablespace location.

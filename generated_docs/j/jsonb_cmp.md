@@ -1,7 +1,7 @@
 # jsonb_cmp
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 236 - 252
+[src/backend/utils/adt/jsonb_op.c:236-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L236-L252)
 
 ## Overview
 Compares two JSONB values and returns an integer indicating their relative order for sorting purposes.

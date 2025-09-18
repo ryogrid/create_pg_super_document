@@ -1,7 +1,7 @@
 # cost_namedtuplestorescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1739 - 1775
+[src/backend/optimizer/path/costsize.c:1739-1775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1739-L1775)
 
 ## Overview
 Determines and returns the cost of scanning a named tuplestore, which represents materialized data stored in memory that can be accessed by name.

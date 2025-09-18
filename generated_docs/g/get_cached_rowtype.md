@@ -1,7 +1,7 @@
 # get_cached_rowtype
 
 ## Location
-src/backend/executor/execExprInterp.c: 2084 - 2149
+[src/backend/executor/execExprInterp.c:2084-2149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2084-L2149)
 
 ## Overview
 get_cached_rowtype is a utility function that efficiently looks up and caches rowtype tuple descriptors, handling both named composite types and RECORD types with appropriate caching strategies.

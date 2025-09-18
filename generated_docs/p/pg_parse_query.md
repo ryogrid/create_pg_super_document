@@ -1,7 +1,7 @@
 # pg_parse_query
 
 ## Location
-src/backend/tcop/postgres.c: 615 - 674
+[src/backend/tcop/postgres.c:615-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L615-L674)
 
 ## Overview
 Performs raw parsing of SQL query strings, returning a list of parse trees (RawStmt nodes) without performing analysis or rewriting.

@@ -1,7 +1,7 @@
 # find_matching_ts_config
 
 ## Location
-src/bin/initdb/initdb.c: 933 - 978
+[src/bin/initdb/initdb.c:933-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L933-L978)
 
 ## Overview
 This function finds a text search configuration that matches the given locale type by extracting the language name and looking it up in a predefined table of supported text search configurations.

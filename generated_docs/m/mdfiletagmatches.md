@@ -1,7 +1,7 @@
 # mdfiletagmatches
 
 ## Location
-src/backend/storage/smgr/md.c: 1820 - 1829
+[src/backend/storage/smgr/md.c:1820-1829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1820-L1829)
 
 ## Overview
 Check if a candidate file tag matches a filter file tag when processing SYNC_FILTER_REQUEST operations.

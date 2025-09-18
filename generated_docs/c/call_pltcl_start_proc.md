@@ -1,7 +1,7 @@
 # call_pltcl_start_proc
 
 ## Location
-src/pl/tcl/pltcl.c: 593 - 679
+[src/pl/tcl/pltcl.c:593-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L593-L679)
 
 ## Overview
 Calls a user-defined initialization procedure during PL/Tcl interpreter setup, providing customizable initialization logic for PL/Tcl environments.

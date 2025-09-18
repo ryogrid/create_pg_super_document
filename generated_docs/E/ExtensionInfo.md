@@ -1,7 +1,7 @@
 # ExtensionInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 195 - 196
+[src/bin/pg_dump/pg_dump.h:195-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L195-L196)
 
 ## Overview
 ExtensionInfo represents a PostgreSQL extension object in pg_dump, storing metadata about installed extensions including their configuration, version, and namespace information.

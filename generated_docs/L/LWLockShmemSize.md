@@ -1,7 +1,7 @@
 # LWLockShmemSize
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 423 - 452
+[src/backend/storage/lmgr/lwlock.c:423-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L423-L452)
 
 ## Overview
 Calculates the total shared memory space required for the LWLock subsystem, including the main lock array and all named tranches.

@@ -1,7 +1,7 @@
 # SysLoggerMain
 
 ## Location
-src/backend/postmaster/syslogger.c: 167 - 594
+[src/backend/postmaster/syslogger.c:167-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L167-L594)
 
 ## Overview
 SysLoggerMain is the main entry point and event loop for the PostgreSQL system logger process, responsible for collecting log output from all backend processes and managing log file rotation.

@@ -1,7 +1,7 @@
 # ExecParallelHashJoinNewBatch
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1172 - 1314
+[src/backend/executor/nodeHashjoin.c:1172-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1172-L1314)
 
 ## Overview
 Chooses and attaches to a new batch for processing in a parallel hash join operation, coordinating between multiple worker processes using barriers and distributed batch assignment.

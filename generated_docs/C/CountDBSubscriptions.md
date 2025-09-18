@@ -1,7 +1,7 @@
 # CountDBSubscriptions
 
 ## Location
-src/backend/catalog/pg_subscription.c: 123 - 154
+[src/backend/catalog/pg_subscription.c:123-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L123-L154)
 
 ## Overview
 Counts the number of subscriptions defined in a specified database, primarily used by dropdb() to verify if a database can be safely dropped.

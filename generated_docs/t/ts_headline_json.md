@@ -1,7 +1,7 @@
 # ts_headline_json
 
 ## Location
-src/backend/tsearch/wparser.c: 491 - 499
+[src/backend/tsearch/wparser.c:491-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L491-L499)
 
 ## Overview
 A PostgreSQL wrapper function that generates highlighted headlines from JSON documents using the current default text search configuration, providing a simplified interface without requiring explicit configuration or options specification.

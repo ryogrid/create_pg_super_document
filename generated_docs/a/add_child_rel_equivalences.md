@@ -1,7 +1,7 @@
 # add_child_rel_equivalences
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2631 - 2752
+[src/backend/optimizer/path/equivclass.c:2631-2752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2631-L2752)
 
 ## Overview
 Creates transformed equivalence class members for a child relation by finding parent relation members and translating them to reference the child relation, supporting PostgreSQL's inheritance and partitioning features.

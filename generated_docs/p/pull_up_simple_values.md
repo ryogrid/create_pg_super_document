@@ -1,7 +1,7 @@
 # pull_up_simple_values
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1799 - 1894
+[src/backend/optimizer/prep/prepjointree.c:1799-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1799-L1894)
 
 ## Overview
 Optimizes simple VALUES clauses by pulling them up and replacing the VALUES RTE with a RESULT RTE, eliminating unnecessary subquery structure for single-row value expressions.

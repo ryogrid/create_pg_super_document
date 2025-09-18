@@ -1,7 +1,7 @@
 # set_cancel_slot_archive
 
 ## Location
-src/bin/pg_dump/parallel.c: 809 - 828
+[src/bin/pg_dump/parallel.c:809-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L809-L828)
 
 ## Overview
 Associates an ArchiveHandle with a specific parallel worker slot, enabling thread-safe cancellation support for individual worker threads in pg_dump's parallel backup system.

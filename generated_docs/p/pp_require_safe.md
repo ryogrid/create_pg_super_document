@@ -1,7 +1,7 @@
 # pp_require_safe
 
 ## Location
-src/pl/plperl/plperl.c: 880 - 917
+[src/pl/plperl/plperl.c:880-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L880-L917)
 
 ## Overview
 A secure implementation of Perl's require opcode that prevents loading of external code by only allowing access to already-loaded modules.

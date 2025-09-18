@@ -1,7 +1,7 @@
 # ExecBitmapAnd
 
 ## Location
-src/backend/executor/nodeBitmapAnd.c: 42 - 54
+[src/backend/executor/nodeBitmapAnd.c:42-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapAnd.c#L42-L54)
 
 ## Overview
 ExecBitmapAnd is a stub function that exists for pro forma compliance with the PostgreSQL executor node interface but is not intended to be called during normal execution.

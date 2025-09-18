@@ -1,7 +1,7 @@
 # tbm_find_pageentry
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1169 - 1201
+[src/backend/nodes/tidbitmap.c:1169-1201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1169-L1201)
 
 ## Overview
 Finds and returns a PagetableEntry for a specific page number, ensuring the entry is non-lossy (exact tuple information available).

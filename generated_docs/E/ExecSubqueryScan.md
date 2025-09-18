@@ -1,7 +1,7 @@
 # ExecSubqueryScan
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 83 - 96
+[src/backend/executor/nodeSubqueryscan.c:83-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L83-L96)
 
 ## Overview
 ExecSubqueryScan is the main execution function for subquery scan operations, scanning the subquery sequentially and returning the next qualifying tuple.

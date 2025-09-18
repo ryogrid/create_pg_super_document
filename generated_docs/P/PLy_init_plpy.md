@@ -1,7 +1,7 @@
 # PLy_init_plpy
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 143 - 174
+[src/pl/plpython/plpy_plpymodule.c:143-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L143-L174)
 
 ## Overview
 PLy_init_plpy initializes the PL/Python module's internal structures and sets up the plpy module in Python's main namespace for use within PL/Python functions.

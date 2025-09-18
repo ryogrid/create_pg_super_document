@@ -1,7 +1,7 @@
 # hash_numeric_extended
 
 ## Location
-src/backend/utils/adt/numeric.c: 2793 - 2863
+[src/backend/utils/adt/numeric.c:2793-2863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2793-L2863)
 
 ## Overview
 Computes a seeded 64-bit hash value for PostgreSQL numeric data types, providing enhanced hash distribution for advanced hash-based operations.

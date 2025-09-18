@@ -1,7 +1,7 @@
 # bloom_add_value
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 370 - 406
+[src/backend/access/brin/brin_bloom.c:370-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L370-L406)
 
 ## Overview
 Adds a 32-bit value to an existing Bloom filter by computing multiple hash functions and setting the corresponding bits in the filter's bit array.

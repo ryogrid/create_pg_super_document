@@ -1,7 +1,7 @@
 # int64_div_fast_to_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4320 - 4404
+[src/backend/utils/adt/numeric.c:4320-4404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4320-L4404)
 
 ## Overview
 Efficiently converts the result of val1/(10^log10val2) to PostgreSQL's Numeric data type, providing much faster division than normal numeric division.

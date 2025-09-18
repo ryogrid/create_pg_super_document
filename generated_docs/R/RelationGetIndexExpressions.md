@@ -1,7 +1,7 @@
 # RelationGetIndexExpressions
 
 ## Location
-src/backend/utils/cache/relcache.c: 5043 - 5101
+[src/backend/utils/cache/relcache.c:5043-5101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5043-L5101)
 
 ## Overview
 RelationGetIndexExpressions retrieves and processes the expression tree for expression-based index columns, returning a parsed and optimized list of expressions used in the index definition.

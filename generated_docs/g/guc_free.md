@@ -1,7 +1,7 @@
 # guc_free
 
 ## Location
-src/backend/utils/misc/guc.c: 691 - 709
+[src/backend/utils/misc/guc.c:691-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L691-L709)
 
 ## Overview
 GUC-related memory deallocation function that safely frees memory allocated in the GUC memory context, with support for NULL pointers.

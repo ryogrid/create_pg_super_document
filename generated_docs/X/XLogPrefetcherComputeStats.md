@@ -1,7 +1,7 @@
 # XLogPrefetcherComputeStats
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 412 - 460
+[src/backend/access/transam/xlogprefetcher.c:412-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L412-L460)
 
 ## Overview
 Computes and updates real-time statistics for WAL prefetch operations that are visible through the pg_stat_recovery_prefetch system view.

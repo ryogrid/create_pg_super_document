@@ -1,7 +1,7 @@
 # ExecInitBitmapIndexScan
 
 ## Location
-src/backend/executor/nodeBitmapIndexscan.c: 202 - 321
+[src/backend/executor/nodeBitmapIndexscan.c:202-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapIndexscan.c#L202-L321)
 
 ## Overview
 ExecInitBitmapIndexScan initializes a bitmap index scan node by setting up the execution state, opening the index relation, building scan keys, and preparing the index scan descriptor.

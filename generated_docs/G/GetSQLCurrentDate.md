@@ -1,7 +1,7 @@
 # GetSQLCurrentDate
 
 ## Location
-src/backend/utils/adt/date.c: 309 - 341
+[src/backend/utils/adt/date.c:309-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L309-L341)
 
 ## Overview  
 Implements the SQL CURRENT_DATE function by returning the current date as a PostgreSQL DateADT value with caching optimization.

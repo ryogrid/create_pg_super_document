@@ -1,7 +1,7 @@
 # create_nestloop_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2457 - 2552
+[src/backend/optimizer/util/pathnode.c:2457-2552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2457-L2552)
 
 ## Overview
 Creates a path node corresponding to a nested loop join between two relations, handling parameterization and cost estimation for the join operation.

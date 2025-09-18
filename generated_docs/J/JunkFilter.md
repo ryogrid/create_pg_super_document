@@ -1,7 +1,7 @@
 # JunkFilter
 
 ## Location
-src/include/nodes/execnodes.h: 393 - 400
+[src/include/nodes/execnodes.h:393-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L393-L400)
 
 ## Overview
 JunkFilter is a structure used to store information regarding junk attributes and filter them from tuples, keeping only the attributes needed in the final output.

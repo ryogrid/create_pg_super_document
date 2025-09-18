@@ -1,7 +1,7 @@
 # PgStat_ShmemControl
 
 ## Location
-src/include/utils/pgstat_internal.h: 424 - 455
+[src/include/utils/pgstat_internal.h:424-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L424-L455)
 
 ## Overview
 PgStat_ShmemControl is the central shared memory control structure for PostgreSQL's cumulative statistics system, managing both fixed-amount statistics for system components and dynamic hash tables for variable-numbered database objects.

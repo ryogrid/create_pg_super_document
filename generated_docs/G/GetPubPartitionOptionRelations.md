@@ -1,7 +1,7 @@
 # GetPubPartitionOptionRelations
 
 ## Location
-src/backend/catalog/pg_publication.c: 267 - 310
+[src/backend/catalog/pg_publication.c:267-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L267-L310)
 
 ## Overview
 A function that determines which relations to include in a publication based on the specified partition option for a given table.

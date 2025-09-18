@@ -1,7 +1,7 @@
 # PostgresSingleUserMain
 
 ## Location
-src/backend/tcop/postgres.c: 4129 - 4238
+[src/backend/tcop/postgres.c:4129-4238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L4129-L4238)
 
 ## Overview
 Entry point function for PostgreSQL's single-user mode that performs initialization specific to standalone operation before delegating to PostgresMain for query processing.

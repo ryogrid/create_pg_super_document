@@ -1,7 +1,7 @@
 # generate_series_timestamp_fctx
 
 ## Location
-src/backend/utils/adt/timestamp.c: 63 - 71
+[src/backend/utils/adt/timestamp.c:63-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L63-L71)
 
 ## Overview
 This struct serves as a context structure for the generate_series_timestamp function, maintaining state across multiple function calls in PostgreSQL's set-returning function (SRF) framework for generating timestamp series.

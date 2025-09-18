@@ -1,7 +1,7 @@
 # timetz_pl_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2596 - 2622
+[src/backend/utils/adt/date.c:2596-2622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2596-L2622)
 
 ## Overview
 Adds an interval to a time-with-timezone value, producing a new time-with-timezone result while preserving the original timezone.

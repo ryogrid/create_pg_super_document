@@ -1,7 +1,7 @@
 # linkFile
 
 ## Location
-src/bin/pg_upgrade/file.c: 190 - 215
+[src/bin/pg_upgrade/file.c:190-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L190-L215)
 
 ## Overview
 Creates a hard link from a source relation file to a destination path, providing an efficient way to have multiple directory entries point to the same file data.

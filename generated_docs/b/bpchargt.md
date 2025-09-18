@@ -1,7 +1,7 @@
 # bpchargt
 
 ## Location
-src/backend/utils/adt/varchar.c: 875 - 895
+[src/backend/utils/adt/varchar.c:875-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L875-L895)
 
 ## Overview
 This function implements the "greater than" comparison operator (>) for the BpChar data type (blank-padded character strings) in PostgreSQL.

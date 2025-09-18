@@ -1,7 +1,7 @@
 # signal_child
 
 ## Location
-src/backend/postmaster/postmaster.c: 3422 - 3451
+[src/backend/postmaster/postmaster.c:3422-3451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3422-L3451)
 
 ## Overview
 signal_child sends signals to PostgreSQL child processes and their process groups, handling race conditions and ensuring reliable signal delivery to both direct children and any spawned subprocesses.

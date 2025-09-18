@@ -1,7 +1,7 @@
 # textne
 
 ## Location
-src/backend/utils/adt/varlena.c: 1678 - 1730
+[src/backend/utils/adt/varlena.c:1678-1730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1678-L1730)
 
 ## Overview
 PostgreSQL function implementing text inequality comparison (`<>` operator) with the same optimization strategies as texteq but returning the logical inverse of the equality result.

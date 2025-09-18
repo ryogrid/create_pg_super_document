@@ -1,7 +1,7 @@
 # cleartraverse
 
 ## Location
-src/backend/regex/regc_nfa.c: 1488 - 1524
+[src/backend/regex/regc_nfa.c:1488-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1488-L1524)
 
 ## Overview
 A recursive cleanup function that traverses an NFA and clears all tmp pointers that were set by other traversal algorithms.

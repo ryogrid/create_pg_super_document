@@ -1,7 +1,7 @@
 # ResetAllOptions
 
 ## Location
-src/backend/utils/misc/guc.c: 2005 - 2112
+[src/backend/utils/misc/guc.c:2005-2112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2005-L2112)
 
 ## Overview
 ResetAllOptions is a function that implements the SQL RESET ALL command by resetting all eligible GUC (Grand Unified Configuration) parameters to their default values.

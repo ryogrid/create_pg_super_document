@@ -1,7 +1,7 @@
 # get_values_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5520 - 5562
+[src/backend/utils/adt/ruleutils.c:5520-5562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5520-L5562)
 
 ## Overview
 Converts a VALUES clause from internal representation back to readable SQL text format by iterating through value lists and formatting them properly.

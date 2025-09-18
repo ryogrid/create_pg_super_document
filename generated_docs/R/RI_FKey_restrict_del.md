@@ -1,7 +1,7 @@
 # RI_FKey_restrict_del
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 571 - 587
+[src/backend/utils/adt/ri_triggers.c:571-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L571-L587)
 
 ## Overview
 Trigger function that enforces RESTRICT foreign key constraint behavior during DELETE operations on the primary key table, immediately preventing deletions that would violate referential integrity.

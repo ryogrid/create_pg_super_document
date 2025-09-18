@@ -1,7 +1,7 @@
 # OidFunctionCall7Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1477 - 1489
+[src/backend/utils/fmgr/fmgr.c:1477-1489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1477-L1489)
 
 ## Overview
 OidFunctionCall7Coll is a utility function that invokes a PostgreSQL function by its OID (Object Identifier) with seven arguments and explicit collation support.

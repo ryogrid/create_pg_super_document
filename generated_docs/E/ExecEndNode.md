@@ -1,7 +1,7 @@
 # ExecEndNode
 
 ## Location
-src/backend/executor/execProcnode.c: 557 - 766
+[src/backend/executor/execProcnode.c:557-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L557-L766)
 
 ## Overview
 ExecEndNode is the centralized cleanup function that recursively terminates all nodes in a PostgreSQL query plan tree, ensuring proper resource deallocation and preventing memory leaks after query execution.

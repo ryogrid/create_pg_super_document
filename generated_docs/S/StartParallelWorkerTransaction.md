@@ -1,7 +1,7 @@
 # StartParallelWorkerTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 5549 - 5573
+[src/backend/access/transam/xact.c:5549-5573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5549-L5573)
 
 ## Overview
 StartParallelWorkerTransaction initializes a parallel worker process with the transaction state that was serialized from the main backend process, ensuring transaction consistency across parallel execution.

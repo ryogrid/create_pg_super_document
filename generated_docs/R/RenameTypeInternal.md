@@ -1,7 +1,7 @@
 # RenameTypeInternal
 
 ## Location
-src/backend/catalog/pg_type.c: 765 - 839
+[src/backend/catalog/pg_type.c:765-839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L765-L839)
 
 ## Overview
 RenameTypeInternal handles the renaming of PostgreSQL types and their associated array types, managing name conflicts and maintaining consistency across the type system.

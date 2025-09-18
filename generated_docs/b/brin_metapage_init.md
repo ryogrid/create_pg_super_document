@@ -1,7 +1,7 @@
 # brin_metapage_init
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 486 - 523
+[src/backend/access/brin/brin_pageops.c:486-523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L486-L523)
 
 ## Overview
 Initializes the metapage for a new BRIN index, setting up essential metadata including magic number, version, pages per range, and revmap tracking information.

@@ -1,7 +1,7 @@
 # IsDefinedRewriteRule
 
 ## Location
-src/backend/rewrite/rewriteSupport.c: 32 - 52
+[src/backend/rewrite/rewriteSupport.c:32-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSupport.c#L32-L52)
 
 ## Overview
 Checks whether a rewrite rule with a given name exists for a specified relation in the PostgreSQL system catalogs.

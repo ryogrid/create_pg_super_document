@@ -1,7 +1,7 @@
 # RT_ADD_CHILD_4
 
 ## Location
-src/include/lib/radixtree.h: 1513 - 1540
+[src/include/lib/radixtree.h:1513-1540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1513-L1540)
 
 ## Overview
 A macro that generates the function name for adding a child to a radix tree node-4 structure, providing the most compact node type in PostgreSQL's adaptive radix tree implementation.

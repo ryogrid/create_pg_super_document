@@ -1,7 +1,7 @@
 # test_disallowed_in_pipeline
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 409 - 468
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:409-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L409-L468)
 
 ## Overview
 Tests error handling and validation for operations that are not allowed in PostgreSQL pipeline mode, ensuring proper error messages and mode transitions.

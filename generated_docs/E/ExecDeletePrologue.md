@@ -1,7 +1,7 @@
 # ExecDeletePrologue
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1337 - 1368
+[src/backend/executor/nodeModifyTable.c:1337-1368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1337-L1368)
 
 ## Overview
 Performs preparatory actions for DELETE operations, primarily executing BEFORE ROW DELETE triggers and ensuring data visibility by flushing pending inserts.

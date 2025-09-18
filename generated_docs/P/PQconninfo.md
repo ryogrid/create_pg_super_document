@@ -1,7 +1,7 @@
 # PQconninfo
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6946 - 6989
+[src/interfaces/libpq/fe-connect.c:6946-6989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6946-L6989)
 
 ## Overview
 A public libpq API function that returns the connection options used for an active PostgreSQL connection, extracting the current values from the connection object.

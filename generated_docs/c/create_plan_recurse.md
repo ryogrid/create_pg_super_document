@@ -1,7 +1,7 @@
 # create_plan_recurse
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 389 - 559
+[src/backend/optimizer/plan/createplan.c:389-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L389-L559)
 
 ## Overview
 The recursive core function of create_plan that converts path nodes into corresponding plan nodes through a comprehensive switch statement handling all PostgreSQL path types.

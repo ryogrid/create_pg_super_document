@@ -1,7 +1,7 @@
 # pg_stat_get_buf_alloc
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1259 - 1267
+[src/backend/utils/adt/pgstatfuncs.c:1259-1267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1259-L1267)
 
 ## Overview
 This function returns the number of buffers allocated by the background writer process since statistics were last reset.

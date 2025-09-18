@@ -1,7 +1,7 @@
 # testcustomrmgrs_identify
 
 ## Location
-src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c: 106 - 119
+[src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c:106-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c#L106-L119)
 
 ## Overview
 Returns a string identifier for test custom resource manager WAL record operation types, used for debugging and logging purposes.

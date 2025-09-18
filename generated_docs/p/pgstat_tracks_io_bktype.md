@@ -1,7 +1,7 @@
 # pgstat_tracks_io_bktype
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 319 - 358
+[src/backend/utils/activity/pgstat_io.c:319-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L319-L358)
 
 ## Overview
 This function determines whether I/O statistics are collected for a specific backend type by returning true for backend types that participate in the cumulative stats subsystem.

@@ -1,7 +1,7 @@
 # PerformOffsetsTruncation
 
 ## Location
-src/backend/access/transam/multixact.c: 3069 - 3093
+[src/backend/access/transam/multixact.c:3069-3093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3069-L3093)
 
 ## Overview
 PerformOffsetsTruncation deletes MultiXact offset segments in a specified range using the SimpleLruTruncate mechanism with careful handling of edge cases.

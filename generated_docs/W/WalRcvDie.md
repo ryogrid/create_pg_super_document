@@ -1,7 +1,7 @@
 # WalRcvDie
 
 ## Location
-src/backend/replication/walreceiver.c: 801 - 838
+[src/backend/replication/walreceiver.c:801-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L801-L838)
 
 ## Overview
 WalRcvDie is an exit handler function that performs cleanup operations when the WAL receiver process terminates.

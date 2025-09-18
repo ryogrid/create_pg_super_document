@@ -1,7 +1,7 @@
 # ExecEvalParamExec
 
 ## Location
-src/backend/executor/execExprInterp.c: 2510 - 2531
+[src/backend/executor/execExprInterp.c:2510-2531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2510-L2531)
 
 ## Overview
 ExecEvalParamExec evaluates PARAM_EXEC parameters (internal executor parameters) by retrieving their values from the executor context's parameter array, implementing lazy evaluation for subplan parameters.

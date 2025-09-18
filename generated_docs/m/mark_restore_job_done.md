@@ -1,7 +1,7 @@
 # mark_restore_job_done
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4634 - 4674
+[src/bin/pg_dump/pg_backup_archiver.c:4634-4674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4634-L4674)
 
 ## Overview
 Callback function invoked in the leader process after a parallel worker completes restoring a TOC entry.

@@ -1,7 +1,7 @@
 # HashJoinState
 
 ## Location
-src/include/nodes/execnodes.h: 2189 - 2209
+[src/include/nodes/execnodes.h:2189-2209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2189-L2209)
 
 ## Overview
 HashJoinState is the execution state structure for hash join operations in PostgreSQL, containing all runtime information needed to perform hash join execution.

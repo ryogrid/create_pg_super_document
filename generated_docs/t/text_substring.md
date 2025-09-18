@@ -1,7 +1,7 @@
 # text_substring
 
 ## Location
-src/backend/utils/adt/varlena.c: 885 - 1092
+[src/backend/utils/adt/varlena.c:885-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L885-L1092)
 
 ## Overview
 A PostgreSQL internal function that performs substring extraction from text data with optimized handling for different character encodings and compressed/toasted values.

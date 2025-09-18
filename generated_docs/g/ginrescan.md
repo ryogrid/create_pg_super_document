@@ -1,7 +1,7 @@
 # ginrescan
 
 ## Location
-src/backend/access/gin/ginscan.c: 490 - 505
+[src/backend/access/gin/ginscan.c:490-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L490-L505)
 
 ## Overview
 Resets and reinitializes a GIN index scan with new scan keys, allowing the same scan descriptor to be reused for a new query.

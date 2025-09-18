@@ -1,7 +1,7 @@
 # InLocalUserIdChange
 
 ## Location
-src/backend/utils/init/miscinit.c: 676 - 684
+[src/backend/utils/init/miscinit.c:676-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L676-L684)
 
 ## Overview
 Checks whether PostgreSQL is currently executing within a local user ID change operation by examining security restriction context flags.

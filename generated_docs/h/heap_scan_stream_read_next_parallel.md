@@ -1,7 +1,7 @@
 # heap_scan_stream_read_next_parallel
 
 ## Location
-src/backend/access/heap/heapam.c: 276 - 313
+[src/backend/access/heap/heapam.c:276-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L276-L313)
 
 ## Overview
 A streaming read API callback function that provides the next block number for parallel sequential heap table scans.

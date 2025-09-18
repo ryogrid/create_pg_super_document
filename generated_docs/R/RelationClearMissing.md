@@ -1,7 +1,7 @@
 # RelationClearMissing
 
 ## Location
-src/backend/catalog/heap.c: 1947 - 2012
+[src/backend/catalog/heap.c:1947-2012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1947-L2012)
 
 ## Overview
 RelationClearMissing clears the missing value information (atthasmissing and attmissingval) for all attributes of a relation, used when the table is rewritten and no longer needs missing value defaults.

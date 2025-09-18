@@ -1,7 +1,7 @@
 # hash_identify
 
 ## Location
-src/backend/access/rmgrdesc/hashdesc.c: 126 - 173
+[src/backend/access/rmgrdesc/hashdesc.c:126-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/hashdesc.c#L126-L173)
 
 ## Overview
 The hash_identify function maps hash index WAL record type codes to their corresponding human-readable string identifiers.

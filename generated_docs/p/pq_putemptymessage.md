@@ -1,7 +1,7 @@
 # pq_putemptymessage
 
 ## Location
-src/backend/libpq/pqformat.c: 388 - 398
+[src/backend/libpq/pqformat.c:388-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L388-L398)
 
 ## Overview
 A convenience function for sending messages with no body content to PostgreSQL clients, containing only a message type header.

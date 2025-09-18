@@ -1,7 +1,7 @@
 # float8_regr_sxy
 
 ## Location
-src/backend/utils/adt/float.c: 3547 - 3567
+[src/backend/utils/adt/float.c:3547-3567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3547-L3567)
 
 ## Overview
 Returns the sum of products (Sxy) component from a regression transition array, used in statistical correlation and regression calculations.

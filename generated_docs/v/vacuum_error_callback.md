@@ -1,7 +1,7 @@
 # vacuum_error_callback
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 3106 - 3169
+[src/backend/access/heap/vacuumlazy.c:3106-3169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L3106-L3169)
 
 ## Overview
 Error context callback function that provides detailed error messages during vacuum operations, specifying the exact phase, location, and context where errors occur.

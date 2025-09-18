@@ -1,7 +1,7 @@
 # PLy_procedure_munge_source
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 429 - 471
+[src/pl/plpython/plpy_procedure.c:429-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L429-L471)
 
 ## Overview
 PLy_procedure_munge_source is a static utility function that transforms raw PL/Python function source code into a properly formatted Python function definition with correct indentation.

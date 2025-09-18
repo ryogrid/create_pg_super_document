@@ -1,7 +1,7 @@
 # MCVItem
 
 ## Location
-src/include/statistics/statistics.h: 78 - 84
+[src/include/statistics/statistics.h:78-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/statistics.h#L78-L84)
 
 ## Overview
 MCVItem represents a single entry in a multivariate most-common values (MCV) list, storing a combination of attribute values along with their frequency and null status information.

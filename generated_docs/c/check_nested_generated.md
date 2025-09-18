@@ -1,7 +1,7 @@
 # check_nested_generated
 
 ## Location
-src/backend/catalog/heap.c: 2788 - 2805
+[src/backend/catalog/heap.c:2788-2805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2788-L2805)
 
 ## Overview
 A static wrapper function that initiates validation of generated column expressions to ensure they do not contain references to other generated columns or invalid constructs.

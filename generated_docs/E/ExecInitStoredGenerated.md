@@ -1,7 +1,7 @@
 # ExecInitStoredGenerated
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 373 - 472
+[src/backend/executor/nodeModifyTable.c:373-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L373-L472)
 
 ## Overview
 Initializes the computation of stored generated columns for a tuple by preparing the necessary expression trees and tracking which generated columns need to be computed based on the command type.

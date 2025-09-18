@@ -1,7 +1,7 @@
 # scanRTEForColumn
 
 ## Location
-src/backend/parser/parse_relation.c: 800 - 882
+[src/backend/parser/parse_relation.c:800-882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L800-L882)
 
 ## Overview
 Searches for a column name within a single Range Table Entry, returning the attribute number if found and optionally updating fuzzy match state for error reporting.

@@ -1,7 +1,7 @@
 # AggGetTempMemoryContext
 
 ## Location
-src/backend/executor/nodeAgg.c: 4589 - 4614
+[src/backend/executor/nodeAgg.c:4589-4614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4589-L4614)
 
 ## Overview
 Fetches a short-term memory context that aggregate final functions can safely reset as needed during aggregation processing.

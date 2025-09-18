@@ -1,7 +1,7 @@
 # networkjoinsel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 196 - 262
+[src/backend/utils/adt/network_selfuncs.c:196-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L196-L262)
 
 ## Overview
 Estimates join selectivity for network subnet inclusion/overlap operators, used by PostgreSQL query planner to predict result size when joining tables on network conditions.

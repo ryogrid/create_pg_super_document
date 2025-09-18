@@ -1,7 +1,7 @@
 # GenerationBlockMarkEmpty
 
 ## Location
-src/backend/utils/mmgr/generation.c: 630 - 653
+[src/backend/utils/mmgr/generation.c:630-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L630-L653)
 
 ## Overview
 A static inline function that resets a memory block to an empty state without freeing the underlying memory, preparing it for reuse in the generation memory context.

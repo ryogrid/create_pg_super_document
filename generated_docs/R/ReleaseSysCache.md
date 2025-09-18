@@ -1,7 +1,7 @@
 # ReleaseSysCache
 
 ## Location
-src/backend/utils/cache/syscache.c: 269 - 286
+[src/backend/utils/cache/syscache.c:269-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L269-L286)
 
 ## Overview
 ReleaseSysCache releases a previously acquired reference count on a system cache tuple, allowing it to be freed when no longer in use.

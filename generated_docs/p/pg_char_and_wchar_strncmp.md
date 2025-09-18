@@ -1,7 +1,7 @@
 # pg_char_and_wchar_strncmp
 
 ## Location
-src/backend/utils/mb/wstrncmp.c: 55 - 69
+[src/backend/utils/mb/wstrncmp.c:55-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/wstrncmp.c#L55-L69)
 
 ## Overview
 Compares at most n characters between a regular character string and a wide character string, handling the type conversion transparently.

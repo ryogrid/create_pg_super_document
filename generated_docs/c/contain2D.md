@@ -1,7 +1,7 @@
 # contain2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 252 - 259
+[src/backend/utils/adt/geo_spgist.c:252-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L252-L259)
 
 ## Overview
 The `contain2D` function determines whether any range from a range box can completely contain a given query range in 2D space.

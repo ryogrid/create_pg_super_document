@@ -1,7 +1,7 @@
 # ExplainExecuteQuery
 
 ## Location
-src/backend/commands/prepare.c: 568 - 683
+[src/backend/commands/prepare.c:568-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L568-L683)
 
 ## Overview
 Implements the 'EXPLAIN EXECUTE' utility statement, providing execution plan analysis for prepared statements with support for parameter evaluation and detailed performance metrics.

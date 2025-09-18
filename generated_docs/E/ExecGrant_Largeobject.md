@@ -1,7 +1,7 @@
 # ExecGrant_Largeobject
 
 ## Location
-src/backend/catalog/aclchk.c: 2308 - 2443
+[src/backend/catalog/aclchk.c:2308-2443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2308-L2443)
 
 ## Overview
 ExecGrant_Largeobject handles GRANT and REVOKE operations specifically for large objects, which require special handling due to their unique catalog structure.

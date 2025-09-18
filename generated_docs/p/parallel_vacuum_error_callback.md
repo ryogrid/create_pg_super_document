@@ -1,7 +1,7 @@
 # parallel_vacuum_error_callback
 
 ## Location
-src/backend/commands/vacuumparallel.c: 1105 - 1128
+[src/backend/commands/vacuumparallel.c:1105-1128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L1105-L1128)
 
 ## Overview
 Error context callback function that provides meaningful error messages during parallel index vacuum operations by identifying the specific index and relation being processed when an error occurs.

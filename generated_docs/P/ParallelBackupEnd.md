@@ -1,7 +1,7 @@
 # ParallelBackupEnd
 
 ## Location
-src/bin/pg_dump/parallel.c: 1059 - 1107
+[src/bin/pg_dump/parallel.c:1059-1107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1059-L1107)
 
 ## Overview
 Cleanly shuts down parallel backup/restore operations by terminating worker processes/threads and releasing allocated resources.

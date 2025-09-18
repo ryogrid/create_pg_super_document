@@ -1,7 +1,7 @@
 # fill_val
 
 ## Location
-src/backend/access/common/heaptuple.c: 271 - 399
+[src/backend/access/common/heaptuple.c:271-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L271-L399)
 
 ## Overview
 The fill_val function is a per-attribute helper function used by heap_fill_tuple and other routines that build PostgreSQL heap tuples, responsible for filling in either a data value or a bit in the null bitmask for a single column attribute.

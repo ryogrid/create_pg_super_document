@@ -1,7 +1,7 @@
 # hex_decode
 
 ## Location
-src/backend/utils/adt/encode.c: 190 - 195
+[src/backend/utils/adt/encode.c:190-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L190-L195)
 
 ## Overview
 Utility function that converts hexadecimal string representation back to binary data, serving as a wrapper around the safer  function.

@@ -1,7 +1,7 @@
 # daterange_canonical
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1558 - 1620
+[src/backend/utils/adt/rangetypes.c:1558-1620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1558-L1620)
 
 ## Overview
 Converts a daterange to its canonical form by normalizing bounds to use consistent inclusivity/exclusivity conventions while handling date-specific validation.

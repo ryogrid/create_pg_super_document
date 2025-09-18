@@ -1,7 +1,7 @@
 # ExecInitBitmapAnd
 
 ## Location
-src/backend/executor/nodeBitmapAnd.c: 55 - 109
+[src/backend/executor/nodeBitmapAnd.c:55-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapAnd.c#L55-L109)
 
 ## Overview
 ExecInitBitmapAnd initializes a BitmapAndState node and all of its child subplan nodes to prepare for bitmap AND operations during query execution.

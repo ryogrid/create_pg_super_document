@@ -1,7 +1,7 @@
 # EndLO
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1407 - 1424
+[src/bin/pg_dump/pg_backup_archiver.c:1407-1424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1407-L1424)
 
 ## Overview
 EndLO signals the completion of archival for a PostgreSQL Large Object (LO), marking the end of LO data output within the current dump context.

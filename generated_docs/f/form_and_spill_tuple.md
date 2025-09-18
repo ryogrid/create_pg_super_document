@@ -1,7 +1,7 @@
 # form_and_spill_tuple
 
 ## Location
-src/backend/access/brin/brin.c: 1997 - 2021
+[src/backend/access/brin/brin.c:1997-2021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1997-L2021)
 
 ## Overview
 Converts a deformed tuple in the build state into the on-disk format and writes it to a shared tuplesort during parallel BRIN index construction, allowing the leader process to insert it later.

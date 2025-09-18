@@ -1,7 +1,7 @@
 # SnapBuildOnDisk
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1620 - 1639
+[src/backend/replication/logical/snapbuild.c:1620-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1620-L1639)
 
 ## Overview
 SnapBuildOnDisk is a serialization structure used to persist SnapBuild snapshot state to disk, enabling snapshot restoration across PostgreSQL restarts and supporting consistent logical replication recovery.

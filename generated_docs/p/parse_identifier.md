@@ -1,7 +1,7 @@
 # parse_identifier
 
 ## Location
-src/bin/psql/tab-complete.c: 5999 - 6097
+[src/bin/psql/tab-complete.c:5999-6097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5999-L6097)
 
 ## Overview
 Parses a potentially schema-qualified SQL identifier, handling quoting, downcasing, and schema separation according to PostgreSQL identifier rules.

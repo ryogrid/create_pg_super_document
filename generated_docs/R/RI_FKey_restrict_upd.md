@@ -1,7 +1,7 @@
 # RI_FKey_restrict_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 608 - 623
+[src/backend/utils/adt/ri_triggers.c:608-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L608-L623)
 
 ## Overview
 A trigger function that implements the RESTRICT referential integrity constraint behavior for UPDATE operations on the referenced table, preventing updates that would create orphaned foreign key references.

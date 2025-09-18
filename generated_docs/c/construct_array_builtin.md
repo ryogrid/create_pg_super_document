@@ -1,7 +1,7 @@
 # construct_array_builtin
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3381 - 3481
+[src/backend/utils/adt/arrayfuncs.c:3381-3481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3381-L3481)
 
 ## Overview
 Creates a 1-dimensional array object from Datum elements for built-in PostgreSQL data types, automatically determining type-specific properties without requiring explicit type information.

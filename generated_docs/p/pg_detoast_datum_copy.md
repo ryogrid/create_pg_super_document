@@ -1,7 +1,7 @@
 # pg_detoast_datum_copy
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1841 - 1856
+[src/backend/utils/fmgr/fmgr.c:1841-1856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1841-L1856)
 
 ## Overview
 This function creates a modifiable copy of a varlena datum, detoasting it if necessary to ensure the result is always a pfree'able copy that can be safely modified.

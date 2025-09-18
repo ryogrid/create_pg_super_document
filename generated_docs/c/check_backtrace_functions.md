@@ -1,7 +1,7 @@
 # check_backtrace_functions
 
 ## Location
-src/backend/utils/error/elog.c: 2164 - 2222
+[src/backend/utils/error/elog.c:2164-2222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2164-L2222)
 
 ## Overview
 check_backtrace_functions is a GUC check hook that validates and processes the backtrace_functions configuration parameter, converting a comma-separated list of function names into a null-terminated format.

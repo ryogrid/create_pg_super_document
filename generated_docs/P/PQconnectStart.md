@@ -1,7 +1,7 @@
 # PQconnectStart
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 872 - 917
+[src/interfaces/libpq/fe-connect.c:872-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L872-L917)
 
 ## Overview
 Begins the asynchronous establishment of a connection to a PostgreSQL backend using a connection information string, providing the foundation for non-blocking database connections.

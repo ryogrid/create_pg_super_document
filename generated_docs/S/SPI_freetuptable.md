@@ -1,7 +1,7 @@
 # SPI_freetuptable
 
 ## Location
-src/backend/executor/spi.c: 1386 - 1444
+[src/backend/executor/spi.c:1386-1444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1386-L1444)
 
 ## Overview
 SPI_freetuptable is a function that safely deallocates a previously allocated SPITupleTable structure, removing it from the current SPI context and freeing all associated memory.

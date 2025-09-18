@@ -1,7 +1,7 @@
 # set_result_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2966 - 2992
+[src/backend/optimizer/path/allpaths.c:2966-2992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2966-L2992)
 
 ## Overview
 Builds the access path for an RTE_RESULT RTE (Result Table Entry), creating a single ResultScan path for relations that represent computed results rather than physical tables.

@@ -1,7 +1,7 @@
 # LVSavedErrInfo
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 222 - 227
+[src/backend/access/heap/vacuumlazy.c:222-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L222-L227)
 
 ## Overview
 LVSavedErrInfo is a simple structure used to save and restore vacuum error context information during PostgreSQL's lazy vacuum operations.

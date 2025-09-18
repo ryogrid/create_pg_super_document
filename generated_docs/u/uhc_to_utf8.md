@@ -1,7 +1,7 @@
 # uhc_to_utf8
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_uhc/utf8_and_uhc.c: 39 - 59
+[src/backend/utils/mb/conversion_procs/utf8_and_uhc/utf8_and_uhc.c:39-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_uhc/utf8_and_uhc.c#L39-L59)
 
 ## Overview
 A PostgreSQL encoding conversion function that converts text from UHC (Unified Hangul Code) encoding to UTF-8 encoding.

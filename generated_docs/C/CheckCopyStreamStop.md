@@ -1,7 +1,7 @@
 # CheckCopyStreamStop
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 1211 - 1235
+[src/bin/pg_basebackup/receivelog.c:1211-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L1211-L1235)
 
 ## Overview
 CheckCopyStreamStop determines whether the WAL streaming process should continue or terminate gracefully at a specific position during PostgreSQL base backup or replication operations.

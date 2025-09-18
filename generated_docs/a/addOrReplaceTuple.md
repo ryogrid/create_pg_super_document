@@ -1,7 +1,7 @@
 # addOrReplaceTuple
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 50 - 73
+[src/backend/access/spgist/spgxlog.c:50-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L50-L73)
 
 ## Overview
 Adds a leaf tuple to a page or replaces an existing placeholder tuple, used to replay SpGistPageAddNewItem() operations during WAL recovery.

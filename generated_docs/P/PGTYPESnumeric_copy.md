@@ -1,7 +1,7 @@
 # PGTYPESnumeric_copy
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1388 - 1410
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1388-1410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1388-L1410)
 
 ## Overview
 Creates a deep copy of a PostgreSQL numeric value, duplicating all numeric properties and digit data from source to destination.

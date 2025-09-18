@@ -1,7 +1,7 @@
 # double_to_shortest_decimal_bufn
 
 ## Location
-src/common/d2s.c: 1015 - 1052
+[src/common/d2s.c:1015-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L1015-L1052)
 
 ## Overview
 Converts a double-precision floating-point number to its shortest decimal representation as an unterminated string, implementing the core algorithm for efficient double-to-string conversion.

@@ -1,7 +1,7 @@
 # creviterdissect
 
 ## Location
-src/backend/regex/regexec.c: 1321 - 1514
+[src/backend/regex/regexec.c:1321-1514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L1321-L1514)
 
 ## Overview
 Implements iteration node dissection in regular expression matching using a shortest-first strategy for finding sub-match divisions, designed for child patterns with the SHORTER flag.

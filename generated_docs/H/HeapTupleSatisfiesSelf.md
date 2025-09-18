@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesSelf
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 170 - 339
+[src/backend/access/heap/heapam_visibility.c:170-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L170-L339)
 
 ## Overview
 Determines if a heap tuple is visible to the current transaction under the "self" visibility rule, which means the tuple is visible if it was created by the current transaction and not deleted by it.

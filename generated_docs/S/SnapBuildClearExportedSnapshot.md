@@ -1,7 +1,7 @@
 # SnapBuildClearExportedSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 739 - 765
+[src/backend/replication/logical/snapbuild.c:739-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L739-L765)
 
 ## Overview
 Clears and resets a previously exported snapshot created by SnapBuildExportSnapshot, aborting the associated transaction and restoring the original resource owner state.

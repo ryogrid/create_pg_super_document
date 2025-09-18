@@ -1,7 +1,7 @@
 # new_object_addresses
 
 ## Location
-src/backend/catalog/dependency.c: 2487 - 2505
+[src/backend/catalog/dependency.c:2487-2505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2487-L2505)
 
 ## Overview
 Creates and initializes a new ObjectAddresses array structure used for managing expansible collections of ObjectAddress items in PostgreSQL's dependency tracking system.

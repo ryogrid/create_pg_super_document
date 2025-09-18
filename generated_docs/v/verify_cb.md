@@ -1,7 +1,7 @@
 # verify_cb
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1193 - 1271
+[src/backend/libpq/be-secure-openssl.c:1193-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1193-L1271)
 
 ## Overview
 A certificate verification callback function that examines SSL/TLS certificate validation failures and collects detailed information for logging purposes.

@@ -1,7 +1,7 @@
 # GistPageGetDeleteXid
 
 ## Location
-src/include/access/gist.h: 215 - 236
+[src/include/access/gist.h:215-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L215-L236)
 
 ## Overview
 Retrieves the transaction ID of the transaction that deleted a GiST index page, with backward compatibility for older page formats.

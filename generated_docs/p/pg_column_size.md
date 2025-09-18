@@ -1,7 +1,7 @@
 # pg_column_size
 
 ## Location
-src/backend/utils/adt/varlena.c: 5014 - 5060
+[src/backend/utils/adt/varlena.c:5014-5060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5014-L5060)
 
 ## Overview
 Returns the storage size in bytes of a datum of any PostgreSQL data type, including compressed and TOAST-ed values.

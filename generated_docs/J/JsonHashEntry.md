@@ -1,7 +1,7 @@
 # JsonHashEntry
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 146 - 151
+[src/backend/utils/adt/jsonfuncs.c:146-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L146-L151)
 
 ## Overview
 JsonHashEntry is a structure that represents an individual entry in a hash table used for storing JSON object field names and their corresponding values.

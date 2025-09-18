@@ -1,7 +1,7 @@
 # pull_ors
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 349 - 405
+[src/backend/optimizer/prep/prepqual.c:349-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L349-L405)
 
 ## Overview
 Recursively flattens nested OR clauses into a single flat list of OR arguments, eliminating unnecessary nesting in boolean expressions.

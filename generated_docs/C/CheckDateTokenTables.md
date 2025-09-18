@@ -1,7 +1,7 @@
 # CheckDateTokenTables
 
 ## Location
-src/backend/utils/adt/datetime.c: 4811 - 4839
+[src/backend/utils/adt/datetime.c:4811-4839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4811-L4839)
 
 ## Overview
 The main validation function that checks all PostgreSQL date/time token lookup tables and critical epoch constants during system startup.

@@ -1,7 +1,7 @@
 # path_open
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1637 - 1652
+[src/backend/utils/adt/geo_ops.c:1637-1652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1637-L1652)
 
 ## Overview
 The `path_open` function converts a closed path to an open path by setting the closed flag to false.

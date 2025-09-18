@@ -1,7 +1,7 @@
 # xidComparator
 
 ## Location
-src/backend/utils/adt/xid.c: 139 - 155
+[src/backend/utils/adt/xid.c:139-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L139-L155)
 
 ## Overview
 The `xidComparator` function is a qsort comparison function specifically designed for sorting arrays of transaction IDs (XIDs) in PostgreSQL.

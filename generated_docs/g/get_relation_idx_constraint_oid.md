@@ -1,7 +1,7 @@
 # get_relation_idx_constraint_oid
 
 ## Location
-src/backend/catalog/pg_constraint.c: 1043 - 1089
+[src/backend/catalog/pg_constraint.c:1043-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L1043-L1089)
 
 ## Overview
 Returns the OID of the constraint that is enforced by a given index in a specified relation.

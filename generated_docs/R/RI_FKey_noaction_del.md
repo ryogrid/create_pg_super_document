@@ -1,7 +1,7 @@
 # RI_FKey_noaction_del
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 551 - 570
+[src/backend/utils/adt/ri_triggers.c:551-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L551-L570)
 
 ## Overview
 Trigger function that enforces NO ACTION foreign key constraint behavior during DELETE operations on the primary key table, preventing deletions that would violate referential integrity.

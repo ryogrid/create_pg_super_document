@@ -1,7 +1,7 @@
 # mdwriteback
 
 ## Location
-src/backend/storage/smgr/md.c: 1030 - 1088
+[src/backend/storage/smgr/md.c:1030-1088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1030-L1088)
 
 ## Overview
 mdwriteback tells the kernel to write pages back to storage, providing an efficient way to flush multiple consecutive blocks from buffer cache to disk.

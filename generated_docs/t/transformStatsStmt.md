@@ -1,7 +1,7 @@
 # transformStatsStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2892 - 2966
+[src/backend/parser/parse_utilcmd.c:2892-2966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2892-L2966)
 
 ## Overview
 Performs parse analysis for CREATE STATISTICS statements, transforming statistics expressions into their final parsed form for extended statistics objects.

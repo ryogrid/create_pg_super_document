@@ -1,7 +1,7 @@
 # german_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c: 489 - 490
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c:489-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c#L489-L490)
 
 ## Overview
 The german_ISO_8859_1_close_env function properly deallocates and cleans up a German stemming environment created by german_ISO_8859_1_create_env, preventing memory leaks in the Snowball stemming system.

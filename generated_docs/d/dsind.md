@@ -1,7 +1,7 @@
 # dsind
 
 ## Location
-src/backend/utils/adt/float.c: 2432 - 2487
+[src/backend/utils/adt/float.c:2432-2487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2432-L2487)
 
 ## Overview
 The `dsind` function is a PostgreSQL built-in function that returns the sine of an angle specified in degrees, handling input validation and range reduction.

@@ -1,7 +1,7 @@
 # SpGistOptions
 
 ## Location
-src/include/access/spgist_private.h: 26 - 30
+[src/include/access/spgist_private.h:26-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L26-L30)
 
 ## Overview
 SpGistOptions is a structure that holds configuration options for SP-GiST (Space-Partitioned Generalized Search Tree) indexes, specifically the fill factor parameter.

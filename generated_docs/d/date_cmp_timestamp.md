@@ -1,7 +1,7 @@
 # date_cmp_timestamp
 
 ## Location
-src/backend/utils/adt/date.c: 814 - 822
+[src/backend/utils/adt/date.c:814-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L814-L822)
 
 ## Overview
 Provides a three-way comparison between a date value and a timestamp value, returning an integer indicating their relative order.

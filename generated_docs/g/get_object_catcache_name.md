@@ -1,7 +1,7 @@
 # get_object_catcache_name
 
 ## Location
-src/backend/catalog/objectaddress.c: 2644 - 2651
+[src/backend/catalog/objectaddress.c:2644-2651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2644-L2651)
 
 ## Overview
 Retrieves the catalog cache identifier for name-based lookups of objects belonging to a given class.

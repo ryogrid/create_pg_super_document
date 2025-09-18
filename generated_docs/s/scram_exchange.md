@@ -1,7 +1,7 @@
 # scram_exchange
 
 ## Location
-src/backend/libpq/auth-scram.c: 348 - 471
+[src/backend/libpq/auth-scram.c:348-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L348-L471)
 
 ## Overview
 Handles the SCRAM authentication message exchange between client and server, processing client messages and generating server responses throughout the authentication flow.

@@ -1,7 +1,7 @@
 # r_factive
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 653 - 672
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:653-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L653-L672)
 
 ## Overview
 The r_factive function handles Hungarian factive case endings by removing 'á' and 'é' suffixes that indicate the cause or reason for an action, while managing consonant doubling patterns.

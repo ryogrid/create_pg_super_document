@@ -1,7 +1,7 @@
 # intset_internal_node
 
 ## Location
-src/backend/lib/integerset.c: 146 - 164
+[src/backend/lib/integerset.c:146-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L146-L164)
 
 ## Overview
 An internal node structure in PostgreSQL's IntegerSet B-tree implementation that stores key values and pointers to child nodes, enabling efficient tree navigation and range queries over integer sets.

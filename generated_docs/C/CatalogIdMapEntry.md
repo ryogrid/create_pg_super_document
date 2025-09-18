@@ -1,7 +1,7 @@
 # CatalogIdMapEntry
 
 ## Location
-src/bin/pg_dump/common.c: 66 - 67
+[src/bin/pg_dump/common.c:66-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L66-L67)
 
 ## Overview
 A hash table entry structure used by pg_dump to map PostgreSQL system catalog object identifiers (CatalogId) to their corresponding dump information and extension ownership.

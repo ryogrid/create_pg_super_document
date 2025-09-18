@@ -1,7 +1,7 @@
 # startScanEntry
 
 ## Location
-src/backend/access/gin/ginget.c: 319 - 487
+[src/backend/access/gin/ginget.c:319-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L319-L487)
 
 ## Overview
 This is a setup function that initializes the beginning state of GIN index scans by locating the correct buffer, pinning it, and preparing the scan entry for either posting tree traversal or in-memory posting list processing.

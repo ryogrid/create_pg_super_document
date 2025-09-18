@@ -1,7 +1,7 @@
 # listExtensions
 
 ## Location
-src/bin/psql/describe.c: 6002 - 6052
+[src/bin/psql/describe.c:6002-6052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6002-L6052)
 
 ## Overview
 Implements the  command in psql to display a brief list of installed PostgreSQL extensions with their names, versions, schemas, and descriptions.

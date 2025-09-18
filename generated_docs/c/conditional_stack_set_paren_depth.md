@@ -1,7 +1,7 @@
 # conditional_stack_set_paren_depth
 
 ## Location
-src/fe_utils/conditional.c: 173 - 183
+[src/fe_utils/conditional.c:173-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L173-L183)
 
 ## Overview
 Sets the current parenthesis nesting depth in the topmost entry of a conditional stack, used for tracking parentheses balance during conditional command processing.

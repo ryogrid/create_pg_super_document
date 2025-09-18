@@ -1,7 +1,7 @@
 # MultiExecPrivateHash
 
 ## Location
-src/backend/executor/nodeHash.c: 138 - 213
+[src/backend/executor/nodeHash.c:138-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L138-L213)
 
 ## Overview
 MultiExecPrivateHash implements the single-backend hash table building algorithm, consuming all input tuples and inserting them into a backend-private hash table with support for batching and skew optimization.

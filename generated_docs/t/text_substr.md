@@ -1,7 +1,7 @@
 # text_substr
 
 ## Location
-src/backend/utils/adt/varlena.c: 852 - 865
+[src/backend/utils/adt/varlena.c:852-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L852-L865)
 
 ## Overview
 Returns a substring from a text value starting at a specified position with a given length, following SQL standard behavior.

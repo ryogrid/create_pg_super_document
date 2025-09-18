@@ -1,7 +1,7 @@
 # shdepAddDependency
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1069 - 1123
+[src/backend/catalog/pg_shdepend.c:1069-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1069-L1123)
 
 ## Overview
 Internal workhorse function for inserting shared dependency records into the pg_shdepend catalog table, ensuring proper dependency tracking between database objects and shared objects like roles and tablespaces.

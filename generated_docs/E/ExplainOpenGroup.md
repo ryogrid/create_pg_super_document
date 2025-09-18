@@ -1,7 +1,7 @@
 # ExplainOpenGroup
 
 ## Location
-src/backend/commands/explain.c: 4867 - 4929
+[src/backend/commands/explain.c:4867-4929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4867-L4929)
 
 ## Overview
 Opens a group of related objects in PostgreSQL EXPLAIN output, handling the format-specific opening syntax for grouping related properties or objects across different output formats.

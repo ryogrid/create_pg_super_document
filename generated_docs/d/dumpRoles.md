@@ -1,7 +1,7 @@
 # dumpRoles
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 787 - 994
+[src/bin/pg_dump/pg_dumpall.c:787-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L787-L994)
 
 ## Overview
 The dumpRoles function generates SQL CREATE ROLE and ALTER ROLE statements for all non-system roles in a PostgreSQL database, preserving role properties, passwords, comments, and security labels.

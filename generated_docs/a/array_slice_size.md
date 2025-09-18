@@ -1,7 +1,7 @@
 # array_slice_size
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5025 - 5084
+[src/backend/utils/adt/arrayfuncs.c:5025-5084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5025-L5084)
 
 ## Overview
 Computes the total memory space needed for a slice of a multidimensional array, handling both fixed-length and variable-length element types with null value support.

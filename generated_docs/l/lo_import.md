@@ -1,7 +1,7 @@
 # lo_import
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 626 - 640
+[src/interfaces/libpq/fe-lobj.c:626-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L626-L640)
 
 ## Overview
 Imports a file from the client filesystem into a PostgreSQL large object, automatically assigning a new OID.

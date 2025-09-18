@@ -1,7 +1,7 @@
 # XLogCtlData
 
 ## Location
-src/backend/access/transam/xlog.c: 451 - 555
+[src/backend/access/transam/xlog.c:451-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L451-L555)
 
 ## Overview
 XLogCtlData is the master shared-memory control structure that contains all the global state for PostgreSQL's Write-Ahead Log (WAL) system, coordinating WAL operations across all backend processes.

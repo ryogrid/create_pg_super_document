@@ -1,7 +1,7 @@
 # copy_xact_xlog_xid
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 702 - 826
+[src/bin/pg_upgrade/pg_upgrade.c:702-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L702-L826)
 
 ## Overview
 Copies transaction commit logs and multixact data from the old cluster to the new cluster, then resets transaction IDs, multixact IDs, and WAL archives to maintain transaction continuity during pg_upgrade.

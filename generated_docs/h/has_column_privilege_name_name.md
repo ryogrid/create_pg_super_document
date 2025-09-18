@@ -1,7 +1,7 @@
 # has_column_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2787 - 2815
+[src/backend/utils/adt/acl.c:2787-2815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2787-L2815)
 
 ## Overview
 A PostgreSQL built-in function that checks whether the current user has a specific privilege on a column, identified by table name and column name (both as text strings).

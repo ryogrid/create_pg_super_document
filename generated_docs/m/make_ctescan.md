@@ -1,7 +1,7 @@
 # make_ctescan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5763 - 5783
+[src/backend/optimizer/plan/createplan.c:5763-5783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5763-L5783)
 
 ## Overview
 Creates and initializes a CteScan plan node, which represents a scan operation on a Common Table Expression (CTE) that has been materialized and stored for reuse within a query.

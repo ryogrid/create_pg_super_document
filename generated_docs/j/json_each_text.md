@@ -1,7 +1,7 @@
 # json_each_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1960 - 1965
+[src/backend/utils/adt/jsonfuncs.c:1960-1965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1960-L1965)
 
 ## Overview
 The json_each_text function is a PostgreSQL SQL function that expands a JSON object into a set of key-value pairs, where both keys and values are returned as text.

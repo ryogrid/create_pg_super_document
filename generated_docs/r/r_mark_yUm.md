@@ -1,7 +1,7 @@
 # r_mark_yUm
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 789 - 800
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:789-800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L789-L800)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the suffix "yUm" (meaning "I am" in Turkish) and its variations, used in Turkish verb conjugation processing.

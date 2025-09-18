@@ -1,7 +1,7 @@
 # InitializeParallelDSM
 
 ## Location
-src/backend/access/transam/parallel.c: 207 - 503
+[src/backend/access/transam/parallel.c:207-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L207-L503)
 
 ## Overview
 Establishes the dynamic shared memory segment for a parallel context and populates it with all state information that parallel workers will need to execute properly.

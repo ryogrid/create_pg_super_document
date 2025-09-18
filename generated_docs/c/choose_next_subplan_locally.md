@@ -1,7 +1,7 @@
 # choose_next_subplan_locally
 
 ## Location
-src/backend/executor/nodeAppend.c: 554 - 619
+[src/backend/executor/nodeAppend.c:554-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L554-L619)
 
 ## Overview
 Selects the next synchronous subplan for execution in a non-parallel-aware Append node, supporting both forward and backward scan directions.

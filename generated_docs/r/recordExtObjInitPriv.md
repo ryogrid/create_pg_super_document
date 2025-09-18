@@ -1,7 +1,7 @@
 # recordExtObjInitPriv
 
 ## Location
-src/backend/catalog/aclchk.c: 4409 - 4572
+[src/backend/catalog/aclchk.c:4409-4572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4409-L4572)
 
 ## Overview
 Records the initial privileges (ACLs) for a database object and its sub-objects into pg_init_privs when the object is added to an extension, preserving the original privilege state for potential restoration.

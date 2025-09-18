@@ -1,7 +1,7 @@
 # TIDBitmap
 
 ## Location
-src/backend/nodes/tidbitmap.c: 149 - 177
+[src/backend/nodes/tidbitmap.c:149-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L149-L177)
 
 ## Overview
 TIDBitmap is the main data structure representing a complete Tuple ID Bitmap in PostgreSQL, providing efficient storage and manipulation of tuple identifiers for bitmap index scans and set operations.

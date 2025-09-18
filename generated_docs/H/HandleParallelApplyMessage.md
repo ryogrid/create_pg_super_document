@@ -1,7 +1,7 @@
 # HandleParallelApplyMessage
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1001 - 1062
+[src/backend/replication/logical/applyparallelworker.c:1001-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1001-L1062)
 
 ## Overview
 Processes a single protocol message received from a parallel apply worker in PostgreSQL logical replication, handling error messages and providing proper error context propagation.

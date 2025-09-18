@@ -1,7 +1,7 @@
 # EndCopyFrom
 
 ## Location
-src/backend/commands/copyfrom.c: 1787 - 1812
+[src/backend/commands/copyfrom.c:1787-1812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L1787-L1812)
 
 ## Overview
 Cleans up and releases all resources associated with a COPY FROM operation, including closing files, ending progress reporting, and freeing memory contexts.

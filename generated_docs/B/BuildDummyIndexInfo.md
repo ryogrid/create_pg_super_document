@@ -1,7 +1,7 @@
 # BuildDummyIndexInfo
 
 ## Location
-src/backend/catalog/index.c: 2463 - 2510
+[src/backend/catalog/index.c:2463-2510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2463-L2510)
 
 ## Overview
 Constructs a safe dummy IndexInfo record for an open index that avoids executing user-defined code in index expressions or predicates, primarily used for index truncation operations.

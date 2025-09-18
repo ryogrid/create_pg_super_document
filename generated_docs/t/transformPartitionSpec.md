@@ -1,7 +1,7 @@
 # transformPartitionSpec
 
 ## Location
-src/backend/commands/tablecmds.c: 17988 - 18045
+[src/backend/commands/tablecmds.c:17988-18045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17988-L18045)
 
 ## Overview
 Transforms and validates partition key expressions in a PartitionSpec by parsing expressions, checking strategy constraints, and assigning proper collations for table partitioning operations.

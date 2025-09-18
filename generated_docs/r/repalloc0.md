@@ -1,7 +1,7 @@
 # repalloc0
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1618 - 1638
+[src/backend/utils/mmgr/mcxt.c:1618-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1618-L1638)
 
 ## Overview
 repalloc0 is a PostgreSQL memory management function that adjusts the size of a previously allocated memory chunk and zeros out the newly added space.

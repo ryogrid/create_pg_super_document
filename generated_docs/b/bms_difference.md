@@ -1,7 +1,7 @@
 # bms_difference
 
 ## Location
-src/backend/nodes/bitmapset.c: 346 - 411
+[src/backend/nodes/bitmapset.c:346-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L346-L411)
 
 ## Overview
 Creates a new Bitmapset containing members from the first set that are not present in the second set (set difference operation).

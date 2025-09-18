@@ -1,7 +1,7 @@
 # bitgt
 
 ## Location
-src/backend/utils/adt/varbit.c: 919 - 933
+[src/backend/utils/adt/varbit.c:919-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L919-L933)
 
 ## Overview
 Implements the "greater than" comparison operator for PostgreSQL bit string data types, returning true if the first bit string is lexicographically greater than the second.

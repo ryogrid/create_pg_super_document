@@ -1,7 +1,7 @@
 # IsSubxactTopXidLogPending
 
 ## Location
-src/backend/access/transam/xact.c: 556 - 587
+[src/backend/access/transam/xact.c:556-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L556-L587)
 
 ## Overview
 Determines whether the top-level transaction ID needs to be logged to WAL for operations within a subtransaction, which is required for logical decoding functionality.

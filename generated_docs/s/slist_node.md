@@ -1,7 +1,7 @@
 # slist_node
 
 ## Location
-src/include/lib/ilist.h: 223 - 224
+[src/include/lib/ilist.h:223-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L223-L224)
 
 ## Overview
 A basic node structure for singly linked lists that can be embedded in other structures to enable list membership.

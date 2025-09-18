@@ -1,7 +1,7 @@
 # pivotFieldCompare
 
 ## Location
-src/bin/psql/crosstabview.c: 695 - 710
+[src/bin/psql/crosstabview.c:695-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L695-L710)
 
 ## Overview
 A comparison function for pivot_field structures that compares their name values, treating null values as equal and ordering non-null values lexicographically.

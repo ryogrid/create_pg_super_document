@@ -1,7 +1,7 @@
 # interval_ne
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2532 - 2540
+[src/backend/utils/adt/timestamp.c:2532-2540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2532-L2540)
 
 ## Overview
 Compares two interval values for inequality, returning true if they represent different time spans.

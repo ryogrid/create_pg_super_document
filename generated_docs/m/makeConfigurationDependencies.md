@@ -1,7 +1,7 @@
 # makeConfigurationDependencies
 
 ## Location
-src/backend/commands/tsearchcmds.c: 812 - 898
+[src/backend/commands/tsearchcmds.c:812-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L812-L898)
 
 ## Overview
 Creates and records all dependency relationships for a text search configuration, including dependencies on namespace, owner, parser, extension, and associated dictionaries from the configuration map.

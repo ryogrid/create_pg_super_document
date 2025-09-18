@@ -1,7 +1,7 @@
 # gin_tsquery_triconsistent
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 263 - 303
+[src/backend/utils/adt/tsginidx.c:263-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L263-L303)
 
 ## Overview
 The gin_tsquery_triconsistent function implements the triconsistent function for GIN text search indexes, providing ternary logic evaluation (TRUE/FALSE/MAYBE) for TSQuery matching without requiring heap-level rechecks.

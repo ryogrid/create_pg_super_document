@@ -1,7 +1,7 @@
 # TableFuncRecheck
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 81 - 96
+[src/backend/executor/nodeTableFuncscan.c:81-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L81-L96)
 
 ## Overview
 TableFuncRecheck is a static access method routine used during EvalPlanQual operations to recheck tuple validity, though for table function scans it always returns true as no rechecking is necessary.

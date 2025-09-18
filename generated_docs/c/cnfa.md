@@ -1,7 +1,7 @@
 # cnfa
 
 ## Location
-src/include/regex/regguts.h: 406 - 410
+[src/include/regex/regguts.h:406-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L406-L410)
 
 ## Overview
 The  struct represents a compiled NFA (Non-deterministic Finite Automaton) used in PostgreSQL's regular expression engine for efficient pattern matching.

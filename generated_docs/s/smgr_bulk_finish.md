@@ -1,7 +1,7 @@
 # smgr_bulk_finish
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 131 - 225
+[src/backend/storage/smgr/bulk_write.c:131-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L131-L225)
 
 ## Overview
 Finalizes a bulk write operation by flushing remaining pending writes, performing necessary WAL logging, and ensuring proper synchronization depending on the relation type and WAL usage.

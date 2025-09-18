@@ -1,7 +1,7 @@
 # RewriteMappingDataEntry
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 204 - 209
+[src/backend/access/heap/rewriteheap.c:204-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L204-L209)
 
 ## Overview
 RewriteMappingDataEntry represents a single in-memory logical rewrite mapping entry that links old and new tuple locations during heap rewrite operations, managed as part of a doubly-linked list.

@@ -1,7 +1,7 @@
 # describeFunctions
 
 ## Location
-src/bin/psql/describe.c: 288 - 614
+[src/bin/psql/describe.c:288-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L288-L614)
 
 ## Overview
 Implements the \df psql command to display a comprehensive list of functions in the database, supporting multiple function types, pattern matching, argument filtering, and extensive verbose information.

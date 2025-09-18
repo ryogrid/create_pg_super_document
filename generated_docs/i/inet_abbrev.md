@@ -1,7 +1,7 @@
 # inet_abbrev
 
 ## Location
-src/backend/utils/adt/network.c: 1222 - 1239
+[src/backend/utils/adt/network.c:1222-1239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1222-L1239)
 
 ## Overview
 Converts an inet value to its abbreviated text representation, showing only the significant network bits based on the netmask length.

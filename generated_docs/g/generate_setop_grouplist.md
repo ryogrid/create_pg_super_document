@@ -1,7 +1,7 @@
 # generate_setop_grouplist
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1674 - 1706
+[src/backend/optimizer/prep/prepunion.c:1674-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1674-L1706)
 
 ## Overview
 Builds a SortGroupClause list defining the sort/grouping properties of a set operation's output columns by copying parser-generated clauses and installing proper sortgrouprefs.

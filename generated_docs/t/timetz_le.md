@@ -1,7 +1,7 @@
 # timetz_le
 
 ## Location
-src/backend/utils/adt/date.c: 2497 - 2505
+[src/backend/utils/adt/date.c:2497-2505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2497-L2505)
 
 ## Overview
 A PostgreSQL function that tests whether the first time with timezone value is less than or equal to the second, serving as the implementation for the <= operator for the timetz data type.

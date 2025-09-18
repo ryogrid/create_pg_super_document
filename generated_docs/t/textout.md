@@ -1,7 +1,7 @@
 # textout
 
 ## Location
-src/backend/utils/adt/varlena.c: 590 - 600
+[src/backend/utils/adt/varlena.c:590-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L590-L600)
 
 ## Overview
 The  function converts PostgreSQL's internal text representation to a C-style string (cstring), serving as the output function for the text data type.

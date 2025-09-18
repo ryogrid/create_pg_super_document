@@ -1,7 +1,7 @@
 # sanitize_line
 
 ## Location
-src/bin/pg_dump/dumputils.c: 50 - 101
+[src/bin/pg_dump/dumputils.c:50-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L50-L101)
 
 ## Overview
 The sanitize_line function sanitizes strings to be safely included in SQL comments or TOC listings by replacing newlines with spaces, preventing dump corruption and potential SQL injection vulnerabilities.

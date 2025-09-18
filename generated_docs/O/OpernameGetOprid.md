@@ -1,7 +1,7 @@
 # OpernameGetOprid
 
 ## Location
-src/backend/catalog/namespace.c: 1785 - 1887
+[src/backend/catalog/namespace.c:1785-1887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1785-L1887)
 
 ## Overview
 OpernameGetOprid looks up an operator by its name and exact input data types, returning the operator's OID or InvalidOid if not found.

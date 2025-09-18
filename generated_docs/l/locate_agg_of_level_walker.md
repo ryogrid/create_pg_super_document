@@ -1,7 +1,7 @@
 # locate_agg_of_level_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 170 - 215
+[src/backend/rewrite/rewriteManip.c:170-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L170-L215)
 
 ## Overview
 A recursive tree walker callback function that searches for aggregate functions at a specific query level and captures their parse locations for error reporting.

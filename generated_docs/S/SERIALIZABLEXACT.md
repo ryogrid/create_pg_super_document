@@ -1,7 +1,7 @@
 # SERIALIZABLEXACT
 
 ## Location
-src/include/storage/predicate_internals.h: 58 - 119
+[src/include/storage/predicate_internals.h:58-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L58-L119)
 
 ## Overview
 SERIALIZABLEXACT is a core data structure that tracks information for each serializable database transaction to support Serializable Snapshot Isolation (SSI) techniques in PostgreSQL.

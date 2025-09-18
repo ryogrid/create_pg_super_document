@@ -1,7 +1,7 @@
 # _LoadLOs
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 580 - 604
+[src/bin/pg_dump/pg_backup_custom.c:580-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L580-L604)
 
 ## Overview
 This function loads (restores) large objects from a PostgreSQL archive by iterating through all large object entries and restoring each one individually.

@@ -1,7 +1,7 @@
 # spgPickSplitIn
 
 ## Location
-src/include/access/spgist.h: 110 - 115
+[src/include/access/spgist.h:110-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L110-L115)
 
 ## Overview
 A struct that serves as input parameter for the SP-GiST opclass picksplit method, containing information about the leaf tuples that need to be organized when splitting an overfull leaf page.

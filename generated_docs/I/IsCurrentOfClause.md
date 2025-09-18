@@ -1,7 +1,7 @@
 # IsCurrentOfClause
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 211 - 233
+[src/backend/optimizer/path/tidpath.c:211-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L211-L233)
 
 ## Overview
 A static helper function that determines whether a given RestrictInfo represents a CurrentOfExpr that references a specific relation.

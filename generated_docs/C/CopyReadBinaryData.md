@@ -1,7 +1,7 @@
 # CopyReadBinaryData
 
 ## Location
-src/backend/commands/copyfromparse.c: 701 - 753
+[src/backend/commands/copyfromparse.c:701-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L701-L753)
 
 ## Overview
 CopyReadBinaryData reads raw binary data from the input source through the buffer system, providing a fundamental building block for COPY FROM binary format operations.

@@ -1,7 +1,7 @@
 # int8smaller
 
 ## Location
-src/backend/utils/adt/int8.c: 878 - 889
+[src/backend/utils/adt/int8.c:878-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L878-L889)
 
 ## Overview
 Returns the smaller of two 64-bit signed integers, implementing the minimum function for bigint data types.

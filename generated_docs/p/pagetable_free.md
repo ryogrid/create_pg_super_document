@@ -1,7 +1,7 @@
 # pagetable_free
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1522 - 1541
+[src/backend/nodes/tidbitmap.c:1522-1541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1522-L1541)
 
 ## Overview
 A callback function for freeing hash table elements in TID bitmaps, handling both regular memory and dynamic shared memory cleanup.

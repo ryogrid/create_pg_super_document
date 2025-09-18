@@ -1,7 +1,7 @@
 # scalarltjoinsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2901 - 2909
+[src/backend/utils/adt/selfuncs.c:2901-2909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2901-L2909)
 
 ## Overview
 Provides a default selectivity estimate for "<" (less than) join operations on scalar data types.

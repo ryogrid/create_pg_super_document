@@ -1,7 +1,7 @@
 # AddRelationNewConstraints
 
 ## Location
-src/backend/catalog/heap.c: 2314 - 2556
+[src/backend/catalog/heap.c:2314-2556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2314-L2556)
 
 ## Overview
 AddRelationNewConstraints adds new column default expressions and/or constraint check expressions to an existing relation, processing both for efficiency and returning a list of cooked constraint representations.

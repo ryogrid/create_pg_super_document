@@ -1,7 +1,7 @@
 # add_typename
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 687 - 720
+[src/tools/pg_bsd_indent/lexi.c:687-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L687-L720)
 
 ## Overview
 Adds a user-defined type name to the sorted typenames array, expanding the array dynamically and maintaining sorted order while preventing duplicates.

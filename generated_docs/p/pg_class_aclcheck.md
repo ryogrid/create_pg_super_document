@@ -1,7 +1,7 @@
 # pg_class_aclcheck
 
 ## Location
-src/backend/catalog/aclchk.c: 4096 - 4105
+[src/backend/catalog/aclchk.c:4096-4105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4096-L4105)
 
 ## Overview
 This function checks a user's access privileges to a table or relation.

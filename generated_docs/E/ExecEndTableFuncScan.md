@@ -1,7 +1,7 @@
 # ExecEndTableFuncScan
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 220 - 236
+[src/backend/executor/nodeTableFuncscan.c:220-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L220-L236)
 
 ## Overview
 ExecEndTableFuncScan performs cleanup operations for a table function scan node, specifically releasing tuplestore resources allocated during execution.

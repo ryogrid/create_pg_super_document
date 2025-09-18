@@ -1,7 +1,7 @@
 # write_one_nondefault_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 5594 - 5661
+[src/backend/utils/misc/guc.c:5594-5661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5594-L5661)
 
 ## Overview
 write_one_nondefault_variable writes a single non-default GUC configuration variable to a binary file for sharing with exec'd backend processes.

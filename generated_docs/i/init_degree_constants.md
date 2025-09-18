@@ -1,7 +1,7 @@
 # init_degree_constants
 
 ## Location
-src/backend/utils/adt/float.c: 2012 - 2023
+[src/backend/utils/adt/float.c:2012-2023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2012-L2023)
 
 ## Overview
 A static initialization function that computes and caches trigonometric constants for degree-based trigonometric functions in PostgreSQL.

@@ -1,7 +1,7 @@
 # ExecRenameStmt
 
 ## Location
-src/backend/commands/alter.c: 357 - 456
+[src/backend/commands/alter.c:357-456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L357-L456)
 
 ## Overview
 A dispatcher function that executes ALTER OBJECT RENAME TO statements by routing to the appropriate object-type-specific rename function based on the rename statement type.

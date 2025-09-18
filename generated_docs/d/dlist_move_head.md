@@ -1,7 +1,7 @@
 # dlist_move_head
 
 ## Location
-src/include/lib/ilist.h: 467 - 485
+[src/include/lib/ilist.h:467-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L467-L485)
 
 ## Overview
 Moves an existing node from its current position within a doubly-linked list to the head (first) position of the same list, implementing an efficient repositioning operation.

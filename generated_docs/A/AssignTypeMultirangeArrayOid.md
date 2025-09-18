@@ -1,7 +1,7 @@
 # AssignTypeMultirangeArrayOid
 
 ## Location
-src/backend/commands/typecmds.c: 2476 - 2517
+[src/backend/commands/typecmds.c:2476-2517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2476-L2517)
 
 ## Overview
 AssignTypeMultirangeArrayOid is a function that pre-assigns an OID for the array type of a multirange type, ensuring proper setup of the pg_type.typarray field during range type creation.

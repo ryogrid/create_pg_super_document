@@ -1,7 +1,7 @@
 # get_rule_orderby
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6448 - 6505
+[src/backend/utils/adt/ruleutils.c:6448-6505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6448-L6505)
 
 ## Overview
 Formats and outputs an ORDER BY clause as a string representation for SQL rule deparsing, including sort direction, null ordering, and custom operators.

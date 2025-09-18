@@ -1,7 +1,7 @@
 # CopyErrorData
 
 ## Location
-src/backend/utils/error/elog.c: 1746 - 1817
+[src/backend/utils/error/elog.c:1746-1817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1746-L1817)
 
 ## Overview
 Creates a deep copy of the topmost error stack entry for use in error handler code, ensuring the error data persists beyond the ErrorContext memory cleanup.

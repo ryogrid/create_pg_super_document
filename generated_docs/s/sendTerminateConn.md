@@ -1,7 +1,7 @@
 # sendTerminateConn
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4798 - 4831
+[src/interfaces/libpq/fe-connect.c:4798-4831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4798-L4831)
 
 ## Overview
 Sends a terminate message to the PostgreSQL backend to gracefully close the connection when the connection is in a valid state.

@@ -1,7 +1,7 @@
 # interval_cmp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2577 - 2592
+[src/backend/utils/adt/timestamp.c:2577-2592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2577-L2592)
 
 ## Overview
 The interval_cmp function implements the three-way comparison function for PostgreSQL Interval data types, returning an integer indicating the relative ordering of two intervals.

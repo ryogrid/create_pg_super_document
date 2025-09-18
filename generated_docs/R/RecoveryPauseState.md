@@ -1,7 +1,7 @@
 # RecoveryPauseState
 
 ## Location
-src/include/access/xlogrecovery.h: 49 - 131
+[src/include/access/xlogrecovery.h:49-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecovery.h#L49-L131)
 
 ## Overview
 An enumeration that defines the different states of recovery pause functionality in PostgreSQL's Write-Ahead Log (WAL) recovery process.

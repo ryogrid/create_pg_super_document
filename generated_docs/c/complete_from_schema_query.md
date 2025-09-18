@@ -1,7 +1,7 @@
 # complete_from_schema_query
 
 ## Location
-src/bin/psql/tab-complete.c: 5184 - 5191
+[src/bin/psql/tab-complete.c:5184-5191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5184-L5191)
 
 ## Overview
 Provides tab completion functionality for PostgreSQL schema-related commands using a schema query that works across all server versions.

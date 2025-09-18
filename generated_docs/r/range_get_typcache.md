@@ -1,7 +1,7 @@
 # range_get_typcache
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1703 - 1726
+[src/backend/utils/adt/rangetypes.c:1703-1726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1703-L1726)
 
 ## Overview
 A support function that retrieves cached type information for range types, commonly used by range-related functions to access type metadata efficiently.

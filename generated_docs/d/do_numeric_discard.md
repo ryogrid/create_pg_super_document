@@ -1,7 +1,7 @@
 # do_numeric_discard
 
 ## Location
-src/backend/utils/adt/numeric.c: 4943 - 5035
+[src/backend/utils/adt/numeric.c:4943-5035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4943-L5035)
 
 ## Overview
 A static helper function that attempts to remove an input value from the aggregated state in PostgreSQL's numeric aggregate operations, primarily used for inverse aggregate functions in window operations.

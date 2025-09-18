@@ -1,7 +1,7 @@
 # test_slru_page_exists
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 130 - 143
+[src/test/modules/test_slru/test_slru.c:130-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L130-L143)
 
 ## Overview
 A PostgreSQL test function that checks if a specific SLRU (Simple LRU) page physically exists on disk.

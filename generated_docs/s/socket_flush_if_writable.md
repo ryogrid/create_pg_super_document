@@ -1,7 +1,7 @@
 # socket_flush_if_writable
 
 ## Location
-src/backend/libpq/pqcomm.c: 1432 - 1457
+[src/backend/libpq/pqcomm.c:1432-1457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1432-L1457)
 
 ## Overview
 A static function that attempts to flush pending output data through the socket connection without blocking, only if the socket is currently writable.

@@ -1,7 +1,7 @@
 # spg_xlog_startup
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 976 - 983
+[src/backend/access/spgist/spgxlog.c:976-983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L976-L983)
 
 ## Overview
 Initializes the SP-GiST temporary memory context used during WAL record replay operations.

@@ -1,7 +1,7 @@
 # r_Suffix_Noun_Step3
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1291 - 1302
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1291-1302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1291-L1302)
 
 ## Overview
 This function performs Step 3 of noun suffix removal in the Arabic stemming algorithm, specifically targeting certain Arabic noun suffixes that need to be removed during the text normalization process.

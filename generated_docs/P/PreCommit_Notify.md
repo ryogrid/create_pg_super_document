@@ -1,7 +1,7 @@
 # PreCommit_Notify
 
 ## Location
-src/backend/commands/async.c: 861 - 967
+[src/backend/commands/async.c:861-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L861-L967)
 
 ## Overview
 A pre-commit hook that processes pending LISTEN/UNLISTEN actions and queues outbound NOTIFY messages before transaction commit to ensure proper ordering and atomicity of notification operations.

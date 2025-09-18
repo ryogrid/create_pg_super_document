@@ -1,7 +1,7 @@
 # path_close
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1627 - 1636
+[src/backend/utils/adt/geo_ops.c:1627-1636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1627-L1636)
 
 ## Overview
 The  function converts an open path to a closed path by setting the closed flag to true.

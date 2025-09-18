@@ -1,7 +1,7 @@
 # pg_atomic_add_fetch_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 406 - 412
+[src/include/port/atomics/generic.h:406-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L406-L412)
 
 ## Overview
 Performs an atomic add-and-fetch operation on a 64-bit unsigned integer, returning the new value after the addition operation is complete.

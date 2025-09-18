@@ -1,7 +1,7 @@
 # slist_is_empty
 
 ## Location
-src/include/lib/ilist.h: 995 - 1005
+[src/include/lib/ilist.h:995-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L995-L1005)
 
 ## Overview
 Checks whether a singly-linked list is empty by testing if the head node's next pointer is NULL.

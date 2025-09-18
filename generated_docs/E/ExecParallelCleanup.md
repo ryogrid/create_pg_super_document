@@ -1,7 +1,7 @@
 # ExecParallelCleanup
 
 ## Location
-src/backend/executor/execParallel.c: 1184 - 1219
+[src/backend/executor/execParallel.c:1184-1219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1184-L1219)
 
 ## Overview
 Performs final cleanup of parallel execution resources by retrieving instrumentation data from shared memory and deallocating all remaining parallel execution structures.

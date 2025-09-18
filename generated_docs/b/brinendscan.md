@@ -1,7 +1,7 @@
 # brinendscan
 
 ## Location
-src/backend/access/brin/brin.c: 968 - 984
+[src/backend/access/brin/brin.c:968-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L968-L984)
 
 ## Overview
 Closes down a BRIN index scan by cleaning up allocated resources including the revmap access structure and BRIN descriptor.

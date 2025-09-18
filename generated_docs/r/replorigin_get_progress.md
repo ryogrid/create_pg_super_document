@@ -1,7 +1,7 @@
 # replorigin_get_progress
 
 ## Location
-src/backend/replication/logical/origin.c: 1014 - 1054
+[src/backend/replication/logical/origin.c:1014-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1014-L1054)
 
 ## Overview
 Retrieves the current replication progress (remote LSN) for a specified replication origin, with optional WAL flush functionality.

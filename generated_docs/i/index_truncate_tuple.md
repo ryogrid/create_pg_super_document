@@ -1,7 +1,7 @@
 # index_truncate_tuple
 
 ## Location
-src/backend/access/common/indextuple.c: 576 - 608
+[src/backend/access/common/indextuple.c:576-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L576-L608)
 
 ## Overview
 Creates a palloc'd copy of an index tuple containing only the first specified number of attributes, effectively truncating the tuple while preserving its structure and essential data.

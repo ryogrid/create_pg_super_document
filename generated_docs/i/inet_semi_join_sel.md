@@ -1,7 +1,7 @@
 # inet_semi_join_sel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 793 - 835
+[src/backend/utils/adt/network_selfuncs.c:793-835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L793-L835)
 
 ## Overview
 Estimates the probability that at least one row in the right-hand side table satisfies a join condition for a given left-hand side value, specifically designed for semi-join selectivity estimation.

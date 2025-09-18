@@ -1,7 +1,7 @@
 # _printTocEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3758 - 3950
+[src/bin/pg_dump/pg_backup_archiver.c:3758-3950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3758-L3950)
 
 ## Overview
 Emits the SQL commands to create the object represented by a TOC entry, including header comments, object definition, and ALTER OWNER commands for pg_dump restoration operations.

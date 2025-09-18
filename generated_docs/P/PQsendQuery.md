@@ -1,7 +1,7 @@
 # PQsendQuery
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1416 - 1421
+[src/interfaces/libpq/fe-exec.c:1416-1421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1416-L1421)
 
 ## Overview
 Submits a SQL query to the PostgreSQL server asynchronously without waiting for completion, allowing the client to continue other operations while the query executes.

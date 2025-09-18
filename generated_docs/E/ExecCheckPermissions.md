@@ -1,7 +1,7 @@
 # ExecCheckPermissions
 
 ## Location
-src/backend/executor/execMain.c: 572 - 635
+[src/backend/executor/execMain.c:572-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L572-L635)
 
 ## Overview
 Validates access permissions for all relations mentioned in a query, with support for plugin hooks and optional error reporting.

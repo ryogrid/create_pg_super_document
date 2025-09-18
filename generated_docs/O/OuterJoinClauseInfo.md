@@ -1,7 +1,7 @@
 # OuterJoinClauseInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 2920 - 2927
+[src/include/nodes/pathnodes.h:2920-2927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2920-L2927)
 
 ## Overview
 OuterJoinClauseInfo is a transient structure used during query planning to track mergejoinable outer join ON clauses that require special processing at the end of qual distribution.

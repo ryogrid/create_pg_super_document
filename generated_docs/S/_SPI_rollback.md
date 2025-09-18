@@ -1,7 +1,7 @@
 # _SPI_rollback
 
 ## Location
-src/backend/executor/spi.c: 332 - 412
+[src/backend/executor/spi.c:332-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L332-L412)
 
 ## Overview
 _SPI_rollback is the internal implementation function that handles transaction rollback within the SPI context, supporting both regular rollback and chained rollback operations.

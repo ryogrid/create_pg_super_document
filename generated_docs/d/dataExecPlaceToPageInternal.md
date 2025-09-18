@@ -1,7 +1,7 @@
 # dataExecPlaceToPageInternal
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1145 - 1200
+[src/backend/access/gin/gindatapage.c:1145-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1145-L1200)
 
 ## Overview
 dataExecPlaceToPageInternal executes the actual data insertion on an internal GIN data page after beginPlaceToPage has determined the insertion will fit.

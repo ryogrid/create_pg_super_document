@@ -1,7 +1,7 @@
 # AppendRelInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 2959 - 3016
+[src/include/nodes/pathnodes.h:2959-3016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2959-L3016)
 
 ## Overview
 AppendRelInfo provides the mapping information needed to translate between parent and child relations in inheritance hierarchies and UNION-ALL subqueries, enabling PostgreSQL to expand inheritable tables into lists of child tables.

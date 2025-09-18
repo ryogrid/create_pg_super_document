@@ -1,7 +1,7 @@
 # dataBeginPlaceToPage
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1201 - 1230
+[src/backend/access/gin/gindatapage.c:1201-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1201-L1230)
 
 ## Overview
 dataBeginPlaceToPage serves as a dispatcher function that prepares data insertion on a GIN posting-tree data page by delegating to the appropriate specialized function based on whether the page is a leaf or internal node.

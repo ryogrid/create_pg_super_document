@@ -1,7 +1,7 @@
 # copy_dest_receive
 
 ## Location
-src/backend/commands/copyto.c: 1235 - 1253
+[src/backend/commands/copyto.c:1235-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1235-L1253)
 
 ## Overview
 Processes individual tuples received by the COPY destination receiver, formatting and outputting each row while tracking progress statistics.

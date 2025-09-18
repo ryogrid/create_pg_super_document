@@ -1,7 +1,7 @@
 # timestamp_mi
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2786 - 2879
+[src/backend/utils/adt/timestamp.c:2786-2879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2786-L2879)
 
 ## Overview
 Computes the interval between two timestamps by subtracting the second timestamp from the first, implementing the PostgreSQL timestamp subtraction operator.

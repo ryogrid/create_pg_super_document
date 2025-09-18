@@ -1,7 +1,7 @@
 # tts_heap_get_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 451 - 462
+[src/backend/executor/execTuples.c:451-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L451-L462)
 
 ## Overview
 Returns a HeapTuple from a heap tuple table slot, materializing the tuple if necessary to ensure a physical tuple exists.

@@ -1,7 +1,7 @@
 # JoinPathExtraData
 
 ## Location
-src/include/nodes/pathnodes.h: 3230 - 3238
+[src/include/nodes/pathnodes.h:3230-3238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3230-L3238)
 
 ## Overview
 JoinPathExtraData is a structure used to pass additional information to subroutines of add_paths_to_joinrel, containing join-specific metadata required for path generation and cost estimation.

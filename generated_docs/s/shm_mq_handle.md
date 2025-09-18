@@ -1,7 +1,7 @@
 # shm_mq_handle
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 137 - 170
+[src/backend/storage/ipc/shm_mq.c:137-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L137-L170)
 
 ## Overview
 A backend-private handle structure that provides process-local access and state management for shared memory message queues (). It encapsulates the queue pointer, buffering, and operational state needed for efficient non-blocking I/O operations.

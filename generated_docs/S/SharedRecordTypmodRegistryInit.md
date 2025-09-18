@@ -1,7 +1,7 @@
 # SharedRecordTypmodRegistryInit
 
 ## Location
-src/backend/utils/cache/typcache.c: 2108 - 2206
+[src/backend/utils/cache/typcache.c:2108-2206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2108-L2206)
 
 ## Overview
 Initializes a SharedRecordTypmodRegistry in shared memory for parallel query execution, creating hash tables for tuple descriptor management and populating them with the current backend's record types.

@@ -1,7 +1,7 @@
 # planstate_tree_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 4676 - 4683
+[src/backend/nodes/nodeFuncs.c:4676-4683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L4676-L4683)
 
 ## Overview
 This function traverses plan state trees by recursively visiting all sub-nodes of a given PlanState node, calling a user-provided callback function on each node.

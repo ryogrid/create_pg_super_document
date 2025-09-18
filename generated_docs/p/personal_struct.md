@@ -1,7 +1,7 @@
 # personal_struct
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 78 - 79
+[src/interfaces/ecpg/test/expected/preproc-variable.c:78-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L78-L79)
 
 ## Overview
 A struct definition in ECPG test cases that represents a complete personal record containing name and birth information.

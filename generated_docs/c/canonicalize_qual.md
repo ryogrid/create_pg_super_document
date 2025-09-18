@@ -1,7 +1,7 @@
 # canonicalize_qual
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 293 - 322
+[src/backend/optimizer/prep/prepqual.c:293-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L293-L322)
 
 ## Overview
 Converts a qualification expression (WHERE clause, JOIN/ON clause, or CHECK constraint) to the most useful form by removing redundancy and applying optimizations at the top-level structure.

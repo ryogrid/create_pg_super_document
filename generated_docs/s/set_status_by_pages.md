@@ -1,7 +1,7 @@
 # set_status_by_pages
 
 ## Location
-src/backend/access/transam/clog.c: 257 - 292
+[src/backend/access/transam/clog.c:257-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L257-L292)
 
 ## Overview
 A helper function for TransactionIdSetTreeStatus that efficiently sets status for multiple subtransactions by grouping them according to their CLOG pages.

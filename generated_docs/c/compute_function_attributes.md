@@ -1,7 +1,7 @@
 # compute_function_attributes
 
 ## Location
-src/backend/commands/functioncmds.c: 714 - 850
+[src/backend/commands/functioncmds.c:714-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L714-L850)
 
 ## Overview
 Parses and validates function definition options from SQL CREATE FUNCTION/PROCEDURE statements, converting them into internal attribute structures.

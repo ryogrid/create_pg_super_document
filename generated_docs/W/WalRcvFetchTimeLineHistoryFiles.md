@@ -1,7 +1,7 @@
 # WalRcvFetchTimeLineHistoryFiles
 
 ## Location
-src/backend/replication/walreceiver.c: 745 - 800
+[src/backend/replication/walreceiver.c:745-800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L745-L800)
 
 ## Overview
 WalRcvFetchTimeLineHistoryFiles fetches missing timeline history files from the primary server for all timelines in a specified range.

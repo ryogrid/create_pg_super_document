@@ -1,7 +1,7 @@
 # gistadjustmembers
 
 ## Location
-src/backend/access/gist/gistvalidate.c: 290 - 354
+[src/backend/access/gist/gistvalidate.c:290-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvalidate.c#L290-L354)
 
 ## Overview
 Preconfigures dependency relationships for operators and support functions when adding them to a GiST operator family, establishing appropriate hard and soft dependencies based on their roles.

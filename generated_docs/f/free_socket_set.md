@@ -1,7 +1,7 @@
 # free_socket_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 7902 - 7907
+[src/bin/pgbench/pgbench.c:7902-7907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7902-L7907)
 
 ## Overview
 A function in pgbench that deallocates memory for a socket set data structure, serving as the counterpart to alloc_socket_set() in the socket abstraction layer.

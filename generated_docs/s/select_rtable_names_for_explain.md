@@ -1,7 +1,7 @@
 # select_rtable_names_for_explain
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3799 - 3827
+[src/backend/utils/adt/ruleutils.c:3799-3827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3799-L3827)
 
 ## Overview
 Determines relation aliases used during an EXPLAIN operation by serving as a frontend to set_rtable_names.

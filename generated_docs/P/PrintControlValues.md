@@ -1,7 +1,7 @@
 # PrintControlValues
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 716 - 788
+[src/bin/pg_resetwal/pg_resetwal.c:716-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L716-L788)
 
 ## Overview
 PrintControlValues displays the current or guessed pg_control file values in a human-readable format for diagnostic and verification purposes.

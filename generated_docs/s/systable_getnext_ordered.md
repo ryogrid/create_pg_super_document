@@ -1,7 +1,7 @@
 # systable_getnext_ordered
 
 ## Location
-src/backend/access/index/genam.c: 720 - 744
+[src/backend/access/index/genam.c:720-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L720-L744)
 
 ## Overview
 Retrieves the next tuple in an ordered system catalog scan, supporting bidirectional iteration through index-ordered results.

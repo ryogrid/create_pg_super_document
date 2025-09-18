@@ -1,7 +1,7 @@
 # ExecBitmapIndexScan
 
 ## Location
-src/backend/executor/nodeBitmapIndexscan.c: 38 - 48
+[src/backend/executor/nodeBitmapIndexscan.c:38-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapIndexscan.c#L38-L48)
 
 ## Overview
 ExecBitmapIndexScan is a stub function that serves as a placeholder for pro forma compliance with the executor node interface, but does not support the standard ExecProcNode call convention used by other executor nodes.

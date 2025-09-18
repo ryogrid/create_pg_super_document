@@ -1,7 +1,7 @@
 # finalize_aggregate
 
 ## Location
-src/backend/executor/nodeAgg.c: 1046 - 1145
+[src/backend/executor/nodeAgg.c:1046-1145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1046-L1145)
 
 ## Overview
 Computes the final value of a single aggregate by applying the finalfn (if present) or returning the transition value, handling direct arguments and ensuring proper memory management.

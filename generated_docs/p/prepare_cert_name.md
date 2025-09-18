@@ -1,7 +1,7 @@
 # prepare_cert_name
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1153 - 1163
+[src/backend/libpq/be-secure-openssl.c:1153-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1153-L1163)
 
 ## Overview
 The `prepare_cert_name` function processes SSL certificate names to ensure they are safe for logging by truncating overly long names and escaping unprintable ASCII characters.

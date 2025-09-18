@@ -1,7 +1,7 @@
 # TransactionIdSetPageStatus
 
 ## Location
-src/backend/access/transam/clog.c: 293 - 363
+[src/backend/access/transam/clog.c:293-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L293-L363)
 
 ## Overview
 Records the final state of transaction entries in the commit log for all transactions on a single CLOG page, with optimization for group updates to reduce lock contention.

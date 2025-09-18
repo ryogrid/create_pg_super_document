@@ -1,7 +1,7 @@
 # heapam_estimate_rel_size
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2105 - 2121
+[src/backend/access/heap/heapam_handler.c:2105-2121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2105-L2121)
 
 ## Overview
 Estimates the physical size of a heap-based relation by providing statistics on pages, tuples, and visibility fraction.

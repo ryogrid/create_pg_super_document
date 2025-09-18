@@ -1,7 +1,7 @@
 # MVNDistinct
 
 ## Location
-src/include/statistics/statistics.h: 34 - 40
+[src/include/statistics/statistics.h:34-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/statistics.h#L34-L40)
 
 ## Overview
 MVNDistinct is a structure that represents multivariate n-distinct statistics for PostgreSQL's extended statistics system, comprising all possible combinations of columns with their distinct value counts.

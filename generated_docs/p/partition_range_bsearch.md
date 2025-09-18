@@ -1,7 +1,7 @@
 # partition_range_bsearch
 
 ## Location
-src/backend/partitioning/partbounds.c: 3653 - 3694
+[src/backend/partitioning/partbounds.c:3653-3694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3653-L3694)
 
 ## Overview
 Performs binary search on range partition bounds to find the greatest range bound that is less than or equal to a given range bound.

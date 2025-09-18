@@ -1,7 +1,7 @@
 # like_regex_support
 
 ## Location
-src/backend/utils/adt/like_support.c: 156 - 240
+[src/backend/utils/adt/like_support.c:156-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L156-L240)
 
 ## Overview
 A common support function that provides selectivity estimation and index condition optimization for pattern matching operations including LIKE, ILIKE, regex, and text prefix operations.

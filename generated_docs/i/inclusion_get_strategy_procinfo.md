@@ -1,7 +1,7 @@
 # inclusion_get_strategy_procinfo
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 608 - 661
+[src/backend/access/brin/brin_inclusion.c:608-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L608-L661)
 
 ## Overview
 A static helper function that caches and returns procedure information for given strategy numbers in BRIN inclusion opclasses, optimizing repeated access to operator procedures through syscache caching.

@@ -1,7 +1,7 @@
 # ExecMemoizeEstimate
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1190 - 1210
+[src/backend/executor/nodeMemoize.c:1190-1210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1190-L1210)
 
 ## Overview
 Estimates the shared memory space required to propagate memoize execution statistics across parallel worker processes.

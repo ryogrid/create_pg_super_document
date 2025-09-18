@@ -1,7 +1,7 @@
 # r_step_0
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 715 - 770
+[src/backend/snowball/libstemmer/stem_UTF_8_romanian.c:715-770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_romanian.c#L715-L770)
 
 ## Overview
 A specialized suffix processing function in the Romanian Snowball stemming algorithm that handles the first step of suffix removal by identifying and transforming specific Romanian suffixes according to predefined patterns.

@@ -1,7 +1,7 @@
 # ginadjustmembers
 
 ## Location
-src/backend/access/gin/ginvalidate.c: 277 - 336
+[src/backend/access/gin/ginvalidate.c:277-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvalidate.c#L277-L336)
 
 ## Overview
 Prechecking function that adjusts dependency settings for operators and support functions when adding them to a GIN operator family, ensuring proper dependency relationships are established.

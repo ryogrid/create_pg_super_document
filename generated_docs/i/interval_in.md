@@ -1,7 +1,7 @@
 # interval_in
 
 ## Location
-src/backend/utils/adt/timestamp.c: 900 - 981
+[src/backend/utils/adt/timestamp.c:900-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L900-L981)
 
 ## Overview
 Converts a string representation to PostgreSQL's internal Interval data type, supporting multiple input formats including standard SQL interval syntax and ISO8601 format.

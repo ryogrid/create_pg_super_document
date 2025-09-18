@@ -1,7 +1,7 @@
 # executeMaintenanceCommand
 
 ## Location
-src/fe_utils/query_utils.c: 74 - 91
+[src/fe_utils/query_utils.c:74-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/query_utils.c#L74-L91)
 
 ## Overview
 A utility function in PostgreSQL frontend utilities that executes maintenance SQL commands with optional echo support and cancellation handling.

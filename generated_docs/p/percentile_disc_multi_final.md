@@ -1,7 +1,7 @@
 # percentile_disc_multi_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 731 - 847
+[src/backend/utils/adt/orderedsetaggs.c:731-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L731-L847)
 
 ## Overview
 The final aggregate function that computes discrete percentiles for an array of percentile values using ordered set semantics.

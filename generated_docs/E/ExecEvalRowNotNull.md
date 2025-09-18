@@ -1,7 +1,7 @@
 # ExecEvalRowNotNull
 
 ## Location
-src/backend/executor/execExprInterp.c: 2752 - 2758
+[src/backend/executor/execExprInterp.c:2752-2758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2752-L2758)
 
 ## Overview
 ExecEvalRowNotNull evaluates a NOT NULL test (IS NOT NULL) for row expressions, serving as a wrapper that delegates to the internal row null testing implementation.

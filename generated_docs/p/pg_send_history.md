@@ -1,7 +1,7 @@
 # pg_send_history
 
 ## Location
-src/bin/psql/input.c: 135 - 185
+[src/bin/psql/input.c:135-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L135-L185)
 
 ## Overview
 Processes accumulated history entries and sends them to readline's history mechanism while applying history control filters, then resets the buffer.

@@ -1,7 +1,7 @@
 # set_customscan_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1665 - 1740
+[src/backend/optimizer/plan/setrefs.c:1665-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1665-L1740)
 
 ## Overview
 Adjusts variable references in a CustomScan plan node during the plan finalization phase to account for range table entry offsets and proper variable referencing, including recursive processing of child plan nodes.

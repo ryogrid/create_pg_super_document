@@ -1,7 +1,7 @@
 # load_enum_cache_data
 
 ## Location
-src/backend/utils/cache/typcache.c: 2550 - 2704
+[src/backend/utils/cache/typcache.c:2550-2704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2550-L2704)
 
 ## Overview
 load_enum_cache_data loads or reloads cached enum type information from the system catalog, including enum values, sort order data, and optimization bitmaps for efficient comparisons.

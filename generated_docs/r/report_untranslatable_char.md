@@ -1,7 +1,7 @@
 # report_untranslatable_char
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1730 - 1773
+[src/backend/utils/mb/mbutils.c:1730-1773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1730-L1773)
 
 ## Overview
 Reports an error when a valid character in the source encoding cannot be represented in the destination encoding during character set conversion.

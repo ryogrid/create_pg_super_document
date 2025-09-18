@@ -1,7 +1,7 @@
 # fb
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 92 - 98
+[src/interfaces/ecpg/test/expected/preproc-init.c:92-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L92-L98)
 
 ## Overview
 A static test function used in ECPG (Embedded SQL in C) test cases that demonstrates function parameter passing and return value handling.

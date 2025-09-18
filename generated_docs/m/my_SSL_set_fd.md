@@ -1,7 +1,7 @@
 # my_SSL_set_fd
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 2038 - 2070
+[src/interfaces/libpq/fe-secure-openssl.c:2038-2070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L2038-L2070)
 
 ## Overview
 Associates a file descriptor with an SSL connection using PostgreSQL's custom BIO method, replacing OpenSSL's standard SSL_set_fd function.

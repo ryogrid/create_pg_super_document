@@ -1,7 +1,7 @@
 # get_string_attr
 
 ## Location
-src/pl/plpython/plpy_elog.c: 567 - 582
+[src/pl/plpython/plpy_elog.c:567-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L567-L582)
 
 ## Overview
 Extracts a string attribute value from a Python object and converts it to a PostgreSQL-allocated C string for use in PL/Python error handling.

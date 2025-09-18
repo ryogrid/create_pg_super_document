@@ -1,7 +1,7 @@
 # pq_getmsgend
 
 ## Location
-src/backend/libpq/pqformat.c: 635 - 641
+[src/backend/libpq/pqformat.c:635-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L635-L641)
 
 ## Overview
 Verifies that a protocol message has been fully consumed during message parsing by checking that the cursor position matches the message length.

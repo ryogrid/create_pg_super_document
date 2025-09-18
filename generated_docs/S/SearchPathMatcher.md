@@ -1,7 +1,7 @@
 # SearchPathMatcher
 
 ## Location
-src/include/catalog/namespace.h: 59 - 65
+[src/include/catalog/namespace.h:59-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/namespace.h#L59-L65)
 
 ## Overview
 A structure that represents and efficiently matches PostgreSQL's schema search path configuration, enabling quick detection of search path changes through a generation counter mechanism.

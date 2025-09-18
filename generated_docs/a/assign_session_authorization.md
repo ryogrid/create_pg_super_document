@@ -1,7 +1,7 @@
 # assign_session_authorization
 
 ## Location
-src/backend/commands/variable.c: 899 - 920
+[src/backend/commands/variable.c:899-920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L899-L920)
 
 ## Overview
 A GUC assign hook function that actually implements a session authorization change after validation, using role information prepared by the check hook.

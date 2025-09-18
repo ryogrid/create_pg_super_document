@@ -1,7 +1,7 @@
 # heap_prune_record_unchanged_lp_dead
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1508 - 1535
+[src/backend/access/heap/pruneheap.c:1508-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1508-L1535)
 
 ## Overview
 Records a line pointer that was already LP_DEAD and remains unchanged during heap page pruning, tracking it for later vacuum processing.

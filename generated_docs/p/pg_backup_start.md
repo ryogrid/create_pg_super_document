@@ -1,7 +1,7 @@
 # pg_backup_start
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 56 - 122
+[src/backend/access/transam/xlogfuncs.c:56-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L56-L122)
 
 ## Overview
 Initiates an online backup by creating the necessary setup for backup_label file and tablespace map generation.

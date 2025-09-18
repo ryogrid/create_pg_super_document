@@ -1,7 +1,7 @@
 # FileGetRawFlags
 
 ## Location
-src/backend/storage/file/fd.c: 2484 - 2493
+[src/backend/storage/file/fd.c:2484-2493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2484-L2493)
 
 ## Overview
 FileGetRawFlags returns the file flags that were used when opening a PostgreSQL File, providing access to the original open(2) system call flags.

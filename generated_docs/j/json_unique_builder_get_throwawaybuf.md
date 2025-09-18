@@ -1,7 +1,7 @@
 # json_unique_builder_get_throwawaybuf
 
 ## Location
-src/backend/utils/adt/json.c: 969 - 992
+[src/backend/utils/adt/json.c:969-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L969-L992)
 
 ## Overview
 This function provides on-demand initialization of a throwaway StringInfo buffer used for reading key names that don't need to be stored in the output object during duplicate key detection.

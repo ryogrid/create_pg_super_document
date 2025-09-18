@@ -1,7 +1,7 @@
 # jsonb_object_agg_finalfn
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1930 - 1967
+[src/backend/utils/adt/jsonb.c:1930-1967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1930-L1967)
 
 ## Overview
 Final function for JSONB object aggregation that converts the accumulated aggregate state into the final JSONB object result.

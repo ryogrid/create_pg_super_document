@@ -1,7 +1,7 @@
 # ExecutorFinish
 
 ## Location
-src/backend/executor/execMain.c: 400 - 408
+[src/backend/executor/execMain.c:400-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L400-L408)
 
 ## Overview
 ExecutorFinish must be called after the last ExecutorRun call to perform cleanup operations such as firing AFTER triggers, providing a hook mechanism for plugins while delegating to the standard implementation.

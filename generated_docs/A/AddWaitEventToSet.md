@@ -1,7 +1,7 @@
 # AddWaitEventToSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 963 - 1048
+[src/backend/storage/ipc/latch.c:963-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L963-L1048)
 
 ## Overview
 Adds a wait event to a WaitEventSet, allowing the process to wait for various types of events including latch signals, socket I/O, and postmaster death.

@@ -1,7 +1,7 @@
 # EndCompressFileHandle
 
 ## Location
-src/bin/pg_dump/compress_io.c: 290 - 301
+[src/bin/pg_dump/compress_io.c:290-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L290-L301)
 
 ## Overview
 Closes an open compression file handle and releases all associated memory, providing proper cleanup for compression resources across all supported formats.

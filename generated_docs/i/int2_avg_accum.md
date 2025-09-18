@@ -1,7 +1,7 @@
 # int2_avg_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6673 - 6700
+[src/backend/utils/adt/numeric.c:6673-6700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6673-L6700)
 
 ## Overview
 PostgreSQL aggregate transition function that accumulates int2 (smallint) values for computing the average, maintaining both a sum and count in an internal transition state.

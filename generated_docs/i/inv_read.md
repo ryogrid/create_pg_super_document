@@ -1,7 +1,7 @@
 # inv_read
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 488 - 580
+[src/backend/storage/large_object/inv_api.c:488-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L488-L580)
 
 ## Overview
 Reads data from a PostgreSQL large object starting at the current position, similar to fread() in standard C file I/O, handling page-based storage and potential gaps (holes) in the large object.

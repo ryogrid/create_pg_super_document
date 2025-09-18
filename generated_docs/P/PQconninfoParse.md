@@ -1,7 +1,7 @@
 # PQconninfoParse
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5738 - 5759
+[src/interfaces/libpq/fe-connect.c:5738-5759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5738-L5759)
 
 ## Overview
 Public API function that parses a PostgreSQL connection string and returns the resulting connection options array.

@@ -1,7 +1,7 @@
 # DatumGetCString
 
 ## Location
-src/include/postgres.h: 335 - 349
+[src/include/postgres.h:335-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L335-L349)
 
 ## Overview
 Converts a Datum value to a C string (null-terminated string), providing specialized extraction of string data from PostgreSQL's generic Datum representation.

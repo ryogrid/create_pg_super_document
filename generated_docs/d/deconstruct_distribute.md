@@ -1,7 +1,7 @@
 # deconstruct_distribute
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1120 - 1271
+[src/backend/optimizer/plan/initsplan.c:1120-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1120-L1271)
 
 ## Overview
 Processes qualification clauses from join tree nodes and distributes them to appropriate restriction and join lists during the second phase of join tree deconstruction.

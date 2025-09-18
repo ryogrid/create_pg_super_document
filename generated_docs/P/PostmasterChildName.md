@@ -1,7 +1,7 @@
 # PostmasterChildName
 
 ## Location
-src/backend/postmaster/launch_backend.c: 214 - 230
+[src/backend/postmaster/launch_backend.c:214-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L214-L230)
 
 ## Overview
 Returns a human-readable name string for a given PostgreSQL child process type, used for logging and identification purposes.

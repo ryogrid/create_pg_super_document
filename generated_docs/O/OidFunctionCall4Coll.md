@@ -1,7 +1,7 @@
 # OidFunctionCall4Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1442 - 1452
+[src/backend/utils/fmgr/fmgr.c:1442-1452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1442-L1452)
 
 ## Overview
 A convenience function that calls a PostgreSQL function identified by its OID with four arguments and a specific collation, handling the function manager setup automatically.

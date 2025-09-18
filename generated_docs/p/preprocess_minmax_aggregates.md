@@ -1,7 +1,7 @@
 # preprocess_minmax_aggregates
 
 ## Location
-src/backend/optimizer/plan/planagg.c: 72 - 235
+[src/backend/optimizer/plan/planagg.c:72-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planagg.c#L72-L235)
 
 ## Overview
 Preprocesses MIN/MAX aggregate functions to determine if they can be optimized via index scans, creating a MinMaxAggPath when optimization is possible.

@@ -1,7 +1,7 @@
 # tuplesort_begin_index_brin
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 555 - 583
+[src/backend/utils/sort/tuplesortvariants.c:555-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L555-L583)
 
 ## Overview
 Initializes a tuplesort state for sorting BRIN (Block Range Index) index tuples, specifically designed to sort index entries by block number.

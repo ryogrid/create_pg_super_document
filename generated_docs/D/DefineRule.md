@@ -1,7 +1,7 @@
 # DefineRule
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 190 - 223
+[src/backend/rewrite/rewriteDefine.c:190-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L190-L223)
 
 ## Overview
 DefineRule is the main entry point for executing CREATE RULE commands, serving as a high-level interface that coordinates rule parsing, relation locking, and rule definition.

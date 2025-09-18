@@ -1,7 +1,7 @@
 # recheck_cast_function_args
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4380 - 4424
+[src/backend/optimizer/util/clauses.c:4380-4424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4380-L4424)
 
 ## Overview
 Rechecks and typecasts function arguments as needed after default arguments have been added, ensuring polymorphic arguments are properly resolved and coerced.

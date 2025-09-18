@@ -1,7 +1,7 @@
 # ReportSlotConnectionError
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2248 - 2291
+[src/backend/commands/subscriptioncmds.c:2248-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2248-L2291)
 
 ## Overview
 Reports connection failures during replication slot cleanup operations and provides guidance for manual intervention when automatic slot dropping fails.

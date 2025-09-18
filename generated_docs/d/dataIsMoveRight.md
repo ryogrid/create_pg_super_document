@@ -1,7 +1,7 @@
 # dataIsMoveRight
 
 ## Location
-src/backend/access/gin/gindatapage.c: 234 - 251
+[src/backend/access/gin/gindatapage.c:234-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L234-L251)
 
 ## Overview
 Determines whether a GIN B-tree scan should follow the right link to continue searching for a target item pointer.

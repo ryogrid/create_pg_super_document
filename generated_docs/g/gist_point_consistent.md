@@ -1,7 +1,7 @@
 # gist_point_consistent
 
 ## Location
-src/backend/access/gist/gistproc.c: 1337 - 1454
+[src/backend/access/gist/gistproc.c:1337-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1337-L1454)
 
 ## Overview
 Implements the GiST consistent method for point data types, determining whether a point query matches entries in a GiST index by handling various geometric query types including point-to-point, point-in-box, point-in-polygon, and point-in-circle operations.

@@ -1,7 +1,7 @@
 # pg_atomic_add_fetch_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 231 - 237
+[src/include/port/atomics/generic.h:231-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L231-L237)
 
 ## Overview
 This function performs an atomic add operation on a 32-bit unsigned integer and returns the new value after the addition, providing a generic implementation for architectures without native atomic add-and-fetch support.

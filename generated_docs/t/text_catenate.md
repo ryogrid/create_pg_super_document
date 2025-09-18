@@ -1,7 +1,7 @@
 # text_catenate
 
 ## Location
-src/backend/utils/adt/varlena.c: 765 - 805
+[src/backend/utils/adt/varlena.c:765-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L765-L805)
 
 ## Overview
 Internal static function that performs the actual concatenation of two text values, handling memory allocation and data copying.

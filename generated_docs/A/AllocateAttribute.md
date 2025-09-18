@@ -1,7 +1,7 @@
 # AllocateAttribute
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 883 - 900
+[src/backend/bootstrap/bootstrap.c:883-900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L883-L900)
 
 ## Overview
 A static function that allocates and zero-initializes memory for a pg_attribute structure during PostgreSQL bootstrap operations.

@@ -1,7 +1,7 @@
 # find_matching_idle_slot
 
 ## Location
-src/fe_utils/parallel_slot.c: 135 - 158
+[src/fe_utils/parallel_slot.c:135-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L135-L158)
 
 ## Overview
 A static function that searches through a parallel slot array to find an idle slot that is connected to a specific database or any database if no specific database is requested.

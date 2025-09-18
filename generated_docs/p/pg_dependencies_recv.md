@@ -1,7 +1,7 @@
 # pg_dependencies_recv
 
 ## Location
-src/backend/statistics/dependencies.c: 710 - 725
+[src/backend/statistics/dependencies.c:710-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L710-L725)
 
 ## Overview
 This function serves as the binary input routine for the pg_dependencies data type but deliberately prevents binary input by throwing an error, maintaining consistency with the text input restriction.

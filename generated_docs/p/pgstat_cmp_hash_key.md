@@ -1,7 +1,7 @@
 # pgstat_cmp_hash_key
 
 ## Location
-src/include/utils/pgstat_internal.h: 789 - 795
+[src/include/utils/pgstat_internal.h:789-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L789-L795)
 
 ## Overview
 A static inline comparison function used by hash tables to compare PgStat_HashKey entries for equality in PostgreSQL's statistics system.

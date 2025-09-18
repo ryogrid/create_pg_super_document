@@ -1,7 +1,7 @@
 # plan_set_operations
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 99 - 187
+[src/backend/optimizer/prep/prepunion.c:99-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L99-L187)
 
 ## Overview
 The main entry point for planning set operations (UNION/INTERSECT/EXCEPT) in PostgreSQL's query optimizer, handling the overall coordination of set operation tree processing.

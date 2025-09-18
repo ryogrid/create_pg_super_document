@@ -1,7 +1,7 @@
 # r_step5d
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3145 - 3175
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3145-3175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3145-L3175)
 
 ## Overview
 A static function in the Greek stemmer that performs step 5d of the Greek stemming algorithm, handling specific 6-character pattern substitutions in Greek words.

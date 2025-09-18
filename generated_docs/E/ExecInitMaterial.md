@@ -1,7 +1,7 @@
 # ExecInitMaterial
 
 ## Location
-src/backend/executor/nodeMaterial.c: 164 - 239
+[src/backend/executor/nodeMaterial.c:164-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMaterial.c#L164-L239)
 
 ## Overview
 ExecInitMaterial initializes a MaterialState node for buffering subplan output, setting up the tuplestore and configuring execution flags for backward scanning, rewinding, and mark/restore operations.

@@ -1,7 +1,7 @@
 # BumpReset
 
 ## Location
-src/backend/utils/mmgr/bump.c: 243 - 277
+[src/backend/utils/mmgr/bump.c:243-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L243-L277)
 
 ## Overview
 Resets a Bump memory context by freeing all allocated memory blocks except the keeper block, effectively returning the context to its initial empty state.

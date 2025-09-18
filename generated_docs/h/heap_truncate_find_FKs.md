@@ -1,7 +1,7 @@
 # heap_truncate_find_FKs
 
 ## Location
-src/backend/catalog/heap.c: 3249 - 3375
+[src/backend/catalog/heap.c:3249-3375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3249-L3375)
 
 ## Overview
 Finds relations having foreign keys that reference any of the given relations, used during TRUNCATE operations to identify dependent tables that need to be checked.

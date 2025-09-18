@@ -1,7 +1,7 @@
 # RI_PartitionRemove_Check
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1654 - 1872
+[src/backend/utils/adt/ri_triggers.c:1654-1872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1654-L1872)
 
 ## Overview
 Verifies that no foreign key references exist when a partition is detached from the referenced side of a foreign key constraint.

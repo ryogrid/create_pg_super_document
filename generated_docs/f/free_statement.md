@@ -1,7 +1,7 @@
 # free_statement
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 96 - 110
+[src/interfaces/ecpg/ecpglib/execute.c:96-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L96-L110)
 
 ## Overview
 A static cleanup function that deallocates all memory associated with an ECPG statement structure and its components.

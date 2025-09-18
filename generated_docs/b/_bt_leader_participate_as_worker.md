@@ -1,7 +1,7 @@
 # _bt_leader_participate_as_worker
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1687 - 1739
+[src/backend/access/nbtree/nbtsort.c:1687-1739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1687-L1739)
 
 ## Overview
 Enables the leader process to participate as a worker during parallel B-tree index construction, performing the same scanning and sorting work as dedicated worker processes.

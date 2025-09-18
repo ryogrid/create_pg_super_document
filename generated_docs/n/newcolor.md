@@ -1,7 +1,7 @@
 # newcolor
 
 ## Location
-src/backend/regex/regc_color.c: 185 - 256
+[src/backend/regex/regc_color.c:185-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L185-L256)
 
 ## Overview
 Allocates and initializes a new color descriptor in the colormap, with dynamic memory management for color descriptor array expansion.

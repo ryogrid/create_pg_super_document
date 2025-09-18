@@ -1,7 +1,7 @@
 # pgoutput_begin_prepare_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 642 - 658
+[src/backend/replication/pgoutput/pgoutput.c:642-658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L642-L658)
 
 ## Overview
 Sends a BEGIN PREPARE message for prepared transactions in logical replication, initiating the prepare phase of two-phase commit.

@@ -1,7 +1,7 @@
 # get_typstorage
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2419 - 2447
+[src/backend/utils/cache/lsyscache.c:2419-2447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2419-L2447)
 
 ## Overview
 Retrieves the storage strategy for a specified PostgreSQL data type from the system catalog.

@@ -1,7 +1,7 @@
 # set_string_field
 
 ## Location
-src/backend/utils/misc/guc.c: 733 - 748
+[src/backend/utils/misc/guc.c:733-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L733-L748)
 
 ## Overview
 A static utility function in PostgreSQL's GUC (Grand Unified Configuration) system that safely assigns a new string value to a field of a string GUC configuration item, handling memory management by freeing the previous value if it's no longer referenced.

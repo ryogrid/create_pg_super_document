@@ -1,7 +1,7 @@
 # ProcessInvalidationMessagesMulti
 
 ## Location
-src/backend/utils/cache/inval.c: 527 - 544
+[src/backend/utils/cache/inval.c:527-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L527-L544)
 
 ## Overview
 Executes a given function for all invalidation messages in a message group, processing them as arrays rather than individually, with catalog cache messages processed before relation cache messages.

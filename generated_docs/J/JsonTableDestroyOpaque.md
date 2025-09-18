@@ -1,7 +1,7 @@
 # JsonTableDestroyOpaque
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4176 - 4192
+[src/backend/utils/adt/jsonpath_exec.c:4176-4192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4176-L4192)
 
 ## Overview
 Cleans up and resets the opaque context used for JSON_TABLE processing by invalidating the execution context and clearing the state.

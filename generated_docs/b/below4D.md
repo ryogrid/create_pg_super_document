@@ -1,7 +1,7 @@
 # below4D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 346 - 352
+[src/backend/utils/adt/geo_spgist.c:346-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L346-L352)
 
 ## Overview
 Determines if any rectangle from a RectBox can be positioned below a given query boundary.

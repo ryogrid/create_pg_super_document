@@ -1,7 +1,7 @@
 # query_planner
 
 ## Location
-src/backend/optimizer/plan/planmain.c: 54 - 288
+[src/backend/optimizer/plan/planmain.c:54-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planmain.c#L54-L288)
 
 ## Overview
 The main entry point for generating a simplified execution path for a basic query that may involve joins but not advanced features like grouping or sorting.

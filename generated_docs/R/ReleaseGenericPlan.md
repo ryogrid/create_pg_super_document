@@ -1,7 +1,7 @@
 # ReleaseGenericPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 555 - 582
+[src/backend/utils/cache/plancache.c:555-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L555-L582)
 
 ## Overview
 ReleaseGenericPlan safely releases a CachedPlanSource's generic plan by clearing the reference and decrementing the plan's reference count.

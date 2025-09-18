@@ -1,7 +1,7 @@
 # equalRowTypes
 
 ## Location
-src/backend/access/common/tupdesc.c: 586 - 621
+[src/backend/access/common/tupdesc.c:586-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L586-L621)
 
 ## Overview
 equalRowTypes determines whether two TupleDesc structures represent compatible row types by comparing only the fields relevant to logical row structure, ignoring physical storage and table metadata details.

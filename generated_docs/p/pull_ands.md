@@ -1,7 +1,7 @@
 # pull_ands
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 323 - 348
+[src/backend/optimizer/prep/prepqual.c:323-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L323-L348)
 
 ## Overview
 Recursively flattens nested AND clauses into a single flat list of AND arguments, eliminating unnecessary nesting in boolean expressions.

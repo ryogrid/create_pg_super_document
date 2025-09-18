@@ -1,7 +1,7 @@
 # check_default_text_search_config
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 602 - 669
+[src/backend/utils/cache/ts_cache.c:602-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L602-L669)
 
 ## Overview
 A GUC check hook function that validates and normalizes text search configuration names when the default_text_search_config parameter is set.

@@ -1,7 +1,7 @@
 # dumpTSConfig
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 14789 - 14908
+[src/bin/pg_dump/pg_dump.c:14789-14908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L14789-L14908)
 
 ## Overview
 Writes out a single text search configuration definition to the PostgreSQL dump output, generating the necessary CREATE TEXT SEARCH CONFIGURATION statement along with all token-to-dictionary mappings.

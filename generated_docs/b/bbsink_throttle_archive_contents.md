@@ -1,7 +1,7 @@
 # bbsink_throttle_archive_contents
 
 ## Location
-src/backend/backup/basebackup_throttle.c: 110 - 120
+[src/backend/backup/basebackup_throttle.c:110-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_throttle.c#L110-L120)
 
 ## Overview
 Applies throttling to archive contents data transfer and forwards the data to the next sink in the basebackup pipeline.

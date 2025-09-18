@@ -1,7 +1,7 @@
 # accumulate_append_subpath
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2087 - 2131
+[src/backend/optimizer/path/allpaths.c:2087-2131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2087-L2131)
 
 ## Overview
 Adds a subpath to the list being built for an Append or MergeAppend, with intelligent flattening of nested append structures to eliminate unnecessary intermediate nodes.

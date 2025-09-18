@@ -1,7 +1,7 @@
 # pg_conversion_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4992 - 5005
+[src/backend/catalog/namespace.c:4992-5005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4992-L5005)
 
 ## Overview
 Determines whether a given encoding conversion is visible in the current search path, returning NULL if the conversion does not exist.

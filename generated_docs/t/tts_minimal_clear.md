@@ -1,7 +1,7 @@
 # tts_minimal_clear
 
 ## Location
-src/backend/executor/execTuples.c: 525 - 542
+[src/backend/executor/execTuples.c:525-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L525-L542)
 
 ## Overview
 Clears a MinimalTupleTableSlot by freeing its minimal tuple if owned and resetting all slot state to empty.

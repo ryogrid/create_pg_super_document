@@ -1,7 +1,7 @@
 # to_tsquery
 
 ## Location
-src/backend/tsearch/to_tsany.c: 605 - 616
+[src/backend/tsearch/to_tsany.c:605-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L605-L616)
 
 ## Overview
 A PostgreSQL function that converts text input to a TSQuery using the current default text search configuration.

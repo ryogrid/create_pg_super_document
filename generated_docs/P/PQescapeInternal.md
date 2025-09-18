@@ -1,7 +1,7 @@
 # PQescapeInternal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4214 - 4364
+[src/interfaces/libpq/fe-exec.c:4214-4364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4214-L4364)
 
 ## Overview
 PQescapeInternal is a static internal function that escapes arbitrary strings as either SQL identifiers or literals, returning a newly allocated buffer with proper quoting and escaping.

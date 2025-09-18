@@ -1,7 +1,7 @@
 # fasthash32
 
 ## Location
-src/include/common/hashfn_unstable.h: 382 - 390
+[src/include/common/hashfn_unstable.h:382-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L382-L390)
 
 ## Overview
 A 32-bit variant of the fasthash64 function that provides the same high-performance hashing algorithm but returns a reduced 32-bit hash value suitable for applications requiring smaller hash codes.

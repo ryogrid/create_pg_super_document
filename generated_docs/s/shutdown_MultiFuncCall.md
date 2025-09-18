@@ -1,7 +1,7 @@
 # shutdown_MultiFuncCall
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 238 - 275
+[src/backend/utils/fmgr/funcapi.c:238-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L238-L275)
 
 ## Overview
 shutdown_MultiFuncCall is a static cleanup function that releases all resources associated with a multi-call set-returning function, including memory contexts and function state.

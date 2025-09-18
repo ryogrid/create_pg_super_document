@@ -1,7 +1,7 @@
 # pg_uuid_t
 
 ## Location
-src/include/utils/uuid.h: 20 - 23
+[src/include/utils/uuid.h:20-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/uuid.h#L20-L23)
 
 ## Overview
 A structure that represents a Universally Unique Identifier (UUID) within PostgreSQL, storing 128-bit UUID data as a byte array.

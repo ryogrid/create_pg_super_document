@@ -1,7 +1,7 @@
 # output_prepare_statement
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 170 - 181
+[src/interfaces/ecpg/preproc/output.c:170-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L170-L181)
 
 ## Overview
 The output_prepare_statement function generates C code that calls the ECPGprepare runtime function to prepare SQL statements for later execution in embedded SQL programs.

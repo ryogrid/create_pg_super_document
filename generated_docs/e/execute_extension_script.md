@@ -1,7 +1,7 @@
 # execute_extension_script
 
 ## Location
-src/backend/commands/extension.c: 870 - 1142
+[src/backend/commands/extension.c:870-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L870-L1142)
 
 ## Overview
 Executes the appropriate SQL script file for installing or updating a PostgreSQL extension, handling security, environment setup, variable substitution, and script execution.

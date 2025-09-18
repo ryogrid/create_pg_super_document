@@ -1,7 +1,7 @@
 # bms_nonempty_difference
 
 ## Location
-src/backend/nodes/bitmapset.c: 641 - 671
+[src/backend/nodes/bitmapset.c:641-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L641-L671)
 
 ## Overview
 Tests whether two bitmapsets have a nonempty difference, i.e., whether the first bitmapset contains any members that are not present in the second bitmapset.

@@ -1,7 +1,7 @@
 # int4shr
 
 ## Location
-src/backend/utils/adt/int.c: 1429 - 1437
+[src/backend/utils/adt/int.c:1429-1437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1429-L1437)
 
 ## Overview
 Performs bitwise right shift operation on a 32-bit integer value by a specified number of positions and returns the result as a PostgreSQL function.

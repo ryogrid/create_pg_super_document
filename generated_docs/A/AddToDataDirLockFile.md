@@ -1,7 +1,7 @@
 # AddToDataDirLockFile
 
 ## Location
-src/backend/utils/init/miscinit.c: 1566 - 1692
+[src/backend/utils/init/miscinit.c:1566-1692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1566-L1692)
 
 ## Overview
 Adds or replaces a specific line in the data directory lock file with atomic write operations to maintain consistency.

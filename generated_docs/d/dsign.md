@@ -1,7 +1,7 @@
 # dsign
 
 ## Location
-src/backend/utils/adt/float.c: 1398 - 1420
+[src/backend/utils/adt/float.c:1398-1420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1398-L1420)
 
 ## Overview
 The dsign function returns the sign of a double-precision floating-point number, returning -1 for negative values, 0 for zero, and 1 for positive values.

@@ -1,7 +1,7 @@
 # statext_dependencies_deserialize
 
 ## Location
-src/backend/statistics/dependencies.c: 499 - 594
+[src/backend/statistics/dependencies.c:499-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L499-L594)
 
 ## Overview
 Reads serialized functional dependencies from a bytea value and reconstructs the in-memory MVDependencies structure with comprehensive validation and error checking.

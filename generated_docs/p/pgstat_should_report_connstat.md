@@ -1,7 +1,7 @@
 # pgstat_should_report_connstat
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 324 - 332
+[src/backend/utils/activity/pgstat_database.c:324-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L324-L332)
 
 ## Overview
 pgstat_should_report_connstat is a static function that determines whether the current backend process should report connection statistics.

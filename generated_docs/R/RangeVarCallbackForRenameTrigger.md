@@ -1,7 +1,7 @@
 # RangeVarCallbackForRenameTrigger
 
 ## Location
-src/backend/commands/trigger.c: 1416 - 1462
+[src/backend/commands/trigger.c:1416-1462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1416-L1462)
 
 ## Overview
 A callback function that performs permissions and integrity checks before acquiring a relation lock during trigger rename operations.

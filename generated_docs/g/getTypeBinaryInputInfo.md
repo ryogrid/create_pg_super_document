@@ -1,7 +1,7 @@
 # getTypeBinaryInputInfo
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2940 - 2972
+[src/backend/utils/cache/lsyscache.c:2940-2972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2940-L2972)
 
 ## Overview
 Retrieves information needed for binary input of values for a given PostgreSQL data type, specifically the binary receive function OID and the type I/O parameter.

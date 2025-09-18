@@ -1,7 +1,7 @@
 # dir_write
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 304 - 384
+[src/bin/pg_basebackup/walmethods.c:304-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L304-L384)
 
 ## Overview
 Writes data to a WAL file, handling different compression algorithms and maintaining position tracking for the directory-based WAL method.

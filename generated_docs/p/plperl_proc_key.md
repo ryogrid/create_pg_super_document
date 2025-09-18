@@ -1,7 +1,7 @@
 # plperl_proc_key
 
 ## Location
-src/pl/plperl/plperl.c: 149 - 159
+[src/pl/plperl/plperl.c:149-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L149-L159)
 
 ## Overview
 The plperl_proc_key structure serves as a composite hash table key for fast lookup of cached Perl procedure descriptors, combining function identity, trigger status, and user context information.

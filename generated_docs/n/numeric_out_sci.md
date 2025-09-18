@@ -1,7 +1,7 @@
 # numeric_out_sci
 
 ## Location
-src/backend/utils/adt/numeric.c: 990 - 1023
+[src/backend/utils/adt/numeric.c:990-1023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L990-L1023)
 
 ## Overview
 This function converts a PostgreSQL Numeric value to its scientific notation string representation, providing an output function specifically designed for scientific notation formatting.

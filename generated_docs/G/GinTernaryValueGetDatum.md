@@ -1,7 +1,7 @@
 # GinTernaryValueGetDatum
 
 ## Location
-src/include/access/gin.h: 75 - 79
+[src/include/access/gin.h:75-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin.h#L75-L79)
 
 ## Overview
 Converts a GinTernaryValue to a Datum type for use in PostgreSQL's function calling convention.

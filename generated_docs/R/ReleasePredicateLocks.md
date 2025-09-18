@@ -1,7 +1,7 @@
 # ReleasePredicateLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3302 - 3668
+[src/backend/storage/lmgr/predicate.c:3302-3668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3302-L3668)
 
 ## Overview
 Releases predicate locks and manages cleanup when a serializable transaction commits, rolls back, or becomes read-only safe in PostgreSQL's serializable snapshot isolation system.

@@ -1,7 +1,7 @@
 # injection_point_cache_load
 
 ## Location
-src/backend/utils/misc/injection_point.c: 176 - 208
+[src/backend/utils/misc/injection_point.c:176-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L176-L208)
 
 ## Overview
 Loads an injection point callback from an external library and adds it to the local backend cache.

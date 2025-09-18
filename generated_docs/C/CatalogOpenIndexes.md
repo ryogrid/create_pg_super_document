@@ -1,7 +1,7 @@
 # CatalogOpenIndexes
 
 ## Location
-src/backend/catalog/indexing.c: 43 - 60
+[src/backend/catalog/indexing.c:43-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L43-L60)
 
 ## Overview
 CatalogOpenIndexes opens all indexes on a system catalog relation to prepare for tuple insertion or update operations, returning a CatalogIndexState for managing index operations.

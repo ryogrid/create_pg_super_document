@@ -1,7 +1,7 @@
 # cleanup
 
 ## Location
-src/backend/regex/regc_nfa.c: 2964 - 2998
+[src/backend/regex/regc_nfa.c:2964-2998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2964-L2998)
 
 ## Overview
 The cleanup function is a static utility function in the PostgreSQL bootstrap module that performs cleanup operations by closing any open relation descriptor if it exists.

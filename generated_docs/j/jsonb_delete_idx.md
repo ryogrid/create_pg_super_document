@@ -1,7 +1,7 @@
 # jsonb_delete_idx
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4780 - 4843
+[src/backend/utils/adt/jsonfuncs.c:4780-4843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4780-L4843)
 
 ## Overview
 Deletes an element from a JSONB array by its index, supporting both positive and negative indices.

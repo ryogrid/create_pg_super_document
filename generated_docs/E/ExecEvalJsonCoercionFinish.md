@@ -1,7 +1,7 @@
 # ExecEvalJsonCoercionFinish
 
 ## Location
-src/backend/executor/execExprInterp.c: 4636 - 4688
+[src/backend/executor/execExprInterp.c:4636-4688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4636-L4688)
 
 ## Overview
 ExecEvalJsonCoercionFinish handles error checking and cleanup after JSON coercion operations in PostgreSQL's expression evaluator, managing ON ERROR and ON EMPTY behavior handling for SQL/JSON expressions.

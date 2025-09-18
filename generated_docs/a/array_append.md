@@ -1,7 +1,7 @@
 # array_append
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 123 - 175
+[src/backend/utils/adt/array_userfuncs.c:123-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L123-L175)
 
 ## Overview
 PostgreSQL function that pushes an element onto the end of a one-dimensional array, extending the array by one element.

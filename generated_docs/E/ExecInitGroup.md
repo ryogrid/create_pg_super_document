@@ -1,7 +1,7 @@
 # ExecInitGroup
 
 ## Location
-src/backend/executor/nodeGroup.c: 161 - 225
+[src/backend/executor/nodeGroup.c:161-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGroup.c#L161-L225)
 
 ## Overview
 ExecInitGroup initializes the runtime state for a Group plan node, setting up the necessary data structures, expression contexts, and child node connections for GROUP BY execution.

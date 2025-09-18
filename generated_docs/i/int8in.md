@@ -1,7 +1,7 @@
 # int8in
 
 ## Location
-src/backend/utils/adt/int8.c: 50 - 60
+[src/backend/utils/adt/int8.c:50-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L50-L60)
 
 ## Overview
 Converts a string representation of a 64-bit integer to PostgreSQL's internal int8 (bigint) format.

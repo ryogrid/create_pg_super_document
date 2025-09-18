@@ -1,7 +1,7 @@
 # RecordConstLocation
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 198 - 218
+[src/backend/nodes/queryjumblefuncs.c:198-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L198-L218)
 
 ## Overview
 RecordConstLocation tracks the source code locations of constants within SQL query strings during the query jumbling process for later parameter extraction.

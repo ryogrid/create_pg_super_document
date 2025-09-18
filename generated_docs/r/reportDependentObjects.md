@@ -1,7 +1,7 @@
 # reportDependentObjects
 
 ## Location
-src/backend/catalog/dependency.c: 980 - 1035
+[src/backend/catalog/dependency.c:980-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L980-L1035)
 
 ## Overview
 Validates deletion operations, reports cascading deletions to users, and enforces RESTRICT vs CASCADE behavior for dependency-based object deletion.

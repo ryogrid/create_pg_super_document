@@ -1,7 +1,7 @@
 # get_timezone_offset
 
 ## Location
-src/bin/initdb/findtimezone.c: 175 - 189
+[src/bin/initdb/findtimezone.c:175-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L175-L189)
 
 ## Overview
 Extracts the GMT offset in seconds from a system struct tm, providing a portable way to determine timezone offset across different platforms.

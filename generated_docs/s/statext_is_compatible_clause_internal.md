@@ -1,7 +1,7 @@
 # statext_is_compatible_clause_internal
 
 ## Location
-src/backend/statistics/extended_stats.c: 1331 - 1557
+[src/backend/statistics/extended_stats.c:1331-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1331-L1557)
 
 ## Overview
 Recursively determines if a clause is compatible with MCV (Most Common Values) lists by analyzing the clause structure and extracting supported sub-expressions and variables.

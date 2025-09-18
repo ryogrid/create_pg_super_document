@@ -1,7 +1,7 @@
 # _tocEntryRequired
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2926 - 3206
+[src/bin/pg_dump/pg_backup_archiver.c:2926-3206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2926-L3206)
 
 ## Overview
 This function determines whether a table of contents entry should be restored during a PostgreSQL restore operation, applying various filtering rules and returning flags indicating which components (schema, data, or special) should be processed.

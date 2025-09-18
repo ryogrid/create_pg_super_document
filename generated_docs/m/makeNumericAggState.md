@@ -1,7 +1,7 @@
 # makeNumericAggState
 
 ## Location
-src/backend/utils/adt/numeric.c: 4833 - 4857
+[src/backend/utils/adt/numeric.c:4833-4857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4833-L4857)
 
 ## Overview
 Creates and initializes a NumericAggState structure for numeric aggregate functions that need to compute sum, count, and optionally sum of squares of input values.

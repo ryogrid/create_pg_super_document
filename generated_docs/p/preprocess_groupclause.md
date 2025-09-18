@@ -1,7 +1,7 @@
 # preprocess_groupclause
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2884 - 2979
+[src/backend/optimizer/plan/planner.c:2884-2979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2884-L2979)
 
 ## Overview
 Reorders GROUP BY clause elements to match ORDER BY clause ordering, enabling optimization opportunities for combined sorting and grouping operations.

@@ -1,7 +1,7 @@
 # point_div_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4182 - 4195
+[src/backend/utils/adt/geo_ops.c:4182-4195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4182-L4195)
 
 ## Overview
 The point_div_point function performs complex division of two Point objects, implementing complex number division in a 2D coordinate system.

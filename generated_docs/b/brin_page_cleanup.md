@@ -1,7 +1,7 @@
 # brin_page_cleanup
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 624 - 689
+[src/backend/access/brin/brin_pageops.c:624-689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L624-L689)
 
 ## Overview
 Initializes uninitialized BRIN index pages if necessary and records their current free space in the Free Space Map (FSM) for future allocation decisions.

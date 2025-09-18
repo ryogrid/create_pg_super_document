@@ -1,7 +1,7 @@
 # xmlChar_to_encoding
 
 ## Location
-src/backend/utils/adt/xml.c: 251 - 272
+[src/backend/utils/adt/xml.c:251-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L251-L272)
 
 ## Overview
 Converts an XML character encoding name to PostgreSQL's internal encoding identifier, providing validation and error handling for encoding names.

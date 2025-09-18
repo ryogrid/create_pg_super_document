@@ -1,7 +1,7 @@
 # tts_heap_is_current_xact_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 375 - 397
+[src/backend/executor/execTuples.c:375-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L375-L397)
 
 ## Overview
 Checks whether a heap tuple stored in a tuple table slot was created by the current transaction by examining its transaction ID (xmin).

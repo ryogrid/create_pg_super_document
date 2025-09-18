@@ -1,7 +1,7 @@
 # ExecEvalConstraintCheck
 
 ## Location
-src/backend/executor/execExprInterp.c: 3866 - 3885
+[src/backend/executor/execExprInterp.c:3866-3885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3866-L3885)
 
 ## Overview
 Evaluates a CHECK domain constraint, raising an error if the constraint expression evaluates to false.

@@ -1,7 +1,7 @@
 # AfterTriggerEventDataZeroCtids
 
 ## Location
-src/backend/commands/trigger.c: 3761 - 3764
+[src/backend/commands/trigger.c:3761-3764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3761-L3764)
 
 ## Overview
 AfterTriggerEventDataZeroCtids is the most space-optimized variant of AfterTriggerEventData, containing only trigger flags and used for foreign table triggers that store tuple data in a tuplestore.

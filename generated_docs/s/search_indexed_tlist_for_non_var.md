@@ -1,7 +1,7 @@
 # search_indexed_tlist_for_non_var
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2915 - 2954
+[src/backend/optimizer/plan/setrefs.c:2915-2954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2915-L2954)
 
 ## Overview
 Searches for a non-Var/non-PlaceHolderVar expression in an indexed target list and returns a Var constructed to reference the matching target list item.

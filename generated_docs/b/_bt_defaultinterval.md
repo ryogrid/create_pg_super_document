@@ -1,7 +1,7 @@
 # _bt_defaultinterval
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 876 - 933
+[src/backend/access/nbtree/nbtsplitloc.c:876-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L876-L933)
 
 ## Overview
 Determines the split interval for the default B-tree splitting strategy, which limits the number of candidate split points that receive further consideration based on balanced free space distribution.

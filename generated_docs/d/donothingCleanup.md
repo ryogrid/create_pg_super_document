@@ -1,7 +1,7 @@
 # donothingCleanup
 
 ## Location
-src/backend/tcop/dest.c: 61 - 102
+[src/backend/tcop/dest.c:61-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L61-L102)
 
 ## Overview
 donothingCleanup is a dummy DestReceiver cleanup function that performs no cleanup operations, serving as a no-operation placeholder for both shutdown and destroy methods.

@@ -1,7 +1,7 @@
 # distribute_row_identity_vars
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 965 - 1036
+[src/backend/optimizer/util/appendinfo.c:965-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L965-L1036)
 
 ## Overview
 Ensures that all target relations in an inherited UPDATE/DELETE/MERGE query will generate the necessary row identity columns, distributing ROWID_VAR references to relation target lists.

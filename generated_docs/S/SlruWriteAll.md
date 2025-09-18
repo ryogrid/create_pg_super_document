@@ -1,7 +1,7 @@
 # SlruWriteAll
 
 ## Location
-src/backend/access/transam/slru.c: 133 - 142
+[src/backend/access/transam/slru.c:133-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L133-L142)
 
 ## Overview
 SlruWriteAll is a type alias that represents a pointer to the SlruWriteAllData structure, used for managing bulk write operations in PostgreSQL's Simple Log-based Recovery Unit (SLRU) system.

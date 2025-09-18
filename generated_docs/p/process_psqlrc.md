@@ -1,7 +1,7 @@
 # process_psqlrc
 
 ## Location
-src/bin/psql/startup.c: 774 - 807
+[src/bin/psql/startup.c:774-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L774-L807)
 
 ## Overview
 A static function responsible for loading psql configuration files (.psqlrc) from system and user locations during psql startup initialization.

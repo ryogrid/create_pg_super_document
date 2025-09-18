@@ -1,7 +1,7 @@
 # PGTYPESdate_julmdy
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 115 - 127
+[src/interfaces/ecpg/pgtypeslib/datetime.c:115-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L115-L127)
 
 ## Overview
 Converts a Julian date to month/day/year format and stores the values in an integer array.

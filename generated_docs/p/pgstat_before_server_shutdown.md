@@ -1,7 +1,7 @@
 # pgstat_before_server_shutdown
 
 ## Location
-src/backend/utils/activity/pgstat.c: 462 - 502
+[src/backend/utils/activity/pgstat.c:462-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L462-L502)
 
 ## Overview
 Handles statistics persistence during server shutdown by flushing pending statistics and writing them to disk. This function ensures statistics data is preserved across normal server shutdowns.

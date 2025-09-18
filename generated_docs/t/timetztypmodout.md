@@ -1,7 +1,7 @@
 # timetztypmodout
 
 ## Location
-src/backend/utils/adt/date.c: 2391 - 2402
+[src/backend/utils/adt/date.c:2391-2402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2391-L2402)
 
 ## Overview
 Converts a TIMETZ type modifier to its string representation for display in system catalogs, error messages, and \\dt commands.

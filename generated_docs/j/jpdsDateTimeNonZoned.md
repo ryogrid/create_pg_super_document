@@ -1,7 +1,7 @@
 # jpdsDateTimeNonZoned
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1252 - 1255
+[src/backend/utils/adt/jsonpath.c:1252-1255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1252-L1255)
 
 ## Overview
 jpdsDateTimeNonZoned is an enumeration value within JsonPathDatatypeStatus enum that represents timezone-unaware datetime types in PostgreSQL's JSON path expressions.

@@ -1,7 +1,7 @@
 # check_for_user_defined_encoding_conversions
 
 ## Location
-src/bin/pg_upgrade/check.c: 1728 - 1811
+[src/bin/pg_upgrade/check.c:1728-1811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1728-L1811)
 
 ## Overview
 Validates that the old PostgreSQL cluster does not contain any user-defined encoding conversions, which are incompatible with PostgreSQL version 14 and later due to function parameter changes.

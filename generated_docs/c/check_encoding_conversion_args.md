@@ -1,7 +1,7 @@
 # check_encoding_conversion_args
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1669 - 1697
+[src/backend/utils/mb/mbutils.c:1669-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1669-L1697)
 
 ## Overview
 Validates the arguments passed to encoding conversion functions to ensure they have valid encoding IDs and match expected values.

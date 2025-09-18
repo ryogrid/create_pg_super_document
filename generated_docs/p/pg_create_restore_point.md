@@ -1,7 +1,7 @@
 # pg_create_restore_point
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 232 - 272
+[src/backend/access/transam/xlogfuncs.c:232-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L232-L272)
 
 ## Overview
 Creates a named restore point in the WAL that can be used as a target for point-in-time recovery operations.

@@ -1,7 +1,7 @@
 # get_opclass_method
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1260 - 1284
+[src/backend/utils/cache/lsyscache.c:1260-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1260-L1284)
 
 ## Overview
 Retrieves the OID of the index access method that an operator class belongs to, providing the linkage between operator classes and their underlying index access methods.

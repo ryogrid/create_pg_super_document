@@ -1,7 +1,7 @@
 # stringToQualifiedNameList
 
 ## Location
-src/backend/utils/adt/regproc.c: 1797 - 1842
+[src/backend/utils/adt/regproc.c:1797-1842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1797-L1842)
 
 ## Overview
 Parses a C string into a qualified name list by splitting on dots and converting each component into PostgreSQL String nodes.

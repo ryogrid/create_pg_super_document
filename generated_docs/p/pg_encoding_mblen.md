@@ -1,7 +1,7 @@
 # pg_encoding_mblen
 
 ## Location
-src/common/wchar.c: 2135 - 2146
+[src/common/wchar.c:2135-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2135-L2146)
 
 ## Overview
 Returns the byte length of a multibyte character in a specified encoding, serving as the primary interface for character length determination in PostgreSQL.

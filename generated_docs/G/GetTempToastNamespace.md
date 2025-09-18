@@ -1,7 +1,7 @@
 # GetTempToastNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3791 - 3804
+[src/backend/catalog/namespace.c:3791-3804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3791-L3804)
 
 ## Overview
 This function returns the OID of the current backend's temporary toast table namespace, which must already be assigned before calling this function.

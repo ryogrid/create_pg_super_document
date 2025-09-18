@@ -1,7 +1,7 @@
 # ExecInitNullTupleSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1934 - 1954
+[src/backend/executor/execTuples.c:1934-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1934-L1954)
 
 ## Overview
 Creates a tuple slot containing an all-nulls tuple of the specified type, primarily used as a substitute input tuple for outer join operations.

@@ -1,7 +1,7 @@
 # elements_worker_jsonb
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2218 - 2293
+[src/backend/utils/adt/jsonfuncs.c:2218-2293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2218-L2293)
 
 ## Overview
 A static worker function that extracts array elements from a JSONB value and returns them as a set of rows, either as JSONB objects or as text depending on the specified mode.

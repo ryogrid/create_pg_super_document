@@ -1,7 +1,7 @@
 # tsquery_requires_match
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2156 - 2205
+[src/backend/utils/adt/tsvector_op.c:2156-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2156-L2205)
 
 ## Overview
 Detects whether a tsquery boolean expression requires any positive matches to values shown in the tsquery, used to optimize GIN index searches.

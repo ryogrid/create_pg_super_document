@@ -1,7 +1,7 @@
 # get_func_name
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1608 - 1631
+[src/backend/utils/cache/lsyscache.c:1608-1631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1608-L1631)
 
 ## Overview
 Returns a palloc'd copy of the function name for a given function OID, or NULL if the function doesn't exist.

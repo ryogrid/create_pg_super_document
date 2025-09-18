@@ -1,7 +1,7 @@
 # pgstat_get_io_time_index
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1330 - 1350
+[src/backend/utils/adt/pgstatfuncs.c:1330-1350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1330-L1350)
 
 ## Overview
 This static function determines the column index for I/O timing statistics corresponding to specific I/O operations, returning IO_COL_INVALID for operations that don't have associated timing data.

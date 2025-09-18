@@ -1,7 +1,7 @@
 # auth_method_description
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 767 - 792
+[src/interfaces/libpq/fe-auth.c:767-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L767-L792)
 
 ## Overview
 Translates PostgreSQL authentication request codes into human-readable error messages for client applications.

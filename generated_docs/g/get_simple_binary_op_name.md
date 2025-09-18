@@ -1,7 +1,7 @@
 # get_simple_binary_op_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8531 - 8556
+[src/backend/utils/adt/ruleutils.c:8531-8556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8531-L8556)
 
 ## Overview
 A helper function that determines if an OpExpr represents a simple single-character binary operator and returns its name.

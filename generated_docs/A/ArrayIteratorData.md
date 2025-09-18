@@ -1,7 +1,7 @@
 # ArrayIteratorData
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 68 - 89
+[src/backend/utils/adt/arrayfuncs.c:68-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L68-L89)
 
 ## Overview
 ArrayIteratorData is a private structure that maintains the working state for array iteration operations in PostgreSQL. It provides efficient sequential access to array elements with support for both complete array traversal and array slicing.

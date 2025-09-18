@@ -1,7 +1,7 @@
 # list_union_oid
 
 ## Location
-src/backend/nodes/list.c: 1136 - 1173
+[src/backend/nodes/list.c:1136-1173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1136-L1173)
 
 ## Overview
 Creates a new list containing the union of two OID (Object Identifier) lists, eliminating duplicate values.

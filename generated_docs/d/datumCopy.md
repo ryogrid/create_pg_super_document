@@ -1,7 +1,7 @@
 # datumCopy
 
 ## Location
-src/backend/utils/adt/datum.c: 132 - 193
+[src/backend/utils/adt/datum.c:132-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L132-L193)
 
 ## Overview
 Creates a deep copy of a non-NULL datum, allocating new memory with palloc() for pass-by-reference types and handling expanded objects by flattening them into regular storage.

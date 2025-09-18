@@ -1,7 +1,7 @@
 # expression_returns_set
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 758 - 763
+[src/backend/nodes/nodeFuncs.c:758-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L758-L763)
 
 ## Overview
 Tests whether an expression returns a set result, useful for detecting set-returning functions or expressions in query planning and execution.

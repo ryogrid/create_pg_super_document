@@ -1,7 +1,7 @@
 # first_path_var_separator
 
 ## Location
-src/port/path.c: 126 - 143
+[src/port/path.c:126-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L126-L143)
 
 ## Overview
 A utility function that finds the first path variable separator character in a path list string, used for parsing environment variables like PATH.

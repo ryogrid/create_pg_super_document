@@ -1,7 +1,7 @@
 # cash_numeric
 
 ## Location
-src/backend/utils/adt/cash.c: 1046 - 1101
+[src/backend/utils/adt/cash.c:1046-1101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L1046-L1101)
 
 ## Overview
 A PostgreSQL function that converts a Cash value to a Numeric data type, handling locale-specific fractional digit scaling and precision requirements.

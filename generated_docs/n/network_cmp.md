@@ -1,7 +1,7 @@
 # network_cmp
 
 ## Location
-src/backend/utils/adt/network.c: 425 - 436
+[src/backend/utils/adt/network.c:425-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L425-L436)
 
 ## Overview
 PostgreSQL built-in function wrapper that provides comparison functionality for network address data types, accessible from SQL.

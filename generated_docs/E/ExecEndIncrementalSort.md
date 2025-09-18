@@ -1,7 +1,7 @@
 # ExecEndIncrementalSort
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 1077 - 1106
+[src/backend/executor/nodeIncrementalSort.c:1077-1106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L1077-L1106)
 
 ## Overview
 Shuts down an incremental sort node by releasing all allocated resources including tuple slots, tuplesort states, and the outer child node.

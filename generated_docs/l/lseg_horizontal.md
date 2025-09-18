@@ -1,7 +1,7 @@
 # lseg_horizontal
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2227 - 2235
+[src/backend/utils/adt/geo_ops.c:2227-2235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2227-L2235)
 
 ## Overview
 Determines if a line segment is horizontal by checking if both endpoints have the same y-coordinate.

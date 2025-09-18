@@ -1,7 +1,7 @@
 # ExecEndAgg
 
 ## Location
-src/backend/executor/nodeAgg.c: 4304 - 4363
+[src/backend/executor/nodeAgg.c:4304-4363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4304-L4363)
 
 ## Overview
 ExecEndAgg performs cleanup and resource deallocation for an aggregate node when execution is finished.

@@ -1,7 +1,7 @@
 # ColumnDef
 
 ## Location
-src/include/nodes/parsenodes.h: 723 - 746
+[src/include/nodes/parsenodes.h:723-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L723-L746)
 
 ## Overview
 ColumnDef represents a column definition structure used in various CREATE statements, containing comprehensive column metadata including data type, constraints, default values, and storage properties.

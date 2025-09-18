@@ -1,7 +1,7 @@
 # lazy_check_wraparound_failsafe
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2300 - 2352
+[src/backend/access/heap/vacuumlazy.c:2300-2352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2300-L2352)
 
 ## Overview
 Triggers a failsafe mechanism to prevent transaction ID wraparound failure by checking if the table's relfrozenxid or relminmxid is dangerously far in the past and bypassing non-essential vacuum operations.

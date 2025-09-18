@@ -1,7 +1,7 @@
 # ExecRelCheck
 
 ## Location
-src/backend/executor/execMain.c: 1719 - 1793
+[src/backend/executor/execMain.c:1719-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1719-L1793)
 
 ## Overview
 ExecRelCheck validates that a tuple meets all check constraints defined for a result relation, returning NULL if all constraints pass or the name of the first failed constraint.

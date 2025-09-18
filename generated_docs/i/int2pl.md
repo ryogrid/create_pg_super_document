@@ -1,7 +1,7 @@
 # int2pl
 
 ## Location
-src/backend/utils/adt/int.c: 906 - 919
+[src/backend/utils/adt/int.c:906-919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L906-L919)
 
 ## Overview
 A PostgreSQL system function that implements addition for 16-bit signed integers (int2/smallint) with overflow detection and error handling.

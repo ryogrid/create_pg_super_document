@@ -1,7 +1,7 @@
 # revmap_get_buffer
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 463 - 499
+[src/backend/access/brin/brin_revmap.c:463-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L463-L499)
 
 ## Overview
 A static helper function that obtains and returns a buffer containing the reverse map page for a given heap block, with buffer caching optimization to avoid unnecessary I/O operations.

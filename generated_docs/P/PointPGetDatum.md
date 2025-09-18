@@ -1,7 +1,7 @@
 # PointPGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 181 - 184
+[src/include/utils/geo_decls.h:181-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L181-L184)
 
 ## Overview
 PointPGetDatum is an inline utility function that converts a Point pointer to a Datum value, serving as the complementary function to DatumGetPointP in PostgreSQL's function manager interface.

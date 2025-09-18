@@ -1,7 +1,7 @@
 # timestamp2timestamptz_opt_overflow
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6304 - 6355
+[src/backend/utils/adt/timestamp.c:6304-6355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6304-L6355)
 
 ## Overview
 Converts a timestamp to timestamptz with optional overflow handling, providing controlled behavior when the result would be out of valid range.

@@ -1,7 +1,7 @@
 # spgbeginscan
 
 ## Location
-src/backend/access/spgist/spgscan.c: 304 - 379
+[src/backend/access/spgist/spgscan.c:304-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L304-L379)
 
 ## Overview
 Initializes and begins a new SP-GiST index scan, setting up all necessary data structures and memory contexts for scanning operations.

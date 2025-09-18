@@ -1,7 +1,7 @@
 # vm_extend
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 612 - 632
+[src/backend/access/heap/visibilitymap.c:612-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L612-L632)
 
 ## Overview
 Extends the visibility map fork to ensure it has at least the specified number of blocks, creating zeroed pages as needed.

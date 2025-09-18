@@ -1,7 +1,7 @@
 # BuildEventTriggerCache
 
 ## Location
-src/backend/utils/cache/evtcache.c: 77 - 221
+[src/backend/utils/cache/evtcache.c:77-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/evtcache.c#L77-L221)
 
 ## Overview
 Rebuilds the event trigger cache by scanning the pg_event_trigger system catalog and constructing a hash table indexed by event type for efficient event trigger lookup.

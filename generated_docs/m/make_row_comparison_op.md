@@ -1,7 +1,7 @@
 # make_row_comparison_op
 
 ## Location
-src/backend/parser/parse_expr.c: 2816 - 3017
+[src/backend/parser/parse_expr.c:2816-3017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2816-L3017)
 
 ## Overview
 Transforms a "row compare-op row" construct by analyzing operator semantics and creating appropriate comparison expressions for multi-column row comparisons.

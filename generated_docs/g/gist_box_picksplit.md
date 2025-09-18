@@ -1,7 +1,7 @@
 # gist_box_picksplit
 
 ## Location
-src/backend/access/gist/gistproc.c: 495 - 711
+[src/backend/access/gist/gistproc.c:495-711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L495-L711)
 
 ## Overview
 A PostgreSQL function that implements the double sorting-based node splitting algorithm for GiST indexes on geometric box data types, determining the optimal way to split a node when it becomes full.

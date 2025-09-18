@@ -1,7 +1,7 @@
 # GetSnapshotDataReuse
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2095 - 2176
+[src/backend/storage/ipc/procarray.c:2095-2176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2095-L2176)
 
 ## Overview
 A helper function that checks if an existing snapshot's visibility information is still valid and can be reused, avoiding the expensive process of rebuilding the snapshot from scratch.

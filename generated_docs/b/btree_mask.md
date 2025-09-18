@@ -1,7 +1,7 @@
 # btree_mask
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 1091 - 1127
+[src/backend/access/nbtree/nbtxlog.c:1091-1127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L1091-L1127)
 
 ## Overview
 The btree_mask function masks a btree page before performing consistency checks on it by clearing certain un-logged hint bits and flags that may vary between primary and standby servers.

@@ -1,7 +1,7 @@
 # ReorderBufferAllocate
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 321 - 412
+[src/backend/replication/logical/reorderbuffer.c:321-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L321-L412)
 
 ## Overview
 Allocates and initializes a new ReorderBuffer structure used for logical decoding, setting up necessary memory contexts and data structures for transaction reordering.

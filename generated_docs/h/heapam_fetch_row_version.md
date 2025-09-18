@@ -1,7 +1,7 @@
 # heapam_fetch_row_version
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 181 - 204
+[src/backend/access/heap/heapam_handler.c:181-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L181-L204)
 
 ## Overview
 This function retrieves a specific tuple from a heap relation using its tuple identifier (TID) and stores it in a table slot, serving as a callback for non-modifying operations on individual tuples in the heap access method.

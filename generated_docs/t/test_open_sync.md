@@ -1,7 +1,7 @@
 # test_open_sync
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 469 - 504
+[src/bin/pg_test_fsync/pg_test_fsync.c:469-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L469-L504)
 
 ## Overview
 A specialized benchmarking function that tests the performance of open_sync operations with a specific write size configuration, measuring how efficiently data can be written using synchronous I/O.

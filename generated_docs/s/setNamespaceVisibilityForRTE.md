@@ -1,7 +1,7 @@
 # setNamespaceVisibilityForRTE
 
 ## Location
-src/backend/parser/parse_merge.c: 415 - 432
+[src/backend/parser/parse_merge.c:415-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_merge.c#L415-L432)
 
 ## Overview
 A static utility function that sets the visibility flags for a specific Range Table Entry (RTE) within the parser namespace, controlling whether the relation and its columns can be referenced during expression parsing.

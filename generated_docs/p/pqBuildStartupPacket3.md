@@ -1,7 +1,7 @@
 # pqBuildStartupPacket3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 2237 - 2259
+[src/interfaces/libpq/fe-protocol3.c:2237-2259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L2237-L2259)
 
 ## Overview
 Constructs a PostgreSQL protocol 3 startup packet by allocating memory and delegating the actual packet construction to the build_startup_packet helper function.

@@ -1,7 +1,7 @@
 # heapam_index_fetch_reset
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 91 - 102
+[src/backend/access/heap/heapam_handler.c:91-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L91-L102)
 
 ## Overview
 Resets the heap index fetch scan state by releasing any currently held buffer and preparing the scan for reuse or termination.

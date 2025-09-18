@@ -1,7 +1,7 @@
 # PLy_spi_execute_query
 
 ## Location
-src/pl/plpython/plpy_spi.c: 298 - 339
+[src/pl/plpython/plpy_spi.c:298-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L298-L339)
 
 ## Overview
 PLy_spi_execute_query executes a direct SQL query string without parameters, handling the execution within a subtransaction and processing the results for return to Python.

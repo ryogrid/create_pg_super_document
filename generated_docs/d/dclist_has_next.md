@@ -1,7 +1,7 @@
 # dclist_has_next
 
 ## Location
-src/include/lib/ilist.h: 839 - 853
+[src/include/lib/ilist.h:839-853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L839-L853)
 
 ## Overview
 Checks whether a given node in a doubly-linked counted list has a following (next) node, returning true if there is a subsequent node.

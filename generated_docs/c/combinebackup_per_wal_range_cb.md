@@ -1,7 +1,7 @@
 # combinebackup_per_wal_range_cb
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 293 - 314
+[src/bin/pg_combinebackup/load_manifest.c:293-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L293-L314)
 
 ## Overview
 A callback function used during backup manifest parsing that records details extracted from the backup manifest for one WAL range and adds it to a linked list of WAL ranges.

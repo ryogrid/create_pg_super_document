@@ -1,7 +1,7 @@
 # enum_cmp
 
 ## Location
-src/backend/utils/adt/enum.c: 378 - 391
+[src/backend/utils/adt/enum.c:378-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L378-L391)
 
 ## Overview
 PostgreSQL function that implements the three-way comparison operation for enum data types, returning an integer indicating the relative ordering between two enum values.

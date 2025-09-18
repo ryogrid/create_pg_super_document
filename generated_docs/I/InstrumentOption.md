@@ -1,7 +1,7 @@
 # InstrumentOption
 
 ## Location
-src/include/executor/instrument.h: 66 - 67
+[src/include/executor/instrument.h:66-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/instrument.h#L66-L67)
 
 ## Overview
 InstrumentOption is an enumeration that defines flag bits used in the InstrAlloc function's instrument_options bitmask to configure what types of execution statistics and metrics should be collected during query execution.

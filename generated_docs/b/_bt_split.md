@@ -1,7 +1,7 @@
 # _bt_split
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 1467 - 2098
+[src/backend/access/nbtree/nbtinsert.c:1467-2098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L1467-L2098)
 
 ## Overview
 _bt_split splits a B-tree page when insufficient space exists for a new tuple, creating a new right sibling page and redistributing tuples between the original (left) and new (right) pages.

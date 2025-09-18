@@ -1,7 +1,7 @@
 # xl_heap_header
 
 ## Location
-src/include/access/heapam_xlog.h: 149 - 154
+[src/include/access/heapam_xlog.h:149-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L149-L154)
 
 ## Overview
 The xl_heap_header struct stores the essential tuple header fields that must be preserved in WAL records for heap tuple operations, providing a compact representation of tuple metadata.

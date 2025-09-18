@@ -1,7 +1,7 @@
 # is_pseudo_constant_for_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3751 - 3759
+[src/backend/optimizer/path/indxpath.c:3751-3759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3751-L3759)
 
 ## Overview
 Tests whether a given expression can be used as an indexscan comparison value by checking that it contains no volatile functions and no variables from the index's own table.

@@ -1,7 +1,7 @@
 # pgstat_build_snapshot
 
 ## Location
-src/backend/utils/activity/pgstat.c: 978 - 1065
+[src/backend/utils/activity/pgstat.c:978-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L978-L1065)
 
 ## Overview
 Builds a comprehensive snapshot of all PostgreSQL statistics by copying variable stats from shared memory and building snapshots for all fixed-numbered statistics kinds.

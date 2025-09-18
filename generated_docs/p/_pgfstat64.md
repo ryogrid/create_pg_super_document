@@ -1,7 +1,7 @@
 # _pgfstat64
 
 ## Location
-src/port/win32stat.c: 255 - 302
+[src/port/win32stat.c:255-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L255-L302)
 
 ## Overview
 Windows-specific implementation of the fstat() system call that retrieves file status information for a given file descriptor.

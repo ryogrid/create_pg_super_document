@@ -1,7 +1,7 @@
 # CreateSharedProcArray
 
 ## Location
-src/backend/storage/ipc/procarray.c: 418 - 467
+[src/backend/storage/ipc/procarray.c:418-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L418-L467)
 
 ## Overview
 Initializes the shared PGPROC array during postmaster startup, setting up shared memory structures for tracking active processes and their transaction information.

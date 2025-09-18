@@ -1,7 +1,7 @@
 # pg_get_function_arguments
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3133 - 3158
+[src/backend/utils/adt/ruleutils.c:3133-3158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3133-L3158)
 
 ## Overview
 Returns a nicely-formatted list of arguments for a function, representing everything that would appear between the parentheses in a CREATE FUNCTION statement.

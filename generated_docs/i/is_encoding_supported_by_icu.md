@@ -1,7 +1,7 @@
 # is_encoding_supported_by_icu
 
 ## Location
-src/common/encnames.c: 461 - 471
+[src/common/encnames.c:461-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L461-L471)
 
 ## Overview
 Checks whether a given character encoding is supported by the ICU (International Components for Unicode) library in PostgreSQL.

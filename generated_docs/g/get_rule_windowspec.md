@@ -1,7 +1,7 @@
 # get_rule_windowspec
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6538 - 6646
+[src/backend/utils/adt/ruleutils.c:6538-6646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6538-L6646)
 
 ## Overview
 Formats and outputs a complete window specification definition for SQL rule deparsing, including partition clauses, ordering, and frame specifications.

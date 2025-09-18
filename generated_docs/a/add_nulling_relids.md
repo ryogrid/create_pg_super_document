@@ -1,7 +1,7 @@
 # add_nulling_relids
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1149 - 1164
+[src/backend/rewrite/rewriteManip.c:1149-1164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1149-L1164)
 
 ## Overview
 add_nulling_relids traverses an expression tree and adds specified relation IDs to the nulling relation sets of Vars and PlaceHolderVars that belong to target relations, implementing outer join nulling semantics.

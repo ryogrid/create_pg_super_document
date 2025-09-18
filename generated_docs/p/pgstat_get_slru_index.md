@@ -1,7 +1,7 @@
 # pgstat_get_slru_index
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 132 - 155
+[src/backend/utils/activity/pgstat_slru.c:132-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L132-L155)
 
 ## Overview
 Determines the index of an entry for a SLRU (Simple LRU) with a given name, providing a fallback to the "other" entry for external SLRUs not explicitly defined in the system.

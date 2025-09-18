@@ -1,7 +1,7 @@
 # BackgroundWorkerShmemSize
 
 ## Location
-src/backend/postmaster/bgworker.c: 146 - 161
+[src/backend/postmaster/bgworker.c:146-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L146-L161)
 
 ## Overview
 Calculates the amount of shared memory needed for the background worker infrastructure in PostgreSQL.

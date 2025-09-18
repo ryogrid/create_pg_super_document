@@ -1,7 +1,7 @@
 # ginqueryarrayextract
 
 ## Location
-src/backend/access/gin/ginarrayproc.c: 79 - 141
+[src/backend/access/gin/ginarrayproc.c:79-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginarrayproc.c#L79-L141)
 
 ## Overview
 This is a PostgreSQL GIN extractQuery support function that processes query arrays for different search strategies, determining how array elements should be matched during index scans.

@@ -1,7 +1,7 @@
 # ReorderBufferFinishPrepared
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2883 - 2967
+[src/backend/replication/logical/reorderbuffer.c:2883-2967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2883-L2967)
 
 ## Overview
 Handles COMMIT PREPARED and ROLLBACK PREPARED operations for two-phase transactions in logical replication.

@@ -1,7 +1,7 @@
 # byteaoctetlen
 
 ## Location
-src/backend/utils/adt/varlena.c: 2922 - 2937
+[src/backend/utils/adt/varlena.c:2922-2937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2922-L2937)
 
 ## Overview
 A PostgreSQL function that returns the number of data bytes contained in a bytea (binary data) value, excluding the variable-length header overhead.

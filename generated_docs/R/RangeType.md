@@ -1,7 +1,7 @@
 # RangeType
 
 ## Location
-src/include/utils/rangetypes.h: 30 - 31
+[src/include/utils/rangetypes.h:30-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rangetypes.h#L30-L31)
 
 ## Overview
 RangeType is a fundamental data structure in PostgreSQL that represents range types - values that represent a range of data values of some element type.

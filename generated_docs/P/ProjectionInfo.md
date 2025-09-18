@@ -1,7 +1,7 @@
 # ProjectionInfo
 
 ## Location
-src/include/nodes/execnodes.h: 360 - 367
+[src/include/nodes/execnodes.h:360-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L360-L367)
 
 ## Overview
 ProjectionInfo is a structure used to perform projections in PostgreSQL's executor, which forms new tuples by evaluating targetlist expressions and storing them in result slots.

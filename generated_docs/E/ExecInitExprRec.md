@@ -1,7 +1,7 @@
 # ExecInitExprRec
 
 ## Location
-src/backend/executor/execExpr.c: 894 - 2601
+[src/backend/executor/execExpr.c:894-2601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L894-L2601)
 
 ## Overview
 ExecInitExprRec is the core recursive function that compiles expression nodes into execution steps, generating a sequence of operations stored in an ExprState for efficient runtime evaluation.

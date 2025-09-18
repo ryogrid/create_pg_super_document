@@ -1,7 +1,7 @@
 # init_sexpr
 
 ## Location
-src/backend/executor/execSRF.c: 696 - 809
+[src/backend/executor/execSRF.c:696-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L696-L809)
 
 ## Overview
 Initializes a SetExprState node during first use by setting up function metadata, permission checks, call information, and result descriptors for both regular and set-returning functions.

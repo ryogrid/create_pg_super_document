@@ -1,7 +1,7 @@
 # assign_tcp_keepalives_interval
 
 ## Location
-src/backend/libpq/pqcomm.c: 1984 - 1993
+[src/backend/libpq/pqcomm.c:1984-1993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1984-L1993)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that sets the TCP keepalive interval value for the current connection when the parameter is changed.

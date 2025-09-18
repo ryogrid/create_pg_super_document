@@ -1,7 +1,7 @@
 # heap_fetch
 
 ## Location
-src/backend/access/heap/heapam.c: 1555 - 1674
+[src/backend/access/heap/heapam.c:1555-1674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1555-L1674)
 
 ## Overview
 This function retrieves a specific tuple from a heap relation using its TID (tuple identifier), performs visibility checks against a snapshot, and manages buffer pinning for the caller.

@@ -1,7 +1,7 @@
 # smgrextend
 
 ## Location
-src/backend/storage/smgr/smgr.c: 535 - 559
+[src/backend/storage/smgr/smgr.c:535-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L535-L559)
 
 ## Overview
 The smgrextend function adds a new block to a PostgreSQL relation file, extending the file beyond its current end-of-file (EOF) position.

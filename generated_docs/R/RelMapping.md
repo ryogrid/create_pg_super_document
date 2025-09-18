@@ -1,7 +1,7 @@
 # RelMapping
 
 ## Location
-src/backend/utils/cache/relmapper.c: 83 - 87
+[src/backend/utils/cache/relmapper.c:83-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L83-L87)
 
 ## Overview
 RelMapping is a simple structure that maps an OID of a catalog to its corresponding relation file number, serving as the basic mapping unit in PostgreSQL's relation mapping system.

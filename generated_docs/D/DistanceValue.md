@@ -1,7 +1,7 @@
 # DistanceValue
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 248 - 252
+[src/backend/access/brin/brin_minmax_multi.c:248-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L248-L252)
 
 ## Overview
 DistanceValue is a structure that represents the distance between two ranges in PostgreSQL's BRIN minmax_multi index access method, identified by index into an array of extended ranges.

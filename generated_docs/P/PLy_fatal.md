@@ -1,7 +1,7 @@
 # PLy_fatal
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 317 - 322
+[src/pl/plpython/plpy_plpymodule.c:317-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L317-L322)
 
 ## Overview
 PLy_fatal is a Python C extension function that provides Python code within PL/Python stored procedures a way to raise FATAL-level messages to PostgreSQL's logging and error handling system.

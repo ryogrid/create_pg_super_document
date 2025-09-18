@@ -1,7 +1,7 @@
 # pgwin32_waitforsinglesocket
 
 ## Location
-src/backend/port/win32/socket.c: 181 - 290
+[src/backend/port/win32/socket.c:181-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L181-L290)
 
 ## Overview
 pgwin32_waitforsinglesocket implements a Windows-specific socket waiting mechanism that efficiently waits for socket events while remaining responsive to PostgreSQL signals, with special handling for UDP socket write operations.

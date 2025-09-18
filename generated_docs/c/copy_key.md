@@ -1,7 +1,7 @@
 # copy_key
 
 ## Location
-src/backend/lib/dshash.c: 1085 - 1090
+[src/backend/lib/dshash.c:1085-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L1085-L1090)
 
 ## Overview
 A static inline helper function that copies a key from source to destination in the dynamic shared hash table (dshash) implementation.

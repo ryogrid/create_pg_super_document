@@ -1,7 +1,7 @@
 # AlterOpFamily
 
 ## Location
-src/backend/commands/opclasscmds.c: 817 - 880
+[src/backend/commands/opclasscmds.c:817-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L817-L880)
 
 ## Overview
 Modifies an existing operator family by adding or removing operators and support functions, serving as the main entry point for ALTER OPERATOR FAMILY ADD/DROP commands.

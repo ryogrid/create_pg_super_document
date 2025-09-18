@@ -1,7 +1,7 @@
 # GetRelationPath
 
 ## Location
-src/common/relpath.c: 141 - 210
+[src/common/relpath.c:141-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/relpath.c#L141-L210)
 
 ## Overview
 Constructs the complete filesystem path to a relation's file, handling different tablespaces, fork types, and temporary file naming conventions used by PostgreSQL's storage system.

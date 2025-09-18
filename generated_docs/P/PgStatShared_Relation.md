@@ -1,7 +1,7 @@
 # PgStatShared_Relation
 
 ## Location
-src/include/utils/pgstat_internal.h: 392 - 396
+[src/include/utils/pgstat_internal.h:392-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L392-L396)
 
 ## Overview
 A shared memory structure that holds comprehensive table and index statistics for PostgreSQL relations, implementing the common header pattern for variable-amount statistics.

@@ -1,7 +1,7 @@
 # supportSecondarySplit
 
 ## Location
-src/backend/access/gist/gistsplit.c: 258 - 343
+[src/backend/access/gist/gistsplit.c:258-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L258-L343)
 
 ## Overview
 Handles cleanup and optimization after a secondary split when the user-defined PickSplit method didn't support secondary splits, leaving split datum flags set.

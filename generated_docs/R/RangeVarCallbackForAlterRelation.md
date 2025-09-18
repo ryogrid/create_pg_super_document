@@ -1,7 +1,7 @@
 # RangeVarCallbackForAlterRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 17847 - 17987
+[src/backend/commands/tablecmds.c:17847-17987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17847-L17987)
 
 ## Overview
 A comprehensive callback function for RangeVarGetRelid that handles authorization and validation for relation rename, schema change, and alter table operations by ensuring ownership requirements and enforcing type-specific operation constraints.

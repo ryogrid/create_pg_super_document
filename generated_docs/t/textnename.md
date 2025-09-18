@@ -1,7 +1,7 @@
 # textnename
 
 ## Location
-src/backend/utils/adt/varlena.c: 2675 - 2699
+[src/backend/utils/adt/varlena.c:2675-2699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2675-L2699)
 
 ## Overview
 The  function implements the not-equal comparison operator between a text type and a name type in PostgreSQL.

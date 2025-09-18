@@ -1,7 +1,7 @@
 # apply_handle_rollback_prepared
 
 ## Location
-src/backend/replication/logical/worker.c: 1220 - 1272
+[src/backend/replication/logical/worker.c:1220-1272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1220-L1272)
 
 ## Overview
 Handles the rollback phase of a previously prepared two-phase transaction in PostgreSQL logical replication, aborting the prepared transaction and updating replication state.

@@ -1,7 +1,7 @@
 # transformJsonSerializeExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 4225 - 4270
+[src/backend/parser/parse_expr.c:4225-4270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4225-L4270)
 
 ## Overview
 Transforms a JSON_SERIALIZE() expression into a JsonConstructorExpr node that converts JSON values into character or bytea strings.

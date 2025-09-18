@@ -1,7 +1,7 @@
 # jsonb_exec_setup
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 353 - 401
+[src/backend/utils/adt/jsonbsubs.c:353-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L353-L401)
 
 ## Overview
 Sets up execution state for a JSONB subscript operation, preparing workspace and method pointers for accessing JSONB data through subscripting syntax.

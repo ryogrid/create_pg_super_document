@@ -1,7 +1,7 @@
 # ATExecDropExpression
 
 ## Location
-src/backend/commands/tablecmds.c: 8519 - 8609
+[src/backend/commands/tablecmds.c:8519-8609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8519-L8609)
 
 ## Overview
 ATExecDropExpression executes the DROP EXPRESSION command for ALTER TABLE operations, removing the generated expression from a stored generated column and returning the address of the affected column.

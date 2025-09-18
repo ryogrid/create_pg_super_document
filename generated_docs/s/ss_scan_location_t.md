@@ -1,7 +1,7 @@
 # ss_scan_location_t
 
 ## Location
-src/backend/access/common/syncscan.c: 91 - 95
+[src/backend/access/common/syncscan.c:91-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L91-L95)
 
 ## Overview
 A structure that stores the synchronous scan location information for a specific relation, used in PostgreSQL's synchronized scan optimization to coordinate multiple sequential scans.

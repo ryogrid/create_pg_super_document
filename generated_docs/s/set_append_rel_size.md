@@ -1,7 +1,7 @@
 # set_append_rel_size
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 944 - 1231
+[src/backend/optimizer/path/allpaths.c:944-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L944-L1231)
 
 ## Overview
 Sets size estimates for an append relation by computing aggregate statistics across all child relations, handling inheritance trees and partitioned tables.

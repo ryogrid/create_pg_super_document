@@ -1,7 +1,7 @@
 # extractPageInfo
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 389 - 483
+[src/bin/pg_rewind/parsexlog.c:389-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L389-L483)
 
 ## Overview
 Analyzes individual WAL records to identify which data blocks are modified and adds them to the page map used by pg_rewind for determining file synchronization requirements.

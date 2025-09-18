@@ -1,7 +1,7 @@
 # analyze_mcv_list
 
 ## Location
-src/backend/commands/analyze.c: 2934 - 3044
+[src/backend/commands/analyze.c:2934-3044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2934-L3044)
 
 ## Overview
 Analyzes a list of most common values (MCVs) from a sample to determine how many are statistically significant enough to be stored in the table's MCV statistics.

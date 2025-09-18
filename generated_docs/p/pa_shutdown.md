@@ -1,7 +1,7 @@
 # pa_shutdown
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 844 - 856
+[src/backend/replication/logical/applyparallelworker.c:844-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L844-L856)
 
 ## Overview
 pa_shutdown is a cleanup function that ensures proper communication with the leader apply worker and resource cleanup when a parallel apply worker process terminates.

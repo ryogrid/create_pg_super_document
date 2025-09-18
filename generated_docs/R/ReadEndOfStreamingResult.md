@@ -1,7 +1,7 @@
 # ReadEndOfStreamingResult
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 699 - 744
+[src/bin/pg_basebackup/receivelog.c:699-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L699-L744)
 
 ## Overview
 Parses the server result set returned when streaming replication reaches an end-of-timeline condition to extract the next timeline ID and starting position.

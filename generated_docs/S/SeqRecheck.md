@@ -1,7 +1,7 @@
 # SeqRecheck
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 89 - 107
+[src/backend/executor/nodeSeqscan.c:89-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L89-L107)
 
 ## Overview
 SeqRecheck is a static function that serves as an access method routine to recheck a tuple during EvalPlanQual processing for sequential scans.

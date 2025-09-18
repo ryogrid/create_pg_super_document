@@ -1,7 +1,7 @@
 # CteState
 
 ## Location
-src/backend/parser/parse_cte.c: 71 - 83
+[src/backend/parser/parse_cte.c:71-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L71-L83)
 
 ## Overview
 CteState is a comprehensive state structure used during CTE (Common Table Expression) parsing and analysis to maintain global context and working state information across tree walker functions.

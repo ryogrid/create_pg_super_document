@@ -1,7 +1,7 @@
 # size_box
 
 ## Location
-src/backend/access/gist/gistproc.c: 68 - 96
+[src/backend/access/gist/gistproc.c:68-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L68-L96)
 
 ## Overview
 Calculates the area of a BOX for penalty calculation purposes in GiST indexing, with special handling for edge cases including zero-width boxes, infinity, and NaN values.

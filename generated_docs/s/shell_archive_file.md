@@ -1,7 +1,7 @@
 # shell_archive_file
 
 ## Location
-src/backend/archive/shell_archive.c: 57 - 138
+[src/backend/archive/shell_archive.c:57-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/archive/shell_archive.c#L57-L138)
 
 ## Overview
 This function executes the configured shell command to archive a WAL file, handling command execution, error reporting, and platform-specific signal handling.

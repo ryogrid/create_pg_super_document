@@ -1,7 +1,7 @@
 # range_after_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2365 - 2376
+[src/backend/utils/adt/multirangetypes.c:2365-2376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2365-L2376)
 
 ## Overview
 Determines if a range is strictly positioned after (to the right of) a multirange, meaning the range's lower bound is greater than the multirange's upper bound.

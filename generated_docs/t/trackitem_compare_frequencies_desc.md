@@ -1,7 +1,7 @@
 # trackitem_compare_frequencies_desc
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 518 - 529
+[src/backend/tsearch/ts_typanalyze.c:518-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L518-L529)
 
 ## Overview
 A static comparator function used for sorting TrackItem arrays by frequency in descending order for text search statistics analysis.

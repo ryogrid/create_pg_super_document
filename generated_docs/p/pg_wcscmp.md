@@ -1,7 +1,7 @@
 # pg_wcscmp
 
 ## Location
-src/common/unicode/norm_test.c: 44 - 59
+[src/common/unicode/norm_test.c:44-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/norm_test.c#L44-L59)
 
 ## Overview
 A static utility function that compares two PostgreSQL wide character strings lexicographically, similar to the standard library's wcscmp function.

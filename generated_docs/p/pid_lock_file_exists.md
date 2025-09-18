@@ -1,7 +1,7 @@
 # pid_lock_file_exists
 
 ## Location
-src/bin/pg_upgrade/exec.c: 233 - 262
+[src/bin/pg_upgrade/exec.c:233-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L233-L262)
 
 ## Overview
 This function checks whether the postmaster.pid lock file exists in a PostgreSQL data directory to determine if a PostgreSQL server instance is potentially running.

@@ -1,7 +1,7 @@
 # FunctionIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 1708 - 1784
+[src/backend/catalog/namespace.c:1708-1784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1708-L1784)
 
 ## Overview
 Determines whether a function (identified by OID) is visible in the current search path, with optional error handling for missing functions.

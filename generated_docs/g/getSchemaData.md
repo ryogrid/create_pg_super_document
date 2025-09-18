@@ -1,7 +1,7 @@
 # getSchemaData
 
 ## Location
-src/bin/pg_dump/common.c: 99 - 292
+[src/bin/pg_dump/common.c:99-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L99-L292)
 
 ## Overview
 Orchestrates the collection of all potentially dumpable database objects from a PostgreSQL database for pg_dump operations.

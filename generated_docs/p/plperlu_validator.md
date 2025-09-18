@@ -1,7 +1,7 @@
 # plperlu_validator
 
 ## Location
-src/pl/plperl/plperl.c: 2083 - 2094
+[src/pl/plperl/plperl.c:2083-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2083-L2094)
 
 ## Overview
 Entry point function for validating PL/PerlU (untrusted Perl) function definitions, delegating to the main Perl validator.

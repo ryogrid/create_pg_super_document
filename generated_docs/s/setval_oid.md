@@ -1,7 +1,7 @@
 # setval_oid
 
 ## Location
-src/backend/commands/sequence.c: 1049 - 1063
+[src/backend/commands/sequence.c:1049-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1049-L1063)
 
 ## Overview
 Implements the 2-argument form of setval(), setting a sequence to a specific value with the assumption that it has been called.

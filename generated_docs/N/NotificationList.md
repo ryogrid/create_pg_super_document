@@ -1,7 +1,7 @@
 # NotificationList
 
 ## Location
-src/backend/commands/async.c: 389 - 395
+[src/backend/commands/async.c:389-395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L389-L395)
 
 ## Overview
 NotificationList manages the hierarchical structure of pending NOTIFY events across nested transactions and subtransactions, maintaining a linked list of notification events with optional hash table optimization for duplicate detection.

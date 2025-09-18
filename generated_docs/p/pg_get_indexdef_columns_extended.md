@@ -1,7 +1,7 @@
 # pg_get_indexdef_columns_extended
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1229 - 1249
+[src/backend/utils/adt/ruleutils.c:1229-1249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1229-L1249)
 
 ## Overview
 Provides an extensible internal interface for retrieving PostgreSQL index column definitions with configurable behavior controlled through bit flags.

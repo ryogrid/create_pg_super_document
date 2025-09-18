@@ -1,7 +1,7 @@
 # PageClearHasFreeLinePointers
 
 ## Location
-src/include/storage/bufpage.h: 405 - 410
+[src/include/storage/bufpage.h:405-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L405-L410)
 
 ## Overview
 Clears the PD_HAS_FREE_LINES flag in the page header to indicate that the page no longer contains reusable line pointers.

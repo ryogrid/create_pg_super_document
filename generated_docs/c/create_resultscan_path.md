@@ -1,7 +1,7 @@
 # create_resultscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2176 - 2201
+[src/backend/optimizer/util/pathnode.c:2176-2201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2176-L2201)
 
 ## Overview
 Creates a path node for scanning an RTE_RESULT relation, which represents a relation that produces a computed result set without scanning any actual table data.

@@ -1,7 +1,7 @@
 # apply_error_callback
 
 ## Location
-src/backend/replication/logical/worker.c: 4969 - 5040
+[src/backend/replication/logical/worker.c:4969-5040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4969-L5040)
 
 ## Overview
 An error callback function that provides detailed contextual information about logical replication operations when errors occur, including transaction details, relation information, and specific column references.

@@ -1,7 +1,7 @@
 # list_int_cmp
 
 ## Location
-src/backend/nodes/list.c: 1691 - 1702
+[src/backend/nodes/list.c:1691-1702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1691-L1702)
 
 ## Overview
 A comparator function used by list_sort to sort PostgreSQL lists containing integer values in ascending order.

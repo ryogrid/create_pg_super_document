@@ -1,7 +1,7 @@
 # option_parse_int
 
 ## Location
-src/fe_utils/option_utils.c: 50 - 89
+[src/fe_utils/option_utils.c:50-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/option_utils.c#L50-L89)
 
 ## Overview
 Parses and validates integer values from command-line option arguments with range checking.

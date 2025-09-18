@@ -1,7 +1,7 @@
 # writeListPage
 
 ## Location
-src/backend/access/gin/ginfast.c: 59 - 144
+[src/backend/access/gin/ginfast.c:59-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L59-L144)
 
 ## Overview
 A static function that builds a pending-list page from an array of index tuples and writes it to a buffer, returning the amount of free space remaining on the page.

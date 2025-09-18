@@ -1,7 +1,7 @@
 # init_spawned_worker_win32
 
 ## Location
-src/bin/pg_dump/parallel.c: 874 - 896
+[src/bin/pg_dump/parallel.c:874-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L874-L896)
 
 ## Overview
 Windows-specific thread entry point function that initializes and runs a worker thread for parallel backup operations in pg_dump.

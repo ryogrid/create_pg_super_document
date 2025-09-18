@@ -1,7 +1,7 @@
 # point_zorder_internal
 
 ## Location
-src/backend/access/gist/gistproc.c: 1575 - 1585
+[src/backend/access/gist/gistproc.c:1575-1585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1575-L1585)
 
 ## Overview
 A static utility function that computes the Z-order value (Morton code) of a 2D point with floating-point coordinates for spatial indexing and fast index building in GiST.

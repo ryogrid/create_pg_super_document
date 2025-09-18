@@ -1,7 +1,7 @@
 # ExecCustomScanReInitializeDSM
 
 ## Location
-src/backend/executor/nodeCustom.c: 190 - 204
+[src/backend/executor/nodeCustom.c:190-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L190-L204)
 
 ## Overview
 Re-initializes the dynamic shared memory (DSM) segment for a custom scan node when restarting parallel query execution.

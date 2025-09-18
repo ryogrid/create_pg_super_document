@@ -1,7 +1,7 @@
 # handle_pm_reload_request_signal
 
 ## Location
-src/backend/postmaster/postmaster.c: 2086 - 2095
+[src/backend/postmaster/postmaster.c:2086-2095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2086-L2095)
 
 ## Overview
 Signal handler that processes SIGHUP signals from pg_ctl to request a reload of PostgreSQL configuration files.

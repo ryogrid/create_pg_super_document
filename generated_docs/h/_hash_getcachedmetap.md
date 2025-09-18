@@ -1,7 +1,7 @@
 # _hash_getcachedmetap
 
 ## Location
-src/backend/access/hash/hashpage.c: 1501 - 1558
+[src/backend/access/hash/hashpage.c:1501-1558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L1501-L1558)
 
 ## Overview
 Returns cached metapage data for a hash index, refreshing the cache if necessary or if explicitly requested.

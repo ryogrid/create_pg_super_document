@@ -1,7 +1,7 @@
 # ReorderBufferIterTXNFinish
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1500 - 1530
+[src/backend/replication/logical/reorderbuffer.c:1500-1530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1500-L1530)
 
 ## Overview
 Deallocates and cleans up the iterator state structure used for iterating over reorder buffer transactions, releasing associated resources including file descriptors and memory.

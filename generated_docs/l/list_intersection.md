@@ -1,7 +1,7 @@
 # list_intersection
 
 ## Location
-src/backend/nodes/list.c: 1174 - 1199
+[src/backend/nodes/list.c:1174-1199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1174-L1199)
 
 ## Overview
 Creates a new list containing the intersection of two pointer lists, preserving elements that exist in both input lists.

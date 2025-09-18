@@ -1,7 +1,7 @@
 # jspGetArraySubscript
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1231 - 1246
+[src/backend/utils/adt/jsonpath.c:1231-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1231-L1246)
 
 ## Overview
 Extracts array subscript information from a JsonPathItem structure, initializing 'from' and 'to' JsonPathItem objects that represent the range bounds of an array index operation.

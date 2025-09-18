@@ -1,7 +1,7 @@
 # pqSaveMessageField
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1060 - 1080
+[src/interfaces/libpq/fe-exec.c:1060-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1060-L1080)
 
 ## Overview
 pqSaveMessageField is a utility function that saves one field of an error or notice message into a PGresult structure, managing the linked list of message fields.

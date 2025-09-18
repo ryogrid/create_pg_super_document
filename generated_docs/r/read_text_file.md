@@ -1,7 +1,7 @@
 # read_text_file
 
 ## Location
-src/backend/utils/adt/genfile.c: 211 - 239
+[src/backend/utils/adt/genfile.c:211-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L211-L239)
 
 ## Overview
 Reads a file section as text data, similar to read_binary_file but with database encoding validation to ensure the content is valid text.

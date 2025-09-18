@@ -1,7 +1,7 @@
 # RunObjectDropHookStr
 
 ## Location
-src/backend/catalog/objectaccess.c: 180 - 201
+[src/backend/catalog/objectaccess.c:180-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L180-L201)
 
 ## Overview
 RunObjectDropHookStr is a function that triggers object access hook callbacks for object drop events using string-based object names, allowing extensions to be notified when database objects are being dropped.

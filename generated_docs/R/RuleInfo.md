@@ -1,7 +1,7 @@
 # RuleInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 451 - 452
+[src/bin/pg_dump/pg_dump.h:451-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L451-L452)
 
 ## Overview
 RuleInfo represents database rules in PostgreSQL's pg_dump utility, containing metadata about rule definitions, event types, and dumping behavior for rule objects.

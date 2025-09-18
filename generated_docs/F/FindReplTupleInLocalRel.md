@@ -1,7 +1,7 @@
 # FindReplTupleInLocalRel
 
 ## Location
-src/backend/replication/logical/worker.c: 2861 - 2907
+[src/backend/replication/logical/worker.c:2861-2907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2861-L2907)
 
 ## Overview
 Locates a tuple in the local relation that corresponds to a tuple received from the publication side, using replica identity indexes, primary keys, or sequential scans as appropriate.

@@ -1,7 +1,7 @@
 # bpchar_smaller
 
 ## Location
-src/backend/utils/adt/varchar.c: 973 - 995
+[src/backend/utils/adt/varchar.c:973-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L973-L995)
 
 ## Overview
 Returns the smaller of two BPCHAR (blank-padded CHAR) values based on string comparison using collation-aware sorting rules.

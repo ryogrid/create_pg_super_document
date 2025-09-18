@@ -1,7 +1,7 @@
 # pgstat_slru_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 203 - 219
+[src/backend/utils/activity/pgstat_slru.c:203-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L203-L219)
 
 ## Overview
 A callback function that creates a snapshot of current SLRU statistics by copying them from shared memory to local statistics storage under appropriate locking.

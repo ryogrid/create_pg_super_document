@@ -1,7 +1,7 @@
 # _bt_verify_arrays_bt_first
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3006 - 3043
+[src/backend/access/nbtree/nbtutils.c:3006-3043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3006-L3043)
 
 ## Overview
 Verifies that scan's array key state is correct before starting a new primitive scan, ensuring non-required arrays start with the first element for the current scan direction.

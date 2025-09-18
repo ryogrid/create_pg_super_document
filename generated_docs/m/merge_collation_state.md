@@ -1,7 +1,7 @@
 # merge_collation_state
 
 ## Location
-src/backend/parser/parse_collate.c: 780 - 880
+[src/backend/parser/parse_collate.c:780-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L780-L880)
 
 ## Overview
 Merges collation state from a subexpression into the parent context, resolving conflicts and determining precedence between different collation strengths.

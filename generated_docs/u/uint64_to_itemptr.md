@@ -1,7 +1,7 @@
 # uint64_to_itemptr
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 102 - 114
+[src/backend/access/gin/ginpostinglist.c:102-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L102-L114)
 
 ## Overview
 Converts a 64-bit unsigned integer back to an ItemPointer, performing the inverse operation of itemptr_to_uint64.

@@ -1,7 +1,7 @@
 # assign_log_destination
 
 ## Location
-src/backend/utils/error/elog.c: 2294 - 2302
+[src/backend/utils/error/elog.c:2294-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2294-L2302)
 
 ## Overview
 A GUC assign hook function that applies the validated log destination settings by updating the global Log_destination variable.

@@ -1,7 +1,7 @@
 # r_mark_ki
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 772 - 776
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:772-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L772-L776)
 
 ## Overview
 A static function in the Turkish snowball stemmer that checks for the presence of the suffix "ki" in Turkish words.

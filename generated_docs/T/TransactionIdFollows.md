@@ -1,7 +1,7 @@
 # TransactionIdFollows
 
 ## Location
-src/backend/access/transam/transam.c: 314 - 328
+[src/backend/access/transam/transam.c:314-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L314-L328)
 
 ## Overview
 Determines whether one transaction ID logically follows (comes after) another, using PostgreSQL's modular transaction ID arithmetic.

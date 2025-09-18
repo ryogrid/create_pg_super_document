@@ -1,7 +1,7 @@
 # get_equal_strategy_number
 
 ## Location
-src/backend/executor/execReplication.c: 75 - 95
+[src/backend/executor/execReplication.c:75-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L75-L95)
 
 ## Overview
 Returns the strategy number for the equality operator by determining the access method from an operator class and delegating to the access method-specific strategy lookup.

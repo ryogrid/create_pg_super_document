@@ -1,7 +1,7 @@
 # HeapTupleGetDatum
 
 ## Location
-src/include/funcapi.h: 230 - 235
+[src/include/funcapi.h:230-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/funcapi.h#L230-L235)
 
 ## Overview
 Converts a HeapTupleData pointer to a Datum, providing a convenient wrapper around HeapTupleHeaderGetDatum for complete tuple structures.

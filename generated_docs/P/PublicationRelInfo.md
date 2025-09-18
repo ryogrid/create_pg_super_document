@@ -1,7 +1,7 @@
 # PublicationRelInfo
 
 ## Location
-src/include/catalog/pg_publication.h: 109 - 114
+[src/include/catalog/pg_publication.h:109-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_publication.h#L109-L114)
 
 ## Overview
 PublicationRelInfo is a structure used by pg_dump to represent the relationship between a publication and a specific table, including associated metadata like row filters and column lists.

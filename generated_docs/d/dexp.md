@@ -1,7 +1,7 @@
 # dexp
 
 ## Location
-src/backend/utils/adt/float.c: 1637 - 1682
+[src/backend/utils/adt/float.c:1637-1682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1637-L1682)
 
 ## Overview
 The dexp function implements PostgreSQL's exponential function, returning e raised to the power of the input argument.

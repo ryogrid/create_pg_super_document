@@ -1,7 +1,7 @@
 # logfile_rotate_dest
 
 ## Location
-src/backend/postmaster/syslogger.c: 1263 - 1361
+[src/backend/postmaster/syslogger.c:1263-1361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1263-L1361)
 
 ## Overview
 Performs log file rotation for a single destination type (stderr, CSV, or JSON), handling file closure, creation, and metadata updates.

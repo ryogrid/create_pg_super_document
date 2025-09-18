@@ -1,7 +1,7 @@
 # GetXLogWriteRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 9467 - 9478
+[src/backend/access/transam/xlog.c:9467-9478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9467-L9478)
 
 ## Overview
 Retrieves the latest WAL write pointer, indicating the position up to which WAL records have been written to disk but not necessarily flushed.

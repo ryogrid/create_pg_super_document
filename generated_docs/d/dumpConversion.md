@@ -1,7 +1,7 @@
 # dumpConversion
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 14099 - 14194
+[src/bin/pg_dump/pg_dump.c:14099-14194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L14099-L14194)
 
 ## Overview
 Writes out a single conversion definition, generating CREATE CONVERSION SQL statements for character encoding transformations between different encodings.

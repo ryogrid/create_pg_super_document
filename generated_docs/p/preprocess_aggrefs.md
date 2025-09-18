@@ -1,7 +1,7 @@
 # preprocess_aggrefs
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 110 - 115
+[src/backend/optimizer/prep/prepagg.c:110-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L110-L115)
 
 ## Overview
 Resolves the transition type of all Aggrefs in a query clause and determines which aggregates can share aggregate or transition state for optimization purposes.

@@ -1,7 +1,7 @@
 # sn_object_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4398 - 4407
+[src/backend/utils/adt/jsonfuncs.c:4398-4407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4398-L4407)
 
 ## Overview
 This function handles the end of JSON objects during null-stripping operations, appending a closing brace to the output string buffer.

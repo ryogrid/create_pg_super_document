@@ -1,7 +1,7 @@
 # sts_puttuple
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 300 - 414
+[src/backend/utils/sort/sharedtuplestore.c:300-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L300-L414)
 
 ## Overview
 Writes a tuple along with optional metadata to a shared tuplestore, handling file creation, buffer management, and oversized tuple overflow.

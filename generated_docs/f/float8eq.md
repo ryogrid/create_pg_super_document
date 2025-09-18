@@ -1,7 +1,7 @@
 # float8eq
 
 ## Location
-src/backend/utils/adt/float.c: 913 - 921
+[src/backend/utils/adt/float.c:913-921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L913-L921)
 
 ## Overview
 PostgreSQL function that tests equality between two double-precision floating-point numbers (float8) and returns a boolean result.

@@ -1,7 +1,7 @@
 # buf_init
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 222 - 236
+[src/backend/utils/adt/xid8funcs.c:222-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L222-L236)
 
 ## Overview
 Initializes a StringInfo buffer with a basic pg_snapshot structure containing the specified xmin and xmax transaction IDs, used as a helper function for snapshot creation.

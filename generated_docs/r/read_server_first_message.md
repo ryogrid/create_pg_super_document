@@ -1,7 +1,7 @@
 # read_server_first_message
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 602 - 687
+[src/interfaces/libpq/fe-auth-scram.c:602-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L602-L687)
 
 ## Overview
 Parses and validates the first message received from the PostgreSQL server during SCRAM authentication, extracting the server nonce, salt, and iteration count.

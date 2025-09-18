@@ -1,7 +1,7 @@
 # RT_CHILDPTR_IS_VALUE
 
 ## Location
-src/include/lib/radixtree.h: 463 - 490
+[src/include/lib/radixtree.h:463-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L463-L490)
 
 ## Overview
 A macro that expands to a function name for determining whether a child pointer in a radix tree contains an embedded value directly or points to a separate leaf node.

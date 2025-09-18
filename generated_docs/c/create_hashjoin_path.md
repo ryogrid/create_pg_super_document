@@ -1,7 +1,7 @@
 # create_hashjoin_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2619 - 2684
+[src/backend/optimizer/util/pathnode.c:2619-2684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2619-L2684)
 
 ## Overview
 Creates a pathnode corresponding to a hash join between two relations, configuring the necessary metadata for hash-based join execution in PostgreSQL's query optimizer.

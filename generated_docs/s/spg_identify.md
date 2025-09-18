@@ -1,7 +1,7 @@
 # spg_identify
 
 ## Location
-src/backend/access/rmgrdesc/spgdesc.c: 132 - 165
+[src/backend/access/rmgrdesc/spgdesc.c:132-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/spgdesc.c#L132-L165)
 
 ## Overview
 A function that converts SP-GiST WAL record type codes into human-readable string identifiers for logging and debugging purposes.

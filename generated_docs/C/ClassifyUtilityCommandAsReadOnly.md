@@ -1,7 +1,7 @@
 # ClassifyUtilityCommandAsReadOnly
 
 ## Location
-src/backend/tcop/utility.c: 128 - 403
+[src/backend/tcop/utility.c:128-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L128-L403)
 
 ## Overview
 ClassifyUtilityCommandAsReadOnly determines the degree to which a utility command is read-only by analyzing the command type and returning appropriate flags indicating execution restrictions.

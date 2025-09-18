@@ -1,7 +1,7 @@
 # LogLogicalInvalidations
 
 ## Location
-src/backend/utils/cache/inval.c: 1607 - 1637
+[src/backend/utils/cache/inval.c:1607-1637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1607-L1637)
 
 ## Overview
 LogLogicalInvalidations emits WAL (Write-Ahead Log) records for cache invalidation messages caused by the current command, ensuring that logical replication subscribers receive the necessary invalidation information to maintain cache consistency.

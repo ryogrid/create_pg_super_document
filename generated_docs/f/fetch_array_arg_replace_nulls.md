@@ -1,7 +1,7 @@
 # fetch_array_arg_replace_nulls
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 64 - 122
+[src/backend/utils/adt/array_userfuncs.c:64-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L64-L122)
 
 ## Overview
 A static helper function that fetches an array-valued argument in expanded form, replacing null values with an empty array of the appropriate data type.

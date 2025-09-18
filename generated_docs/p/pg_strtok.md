@@ -1,7 +1,7 @@
 # pg_strtok
 
 ## Location
-src/backend/nodes/read.c: 153 - 213
+[src/backend/nodes/read.c:153-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L153-L213)
 
 ## Overview
 A specialized tokenizer function that parses string representations of PostgreSQL Node trees, extracting individual tokens while preserving backslash escaping.

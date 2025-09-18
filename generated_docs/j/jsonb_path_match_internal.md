@@ -1,7 +1,7 @@
 # jsonb_path_match_internal
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 456 - 496
+[src/backend/utils/adt/jsonpath_exec.c:456-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L456-L496)
 
 ## Overview
 Internal implementation function that evaluates a JSONPath predicate against a JSONB value and returns the boolean result, supporting both timezone-aware and timezone-naive operations.

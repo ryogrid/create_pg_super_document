@@ -1,7 +1,7 @@
 # pq_verify_peer_name_matches_certificate
 
 ## Location
-src/interfaces/libpq/fe-secure-common.c: 252 - 307
+[src/interfaces/libpq/fe-secure-common.c:252-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-common.c#L252-L307)
 
 ## Overview
 High-level function that orchestrates server certificate hostname verification for SSL/TLS connections, examining both Common Name and Subject Alternative Names.

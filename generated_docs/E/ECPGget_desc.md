@@ -1,7 +1,7 @@
 # ECPGget_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 234 - 569
+[src/interfaces/ecpg/ecpglib/descriptor.c:234-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L234-L569)
 
 ## Overview
 ECPGget_desc retrieves various descriptor items from a prepared SQL statement result, allowing applications to extract metadata and result data from dynamic SQL queries.

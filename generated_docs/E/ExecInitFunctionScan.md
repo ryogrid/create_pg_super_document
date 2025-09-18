@@ -1,7 +1,7 @@
 # ExecInitFunctionScan
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 279 - 529
+[src/backend/executor/nodeFunctionscan.c:279-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L279-L529)
 
 ## Overview
 ExecInitFunctionScan initializes a FunctionScanState node for executing function scans, setting up tuple descriptors, expression contexts, and per-function state structures.

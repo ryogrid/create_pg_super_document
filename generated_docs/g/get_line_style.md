@@ -1,7 +1,7 @@
 # get_line_style
 
 ## Location
-src/fe_utils/print.c: 3677 - 3690
+[src/fe_utils/print.c:3677-3690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3677-L3690)
 
 ## Overview
 The get_line_style function returns the appropriate line style format for table printing, providing either a user-specified custom line style or the default ASCII format.

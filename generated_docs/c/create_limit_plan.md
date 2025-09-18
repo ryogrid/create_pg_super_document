@@ -1,7 +1,7 @@
 # create_limit_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2856 - 2916
+[src/backend/optimizer/plan/createplan.c:2856-2916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2856-L2916)
 
 ## Overview
 Creates a Limit plan node for implementing LIMIT and OFFSET clauses, including support for WITH TIES functionality that requires additional sorting information.

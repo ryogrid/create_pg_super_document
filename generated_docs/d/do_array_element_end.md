@@ -1,7 +1,7 @@
 # do_array_element_end
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 273 - 280
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:273-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L273-L280)
 
 ## Overview
 The `do_array_element_end` function is a JSON parsing callback function that handles the completion of individual elements within JSON arrays in PostgreSQL's incremental JSON parser test module.

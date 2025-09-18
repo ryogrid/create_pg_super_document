@@ -1,7 +1,7 @@
 # pg_notification_queue_usage
 
 ## Location
-src/backend/commands/async.c: 1481 - 1505
+[src/backend/commands/async.c:1481-1505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1481-L1505)
 
 ## Overview
 SQL function that returns the fraction of the notification queue currently occupied as a floating-point value between 0 and 1.

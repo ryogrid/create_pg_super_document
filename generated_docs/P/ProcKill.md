@@ -1,7 +1,7 @@
 # ProcKill
 
 ## Location
-src/backend/storage/lmgr/proc.c: 839 - 971
+[src/backend/storage/lmgr/proc.c:839-971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L839-L971)
 
 ## Overview
 Destroys the per-process data structure for the current process, releasing held LW locks and performing comprehensive cleanup during process termination.

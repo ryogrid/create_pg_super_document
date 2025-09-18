@@ -1,7 +1,7 @@
 # copyObjectImpl
 
 ## Location
-src/backend/nodes/copyfuncs.c: 177 - 212
+[src/backend/nodes/copyfuncs.c:177-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/copyfuncs.c#L177-L212)
 
 ## Overview
 The core implementation of PostgreSQL's generic node copying system that creates deep copies of Node trees or lists by dispatching to appropriate type-specific copy functions.

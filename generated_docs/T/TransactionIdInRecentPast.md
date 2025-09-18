@@ -1,7 +1,7 @@
 # TransactionIdInRecentPast
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 97 - 152
+[src/backend/utils/adt/xid8funcs.c:97-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L97-L152)
 
 ## Overview
 Validates that a given transaction ID and epoch are within reasonable bounds, checking that they are not in the future and not so far back that they have wrapped around.

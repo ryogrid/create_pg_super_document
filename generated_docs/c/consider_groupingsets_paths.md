@@ -1,7 +1,7 @@
 # consider_groupingsets_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4211 - 4572
+[src/backend/optimizer/plan/planner.c:4211-4572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4211-L4572)
 
 ## Overview
 Evaluates and generates execution paths for GROUPING SETS queries by considering various combinations of hashing and sorting strategies to optimize memory usage and performance.

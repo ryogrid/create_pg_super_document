@@ -1,7 +1,7 @@
 # freecvec
 
 ## Location
-src/backend/regex/regc_cvec.c: 135 - 138
+[src/backend/regex/regc_cvec.c:135-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_cvec.c#L135-L138)
 
 ## Overview
 Deallocates memory occupied by a character vector (cvec) structure, completely freeing the data structure from memory.

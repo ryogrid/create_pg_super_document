@@ -1,7 +1,7 @@
 # pushJsonbValueScalar
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 637 - 727
+[src/backend/utils/adt/jsonb_util.c:637-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L637-L727)
 
 ## Overview
 Performs the actual pushing operation for scalar or pseudo-scalar-array values during JSONB construction, handling different token types in the sequential processing workflow.

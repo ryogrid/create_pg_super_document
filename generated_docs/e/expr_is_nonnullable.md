@@ -1,7 +1,7 @@
 # expr_is_nonnullable
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2704 - 2739
+[src/backend/optimizer/plan/initsplan.c:2704-2739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2704-L2739)
 
 ## Overview
 Determines whether an expression cannot be NULL by checking if it's a simple Var that is NOT NULL and not nulled by outer joins.

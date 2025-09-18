@@ -1,7 +1,7 @@
 # FastPathTransferRelationLocks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2712 - 2799
+[src/backend/storage/lmgr/lock.c:2712-2799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2712-L2799)
 
 ## Overview
 FastPathTransferRelationLocks transfers locks for a specific relation from all backends' per-backend fast-path arrays to the shared hash table, typically when fast-path optimization becomes inefficient due to lock conflicts.

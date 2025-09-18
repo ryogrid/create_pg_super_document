@@ -1,7 +1,7 @@
 # has_sequence_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2139 - 2167
+[src/backend/utils/adt/acl.c:2139-2167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2139-L2167)
 
 ## Overview
 Checks the current user's privileges on a named sequence given the sequence name and privilege type specification.

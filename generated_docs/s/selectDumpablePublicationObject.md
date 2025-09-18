@@ -1,7 +1,7 @@
 # selectDumpablePublicationObject
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2108 - 2125
+[src/bin/pg_dump/pg_dump.c:2108-2125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2108-L2125)
 
 ## Overview
 Determines whether a publication object should be dumped based on the dump policy, specifically marking publication objects for dumping only when everything is being dumped.

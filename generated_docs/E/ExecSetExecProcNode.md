@@ -1,7 +1,7 @@
 # ExecSetExecProcNode
 
 ## Location
-src/backend/executor/execProcnode.c: 425 - 442
+[src/backend/executor/execProcnode.c:425-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L425-L442)
 
 ## Overview
 ExecSetExecProcNode sets or changes the execution procedure function for a plan node, installing necessary wrapper functions for stack depth checking and instrumentation.

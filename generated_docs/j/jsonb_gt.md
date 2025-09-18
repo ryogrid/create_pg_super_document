@@ -1,7 +1,7 @@
 # jsonb_gt
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 180 - 193
+[src/backend/utils/adt/jsonb_op.c:180-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L180-L193)
 
 ## Overview
 The `jsonb_gt` function implements the "greater than" comparison operator (>) for JSONB data types, serving as a B-Tree operator class operator for ordering JSONB values.

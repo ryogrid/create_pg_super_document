@@ -1,7 +1,7 @@
 # percentile_cont_float8_multi_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1004 - 1018
+[src/backend/utils/adt/orderedsetaggs.c:1004-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1004-L1018)
 
 ## Overview  
 The final aggregate function that computes continuous percentiles for float8 (double precision) data types when multiple percentile values are requested simultaneously.

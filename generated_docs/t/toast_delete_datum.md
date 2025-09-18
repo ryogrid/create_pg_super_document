@@ -1,7 +1,7 @@
 # toast_delete_datum
 
 ## Location
-src/backend/access/common/toast_internals.c: 385 - 460
+[src/backend/access/common/toast_internals.c:385-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L385-L460)
 
 ## Overview
 Deletes all chunks of a single externally stored TOAST value from the secondary toast relation.

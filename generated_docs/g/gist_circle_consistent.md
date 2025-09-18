@@ -1,7 +1,7 @@
 # gist_circle_consistent
 
 ## Location
-src/backend/access/gist/gistproc.c: 1130 - 1167
+[src/backend/access/gist/gistproc.c:1130-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1130-L1167)
 
 ## Overview
 Implements the GiST consistent method for circles, determining whether a circle query matches entries in a GiST index by converting the circle to its bounding box and delegating to the R-tree consistency check.

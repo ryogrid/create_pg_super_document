@@ -1,7 +1,7 @@
 # LZ4Stream_read_overflow
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 409 - 450
+[src/bin/pg_dump/compress_lz4.c:409-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L409-L450)
 
 ## Overview
 Reads already decompressed content from the internal overflow buffer, optionally stopping at newline characters for line-oriented operations.

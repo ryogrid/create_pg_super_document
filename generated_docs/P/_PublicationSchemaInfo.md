@@ -1,7 +1,7 @@
 # _PublicationSchemaInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 661 - 665
+[src/bin/pg_dump/pg_dump.h:661-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L661-L665)
 
 ## Overview
 The `_PublicationSchemaInfo` struct represents publication schema mapping, used by pg_dump to store information about schemas that are included in logical replication publications.

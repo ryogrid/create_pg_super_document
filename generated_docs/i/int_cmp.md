@@ -1,7 +1,7 @@
 # int_cmp
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1729 - 1735
+[src/bin/pg_dump/pg_dump_sort.c:1729-1735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1729-L1735)
 
 ## Overview
 The int_cmp function is a binary heap comparator that compares two integer values for sorting operations within PostgreSQL's dump ordering system.

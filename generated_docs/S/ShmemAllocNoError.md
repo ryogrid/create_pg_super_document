@@ -1,7 +1,7 @@
 # ShmemAllocNoError
 
 ## Location
-src/backend/storage/ipc/shmem.c: 172 - 185
+[src/backend/storage/ipc/shmem.c:172-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L172-L185)
 
 ## Overview
 ShmemAllocNoError allocates a max-aligned chunk from shared memory but returns NULL on allocation failure instead of throwing an error.

@@ -1,7 +1,7 @@
 # json_build_object_noargs
 
 ## Location
-src/backend/utils/adt/json.c: 1329 - 1334
+[src/backend/utils/adt/json.c:1329-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1329-L1334)
 
 ## Overview
 The json_build_object_noargs function is a degenerate case of json_build_object that handles the scenario when no arguments are provided, returning an empty JSON object.

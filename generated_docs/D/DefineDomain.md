@@ -1,7 +1,7 @@
 # DefineDomain
 
 ## Location
-src/backend/commands/typecmds.c: 697 - 1146
+[src/backend/commands/typecmds.c:697-1146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L697-L1146)
 
 ## Overview
 DefineDomain creates a new domain type, which is a specialized type that inherits properties from a base type but can have additional constraints, default values, and NOT NULL specifications applied.

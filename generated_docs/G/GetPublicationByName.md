@@ -1,7 +1,7 @@
 # GetPublicationByName
 
 ## Location
-src/backend/catalog/pg_publication.c: 1037 - 1051
+[src/backend/catalog/pg_publication.c:1037-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L1037-L1051)
 
 ## Overview
 Retrieves a Publication structure by looking up a publication using its name, with optional handling for missing publications.

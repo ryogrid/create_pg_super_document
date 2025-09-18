@@ -1,7 +1,7 @@
 # process_function_rte_ref
 
 ## Location
-src/backend/catalog/dependency.c: 2321 - 2382
+[src/backend/catalog/dependency.c:2321-2382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2321-L2382)
 
 ## Overview
 Handles dependency tracking for column references to function-returning range table entries, specifically managing dependencies on composite type columns returned by functions.

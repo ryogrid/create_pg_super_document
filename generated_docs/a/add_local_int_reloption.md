@@ -1,7 +1,7 @@
 # add_local_int_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 918 - 933
+[src/backend/access/common/reloptions.c:918-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L918-L933)
 
 ## Overview
 A public function that creates and registers a new integer-type local relation option (reloption) with a specified memory offset for direct field access.

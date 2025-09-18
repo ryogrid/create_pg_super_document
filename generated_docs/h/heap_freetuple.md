@@ -1,7 +1,7 @@
 # heap_freetuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1434 - 1451
+[src/backend/access/common/heaptuple.c:1434-1451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1434-L1451)
 
 ## Overview
 Frees the memory allocated for a HeapTuple structure by calling pfree() on the tuple pointer.

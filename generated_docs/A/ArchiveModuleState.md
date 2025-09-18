@@ -1,7 +1,7 @@
 # ArchiveModuleState
 
 ## Location
-src/include/archive/archive_module.h: 20 - 28
+[src/include/archive/archive_module.h:20-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/archive/archive_module.h#L20-L28)
 
 ## Overview
 ArchiveModuleState is a structure that provides a mechanism for archive modules to maintain private state data across callback invocations.

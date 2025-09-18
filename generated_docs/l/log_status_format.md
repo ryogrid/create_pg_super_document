@@ -1,7 +1,7 @@
 # log_status_format
 
 ## Location
-src/backend/utils/error/elog.c: 2813 - 3165
+[src/backend/utils/error/elog.c:2813-3165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2813-L3165)
 
 ## Overview
 A comprehensive function that formats log status information by interpreting format escape sequences and appending contextual data to a buffer.

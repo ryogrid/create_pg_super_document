@@ -1,7 +1,7 @@
 # int8_avg_accum_inv
 
 ## Location
-src/backend/utils/adt/numeric.c: 6061 - 6085
+[src/backend/utils/adt/numeric.c:6061-6085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6061-L6085)
 
 ## Overview
 Inverse accumulation function specifically for 64-bit integer average aggregate operations that removes a value from the running aggregate state.

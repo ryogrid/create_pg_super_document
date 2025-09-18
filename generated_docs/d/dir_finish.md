@@ -1,7 +1,7 @@
 # dir_finish
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 608 - 629
+[src/bin/pg_basebackup/walmethods.c:608-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L608-L629)
 
 ## Overview
 Finishes the directory-based WAL writing method by optionally synchronizing the base directory to ensure data durability.

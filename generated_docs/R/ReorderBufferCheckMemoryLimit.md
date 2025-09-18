@@ -1,7 +1,7 @@
 # ReorderBufferCheckMemoryLimit
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3767 - 3839
+[src/backend/replication/logical/reorderbuffer.c:3767-3839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3767-L3839)
 
 ## Overview
 Monitors the logical decoding memory limit and triggers eviction of the largest transactions through streaming or disk serialization to maintain memory usage below configured thresholds.

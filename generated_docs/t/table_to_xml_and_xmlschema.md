@@ -1,7 +1,7 @@
 # table_to_xml_and_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3124 - 3144
+[src/backend/utils/adt/xml.c:3124-3144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3124-L3144)
 
 ## Overview
 SQL-callable function that generates both XML data and its corresponding XML Schema Definition (XSD) for a specified database table in a single operation.

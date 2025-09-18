@@ -1,7 +1,7 @@
 # secure_initialize
 
 ## Location
-src/backend/libpq/be-secure.c: 73 - 85
+[src/backend/libpq/be-secure.c:73-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L73-L85)
 
 ## Overview
 Initializes the global security context for PostgreSQL's secure communication layer, serving as the main entry point for setting up SSL/TLS functionality during server startup or reload.

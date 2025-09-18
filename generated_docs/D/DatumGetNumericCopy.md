@@ -1,7 +1,7 @@
 # DatumGetNumericCopy
 
 ## Location
-src/include/utils/numeric.h: 67 - 72
+[src/include/utils/numeric.h:67-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/numeric.h#L67-L72)
 
 ## Overview
 DatumGetNumericCopy is an inline function that converts a Datum value to a Numeric pointer, ensuring a writable copy is obtained by handling TOAST decompression and creating a copy when necessary.

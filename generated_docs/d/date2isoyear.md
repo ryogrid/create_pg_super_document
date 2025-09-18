@@ -1,7 +1,7 @@
 # date2isoyear
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5222 - 5278
+[src/backend/utils/adt/timestamp.c:5222-5278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5222-L5278)
 
 ## Overview
 Returns the ISO 8601 year number for a given date, which may differ from the calendar year for dates in the first or last week of the year.

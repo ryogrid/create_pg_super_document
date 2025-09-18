@@ -1,7 +1,7 @@
 # AlterSchemaOwner_oid
 
 ## Location
-src/backend/commands/schemacmds.c: 307 - 329
+[src/backend/commands/schemacmds.c:307-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/schemacmds.c#L307-L329)
 
 ## Overview
 AlterSchemaOwner_oid changes the owner of a schema identified by its OID, serving as a lightweight wrapper around the internal ownership change logic.

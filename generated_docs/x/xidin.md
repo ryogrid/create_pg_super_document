@@ -1,7 +1,7 @@
 # xidin
 
 ## Location
-src/backend/utils/adt/xid.c: 32 - 41
+[src/backend/utils/adt/xid.c:32-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L32-L41)
 
 ## Overview
 The xidin function is an input conversion function that parses a string representation of a transaction ID (XID) and converts it into PostgreSQL's internal TransactionId type.

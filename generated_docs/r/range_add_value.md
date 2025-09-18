@@ -1,7 +1,7 @@
 # range_add_value
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1702 - 1787
+[src/backend/access/brin/brin_minmax_multi.c:1702-1787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1702-L1787)
 
 ## Overview
 This function adds a new value to a BRIN minmax-multi range structure, managing space allocation, deduplication, and maintaining sorted order.

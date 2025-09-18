@@ -1,7 +1,7 @@
 # get_simple_values_rte
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5835 - 5903
+[src/backend/utils/adt/ruleutils.c:5835-5903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5835-L5903)
 
 ## Overview
 Detects whether a query looks like SELECT ... FROM VALUES() with no need to rename the output columns of the VALUES RTE, and returns the VALUES RTE if found.

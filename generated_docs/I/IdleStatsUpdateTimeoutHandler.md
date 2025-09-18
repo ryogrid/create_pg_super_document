@@ -1,7 +1,7 @@
 # IdleStatsUpdateTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1434 - 1441
+[src/backend/utils/init/postinit.c:1434-1441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1434-L1441)
 
 ## Overview
 A timeout handler function that signals when idle statistics updates are needed, setting appropriate flags to trigger the update mechanism through PostgreSQL's interrupt system.

@@ -1,7 +1,7 @@
 # IsTidEqualAnyClause
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 172 - 210
+[src/backend/optimizer/path/tidpath.c:172-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L172-L210)
 
 ## Overview
 IsTidEqualAnyClause is a static function that identifies whether a RestrictInfo represents a CTID equality clause using the ANY operator for matching against multiple values.

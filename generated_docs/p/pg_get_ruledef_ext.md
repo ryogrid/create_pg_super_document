@@ -1,7 +1,7 @@
 # pg_get_ruledef_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 556 - 574
+[src/backend/utils/adt/ruleutils.c:556-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L556-L574)
 
 ## Overview
 Extended version of pg_get_ruledef that allows control over pretty-printing formatting options for rewrite rule definitions.

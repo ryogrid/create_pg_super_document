@@ -1,7 +1,7 @@
 # CopyReadAttributesText
 
 ## Location
-src/backend/commands/copyfromparse.c: 1537 - 1790
+[src/backend/commands/copyfromparse.c:1537-1790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1537-L1790)
 
 ## Overview
 Parses a single line of text-format COPY data into separate attribute fields, performing character de-escaping and handling null/default markers according to PostgreSQL's text format specifications.

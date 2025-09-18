@@ -1,7 +1,7 @@
 # getTokenTypes
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1229 - 1287
+[src/backend/commands/tsearchcmds.c:1229-1287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1229-L1287)
 
 ## Overview
 A static function that translates a list of token type names into a list of unique TSTokenTypeItem structures, validating token names against a text search parser's lexical types.

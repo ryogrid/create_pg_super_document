@@ -1,7 +1,7 @@
 # create_role
 
 ## Location
-src/test/regress/pg_regress.c: 2000 - 2013
+[src/test/regress/pg_regress.c:2000-2013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L2000-L2013)
 
 ## Overview
 A utility function in the PostgreSQL regression test framework that creates a database role with login privileges and grants permissions to specified databases.

@@ -1,7 +1,7 @@
 # ParsedLex
 
 ## Location
-src/backend/tsearch/ts_parse.c: 27 - 33
+[src/backend/tsearch/ts_parse.c:27-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L27-L33)
 
 ## Overview
 ParsedLex is a structure used in PostgreSQL's text search lexizer subsystem to represent a parsed lexeme with its type, text content, and position in a linked list of lexemes.

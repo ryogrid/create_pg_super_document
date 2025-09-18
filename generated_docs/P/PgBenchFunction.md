@@ -1,7 +1,7 @@
 # PgBenchFunction
 
 ## Location
-src/bin/pgbench/pgbench.h: 104 - 105
+[src/bin/pgbench/pgbench.h:104-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.h#L104-L105)
 
 ## Overview
 PgBenchFunction is an enumeration that defines all the built-in functions and operators available in pgbench expression language. It provides a comprehensive set of mathematical, logical, comparison, bitwise, and utility functions that can be used in benchmark scripts for data generation and manipulation.

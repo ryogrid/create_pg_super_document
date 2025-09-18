@@ -1,7 +1,7 @@
 # TransactionIdLatest
 
 ## Location
-src/backend/access/transam/transam.c: 345 - 381
+[src/backend/access/transam/transam.c:345-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L345-L381)
 
 ## Overview
 TransactionIdLatest finds and returns the latest (most recent) transaction ID among a main transaction and its child subtransactions.

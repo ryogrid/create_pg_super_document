@@ -1,7 +1,7 @@
 # lengthCompareJsonbString
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1905 - 1924
+[src/backend/utils/adt/jsonb_util.c:1905-1924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1905-L1924)
 
 ## Overview
 A low-level string comparison function that compares two strings by length first, then by binary content, providing the core comparison logic for JSONB string operations and binary searches.

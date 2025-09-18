@@ -1,7 +1,7 @@
 # MemoizeState
 
 ## Location
-src/include/nodes/execnodes.h: 2270 - 2302
+[src/include/nodes/execnodes.h:2270-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2270-L2302)
 
 ## Overview
 MemoizeState is a structure that represents the execution state of a Memoize node, which caches recent and commonly seen results from a parameterized scan to improve query performance through result memoization.

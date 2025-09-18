@@ -1,7 +1,7 @@
 # intorel_receive
 
 ## Location
-src/backend/commands/createas.c: 576 - 606
+[src/backend/commands/createas.c:576-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L576-L606)
 
 ## Overview
 intorel_receive handles the insertion of individual tuples into the target relation during CREATE TABLE AS and CREATE MATERIALIZED VIEW operations.

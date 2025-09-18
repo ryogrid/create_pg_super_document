@@ -1,7 +1,7 @@
 # _tocEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.h: 343 - 388
+[src/bin/pg_dump/pg_backup_archiver.h:343-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.h#L343-L388)
 
 ## Overview
 _tocEntry is the core structure that represents individual database objects and their comprehensive metadata within PostgreSQL dump archives, serving as the fundamental building block for the table of contents system.

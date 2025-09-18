@@ -1,7 +1,7 @@
 # spi_dest_startup
 
 ## Location
-src/backend/executor/spi.c: 2123 - 2170
+[src/backend/executor/spi.c:2123-2170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2123-L2170)
 
 ## Overview
 Initializes a SPITupleTable to receive tuples from the Executor into the current SPI procedure's context.

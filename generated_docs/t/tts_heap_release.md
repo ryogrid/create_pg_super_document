@@ -1,7 +1,7 @@
 # tts_heap_release
 
 ## Location
-src/backend/executor/execTuples.c: 321 - 325
+[src/backend/executor/execTuples.c:321-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L321-L325)
 
 ## Overview
 tts_heap_release is a release callback function for HeapTupleTableSlot operations that performs no action, serving as a no-op implementation of the TupleTableSlotOps release callback.

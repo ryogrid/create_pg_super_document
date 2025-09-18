@@ -1,7 +1,7 @@
 # ResourceOwnerRememberPlanCacheRef
 
 ## Location
-src/backend/utils/cache/plancache.c: 135 - 139
+[src/backend/utils/cache/plancache.c:135-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L135-L139)
 
 ## Overview
 A convenience wrapper function that registers a CachedPlan with a ResourceOwner to ensure proper cleanup when the resource owner is released.

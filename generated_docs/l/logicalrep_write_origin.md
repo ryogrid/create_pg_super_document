@@ -1,7 +1,7 @@
 # logicalrep_write_origin
 
 ## Location
-src/backend/replication/logical/proto.c: 385 - 400
+[src/backend/replication/logical/proto.c:385-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L385-L400)
 
 ## Overview
 This function writes an ORIGIN message to the logical replication output stream, used to track replication origin information during logical replication.

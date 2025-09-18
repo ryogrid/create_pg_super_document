@@ -1,7 +1,7 @@
 # _brin_parallel_heapscan
 
 ## Location
-src/backend/access/brin/brin.c: 2569 - 2609
+[src/backend/access/brin/brin.c:2569-2609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2569-L2609)
 
 ## Overview
 Coordinates completion of parallel heap scanning for BRIN index building by waiting for all worker processes to finish and collecting tuple statistics.

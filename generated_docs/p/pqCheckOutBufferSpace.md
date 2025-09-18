@@ -1,7 +1,7 @@
 # pqCheckOutBufferSpace
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 287 - 350
+[src/interfaces/libpq/fe-misc.c:287-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L287-L350)
 
 ## Overview
 Ensures that the connection's output buffer has sufficient space to hold the specified number of bytes by reallocating the buffer if necessary.

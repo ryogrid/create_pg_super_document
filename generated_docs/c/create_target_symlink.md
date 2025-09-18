@@ -1,7 +1,7 @@
 # create_target_symlink
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 257 - 270
+[src/bin/pg_rewind/file_ops.c:257-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L257-L270)
 
 ## Overview
 Creates a symbolic link in the target data directory during PostgreSQL rewind operations.

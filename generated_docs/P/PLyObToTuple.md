@@ -1,7 +1,7 @@
 # PLyObToTuple
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 105 - 117
+[src/pl/plpython/plpy_typeio.h:105-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L105-L117)
 
 ## Overview
 PLyObToTuple is a specialized conversion structure used within PostgreSQL's PLpython extension to handle conversion of Python objects to PostgreSQL composite/record data types.

@@ -1,7 +1,7 @@
 # binary_coercible
 
 ## Location
-src/test/regress/regress.c: 1291 - 1297
+[src/test/regress/regress.c:1291-1297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1291-L1297)
 
 ## Overview
 A PostgreSQL regression test function that checks whether one data type can be binary-coercible to another data type without requiring an explicit cast.

@@ -1,7 +1,7 @@
 # ATExecDropIdentity
 
 ## Location
-src/backend/commands/tablecmds.c: 8246 - 8359
+[src/backend/commands/tablecmds.c:8246-8359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8246-L8359)
 
 ## Overview
 ATExecDropIdentity implements the ALTER TABLE ALTER COLUMN DROP IDENTITY command, removing identity column properties from a column and cleaning up associated sequences in PostgreSQL relations.

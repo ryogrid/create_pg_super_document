@@ -1,7 +1,7 @@
 # get_typmodin
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3006 - 3030
+[src/backend/utils/cache/lsyscache.c:3006-3030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3006-L3030)
 
 ## Overview
 Retrieves the type modifier input function (typmodin) OID for a given PostgreSQL data type, used for parsing and validating type modifier specifications.

@@ -1,7 +1,7 @@
 # irish_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c: 469 - 470
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c:469-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c#L469-L470)
 
 ## Overview
 Cleanup function that properly deallocates a Snowball stemmer environment for Irish language processing using the ISO-8859-1 character encoding.

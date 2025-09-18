@@ -1,7 +1,7 @@
 # pgstat_get_entry_len
 
 ## Location
-src/include/utils/pgstat_internal.h: 809 - 817
+[src/include/utils/pgstat_internal.h:809-817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L809-L817)
 
 ## Overview
 A static inline function that returns the size of the data portion of a shared memory statistics entry, excluding transient data like reference counts and locks.

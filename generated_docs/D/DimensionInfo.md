@@ -1,7 +1,7 @@
 # DimensionInfo
 
 ## Location
-src/include/statistics/extended_stats_internal.h: 34 - 41
+[src/include/statistics/extended_stats_internal.h:34-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/extended_stats_internal.h#L34-L41)
 
 ## Overview
 DimensionInfo is a structure that stores metadata for serialization and deserialization of dimension data in PostgreSQL's extended statistics framework, particularly for most common values (MCV) statistics.

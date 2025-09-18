@@ -1,7 +1,7 @@
 # gistinserttuples
 
 ## Location
-src/backend/access/gist/gist.c: 1289 - 1348
+[src/backend/access/gist/gist.c:1289-1348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1289-L1348)
 
 ## Overview
 The core workhorse function for inserting multiple tuples or replacing a single tuple with multiple tuples in GiST index pages, with sophisticated locking management for recursive parent updates.

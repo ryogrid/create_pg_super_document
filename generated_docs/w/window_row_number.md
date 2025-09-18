@@ -1,7 +1,7 @@
 # window_row_number
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 84 - 97
+[src/backend/utils/adt/windowfuncs.c:84-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L84-L97)
 
 ## Overview
 Implements the ROW_NUMBER() window function, which assigns a sequential integer to each row within a partition, starting from 1.

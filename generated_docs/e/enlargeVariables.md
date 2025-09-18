@@ -1,7 +1,7 @@
 # enlargeVariables
 
 ## Location
-src/bin/pgbench/pgbench.c: 1773 - 1791
+[src/bin/pgbench/pgbench.c:1773-1791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1773-L1791)
 
 ## Overview
 Ensures sufficient capacity in the Variables array to accommodate additional variable storage requirements.

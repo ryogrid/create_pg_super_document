@@ -1,7 +1,7 @@
 # dropdb
 
 ## Location
-src/backend/commands/dbcommands.c: 1634 - 1862
+[src/backend/commands/dbcommands.c:1634-1862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L1634-L1862)
 
 ## Overview
 dropdb is the core function that implements the DROP DATABASE SQL command, handling the complete removal of a PostgreSQL database including all its files, metadata, and associated resources.

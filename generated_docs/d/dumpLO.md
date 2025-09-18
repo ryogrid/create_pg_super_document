@@ -1,7 +1,7 @@
 # dumpLO
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3814 - 3903
+[src/bin/pg_dump/pg_dump.c:3814-3903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3814-L3903)
 
 ## Overview
 The  function dumps the metadata definition of a large object group, including OIDs, comments, security labels, and ACL permissions.

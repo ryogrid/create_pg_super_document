@@ -1,7 +1,7 @@
 # kill_bgchild_atexit
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 308 - 319
+[src/bin/pg_basebackup/pg_basebackup.c:308-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L308-L319)
 
 ## Overview
 An exit handler function that terminates background child processes during pg_basebackup cleanup to prevent orphaned processes.

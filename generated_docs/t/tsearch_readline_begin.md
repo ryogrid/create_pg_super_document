@@ -1,7 +1,7 @@
 # tsearch_readline_begin
 
 ## Location
-src/backend/tsearch/ts_locale.c: 134 - 156
+[src/backend/tsearch/ts_locale.c:134-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L134-L156)
 
 ## Overview
 Initializes a tsearch_readline_state structure to read a file line by line with enhanced error reporting context for text search configuration files.

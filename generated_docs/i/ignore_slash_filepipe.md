@@ -1,7 +1,7 @@
 # ignore_slash_filepipe
 
 ## Location
-src/bin/psql/command.c: 3223 - 3242
+[src/bin/psql/command.c:3223-3242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3223-L3242)
 
 ## Overview
 This function reads and discards FILEPIPE slash command arguments from the input stream, ensuring consistent parsing behavior between active and inactive conditional branches.

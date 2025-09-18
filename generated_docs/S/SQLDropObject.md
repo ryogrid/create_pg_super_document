@@ -1,7 +1,7 @@
 # SQLDropObject
 
 ## Location
-src/backend/commands/event_trigger.c: 87 - 100
+[src/backend/commands/event_trigger.c:87-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L87-L100)
 
 ## Overview
 SQLDropObject is a struct that represents metadata about database objects that have been dropped, used by PostgreSQL's event trigger system to provide detailed information about dropped objects to event trigger functions.

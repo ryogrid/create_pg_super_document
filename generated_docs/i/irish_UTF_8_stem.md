@@ -1,7 +1,7 @@
 # irish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 432 - 466
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:432-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L432-L466)
 
 ## Overview
 The irish_UTF_8_stem function is the main entry point for stemming Irish language text encoded in UTF-8, orchestrating the complete stemming process through multiple sequential phases.

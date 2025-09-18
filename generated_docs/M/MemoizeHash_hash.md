@@ -1,7 +1,7 @@
 # MemoizeHash_hash
 
 ## Location
-src/backend/executor/nodeMemoize.c: 158 - 220
+[src/backend/executor/nodeMemoize.c:158-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L158-L220)
 
 ## Overview
 Hash function for the simplehash hashtable used in the Memoize executor node, which computes hash values for cache key lookups based on the probeslot contents.

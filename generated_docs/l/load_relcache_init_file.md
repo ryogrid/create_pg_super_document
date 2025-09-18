@@ -1,7 +1,7 @@
 # load_relcache_init_file
 
 ## Location
-src/backend/utils/cache/relcache.c: 6075 - 6490
+[src/backend/utils/cache/relcache.c:6075-6490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6075-L6490)
 
 ## Overview
 Attempts to load relation cache entries from the shared or local cache initialization file, enabling fast startup by avoiding sequential scans of system catalogs.

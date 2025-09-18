@@ -1,7 +1,7 @@
 # xl_restore_point
 
 ## Location
-src/include/access/xlog_internal.h: 286 - 290
+[src/include/access/xlog_internal.h:286-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L286-L290)
 
 ## Overview
 A data structure that logs restore point information in the WAL, allowing users to create named recovery targets for point-in-time recovery operations.

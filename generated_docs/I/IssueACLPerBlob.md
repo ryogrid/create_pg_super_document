@@ -1,7 +1,7 @@
 # IssueACLPerBlob
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 599 - 672
+[src/bin/pg_dump/pg_backup_db.c:599-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L599-L672)
 
 ## Overview
 IssueACLPerBlob processes "LARGE OBJECTS" ACL TocEntries by parsing GRANT/REVOKE commands and applying them to all large objects listed in the associated BLOB METADATA entry.

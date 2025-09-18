@@ -1,7 +1,7 @@
 # SharedAggInfo
 
 ## Location
-src/include/nodes/execnodes.h: 2438 - 2442
+[src/include/nodes/execnodes.h:2438-2442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2438-L2442)
 
 ## Overview
 SharedAggInfo is a shared memory container structure used to store per-worker aggregate information in parallel query execution within PostgreSQL's aggregation system.

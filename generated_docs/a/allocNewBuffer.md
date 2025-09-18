@@ -1,7 +1,7 @@
 # allocNewBuffer
 
 ## Location
-src/backend/access/spgist/spgutils.c: 505 - 560
+[src/backend/access/spgist/spgutils.c:505-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L505-L560)
 
 ## Overview
 Allocates and initializes a new buffer page of the specified type and parity for SP-GiST index operations, handling parity constraints for inner pages.

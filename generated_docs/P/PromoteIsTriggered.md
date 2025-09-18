@@ -1,7 +1,7 @@
 # PromoteIsTriggered
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4395 - 4412
+[src/backend/access/transam/xlogrecovery.c:4395-4412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4395-L4412)
 
 ## Overview
 Checks whether a standby promotion has been triggered, providing a thread-safe way for any process connected to shared memory to query promotion status.

@@ -1,7 +1,7 @@
 # pg_relation_filenode
 
 ## Location
-src/backend/utils/adt/dbsize.c: 879 - 929
+[src/backend/utils/adt/dbsize.c:879-929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L879-L929)
 
 ## Overview
 This PostgreSQL SQL function retrieves the filenode number of a relation given its OID, working efficiently from the pg_class catalog without opening the actual relation.

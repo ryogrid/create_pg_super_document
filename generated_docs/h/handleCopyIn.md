@@ -1,7 +1,7 @@
 # handleCopyIn
 
 ## Location
-src/bin/psql/copy.c: 511 - 727
+[src/bin/psql/copy.c:511-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L511-L727)
 
 ## Overview
 Handles the client-side input phase of a COPY FROM STDIN command in psql, reading data from a file stream and sending it to the PostgreSQL server.

@@ -1,7 +1,7 @@
 # convertJsonbObject
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1705 - 1820
+[src/backend/utils/adt/jsonb_util.c:1705-1820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1705-L1820)
 
 ## Overview
 Converts a JsonbValue object structure into its binary JSONB representation by serializing object key-value pairs and constructing the appropriate JSONB container format with proper ordering and metadata.

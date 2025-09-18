@@ -1,7 +1,7 @@
 # window_lead
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 615 - 626
+[src/backend/utils/adt/windowfuncs.c:615-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L615-L626)
 
 ## Overview
 The window_lead function implements the basic LEAD window function, returning the value of a column from the next row (1 row after) the current row within a partition.

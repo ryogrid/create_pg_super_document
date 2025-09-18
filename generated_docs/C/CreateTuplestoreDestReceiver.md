@@ -1,7 +1,7 @@
 # CreateTuplestoreDestReceiver
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 238 - 265
+[src/backend/executor/tstoreReceiver.c:238-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L238-L265)
 
 ## Overview
 Creates and initializes a new tuplestore destination receiver object that can be used to collect query results and store them in a tuplestore for later retrieval.

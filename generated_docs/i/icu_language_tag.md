@@ -1,7 +1,7 @@
 # icu_language_tag
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2944 - 3000
+[src/backend/utils/adt/pg_locale.c:2944-3000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2944-L3000)
 
 ## Overview
 Converts a locale string to its BCP47 language tag representation using ICU library functions, with level 2 canonicalization for consistent formatting.

@@ -1,7 +1,7 @@
 # l_int16_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 57 - 65
+[src/include/jit/llvmjit_emit.h:57-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L57-L65)
 
 ## Overview
 A static inline utility function that creates an LLVM constant for 16-bit integer values in JIT compilation.

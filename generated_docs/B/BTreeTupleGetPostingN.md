@@ -1,7 +1,7 @@
 # BTreeTupleGetPostingN
 
 ## Location
-src/include/access/nbtree.h: 544 - 555
+[src/include/access/nbtree.h:544-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L544-L555)
 
 ## Overview
 BTreeTupleGetPostingN is an inline function that returns a pointer to the Nth heap TID in a posting list tuple.

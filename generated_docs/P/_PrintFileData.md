@@ -1,7 +1,7 @@
 # _PrintFileData
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 562 - 588
+[src/bin/pg_dump/pg_backup_tar.c:562-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L562-L588)
 
 ## Overview
 A tar format-specific function that reads and outputs the contents of a specific file from the tar archive to the archive handle's output stream.

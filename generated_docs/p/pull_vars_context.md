@@ -1,7 +1,7 @@
 # pull_vars_context
 
 ## Location
-src/backend/optimizer/util/var.c: 49 - 54
+[src/backend/optimizer/util/var.c:49-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L49-L54)
 
 ## Overview
 A context structure used by the pull_vars_of_level functionality to collect Var and PlaceHolderVar nodes from a specific query level during expression tree traversal.

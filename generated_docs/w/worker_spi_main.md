@@ -1,7 +1,7 @@
 # worker_spi_main
 
 ## Location
-src/test/modules/worker_spi/worker_spi.c: 138 - 305
+[src/test/modules/worker_spi/worker_spi.c:138-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/worker_spi/worker_spi.c#L138-L305)
 
 ## Overview
 This is the main entry point function for PostgreSQL background worker processes in the worker_spi test module, implementing a continuous loop that performs database operations via SPI.

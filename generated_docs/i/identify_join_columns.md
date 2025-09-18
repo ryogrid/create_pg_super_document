@@ -1,7 +1,7 @@
 # identify_join_columns
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4878 - 4945
+[src/backend/utils/adt/ruleutils.c:4878-4945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4878-L4945)
 
 ## Overview
 Analyzes a join expression to determine the source columns and their mappings, populating the join-specific fields of a deparse_columns structure used for SQL rule decompilation.

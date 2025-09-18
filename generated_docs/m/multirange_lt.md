@@ -1,7 +1,7 @@
 # multirange_lt
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2640 - 2647
+[src/backend/utils/adt/multirangetypes.c:2640-2647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2640-L2647)
 
 ## Overview
 Implements the less-than operator () for multirange types by using the multirange comparison function.

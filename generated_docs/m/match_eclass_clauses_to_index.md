@@ -1,7 +1,7 @@
 # match_eclass_clauses_to_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2013 - 2050
+[src/backend/optimizer/path/indxpath.c:2013-2050](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2013-L2050)
 
 ## Overview
 Identifies EquivalenceClass join clauses for a relation that match a specific index by generating implied equality conditions for each index column.

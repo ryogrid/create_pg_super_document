@@ -1,7 +1,7 @@
 # plperl_return_next_internal
 
 ## Location
-src/pl/plperl/plperl.c: 3275 - 3403
+[src/pl/plperl/plperl.c:3275-3403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3275-L3403)
 
 ## Overview
 Internal function that handles the core logic of return_next functionality for PL/Perl SETOF functions, managing tuple storage and memory context.

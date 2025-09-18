@@ -1,7 +1,7 @@
 # like_fixed_prefix
 
 ## Location
-src/backend/utils/adt/like_support.c: 992 - 1098
+[src/backend/utils/adt/like_support.c:992-1098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L992-L1098)
 
 ## Overview
 Extracts the fixed prefix portion from a LIKE pattern string to support query optimization by identifying non-wildcard characters at the beginning of the pattern.

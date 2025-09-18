@@ -1,7 +1,7 @@
 # InitCompressFileHandleNone
 
 ## Location
-src/bin/pg_dump/compress_none.c: 201 - 215
+[src/bin/pg_dump/compress_none.c:201-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L201-L215)
 
 ## Overview
 A public interface function that initializes a CompressFileHandle structure for uncompressed file operations in PostgreSQL's pg_dump utility.

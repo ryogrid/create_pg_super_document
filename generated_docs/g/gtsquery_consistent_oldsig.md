@@ -1,7 +1,7 @@
 # gtsquery_consistent_oldsig
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 273 - 276
+[src/backend/utils/adt/tsquery_gist.c:273-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L273-L276)
 
 ## Overview
 A backward compatibility wrapper function that provides support for reloading pre-9.6 contrib/tsearch2 opclass declarations by maintaining the old function signature for gtsquery_consistent.

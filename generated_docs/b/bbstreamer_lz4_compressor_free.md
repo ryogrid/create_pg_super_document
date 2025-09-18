@@ -1,7 +1,7 @@
 # bbstreamer_lz4_compressor_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 258 - 274
+[src/bin/pg_basebackup/bbstreamer_lz4.c:258-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L258-L274)
 
 ## Overview
 Frees memory and resources associated with the LZ4 compressor streamer.

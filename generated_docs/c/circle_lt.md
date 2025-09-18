@@ -1,7 +1,7 @@
 # circle_lt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4921 - 4929
+[src/backend/utils/adt/geo_ops.c:4921-4929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4921-L4929)
 
 ## Overview
 Tests whether one circle has a smaller area than another circle within PostgreSQL's floating-point accuracy constraints.

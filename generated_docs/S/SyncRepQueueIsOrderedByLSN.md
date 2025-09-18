@@ -1,7 +1,7 @@
 # SyncRepQueueIsOrderedByLSN
 
 ## Location
-src/backend/replication/syncrep.c: 1024 - 1057
+[src/backend/replication/syncrep.c:1024-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L1024-L1057)
 
 ## Overview
 A debugging/validation function that verifies the synchronous replication wait queue is properly ordered by LSN (Log Sequence Number) in ascending order.

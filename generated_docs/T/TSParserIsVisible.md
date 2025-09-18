@@ -1,7 +1,7 @@
 # TSParserIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2774 - 2785
+[src/backend/catalog/namespace.c:2774-2785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2774-L2785)
 
 ## Overview
 Determines whether a text search parser (identified by OID) is visible in the current search path.

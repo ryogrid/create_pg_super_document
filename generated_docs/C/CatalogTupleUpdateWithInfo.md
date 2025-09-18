@@ -1,7 +1,7 @@
 # CatalogTupleUpdateWithInfo
 
 ## Location
-src/backend/catalog/indexing.c: 337 - 364
+[src/backend/catalog/indexing.c:337-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L337-L364)
 
 ## Overview
 CatalogTupleUpdateWithInfo updates a tuple in a system catalog relation using caller-supplied index information, optimizing performance for bulk operations by amortizing index management overhead across multiple updates.

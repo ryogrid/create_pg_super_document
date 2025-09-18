@@ -1,7 +1,7 @@
 # ValidateJoinEstimator
 
 ## Location
-src/backend/commands/operatorcmds.c: 310 - 371
+[src/backend/commands/operatorcmds.c:310-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L310-L371)
 
 ## Overview
 ValidateJoinEstimator looks up and validates a join selectivity estimator function by name, ensuring it has the correct signature and appropriate permissions for use with operators.

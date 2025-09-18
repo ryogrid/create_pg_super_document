@@ -1,7 +1,7 @@
 # restriction_is_always_true
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2740 - 2804
+[src/backend/optimizer/plan/initsplan.c:2740-2804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2740-L2804)
 
 ## Overview
 Checks whether a RestrictInfo condition is always true and can be safely removed from query evaluation. This optimization function identifies trivial conditions that don't contribute to result filtering.

@@ -1,7 +1,7 @@
 # nameeq
 
 ## Location
-src/backend/utils/adt/name.c: 148 - 156
+[src/backend/utils/adt/name.c:148-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L148-L156)
 
 ## Overview
 The  function compares two PostgreSQL Name values for equality, returning true if they are equal according to the specified collation.

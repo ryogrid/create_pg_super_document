@@ -1,7 +1,7 @@
 # brin_bloom_add_value
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 539 - 593
+[src/backend/access/brin/brin_bloom.c:539-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L539-L593)
 
 ## Overview
 Examines an index tuple and updates its bloom filter by adding a new value from a heap tuple, returning whether the bloom filter was modified.

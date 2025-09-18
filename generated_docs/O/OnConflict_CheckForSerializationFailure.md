@@ -1,7 +1,7 @@
 # OnConflict_CheckForSerializationFailure
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4526 - 4692
+[src/backend/storage/lmgr/predicate.c:4526-4692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4526-L4692)
 
 ## Overview
 OnConflict_CheckForSerializationFailure detects dangerous dependency structures in the serialization graph and aborts transactions to prevent serialization anomalies.

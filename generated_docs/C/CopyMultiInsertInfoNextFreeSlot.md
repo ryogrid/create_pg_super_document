@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoNextFreeSlot
 
 ## Location
-src/backend/commands/copyfrom.c: 586 - 604
+[src/backend/commands/copyfrom.c:586-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L586-L604)
 
 ## Overview
 Returns the next available TupleTableSlot from a result relation's multi-insert buffer for storing the next tuple during COPY operations.

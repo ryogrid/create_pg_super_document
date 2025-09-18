@@ -1,7 +1,7 @@
 # EndCompressorLZ4
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 238 - 279
+[src/bin/pg_dump/compress_lz4.c:238-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L238-L279)
 
 ## Overview
 Finalizes LZ4 compression operations by flushing any remaining compressed data, writing the compression footer, and cleaning up all associated resources.

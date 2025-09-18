@@ -1,7 +1,7 @@
 # jspInitByBuffer
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 983 - 1073
+[src/backend/utils/adt/jsonpath.c:983-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L983-L1073)
 
 ## Overview
 Initializes a JsonPathItem structure by reading and parsing JSON path node data from a buffer at a specified position, handling all supported JSON path item types.

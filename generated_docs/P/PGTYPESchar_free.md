@@ -1,7 +1,7 @@
 # PGTYPESchar_free
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/common.c: 145 - 148
+[src/interfaces/ecpg/pgtypeslib/common.c:145-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/common.c#L145-L148)
 
 ## Overview
 A simple memory deallocation wrapper function in the PostgreSQL ECPG pgtypeslib that provides a platform-independent interface for freeing memory allocated by pgtypes functions.

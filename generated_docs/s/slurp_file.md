@@ -1,7 +1,7 @@
 # slurp_file
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 1376 - 1409
+[src/bin/pg_combinebackup/pg_combinebackup.c:1376-1409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L1376-L1409)
 
 ## Overview
 Reads the entire contents of a file into a StringInfo buffer with size validation and error handling, ensuring safe file I/O operations within specified limits.

@@ -1,7 +1,7 @@
 # pg_snapshot
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 68 - 69
+[src/backend/utils/adt/xid8funcs.c:68-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L68-L69)
 
 ## Overview
 The `pg_snapshot` struct represents a snapshot containing full 64-bit transaction IDs (FullTransactionId) used for transaction visibility determination and snapshot management in PostgreSQL.

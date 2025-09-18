@@ -1,7 +1,7 @@
 # irish_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c: 467 - 468
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c:467-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c#L467-L468)
 
 ## Overview
 Creates a Snowball stemming environment for Irish language text processing using the ISO-8859-1 character encoding.

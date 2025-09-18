@@ -1,7 +1,7 @@
 # Node
 
 ## Location
-src/include/nodes/nodes.h: 128 - 131
+[src/include/nodes/nodes.h:128-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodes.h#L128-L131)
 
 ## Overview
 The Node struct serves as the base type for all node structures in PostgreSQL's abstract syntax tree (AST) and other tree-based data structures. It provides a common foundation that enables type identification and polymorphic operations across all node types.

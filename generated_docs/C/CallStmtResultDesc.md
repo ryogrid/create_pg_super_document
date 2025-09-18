@@ -1,7 +1,7 @@
 # CallStmtResultDesc
 
 ## Location
-src/backend/commands/functioncmds.c: 2365 - 2409
+[src/backend/commands/functioncmds.c:2365-2409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L2365-L2409)
 
 ## Overview
 Constructs a tuple descriptor for CALL statement results, handling polymorphic types by resolving actual output argument types.

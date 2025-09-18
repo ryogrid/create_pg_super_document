@@ -1,7 +1,7 @@
 # SetCurrentRoleId
 
 ## Location
-src/backend/utils/init/miscinit.c: 1002 - 1033
+[src/backend/utils/init/miscinit.c:1002-1033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1002-L1033)
 
 ## Overview
 SetCurrentRoleId changes the current role ID during runtime, implementing the backend logic for PostgreSQL's SET ROLE command.

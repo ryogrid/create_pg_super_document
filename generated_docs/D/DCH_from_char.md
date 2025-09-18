@@ -1,7 +1,7 @@
 # DCH_from_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 3412 - 3961
+[src/backend/utils/adt/formatting.c:3412-3961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L3412-L3961)
 
 ## Overview
 A static function that parses a formatted date/time string according to format specifications, extracting date/time components into a TmFromChar structure for subsequent processing into PostgreSQL timestamps.

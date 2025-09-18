@@ -1,7 +1,7 @@
 # lz4_compress_datum
 
 ## Location
-src/backend/access/common/toast_compression.c: 139 - 181
+[src/backend/access/common/toast_compression.c:139-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L139-L181)
 
 ## Overview
 Compresses a varlena data structure using the LZ4 compression algorithm, which is an alternative to PGLZ for PostgreSQL's TOAST system, offering faster compression and decompression speeds.

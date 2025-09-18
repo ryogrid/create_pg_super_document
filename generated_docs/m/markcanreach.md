@@ -1,7 +1,7 @@
 # markcanreach
 
 ## Location
-src/backend/regex/regc_nfa.c: 3025 - 3050
+[src/backend/regex/regc_nfa.c:3025-3050](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3025-L3050)
 
 ## Overview
 The markcanreach function is a recursive utility function in PostgreSQL's regex engine that marks all states from which a given target state can be reached within an NFA (Nondeterministic Finite Automaton).

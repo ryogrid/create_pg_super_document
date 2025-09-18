@@ -1,7 +1,7 @@
 # should_ignore_relpath
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 1019 - 1047
+[src/bin/pg_verifybackup/pg_verifybackup.c:1019-1047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L1019-L1047)
 
 ## Overview
 A static function that determines whether a given relative path should be ignored during backup verification by checking if it matches any path in the ignore list.

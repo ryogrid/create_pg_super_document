@@ -1,7 +1,7 @@
 # pg_strncoll_libc_win32_utf8
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1862 - 1938
+[src/backend/utils/adt/pg_locale.c:1862-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1862-L1938)
 
 ## Overview
 A Windows-specific static function that performs locale-aware string collation for UTF-8 encoded strings using the libc provider by converting to UTF-16 and using Windows wcscoll functions.

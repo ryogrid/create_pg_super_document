@@ -1,7 +1,7 @@
 # bbstreamer_lz4_compressor_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 116 - 198
+[src/bin/pg_basebackup/bbstreamer_lz4.c:116-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L116-L198)
 
 ## Overview
 Compresses input data using LZ4 compression and forwards it through the backup streaming chain.

@@ -1,7 +1,7 @@
 # uuid_ge
 
 ## Location
-src/backend/utils/adt/uuid.c: 201 - 209
+[src/backend/utils/adt/uuid.c:201-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L201-L209)
 
 ## Overview
 SQL-callable function that tests whether the first UUID argument is greater than or equal to the second UUID argument.

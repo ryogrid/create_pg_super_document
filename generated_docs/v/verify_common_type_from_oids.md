@@ -1,7 +1,7 @@
 # verify_common_type_from_oids
 
 ## Location
-src/backend/parser/parse_coerce.c: 1628 - 1645
+[src/backend/parser/parse_coerce.c:1628-1645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1628-L1645)
 
 ## Overview
 Verifies that all input type OIDs can be implicitly coerced to a proposed common type, serving as a static variant of verify_common_type().

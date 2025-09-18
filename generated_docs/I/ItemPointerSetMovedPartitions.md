@@ -1,7 +1,7 @@
 # ItemPointerSetMovedPartitions
 
 ## Location
-src/include/storage/itemptr.h: 210 - 230
+[src/include/storage/itemptr.h:210-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L210-L230)
 
 ## Overview
 Sets an ItemPointer to indicate that the referenced tuple has been moved to a different partition.

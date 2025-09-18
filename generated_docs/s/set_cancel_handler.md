@@ -1,7 +1,7 @@
 # set_cancel_handler
 
 ## Location
-src/bin/pg_dump/parallel.c: 708 - 729
+[src/bin/pg_dump/parallel.c:708-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L708-L729)
 
 ## Overview
 Initializes the console interrupt handler for Windows platforms, ensuring that interrupt signals (Ctrl+C, Ctrl+Break) are properly handled during pg_dump operations.

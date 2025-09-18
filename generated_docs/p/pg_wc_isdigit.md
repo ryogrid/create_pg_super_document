@@ -1,7 +1,7 @@
 # pg_wc_isdigit
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 294 - 327
+[src/backend/regex/regc_pg_locale.c:294-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L294-L327)
 
 ## Overview
 A static function that determines whether a wide character is a digit, using the appropriate locale-aware method based on the current regex strategy.

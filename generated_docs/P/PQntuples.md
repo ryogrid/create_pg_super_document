@@ -1,7 +1,7 @@
 # PQntuples
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3481 - 3488
+[src/interfaces/libpq/fe-exec.c:3481-3488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3481-L3488)
 
 ## Overview
 PQntuples returns the number of rows (tuples) in a query result set stored in a PGresult object.

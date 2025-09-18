@@ -1,7 +1,7 @@
 # WalSndShmemInit
 
 ## Location
-src/backend/replication/walsender.c: 3663 - 3707
+[src/backend/replication/walsender.c:3663-3707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3663-L3707)
 
 ## Overview
 WalSndShmemInit initializes the shared memory structures needed for WAL (Write-Ahead Log) sender processes in PostgreSQL's streaming replication system.

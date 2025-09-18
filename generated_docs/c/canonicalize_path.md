@@ -1,7 +1,7 @@
 # canonicalize_path
 
 ## Location
-src/port/path.c: 336 - 342
+[src/port/path.c:336-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L336-L342)
 
 ## Overview
 Cleans up and normalizes file system paths by applying various transformations to make paths consistent and canonical.

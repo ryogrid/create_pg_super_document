@@ -1,7 +1,7 @@
 # HandleLogMemoryContextInterrupt
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1271 - 1287
+[src/backend/utils/mmgr/mcxt.c:1271-1287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1271-L1287)
 
 ## Overview
 HandleLogMemoryContextInterrupt is a signal handler function that safely handles requests to log memory context information by deferring the actual logging work to avoid unsafe operations within the signal handler.

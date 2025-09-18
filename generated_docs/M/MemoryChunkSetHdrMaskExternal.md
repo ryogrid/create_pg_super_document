@@ -1,7 +1,7 @@
 # MemoryChunkSetHdrMaskExternal
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 190 - 203
+[src/include/utils/memutils_memorychunk.h:190-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L190-L203)
 
 ## Overview
 Initializes a MemoryChunk as an externally managed chunk by setting the external flag and recording the memory context method ID in the header mask.

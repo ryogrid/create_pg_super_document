@@ -1,7 +1,7 @@
 # RewriteMappingFile
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 191 - 198
+[src/backend/access/heap/rewriteheap.c:191-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L191-L198)
 
 ## Overview
 RewriteMappingFile represents in-memory metadata for managing logical remapping entries during heap rewrite operations, specifically tracking mappings for transactions that may need to access rewritten data.

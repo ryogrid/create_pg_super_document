@@ -1,7 +1,7 @@
 # NewConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 212 - 221
+[src/backend/commands/tablecmds.c:212-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L212-L221)
 
 ## Overview
 NewConstraint is a structure used during PostgreSQL's ALTER TABLE operations to represent constraints that need to be validated during the Phase 3 table scan. It handles both CHECK and FOREIGN KEY constraints that are added to tables.

@@ -1,7 +1,7 @@
 # texticregexeq_support
 
 ## Location
-src/backend/utils/adt/like_support.c: 139 - 146
+[src/backend/utils/adt/like_support.c:139-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L139-L146)
 
 ## Overview
 Provides planner support for case-insensitive regular expression operators by delegating to the common pattern matching support infrastructure.

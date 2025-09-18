@@ -1,7 +1,7 @@
 # system_nextsampleblock
 
 ## Location
-src/backend/access/tablesample/system.c: 178 - 235
+[src/backend/access/tablesample/system.c:178-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/system.c#L178-L235)
 
 ## Overview
 Selects the next block to sample by iterating through blocks and using hash-based probabilistic selection to determine which blocks should be included in the sample.

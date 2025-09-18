@@ -1,7 +1,7 @@
 # AlignedAllocGetChunkSpace
 
 ## Location
-src/backend/utils/mmgr/alignedalloc.c: 158 - 172
+[src/backend/utils/mmgr/alignedalloc.c:158-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/alignedalloc.c#L158-L172)
 
 ## Overview
 Returns the total memory space occupied by an aligned allocation, including all memory allocation overhead from the underlying unaligned allocation.

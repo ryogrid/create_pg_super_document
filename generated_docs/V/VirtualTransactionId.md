@@ -1,7 +1,7 @@
 # VirtualTransactionId
 
 ## Location
-src/include/storage/lock.h: 63 - 64
+[src/include/storage/lock.h:63-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L63-L64)
 
 ## Overview
 VirtualTransactionId is a structure that uniquely identifies a virtual transaction within a PostgreSQL backend process. It combines a process number with a local transaction ID to create a system-wide unique identifier for transactions.

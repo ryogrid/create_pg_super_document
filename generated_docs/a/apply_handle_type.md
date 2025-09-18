@@ -1,7 +1,7 @@
 # apply_handle_type
 
 ## Location
-src/backend/replication/logical/worker.c: 2326 - 2340
+[src/backend/replication/logical/worker.c:2326-2340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2326-L2340)
 
 ## Overview
 Handles TYPE messages in PostgreSQL logical replication by reading and discarding the message data, expecting the user to have configured compatible data types between publisher and subscriber.

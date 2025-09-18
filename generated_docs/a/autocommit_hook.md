@@ -1,7 +1,7 @@
 # autocommit_hook
 
 ## Location
-src/bin/psql/startup.c: 875 - 880
+[src/bin/psql/startup.c:875-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L875-L880)
 
 ## Overview
 An assignment hook function for the AUTOCOMMIT psql variable that validates and sets the autocommit behavior in psql's global settings.

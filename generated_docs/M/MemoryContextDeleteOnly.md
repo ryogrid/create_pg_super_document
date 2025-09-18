@@ -1,7 +1,7 @@
 # MemoryContextDeleteOnly
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 496 - 538
+[src/backend/utils/mmgr/mcxt.c:496-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L496-L538)
 
 ## Overview
 A subroutine of MemoryContextDelete that deletes a context with no children, handling deallocation, callback execution, and safe unlinking from the parent.

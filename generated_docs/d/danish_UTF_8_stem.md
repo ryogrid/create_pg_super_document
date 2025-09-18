@@ -1,7 +1,7 @@
 # danish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_danish.c: 278 - 314
+[src/backend/snowball/libstemmer/stem_UTF_8_danish.c:278-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_danish.c#L278-L314)
 
 ## Overview
 The main stemming function for Danish text in UTF-8 encoding that reduces words to their root forms by sequentially applying various suffix removal and morphological transformation rules.

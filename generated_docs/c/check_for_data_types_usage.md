@@ -1,7 +1,7 @@
 # check_for_data_types_usage
 
 ## Location
-src/bin/pg_upgrade/check.c: 338 - 537
+[src/bin/pg_upgrade/check.c:338-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L338-L537)
 
 ## Overview
 Detects whether there are any stored columns depending on given problematic data types across all databases in a cluster and generates a report if incompatible types are found.

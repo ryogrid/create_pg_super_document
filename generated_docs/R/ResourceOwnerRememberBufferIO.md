@@ -1,7 +1,7 @@
 # ResourceOwnerRememberBufferIO
 
 ## Location
-src/include/storage/buf_internals.h: 403 - 407
+[src/include/storage/buf_internals.h:403-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L403-L407)
 
 ## Overview
 Registers a buffer I/O operation with a resource owner to ensure proper cleanup and tracking of ongoing I/O operations during transaction processing.

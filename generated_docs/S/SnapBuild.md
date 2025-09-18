@@ -1,7 +1,7 @@
 # SnapBuild
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 152 - 323
+[src/backend/replication/logical/snapbuild.c:152-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L152-L323)
 
 ## Overview
 SnapBuild is a core data structure in PostgreSQL's logical replication system that manages the state and process of building consistent snapshots for logical decoding, tracking transaction visibility and catalog changes during WAL replay.

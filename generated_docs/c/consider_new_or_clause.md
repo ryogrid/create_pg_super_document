@@ -1,7 +1,7 @@
 # consider_new_or_clause
 
 ## Location
-src/backend/optimizer/util/orclauses.c: 254 - 345
+[src/backend/optimizer/util/orclauses.c:254-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/orclauses.c#L254-L345)
 
 ## Overview
 Evaluates whether an extracted restriction OR clause is worth using and, if beneficial, adds it to the relation's restriction list while adjusting the original join clause's selectivity.

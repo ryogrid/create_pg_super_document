@@ -1,7 +1,7 @@
 # conditional_stack_create
 
 ## Location
-src/fe_utils/conditional.c: 18 - 29
+[src/fe_utils/conditional.c:18-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L18-L29)
 
 ## Overview
 Creates and initializes a new conditional stack for managing nested conditional statements in PostgreSQL frontend utilities.

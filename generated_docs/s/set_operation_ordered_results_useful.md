@@ -1,7 +1,7 @@
 # set_operation_ordered_results_useful
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 188 - 229
+[src/backend/optimizer/prep/prepunion.c:188-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L188-L229)
 
 ## Overview
 Determines whether a given set operation can benefit from sorted input paths to optimize execution performance.

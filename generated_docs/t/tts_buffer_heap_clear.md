@@ -1,7 +1,7 @@
 # tts_buffer_heap_clear
 
 ## Location
-src/backend/executor/execTuples.c: 719 - 748
+[src/backend/executor/execTuples.c:719-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L719-L748)
 
 ## Overview
 Clears a buffer-backed heap tuple table slot by releasing resources, freeing materialized tuples, and resetting the slot to an empty state.

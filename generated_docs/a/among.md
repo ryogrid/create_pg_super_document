@@ -1,7 +1,7 @@
 # among
 
 ## Location
-src/include/snowball/libstemmer/header.h: 15 - 61
+[src/include/snowball/libstemmer/header.h:15-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/snowball/libstemmer/header.h#L15-L61)
 
 ## Overview
 The  struct is a data structure used in the Snowball stemming library to represent string lookup tables for pattern matching and text transformation operations.

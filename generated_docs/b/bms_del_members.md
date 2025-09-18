@@ -1,7 +1,7 @@
 # bms_del_members
 
 ## Location
-src/backend/nodes/bitmapset.c: 1161 - 1229
+[src/backend/nodes/bitmapset.c:1161-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1161-L1229)
 
 ## Overview
 Removes all members from bitmap set 'a' that are also present in bitmap set 'b', recycling the left input bitmap set when possible.

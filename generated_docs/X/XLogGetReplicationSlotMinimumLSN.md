@@ -1,7 +1,7 @@
 # XLogGetReplicationSlotMinimumLSN
 
 ## Location
-src/backend/access/transam/xlog.c: 2678 - 2698
+[src/backend/access/transam/xlog.c:2678-2698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2678-L2698)
 
 ## Overview
 Retrieves the minimum LSN that must be retained to satisfy all active replication slot requirements, serving as the boundary for safe WAL cleanup operations.

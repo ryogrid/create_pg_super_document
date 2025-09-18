@@ -1,7 +1,7 @@
 # bms_int_members
 
 ## Location
-src/backend/nodes/bitmapset.c: 1109 - 1160
+[src/backend/nodes/bitmapset.c:1109-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1109-L1160)
 
 ## Overview
 Performs intersection of two bitmap sets with optimization for recycling the left input bitmap set when possible, returning the intersection result.

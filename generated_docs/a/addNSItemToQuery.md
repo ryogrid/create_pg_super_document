@@ -1,7 +1,7 @@
 # addNSItemToQuery
 
 ## Location
-src/backend/parser/parse_relation.c: 2619 - 2658
+[src/backend/parser/parse_relation.c:2619-2658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2619-L2658)
 
 ## Overview
 Adds a given namespace item (nsitem) and its corresponding Range Table Entry (RTE) as a top-level entry in the parser state's join list and/or namespace list, with configurable visibility settings.

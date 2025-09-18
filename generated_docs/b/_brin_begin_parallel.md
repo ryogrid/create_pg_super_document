@@ -1,7 +1,7 @@
 # _brin_begin_parallel
 
 ## Location
-src/backend/access/brin/brin.c: 2354 - 2537
+[src/backend/access/brin/brin.c:2354-2537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2354-L2537)
 
 ## Overview
 Initializes and launches parallel workers for BRIN index creation, setting up shared memory structures and coordinating parallel heap scanning and sorting operations.

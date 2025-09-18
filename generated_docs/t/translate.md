@@ -1,7 +1,7 @@
 # translate
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 797 - 924
+[src/backend/utils/adt/oracle_compat.c:797-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L797-L924)
 
 ## Overview
 A string manipulation function that replaces characters in a text string based on mapping rules defined by two character sets.

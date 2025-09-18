@@ -1,7 +1,7 @@
 # binary_upgrade_set_pg_class_oids
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5473 - 5588
+[src/bin/pg_dump/pg_dump.c:5473-5588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5473-L5588)
 
 ## Overview
 Generates binary upgrade commands to preserve pg_class OIDs and relfilenodes for relations and their associated TOAST tables and indexes during PostgreSQL binary upgrades.

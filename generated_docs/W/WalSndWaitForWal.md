@@ -1,7 +1,7 @@
 # WalSndWaitForWal
 
 ## Location
-src/backend/replication/walsender.c: 1822 - 1991
+[src/backend/replication/walsender.c:1822-1991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1822-L1991)
 
 ## Overview
 WalSndWaitForWal is the core waiting mechanism in WAL senders that ensures WAL records are flushed to disk before being safely sent to clients, and coordinates with standby servers for logical failover slots.

@@ -1,7 +1,7 @@
 # find_lateral_references
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 358 - 405
+[src/backend/optimizer/plan/initsplan.c:358-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L358-L405)
 
 ## Overview
 Processes LATERAL subqueries to extract references to Vars and PlaceHolderVars and ensures those values will be available for subquery evaluation.

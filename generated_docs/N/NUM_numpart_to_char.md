@@ -1,7 +1,7 @@
 # NUM_numpart_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 5620 - 5809
+[src/backend/utils/adt/formatting.c:5620-5809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5620-L5809)
 
 ## Overview
 Formats and writes numeric parts (digits, signs, decimal points) to output strings during TO_CHAR() processing, handling various formatting modes and locale-specific conventions.

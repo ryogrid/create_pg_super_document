@@ -1,7 +1,7 @@
 # tarChecksum
 
 ## Location
-src/port/tar.c: 90 - 113
+[src/port/tar.c:90-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/tar.c#L90-L113)
 
 ## Overview
 A function that calculates the POSIX-compliant checksum for a tar header block, used for validating and creating tar archive headers.

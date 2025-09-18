@@ -1,7 +1,7 @@
 # pull_var_clause_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 627 - 743
+[src/backend/optimizer/util/var.c:627-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L627-L743)
 
 ## Overview
 A static tree walker function that implements the core logic for extracting Var nodes and other specified node types from an expression tree, with configurable behavior for aggregates, window functions, and placeholders.

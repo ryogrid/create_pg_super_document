@@ -1,7 +1,7 @@
 # brin_bloom_opcinfo
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 449 - 495
+[src/backend/access/brin/brin_bloom.c:449-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L449-L495)
 
 ## Overview
 Initializes and returns operator class information structure for BRIN bloom indexes, configuring storage parameters and type information.

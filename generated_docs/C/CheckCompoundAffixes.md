@@ -1,7 +1,7 @@
 # CheckCompoundAffixes
 
 ## Location
-src/backend/tsearch/spell.c: 2294 - 2335
+[src/backend/tsearch/spell.c:2294-2335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2294-L2335)
 
 ## Overview
 Checks for compound affixes in a word, supporting both exact position matching and substring search modes to identify affix boundaries.

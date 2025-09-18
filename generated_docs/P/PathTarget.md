@@ -1,7 +1,7 @@
 # PathTarget
 
 ## Location
-src/include/nodes/pathnodes.h: 1528 - 1548
+[src/include/nodes/pathnodes.h:1528-1548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1528-L1548)
 
 ## Overview
 PathTarget represents the targetlist (output columns) that a Path will compute during query planning, containing expression lists, sort/group references, cost information, and metadata about the computed results.

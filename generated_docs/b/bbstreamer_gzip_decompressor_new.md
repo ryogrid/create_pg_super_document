@@ -1,7 +1,7 @@
 # bbstreamer_gzip_decompressor_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 212 - 260
+[src/bin/pg_basebackup/bbstreamer_gzip.c:212-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L212-L260)
 
 ## Overview
 Creates a new base backup streamer that performs decompression of gzip compressed blocks, providing a streaming decompression interface for PostgreSQL backup data.

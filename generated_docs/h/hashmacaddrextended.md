@@ -1,7 +1,7 @@
 # hashmacaddrextended
 
 ## Location
-src/backend/utils/adt/mac.c: 275 - 286
+[src/backend/utils/adt/mac.c:275-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L275-L286)
 
 ## Overview
 The  function computes an extended hash value for a MAC address using a seed value, providing enhanced hash distribution for advanced hash-based operations.

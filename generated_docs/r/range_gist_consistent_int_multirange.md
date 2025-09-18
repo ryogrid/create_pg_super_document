@@ -1,7 +1,7 @@
 # range_gist_consistent_int_multirange
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 977 - 1038
+[src/backend/utils/adt/rangetypes_gist.c:977-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L977-L1038)
 
 ## Overview
 Performs GiST consistent test on an index internal page when the query is a multirange type, determining whether to descend into subtrees during range index traversal.

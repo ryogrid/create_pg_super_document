@@ -1,7 +1,7 @@
 # do_lo_unlink
 
 ## Location
-src/bin/psql/large_obj.c: 239 - 264
+[src/bin/psql/large_obj.c:239-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L239-L264)
 
 ## Overview
 Removes a large object from the PostgreSQL database by its OID.

@@ -1,7 +1,7 @@
 # bms_compare
 
 ## Location
-src/backend/nodes/bitmapset.c: 183 - 215
+[src/backend/nodes/bitmapset.c:183-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L183-L215)
 
 ## Overview
 A qsort-style comparator function for Bitmapsets that provides consistent ordering based on the highest-numbered differing bit.

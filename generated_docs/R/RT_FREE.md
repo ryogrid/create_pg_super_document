@@ -1,7 +1,7 @@
 # RT_FREE
 
 ## Location
-src/include/lib/radixtree.h: 2061 - 2093
+[src/include/lib/radixtree.h:2061-2093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2061-L2093)
 
 ## Overview
 RT_FREE is a macro that expands to a function name for freeing and deallocating a radix tree data structure and all its associated memory.

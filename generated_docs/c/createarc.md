@@ -1,7 +1,7 @@
 # createarc
 
 ## Location
-src/backend/regex/regc_nfa.c: 323 - 367
+[src/backend/regex/regc_nfa.c:323-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L323-L367)
 
 ## Overview
 Creates a new arc within an NFA by allocating memory and linking it into the state transition chains, but only after duplicate checking has been performed.

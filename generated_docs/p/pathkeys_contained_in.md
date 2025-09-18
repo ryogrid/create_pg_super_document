@@ -1,7 +1,7 @@
 # pathkeys_contained_in
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 341 - 367
+[src/backend/optimizer/path/pathkeys.c:341-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L341-L367)
 
 ## Overview
 Determines if the second pathkey list provides at least as good sorting as the first pathkey list, serving as a specialized case of pathkey comparison.

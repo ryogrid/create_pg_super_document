@@ -1,7 +1,7 @@
 # check_log_of_query
 
 ## Location
-src/backend/utils/error/elog.c: 2728 - 2750
+[src/backend/utils/error/elog.c:2728-2750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2728-L2750)
 
 ## Overview
 Determines whether a query statement should be included in PostgreSQL log output based on error level, statement hiding flags, and query string availability.

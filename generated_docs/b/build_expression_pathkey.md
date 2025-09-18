@@ -1,7 +1,7 @@
 # build_expression_pathkey
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 998 - 1051
+[src/backend/optimizer/path/pathkeys.c:998-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L998-L1051)
 
 ## Overview
 Builds a pathkeys list that describes an ordering by a single expression using a given sort operator, with default sort order assumptions.

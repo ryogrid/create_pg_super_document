@@ -1,7 +1,7 @@
 # executeItemOptUnwrapResultNoThrow
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1760 - 1776
+[src/backend/utils/adt/jsonpath_exec.c:1760-1776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1760-L1776)
 
 ## Overview
 This function provides error-suppressed execution of JSONPath items with optional unwrapping, temporarily disabling error throwing during execution.

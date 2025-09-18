@@ -1,7 +1,7 @@
 # AlterTableCreateToastTable
 
 ## Location
-src/backend/catalog/toasting.c: 58 - 63
+[src/backend/catalog/toasting.c:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L58-L63)
 
 ## Overview
 AlterTableCreateToastTable is a function that creates a TOAST table for an existing relation if needed, specifically designed for ALTER TABLE operations.

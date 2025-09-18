@@ -1,7 +1,7 @@
 # BlockRefTableFreeEntry
 
 ## Location
-src/common/blkreftable.c: 1122 - 1151
+[src/common/blkreftable.c:1122-1151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1122-L1151)
 
 ## Overview
 Releases all memory allocated for a BlockRefTableEntry that was previously created by CreateBlockRefTableEntry.

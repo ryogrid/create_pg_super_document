@@ -1,7 +1,7 @@
 # WaitForCommands
 
 ## Location
-src/bin/pg_dump/parallel.c: 1336 - 1397
+[src/bin/pg_dump/parallel.c:1336-1397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1336-L1397)
 
 ## Overview
 The main routine for a worker process in pg_dump's parallel processing system that continuously reads and executes commands from the leader process until EOF is received.

@@ -1,7 +1,7 @@
 # pg_partition_ancestors
 
 ## Location
-src/backend/utils/adt/partitionfuncs.c: 201 - 238
+[src/backend/utils/adt/partitionfuncs.c:201-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/partitionfuncs.c#L201-L238)
 
 ## Overview
 A PostgreSQL system function that returns a set of relation OIDs representing all ancestors in a partition hierarchy, including the input relation itself, implemented as a set-returning function (SRF).

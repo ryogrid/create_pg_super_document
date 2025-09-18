@@ -1,7 +1,7 @@
 # WalSummarizerMain
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 211 - 446
+[src/backend/postmaster/walsummarizer.c:211-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L211-L446)
 
 ## Overview
 The main entry point function for the WAL summarizer background process that continuously creates summary files from WAL records.

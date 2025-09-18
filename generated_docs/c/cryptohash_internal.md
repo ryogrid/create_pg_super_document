@@ -1,7 +1,7 @@
 # cryptohash_internal
 
 ## Location
-src/backend/utils/adt/cryptohashfuncs.c: 80 - 139
+[src/backend/utils/adt/cryptohashfuncs.c:80-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cryptohashfuncs.c#L80-L139)
 
 ## Overview
 Internal utility function that computes various cryptographic hashes (SHA224, SHA256, SHA384, SHA512) for bytea input data and returns the result as a bytea value.

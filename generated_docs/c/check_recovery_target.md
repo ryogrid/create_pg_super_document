@@ -1,7 +1,7 @@
 # check_recovery_target
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4782 - 4795
+[src/backend/access/transam/xlogrecovery.c:4782-4795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4782-L4795)
 
 ## Overview
 check_recovery_target is a GUC check hook function that validates the recovery_target configuration parameter, ensuring it only accepts "immediate" or empty string values.

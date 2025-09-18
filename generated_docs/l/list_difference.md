@@ -1,7 +1,7 @@
 # list_difference
 
 ## Location
-src/backend/nodes/list.c: 1237 - 1262
+[src/backend/nodes/list.c:1237-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1237-L1262)
 
 ## Overview
 Creates a new list containing elements from the first list that are not present in the second list (set difference operation).

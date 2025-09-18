@@ -1,7 +1,7 @@
 # BuildIndexValueDescription
 
 ## Location
-src/backend/access/index/genam.c: 176 - 292
+[src/backend/access/index/genam.c:176-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L176-L292)
 
 ## Overview
 Constructs a human-readable string representation of index entry contents in the form "(key_name, ...)=(key_value, ...)" for use in error messages.

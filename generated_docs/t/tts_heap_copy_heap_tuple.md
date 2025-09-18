@@ -1,7 +1,7 @@
 # tts_heap_copy_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 463 - 474
+[src/backend/executor/execTuples.c:463-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L463-L474)
 
 ## Overview
 Creates and returns an independent copy of the HeapTuple stored in a heap tuple table slot, materializing the tuple first if necessary.

@@ -1,7 +1,7 @@
 # index_rescan
 
 ## Location
-src/backend/access/index/indexam.c: 352 - 377
+[src/backend/access/index/indexam.c:352-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L352-L377)
 
 ## Overview
 The  function restarts an existing index scan with potentially new scan keys and ordering specifications, resetting the scan state while preserving the scan descriptor.

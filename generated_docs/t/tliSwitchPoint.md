@@ -1,7 +1,7 @@
 # tliSwitchPoint
 
 ## Location
-src/backend/access/transam/timeline.c: 572 - 592
+[src/backend/access/transam/timeline.c:572-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L572-L592)
 
 ## Overview
 Finds the WAL position where a timeline branched off from the server's history and optionally returns the timeline ID that followed it.

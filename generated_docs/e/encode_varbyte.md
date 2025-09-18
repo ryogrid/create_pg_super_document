@@ -1,7 +1,7 @@
 # encode_varbyte
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 115 - 132
+[src/backend/access/gin/ginpostinglist.c:115-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L115-L132)
 
 ## Overview
 Encodes a 64-bit unsigned integer using variable-length byte encoding, storing the result in a byte buffer and advancing the buffer pointer.

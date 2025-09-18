@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesDirty
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 743 - 959
+[src/backend/access/heap/heapam_visibility.c:743-959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L743-L959)
 
 ## Overview
 HeapTupleSatisfiesDirty determines if a heap tuple is visible including effects of open (in-progress) transactions, implementing PostgreSQL's SNAPSHOT_DIRTY visibility semantics by returning transaction IDs of concurrent transactions affecting the tuple.

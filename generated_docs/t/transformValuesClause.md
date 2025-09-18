@@ -1,7 +1,7 @@
 # transformValuesClause
 
 ## Location
-src/backend/parser/analyze.c: 1480 - 1698
+[src/backend/parser/analyze.c:1480-1698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1480-L1698)
 
 ## Overview
 Transforms a VALUES clause used as a standalone SELECT statement into a Query tree, treating it as if it were "SELECT * FROM (VALUES ...) AS "*VALUES*"".

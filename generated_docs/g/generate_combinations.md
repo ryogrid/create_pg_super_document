@@ -1,7 +1,7 @@
 # generate_combinations
 
 ## Location
-src/backend/statistics/mvdistinct.c: 692 - 699
+[src/backend/statistics/mvdistinct.c:692-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L692-L699)
 
 ## Overview
 Initiates the generation of all k-combinations of n elements by setting up the working array and calling the recursive generation function.

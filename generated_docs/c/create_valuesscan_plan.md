@@ -1,7 +1,7 @@
 # create_valuesscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3847 - 3890
+[src/backend/optimizer/plan/createplan.c:3847-3890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3847-L3890)
 
 ## Overview
 Creates a ValuesScan plan node for scanning a VALUES clause base relation with the specified target list and scan clauses.

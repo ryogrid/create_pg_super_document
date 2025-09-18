@@ -1,7 +1,7 @@
 # plsample_call_handler
 
 ## Location
-src/test/modules/plsample/plsample.c: 39 - 92
+[src/test/modules/plsample/plsample.c:39-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/plsample/plsample.c#L39-L92)
 
 ## Overview
 The main entry point for the plsample procedural language that routes function, procedure, and trigger calls to their appropriate handlers based on the call context.

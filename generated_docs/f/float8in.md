@@ -1,7 +1,7 @@
 # float8in
 
 ## Location
-src/backend/utils/adt/float.c: 357 - 387
+[src/backend/utils/adt/float.c:357-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L357-L387)
 
 ## Overview
 PostgreSQL built-in function that converts string input to double-precision floating-point values (float8) using the standard input interface.

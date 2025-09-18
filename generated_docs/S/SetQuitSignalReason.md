@@ -1,7 +1,7 @@
 # SetQuitSignalReason
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 218 - 228
+[src/backend/storage/ipc/pmsignal.c:218-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L218-L228)
 
 ## Overview
 Broadcasts the reason for a system shutdown by setting a shared memory field that can be accessed by all PostgreSQL backend processes.

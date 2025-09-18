@@ -1,7 +1,7 @@
 # pg_stat_get_backend_xact_start
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 835 - 856
+[src/backend/utils/adt/pgstatfuncs.c:835-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L835-L856)
 
 ## Overview
 Returns the timestamp when the current transaction started for a specific backend process.

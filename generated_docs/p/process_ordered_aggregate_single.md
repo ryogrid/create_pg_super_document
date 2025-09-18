@@ -1,7 +1,7 @@
 # process_ordered_aggregate_single
 
 ## Location
-src/backend/executor/nodeAgg.c: 848 - 948
+[src/backend/executor/nodeAgg.c:848-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L848-L948)
 
 ## Overview
 Processes ordered aggregates with a single input column by completing the sort, reading values in sorted order, and applying the transition function while handling DISTINCT logic.

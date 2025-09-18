@@ -1,7 +1,7 @@
 # calculate_relation_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 308 - 345
+[src/backend/utils/adt/dbsize.c:308-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L308-L345)
 
 ## Overview
 A static utility function that calculates the total physical disk space consumed by a single fork of a PostgreSQL relation by summing up all its segment files.

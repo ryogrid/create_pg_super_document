@@ -1,7 +1,7 @@
 # MemoryContextRegisterResetCallback
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 568 - 584
+[src/backend/utils/mmgr/mcxt.c:568-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L568-L584)
 
 ## Overview
 Registers a function to be called before the next context reset/delete, with callbacks executed in reverse order of registration.

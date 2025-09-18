@@ -1,7 +1,7 @@
 # ExecUpdateEpilogue
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2153 - 2199
+[src/backend/executor/nodeModifyTable.c:2153-2199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2153-L2199)
 
 ## Overview
 ExecUpdateEpilogue performs the closing steps after a successful tuple update, handling index maintenance, trigger execution, and view constraint validation.

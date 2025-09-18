@@ -1,7 +1,7 @@
 # i8tooid
 
 ## Location
-src/backend/utils/adt/int8.c: 1353 - 1365
+[src/backend/utils/adt/int8.c:1353-1365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1353-L1365)
 
 ## Overview
 Converts a PostgreSQL int8 (64-bit integer) value to an OID (Object Identifier) with strict range validation.

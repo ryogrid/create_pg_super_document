@@ -1,7 +1,7 @@
 # BackendInitialize
 
 ## Location
-src/backend/tcop/backend_startup.c: 122 - 361
+[src/backend/tcop/backend_startup.c:122-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L122-L361)
 
 ## Overview
 BackendInitialize initializes an interactive (postmaster-child) backend process and collects the client's startup packet, handling all pre-authentication setup.

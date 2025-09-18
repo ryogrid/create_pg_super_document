@@ -1,7 +1,7 @@
 # pg_stat_get_backend_activity_start
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 809 - 834
+[src/backend/utils/adt/pgstatfuncs.c:809-834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L809-L834)
 
 ## Overview
 Returns the timestamp when the current activity (query) started executing for a specific backend process.

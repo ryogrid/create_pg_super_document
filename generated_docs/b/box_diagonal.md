@@ -1,7 +1,7 @@
 # box_diagonal
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 933 - 949
+[src/backend/utils/adt/geo_ops.c:933-949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L933-L949)
 
 ## Overview
 Returns a line segment which represents the positive-slope diagonal of a box, connecting the high and low corner points.

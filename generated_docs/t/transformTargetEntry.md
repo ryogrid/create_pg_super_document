@@ -1,7 +1,7 @@
 # transformTargetEntry
 
 ## Location
-src/backend/parser/parse_target.c: 75 - 120
+[src/backend/parser/parse_target.c:75-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L75-L120)
 
 ## Overview
 Transforms any ordinary expression-type node into a targetlist entry, used for converting parse tree expressions into target list elements for SQL queries.

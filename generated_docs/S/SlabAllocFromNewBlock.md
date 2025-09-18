@@ -1,7 +1,7 @@
 # SlabAllocFromNewBlock
 
 ## Location
-src/backend/utils/mmgr/slab.c: 539 - 604
+[src/backend/utils/mmgr/slab.c:539-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L539-L604)
 
 ## Overview
 SlabAllocFromNewBlock allocates memory from a new slab block when no existing blocks have available chunks, either by reusing an empty block or creating a completely new block.

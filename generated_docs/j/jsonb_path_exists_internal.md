@@ -1,7 +1,7 @@
 # jsonb_path_exists_internal
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 399 - 426
+[src/backend/utils/adt/jsonpath_exec.c:399-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L399-L426)
 
 ## Overview
 Internal implementation function that checks whether a JSONPath expression returns at least one item for the specified JSONB value, supporting both timezone-aware and timezone-naive operations.

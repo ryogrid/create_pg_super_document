@@ -1,7 +1,7 @@
 # OidReceiveFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1772 - 1781
+[src/backend/utils/fmgr/fmgr.c:1772-1781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1772-L1781)
 
 ## Overview
 OidReceiveFunctionCall is a convenience function that calls a datatype binary-input (receive) function identified by its OID to convert binary data to internal Datum format.

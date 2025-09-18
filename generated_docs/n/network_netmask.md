@@ -1,7 +1,7 @@
 # network_netmask
 
 ## Location
-src/backend/utils/adt/network.c: 1374 - 1415
+[src/backend/utils/adt/network.c:1374-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1374-L1415)
 
 ## Overview
 Generates the netmask (subnet mask) for a given network address, returning an address where network bits are set to 1 and host bits are set to 0.

@@ -1,7 +1,7 @@
 # RelationSupportsSysCache
 
 ## Location
-src/backend/utils/cache/syscache.c: 771 - 795
+[src/backend/utils/cache/syscache.c:771-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L771-L795)
 
 ## Overview
 Tests whether a relation supports a system cache, meaning it is either a cached table or an index used for cache lookups.

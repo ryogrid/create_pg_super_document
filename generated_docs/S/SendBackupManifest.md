@@ -1,7 +1,7 @@
 # SendBackupManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 316 - 382
+[src/backend/backup/backup_manifest.c:316-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L316-L382)
 
 ## Overview
 Finalizes the backup manifest by computing its checksum and sends the completed manifest to the client via a backup sink.

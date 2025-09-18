@@ -1,7 +1,7 @@
 # CreateForeignTable
 
 ## Location
-src/backend/commands/foreigncmds.c: 1415 - 1494
+[src/backend/commands/foreigncmds.c:1415-1494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1415-L1494)
 
 ## Overview
 Creates a new foreign table entry in the system catalog, establishing the metadata and dependencies necessary for accessing external data through PostgreSQL's foreign data wrapper system.

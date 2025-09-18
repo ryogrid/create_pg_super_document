@@ -1,7 +1,7 @@
 # bit_overlay
 
 ## Location
-src/backend/utils/adt/varbit.c: 1176 - 1210
+[src/backend/utils/adt/varbit.c:1176-1210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1176-L1210)
 
 ## Overview
 Internal static function that implements the core logic for bit string overlay operations, replacing a specified substring with another bit string.

@@ -1,7 +1,7 @@
 # ReadBufferWithoutRelcache
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 829 - 844
+[src/backend/storage/buffer/bufmgr.c:829-844](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L829-L844)
 
 ## Overview
 Reads a buffer block from a relation without requiring a relcache entry, providing a lightweight alternative to ReadBufferExtended for scenarios where relation metadata is not available or needed.

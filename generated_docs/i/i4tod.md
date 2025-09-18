@@ -1,7 +1,7 @@
 # i4tod
 
 ## Location
-src/backend/utils/adt/float.c: 1257 - 1268
+[src/backend/utils/adt/float.c:1257-1268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1257-L1268)
 
 ## Overview
 The i4tod function converts an int4 (32-bit signed integer) to a float8 (double precision floating-point) number, providing a straightforward widening conversion without precision loss.

@@ -1,7 +1,7 @@
 # RemoveSocketFiles
 
 ## Location
-src/backend/libpq/pqcomm.c: 847 - 879
+[src/backend/libpq/pqcomm.c:847-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L847-L879)
 
 ## Overview
 Removes all PostgreSQL socket files from the filesystem during postmaster shutdown to clean up resources.

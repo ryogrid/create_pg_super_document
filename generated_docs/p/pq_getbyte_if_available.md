@@ -1,7 +1,7 @@
 # pq_getbyte_if_available
 
 ## Location
-src/backend/libpq/pqcomm.c: 1003 - 1061
+[src/backend/libpq/pqcomm.c:1003-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1003-L1061)
 
 ## Overview
 Attempts to read a single byte from the client connection in non-blocking mode, returning immediately if no data is available.

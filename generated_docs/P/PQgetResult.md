@@ -1,7 +1,7 @@
 # PQgetResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2062 - 2223
+[src/interfaces/libpq/fe-exec.c:2062-2223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2062-L2223)
 
 ## Overview
 Core libpq function that retrieves the next PGresult from a query, handling both synchronous blocking and asynchronous non-blocking operation modes including pipeline processing.

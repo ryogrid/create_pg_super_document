@@ -1,7 +1,7 @@
 # dumpTSParser
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 14587 - 14650
+[src/bin/pg_dump/pg_dump.c:14587-14650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L14587-L14650)
 
 ## Overview
 Writes out a single text search parser definition to the PostgreSQL dump output, generating the necessary CREATE TEXT SEARCH PARSER statement.

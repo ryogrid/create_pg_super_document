@@ -1,7 +1,7 @@
 # regexp_instr_no_start
 
 ## Location
-src/backend/utils/adt/regexp.c: 1245 - 1251
+[src/backend/utils/adt/regexp.c:1245-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1245-L1251)
 
 ## Overview
 A wrapper function for regexp_instr that provides compatibility for function calls without the start position parameter, kept separate to avoid opr_sanity regression test complaints.

@@ -1,7 +1,7 @@
 # split_pathtarget_walker
 
 ## Location
-src/backend/optimizer/util/tlist.c: 1077 - 1201
+[src/backend/optimizer/util/tlist.c:1077-1201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L1077-L1201)
 
 ## Overview
 A recursive tree walker function that examines expressions to identify and categorize set-returning functions (SRFs) and variables for the split_pathtarget_at_srfs operation.

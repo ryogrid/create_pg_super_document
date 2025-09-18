@@ -1,7 +1,7 @@
 # init_local_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 734 - 746
+[src/backend/access/common/reloptions.c:734-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L734-L746)
 
 ## Overview
 The init_local_reloptions function initializes a local_relopts structure for parsing relation options into a bytea structure of specified size.

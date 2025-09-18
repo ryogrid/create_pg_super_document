@@ -1,7 +1,7 @@
 # RestoreOutput
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1721 - 1735
+[src/bin/pg_dump/pg_backup_archiver.c:1721-1735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1721-L1735)
 
 ## Overview
 A private function that restores a previously saved output file handle to an archive, properly closing the current output and switching back to the saved output destination.

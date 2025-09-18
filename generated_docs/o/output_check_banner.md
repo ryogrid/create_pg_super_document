@@ -1,7 +1,7 @@
 # output_check_banner
 
 ## Location
-src/bin/pg_upgrade/check.c: 559 - 576
+[src/bin/pg_upgrade/check.c:559-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L559-L576)
 
 ## Overview
 Displays a formatted banner message indicating the start of consistency checks during PostgreSQL cluster upgrades, with different messages for live server checks versus offline checks.

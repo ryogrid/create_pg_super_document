@@ -1,7 +1,7 @@
 # LockTableCommand
 
 ## Location
-src/backend/commands/lockcmds.c: 41 - 70
+[src/backend/commands/lockcmds.c:41-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L41-L70)
 
 ## Overview
 Implements the PostgreSQL LOCK TABLE command, processing a list of relations to be locked with a specified lock mode and handling inheritance scenarios appropriately.

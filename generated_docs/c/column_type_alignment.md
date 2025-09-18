@@ -1,7 +1,7 @@
 # column_type_alignment
 
 ## Location
-src/fe_utils/print.c: 3614 - 3640
+[src/fe_utils/print.c:3614-3640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3614-L3640)
 
 ## Overview
 The column_type_alignment function determines the appropriate text alignment (left or right) for table columns based on PostgreSQL data type OIDs, ensuring numeric types are right-aligned for better readability.

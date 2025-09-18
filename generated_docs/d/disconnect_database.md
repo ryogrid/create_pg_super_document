@@ -1,7 +1,7 @@
 # disconnect_database
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 545 - 559
+[src/bin/pg_basebackup/pg_createsubscriber.c:545-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L545-L559)
 
 ## Overview
 A utility function in pg_createsubscriber that safely closes a PostgreSQL database connection with optional error handling and immediate exit capability.

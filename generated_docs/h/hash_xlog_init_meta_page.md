@@ -1,7 +1,7 @@
 # hash_xlog_init_meta_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 27 - 62
+[src/backend/access/hash/hash_xlog.c:27-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L27-L62)
 
 ## Overview
 Replays the initialization of a hash index metapage during WAL recovery, restoring the metapage to its proper state after a crash or restart.

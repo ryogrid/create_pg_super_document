@@ -1,7 +1,7 @@
 # dclist_is_empty
 
 ## Location
-src/include/lib/ilist.h: 682 - 692
+[src/include/lib/ilist.h:682-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L682-L692)
 
 ## Overview
 Returns true if the doubly-linked count list is empty, otherwise false, providing an O(1) emptiness check by examining the element count.

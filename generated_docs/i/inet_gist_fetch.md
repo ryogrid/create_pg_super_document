@@ -1,7 +1,7 @@
 # inet_gist_fetch
 
 ## Location
-src/backend/utils/adt/network_gist.c: 590 - 619
+[src/backend/utils/adt/network_gist.c:590-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L590-L619)
 
 ## Overview
 The GiST fetch function for the inet data type that reconstructs the original inet datum from the internal GistInetKey representation.

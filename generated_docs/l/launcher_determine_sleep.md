@@ -1,7 +1,7 @@
 # launcher_determine_sleep
 
 ## Location
-src/backend/postmaster/autovacuum.c: 792 - 875
+[src/backend/postmaster/autovacuum.c:792-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L792-L875)
 
 ## Overview
 Calculates the optimal sleep duration for the autovacuum launcher based on scheduled database maintenance tasks and system constraints.

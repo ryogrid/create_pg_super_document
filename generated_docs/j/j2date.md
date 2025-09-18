@@ -1,7 +1,7 @@
 # j2date
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 606 - 634
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:606-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L606-L634)
 
 ## Overview
 Converts a Julian day number back to calendar date components (year, month, day), serving as the inverse function to date2j().

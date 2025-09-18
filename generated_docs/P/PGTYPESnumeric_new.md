@@ -1,7 +1,7 @@
 # PGTYPESnumeric_new
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 42 - 58
+[src/interfaces/ecpg/pgtypeslib/numeric.c:42-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L42-L58)
 
 ## Overview
 A constructor function that creates and initializes a new numeric value structure for use with PostgreSQL's ECPG (Embedded SQL in C) pgtypes library.

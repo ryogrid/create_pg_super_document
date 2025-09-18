@@ -1,7 +1,7 @@
 # PGEventResultCreate
 
 ## Location
-src/interfaces/libpq/libpq-events.h: 56 - 61
+[src/interfaces/libpq/libpq-events.h:56-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.h#L56-L61)
 
 ## Overview
 PGEventResultCreate is a structure that contains event information passed to event callback functions when a PGEVT_RESULTCREATE event is fired after a new PGresult object is created.

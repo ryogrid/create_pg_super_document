@@ -1,7 +1,7 @@
 # add_local_bool_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 865 - 880
+[src/backend/access/common/reloptions.c:865-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L865-L880)
 
 ## Overview
 Adds a new boolean local reloption to a specific local reloption structure, allowing relation-specific boolean configuration options.

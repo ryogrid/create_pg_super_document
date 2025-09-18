@@ -1,7 +1,7 @@
 # brinbuildCallback
 
 ## Location
-src/backend/access/brin/brin.c: 985 - 1035
+[src/backend/access/brin/brin.c:985-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L985-L1035)
 
 ## Overview
 Per-heap-tuple callback function used during BRIN index build that processes individual tuples and accumulates their values into summary data for page ranges.

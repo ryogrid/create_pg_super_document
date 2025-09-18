@@ -1,7 +1,7 @@
 # btint48cmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 175 - 188
+[src/backend/access/nbtree/nbtcompare.c:175-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L175-L188)
 
 ## Overview
 A PostgreSQL B-tree comparison function that compares a 32-bit integer (int4) with a 64-bit integer (int8), supporting mixed-type comparisons in index operations.

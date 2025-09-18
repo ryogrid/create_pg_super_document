@@ -1,7 +1,7 @@
 # scram_mock_salt
 
 ## Location
-src/backend/libpq/auth-scram.c: 1458 - 1492
+[src/backend/libpq/auth-scram.c:1458-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1458-L1492)
 
 ## Overview
 Deterministically generates a salt for mock SCRAM authentication using a SHA256 hash based on the username and a cluster-level secret key to prevent timing attacks during failed authentication attempts.

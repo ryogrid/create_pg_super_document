@@ -1,7 +1,7 @@
 # make_subqueryscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5684 - 5703
+[src/backend/optimizer/plan/createplan.c:5684-5703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5684-L5703)
 
 ## Overview
 Creates and initializes a SubqueryScan plan node, which represents a scan operation on the result of a subquery in PostgreSQL's query execution plan.

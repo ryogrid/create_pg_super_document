@@ -1,7 +1,7 @@
 # SharedSortInfo
 
 ## Location
-src/include/nodes/execnodes.h: 2322 - 2326
+[src/include/nodes/execnodes.h:2322-2326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2322-L2326)
 
 ## Overview
 SharedSortInfo is a shared memory container that holds per-worker sort instrumentation information for parallel sort operations in PostgreSQL.

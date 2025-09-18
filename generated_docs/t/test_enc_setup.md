@@ -1,7 +1,7 @@
 # test_enc_setup
 
 ## Location
-src/test/regress/regress.c: 1111 - 1173
+[src/test/regress/regress.c:1111-1173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1111-L1173)
 
 ## Overview
 A PostgreSQL test function that validates the behavior of encoding-related functions, specifically testing the setup and validation of invalid multibyte character strings across all supported encodings.

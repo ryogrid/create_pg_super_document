@@ -1,7 +1,7 @@
 # pqClosePGconn
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4832 - 4877
+[src/interfaces/libpq/fe-connect.c:4832-4877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4832-L4877)
 
 ## Overview
 Properly closes a connection to the PostgreSQL backend, resetting all transient state while preserving connection parameters for potential reconnection.

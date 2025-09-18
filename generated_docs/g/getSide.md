@@ -1,7 +1,7 @@
 # getSide
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 41 - 53
+[src/backend/access/spgist/spgkdtreeproc.c:41-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L41-L53)
 
 ## Overview
 Helper function that determines the spatial relationship between a coordinate value and a test point in k-dimensional space for SP-GiST k-d tree operations.

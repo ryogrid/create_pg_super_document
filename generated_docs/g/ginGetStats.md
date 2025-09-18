@@ -1,7 +1,7 @@
 # ginGetStats
 
 ## Location
-src/backend/access/gin/ginutil.c: 623 - 649
+[src/backend/access/gin/ginutil.c:623-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L623-L649)
 
 ## Overview
 Retrieves statistical data from a GIN index's metadata page, providing current information about the index structure and contents for query planning and monitoring purposes.

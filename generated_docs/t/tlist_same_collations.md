@@ -1,7 +1,7 @@
 # tlist_same_collations
 
 ## Location
-src/backend/optimizer/util/tlist.c: 282 - 317
+[src/backend/optimizer/util/tlist.c:282-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L282-L317)
 
 ## Overview
 Compares a target list's exposed collations against a specified list of expected collations, with optional handling of junk columns.

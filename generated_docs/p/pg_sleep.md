@@ -1,7 +1,7 @@
 # pg_sleep
 
 ## Location
-src/backend/utils/adt/misc.c: 370 - 386
+[src/backend/utils/adt/misc.c:370-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L370-L386)
 
 ## Overview
 A PostgreSQL system function that pauses execution for a specified number of seconds, providing precise timing control with proper signal handling and interrupt support.

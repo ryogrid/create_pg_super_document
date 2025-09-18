@@ -1,7 +1,7 @@
 # multirange_upper_inc
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1584 - 1602
+[src/backend/utils/adt/multirangetypes.c:1584-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1584-L1602)
 
 ## Overview
 Returns whether the upper bound of the last range in a multirange is inclusive (includes the boundary value).

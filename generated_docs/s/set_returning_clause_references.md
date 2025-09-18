@@ -1,7 +1,7 @@
 # set_returning_clause_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3317 - 3360
+[src/backend/optimizer/plan/setrefs.c:3317-3360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3317-L3360)
 
 ## Overview
 Fixes variable references in RETURNING targetlists for queries involving multiple tables, ensuring proper variable mapping while preserving result-table variable references for executor evaluation.

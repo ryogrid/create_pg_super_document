@@ -1,7 +1,7 @@
 # remove_join_clause_from_rels
 
 ## Location
-src/backend/optimizer/util/joininfo.c: 161 - 183
+[src/backend/optimizer/util/joininfo.c:161-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/joininfo.c#L161-L183)
 
 ## Overview
 Removes a join restriction clause from all the joininfo lists it was added to, reversing the effect of add_join_clause_to_rels when a relation is determined to not need joining.

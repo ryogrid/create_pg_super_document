@@ -1,7 +1,7 @@
 # JsonTableSetDocument
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4240 - 4252
+[src/backend/utils/adt/jsonpath_exec.c:4240-4252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4240-L4252)
 
 ## Overview
 Installs a new input JSON document for JSON_TABLE processing and initiates row pattern evaluation by resetting the root plan state.

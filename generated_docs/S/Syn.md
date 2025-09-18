@@ -1,7 +1,7 @@
 # Syn
 
 ## Location
-src/backend/tsearch/dict_synonym.c: 27 - 33
+[src/backend/tsearch/dict_synonym.c:27-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_synonym.c#L27-L33)
 
 ## Overview
 Syn is a structure that represents a single synonym mapping entry in PostgreSQL's text search synonym dictionary functionality.

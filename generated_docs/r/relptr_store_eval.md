@@ -1,7 +1,7 @@
 # relptr_store_eval
 
 ## Location
-src/include/utils/relptr.h: 64 - 75
+[src/include/utils/relptr.h:64-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/relptr.h#L64-L75)
 
 ## Overview
 A helper function that safely calculates the relative offset for storing a pointer value in a relative pointer structure, avoiding double evaluation of the value parameter.

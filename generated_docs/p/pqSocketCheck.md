@@ -1,7 +1,7 @@
 # pqSocketCheck
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1067 - 1116
+[src/interfaces/libpq/fe-misc.c:1067-1116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1067-L1116)
 
 ## Overview
 pqSocketCheck is a static PostgreSQL libpq function that performs the core socket monitoring using poll or select to check for read/write readiness with timeout support.

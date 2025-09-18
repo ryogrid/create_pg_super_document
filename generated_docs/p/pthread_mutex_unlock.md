@@ -1,7 +1,7 @@
 # pthread_mutex_unlock
 
 ## Location
-src/interfaces/libpq/pthread-win32.c: 60 - 66
+[src/interfaces/libpq/pthread-win32.c:60-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pthread-win32.c#L60-L66)
 
 ## Overview
 A Windows-specific implementation of the POSIX pthread_mutex_unlock function that releases a mutex lock using Windows Critical Sections in the ECPG (Embedded SQL in C) library.

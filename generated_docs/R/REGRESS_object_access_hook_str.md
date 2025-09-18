@@ -1,7 +1,7 @@
 # REGRESS_object_access_hook_str
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 277 - 324
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:277-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L277-L324)
 
 ## Overview
 A test hook function that intercepts object access operations for regression testing, providing auditing capabilities and enforcing permission restrictions on parameter configuration operations.

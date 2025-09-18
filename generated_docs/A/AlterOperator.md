@@ -1,7 +1,7 @@
 # AlterOperator
 
 ## Location
-src/backend/commands/operatorcmds.c: 462 - 701
+[src/backend/commands/operatorcmds.c:462-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L462-L701)
 
 ## Overview
 Implements the `ALTER OPERATOR` SQL command to modify specific attributes of existing operators, including restriction/join estimators and operator properties like commutator, negator, merges, and hashes.

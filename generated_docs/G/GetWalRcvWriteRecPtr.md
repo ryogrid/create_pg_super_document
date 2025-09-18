@@ -1,7 +1,7 @@
 # GetWalRcvWriteRecPtr
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 352 - 363
+[src/backend/replication/walreceiverfuncs.c:352-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L352-L363)
 
 ## Overview
 Returns the last+1 byte position that the WAL receiver has written to WAL buffers, providing a lock-free way to query the current write position.

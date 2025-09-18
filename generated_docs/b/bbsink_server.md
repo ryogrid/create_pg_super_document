@@ -1,7 +1,7 @@
 # bbsink_server
 
 ## Location
-src/backend/backup/basebackup_server.c: 21 - 34
+[src/backend/backup/basebackup_server.c:21-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L21-L34)
 
 ## Overview
 The `bbsink_server` structure is a concrete implementation of the PostgreSQL base backup sink interface designed to store backup archives to server-side directory storage.

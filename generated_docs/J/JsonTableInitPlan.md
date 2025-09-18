@@ -1,7 +1,7 @@
 # JsonTableInitPlan
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4193 - 4239
+[src/backend/utils/adt/jsonpath_exec.c:4193-4239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4193-L4239)
 
 ## Overview
 Recursively initializes JsonTablePlanState structures for evaluating jsonpath expressions in JsonTablePlan nodes and their child plans.

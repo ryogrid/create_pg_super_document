@@ -1,7 +1,7 @@
 # tryAttachPartitionForeignKey
 
 ## Location
-src/backend/commands/tablecmds.c: 11071 - 11288
+[src/backend/commands/tablecmds.c:11071-11288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11071-L11288)
 
 ## Overview
 tryAttachPartitionForeignKey attempts to attach an existing foreign key constraint in a partition to a parent constraint, avoiding the need to create duplicate constraints.

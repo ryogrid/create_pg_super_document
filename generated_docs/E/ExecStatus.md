@@ -1,7 +1,7 @@
 # ExecStatus
 
 ## Location
-src/backend/executor/functions.c: 63 - 64
+[src/backend/executor/functions.c:63-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L63-L64)
 
 ## Overview
 ExecStatus is an enumeration type that tracks the execution state of SQL function statements within PostgreSQL's function execution framework.

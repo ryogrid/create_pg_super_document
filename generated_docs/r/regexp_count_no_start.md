@@ -1,7 +1,7 @@
 # regexp_count_no_start
 
 ## Location
-src/backend/utils/adt/regexp.c: 1135 - 1141
+[src/backend/utils/adt/regexp.c:1135-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1135-L1141)
 
 ## Overview
 A PostgreSQL SQL function wrapper that provides a 3-argument interface to regexp_count without specifying the start parameter.

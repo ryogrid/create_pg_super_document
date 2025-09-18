@@ -1,7 +1,7 @@
 # ApplyLauncherWakeupAtCommit
 
 ## Location
-src/backend/replication/logical/launcher.c: 1118 - 1124
+[src/backend/replication/logical/launcher.c:1118-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1118-L1124)
 
 ## Overview
 Requests the logical replication launcher to wake up upon commit of the current transaction, ensuring subscription processing occurs after catalog changes are committed.

@@ -1,7 +1,7 @@
 # NumericSumAccum
 
 ## Location
-src/backend/utils/adt/numeric.c: 377 - 386
+[src/backend/utils/adt/numeric.c:377-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L377-L386)
 
 ## Overview
 NumericSumAccum is a specialized fast accumulator structure designed for efficiently implementing SUM() and other standard PostgreSQL aggregates that track the sum of multiple numeric input values.

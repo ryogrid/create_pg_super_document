@@ -1,7 +1,7 @@
 # equal_keys
 
 ## Location
-src/backend/lib/dshash.c: 1074 - 1084
+[src/backend/lib/dshash.c:1074-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L1074-L1084)
 
 ## Overview
 A static inline helper function that compares two keys for equality in the dynamic shared hash table (dshash) implementation.

@@ -1,7 +1,7 @@
 # mq_putmessage
 
 ## Location
-src/backend/libpq/pqmq.c: 118 - 198
+[src/backend/libpq/pqmq.c:118-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L118-L198)
 
 ## Overview
 Transmits a libpq protocol message to a shared memory message queue, handling blocking operations and signaling the receiver process appropriately.

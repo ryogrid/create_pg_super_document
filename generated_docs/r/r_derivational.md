@@ -1,7 +1,7 @@
 # r_derivational
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 517 - 530
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:517-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L517-L530)
 
 ## Overview
 The r_derivational function removes derivational suffixes from Russian words, specifically handling the suffixes "ость" and "ости" in the KOI8-R encoding variant of the Snowball Russian stemmer.

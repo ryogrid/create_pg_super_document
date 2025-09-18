@@ -1,7 +1,7 @@
 # typeTypeName
 
 ## Location
-src/backend/parser/parse_type.c: 619 - 629
+[src/backend/parser/parse_type.c:619-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L619-L629)
 
 ## Overview
 Returns a copy of the name of a PostgreSQL data type from its type structure.

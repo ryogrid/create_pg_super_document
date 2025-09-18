@@ -1,7 +1,7 @@
 # NameListToQuotedString
 
 ## Location
-src/backend/catalog/namespace.c: 3628 - 3648
+[src/backend/catalog/namespace.c:3628-3648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3628-L3648)
 
 ## Overview
 Utility function that converts a qualified-name list into a properly quoted string representation that can be re-parsed by PostgreSQL name parsing functions.

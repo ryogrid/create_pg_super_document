@@ -1,7 +1,7 @@
 # btoidvectorcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 296 - 319
+[src/backend/access/nbtree/nbtcompare.c:296-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L296-L319)
 
 ## Overview
 A B-tree comparison function for PostgreSQL's oidvector data type that compares two oidvector values by first comparing their lengths and then performing element-wise comparison.

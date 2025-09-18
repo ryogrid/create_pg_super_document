@@ -1,7 +1,7 @@
 # object_address_present_add_flags
 
 ## Location
-src/backend/catalog/dependency.c: 2619 - 2691
+[src/backend/catalog/dependency.c:2619-2691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2619-L2691)
 
 ## Overview
 Tests whether an object is present in an ObjectAddresses array and if found, ORs additional flags into the object's associated extra data, handling complex subobject relationships during dependency analysis.

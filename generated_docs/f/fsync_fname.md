@@ -1,7 +1,7 @@
 # fsync_fname
 
 ## Location
-src/common/file_utils.c: 378 - 433
+[src/common/file_utils.c:378-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L378-L433)
 
 ## Overview
 A wrapper function that performs filesystem synchronization on a file or directory, handling OS-specific errors appropriately for directories.

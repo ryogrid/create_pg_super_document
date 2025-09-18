@@ -1,7 +1,7 @@
 # ExecReScanValuesScan
 
 ## Location
-src/backend/executor/nodeValuesscan.c: 328 - 336
+[src/backend/executor/nodeValuesscan.c:328-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeValuesscan.c#L328-L336)
 
 ## Overview
 ExecReScanValuesScan resets a VALUES scan to begin scanning from the start, clearing any cached results and resetting the current position index.

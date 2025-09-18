@@ -1,7 +1,7 @@
 # RecoveryRestartPoint
 
 ## Location
-src/backend/access/transam/xlog.c: 7544 - 7584
+[src/backend/access/transam/xlog.c:7544-7584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7544-L7584)
 
 ## Overview
 RecoveryRestartPoint evaluates checkpoint records during recovery to determine if they represent safe restart points and stores valid checkpoint information in shared memory for the checkpointer process to use.

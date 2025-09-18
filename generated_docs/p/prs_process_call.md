@@ -1,7 +1,7 @@
 # prs_process_call
 
 ## Location
-src/backend/tsearch/wparser.c: 216 - 241
+[src/backend/tsearch/wparser.c:216-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L216-L241)
 
 ## Overview
 A static helper function that processes individual token results during text search parsing operations, converting parsed tokens into tuple format for return to the caller.

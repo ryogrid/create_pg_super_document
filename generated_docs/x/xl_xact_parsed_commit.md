@@ -1,7 +1,7 @@
 # xl_xact_parsed_commit
 
 ## Location
-src/include/access/xact.h: 371 - 400
+[src/include/access/xact.h:371-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L371-L400)
 
 ## Overview
 Parsed and deconstructed representation of transaction commit records, providing convenient access to all commit-related information in structured form.

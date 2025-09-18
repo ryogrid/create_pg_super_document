@@ -1,7 +1,7 @@
 # nodeRead
 
 ## Location
-src/backend/nodes/read.c: 320 - 511
+[src/backend/nodes/read.c:320-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L320-L511)
 
 ## Overview
 A higher-level reader function that parses various types of node structures from tokenized input, including value nodes, general nodes, and different types of lists.

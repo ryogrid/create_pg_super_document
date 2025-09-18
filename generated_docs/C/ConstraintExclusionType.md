@@ -1,7 +1,7 @@
 # ConstraintExclusionType
 
 ## Location
-src/include/optimizer/cost.h: 41 - 216
+[src/include/optimizer/cost.h:41-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/cost.h#L41-L216)
 
 ## Overview
 An enumeration that defines the modes for constraint exclusion optimization, which allows PostgreSQL to skip scanning tables when their constraints guarantee that no rows match the query.

@@ -1,7 +1,7 @@
 # getPublicationTables
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4522 - 4653
+[src/bin/pg_dump/pg_dump.c:4522-4653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4522-L4653)
 
 ## Overview
 Retrieves information about publication membership for dumpable tables, creating objects that represent the relationship between publications and specific tables in PostgreSQL.

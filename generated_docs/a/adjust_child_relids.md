@@ -1,7 +1,7 @@
 # adjust_child_relids
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 554 - 587
+[src/backend/optimizer/util/appendinfo.c:554-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L554-L587)
 
 ## Overview
 Substitutes child relation IDs for parent relation IDs in a Relids set based on the provided AppendRelInfo mappings.

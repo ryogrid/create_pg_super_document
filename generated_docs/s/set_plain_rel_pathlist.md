@@ -1,7 +1,7 @@
 # set_plain_rel_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 764 - 793
+[src/backend/optimizer/path/allpaths.c:764-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L764-L793)
 
 ## Overview
 Generates all possible access paths for a plain base relation, including sequential scans, parallel scans, index scans, and TID scans.

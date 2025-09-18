@@ -1,7 +1,7 @@
 # CalculateCopyStreamSleeptime
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 1236 - 1268
+[src/bin/pg_basebackup/receivelog.c:1236-1268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L1236-L1268)
 
 ## Overview
 CalculateCopyStreamSleeptime computes the appropriate sleep duration for send/receive loops in WAL streaming operations to ensure timely status message transmission while avoiding excessive CPU usage.

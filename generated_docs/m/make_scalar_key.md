@@ -1,7 +1,7 @@
 # make_scalar_key
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1364 - 1409
+[src/backend/utils/adt/jsonb_gin.c:1364-1409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1364-L1409)
 
 ## Overview
 This static function converts JsonbValue scalar types (null, boolean, numeric, string) into standardized GIN index keys with appropriate type flags for efficient indexing and querying.

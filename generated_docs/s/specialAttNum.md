@@ -1,7 +1,7 @@
 # specialAttNum
 
 ## Location
-src/backend/parser/parse_relation.c: 3514 - 3532
+[src/backend/parser/parse_relation.c:3514-3532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3514-L3532)
 
 ## Overview
 This static function checks if an attribute name corresponds to a PostgreSQL system attribute and returns its attribute number.

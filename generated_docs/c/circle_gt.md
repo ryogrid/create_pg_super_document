@@ -1,7 +1,7 @@
 # circle_gt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4930 - 4938
+[src/backend/utils/adt/geo_ops.c:4930-4938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4930-L4938)
 
 ## Overview
 Compares two circles and returns true if the first circle has a greater area than the second circle.

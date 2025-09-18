@@ -1,7 +1,7 @@
 # ensureCleanShutdown
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 1129 - 1199
+[src/bin/pg_rewind/pg_rewind.c:1129-1199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L1129-L1199)
 
 ## Overview
 Ensures the target PostgreSQL cluster has undergone a clean shutdown by running postgres in single-user mode to complete crash recovery.

@@ -1,7 +1,7 @@
 # r_un_accent
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_french.c: 1137 - 1163
+[src/backend/snowball/libstemmer/stem_UTF_8_french.c:1137-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_french.c#L1137-L1163)
 
 ## Overview
 The r_un_accent function removes specific French accent marks (é and è) that follow a consonant in the French Snowball stemming algorithm, converting them to their unaccented equivalent 'e'.

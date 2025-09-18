@@ -1,7 +1,7 @@
 # spanish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_spanish.c: 1044 - 1045
+[src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:1044-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_spanish.c#L1044-L1045)
 
 ## Overview
 This function properly deallocates and cleans up a Snowball environment that was created for Spanish UTF-8 text stemming operations.

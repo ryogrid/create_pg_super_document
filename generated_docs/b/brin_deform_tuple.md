@@ -1,7 +1,7 @@
 # brin_deform_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 553 - 644
+[src/backend/access/brin/brin_tuple.c:553-644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L553-L644)
 
 ## Overview
 Converts a serialized BrinTuple from disk format back to an in-memory BrinMemTuple representation, performing the reverse operation of brin_form_tuple.

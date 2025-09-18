@@ -1,7 +1,7 @@
 # FunctionCall7Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1284 - 1317
+[src/backend/utils/fmgr/fmgr.c:1284-1317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1284-L1317)
 
 ## Overview
 FunctionCall7Coll is a PostgreSQL function manager utility that invokes a database function with 7 arguments and a specified collation, ensuring a non-null result is returned.

@@ -1,7 +1,7 @@
 # binary_upgrade_set_missing_value
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 261 - 284
+[src/backend/utils/adt/pg_upgrade_support.c:261-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L261-L284)
 
 ## Overview
 Sets missing values for table attributes during binary upgrades, allowing PostgreSQL to handle columns with default values that were added after the table was created.

@@ -1,7 +1,7 @@
 # XLogFileClose
 
 ## Location
-src/backend/access/transam/xlog.c: 3616 - 3666
+[src/backend/access/transam/xlog.c:3616-3666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3616-L3666)
 
 ## Overview
 Closes the currently open XLOG segment file for writing, performing cache management optimizations and proper cleanup of file descriptor resources.

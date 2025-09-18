@@ -1,7 +1,7 @@
 # gtsvectorout
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 106 - 134
+[src/backend/utils/adt/tsgistidx.c:106-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L106-L134)
 
 ## Overview
 This function converts a gtsvector (internal GiST signature representation) to its string representation for debugging and display purposes.

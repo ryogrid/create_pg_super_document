@@ -1,7 +1,7 @@
 # DetermineTimeZoneAbbrevOffsetInternal
 
 ## Location
-src/backend/utils/adt/datetime.c: 1821 - 1863
+[src/backend/utils/adt/datetime.c:1821-1863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1821-L1863)
 
 ## Overview
 Internal workhorse function that attempts to resolve a timezone abbreviation to its GMT offset and DST status at a specific point in time using the IANA timezone database.

@@ -1,7 +1,7 @@
 # make_build_data
 
 ## Location
-src/backend/statistics/extended_stats.c: 2452 - 2617
+[src/backend/statistics/extended_stats.c:2452-2617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2452-L2617)
 
 ## Overview
 Creates and populates a StatsBuildData structure containing evaluated expression values and column data for building extended statistics.

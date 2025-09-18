@@ -1,7 +1,7 @@
 # plan_elem_desc
 
 ## Location
-src/backend/access/rmgrdesc/heapdesc.c: 75 - 103
+[src/backend/access/rmgrdesc/heapdesc.c:75-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/heapdesc.c#L75-L103)
 
 ## Overview
 A static utility function that formats heap freeze plan elements into human-readable descriptions for WAL record debugging, specifically used to describe individual freeze plans within heap freeze operations.

@@ -1,7 +1,7 @@
 # float8_accum
 
 ## Location
-src/backend/utils/adt/float.c: 2950 - 3032
+[src/backend/utils/adt/float.c:2950-3032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2950-L3032)
 
 ## Overview
 PostgreSQL aggregate transition function that accumulates statistical data for floating-point values using the numerically stable Youngs-Cramer algorithm.

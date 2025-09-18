@@ -1,7 +1,7 @@
 # ginPostingListDecodeAllSegmentsToTbm
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 358 - 377
+[src/backend/access/gin/ginpostinglist.c:358-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L358-L377)
 
 ## Overview
 A convenience function that decodes compressed GIN posting list segments and directly adds the resulting item pointers to a TID bitmap for efficient set operations.

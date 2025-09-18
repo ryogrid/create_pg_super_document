@@ -1,7 +1,7 @@
 # each_worker_jsonb
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1972 - 2055
+[src/backend/utils/adt/jsonfuncs.c:1972-2055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1972-L2055)
 
 ## Overview
 The each_worker_jsonb function is the core implementation for expanding JSONB objects into key-value pairs, supporting both native JSONB and text output formats.

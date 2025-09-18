@@ -1,7 +1,7 @@
 # ExecAggInitializeDSM
 
 ## Location
-src/backend/executor/nodeAgg.c: 4704 - 4728
+[src/backend/executor/nodeAgg.c:4704-4728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4704-L4728)
 
 ## Overview
 Initializes Dynamic Shared Memory (DSM) space for storing aggregate execution statistics in parallel query processing.

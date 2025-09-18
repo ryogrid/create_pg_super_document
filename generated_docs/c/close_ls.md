@@ -1,7 +1,7 @@
 # close_ls
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2988 - 3012
+[src/backend/utils/adt/geo_ops.c:2988-3012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2988-L3012)
 
 ## Overview
 The `close_ls` function calculates the closest point on a line segment to an infinite line, returning the coordinates of that closest point.

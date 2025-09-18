@@ -1,7 +1,7 @@
 # split_pathtarget_at_srfs
 
 ## Location
-src/backend/optimizer/util/tlist.c: 881 - 1076
+[src/backend/optimizer/util/tlist.c:881-1076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L881-L1076)
 
 ## Overview
 Splits a given PathTarget into multiple levels to position set-returning functions (SRFs) safely, ensuring each level satisfies the executor's constraint that SRFs can only appear at the top level of a ProjectSet plan node.

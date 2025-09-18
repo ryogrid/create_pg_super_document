@@ -1,7 +1,7 @@
 # inet_client_port
 
 ## Location
-src/backend/utils/adt/network.c: 1753 - 1787
+[src/backend/utils/adt/network.c:1753-1787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1753-L1787)
 
 ## Overview
 Returns the port number that the client is connecting from, or NULL if the connection is via Unix socket or if port resolution fails.

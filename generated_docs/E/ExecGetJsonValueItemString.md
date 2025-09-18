@@ -1,7 +1,7 @@
 # ExecGetJsonValueItemString
 
 ## Location
-src/backend/executor/execExprInterp.c: 4481 - 4555
+[src/backend/executor/execExprInterp.c:4481-4555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4481-L4555)
 
 ## Overview
 Converts a JsonbValue to its C string representation for use in JSON_VALUE operations, handling all JSONB scalar and composite types.

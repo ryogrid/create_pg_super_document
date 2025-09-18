@@ -1,7 +1,7 @@
 # parseRelOptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1508 - 1549
+[src/backend/access/common/reloptions.c:1508-1549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1508-L1549)
 
 ## Overview
 Static function that interprets relation options from a text array format, building a structured array of relopt_value elements for a specific relation option kind.

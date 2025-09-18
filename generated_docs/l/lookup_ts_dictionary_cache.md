@@ -1,7 +1,7 @@
 # lookup_ts_dictionary_cache
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 208 - 361
+[src/backend/utils/cache/ts_cache.c:208-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L208-L361)
 
 ## Overview
 Retrieves and caches text search dictionary configuration information, managing both dictionary metadata and private memory contexts for dictionary-specific data.

@@ -1,7 +1,7 @@
 # transformInsertRow
 
 ## Location
-src/backend/parser/analyze.c: 1008 - 1117
+[src/backend/parser/analyze.c:1008-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1008-L1117)
 
 ## Overview
 Prepares a single INSERT row for assignment to the target table by transforming expressions and handling column assignments with optional indirection stripping.

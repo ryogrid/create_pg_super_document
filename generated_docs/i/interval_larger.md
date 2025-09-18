@@ -1,7 +1,7 @@
 # interval_larger
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3433 - 3446
+[src/backend/utils/adt/timestamp.c:3433-3446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3433-L3446)
 
 ## Overview
 The `interval_larger` function implements the PostgreSQL `GREATEST` operation for interval data types, returning the larger of two interval values.

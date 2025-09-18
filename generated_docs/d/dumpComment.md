@@ -1,7 +1,7 @@
 # dumpComment
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10246 - 10261
+[src/bin/pg_dump/pg_dump.c:10246-10261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10246-L10261)
 
 ## Overview
 A simplified wrapper function that calls dumpCommentExtended with no initdb comment handling, used for dumping standard object comments.

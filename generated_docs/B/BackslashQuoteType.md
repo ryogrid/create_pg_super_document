@@ -1,7 +1,7 @@
 # BackslashQuoteType
 
 ## Location
-src/include/parser/parser.h: 53 - 68
+[src/include/parser/parser.h:53-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parser.h#L53-L68)
 
 ## Overview
 BackslashQuoteType is an enumeration that defines the allowed values for the backslash_quote GUC (Grand Unified Configuration) parameter, which controls whether backslash-quote sequences (\\') are allowed in string literals.

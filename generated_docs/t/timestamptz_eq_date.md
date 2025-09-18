@@ -1,7 +1,7 @@
 # timestamptz_eq_date
 
 ## Location
-src/backend/utils/adt/date.c: 970 - 978
+[src/backend/utils/adt/date.c:970-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L970-L978)
 
 ## Overview
 Compares a timestamp with timezone value with a date value to determine if they are equal.

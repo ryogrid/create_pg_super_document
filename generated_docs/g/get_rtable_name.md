@@ -1,7 +1,7 @@
 # get_rtable_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4946 - 4964
+[src/backend/utils/adt/ruleutils.c:4946-4964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4946-L4964)
 
 ## Overview
 A convenience function that retrieves the previously assigned alias name for a range table entry from the topmost namespace level in a deparse context.

@@ -1,7 +1,7 @@
 # pg_class_aclcheck_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 4106 - 4120
+[src/backend/catalog/aclchk.c:4106-4120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4106-L4120)
 
 ## Overview
 This function checks a user's access privileges to a table with extended support for detecting missing relations.

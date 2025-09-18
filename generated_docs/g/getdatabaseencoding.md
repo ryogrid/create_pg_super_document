@@ -1,7 +1,7 @@
 # getdatabaseencoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1273 - 1278
+[src/backend/utils/mb/mbutils.c:1273-1278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1273-L1278)
 
 ## Overview
 SQL-callable function that returns the database encoding name as a PostgreSQL NAME data type, making it accessible from SQL queries and stored procedures.

@@ -1,7 +1,7 @@
 # unpack_sql_state
 
 ## Location
-src/backend/utils/error/elog.c: 3166 - 3185
+[src/backend/utils/error/elog.c:3166-3185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3166-L3185)
 
 ## Overview
 Converts a packed integer SQL state code back into its 5-character string representation for error reporting and logging.

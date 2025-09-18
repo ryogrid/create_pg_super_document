@@ -1,7 +1,7 @@
 # BeginCopyFrom
 
 ## Location
-src/backend/commands/copyfrom.c: 1368 - 1786
+[src/backend/commands/copyfrom.c:1368-1786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L1368-L1786)
 
 ## Overview
 Initializes and configures a CopyFromState structure for COPY FROM operations, setting up input parsing, data conversion, encoding handling, and all necessary metadata for reading tuples from various data sources.

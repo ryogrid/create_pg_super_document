@@ -1,7 +1,7 @@
 # pg_get_client_encoding_name
 
 ## Location
-src/backend/utils/mb/mbutils.c: 345 - 355
+[src/backend/utils/mb/mbutils.c:345-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L345-L355)
 
 ## Overview
 Returns the string name of the currently active client encoding.

@@ -1,7 +1,7 @@
 # _h_spooldestroy
 
 ## Location
-src/backend/access/hash/hashsort.c: 99 - 108
+[src/backend/access/hash/hashsort.c:99-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsort.c#L99-L108)
 
 ## Overview
 Cleans up and deallocates a hash index spool structure and all its associated substructures.

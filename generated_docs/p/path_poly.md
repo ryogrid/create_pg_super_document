@@ -1,7 +1,7 @@
 # path_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4452 - 4493
+[src/backend/utils/adt/geo_ops.c:4452-4493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4452-L4493)
 
 ## Overview
 Converts a closed geometric path to a polygon by copying the path's points and creating a bounding box.

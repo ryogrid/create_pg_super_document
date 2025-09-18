@@ -1,7 +1,7 @@
 # oidvectorle
 
 ## Location
-src/backend/utils/adt/oid.c: 368 - 375
+[src/backend/utils/adt/oid.c:368-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L368-L375)
 
 ## Overview
 PostgreSQL comparison function that determines if the first oidvector is less than or equal to the second oidvector, implementing the "<=" operator for oidvector data types.

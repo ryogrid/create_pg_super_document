@@ -1,7 +1,7 @@
 # bpcharout
 
 ## Location
-src/backend/utils/adt/varchar.c: 219 - 229
+[src/backend/utils/adt/varchar.c:219-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L219-L229)
 
 ## Overview
 A PostgreSQL output function that converts internal BPCHAR (fixed-length character) representation to C string format for external display and usage.

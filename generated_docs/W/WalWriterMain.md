@@ -1,7 +1,7 @@
 # WalWriterMain
 
 ## Location
-src/backend/postmaster/walwriter.c: 89 - 273
+[src/backend/postmaster/walwriter.c:89-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walwriter.c#L89-L273)
 
 ## Overview
 WalWriterMain is the main entry point for the WAL (Write-Ahead Logging) writer background process, responsible for continuously flushing WAL data to disk to ensure data durability and performance.

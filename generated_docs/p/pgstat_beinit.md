@@ -1,7 +1,7 @@
 # pgstat_beinit
 
 ## Location
-src/backend/utils/activity/backend_status.c: 247 - 272
+[src/backend/utils/activity/backend_status.c:247-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L247-L272)
 
 ## Overview
 Initializes the backend statistics state for a process and sets up the cleanup hook for process exit.

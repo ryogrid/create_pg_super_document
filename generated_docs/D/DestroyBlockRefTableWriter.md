@@ -1,7 +1,7 @@
 # DestroyBlockRefTableWriter
 
 ## Location
-src/common/blkreftable.c: 855 - 874
+[src/common/blkreftable.c:855-874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L855-L874)
 
 ## Overview
 DestroyBlockRefTableWriter finalizes the writing process of a block reference table file and releases the resources associated with the BlockRefTableWriter.

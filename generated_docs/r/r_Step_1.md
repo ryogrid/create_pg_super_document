@@ -1,7 +1,7 @@
 # r_Step_1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_serbian.c: 5130 - 5604
+[src/backend/snowball/libstemmer/stem_UTF_8_serbian.c:5130-5604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_serbian.c#L5130-L5604)
 
 ## Overview
 Performs the first major step of Serbian morphological suffix removal, handling 130 different suffix patterns with their corresponding root replacements.

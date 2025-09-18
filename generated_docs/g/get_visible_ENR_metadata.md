@@ -1,7 +1,7 @@
 # get_visible_ENR_metadata
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 45 - 68
+[src/backend/utils/misc/queryenvironment.c:45-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L45-L68)
 
 ## Overview
 Retrieves the metadata for a visible ephemeral named relation (ENR) by name from a query environment.

@@ -1,7 +1,7 @@
 # parseIntFromText
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1287 - 1311
+[src/backend/utils/time/snapmgr.c:1287-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1287-L1311)
 
 ## Overview
 parseIntFromText is a static parsing utility function that extracts integer values from formatted text lines during snapshot import operations.

@@ -1,7 +1,7 @@
 # SetMatViewPopulatedState
 
 ## Location
-src/backend/commands/matview.c: 79 - 120
+[src/backend/commands/matview.c:79-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L79-L120)
 
 ## Overview
 SetMatViewPopulatedState marks a materialized view as populated or unpopulated by updating its relispopulated flag in the pg_class system catalog.

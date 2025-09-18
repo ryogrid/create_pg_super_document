@@ -1,7 +1,7 @@
 # heap_drop_with_catalog
 
 ## Location
-src/backend/catalog/heap.c: 1767 - 1946
+[src/backend/catalog/heap.c:1767-1946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1767-L1946)
 
 ## Overview
 heap_drop_with_catalog removes a specified relation from the system catalogs, handling the complete catalog cleanup for table drops including partitioning considerations and storage management.

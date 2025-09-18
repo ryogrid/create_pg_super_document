@@ -1,7 +1,7 @@
 # GetVisibilityMapPins
 
 ## Location
-src/backend/access/heap/hio.c: 140 - 237
+[src/backend/access/heap/hio.c:140-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/hio.c#L140-L237)
 
 ## Overview
 GetVisibilityMapPins manages visibility map pins for heap pages that are all-visible, ensuring proper locking order and handling the complex coordination between buffer locks and visibility map pins.

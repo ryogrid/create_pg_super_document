@@ -1,7 +1,7 @@
 # parse_datetime
 
 ## Location
-src/backend/utils/adt/formatting.c: 4455 - 4617
+[src/backend/utils/adt/formatting.c:4455-4617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4455-L4617)
 
 ## Overview
 A comprehensive datetime parsing function that converts a text string to various PostgreSQL datetime types based on the format string's components, automatically determining the appropriate return type.

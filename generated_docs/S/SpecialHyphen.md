@@ -1,7 +1,7 @@
 # SpecialHyphen
 
 ## Location
-src/backend/tsearch/wparser_def.c: 596 - 602
+[src/backend/tsearch/wparser_def.c:596-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L596-L602)
 
 ## Overview
 A static function that rewinds the parser position to handle special cases involving hyphen characters in text processing.

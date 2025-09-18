@@ -1,7 +1,7 @@
 # RelationForgetRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2913 - 2956
+[src/backend/utils/cache/relcache.c:2913-2956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2913-L2956)
 
 ## Overview
 Handles the removal of a relation from the relation cache when the caller reports that the relation has been dropped, ensuring proper cleanup while preserving subtransaction state information.

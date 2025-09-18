@@ -1,7 +1,7 @@
 # assign_recovery_target_xid
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 5035 - 5048
+[src/backend/access/transam/xlogrecovery.c:5035-5048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L5035-L5048)
 
 ## Overview
 A GUC assign hook function that sets the recovery target to a specific transaction ID, ensuring mutual exclusivity with other recovery target types.

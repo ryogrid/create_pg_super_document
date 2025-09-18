@@ -1,7 +1,7 @@
 # SS_compute_initplan_cost
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2198 - 2238
+[src/backend/optimizer/plan/subselect.c:2198-2238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2198-L2238)
 
 ## Overview
 Computes the total cost and parallel safety status of a list of initialization plans (initPlans).

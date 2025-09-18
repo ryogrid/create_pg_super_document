@@ -1,7 +1,7 @@
 # find_composite_type_dependencies
 
 ## Location
-src/backend/commands/tablecmds.c: 6738 - 6895
+[src/backend/commands/tablecmds.c:6738-6895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6738-L6895)
 
 ## Overview
 Recursively checks if a given type is being used as a column in any table, including nested usage through composite types, arrays, domains, and other container types.

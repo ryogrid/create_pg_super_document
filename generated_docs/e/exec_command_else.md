@@ -1,7 +1,7 @@
 # exec_command_else
 
 ## Location
-src/bin/psql/command.c: 1865 - 1929
+[src/bin/psql/command.c:1865-1929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1865-L1929)
 
 ## Overview
 Handles the \\else command in psql, which provides the final alternative branch in an \\if..\\endif conditional block that executes only if all previous \\if and \\elif expressions evaluated to false.

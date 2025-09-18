@@ -1,7 +1,7 @@
 # ParseState
 
 ## Location
-src/include/parser/parse_node.h: 190 - 283
+[src/include/parser/parse_node.h:190-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_node.h#L190-L283)
 
 ## Overview
 ParseState is the central state structure used during SQL parsing that maintains context information about the current parsing operation, including namespace resolution, range tables, and various parsing flags.

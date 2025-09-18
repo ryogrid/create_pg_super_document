@@ -1,7 +1,7 @@
 # pqTraceOutput_CopyFail
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 340 - 346
+[src/interfaces/libpq/fe-trace.c:340-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L340-L346)
 
 ## Overview
 A static function that handles tracing of CopyFail messages in PostgreSQL's libpq protocol tracing.

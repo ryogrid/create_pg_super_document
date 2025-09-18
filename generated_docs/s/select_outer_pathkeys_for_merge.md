@@ -1,7 +1,7 @@
 # select_outer_pathkeys_for_merge
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1639 - 1834
+[src/backend/optimizer/path/pathkeys.c:1639-1834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1639-L1834)
 
 ## Overview
 This function builds a pathkey list representing a possible sort ordering that can be used with given mergeclauses for merge join operations.

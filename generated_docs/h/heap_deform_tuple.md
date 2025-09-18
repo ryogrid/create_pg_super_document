@@ -1,7 +1,7 @@
 # heap_deform_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1345 - 1433
+[src/backend/access/common/heaptuple.c:1345-1433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1345-L1433)
 
 ## Overview
 Extracts all attribute values and null indicators from a HeapTuple into caller-provided arrays, serving as the inverse operation to heap_form_tuple.

@@ -1,7 +1,7 @@
 # r_remove_tense_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1498 - 1806
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1498-1806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1498-L1806)
 
 ## Overview
 Identifies and removes individual Tamil tense suffixes from words as part of the Tamil stemming algorithm in PostgreSQL's Snowball stemmer implementation.

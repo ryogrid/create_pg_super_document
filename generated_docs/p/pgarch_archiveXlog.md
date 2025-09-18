@@ -1,7 +1,7 @@
 # pgarch_archiveXlog
 
 ## Location
-src/backend/postmaster/pgarch.c: 516 - 642
+[src/backend/postmaster/pgarch.c:516-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L516-L642)
 
 ## Overview
 Archives a single WAL file by invoking the configured archive callback with comprehensive error handling and resource cleanup.

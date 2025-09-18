@@ -1,7 +1,7 @@
 # reindex_all_databases
 
 ## Location
-src/bin/scripts/reindexdb.c: 820 - 883
+[src/bin/scripts/reindexdb.c:820-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/reindexdb.c#L820-L883)
 
 ## Overview
 Reindexes all databases in a PostgreSQL cluster that allow connections, iterating through each database and applying the specified reindexing operations.

@@ -1,7 +1,7 @@
 # btree_xlog_mark_page_halfdead
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 713 - 797
+[src/backend/access/nbtree/nbtxlog.c:713-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L713-L797)
 
 ## Overview
 Replays WAL records that mark a B-tree page as half-dead during page deletion, updating the parent page and reinitializing the target page.

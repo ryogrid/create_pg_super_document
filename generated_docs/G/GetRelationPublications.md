@@ -1,7 +1,7 @@
 # GetRelationPublications
 
 ## Location
-src/backend/catalog/pg_publication.c: 687 - 715
+[src/backend/catalog/pg_publication.c:687-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L687-L715)
 
 ## Overview
 Retrieves a list of publication OIDs associated with a specific relation, used to determine which publications include a given table.

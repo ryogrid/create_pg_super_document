@@ -1,7 +1,7 @@
 # EventCacheLookup
 
 ## Location
-src/backend/utils/cache/evtcache.c: 63 - 76
+[src/backend/utils/cache/evtcache.c:63-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/evtcache.c#L63-L76)
 
 ## Overview
 Searches the event trigger cache by trigger event type and returns a list of matching event trigger cache items.

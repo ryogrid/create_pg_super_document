@@ -1,7 +1,7 @@
 # CopyMultiInsertBufferInit
 
 ## Location
-src/backend/commands/copyfrom.c: 221 - 237
+[src/backend/commands/copyfrom.c:221-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L221-L237)
 
 ## Overview
 CopyMultiInsertBufferInit allocates and initializes a new CopyMultiInsertBuffer structure for a specific ResultRelInfo, setting up the buffer for batched tuple insertion during COPY operations.

@@ -1,7 +1,7 @@
 # exec_command_setenv
 
 ## Location
-src/bin/psql/command.c: 2474 - 2521
+[src/bin/psql/command.c:2474-2521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2474-L2521)
 
 ## Overview
 Implements the psql \setenv backslash command that sets or unsets operating system environment variables.

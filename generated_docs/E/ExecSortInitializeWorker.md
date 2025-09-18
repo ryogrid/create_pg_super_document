@@ -1,7 +1,7 @@
 # ExecSortInitializeWorker
 
 ## Location
-src/backend/executor/nodeSort.c: 462 - 475
+[src/backend/executor/nodeSort.c:462-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L462-L475)
 
 ## Overview
 Attaches a worker process to the Dynamic Shared Memory (DSM) space for collecting and sharing tuplesort instrumentation statistics in parallel query execution.

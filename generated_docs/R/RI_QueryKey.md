@@ -1,7 +1,7 @@
 # RI_QueryKey
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 132 - 136
+[src/backend/utils/adt/ri_triggers.c:132-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L132-L136)
 
 ## Overview
 RI_QueryKey is a structure that serves as the key for identifying prepared SPI plans in the referential integrity query hashtable, enabling efficient lookup and caching of SQL query plans used for foreign key constraint checking.

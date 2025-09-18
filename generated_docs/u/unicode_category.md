@@ -1,7 +1,7 @@
 # unicode_category
 
 ## Location
-src/common/unicode_category.c: 85 - 110
+[src/common/unicode_category.c:85-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L85-L110)
 
 ## Overview
 The unicode_category function returns the Unicode general category for a given Unicode codepoint, providing essential character classification for text processing operations.

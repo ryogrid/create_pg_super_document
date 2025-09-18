@@ -1,7 +1,7 @@
 # PartitionSpec
 
 ## Location
-src/include/nodes/parsenodes.h: 882 - 888
+[src/include/nodes/parsenodes.h:882-888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L882-L888)
 
 ## Overview
 PartitionSpec is a parse-time representation of a partition key specification that represents the key space used for table partitioning in PostgreSQL.

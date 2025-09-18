@@ -1,7 +1,7 @@
 # BTreeTupleGetHeapTID
 
 ## Location
-src/include/access/nbtree.h: 638 - 663
+[src/include/access/nbtree.h:638-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L638-L663)
 
 ## Overview
 BTreeTupleGetHeapTID retrieves the tiebreaker heap TID attribute from a B-tree index tuple, returning the first/lowest heap TID in the case of a posting list tuple.

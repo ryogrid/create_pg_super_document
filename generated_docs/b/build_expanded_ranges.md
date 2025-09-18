@@ -1,7 +1,7 @@
 # build_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1386 - 1414
+[src/backend/access/brin/brin_minmax_multi.c:1386-1414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1386-L1414)
 
 ## Overview
 Constructs a unified array of expanded ranges from separate collections of ranges and single-point values, providing a normalized representation for easier processing in BRIN minmax-multi indexes.

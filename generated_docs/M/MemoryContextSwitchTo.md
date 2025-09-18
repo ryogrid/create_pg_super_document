@@ -1,7 +1,7 @@
 # MemoryContextSwitchTo
 
 ## Location
-src/include/utils/palloc.h: 124 - 151
+[src/include/utils/palloc.h:124-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/palloc.h#L124-L151)
 
 ## Overview
 A static inline function that switches the current memory context to a specified context and returns the previously active memory context.

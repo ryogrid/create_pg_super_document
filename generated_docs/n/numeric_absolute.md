@@ -1,7 +1,7 @@
 # numeric_absolute
 
 ## Location
-src/backend/utils/adt/dbsize.c: 628 - 637
+[src/backend/utils/adt/dbsize.c:628-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L628-L637)
 
 ## Overview
 This static helper function calculates and returns the absolute value of a PostgreSQL Numeric value.

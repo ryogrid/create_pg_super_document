@@ -1,7 +1,7 @@
 # proclist_is_empty
 
 ## Location
-src/include/storage/proclist.h: 38 - 47
+[src/include/storage/proclist.h:38-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L38-L47)
 
 ## Overview
 Tests whether a proclist data structure is empty by checking if the head pointer indicates no valid processes.

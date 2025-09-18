@@ -1,7 +1,7 @@
 # tuplesort_skiptuples
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1736 - 1803
+[src/backend/utils/sort/tuplesort.c:1736-1803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1736-L1803)
 
 ## Overview
 A function that efficiently advances over a specified number of tuples in the forward direction without returning the actual tuple data, optimized for scenarios where only positioning is needed.

@@ -1,7 +1,7 @@
 # RangeVarCallbackForTruncate
 
 ## Location
-src/backend/commands/tablecmds.c: 17791 - 17814
+[src/backend/commands/tablecmds.c:17791-17814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17791-L17814)
 
 ## Overview
 RangeVarCallbackForTruncate is a specialized callback function for RangeVarGetRelidExtended() that validates relations during TRUNCATE command processing.

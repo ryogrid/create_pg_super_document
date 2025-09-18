@@ -1,7 +1,7 @@
 # ParallelBlockTableScanDesc
 
 ## Location
-src/include/access/relscan.h: 85 - 89
+[src/include/access/relscan.h:85-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L85-L89)
 
 ## Overview
 A typedef for a pointer to ParallelBlockTableScanDescData, representing shared state for parallel table scans in block-oriented storage systems.

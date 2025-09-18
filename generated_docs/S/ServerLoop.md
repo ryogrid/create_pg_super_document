@@ -1,7 +1,7 @@
 # ServerLoop
 
 ## Location
-src/backend/postmaster/postmaster.c: 1626 - 1836
+[src/backend/postmaster/postmaster.c:1626-1836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1626-L1836)
 
 ## Overview
 The main event loop of the PostgreSQL postmaster process that handles client connections, manages background processes, and performs periodic maintenance tasks.

@@ -1,7 +1,7 @@
 # pg_u_prop_lowercase
 
 ## Location
-src/common/unicode_category.c: 122 - 132
+[src/common/unicode_category.c:122-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L122-L132)
 
 ## Overview
 The pg_u_prop_lowercase function determines whether a given Unicode codepoint has the Lowercase property according to Unicode character classification standards.

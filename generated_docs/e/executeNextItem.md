@@ -1,7 +1,7 @@
 # executeNextItem
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1694 - 1724
+[src/backend/utils/adt/jsonpath_exec.c:1694-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1694-L1724)
 
 ## Overview
 This function executes the next JSONPath item if it exists, or adds the current value to the found list if there are no more items to process.

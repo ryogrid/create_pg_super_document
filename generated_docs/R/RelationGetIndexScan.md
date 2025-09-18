@@ -1,7 +1,7 @@
 # RelationGetIndexScan
 
 ## Location
-src/backend/access/index/genam.c: 80 - 143
+[src/backend/access/index/genam.c:80-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L80-L143)
 
 ## Overview
 Creates and initializes an IndexScanDesc structure that serves as the foundation for all indexed access method scans in PostgreSQL.

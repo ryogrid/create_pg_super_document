@@ -1,7 +1,7 @@
 # DeleteComments
 
 ## Location
-src/backend/commands/comment.c: 326 - 373
+[src/backend/commands/comment.c:326-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/comment.c#L326-L373)
 
 ## Overview
 Removes comments from the pg_description catalog table for specified database objects, with support for deleting specific sub-object comments or all comments for an entire object.

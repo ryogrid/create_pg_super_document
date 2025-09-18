@@ -1,7 +1,7 @@
 # RenumberEnumType
 
 ## Location
-src/backend/catalog/pg_enum.c: 761 - 796
+[src/backend/catalog/pg_enum.c:761-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L761-L796)
 
 ## Overview
 Renumbers existing enum elements to have consecutive sort positions (1..n), typically done only when necessary to resolve sort order conflicts when adding new enum labels.

@@ -1,7 +1,7 @@
 # XactLockTableWait
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 657 - 732
+[src/backend/storage/lmgr/lmgr.c:657-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L657-L732)
 
 ## Overview
 XactLockTableWait blocks the calling transaction until a specified transaction (or its topmost parent transaction) commits or aborts, providing essential synchronization for MVCC operations.

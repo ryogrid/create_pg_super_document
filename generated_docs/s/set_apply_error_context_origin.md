@@ -1,7 +1,7 @@
 # set_apply_error_context_origin
 
 ## Location
-src/backend/replication/logical/worker.c: 5111 - 5125
+[src/backend/replication/logical/worker.c:5111-5125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5111-L5125)
 
 ## Overview
 This function allocates and stores an origin name in a long-lived memory context for use in error context messages during logical replication apply operations.

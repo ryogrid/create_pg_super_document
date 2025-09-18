@@ -1,7 +1,7 @@
 # exec_command_pset
 
 ## Location
-src/bin/psql/command.c: 2278 - 2332
+[src/bin/psql/command.c:2278-2332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2278-L2332)
 
 ## Overview
 Implements the PostgreSQL psql `\pset` command that configures output formatting parameters and display settings for query results.

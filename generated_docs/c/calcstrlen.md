@@ -1,7 +1,7 @@
 # calcstrlen
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 363 - 386
+[src/backend/utils/adt/tsquery_cleanup.c:363-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L363-L386)
 
 ## Overview
 Recursively calculates the total string length needed to represent all operand values in a TSQuery tree structure.

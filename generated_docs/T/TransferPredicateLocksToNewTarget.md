@@ -1,7 +1,7 @@
 # TransferPredicateLocksToNewTarget
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2720 - 2926
+[src/backend/storage/lmgr/predicate.c:2720-2926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2720-L2926)
 
 ## Overview
 Transfers or copies all predicate locks from an old lock target to a new lock target, supporting index page operations like splits and combines while maintaining serializable isolation guarantees.

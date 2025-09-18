@@ -1,7 +1,7 @@
 # ReorderBufferCanStartStreaming
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4159 - 4184
+[src/backend/replication/logical/reorderbuffer.c:4159-4184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4159-L4184)
 
 ## Overview
 Determines whether streaming of in-progress transactions can begin now, considering both plugin support and snapshot consistency requirements.

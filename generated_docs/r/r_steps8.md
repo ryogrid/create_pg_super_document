@@ -1,7 +1,7 @@
 # r_steps8
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2789 - 2829
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2789-2829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2789-L2829)
 
 ## Overview
 A static function that implements step 8 of the Greek language stemming algorithm, responsible for suffix removal and replacement operations within the Snowball stemming framework.

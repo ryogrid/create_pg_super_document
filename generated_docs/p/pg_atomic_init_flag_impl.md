@@ -1,7 +1,7 @@
 # pg_atomic_init_flag_impl
 
 ## Location
-src/backend/port/atomics.c: 55 - 75
+[src/backend/port/atomics.c:55-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L55-L75)
 
 ## Overview
 Initializes a fallback atomic flag implementation using spinlocks when native atomic flag operations are not available on the platform.

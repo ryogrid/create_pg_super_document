@@ -1,7 +1,7 @@
 # strtokx
 
 ## Location
-src/bin/psql/stringutils.c: 52 - 239
+[src/bin/psql/stringutils.c:52-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/stringutils.c#L52-L239)
 
 ## Overview
 A sophisticated string tokenization function that serves as a replacement for the standard C strtok() function, providing advanced features like quote handling, escape characters, and PostgreSQL-specific string parsing capabilities.

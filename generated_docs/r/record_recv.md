@@ -1,7 +1,7 @@
 # record_recv
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 480 - 686
+[src/backend/utils/adt/rowtypes.c:480-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L480-L686)
 
 ## Overview
 Converts a binary representation of a composite type (record) from network/storage format into PostgreSQL's internal binary format.

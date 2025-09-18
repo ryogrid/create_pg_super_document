@@ -1,7 +1,7 @@
 # LookupFuncWithArgs
 
 ## Location
-src/backend/parser/parse_func.c: 2206 - 2510
+[src/backend/parser/parse_func.c:2206-2510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L2206-L2510)
 
 ## Overview
 LookupFuncWithArgs provides comprehensive function/procedure/aggregate lookup functionality using ObjectWithArgs structures, supporting both traditional input-only and modern input+output parameter matching for SQL standard compliance.

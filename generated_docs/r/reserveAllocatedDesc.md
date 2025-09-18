@@ -1,7 +1,7 @@
 # reserveAllocatedDesc
 
 ## Location
-src/backend/storage/file/fd.c: 2505 - 2579
+[src/backend/storage/file/fd.c:2505-2579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2505-L2579)
 
 ## Overview
 reserveAllocatedDesc is an internal static function that manages memory allocation for the allocatedDescs array, ensuring space is available for tracking allocated file descriptors in PostgreSQL's file descriptor management system.

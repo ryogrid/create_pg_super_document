@@ -1,7 +1,7 @@
 # ProcArrayEndTransactionInternal
 
 ## Location
-src/backend/storage/ipc/procarray.c: 731 - 791
+[src/backend/storage/ipc/procarray.c:731-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L731-L791)
 
 ## Overview
 Internal function that performs the actual work of marking a write transaction as no longer running, assuming appropriate locks are already held.

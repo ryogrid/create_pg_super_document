@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesAny
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 340 - 361
+[src/backend/access/heap/heapam_visibility.c:340-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L340-L361)
 
 ## Overview
 A trivial visibility function that considers all tuples visible, used with the SnapshotAny special snapshot type for operations that need to see all tuples regardless of their transaction status.

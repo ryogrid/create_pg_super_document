@@ -1,7 +1,7 @@
 # qsort_partition_hbound_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3778 - 3792
+[src/backend/partitioning/partbounds.c:3778-3792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3778-L3792)
 
 ## Overview
 A comparison function used by qsort to sort hash partition bounds by modulus first, then by remainder.

@@ -1,7 +1,7 @@
 # btrestrpos
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 479 - 536
+[src/backend/access/nbtree/nbtree.c:479-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L479-L536)
 
 ## Overview
 Restores a B-tree index scan to the position previously saved by btmarkpos, handling both simple within-page and complex cross-page restoration scenarios.

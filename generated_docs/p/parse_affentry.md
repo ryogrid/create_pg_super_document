@@ -1,7 +1,7 @@
 # parse_affentry
 
 ## Location
-src/backend/tsearch/spell.c: 914 - 1031
+[src/backend/tsearch/spell.c:914-1031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L914-L1031)
 
 ## Overview
 Parses a single entry from an Ispell format .affix file, extracting the mask, find pattern, and replacement pattern components used for morphological analysis.

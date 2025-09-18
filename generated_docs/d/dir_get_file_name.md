@@ -1,7 +1,7 @@
 # dir_get_file_name
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 102 - 116
+[src/bin/pg_basebackup/walmethods.c:102-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L102-L116)
 
 ## Overview
 Constructs a filename for WAL files based on the given pathname, compression algorithm, and optional temporary suffix.

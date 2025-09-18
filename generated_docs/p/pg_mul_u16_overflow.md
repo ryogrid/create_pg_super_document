@@ -1,7 +1,7 @@
 # pg_mul_u16_overflow
 
 ## Location
-src/include/common/int.h: 304 - 324
+[src/include/common/int.h:304-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L304-L324)
 
 ## Overview
 A safe 16-bit unsigned integer multiplication function that detects overflow conditions and prevents undefined behavior.

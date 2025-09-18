@@ -1,7 +1,7 @@
 # SplitVar
 
 ## Location
-src/backend/tsearch/spell.c: 2285 - 2291
+[src/backend/tsearch/spell.c:2285-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2285-L2291)
 
 ## Overview
 SplitVar is a linked list structure used in PostgreSQL's text search spell checking functionality to store and manage word stems during compound word decomposition and morphological analysis.

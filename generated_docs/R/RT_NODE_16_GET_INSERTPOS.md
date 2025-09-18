@@ -1,7 +1,7 @@
 # RT_NODE_16_GET_INSERTPOS
 
 ## Location
-src/include/lib/radixtree.h: 1160 - 1232
+[src/include/lib/radixtree.h:1160-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1160-L1232)
 
 ## Overview
 RT_NODE_16_GET_INSERTPOS is a macro that expands to a function that finds the correct insertion position for a new chunk in a node-16's sorted arrays using optimized SIMD or linear search.

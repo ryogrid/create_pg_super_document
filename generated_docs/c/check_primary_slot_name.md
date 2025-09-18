@@ -1,7 +1,7 @@
 # check_primary_slot_name
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4741 - 4768
+[src/backend/access/transam/xlogrecovery.c:4741-4768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4741-L4768)
 
 ## Overview
 check_primary_slot_name is a GUC (Grand Unified Configuration) check hook function that validates the primary_slot_name configuration parameter to ensure it contains a valid replication slot name.

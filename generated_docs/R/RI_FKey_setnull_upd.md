@@ -1,7 +1,7 @@
 # RI_FKey_setnull_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 985 - 999
+[src/backend/utils/adt/ri_triggers.c:985-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L985-L999)
 
 ## Overview
 This function implements a PostgreSQL referential integrity trigger that sets foreign key column values to NULL when the referenced primary key record is updated.

@@ -1,7 +1,7 @@
 # BTreeTupleSetNAtts
 
 ## Location
-src/include/access/nbtree.h: 595 - 619
+[src/include/access/nbtree.h:595-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L595-L619)
 
 ## Overview
 Sets the number of key attributes in an index tuple and optionally marks it to include a heap TID tiebreaker, configuring the tuple as a pivot tuple with the specified attribute count.

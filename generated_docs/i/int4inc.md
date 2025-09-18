@@ -1,7 +1,7 @@
 # int4inc
 
 ## Location
-src/backend/utils/adt/int.c: 872 - 885
+[src/backend/utils/adt/int.c:872-885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L872-L885)
 
 ## Overview
 Increments a 32-bit integer by 1 with overflow checking, implementing a PostgreSQL utility function for safe integer increment operations.

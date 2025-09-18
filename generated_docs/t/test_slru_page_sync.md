@@ -1,7 +1,7 @@
 # test_slru_page_sync
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 144 - 160
+[src/test/modules/test_slru/test_slru.c:144-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L144-L160)
 
 ## Overview
 A PostgreSQL test function that synchronizes (flushes) an SLRU segment containing the specified page to disk.

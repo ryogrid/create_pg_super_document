@@ -1,7 +1,7 @@
 # in_grouping
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 167 - 178
+[src/backend/snowball/libstemmer/utilities.c:167-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L167-L178)
 
 ## Overview
 The `in_grouping` function checks if characters in a Snowball stemmer environment fall within a specified character grouping for non-UTF8 encodings.

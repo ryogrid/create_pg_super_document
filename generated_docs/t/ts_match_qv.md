@@ -1,7 +1,7 @@
 # ts_match_qv
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2206 - 2213
+[src/backend/utils/adt/tsvector_op.c:2206-2213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2206-L2213)
 
 ## Overview
 A PostgreSQL function that performs text search matching between a tsquery and tsvector by delegating to ts_match_vq with swapped argument order.

@@ -1,7 +1,7 @@
 # pg_attribute_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3204 - 3214
+[src/backend/catalog/aclchk.c:3204-3214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3204-L3214)
 
 ## Overview
 A wrapper function that examines user privileges specifically granted on table columns, delegating to the extended version with default parameters.

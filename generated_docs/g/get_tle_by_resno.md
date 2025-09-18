@@ -1,7 +1,7 @@
 # get_tle_by_resno
 
 ## Location
-src/backend/parser/parse_relation.c: 3439 - 3458
+[src/backend/parser/parse_relation.c:3439-3458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3439-L3458)
 
 ## Overview
 Searches a target list to find and return the TargetEntry with a matching result number (resno).

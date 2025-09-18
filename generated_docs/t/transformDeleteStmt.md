@@ -1,7 +1,7 @@
 # transformDeleteStmt
 
 ## Location
-src/backend/parser/analyze.c: 508 - 579
+[src/backend/parser/analyze.c:508-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L508-L579)
 
 ## Overview
 Transforms a raw DELETE statement parse tree into a fully analyzed Query tree ready for optimization and execution.

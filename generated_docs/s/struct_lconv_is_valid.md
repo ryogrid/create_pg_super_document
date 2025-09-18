@@ -1,7 +1,7 @@
 # struct_lconv_is_valid
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 486 - 516
+[src/backend/utils/adt/pg_locale.c:486-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L486-L516)
 
 ## Overview
 This static validation function checks that all critical string fields in a  structure are non-NULL, ensuring the structure is safe to use for locale-specific formatting operations.

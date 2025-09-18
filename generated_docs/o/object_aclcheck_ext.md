@@ -1,7 +1,7 @@
 # object_aclcheck_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3903 - 3924
+[src/backend/catalog/aclchk.c:3903-3924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3903-L3924)
 
 ## Overview
 This is the extended version of object_aclcheck that provides access privilege checking for database objects with optional graceful handling of missing objects.

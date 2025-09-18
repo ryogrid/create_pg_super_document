@@ -1,7 +1,7 @@
 # makepoint
 
 ## Location
-src/tutorial/funcs.c: 47 - 63
+[src/tutorial/funcs.c:47-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L47-L63)
 
 ## Overview
 A PostgreSQL C function that creates a new Point by combining the x-coordinate from one Point and the y-coordinate from another Point, demonstrating composite type manipulation in PostgreSQL.

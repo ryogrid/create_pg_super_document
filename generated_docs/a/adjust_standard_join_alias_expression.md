@@ -1,7 +1,7 @@
 # adjust_standard_join_alias_expression
 
 ## Location
-src/backend/optimizer/util/var.c: 1036 - 1097
+[src/backend/optimizer/util/var.c:1036-1097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L1036-L1097)
 
 ## Overview
 Modifies a standard join alias expression in-place to integrate nullingrels information from an original Var.

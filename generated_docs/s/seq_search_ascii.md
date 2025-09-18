@@ -1,7 +1,7 @@
 # seq_search_ascii
 
 ## Location
-src/backend/utils/adt/formatting.c: 2578 - 2634
+[src/backend/utils/adt/formatting.c:2578-2634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2578-L2634)
 
 ## Overview
 A static function that performs a case-insensitive sequential search through a null-terminated array of strings to find a match with the initial characters of a given input string, using ASCII-only case conversion rules.

@@ -1,7 +1,7 @@
 # FormIndexDatum
 
 ## Location
-src/backend/catalog/index.c: 2702 - 2780
+[src/backend/catalog/index.c:2702-2780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2702-L2780)
 
 ## Overview
 FormIndexDatum constructs the values and isnull arrays needed for creating an index tuple from a heap tuple, handling both regular columns and index expressions.

@@ -1,7 +1,7 @@
 # conditional_stack_get_paren_depth
 
 ## Location
-src/fe_utils/conditional.c: 184 - 189
+[src/fe_utils/conditional.c:184-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L184-L189)
 
 ## Overview
 Retrieves the previously saved parenthesis nesting depth from the topmost entry of a conditional stack, returning -1 if the stack is empty or no depth was recorded.

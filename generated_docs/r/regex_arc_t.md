@@ -1,7 +1,7 @@
 # regex_arc_t
 
 ## Location
-src/include/regex/regexport.h: 42 - 61
+[src/include/regex/regexport.h:42-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regexport.h#L42-L61)
 
 ## Overview
 Represents a single arc (transition) in a regular expression's Non-deterministic Finite Automaton (NFA), containing the character-set color label and destination state.

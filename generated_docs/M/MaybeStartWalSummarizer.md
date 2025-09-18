@@ -1,7 +1,7 @@
 # MaybeStartWalSummarizer
 
 ## Location
-src/backend/postmaster/postmaster.c: 4072 - 4090
+[src/backend/postmaster/postmaster.c:4072-4090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4072-L4090)
 
 ## Overview
 MaybeStartWalSummarizer conditionally starts a WAL summarizer process when WAL summarization is enabled, no summarizer is running, and the postmaster is in normal operation or hot standby mode.

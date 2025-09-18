@@ -1,7 +1,7 @@
 # get_vacoptval_from_boolean
 
 ## Location
-src/backend/commands/vacuum.c: 2526 - 2536
+[src/backend/commands/vacuum.c:2526-2536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2526-L2536)
 
 ## Overview
 A wrapper function that converts boolean values from DefElem to VacOptValue enum constants for vacuum option processing.

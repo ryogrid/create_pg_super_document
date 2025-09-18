@@ -1,7 +1,7 @@
 # rpad
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 245 - 341
+[src/backend/utils/adt/oracle_compat.c:245-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L245-L341)
 
 ## Overview
 The  function right-pads a string to a specified length with a padding string, or truncates the string if it's longer than the specified length.

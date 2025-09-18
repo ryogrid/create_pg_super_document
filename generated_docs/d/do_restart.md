@@ -1,7 +1,7 @@
 # do_restart
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1073 - 1136
+[src/bin/pg_ctl/pg_ctl.c:1073-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1073-L1136)
 
 ## Overview
 Handles the restarting of a PostgreSQL server by first stopping the running server (if any) and then starting a new instance.

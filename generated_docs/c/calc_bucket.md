@@ -1,7 +1,7 @@
 # calc_bucket
 
 ## Location
-src/backend/utils/hash/dynahash.c: 919 - 955
+[src/backend/utils/hash/dynahash.c:919-955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L919-L955)
 
 ## Overview
 Converts a hash value to a bucket number using the hash table's masking scheme for dynamic bucket allocation.

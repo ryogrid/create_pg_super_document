@@ -1,7 +1,7 @@
 # float8gt
 
 ## Location
-src/backend/utils/adt/float.c: 949 - 957
+[src/backend/utils/adt/float.c:949-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L949-L957)
 
 ## Overview
 The float8gt function implements the greater-than comparison operator for PostgreSQL double-precision floating-point numbers, with proper handling of NaN values according to IEEE 754 standards.

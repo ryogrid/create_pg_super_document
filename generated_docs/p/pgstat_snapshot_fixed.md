@@ -1,7 +1,7 @@
 # pgstat_snapshot_fixed
 
 ## Location
-src/backend/utils/activity/pgstat.c: 940 - 956
+[src/backend/utils/activity/pgstat.c:940-956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L940-L956)
 
 ## Overview
 Ensures that a snapshot for a fixed-numbered statistics kind exists, creating it if necessary through either full or partial snapshot building mechanisms.

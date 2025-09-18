@@ -1,7 +1,7 @@
 # SortBy
 
 ## Location
-src/include/nodes/parsenodes.h: 543 - 551
+[src/include/nodes/parsenodes.h:543-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L543-L551)
 
 ## Overview
 SortBy is a parse tree node that represents a single sorting specification in ORDER BY clauses, capturing the expression to sort on along with sorting direction and null handling preferences.

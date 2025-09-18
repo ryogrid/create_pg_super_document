@@ -1,7 +1,7 @@
 # infoname
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 621 - 691
+[src/test/modules/test_regex/test_regex.c:621-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L621-L691)
 
 ## Overview
 A simple structure that maps regex information flag bits to their textual representations for debugging and testing purposes.

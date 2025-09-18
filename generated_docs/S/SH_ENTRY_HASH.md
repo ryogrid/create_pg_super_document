@@ -1,7 +1,7 @@
 # SH_ENTRY_HASH
 
 ## Location
-src/include/lib/simplehash.h: 395 - 411
+[src/include/lib/simplehash.h:395-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L395-L411)
 
 ## Overview
 Retrieves or computes the hash value for a given hash table entry in PostgreSQL's simplehash implementation.

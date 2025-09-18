@@ -1,7 +1,7 @@
 # writetup_index
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1673 - 1686
+[src/backend/utils/sort/tuplesortvariants.c:1673-1686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1673-L1686)
 
 ## Overview
 A specialized function for writing index tuples to logical tapes during external sorting, handling tuple serialization with proper length prefixes and optional random access support.

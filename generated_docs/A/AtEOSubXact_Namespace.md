@@ -1,7 +1,7 @@
 # AtEOSubXact_Namespace
 
 ## Location
-src/backend/catalog/namespace.c: 4558 - 4597
+[src/backend/catalog/namespace.c:4558-4597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4558-L4597)
 
 ## Overview
 AtEOSubXact_Namespace manages temporary namespace state during subtransaction end events, either propagating namespace creation flags to parent transactions on commit or cleaning up namespace state on abort.

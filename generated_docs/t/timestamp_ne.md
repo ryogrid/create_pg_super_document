@@ -1,7 +1,7 @@
 # timestamp_ne
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2225 - 2233
+[src/backend/utils/adt/timestamp.c:2225-2233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2225-L2233)
 
 ## Overview
 PostgreSQL function that implements the inequality operator (<> or !=) for timestamp values, returning true if two timestamps are not equal.

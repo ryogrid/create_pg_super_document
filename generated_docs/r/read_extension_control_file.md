@@ -1,7 +1,7 @@
 # read_extension_control_file
 
 ## Location
-src/backend/commands/extension.c: 648 - 676
+[src/backend/commands/extension.c:648-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L648-L676)
 
 ## Overview
 Reads and parses the primary control file for a specified extension, returning a fully initialized ExtensionControlFile structure with default values and parsed configuration.

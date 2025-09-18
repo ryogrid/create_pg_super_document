@@ -1,7 +1,7 @@
 # _SPI_prepare_oneshot_plan
 
 ## Location
-src/backend/executor/spi.c: 2329 - 2398
+[src/backend/executor/spi.c:2329-2398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2329-L2398)
 
 ## Overview
 _SPI_prepare_oneshot_plan is an internal SPI function that performs initial parsing of SQL queries without analysis, creating "one shot" cached plan sources optimized for single-use execution.

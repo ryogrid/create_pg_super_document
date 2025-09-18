@@ -1,7 +1,7 @@
 # WALSegmentContext
 
 ## Location
-src/include/access/xlogreader.h: 53 - 57
+[src/include/access/xlogreader.h:53-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L53-L57)
 
 ## Overview
 WALSegmentContext carries essential context information about WAL segments, providing the directory path and segment size parameters needed for WAL segment operations.

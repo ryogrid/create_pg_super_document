@@ -1,7 +1,7 @@
 # InitializeMaxBackends
 
 ## Location
-src/backend/utils/init/postinit.c: 577 - 593
+[src/backend/utils/init/postinit.c:577-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L577-L593)
 
 ## Overview
 InitializeMaxBackends calculates and sets the global MaxBackends value based on various configuration parameters, determining the total number of backend processes that PostgreSQL can support.

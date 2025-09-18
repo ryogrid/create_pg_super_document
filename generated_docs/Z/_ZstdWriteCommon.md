@@ -1,7 +1,7 @@
 # _ZstdWriteCommon
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 94 - 125
+[src/bin/pg_dump/compress_zstd.c:94-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L94-L125)
 
 ## Overview
 A static helper function that handles the common compression and output logic for both data writing and compression finalization in the ZSTD compression implementation.

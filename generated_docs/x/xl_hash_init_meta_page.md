@@ -1,7 +1,7 @@
 # xl_hash_init_meta_page
 
 ## Location
-src/include/access/hash_xlog.h: 216 - 221
+[src/include/access/hash_xlog.h:216-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L216-L221)
 
 ## Overview
 The xl_hash_init_meta_page struct represents the WAL record data for hash index metapage initialization operations, used to log the creation and initial setup of a hash index's metadata page.

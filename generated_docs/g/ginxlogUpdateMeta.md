@@ -1,7 +1,7 @@
 # ginxlogUpdateMeta
 
 ## Location
-src/include/access/ginxlog.h: 168 - 178
+[src/include/access/ginxlog.h:168-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L168-L178)
 
 ## Overview
 Structure used for WAL (Write-Ahead Logging) record when updating the metapage of a GIN index, typically during fast insertion operations.

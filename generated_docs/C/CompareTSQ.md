@@ -1,7 +1,7 @@
 # CompareTSQ
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 189 - 214
+[src/backend/utils/adt/tsquery_op.c:189-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L189-L214)
 
 ## Overview
 Compares two TSQuery objects for ordering, providing a complete comparison function that considers size, memory footprint, and structural content.

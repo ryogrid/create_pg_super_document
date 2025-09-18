@@ -1,7 +1,7 @@
 # LogStandbyInvalidations
 
 ## Location
-src/backend/storage/ipc/standby.c: 1462 - 1483
+[src/backend/storage/ipc/standby.c:1462-1483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1462-L1483)
 
 ## Overview
 Emits WAL records for cache invalidation messages, primarily used for commits without transaction IDs that contain invalidations.

@@ -1,7 +1,7 @@
 # replace_nestloop_params_mutator
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4943 - 5022
+[src/backend/optimizer/plan/createplan.c:4943-5022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4943-L5022)
 
 ## Overview
 Performs recursive tree walking to replace outer-relation Vars and PlaceHolderVars with nestloop Params in expression trees.

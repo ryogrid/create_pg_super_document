@@ -1,7 +1,7 @@
 # width_bucket_array_variable
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6840 - 6909
+[src/backend/utils/adt/arrayfuncs.c:6840-6909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6840-L6909)
 
 ## Overview
 Implements width_bucket functionality for generic variable-width data types using binary search with optimized array element traversal.

@@ -1,7 +1,7 @@
 # setup_cancel_handler
 
 ## Location
-src/fe_utils/cancel.c: 232 - 243
+[src/fe_utils/cancel.c:232-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/cancel.c#L232-L243)
 
 ## Overview
 setup_cancel_handler initializes the cancel handling infrastructure for PostgreSQL frontend utilities, setting up signal handlers and callback mechanisms for query cancellation.

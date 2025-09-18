@@ -1,7 +1,7 @@
 # timestamptz_eq_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2409 - 2417
+[src/backend/utils/adt/timestamp.c:2409-2417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2409-L2417)
 
 ## Overview
 A PostgreSQL function that tests equality between a timestamptz (with timezone) value and a timestamp (without timezone) value, returning a boolean result.

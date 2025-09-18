@@ -1,7 +1,7 @@
 # index_deform_tuple_internal
 
 ## Location
-src/backend/access/common/indextuple.c: 479 - 546
+[src/backend/access/common/indextuple.c:479-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L479-L546)
 
 ## Overview
 The `index_deform_tuple_internal` function converts an index tuple into separate Datum/isnull arrays without making assumptions about the index tuple header layout, providing flexible tuple deformation capabilities.

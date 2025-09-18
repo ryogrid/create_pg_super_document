@@ -1,7 +1,7 @@
 # extract_grouping_ops
 
 ## Location
-src/backend/optimizer/util/tlist.c: 463 - 488
+[src/backend/optimizer/util/tlist.c:463-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L463-L488)
 
 ## Overview
 Extracts equality operator OIDs from a SortGroupClause list and returns them as an array for use in planning GROUP BY operations.

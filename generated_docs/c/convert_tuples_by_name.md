@@ -1,7 +1,7 @@
 # convert_tuples_by_name
 
 ## Location
-src/backend/access/common/tupconvert.c: 102 - 123
+[src/backend/access/common/tupconvert.c:102-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupconvert.c#L102-L123)
 
 ## Overview
 Creates a tuple conversion map by matching input and output columns by their names, intended for use with rowtypes related by inheritance.

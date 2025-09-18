@@ -1,7 +1,7 @@
 # PGTYPESnumeric_from_int
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1309 - 1317
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1309-1317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1309-L1317)
 
 ## Overview
 Converts a signed integer value to PostgreSQL's numeric data type in the ECPG pgtypes library.

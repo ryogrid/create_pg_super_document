@@ -1,7 +1,7 @@
 # get_encoding_id
 
 ## Location
-src/bin/initdb/initdb.c: 843 - 859
+[src/bin/initdb/initdb.c:843-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L843-L859)
 
 ## Overview
 This function validates an encoding name and returns its corresponding numeric encoding ID, terminating the program if the encoding is invalid.

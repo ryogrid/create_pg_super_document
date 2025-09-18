@@ -1,7 +1,7 @@
 # ExecEndFunctionScan
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 530 - 555
+[src/backend/executor/nodeFunctionscan.c:530-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L530-L555)
 
 ## Overview
 ExecEndFunctionScan performs cleanup for function scan nodes by releasing tuplestores and other allocated resources.

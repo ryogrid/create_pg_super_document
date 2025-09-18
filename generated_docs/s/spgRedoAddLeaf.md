@@ -1,7 +1,7 @@
 # spgRedoAddLeaf
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 74 - 170
+[src/backend/access/spgist/spgxlog.c:74-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L74-L170)
 
 ## Overview
 Replays the addition of a leaf tuple to an SP-GiST index during WAL recovery, handling both new page creation and updates to existing pages with proper parent link maintenance.

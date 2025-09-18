@@ -1,7 +1,7 @@
 # parse_ooaffentry
 
 ## Location
-src/backend/tsearch/spell.c: 858 - 913
+[src/backend/tsearch/spell.c:858-913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L858-L913)
 
 ## Overview
 Parses entries from MySpell or Hunspell format .affix files, extracting type, flag, find, replace, and mask fields from each line.

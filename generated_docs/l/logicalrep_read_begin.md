@@ -1,7 +1,7 @@
 # logicalrep_read_begin
 
 ## Location
-src/backend/replication/logical/proto.c: 74 - 88
+[src/backend/replication/logical/proto.c:74-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L74-L88)
 
 ## Overview
 Reads and parses a BEGIN message from the logical replication input stream to extract transaction start information.

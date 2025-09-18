@@ -1,7 +1,7 @@
 # sqlprint
 
 ## Location
-src/interfaces/ecpg/ecpglib/error.c: 334 - 346
+[src/interfaces/ecpg/ecpglib/error.c:334-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/error.c#L334-L346)
 
 ## Overview
 A utility function that prints the current SQL error message from the sqlca structure to standard error output for user notification and debugging purposes.

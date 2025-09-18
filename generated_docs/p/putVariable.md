@@ -1,7 +1,7 @@
 # putVariable
 
 ## Location
-src/bin/pgbench/pgbench.c: 1829 - 1851
+[src/bin/pgbench/pgbench.c:1829-1851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1829-L1851)
 
 ## Overview
 Assigns a string value to a pgbench variable, creating the variable if it doesn't already exist.

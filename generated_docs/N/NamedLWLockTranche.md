@@ -1,7 +1,7 @@
 # NamedLWLockTranche
 
 ## Location
-src/include/storage/lwlock.h: 77 - 81
+[src/include/storage/lwlock.h:77-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lwlock.h#L77-L81)
 
 ## Overview
 NamedLWLockTranche is a structure that stores metadata about lightweight lock tranches, providing human-readable names for lock groups used in debugging and statistics.

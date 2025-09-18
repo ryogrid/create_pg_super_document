@@ -1,7 +1,7 @@
 # show_buffer_usage
 
 ## Location
-src/backend/commands/explain.c: 3743 - 3911
+[src/backend/commands/explain.c:3743-3911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3743-L3911)
 
 ## Overview
 Displays detailed buffer usage statistics in EXPLAIN output, formatting information about shared, local, and temporary buffer operations for query performance analysis.

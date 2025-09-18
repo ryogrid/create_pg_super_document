@@ -1,7 +1,7 @@
 # TupleQueueReaderNext
 
 ## Location
-src/backend/executor/tqueue.c: 176 - 210
+[src/backend/executor/tqueue.c:176-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L176-L210)
 
 ## Overview
 Fetches the next tuple from a TupleQueueReader, providing the main interface for reading tuples from shared memory message queues in PostgreSQL's parallel execution system.

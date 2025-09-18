@@ -1,7 +1,7 @@
 # mbvalidate
 
 ## Location
-src/fe_utils/mbprint.c: 392 - 405
+[src/fe_utils/mbprint.c:392-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L392-L405)
 
 ## Overview
 Validates and sanitizes multibyte character strings by removing invalid byte sequences according to the specified encoding, ensuring safe text processing in PostgreSQL frontend utilities.

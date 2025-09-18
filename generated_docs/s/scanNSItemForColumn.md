@@ -1,7 +1,7 @@
 # scanNSItemForColumn
 
 ## Location
-src/backend/parser/parse_relation.c: 680 - 799
+[src/backend/parser/parse_relation.c:680-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L680-L799)
 
 ## Overview
 Searches for a column name within a single namespace item and returns an appropriate Var node if found, with comprehensive access control validation.

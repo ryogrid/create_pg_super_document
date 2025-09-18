@@ -1,7 +1,7 @@
 # should_output_to_client
 
 ## Location
-src/backend/utils/error/elog.c: 248 - 275
+[src/backend/utils/error/elog.c:248-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L248-L275)
 
 ## Overview
 Determines whether a message of a given error level should be sent to the client process based on the current output destination and client authentication status.

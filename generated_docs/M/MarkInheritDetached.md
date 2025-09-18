@@ -1,7 +1,7 @@
 # MarkInheritDetached
 
 ## Location
-src/backend/commands/tablecmds.c: 16183 - 16265
+[src/backend/commands/tablecmds.c:16183-16265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16183-L16265)
 
 ## Overview
 Marks a partition as pending detach in concurrent mode for ATExecDetachPartition, while ensuring no other partitions are already pending detach.

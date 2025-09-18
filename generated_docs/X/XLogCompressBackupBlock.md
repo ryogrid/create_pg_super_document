@@ -1,7 +1,7 @@
 # XLogCompressBackupBlock
 
 ## Location
-src/backend/access/transam/xloginsert.c: 944 - 1026
+[src/backend/access/transam/xloginsert.c:944-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L944-L1026)
 
 ## Overview
 XLogCompressBackupBlock creates a compressed version of a backup block image for WAL records, supporting multiple compression algorithms to reduce WAL size.

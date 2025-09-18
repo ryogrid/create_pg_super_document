@@ -1,7 +1,7 @@
 # build_aggregate_serialfn_expr
 
 ## Location
-src/backend/parser/parse_agg.c: 2096 - 2118
+[src/backend/parser/parse_agg.c:2096-2118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L2096-L2118)
 
 ## Overview
 Creates an expression tree for the serialization function of an aggregate, similar to build_aggregate_transfn_expr but specifically for serialization operations.

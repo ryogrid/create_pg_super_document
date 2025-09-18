@@ -1,7 +1,7 @@
 # escapify
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 100 - 118
+[src/test/modules/test_escape/test_escape.c:100-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L100-L118)
 
 ## Overview
 A utility function that converts a string into a more readable format by escaping non-printable and non-ASCII characters for debugging and testing purposes.

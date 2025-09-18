@@ -1,7 +1,7 @@
 # spg_box_quad_picksplit
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 441 - 507
+[src/backend/utils/adt/geo_spgist.c:441-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L441-L507)
 
 ## Overview
 The SP-GiST pick-split function for box geometric types that partitions a collection of boxes into quadrants by calculating a central 4D point as the median of all box coordinates.

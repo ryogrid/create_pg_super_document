@@ -1,7 +1,7 @@
 # pq_cleanup_redirect_to_shm_mq
 
 ## Location
-src/backend/libpq/pqmq.c: 67 - 77
+[src/backend/libpq/pqmq.c:67-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L67-L77)
 
 ## Overview
 Cleanup function that resets the shared memory message queue communication state when the associated dynamic shared memory segment is detached.

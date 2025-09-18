@@ -1,7 +1,7 @@
 # find_minmax_agg_replacement_param
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3439 - 3471
+[src/backend/optimizer/plan/setrefs.c:3439-3471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3439-L3471)
 
 ## Overview
 Determines if a given aggregate function reference should be replaced with a parameter reference as part of min/max aggregate optimization, and returns the replacement parameter if applicable.

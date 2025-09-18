@@ -1,7 +1,7 @@
 # TwoPhaseRecordOnDisk
 
 ## Location
-src/backend/access/transam/twophase.c: 983 - 988
+[src/backend/access/transam/twophase.c:983-988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L983-L988)
 
 ## Overview
 TwoPhaseRecordOnDisk is a header structure for each record stored in a two-phase commit state file, providing metadata about the resource manager data that follows.

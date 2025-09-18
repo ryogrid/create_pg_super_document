@@ -1,7 +1,7 @@
 # IsInstallXLogFileSegmentActive
 
 ## Location
-src/backend/access/transam/xlog.c: 9508 - 9522
+[src/backend/access/transam/xlog.c:9508-9522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9508-L9522)
 
 ## Overview
 Returns the current state of the InstallXLogFileSegmentActive flag, indicating whether WAL file recycling and preallocation operations are currently enabled.

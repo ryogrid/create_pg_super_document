@@ -1,7 +1,7 @@
 # pg_foreach_ifaddr
 
 ## Location
-src/backend/libpq/ifaddr.c: 349 - 425
+[src/backend/libpq/ifaddr.c:349-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L349-L425)
 
 ## Overview
 Enumerates all network interface addresses on the system and calls a callback function for each valid address/netmask pair.

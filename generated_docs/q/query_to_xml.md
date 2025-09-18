@@ -1,7 +1,7 @@
 # query_to_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 2899 - 2912
+[src/backend/utils/adt/xml.c:2899-2912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2899-L2912)
 
 ## Overview
 SQL/XML function that executes an arbitrary SQL query and converts the result set to XML format, providing flexible XML generation from any SELECT query.

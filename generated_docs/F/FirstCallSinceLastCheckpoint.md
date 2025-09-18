@@ -1,7 +1,7 @@
 # FirstCallSinceLastCheckpoint
 
 ## Location
-src/backend/postmaster/checkpointer.c: 1336 - 1352
+[src/backend/postmaster/checkpointer.c:1336-1352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L1336-L1352)
 
 ## Overview
 FirstCallSinceLastCheckpoint allows a process to detect when a new checkpoint cycle has begun and take action once per checkpoint cycle through asynchronous checkpoint completion checking.

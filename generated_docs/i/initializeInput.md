@@ -1,7 +1,7 @@
 # initializeInput
 
 ## Location
-src/bin/psql/input.c: 344 - 412
+[src/bin/psql/input.c:344-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L344-L412)
 
 ## Overview
 Initializes the input handling subsystem for psql, setting up readline functionality, history management, and loading previous command history from files.

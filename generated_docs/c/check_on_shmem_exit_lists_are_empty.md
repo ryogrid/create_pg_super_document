@@ -1,7 +1,7 @@
 # check_on_shmem_exit_lists_are_empty
 
 ## Location
-src/backend/storage/ipc/ipc.c: 432 - 439
+[src/backend/storage/ipc/ipc.c:432-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L432-L439)
 
 ## Overview
 A debugging function that verifies no shared memory cleanup handlers have been registered prematurely in the current process.

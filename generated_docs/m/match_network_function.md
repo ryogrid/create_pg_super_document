@@ -1,7 +1,7 @@
 # match_network_function
 
 ## Location
-src/backend/utils/adt/network.c: 1028 - 1075
+[src/backend/utils/adt/network.c:1028-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1028-L1075)
 
 ## Overview
 Identifies network subset/superset functions and generates index qualification conditions by routing to the appropriate matching logic based on function ID.

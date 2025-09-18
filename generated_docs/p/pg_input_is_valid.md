@@ -1,7 +1,7 @@
 # pg_input_is_valid
 
 ## Location
-src/backend/utils/adt/misc.c: 696 - 715
+[src/backend/utils/adt/misc.c:696-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L696-L715)
 
 ## Overview
 pg_input_is_valid is a SQL-callable function that tests whether a given string is valid input for a specified data type, returning true if valid or false if invalid.

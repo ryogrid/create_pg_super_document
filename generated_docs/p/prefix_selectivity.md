@@ -1,7 +1,7 @@
 # prefix_selectivity
 
 ## Location
-src/backend/utils/adt/like_support.c: 1232 - 1315
+[src/backend/utils/adt/like_support.c:1232-1315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1232-L1315)
 
 ## Overview
 Estimates the selectivity of a fixed prefix pattern by calculating the fraction of rows that would match the prefix using range-based histogram analysis.

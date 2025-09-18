@@ -1,7 +1,7 @@
 # RangeQueryClause
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 31 - 39
+[src/backend/optimizer/path/clausesel.c:31-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L31-L39)
 
 ## Overview
 A data structure used for accumulating information about possible range-query clause pairs during selectivity estimation in PostgreSQL's query optimizer.

@@ -1,7 +1,7 @@
 # r_steps5
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2647 - 2675
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2647-2675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2647-L2675)
 
 ## Overview
 The r_steps5 function is part of the Greek stemming algorithm in PostgreSQL's snowball stemmer library, implementing step 5 of the stemming process with pattern matching and conditional suffix replacement.

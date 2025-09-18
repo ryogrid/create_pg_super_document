@@ -1,7 +1,7 @@
 # get_control_dbstate
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 2171 - 2189
+[src/bin/pg_ctl/pg_ctl.c:2171-2189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L2171-L2189)
 
 ## Overview
 Retrieves the current database state from the PostgreSQL control file, which tracks the cluster's operational status.

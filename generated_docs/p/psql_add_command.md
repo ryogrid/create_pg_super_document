@@ -1,7 +1,7 @@
 # psql_add_command
 
 ## Location
-src/test/regress/pg_regress.c: 1127 - 1163
+[src/test/regress/pg_regress.c:1127-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1127-L1163)
 
 ## Overview
 Adds a SQL command to a psql command string buffer with proper shell escaping and variable argument formatting, preparing it for safe execution via system().

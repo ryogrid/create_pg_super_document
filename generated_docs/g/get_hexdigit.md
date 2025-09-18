@@ -1,7 +1,7 @@
 # get_hexdigit
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6817 - 6837
+[src/interfaces/libpq/fe-connect.c:6817-6837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6817-L6837)
 
 ## Overview
 Converts a single hexadecimal digit character (0-9, A-F, a-f) to its corresponding integer value (0-15).

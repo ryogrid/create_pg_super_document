@@ -1,7 +1,7 @@
 # pgLobjfuncs
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 284 - 298
+[src/interfaces/libpq/libpq-int.h:284-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L284-L298)
 
 ## Overview
 pgLobjfuncs is a structure that stores the Object IDs (OIDs) of PostgreSQL backend functions needed for large object operations, enabling libpq to perform function calls for large object manipulation.

@@ -1,7 +1,7 @@
 # PostmasterIsAlive
 
 ## Location
-src/include/storage/pmsignal.h: 95 - 102
+[src/include/storage/pmsignal.h:95-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/pmsignal.h#L95-L102)
 
 ## Overview
 PostmasterIsAlive is an optimized inline function that checks whether the postmaster process is still alive, using a fast-path optimization to avoid expensive system calls in the common case.

@@ -1,7 +1,7 @@
 # list_difference_oid
 
 ## Location
-src/backend/nodes/list.c: 1313 - 1342
+[src/backend/nodes/list.c:1313-1342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1313-L1342)
 
 ## Overview
 Returns a new list containing OID elements from the first list that are not present in the second list, using OID value equality for membership comparison.

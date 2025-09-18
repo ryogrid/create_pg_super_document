@@ -1,7 +1,7 @@
 # get_next_fragment
 
 ## Location
-src/backend/tsearch/wparser_def.c: 2220 - 2270
+[src/backend/tsearch/wparser_def.c:2220-2270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L2220-L2270)
 
 ## Overview
 Splits a cover substring into fragments not longer than max_words, ensuring fragments start and end with query-matching words for optimal headline display.

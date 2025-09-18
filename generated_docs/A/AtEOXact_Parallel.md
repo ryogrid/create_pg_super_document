@@ -1,7 +1,7 @@
 # AtEOXact_Parallel
 
 ## Location
-src/backend/access/transam/parallel.c: 1271 - 1287
+[src/backend/access/transam/parallel.c:1271-1287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1271-L1287)
 
 ## Overview
 Performs end-of-transaction cleanup for parallel contexts by destroying all remaining parallel contexts, ensuring complete cleanup at transaction boundaries.

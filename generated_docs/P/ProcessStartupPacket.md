@@ -1,7 +1,7 @@
 # ProcessStartupPacket
 
 ## Location
-src/backend/tcop/backend_startup.c: 453 - 854
+[src/backend/tcop/backend_startup.c:453-854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L453-L854)
 
 ## Overview
 ProcessStartupPacket reads and processes a client's startup packet, handling protocol negotiation, connection parameters, and special request types like SSL/GSSAPI negotiation or cancel requests.

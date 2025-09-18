@@ -1,7 +1,7 @@
 # free_copy_options
 
 ## Location
-src/bin/psql/copy.c: 65 - 77
+[src/bin/psql/copy.c:65-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L65-L77)
 
 ## Overview
 Frees memory allocated for a copy_options structure and its dynamically allocated members.

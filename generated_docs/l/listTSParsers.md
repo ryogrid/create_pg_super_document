@@ -1,7 +1,7 @@
 # listTSParsers
 
 ## Location
-src/bin/psql/describe.c: 5147 - 5198
+[src/bin/psql/describe.c:5147-5198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5147-L5198)
 
 ## Overview
 The  function implements the  psql command for displaying text search parser information in a PostgreSQL database.

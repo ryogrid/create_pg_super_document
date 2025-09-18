@@ -1,7 +1,7 @@
 # time_recv
 
 ## Location
-src/backend/utils/adt/date.c: 1521 - 1546
+[src/backend/utils/adt/date.c:1521-1546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1521-L1546)
 
 ## Overview
 Converts external binary format to PostgreSQL's internal TimeADT representation, handling deserialization of time values from network byte order.

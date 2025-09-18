@@ -1,7 +1,7 @@
 # add_descriptor
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 76 - 98
+[src/interfaces/ecpg/preproc/descriptor.c:76-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L76-L98)
 
 ## Overview
 Adds a new SQL descriptor to the global descriptors linked list, storing its name and optional connection information for ECPG preprocessor management.

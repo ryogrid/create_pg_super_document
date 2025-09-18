@@ -1,7 +1,7 @@
 # SyncRepWakeQueue
 
 ## Location
-src/backend/replication/syncrep.c: 907 - 963
+[src/backend/replication/syncrep.c:907-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L907-L963)
 
 ## Overview
 Wakes up backend processes waiting for synchronous replication by walking through the synchronous replication wait queue and notifying processes whose wait conditions have been satisfied.

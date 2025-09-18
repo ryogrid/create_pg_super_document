@@ -1,7 +1,7 @@
 # compute_semijoin_info
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1700 - 1877
+[src/backend/optimizer/plan/initsplan.c:1700-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1700-L1877)
 
 ## Overview
 Fills semijoin-related fields of a SpecialJoinInfo structure by analyzing whether the semijoin can be optimized using unique-ification techniques.

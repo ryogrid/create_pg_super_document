@@ -1,7 +1,7 @@
 # check_control_data
 
 ## Location
-src/bin/pg_upgrade/controldata.c: 654 - 710
+[src/bin/pg_upgrade/controldata.c:654-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/controldata.c#L654-L710)
 
 ## Overview
 Validates compatibility between old and new PostgreSQL clusters by comparing critical control data settings that must match for a successful upgrade.

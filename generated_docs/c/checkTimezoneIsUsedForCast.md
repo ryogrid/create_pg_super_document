@@ -1,7 +1,7 @@
 # checkTimezoneIsUsedForCast
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3666 - 3677
+[src/backend/utils/adt/jsonpath_exec.c:3666-3677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3666-L3677)
 
 ## Overview
 A static helper function that validates timezone usage requirements for type casting operations in JSON path execution.

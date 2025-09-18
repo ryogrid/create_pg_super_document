@@ -1,7 +1,7 @@
 # ExecIndexScanInitializeWorker
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 1710 - 1731
+[src/backend/executor/nodeIndexscan.c:1710-1731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L1710-L1731)
 
 ## Overview
 This function initializes a parallel worker process for index scan operations by copying relevant shared information from the table of contents (TOC) and setting up the index scan descriptor.

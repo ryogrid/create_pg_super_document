@@ -1,7 +1,7 @@
 # pg_wc_isalpha
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 328 - 361
+[src/backend/regex/regc_pg_locale.c:328-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L328-L361)
 
 ## Overview
 A static function that determines whether a wide character is an alphabetic character, using the appropriate locale-aware method based on the current regex strategy.

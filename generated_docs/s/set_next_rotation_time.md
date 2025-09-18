@@ -1,7 +1,7 @@
 # set_next_rotation_time
 
 ## Location
-src/backend/postmaster/syslogger.c: 1441 - 1475
+[src/backend/postmaster/syslogger.c:1441-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1441-L1475)
 
 ## Overview
 Calculates and sets the next scheduled time for automatic log file rotation based on the configured rotation age interval.

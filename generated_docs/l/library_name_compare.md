@@ -1,7 +1,7 @@
 # library_name_compare
 
 ## Location
-src/bin/pg_upgrade/function.c: 29 - 54
+[src/bin/pg_upgrade/function.c:29-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/function.c#L29-L54)
 
 ## Overview
 A qsort comparator function for pointers to library names used in pg_upgrade to ensure predictable ordering when checking loadable libraries.

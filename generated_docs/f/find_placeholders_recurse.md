@@ -1,7 +1,7 @@
 # find_placeholders_recurse
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 207 - 256
+[src/backend/optimizer/util/placeholder.c:207-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L207-L256)
 
 ## Overview
 Recursively traverses the query jointree structure to systematically discover PlaceHolderVars in all join qualifications and expressions throughout the tree hierarchy.

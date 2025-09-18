@@ -1,7 +1,7 @@
 # ForeignTruncateInfo
 
 ## Location
-src/backend/commands/tablecmds.c: 342 - 346
+[src/backend/commands/tablecmds.c:342-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L342-L346)
 
 ## Overview
 A hash table entry structure used to organize foreign tables by their foreign server during TRUNCATE operations, enabling bulk truncation of all foreign tables belonging to each server.

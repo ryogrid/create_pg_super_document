@@ -1,7 +1,7 @@
 # read_tar_number
 
 ## Location
-src/port/tar.c: 58 - 89
+[src/port/tar.c:58-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/tar.c#L58-L89)
 
 ## Overview
 A utility function that parses numeric values from tar header fields, supporting both POSIX octal format and GNU binary format for reading tar archive headers.

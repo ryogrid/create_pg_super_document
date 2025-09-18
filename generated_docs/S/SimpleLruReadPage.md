@@ -1,7 +1,7 @@
 # SimpleLruReadPage
 
 ## Location
-src/backend/access/transam/slru.c: 502 - 604
+[src/backend/access/transam/slru.c:502-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L502-L604)
 
 ## Overview
 Finds a page in the SLRU shared buffer pool, reading it from disk if necessary, with support for concurrent I/O operations and transaction safety.

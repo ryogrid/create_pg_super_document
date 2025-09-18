@@ -1,7 +1,7 @@
 # get_sync_bit
 
 ## Location
-src/backend/access/transam/xlog.c: 8609 - 8656
+[src/backend/access/transam/xlog.c:8609-8656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8609-L8656)
 
 ## Overview
 Determines the appropriate file opening flags for WAL files based on the configured synchronization method and direct I/O settings.

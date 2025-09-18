@@ -1,7 +1,7 @@
 # list_insert_nth_oid
 
 ## Location
-src/backend/nodes/list.c: 467 - 494
+[src/backend/nodes/list.c:467-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L467-L494)
 
 ## Overview
 Inserts an Object Identifier (Oid) value at a specified position in a PostgreSQL List that specifically contains Oid elements, maintaining type safety and list structure.

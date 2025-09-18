@@ -1,7 +1,7 @@
 # listCollations
 
 ## Location
-src/bin/psql/describe.c: 4908 - 5025
+[src/bin/psql/describe.c:4908-5025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4908-L5025)
 
 ## Overview
 The  function implements the  psql command for displaying collation information in a PostgreSQL database.

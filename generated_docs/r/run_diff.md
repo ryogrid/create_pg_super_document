@@ -1,7 +1,7 @@
 # run_diff
 
 ## Location
-src/test/regress/pg_regress.c: 1370 - 1401
+[src/test/regress/pg_regress.c:1370-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1370-L1401)
 
 ## Overview
 Executes a diff command and validates its execution status, ensuring the command runs successfully and doesn't crash during PostgreSQL regression testing.

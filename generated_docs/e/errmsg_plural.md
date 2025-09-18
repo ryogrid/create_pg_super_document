@@ -1,7 +1,7 @@
 # errmsg_plural
 
 ## Location
-src/backend/utils/error/elog.c: 1180 - 1202
+[src/backend/utils/error/elog.c:1180-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1180-L1202)
 
 ## Overview
 Adds a primary error message text to the current error with support for pluralization, automatically selecting between singular and plural forms based on a count value.

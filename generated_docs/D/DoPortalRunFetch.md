@@ -1,7 +1,7 @@
 # DoPortalRunFetch
 
 ## Location
-src/backend/tcop/pquery.c: 1478 - 1671
+[src/backend/tcop/pquery.c:1478-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1478-L1671)
 
 ## Overview
 DoPortalRunFetch implements the core logic for fetching rows from a portal with support for various fetch directions (forward, backward, absolute, relative) and different count values.

@@ -1,7 +1,7 @@
 # find_update_path
 
 ## Location
-src/backend/commands/extension.c: 1310 - 1402
+[src/backend/commands/extension.c:1310-1402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1310-L1402)
 
 ## Overview
 Implements Dijkstra's shortest path algorithm to find the optimal sequence of version transitions between two extension versions in the dependency graph.

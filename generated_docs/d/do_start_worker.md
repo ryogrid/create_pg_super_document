@@ -1,7 +1,7 @@
 # do_start_worker
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1073 - 1284
+[src/backend/postmaster/autovacuum.c:1073-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1073-L1284)
 
 ## Overview
 A bare-bones procedure for starting an autovacuum worker from the launcher that determines what database to work on, sets up shared memory structures, and signals the postmaster to start the worker.

@@ -1,7 +1,7 @@
 # XLogWalRcvSendReply
 
 ## Location
-src/backend/replication/walreceiver.c: 1100 - 1168
+[src/backend/replication/walreceiver.c:1100-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1100-L1168)
 
 ## Overview
 Sends status reply messages to the primary server during streaming replication, reporting current WAL write, flush, and apply positions along with timing information.

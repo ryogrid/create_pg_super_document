@@ -1,7 +1,7 @@
 # pg_atomic_compare_exchange_u32_impl
 
 ## Location
-src/include/port/atomics/generic-gcc.h: 167 - 187
+[src/include/port/atomics/generic-gcc.h:167-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic-gcc.h#L167-L187)
 
 ## Overview
 This function provides a fallback implementation for atomic compare-and-exchange operations on 32-bit unsigned integers when native hardware atomic support is not available.

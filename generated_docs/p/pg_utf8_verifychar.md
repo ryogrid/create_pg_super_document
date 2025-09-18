@@ -1,7 +1,7 @@
 # pg_utf8_verifychar
 
 ## Location
-src/common/wchar.c: 1701 - 1778
+[src/common/wchar.c:1701-1778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1701-L1778)
 
 ## Overview
 Validates a single character in UTF-8 encoding format, determining the character length and verifying that the byte sequence conforms to UTF-8 encoding rules.

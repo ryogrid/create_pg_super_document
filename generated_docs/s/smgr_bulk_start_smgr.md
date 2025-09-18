@@ -1,7 +1,7 @@
 # smgr_bulk_start_smgr
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 101 - 130
+[src/backend/storage/smgr/bulk_write.c:101-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L101-L130)
 
 ## Overview
 Initializes and returns a BulkWriteState for performing bulk write operations on a relation fork using the storage manager interface directly.

@@ -1,7 +1,7 @@
 # json_send
 
 ## Location
-src/backend/utils/adt/json.c: 136 - 149
+[src/backend/utils/adt/json.c:136-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L136-L149)
 
 ## Overview
 Serializes PostgreSQL's JSON data into binary format for efficient network transmission using PostgreSQL's binary protocol.

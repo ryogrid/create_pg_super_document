@@ -1,7 +1,7 @@
 # TidStoreAttach
 
 ## Location
-src/backend/access/common/tidstore.c: 255 - 279
+[src/backend/access/common/tidstore.c:255-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L255-L279)
 
 ## Overview
 Attaches to an existing shared TidStore by connecting to its Dynamic Shared Area (DSA) and creating a local handle for backend-specific access to the shared TID data.

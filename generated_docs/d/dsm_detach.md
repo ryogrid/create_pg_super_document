@@ -1,7 +1,7 @@
 # dsm_detach
 
 ## Location
-src/backend/storage/ipc/dsm.c: 803 - 914
+[src/backend/storage/ipc/dsm.c:803-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L803-L914)
 
 ## Overview
 Detaches from a DSM segment, performing cleanup callbacks, unmapping memory, and destroying the segment if this was the last reference.

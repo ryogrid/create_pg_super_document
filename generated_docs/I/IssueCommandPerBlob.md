@@ -1,7 +1,7 @@
 # IssueCommandPerBlob
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 552 - 598
+[src/bin/pg_dump/pg_backup_db.c:552-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L552-L598)
 
 ## Overview
 IssueCommandPerBlob is a utility function in pg_dump that executes SQL commands for each large object (blob) OID listed in a TocEntry, with transaction management support for batch processing.

@@ -1,7 +1,7 @@
 # interval_scale
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1337 - 1358
+[src/backend/utils/adt/timestamp.c:1337-1358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1337-L1358)
 
 ## Overview
 Adjusts an INTERVAL value to conform to specified type modifier constraints, performing truncation and precision adjustments as required by the target interval type specification.

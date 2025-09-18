@@ -1,7 +1,7 @@
 # FindStreamingStart
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 268 - 369
+[src/bin/pg_basebackup/pg_receivewal.c:268-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L268-L369)
 
 ## Overview
 Determines the starting location for WAL streaming by analyzing existing WAL segment files in the destination directory to find the appropriate resume point.

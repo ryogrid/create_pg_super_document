@@ -1,7 +1,7 @@
 # create_append_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1217 - 1437
+[src/backend/optimizer/plan/createplan.c:1217-1437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1217-L1437)
 
 ## Overview
 Creates an Append plan node that combines results from multiple subpaths, with support for sorting, asynchronous execution, and partition pruning.

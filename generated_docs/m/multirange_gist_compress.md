@@ -1,7 +1,7 @@
 # multirange_gist_compress
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 245 - 269
+[src/backend/utils/adt/rangetypes_gist.c:245-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L245-L269)
 
 ## Overview
 Implements the GiST compress operation for multirange types, converting multiranges into single ranges for efficient indexing by computing their union range.

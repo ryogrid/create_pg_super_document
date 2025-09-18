@@ -1,7 +1,7 @@
 # regexp_like
 
 ## Location
-src/backend/utils/adt/regexp.c: 1283 - 1310
+[src/backend/utils/adt/regexp.c:1283-1310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1283-L1310)
 
 ## Overview
 Tests for a pattern match within a string using regular expressions, providing boolean result indicating whether the pattern matches the input text.

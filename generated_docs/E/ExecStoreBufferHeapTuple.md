@@ -1,7 +1,7 @@
 # ExecStoreBufferHeapTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1479 - 1504
+[src/backend/executor/execTuples.c:1479-1504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1479-L1504)
 
 ## Overview
 Stores an on-disk physical tuple from a buffer into a specified TTSOpsBufferHeapTuple type slot, maintaining buffer pin for tuple stability.

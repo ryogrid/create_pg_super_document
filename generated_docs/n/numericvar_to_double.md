@@ -1,7 +1,7 @@
 # numericvar_to_double
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1432 - 1482
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1432-1482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1432-L1482)
 
 ## Overview
 Internal static function that converts a PostgreSQL numeric value to a double-precision floating-point number using string conversion with proper error handling.

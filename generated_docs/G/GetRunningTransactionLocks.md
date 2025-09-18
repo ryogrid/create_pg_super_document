@@ -1,7 +1,7 @@
 # GetRunningTransactionLocks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3988 - 4069
+[src/backend/storage/lmgr/lock.c:3988-4069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3988-L4069)
 
 ## Overview
 GetRunningTransactionLocks returns a list of currently held AccessExclusiveLocks on relations for use by LogStandbySnapshot in WAL-based replication scenarios.

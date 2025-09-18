@@ -1,7 +1,7 @@
 # make_bitmap_indexscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5605 - 5625
+[src/backend/optimizer/plan/createplan.c:5605-5625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5605-L5625)
 
 ## Overview
 Creates and initializes a BitmapIndexScan plan node that generates a bitmap of heap page locations by scanning an index, typically used as input to a subsequent BitmapHeapScan operation.

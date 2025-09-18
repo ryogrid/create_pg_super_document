@@ -1,7 +1,7 @@
 # SharedExecutorInstrumentation
 
 ## Location
-src/backend/executor/execParallel.c: 97 - 105
+[src/backend/executor/execParallel.c:97-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L97-L105)
 
 ## Overview
 SharedExecutorInstrumentation is a DSM (Dynamic Shared Memory) structure used for accumulating and sharing per-PlanState instrumentation data across parallel worker processes during parallel query execution.

@@ -1,7 +1,7 @@
 # appendToBuffer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1519 - 1532
+[src/backend/utils/adt/jsonb_util.c:1519-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1519-L1532)
 
 ## Overview
 A static utility function that provides a convenient shorthand for reserving space in a StringInfo buffer and then copying data to that reserved space in a single operation.

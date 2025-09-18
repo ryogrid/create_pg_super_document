@@ -1,7 +1,7 @@
 # int82ge
 
 ## Location
-src/backend/utils/adt/int8.c: 329 - 340
+[src/backend/utils/adt/int8.c:329-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L329-L340)
 
 ## Overview
 A PostgreSQL built-in function that compares an 8-byte integer (bigint/int64) with a 2-byte integer (smallint/int16) to determine if the first value is greater than or equal to the second.

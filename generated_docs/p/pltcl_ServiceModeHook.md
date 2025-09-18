@@ -1,7 +1,7 @@
 # pltcl_ServiceModeHook
 
 ## Location
-src/pl/tcl/pltcl.c: 384 - 388
+[src/pl/tcl/pltcl.c:384-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L384-L388)
 
 ## Overview
 A stub implementation of Tcl's service mode hook function that intentionally does nothing to prevent multithreading issues in PostgreSQL's PL/Tcl environment.

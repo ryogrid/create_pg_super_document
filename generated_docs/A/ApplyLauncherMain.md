@@ -1,7 +1,7 @@
 # ApplyLauncherMain
 
 ## Location
-src/backend/replication/logical/launcher.c: 1135 - 1266
+[src/backend/replication/logical/launcher.c:1135-1266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1135-L1266)
 
 ## Overview
 The main entry point and event loop for the logical replication launcher background worker process that manages subscription apply workers.

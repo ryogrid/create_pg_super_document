@@ -1,7 +1,7 @@
 # tablespace_list_append
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 320 - 389
+[src/bin/pg_basebackup/pg_basebackup.c:320-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L320-L389)
 
 ## Overview
 Parses and validates tablespace mapping arguments and appends them to the global tablespace mapping list for pg_basebackup operations.

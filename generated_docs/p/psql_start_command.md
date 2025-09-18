@@ -1,7 +1,7 @@
 # psql_start_command
 
 ## Location
-src/test/regress/pg_regress.c: 1115 - 1126
+[src/test/regress/pg_regress.c:1115-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1115-L1126)
 
 ## Overview
 Initiates a psql command string by creating a StringInfo buffer containing the base psql invocation with standard options for regression testing.

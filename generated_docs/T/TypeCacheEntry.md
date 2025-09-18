@@ -1,7 +1,7 @@
 # TypeCacheEntry
 
 ## Location
-src/include/utils/typcache.h: 31 - 134
+[src/include/utils/typcache.h:31-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/typcache.h#L31-L134)
 
 ## Overview
 TypeCacheEntry is a comprehensive data structure that caches type-related information for PostgreSQL data types to avoid repeated lookups and computations during query execution.

@@ -1,7 +1,7 @@
 # test_prepared
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1254 - 1412
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1254-1412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1254-L1412)
 
 ## Overview
 Tests PostgreSQL pipeline mode functionality for prepared statements and portals, including creation, description, execution, and cleanup operations within pipeline contexts.

@@ -1,7 +1,7 @@
 # sigint_handler
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 91 - 97
+[src/bin/pg_waldump/pg_waldump.c:91-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L91-L97)
 
 ## Overview
 A SIGINT signal handler function that provides graceful shutdown capability for the pg_waldump utility by setting a global flag to stop processing.

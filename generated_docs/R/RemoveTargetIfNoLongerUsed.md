@@ -1,7 +1,7 @@
 # RemoveTargetIfNoLongerUsed
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2173 - 2203
+[src/backend/storage/lmgr/predicate.c:2173-2203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2173-L2203)
 
 ## Overview
 Checks whether the list of related predicate locks is empty for a predicate lock target, and removes the target from the hash table if it is no longer used.

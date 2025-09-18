@@ -1,7 +1,7 @@
 # r_mark_ncA
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 777 - 788
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:777-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L777-L788)
 
 ## Overview
 A static function in the Turkish snowball stemmer that checks for the possessive case suffix "ncA" while ensuring vowel harmony compliance and handling optional consonant insertion.

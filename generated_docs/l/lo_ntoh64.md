@@ -1,7 +1,7 @@
 # lo_ntoh64
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 1048 - 1064
+[src/interfaces/libpq/fe-lobj.c:1048-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L1048-L1064)
 
 ## Overview
 Static utility function that converts a 64-bit integer from network byte order to host byte order for large object network protocol communications.

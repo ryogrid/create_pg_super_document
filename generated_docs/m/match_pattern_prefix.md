@@ -1,7 +1,7 @@
 # match_pattern_prefix
 
 ## Location
-src/backend/utils/adt/like_support.c: 241 - 485
+[src/backend/utils/adt/like_support.c:241-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L241-L485)
 
 ## Overview
 Generates indexable range conditions from LIKE and regex patterns by extracting fixed prefixes and converting them into optimized equality or range constraints for efficient index scanning.

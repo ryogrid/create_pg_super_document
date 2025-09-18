@@ -1,7 +1,7 @@
 # PQconninfoOption
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 268 - 282
+[src/interfaces/libpq/libpq-fe.h:268-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L268-L282)
 
 ## Overview
 PQconninfoOption is a structure that represents a single connection parameter option in PostgreSQL's libpq client library, containing metadata about connection parameters including their values, labels, and display characteristics.

@@ -1,7 +1,7 @@
 # read_file_contents
 
 ## Location
-src/bin/pgbench/pgbench.c: 6078 - 6110
+[src/bin/pgbench/pgbench.c:6078-6110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6078-L6110)
 
 ## Overview
 Reads the entire contents of a file descriptor into a dynamically allocated buffer and returns it as a null-terminated string.

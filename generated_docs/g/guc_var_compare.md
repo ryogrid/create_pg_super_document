@@ -1,7 +1,7 @@
 # guc_var_compare
 
 ## Location
-src/backend/utils/misc/guc.c: 1290 - 1301
+[src/backend/utils/misc/guc.c:1290-1301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1290-L1301)
 
 ## Overview
 A comparison function used for sorting GUC (Grand Unified Configuration) variables by their names when ordering an array of GUC pointers.

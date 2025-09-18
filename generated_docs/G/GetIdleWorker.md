@@ -1,7 +1,7 @@
 # GetIdleWorker
 
 ## Location
-src/bin/pg_dump/parallel.c: 1236 - 1251
+[src/bin/pg_dump/parallel.c:1236-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1236-L1251)
 
 ## Overview
 Searches through the worker pool to find an available worker process and returns its slot number, or indicates if no workers are currently idle.

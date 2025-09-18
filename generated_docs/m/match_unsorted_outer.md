@@ -1,7 +1,7 @@
 # match_unsorted_outer
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1717 - 1968
+[src/backend/optimizer/path/joinpath.c:1717-1968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1717-L1968)
 
 ## Overview
 Creates possible join paths by generating nestloop and mergejoin paths for each available outer path, considering various inner path options and optimization strategies.

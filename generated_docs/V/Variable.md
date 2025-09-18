@@ -1,7 +1,7 @@
 # Variable
 
 ## Location
-src/bin/pgbench/pgbench.c: 327 - 344
+[src/bin/pgbench/pgbench.c:327-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L327-L344)
 
 ## Overview
 The Variable structure represents an individual variable in pgbench's variable management system, storing both string and typed representations of variable values.

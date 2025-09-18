@@ -1,7 +1,7 @@
 # array_eq
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3802 - 3930
+[src/backend/utils/adt/arrayfuncs.c:3802-3930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3802-L3930)
 
 ## Overview
 Compares two PostgreSQL arrays for complete equality, including dimensions, bounds, and element-by-element comparison using the appropriate equality operator for the element type.

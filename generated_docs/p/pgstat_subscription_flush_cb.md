@@ -1,7 +1,7 @@
 # pgstat_subscription_flush_cb
 
 ## Location
-src/backend/utils/activity/pgstat_subscription.c: 88 - 100
+[src/backend/utils/activity/pgstat_subscription.c:88-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_subscription.c#L88-L100)
 
 ## Overview
 Flushes pending subscription statistics from backend-local storage to the shared statistics area, handling error counts for logical replication subscriptions.

@@ -1,7 +1,7 @@
 # create_seqscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2917 - 2954
+[src/backend/optimizer/plan/createplan.c:2917-2954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2917-L2954)
 
 ## Overview
 Creates a sequential scan plan node for scanning a base relation with specified target list and restriction clauses.

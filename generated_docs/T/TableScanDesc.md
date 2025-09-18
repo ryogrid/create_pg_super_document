@@ -1,7 +1,7 @@
 # TableScanDesc
 
 ## Location
-src/include/access/relscan.h: 52 - 62
+[src/include/access/relscan.h:52-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L52-L62)
 
 ## Overview
 TableScanDesc is a pointer type definition to TableScanDescData, serving as the standard handle for table scan operations throughout PostgreSQL.

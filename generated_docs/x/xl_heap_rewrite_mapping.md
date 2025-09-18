@@ -1,7 +1,7 @@
 # xl_heap_rewrite_mapping
 
 ## Location
-src/include/access/heapam_xlog.h: 467 - 475
+[src/include/access/heapam_xlog.h:467-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L467-L475)
 
 ## Overview
 A WAL record structure that logs tuple mapping information during heap rewrites for logical replication consistency.

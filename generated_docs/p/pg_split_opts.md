@@ -1,7 +1,7 @@
 # pg_split_opts
 
 ## Location
-src/backend/utils/init/postinit.c: 519 - 576
+[src/backend/utils/init/postinit.c:519-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L519-L576)
 
 ## Overview
 pg_split_opts is a utility function that parses a string of command-line options and splits it into individual arguments, appending them to an argv array.

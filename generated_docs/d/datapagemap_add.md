@@ -1,7 +1,7 @@
 # datapagemap_add
 
 ## Location
-src/bin/pg_rewind/datapagemap.c: 32 - 74
+[src/bin/pg_rewind/datapagemap.c:32-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.c#L32-L74)
 
 ## Overview
 Adds a specific block number to a bitmap data structure used for tracking modified data pages in the pg_rewind utility.

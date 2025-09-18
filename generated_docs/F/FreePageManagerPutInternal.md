@@ -1,7 +1,7 @@
 # FreePageManagerPutInternal
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1476 - 1842
+[src/backend/utils/mmgr/freepage.c:1476-1842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1476-L1842)
 
 ## Overview
 The core deallocation function that returns a range of pages to the Free Page Manager, handling consolidation with adjacent spans and B-tree management including splits and reorganization.

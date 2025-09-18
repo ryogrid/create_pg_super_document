@@ -1,7 +1,7 @@
 # ConstraintImpliedByRelConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 18357 - 18413
+[src/backend/commands/tablecmds.c:18357-18413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18357-L18413)
 
 ## Overview
 ConstraintImpliedByRelConstraint determines whether a relation's existing constraints logically imply a given test constraint by analyzing CHECK constraints and using predicate implication logic.

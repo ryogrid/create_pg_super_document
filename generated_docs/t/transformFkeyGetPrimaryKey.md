@@ -1,7 +1,7 @@
 # transformFkeyGetPrimaryKey
 
 ## Location
-src/backend/commands/tablecmds.c: 11945 - 12043
+[src/backend/commands/tablecmds.c:11945-12043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11945-L12043)
 
 ## Overview
 transformFkeyGetPrimaryKey retrieves the names, attribute numbers, types, and index information for the primary key of a referenced table, used when the column list is omitted in a REFERENCES specification.

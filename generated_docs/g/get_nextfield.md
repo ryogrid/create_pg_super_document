@@ -1,7 +1,7 @@
 # get_nextfield
 
 ## Location
-src/backend/tsearch/spell.c: 792 - 857
+[src/backend/tsearch/spell.c:792-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L792-L857)
 
 ## Overview
 Parses the next space-separated field from an .affix file line, handling multibyte characters and comment detection.

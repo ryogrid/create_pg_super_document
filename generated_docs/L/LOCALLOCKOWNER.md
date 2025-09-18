@@ -1,7 +1,7 @@
 # LOCALLOCKOWNER
 
 ## Location
-src/include/storage/lock.h: 414 - 424
+[src/include/storage/lock.h:414-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L414-L424)
 
 ## Overview
 LOCALLOCKOWNER tracks ownership and reference counts for locks held by specific resource owners, enabling proper lock management and cleanup per transaction or session.

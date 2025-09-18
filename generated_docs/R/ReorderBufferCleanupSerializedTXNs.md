@@ -1,7 +1,7 @@
 # ReorderBufferCleanupSerializedTXNs
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4728 - 4766
+[src/backend/replication/logical/reorderbuffer.c:4728-4766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4728-L4766)
 
 ## Overview
 ReorderBufferCleanupSerializedTXNs removes leftover serialized reorder buffer files from a replication slot directory, typically called after crashes or when cleaning up after decoding sessions.

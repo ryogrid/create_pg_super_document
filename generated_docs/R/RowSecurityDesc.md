@@ -1,7 +1,7 @@
 # RowSecurityDesc
 
 ## Location
-src/include/rewrite/rowsecurity.h: 31 - 35
+[src/include/rewrite/rowsecurity.h:31-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/rowsecurity.h#L31-L35)
 
 ## Overview
 RowSecurityDesc is a container structure that holds all row-level security policies for a specific relation, providing both memory management and organized access to the collection of security policies.

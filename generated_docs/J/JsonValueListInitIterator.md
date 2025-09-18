@@ -1,7 +1,7 @@
 # JsonValueListInitIterator
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3554 - 3579
+[src/backend/utils/adt/jsonpath_exec.c:3554-3579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3554-L3579)
 
 ## Overview
 Initializes a JsonValueListIterator structure for sequential iteration over all JSON values in a JsonValueList, handling singleton, list, and empty cases.

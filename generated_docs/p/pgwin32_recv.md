@@ -1,7 +1,7 @@
 # pgwin32_recv
 
 ## Location
-src/backend/port/win32/socket.c: 382 - 458
+[src/backend/port/win32/socket.c:382-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L382-L458)
 
 ## Overview
 PostgreSQL's Windows-specific wrapper function for receiving data from sockets that handles both blocking and non-blocking modes with robust signal integration and retry logic for Windows socket peculiarities.

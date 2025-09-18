@@ -1,7 +1,7 @@
 # pg_atomic_compare_exchange_u64
 
 ## Location
-src/include/port/atomics.h: 507 - 516
+[src/include/port/atomics.h:507-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L507-L516)
 
 ## Overview
 Atomically compares the value of a 64-bit unsigned integer variable with an expected value and, if they match, replaces it with a new value, returning whether the exchange was successful.

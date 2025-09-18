@@ -1,7 +1,7 @@
 # select_rowmark_type
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2407 - 2472
+[src/backend/optimizer/plan/planner.c:2407-2472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2407-L2472)
 
 ## Overview
 Determines the appropriate row marking type (RowMarkType) for a given range table entry based on the relation type and locking strength requirements.

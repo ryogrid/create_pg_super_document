@@ -1,7 +1,7 @@
 # pg_vsnprintf
 
 ## Location
-src/port/snprintf.c: 174 - 201
+[src/port/snprintf.c:174-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L174-L201)
 
 ## Overview
 pg_vsnprintf is PostgreSQL's portable implementation of the vsnprintf function that formats and stores a string in a buffer with a va_list argument.

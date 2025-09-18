@@ -1,7 +1,7 @@
 # ri_restrict
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 624 - 742
+[src/backend/utils/adt/ri_triggers.c:624-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L624-L742)
 
 ## Overview
 A core internal function that implements the common logic for both RESTRICT and NO ACTION referential integrity constraints for both DELETE and UPDATE operations on referenced tables.

@@ -1,7 +1,7 @@
 # PQsetNoticeProcessor
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7338 - 7360
+[src/interfaces/libpq/fe-connect.c:7338-7360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7338-L7360)
 
 ## Overview
 Sets a callback function to process notice messages from the PostgreSQL server as plain text strings, providing a simpler alternative to PQsetNoticeReceiver for handling server notices.

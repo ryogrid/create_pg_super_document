@@ -1,7 +1,7 @@
 # dumpchr
 
 ## Location
-src/backend/regex/regc_color.c: 1191 - 1202
+[src/backend/regex/regc_color.c:1191-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L1191-L1202)
 
 ## Overview
 A utility function that outputs a human-readable representation of a single character, handling special characters and Unicode values for debugging purposes.

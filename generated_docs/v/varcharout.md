@@ -1,7 +1,7 @@
 # varcharout
 
 ## Location
-src/backend/utils/adt/varchar.c: 516 - 526
+[src/backend/utils/adt/varchar.c:516-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L516-L526)
 
 ## Overview
 Converts a VARCHAR value to a C string for output purposes, leveraging the text-to-C string conversion functionality.

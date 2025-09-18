@@ -1,7 +1,7 @@
 # multi_sort_compare
 
 ## Location
-src/backend/statistics/extended_stats.c: 865 - 889
+[src/backend/statistics/extended_stats.c:865-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L865-L889)
 
 ## Overview
 A comparison function for multi-dimensional sorting that compares two SortItem structures across all dimensions in sequential order, returning the first non-zero comparison result.

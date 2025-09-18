@@ -1,7 +1,7 @@
 # has_volatile_pathkey
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3240 - 3284
+[src/backend/optimizer/plan/planner.c:3240-3284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3240-L3284)
 
 ## Overview
 Checks whether any PathKey in a given list contains an EquivalenceClass with volatile functions, returning true if found.

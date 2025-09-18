@@ -1,7 +1,7 @@
 # BackgroundWorkerArray
 
 ## Location
-src/backend/postmaster/bgworker.c: 94 - 100
+[src/backend/postmaster/bgworker.c:94-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L94-L100)
 
 ## Overview
 BackgroundWorkerArray is a shared memory structure that manages an array of background worker slots and maintains counters for parallel worker registration and termination to enforce the max_parallel_workers limit.

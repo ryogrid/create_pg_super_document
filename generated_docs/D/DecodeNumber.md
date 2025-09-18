@@ -1,7 +1,7 @@
 # DecodeNumber
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1197 - 1305
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1197-1305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1197-L1305)
 
 ## Overview
 DecodeNumber interprets a plain numeric field as a date value within the context of previously parsed fields, implementing PostgreSQL's intelligent date parsing logic.

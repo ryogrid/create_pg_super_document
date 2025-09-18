@@ -1,7 +1,7 @@
 # ecpg_raise
 
 ## Location
-src/interfaces/ecpg/ecpglib/error.c: 13 - 218
+[src/interfaces/ecpg/ecpglib/error.c:13-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/error.c#L13-L218)
 
 ## Overview
 The primary error handling function in PostgreSQL's ECPG (Embedded SQL in C) library that sets SQL error codes and creates formatted error messages in the sqlca structure.

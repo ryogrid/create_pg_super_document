@@ -1,7 +1,7 @@
 # ExecBRDeleteTriggersNew
 
 ## Location
-src/backend/commands/trigger.c: 2694 - 2793
+[src/backend/commands/trigger.c:2694-2793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2694-L2793)
 
 ## Overview
 Executes BEFORE ROW DELETE triggers with advanced concurrency handling, EPQ (EvalPlanQual) support, and special handling for MERGE operations.

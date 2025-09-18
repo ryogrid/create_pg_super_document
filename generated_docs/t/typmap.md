@@ -1,7 +1,7 @@
 # typmap
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 143 - 162
+[src/backend/bootstrap/bootstrap.c:143-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L143-L162)
 
 ## Overview
 A utility structure used during PostgreSQL's bootstrap process to cache type information from the pg_type catalog.

@@ -1,7 +1,7 @@
 # ExecAggInitGroup
 
 ## Location
-src/backend/executor/execExprInterp.c: 5017 - 5069
+[src/backend/executor/execExprInterp.c:5017-5069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5017-L5069)
 
 ## Overview
 ExecAggInitGroup initializes the aggregation group state when processing the first non-NULL input value for an aggregate function.

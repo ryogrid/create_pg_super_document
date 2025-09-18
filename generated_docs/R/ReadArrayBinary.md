@@ -1,7 +1,7 @@
 # ReadArrayBinary
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1454 - 1547
+[src/backend/utils/adt/arrayfuncs.c:1454-1547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1454-L1547)
 
 ## Overview
 Reads and deserializes individual array elements from a binary data buffer, converting them using element-specific receive procedures while tracking nulls and calculating storage requirements.

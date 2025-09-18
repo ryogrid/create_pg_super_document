@@ -1,7 +1,7 @@
 # anyarray_send
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 164 - 177
+[src/backend/utils/adt/pseudotypes.c:164-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L164-L177)
 
 ## Overview
 A wrapper function that provides binary output capability for the anyarray pseudotype by delegating to the array_send function.

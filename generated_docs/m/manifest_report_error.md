@@ -1,7 +1,7 @@
 # manifest_report_error
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 1013 - 1039
+[src/backend/backup/basebackup_incremental.c:1013-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L1013-L1039)
 
 ## Overview
 A callback function invoked when an error occurs during backup manifest parsing to format and report the error using PostgreSQL's error reporting system.

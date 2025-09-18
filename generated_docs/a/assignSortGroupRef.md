@@ -1,7 +1,7 @@
 # assignSortGroupRef
 
 ## Location
-src/backend/parser/parse_clause.c: 3591 - 3631
+[src/backend/parser/parse_clause.c:3591-3631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3591-L3631)
 
 ## Overview
 Assigns an unused ressortgroupref number to a target entry if it doesn't already have one, ensuring unique reference numbers for sorting and grouping operations.

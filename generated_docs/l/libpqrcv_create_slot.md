@@ -1,7 +1,7 @@
 # libpqrcv_create_slot
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 1010 - 1122
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1010-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L1010-L1122)
 
 ## Overview
 libpqrcv_create_slot creates a new replication slot on the primary server, handling both logical and physical slots with various configuration options and returning the exported snapshot name for logical slots.

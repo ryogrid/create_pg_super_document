@@ -1,7 +1,7 @@
 # lookup_rowtype_tupdesc_domain
 
 ## Location
-src/backend/utils/cache/typcache.c: 1889 - 1925
+[src/backend/utils/cache/typcache.c:1889-1925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1889-L1925)
 
 ## Overview
 Looks up a TupleDesc for a row type, with special handling for domains over composite types, providing a faster alternative to calling getBaseType() followed by lookup_rowtype_tupdesc_noerror().

@@ -1,7 +1,7 @@
 # print_latex_vertical
 
 ## Location
-src/fe_utils/print.c: 2717 - 2809
+[src/fe_utils/print.c:2717-2809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2717-L2809)
 
 ## Overview
 Prints table data in LaTeX vertical format where each record is displayed as field-value pairs in a two-column layout with headers and data side by side.

@@ -1,7 +1,7 @@
 # create_target_dir
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 229 - 242
+[src/bin/pg_rewind/file_ops.c:229-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L229-L242)
 
 ## Overview
 Creates a directory in the target data directory during PostgreSQL rewind operations.

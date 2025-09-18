@@ -1,7 +1,7 @@
 # ExecLockRows
 
 ## Location
-src/backend/executor/nodeLockRows.c: 38 - 290
+[src/backend/executor/nodeLockRows.c:38-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLockRows.c#L38-L290)
 
 ## Overview
 ExecLockRows is the main execution function for the LockRows plan node that attempts to lock tuples retrieved from its subplan, handling various locking modes and foreign table scenarios.

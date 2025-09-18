@@ -1,7 +1,7 @@
 # PageIsEmpty
 
 ## Location
-src/include/storage/bufpage.h: 221 - 230
+[src/include/storage/bufpage.h:221-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L221-L230)
 
 ## Overview
 PageIsEmpty is an inline function that determines whether a database page contains any allocated item identifiers, effectively checking if the page is empty of user data.

@@ -1,7 +1,7 @@
 # ResourceOwnerForgetTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 54 - 66
+[src/backend/access/common/tupdesc.c:54-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L54-L66)
 
 ## Overview
 A convenience wrapper function that unregisters a TupleDesc from a resource owner, removing it from automatic cleanup tracking.

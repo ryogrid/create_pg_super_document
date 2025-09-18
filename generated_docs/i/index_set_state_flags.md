@@ -1,7 +1,7 @@
 # index_set_state_flags
 
 ## Location
-src/backend/catalog/index.c: 3442 - 3521
+[src/backend/catalog/index.c:3442-3521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3442-L3521)
 
 ## Overview
 Adjusts the state flags in pg_index during concurrent index operations to control index visibility and usability across different phases of creation and deletion.

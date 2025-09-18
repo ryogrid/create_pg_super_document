@@ -1,7 +1,7 @@
 # pg_lsn_ge
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 163 - 171
+[src/backend/utils/adt/pg_lsn.c:163-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L163-L171)
 
 ## Overview
 The pg_lsn_ge function compares two PostgreSQL Log Sequence Numbers (LSNs) and returns true if the first LSN is greater than or equal to the second LSN.

@@ -1,7 +1,7 @@
 # set_config_sourcefile
 
 ## Location
-src/backend/utils/misc/guc.c: 4302 - 4334
+[src/backend/utils/misc/guc.c:4302-4334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4302-L4334)
 
 ## Overview
 Sets the source file and line number information for a configuration parameter to track where the setting originated.

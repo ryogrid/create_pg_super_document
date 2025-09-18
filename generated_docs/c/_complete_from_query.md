@@ -1,7 +1,7 @@
 # _complete_from_query
 
 ## Location
-src/bin/psql/tab-complete.c: 5250 - 5596
+[src/bin/psql/tab-complete.c:5250-5596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5250-L5596)
 
 ## Overview
 Core function that performs tab completion for PostgreSQL commands by executing database queries and processing results to generate completion candidates.

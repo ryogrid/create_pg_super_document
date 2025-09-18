@@ -1,7 +1,7 @@
 # SpGistGetLeafTupleSize
 
 ## Location
-src/backend/access/spgist/spgutils.c: 810 - 862
+[src/backend/access/spgist/spgutils.c:810-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L810-L862)
 
 ## Overview
 Calculates the total storage space required for an SP-GiST leaf tuple that will hold the given attribute data, including proper alignment and minimum size constraints.

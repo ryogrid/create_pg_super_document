@@ -1,7 +1,7 @@
 # ClientConnectionInfo
 
 ## Location
-src/include/libpq/libpq-be.h: 90 - 110
+[src/include/libpq/libpq-be.h:90-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be.h#L90-L110)
 
 ## Overview
 ClientConnectionInfo is a structure that contains fields describing client connection information that needs to be copied over to parallel workers in PostgreSQL.

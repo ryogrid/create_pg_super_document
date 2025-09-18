@@ -1,7 +1,7 @@
 # gist_box_penalty
 
 ## Location
-src/backend/access/gist/gistproc.c: 199 - 215
+[src/backend/access/gist/gistproc.c:199-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L199-L215)
 
 ## Overview
 The GiST Penalty method for boxes that calculates the penalty (change in area) when inserting a new entry into an existing bounding box.

@@ -1,7 +1,7 @@
 # spg_box_quad_inner_consistent
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 553 - 740
+[src/backend/utils/adt/geo_spgist.c:553-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L553-L740)
 
 ## Overview
 The SP-GiST inner consistent function for box geometric types that determines which child nodes should be visited during spatial query traversal by evaluating spatial relationships in 4D space.

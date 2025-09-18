@@ -1,7 +1,7 @@
 # heap_attr_equals
 
 ## Location
-src/backend/access/heap/heapam.c: 4303 - 4353
+[src/backend/access/heap/heapam.c:4303-4353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4303-L4353)
 
 ## Overview
 heap_attr_equals is a static helper function that compares two attribute values for equality, specifically designed as a subroutine for HeapDetermineColumnsInfo to determine if column values have changed.

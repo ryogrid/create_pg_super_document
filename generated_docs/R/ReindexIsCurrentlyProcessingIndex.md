@@ -1,7 +1,7 @@
 # ReindexIsCurrentlyProcessingIndex
 
 ## Location
-src/backend/catalog/index.c: 4068 - 4078
+[src/backend/catalog/index.c:4068-4078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4068-L4078)
 
 ## Overview
 The  function checks whether a specific index is currently being actively reindexed by comparing against a global tracking variable.

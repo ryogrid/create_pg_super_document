@@ -1,7 +1,7 @@
 # inet_gist_picksplit
 
 ## Location
-src/backend/utils/adt/network_gist.c: 663 - 796
+[src/backend/utils/adt/network_gist.c:663-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L663-L796)
 
 ## Overview
 The GiST page split function for inet data type that determines how to distribute index entries across two pages when a page becomes full during index operations.

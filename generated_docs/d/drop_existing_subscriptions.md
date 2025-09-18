@@ -1,7 +1,7 @@
 # drop_existing_subscriptions
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1062 - 1102
+[src/bin/pg_basebackup/pg_createsubscriber.c:1062-1102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1062-L1102)
 
 ## Overview
 Drops a specified subscription to avoid duplicate subscriptions when converting a standby server to a subscriber, preserving the associated replication slot for publisher use.

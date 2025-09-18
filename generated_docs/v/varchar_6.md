@@ -1,7 +1,7 @@
 # varchar_6
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 105 - 291
+[src/interfaces/ecpg/test/expected/preproc-variable.c:105-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L105-L291)
 
 ## Overview
 varchar_6 is a struct type definition used in PostgreSQL's ECPG (Embedded C for PostgreSQL) test code for handling variable-length character strings with a maximum capacity of 255 characters.

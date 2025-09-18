@@ -1,7 +1,7 @@
 # match_index_to_operand
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3665 - 3750
+[src/backend/optimizer/path/indxpath.c:3665-3750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3665-L3750)
 
 ## Overview
 Tests for a match between an index's key and the operand on one side of a restriction or join clause, used to determine if an index can be utilized for a given query condition.

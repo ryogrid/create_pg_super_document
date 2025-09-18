@@ -1,7 +1,7 @@
 # dumpTrigger
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17893 - 18018
+[src/bin/pg_dump/pg_dump.c:17893-18018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17893-L18018)
 
 ## Overview
 Writes the SQL declaration of one user-defined table trigger, including special handling for partition triggers and trigger enable/disable states.

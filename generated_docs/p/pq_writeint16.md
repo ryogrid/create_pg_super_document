@@ -1,7 +1,7 @@
 # pq_writeint16
 
 ## Location
-src/include/libpq/pqformat.h: 60 - 73
+[src/include/libpq/pqformat.h:60-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L60-L73)
 
 ## Overview
 A static inline function that appends a 16-bit unsigned integer to a StringInfo buffer in network byte order for PostgreSQL's libpq protocol format handling.

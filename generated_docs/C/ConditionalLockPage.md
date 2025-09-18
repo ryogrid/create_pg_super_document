@@ -1,7 +1,7 @@
 # ConditionalLockPage
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 522 - 537
+[src/backend/storage/lmgr/lmgr.c:522-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L522-L537)
 
 ## Overview
 Attempt to obtain a page-level lock without blocking, returning true if the lock was successfully acquired.

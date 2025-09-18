@@ -1,7 +1,7 @@
 # gistRedoDeleteRecord
 
 ## Location
-src/backend/access/gist/gistxlog.c: 172 - 222
+[src/backend/access/gist/gistxlog.c:172-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L172-L222)
 
 ## Overview
 Replays deletion operations on GiST index pages during WAL recovery, removing tuples that were marked as DEAD during index tuple insertion.

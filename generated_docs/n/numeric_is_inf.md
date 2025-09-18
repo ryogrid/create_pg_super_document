@@ -1,7 +1,7 @@
 # numeric_is_inf
 
 ## Location
-src/backend/utils/adt/numeric.c: 860 - 870
+[src/backend/utils/adt/numeric.c:860-870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L860-L870)
 
 ## Overview
 A utility function that tests whether a Numeric value represents positive or negative infinity.

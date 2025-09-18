@@ -1,7 +1,7 @@
 # test_slru_page_writeall
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 85 - 91
+[src/test/modules/test_slru/test_slru.c:85-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L85-L91)
 
 ## Overview
 A PostgreSQL function that forces all dirty pages in the test SLRU cache to be written to disk, providing a mechanism for bulk page synchronization during testing.

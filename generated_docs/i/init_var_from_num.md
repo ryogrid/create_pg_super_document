@@ -1,7 +1,7 @@
 # init_var_from_num
 
 ## Location
-src/backend/utils/adt/numeric.c: 7467 - 7483
+[src/backend/utils/adt/numeric.c:7467-7483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7467-L7483)
 
 ## Overview
 Initializes a NumericVar variable from a packed database format Numeric value without copying the digits array, providing a lightweight reference for read-only operations.

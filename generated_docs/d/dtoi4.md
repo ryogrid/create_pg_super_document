@@ -1,7 +1,7 @@
 # dtoi4
 
 ## Location
-src/backend/utils/adt/float.c: 1207 - 1231
+[src/backend/utils/adt/float.c:1207-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1207-L1231)
 
 ## Overview
 A conversion function that converts a float8 (double precision) number to an int4 (32-bit integer) with range checking and fractional part handling.

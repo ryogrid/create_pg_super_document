@@ -1,7 +1,7 @@
 # r_fix_va_start
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 662 - 733
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:662-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L662-L733)
 
 ## Overview
 A Tamil stemmer function that fixes specific character sequences starting with 'va' by standardizing them to consistent forms during the stemming process.

@@ -1,7 +1,7 @@
 # italian_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c: 1019 - 1020
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:1019-1020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c#L1019-L1020)
 
 ## Overview
 Creates and initializes a new Snowball environment structure specifically configured for Italian stemming with ISO-8859-1 character encoding.

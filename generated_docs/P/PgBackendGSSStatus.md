@@ -1,7 +1,7 @@
 # PgBackendGSSStatus
 
 ## Location
-src/include/utils/backend_status.h: 74 - 82
+[src/include/utils/backend_status.h:74-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/backend_status.h#L74-L82)
 
 ## Overview
 PgBackendGSSStatus is a structure that stores GSSAPI (Generic Security Services Application Program Interface) connection information for each PostgreSQL backend process in shared memory, providing GSS authentication and encryption status details.

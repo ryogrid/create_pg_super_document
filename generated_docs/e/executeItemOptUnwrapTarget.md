@@ -1,7 +1,7 @@
 # executeItemOptUnwrapTarget
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 747 - 1673
+[src/backend/utils/adt/jsonpath_exec.c:747-1673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L747-L1673)
 
 ## Overview
 Core JSONPath execution engine that recursively processes individual JSONPath items against JSONB values, with configurable array unwrapping behavior to handle PostgreSQL's JSONPath semantics.

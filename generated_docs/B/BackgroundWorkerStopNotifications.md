@@ -1,7 +1,7 @@
 # BackgroundWorkerStopNotifications
 
 ## Location
-src/backend/postmaster/bgworker.c: 520 - 546
+[src/backend/postmaster/bgworker.c:520-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L520-L546)
 
 ## Overview
 Cancels SIGUSR1 notifications for a specific PID by clearing the notification PID from all registered background workers that were set to notify that process.

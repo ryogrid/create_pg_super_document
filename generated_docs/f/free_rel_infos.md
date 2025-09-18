@@ -1,7 +1,7 @@
 # free_rel_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 779 - 796
+[src/bin/pg_upgrade/info.c:779-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L779-L796)
 
 ## Overview
 Frees all relation information stored in a RelInfoArr structure, including namespace names, relation names, and tablespace names.

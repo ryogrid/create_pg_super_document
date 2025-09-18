@@ -1,7 +1,7 @@
 # SearchSysCacheCopy
 
 ## Location
-src/backend/utils/cache/syscache.c: 380 - 404
+[src/backend/utils/cache/syscache.c:380-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L380-L404)
 
 ## Overview
 SearchSysCacheCopy is a convenience function that searches the system cache and returns a modifiable copy of the found tuple.

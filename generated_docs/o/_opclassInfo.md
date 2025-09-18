@@ -1,7 +1,7 @@
 # _opclassInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 268 - 272
+[src/bin/pg_dump/pg_dump.h:268-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L268-L272)
 
 ## Overview
 A structure definition used in PostgreSQL's pg_dump utility to represent operator class information for database dumping and restoration operations.

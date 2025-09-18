@@ -1,7 +1,7 @@
 # PQunescapeBytea
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4555 - 4664
+[src/interfaces/libpq/fe-exec.c:4555-4664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4555-L4664)
 
 ## Overview
 PQunescapeBytea converts escaped string representations of bytea data back into binary format, supporting both hex and traditional octal escape encodings.

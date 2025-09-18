@@ -1,7 +1,7 @@
 # list_delete_nth_cell
 
 ## Location
-src/backend/nodes/list.c: 767 - 840
+[src/backend/nodes/list.c:767-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L767-L840)
 
 ## Overview
 Deletes the n-th cell (zero-indexed) from a PostgreSQL List, handling memory management and list structure updates appropriately.

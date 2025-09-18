@@ -1,7 +1,7 @@
 # ShowGUCOption
 
 ## Location
-src/backend/utils/misc/guc.c: 5473 - 5593
+[src/backend/utils/misc/guc.c:5473-5593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5473-L5593)
 
 ## Overview
 ShowGUCOption retrieves the string representation of a PostgreSQL configuration variable (GUC) value, with support for unit conversion and custom display hooks.

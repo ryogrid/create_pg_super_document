@@ -1,7 +1,7 @@
 # get_synchronized_snapshot
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1397 - 1410
+[src/bin/pg_dump/pg_dump.c:1397-1410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1397-L1410)
 
 ## Overview
 Exports and returns a snapshot identifier that can be used by parallel dump workers to ensure consistent reads across multiple database connections.

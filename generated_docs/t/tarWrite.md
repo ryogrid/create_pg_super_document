@@ -1,7 +1,7 @@
 # tarWrite
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 529 - 539
+[src/bin/pg_dump/pg_backup_tar.c:529-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L529-L539)
 
 ## Overview
 A low-level utility function that writes binary data to a tar archive member file handle, maintaining position tracking for the tar member.

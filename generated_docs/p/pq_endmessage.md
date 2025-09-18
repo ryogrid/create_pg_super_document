@@ -1,7 +1,7 @@
 # pq_endmessage
 
 ## Location
-src/backend/libpq/pqformat.c: 296 - 313
+[src/backend/libpq/pqformat.c:296-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L296-L313)
 
 ## Overview
 Finalizes and sends a completed message buffer to the frontend client, cleaning up the StringInfo buffer afterwards.

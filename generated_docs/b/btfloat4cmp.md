@@ -1,7 +1,7 @@
 # btfloat4cmp
 
 ## Location
-src/backend/utils/adt/float.c: 873 - 881
+[src/backend/utils/adt/float.c:873-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L873-L881)
 
 ## Overview
 B-tree comparison function for single-precision floating-point numbers (float4) that provides three-way comparison for indexing operations.

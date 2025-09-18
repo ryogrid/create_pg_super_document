@@ -1,7 +1,7 @@
 # multirange_minus_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1144 - 1229
+[src/backend/utils/adt/multirangetypes.c:1144-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1144-L1229)
 
 ## Overview
 Implements the core logic for subtracting one multirange from another, handling the complex range splitting and overlap resolution required for multirange difference operations.

@@ -1,7 +1,7 @@
 # process_security_barrier_quals
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1272 - 1321
+[src/backend/optimizer/plan/initsplan.c:1272-1321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1272-L1321)
 
 ## Overview
 Transfers security-barrier qualifiers from a RangeTblEntry's securityQuals field into the relation's baserestrictinfo list during query planning.

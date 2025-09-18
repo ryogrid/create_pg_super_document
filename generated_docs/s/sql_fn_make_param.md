@@ -1,7 +1,7 @@
 # sql_fn_make_param
 
 ## Location
-src/backend/executor/functions.c: 410 - 439
+[src/backend/executor/functions.c:410-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L410-L439)
 
 ## Overview
 Constructs a Param node for a given parameter number in SQL function parsing context.

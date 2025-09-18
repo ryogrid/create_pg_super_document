@@ -1,7 +1,7 @@
 # pg_atomic_sub_fetch_u32
 
 ## Location
-src/include/port/atomics.h: 434 - 447
+[src/include/port/atomics.h:434-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L434-L447)
 
 ## Overview
 Atomically subtracts a value from a 32-bit unsigned integer variable and returns the new value after the subtraction operation.

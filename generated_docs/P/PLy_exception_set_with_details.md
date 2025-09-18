@@ -1,7 +1,7 @@
 # PLy_exception_set_with_details
 
 ## Location
-src/pl/plpython/plpy_elog.c: 509 - 566
+[src/pl/plpython/plpy_elog.c:509-566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L509-L566)
 
 ## Overview
 Creates a comprehensive Python exception object populated with detailed error information from PostgreSQL's ErrorData structure, providing rich error context for PL/Python exception handling.

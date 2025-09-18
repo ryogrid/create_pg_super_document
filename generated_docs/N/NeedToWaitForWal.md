@@ -1,7 +1,7 @@
 # NeedToWaitForWal
 
 ## Location
-src/backend/replication/walsender.c: 1794 - 1821
+[src/backend/replication/walsender.c:1794-1821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1794-L1821)
 
 ## Overview
 NeedToWaitForWal determines whether a WAL sender needs to wait for WAL records to be flushed to disk or for standby slots to catch up to the flushed position, particularly for logical failover slots during streaming.

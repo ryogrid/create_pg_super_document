@@ -1,7 +1,7 @@
 # SysScanDesc
 
 ## Location
-src/include/access/genam.h: 91 - 92
+[src/include/access/genam.h:91-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L91-L92)
 
 ## Overview
 SysScanDesc is a pointer type to SysScanDescData structure that represents a system catalog scan descriptor, providing a unified interface for scanning PostgreSQL system tables using either heap scans or index scans.

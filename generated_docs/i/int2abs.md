@@ -1,7 +1,7 @@
 # int2abs
 
 ## Location
-src/backend/utils/adt/int.c: 1205 - 1232
+[src/backend/utils/adt/int.c:1205-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1205-L1232)
 
 ## Overview
 Computes the absolute value of a 16-bit integer (smallint) with overflow protection.

@@ -1,7 +1,7 @@
 # ready_file_comparator
 
 ## Location
-src/backend/postmaster/pgarch.c: 779 - 801
+[src/backend/postmaster/pgarch.c:779-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L779-L801)
 
 ## Overview
 A static comparison function used to determine archival priority between WAL files when sorting them for the PostgreSQL archiver process.

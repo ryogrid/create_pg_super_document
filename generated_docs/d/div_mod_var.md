@@ -1,7 +1,7 @@
 # div_mod_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 9891 - 9960
+[src/backend/utils/adt/numeric.c:9891-9960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9891-L9960)
 
 ## Overview
 Calculates both the truncated integer quotient and numeric remainder from division of two PostgreSQL numeric variables in a single operation, ensuring mathematical consistency between the results.

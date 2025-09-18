@@ -1,7 +1,7 @@
 # get_name_for_var_field
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7732 - 8161
+[src/backend/utils/adt/ruleutils.c:7732-8161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7732-L8161)
 
 ## Overview
 Determines the field name of a specified field within an expression of composite type, handling complex cases including RECORD types, special variables, subqueries, and CTEs through recursive analysis.

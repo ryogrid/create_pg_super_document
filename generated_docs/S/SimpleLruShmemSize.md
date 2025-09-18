@@ -1,7 +1,7 @@
 # SimpleLruShmemSize
 
 ## Location
-src/backend/access/transam/slru.c: 199 - 231
+[src/backend/access/transam/slru.c:199-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L199-L231)
 
 ## Overview
 SimpleLruShmemSize calculates the total shared memory size required for a Simple LRU buffer management structure, including all associated data structures and page buffers.

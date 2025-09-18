@@ -1,7 +1,7 @@
 # XLogRecordHasFPW
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 469 - 489
+[src/bin/pg_waldump/pg_waldump.c:469-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L469-L489)
 
 ## Overview
 XLogRecordHasFPW determines whether a given WAL record contains any full page writes (FPW), which are complete page images stored in WAL records.

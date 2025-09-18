@@ -1,7 +1,7 @@
 # GetOuterUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 526 - 533
+[src/backend/utils/init/miscinit.c:526-533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L526-L533)
 
 ## Overview
 GetOuterUserId returns the current user ID in effect at the "outer level" (outside any transaction or function), representing the current role context for the session.

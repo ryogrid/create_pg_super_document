@@ -1,7 +1,7 @@
 # xmlBuffer_to_xmltype
 
 ## Location
-src/backend/utils/adt/xml.c: 482 - 490
+[src/backend/utils/adt/xml.c:482-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L482-L490)
 
 ## Overview
 Converts a libxml2 xmlBuffer into a PostgreSQL xmltype value, preserving the exact binary content and length.

@@ -1,7 +1,7 @@
 # ecpg_pthreads_init
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 30 - 35
+[src/interfaces/ecpg/ecpglib/connect.c:30-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L30-L35)
 
 ## Overview
 Ensures thread-safe initialization of the pthread thread-specific data key used by the ECPG library for managing per-thread database connections.

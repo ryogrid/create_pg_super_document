@@ -1,7 +1,7 @@
 # set_dump_section
 
 ## Location
-src/bin/pg_dump/pg_backup_utils.c: 40 - 62
+[src/bin/pg_dump/pg_backup_utils.c:40-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_utils.c#L40-L62)
 
 ## Overview
 Parses a --section command line argument and updates the dump section bitmask to control which parts of a database dump are processed.

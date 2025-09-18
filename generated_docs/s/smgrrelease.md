@@ -1,7 +1,7 @@
 # smgrrelease
 
 ## Location
-src/backend/storage/smgr/smgr.c: 300 - 319
+[src/backend/storage/smgr/smgr.c:300-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L300-L319)
 
 ## Overview
 Releases all resources used by an SMgrRelation object while keeping the object itself valid for future use.

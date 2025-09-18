@@ -1,7 +1,7 @@
 # select_equality_operator
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1772 - 1807
+[src/backend/optimizer/path/equivclass.c:1772-1807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1772-L1807)
 
 ## Overview
 Selects a suitable equality operator for comparing two members of an EquivalenceClass, taking into account security requirements for leakproof operators.

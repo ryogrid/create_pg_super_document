@@ -1,7 +1,7 @@
 # pg_ndistinct_out
 
 ## Location
-src/backend/statistics/mvdistinct.c: 355 - 391
+[src/backend/statistics/mvdistinct.c:355-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L355-L391)
 
 ## Overview
 A PostgreSQL output function for the pg_ndistinct data type that produces a human-readable string representation of multivariate n-distinct statistics.

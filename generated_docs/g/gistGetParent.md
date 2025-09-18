@@ -1,7 +1,7 @@
 # gistGetParent
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1565 - 1579
+[src/backend/access/gist/gistbuild.c:1565-1579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1565-L1579)
 
 ## Overview
 Retrieves the parent block number for a given child block from the GiST parent map during index construction.

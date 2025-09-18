@@ -1,7 +1,7 @@
 # _loInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 602 - 608
+[src/bin/pg_dump/pg_dump.h:602-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L602-L608)
 
 ## Overview
 The `_loInfo` structure represents a group of large objects (blobs) that share the same owner and ACL settings in pg_dump, designed to optimize parallelism during database restore operations.

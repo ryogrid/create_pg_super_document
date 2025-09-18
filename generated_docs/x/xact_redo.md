@@ -1,7 +1,7 @@
 # xact_redo
 
 ## Location
-src/backend/access/transam/xact.c: 6301 - 6384
+[src/backend/access/transam/xact.c:6301-6384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L6301-L6384)
 
 ## Overview
 Main entry point for replaying transaction-related WAL records during PostgreSQL recovery, dispatching to appropriate handler functions based on record type.

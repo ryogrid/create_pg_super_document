@@ -1,7 +1,7 @@
 # postmaster_is_alive
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1312 - 1335
+[src/bin/pg_ctl/pg_ctl.c:1312-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1312-L1335)
 
 ## Overview
 A utility function that checks whether a PostgreSQL postmaster process with the given PID is still alive and running.

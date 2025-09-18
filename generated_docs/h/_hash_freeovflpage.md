@@ -1,7 +1,7 @@
 # _hash_freeovflpage
 
 ## Location
-src/backend/access/hash/hashovfl.c: 490 - 776
+[src/backend/access/hash/hashovfl.c:490-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L490-L776)
 
 ## Overview
 Removes an overflow page from its bucket chain and marks it as free in the bitmap, while transferring any remaining tuples to a designated write page.

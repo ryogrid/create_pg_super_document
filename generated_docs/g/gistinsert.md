@@ -1,7 +1,7 @@
 # gistinsert
 
 ## Location
-src/backend/access/gist/gist.c: 159 - 224
+[src/backend/access/gist/gist.c:159-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L159-L224)
 
 ## Overview
 The public interface routine for tuple insertion in GiST indexes, serving as a wrapper that manages state initialization and delegates the actual insertion work to lower-level functions.

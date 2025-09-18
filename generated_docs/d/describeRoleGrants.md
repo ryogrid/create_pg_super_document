@@ -1,7 +1,7 @@
 # describeRoleGrants
 
 ## Location
-src/bin/psql/describe.c: 3830 - 3908
+[src/bin/psql/describe.c:3830-3908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3830-L3908)
 
 ## Overview
 A psql command function that implements the \\drg (describe role grants) metacommand to display role membership grants and their associated privileges.

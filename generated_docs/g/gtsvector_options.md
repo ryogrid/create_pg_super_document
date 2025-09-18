@@ -1,7 +1,7 @@
 # gtsvector_options
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 809 - 819
+[src/backend/utils/adt/tsgistidx.c:809-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L809-L819)
 
 ## Overview
 Defines configuration options for GiST indexes on tsvector data types, specifically allowing customization of signature length for index optimization.

@@ -1,7 +1,7 @@
 # text_starts_with
 
 ## Location
-src/backend/utils/adt/varlena.c: 1791 - 1830
+[src/backend/utils/adt/varlena.c:1791-1830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1791-L1830)
 
 ## Overview
 A PostgreSQL function that implements the "starts with" operation for text data types, returning true if the first text argument starts with the second text argument as a prefix.

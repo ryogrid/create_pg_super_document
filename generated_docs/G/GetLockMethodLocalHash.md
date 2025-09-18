@@ -1,7 +1,7 @@
 # GetLockMethodLocalHash
 
 ## Location
-src/backend/storage/lmgr/lock.c: 632 - 642
+[src/backend/storage/lmgr/lock.c:632-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L632-L642)
 
 ## Overview
 A simple accessor function that returns the hash table containing all local locks held by the current backend, primarily used for assertion checking and debugging.

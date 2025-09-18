@@ -1,7 +1,7 @@
 # UniquePathMethod
 
 ## Location
-src/include/nodes/pathnodes.h: 2025 - 2026
+[src/include/nodes/pathnodes.h:2025-2026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2025-L2026)
 
 ## Overview
 UniquePathMethod is an enumeration that specifies the algorithm to be used for eliminating duplicate rows in a UniquePath operation within PostgreSQL's query optimizer.

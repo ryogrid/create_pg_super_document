@@ -1,7 +1,7 @@
 # makeInteger
 
 ## Location
-src/backend/nodes/value.c: 23 - 36
+[src/backend/nodes/value.c:23-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/value.c#L23-L36)
 
 ## Overview
 The makeInteger function creates a new Integer node containing a specified integer value, used for representing integer literals in PostgreSQL's parse tree structure.

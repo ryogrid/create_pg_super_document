@@ -1,7 +1,7 @@
 # sqlfunction_startup
 
 ## Location
-src/backend/executor/functions.c: 2088 - 2096
+[src/backend/executor/functions.c:2088-2096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2088-L2096)
 
 ## Overview
 A no-operation startup function for SQL function destination receivers that performs no initialization tasks during executor startup.

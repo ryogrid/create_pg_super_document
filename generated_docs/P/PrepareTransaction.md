@@ -1,7 +1,7 @@
 # PrepareTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 2460 - 2748
+[src/backend/access/transam/xact.c:2460-2748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L2460-L2748)
 
 ## Overview
 PrepareTransaction implements the first phase of PostgreSQL's two-phase commit protocol, preparing a transaction for later commit or rollback while maintaining its state in persistent storage.

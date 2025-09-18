@@ -1,7 +1,7 @@
 # err_sendstring
 
 ## Location
-src/backend/utils/error/elog.c: 3477 - 3488
+[src/backend/utils/error/elog.c:3477-3488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3477-L3488)
 
 ## Overview
 A static helper function that safely appends text strings to error reports being built for the client, with special handling for error recursion scenarios.

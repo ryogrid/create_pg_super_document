@@ -1,7 +1,7 @@
 # rbound_bsearch
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 739 - 767
+[src/backend/utils/adt/multirangetypes_selfuncs.c:739-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L739-L767)
 
 ## Overview
 Binary search function that finds the greatest index of a range bound in an array that is less than (or less than or equal to) a given range bound, used for scalar operator selectivity estimation in PostgreSQL range type statistics.

@@ -1,7 +1,7 @@
 # get_relation_statistics_worker
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1387 - 1469
+[src/backend/optimizer/util/plancat.c:1387-1469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1387-L1469)
 
 ## Overview
 Internal worker function that loads and creates StatisticExtInfo structures for available extended statistics data of a specific statistics object.

@@ -1,7 +1,7 @@
 # TBMIterator
 
 ## Location
-src/backend/nodes/tidbitmap.c: 178 - 190
+[src/backend/nodes/tidbitmap.c:178-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L178-L190)
 
 ## Overview
 TBMIterator is a stateful iterator structure that enables sorted traversal of TIDBitmap contents, supporting concurrent iteration by multiple processes while maintaining read-only access to the underlying bitmap data.

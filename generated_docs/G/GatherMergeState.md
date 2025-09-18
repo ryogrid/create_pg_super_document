@@ -1,7 +1,7 @@
 # GatherMergeState
 
 ## Location
-src/include/nodes/execnodes.h: 2695 - 2715
+[src/include/nodes/execnodes.h:2695-2715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2695-L2715)
 
 ## Overview
 GatherMergeState is a structure that manages the execution state for PostgreSQL's GATHER MERGE node, which launches parallel workers to execute a subplan that produces sorted output and merges the results into a single sorted stream.

@@ -1,7 +1,7 @@
 # gtsvector_union
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 402 - 428
+[src/backend/utils/adt/tsgistidx.c:402-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L402-L428)
 
 ## Overview
 The gtsvector_union function implements the GiST union operation for TSVector data types, combining multiple signature keys into a single unified signature for index operations.

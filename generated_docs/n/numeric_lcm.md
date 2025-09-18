@@ -1,7 +1,7 @@
 # numeric_lcm
 
 ## Location
-src/backend/utils/adt/numeric.c: 3580 - 3639
+[src/backend/utils/adt/numeric.c:3580-3639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3580-L3639)
 
 ## Overview
 Calculates the least common multiple (LCM) of two numeric values using the mathematical relationship LCM(x,y) = abs(x / GCD(x,y) * y).

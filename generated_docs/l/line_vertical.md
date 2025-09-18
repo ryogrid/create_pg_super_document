@@ -1,7 +1,7 @@
 # line_vertical
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1174 - 1181
+[src/backend/utils/adt/geo_ops.c:1174-1181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1174-L1181)
 
 ## Overview
 Determines whether a LINE object is vertical in PostgreSQL's geometric data type system.

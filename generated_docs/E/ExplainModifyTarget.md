@@ -1,7 +1,7 @@
 # ExplainModifyTarget
 
 ## Location
-src/backend/commands/explain.c: 4025 - 4033
+[src/backend/commands/explain.c:4025-4033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4025-L4033)
 
 ## Overview
 ExplainModifyTarget is a static function that displays the target relation of a ModifyTable node in PostgreSQL's EXPLAIN output.

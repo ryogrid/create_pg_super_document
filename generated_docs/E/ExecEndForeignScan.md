@@ -1,7 +1,7 @@
 # ExecEndForeignScan
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 297 - 322
+[src/backend/executor/nodeForeignscan.c:297-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L297-L322)
 
 ## Overview
 ExecEndForeignScan performs cleanup and shutdown operations for a foreign scan node, delegating to FDW-specific cleanup routines and handling any outer plan nodes.

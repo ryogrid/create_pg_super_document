@@ -1,7 +1,7 @@
 # transformPLAssignStmt
 
 ## Location
-src/backend/parser/analyze.c: 2619 - 2867
+[src/backend/parser/analyze.c:2619-2867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2619-L2867)
 
 ## Overview
 Transforms a PL/pgSQL assignment statement into a SELECT query that computes the new value and handles type coercion and indirection operations.

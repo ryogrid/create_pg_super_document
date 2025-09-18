@@ -1,7 +1,7 @@
 # SpGistLeafTupleData
 
 ## Location
-src/include/access/spgist_private.h: 383 - 392
+[src/include/access/spgist_private.h:383-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L383-L392)
 
 ## Overview
 SpGistLeafTupleData represents the structure of leaf tuples in SP-GiST indexes, containing leaf data values, heap tuple references, and optional included columns.

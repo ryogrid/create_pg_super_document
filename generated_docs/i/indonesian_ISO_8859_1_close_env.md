@@ -1,7 +1,7 @@
 # indonesian_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c: 406 - 407
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:406-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c#L406-L407)
 
 ## Overview
 This function properly deallocates and cleans up a Snowball stemming environment that was created for Indonesian language processing.

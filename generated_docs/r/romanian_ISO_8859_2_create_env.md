@@ -1,7 +1,7 @@
 # romanian_ISO_8859_2_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c: 962 - 963
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c:962-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c#L962-L963)
 
 ## Overview
 A factory function that creates and initializes a Snowball environment structure specifically configured for Romanian stemming with ISO-8859-2 character encoding.

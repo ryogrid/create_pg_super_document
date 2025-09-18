@@ -1,7 +1,7 @@
 # plpython3_inline_handler
 
 ## Location
-src/pl/plpython/plpy_main.c: 263 - 338
+[src/pl/plpython/plpy_main.c:263-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L263-L338)
 
 ## Overview
 The plpython3_inline_handler function is responsible for executing inline Python code blocks (DO blocks) in PostgreSQL's PL/Python language handler.

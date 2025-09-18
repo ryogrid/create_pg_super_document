@@ -1,7 +1,7 @@
 # ginbuild
 
 ## Location
-src/backend/access/gin/gininsert.c: 317 - 433
+[src/backend/access/gin/gininsert.c:317-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L317-L433)
 
 ## Overview
 The ginbuild function is the main entry point for building a GIN (Generalized Inverted Index) from scratch. It constructs the entire index by scanning the heap relation and inserting all tuples into the new index structure.

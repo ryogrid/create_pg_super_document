@@ -1,7 +1,7 @@
 # alloc_pool
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 42 - 68
+[src/backend/optimizer/geqo/geqo_pool.c:42-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L42-L68)
 
 ## Overview
 Allocates memory for a genetic algorithm pool structure used in PostgreSQL's GEQO (Genetic Query Optimizer) for managing a collection of chromosomes representing query execution plans.

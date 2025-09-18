@@ -1,7 +1,7 @@
 # expression_returns_set_walker
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 764 - 815
+[src/backend/nodes/nodeFuncs.c:764-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L764-L815)
 
 ## Overview
 A tree walker function that recursively examines expression nodes to detect set-returning functions and operators within an expression tree.

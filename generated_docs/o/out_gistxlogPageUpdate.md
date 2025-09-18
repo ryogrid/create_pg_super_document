@@ -1,7 +1,7 @@
 # out_gistxlogPageUpdate
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 21 - 25
+[src/backend/access/rmgrdesc/gistdesc.c:21-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L21-L25)
 
 ## Overview
 A static function that handles the output formatting of GiST page update WAL record information for debugging and logging purposes.

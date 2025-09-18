@@ -1,7 +1,7 @@
 # is_andclause
 
 ## Location
-src/include/nodes/nodeFuncs.h: 107 - 115
+[src/include/nodes/nodeFuncs.h:107-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L107-L115)
 
 ## Overview
 A static inline utility function that checks whether a given clause is an AND boolean expression node in PostgreSQL's parse tree.

@@ -1,7 +1,7 @@
 # subcoloronerow
 
 ## Location
-src/backend/regex/regc_color.c: 885 - 915
+[src/backend/regex/regc_color.c:885-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L885-L915)
 
 ## Overview
 The  function processes one row of the high colormap during regular expression compilation, applying subcolor processing and creating NFA arcs for each entry in the row.

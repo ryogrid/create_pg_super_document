@@ -1,7 +1,7 @@
 # add_security_quals
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 700 - 795
+[src/backend/rewrite/rowsecurity.c:700-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L700-L795)
 
 ## Overview
 This static function constructs and adds security qualifier expressions that enforce row-level security policies during query execution to restrict access to existing table data.

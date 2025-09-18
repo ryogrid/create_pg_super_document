@@ -1,7 +1,7 @@
 # sortins_cmp
 
 ## Location
-src/backend/regex/regc_nfa.c: 662 - 686
+[src/backend/regex/regc_nfa.c:662-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L662-L686)
 
 ## Overview
 A static comparison function used for sorting arc pointers in PostgreSQL's regex NFA (Non-deterministic Finite Automaton) implementation.

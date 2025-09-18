@@ -1,7 +1,7 @@
 # pglz_decompress_datum_slice
 
 ## Location
-src/backend/access/common/toast_compression.c: 109 - 138
+[src/backend/access/common/toast_compression.c:109-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L109-L138)
 
 ## Overview
 Decompresses a partial portion (slice) of a varlena data structure that was compressed using PGLZ, allowing for efficient retrieval of only a subset of the original data.

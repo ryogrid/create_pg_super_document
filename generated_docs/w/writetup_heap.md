@@ -1,7 +1,7 @@
 # writetup_heap
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1500 - 1520
+[src/backend/utils/sort/tuplestore.c:1500-1520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1500-L1520)
 
 ## Overview
 Writes a minimal tuple from a heap sort operation to a logical tape during the external sort phase of tuple sorting.

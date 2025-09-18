@@ -1,7 +1,7 @@
 # to_json
 
 ## Location
-src/backend/utils/adt/json.c: 730 - 753
+[src/backend/utils/adt/json.c:730-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L730-L753)
 
 ## Overview
 The to_json function is a PostgreSQL SQL function that converts any PostgreSQL value to its JSON text representation.

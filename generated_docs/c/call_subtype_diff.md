@@ -1,7 +1,7 @@
 # call_subtype_diff
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1788 - 1799
+[src/backend/utils/adt/rangetypes_gist.c:1788-1799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1788-L1799)
 
 ## Overview
 A convenience function that invokes the type-specific subtype_diff function for range types to calculate the difference between two subtype values.

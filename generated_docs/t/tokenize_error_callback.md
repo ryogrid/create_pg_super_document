@@ -1,7 +1,7 @@
 # tokenize_error_callback
 
 ## Location
-src/backend/libpq/hba.c: 657 - 685
+[src/backend/libpq/hba.c:657-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L657-L685)
 
 ## Overview
 An error context callback function used during authentication file tokenization to provide detailed location information when errors occur.

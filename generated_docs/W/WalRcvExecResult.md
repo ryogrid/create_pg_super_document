@@ -1,7 +1,7 @@
 # WalRcvExecResult
 
 ## Location
-src/include/replication/walreceiver.h: 217 - 224
+[src/include/replication/walreceiver.h:217-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walreceiver.h#L217-L224)
 
 ## Overview
 The WalRcvExecResult structure is a return value container used by the PostgreSQL WAL (Write-Ahead Log) receiver to encapsulate the results of executing queries through the walrcv_exec function, including execution status and any returned tuples.

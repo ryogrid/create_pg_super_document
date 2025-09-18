@@ -1,7 +1,7 @@
 # decode_varbyte
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 133 - 196
+[src/backend/access/gin/ginpostinglist.c:133-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L133-L196)
 
 ## Overview
 Decodes a variable-length byte encoded integer from a byte buffer, performing the inverse operation of encode_varbyte.

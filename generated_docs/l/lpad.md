@@ -1,7 +1,7 @@
 # lpad
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 147 - 244
+[src/backend/utils/adt/oracle_compat.c:147-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L147-L244)
 
 ## Overview
 The  function left-pads a string to a specified length with a padding string, or truncates the string if it's longer than the specified length.

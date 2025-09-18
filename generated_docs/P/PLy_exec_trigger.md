@@ -1,7 +1,7 @@
 # PLy_exec_trigger
 
 ## Location
-src/pl/plpython/plpy_exec.c: 321 - 434
+[src/pl/plpython/plpy_exec.c:321-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L321-L434)
 
 ## Overview
 PLy_exec_trigger is the execution handler for PL/Python trigger functions, managing trigger event processing with support for tuple modification, action control, and proper type conversion between PostgreSQL and Python objects.

@@ -1,7 +1,7 @@
 # hash_stats
 
 ## Location
-src/backend/utils/hash/dynahash.c: 885 - 911
+[src/backend/utils/hash/dynahash.c:885-911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L885-L911)
 
 ## Overview
 Prints debugging statistics about hash table usage, including access counts, collision counts, and table structure information.

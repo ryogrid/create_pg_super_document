@@ -1,7 +1,7 @@
 # DecodeInterval
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 326 - 679
+[src/interfaces/ecpg/pgtypeslib/interval.c:326-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L326-L679)
 
 ## Overview
 Interprets previously parsed fields for general time interval processing, converting tokenized interval string components into PostgreSQL's internal interval representation.

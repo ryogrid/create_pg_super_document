@@ -1,7 +1,7 @@
 # _brin_parallel_scan_and_build
 
 ## Location
-src/backend/access/brin/brin.c: 2796 - 2852
+[src/backend/access/brin/brin.c:2796-2852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2796-L2852)
 
 ## Overview
 This function performs the core work of each parallel worker during BRIN index construction, handling table scanning, tuple processing, sorting, and coordination with other workers.

@@ -1,7 +1,7 @@
 # AutoVacuumUpdateCostLimit
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1706 - 1751
+[src/backend/postmaster/autovacuum.c:1706-1751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1706-L1751)
 
 ## Overview
 AutoVacuumUpdateCostLimit updates the vacuum_cost_limit for autovacuum workers, implementing load balancing by distributing the total cost limit across active workers while respecting storage parameter overrides.

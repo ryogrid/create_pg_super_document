@@ -1,7 +1,7 @@
 # regexp_instr
 
 ## Location
-src/backend/utils/adt/regexp.c: 1152 - 1244
+[src/backend/utils/adt/regexp.c:1152-1244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1152-L1244)
 
 ## Overview
 Returns the position (1-based index) of a regular expression match within a string, with support for multiple optional parameters including match occurrence, start position, and subexpression selection.

@@ -1,7 +1,7 @@
 # SetWalWriterSleeping
 
 ## Location
-src/backend/access/transam/xlog.c: 9523 - 9528
+[src/backend/access/transam/xlog.c:9523-9528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9523-L9528)
 
 ## Overview
 Updates the WalWriterSleeping flag in the XLogCtl control structure to indicate the current sleep state of the WAL writer process.

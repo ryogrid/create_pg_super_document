@@ -1,7 +1,7 @@
 # range_minus_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 993 - 1051
+[src/backend/utils/adt/rangetypes.c:993-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L993-L1051)
 
 ## Overview
 The range_minus_internal function performs the core logic for range set difference operations, implementing complex boundary condition checks to compute A - B for two ranges.

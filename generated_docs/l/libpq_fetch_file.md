@@ -1,7 +1,7 @@
 # libpq_fetch_file
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 635 - 674
+[src/bin/pg_rewind/libpq_source.c:635-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L635-L674)
 
 ## Overview
 Fetches a single file from a remote PostgreSQL server and returns it as a malloc'd buffer using the pg_read_binary_file function.

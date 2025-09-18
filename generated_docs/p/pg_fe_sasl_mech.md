@@ -1,7 +1,7 @@
 # pg_fe_sasl_mech
 
 ## Location
-src/interfaces/libpq/fe-auth-sasl.h: 42 - 142
+[src/interfaces/libpq/fe-auth-sasl.h:42-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-sasl.h#L42-L142)
 
 ## Overview
 A structure defining frontend SASL mechanism callbacks used for implementing client-side SASL authentication in PostgreSQL libpq connections.

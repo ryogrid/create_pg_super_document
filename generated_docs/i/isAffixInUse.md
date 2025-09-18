@@ -1,7 +1,7 @@
 # isAffixInUse
 
 ## Location
-src/backend/tsearch/spell.c: 1961 - 1975
+[src/backend/tsearch/spell.c:1961-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1961-L1975)
 
 ## Overview
 isAffixInUse checks whether a specific affix flag is actually used by dictionary words, ensuring only referenced affixes are processed.

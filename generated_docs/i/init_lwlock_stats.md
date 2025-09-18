@@ -1,7 +1,7 @@
 # init_lwlock_stats
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 312 - 346
+[src/backend/storage/lmgr/lwlock.c:312-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L312-L346)
 
 ## Overview
 Initializes the lightweight lock statistics tracking system, setting up a hash table to store lock statistics and registering a cleanup handler.

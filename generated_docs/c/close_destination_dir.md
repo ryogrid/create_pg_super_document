@@ -1,7 +1,7 @@
 # close_destination_dir
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 252 - 267
+[src/bin/pg_basebackup/pg_receivewal.c:252-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L252-L267)
 
 ## Overview
 A utility function in pg_receivewal that safely closes a previously opened directory handle with proper error handling.

@@ -1,7 +1,7 @@
 # get_path_all
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1022 - 1100
+[src/backend/utils/adt/jsonfuncs.c:1022-1100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1022-L1100)
 
 ## Overview
 Common worker function that extracts values from JSON documents by following an array of path components, supporting both JSON and text output formats.

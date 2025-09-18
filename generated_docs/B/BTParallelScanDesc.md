@@ -1,7 +1,7 @@
 # BTParallelScanDesc
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 83 - 100
+[src/backend/access/nbtree/nbtree.c:83-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L83-L100)
 
 ## Overview
 BTParallelScanDesc is a pointer type definition that provides a handle to BTParallelScanDescData structures used for managing parallel B-tree index scans.

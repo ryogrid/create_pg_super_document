@@ -1,7 +1,7 @@
 # ScanTypeControl
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 49 - 56
+[src/backend/optimizer/path/indxpath.c:49-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L49-L56)
 
 ## Overview
  is an enumeration that controls the type of index scan strategy to be used during query planning, specifying whether to generate plain index scans, bitmap scans, or allow either type.

@@ -1,7 +1,7 @@
 # pg_atomic_exchange_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 267 - 277
+[src/include/port/atomics/generic.h:267-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L267-L277)
 
 ## Overview
 This function performs an atomic exchange operation on a 64-bit unsigned integer, replacing the current value with a new value and returning the previous value atomically using GCC compiler intrinsics.

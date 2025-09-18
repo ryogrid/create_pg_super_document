@@ -1,7 +1,7 @@
 # InitResultRelInfo
 
 ## Location
-src/backend/executor/execMain.c: 1196 - 1294
+[src/backend/executor/execMain.c:1196-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1196-L1294)
 
 ## Overview
 Initializes a ResultRelInfo structure for a result relation, setting up all necessary fields for data modification operations including triggers, foreign data wrappers, and partitioning information.

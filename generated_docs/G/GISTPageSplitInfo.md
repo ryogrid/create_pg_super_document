@@ -1,7 +1,7 @@
 # GISTPageSplitInfo
 
 ## Location
-src/include/access/gist_private.h: 423 - 475
+[src/include/access/gist_private.h:423-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L423-L475)
 
 ## Overview
 GISTPageSplitInfo represents information about a page split operation in a GiST index, containing the buffer and downlink tuple for each split page half.

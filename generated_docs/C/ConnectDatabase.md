@@ -1,7 +1,7 @@
 # ConnectDatabase
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 110 - 224
+[src/bin/pg_dump/pg_backup_db.c:110-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L110-L224)
 
 ## Overview
 Establishes or re-establishes a PostgreSQL database connection for pg_dump/pg_restore operations with comprehensive authentication and security handling.

@@ -1,7 +1,7 @@
 # parallel_vacuum_get_dead_items
 
 ## Location
-src/backend/commands/vacuumparallel.c: 465 - 472
+[src/backend/commands/vacuumparallel.c:465-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L465-L472)
 
 ## Overview
 Provides access to the shared dead items storage and metadata information used for coordinating dead tuple tracking across parallel vacuum workers.

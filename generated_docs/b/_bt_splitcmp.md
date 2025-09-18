@@ -1,7 +1,7 @@
 # _bt_splitcmp
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 594 - 629
+[src/backend/access/nbtree/nbtsplitloc.c:594-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L594-L629)
 
 ## Overview
 A qsort-style comparator function that compares two SplitPoint structures based on their delta values to enable sorting split candidates by space balance.

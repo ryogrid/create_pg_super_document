@@ -1,7 +1,7 @@
 # r_Suffix_Verb_Step2b
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1367 - 1378
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1367-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1367-L1378)
 
 ## Overview
 This function performs Step 2b of verb suffix removal in the Arabic stemming algorithm, targeting specific Arabic verb suffixes that end with particular characters and require a minimum word length.

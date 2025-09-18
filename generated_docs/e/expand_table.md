@@ -1,7 +1,7 @@
 # expand_table
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1511 - 1607
+[src/backend/utils/hash/dynahash.c:1511-1607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1511-L1607)
 
 ## Overview
 Expands a hash table by adding one more hash bucket, redistributing existing entries to maintain proper hash distribution.

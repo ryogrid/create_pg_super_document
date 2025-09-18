@@ -1,7 +1,7 @@
 # restore_sigpipe_trap
 
 ## Location
-src/fe_utils/print.c: 3062 - 3074
+[src/fe_utils/print.c:3062-3074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3062-L3074)
 
 ## Overview
 A utility function that restores normal SIGPIPE signal handling after temporary modifications, with intelligent behavior that depends on the context and permanent output configuration.

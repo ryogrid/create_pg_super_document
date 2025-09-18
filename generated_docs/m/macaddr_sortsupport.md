@@ -1,7 +1,7 @@
 # macaddr_sortsupport
 
 ## Location
-src/backend/utils/adt/mac.c: 363 - 399
+[src/backend/utils/adt/mac.c:363-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L363-L399)
 
 ## Overview
 Populates a SortSupport structure with comparison functions and state for optimized sorting of MAC addresses using abbreviated keys when possible.

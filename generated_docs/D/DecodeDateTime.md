@@ -1,7 +1,7 @@
 # DecodeDateTime
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1780 - 2351
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1780-2351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1780-L2351)
 
 ## Overview
 DecodeDateTime is the central function that interprets previously parsed date/time fields and converts them into structured date and time components for PostgreSQL's datetime types.

@@ -1,7 +1,7 @@
 # match_eclasses_to_foreign_key_col
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2500 - 2590
+[src/backend/optimizer/path/equivclass.c:2500-2590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2500-L2590)
 
 ## Overview
 Determines whether a specific column of a foreign key relationship is proven equal by any equivalence class, enabling query optimization opportunities based on foreign key constraints.

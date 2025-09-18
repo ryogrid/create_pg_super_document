@@ -1,7 +1,7 @@
 # RT_REMOVE_CHILD_4
 
 ## Location
-src/include/lib/radixtree.h: 2523 - 2575
+[src/include/lib/radixtree.h:2523-2575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2523-L2575)
 
 ## Overview
 RT_REMOVE_CHILD_4 is a macro that expands to a function responsible for removing a child entry from a node4, the smallest internal node type in PostgreSQL's radix tree implementation.

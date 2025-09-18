@@ -1,7 +1,7 @@
 # spanish_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c: 984 - 1037
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:984-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c#L984-L1037)
 
 ## Overview
 Performs complete Spanish word stemming using the Snowball algorithm for ISO 8859-1 encoded text, reducing words to their morphological root form through a systematic process of suffix removal and linguistic rule application.

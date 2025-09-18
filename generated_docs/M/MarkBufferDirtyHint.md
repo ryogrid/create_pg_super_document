@@ -1,7 +1,7 @@
 # MarkBufferDirtyHint
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4961 - 5103
+[src/backend/storage/buffer/bufmgr.c:4961-5103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4961-L5103)
 
 ## Overview
 MarkBufferDirtyHint marks a buffer dirty for non-critical hint bit updates, with special handling for WAL logging and race conditions.

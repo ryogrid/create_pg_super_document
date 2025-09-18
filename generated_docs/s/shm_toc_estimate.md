@@ -1,7 +1,7 @@
 # shm_toc_estimate
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 263 - 272
+[src/backend/storage/ipc/shm_toc.c:263-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L263-L272)
 
 ## Overview
 Calculates the total amount of shared memory required to allocate a table of contents (TOC) structure along with its dependent data structures.

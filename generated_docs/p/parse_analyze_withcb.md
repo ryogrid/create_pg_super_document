@@ -1,7 +1,7 @@
 # parse_analyze_withcb
 
 ## Location
-src/backend/parser/analyze.c: 185 - 220
+[src/backend/parser/analyze.c:185-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L185-L220)
 
 ## Overview
 Analyzes a raw parse tree using a caller-supplied parser setup callback, allowing for custom parameter resolution and other specialized parsing configurations.

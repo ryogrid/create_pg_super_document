@@ -1,7 +1,7 @@
 # btree_xlog_startup
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 1073 - 1080
+[src/backend/access/nbtree/nbtxlog.c:1073-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L1073-L1080)
 
 ## Overview
 Initializes the memory context used for B-tree WAL recovery operations during database startup.

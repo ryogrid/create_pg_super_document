@@ -1,7 +1,7 @@
 # check_generic_type_consistency
 
 ## Location
-src/backend/parser/parse_coerce.c: 1739 - 2132
+[src/backend/parser/parse_coerce.c:1739-2132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1739-L2132)
 
 ## Overview
 Validates that actual argument types are potentially compatible with a polymorphic function's declared argument types, enforcing PostgreSQL's complex polymorphic type consistency rules.

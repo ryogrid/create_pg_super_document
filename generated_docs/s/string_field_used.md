@@ -1,7 +1,7 @@
 # string_field_used
 
 ## Location
-src/backend/utils/misc/guc.c: 710 - 732
+[src/backend/utils/misc/guc.c:710-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L710-L732)
 
 ## Overview
 Internal GUC utility function that determines whether a given string value is currently referenced anywhere within a string configuration variable's state.

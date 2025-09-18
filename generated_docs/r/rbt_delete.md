@@ -1,7 +1,7 @@
 # rbt_delete
 
 ## Location
-src/backend/lib/rbtree.c: 695 - 704
+[src/backend/lib/rbtree.c:695-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L695-L704)
 
 ## Overview
 Public API function that removes a specified node from a Red-Black tree, serving as the main entry point for tree deletion operations.

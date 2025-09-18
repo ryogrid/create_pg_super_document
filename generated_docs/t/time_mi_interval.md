@@ -1,7 +1,7 @@
 # time_mi_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2075 - 2097
+[src/backend/utils/adt/date.c:2075-2097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2075-L2097)
 
 ## Overview
 The  function subtracts an interval from a time value, performing time arithmetic while handling underflow and ensuring the result remains within a valid 24-hour day range.

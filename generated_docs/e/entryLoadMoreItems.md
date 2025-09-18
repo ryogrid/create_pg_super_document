@@ -1,7 +1,7 @@
 # entryLoadMoreItems
 
 ## Location
-src/backend/access/gin/ginget.c: 655 - 792
+[src/backend/access/gin/ginget.c:655-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L655-L792)
 
 ## Overview
 Loads the next batch of item pointers from a GIN posting tree, implementing efficient page navigation strategies and handling page boundaries for continuous scanning.

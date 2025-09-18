@@ -1,7 +1,7 @@
 # InitPartitionPruneContext
 
 ## Location
-src/backend/executor/execPartition.c: 2097 - 2191
+[src/backend/executor/execPartition.c:2097-2191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L2097-L2191)
 
 ## Overview
 Initializes a PartitionPruneContext structure for a given list of pruning steps, setting up expression states and partition metadata needed for partition pruning evaluation.

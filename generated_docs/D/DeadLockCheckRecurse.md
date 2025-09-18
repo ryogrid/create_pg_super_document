@@ -1,7 +1,7 @@
 # DeadLockCheckRecurse
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 309 - 374
+[src/backend/storage/lmgr/deadlock.c:309-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L309-L374)
 
 ## Overview
 Recursively searches for valid lock queue orderings to resolve deadlocks by testing different constraint combinations.

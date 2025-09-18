@@ -1,7 +1,7 @@
 # RunObjectDropHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 54 - 75
+[src/backend/catalog/objectaccess.c:54-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L54-L75)
 
 ## Overview
 Executes registered object access hooks for drop events, allowing extensions to perform actions before a PostgreSQL database object is dropped.

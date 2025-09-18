@@ -1,7 +1,7 @@
 # exprSetCollation
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1116 - 1315
+[src/backend/nodes/nodeFuncs.c:1116-1315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1116-L1315)
 
 ## Overview
 Assigns collation information to an expression tree node during parse analysis, handling all expression node types and setting their appropriate collation fields.

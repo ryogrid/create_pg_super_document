@@ -1,7 +1,7 @@
 # pgsql_thing_t
 
 ## Location
-src/bin/psql/tab-complete.c: 1225 - 1226
+[src/bin/psql/tab-complete.c:1225-1226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1225-L1226)
 
 ## Overview
 A structure used in PostgreSQL's psql tab completion system to define "things" that can appear after CREATE, DROP, or ALTER statements along with their associated query information.

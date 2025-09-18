@@ -1,7 +1,7 @@
 # file_sort_by_lsn
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5313 - 5325
+[src/backend/replication/logical/reorderbuffer.c:5313-5325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5313-L5325)
 
 ## Overview
 A comparator function used by PostgreSQL's list sorting mechanism to order RewriteMappingFile structures by their Log Sequence Number (LSN) for logical replication processing.

@@ -1,7 +1,7 @@
 # test_shm_mq_setup
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 51 - 91
+[src/test/modules/test_shm_mq/setup.c:51-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L51-L91)
 
 ## Overview
 This function sets up a dynamic shared memory segment and zero or more background workers for a shared memory message queue test run, providing the necessary infrastructure for inter-process communication testing.

@@ -1,7 +1,7 @@
 # AtEOSubXact_SPI
 
 ## Location
-src/backend/executor/spi.c: 482 - 580
+[src/backend/executor/spi.c:482-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L482-L580)
 
 ## Overview
 AtEOSubXact_SPI cleans up SPI state at subtransaction commit or abort, handling proper cleanup of SPI connections and memory contexts that belong to the ending subtransaction.

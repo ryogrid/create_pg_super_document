@@ -1,7 +1,7 @@
 # ExplainCloseGroup
 
 ## Location
-src/backend/commands/explain.c: 4930 - 4976
+[src/backend/commands/explain.c:4930-4976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4930-L4976)
 
 ## Overview
 ExplainCloseGroup closes a group of related objects in EXPLAIN output, providing the proper closing syntax for different output formats (TEXT, XML, JSON, YAML).

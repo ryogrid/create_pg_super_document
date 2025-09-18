@@ -1,7 +1,7 @@
 # CheckPointBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3699 - 3712
+[src/backend/storage/buffer/bufmgr.c:3699-3712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3699-L3712)
 
 ## Overview
 CheckPointBuffers is a function that flushes all dirty blocks in the buffer pool to disk during checkpoint operations, ensuring data durability at specific recovery points.

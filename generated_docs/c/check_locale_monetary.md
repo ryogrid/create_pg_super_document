@@ -1,7 +1,7 @@
 # check_locale_monetary
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 381 - 386
+[src/backend/utils/adt/pg_locale.c:381-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L381-L386)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates monetary locale settings.

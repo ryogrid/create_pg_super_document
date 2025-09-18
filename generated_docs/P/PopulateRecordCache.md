@@ -1,7 +1,7 @@
 # PopulateRecordCache
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 236 - 241
+[src/backend/utils/adt/jsonfuncs.c:236-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L236-L241)
 
 ## Overview
 A per-query cache structure used by PostgreSQL's JSON populate_record_worker and populate_recordset_worker functions to optimize record population operations by caching metadata.

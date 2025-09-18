@@ -1,7 +1,7 @@
 # pgstat_report_query_id
 
 ## Location
-src/backend/utils/activity/backend_status.c: 613 - 652
+[src/backend/utils/activity/backend_status.c:613-652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L613-L652)
 
 ## Overview
 Updates the top-level query identifier in the backend status entry, enabling query tracking and correlation across PostgreSQL's statistics collection system.

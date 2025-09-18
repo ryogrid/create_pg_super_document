@@ -1,7 +1,7 @@
 # open_cur1
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 209 - 229
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:209-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L209-L229)
 
 ## Overview
 A static function that opens a database cursor in ECPG test code, binding multiple data fields to the cursor for SELECT operations.

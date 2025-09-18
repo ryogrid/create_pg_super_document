@@ -1,7 +1,7 @@
 # attnumCollationId
 
 ## Location
-src/backend/parser/parse_relation.c: 3575 - 3593
+[src/backend/parser/parse_relation.c:3575-3593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3575-L3593)
 
 ## Overview
 This function retrieves the collation OID for a given attribute number within an opened relation.

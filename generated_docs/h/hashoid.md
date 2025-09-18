@@ -1,7 +1,7 @@
 # hashoid
 
 ## Location
-src/backend/access/hash/hashfunc.c: 116 - 121
+[src/backend/access/hash/hashfunc.c:116-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L116-L121)
 
 ## Overview
 The hashoid function computes a hash value for PostgreSQL's OID (Object Identifier) data type by treating it as a 32-bit unsigned integer.

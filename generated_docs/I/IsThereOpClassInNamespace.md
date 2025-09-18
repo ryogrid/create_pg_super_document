@@ -1,7 +1,7 @@
 # IsThereOpClassInNamespace
 
 ## Location
-src/backend/commands/opclasscmds.c: 1805 - 1827
+[src/backend/commands/opclasscmds.c:1805-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1805-L1827)
 
 ## Overview
 Validates that an operator class with the specified name and access method does not already exist in the given namespace, raising an error if a duplicate is found.

@@ -1,7 +1,7 @@
 # ItemPointerSetOffsetNumber
 
 ## Location
-src/include/storage/itemptr.h: 158 - 171
+[src/include/storage/itemptr.h:158-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L158-L171)
 
 ## Overview
 Sets only the offset number portion of a disk item pointer, leaving the block number unchanged, providing targeted modification of the intra-block position component.

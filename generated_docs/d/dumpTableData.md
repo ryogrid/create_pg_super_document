@@ -1,7 +1,7 @@
 # dumpTableData
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2656 - 2770
+[src/bin/pg_dump/pg_dump.c:2656-2770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2656-L2770)
 
 ## Overview
 Creates an archive entry for dumping the contents of a single table, handling both regular and partitioned tables with appropriate copy or insert methods.

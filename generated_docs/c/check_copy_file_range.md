@@ -1,7 +1,7 @@
 # check_copy_file_range
 
 ## Location
-src/bin/pg_upgrade/file.c: 400 - 436
+[src/bin/pg_upgrade/file.c:400-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L400-L436)
 
 ## Overview
 Tests the availability and functionality of copy_file_range system call on the platform during pg_upgrade operations.

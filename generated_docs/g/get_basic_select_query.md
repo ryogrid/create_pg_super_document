@@ -1,7 +1,7 @@
 # get_basic_select_query
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5904 - 6034
+[src/backend/utils/adt/ruleutils.c:5904-6034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5904-L6034)
 
 ## Overview
 Generates the basic structure of a SELECT query string by building each clause (SELECT, DISTINCT, FROM, WHERE, GROUP BY, HAVING, WINDOW) in the proper SQL format.

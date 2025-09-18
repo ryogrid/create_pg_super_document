@@ -1,7 +1,7 @@
 # sts_end_parallel_scan
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 281 - 299
+[src/backend/utils/sort/sharedtuplestore.c:281-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L281-L299)
 
 ## Overview
 Finishes a parallel scan of a shared tuplestore and frees associated backend-local resources.

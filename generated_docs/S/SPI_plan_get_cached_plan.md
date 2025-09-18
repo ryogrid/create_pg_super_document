@@ -1,7 +1,7 @@
 # SPI_plan_get_cached_plan
 
 ## Location
-src/backend/executor/spi.c: 2076 - 2122
+[src/backend/executor/spi.c:2076-2122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2076-L2122)
 
 ## Overview
 Retrieves the generic CachedPlan from a SPI plan that contains exactly one CachedPlanSource, with proper reference counting and error handling.

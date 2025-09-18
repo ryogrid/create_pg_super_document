@@ -1,7 +1,7 @@
 # estimate_rel_size
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1060 - 1184
+[src/backend/optimizer/util/plancat.c:1060-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1060-L1184)
 
 ## Overview
 Estimates the number of pages and tuples in a table or index, along with the fraction of all-visible pages for index-only scan optimization.

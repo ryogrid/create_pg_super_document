@@ -1,7 +1,7 @@
 # gistSplit
 
 ## Location
-src/backend/access/gist/gist.c: 1445 - 1531
+[src/backend/access/gist/gist.c:1445-1531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1445-L1531)
 
 ## Overview
 The recursive core function that splits a GiST page into multiple pages when tuples cannot fit, utilizing the GiST splitting algorithm to determine optimal partitioning.

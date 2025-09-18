@@ -1,7 +1,7 @@
 # ProcessUtilityForAlterTable
 
 ## Location
-src/backend/tcop/utility.c: 1957 - 1992
+[src/backend/tcop/utility.c:1957-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L1957-L1992)
 
 ## Overview
 ProcessUtilityForAlterTable is a specialized recursive entry point for executing utility subcommands generated during ALTER TABLE operations, ensuring proper event trigger sequencing and context management.

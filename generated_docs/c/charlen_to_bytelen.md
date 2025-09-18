@@ -1,7 +1,7 @@
 # charlen_to_bytelen
 
 ## Location
-src/backend/utils/adt/varlena.c: 806 - 851
+[src/backend/utils/adt/varlena.c:806-851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L806-L851)
 
 ## Overview
 Computes the number of bytes occupied by a specified number of characters in a string, handling both single-byte and multibyte character encodings.

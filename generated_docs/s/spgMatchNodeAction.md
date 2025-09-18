@@ -1,7 +1,7 @@
 # spgMatchNodeAction
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 1459 - 1512
+[src/backend/access/spgist/spgdoinsert.c:1459-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L1459-L1512)
 
 ## Overview
 Navigates SP-GiST tree descent by pointing to the N-th child node of current inner tuple, updating parent and current page descriptors appropriately.

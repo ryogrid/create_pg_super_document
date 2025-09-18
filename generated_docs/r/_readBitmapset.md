@@ -1,7 +1,7 @@
 # _readBitmapset
 
 ## Location
-src/backend/nodes/readfuncs.c: 203 - 244
+[src/backend/nodes/readfuncs.c:203-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L203-L244)
 
 ## Overview
 A static helper function in PostgreSQL's node deserialization system that parses serialized Bitmapset structures from text format, reconstructing the original Bitmapset data structure with all its member integers.

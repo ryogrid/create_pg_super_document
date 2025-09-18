@@ -1,7 +1,7 @@
 # unify_hypothetical_args
 
 ## Location
-src/backend/parser/parse_func.c: 1741 - 1824
+[src/backend/parser/parse_func.c:1741-1824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1741-L1824)
 
 ## Overview
 Ensures type consistency between hypothetical direct arguments and corresponding aggregated arguments in hypothetical-set aggregates by performing necessary type coercion.

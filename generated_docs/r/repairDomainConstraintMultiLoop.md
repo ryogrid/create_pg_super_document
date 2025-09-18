@@ -1,7 +1,7 @@
 # repairDomainConstraintMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1121 - 1134
+[src/bin/pg_dump/pg_dump_sort.c:1121-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1121-L1134)
 
 ## Overview
 Repairs multi-loop circular dependencies involving domain constraints by reversing dependency direction, marking the constraint for separate dumping, and ensuring it's placed in the post-data section.

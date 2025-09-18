@@ -1,7 +1,7 @@
 # get_pkglib_path
 
 ## Location
-src/port/path.c: 955 - 963
+[src/port/path.c:955-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L955-L963)
 
 ## Overview
 Constructs the full path to PostgreSQL's package library directory by calculating a relative path from the executable location.

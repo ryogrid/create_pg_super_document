@@ -1,7 +1,7 @@
 # get_relation_constraint_oid
 
 ## Location
-src/backend/catalog/pg_constraint.c: 897 - 953
+[src/backend/catalog/pg_constraint.c:897-953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L897-L953)
 
 ## Overview
 Searches for a constraint on a specified relation by name and returns its OID, with optional error handling for missing constraints.

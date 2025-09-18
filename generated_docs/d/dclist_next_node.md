@@ -1,7 +1,7 @@
 # dclist_next_node
 
 ## Location
-src/include/lib/ilist.h: 867 - 878
+[src/include/lib/ilist.h:867-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L867-L878)
 
 ## Overview
 Returns the next node in a doubly-linked counted list, providing forward traversal capability with the assumption that a next node exists.

@@ -1,7 +1,7 @@
 # RI_FKey_check_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 440 - 460
+[src/backend/utils/adt/ri_triggers.c:440-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L440-L460)
 
 ## Overview
 Trigger function that validates foreign key constraints during UPDATE operations on a foreign key table by checking that the updated referenced key values exist in the primary key table.

@@ -1,7 +1,7 @@
 # heap_tuple_should_freeze
 
 ## Location
-src/backend/access/heap/heapam.c: 7842 - 7949
+[src/backend/access/heap/heapam.c:7842-7949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7842-L7949)
 
 ## Overview
 Determines whether a heap tuple should be frozen by checking if its transaction IDs (xmin, xmax, xvac) and MultiXact IDs are older than the freeze cutoff limits.

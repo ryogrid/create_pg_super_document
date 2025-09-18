@@ -1,7 +1,7 @@
 # NewRestoreOptions
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1090 - 1106
+[src/bin/pg_dump/pg_backup_archiver.c:1090-1106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1090-L1106)
 
 ## Overview
 NewRestoreOptions is a factory function that allocates and initializes a new RestoreOptions structure with default values for PostgreSQL backup restoration operations.

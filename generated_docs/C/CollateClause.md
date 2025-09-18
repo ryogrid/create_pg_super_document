@@ -1,7 +1,7 @@
 # CollateClause
 
 ## Location
-src/include/nodes/parsenodes.h: 381 - 387
+[src/include/nodes/parsenodes.h:381-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L381-L387)
 
 ## Overview
 CollateClause represents a COLLATE expression in PostgreSQL's parse tree, used to specify collation rules for character data comparison and sorting operations.

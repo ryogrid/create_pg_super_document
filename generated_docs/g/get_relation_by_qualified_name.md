@@ -1,7 +1,7 @@
 # get_relation_by_qualified_name
 
 ## Location
-src/backend/catalog/objectaddress.c: 1333 - 1414
+[src/backend/catalog/objectaddress.c:1333-1414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1333-L1414)
 
 ## Overview
 Locates a relation by qualified name and validates that the relation matches the expected object type (table, index, sequence, view, etc.).

@@ -1,7 +1,7 @@
 # PartitionPruneCombineOp
 
 ## Location
-src/include/nodes/plannodes.h: 1547 - 1548
+[src/include/nodes/plannodes.h:1547-1548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1547-L1548)
 
 ## Overview
 An enumeration that specifies how to combine the results of multiple partition pruning steps when processing BoolExpr clauses during partition pruning.

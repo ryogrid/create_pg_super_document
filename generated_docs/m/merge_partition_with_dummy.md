@@ -1,7 +1,7 @@
 # merge_partition_with_dummy
 
 ## Location
-src/backend/partitioning/partbounds.c: 2367 - 2384
+[src/backend/partitioning/partbounds.c:2367-2384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2367-L2384)
 
 ## Overview
 Assigns a given partition a new partition index in a join relation by merging it with a conceptual "dummy" partition from the other side.

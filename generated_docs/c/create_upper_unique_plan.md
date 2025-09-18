@@ -1,7 +1,7 @@
 # create_upper_unique_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2281 - 2308
+[src/backend/optimizer/plan/createplan.c:2281-2308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2281-L2308)
 
 ## Overview
 Creates a Unique plan node for eliminating duplicate rows from upper-level query operations, using pathkey information to determine uniqueness criteria.

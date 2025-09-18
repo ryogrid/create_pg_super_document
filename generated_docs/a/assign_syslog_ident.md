@@ -1,7 +1,7 @@
 # assign_syslog_ident
 
 ## Location
-src/backend/utils/error/elog.c: 2303 - 2334
+[src/backend/utils/error/elog.c:2303-2334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2303-L2334)
 
 ## Overview
 A GUC assign hook function that updates the syslog identifier string and manages syslog connection state when the syslog_ident parameter changes.

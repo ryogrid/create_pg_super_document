@@ -1,7 +1,7 @@
 # do_promote
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1174 - 1254
+[src/bin/pg_ctl/pg_ctl.c:1174-1254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1174-L1254)
 
 ## Overview
 Promotes a PostgreSQL standby server to become a primary server by creating a promote signal file and sending a promotion signal to the postmaster process.

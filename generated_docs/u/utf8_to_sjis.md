@@ -1,7 +1,7 @@
 # utf8_to_sjis
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_sjis/utf8_and_sjis.c: 60 - 78
+[src/backend/utils/mb/conversion_procs/utf8_and_sjis/utf8_and_sjis.c:60-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_sjis/utf8_and_sjis.c#L60-L78)
 
 ## Overview
 Converts a UTF-8 encoded string to Shift-JIS encoding within PostgreSQL's character encoding conversion system.

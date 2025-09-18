@@ -1,7 +1,7 @@
 # pg_attribute_aligned
 
 ## Location
-src/include/c.h: 567 - 573
+[src/include/c.h:567-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L567-L573)
 
 ## Overview
 A preprocessor macro that provides a portable interface for specifying memory alignment requirements for variables and structures using GCC's aligned attribute.

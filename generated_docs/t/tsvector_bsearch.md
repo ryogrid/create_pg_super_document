@@ -1,7 +1,7 @@
 # tsvector_bsearch
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 400 - 432
+[src/backend/utils/adt/tsvector_op.c:400-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L400-L432)
 
 ## Overview
 A static function that performs binary search to locate a specific lexeme within a TSVector's sorted entry array.

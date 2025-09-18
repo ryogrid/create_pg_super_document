@@ -1,7 +1,7 @@
 # exec_command_print
 
 ## Location
-src/bin/psql/command.c: 2099 - 2124
+[src/bin/psql/command.c:2099-2124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2099-L2124)
 
 ## Overview
 Implements the PostgreSQL psql  command that prints the current query buffer contents to stdout without executing the query.

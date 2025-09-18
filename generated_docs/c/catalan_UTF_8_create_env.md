@@ -1,7 +1,7 @@
 # catalan_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_catalan.c: 1446 - 1447
+[src/backend/snowball/libstemmer/stem_UTF_8_catalan.c:1446-1447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_catalan.c#L1446-L1447)
 
 ## Overview
 catalan_UTF_8_create_env is a factory function that creates and initializes a Snowball environment structure specifically configured for Catalan UTF-8 text stemming operations.

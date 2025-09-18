@@ -1,7 +1,7 @@
 # BTWriteState
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 244 - 251
+[src/backend/access/nbtree/nbtsort.c:244-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L244-L251)
 
 ## Overview
 BTWriteState is the overall status record that manages the index writing phase during B-tree index construction, coordinating page allocation and bulk writing operations.

@@ -1,7 +1,7 @@
 # DbInfoArr
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 218 - 248
+[src/bin/pg_upgrade/pg_upgrade.h:218-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L218-L248)
 
 ## Overview
 DbInfoArr is a container structure that holds an array of database information entries, providing a comprehensive collection of all databases in a PostgreSQL cluster during the pg_upgrade process.

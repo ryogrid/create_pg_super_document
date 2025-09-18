@@ -1,7 +1,7 @@
 # r_Suffix_Noun_Step1a
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1203 - 1231
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1203-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1203-L1231)
 
 ## Overview
 This function implements Step 1a of Arabic suffix processing for nouns in the Arabic stemming algorithm, removing various suffixes with different minimum length requirements.

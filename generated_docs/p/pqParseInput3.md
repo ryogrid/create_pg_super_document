@@ -1,7 +1,7 @@
 # pqParseInput3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 66 - 482
+[src/interfaces/libpq/fe-protocol3.c:66-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L66-L482)
 
 ## Overview
 pqParseInput3 is the main message parsing function for PostgreSQL's protocol version 3, responsible for processing all incoming messages from the backend server until input is exhausted or a stopping state is reached.

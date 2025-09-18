@@ -1,7 +1,7 @@
 # set_pathtarget_cost_width
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6259 - 6296
+[src/backend/optimizer/path/costsize.c:6259-6296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6259-L6296)
 
 ## Overview
 Sets the estimated evaluation cost and output width for a PathTarget target list, leveraging cached width estimates where available and computing expression evaluation costs for non-Var nodes.

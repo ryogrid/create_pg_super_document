@@ -1,7 +1,7 @@
 # lseg_lt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2256 - 2265
+[src/backend/utils/adt/geo_ops.c:2256-2265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2256-L2265)
 
 ## Overview
 Compares two line segments to determine if the length of the first segment is less than the length of the second segment.

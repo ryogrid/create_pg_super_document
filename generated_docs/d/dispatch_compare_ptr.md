@@ -1,7 +1,7 @@
 # dispatch_compare_ptr
 
 ## Location
-src/backend/executor/execExprInterp.c: 2373 - 2389
+[src/backend/executor/execExprInterp.c:2373-2389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2373-L2389)
 
 ## Overview
 A comparison function used for sorting ExprEvalOpLookup structures when building the address-to-opcode lookup table for threaded dispatch in ExecEvalStepOp.

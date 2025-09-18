@@ -1,7 +1,7 @@
 # calc_non_nestloop_required_outer
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2405 - 2456
+[src/backend/optimizer/util/pathnode.c:2405-2456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2405-L2456)
 
 ## Overview
 Computes the required outer relation set for merge join and hash join paths by combining parameter requirements from both input paths.

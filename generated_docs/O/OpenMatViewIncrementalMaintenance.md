@@ -1,7 +1,7 @@
 # OpenMatViewIncrementalMaintenance
 
 ## Location
-src/backend/commands/matview.c: 958 - 963
+[src/backend/commands/matview.c:958-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L958-L963)
 
 ## Overview
 Enters a materialized view maintenance context by incrementing the maintenance depth counter, enabling DML operations on materialized views for internal maintenance purposes.

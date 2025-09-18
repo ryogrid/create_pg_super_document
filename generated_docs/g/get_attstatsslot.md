@@ -1,7 +1,7 @@
 # get_attstatsslot
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3234 - 3343
+[src/backend/utils/cache/lsyscache.c:3234-3343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3234-L3343)
 
 ## Overview
 Extracts the contents of a specific "slot" from a pg_statistic tuple, providing access to statistical data used by the query planner for selectivity estimation and cost calculations.

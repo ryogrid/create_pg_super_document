@@ -1,7 +1,7 @@
 # tm2timetz
 
 ## Location
-src/backend/utils/adt/date.c: 2263 - 2272
+[src/backend/utils/adt/date.c:2263-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2263-L2272)
 
 ## Overview
 The tm2timetz function converts a broken-down time structure (pg_tm) with fractional seconds and timezone information into PostgreSQL's TimeTzADT (Time with Time Zone) data type.

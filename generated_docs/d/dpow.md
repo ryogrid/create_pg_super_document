@@ -1,7 +1,7 @@
 # dpow
 
 ## Location
-src/backend/utils/adt/float.c: 1482 - 1636
+[src/backend/utils/adt/float.c:1482-1636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1482-L1636)
 
 ## Overview
 The dpow function computes the power operation (arg1^arg2) for double-precision floating-point numbers with comprehensive domain validation, special case handling, and error detection.

@@ -1,7 +1,7 @@
 # getPublicationSchemaInfo
 
 ## Location
-src/backend/catalog/objectaddress.c: 2855 - 2902
+[src/backend/catalog/objectaddress.c:2855-2902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2855-L2902)
 
 ## Overview
 Retrieves publication name and schema name information from a publication schema object address, returning palloc'd strings for both names.

@@ -1,7 +1,7 @@
 # CreateDatabaseUsingWalLog
 
 ## Location
-src/backend/commands/dbcommands.c: 148 - 249
+[src/backend/commands/dbcommands.c:148-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L148-L249)
 
 ## Overview
 CreateDatabaseUsingWalLog creates a new database by copying from a source database using the WAL_LOG strategy, where each copied block is individually written to the write-ahead log.

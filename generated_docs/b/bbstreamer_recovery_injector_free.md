@@ -1,7 +1,7 @@
 # bbstreamer_recovery_injector_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 209 - 218
+[src/bin/pg_basebackup/bbstreamer_inject.c:209-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L209-L218)
 
 ## Overview
 Frees memory associated with the recovery injector bbstreamer, ensuring proper cleanup of the streaming pipeline.

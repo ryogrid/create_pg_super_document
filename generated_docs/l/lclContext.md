@@ -1,7 +1,7 @@
 # lclContext
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 75 - 80
+[src/bin/pg_dump/pg_backup_custom.c:75-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L75-L80)
 
 ## Overview
 The `lclContext` structure serves as a local context for PostgreSQL custom archive format operations, maintaining state information for compression handling and file positioning during backup and restore operations.

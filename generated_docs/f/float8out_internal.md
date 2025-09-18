@@ -1,7 +1,7 @@
 # float8out_internal
 
 ## Location
-src/backend/utils/adt/float.c: 530 - 548
+[src/backend/utils/adt/float.c:530-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L530-L548)
 
 ## Overview
 Internal implementation function that converts double precision floating-point values to their string representation, providing platform-independent output formatting with configurable precision control.

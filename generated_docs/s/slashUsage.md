@@ -1,7 +1,7 @@
 # slashUsage
 
 ## Location
-src/bin/psql/help.c: 151 - 360
+[src/bin/psql/help.c:151-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/help.c#L151-L360)
 
 ## Overview
 The slashUsage function displays comprehensive help information for all psql backslash commands, organizing them into logical categories for easy reference.

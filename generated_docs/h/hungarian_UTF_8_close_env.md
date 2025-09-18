@@ -1,7 +1,7 @@
 # hungarian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 867 - 868
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:867-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L867-L868)
 
 ## Overview
 Properly closes and deallocates a Snowball environment structure that was created for Hungarian text processing with UTF-8 encoding.

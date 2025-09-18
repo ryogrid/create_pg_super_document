@@ -1,7 +1,7 @@
 # heap_fetch_next_buffer
 
 ## Location
-src/backend/access/heap/heapam.c: 629 - 673
+[src/backend/access/heap/heapam.c:629-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L629-L673)
 
 ## Overview
 heap_fetch_next_buffer is an internal function that advances a heap scan to the next buffer by reading and pinning the next block from the relation's main fork using PostgreSQL's read stream infrastructure.

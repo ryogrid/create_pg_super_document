@@ -1,7 +1,7 @@
 # LVRelState
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 136 - 219
+[src/backend/access/heap/vacuumlazy.c:136-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L136-L219)
 
 ## Overview
 LVRelState is the main state structure used by PostgreSQL's lazy vacuum implementation to maintain all necessary information during vacuum operations on heap relations.

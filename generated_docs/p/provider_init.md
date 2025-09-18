@@ -1,7 +1,7 @@
 # provider_init
 
 ## Location
-src/backend/jit/jit.c: 67 - 126
+[src/backend/jit/jit.c:67-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/jit.c#L67-L126)
 
 ## Overview
 A static function that manages the loading and initialization of the JIT provider, caching the result to avoid repeated expensive loading attempts.

@@ -1,7 +1,7 @@
 # mb_strchr
 
 ## Location
-src/backend/tsearch/regis.c: 182 - 212
+[src/backend/tsearch/regis.c:182-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L182-L212)
 
 ## Overview
 Searches for a multibyte character within a string, similar to strchr but with proper multibyte character support for PostgreSQL's text search system.

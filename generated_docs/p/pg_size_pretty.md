@@ -1,7 +1,7 @@
 # pg_size_pretty
 
 ## Location
-src/backend/utils/adt/dbsize.c: 569 - 610
+[src/backend/utils/adt/dbsize.c:569-610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L569-L610)
 
 ## Overview
 This function formats a numeric byte size value into a human-readable string representation with appropriate size units (bytes, kB, MB, GB, TB, etc.).

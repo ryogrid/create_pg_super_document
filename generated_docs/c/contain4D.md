@@ -1,7 +1,7 @@
 # contain4D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 260 - 267
+[src/backend/utils/adt/geo_spgist.c:260-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L260-L267)
 
 ## Overview
 The `contain4D` function determines whether any rectangle from a rectangle box can completely contain a query argument in 4D space by performing 2D containment tests on both X and Y dimensions.

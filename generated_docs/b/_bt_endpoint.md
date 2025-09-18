@@ -1,7 +1,7 @@
 # _bt_endpoint
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2573 - 2662
+[src/backend/access/nbtree/nbtsearch.c:2573-2662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2573-L2662)
 
 ## Overview
 Finds the first or last page in a B-tree index and scans from there to locate the first key satisfying all search qualifications for index scan initialization.

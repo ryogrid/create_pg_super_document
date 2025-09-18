@@ -1,7 +1,7 @@
 # exec_thread_arg
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 34 - 42
+[src/bin/pg_upgrade/parallel.c:34-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L34-L42)
 
 ## Overview
 A structure that holds arguments required for executing commands in parallel threads on Windows platforms during PostgreSQL upgrade operations.

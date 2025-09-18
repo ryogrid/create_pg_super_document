@@ -1,7 +1,7 @@
 # GeneratePruningStepsContext
 
 ## Location
-src/backend/partitioning/partprune.c: 110 - 124
+[src/backend/partitioning/partprune.c:110-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L110-L124)
 
 ## Overview
 GeneratePruningStepsContext is a structure that maintains the current state during the generation of partition pruning steps for a given set of clauses.

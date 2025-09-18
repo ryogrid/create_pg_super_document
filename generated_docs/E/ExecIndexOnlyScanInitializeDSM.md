@@ -1,7 +1,7 @@
 # ExecIndexOnlyScanInitializeDSM
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 726 - 763
+[src/backend/executor/nodeIndexonlyscan.c:726-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L726-L763)
 
 ## Overview
 Initializes a dynamic shared memory (DSM) structure for parallel index-only scans, setting up the necessary shared memory resources and scan descriptors for worker processes to participate in parallel execution.

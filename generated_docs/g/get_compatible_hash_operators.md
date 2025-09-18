@@ -1,7 +1,7 @@
 # get_compatible_hash_operators
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 410 - 509
+[src/backend/utils/cache/lsyscache.c:410-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L410-L509)
 
 ## Overview
 Retrieves hash equality operators compatible with a given operator, operating on its left-hand side and/or right-hand side datatypes.

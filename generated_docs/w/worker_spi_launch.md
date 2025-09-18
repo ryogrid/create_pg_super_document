@@ -1,7 +1,7 @@
 # worker_spi_launch
 
 ## Location
-src/test/modules/worker_spi/worker_spi.c: 396 - 493
+[src/test/modules/worker_spi/worker_spi.c:396-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/worker_spi/worker_spi.c#L396-L493)
 
 ## Overview
 This function provides a SQL-callable interface for dynamically launching worker_spi background worker processes at runtime with custom database, role, and flag configurations.

@@ -1,7 +1,7 @@
 # tts_heap_clear
 
 ## Location
-src/backend/executor/execTuples.c: 326 - 344
+[src/backend/executor/execTuples.c:326-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L326-L344)
 
 ## Overview
 tts_heap_clear clears the contents of a HeapTupleTableSlot, freeing associated memory and resetting the slot to an empty state while preserving the tuple descriptor.

@@ -1,7 +1,7 @@
 # BTreeShmemSize
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4522 - 4534
+[src/backend/access/nbtree/nbtutils.c:4522-4534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4522-L4534)
 
 ## Overview
 Calculates the amount of shared memory space needed for B-tree VACUUM coordination data structures.

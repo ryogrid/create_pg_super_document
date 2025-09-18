@@ -1,7 +1,7 @@
 # to_regrole
 
 ## Location
-src/backend/utils/adt/regproc.c: 1583 - 1600
+[src/backend/utils/adt/regproc.c:1583-1600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1583-L1600)
 
 ## Overview
 Converts a role name text value to regrole type, returning NULL for non-existent roles instead of raising errors.

@@ -1,7 +1,7 @@
 # bms_add_members
 
 ## Location
-src/backend/nodes/bitmapset.c: 917 - 971
+[src/backend/nodes/bitmapset.c:917-971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L917-L971)
 
 ## Overview
 Efficiently adds all members from one bitmapset to another, similar to  but optimized to recycle the left input when possible.

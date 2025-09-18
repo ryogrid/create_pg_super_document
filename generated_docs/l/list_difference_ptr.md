@@ -1,7 +1,7 @@
 # list_difference_ptr
 
 ## Location
-src/backend/nodes/list.c: 1263 - 1287
+[src/backend/nodes/list.c:1263-1287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1263-L1287)
 
 ## Overview
 Returns a new list containing elements from the first list that are not present in the second list, using simple pointer equality for membership comparison.

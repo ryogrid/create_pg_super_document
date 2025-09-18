@@ -1,7 +1,7 @@
 # InitCatCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 878 - 984
+[src/backend/utils/cache/catcache.c:878-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L878-L984)
 
 ## Overview
 Initializes a new catalog cache structure with specified parameters for caching tuples from a system catalog.

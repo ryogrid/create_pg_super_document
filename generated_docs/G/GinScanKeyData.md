@@ -1,7 +1,7 @@
 # GinScanKeyData
 
 ## Location
-src/include/access/gin_private.h: 268 - 334
+[src/include/access/gin_private.h:268-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L268-L334)
 
 ## Overview
 GinScanKeyData represents a single GIN index qualifier expression containing search conditions, consistency functions, and match state information for efficient index scanning.

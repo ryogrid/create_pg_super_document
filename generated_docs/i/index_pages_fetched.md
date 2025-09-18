@@ -1,7 +1,7 @@
 # index_pages_fetched
 
 ## Location
-src/backend/optimizer/path/costsize.c: 898 - 962
+[src/backend/optimizer/path/costsize.c:898-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L898-L962)
 
 ## Overview
 Estimates the number of pages actually fetched from storage after accounting for cache effects using the Mackert and Lohman formula.

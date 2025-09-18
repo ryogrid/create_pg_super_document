@@ -1,7 +1,7 @@
 # RelationMapUpdateMap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 325 - 382
+[src/backend/utils/cache/relmapper.c:325-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L325-L382)
 
 ## Overview
 Installs a new relation-to-file mapping for a specified relation, with support for immediate activation or pending updates that take effect at command completion.

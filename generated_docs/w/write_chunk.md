@@ -1,7 +1,7 @@
 # write_chunk
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1293 - 1302
+[src/backend/utils/activity/pgstat.c:1293-1302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1293-L1302)
 
 ## Overview
 A static helper function that writes a chunk of data to a file stream, used primarily for writing PostgreSQL statistics data to disk.

@@ -1,7 +1,7 @@
 # _brin_parallel_build_main
 
 ## Location
-src/backend/access/brin/brin.c: 2853 - 2942
+[src/backend/access/brin/brin.c:2853-2942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2853-L2942)
 
 ## Overview
 This function serves as the main entry point for parallel worker processes during BRIN index construction, handling worker initialization, relation opening, and coordination with the parallel build infrastructure.

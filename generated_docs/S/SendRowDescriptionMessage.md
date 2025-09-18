@@ -1,7 +1,7 @@
 # SendRowDescriptionMessage
 
 ## Location
-src/backend/access/common/printtup.c: 166 - 249
+[src/backend/access/common/printtup.c:166-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L166-L249)
 
 ## Overview
 The SendRowDescriptionMessage function sends a RowDescription message to the frontend client, providing metadata about the columns in a query result set according to PostgreSQL's wire protocol.

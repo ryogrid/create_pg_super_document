@@ -1,7 +1,7 @@
 # convert_to_base_unit
 
 ## Location
-src/backend/utils/misc/guc.c: 2673 - 2730
+[src/backend/utils/misc/guc.c:2673-2730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2673-L2730)
 
 ## Overview
 convert_to_base_unit converts human-friendly unit values (like "kB", "min") to PostgreSQL's internal base units for configuration parameters.

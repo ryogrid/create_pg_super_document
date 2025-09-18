@@ -1,7 +1,7 @@
 # pgwin32_message_to_UTF16
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1774 - 1837
+[src/backend/utils/mb/mbutils.c:1774-1837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1774-L1837)
 
 ## Overview
 Converts a string from PostgreSQL's message encoding to a null-terminated UTF-16 wide character string, primarily used for Windows event log and console output.

@@ -1,7 +1,7 @@
 # hash_any
 
 ## Location
-src/include/common/hashfn.h: 31 - 36
+[src/include/common/hashfn.h:31-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L31-L36)
 
 ## Overview
 The `hash_any` function serves as a standard interface for hashing arbitrary byte sequences, converting the result into PostgreSQL's Datum format for use in hash-based data structures and operations.

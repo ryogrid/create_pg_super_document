@@ -1,7 +1,7 @@
 # describeTypes
 
 ## Location
-src/bin/psql/describe.c: 615 - 719
+[src/bin/psql/describe.c:615-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L615-L719)
 
 ## Overview
 Implements the \dT psql command to display a comprehensive list of data types in the database, with sophisticated filtering to exclude unwanted complex types and array types.

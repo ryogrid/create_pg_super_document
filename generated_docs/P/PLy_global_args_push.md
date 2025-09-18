@@ -1,7 +1,7 @@
 # PLy_global_args_push
 
 ## Location
-src/pl/plpython/plpy_exec.c: 613 - 642
+[src/pl/plpython/plpy_exec.c:613-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L613-L642)
 
 ## Overview
 Saves existing argument values for a PLpython procedure and pushes them onto a stack to enable recursive function calls by preserving the outer call's argument context.

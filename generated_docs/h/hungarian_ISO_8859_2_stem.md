@@ -1,7 +1,7 @@
 # hungarian_ISO_8859_2_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 792 - 858
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:792-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L792-L858)
 
 ## Overview
 The main entry point function for Hungarian word stemming using ISO-8859-2 character encoding in the Snowball stemming library.

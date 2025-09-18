@@ -1,7 +1,7 @@
 # make_op
 
 ## Location
-src/backend/parser/parse_oper.c: 660 - 769
+[src/backend/parser/parse_oper.c:660-769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L660-L769)
 
 ## Overview
 The  function constructs operator expressions in PostgreSQL's parser, handling type compatibility, operator resolution, and building the final expression tree.

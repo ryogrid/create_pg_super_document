@@ -1,7 +1,7 @@
 # datumSerialize
 
 ## Location
-src/backend/utils/adt/datum.c: 459 - 520
+[src/backend/utils/adt/datum.c:459-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L459-L520)
 
 ## Overview
 Serializes a possibly-NULL PostgreSQL Datum into caller-provided storage for inter-process communication within the same database server.

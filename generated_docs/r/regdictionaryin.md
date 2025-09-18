@@ -1,7 +1,7 @@
 # regdictionaryin
 
 ## Location
-src/backend/utils/adt/regproc.c: 1431 - 1468
+[src/backend/utils/adt/regproc.c:1431-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1431-L1468)
 
 ## Overview
 Converts a text search dictionary name string to its corresponding dictionary OID, handling both named and numeric input formats.

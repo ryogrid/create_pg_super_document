@@ -1,7 +1,7 @@
 # get_special_variable
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7603 - 7623
+[src/backend/utils/adt/ruleutils.c:7603-7623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7603-L7623)
 
 ## Overview
 A callback function for resolve_special_varno that handles decompilation of special variable references (OUTER_VAR, INNER_VAR, INDEX_VAR) by delegating expression formatting to get_rule_expr.

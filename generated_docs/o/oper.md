@@ -1,7 +1,7 @@
 # oper
 
 ## Location
-src/backend/parser/parse_oper.c: 370 - 449
+[src/backend/parser/parse_oper.c:370-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L370-L449)
 
 ## Overview
 The main function for searching and resolving binary operators in PostgreSQL, returning an operator that is coercion-compatible with the input data types.

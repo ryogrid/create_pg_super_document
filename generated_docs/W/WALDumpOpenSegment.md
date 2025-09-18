@@ -1,7 +1,7 @@
 # WALDumpOpenSegment
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 338 - 379
+[src/bin/pg_waldump/pg_waldump.c:338-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L338-L379)
 
 ## Overview
 Serves as the XLogReaderRoutine segment_open callback function that opens WAL segment files for the pg_waldump utility, with retry logic for follow mode operations.

@@ -1,7 +1,7 @@
 # type_maximum_size
 
 ## Location
-src/backend/utils/adt/format_type.c: 412 - 446
+[src/backend/utils/adt/format_type.c:412-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L412-L446)
 
 ## Overview
 Determines the maximum possible width (in bytes) of a variable-width PostgreSQL data type column given its type OID and type modifier.

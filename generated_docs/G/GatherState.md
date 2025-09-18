@@ -1,7 +1,7 @@
 # GatherState
 
 ## Location
-src/include/nodes/execnodes.h: 2669 - 2683
+[src/include/nodes/execnodes.h:2669-2683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2669-L2683)
 
 ## Overview
 GatherState is a structure that manages the execution state for PostgreSQL's GATHER node, which launches parallel workers to execute a subplan and collects the results from those workers.

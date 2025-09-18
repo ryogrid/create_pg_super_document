@@ -1,7 +1,7 @@
 # expand_colnames_array_to
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4859 - 4877
+[src/backend/utils/adt/ruleutils.c:4859-4877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4859-L4877)
 
 ## Overview
 A utility function that ensures a deparse_columns structure has at least n column name entries, expanding the colnames array as needed with zero-initialized entries.

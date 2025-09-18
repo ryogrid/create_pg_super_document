@@ -1,7 +1,7 @@
 # OSInfo
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 351 - 393
+[src/bin/pg_upgrade/pg_upgrade.h:351-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L351-L393)
 
 ## Overview
 OSInfo is a structure that stores operating system and environment information used by the pg_upgrade utility during PostgreSQL cluster upgrades.

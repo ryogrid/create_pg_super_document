@@ -1,7 +1,7 @@
 # p_isstophost
 
 ## Location
-src/backend/tsearch/wparser_def.c: 612 - 622
+[src/backend/tsearch/wparser_def.c:612-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L612-L622)
 
 ## Overview
 A static function in PostgreSQL's text search parser that determines whether to stop host parsing by checking and resetting the wanthost flag.

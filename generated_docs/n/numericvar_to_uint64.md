@@ -1,7 +1,7 @@
 # numericvar_to_uint64
 
 ## Location
-src/backend/utils/adt/numeric.c: 8167 - 8239
+[src/backend/utils/adt/numeric.c:8167-8239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8167-L8239)
 
 ## Overview
 The `numericvar_to_uint64` function converts a PostgreSQL numeric variable to a 64-bit unsigned integer, performing rounding to the nearest integer and checking for overflow and negative value conditions.

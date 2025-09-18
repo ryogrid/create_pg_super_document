@@ -1,7 +1,7 @@
 # LookupTypeNameExtended
 
 ## Location
-src/backend/parser/parse_type.c: 73 - 231
+[src/backend/parser/parse_type.c:73-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L73-L231)
 
 ## Overview
 LookupTypeNameExtended is the core function for looking up PostgreSQL types by name, providing comprehensive type resolution with full control over lookup behavior including temporary types and missing type handling.

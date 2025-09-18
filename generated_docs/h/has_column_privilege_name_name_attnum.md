@@ -1,7 +1,7 @@
 # has_column_privilege_name_name_attnum
 
 ## Location
-src/backend/utils/adt/acl.c: 2607 - 2633
+[src/backend/utils/adt/acl.c:2607-2633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2607-L2633)
 
 ## Overview
 Checks user privileges on a specific column using the role name, table name, column attribute number, and privilege type as input parameters.

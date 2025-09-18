@@ -1,7 +1,7 @@
 # rewriteSearchAndCycle
 
 ## Location
-src/backend/rewrite/rewriteSearchCycle.c: 203 - 681
+[src/backend/rewrite/rewriteSearchCycle.c:203-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSearchCycle.c#L203-L681)
 
 ## Overview
 Rewrites a Common Table Expression (CTE) with SEARCH or CYCLE clauses into an equivalent recursive CTE with additional columns for tracking traversal path and detecting cycles.

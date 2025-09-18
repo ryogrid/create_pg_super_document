@@ -1,7 +1,7 @@
 # pgstat_setup_memcxt
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 1071 - 1083
+[src/backend/utils/activity/pgstat_shmem.c:1071-1083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L1071-L1083)
 
 ## Overview
 This static function initializes memory contexts used by PostgreSQL statistics subsystem for shared reference management and hash operations.

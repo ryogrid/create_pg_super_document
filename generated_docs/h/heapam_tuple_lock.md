@@ -1,7 +1,7 @@
 # heapam_tuple_lock
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 360 - 580
+[src/backend/access/heap/heapam_handler.c:360-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L360-L580)
 
 ## Overview
 Implements the heap table access method interface for acquiring locks on tuples, with sophisticated logic for following update chains and handling various lock wait policies.

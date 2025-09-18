@@ -1,7 +1,7 @@
 # find_nonnullable_vars_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1713 - 1915
+[src/backend/optimizer/util/clauses.c:1713-1915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1713-L1915)
 
 ## Overview
 A recursive walker function that analyzes expression nodes to determine which variables must be nonnullable for the expression to return TRUE or avoid NULL results.

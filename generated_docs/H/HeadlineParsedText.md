@@ -1,7 +1,7 @@
 # HeadlineParsedText
 
 ## Location
-src/include/tsearch/ts_public.h: 89 - 103
+[src/include/tsearch/ts_public.h:89-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_public.h#L89-L103)
 
 ## Overview
 HeadlineParsedText is a structure that contains the complete data needed for text search headline generation, including an array of parsed word tokens and formatting strings for highlighting and fragment separation.

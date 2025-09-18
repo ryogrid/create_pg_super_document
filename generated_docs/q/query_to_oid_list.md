@@ -1,7 +1,7 @@
 # query_to_oid_list
 
 ## Location
-src/backend/utils/adt/xml.c: 2786 - 2814
+[src/backend/utils/adt/xml.c:2786-2814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2786-L2814)
 
 ## Overview
 Executes a SQL query that returns OID values and converts the results into a List of Oids for use in XML mapping operations.

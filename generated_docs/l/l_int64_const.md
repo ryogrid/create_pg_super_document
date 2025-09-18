@@ -1,7 +1,7 @@
 # l_int64_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 75 - 83
+[src/include/jit/llvmjit_emit.h:75-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L75-L83)
 
 ## Overview
 Creates an LLVM constant integer value of 64-bit signed integer type for use in LLVM IR code generation within PostgreSQL's JIT compilation system.

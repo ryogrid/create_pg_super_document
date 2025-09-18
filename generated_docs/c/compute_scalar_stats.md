@@ -1,7 +1,7 @@
 # compute_scalar_stats
 
 ## Location
-src/backend/commands/analyze.c: 2356 - 2884
+[src/backend/commands/analyze.c:2356-2884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2356-L2884)
 
 ## Overview
 The comprehensive statistical analysis function for scalar data types that computes detailed column statistics including histograms, most common values, distinct value estimates, and correlation coefficients when both equality and less-than operators are available.

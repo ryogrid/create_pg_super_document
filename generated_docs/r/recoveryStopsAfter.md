@@ -1,7 +1,7 @@
 # recoveryStopsAfter
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2726 - 2885
+[src/backend/access/transam/xlogrecovery.c:2726-2885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2726-L2885)
 
 ## Overview
 Determines whether point-in-time recovery should stop after applying the current WAL record, complementing recoveryStopsBefore for complete recovery control.

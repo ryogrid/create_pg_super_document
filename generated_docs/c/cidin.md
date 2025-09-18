@@ -1,7 +1,7 @@
 # cidin
 
 ## Location
-src/backend/utils/adt/xid.c: 322 - 334
+[src/backend/utils/adt/xid.c:322-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L322-L334)
 
 ## Overview
 Converts a string representation of a command identifier to its internal CommandId representation, serving as the input conversion function for PostgreSQL's cid data type.

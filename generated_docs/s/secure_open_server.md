@@ -1,7 +1,7 @@
 # secure_open_server
 
 ## Location
-src/backend/libpq/be-secure.c: 110 - 162
+[src/backend/libpq/be-secure.c:110-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L110-L162)
 
 ## Overview
 Establishes a secure SSL/TLS session with a client by negotiating encryption and handling the transition from unencrypted to encrypted communication.

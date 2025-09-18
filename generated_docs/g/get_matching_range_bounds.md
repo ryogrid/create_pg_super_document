@@ -1,7 +1,7 @@
 # get_matching_range_bounds
 
 ## Location
-src/backend/partitioning/partprune.c: 2951 - 3345
+[src/backend/partitioning/partprune.c:2951-3345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L2951-L3345)
 
 ## Overview
 Determines the offsets of range bounds matching the specified values according to the semantics of the given operator strategy for range partitioned tables.

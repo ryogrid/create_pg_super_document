@@ -1,7 +1,7 @@
 # DefineAttr
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 490 - 597
+[src/backend/bootstrap/bootstrap.c:490-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L490-L597)
 
 ## Overview
 DefineAttr defines an attribute (column) for a relation during the bootstrap process, setting up the attribute metadata including type information, nullability, and storage characteristics.

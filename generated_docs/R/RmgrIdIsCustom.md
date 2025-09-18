@@ -1,7 +1,7 @@
 # RmgrIdIsCustom
 
 ## Location
-src/include/access/rmgr.h: 48 - 52
+[src/include/access/rmgr.h:48-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/rmgr.h#L48-L52)
 
 ## Overview
 Determines whether a resource manager ID corresponds to a custom (extension-defined) resource manager.

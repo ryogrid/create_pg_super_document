@@ -1,7 +1,7 @@
 # r_case_special
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 598 - 622
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:598-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L598-L622)
 
 ## Overview
 The r_case_special function handles special Hungarian case endings that require transformation rather than simple deletion, specifically dealing with endings that contain 'án', 'én', and 'ánként'.

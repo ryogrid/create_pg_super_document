@@ -1,7 +1,7 @@
 # pop_next_work_item
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4554 - 4610
+[src/bin/pg_dump/pg_backup_archiver.c:4554-4610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4554-L4610)
 
 ## Overview
 Finds and removes the next suitable work item from the ready heap that can be executed without lock conflicts.

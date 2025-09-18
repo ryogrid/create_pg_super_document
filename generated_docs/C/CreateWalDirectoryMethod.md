@@ -1,7 +1,7 @@
 # CreateWalDirectoryMethod
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 640 - 690
+[src/bin/pg_basebackup/walmethods.c:640-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L640-L690)
 
 ## Overview
 Creates and initializes a directory-based WAL writing method for PostgreSQL backup operations.

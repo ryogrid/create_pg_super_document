@@ -1,7 +1,7 @@
 # CreateWalTarMethod
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1355 - 1382
+[src/bin/pg_basebackup/walmethods.c:1355-1382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1355-L1382)
 
 ## Overview
 CreateWalTarMethod creates and initializes a tar-based WAL (Write-Ahead Log) writing method for PostgreSQL's pg_basebackup utility, supporting both uncompressed tar and gzip-compressed tar formats.

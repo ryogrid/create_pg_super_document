@@ -1,7 +1,7 @@
 # GinFormTuple
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 44 - 161
+[src/backend/access/gin/ginentrypage.c:44-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L44-L161)
 
 ## Overview
 Forms a tuple for entry tree in PostgreSQL's GIN (Generalized Inverted Index) access method, creating an IndexTuple from key data and posting list information.

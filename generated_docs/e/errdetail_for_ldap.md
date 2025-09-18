@@ -1,7 +1,7 @@
 # errdetail_for_ldap
 
 ## Location
-src/backend/libpq/auth.c: 2665 - 2688
+[src/backend/libpq/auth.c:2665-2688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2665-L2688)
 
 ## Overview
 Retrieves LDAP diagnostic messages from an LDAP connection and adds them as error detail to the current PostgreSQL error context.

@@ -1,7 +1,7 @@
 # PGSharedMemoryDetach
 
 ## Location
-src/backend/port/sysv_shmem.c: 970 - 991
+[src/backend/port/sysv_shmem.c:970-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L970-L991)
 
 ## Overview
 Detaches the current process from the shared memory segment, designed primarily for subprocesses that have inherited an attachment and need to clean up their connection.

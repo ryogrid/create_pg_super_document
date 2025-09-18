@@ -1,7 +1,7 @@
 # TidStoreGetDSA
 
 ## Location
-src/backend/access/common/tidstore.c: 563 - 570
+[src/backend/access/common/tidstore.c:563-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L563-L570)
 
 ## Overview
 Returns the DSA (Dynamic Shared Area) where a shared TidStore resides, providing access to the underlying shared memory area.

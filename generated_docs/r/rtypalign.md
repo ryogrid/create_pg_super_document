@@ -1,7 +1,7 @@
 # rtypalign
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 995 - 1002
+[src/interfaces/ecpg/compatlib/informix.c:995-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L995-L1002)
 
 ## Overview
 The rtypalign function is a stub implementation that provides Informix compatibility for type alignment calculations, but currently returns a no-op result.

@@ -1,7 +1,7 @@
 # MemoryContextResetOnly
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 402 - 432
+[src/backend/utils/mmgr/mcxt.c:402-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L402-L432)
 
 ## Overview
 MemoryContextResetOnly releases all allocated space within a memory context without affecting its descendant contexts, providing focused memory cleanup for the specific context only.

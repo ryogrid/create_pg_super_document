@@ -1,7 +1,7 @@
 # interpt_pp
 
 ## Location
-src/test/regress/regress.c: 90 - 130
+[src/test/regress/regress.c:90-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L90-L130)
 
 ## Overview
 The interpt_pp function finds the intersection point between two paths (polygonal lines) in PostgreSQL's regression testing framework.

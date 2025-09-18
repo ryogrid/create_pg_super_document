@@ -1,7 +1,7 @@
 # ExecGetRootToChildMap
 
 ## Location
-src/backend/executor/execUtils.c: 1232 - 1266
+[src/backend/executor/execUtils.c:1232-1266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1232-L1266)
 
 ## Overview
 Returns the tuple conversion map needed to convert tuples from a root result relation's rowtype to the rowtype of a child relation, handling schema differences between parent and child tables in partitioned table hierarchies.

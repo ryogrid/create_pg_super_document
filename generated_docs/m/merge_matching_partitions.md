@@ -1,7 +1,7 @@
 # merge_matching_partitions
 
 ## Location
-src/backend/partitioning/partbounds.c: 1862 - 1979
+[src/backend/partitioning/partbounds.c:1862-1979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1862-L1979)
 
 ## Overview
 Attempts to merge given outer and inner partitions and returns the index of the merged partition if successful, or -1 if merging fails.

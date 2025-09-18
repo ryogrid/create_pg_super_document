@@ -1,7 +1,7 @@
 # LockErrorCleanup
 
 ## Location
-src/backend/storage/lmgr/proc.c: 735 - 810
+[src/backend/storage/lmgr/proc.c:735-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L735-L810)
 
 ## Overview
 Cancels any pending lock wait when aborting a transaction and reverts any strong lock count acquisition for a lock being acquired, typically called during error handling or transaction abort scenarios.

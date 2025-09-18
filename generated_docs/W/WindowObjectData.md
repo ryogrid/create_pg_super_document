@@ -1,7 +1,7 @@
 # WindowObjectData
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 62 - 72
+[src/backend/executor/nodeWindowAgg.c:62-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L62-L72)
 
 ## Overview
 WindowObjectData is a structure that serves as the context object passed to window functions during execution, containing all necessary state and position information for window function API calls.

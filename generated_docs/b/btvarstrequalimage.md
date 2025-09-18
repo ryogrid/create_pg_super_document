@@ -1,7 +1,7 @@
 # btvarstrequalimage
 
 ## Location
-src/backend/utils/adt/varlena.c: 2555 - 2570
+[src/backend/utils/adt/varlena.c:2555-2570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2555-L2570)
 
 ## Overview
 A generic equalimage support function for character type's operator classes that determines whether B-tree index deduplication can be safely used with a given collation.

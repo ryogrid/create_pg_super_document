@@ -1,7 +1,7 @@
 # uuid_eq
 
 ## Location
-src/backend/utils/adt/uuid.c: 192 - 200
+[src/backend/utils/adt/uuid.c:192-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L192-L200)
 
 ## Overview
 SQL-callable function that tests whether two UUID arguments are equal.

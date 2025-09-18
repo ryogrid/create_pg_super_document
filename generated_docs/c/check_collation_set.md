@@ -1,7 +1,7 @@
 # check_collation_set
 
 ## Location
-src/backend/utils/adt/varlena.c: 1510 - 1538
+[src/backend/utils/adt/varlena.c:1510-1538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1510-L1538)
 
 ## Overview
 Validates that a collation OID is set and reports an error if it is invalid or not determined.

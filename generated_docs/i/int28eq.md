@@ -1,7 +1,7 @@
 # int28eq
 
 ## Location
-src/backend/utils/adt/int8.c: 341 - 349
+[src/backend/utils/adt/int8.c:341-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L341-L349)
 
 ## Overview
 A PostgreSQL built-in function that compares a 2-byte integer (smallint/int16) with an 8-byte integer (bigint/int64) to determine if they are equal.

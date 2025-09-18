@@ -1,7 +1,7 @@
 # PartitionRangeDatum
 
 ## Location
-src/include/nodes/parsenodes.h: 929 - 938
+[src/include/nodes/parsenodes.h:929-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L929-L938)
 
 ## Overview
 PartitionRangeDatum represents one of the values in a range partition bound, which can be MINVALUE, MAXVALUE, or a specific bounded value.

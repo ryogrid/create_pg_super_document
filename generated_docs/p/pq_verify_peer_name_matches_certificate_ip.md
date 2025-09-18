@@ -1,7 +1,7 @@
 # pq_verify_peer_name_matches_certificate_ip
 
 ## Location
-src/interfaces/libpq/fe-secure-common.c: 157 - 251
+[src/interfaces/libpq/fe-secure-common.c:157-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-common.c#L157-L251)
 
 ## Overview
 Validates whether an IP address extracted from a server's SSL/TLS certificate matches the peer's hostname when the hostname is also an IP address.

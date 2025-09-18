@@ -1,7 +1,7 @@
 # EventTriggerOnLogin
 
 ## Location
-src/backend/commands/event_trigger.c: 893 - 1003
+[src/backend/commands/event_trigger.c:893-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L893-L1003)
 
 ## Overview
 EventTriggerOnLogin fires login event triggers when a database connection is established, providing a mechanism for database-level connection monitoring and initialization.

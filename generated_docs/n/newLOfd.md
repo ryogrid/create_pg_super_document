@@ -1,7 +1,7 @@
 # newLOfd
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 675 - 715
+[src/backend/libpq/be-fsstubs.c:675-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L675-L715)
 
 ## Overview
 Allocates a new file descriptor slot for large object operations by finding a free slot in the cookies array or expanding the array as needed.

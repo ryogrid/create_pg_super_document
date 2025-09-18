@@ -1,7 +1,7 @@
 # PLyScalarToOb
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 30 - 33
+[src/pl/plpython/plpy_typeio.h:30-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L30-L33)
 
 ## Overview
 PLyScalarToOb is a struct that contains conversion information for transforming PostgreSQL scalar types to Python objects.

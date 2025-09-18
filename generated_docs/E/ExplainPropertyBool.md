@@ -1,7 +1,7 @@
 # ExplainPropertyBool
 
 ## Location
-src/backend/commands/explain.c: 4852 - 4866
+[src/backend/commands/explain.c:4852-4866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4852-L4866)
 
 ## Overview
 Explains a boolean-valued property in PostgreSQL EXPLAIN output by converting a boolean value to its string representation and passing it to the generic property explanation function.

@@ -1,7 +1,7 @@
 # pa_set_xact_state
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1307 - 1318
+[src/backend/replication/logical/applyparallelworker.c:1307-1318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1307-L1318)
 
 ## Overview
 pa_set_xact_state is a utility function used to set the transaction state for a given parallel apply worker in PostgreSQL's logical replication system.

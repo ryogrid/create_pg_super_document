@@ -1,7 +1,7 @@
 # XLogPrefetchShmemSize
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 294 - 302
+[src/backend/access/transam/xlogprefetcher.c:294-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L294-L302)
 
 ## Overview
 Calculates the shared memory size required for XLog prefetch statistics storage.

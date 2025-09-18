@@ -1,7 +1,7 @@
 # TupleQueueReader
 
 ## Location
-src/backend/executor/tqueue.c: 43 - 53
+[src/backend/executor/tqueue.c:43-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L43-L53)
 
 ## Overview
 TupleQueueReader is a structure used for reading tuples from shared memory message queues in PostgreSQL parallel query execution, enabling communication between parallel worker processes and the coordinating backend.

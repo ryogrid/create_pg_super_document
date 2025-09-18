@@ -1,7 +1,7 @@
 # ProcessBarrierSmgrRelease
 
 ## Location
-src/backend/storage/smgr/smgr.c: 843 - 847
+[src/backend/storage/smgr/smgr.c:843-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L843-L847)
 
 ## Overview
 Called in response to a ProcSignalBarrier to release all open storage manager files, returning true to indicate successful completion.

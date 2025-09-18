@@ -1,7 +1,7 @@
 # SetCancelConn
 
 ## Location
-src/fe_utils/cancel.c: 77 - 106
+[src/fe_utils/cancel.c:77-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/cancel.c#L77-L106)
 
 ## Overview
 SetCancelConn sets the global cancel connection object to point to the current database connection, enabling the ability to cancel queries running on that connection.

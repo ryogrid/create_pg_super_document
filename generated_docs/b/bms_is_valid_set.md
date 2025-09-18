@@ -1,7 +1,7 @@
 # bms_is_valid_set
 
 ## Location
-src/backend/nodes/bitmapset.c: 79 - 108
+[src/backend/nodes/bitmapset.c:79-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L79-L108)
 
 ## Overview
 A validation function used in cassert builds to check the validity of Bitmapset structures, ensuring proper node tagging and eliminating trailing zero words.

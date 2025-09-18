@@ -1,7 +1,7 @@
 # r_mark_suffix_with_optional_y_consonant
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 580 - 613
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:580-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L580-L613)
 
 ## Overview
 This function handles the morphological analysis of Turkish suffixes that may optionally include a 'y' consonant, implementing consonant insertion rules for Turkish stemming.

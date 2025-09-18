@@ -1,7 +1,7 @@
 # pg_tm
 
 ## Location
-src/include/pgtime.h: 34 - 49
+[src/include/pgtime.h:34-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgtime.h#L34-L49)
 
 ## Overview
 A data structure representing a broken-down timestamp in PostgreSQL's internal timezone library, similar to the standard C library's tm structure but with PostgreSQL-specific field conventions.

@@ -1,7 +1,7 @@
 # replace_rte_variables
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1346 - 1392
+[src/backend/rewrite/rewriteManip.c:1346-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1346-L1392)
 
 ## Overview
 Finds all Vars in an expression tree that reference a particular RTE (Range Table Entry) and replaces them with substitute expressions obtained from a caller-supplied callback function.

@@ -1,7 +1,7 @@
 # setup_collation
 
 ## Location
-src/bin/initdb/initdb.c: 1753 - 1785
+[src/bin/initdb/initdb.c:1753-1785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1753-L1785)
 
 ## Overview
 The  function initializes and populates the PostgreSQL collation system by setting up collation versions and importing system collations during database cluster initialization.

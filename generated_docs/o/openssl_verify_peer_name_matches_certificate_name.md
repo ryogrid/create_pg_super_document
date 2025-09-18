@@ -1,7 +1,7 @@
 # openssl_verify_peer_name_matches_certificate_name
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 492 - 524
+[src/interfaces/libpq/fe-secure-openssl.c:492-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L492-L524)
 
 ## Overview
 OpenSSL-specific wrapper function that converts ASN1_STRING certificate names to plain C strings for peer name verification in TLS connections.

@@ -1,7 +1,7 @@
 # pg_prng_int64_range
 
 ## Location
-src/common/pg_prng.c: 192 - 226
+[src/common/pg_prng.c:192-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L192-L226)
 
 ## Overview
 Generates a random 64-bit signed integer uniformly distributed within the specified range [rmin, rmax].

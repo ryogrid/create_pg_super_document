@@ -1,7 +1,7 @@
 # AutoVacWorkerFailed
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1337 - 1343
+[src/backend/postmaster/autovacuum.c:1337-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1337-L1343)
 
 ## Overview
 A signal function called by the postmaster to notify the autovacuum launcher when worker process creation fails.

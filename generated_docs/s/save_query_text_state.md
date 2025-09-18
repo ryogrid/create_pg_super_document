@@ -1,7 +1,7 @@
 # save_query_text_state
 
 ## Location
-src/bin/psql/command.c: 3271 - 3290
+[src/bin/psql/command.c:3271-3290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3271-L3290)
 
 ## Overview
 Saves the current state of the query buffer and lexer to enable potential restoration later, used in psql's conditional command processing.

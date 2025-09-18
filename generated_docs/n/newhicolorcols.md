@@ -1,7 +1,7 @@
 # newhicolorcols
 
 ## Location
-src/backend/regex/regc_color.c: 469 - 521
+[src/backend/regex/regc_color.c:469-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L469-L521)
 
 ## Overview
 Extends the hicolormap 2D array horizontally by duplicating existing columns, effectively doubling the width of the color mapping table.

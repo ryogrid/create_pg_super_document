@@ -1,7 +1,7 @@
 # extract_grouping_cols
 
 ## Location
-src/backend/optimizer/util/tlist.c: 514 - 539
+[src/backend/optimizer/util/tlist.c:514-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L514-L539)
 
 ## Overview
 Extracts result column numbers (resnos) from grouping columns in a SortGroupClause list and returns them as an array for use in planning GROUP BY operations.

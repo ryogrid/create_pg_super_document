@@ -1,7 +1,7 @@
 # output_deallocate_prepare_statement
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 182 - 199
+[src/interfaces/ecpg/preproc/output.c:182-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L182-L199)
 
 ## Overview
 The output_deallocate_prepare_statement function generates C code that calls ECPGdeallocate or ECPGdeallocate_all runtime functions to deallocate prepared SQL statements in embedded SQL programs.

@@ -1,7 +1,7 @@
 # hash_range
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1330 - 1395
+[src/backend/utils/adt/rangetypes.c:1330-1395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1330-L1395)
 
 ## Overview
 PostgreSQL function that computes a hash value for range data types, enabling range types to be used in hash-based operations like hash joins and hash indexes.

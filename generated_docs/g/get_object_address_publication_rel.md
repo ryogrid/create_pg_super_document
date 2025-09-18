@@ -1,7 +1,7 @@
 # get_object_address_publication_rel
 
 ## Location
-src/backend/catalog/objectaddress.c: 1863 - 1915
+[src/backend/catalog/objectaddress.c:1863-1915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1863-L1915)
 
 ## Overview
 Finds and returns the ObjectAddress for a publication relation mapping by resolving both the relation name and publication name to locate the corresponding pg_publication_rel catalog entry.

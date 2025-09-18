@@ -1,7 +1,7 @@
 # check_log_stats
 
 ## Location
-src/backend/tcop/postgres.c: 3668 - 3682
+[src/backend/tcop/postgres.c:3668-3682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3668-L3682)
 
 ## Overview
 A GUC check hook function that validates the log_statement_stats configuration parameter, preventing it from being enabled when any stage-specific logging parameters are already true.

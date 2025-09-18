@@ -1,7 +1,7 @@
 # CatalogCacheFlushCatalog
 
 ## Location
-src/backend/utils/cache/catcache.c: 834 - 866
+[src/backend/utils/cache/catcache.c:834-866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L834-L866)
 
 ## Overview
 Flushes all catalog cache entries that came from a specified system catalog, typically needed after VACUUM FULL or CLUSTER operations.

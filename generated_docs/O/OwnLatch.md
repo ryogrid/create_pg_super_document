@@ -1,7 +1,7 @@
 # OwnLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 463 - 488
+[src/backend/storage/ipc/latch.c:463-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L463-L488)
 
 ## Overview
 Associates a shared latch with the current process, giving the process ownership and the ability to wait on the latch.

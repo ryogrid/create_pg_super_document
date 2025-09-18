@@ -1,7 +1,7 @@
 # lexdigits
 
 ## Location
-src/backend/regex/regc_lex.c: 780 - 860
+[src/backend/regex/regc_lex.c:780-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L780-L860)
 
 ## Overview
 Parses a sequence of digits in a specified base (octal, decimal, or hexadecimal) and returns the accumulated numeric value as a character code.

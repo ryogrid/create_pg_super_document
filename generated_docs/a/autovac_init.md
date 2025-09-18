@@ -1,7 +1,7 @@
 # autovac_init
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3287 - 3299
+[src/backend/postmaster/autovacuum.c:3287-3299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3287-L3299)
 
 ## Overview
 The autovac_init function performs initialization checks for the autovacuum subsystem at postmaster startup, validating configuration parameters and issuing warnings for misconfiguration.

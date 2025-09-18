@@ -1,7 +1,7 @@
 # DatumGetLineP
 
 ## Location
-src/include/utils/geo_decls.h: 221 - 225
+[src/include/utils/geo_decls.h:221-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L221-L225)
 
 ## Overview
 DatumGetLineP is an inline function that converts a PostgreSQL Datum value to a LINE pointer for geometric line operations.

@@ -1,7 +1,7 @@
 # inet_net_ntop_ipv6
 
 ## Location
-src/port/inet_net_ntop.c: 178 - 296
+[src/port/inet_net_ntop.c:178-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/inet_net_ntop.c#L178-L296)
 
 ## Overview
 Converts IPv6 network addresses from binary network format to presentation format with CIDR notation, implementing RFC-compliant IPv6 address compression and embedded IPv4 handling.

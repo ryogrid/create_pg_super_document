@@ -1,7 +1,7 @@
 # StartReplication
 
 ## Location
-src/backend/replication/walsender.c: 823 - 1054
+[src/backend/replication/walsender.c:823-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L823-L1054)
 
 ## Overview
 Handles the START_REPLICATION command to initiate physical replication streaming from a specified WAL position, setting up the replication infrastructure and entering the main WAL sender loop.

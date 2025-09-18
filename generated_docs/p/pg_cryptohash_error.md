@@ -1,7 +1,7 @@
 # pg_cryptohash_error
 
 ## Location
-src/common/cryptohash_openssl.c: 349 - 382
+[src/common/cryptohash_openssl.c:349-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L349-L382)
 
 ## Overview
 Retrieves a human-readable error message describing the last error that occurred during cryptographic hash operations on a given context.

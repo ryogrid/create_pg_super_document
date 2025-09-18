@@ -1,7 +1,7 @@
 # FetchStatementTargetList
 
 ## Location
-src/backend/tcop/pquery.c: 348 - 432
+[src/backend/tcop/pquery.c:348-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L348-L432)
 
 ## Overview
 Extracts the query target list from a statement that returns tuples, returning NIL if the statement doesn't have a determinable target list.

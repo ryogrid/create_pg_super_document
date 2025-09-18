@@ -1,7 +1,7 @@
 # r_stem_noun_suffixes
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 1354 - 1863
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:1354-1863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L1354-L1863)
 
 ## Overview
 Comprehensive function for identifying and removing Turkish noun suffixes, handling complex morphological patterns including case markers, possessives, and plural forms in the Snowball stemming algorithm.

@@ -1,7 +1,7 @@
 # xl_brin_samepage_update
 
 ## Location
-src/include/access/brin_xlog.h: 102 - 105
+[src/include/access/brin_xlog.h:102-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_xlog.h#L102-L105)
 
 ## Overview
 A minimal WAL record structure for logging BRIN tuple updates that occur within the same page, requiring only the offset of the tuple being updated.

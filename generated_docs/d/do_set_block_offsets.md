@@ -1,7 +1,7 @@
 # do_set_block_offsets
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 170 - 219
+[src/test/modules/test_tidstore/test_tidstore.c:170-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L170-L219)
 
 ## Overview
 A PostgreSQL test function that sets TID (tuple identifier) entries for a given block number and array of offsets in the TidStore testing framework.

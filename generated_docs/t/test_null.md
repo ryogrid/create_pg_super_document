@@ -1,7 +1,7 @@
 # test_null
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rnull.c: 28 - 32
+[src/interfaces/ecpg/test/expected/compat_informix-rnull.c:28-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rnull.c#L28-L32)
 
 ## Overview
 A static utility function in PostgreSQL's ECPG test suite that tests the null-checking functionality for various data types using the risnull() function.

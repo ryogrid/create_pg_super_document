@@ -1,7 +1,7 @@
 # relopt_int
 
 ## Location
-src/include/access/reloptions.h: 97 - 103
+[src/include/access/reloptions.h:97-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L97-L103)
 
 ## Overview
 relopt_int is a structure that defines an integer-type relation option, extending the base relopt_gen structure with a default value and min/max constraints.

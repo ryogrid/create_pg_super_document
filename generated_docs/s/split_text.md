@@ -1,7 +1,7 @@
 # split_text
 
 ## Location
-src/backend/utils/adt/varlena.c: 4591 - 4726
+[src/backend/utils/adt/varlena.c:4591-4726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4591-L4726)
 
 ## Overview
 Core text splitting engine that provides common functionality for text_to_array, text_to_table and their null-handling variants.

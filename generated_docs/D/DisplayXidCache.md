@@ -1,7 +1,7 @@
 # DisplayXidCache
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4078 - 4105
+[src/backend/storage/ipc/procarray.c:4078-4105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4078-L4105)
 
 ## Overview
 Prints debugging statistics about the effectiveness of the transaction ID (XID) cache to stderr for performance analysis and debugging purposes.

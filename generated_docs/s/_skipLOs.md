@@ -1,7 +1,7 @@
 # _skipLOs
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 605 - 622
+[src/bin/pg_dump/pg_backup_custom.c:605-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L605-L622)
 
 ## Overview
 Skips Large Object (LO) data blocks from the current file position in a PostgreSQL custom format archive during restore operations.

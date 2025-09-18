@@ -1,7 +1,7 @@
 # prepare_column_cache
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3249 - 3342
+[src/backend/utils/adt/jsonfuncs.c:3249-3342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3249-L3342)
 
 ## Overview
 Initializes and configures column metadata cache for a specific PostgreSQL data type, setting up appropriate I/O information and type categorization for JSON processing operations.

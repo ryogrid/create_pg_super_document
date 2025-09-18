@@ -1,7 +1,7 @@
 # RecursionContext
 
 ## Location
-src/backend/parser/parse_cte.c: 39 - 62
+[src/backend/parser/parse_cte.c:39-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L39-L62)
 
 ## Overview
 RecursionContext is an enumeration that defines the different contexts in which recursive self-references are either allowed or disallowed within Common Table Expressions (CTEs) in PostgreSQL.

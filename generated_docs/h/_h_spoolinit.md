@@ -1,7 +1,7 @@
 # _h_spoolinit
 
 ## Location
-src/backend/access/hash/hashsort.c: 60 - 98
+[src/backend/access/hash/hashsort.c:60-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsort.c#L60-L98)
 
 ## Overview
 Creates and initializes a hash index spool structure used during hash index construction to manage sorting and spooling of index tuples.

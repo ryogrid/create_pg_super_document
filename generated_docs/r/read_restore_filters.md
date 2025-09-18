@@ -1,7 +1,7 @@
 # read_restore_filters
 
 ## Location
-src/bin/pg_dump/pg_restore.c: 550 - 640
+[src/bin/pg_dump/pg_restore.c:550-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_restore.c#L550-L640)
 
 ## Overview
 The read_restore_filters function parses a filter file containing object identifier patterns and populates the appropriate include and exclude lists in the RestoreOptions structure for use during database restoration operations.

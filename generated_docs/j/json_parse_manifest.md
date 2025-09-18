@@ -1,7 +1,7 @@
 # json_parse_manifest
 
 ## Location
-src/common/parse_manifest.c: 227 - 275
+[src/common/parse_manifest.c:227-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L227-L275)
 
 ## Overview
 Main entry point for parsing a complete JSON-format backup manifest from a memory buffer in a single operation.

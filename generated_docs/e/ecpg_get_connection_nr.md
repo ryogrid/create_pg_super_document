@@ -1,7 +1,7 @@
 # ecpg_get_connection_nr
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 36 - 75
+[src/interfaces/ecpg/ecpglib/connect.c:36-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L36-L75)
 
 ## Overview
 Retrieves a database connection structure by name, handling both named connections and the special current/default connection cases in a thread-safe manner.

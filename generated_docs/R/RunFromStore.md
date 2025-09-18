@@ -1,7 +1,7 @@
 # RunFromStore
 
 ## Location
-src/backend/tcop/pquery.c: 1059 - 1124
+[src/backend/tcop/pquery.c:1059-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1059-L1124)
 
 ## Overview
 Fetches tuples from a portal's tuple store and sends them to a destination receiver, providing a mechanism to retrieve previously stored query results.

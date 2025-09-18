@@ -1,7 +1,7 @@
 # change_owner_recurse_to_sequences
 
 ## Location
-src/backend/commands/tablecmds.c: 14782 - 14850
+[src/backend/commands/tablecmds.c:14782-14850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14782-L14850)
 
 ## Overview
 This is a helper function for ATExecChangeOwner that examines the pg_depend system catalog to find sequences dependent on serial columns and recursively changes their ownership to match the table's new owner.

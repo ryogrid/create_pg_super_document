@@ -1,7 +1,7 @@
 # SetUserIdAndContext
 
 ## Location
-src/backend/utils/init/miscinit.c: 714 - 733
+[src/backend/utils/init/miscinit.c:714-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L714-L733)
 
 ## Overview
 Sets the current user ID and security context flags for role-based operations, providing controlled access to user identity changes within PostgreSQL.

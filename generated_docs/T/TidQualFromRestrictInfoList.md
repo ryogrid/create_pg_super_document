@@ -1,7 +1,7 @@
 # TidQualFromRestrictInfoList
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 280 - 386
+[src/backend/optimizer/path/tidpath.c:280-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L280-L386)
 
 ## Overview
 A static recursive function that extracts CTID (Current Tuple ID) conditions from a list of RestrictInfos with implicit AND semantics, returning OR'ed CTID qualifications suitable for TID scan optimization.

@@ -1,7 +1,7 @@
 # hash_xlog_split_complete
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 442 - 500
+[src/backend/access/hash/hash_xlog.c:442-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L442-L500)
 
 ## Overview
 Replays the completion phase of a hash index split operation during WAL recovery, updating bucket flags on both old and new bucket pages.

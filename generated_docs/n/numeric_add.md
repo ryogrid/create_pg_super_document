@@ -1,7 +1,7 @@
 # numeric_add
 
 ## Location
-src/backend/utils/adt/numeric.c: 2864 - 2882
+[src/backend/utils/adt/numeric.c:2864-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2864-L2882)
 
 ## Overview
 Performs addition of two PostgreSQL numeric values, providing the standard SQL + operator functionality for arbitrary precision arithmetic.

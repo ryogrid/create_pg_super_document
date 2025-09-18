@@ -1,7 +1,7 @@
 # compute_partition_bounds
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1790 - 1880
+[src/backend/optimizer/path/joinrels.c:1790-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1790-L1880)
 
 ## Overview
 Computes the partition bounds for a join relation based on the partition bounds of its input relations, determining how partitions should be paired for partitionwise joins.

@@ -1,7 +1,7 @@
 # handle_streamed_transaction
 
 ## Location
-src/backend/replication/logical/worker.c: 561 - 653
+[src/backend/replication/logical/worker.c:561-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L561-L653)
 
 ## Overview
 Manages streamed transactions for both leader apply workers and parallel apply workers by routing transaction changes to appropriate processing paths based on the transaction apply mode.

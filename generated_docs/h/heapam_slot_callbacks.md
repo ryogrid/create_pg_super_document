@@ -1,7 +1,7 @@
 # heapam_slot_callbacks
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 68 - 79
+[src/backend/access/heap/heapam_handler.c:68-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L68-L79)
 
 ## Overview
 Returns the tuple table slot operations structure for heap access method relations, providing the appropriate slot callbacks for heap tuples stored in buffer pages.

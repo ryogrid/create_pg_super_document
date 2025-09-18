@@ -1,7 +1,7 @@
 # AlterForeignDataWrapperOwner
 
 ## Location
-src/backend/commands/foreigncmds.c: 286 - 323
+[src/backend/commands/foreigncmds.c:286-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L286-L323)
 
 ## Overview
 Changes the owner of a foreign data wrapper identified by name, performing catalog lookups and calling the internal ownership change logic.

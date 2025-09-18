@@ -1,7 +1,7 @@
 # numeric_support
 
 ## Location
-src/backend/utils/adt/numeric.c: 1194 - 1243
+[src/backend/utils/adt/numeric.c:1194-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1194-L1243)
 
 ## Overview
 This function serves as a planner support function for numeric type coercion operations, optimizing away unnecessary numeric() function calls that only increase precision without changing scale.

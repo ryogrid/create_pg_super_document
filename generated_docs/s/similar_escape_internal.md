@@ -1,7 +1,7 @@
 # similar_escape_internal
 
 ## Location
-src/backend/utils/adt/regexp.c: 767 - 1031
+[src/backend/utils/adt/regexp.c:767-1031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L767-L1031)
 
 ## Overview
 Converts SQL "SIMILAR TO" regexp patterns to POSIX style for use with PostgreSQL's regexp engine, handling escape sequences and special character transformations.

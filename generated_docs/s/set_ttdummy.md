@@ -1,7 +1,7 @@
 # set_ttdummy
 
 ## Location
-src/test/regress/regress.c: 464 - 501
+[src/test/regress/regress.c:464-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L464-L501)
 
 ## Overview
 This function provides a control mechanism to enable or disable the temporal table functionality implemented by the ttdummy trigger function.

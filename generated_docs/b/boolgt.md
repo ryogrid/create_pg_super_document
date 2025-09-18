@@ -1,7 +1,7 @@
 # boolgt
 
 ## Location
-src/backend/utils/adt/bool.c: 250 - 258
+[src/backend/utils/adt/bool.c:250-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L250-L258)
 
 ## Overview
 The boolgt function implements the greater-than comparison operator (>) for Boolean values in PostgreSQL, returning true if the first Boolean argument is greater than the second.

@@ -1,7 +1,7 @@
 # OprCacheEntry
 
 ## Location
-src/backend/parser/parse_oper.c: 59 - 65
+[src/backend/parser/parse_oper.c:59-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L59-L65)
 
 ## Overview
 OprCacheEntry is a hash table entry structure that stores cached operator resolution results in PostgreSQL's parser, combining the lookup key with the resolved operator OID.

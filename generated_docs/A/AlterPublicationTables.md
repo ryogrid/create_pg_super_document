@@ -1,7 +1,7 @@
 # AlterPublicationTables
 
 ## Location
-src/backend/commands/publicationcmds.c: 1079 - 1248
+[src/backend/commands/publicationcmds.c:1079-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1079-L1248)
 
 ## Overview
 AlterPublicationTables handles adding, removing, or replacing tables in a publication, performing comprehensive validation and maintaining consistency of WHERE clauses and column lists.

@@ -1,7 +1,7 @@
 # _bt_interval_edges
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 1052 - 1130
+[src/backend/access/nbtree/nbtsplitloc.c:1052-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L1052-L1130)
 
 ## Overview
 Locates the leftmost and rightmost split points within the current split interval to determine the boundary splits for strategy evaluation.

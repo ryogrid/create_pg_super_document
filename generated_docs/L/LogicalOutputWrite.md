@@ -1,7 +1,7 @@
 # LogicalOutputWrite
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 62 - 98
+[src/backend/replication/logical/logicalfuncs.c:62-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L62-L98)
 
 ## Overview
 Writes logical decoding output data into a tuplestore for SQL interface consumption, converting the decoded changes into a structured format with LSN, transaction ID, and data columns.

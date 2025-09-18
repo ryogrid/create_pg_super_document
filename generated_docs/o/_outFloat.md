@@ -1,7 +1,7 @@
 # _outFloat
 
 ## Location
-src/backend/nodes/outfuncs.c: 654 - 663
+[src/backend/nodes/outfuncs.c:654-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L654-L663)
 
 ## Overview
 Serializes a Float node to string format by outputting its string representation directly, assuming the value is already a valid numeric literal.

@@ -1,7 +1,7 @@
 # cost_bitmap_heap_scan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1013 - 1113
+[src/backend/optimizer/path/costsize.c:1013-1113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1013-L1113)
 
 ## Overview
 Determines and returns the cost of scanning a relation using a bitmap index-then-heap scan plan, considering both index access costs and heap tuple retrieval costs.

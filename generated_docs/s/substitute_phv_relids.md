@@ -1,7 +1,7 @@
 # substitute_phv_relids
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4009 - 4036
+[src/backend/optimizer/prep/prepjointree.c:4009-4036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4009-L4036)
 
 ## Overview  
 Entry point function that substitutes relation IDs in PlaceHolderVars throughout a query tree or expression tree.

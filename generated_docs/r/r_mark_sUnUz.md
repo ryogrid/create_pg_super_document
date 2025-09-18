@@ -1,7 +1,7 @@
 # r_mark_sUnUz
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 822 - 827
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:822-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L822-L827)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the suffix "sUnUz" (meaning "you are" plural in Turkish) and its variations, used in Turkish verb conjugation processing.

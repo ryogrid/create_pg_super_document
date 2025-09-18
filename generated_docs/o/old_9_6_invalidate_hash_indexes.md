@@ -1,7 +1,7 @@
 # old_9_6_invalidate_hash_indexes
 
 ## Location
-src/bin/pg_upgrade/version.c: 37 - 146
+[src/bin/pg_upgrade/version.c:37-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/version.c#L37-L146)
 
 ## Overview
 A PostgreSQL upgrade utility function that handles hash index incompatibility between PostgreSQL 9.6 and 10.0 by invalidating old hash indexes and generating reindex scripts.

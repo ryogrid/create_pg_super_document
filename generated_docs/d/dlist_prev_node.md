@@ -1,7 +1,7 @@
 # dlist_prev_node
 
 ## Location
-src/include/lib/ilist.h: 547 - 554
+[src/include/lib/ilist.h:547-554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L547-L554)
 
 ## Overview
 Returns the previous node in a doubly-linked list, with an assertion to ensure that a previous node actually exists.

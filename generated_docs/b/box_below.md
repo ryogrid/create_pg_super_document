@@ -1,7 +1,7 @@
 # box_below
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 635 - 646
+[src/backend/utils/adt/geo_ops.c:635-646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L635-L646)
 
 ## Overview
 The box_below function determines if one box is strictly below another box by comparing their y-coordinates.

@@ -1,7 +1,7 @@
 # show_qual
 
 ## Location
-src/backend/commands/explain.c: 2510 - 2530
+[src/backend/commands/explain.c:2510-2530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2510-L2530)
 
 ## Overview
 A static helper function that displays qualifier expressions (WHERE/JOIN conditions) in PostgreSQL EXPLAIN output, converting implicit AND lists into explicit AND expressions for readable display.

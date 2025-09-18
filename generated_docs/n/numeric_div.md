@@ -1,7 +1,7 @@
 # numeric_div
 
 ## Location
-src/backend/utils/adt/numeric.c: 3140 - 3159
+[src/backend/utils/adt/numeric.c:3140-3159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3140-L3159)
 
 ## Overview
 PostgreSQL function that performs division of two numeric values, implementing the SQL division operator (/) for the NUMERIC data type.

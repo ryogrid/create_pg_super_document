@@ -1,7 +1,7 @@
 # PGReserveSemaphores
 
 ## Location
-src/backend/port/posix_sema.c: 196 - 239
+[src/backend/port/posix_sema.c:196-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L196-L239)
 
 ## Overview
 PGReserveSemaphores initializes PostgreSQL's semaphore support during postmaster startup or shared memory reinitialization, preparing the system to handle up to a specified maximum number of semaphores.

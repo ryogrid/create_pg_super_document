@@ -1,7 +1,7 @@
 # ExecSeqScanInitializeDSM
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 256 - 277
+[src/backend/executor/nodeSeqscan.c:256-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L256-L277)
 
 ## Overview
 ExecSeqScanInitializeDSM sets up a parallel heap scan descriptor in shared memory for parallel sequential scan operations.

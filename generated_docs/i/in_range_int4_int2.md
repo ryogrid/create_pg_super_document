@@ -1,7 +1,7 @@
 # in_range_int4_int2
 
 ## Location
-src/backend/utils/adt/int.c: 657 - 668
+[src/backend/utils/adt/int.c:657-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L657-L668)
 
 ## Overview
 A PostgreSQL function that determines whether a given int4 value falls within a range defined by a base int4 value and an int2 offset, serving as a wrapper for in_range_int4_int4.

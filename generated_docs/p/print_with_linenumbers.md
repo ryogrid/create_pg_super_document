@@ -1,7 +1,7 @@
 # print_with_linenumbers
 
 ## Location
-src/bin/psql/command.c: 5914 - 5955
+[src/bin/psql/command.c:5914-5955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5914-L5955)
 
 ## Overview
 Outputs text with line numbers, specially handling function definitions by only numbering the function body lines while leaving the header unnumbered.

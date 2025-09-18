@@ -1,7 +1,7 @@
 # _hash_saveitem
 
 ## Location
-src/backend/access/hash/hashsearch.c: 708 - 715
+[src/backend/access/hash/hashsearch.c:708-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L708-L715)
 
 ## Overview
 Saves an index tuple's essential information (heap TID and index offset) into the scan's current position buffer at a specified index location.

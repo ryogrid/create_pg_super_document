@@ -1,7 +1,7 @@
 # ExecInitWorkTableScan
 
 ## Location
-src/backend/executor/nodeWorktablescan.c: 130 - 190
+[src/backend/executor/nodeWorktablescan.c:130-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWorktablescan.c#L130-L190)
 
 ## Overview
 ExecInitWorkTableScan initializes a WorkTableScan plan node for execution, setting up the necessary state structures and execution context for scanning temporary worktables in recursive queries.

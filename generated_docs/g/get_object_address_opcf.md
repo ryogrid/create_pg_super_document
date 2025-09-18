@@ -1,7 +1,7 @@
 # get_object_address_opcf
 
 ## Location
-src/backend/catalog/objectaddress.c: 1642 - 1679
+[src/backend/catalog/objectaddress.c:1642-1679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1642-L1679)
 
 ## Overview
 Finds the ObjectAddress for an operator class or operator family, resolving access method-qualified names into their corresponding catalog entries.

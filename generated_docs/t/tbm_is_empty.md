@@ -1,7 +1,7 @@
 # tbm_is_empty
 
 ## Location
-src/backend/nodes/tidbitmap.c: 670 - 688
+[src/backend/nodes/tidbitmap.c:670-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L670-L688)
 
 ## Overview
 Checks whether a TIDBitmap is completely empty, returning true if no tuple identifiers are stored in the bitmap.

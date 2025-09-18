@@ -1,7 +1,7 @@
 # start_postmaster
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 439 - 591
+[src/bin/pg_ctl/pg_ctl.c:439-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L439-L591)
 
 ## Overview
 Starts the PostgreSQL postmaster process and returns its process ID (PID), handling platform-specific differences between Unix and Windows systems.

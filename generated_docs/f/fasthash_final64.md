@@ -1,7 +1,7 @@
 # fasthash_final64
 
 ## Location
-src/include/common/hashfn_unstable.h: 325 - 336
+[src/include/common/hashfn_unstable.h:325-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L325-L336)
 
 ## Overview
 A finalizer function that completes the fast hashing process by applying a final mixing step to produce a 64-bit hash value from the accumulated hash state.

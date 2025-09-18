@@ -1,7 +1,7 @@
 # read_dumpall_filters
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 2043 - 2090
+[src/bin/pg_dump/pg_dumpall.c:2043-2090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L2043-L2090)
 
 ## Overview
 Reads database filter patterns from a file or STDIN to configure which databases should be excluded from pg_dumpall operations.

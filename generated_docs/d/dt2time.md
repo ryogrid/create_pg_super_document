@@ -1,7 +1,7 @@
 # dt2time
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1874 - 1900
+[src/backend/utils/adt/timestamp.c:1874-1900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1874-L1900)
 
 ## Overview
 dt2time is a utility function that extracts time components (hours, minutes, seconds, and fractional seconds) from a Timestamp value.

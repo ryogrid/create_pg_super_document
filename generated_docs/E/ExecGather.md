@@ -1,7 +1,7 @@
 # ExecGather
 
 ## Location
-src/backend/executor/nodeGather.c: 137 - 243
+[src/backend/executor/nodeGather.c:137-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L137-L243)
 
 ## Overview
 The main execution function for Gather plan nodes that coordinates parallel query execution by collecting tuples from multiple worker processes and optionally executing the plan locally.

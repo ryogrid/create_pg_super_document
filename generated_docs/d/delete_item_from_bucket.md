@@ -1,7 +1,7 @@
 # delete_item_from_bucket
 
 ## Location
-src/backend/lib/dshash.c: 1035 - 1062
+[src/backend/lib/dshash.c:1035-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L1035-L1062)
 
 ## Overview
 Removes a specific hash table item from its bucket chain by searching for the exact item pointer.

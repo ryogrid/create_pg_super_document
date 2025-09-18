@@ -1,7 +1,7 @@
 # checkcondition_gin
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 183 - 213
+[src/backend/utils/adt/tsginidx.c:183-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L183-L213)
 
 ## Overview
 A callback function for TS_execute that determines whether a tsquery operand matches GIN index data during text search consistency checks.

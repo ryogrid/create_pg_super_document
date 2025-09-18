@@ -1,7 +1,7 @@
 # setSchemaName
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3912 - 3931
+[src/backend/parser/parse_utilcmd.c:3912-3931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3912-L3931)
 
 ## Overview
 Sets or validates the schema name in an element of a CREATE SCHEMA command, ensuring consistency between the context schema and statement schema.

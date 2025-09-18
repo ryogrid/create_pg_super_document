@@ -1,7 +1,7 @@
 # pqCheckInBufferSpace
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 351 - 457
+[src/interfaces/libpq/fe-misc.c:351-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L351-L457)
 
 ## Overview
 Ensures that the connection's input buffer has sufficient space to hold the specified number of bytes, with intelligent buffer compaction before reallocation.

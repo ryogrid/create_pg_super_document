@@ -1,7 +1,7 @@
 # verifybackup_per_wal_range_cb
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 577 - 609
+[src/bin/pg_verifybackup/pg_verifybackup.c:577-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L577-L609)
 
 ## Overview
 Records details extracted from the backup manifest for one WAL range and maintains them in a linked list for later verification during the backup verification process.

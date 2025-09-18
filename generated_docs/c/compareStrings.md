@@ -1,7 +1,7 @@
 # compareStrings
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3274 - 3340
+[src/backend/utils/adt/jsonpath_exec.c:3274-3340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3274-L3340)
 
 ## Overview
 Compares two strings using Unicode codepoint collation in the current server encoding, with optimizations for UTF-8 and ASCII.

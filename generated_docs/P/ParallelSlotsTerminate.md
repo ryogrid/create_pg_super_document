@@ -1,7 +1,7 @@
 # ParallelSlotsTerminate
 
 ## Location
-src/fe_utils/parallel_slot.c: 479 - 500
+[src/fe_utils/parallel_slot.c:479-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L479-L500)
 
 ## Overview
 Cleanly terminates all database connections in a parallel slots array, closing each active connection and cleaning up resources.

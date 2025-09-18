@@ -1,7 +1,7 @@
 # option
 
 ## Location
-src/include/getopt_long.h: 16 - 23
+[src/include/getopt_long.h:16-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/getopt_long.h#L16-L23)
 
 ## Overview
 The  struct defines the structure for command-line option specifications used by the  function for parsing long command-line options in PostgreSQL utilities and applications.

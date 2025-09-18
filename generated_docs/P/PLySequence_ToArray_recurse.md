@@ -1,7 +1,7 @@
 # PLySequence_ToArray_recurse
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1193 - 1280
+[src/pl/plpython/plpy_typeio.c:1193-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1193-L1280)
 
 ## Overview
 Recursively traverses Python nested sequences in depth-first order to extract scalar elements and build a PostgreSQL multi-dimensional array structure.

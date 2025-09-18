@@ -1,7 +1,7 @@
 # complete_from_query
 
 ## Location
-src/bin/psql/tab-complete.c: 5160 - 5167
+[src/bin/psql/tab-complete.c:5160-5167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5160-L5167)
 
 ## Overview
 A tab completion generator function that provides autocompletion suggestions by executing SQL queries against the PostgreSQL server and returning matching results.

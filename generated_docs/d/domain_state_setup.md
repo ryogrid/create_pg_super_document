@@ -1,7 +1,7 @@
 # domain_state_setup
 
 ## Location
-src/backend/utils/adt/domains.c: 76 - 137
+[src/backend/utils/adt/domains.c:76-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L76-L137)
 
 ## Overview
 Initializes the cache for a new domain type, setting up I/O functions and constraint information.

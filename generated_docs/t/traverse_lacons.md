@@ -1,7 +1,7 @@
 # traverse_lacons
 
 ## Location
-src/backend/regex/regexport.c: 93 - 133
+[src/backend/regex/regexport.c:93-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L93-L133)
 
 ## Overview
 A recursive function that traverses LACON (Look Ahead Constraints) arcs in an NFA to count and collect reachable regular arcs, masking LACON complexity from external callers.

@@ -1,7 +1,7 @@
 # attnumAttName
 
 ## Location
-src/backend/parser/parse_relation.c: 3533 - 3554
+[src/backend/parser/parse_relation.c:3533-3554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3533-L3554)
 
 ## Overview
 This function retrieves the attribute name for a given attribute number (attnum) within an opened relation.

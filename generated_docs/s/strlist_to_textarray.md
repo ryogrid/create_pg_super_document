@@ -1,7 +1,7 @@
 # strlist_to_textarray
 
 ## Location
-src/backend/catalog/objectaddress.c: 6043 - 6097
+[src/backend/catalog/objectaddress.c:6043-6097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L6043-L6097)
 
 ## Overview
 Converts a PostgreSQL List of C-strings into a PostgreSQL TEXT array (ArrayType), providing a bridge between internal list representations and SQL array types.

@@ -1,7 +1,7 @@
 # notice_processor
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1413 - 1422
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1413-1422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1413-L1422)
 
 ## Overview
 A simple notice handler function that processes PostgreSQL server notices by forwarding them to the application's logging system.

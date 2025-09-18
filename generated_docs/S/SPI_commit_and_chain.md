@@ -1,7 +1,7 @@
 # SPI_commit_and_chain
 
 ## Location
-src/backend/executor/spi.c: 326 - 331
+[src/backend/executor/spi.c:326-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L326-L331)
 
 ## Overview
 SPI_commit_and_chain commits the current transaction and starts a new one while preserving transaction characteristics, providing chained transaction control for procedural languages and extensions.

@@ -1,7 +1,7 @@
 # rewriteTargetListIU
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 764 - 1035
+[src/backend/rewrite/rewriteHandler.c:764-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L764-L1035)
 
 ## Overview
 Rewrites INSERT/UPDATE target lists into standard form by handling defaults, merging multiple entries for the same attribute, and sorting into canonical order.

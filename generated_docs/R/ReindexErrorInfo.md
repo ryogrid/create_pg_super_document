@@ -1,7 +1,7 @@
 # ReindexErrorInfo
 
 ## Location
-src/backend/commands/indexcmds.c: 132 - 137
+[src/backend/commands/indexcmds.c:132-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L132-L137)
 
 ## Overview
 A structure that holds error context information for error callbacks during partitioned table and index reindexing operations.

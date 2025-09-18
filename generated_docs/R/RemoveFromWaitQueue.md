@@ -1,7 +1,7 @@
 # RemoveFromWaitQueue
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1908 - 1963
+[src/backend/storage/lmgr/lock.c:1908-1963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1908-L1963)
 
 ## Overview
 RemoveFromWaitQueue removes a process from a lock's wait queue when the process has failed to acquire the lock, updating lock statistics and cleaning up associated state.

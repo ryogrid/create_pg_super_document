@@ -1,7 +1,7 @@
 # vector32_or
 
 ## Location
-src/include/port/simd.h: 351 - 368
+[src/include/port/simd.h:351-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L351-L368)
 
 ## Overview
 Performs bitwise OR operation on two 32-byte SIMD vectors using platform-optimized instructions.

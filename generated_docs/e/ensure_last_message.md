@@ -1,7 +1,7 @@
 # ensure_last_message
 
 ## Location
-src/backend/replication/logical/worker.c: 1971 - 2002
+[src/backend/replication/logical/worker.c:1971-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1971-L2002)
 
 ## Overview
 ensure_last_message is a static function that validates that a given file position represents the end of a streaming transaction changes file, ensuring data integrity in PostgreSQL logical replication.

@@ -1,7 +1,7 @@
 # InjectionPointEntry
 
 ## Location
-src/backend/utils/misc/injection_point.c: 40 - 71
+[src/backend/utils/misc/injection_point.c:40-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L40-L71)
 
 ## Overview
 InjectionPointEntry is a structure that represents a single injection point stored in shared memory, designed for lock-free access using a generation counter protocol.

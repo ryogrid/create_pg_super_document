@@ -1,7 +1,7 @@
 # ExecutorRewind
 
 ## Location
-src/backend/executor/execMain.c: 526 - 571
+[src/backend/executor/execMain.c:526-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L526-L571)
 
 ## Overview
 Rewinds an open query descriptor to the start of execution, allowing the query to be re-executed from the beginning.

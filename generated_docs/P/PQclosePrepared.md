@@ -1,7 +1,7 @@
 # PQclosePrepared
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2521 - 2538
+[src/interfaces/libpq/fe-exec.c:2521-2538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2521-L2538)
 
 ## Overview
 Closes a previously prepared statement by sending a Close message to the PostgreSQL server and waiting for the response.

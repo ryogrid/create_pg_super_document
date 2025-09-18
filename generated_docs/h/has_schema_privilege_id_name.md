@@ -1,7 +1,7 @@
 # has_schema_privilege_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3913 - 3935
+[src/backend/utils/adt/acl.c:3913-3935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3913-L3935)
 
 ## Overview
 Checks user privileges on a schema given a role ID, schema name as text, and privilege type as text.

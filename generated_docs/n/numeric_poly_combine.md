@@ -1,7 +1,7 @@
 # numeric_poly_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 5632 - 5696
+[src/backend/utils/adt/numeric.c:5632-5696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5632-L5696)
 
 ## Overview
 The numeric_poly_combine function is a combine function for PostgreSQL's parallel aggregation framework, merging two PolyNumAggState structures for numeric aggregates that require both sum and sum-of-squares calculations.

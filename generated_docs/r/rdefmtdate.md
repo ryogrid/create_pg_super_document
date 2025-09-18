@@ -1,7 +1,7 @@
 # rdefmtdate
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 553 - 578
+[src/interfaces/ecpg/compatlib/informix.c:553-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L553-L578)
 
 ## Overview
 Parses a date string according to a specified format and stores the result in a date variable, with Informix-compatible error handling.

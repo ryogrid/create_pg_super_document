@@ -1,7 +1,7 @@
 # logical_rewrite_heap_tuple
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 999 - 1072
+[src/backend/access/heap/rewriteheap.c:999-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L999-L1072)
 
 ## Overview
 Determines whether a tuple that has been relocated during heap rewrite requires logical mapping entries for maintaining logical decoding consistency, and creates the necessary mappings when needed.

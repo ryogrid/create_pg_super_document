@@ -1,7 +1,7 @@
 # create_sql_command
 
 ## Location
-src/bin/pgbench/pgbench.c: 5585 - 5613
+[src/bin/pgbench/pgbench.c:5585-5613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5585-L5613)
 
 ## Overview
 Creates and initializes a Command structure for SQL commands after filtering out comments and whitespace from the input SQL text.

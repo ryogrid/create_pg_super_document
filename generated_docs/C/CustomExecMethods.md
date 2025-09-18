@@ -1,7 +1,7 @@
 # CustomExecMethods
 
 ## Location
-src/include/nodes/extensible.h: 124 - 158
+[src/include/nodes/extensible.h:124-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/extensible.h#L124-L158)
 
 ## Overview
 CustomExecMethods defines the comprehensive callback interface for executing custom scan operations in PostgreSQL's executor, providing hooks for all phases of scan execution including initialization, tuple retrieval, cleanup, parallelization, and debugging.

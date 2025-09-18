@@ -1,7 +1,7 @@
 # DecrTupleDescRefCount
 
 ## Location
-src/backend/access/common/tupdesc.c: 406 - 418
+[src/backend/access/common/tupdesc.c:406-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L406-L418)
 
 ## Overview
 DecrTupleDescRefCount decrements the reference count of a TupleDesc and automatically frees it when the reference count reaches zero, providing safe memory management for reference-counted tuple descriptors.

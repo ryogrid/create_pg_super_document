@@ -1,7 +1,7 @@
 # server_check_detail
 
 ## Location
-src/backend/backup/basebackup_target.c: 232 - 241
+[src/backend/backup/basebackup_target.c:232-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L232-L241)
 
 ## Overview
 Validates that a server-side backup target has a required target detail (directory path) and returns it for further processing.

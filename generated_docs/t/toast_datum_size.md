@@ -1,7 +1,7 @@
 # toast_datum_size
 
 ## Location
-src/backend/access/common/detoast.c: 601 - 646
+[src/backend/access/common/detoast.c:601-646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L601-L646)
 
 ## Overview
 Returns the physical storage size (possibly compressed) of a varlena datum, handling all storage formats including external TOAST references, compressed data, and inline storage.

@@ -1,7 +1,7 @@
 # ResetTempTableNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 4644 - 4656
+[src/backend/catalog/namespace.c:4644-4656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4644-L4656)
 
 ## Overview
 ResetTempTableNamespace provides a simple interface to remove all temporary tables from the current session's temporary namespace.

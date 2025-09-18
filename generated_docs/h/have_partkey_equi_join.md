@@ -1,7 +1,7 @@
 # have_partkey_equi_join
 
 ## Location
-src/backend/optimizer/util/relnode.c: 2090 - 2235
+[src/backend/optimizer/util/relnode.c:2090-2235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L2090-L2235)
 
 ## Overview
 Determines whether there exist equi-join conditions involving pairs of matching partition keys between two relations for all partition keys, enabling partitionwise join optimization.

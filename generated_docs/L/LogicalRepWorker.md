@@ -1,7 +1,7 @@
 # LogicalRepWorker
 
 ## Location
-src/include/replication/worker_internal.h: 37 - 95
+[src/include/replication/worker_internal.h:37-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L37-L95)
 
 ## Overview
 LogicalRepWorker is a core data structure that represents a logical replication worker process in PostgreSQL's logical replication system, managing both apply workers and table synchronization workers.

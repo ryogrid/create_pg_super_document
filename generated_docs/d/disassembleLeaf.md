@@ -1,7 +1,7 @@
 # disassembleLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1370 - 1443
+[src/backend/access/gin/gindatapage.c:1370-1443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1370-L1443)
 
 ## Overview
 disassembleLeaf disassembles a GIN data leaf page into a structured disassembledLeaf representation that can be manipulated and later reassembled.

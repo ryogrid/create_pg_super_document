@@ -1,7 +1,7 @@
 # describeAggregates
 
 ## Location
-src/bin/psql/describe.c: 71 - 140
+[src/bin/psql/describe.c:71-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L71-L140)
 
 ## Overview
 Implements the \da psql command to display a list of aggregate functions in the database, with optional pattern matching and filtering capabilities.

@@ -1,7 +1,7 @@
 # IsCatalogRelation
 
 ## Location
-src/backend/catalog/catalog.c: 103 - 119
+[src/backend/catalog/catalog.c:103-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L103-L119)
 
 ## Overview
 IsCatalogRelation determines whether a given relation is a true system catalog that was created during the bootstrap phase of initdb.

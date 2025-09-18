@@ -1,7 +1,7 @@
 # hk_depth_search
 
 ## Location
-src/backend/lib/bipartite_match.c: 146 - 180
+[src/backend/lib/bipartite_match.c:146-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bipartite_match.c#L146-L180)
 
 ## Overview
 hk_depth_search implements the depth-first search phase of the Hopcroft-Karp algorithm, finding and updating augmenting paths to improve the current bipartite matching.

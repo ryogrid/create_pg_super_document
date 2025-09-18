@@ -1,7 +1,7 @@
 # check_is_install_user
 
 ## Location
-src/bin/pg_upgrade/check.c: 1037 - 1094
+[src/bin/pg_upgrade/check.c:1037-1094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1037-L1094)
 
 ## Overview
 This function validates that the current database user is the PostgreSQL installation user and enforces user restrictions during cluster upgrade operations.

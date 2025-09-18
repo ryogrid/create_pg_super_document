@@ -1,7 +1,7 @@
 # BrinBuildState
 
 ## Location
-src/backend/access/brin/brin.c: 152 - 183
+[src/backend/access/brin/brin.c:152-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L152-L183)
 
 ## Overview
 BrinBuildState is the primary state structure used during initial construction of a BRIN index, maintaining all necessary context for both sequential and parallel index builds.

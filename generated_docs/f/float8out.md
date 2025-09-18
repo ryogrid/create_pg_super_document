@@ -1,7 +1,7 @@
 # float8out
 
 ## Location
-src/backend/utils/adt/float.c: 515 - 529
+[src/backend/utils/adt/float.c:515-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L515-L529)
 
 ## Overview
 PostgreSQL system function that converts a float8 (double precision) value to its string representation using the standard output format.

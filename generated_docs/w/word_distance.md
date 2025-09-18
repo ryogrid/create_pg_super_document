@@ -1,7 +1,7 @@
 # word_distance
 
 ## Location
-src/backend/utils/adt/tsrank.c: 44 - 52
+[src/backend/utils/adt/tsrank.c:44-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L44-L52)
 
 ## Overview
 Calculates a weight factor for word collocation based on the distance between words in text search ranking operations.

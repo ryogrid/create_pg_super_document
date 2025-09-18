@@ -1,7 +1,7 @@
 # AlterSchemaOwner_internal
 
 ## Location
-src/backend/commands/schemacmds.c: 361 - 442
+[src/backend/commands/schemacmds.c:361-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/schemacmds.c#L361-L442)
 
 ## Overview
 AlterSchemaOwner_internal performs the core logic for changing schema ownership, handling security validation, ACL updates, and dependency maintenance.

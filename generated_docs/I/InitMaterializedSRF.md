@@ -1,7 +1,7 @@
 # InitMaterializedSRF
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 76 - 132
+[src/backend/utils/fmgr/funcapi.c:76-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L76-L132)
 
 ## Overview
 InitMaterializedSRF is a helper function that initializes the state of a set-returning function (SRF) for use in materialize mode, setting up the necessary tuplestore and tuple descriptor structures.

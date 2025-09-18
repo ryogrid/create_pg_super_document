@@ -1,7 +1,7 @@
 # bitmap_match
 
 ## Location
-src/backend/nodes/bitmapset.c: 1442 - 1447
+[src/backend/nodes/bitmapset.c:1442-1447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1442-L1447)
 
 ## Overview
 The `bitmap_match` function serves as a key comparison function for hash tables that use Bitmapset pointers as keys, complementing the `bitmap_hash` function.

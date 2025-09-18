@@ -1,7 +1,7 @@
 # StreamLog
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 500 - 616
+[src/bin/pg_basebackup/pg_receivewal.c:500-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L500-L616)
 
 ## Overview
 The main function responsible for establishing and managing the WAL (Write-Ahead Log) streaming connection from a PostgreSQL server in pg_receivewal.

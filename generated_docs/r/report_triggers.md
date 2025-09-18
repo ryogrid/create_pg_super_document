@@ -1,7 +1,7 @@
 # report_triggers
 
 ## Location
-src/backend/commands/explain.c: 1202 - 1272
+[src/backend/commands/explain.c:1202-1272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1202-L1272)
 
 ## Overview
 Generates execution statistics report for triggers associated with a single relation, including timing information and call counts when available.

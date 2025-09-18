@@ -1,7 +1,7 @@
 # pthread_mutex_init
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 428 - 434
+[src/interfaces/ecpg/ecpglib/misc.c:428-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L428-L434)
 
 ## Overview
 A Windows-specific implementation of POSIX pthread_mutex_init that provides a simplified mutex initialization for PostgreSQL's ECPG library on Windows systems.

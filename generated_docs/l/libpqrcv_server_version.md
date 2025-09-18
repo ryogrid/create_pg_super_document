@@ -1,7 +1,7 @@
 # libpqrcv_server_version
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 491 - 501
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:491-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L491-L501)
 
 ## Overview
 A thin wrapper function that retrieves the server version number from a PostgreSQL primary server connection used in WAL receiver operations.

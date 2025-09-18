@@ -1,7 +1,7 @@
 # r_step1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2474 - 2540
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2474-2540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2474-L2540)
 
 ## Overview
 The primary suffix removal function in the Greek stemming algorithm that handles the first phase of stemming by identifying and transforming common Greek suffixes using pattern matching.

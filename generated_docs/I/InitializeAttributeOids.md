@@ -1,7 +1,7 @@
 # InitializeAttributeOids
 
 ## Location
-src/backend/catalog/index.c: 492 - 509
+[src/backend/catalog/index.c:492-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L492-L509)
 
 ## Overview
 Sets the relation OID (attrelid) for all attributes in an index tuple descriptor to properly associate them with the index relation.

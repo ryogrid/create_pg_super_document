@@ -1,7 +1,7 @@
 # get_transaction_apply_action
 
 ## Location
-src/backend/replication/logical/worker.c: 5126 - 5166
+[src/backend/replication/logical/worker.c:5126-5166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5126-L5166)
 
 ## Overview
 This function determines the appropriate action to take for applying a given transaction in PostgreSQL's logical replication system, considering parallel worker availability and streaming transaction state.

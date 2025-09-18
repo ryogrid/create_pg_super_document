@@ -1,7 +1,7 @@
 # tfuncLoadRows
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 435 - 524
+[src/backend/executor/nodeTableFuncscan.c:435-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L435-L524)
 
 ## Overview
 This static function loads all rows from a TableFunc table builder into a tuplestore by iterating through each row and column to populate tuple values with proper handling of ordinality columns, default expressions, and NOT NULL constraints.

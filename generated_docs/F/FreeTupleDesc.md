@@ -1,7 +1,7 @@
 # FreeTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 331 - 387
+[src/backend/access/common/tupdesc.c:331-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L331-L387)
 
 ## Overview
 Completely deallocates a TupleDesc and all its associated constraint structures, including default values, missing values, and check constraints.

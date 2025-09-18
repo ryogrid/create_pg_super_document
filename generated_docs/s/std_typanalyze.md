@@ -1,7 +1,7 @@
 # std_typanalyze
 
 ## Location
-src/backend/commands/analyze.c: 1845 - 1922
+[src/backend/commands/analyze.c:1845-1922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1845-L1922)
 
 ## Overview
 The default type-specific analysis function that determines the appropriate statistical analysis algorithm and minimum sample size based on available operators for a given data type.

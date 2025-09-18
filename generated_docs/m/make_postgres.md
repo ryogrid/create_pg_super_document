@@ -1,7 +1,7 @@
 # make_postgres
 
 ## Location
-src/bin/initdb/initdb.c: 2047 - 2079
+[src/bin/initdb/initdb.c:2047-2079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2047-L2079)
 
 ## Overview
 Creates the postgres database during PostgreSQL initialization by copying template1 and configuring it as the default administrative connection database.

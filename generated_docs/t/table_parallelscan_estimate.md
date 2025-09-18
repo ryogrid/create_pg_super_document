@@ -1,7 +1,7 @@
 # table_parallelscan_estimate
 
 ## Location
-src/backend/access/table/tableam.c: 131 - 145
+[src/backend/access/table/tableam.c:131-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L131-L145)
 
 ## Overview
 Estimates the shared memory space required for a parallel table scan, including both snapshot and table access method specific requirements.

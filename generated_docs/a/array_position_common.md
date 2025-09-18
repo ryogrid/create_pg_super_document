@@ -1,7 +1,7 @@
 # array_position_common
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1244 - 1398
+[src/backend/utils/adt/array_userfuncs.c:1244-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1244-L1398)
 
 ## Overview
 Common implementation function that searches for an element within a one-dimensional PostgreSQL array and returns its position.

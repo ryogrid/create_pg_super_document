@@ -1,7 +1,7 @@
 # process_syncing_tables_for_sync
 
 ## Location
-src/backend/replication/logical/tablesync.c: 295 - 417
+[src/backend/replication/logical/tablesync.c:295-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L295-L417)
 
 ## Overview
 Handles the transition of a table synchronization worker from CATCHUP state to SYNCDONE when it reaches the predetermined synchronization point in the WAL stream.

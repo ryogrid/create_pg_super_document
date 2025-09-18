@@ -1,7 +1,7 @@
 # SPI_returntuple
 
 ## Location
-src/backend/executor/spi.c: 1074 - 1105
+[src/backend/executor/spi.c:1074-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1074-L1105)
 
 ## Overview
 Prepares a tuple for return from a stored procedure by copying it to the upper executor's memory context and ensuring proper type handling for RECORD types.

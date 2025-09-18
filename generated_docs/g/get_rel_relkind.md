@@ -1,7 +1,7 @@
 # get_rel_relkind
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2003 - 2026
+[src/backend/utils/cache/lsyscache.c:2003-2026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2003-L2026)
 
 ## Overview
 Returns the relkind (relation kind) character associated with a given relation, indicating the type of database object (table, index, view, etc.).

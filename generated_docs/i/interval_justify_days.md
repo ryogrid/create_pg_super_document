@@ -1,7 +1,7 @@
 # interval_justify_days
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3002 - 3048
+[src/backend/utils/adt/timestamp.c:3002-3048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3002-L3048)
 
 ## Overview
 Adjusts an interval so that the 'day' component contains less than 30 days, transferring the excess to the 'month' component.

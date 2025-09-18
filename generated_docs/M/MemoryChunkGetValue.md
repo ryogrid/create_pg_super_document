@@ -1,7 +1,7 @@
 # MemoryChunkGetValue
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 222 - 234
+[src/include/utils/memutils_memorychunk.h:222-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L222-L234)
 
 ## Overview
 Extracts the value field from a non-external MemoryChunk's header mask, returning the size or context-specific value that was originally stored by MemoryChunkSetHdrMask.

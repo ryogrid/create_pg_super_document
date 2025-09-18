@@ -1,7 +1,7 @@
 # tts_buffer_heap_copyslot
 
 ## Location
-src/backend/executor/execTuples.c: 861 - 902
+[src/backend/executor/execTuples.c:861-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L861-L902)
 
 ## Overview
 Copies the contents of one TupleTableSlot to another, optimizing for BufferHeapTupleTableSlots by sharing buffer references when possible rather than always materializing copies.

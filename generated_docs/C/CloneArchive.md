@@ -1,7 +1,7 @@
 # CloneArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4978 - 5041
+[src/bin/pg_dump/pg_backup_archiver.c:4978-5041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4978-L5041)
 
 ## Overview
 Creates a clone of an ArchiveHandle structure for use in parallel restoration processes, ensuring that each worker thread has its own isolated copy with independent connection and state management.

@@ -1,7 +1,7 @@
 # internal_text_pattern_compare
 
 ## Location
-src/backend/utils/adt/varlena.c: 2797 - 2818
+[src/backend/utils/adt/varlena.c:2797-2818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2797-L2818)
 
 ## Overview
 Static function that performs character-by-character comparison of two text datums, specifically designed to support LIKE clause indexing and pattern matching operations.

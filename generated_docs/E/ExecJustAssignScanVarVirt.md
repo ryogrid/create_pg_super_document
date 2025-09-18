@@ -1,7 +1,7 @@
 # ExecJustAssignScanVarVirt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2362 - 2372
+[src/backend/executor/execExprInterp.c:2362-2372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2362-L2372)
 
 ## Overview
 An optimized expression evaluation function for assigning variables from virtual scan tuple slots to result slots in PostgreSQL's query execution.

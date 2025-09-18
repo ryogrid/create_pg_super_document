@@ -1,7 +1,7 @@
 # float8_avg
 
 ## Location
-src/backend/utils/adt/float.c: 3118 - 3137
+[src/backend/utils/adt/float.c:3118-3137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3118-L3137)
 
 ## Overview
 Final function for the AVG aggregate that computes the arithmetic mean from accumulated transition state values maintained by accumulator functions.

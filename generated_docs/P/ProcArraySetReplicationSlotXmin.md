@@ -1,7 +1,7 @@
 # ProcArraySetReplicationSlotXmin
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3942 - 3966
+[src/backend/storage/ipc/procarray.c:3942-3966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3942-L3966)
 
 ## Overview
 Sets the minimum transaction ID (xmin) limits for replication slots to prevent vacuum and HOT pruning from removing rows still needed by replication slot clients.

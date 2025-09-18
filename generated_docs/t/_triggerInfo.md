@@ -1,7 +1,7 @@
 # _triggerInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 453 - 459
+[src/bin/pg_dump/pg_dump.h:453-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L453-L459)
 
 ## Overview
 The  structure represents PostgreSQL triggers that need to be dumped and restored by pg_dump, including user-defined table triggers.

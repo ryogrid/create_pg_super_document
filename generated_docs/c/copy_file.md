@@ -1,7 +1,7 @@
 # copy_file
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 49 - 126
+[src/bin/pg_combinebackup/copy_file.c:49-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L49-L126)
 
 ## Overview
 Copies a file from source to destination using a buffered read-write operation with periodic flushing for performance optimization.

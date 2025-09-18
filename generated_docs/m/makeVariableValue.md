@@ -1,7 +1,7 @@
 # makeVariableValue
 
 ## Location
-src/bin/pgbench/pgbench.c: 1664 - 1737
+[src/bin/pgbench/pgbench.c:1664-1737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1664-L1737)
 
 ## Overview
 Converts a variable's string value to its appropriate typed representation (null, boolean, integer, or double) based on content analysis.

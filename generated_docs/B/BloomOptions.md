@@ -1,7 +1,7 @@
 # BloomOptions
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 154 - 159
+[src/backend/access/brin/brin_bloom.c:154-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L154-L159)
 
 ## Overview
 BloomOptions is a structure that stores configuration options for BRIN's bloom filter indexes, specifically controlling the distinct value estimation and false positive rate parameters.

@@ -1,7 +1,7 @@
 # gist_box_consistent
 
 ## Location
-src/backend/access/gist/gistproc.c: 113 - 145
+[src/backend/access/gist/gistproc.c:113-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L113-L145)
 
 ## Overview
 The GiST Consistent method for box data types that determines whether index entries should be visited during query processing by delegating to appropriate leaf or internal consistency checking functions.

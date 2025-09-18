@@ -1,7 +1,7 @@
 # get_select_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5702 - 5834
+[src/backend/utils/adt/ruleutils.c:5702-5834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5702-L5834)
 
 ## Overview
 Converts a SELECT Query parse tree back into readable SQL text by orchestrating the formatting of all SELECT statement components including WITH, FROM, WHERE, ORDER BY, LIMIT, and locking clauses.

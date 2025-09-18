@@ -1,7 +1,7 @@
 # clauselist_selectivity
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 100 - 116
+[src/backend/optimizer/path/clausesel.c:100-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L100-L116)
 
 ## Overview
 Computes the selectivity of an implicitly-ANDed list of boolean expression clauses, serving as the main entry point for estimating the selectivity of combined WHERE clause conditions in PostgreSQL's query optimizer.

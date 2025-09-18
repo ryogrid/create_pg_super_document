@@ -1,7 +1,7 @@
 # read_pg_version_file
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 1154 - 1204
+[src/bin/pg_combinebackup/pg_combinebackup.c:1154-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L1154-L1204)
 
 ## Overview
 Reads the PostgreSQL version number from the PG_VERSION file in a specified directory and converts it to the standard server version number format used internally.

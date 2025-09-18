@@ -1,7 +1,7 @@
 # pa_get_fileset_state
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1518 - 1539
+[src/backend/replication/logical/applyparallelworker.c:1518-1539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1518-L1539)
 
 ## Overview
 pa_get_fileset_state retrieves the current fileset state for a parallel apply worker, providing thread-safe access to shared state information in PostgreSQL logical replication.

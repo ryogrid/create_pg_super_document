@@ -1,7 +1,7 @@
 # command_tag_event_trigger_ok
 
 ## Location
-src/backend/tcop/cmdtag.c: 66 - 71
+[src/backend/tcop/cmdtag.c:66-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L66-L71)
 
 ## Overview
 Determines whether a given CommandTag is eligible to fire event triggers during its execution.

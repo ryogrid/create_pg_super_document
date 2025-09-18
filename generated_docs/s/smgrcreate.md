@@ -1,7 +1,7 @@
 # smgrcreate
 
 ## Location
-src/backend/storage/smgr/smgr.c: 411 - 425
+[src/backend/storage/smgr/smgr.c:411-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L411-L425)
 
 ## Overview
 Creates the underlying disk file or storage for a specific fork of a relation.

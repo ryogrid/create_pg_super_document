@@ -1,7 +1,7 @@
 # validate_plperl_function
 
 ## Location
-src/pl/plperl/plperl.c: 2671 - 2699
+[src/pl/plperl/plperl.c:2671-2699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2671-L2699)
 
 ## Overview
 Validates whether a cached PL/Perl function descriptor is still up-to-date by checking transaction ID and tuple ID against the current pg_proc entry.

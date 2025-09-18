@@ -1,7 +1,7 @@
 # add_paths_to_joinrel
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 124 - 362
+[src/backend/optimizer/path/joinpath.c:124-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L124-L362)
 
 ## Overview
 Considers all possible join paths between two component relations and adds the best paths to the join relation's pathlist, serving as the main driver for join path generation in PostgreSQL's query optimizer.

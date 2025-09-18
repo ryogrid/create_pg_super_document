@@ -1,7 +1,7 @@
 # PageGetSpecialSize
 
 ## Location
-src/include/storage/bufpage.h: 314 - 324
+[src/include/storage/bufpage.h:314-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L314-L324)
 
 ## Overview
 Calculates and returns the size of the special space area on a page by determining the difference between total page size and the special space offset.

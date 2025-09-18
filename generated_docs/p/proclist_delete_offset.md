@@ -1,7 +1,7 @@
 # proclist_delete_offset
 
 ## Location
-src/include/storage/proclist.h: 115 - 145
+[src/include/storage/proclist.h:115-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L115-L145)
 
 ## Overview
 A static inline function that removes a process from a process list at a specified node offset within the process structure.

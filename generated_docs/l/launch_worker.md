@@ -1,7 +1,7 @@
 # launch_worker
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1285 - 1336
+[src/backend/postmaster/autovacuum.c:1285-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1285-L1336)
 
 ## Overview
 A wrapper function for starting an autovacuum worker from the launcher that handles database list management and scheduling after worker startup.

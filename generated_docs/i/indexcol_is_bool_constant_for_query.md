@@ -1,7 +1,7 @@
 # indexcol_is_bool_constant_for_query
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3614 - 3664
+[src/backend/optimizer/path/indxpath.c:3614-3664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3614-L3664)
 
 ## Overview
 Determines if an index column is constrained to have a constant value by boolean restriction clauses in the query's WHERE conditions.

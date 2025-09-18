@@ -1,7 +1,7 @@
 # create_bitmap_and_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1075 - 1126
+[src/backend/optimizer/util/pathnode.c:1075-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1075-L1126)
 
 ## Overview
 Creates a path node representing a BitmapAnd operation, which combines multiple bitmap index scans using logical AND to find tuples that satisfy all of the specified index conditions.

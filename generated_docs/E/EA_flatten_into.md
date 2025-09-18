@@ -1,7 +1,7 @@
 # EA_flatten_into
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 293 - 351
+[src/backend/utils/adt/array_expanded.c:293-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L293-L351)
 
 ## Overview
 A method function that flattens an expanded array into its standard serialized PostgreSQL array representation in a pre-allocated memory buffer.

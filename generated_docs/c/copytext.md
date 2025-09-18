@@ -1,7 +1,7 @@
 # copytext
 
 ## Location
-src/tutorial/funcs.c: 64 - 89
+[src/tutorial/funcs.c:64-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L64-L89)
 
 ## Overview
 A PostgreSQL C function that creates a deep copy of a text value, demonstrating proper handling of PostgreSQL's variable-length data types (varlena) and memory management.

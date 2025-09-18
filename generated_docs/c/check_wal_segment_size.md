@@ -1,7 +1,7 @@
 # check_wal_segment_size
 
 ## Location
-src/backend/access/transam/xlog.c: 2207 - 2222
+[src/backend/access/transam/xlog.c:2207-2222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2207-L2222)
 
 ## Overview
 Validation hook function that ensures the proposed WAL segment size meets PostgreSQL's requirements for valid segment sizes.

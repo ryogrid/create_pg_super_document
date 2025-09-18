@@ -1,7 +1,7 @@
 # FreeCachedExpression
 
 ## Location
-src/backend/utils/cache/plancache.c: 1734 - 1752
+[src/backend/utils/cache/plancache.c:1734-1752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1734-L1752)
 
 ## Overview
 Deletes a CachedExpression and frees all associated memory, removing it from the global cache list.

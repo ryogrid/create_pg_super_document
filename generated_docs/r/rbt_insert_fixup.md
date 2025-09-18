@@ -1,7 +1,7 @@
 # rbt_insert_fixup
 
 ## Location
-src/backend/lib/rbtree.c: 344 - 452
+[src/backend/lib/rbtree.c:344-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L344-L452)
 
 ## Overview
 Restores Red-Black Tree balance properties after inserting a new node, using color changes and rotations to maintain the invariants.

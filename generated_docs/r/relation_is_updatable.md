@@ -1,7 +1,7 @@
 # relation_is_updatable
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2854 - 2862
+[src/backend/rewrite/rewriteHandler.c:2854-2862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2854-L2862)
 
 ## Overview
 Determines which update events (INSERT, UPDATE, DELETE) a specified relation supports, considering rules, triggers, and the underlying relation structure.

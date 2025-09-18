@@ -1,7 +1,7 @@
 # clone_parse_state
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1471 - 1500
+[src/backend/utils/adt/jsonb.c:1471-1500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1471-L1500)
 
 ## Overview
 Creates a shallow clone of a JsonbParseState structure, primarily used in aggregate final functions for safe state manipulation.

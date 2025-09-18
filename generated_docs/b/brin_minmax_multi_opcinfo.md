@@ -1,7 +1,7 @@
 # brin_minmax_multi_opcinfo
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1859 - 1882
+[src/backend/access/brin/brin_minmax_multi.c:1859-1882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1859-L1882)
 
 ## Overview
 This function initializes and returns operator class information structure for the BRIN minmax-multi index type, setting up the necessary metadata for index operations.

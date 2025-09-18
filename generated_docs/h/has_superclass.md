@@ -1,7 +1,7 @@
 # has_superclass
 
 ## Location
-src/backend/catalog/pg_inherits.c: 377 - 405
+[src/backend/catalog/pg_inherits.c:377-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L377-L405)
 
 ## Overview
 Determines whether a relation inherits from any parent relation by scanning pg_inherits for entries where the relation appears as a child.

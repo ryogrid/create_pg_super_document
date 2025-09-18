@@ -1,7 +1,7 @@
 # pg_append_history
 
 ## Location
-src/bin/psql/input.c: 113 - 134
+[src/bin/psql/input.c:113-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L113-L134)
 
 ## Overview
 Appends a line to the history buffer, ensuring proper newline termination for command history tracking in psql.

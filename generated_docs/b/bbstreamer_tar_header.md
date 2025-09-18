@@ -1,7 +1,7 @@
 # bbstreamer_tar_header
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 261 - 318
+[src/bin/pg_basebackup/bbstreamer_tar.c:261-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L261-L318)
 
 ## Overview
 Parses a tar file header block and extracts file metadata, determining whether the block represents a valid file header or marks the end of the archive.

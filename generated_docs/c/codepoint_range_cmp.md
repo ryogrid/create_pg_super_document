@@ -1,7 +1,7 @@
 # codepoint_range_cmp
 
 ## Location
-src/common/saslprep.c: 973 - 986
+[src/common/saslprep.c:973-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/saslprep.c#L973-L986)
 
 ## Overview
 A static comparison function used for searching Unicode codepoint ranges via binary search, specifically designed to determine if a given codepoint falls within a specified range.

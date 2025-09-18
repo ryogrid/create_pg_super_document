@@ -1,7 +1,7 @@
 # SetOpState
 
 ## Location
-src/include/nodes/execnodes.h: 2781 - 2797
+[src/include/nodes/execnodes.h:2781-2797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2781-L2797)
 
 ## Overview
 SetOpState is the execution state structure for SetOp nodes in PostgreSQL's executor, managing the runtime state for set operations like UNION, INTERSECT, and EXCEPT.

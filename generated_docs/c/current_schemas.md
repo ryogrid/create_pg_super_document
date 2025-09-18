@@ -1,7 +1,7 @@
 # current_schemas
 
 ## Location
-src/backend/utils/adt/name.c: 294 - 332
+[src/backend/utils/adt/name.c:294-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L294-L332)
 
 ## Overview
 The current_schemas function is a SQL function that returns an array of all schema names in the current search path.

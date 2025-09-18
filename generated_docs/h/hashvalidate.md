@@ -1,7 +1,7 @@
 # hashvalidate
 
 ## Location
-src/backend/access/hash/hashvalidate.c: 47 - 274
+[src/backend/access/hash/hashvalidate.c:47-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashvalidate.c#L47-L274)
 
 ## Overview
 The hashvalidate function is a validator for hash operator classes that checks the consistency and completeness of hash access method operator families, ensuring all required operators and support functions are properly defined and have correct signatures.

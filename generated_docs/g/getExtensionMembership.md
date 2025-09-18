@@ -1,7 +1,7 @@
 # getExtensionMembership
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18271 - 18363
+[src/bin/pg_dump/pg_dump.c:18271-18363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18271-L18363)
 
 ## Overview
 Obtains extension membership data from the PostgreSQL catalogs to identify objects that belong to extensions, enabling pg_dump to correctly determine whether they need to be dumped individually or will be recreated by CREATE EXTENSION commands.

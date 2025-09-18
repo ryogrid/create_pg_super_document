@@ -1,7 +1,7 @@
 # heapam_index_fetch_end
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 103 - 112
+[src/backend/access/heap/heapam_handler.c:103-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L103-L112)
 
 ## Overview
 Finalizes and cleans up a heap index fetch scan by resetting the scan state and freeing the allocated memory.

@@ -1,7 +1,7 @@
 # tablesync_start_time_mapping
 
 ## Location
-src/backend/replication/logical/tablesync.c: 420 - 692
+[src/backend/replication/logical/tablesync.c:420-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L420-L692)
 
 ## Overview
 A lightweight structure used internally by PostgreSQL's logical replication system to track the last start time of table synchronization workers, preventing immediate restarts and implementing rate limiting for worker launches.

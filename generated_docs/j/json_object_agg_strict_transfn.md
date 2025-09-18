@@ -1,7 +1,7 @@
 # json_object_agg_strict_transfn
 
 ## Location
-src/backend/utils/adt/json.c: 1150 - 1158
+[src/backend/utils/adt/json.c:1150-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1150-L1158)
 
 ## Overview
 This function serves as the PostgreSQL SQL-callable wrapper for the strict variant of json_object_agg aggregate function, which excludes entries with null values from the resulting JSON object.

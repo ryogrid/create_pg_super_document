@@ -1,7 +1,7 @@
 # RecoverPreparedTransactions
 
 ## Location
-src/backend/access/transam/twophase.c: 2074 - 2176
+[src/backend/access/transam/twophase.c:2074-2176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2074-L2176)
 
 ## Overview
 RecoverPreparedTransactions fully restores prepared transactions at the end of recovery, reacquiring locks and reconstructing complete transaction state before normal operations resume.

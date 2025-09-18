@@ -1,7 +1,7 @@
 # regoperatorout
 
 ## Location
-src/backend/utils/adt/regproc.c: 839 - 855
+[src/backend/utils/adt/regproc.c:839-855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L839-L855)
 
 ## Overview
 Converts an operator OID to its textual representation in the format "opr_name(args)".

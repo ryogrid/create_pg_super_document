@@ -1,7 +1,7 @@
 # pa_reset_subtrans
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1402 - 1415
+[src/backend/replication/logical/applyparallelworker.c:1402-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1402-L1415)
 
 ## Overview
 pa_reset_subtrans is a utility function in PostgreSQL's logical replication parallel worker module that resets the list of subtransactions, clearing all tracked subtransaction state.

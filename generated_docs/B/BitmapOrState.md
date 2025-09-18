@@ -1,7 +1,7 @@
 # BitmapOrState
 
 ## Location
-src/include/nodes/execnodes.h: 1538 - 1543
+[src/include/nodes/execnodes.h:1538-1543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1538-L1543)
 
 ## Overview
 BitmapOrState is the runtime state structure for the BitmapOr executor node, which performs logical OR operations on bitmap indexes from multiple child plans.

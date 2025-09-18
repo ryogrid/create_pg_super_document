@@ -1,7 +1,7 @@
 # output_statement
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 136 - 169
+[src/interfaces/ecpg/preproc/output.c:136-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L136-L169)
 
 ## Overview
 The output_statement function generates C code that calls the ECPGdo runtime function to execute SQL statements within embedded SQL programs.

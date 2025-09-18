@@ -1,7 +1,7 @@
 # pg_u_isprint
 
 ## Location
-src/common/unicode_category.c: 279 - 289
+[src/common/unicode_category.c:279-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L279-L289)
 
 ## Overview
 Determines whether a Unicode character is printable, meaning it can be displayed or printed and includes both graphical characters and whitespace characters.

@@ -1,7 +1,7 @@
 # RegisterSnapshotInvalidation
 
 ## Location
-src/backend/utils/cache/inval.c: 601 - 611
+[src/backend/utils/cache/inval.c:601-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L601-L611)
 
 ## Overview
 Registers an invalidation event for MVCC scans against a given catalog, specifically designed for catalogs that don't have catcaches.

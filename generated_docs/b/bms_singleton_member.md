@@ -1,7 +1,7 @@
 # bms_singleton_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 672 - 714
+[src/backend/nodes/bitmapset.c:672-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L672-L714)
 
 ## Overview
 Returns the sole integer member of a bitmapset, throwing an error if the set does not contain exactly one member.

@@ -1,7 +1,7 @@
 # visibilitymap_get_status
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 336 - 383
+[src/backend/access/heap/visibilitymap.c:336-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L336-L383)
 
 ## Overview
 Retrieves the current visibility status bits for a given heap block, indicating whether all tuples are visible to all transactions or marked as frozen.

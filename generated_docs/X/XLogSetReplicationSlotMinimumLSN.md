@@ -1,7 +1,7 @@
 # XLogSetReplicationSlotMinimumLSN
 
 ## Location
-src/backend/access/transam/xlog.c: 2665 - 2677
+[src/backend/access/transam/xlog.c:2665-2677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2665-L2677)
 
 ## Overview
 Sets the minimum LSN required by all replication slots, indicating the earliest WAL position that must be retained for replication purposes.

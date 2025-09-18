@@ -1,7 +1,7 @@
 # modify_subscriber_sysid
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 629 - 684
+[src/bin/pg_basebackup/pg_createsubscriber.c:629-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L629-L684)
 
 ## Overview
 Modifies the system identifier of a subscriber database to prevent WAL file conflicts and ensure proper separation from the publisher database.

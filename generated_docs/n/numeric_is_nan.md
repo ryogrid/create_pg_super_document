@@ -1,7 +1,7 @@
 # numeric_is_nan
 
 ## Location
-src/backend/utils/adt/numeric.c: 849 - 859
+[src/backend/utils/adt/numeric.c:849-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L849-L859)
 
 ## Overview
 A utility function that tests whether a Numeric value represents "Not a Number" (NaN).

@@ -1,7 +1,7 @@
 # delvacuum_desc
 
 ## Location
-src/backend/access/rmgrdesc/nbtdesc.c: 196 - 254
+[src/backend/access/rmgrdesc/nbtdesc.c:196-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/nbtdesc.c#L196-L254)
 
 ## Overview
 The  function formats detailed information about deleted and updated items in B-tree vacuum and delete operations for WAL record descriptions.

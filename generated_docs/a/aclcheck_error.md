@@ -1,7 +1,7 @@
 # aclcheck_error
 
 ## Location
-src/backend/catalog/aclchk.c: 2705 - 2993
+[src/backend/catalog/aclchk.c:2705-2993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2705-L2993)
 
 ## Overview
 Standardized function for reporting access control check failures, generating appropriate error messages based on the type of permission violation and database object type.

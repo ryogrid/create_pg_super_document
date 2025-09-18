@@ -1,7 +1,7 @@
 # QueryRewrite
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 4411 - 4500
+[src/backend/rewrite/rewriteHandler.c:4411-4500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L4411-L4500)
 
 ## Overview
 Primary entry point to PostgreSQL's query rewriter that transforms a single query into zero or more rewritten queries by applying rules and handling view updates.

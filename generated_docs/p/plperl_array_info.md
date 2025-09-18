@@ -1,7 +1,7 @@
 # plperl_array_info
 
 ## Location
-src/pl/plperl/plperl.c: 208 - 217
+[src/pl/plperl/plperl.c:208-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L208-L217)
 
 ## Overview
 A structure that holds information necessary for converting PostgreSQL arrays to Perl data structures and vice versa in the PL/Perl procedural language extension.

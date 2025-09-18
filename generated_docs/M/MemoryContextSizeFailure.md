@@ -1,7 +1,7 @@
 # MemoryContextSizeFailure
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1167 - 1179
+[src/backend/utils/mmgr/mcxt.c:1167-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1167-L1179)
 
 ## Overview
 MemoryContextSizeFailure handles invalid memory allocation request sizes in PostgreSQL memory contexts, providing a standardized error response for size validation failures.

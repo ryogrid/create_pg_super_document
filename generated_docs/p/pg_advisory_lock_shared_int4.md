@@ -1,7 +1,7 @@
 # pg_advisory_lock_shared_int4
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 843 - 860
+[src/backend/utils/adt/lockfuncs.c:843-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L843-L860)
 
 ## Overview
 Acquires a session-scoped shared advisory lock using two 32-bit integer keys, allowing multiple concurrent holders.

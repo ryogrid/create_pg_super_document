@@ -1,7 +1,7 @@
 # ResetLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 724 - 750
+[src/backend/storage/ipc/latch.c:724-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L724-L750)
 
 ## Overview
 ResetLatch clears a latch's signaled state, preparing it to block subsequent wait operations until the latch is set again.

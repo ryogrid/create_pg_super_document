@@ -1,7 +1,7 @@
 # utf8_advance
 
 ## Location
-src/common/wchar.c: 1873 - 1890
+[src/common/wchar.c:1873-1890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1873-L1890)
 
 ## Overview
 Advances the UTF-8 state machine by processing a sequence of bytes, used as part of PostgreSQL's optimized UTF-8 validation algorithm.

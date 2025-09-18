@@ -1,7 +1,7 @@
 # BackgroundWorkerBlockSignals
 
 ## Location
-src/backend/postmaster/postmaster.c: 4225 - 4230
+[src/backend/postmaster/postmaster.c:4225-4230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4225-L4230)
 
 ## Overview
 Blocks signal delivery to a background worker process by setting the process signal mask to block all signals defined in BlockSig.

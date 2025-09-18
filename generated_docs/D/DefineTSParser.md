@@ -1,7 +1,7 @@
 # DefineTSParser
 
 ## Location
-src/backend/commands/tsearchcmds.c: 184 - 306
+[src/backend/commands/tsearchcmds.c:184-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L184-L306)
 
 ## Overview
 This function implements the CREATE TEXT SEARCH PARSER SQL command, creating a new text search parser object in the system catalog with all required function references and dependencies.

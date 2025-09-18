@@ -1,7 +1,7 @@
 # ExecInitPartitionInfo
 
 ## Location
-src/backend/executor/execPartition.c: 495 - 985
+[src/backend/executor/execPartition.c:495-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L495-L985)
 
 ## Overview
 Locks a partition and initializes a complete ResultRelInfo structure for it, setting up all necessary execution state including indexes, constraints, projections, and conflict handling for INSERT/UPDATE/MERGE operations.

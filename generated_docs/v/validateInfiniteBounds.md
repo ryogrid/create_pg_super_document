@@ -1,7 +1,7 @@
 # validateInfiniteBounds
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 4256 - 4294
+[src/backend/parser/parse_utilcmd.c:4256-4294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L4256-L4294)
 
 ## Overview
 Validates that MAXVALUE or MINVALUE specifications in partition bounds are followed only by more of the same type, ensuring consistency in partition range definitions.

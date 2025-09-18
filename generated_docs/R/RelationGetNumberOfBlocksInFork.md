@@ -1,7 +1,7 @@
 # RelationGetNumberOfBlocksInFork
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3912 - 3943
+[src/backend/storage/buffer/bufmgr.c:3912-3943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3912-L3943)
 
 ## Overview
 RelationGetNumberOfBlocksInFork determines the current number of pages in a specified relation fork, handling different access methods and storage types appropriately.

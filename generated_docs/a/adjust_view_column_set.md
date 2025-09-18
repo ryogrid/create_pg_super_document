@@ -1,7 +1,7 @@
 # adjust_view_column_set
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 3035 - 3108
+[src/backend/rewrite/rewriteHandler.c:3035-3108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L3035-L3108)
 
 ## Overview
 Maps a set of column numbers from view columns to the corresponding columns in the underlying base relation for simply-updatable views, used primarily for column-permissions mapping.

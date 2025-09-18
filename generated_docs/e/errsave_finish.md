@@ -1,7 +1,7 @@
 # errsave_finish
 
 ## Location
-src/backend/utils/error/elog.c: 685 - 754
+[src/backend/utils/error/elog.c:685-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L685-L754)
 
 ## Overview
 Finalizes a "soft" error-reporting cycle by either delegating to standard error processing or packaging error details for caller access without process termination.

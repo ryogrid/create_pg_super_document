@@ -1,7 +1,7 @@
 # varbit_in
 
 ## Location
-src/backend/utils/adt/varbit.c: 452 - 586
+[src/backend/utils/adt/varbit.c:452-586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L452-L586)
 
 ## Overview
 Converts a string representation of a bit string (binary or hexadecimal format) to the internal VarBit data structure for variable-length bit strings.

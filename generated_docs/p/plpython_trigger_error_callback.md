@@ -1,7 +1,7 @@
 # plpython_trigger_error_callback
 
 ## Location
-src/pl/plpython/plpy_exec.c: 1052 - 1061
+[src/pl/plpython/plpy_exec.c:1052-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L1052-L1061)
 
 ## Overview
 An error context callback function that provides contextual information when errors occur during PL/Python trigger row modification operations.

@@ -1,7 +1,7 @@
 # GetXLogInsertRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 9451 - 9466
+[src/backend/access/transam/xlog.c:9451-9466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9451-L9466)
 
 ## Overview
 Retrieves the latest WAL (Write-Ahead Log) insert pointer, indicating the current position where new WAL records can be inserted.

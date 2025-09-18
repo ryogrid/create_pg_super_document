@@ -1,7 +1,7 @@
 # check_unicode_value
 
 ## Location
-src/backend/parser/parser.c: 342 - 351
+[src/backend/parser/parser.c:342-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parser.c#L342-L351)
 
 ## Overview
 A validation function that verifies whether a given Unicode code point is acceptable and raises an error if it's invalid.

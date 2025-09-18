@@ -1,7 +1,7 @@
 # prepareCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 3089 - 3121
+[src/bin/pgbench/pgbench.c:3089-3121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3089-L3121)
 
 ## Overview
 The prepareCommand function prepares a specific SQL command as a prepared statement for efficient repeated execution in pgbench.

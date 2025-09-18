@@ -1,7 +1,7 @@
 # set_indexsafe_procflags
 
 ## Location
-src/backend/commands/indexcmds.c: 4474 - 4487
+[src/backend/commands/indexcmds.c:4474-4487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L4474-L4487)
 
 ## Overview
 set_indexsafe_procflags sets the PROC_IN_SAFE_IC flag in the current process status to optimize concurrent index operations and prevent deadlocks.

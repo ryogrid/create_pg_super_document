@@ -1,7 +1,7 @@
 # defaultGetLocalPQExpBuffer
 
 ## Location
-src/fe_utils/string_utils.c: 42 - 68
+[src/fe_utils/string_utils.c:42-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L42-L68)
 
 ## Overview
 A static function that provides a temporary PQExpBuffer for internal use by identifier formatting functions, implementing a simple buffer reuse mechanism to reduce memory allocation overhead.

@@ -1,7 +1,7 @@
 # lookupVariable
 
 ## Location
-src/bin/pgbench/pgbench.c: 1604 - 1630
+[src/bin/pgbench/pgbench.c:1604-1630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1604-L1630)
 
 ## Overview
 Locates a variable by name in a Variables collection using efficient binary search, automatically sorting the variable array if needed and returning NULL if the variable is not found.

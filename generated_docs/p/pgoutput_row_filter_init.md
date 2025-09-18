@@ -1,7 +1,7 @@
 # pgoutput_row_filter_init
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 895 - 1040
+[src/backend/replication/pgoutput/pgoutput.c:895-1040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L895-L1040)
 
 ## Overview
 Initializes row filtering functionality for a specific relation in the pgoutput logical replication plugin by analyzing publications and building expression states for DML operations.

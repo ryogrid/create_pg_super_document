@@ -1,7 +1,7 @@
 # pg_copy_logical_replication_slot_b
 
 ## Location
-src/backend/replication/slotfuncs.c: 864 - 869
+[src/backend/replication/slotfuncs.c:864-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L864-L869)
 
 ## Overview
 A SQL-callable function that creates a new logical replication slot by copying the configuration and state from an existing logical replication slot.

@@ -1,7 +1,7 @@
 # appendPGArray
 
 ## Location
-src/fe_utils/string_utils.c: 902 - 965
+[src/fe_utils/string_utils.c:902-965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L902-L965)
 
 ## Overview
 Appends one element to the text representation of a 1-dimensional PostgreSQL array with proper formatting and quoting.

@@ -1,7 +1,7 @@
 # macaddr8_lt
 
 ## Location
-src/backend/utils/adt/mac8.c: 338 - 346
+[src/backend/utils/adt/mac8.c:338-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L338-L346)
 
 ## Overview
 PostgreSQL function that implements the less-than (<) comparison operator for macaddr8 values, returning a boolean result.

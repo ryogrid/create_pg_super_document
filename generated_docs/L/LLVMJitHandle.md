@@ -1,7 +1,7 @@
 # LLVMJitHandle
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 52 - 61
+[src/backend/jit/llvm/llvmjit.c:52-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L52-L61)
 
 ## Overview
 LLVMJitHandle is a structure that represents a compiled module handle emitted via the LLVM ORC JIT (On Request Compilation) system in PostgreSQL's JIT compilation infrastructure.

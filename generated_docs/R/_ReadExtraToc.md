@@ -1,7 +1,7 @@
 # _ReadExtraToc
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 238 - 264
+[src/bin/pg_dump/pg_backup_custom.c:238-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L238-L264)
 
 ## Overview
 _ReadExtraToc is a callback function that reads format-specific TOC entry data from the archive, reconstructing data position offset information for the custom archive format during restoration.

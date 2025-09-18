@@ -1,7 +1,7 @@
 # coerce_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 157 - 555
+[src/backend/parser/parse_coerce.c:157-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L157-L555)
 
 ## Overview
 Converts an expression from one data type to a different type, implementing the core type coercion logic in PostgreSQL's parser system.

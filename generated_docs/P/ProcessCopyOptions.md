@@ -1,7 +1,7 @@
 # ProcessCopyOptions
 
 ## Location
-src/backend/commands/copy.c: 463 - 895
+[src/backend/commands/copy.c:463-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L463-L895)
 
 ## Overview
 ProcessCopyOptions processes and validates the complete option list for COPY statements, parsing individual DefElem options into a structured CopyFormatOptions output while performing comprehensive compatibility and consistency checking.

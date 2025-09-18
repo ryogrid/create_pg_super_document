@@ -1,7 +1,7 @@
 # ordered_set_startup
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 113 - 338
+[src/backend/utils/adt/orderedsetaggs.c:113-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L113-L338)
 
 ## Overview
 Sets up working state for an ordered-set aggregate function, initializing per-query and per-group state structures required for sorting and managing aggregated data.

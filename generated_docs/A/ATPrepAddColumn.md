@@ -1,7 +1,7 @@
 # ATPrepAddColumn
 
 ## Location
-src/backend/commands/tablecmds.c: 6988 - 7011
+[src/backend/commands/tablecmds.c:6988-7011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6988-L7011)
 
 ## Overview
 Prepares an ADD COLUMN operation for ALTER TABLE by performing validation and handling special cases for typed tables and composite types.

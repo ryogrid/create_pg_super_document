@@ -1,7 +1,7 @@
 # SetupGOutput
 
 ## Location
-src/bin/psql/common.c: 90 - 109
+[src/bin/psql/common.c:90-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L90-L109)
 
 ## Overview
 Sets up query output redirection for the \g command in psql by opening the specified output file or pipe if needed.

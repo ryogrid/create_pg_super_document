@@ -1,7 +1,7 @@
 # regexp_match_no_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 1357 - 1366
+[src/backend/utils/adt/regexp.c:1357-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1357-L1366)
 
 ## Overview
 A wrapper function for regexp_match that provides a separate entry point without flags to satisfy the opr_sanity regression test requirements.

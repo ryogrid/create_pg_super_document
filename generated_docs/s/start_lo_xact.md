@@ -1,7 +1,7 @@
 # start_lo_xact
 
 ## Location
-src/bin/psql/large_obj.c: 56 - 97
+[src/bin/psql/large_obj.c:56-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L56-L97)
 
 ## Overview
 Initiates or verifies a transaction block for large object operations, ensuring that large object commands execute within a proper transaction context as required by PostgreSQL.

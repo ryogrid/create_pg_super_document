@@ -1,7 +1,7 @@
 # cmp_orderbyvals
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 405 - 440
+[src/backend/executor/nodeIndexscan.c:405-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L405-L440)
 
 ## Overview
 The cmp_orderbyvals function compares ORDER BY expression values between two tuples, implementing proper null handling and using SortSupport for efficient comparisons.

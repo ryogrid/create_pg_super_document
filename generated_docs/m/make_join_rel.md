@@ -1,7 +1,7 @@
 # make_join_rel
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 705 - 801
+[src/backend/optimizer/path/joinrels.c:705-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L705-L801)
 
 ## Overview
 Creates or finds a join RelOptInfo representing the join of two relations, adding path information for joins with the two relations as outer and inner.

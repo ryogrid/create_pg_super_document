@@ -1,7 +1,7 @@
 # btcostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6854 - 7196
+[src/backend/utils/adt/selfuncs.c:6854-7196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6854-L7196)
 
 ## Overview
 A specialized cost estimation function for B-tree index access paths that provides accurate cost calculations considering B-tree specific optimizations like index ordering correlation and boundary qualification analysis.

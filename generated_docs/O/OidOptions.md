@@ -1,7 +1,7 @@
 # OidOptions
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 101 - 164
+[src/bin/pg_dump/pg_dump.c:101-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L101-L164)
 
 ## Overview
 OidOptions is an enumeration used in pg_dump to control how zero (invalid) OIDs are handled when formatting type names and other object identifiers in SQL output.

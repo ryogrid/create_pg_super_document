@@ -1,7 +1,7 @@
 # risnull
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1049 - 1052
+[src/interfaces/ecpg/compatlib/informix.c:1049-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1049-L1052)
 
 ## Overview
 Checks whether a value is NULL for a given data type in the Informix compatibility layer of PostgreSQL's ECPG (Embedded SQL in C) interface.

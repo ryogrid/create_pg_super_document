@@ -1,7 +1,7 @@
 # r_stem_nominal_verb_suffixes
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 901 - 1157
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:901-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L901-L1157)
 
 ## Overview
 Main function for identifying and removing nominal verb suffixes in Turkish text as part of the Snowball stemming algorithm, handling complex suffix chains and morphological patterns.

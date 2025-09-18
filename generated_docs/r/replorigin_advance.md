@@ -1,7 +1,7 @@
 # replorigin_advance
 
 ## Location
-src/backend/replication/logical/origin.c: 888 - 1013
+[src/backend/replication/logical/origin.c:888-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L888-L1013)
 
 ## Overview
 Advances the replication progress for a specific replication origin, recording that a commit from a remote node has been successfully replayed locally.

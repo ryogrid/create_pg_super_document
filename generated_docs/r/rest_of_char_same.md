@@ -1,7 +1,7 @@
 # rest_of_char_same
 
 ## Location
-src/backend/utils/adt/varlena.c: 6152 - 6164
+[src/backend/utils/adt/varlena.c:6152-6164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6152-L6164)
 
 ## Overview
 A performance-optimized helper function that compares the remaining characters of two strings for equality, specifically designed for Levenshtein distance calculations.

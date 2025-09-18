@@ -1,7 +1,7 @@
 # SnapshotSetCommandId
 
 ## Location
-src/backend/utils/time/snapmgr.c: 456 - 476
+[src/backend/utils/time/snapmgr.c:456-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L456-L476)
 
 ## Overview
 Propagates command counter increments to active static snapshots to maintain proper intra-transaction visibility semantics.

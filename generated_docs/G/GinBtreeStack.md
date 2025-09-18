@@ -1,7 +1,7 @@
 # GinBtreeStack
 
 ## Location
-src/include/access/gin_private.h: 129 - 138
+[src/include/access/gin_private.h:129-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L129-L138)
 
 ## Overview
 GinBtreeStack is a stack structure used during GIN B-tree traversal operations, maintaining the path from root to current position with parent-child relationships and position tracking.

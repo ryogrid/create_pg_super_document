@@ -1,7 +1,7 @@
 # tqueueReceiveSlot
 
 ## Location
-src/backend/executor/tqueue.c: 54 - 82
+[src/backend/executor/tqueue.c:54-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L54-L82)
 
 ## Overview
 Receives a tuple from a query and sends it to a designated shared memory message queue (shm_mq), serving as a tuple destination receiver callback function.

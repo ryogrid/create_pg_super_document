@@ -1,7 +1,7 @@
 # plperl_spi_freeplan
 
 ## Location
-src/pl/plperl/plperl.c: 3960 - 3990
+[src/pl/plperl/plperl.c:3960-3990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3960-L3990)
 
 ## Overview
 Releases a previously prepared SQL statement and all associated resources from the PL/Perl query cache.

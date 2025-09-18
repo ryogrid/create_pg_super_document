@@ -1,7 +1,7 @@
 # MultiXactMemberPagePrecedes
 
 ## Location
-src/backend/access/transam/multixact.c: 3289 - 3308
+[src/backend/access/transam/multixact.c:3289-3308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3289-L3308)
 
 ## Overview
 MultiXactMemberPagePrecedes determines whether one MultiXact member page number is "older" than another for truncation purposes, using a page-based comparison method.

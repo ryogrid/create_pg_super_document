@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_bgwriter
 
 ## Location
-src/backend/utils/activity/pgstat_bgwriter.c: 71 - 78
+[src/backend/utils/activity/pgstat_bgwriter.c:71-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_bgwriter.c#L71-L78)
 
 ## Overview
 This function provides a way to access the background writer statistics for SQL-callable functions by returning a pointer to the bgwriter statistics structure.

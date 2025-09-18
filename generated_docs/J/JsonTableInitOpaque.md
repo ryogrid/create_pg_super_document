@@ -1,7 +1,7 @@
 # JsonTableInitOpaque
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4111 - 4175
+[src/backend/utils/adt/jsonpath_exec.c:4111-4175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4111-L4175)
 
 ## Overview
 Initializes the opaque context for JSON_TABLE processing by setting up execution state, PASSING arguments, and the JsonTablePlanState for the root plan.

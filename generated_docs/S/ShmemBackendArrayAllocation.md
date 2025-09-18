@@ -1,7 +1,7 @@
 # ShmemBackendArrayAllocation
 
 ## Location
-src/backend/postmaster/postmaster.c: 4556 - 4565
+[src/backend/postmaster/postmaster.c:4556-4565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4556-L4565)
 
 ## Overview
 Allocates shared memory for the backend process array and initializes all slots as empty during PostgreSQL startup.

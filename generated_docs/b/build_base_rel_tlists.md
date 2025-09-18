@@ -1,7 +1,7 @@
 # build_base_rel_tlists
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 234 - 278
+[src/backend/optimizer/plan/initsplan.c:234-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L234-L278)
 
 ## Overview
 Adds targetlist entries for each variable needed in the query's final target list and HAVING clause to the appropriate base relations.

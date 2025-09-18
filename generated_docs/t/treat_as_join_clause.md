@@ -1,7 +1,7 @@
 # treat_as_join_clause
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 586 - 666
+[src/backend/optimizer/path/clausesel.c:586-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L586-L666)
 
 ## Overview
 Determines whether an operator clause should be handled by the restriction selectivity estimator or the join selectivity estimator as part of the query optimization process.

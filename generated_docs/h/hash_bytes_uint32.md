@@ -1,7 +1,7 @@
 # hash_bytes_uint32
 
 ## Location
-src/common/hashfn.c: 610 - 630
+[src/common/hashfn.c:610-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L610-L630)
 
 ## Overview
 The `hash_bytes_uint32` function provides optimized hashing of single 32-bit values without requiring memory storage, offering equivalent results to `hash_bytes` but with better performance.

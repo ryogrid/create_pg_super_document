@@ -1,7 +1,7 @@
 # r_shortv
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 225 - 231
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:225-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L225-L231)
 
 ## Overview
 The r_shortv function is a morphological testing function in the English Snowball stemming algorithm that determines if a word ends with a "short vowel" pattern, which is a key concept in English stemming rules.

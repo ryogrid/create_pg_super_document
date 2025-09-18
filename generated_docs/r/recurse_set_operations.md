@@ -1,7 +1,7 @@
 # recurse_set_operations
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 230 - 383
+[src/backend/optimizer/prep/prepunion.c:230-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L230-L383)
 
 ## Overview
 Recursively processes set operation trees, handling each node to generate optimized execution paths and appropriate target lists for UNION, INTERSECT, and EXCEPT operations.

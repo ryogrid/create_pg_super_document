@@ -1,7 +1,7 @@
 # load_multirangetype_info
 
 ## Location
-src/backend/utils/cache/typcache.c: 972 - 993
+[src/backend/utils/cache/typcache.c:972-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L972-L993)
 
 ## Overview
 A helper function that sets up multirange type information in the PostgreSQL type cache system by loading the corresponding range type information.

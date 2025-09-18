@@ -1,7 +1,7 @@
 # escape_quotes_bki
 
 ## Location
-src/bin/initdb/initdb.c: 419 - 441
+[src/bin/initdb/initdb.c:419-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L419-L441)
 
 ## Overview
 Escapes and wraps field values in single quotes for safe insertion into BKI (Backend Interface) data files during database bootstrapping.

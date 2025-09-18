@@ -1,7 +1,7 @@
 # contain_outer_selfref_walker
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1097 - 1137
+[src/backend/optimizer/plan/subselect.c:1097-1137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1097-L1137)
 
 ## Overview
 A recursive tree walker function that traverses query nodes to detect external recursive self-references in CTEs (Common Table Expressions) by examining range table entries and tracking query nesting depth.

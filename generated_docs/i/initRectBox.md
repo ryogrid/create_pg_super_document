@@ -1,7 +1,7 @@
 # initRectBox
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 177 - 204
+[src/backend/utils/adt/geo_spgist.c:177-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L177-L204)
 
 ## Overview
 Initializes a RectBox structure to represent the entire 4D space with no restrictions for SP-GiST index traversal operations.

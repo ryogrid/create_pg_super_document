@@ -1,7 +1,7 @@
 # _shellTypeInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 225 - 229
+[src/bin/pg_dump/pg_dump.h:225-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L225-L229)
 
 ## Overview
 The _shellTypeInfo structure represents a "shell type" in PostgreSQL's pg_dump utility, used to handle forward declarations and type dependencies during the dump process.

@@ -1,7 +1,7 @@
 # spgLeafTest
 
 ## Location
-src/backend/access/spgist/spgscan.c: 516 - 605
+[src/backend/access/spgist/spgscan.c:516-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L516-L605)
 
 ## Overview
 Tests whether a leaf tuple satisfies all scan keys and handles the result appropriately for both ordered and non-ordered SP-GiST index scans.

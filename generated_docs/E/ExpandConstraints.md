@@ -1,7 +1,7 @@
 # ExpandConstraints
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 787 - 858
+[src/backend/storage/lmgr/deadlock.c:787-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L787-L858)
 
 ## Overview
 ExpandConstraints expands a list of soft edge constraints into specific new orderings for affected lock wait queues, building data structures needed for deadlock resolution.

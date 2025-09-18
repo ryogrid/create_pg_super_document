@@ -1,7 +1,7 @@
 # free_attrmap
 
 ## Location
-src/backend/access/common/attmap.c: 56 - 74
+[src/backend/access/common/attmap.c:56-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L56-L74)
 
 ## Overview
 A utility function that properly deallocates an attribute map structure and its associated memory, ensuring clean resource management in PostgreSQL's attribute mapping system.

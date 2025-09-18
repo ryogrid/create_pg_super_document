@@ -1,7 +1,7 @@
 # test_rls_hooks_restrictive
 
 ## Location
-src/test/modules/test_rls_hooks/test_rls_hooks.c: 113 - 165
+[src/test/modules/test_rls_hooks/test_rls_hooks.c:113-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rls_hooks/test_rls_hooks.c#L113-L165)
 
 ## Overview
 Test hook function that generates restrictive Row Level Security (RLS) policies for specified test tables, implementing supervisor-based access control for testing restrictive RLS policy functionality.

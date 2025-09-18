@@ -1,7 +1,7 @@
 # brin_xlog_insert_update
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 46 - 123
+[src/backend/access/brin/brin_xlog.c:46-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L46-L123)
 
 ## Overview
 A static helper function that handles the common parts of BRIN tuple insertion and update operations during WAL replay recovery.

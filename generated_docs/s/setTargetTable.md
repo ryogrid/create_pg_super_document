@@ -1,7 +1,7 @@
 # setTargetTable
 
 ## Location
-src/backend/parser/parse_clause.c: 180 - 254
+[src/backend/parser/parse_clause.c:180-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L180-L254)
 
 ## Overview
 Adds the target relation of INSERT/UPDATE/DELETE/MERGE statements to the range table and establishes special links to it in the ParseState, while acquiring necessary write locks.

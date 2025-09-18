@@ -1,7 +1,7 @@
 # json_parse_manifest_incremental_shutdown
 
 ## Location
-src/common/parse_manifest.c: 169 - 184
+[src/common/parse_manifest.c:169-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L169-L184)
 
 ## Overview
 Properly cleans up and frees all memory associated with an incremental JSON manifest parser state.

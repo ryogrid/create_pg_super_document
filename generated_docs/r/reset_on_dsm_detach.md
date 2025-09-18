@@ -1,7 +1,7 @@
 # reset_on_dsm_detach
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1170 - 1200
+[src/backend/storage/ipc/dsm.c:1170-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1170-L1200)
 
 ## Overview
 Discards all registered on-detach callbacks without executing them, effectively cleaning up callback registration for all active DSM segments.

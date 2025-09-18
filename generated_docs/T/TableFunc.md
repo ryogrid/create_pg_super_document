@@ -1,7 +1,7 @@
 # TableFunc
 
 ## Location
-src/include/nodes/primnodes.h: 109 - 146
+[src/include/nodes/primnodes.h:109-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L109-L146)
 
 ## Overview
 TableFunc represents table functions such as XMLTABLE and JSON_TABLE, providing a structured way to extract tabular data from structured documents with column definitions and filtering capabilities.

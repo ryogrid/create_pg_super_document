@@ -1,7 +1,7 @@
 # PQisnonblocking
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3983 - 3991
+[src/interfaces/libpq/fe-exec.c:3983-3991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3983-L3991)
 
 ## Overview
 Returns the current blocking status of a PostgreSQL database connection, indicating whether the connection is in non-blocking mode or blocking mode.

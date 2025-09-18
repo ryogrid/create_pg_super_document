@@ -1,7 +1,7 @@
 # clean_bind_state
 
 ## Location
-src/bin/psql/common.c: 2255 - 2277
+[src/bin/psql/common.c:2255-2277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2255-L2277)
 
 ## Overview
 Resets and cleans up state related to the \bind command in psql, freeing allocated memory for bind parameters and resetting bind flags.

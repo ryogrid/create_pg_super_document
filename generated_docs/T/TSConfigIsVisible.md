@@ -1,7 +1,7 @@
 # TSConfigIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 3210 - 3221
+[src/backend/catalog/namespace.c:3210-3221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3210-L3221)
 
 ## Overview
 Determines whether a text search configuration (identified by OID) is visible in the current search path, meaning it would be found by searching for the unqualified text search configuration name.

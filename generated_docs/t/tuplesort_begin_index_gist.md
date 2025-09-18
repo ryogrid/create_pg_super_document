@@ -1,7 +1,7 @@
 # tuplesort_begin_index_gist
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 490 - 554
+[src/backend/utils/sort/tuplesortvariants.c:490-554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L490-L554)
 
 ## Overview
 Initializes a Tuplesortstate for sorting GiST (Generalized Search Tree) index tuples during index creation, with specialized support for GiST-specific sort operations.

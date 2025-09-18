@@ -1,7 +1,7 @@
 # word
 
 ## Location
-src/backend/regex/regcomp.c: 1476 - 1493
+[src/backend/regex/regcomp.c:1476-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1476-L1493)
 
 ## Overview
 The word function generates NFA arcs for matching word character positions ahead or behind the current position in regular expression processing.

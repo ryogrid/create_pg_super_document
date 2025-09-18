@@ -1,7 +1,7 @@
 # gb_linear
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 32 - 43
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:32-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L32-L43)
 
 ## Overview
 Converts 4-byte GB18030 encoded characters to a linear code space representation for efficient processing and conversion operations.

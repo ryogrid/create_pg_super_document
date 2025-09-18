@@ -1,7 +1,7 @@
 # binaryheap_first
 
 ## Location
-src/common/binaryheap.c: 177 - 191
+[src/common/binaryheap.c:177-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L177-L191)
 
 ## Overview
 A function that returns the root element (highest/lowest priority element) of a binary heap without removing it, providing O(1) access to the top priority item.

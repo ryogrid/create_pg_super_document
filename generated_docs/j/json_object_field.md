@@ -1,7 +1,7 @@
 # json_object_field
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 844 - 859
+[src/backend/utils/adt/jsonfuncs.c:844-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L844-L859)
 
 ## Overview
 Extracts the value associated with a specified field name from a JSON object, implementing the -> operator functionality.

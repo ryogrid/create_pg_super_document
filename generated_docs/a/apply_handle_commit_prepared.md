@@ -1,7 +1,7 @@
 # apply_handle_commit_prepared
 
 ## Location
-src/backend/replication/logical/worker.c: 1171 - 1219
+[src/backend/replication/logical/worker.c:1171-1219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1171-L1219)
 
 ## Overview
 Handles the commit phase of a previously prepared two-phase transaction in PostgreSQL logical replication, finalizing the prepared transaction and updating replication state.

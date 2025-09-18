@@ -1,7 +1,7 @@
 # AlterSubscription
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1084 - 1552
+[src/backend/commands/subscriptioncmds.c:1084-1552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1084-L1552)
 
 ## Overview
 AlterSubscription modifies existing logical replication subscriptions, handling various types of changes including options, connection settings, publications, and enabling/disabling subscriptions.

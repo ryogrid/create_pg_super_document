@@ -1,7 +1,7 @@
 # SimplePtrList
 
 ## Location
-src/include/fe_utils/simple_list.h: 52 - 56
+[src/include/fe_utils/simple_list.h:52-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L52-L56)
 
 ## Overview
 SimplePtrList is a simple linked list data structure for frontend code that stores void pointers, providing basic list functionality for PostgreSQL client utilities.

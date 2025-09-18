@@ -1,7 +1,7 @@
 # jsonb_in_scalar
 
 ## Location
-src/backend/utils/adt/jsonb.c: 379 - 472
+[src/backend/utils/adt/jsonb.c:379-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L379-L472)
 
 ## Overview
 A static function that processes scalar JSON tokens during JSONB parsing, converting them to JsonbValue structures and integrating them into the parse state.

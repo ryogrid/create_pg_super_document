@@ -1,7 +1,7 @@
 # bitoverlay_no_len
 
 ## Location
-src/backend/utils/adt/varbit.c: 1164 - 1175
+[src/backend/utils/adt/varbit.c:1164-1175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1164-L1175)
 
 ## Overview
 Implements the SQL OVERLAY() function for bit strings without an explicit length parameter, using the length of the replacement string as the default length.

@@ -1,7 +1,7 @@
 # PQsendQueryParams
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1492 - 1535
+[src/interfaces/libpq/fe-exec.c:1492-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1492-L1535)
 
 ## Overview
 PQsendQueryParams is a public API function that sends a SQL query with parameters using PostgreSQL's extended query protocol in asynchronous mode.

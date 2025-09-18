@@ -1,7 +1,7 @@
 # regclasssend
 
 ## Location
-src/backend/utils/adt/regproc.c: 1010 - 1025
+[src/backend/utils/adt/regproc.c:1010-1025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1010-L1025)
 
 ## Overview
 Converts regclass type values to external binary format by delegating to the standard OID binary output function.

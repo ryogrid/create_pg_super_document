@@ -1,7 +1,7 @@
 # FdwInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 573 - 574
+[src/bin/pg_dump/pg_dump.h:573-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L573-L574)
 
 ## Overview
 FdwInfo is a structure used in pg_dump to represent a PostgreSQL foreign data wrapper (FDW), storing metadata needed to dump and restore foreign data wrappers.

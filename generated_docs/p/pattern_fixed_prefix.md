@@ -1,7 +1,7 @@
 # pattern_fixed_prefix
 
 ## Location
-src/backend/utils/adt/like_support.c: 1167 - 1231
+[src/backend/utils/adt/like_support.c:1167-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1167-L1231)
 
 ## Overview
 Extracts the fixed prefix portion from different types of pattern expressions (LIKE, regex, prefix) to optimize string matching operations by enabling index usage and calculating selectivity estimates.

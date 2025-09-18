@@ -1,7 +1,7 @@
 # putid
 
 ## Location
-src/backend/utils/adt/acl.c: 218 - 269
+[src/backend/utils/adt/acl.c:218-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L218-L269)
 
 ## Overview
 Formats a role name for output in ACL strings, automatically adding double quotes when necessary and properly escaping embedded quotes.

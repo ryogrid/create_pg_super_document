@@ -1,7 +1,7 @@
 # bitne
 
 ## Location
-src/backend/utils/adt/varbit.c: 865 - 888
+[src/backend/utils/adt/varbit.c:865-888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L865-L888)
 
 ## Overview
 Inequality comparison operator for bit string data types that returns true if two bit strings differ in either content or length.

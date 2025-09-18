@@ -1,7 +1,7 @@
 # WaitEventCustomShmemSize
 
 ## Location
-src/backend/utils/activity/wait_event.c: 104 - 119
+[src/backend/utils/activity/wait_event.c:104-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L104-L119)
 
 ## Overview
 Returns the shared memory size required for dynamic wait event custom hash tables and allocation counter data structures.

@@ -1,7 +1,7 @@
 # xl_heap_visible
 
 ## Location
-src/include/access/heapam_xlog.h: 438 - 442
+[src/include/access/heapam_xlog.h:438-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L438-L442)
 
 ## Overview
 A WAL (Write-Ahead Logging) record structure that contains information needed for setting visibility map bits during heap operations.

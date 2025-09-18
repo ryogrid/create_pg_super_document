@@ -1,7 +1,7 @@
 # entryPrepareDownlink
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 702 - 722
+[src/backend/access/gin/ginentrypage.c:702-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L702-L722)
 
 ## Overview
 Constructs insertion payload data for creating downlink tuples when inserting references to child pages in GIN entry tree internal nodes.

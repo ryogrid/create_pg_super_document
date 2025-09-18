@@ -1,7 +1,7 @@
 # TSQueryData
 
 ## Location
-src/include/tsearch/ts_type.h: 225 - 226
+[src/include/tsearch/ts_type.h:225-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L225-L226)
 
 ## Overview
 TSQueryData is a PostgreSQL data structure that represents the internal storage format for text search queries (tsquery). It serves as the base structure for TSQuery objects and contains the actual query data in a variable-length format.

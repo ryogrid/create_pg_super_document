@@ -1,7 +1,7 @@
 # dumpEnumType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10951 - 11090
+[src/bin/pg_dump/pg_dump.c:10951-11090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10951-L11090)
 
 ## Overview
 Generates SQL commands to recreate a user-defined enum type during PostgreSQL database dump operations.

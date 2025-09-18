@@ -1,7 +1,7 @@
 # PrintTOCSummary
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1281 - 1392
+[src/bin/pg_dump/pg_backup_archiver.c:1281-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1281-L1392)
 
 ## Overview
 PrintTOCSummary generates a comprehensive summary report of the archive's table of contents, including metadata about the dump session, archive format, and a detailed listing of all objects with their dependencies.

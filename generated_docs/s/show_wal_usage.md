@@ -1,7 +1,7 @@
 # show_wal_usage
 
 ## Location
-src/backend/commands/explain.c: 3912 - 3949
+[src/backend/commands/explain.c:3912-3949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3912-L3949)
 
 ## Overview
 Displays Write-Ahead Logging (WAL) usage statistics in EXPLAIN output, showing WAL records generated, full page images, and total bytes written during query execution.

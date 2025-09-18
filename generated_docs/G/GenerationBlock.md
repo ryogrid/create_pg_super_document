@@ -1,7 +1,7 @@
 # GenerationBlock
 
 ## Location
-src/backend/utils/mmgr/generation.c: 87 - 101
+[src/backend/utils/mmgr/generation.c:87-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L87-L101)
 
 ## Overview
 GenerationBlock represents the fundamental unit of memory allocation in the generation memory context, containing zero or more memory chunks that are allocated and freed as a cohesive unit.

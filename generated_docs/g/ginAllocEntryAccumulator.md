@@ -1,7 +1,7 @@
 # ginAllocEntryAccumulator
 
 ## Location
-src/backend/access/gin/ginbulk.c: 85 - 108
+[src/backend/access/gin/ginbulk.c:85-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L85-L108)
 
 ## Overview
 An allocator function for rbtree.c that manages memory allocation for GinEntryAccumulator nodes during GIN index bulk loading.

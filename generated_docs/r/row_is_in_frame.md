@@ -1,7 +1,7 @@
 # row_is_in_frame
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1385 - 1484
+[src/backend/executor/nodeWindowAgg.c:1385-1484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1385-L1484)
 
 ## Overview
 This static function determines whether a specific row is included in the current rows window frame according to the configured framing rules.

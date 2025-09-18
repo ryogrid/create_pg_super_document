@@ -1,7 +1,7 @@
 # parse_snapshot
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 265 - 333
+[src/backend/utils/adt/xid8funcs.c:265-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L265-L333)
 
 ## Overview
 A static function that parses a string representation of a PostgreSQL snapshot into a pg_snapshot structure.

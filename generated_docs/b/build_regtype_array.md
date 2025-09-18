@@ -1,7 +1,7 @@
 # build_regtype_array
 
 ## Location
-src/backend/commands/prepare.c: 746 - 759
+[src/backend/commands/prepare.c:746-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L746-L759)
 
 ## Overview
 A utility function that converts a C array of PostgreSQL type OIDs into a PostgreSQL array of regtype values for SQL-level consumption.

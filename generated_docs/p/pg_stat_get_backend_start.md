@@ -1,7 +1,7 @@
 # pg_stat_get_backend_start
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 857 - 878
+[src/backend/utils/adt/pgstatfuncs.c:857-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L857-L878)
 
 ## Overview
 Returns the timestamp when a specific backend process was started.

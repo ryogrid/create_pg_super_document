@@ -1,7 +1,7 @@
 # pgwin32_IsInstalled
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1406 - 1416
+[src/bin/pg_ctl/pg_ctl.c:1406-1416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1406-L1416)
 
 ## Overview
 Checks whether a PostgreSQL service is installed in the Windows Service Control Manager.

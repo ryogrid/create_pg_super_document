@@ -1,7 +1,7 @@
 # get_quals_from_indexclauses
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6526 - 6555
+[src/backend/utils/adt/selfuncs.c:6526-6555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6526-L6555)
 
 ## Overview
 Extracts the actual indexquals (as RestrictInfos) from a list of IndexClause structures, flattening the nested structure into a simple list of restriction conditions.

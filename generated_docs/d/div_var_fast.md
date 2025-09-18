@@ -1,7 +1,7 @@
 # div_var_fast
 
 ## Location
-src/backend/utils/adt/numeric.c: 9201 - 9564
+[src/backend/utils/adt/numeric.c:9201-9564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9201-L9564)
 
 ## Overview
 A fast division algorithm for NumericVar values using floating-point estimation and the FM library approach, optimized for transcendental function calculations where approximate results are acceptable.

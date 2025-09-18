@@ -1,7 +1,7 @@
 # errhint_plural
 
 ## Location
-src/backend/utils/error/elog.c: 1339 - 1364
+[src/backend/utils/error/elog.c:1339-1364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1339-L1364)
 
 ## Overview
 A function that adds a hint error message with pluralization support to the current error being processed.

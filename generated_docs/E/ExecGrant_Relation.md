@@ -1,7 +1,7 @@
 # ExecGrant_Relation
 
 ## Location
-src/backend/catalog/aclchk.c: 1825 - 2155
+[src/backend/catalog/aclchk.c:1825-2155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1825-L2155)
 
 ## Overview
 Processes GRANT/REVOKE operations on relations (tables, sequences), handling both relation-level and column-level privileges with comprehensive validation and ACL management.

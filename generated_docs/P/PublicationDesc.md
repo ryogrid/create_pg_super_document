@@ -1,7 +1,7 @@
 # PublicationDesc
 
 ## Location
-src/include/catalog/pg_publication.h: 80 - 98
+[src/include/catalog/pg_publication.h:80-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_publication.h#L80-L98)
 
 ## Overview
 PublicationDesc is a structure that extends PublicationActions with additional validation flags for row filters and column lists in logical replication publications.

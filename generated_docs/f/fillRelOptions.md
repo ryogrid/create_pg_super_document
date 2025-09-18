@@ -1,7 +1,7 @@
 # fillRelOptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1751 - 1846
+[src/backend/access/common/reloptions.c:1751-1846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1751-L1846)
 
 ## Overview
 A static function that fills a previously allocated relation options structure with parsed option values, handling different data types and string storage.

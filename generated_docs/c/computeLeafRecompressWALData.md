@@ -1,7 +1,7 @@
 # computeLeafRecompressWALData
 
 ## Location
-src/backend/access/gin/gindatapage.c: 872 - 977
+[src/backend/access/gin/gindatapage.c:872-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L872-L977)
 
 ## Overview
 computeLeafRecompressWALData constructs WAL record data for GIN leaf page recompression operations, encoding segment modifications into a format suitable for crash recovery replay.

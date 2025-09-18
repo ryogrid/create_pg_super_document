@@ -1,7 +1,7 @@
 # regroleout
 
 ## Location
-src/backend/utils/adt/regproc.c: 1601 - 1632
+[src/backend/utils/adt/regproc.c:1601-1632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1601-L1632)
 
 ## Overview
 Converts a role OID to its corresponding role name string, providing output formatting functionality for the regrole type.

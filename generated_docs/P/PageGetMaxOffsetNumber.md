@@ -1,7 +1,7 @@
 # PageGetMaxOffsetNumber
 
 ## Location
-src/include/storage/bufpage.h: 370 - 383
+[src/include/storage/bufpage.h:370-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L370-L383)
 
 ## Overview
 Returns the maximum offset number used on a page, which also represents the total number of items (tuples) stored on the page since offset numbers are 1-based.

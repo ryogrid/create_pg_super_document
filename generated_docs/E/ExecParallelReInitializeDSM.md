@@ -1,7 +1,7 @@
 # ExecParallelReInitializeDSM
 
 ## Location
-src/backend/executor/execParallel.c: 953 - 1021
+[src/backend/executor/execParallel.c:953-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L953-L1021)
 
 ## Overview
 Traverses the entire plan tree to reinitialize Dynamic Shared Memory (DSM) state for all parallel-aware nodes when restarting parallel query execution.

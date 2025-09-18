@@ -1,7 +1,7 @@
 # BrinOpaque
 
 ## Location
-src/backend/access/brin/brin.c: 199 - 204
+[src/backend/access/brin/brin.c:199-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L199-L204)
 
 ## Overview
 BrinOpaque is a structure used as opaque data during BRIN index scans, storing essential access structures and metadata needed throughout the scan operation.

@@ -1,7 +1,7 @@
 # RecordKnownAssignedTransactionIds
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4402 - 4470
+[src/backend/storage/ipc/procarray.c:4402-4470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4402-L4470)
 
 ## Overview
 Records a transaction ID and any preceding unobserved transaction IDs in the KnownAssignedXids array during Hot Standby recovery, maintaining the list of transactions that are running on the primary server.

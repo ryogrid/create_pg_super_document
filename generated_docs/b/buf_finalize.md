@@ -1,7 +1,7 @@
 # buf_finalize
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 248 - 264
+[src/backend/utils/adt/xid8funcs.c:248-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L248-L264)
 
 ## Overview
 A static utility function that finalizes a StringInfo buffer containing a pg_snapshot structure and returns the completed snapshot.

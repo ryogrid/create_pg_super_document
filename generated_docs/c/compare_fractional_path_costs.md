@@ -1,7 +1,7 @@
 # compare_fractional_path_costs
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 115 - 163
+[src/backend/optimizer/util/pathnode.c:115-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L115-L163)
 
 ## Overview
 Compares the costs of two paths for fetching a specified fraction of total tuples, using interpolated costs between startup and total cost.

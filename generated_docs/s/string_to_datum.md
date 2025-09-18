@@ -1,7 +1,7 @@
 # string_to_datum
 
 ## Location
-src/backend/utils/adt/like_support.c: 1724 - 1743
+[src/backend/utils/adt/like_support.c:1724-1743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1724-L1743)
 
 ## Overview
 Converts a C string to a PostgreSQL Datum of the appropriate data type for pattern matching operations.

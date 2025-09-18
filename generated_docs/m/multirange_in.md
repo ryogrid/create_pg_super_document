@@ -1,7 +1,7 @@
 # multirange_in
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 117 - 298
+[src/backend/utils/adt/multirangetypes.c:117-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L117-L298)
 
 ## Overview
 Converts a string representation to a PostgreSQL multirange value, parsing curly bracket-delimited lists of ranges separated by commas.

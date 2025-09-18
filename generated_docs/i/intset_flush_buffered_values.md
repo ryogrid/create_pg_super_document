@@ -1,7 +1,7 @@
 # intset_flush_buffered_values
 
 ## Location
-src/backend/lib/integerset.c: 396 - 480
+[src/backend/lib/integerset.c:396-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L396-L480)
 
 ## Overview
 A static internal function that transfers buffered integer values from memory into the compressed B-tree structure of an IntegerSet, using Simple-8b encoding for optimal storage.

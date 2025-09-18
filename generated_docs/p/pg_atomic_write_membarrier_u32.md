@@ -1,7 +1,7 @@
 # pg_atomic_write_membarrier_u32
 
 ## Location
-src/include/port/atomics.h: 310 - 324
+[src/include/port/atomics.h:310-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L310-L324)
 
 ## Overview
 An atomic write function with full memory barrier semantics that guarantees complete writes and proper interaction with other barrier-semantic operations.

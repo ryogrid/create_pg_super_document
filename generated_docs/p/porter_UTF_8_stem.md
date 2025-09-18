@@ -1,7 +1,7 @@
 # porter_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 564 - 719
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:564-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L564-L719)
 
 ## Overview
 The porter_UTF_8_stem function is the main entry point for the Porter stemming algorithm implementation for UTF-8 encoded text, executing the complete sequence of stemming steps to reduce words to their morphological roots.

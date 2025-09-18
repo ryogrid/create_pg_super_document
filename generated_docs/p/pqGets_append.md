@@ -1,7 +1,7 @@
 # pqGets_append
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 142 - 151
+[src/interfaces/libpq/fe-misc.c:142-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L142-L151)
 
 ## Overview
 pqGets_append is a function that reads a null-terminated string from a PostgreSQL connection and appends it to an existing PQExpBuffer without resetting the buffer contents.

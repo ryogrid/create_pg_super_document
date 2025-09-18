@@ -1,7 +1,7 @@
 # combinebackup_version_cb
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 243 - 254
+[src/bin/pg_combinebackup/load_manifest.c:243-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L243-L254)
 
 ## Overview
 A callback function that validates the backup manifest version number to ensure compatibility with incremental backup operations in pg_combinebackup.

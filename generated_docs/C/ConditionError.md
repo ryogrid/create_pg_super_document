@@ -1,7 +1,7 @@
 # ConditionError
 
 ## Location
-src/bin/pgbench/pgbench.c: 5881 - 5890
+[src/bin/pgbench/pgbench.c:5881-5890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5881-L5890)
 
 ## Overview
 Reports fatal errors related to conditional statement processing in pgbench scripts.

@@ -1,7 +1,7 @@
 # BTreeTupleSetDownLink
 
 ## Location
-src/include/access/nbtree.h: 562 - 576
+[src/include/access/nbtree.h:562-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L562-L576)
 
 ## Overview
 Sets the downlink block number in a pivot tuple, establishing the connection between an internal B-tree page and its child page.

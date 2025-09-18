@@ -1,7 +1,7 @@
 # numeric_sub
 
 ## Location
-src/backend/utils/adt/numeric.c: 2941 - 2960
+[src/backend/utils/adt/numeric.c:2941-2960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2941-L2960)
 
 ## Overview
 PostgreSQL function that performs subtraction of two numeric values, implementing the SQL minus operator (-) for the NUMERIC data type.

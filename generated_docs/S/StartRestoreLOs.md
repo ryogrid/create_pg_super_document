@@ -1,7 +1,7 @@
 # StartRestoreLOs
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1425 - 1448
+[src/bin/pg_dump/pg_backup_archiver.c:1425-1448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1425-L1448)
 
 ## Overview
 Initializes the restoration process for a group of Large Objects (LOs) by establishing a transaction context if needed and resetting the LO counter.

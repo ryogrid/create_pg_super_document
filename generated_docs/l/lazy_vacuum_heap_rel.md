@@ -1,7 +1,7 @@
 # lazy_vacuum_heap_rel
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2107 - 2194
+[src/backend/access/heap/vacuumlazy.c:2107-2194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2107-L2194)
 
 ## Overview
 Performs the second pass over the heap during the two-pass vacuum strategy, converting LP_DEAD items to LP_UNUSED and potentially truncating line pointer arrays to reclaim free space.

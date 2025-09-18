@@ -1,7 +1,7 @@
 # NewDumpOptions
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 130 - 141
+[src/bin/pg_dump/pg_backup_archiver.c:130-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L130-L141)
 
 ## Overview
 Creates and initializes a new DumpOptions structure with all default values for PostgreSQL dump operations.

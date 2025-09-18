@@ -1,7 +1,7 @@
 # ident_inet
 
 ## Location
-src/backend/libpq/auth.c: 1678 - 1862
+[src/backend/libpq/auth.c:1678-1862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1678-L1862)
 
 ## Overview
 Implements the client-side Ident protocol communication to authenticate a PostgreSQL connection by querying the remote system's identification server.

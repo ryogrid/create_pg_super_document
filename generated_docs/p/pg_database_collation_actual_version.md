@@ -1,7 +1,7 @@
 # pg_database_collation_actual_version
 
 ## Location
-src/backend/commands/dbcommands.c: 2737 - 2780
+[src/backend/commands/dbcommands.c:2737-2780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2737-L2780)
 
 ## Overview
 pg_database_collation_actual_version is a PostgreSQL SQL function that returns the actual collation version for a specified database by querying the system collation library.

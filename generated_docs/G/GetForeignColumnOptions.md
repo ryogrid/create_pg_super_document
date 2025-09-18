@@ -1,7 +1,7 @@
 # GetForeignColumnOptions
 
 ## Location
-src/backend/foreign/foreign.c: 292 - 324
+[src/backend/foreign/foreign.c:292-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L292-L324)
 
 ## Overview
 Retrieves foreign data wrapper options for a specific column of a foreign table as a list of DefElem structures.

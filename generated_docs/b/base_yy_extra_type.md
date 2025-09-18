@@ -1,7 +1,7 @@
 # base_yy_extra_type
 
 ## Location
-src/backend/parser/gramparse.h: 35 - 56
+[src/backend/parser/gramparse.h:35-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/gramparse.h#L35-L56)
 
 ## Overview
 A structure that extends the core scanner's YY_EXTRA data to support one-token lookahead functionality and grammar state management in PostgreSQL's parser.

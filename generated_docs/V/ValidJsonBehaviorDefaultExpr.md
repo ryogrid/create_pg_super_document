@@ -1,7 +1,7 @@
 # ValidJsonBehaviorDefaultExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 4663 - 4695
+[src/backend/parser/parse_expr.c:4663-4695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4663-L4695)
 
 ## Overview
 Recursively validates whether an expression is suitable for use as an ON ERROR or ON EMPTY DEFAULT expression in SQL/JSON functions.

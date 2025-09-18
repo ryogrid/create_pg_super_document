@@ -1,7 +1,7 @@
 # CheckDataVersion
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 518 - 558
+[src/bin/pg_resetwal/pg_resetwal.c:518-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L518-L558)
 
 ## Overview
 CheckDataVersion validates that the PostgreSQL data directory version is compatible with the pg_resetwal utility to prevent major version mismatches that could cause corruption.

@@ -1,7 +1,7 @@
 # contain_mutable_functions_after_planning
 
 ## Location
-src/backend/optimizer/util/clauses.c: 490 - 537
+[src/backend/optimizer/util/clauses.c:490-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L490-L537)
 
 ## Overview
 A wrapper function that safely tests for mutable functions in expressions from outside the planner by first running the expression through planning phases.

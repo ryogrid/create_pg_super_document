@@ -1,7 +1,7 @@
 # warn_or_exit_horribly
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1874 - 1925
+[src/bin/pg_dump/pg_backup_archiver.c:1874-1925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1874-L1925)
 
 ## Overview
 A comprehensive error reporting function that provides contextual error messages and either exits the program or increments the error counter based on configuration.

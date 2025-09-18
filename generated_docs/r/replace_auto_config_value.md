@@ -1,7 +1,7 @@
 # replace_auto_config_value
 
 ## Location
-src/backend/utils/misc/guc.c: 4540 - 4609
+[src/backend/utils/misc/guc.c:4540-4609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4540-L4609)
 
 ## Overview
 Updates a linked list of configuration parameters by adding, replacing, or deleting entries for a specified parameter name, maintaining the automatic configuration system's parameter list.

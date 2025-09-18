@@ -1,7 +1,7 @@
 # RT_GET_SLOT_RECURSIVE
 
 ## Location
-src/include/lib/radixtree.h: 1663 - 1704
+[src/include/lib/radixtree.h:1663-1704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1663-L1704)
 
 ## Overview
 RT_GET_SLOT_RECURSIVE is the main workhorse function for RT_SET that recursively traverses the radix tree to find or create a slot for a given key.

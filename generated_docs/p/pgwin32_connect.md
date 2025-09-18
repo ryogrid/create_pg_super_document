@@ -1,7 +1,7 @@
 # pgwin32_connect
 
 ## Location
-src/backend/port/win32/socket.c: 359 - 381
+[src/backend/port/win32/socket.c:359-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L359-L381)
 
 ## Overview
 PostgreSQL's Windows-specific wrapper function for establishing socket connections that handles non-blocking connection establishment with proper signal delivery and error handling.

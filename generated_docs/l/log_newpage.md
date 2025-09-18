@@ -1,7 +1,7 @@
 # log_newpage
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1143 - 1174
+[src/backend/access/transam/xloginsert.c:1143-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1143-L1174)
 
 ## Overview
 log_newpage writes a WAL record containing a full image of a page for crash recovery, typically used when building pages in private memory.

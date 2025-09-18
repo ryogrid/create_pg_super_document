@@ -1,7 +1,7 @@
 # SISeg
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 166 - 197
+[src/backend/storage/ipc/sinvaladt.c:166-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L166-L197)
 
 ## Overview
 SISeg represents the main shared memory segment structure for PostgreSQL's shared cache invalidation system, containing the circular message buffer and per-backend state tracking for coordinating cache invalidation across all backend processes.

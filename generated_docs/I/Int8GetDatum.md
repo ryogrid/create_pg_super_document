@@ -1,7 +1,7 @@
 # Int8GetDatum
 
 ## Location
-src/include/postgres.h: 132 - 141
+[src/include/postgres.h:132-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L132-L141)
 
 ## Overview
 Int8GetDatum is an inline function that converts an 8-bit integer (int8) value to PostgreSQL Datum representation.

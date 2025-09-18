@@ -1,7 +1,7 @@
 # check_field_number
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3510 - 3524
+[src/interfaces/libpq/fe-exec.c:3510-3524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3510-L3524)
 
 ## Overview
 A static helper function in libpq that validates whether a given field number is within the valid range for a query result set.

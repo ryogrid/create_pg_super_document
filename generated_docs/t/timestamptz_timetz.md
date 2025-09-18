@@ -1,7 +1,7 @@
 # timestamptz_timetz
 
 ## Location
-src/backend/utils/adt/date.c: 2854 - 2885
+[src/backend/utils/adt/date.c:2854-2885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2854-L2885)
 
 ## Overview
 Converts a timestamp with time zone (TimestampTz) to a time with time zone (TimeTzADT) by extracting the time portion and preserving the timezone information.

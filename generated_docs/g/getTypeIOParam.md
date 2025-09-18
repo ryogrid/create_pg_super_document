@@ -1,7 +1,7 @@
 # getTypeIOParam
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2303 - 2324
+[src/backend/utils/cache/lsyscache.c:2303-2324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2303-L2324)
 
 ## Overview
 Determines the appropriate type OID parameter to pass to PostgreSQL I/O functions, implementing the logic for distinguishing between array types (which use their element type) and regular types (which use their own OID).

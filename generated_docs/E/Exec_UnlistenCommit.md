@@ -1,7 +1,7 @@
 # Exec_UnlistenCommit
 
 ## Location
-src/backend/commands/async.c: 1163 - 1193
+[src/backend/commands/async.c:1163-1193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1163-L1193)
 
 ## Overview
 Removes a specific channel name from the backend's list of listened channels during the commit phase of an UNLISTEN command.

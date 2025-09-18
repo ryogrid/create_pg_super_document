@@ -1,7 +1,7 @@
 # logicalrep_read_commit
 
 ## Location
-src/backend/replication/logical/proto.c: 109 - 126
+[src/backend/replication/logical/proto.c:109-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L109-L126)
 
 ## Overview
 Reads and parses a COMMIT message from the logical replication input stream to extract transaction completion information.

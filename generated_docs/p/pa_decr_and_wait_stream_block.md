@@ -1,7 +1,7 @@
 # pa_decr_and_wait_stream_block
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1591 - 1617
+[src/backend/replication/logical/applyparallelworker.c:1591-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1591-L1617)
 
 ## Overview
 Decrements the count of pending streaming blocks and waits on the stream lock when no blocks remain available for processing.

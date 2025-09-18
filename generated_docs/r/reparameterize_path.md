@@ -1,7 +1,7 @@
 # reparameterize_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3949 - 4114
+[src/backend/optimizer/util/pathnode.c:3949-4114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3949-L4114)
 
 ## Overview
 Attempts to modify a Path to have greater parameterization, primarily used to bring child paths of an appendrel to the same parameterization level for consistent join qual enforcement.

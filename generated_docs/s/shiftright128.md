@@ -1,7 +1,7 @@
 # shiftright128
 
 ## Location
-src/common/d2s_intrinsics.h: 48 - 64
+[src/common/d2s_intrinsics.h:48-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s_intrinsics.h#L48-L64)
 
 ## Overview
 Performs a right shift operation on a 128-bit integer represented as two 64-bit values, returning the shifted result as a 64-bit value.

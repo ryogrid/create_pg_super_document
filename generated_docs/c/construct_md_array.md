@@ -1,7 +1,7 @@
 # construct_md_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3482 - 3567
+[src/backend/utils/adt/arrayfuncs.c:3482-3567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3482-L3567)
 
 ## Overview
 Creates a multi-dimensional array object with arbitrary dimensions and support for NULL elements, serving as the core array construction function for complex array operations.

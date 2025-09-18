@@ -1,7 +1,7 @@
 # initialize_target_list
 
 ## Location
-src/backend/backup/basebackup_target.c: 172 - 193
+[src/backend/backup/basebackup_target.c:172-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L172-L193)
 
 ## Overview
 Initializes the global BaseBackupTargetTypeList with built-in backup target types, setting up the foundation for the backup target system.

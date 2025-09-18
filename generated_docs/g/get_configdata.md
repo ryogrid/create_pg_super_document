@@ -1,7 +1,7 @@
 # get_configdata
 
 ## Location
-src/common/config_info.c: 33 - 201
+[src/common/config_info.c:33-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/config_info.c#L33-L201)
 
 ## Overview
 Returns PostgreSQL's configure-time constants and installation paths in a structured format for use by various PostgreSQL utilities and applications.

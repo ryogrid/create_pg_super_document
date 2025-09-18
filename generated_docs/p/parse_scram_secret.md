@@ -1,7 +1,7 @@
 # parse_scram_secret
 
 ## Location
-src/backend/libpq/auth-scram.c: 589 - 682
+[src/backend/libpq/auth-scram.c:589-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L589-L682)
 
 ## Overview
 Parses and validates the format of a given SCRAM secret string, extracting authentication parameters including iteration count, salt, stored key, and server key.

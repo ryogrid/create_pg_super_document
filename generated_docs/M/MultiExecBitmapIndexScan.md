@@ -1,7 +1,7 @@
 # MultiExecBitmapIndexScan
 
 ## Location
-src/backend/executor/nodeBitmapIndexscan.c: 49 - 130
+[src/backend/executor/nodeBitmapIndexscan.c:49-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapIndexscan.c#L49-L130)
 
 ## Overview
 MultiExecBitmapIndexScan performs the actual work of a bitmap index scan operation, collecting all tuple identifiers (TIDs) that satisfy the scan conditions and returning them as a bitmap for efficient heap access.

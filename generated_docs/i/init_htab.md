@@ -1,7 +1,7 @@
 # init_htab
 
 ## Location
-src/backend/utils/hash/dynahash.c: 690 - 783
+[src/backend/utils/hash/dynahash.c:690-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L690-L783)
 
 ## Overview
 Initializes a hash table by computing derived fields of the hash control structure and building the initial directory/segment arrays.

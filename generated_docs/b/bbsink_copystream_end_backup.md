@@ -1,7 +1,7 @@
 # bbsink_copystream_end_backup
 
 ## Location
-src/backend/backup/basebackup_copy.c: 297 - 307
+[src/backend/backup/basebackup_copy.c:297-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L297-L307)
 
 ## Overview
 Sends end-of-backup wire protocol messages to complete a copystream-based backup operation.

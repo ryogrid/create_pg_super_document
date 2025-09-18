@@ -1,7 +1,7 @@
 # PLy_quote_literal
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 323 - 339
+[src/pl/plpython/plpy_plpymodule.c:323-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L323-L339)
 
 ## Overview
 PLy_quote_literal is a Python C extension function that provides SQL literal quoting functionality to PL/Python stored procedures, allowing Python code to safely quote string values for use in dynamically constructed SQL statements.

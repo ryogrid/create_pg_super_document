@@ -1,7 +1,7 @@
 # TapeBlockTrailer
 
 ## Location
-src/backend/utils/sort/logtape.c: 95 - 101
+[src/backend/utils/sort/logtape.c:95-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L95-L101)
 
 ## Overview
 TapeBlockTrailer is a structure stored at the end of each BLCKSZ block in PostgreSQL's logical tape implementation, providing linked list functionality for tape blocks.

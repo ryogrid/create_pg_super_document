@@ -1,7 +1,7 @@
 # simple_heap_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 2673 - 2685
+[src/backend/access/heap/heapam.c:2673-2685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2673-L2685)
 
 ## Overview
 simple_heap_insert is a simplified wrapper around heap_insert() that provides default parameters for basic tuple insertion, primarily used for system catalog modifications.

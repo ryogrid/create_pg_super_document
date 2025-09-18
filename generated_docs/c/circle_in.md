@@ -1,7 +1,7 @@
 # circle_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4611 - 4680
+[src/backend/utils/adt/geo_ops.c:4611-4680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4611-L4680)
 
 ## Overview
 Parses a string representation of a circle into PostgreSQL's internal CIRCLE data structure, supporting multiple input formats including standard and quick entry styles.

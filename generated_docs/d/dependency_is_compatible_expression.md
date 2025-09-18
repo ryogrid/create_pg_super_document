@@ -1,7 +1,7 @@
 # dependency_is_compatible_expression
 
 ## Location
-src/backend/statistics/dependencies.c: 1168 - 1369
+[src/backend/statistics/dependencies.c:1168-1369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L1168-L1369)
 
 ## Overview
 Determines if an expression is compatible with functional dependencies by checking if it matches a statistics expression in the provided statistics list, extending beyond simple Var expressions to support complex expressions.

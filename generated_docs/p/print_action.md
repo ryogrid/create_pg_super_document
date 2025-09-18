@@ -1,7 +1,7 @@
 # print_action
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 37 - 65
+[src/interfaces/ecpg/preproc/output.c:37-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L37-L65)
 
 ## Overview
 Outputs appropriate C code statements based on ECPG WHENEVER action types for error handling in embedded SQL programs.

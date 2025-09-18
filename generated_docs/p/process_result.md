@@ -1,7 +1,7 @@
 # process_result
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 2089 - 2136
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:2089-2136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L2089-L2136)
 
 ## Overview
 Helper function for processing individual pipeline results with proper error detection and NULL result consumption, specifically designed for the test_uniqviol test.

@@ -1,7 +1,7 @@
 # fmtIdEnc
 
 ## Location
-src/fe_utils/string_utils.c: 101 - 247
+[src/fe_utils/string_utils.c:101-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L101-L247)
 
 ## Overview
 Formats and quotes PostgreSQL identifiers for safe use in SQL statements, with explicit encoding specification for proper multibyte character handling.

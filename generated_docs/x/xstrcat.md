@@ -1,7 +1,7 @@
 # xstrcat
 
 ## Location
-src/bin/psql/copy.c: 78 - 88
+[src/bin/psql/copy.c:78-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L78-L88)
 
 ## Overview
 Concatenates a string to an existing dynamically allocated string, automatically managing memory reallocation and freeing the original string.

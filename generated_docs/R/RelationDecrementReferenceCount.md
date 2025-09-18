@@ -1,7 +1,7 @@
 # RelationDecrementReferenceCount
 
 ## Location
-src/backend/utils/cache/relcache.c: 2174 - 2193
+[src/backend/utils/cache/relcache.c:2174-2193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2174-L2193)
 
 ## Overview
 Decrements the reference count for a given relation and removes the reference tracking from the current resource owner.

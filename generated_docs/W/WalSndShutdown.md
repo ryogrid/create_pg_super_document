@@ -1,7 +1,7 @@
 # WalSndShutdown
 
 ## Location
-src/backend/replication/walsender.c: 394 - 410
+[src/backend/replication/walsender.c:394-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L394-L410)
 
 ## Overview
 WalSndShutdown handles orderly shutdown of a WAL sender process when a client connection is aborted, preventing further message attempts to the disconnected standby.

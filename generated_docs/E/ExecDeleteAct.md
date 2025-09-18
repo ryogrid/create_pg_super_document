@@ -1,7 +1,7 @@
 # ExecDeleteAct
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1369 - 1390
+[src/backend/executor/nodeModifyTable.c:1369-1390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1369-L1390)
 
 ## Overview
 Performs the actual physical deletion of a tuple from a regular (non-foreign) table by calling the storage layer's table_tuple_delete function.

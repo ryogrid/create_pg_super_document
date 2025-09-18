@@ -1,7 +1,7 @@
 # ExecProcNodeInstr
 
 ## Location
-src/backend/executor/execProcnode.c: 474 - 501
+[src/backend/executor/execProcnode.c:474-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L474-L501)
 
 ## Overview
 ExecProcNodeInstr is a wrapper function that adds performance instrumentation around plan node execution, measuring timing and tuple count statistics.

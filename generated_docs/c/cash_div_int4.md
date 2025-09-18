@@ -1,7 +1,7 @@
 # cash_div_int4
 
 ## Location
-src/backend/utils/adt/cash.c: 878 - 890
+[src/backend/utils/adt/cash.c:878-890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L878-L890)
 
 ## Overview
 A PostgreSQL function that divides a Cash value by a 32-bit signed integer, providing safe division operations for monetary calculations.

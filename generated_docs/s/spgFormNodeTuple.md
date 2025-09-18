@@ -1,7 +1,7 @@
 # spgFormNodeTuple
 
 ## Location
-src/backend/access/spgist/spgutils.c: 952 - 993
+[src/backend/access/spgist/spgutils.c:952-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L952-L993)
 
 ## Overview
 Constructs an SP-GiST node tuple containing a label value for storage within inner tuples, with the downlink initially set to invalid and filled by the caller later.

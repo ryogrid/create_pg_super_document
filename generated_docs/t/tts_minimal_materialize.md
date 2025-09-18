@@ -1,7 +1,7 @@
 # tts_minimal_materialize
 
 ## Location
-src/backend/executor/execTuples.c: 586 - 633
+[src/backend/executor/execTuples.c:586-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L586-L633)
 
 ## Overview
 Ensures a minimal tuple slot has a materialized tuple in its own memory context, either by creating a new minimal tuple from slot values or by copying an existing minimal tuple to the slot's memory context.

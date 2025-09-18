@@ -1,7 +1,7 @@
 # CloneRowTriggersToPartition
 
 ## Location
-src/backend/commands/tablecmds.c: 18984 - 19140
+[src/backend/commands/tablecmds.c:18984-19140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18984-L19140)
 
 ## Overview
 CloneRowTriggersToPartition clones row-level triggers from a parent partitioned table to a newly attached partition, excluding internal triggers and statement-level triggers.

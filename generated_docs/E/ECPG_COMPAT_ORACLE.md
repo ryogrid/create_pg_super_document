@@ -1,7 +1,7 @@
 # ECPG_COMPAT_ORACLE
 
 ## Location
-src/interfaces/ecpg/preproc/preproc_extern.h: 129 - 132
+[src/interfaces/ecpg/preproc/preproc_extern.h:129-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/preproc_extern.h#L129-L132)
 
 ## Overview
 ECPG_COMPAT_ORACLE is an enumeration constant that represents Oracle compatibility mode in the PostgreSQL ECPG (Embedded SQL in C) preprocessor.

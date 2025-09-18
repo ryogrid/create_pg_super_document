@@ -1,7 +1,7 @@
 # BuildRelationExtStatistics
 
 ## Location
-src/backend/statistics/extended_stats.c: 112 - 264
+[src/backend/statistics/extended_stats.c:112-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L112-L264)
 
 ## Overview
 BuildRelationExtStatistics computes and stores extended statistics objects for a relation based on sampled data, handling various types of multi-column statistics including n-distinct, dependencies, MCV lists, and expression statistics.

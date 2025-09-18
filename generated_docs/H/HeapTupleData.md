@@ -1,7 +1,7 @@
 # HeapTupleData
 
 ## Location
-src/include/access/htup.h: 62 - 69
+[src/include/access/htup.h:62-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup.h#L62-L69)
 
 ## Overview
 HeapTupleData is PostgreSQL's primary in-memory data structure that serves as a pointer and metadata container for tuples, supporting various tuple representations including disk buffer tuples, palloc'd tuples, and minimal tuples.

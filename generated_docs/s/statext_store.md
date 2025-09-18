@@ -1,7 +1,7 @@
 # statext_store
 
 ## Location
-src/backend/statistics/extended_stats.c: 762 - 831
+[src/backend/statistics/extended_stats.c:762-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L762-L831)
 
 ## Overview
 Serializes computed extended statistics data and stores it into the pg_statistic_ext_data system catalog table, managing the persistent storage of ndistinct, dependencies, MCV, and expression statistics.

@@ -1,7 +1,7 @@
 # summarize_range
 
 ## Location
-src/backend/access/brin/brin.c: 1752 - 1877
+[src/backend/access/brin/brin.c:1752-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1752-L1877)
 
 ## Overview
 Summarizes a heap page range for a BRIN index by scanning the corresponding heap blocks and creating or updating the summary tuple, handling concurrent insertions through placeholder tuple mechanisms.

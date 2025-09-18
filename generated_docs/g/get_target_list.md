@@ -1,7 +1,7 @@
 # get_target_list
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6035 - 6170
+[src/backend/utils/adt/ruleutils.c:6035-6170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6035-L6170)
 
 ## Overview
 Parses back a SELECT target list into SQL text format, also used for RETURNING lists in INSERT/UPDATE/DELETE/MERGE statements.

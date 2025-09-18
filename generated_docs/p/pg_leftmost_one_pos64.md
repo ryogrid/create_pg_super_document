@@ -1,7 +1,7 @@
 # pg_leftmost_one_pos64
 
 ## Location
-src/include/port/pg_bitutils.h: 72 - 110
+[src/include/port/pg_bitutils.h:72-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L72-L110)
 
 ## Overview
 Returns the position of the most significant set bit in a 64-bit word, providing efficient bit position finding for 64-bit operations in PostgreSQL.

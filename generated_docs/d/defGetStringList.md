@@ -1,7 +1,7 @@
 # defGetStringList
 
 ## Location
-src/backend/commands/define.c: 356 - 383
+[src/backend/commands/define.c:356-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L356-L383)
 
 ## Overview
 Extracts and validates a list of string values from a DefElem, ensuring all elements are proper String nodes.

@@ -1,7 +1,7 @@
 # jsonpath_in
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 98 - 114
+[src/backend/utils/adt/jsonpath.c:98-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L98-L114)
 
 ## Overview
 The  function is a PostgreSQL input function for the jsonpath data type, responsible for converting a textual string representation of a JSON path expression into the internal jsonpath format.

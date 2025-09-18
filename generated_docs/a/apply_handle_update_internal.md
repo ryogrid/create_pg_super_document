@@ -1,7 +1,7 @@
 # apply_handle_update_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 2643 - 2709
+[src/backend/replication/logical/worker.c:2643-2709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2643-L2709)
 
 ## Overview
 Internal workhorse function that performs the actual UPDATE operation for logical replication, including tuple lookup, data modification, and execution within the proper concurrency control framework.

@@ -1,7 +1,7 @@
 # PLy_subtransaction_new
 
 ## Location
-src/pl/plpython/plpy_subxactobject.c: 54 - 70
+[src/pl/plpython/plpy_subxactobject.c:54-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_subxactobject.c#L54-L70)
 
 ## Overview
 Creates and initializes a new PLy subtransaction object for use in Python code within PL/Python functions.

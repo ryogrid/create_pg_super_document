@@ -1,7 +1,7 @@
 # create_lockrows_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3662 - 3724
+[src/backend/optimizer/util/pathnode.c:3662-3724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3662-L3724)
 
 ## Overview
 Creates a pathnode that represents acquiring row locks on tuples from a subpath, used in query planning to handle SELECT FOR UPDATE and similar locking operations.

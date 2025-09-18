@@ -1,7 +1,7 @@
 # int8inc_support
 
 ## Location
-src/backend/utils/adt/int8.c: 826 - 865
+[src/backend/utils/adt/int8.c:826-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L826-L865)
 
 ## Overview
 A prosupport function for int8inc() and int8inc_any() that provides window function monotonicity analysis for query optimization.

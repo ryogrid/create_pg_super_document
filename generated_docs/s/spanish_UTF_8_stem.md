@@ -1,7 +1,7 @@
 # spanish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_spanish.c: 988 - 1041
+[src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:988-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_spanish.c#L988-L1041)
 
 ## Overview
 This function implements the main Spanish stemming algorithm using the Snowball methodology, systematically applying morphological transformations to reduce Spanish words to their stem forms.

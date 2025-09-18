@@ -1,7 +1,7 @@
 # CreateEndOfRecoveryRecord
 
 ## Location
-src/backend/access/transam/xlog.c: 7369 - 7433
+[src/backend/access/transam/xlog.c:7369-7433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7369-L7433)
 
 ## Overview
 Marks the end of WAL recovery by inserting a special end-of-recovery record without performing a full checkpoint, allowing the system to transition from recovery to normal operation.

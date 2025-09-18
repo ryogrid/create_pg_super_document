@@ -1,7 +1,7 @@
 # report_fatal_error
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 1000 - 1018
+[src/bin/pg_verifybackup/pg_verifybackup.c:1000-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L1000-L1018)
 
 ## Overview
 A static function in pg_verifybackup that reports fatal errors with formatted messages and immediately terminates the program.

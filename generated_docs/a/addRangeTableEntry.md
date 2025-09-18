@@ -1,7 +1,7 @@
 # addRangeTableEntry
 
 ## Location
-src/backend/parser/parse_relation.c: 1470 - 1566
+[src/backend/parser/parse_relation.c:1470-1566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1470-L1566)
 
 ## Overview
 Creates a range table entry for a relation and adds it to the parser state, returning a ParseNamespaceItem for use in query parsing and name resolution.

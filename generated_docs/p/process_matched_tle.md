@@ -1,7 +1,7 @@
 # process_matched_tle
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1036 - 1188
+[src/backend/rewrite/rewriteHandler.c:1036-1188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1036-L1188)
 
 ## Overview
 Converts a matched TargetEntry from the original target list into a correct new TargetEntry, specifically handling multiple assignments to the same target attribute.

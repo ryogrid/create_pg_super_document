@@ -1,7 +1,7 @@
 # ginxlogInsertEntry
 
 ## Location
-src/include/access/ginxlog.h: 62 - 69
+[src/include/access/ginxlog.h:62-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L62-L69)
 
 ## Overview
 ginxlogInsertEntry is a WAL record structure used specifically for logging entry insertion operations in PostgreSQL's GIN index entry trees, containing the data needed to replay entry insertions and deletions during crash recovery.

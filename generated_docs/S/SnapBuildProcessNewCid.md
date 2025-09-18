@@ -1,7 +1,7 @@
 # SnapBuildProcessNewCid
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 828 - 869
+[src/backend/replication/logical/snapbuild.c:828-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L828-L869)
 
 ## Overview
 Processes CommandId information from xl_heap_new_cid WAL records to track catalog modifications and maintain proper command sequencing for logical decoding.

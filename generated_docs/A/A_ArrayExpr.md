@@ -1,7 +1,7 @@
 # A_ArrayExpr
 
 ## Location
-src/include/nodes/parsenodes.h: 489 - 494
+[src/include/nodes/parsenodes.h:489-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L489-L494)
 
 ## Overview
 A_ArrayExpr represents ARRAY[] construct expressions in PostgreSQL parse trees, used to create array literals from a list of element expressions.

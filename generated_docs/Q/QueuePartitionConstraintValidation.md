@@ -1,7 +1,7 @@
 # QueuePartitionConstraintValidation
 
 ## Location
-src/backend/commands/tablecmds.c: 18414 - 18486
+[src/backend/commands/tablecmds.c:18414-18486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18414-L18486)
 
 ## Overview
 QueuePartitionConstraintValidation schedules constraint validation work for partition constraints, optimizing by skipping validation when existing constraints already imply the partition constraint.

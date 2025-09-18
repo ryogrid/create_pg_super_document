@@ -1,7 +1,7 @@
 # interval_ge
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2568 - 2576
+[src/backend/utils/adt/timestamp.c:2568-2576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2568-L2576)
 
 ## Overview
 The interval_ge function implements the "greater than or equal to" comparison operator (>=) for PostgreSQL Interval data types.

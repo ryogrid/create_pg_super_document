@@ -1,7 +1,7 @@
 # eq_s_b
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 220 - 224
+[src/backend/snowball/libstemmer/utilities.c:220-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L220-L224)
 
 ## Overview
 A utility function in the Snowball stemming algorithm that performs exact string matching and backward cursor movement.

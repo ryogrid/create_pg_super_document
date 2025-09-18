@@ -1,7 +1,7 @@
 # assign_recovery_target
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4796 - 4811
+[src/backend/access/transam/xlogrecovery.c:4796-4811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4796-L4811)
 
 ## Overview
 assign_recovery_target is a GUC assign hook function that sets the global recovery target state when the recovery_target parameter is changed, ensuring mutual exclusivity among recovery target options.

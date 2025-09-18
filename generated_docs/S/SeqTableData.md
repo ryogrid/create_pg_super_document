@@ -1,7 +1,7 @@
 # SeqTableData
 
 ## Location
-src/backend/commands/sequence.c: 76 - 87
+[src/backend/commands/sequence.c:76-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L76-L87)
 
 ## Overview
 A data structure that stores per-session state for sequences to maintain nextval/currval behavior and caching information across transaction boundaries.

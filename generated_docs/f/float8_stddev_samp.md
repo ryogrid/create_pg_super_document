@@ -1,7 +1,7 @@
 # float8_stddev_samp
 
 ## Location
-src/backend/utils/adt/float.c: 3204 - 3246
+[src/backend/utils/adt/float.c:3204-3246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3204-L3246)
 
 ## Overview
 Calculates the sample standard deviation for a float8 aggregate transition state, implementing the SQL standard STDDEV_SAMP function for double precision floating-point values.

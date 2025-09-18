@@ -1,7 +1,7 @@
 # finalize_plan
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2292 - 2889
+[src/backend/optimizer/plan/subselect.c:2292-2889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2292-L2889)
 
 ## Overview
 Recursively processes all nodes in a plan tree to compute external parameter dependencies (extParam) and all parameter dependencies (allParam) for each plan node.

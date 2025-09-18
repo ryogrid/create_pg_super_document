@@ -1,7 +1,7 @@
 # DefineType
 
 ## Location
-src/backend/commands/typecmds.c: 152 - 656
+[src/backend/commands/typecmds.c:152-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L152-L656)
 
 ## Overview
 DefineType registers a new base type in the PostgreSQL type system, handling both shell type creation and full type definition with all necessary I/O functions and properties.

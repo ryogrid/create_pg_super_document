@@ -1,7 +1,7 @@
 # CheckAndGetDbnameFromConninfo
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1012 - 1038
+[src/backend/replication/logical/slotsync.c:1012-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1012-L1038)
 
 ## Overview
 Validates and extracts the database name from the primary_conninfo configuration, ensuring it's properly specified for replication slot synchronization.

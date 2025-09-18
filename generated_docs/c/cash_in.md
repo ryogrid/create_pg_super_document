@@ -1,7 +1,7 @@
 # cash_in
 
 ## Location
-src/backend/utils/adt/cash.c: 173 - 386
+[src/backend/utils/adt/cash.c:173-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L173-L386)
 
 ## Overview
 A PostgreSQL input function that converts a string representation to a Cash data type, supporting various currency formats and localization.

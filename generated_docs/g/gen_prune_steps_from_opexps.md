@@ -1,7 +1,7 @@
 # gen_prune_steps_from_opexps
 
 ## Location
-src/backend/partitioning/partprune.c: 1383 - 1754
+[src/backend/partitioning/partprune.c:1383-1754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L1383-L1754)
 
 ## Overview
 Generates a list of PartitionPruneStepOp based on OpExpr and BooleanTest clauses that have been matched to partition keys, creating pruning steps optimized for different partitioning strategies.

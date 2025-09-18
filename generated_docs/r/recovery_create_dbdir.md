@@ -1,7 +1,7 @@
 # recovery_create_dbdir
 
 ## Location
-src/backend/commands/dbcommands.c: 3241 - 3269
+[src/backend/commands/dbcommands.c:3241-3269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3241-L3269)
 
 ## Overview
 A recovery-specific function that creates missing tablespace directories during WAL recovery when they are needed for database creation operations.

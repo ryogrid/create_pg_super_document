@@ -1,7 +1,7 @@
 # SQLValueFunctionOp
 
 ## Location
-src/include/nodes/primnodes.h: 1551 - 1552
+[src/include/nodes/primnodes.h:1551-1552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1551-L1552)
 
 ## Overview
 SQLValueFunctionOp is an enumeration that defines the types of parameterless SQL functions with special grammar productions, categorized as datetime value functions and general value specifications in the SQL standard.

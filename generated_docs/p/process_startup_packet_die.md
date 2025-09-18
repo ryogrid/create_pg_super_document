@@ -1,7 +1,7 @@
 # process_startup_packet_die
 
 ## Location
-src/backend/tcop/backend_startup.c: 885 - 894
+[src/backend/tcop/backend_startup.c:885-894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L885-L894)
 
 ## Overview
 A signal handler function that terminates the backend process when SIGTERM is received during startup packet processing, ensuring safe exit before shared memory initialization.

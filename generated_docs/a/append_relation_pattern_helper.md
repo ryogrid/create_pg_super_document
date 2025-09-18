@@ -1,7 +1,7 @@
 # append_relation_pattern_helper
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1428 - 1477
+[src/bin/pg_amcheck/pg_amcheck.c:1428-1477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1428-L1477)
 
 ## Overview
 Core helper function that processes relation name patterns (tables, indexes) with full qualification support and type-specific filtering for the pg_amcheck utility.

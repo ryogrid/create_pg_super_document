@@ -1,7 +1,7 @@
 # _hash_kill_items
 
 ## Location
-src/backend/access/hash/hashutil.c: 536 - 621
+[src/backend/access/hash/hashutil.c:536-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L536-L621)
 
 ## Overview
 Sets LP_DEAD state for index tuples that an index scan caller has identified as killed, marking them as dead hints for future cleanup operations.

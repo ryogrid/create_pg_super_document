@@ -1,7 +1,7 @@
 # CatalogCacheComputeHashValue
 
 ## Location
-src/backend/utils/cache/catcache.c: 344 - 385
+[src/backend/utils/cache/catcache.c:344-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L344-L385)
 
 ## Overview
 A static function that computes a hash value for a set of catalog cache lookup keys by combining individual key hashes using bit rotation to ensure good hash distribution.

@@ -1,7 +1,7 @@
 # pg_wchar_strncmp
 
 ## Location
-src/backend/utils/mb/wstrncmp.c: 40 - 54
+[src/backend/utils/mb/wstrncmp.c:40-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/wstrncmp.c#L40-L54)
 
 ## Overview
 Compares at most n wide characters of two wide character strings, returning an integer indicating their lexicographic relationship.

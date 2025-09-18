@@ -1,7 +1,7 @@
 # pgkill
 
 ## Location
-src/port/kill.c: 22 - 97
+[src/port/kill.c:22-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/kill.c#L22-L97)
 
 ## Overview
 The  function is PostgreSQL's Windows-specific implementation of the POSIX  system call, providing signal sending functionality between processes on Windows platforms where native signal support is limited.

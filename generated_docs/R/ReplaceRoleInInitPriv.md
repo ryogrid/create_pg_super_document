@@ -1,7 +1,7 @@
 # ReplaceRoleInInitPriv
 
 ## Location
-src/backend/catalog/aclchk.c: 4813 - 4921
+[src/backend/catalog/aclchk.c:4813-4921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4813-L4921)
 
 ## Overview
 A function used by shdepReassignOwned to replace mentions of a role in pg_init_privs entries during role reassignment operations.

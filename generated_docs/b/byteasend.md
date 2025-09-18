@@ -1,7 +1,7 @@
 # byteasend
 
 ## Location
-src/backend/utils/adt/varlena.c: 490 - 497
+[src/backend/utils/adt/varlena.c:490-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L490-L497)
 
 ## Overview
 Converts bytea data to binary format for transmission over the PostgreSQL wire protocol. This is a simple pass-through function that copies the input bytea.

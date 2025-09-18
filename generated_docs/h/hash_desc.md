@@ -1,7 +1,7 @@
 # hash_desc
 
 ## Location
-src/backend/access/rmgrdesc/hashdesc.c: 20 - 125
+[src/backend/access/rmgrdesc/hashdesc.c:20-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/hashdesc.c#L20-L125)
 
 ## Overview
 The hash_desc function provides detailed descriptions of hash index WAL (Write-Ahead Log) records for debugging and logging purposes.

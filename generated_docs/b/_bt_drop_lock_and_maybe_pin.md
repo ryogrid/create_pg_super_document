@@ -1,7 +1,7 @@
 # _bt_drop_lock_and_maybe_pin
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 61 - 95
+[src/backend/access/nbtree/nbtsearch.c:61-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L61-L95)
 
 ## Overview
 This function unlocks a B-tree buffer and conditionally releases the buffer pin to prevent vacuum from being blocked by cursor positioning on a page.

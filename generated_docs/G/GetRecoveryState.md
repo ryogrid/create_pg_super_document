@@ -1,7 +1,7 @@
 # GetRecoveryState
 
 ## Location
-src/backend/access/transam/xlog.c: 6349 - 6367
+[src/backend/access/transam/xlog.c:6349-6367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6349-L6367)
 
 ## Overview
 GetRecoveryState returns the current recovery state from shared memory, providing a consistent view of the database system's recovery status.

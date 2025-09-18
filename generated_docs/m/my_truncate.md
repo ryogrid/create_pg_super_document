@@ -1,7 +1,7 @@
 # my_truncate
 
 ## Location
-src/test/examples/testlo64.c: 151 - 171
+[src/test/examples/testlo64.c:151-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlo64.c#L151-L171)
 
 ## Overview
 A static function that truncates a PostgreSQL large object to a specified 64-bit length using the 64-bit large object API.

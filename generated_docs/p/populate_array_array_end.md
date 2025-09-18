@@ -1,7 +1,7 @@
 # populate_array_array_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2666 - 2689
+[src/backend/utils/adt/jsonfuncs.c:2666-2689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2666-L2689)
 
 ## Overview
 JSON parse handler that processes the end of JSON arrays during array population, managing dimensions and validating array structure consistency.

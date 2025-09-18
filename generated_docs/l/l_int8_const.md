@@ -1,7 +1,7 @@
 # l_int8_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 48 - 56
+[src/include/jit/llvmjit_emit.h:48-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L48-L56)
 
 ## Overview
 A static inline utility function that creates an LLVM constant for 8-bit integer values in JIT compilation.

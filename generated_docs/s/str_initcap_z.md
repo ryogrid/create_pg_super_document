@@ -1,7 +1,7 @@
 # str_initcap_z
 
 ## Location
-src/backend/utils/adt/formatting.c: 2247 - 2252
+[src/backend/utils/adt/formatting.c:2247-2252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2247-L2252)
 
 ## Overview
 A convenience wrapper function that converts null-terminated strings to initial capital format using PostgreSQL's locale-aware string conversion functionality.

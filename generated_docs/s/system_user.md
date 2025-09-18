@@ -1,7 +1,7 @@
 # system_user
 
 ## Location
-src/backend/utils/init/miscinit.c: 944 - 965
+[src/backend/utils/init/miscinit.c:944-965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L944-L965)
 
 ## Overview
 The system_user function is a PostgreSQL SQL function that returns the system user name associated with the current database session.

@@ -1,7 +1,7 @@
 # ForeignNext
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 41 - 77
+[src/backend/executor/nodeForeignscan.c:41-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L41-L77)
 
 ## Overview
 ForeignNext is a static workhorse function that executes the next iteration of a foreign scan operation, handling both SELECT queries and direct modification operations through the appropriate FDW routine.

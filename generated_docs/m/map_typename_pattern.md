@@ -1,7 +1,7 @@
 # map_typename_pattern
 
 ## Location
-src/bin/psql/describe.c: 720 - 769
+[src/bin/psql/describe.c:720-769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L720-L769)
 
 ## Overview
 Maps variant type names accepted by the PostgreSQL backend grammar into their canonical type names, primarily used as a helper function for psql's \dT command and other functions that accept typename patterns.

@@ -1,7 +1,7 @@
 # tbm_shared_comparator
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1438 - 1460
+[src/backend/nodes/tidbitmap.c:1438-1460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1438-L1460)
 
 ## Overview
 A comparator function used for sorting PagetableEntry indices in shared TID bitmaps based on block numbers.

@@ -1,7 +1,7 @@
 # PLy_add_exceptions
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 175 - 210
+[src/pl/plpython/plpy_plpymodule.c:175-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L175-L210)
 
 ## Overview
 PLy_add_exceptions sets up the exception hierarchy and SPI exception handling system for the PL/Python language extension, creating Python exception classes that correspond to PostgreSQL error conditions.

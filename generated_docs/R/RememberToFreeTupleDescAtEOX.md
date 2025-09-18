@@ -1,7 +1,7 @@
 # RememberToFreeTupleDescAtEOX
 
 ## Location
-src/backend/utils/cache/relcache.c: 3115 - 3143
+[src/backend/utils/cache/relcache.c:3115-3143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3115-L3143)
 
 ## Overview
 Registers a TupleDesc for deferred cleanup at end-of-transaction, managing memory allocation to prevent immediate deallocation when the TupleDesc might still be in use.

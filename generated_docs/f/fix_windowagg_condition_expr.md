@@ -1,7 +1,7 @@
 # fix_windowagg_condition_expr
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3391 - 3411
+[src/backend/optimizer/plan/setrefs.c:3391-3411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3391-L3411)
 
 ## Overview
 Converts references in window aggregate run conditions by replacing any WindowFunc references with corresponding Var references from the subplan target list.

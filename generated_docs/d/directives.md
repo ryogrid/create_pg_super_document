@@ -1,7 +1,7 @@
 # directives
 
 ## Location
-src/tools/pg_bsd_indent/indent.c: 1154 - 1202
+[src/tools/pg_bsd_indent/indent.c:1154-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/indent.c#L1154-L1202)
 
 ## Overview
 The  struct is a local data structure used within pg_bsd_indent's main function to recognize and validate C preprocessor directives during code formatting.

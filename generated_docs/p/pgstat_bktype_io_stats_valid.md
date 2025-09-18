@@ -1,7 +1,7 @@
 # pgstat_bktype_io_stats_valid
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 46 - 76
+[src/backend/utils/activity/pgstat_io.c:46-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L46-L76)
 
 ## Overview
 Validates that PostgreSQL IO statistics are consistent for a specific backend type by ensuring that stats are only tracked for valid combinations of IOObject, IOContext, and IOOp, and that non-zero IO times correspond to non-zero counts.

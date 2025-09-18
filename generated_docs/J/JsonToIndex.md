@@ -1,7 +1,7 @@
 # JsonToIndex
 
 ## Location
-src/include/utils/jsonfuncs.h: 32 - 46
+[src/include/utils/jsonfuncs.h:32-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonfuncs.h#L32-L46)
 
 ## Overview
 JsonToIndex is an enumeration type that defines bit flags used to specify which types of elements should be processed when iterating through JSON or JSONB documents.

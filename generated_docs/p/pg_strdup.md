@@ -1,7 +1,7 @@
 # pg_strdup
 
 ## Location
-src/common/fe_memutils.c: 85 - 104
+[src/common/fe_memutils.c:85-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L85-L104)
 
 ## Overview
 A "safe" wrapper around the standard C library strdup() function that provides error checking and handling for null input pointers and memory allocation failures.

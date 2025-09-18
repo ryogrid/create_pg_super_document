@@ -1,7 +1,7 @@
 # hashtidextended
 
 ## Location
-src/backend/utils/adt/tid.c: 272 - 295
+[src/backend/utils/adt/tid.c:272-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L272-L295)
 
 ## Overview
 A PostgreSQL function that computes an extended hash value for a tuple identifier (TID) using a seed value, providing enhanced hashing capabilities for advanced hash-based operations.

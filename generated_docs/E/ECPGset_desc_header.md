@@ -1,7 +1,7 @@
 # ECPGset_desc_header
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 573 - 583
+[src/interfaces/ecpg/ecpglib/descriptor.c:573-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L573-L583)
 
 ## Overview
 ECPGset_desc_header sets the count field in a descriptor structure, typically used to specify the number of fields or items in a SQL descriptor.

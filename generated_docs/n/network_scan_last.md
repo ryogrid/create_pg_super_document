@@ -1,7 +1,7 @@
 # network_scan_last
 
 ## Location
-src/backend/utils/adt/network.c: 1704 - 1715
+[src/backend/utils/adt/network.c:1704-1715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1704-L1715)
 
 ## Overview
 Returns the maximal (last) IP address value for a given network by computing the broadcast address with maximum mask length, used by the query planner for generating index scan upper bounds.

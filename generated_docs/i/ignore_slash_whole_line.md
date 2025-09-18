@@ -1,7 +1,7 @@
 # ignore_slash_whole_line
 
 ## Location
-src/bin/psql/command.c: 3243 - 3254
+[src/bin/psql/command.c:3243-3254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3243-L3254)
 
 ## Overview
 This function reads and discards whole-line slash command arguments from the input stream, ensuring consistent parsing behavior between active and inactive conditional branches for commands that consume entire lines.

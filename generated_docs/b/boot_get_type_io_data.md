@@ -1,7 +1,7 @@
 # boot_get_type_io_data
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 806 - 882
+[src/backend/bootstrap/bootstrap.c:806-882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L806-L882)
 
 ## Overview
 A function that retrieves type I/O metadata during PostgreSQL bootstrap, providing an early-bootstrap equivalent to the standard get_type_io_data function with limited functionality.

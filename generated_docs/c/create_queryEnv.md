@@ -1,7 +1,7 @@
 # create_queryEnv
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 39 - 44
+[src/backend/utils/misc/queryenvironment.c:39-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L39-L44)
 
 ## Overview
 Creates and initializes a new QueryEnvironment structure that manages ephemeral named relations (ENRs) during query execution.

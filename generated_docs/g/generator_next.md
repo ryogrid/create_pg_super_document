@@ -1,7 +1,7 @@
 # generator_next
 
 ## Location
-src/backend/statistics/mvdistinct.c: 627 - 641
+[src/backend/statistics/mvdistinct.c:627-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L627-L641)
 
 ## Overview
 Returns the next combination from the prebuilt list of combinations.

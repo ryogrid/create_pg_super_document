@@ -1,7 +1,7 @@
 # copyJsonbValue
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3445 - 3458
+[src/backend/utils/adt/jsonpath_exec.c:3445-3458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3445-L3458)
 
 ## Overview
 Creates a shallow copy of a JsonbValue structure by allocating new memory and copying the structure contents.

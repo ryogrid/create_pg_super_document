@@ -1,7 +1,7 @@
 # Barrier
 
 ## Location
-src/include/storage/barrier.h: 25 - 35
+[src/include/storage/barrier.h:25-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/barrier.h#L25-L35)
 
 ## Overview
 The Barrier struct is a synchronization primitive used in PostgreSQL for coordinating parallel processes, ensuring that cooperating processes reach specific synchronization points before proceeding to the next phase of computation.

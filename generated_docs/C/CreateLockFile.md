@@ -1,7 +1,7 @@
 # CreateLockFile
 
 ## Location
-src/backend/utils/init/miscinit.c: 1205 - 1509
+[src/backend/utils/init/miscinit.c:1205-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1205-L1509)
 
 ## Overview
 Creates PostgreSQL lockfiles (data directory or Unix socket lockfiles) with atomic file creation, stale process detection, and automatic cleanup registration.

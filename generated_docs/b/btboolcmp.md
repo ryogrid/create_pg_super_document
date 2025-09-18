@@ -1,7 +1,7 @@
 # btboolcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 73 - 81
+[src/backend/access/nbtree/nbtcompare.c:73-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L73-L81)
 
 ## Overview
 This function provides a comparison function for boolean values in PostgreSQL's B-tree index operations, returning the standard comparison result (-1, 0, 1) for ordering boolean values.

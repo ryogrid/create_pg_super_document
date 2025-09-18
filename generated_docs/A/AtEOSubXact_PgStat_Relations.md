@@ -1,7 +1,7 @@
 # AtEOSubXact_PgStat_Relations
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 595 - 675
+[src/backend/utils/activity/pgstat_relation.c:595-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L595-L675)
 
 ## Overview
 Performs relation-specific statistics cleanup and consolidation at the end of a subtransaction, transferring counters to the parent transaction level.

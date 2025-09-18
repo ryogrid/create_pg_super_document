@@ -1,7 +1,7 @@
 # convert_role_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 4854 - 4876
+[src/backend/utils/adt/acl.c:4854-4876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4854-L4876)
 
 ## Overview
 This function converts a text string representing role privileges into an internal AclMode value, mapping role-specific privilege names to corresponding ACL bits for role access control operations.

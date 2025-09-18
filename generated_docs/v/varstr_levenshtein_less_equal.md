@@ -1,7 +1,7 @@
 # varstr_levenshtein_less_equal
 
 ## Location
-src/backend/utils/adt/levenshtein.c: 68 - 95
+[src/backend/utils/adt/levenshtein.c:68-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/levenshtein.c#L68-L95)
 
 ## Overview
 Computes the Levenshtein distance between two strings with custom costs for insertions, deletions, and substitutions, with an optimization to return early when the distance exceeds a specified maximum threshold.

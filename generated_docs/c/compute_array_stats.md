@@ -1,7 +1,7 @@
 # compute_array_stats
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 216 - 680
+[src/backend/utils/adt/array_typanalyze.c:216-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L216-L680)
 
 ## Overview
 The compute_array_stats function computes specialized statistics for array columns to support efficient selectivity estimation for array operators like <@, &&, and @>.

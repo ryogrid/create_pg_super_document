@@ -1,7 +1,7 @@
 # btint24cmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 203 - 216
+[src/backend/access/nbtree/nbtcompare.c:203-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L203-L216)
 
 ## Overview
 A B-tree comparison function that compares a 2-byte (int16) integer with a 4-byte (int32) integer, returning the ordering relationship between the two values.

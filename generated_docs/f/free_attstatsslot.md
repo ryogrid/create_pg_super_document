@@ -1,7 +1,7 @@
 # free_attstatsslot
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3344 - 3365
+[src/backend/utils/cache/lsyscache.c:3344-3365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3344-L3365)
 
 ## Overview
 Frees memory allocated by get_attstatsslot for an AttStatsSlot structure.

@@ -1,7 +1,7 @@
 # RuleLock
 
 ## Location
-src/include/rewrite/prs2lock.h: 40 - 44
+[src/include/rewrite/prs2lock.h:40-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/prs2lock.h#L40-L44)
 
 ## Overview
 RuleLock is a structure that contains all rewrite rules that apply to a particular relation in PostgreSQL's rule system, serving as a container for managing multiple RewriteRule instances.

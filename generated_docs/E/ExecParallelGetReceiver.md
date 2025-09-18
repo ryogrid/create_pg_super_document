@@ -1,7 +1,7 @@
 # ExecParallelGetReceiver
 
 ## Location
-src/backend/executor/execParallel.c: 1220 - 1235
+[src/backend/executor/execParallel.c:1220-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1220-L1235)
 
 ## Overview
 Creates a DestReceiver to write tuples produced by a parallel worker to the shared memory queue designated for that purpose.

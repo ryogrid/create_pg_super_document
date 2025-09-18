@@ -1,7 +1,7 @@
 # mergeSimpleStats
 
 ## Location
-src/bin/pgbench/pgbench.c: 1418 - 1433
+[src/bin/pgbench/pgbench.c:1418-1433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1418-L1433)
 
 ## Overview
 Merges two SimpleStats objects by combining their statistical data, allowing aggregation of statistics collected from multiple sources.

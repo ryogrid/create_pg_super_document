@@ -1,7 +1,7 @@
 # NUM_processor
 
 ## Location
-src/backend/utils/adt/formatting.c: 5823 - 6306
+[src/backend/utils/adt/formatting.c:5823-6306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5823-L6306)
 
 ## Overview
 The core formatting engine that processes number formatting patterns and converts between numeric values and their textual representations in PostgreSQL's format system.

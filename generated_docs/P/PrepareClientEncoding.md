@@ -1,7 +1,7 @@
 # PrepareClientEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 110 - 207
+[src/backend/utils/mb/mbutils.c:110-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L110-L207)
 
 ## Overview
 Prepares for a future call to SetClientEncoding by validating the encoding and ensuring conversion functions are available, guaranteeing that the subsequent SetClientEncoding call will succeed.

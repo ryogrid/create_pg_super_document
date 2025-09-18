@@ -1,7 +1,7 @@
 # InvalidateSystemCachesExtended
 
 ## Location
-src/backend/utils/cache/inval.c: 675 - 705
+[src/backend/utils/cache/inval.c:675-705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L675-L705)
 
 ## Overview
 Performs comprehensive invalidation of all PostgreSQL system caches, including catalog snapshots, catalog caches, relation caches, and executes registered invalidation callbacks.

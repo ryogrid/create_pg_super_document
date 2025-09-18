@@ -1,7 +1,7 @@
 # getCompoundAffixFlagValue
 
 ## Location
-src/backend/tsearch/spell.c: 1125 - 1160
+[src/backend/tsearch/spell.c:1125-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1125-L1160)
 
 ## Overview
 Retrieves the combined bit flags corresponding to a set of compound affix flags specified in a string, using binary search for efficient lookup.

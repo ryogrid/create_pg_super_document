@@ -1,7 +1,7 @@
 # bit_cmp
 
 ## Location
-src/backend/utils/adt/varbit.c: 818 - 840
+[src/backend/utils/adt/varbit.c:818-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L818-L840)
 
 ## Overview
 Internal comparison function for bit string types that performs lexicographic comparison between two VarBit structures, considering both bit content and length.

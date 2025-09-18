@@ -1,7 +1,7 @@
 # generate_join_implied_equalities_broken
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1723 - 1771
+[src/backend/optimizer/path/equivclass.c:1723-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1723-L1771)
 
 ## Overview
 A fallback function that recovers from EquivalenceClass processing failures by returning original RestrictInfos that are enforceable at the current join level.

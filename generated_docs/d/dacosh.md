@@ -1,7 +1,7 @@
 # dacosh
 
 ## Location
-src/backend/utils/adt/float.c: 2682 - 2706
+[src/backend/utils/adt/float.c:2682-2706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2682-L2706)
 
 ## Overview
 The dacosh function computes the inverse hyperbolic cosine of a floating-point number with domain validation, providing PostgreSQL-specific error handling for mathematical operations.

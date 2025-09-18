@@ -1,7 +1,7 @@
 # matches_backtrace_functions
 
 ## Location
-src/backend/utils/error/elog.c: 829 - 856
+[src/backend/utils/error/elog.c:829-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L829-L856)
 
 ## Overview
 Checks whether a given function name matches any function listed in the backtrace_functions configuration, used to determine when to include backtraces in error reports.

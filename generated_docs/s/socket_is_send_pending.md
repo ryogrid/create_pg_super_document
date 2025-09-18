@@ -1,7 +1,7 @@
 # socket_is_send_pending
 
 ## Location
-src/backend/libpq/pqcomm.c: 1458 - 1487
+[src/backend/libpq/pqcomm.c:1458-1487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1458-L1487)
 
 ## Overview
 A static function that checks whether there is any pending data waiting to be sent in PostgreSQL's output buffer.

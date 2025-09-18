@@ -1,7 +1,7 @@
 # initGenerateDataClientSide
 
 ## Location
-src/bin/pgbench/pgbench.c: 5085 - 5116
+[src/bin/pgbench/pgbench.c:5085-5116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5085-L5116)
 
 ## Overview
 The  function orchestrates the client-side generation and insertion of test data into all pgbench standard tables within a single database transaction.

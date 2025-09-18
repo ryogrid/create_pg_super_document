@@ -1,7 +1,7 @@
 # add_tablespace_footer
 
 ## Location
-src/bin/psql/describe.c: 3549 - 3613
+[src/bin/psql/describe.c:3549-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3549-L3613)
 
 ## Overview
 A utility function that adds tablespace information to the footer of table descriptions in psql's \d command output.

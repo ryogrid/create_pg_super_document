@@ -1,7 +1,7 @@
 # archputs
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1629 - 1635
+[src/bin/pg_dump/pg_backup_archiver.c:1629-1635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1629-L1635)
 
 ## Overview
 A convenience function that outputs a null-terminated string to a PostgreSQL archive during dump operations, mimicking the behavior of standard IO functions.

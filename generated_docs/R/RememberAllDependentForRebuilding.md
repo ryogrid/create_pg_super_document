@@ -1,7 +1,7 @@
 # RememberAllDependentForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13463 - 13688
+[src/backend/commands/tablecmds.c:13463-13688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13463-L13688)
 
 ## Overview
 RememberAllDependentForRebuilding scans for all objects that depend on a specific column and records information necessary to recreate those objects after a column type change or expression modification.

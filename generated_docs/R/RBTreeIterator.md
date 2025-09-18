@@ -1,7 +1,7 @@
 # RBTreeIterator
 
 ## Location
-src/include/lib/rbtree.h: 46 - 48
+[src/include/lib/rbtree.h:46-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/rbtree.h#L46-L48)
 
 ## Overview
 RBTreeIterator is a state-holding structure that enables traversal of red-black trees in PostgreSQL, supporting both left-to-right and right-to-left iteration patterns.

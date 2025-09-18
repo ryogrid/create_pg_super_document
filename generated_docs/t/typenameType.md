@@ -1,7 +1,7 @@
 # typenameType
 
 ## Location
-src/backend/parser/parse_type.c: 264 - 290
+[src/backend/parser/parse_type.c:264-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L264-L290)
 
 ## Overview
 typenameType provides a safe, validated interface for type name resolution that guarantees the returned type is fully defined and valid for use.

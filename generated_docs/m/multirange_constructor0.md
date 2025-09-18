@@ -1,7 +1,7 @@
 # multirange_constructor0
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1059 - 1081
+[src/backend/utils/adt/multirangetypes.c:1059-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1059-L1081)
 
 ## Overview
 Constructs an empty multirange value with no range elements, serving as a zero-argument constructor for multirange types.

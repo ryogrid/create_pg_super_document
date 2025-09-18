@@ -1,7 +1,7 @@
 # mark_dummy_rel
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1382 - 1424
+[src/backend/optimizer/path/joinrels.c:1382-1424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1382-L1424)
 
 ## Overview
 Marks a relation as proven empty by creating a childless Append path and updating the relation's metadata, with special memory context handling for GEQO planning scenarios.

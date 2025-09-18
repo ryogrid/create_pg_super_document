@@ -1,7 +1,7 @@
 # SetCurrentChunkStartTime
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4615 - 4626
+[src/backend/access/transam/xlogrecovery.c:4615-4626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4615-L4626)
 
 ## Overview
 SetCurrentChunkStartTime saves the timestamp marking the beginning of the next chunk of WAL records to be applied during recovery.

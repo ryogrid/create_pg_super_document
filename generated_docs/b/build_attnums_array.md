@@ -1,7 +1,7 @@
 # build_attnums_array
 
 ## Location
-src/backend/statistics/extended_stats.c: 941 - 985
+[src/backend/statistics/extended_stats.c:941-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L941-L985)
 
 ## Overview
 Transforms a bitmap representation of attributes into an array of AttrNumber values for use in extended statistics processing.

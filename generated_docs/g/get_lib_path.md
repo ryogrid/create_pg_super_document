@@ -1,7 +1,7 @@
 # get_lib_path
 
 ## Location
-src/port/path.c: 946 - 954
+[src/port/path.c:946-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L946-L954)
 
 ## Overview
 Constructs the path to the PostgreSQL library directory relative to the PostgreSQL executable path.

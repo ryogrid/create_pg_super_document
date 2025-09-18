@@ -1,7 +1,7 @@
 # check_proper_datallowconn
 
 ## Location
-src/bin/pg_upgrade/check.c: 1095 - 1178
+[src/bin/pg_upgrade/check.c:1095-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1095-L1178)
 
 ## Overview
 This function validates database connection settings to ensure that all non-template0 databases allow connections and that template0 explicitly disallows connections, preventing pg_dumpall restore failures.

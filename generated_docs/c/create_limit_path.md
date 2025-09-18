@@ -1,7 +1,7 @@
 # create_limit_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3826 - 3880
+[src/backend/optimizer/util/pathnode.c:3826-3880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3826-L3880)
 
 ## Overview
 Creates a pathnode that represents performing LIMIT/OFFSET operations on query results, enabling efficient handling of result set truncation and pagination in the query planner.

@@ -1,7 +1,7 @@
 # spgSplitNodeAction
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 1715 - 1913
+[src/backend/access/spgist/spgdoinsert.c:1715-1913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L1715-L1913)
 
 ## Overview
 Splits an inner tuple into prefix and postfix tuples according to opclass specifications, replacing the original tuple with the prefix and linking it to the newly created postfix tuple.

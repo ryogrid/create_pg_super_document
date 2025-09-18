@@ -1,7 +1,7 @@
 # pq_peekbyte
 
 ## Location
-src/backend/libpq/pqcomm.c: 982 - 1002
+[src/backend/libpq/pqcomm.c:982-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L982-L1002)
 
 ## Overview
 Examines the next byte from the client connection without consuming it, allowing for lookahead in protocol message parsing.

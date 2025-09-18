@@ -1,7 +1,7 @@
 # freev
 
 ## Location
-src/backend/regex/regcomp.c: 592 - 620
+[src/backend/regex/regcomp.c:592-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L592-L620)
 
 ## Overview
 Frees all dynamically allocated substructures within a vars struct and optionally sets error codes, serving as a comprehensive cleanup function for regex compilation state.

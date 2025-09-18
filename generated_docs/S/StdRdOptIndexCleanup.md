@@ -1,7 +1,7 @@
 # StdRdOptIndexCleanup
 
 ## Location
-src/include/utils/rel.h: 334 - 335
+[src/include/utils/rel.h:334-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L334-L335)
 
 ## Overview
 An enumeration that defines the possible values for controlling index cleanup behavior during VACUUM operations on table relations.

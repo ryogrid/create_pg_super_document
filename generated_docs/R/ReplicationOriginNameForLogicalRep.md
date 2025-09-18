@@ -1,7 +1,7 @@
 # ReplicationOriginNameForLogicalRep
 
 ## Location
-src/backend/replication/logical/worker.c: 430 - 469
+[src/backend/replication/logical/worker.c:430-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L430-L469)
 
 ## Overview
 Forms the replication origin name for logical replication subscriptions, supporting both table synchronization and general apply workers with distinct naming conventions.

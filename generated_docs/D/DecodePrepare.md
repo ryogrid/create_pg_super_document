@@ -1,7 +1,7 @@
 # DecodePrepare
 
 ## Location
-src/backend/replication/logical/decode.c: 775 - 849
+[src/backend/replication/logical/decode.c:775-849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L775-L849)
 
 ## Overview
 DecodePrepare processes PREPARE records in PostgreSQL's logical replication, handling two-phase commit transactions by managing their decoded state and preparing them for eventual commit or abort.

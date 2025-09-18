@@ -1,7 +1,7 @@
 # ss_scan_locations_t
 
 ## Location
-src/backend/access/common/syncscan.c: 104 - 109
+[src/backend/access/common/syncscan.c:104-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L104-L109)
 
 ## Overview
 The main data structure that manages the LRU cache of scan locations for PostgreSQL's synchronized scan optimization, containing head and tail pointers along with a fixed-size array of LRU items.

@@ -1,7 +1,7 @@
 # byteaGetByte
 
 ## Location
-src/backend/utils/adt/varlena.c: 3209 - 3237
+[src/backend/utils/adt/varlena.c:3209-3237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3209-L3237)
 
 ## Overview
 Extracts a specific byte from a bytea (binary string) data type and returns it as an integer value (0-255).

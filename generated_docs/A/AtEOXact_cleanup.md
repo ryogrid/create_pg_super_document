@@ -1,7 +1,7 @@
 # AtEOXact_cleanup
 
 ## Location
-src/backend/utils/cache/relcache.c: 3307 - 3388
+[src/backend/utils/cache/relcache.c:3307-3388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3307-L3388)
 
 ## Overview
 Performs cleanup operations on a single relation at main-transaction commit or abort, managing reference counts, subtransaction IDs, and determining whether to clear the relcache entry.

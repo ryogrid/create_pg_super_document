@@ -1,7 +1,7 @@
 # canRetryError
 
 ## Location
-src/bin/pgbench/pgbench.c: 3225 - 3240
+[src/bin/pgbench/pgbench.c:3225-3240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3225-L3240)
 
 ## Overview
 Determines whether a specific error status type is eligible for retry in pgbench's error handling mechanism.

@@ -1,7 +1,7 @@
 # removeabbrev_index_brin
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1711 - 1724
+[src/backend/utils/sort/tuplesortvariants.c:1711-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1711-L1724)
 
 ## Overview
 Removes abbreviated keys from BRIN tuple sorting data structures and restores the original datum values used for comparison.

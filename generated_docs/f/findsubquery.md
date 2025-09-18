@@ -1,7 +1,7 @@
 # findsubquery
 
 ## Location
-src/backend/utils/adt/tsquery_rewrite.c: 267 - 279
+[src/backend/utils/adt/tsquery_rewrite.c:267-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_rewrite.c#L267-L279)
 
 ## Overview
 The `findsubquery` function serves as the public interface for TSQuery tree substitution operations, providing a clean wrapper around the recursive tree rewriting functionality.

@@ -1,7 +1,7 @@
 # getBaseType
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2521 - 2537
+[src/backend/utils/cache/lsyscache.c:2521-2537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2521-L2537)
 
 ## Overview
 Returns the base type OID for a given type, resolving domain types to their underlying base types while returning the same OID for non-domain types.

@@ -1,7 +1,7 @@
 # InjectionPointShmemSize
 
 ## Location
-src/backend/utils/misc/injection_point.c: 232 - 247
+[src/backend/utils/misc/injection_point.c:232-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L232-L247)
 
 ## Overview
 Returns the size of shared memory required for the injection points control structure, or 0 if injection points are not compiled in.

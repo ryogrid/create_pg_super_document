@@ -1,7 +1,7 @@
 # currval_oid
 
 ## Location
-src/backend/commands/sequence.c: 866 - 896
+[src/backend/commands/sequence.c:866-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L866-L896)
 
 ## Overview
 Returns the current value of a sequence identified by its OID, ensuring proper permissions and session validity.

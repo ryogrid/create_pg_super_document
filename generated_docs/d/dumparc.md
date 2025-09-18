@@ -1,7 +1,7 @@
 # dumparc
 
 ## Location
-src/backend/regex/regc_nfa.c: 3753 - 3822
+[src/backend/regex/regc_nfa.c:3753-3822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3753-L3822)
 
 ## Overview
 A debugging function that outputs detailed information about a single NFA arc in human-readable format, including arc type, color, source/destination states, and chain integrity validation.

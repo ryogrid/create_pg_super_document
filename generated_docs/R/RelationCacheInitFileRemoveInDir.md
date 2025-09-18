@@ -1,7 +1,7 @@
 # RelationCacheInitFileRemoveInDir
 
 ## Location
-src/backend/utils/cache/relcache.c: 6839 - 6862
+[src/backend/utils/cache/relcache.c:6839-6862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6839-L6862)
 
 ## Overview
 Helper function that removes relation cache initialization files from all database directories within a specific tablespace directory.

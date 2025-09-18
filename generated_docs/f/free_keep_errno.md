@@ -1,7 +1,7 @@
 # free_keep_errno
 
 ## Location
-src/bin/pg_dump/compress_io.c: 179 - 194
+[src/bin/pg_dump/compress_io.c:179-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L179-L194)
 
 ## Overview
 This static utility function frees memory without modifying the global errno variable, preserving error state for the caller.

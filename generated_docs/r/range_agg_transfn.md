@@ -1,7 +1,7 @@
 # range_agg_transfn
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1340 - 1371
+[src/backend/utils/adt/multirangetypes.c:1340-1371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1340-L1371)
 
 ## Overview
 The transition function for the range_agg aggregate that collects input range values into an array for later processing by the finalize function.

@@ -1,7 +1,7 @@
 # scanner_isspace
 
 ## Location
-src/backend/parser/scansup.c: 117 - 128
+[src/backend/parser/scansup.c:117-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/scansup.c#L117-L128)
 
 ## Overview
 A utility function that determines whether a character is considered whitespace according to PostgreSQL's lexical scanner, ensuring consistent whitespace handling across the system.

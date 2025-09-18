@@ -1,7 +1,7 @@
 # pg_atomic_fetch_add_u32
 
 ## Location
-src/include/port/atomics.h: 361 - 375
+[src/include/port/atomics.h:361-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L361-L375)
 
 ## Overview
 Atomically adds a signed 32-bit integer value to a 32-bit unsigned atomic variable and returns the original value before the addition.

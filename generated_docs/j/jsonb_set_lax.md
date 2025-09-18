@@ -1,7 +1,7 @@
 # jsonb_set_lax
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4893 - 4959
+[src/backend/utils/adt/jsonfuncs.c:4893-4959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4893-L4959)
 
 ## Overview
 A "lax" version of jsonb_set that provides flexible handling of NULL values through different null value treatment strategies.

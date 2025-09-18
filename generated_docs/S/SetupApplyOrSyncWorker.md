@@ -1,7 +1,7 @@
 # SetupApplyOrSyncWorker
 
 ## Location
-src/backend/replication/logical/worker.c: 4691 - 4744
+[src/backend/replication/logical/worker.c:4691-4744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4691-L4744)
 
 ## Overview
 Common setup function for both leader apply workers and tablesync workers that handles worker attachment, signal configuration, library loading, and callback registration.

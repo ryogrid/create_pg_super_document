@@ -1,7 +1,7 @@
 # gimme_tree
 
 ## Location
-src/backend/optimizer/geqo/geqo_eval.c: 163 - 237
+[src/backend/optimizer/geqo/geqo_eval.c:163-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_eval.c#L163-L237)
 
 ## Overview
 Constructs a join tree from a given gene tour in the GEQO algorithm, using heuristics to build valid bushy plans while respecting join order constraints and semantic restrictions.

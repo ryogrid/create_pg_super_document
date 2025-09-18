@@ -1,7 +1,7 @@
 # intset_memory_usage
 
 ## Location
-src/backend/lib/integerset.c: 359 - 369
+[src/backend/lib/integerset.c:359-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L359-L369)
 
 ## Overview
 Returns the total amount of memory used by an IntegerSet, including all allocated nodes and structures.

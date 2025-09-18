@@ -1,7 +1,7 @@
 # decide_file_actions
 
 ## Location
-src/bin/pg_rewind/filemap.c: 861 - 892
+[src/bin/pg_rewind/filemap.c:861-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L861-L892)
 
 ## Overview
 Processes all file entries in the global filehash to determine appropriate actions and returns a sorted filemap ready for execution during pg_rewind operations.

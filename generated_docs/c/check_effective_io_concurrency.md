@@ -1,7 +1,7 @@
 # check_effective_io_concurrency
 
 ## Location
-src/backend/commands/variable.c: 1223 - 1235
+[src/backend/commands/variable.c:1223-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1223-L1235)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the effective_io_concurrency parameter, ensuring it is set to 0 on platforms that lack posix_fadvise() support.

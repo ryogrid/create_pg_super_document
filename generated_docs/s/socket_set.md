@@ -1,7 +1,7 @@
 # socket_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 108 - 112
+[src/bin/pgbench/pgbench.c:108-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L108-L112)
 
 ## Overview
 The socket_set structure is used in pgbench to manage a collection of file descriptors for efficient socket polling and monitoring operations.

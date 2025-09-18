@@ -1,7 +1,7 @@
 # DynaHashAlloc
 
 ## Location
-src/backend/utils/hash/dynahash.c: 291 - 306
+[src/backend/utils/hash/dynahash.c:291-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L291-L306)
 
 ## Overview
 DynaHashAlloc is a static memory allocation function that provides memory allocation specifically for dynamic hash table operations within PostgreSQL's hash table infrastructure.

@@ -1,7 +1,7 @@
 # test_convert_case
 
 ## Location
-src/common/unicode/case_test.c: 170 - 182
+[src/common/unicode/case_test.c:170-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/case_test.c#L170-L182)
 
 ## Overview
 A test orchestrator function that validates Unicode lowercase conversion functionality through a series of representative test cases.

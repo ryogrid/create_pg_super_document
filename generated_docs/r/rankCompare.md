@@ -1,7 +1,7 @@
 # rankCompare
 
 ## Location
-src/bin/psql/crosstabview.c: 711 - 714
+[src/bin/psql/crosstabview.c:711-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L711-L714)
 
 ## Overview
 A comparison function for 32-bit signed integers used to sort rank values in ascending order.

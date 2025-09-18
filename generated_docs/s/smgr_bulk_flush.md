@@ -1,7 +1,7 @@
 # smgr_bulk_flush
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 243 - 323
+[src/backend/storage/smgr/bulk_write.c:243-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L243-L323)
 
 ## Overview
 A static function that writes all pending bulk write operations to disk, handling WAL logging, page checksums, and proper extension of relation files.

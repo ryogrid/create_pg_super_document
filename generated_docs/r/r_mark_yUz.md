@@ -1,7 +1,7 @@
 # r_mark_yUz
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 810 - 821
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:810-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L810-L821)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the suffix "yUz" (meaning "we are" in Turkish) and its variations, used in Turkish verb conjugation processing.

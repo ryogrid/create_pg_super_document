@@ -1,7 +1,7 @@
 # cidr_set_masklen_internal
 
 ## Location
-src/backend/utils/adt/network.c: 368 - 404
+[src/backend/utils/adt/network.c:368-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L368-L404)
 
 ## Overview
 Creates a copy of a network address with a specified mask length, properly handling bit masking and memory allocation for CIDR operations.

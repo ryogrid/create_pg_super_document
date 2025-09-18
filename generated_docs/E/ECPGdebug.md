@@ -1,7 +1,7 @@
 # ECPGdebug
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 204 - 231
+[src/interfaces/ecpg/ecpglib/misc.c:204-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L204-L231)
 
 ## Overview
 Configures debug output settings for the ECPG library with thread-safe initialization and special regression test mode handling.

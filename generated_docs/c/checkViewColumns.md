@@ -1,7 +1,7 @@
 # checkViewColumns
 
 ## Location
-src/backend/commands/view.c: 267 - 331
+[src/backend/commands/view.c:267-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/view.c#L267-L331)
 
 ## Overview
 checkViewColumns verifies that the columns of a proposed new view definition are compatible with the columns of an existing view during view replacement operations.

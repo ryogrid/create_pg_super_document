@@ -1,7 +1,7 @@
 # get_tablespace_oid
 
 ## Location
-src/backend/commands/tablespace.c: 1426 - 1471
+[src/backend/commands/tablespace.c:1426-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1426-L1471)
 
 ## Overview
 Looks up the OID of a tablespace by its name, with optional error handling for missing tablespaces.

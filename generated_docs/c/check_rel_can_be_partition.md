@@ -1,7 +1,7 @@
 # check_rel_can_be_partition
 
 ## Location
-src/backend/utils/adt/partitionfuncs.c: 34 - 61
+[src/backend/utils/adt/partitionfuncs.c:34-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/partitionfuncs.c#L34-L61)
 
 ## Overview
 A static helper function that validates whether a given relation can participate in a partition tree, ensuring the relation exists and has the appropriate kind to be either a partitioned table or a partition.

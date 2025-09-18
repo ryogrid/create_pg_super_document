@@ -1,7 +1,7 @@
 # lookahead
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 275 - 319
+[src/tools/pg_bsd_indent/io.c:275-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L275-L319)
 
 ## Overview
 Provides look-ahead capability for reading input characters beyond the current buffer position without consuming them permanently.

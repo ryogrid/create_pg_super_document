@@ -1,7 +1,7 @@
 # QTW_IGNORE_CTE_SUBQUERIES
 
 ## Location
-src/include/nodes/nodeFuncs.h: 23 - 23
+[src/include/nodes/nodeFuncs.h:23-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L23-L23)
 
 ## Overview
 A flag bit used by query_tree_walker and query_tree_mutator functions to control whether subqueries in the CTE (Common Table Expression) list should be ignored during tree traversal.

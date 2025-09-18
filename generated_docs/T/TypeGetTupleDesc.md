@@ -1,7 +1,7 @@
 # TypeGetTupleDesc
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1903 - 2004
+[src/backend/utils/fmgr/funcapi.c:1903-2004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1903-L2004)
 
 ## Overview
 Constructs a tuple descriptor from a type OID, supporting composite and scalar types with optional column aliasing for legacy compatibility.

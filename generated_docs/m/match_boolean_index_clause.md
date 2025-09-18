@@ -1,7 +1,7 @@
 # match_boolean_index_clause
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2305 - 2391
+[src/backend/optimizer/path/indxpath.c:2305-2391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2305-L2391)
 
 ## Overview
 Recognizes restriction clauses that can be matched to a boolean index by transforming boolean expressions into indexable equality operations.

@@ -1,7 +1,7 @@
 # datetimetz_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 2886 - 2926
+[src/backend/utils/adt/date.c:2886-2926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2886-L2926)
 
 ## Overview
 Combines a date (DateADT) and time with timezone (TimeTzADT) to create a timestamp with timezone (TimestampTz), properly handling timezone conversion and range validation.

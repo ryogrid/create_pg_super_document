@@ -1,7 +1,7 @@
 # skip_white_space
 
 ## Location
-src/bin/psql/common.c: 1833 - 1896
+[src/bin/psql/common.c:1833-1896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1833-L1896)
 
 ## Overview
 skip_white_space advances a character pointer over whitespace and SQL comments, supporting both single-line (--) and multi-line (/* */) comment styles with proper nesting.

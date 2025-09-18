@@ -1,7 +1,7 @@
 # _h_indexbuild
 
 ## Location
-src/backend/access/hash/hashsort.c: 120 - 157
+[src/backend/access/hash/hashsort.c:120-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsort.c#L120-L157)
 
 ## Overview
 Creates the entire hash index by processing sorted tuples from the spool and inserting them into the index structure.

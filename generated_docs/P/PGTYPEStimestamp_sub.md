@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_sub
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 797 - 809
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:797-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L797-L809)
 
 ## Overview
 Calculates the time difference between two PostgreSQL timestamps and returns the result as an interval.

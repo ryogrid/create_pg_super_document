@@ -1,7 +1,7 @@
 # ExecCrossPartitionUpdate
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1763 - 1923
+[src/backend/executor/nodeModifyTable.c:1763-1923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1763-L1923)
 
 ## Overview
 Moves an updated tuple to a different partition by performing a coordinated delete-from-old-partition and insert-into-new-partition operation.

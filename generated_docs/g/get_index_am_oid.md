@@ -1,7 +1,7 @@
 # get_index_am_oid
 
 ## Location
-src/backend/commands/amcmds.c: 163 - 172
+[src/backend/commands/amcmds.c:163-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L163-L172)
 
 ## Overview
 Looks up an access method by name and verifies it corresponds to an index access method, returning its OID.

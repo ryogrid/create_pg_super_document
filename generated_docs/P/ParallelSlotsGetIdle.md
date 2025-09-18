@@ -1,7 +1,7 @@
 # ParallelSlotsGetIdle
 
 ## Location
-src/fe_utils/parallel_slot.c: 371 - 427
+[src/fe_utils/parallel_slot.c:371-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L371-L427)
 
 ## Overview
 ParallelSlotsGetIdle is a public function that returns an available parallel slot ready to execute a command, implementing a sophisticated slot allocation strategy with connection reuse and blocking capabilities.

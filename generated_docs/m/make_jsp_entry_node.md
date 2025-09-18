@@ -1,7 +1,7 @@
 # make_jsp_entry_node
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 353 - 363
+[src/backend/utils/adt/jsonb_gin.c:353-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L353-L363)
 
 ## Overview
 Creates a JsonPathGinNode structure to represent a simple entry datum in the JSONB GIN indexing system.

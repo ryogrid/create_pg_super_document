@@ -1,7 +1,7 @@
 # ArchiveHandle
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.h: 99 - 99
+[src/bin/pg_dump/pg_backup_archiver.h:99-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.h#L99-L99)
 
 ## Overview
 ArchiveHandle is a typedef for the PostgreSQL dump/restore archive handle structure that provides a unified interface for handling different archive formats during database backup and restore operations.

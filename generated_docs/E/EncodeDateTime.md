@@ -1,7 +1,7 @@
 # EncodeDateTime
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 753 - 948
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:753-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L753-L948)
 
 ## Overview
 Encodes date and time information as a formatted string according to various international and database-specific styles, with optional timezone support.

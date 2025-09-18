@@ -1,7 +1,7 @@
 # cash_mul_int8
 
 ## Location
-src/backend/utils/adt/cash.c: 813 - 825
+[src/backend/utils/adt/cash.c:813-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L813-L825)
 
 ## Overview
 A PostgreSQL function that performs multiplication of a Cash value by a 64-bit integer (int8), returning the result as a Cash type.

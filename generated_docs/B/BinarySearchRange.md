@@ -1,7 +1,7 @@
 # BinarySearchRange
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c: 207 - 291
+[src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c:207-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c#L207-L291)
 
 ## Overview
 BinarySearchRange is a static function that performs binary search on a sorted array of character code mappings to find the appropriate conversion between Big5 and CNS 11643-1992 character encodings.

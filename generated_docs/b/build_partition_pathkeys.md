@@ -1,7 +1,7 @@
 # build_partition_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 917 - 997
+[src/backend/optimizer/path/pathkeys.c:917-997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L917-L997)
 
 ## Overview
 Builds a pathkeys list that describes the ordering induced by the partitions of a partitioned relation, supporting both forward and backward scan directions.

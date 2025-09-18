@@ -1,7 +1,7 @@
 # ExecReScanSampleScan
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 202 - 217
+[src/backend/executor/nodeSamplescan.c:202-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L202-L217)
 
 ## Overview
 Resets a sample scan node to enable re-scanning the relation from the beginning, clearing all state variables that track the scan progress.

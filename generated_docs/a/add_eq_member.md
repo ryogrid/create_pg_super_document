@@ -1,7 +1,7 @@
 # add_eq_member
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 516 - 585
+[src/backend/optimizer/path/equivclass.c:516-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L516-L585)
 
 ## Overview
 Creates a new EquivalenceMember node and adds it to an existing EquivalenceClass, handling the classification of expressions as constants or relations-dependent members.

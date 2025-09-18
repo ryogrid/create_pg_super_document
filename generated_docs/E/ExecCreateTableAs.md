@@ -1,7 +1,7 @@
 # ExecCreateTableAs
 
 ## Location
-src/backend/commands/createas.c: 221 - 367
+[src/backend/commands/createas.c:221-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L221-L367)
 
 ## Overview
 Main entry point function for executing CREATE TABLE AS and CREATE MATERIALIZED VIEW statements, handling the complete workflow from query planning to relation creation and data population.

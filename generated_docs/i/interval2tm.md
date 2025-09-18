@@ -1,7 +1,7 @@
 # interval2tm
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 942 - 971
+[src/interfaces/ecpg/pgtypeslib/interval.c:942-971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L942-L971)
 
 ## Overview
 interval2tm is a static utility function that converts an interval data type into a standard tm structure for time manipulation and formatting purposes.

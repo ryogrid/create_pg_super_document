@@ -1,7 +1,7 @@
 # opfamily_can_sort_type
 
 ## Location
-src/backend/access/index/amvalidate.c: 271 - 276
+[src/backend/access/index/amvalidate.c:271-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L271-L276)
 
 ## Overview
 Determines whether a specific data type is a legitimate input type for a btree operator family, effectively checking if the data type can be sorted using that operator family.

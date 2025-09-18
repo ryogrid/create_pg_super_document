@@ -1,7 +1,7 @@
 # ExecEndCustomScan
 
 ## Location
-src/backend/executor/nodeCustom.c: 125 - 131
+[src/backend/executor/nodeCustom.c:125-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L125-L131)
 
 ## Overview
 Terminates execution of a Custom Scan node by calling the custom scan provider's cleanup callback.

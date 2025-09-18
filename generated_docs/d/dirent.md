@@ -1,7 +1,7 @@
 # dirent
 
 ## Location
-src/include/port/win32_msvc/dirent.h: 9 - 17
+[src/include/port/win32_msvc/dirent.h:9-17](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/win32_msvc/dirent.h#L9-L17)
 
 ## Overview
 The  structure represents a directory entry in PostgreSQL's Windows-specific directory traversal implementation, providing a portable interface for directory operations on Windows platforms.

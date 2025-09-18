@@ -1,7 +1,7 @@
 # has_indexed_join_quals
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5104 - 5196
+[src/backend/optimizer/path/costsize.c:5104-5196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5104-L5196)
 
 ## Overview
 Checks whether all the joinquals of a nestloop join are used as inner index quals, determining if an unmatched outer tuple in SEMI/ANTI joins will be cheap to process.

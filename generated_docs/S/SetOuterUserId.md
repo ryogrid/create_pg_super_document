@@ -1,7 +1,7 @@
 # SetOuterUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 534 - 553
+[src/backend/utils/init/miscinit.c:534-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L534-L553)
 
 ## Overview
 SetOuterUserId sets the outer-level user ID and synchronizes both the effective user ID and superuser status to maintain consistent security context.

@@ -1,7 +1,7 @@
 # int4mi
 
 ## Location
-src/backend/utils/adt/int.c: 805 - 818
+[src/backend/utils/adt/int.c:805-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L805-L818)
 
 ## Overview
 Performs subtraction of two 32-bit integers with overflow checking, implementing the PostgreSQL SQL function for integer subtraction.

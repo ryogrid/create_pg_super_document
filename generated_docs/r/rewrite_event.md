@@ -1,7 +1,7 @@
 # rewrite_event
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 50 - 54
+[src/backend/rewrite/rewriteHandler.c:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L50-L54)
 
 ## Overview
 A structure used to detect recursion during query rewriting by tracking relations and their associated rule events.

@@ -1,7 +1,7 @@
 # add_predicate_to_index_quals
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6833 - 6853
+[src/backend/utils/adt/selfuncs.c:6833-6853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6833-L6853)
 
 ## Overview
 Augments index qualifier lists with partial index predicates to improve selectivity estimation accuracy while avoiding redundant clauses.

@@ -1,7 +1,7 @@
 # get_control_data
 
 ## Location
-src/bin/pg_upgrade/controldata.c: 36 - 653
+[src/bin/pg_upgrade/controldata.c:36-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/controldata.c#L36-L653)
 
 ## Overview
 Extracts pg_control information from PostgreSQL clusters in a version-independent manner by invoking pg_controldata or pg_resetwal and parsing their output.

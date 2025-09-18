@@ -1,7 +1,7 @@
 # create_rel_filename_map
 
 ## Location
-src/bin/pg_upgrade/info.c: 162 - 210
+[src/bin/pg_upgrade/info.c:162-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L162-L210)
 
 ## Overview
 Creates a file mapping structure that associates relation files between old and new PostgreSQL clusters, handling tablespace differences and preserving database and relation file identifiers.

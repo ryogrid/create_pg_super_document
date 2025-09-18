@@ -1,7 +1,7 @@
 # CoverPos
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1963 - 1969
+[src/backend/tsearch/wparser_def.c:1963-1969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1963-L1969)
 
 ## Overview
 CoverPos is a structure that represents a text fragment (or "cover") used in PostgreSQL's full-text search headline generation to track potential highlighting regions.

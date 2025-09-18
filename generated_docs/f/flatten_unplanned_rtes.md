@@ -1,7 +1,7 @@
 # flatten_unplanned_rtes
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 480 - 491
+[src/backend/optimizer/plan/setrefs.c:480-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L480-L491)
 
 ## Overview
 Extracts RangeTblEntries from a subquery that was never planned by traversing its parse tree structure.

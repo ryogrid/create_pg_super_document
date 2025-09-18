@@ -1,7 +1,7 @@
 # convertJsonbArray
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1621 - 1704
+[src/backend/utils/adt/jsonb_util.c:1621-1704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1621-L1704)
 
 ## Overview
 Converts a JsonbValue array structure into its binary JSONB representation by serializing the array elements and constructing the appropriate JSONB container format with headers and metadata.

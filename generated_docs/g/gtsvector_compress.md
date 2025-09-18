@@ -1,7 +1,7 @@
 # gtsvector_compress
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 172 - 251
+[src/backend/utils/adt/tsgistidx.c:172-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L172-L251)
 
 ## Overview
 Compresses a TSVector entry for GiST indexing by converting it to either an array of hash values or a bit signature, depending on the size and nature of the input.

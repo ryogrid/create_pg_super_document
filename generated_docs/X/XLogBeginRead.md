@@ -1,7 +1,7 @@
 # XLogBeginRead
 
 ## Location
-src/backend/access/transam/xlogreader.c: 231 - 248
+[src/backend/access/transam/xlogreader.c:231-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L231-L248)
 
 ## Overview
 Initializes an XLogReaderState to begin reading WAL records starting from a specified record pointer, preparing the reader for subsequent WAL record retrieval.

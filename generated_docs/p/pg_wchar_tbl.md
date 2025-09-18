@@ -1,7 +1,7 @@
 # pg_wchar_tbl
 
 ## Location
-src/include/mb/pg_wchar.h: 403 - 487
+[src/include/mb/pg_wchar.h:403-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L403-L487)
 
 ## Overview
 pg_wchar_tbl is a structure that defines the function pointers and properties for wide character conversion and manipulation operations for a specific character encoding.

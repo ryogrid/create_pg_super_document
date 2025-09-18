@@ -1,7 +1,7 @@
 # UnlockSharedObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1138 - 1158
+[src/backend/storage/lmgr/lmgr.c:1138-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1138-L1158)
 
 ## Overview
 UnlockSharedObject releases a previously acquired lock on a shared database object identified by its class, object ID, and sub-object ID.

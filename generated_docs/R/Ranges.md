@@ -1,7 +1,7 @@
 # Ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 169 - 196
+[src/backend/access/brin/brin_minmax_multi.c:169-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L169-L196)
 
 ## Overview
 Ranges is a core data structure for BRIN minmax-multi indexes that represents a collection of value ranges and single-point values in an efficient in-memory format optimized for processing operations.

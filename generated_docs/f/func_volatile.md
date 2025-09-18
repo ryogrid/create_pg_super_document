@@ -1,7 +1,7 @@
 # func_volatile
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1780 - 1798
+[src/backend/utils/cache/lsyscache.c:1780-1798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1780-L1798)
 
 ## Overview
 Retrieves the provolatile flag for a given function, indicating the function's volatility category which affects optimization and caching behavior.

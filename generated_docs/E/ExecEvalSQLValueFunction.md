@@ -1,7 +1,7 @@
 # ExecEvalSQLValueFunction
 
 ## Location
-src/backend/executor/execExprInterp.c: 2639 - 2705
+[src/backend/executor/execExprInterp.c:2639-2705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2639-L2705)
 
 ## Overview
 ExecEvalSQLValueFunction evaluates SQL value functions that return context-dependent values like current date/time, current user, and current schema information.

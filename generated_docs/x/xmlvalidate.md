@@ -1,7 +1,7 @@
 # xmlvalidate
 
 ## Location
-src/backend/utils/adt/xml.c: 1119 - 1128
+[src/backend/utils/adt/xml.c:1119-1128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1119-L1128)
 
 ## Overview
 The xmlvalidate function was intended to validate XML documents against DTD schemas but has been removed for security reasons and now always throws an error when called.

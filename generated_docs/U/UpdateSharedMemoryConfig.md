@@ -1,7 +1,7 @@
 # UpdateSharedMemoryConfig
 
 ## Location
-src/backend/postmaster/checkpointer.c: 1317 - 1335
+[src/backend/postmaster/checkpointer.c:1317-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L1317-L1335)
 
 ## Overview
 UpdateSharedMemoryConfig updates shared memory configurations based on current configuration parameters, particularly for synchronous replication and full page writes settings.

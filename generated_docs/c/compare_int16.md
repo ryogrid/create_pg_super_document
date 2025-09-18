@@ -1,7 +1,7 @@
 # compare_int16
 
 ## Location
-src/backend/commands/statscmds.c: 49 - 61
+[src/backend/commands/statscmds.c:49-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L49-L61)
 
 ## Overview
 A qsort comparator function that compares two int16 (16-bit integer) values for ascending order sorting purposes.

@@ -1,7 +1,7 @@
 # ECPGnumeric_lvalue
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 46 - 75
+[src/interfaces/ecpg/preproc/descriptor.c:46-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L46-L75)
 
 ## Overview
 Validates that a variable has a numeric type and outputs its name to the generated code, used in ECPG descriptor operations that require numeric left-values.

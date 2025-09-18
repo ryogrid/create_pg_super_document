@@ -1,7 +1,7 @@
 # dlist_has_prev
 
 ## Location
-src/include/lib/ilist.h: 513 - 524
+[src/include/lib/ilist.h:513-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L513-L524)
 
 ## Overview
 Checks whether a given node in a doubly-linked list has a preceding node (i.e., is not the first node in the list).

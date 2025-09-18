@@ -1,7 +1,7 @@
 # tbm_create
 
 ## Location
-src/backend/nodes/tidbitmap.c: 266 - 291
+[src/backend/nodes/tidbitmap.c:266-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L266-L291)
 
 ## Overview
 Creates an initially empty TID (Tuple Identifier) bitmap structure that will be used to efficiently store and manage sets of tuple identifiers for bitmap heap scans.

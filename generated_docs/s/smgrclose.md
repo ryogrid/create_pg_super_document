@@ -1,7 +1,7 @@
 # smgrclose
 
 ## Location
-src/backend/storage/smgr/smgr.c: 320 - 331
+[src/backend/storage/smgr/smgr.c:320-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L320-L331)
 
 ## Overview
 Closes an SMgrRelation object by releasing its resources, serving as a high-level interface for relation cleanup.

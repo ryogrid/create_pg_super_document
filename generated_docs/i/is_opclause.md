@@ -1,7 +1,7 @@
 # is_opclause
 
 ## Location
-src/include/nodes/nodeFuncs.h: 76 - 82
+[src/include/nodes/nodeFuncs.h:76-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L76-L82)
 
 ## Overview
 A static inline utility function that checks whether a given clause is an OpExpr (operator expression) node in PostgreSQL's parse tree.

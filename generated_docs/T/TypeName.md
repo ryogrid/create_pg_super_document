@@ -1,7 +1,7 @@
 # TypeName
 
 ## Location
-src/include/nodes/parsenodes.h: 265 - 276
+[src/include/nodes/parsenodes.h:265-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L265-L276)
 
 ## Overview
 TypeName is a parse tree node that specifies type information in SQL statements, supporting both named types and OID-based type identification with comprehensive type modifier and array bound specifications.

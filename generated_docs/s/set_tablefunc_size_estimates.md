@@ -1,7 +1,7 @@
 # set_tablefunc_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5913 - 5934
+[src/backend/optimizer/path/costsize.c:5913-5934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5913-L5934)
 
 ## Overview
 Sets the size estimates for a base relation that represents a table function, using a fixed estimate of 100 rows for table function calls.

@@ -1,7 +1,7 @@
 # set_deparse_context_plan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3776 - 3798
+[src/backend/utils/adt/ruleutils.c:3776-3798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3776-L3798)
 
 ## Overview
 Configures a deparse context to focus on a specific Plan node, enabling resolution of OUTER_VAR, INNER_VAR, and INDEX_VAR references in expressions.

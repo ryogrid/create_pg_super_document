@@ -1,7 +1,7 @@
 # pwdfMatchesString
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7388 - 7424
+[src/interfaces/libpq/fe-connect.c:7388-7424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7388-L7424)
 
 ## Overview
 A utility function that matches a token against a buffer string from a PostgreSQL password file entry, handling escaped characters and wildcard matching.

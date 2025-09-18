@@ -1,7 +1,7 @@
 # mdinit
 
 ## Location
-src/backend/storage/smgr/md.c: 158 - 170
+[src/backend/storage/smgr/md.c:158-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L158-L170)
 
 ## Overview
 mdinit initializes the private memory context for the magnetic disk storage manager, setting up the foundational memory management for all MD operations.

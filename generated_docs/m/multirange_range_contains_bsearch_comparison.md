@@ -1,7 +1,7 @@
 # multirange_range_contains_bsearch_comparison
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1774 - 1800
+[src/backend/utils/adt/multirangetypes.c:1774-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1774-L1800)
 
 ## Overview
 A static comparison function used in binary search operations to determine if any range within a multirange contains a given key range.

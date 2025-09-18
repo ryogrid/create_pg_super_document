@@ -1,7 +1,7 @@
 # PrintQueryResult
 
 ## Location
-src/bin/psql/common.c: 1004 - 1081
+[src/bin/psql/common.c:1004-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1004-L1081)
 
 ## Overview
 Central dispatcher function that processes query results by routing them to appropriate handlers based on result status and psql settings for printing, storing, or executing.

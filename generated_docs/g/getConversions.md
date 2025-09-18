@@ -1,7 +1,7 @@
 # getConversions
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6172 - 6239
+[src/bin/pg_dump/pg_dump.c:6172-6239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6172-L6239)
 
 ## Overview
 Reads all conversions from the PostgreSQL system catalogs and returns them in a ConvInfo structure array for pg_dump processing.

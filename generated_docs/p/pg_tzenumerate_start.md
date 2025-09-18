@@ -1,7 +1,7 @@
 # pg_tzenumerate_start
 
 ## Location
-src/timezone/pgtz.c: 397 - 413
+[src/timezone/pgtz.c:397-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L397-L413)
 
 ## Overview
 Initializes timezone enumeration by creating and setting up a pg_tzenum structure to traverse the timezone directory hierarchy starting from the PostgreSQL timezone data directory.

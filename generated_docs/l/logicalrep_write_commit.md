@@ -1,7 +1,7 @@
 # logicalrep_write_commit
 
 ## Location
-src/backend/replication/logical/proto.c: 89 - 108
+[src/backend/replication/logical/proto.c:89-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L89-L108)
 
 ## Overview
 Writes a COMMIT message to the logical replication output stream to indicate the successful completion of a transaction.

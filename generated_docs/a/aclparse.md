@@ -1,7 +1,7 @@
 # aclparse
 
 ## Location
-src/backend/utils/adt/acl.c: 270 - 425
+[src/backend/utils/adt/acl.c:270-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L270-L425)
 
 ## Overview
 Parses a complete ACL specification string into an AclItem structure, handling role names, privileges, and grant options with backward compatibility support for group/user keywords.

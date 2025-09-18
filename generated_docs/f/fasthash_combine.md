@@ -1,7 +1,7 @@
 # fasthash_combine
 
 ## Location
-src/include/common/hashfn_unstable.h: 128 - 135
+[src/include/common/hashfn_unstable.h:128-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L128-L135)
 
 ## Overview
 Combines one chunk of input data from the accumulator into the running hash state for incremental hashing operations.

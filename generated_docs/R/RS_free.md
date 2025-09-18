@@ -1,7 +1,7 @@
 # RS_free
 
 ## Location
-src/backend/tsearch/regis.c: 166 - 181
+[src/backend/tsearch/regis.c:166-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L166-L181)
 
 ## Overview
 Frees the memory allocated for a compiled regular expression by deallocating all RegisNode structures in the linked list.

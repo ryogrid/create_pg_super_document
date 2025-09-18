@@ -1,7 +1,7 @@
 # list_copy_tail
 
 ## Location
-src/backend/nodes/list.c: 1613 - 1638
+[src/backend/nodes/list.c:1613-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1613-L1638)
 
 ## Overview
 Creates a shallow copy of a PostgreSQL list excluding the first N elements, effectively returning the 'tail' portion of the list.

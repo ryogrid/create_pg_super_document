@@ -1,7 +1,7 @@
 # fe_sendint64
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 923 - 933
+[src/bin/pg_basebackup/streamutil.c:923-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L923-L933)
 
 ## Overview
 Converts a 64-bit integer from native byte order to network byte order for transmission over network protocols.

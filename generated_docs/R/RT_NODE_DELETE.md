@@ -1,7 +1,7 @@
 # RT_NODE_DELETE
 
 ## Location
-src/include/lib/radixtree.h: 2576 - 2606
+[src/include/lib/radixtree.h:2576-2606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2576-L2606)
 
 ## Overview
 RT_NODE_DELETE is a macro that expands to a function serving as the central dispatcher for deleting child pointers from internal nodes in PostgreSQL's radix tree implementation.

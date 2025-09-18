@@ -1,7 +1,7 @@
 # spgist_name_config
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 34 - 51
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:34-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L34-L51)
 
 ## Overview
 A configuration function for the SP-GiST (Space-Partitioned Generalized Search Tree) operator class designed to handle PostgreSQL 'name' data types.

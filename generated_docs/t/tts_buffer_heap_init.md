@@ -1,7 +1,7 @@
 # tts_buffer_heap_init
 
 ## Location
-src/backend/executor/execTuples.c: 709 - 713
+[src/backend/executor/execTuples.c:709-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L709-L713)
 
 ## Overview
 Initialization function for BufferHeapTupleTableSlot that currently performs no operations.

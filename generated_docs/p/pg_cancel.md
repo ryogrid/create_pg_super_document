@@ -1,7 +1,7 @@
 # pg_cancel
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 40 - 64
+[src/interfaces/libpq/fe-cancel.c:40-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L40-L64)
 
 ## Overview
 The pg_cancel structure stores all data necessary to send a cancel request to a PostgreSQL backend process, including network addressing information and TCP connection parameters.

@@ -1,7 +1,7 @@
 # PublicationPartOpt
 
 ## Location
-src/include/catalog/pg_publication.h: 134 - 161
+[src/include/catalog/pg_publication.h:134-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_publication.h#L134-L161)
 
 ## Overview
 PublicationPartOpt is an enumeration that specifies partition handling options for PostgreSQL logical replication publications, controlling which partitions of partitioned tables are included when retrieving publication relationships.

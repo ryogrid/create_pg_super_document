@@ -1,7 +1,7 @@
 # next_pow2_long
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1772 - 1779
+[src/backend/utils/hash/dynahash.c:1772-1779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1772-L1779)
 
 ## Overview
 Calculates the smallest power of 2 that is greater than or equal to the given number, bounded by long integer limits.

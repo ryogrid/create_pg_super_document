@@ -1,7 +1,7 @@
 # changearctarget
 
 ## Location
-src/backend/regex/regc_nfa.c: 533 - 574
+[src/backend/regex/regc_nfa.c:533-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L533-L574)
 
 ## Overview
 Updates an arc to point to a different target state in a regular expression NFA, maintaining the integrity of the state's incoming arc chains.

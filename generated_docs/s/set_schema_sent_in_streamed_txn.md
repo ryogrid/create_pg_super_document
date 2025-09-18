@@ -1,7 +1,7 @@
 # set_schema_sent_in_streamed_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1981 - 2001
+[src/backend/replication/pgoutput/pgoutput.c:1981-2001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1981-L2001)
 
 ## Overview
 This function marks that schema information has been sent for a specific relation within a given streamed transaction by adding the transaction ID to the relation's tracking list.

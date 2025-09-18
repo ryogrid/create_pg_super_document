@@ -1,7 +1,7 @@
 # pg_gb18030_verifychar
 
 ## Location
-src/common/wchar.c: 1641 - 1671
+[src/common/wchar.c:1641-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1641-L1671)
 
 ## Overview
 Validates a single character in GB18030 encoding format, which is the official character encoding standard for Chinese text that supports variable-length characters (1, 2, or 4 bytes).

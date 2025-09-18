@@ -1,7 +1,7 @@
 # cleanup_directories_atexit
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 236 - 282
+[src/bin/pg_basebackup/pg_basebackup.c:236-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L236-L282)
 
 ## Overview
 A cleanup function registered with atexit() that removes data and WAL directories created during initdb if the operation fails.

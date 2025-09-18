@@ -1,7 +1,7 @@
 # rgetmsg
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 986 - 994
+[src/interfaces/ecpg/compatlib/informix.c:986-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L986-L994)
 
 ## Overview
 The rgetmsg function is a stub implementation that provides Informix compatibility for message retrieval functionality, but currently returns a no-op result.

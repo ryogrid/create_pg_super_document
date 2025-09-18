@@ -1,7 +1,7 @@
 # std_fetch_func
 
 ## Location
-src/backend/commands/analyze.c: 1752 - 1767
+[src/backend/commands/analyze.c:1752-1767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1752-L1767)
 
 ## Overview
 A standard fetch function that provides a uniform interface for compute_stats subroutines to extract attribute values from sampled tuples.

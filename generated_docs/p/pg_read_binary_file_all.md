@@ -1,7 +1,7 @@
 # pg_read_binary_file_all
 
 ## Location
-src/backend/utils/adt/genfile.c: 381 - 394
+[src/backend/utils/adt/genfile.c:381-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L381-L394)
 
 ## Overview
 A PostgreSQL system function that reads an entire binary file from the beginning without size restrictions.

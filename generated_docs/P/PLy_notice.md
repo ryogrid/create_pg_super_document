@@ -1,7 +1,7 @@
 # PLy_notice
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 299 - 304
+[src/pl/plpython/plpy_plpymodule.c:299-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L299-L304)
 
 ## Overview
 PLy_notice is a Python-callable function that provides notice-level logging capabilities for PL/Python stored procedures and functions in PostgreSQL.

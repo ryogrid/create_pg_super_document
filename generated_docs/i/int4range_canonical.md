@@ -1,7 +1,7 @@
 # int4range_canonical
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1464 - 1510
+[src/backend/utils/adt/rangetypes.c:1464-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1464-L1510)
 
 ## Overview
 Converts an int4range (32-bit integer range) to its canonical form by normalizing bounds to use consistent inclusivity/exclusivity conventions.

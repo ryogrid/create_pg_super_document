@@ -1,7 +1,7 @@
 # ConversionIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2521 - 2574
+[src/backend/catalog/namespace.c:2521-2574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2521-L2574)
 
 ## Overview
 Extended version of ConversionIsVisible that determines whether a conversion is visible in the current search path, with optional graceful handling of missing conversions.

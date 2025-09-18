@@ -1,7 +1,7 @@
 # CheckMyDatabase
 
 ## Location
-src/backend/utils/init/postinit.c: 313 - 518
+[src/backend/utils/init/postinit.c:313-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L313-L518)
 
 ## Overview
 CheckMyDatabase is a static function that validates and configures database-specific settings by fetching and processing information from the pg_database catalog entry for the current database.

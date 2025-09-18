@@ -1,7 +1,7 @@
 # gin_cmp_prefix
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 40 - 63
+[src/backend/utils/adt/tsginidx.c:40-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L40-L63)
 
 ## Overview
 A PostgreSQL function that performs prefix comparison of text search lexemes for GIN index operations, supporting partial matching capabilities.

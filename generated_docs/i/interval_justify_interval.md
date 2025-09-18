@@ -1,7 +1,7 @@
 # interval_justify_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2880 - 2959
+[src/backend/utils/adt/timestamp.c:2880-2959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2880-L2959)
 
 ## Overview
 Normalizes an interval by adjusting month, day, and time portions to be within customary bounds and ensuring consistent sign across all fields.

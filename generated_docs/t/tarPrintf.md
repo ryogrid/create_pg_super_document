@@ -1,7 +1,7 @@
 # tarPrintf
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 954 - 987
+[src/bin/pg_dump/pg_backup_tar.c:954-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L954-L987)
 
 ## Overview
 A static function that provides formatted string output functionality for TAR archive members, similar to printf but writes to a TAR member stream.

@@ -1,7 +1,7 @@
 # InitAuxiliaryProcess
 
 ## Location
-src/backend/storage/lmgr/proc.c: 528 - 663
+[src/backend/storage/lmgr/proc.c:528-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L528-L663)
 
 ## Overview
 Creates a PGPROC entry for auxiliary processes (like bgwriter and similar processes) so they can wait for LWLocks, providing them with a real MyProc value for process synchronization.

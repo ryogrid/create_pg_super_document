@@ -1,7 +1,7 @@
 # gistMakeUnionKey
 
 ## Location
-src/backend/access/gist/gistutil.c: 232 - 279
+[src/backend/access/gist/gistutil.c:232-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L232-L279)
 
 ## Overview
 Creates a union datum for a specific index column by combining two GIST entries using the appropriate union function.

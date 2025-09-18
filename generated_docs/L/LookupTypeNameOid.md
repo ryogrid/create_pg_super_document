@@ -1,7 +1,7 @@
 # LookupTypeNameOid
 
 ## Location
-src/backend/parser/parse_type.c: 232 - 263
+[src/backend/parser/parse_type.c:232-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L232-L263)
 
 ## Overview
 LookupTypeNameOid provides a simplified interface to resolve a TypeName to its PostgreSQL type OID, returning InvalidOid if the type cannot be found.

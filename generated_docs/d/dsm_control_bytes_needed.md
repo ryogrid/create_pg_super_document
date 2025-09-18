@@ -1,7 +1,7 @@
 # dsm_control_bytes_needed
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1255 - 1261
+[src/backend/storage/ipc/dsm.c:1255-1261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1255-L1261)
 
 ## Overview
 Calculates the total number of bytes required for a DSM control segment to accommodate a specified number of items.

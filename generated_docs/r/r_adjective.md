@@ -1,7 +1,7 @@
 # r_adjective
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_russian.c: 421 - 430
+[src/backend/snowball/libstemmer/stem_UTF_8_russian.c:421-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_russian.c#L421-L430)
 
 ## Overview
 A function in PostgreSQL's Russian Snowball stemmer that identifies and removes Russian adjectival endings from words during the stemming process.

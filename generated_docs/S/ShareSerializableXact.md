@@ -1,7 +1,7 @@
 # ShareSerializableXact
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 5036 - 5044
+[src/backend/storage/lmgr/predicate.c:5036-5044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L5036-L5044)
 
 ## Overview
 ShareSerializableXact prepares the current SERIALIZABLEXACT for sharing with parallel workers, returning a handle that can be used by parallel workers to attach to the same serializable transaction context.

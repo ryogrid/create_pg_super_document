@@ -1,7 +1,7 @@
 # errdetail_relkind_not_supported
 
 ## Location
-src/backend/catalog/pg_class.c: 24 - 52
+[src/backend/catalog/pg_class.c:24-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_class.c#L24-L52)
 
 ## Overview
 A utility function that generates appropriate error detail messages for operations that are not supported on specific PostgreSQL relation kinds (tables, indexes, views, etc.).

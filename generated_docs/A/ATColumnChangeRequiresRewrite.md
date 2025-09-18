@@ -1,7 +1,7 @@
 # ATColumnChangeRequiresRewrite
 
 ## Location
-src/backend/commands/tablecmds.c: 13099 - 13145
+[src/backend/commands/tablecmds.c:13099-13145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13099-L13145)
 
 ## Overview
 Determines whether an ALTER COLUMN TYPE operation requires a table rewrite by analyzing the transformation expression for binary compatibility optimizations.

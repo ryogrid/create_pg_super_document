@@ -1,7 +1,7 @@
 # transformPartitionRangeBounds
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 4139 - 4255
+[src/backend/parser/parse_utilcmd.c:4139-4255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L4139-L4255)
 
 ## Overview
 Converts raw grammar expressions for range partition bounds into validated PartitionRangeDatum structures, handling both finite values and infinite bounds (MINVALUE/MAXVALUE).

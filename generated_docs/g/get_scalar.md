@@ -1,7 +1,7 @@
 # get_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1443 - 1485
+[src/backend/utils/adt/jsonfuncs.c:1443-1485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1443-L1485)
 
 ## Overview
 A static callback function used during JSON parsing to handle scalar values (strings, numbers, booleans, null), responsible for capturing and properly formatting scalar results during path-based JSON extraction operations.

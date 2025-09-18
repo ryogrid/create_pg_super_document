@@ -1,7 +1,7 @@
 # check_for_isn_and_int8_passing_mismatch
 
 ## Location
-src/bin/pg_upgrade/check.c: 1214 - 1294
+[src/bin/pg_upgrade/check.c:1214-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1214-L1294)
 
 ## Overview
 Validates compatibility between old and new PostgreSQL clusters when the contrib/isn extension is present and there are differences in bigint (int8) passing mechanisms.

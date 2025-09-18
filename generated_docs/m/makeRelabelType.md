@@ -1,7 +1,7 @@
 # makeRelabelType
 
 ## Location
-src/backend/nodes/makefuncs.c: 451 - 470
+[src/backend/nodes/makefuncs.c:451-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L451-L470)
 
 ## Overview
 Creates a RelabelType node that represents type coercion operations where an expression is relabeled to a different but compatible type.

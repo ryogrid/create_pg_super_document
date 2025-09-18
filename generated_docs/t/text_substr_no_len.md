@@ -1,7 +1,7 @@
 # text_substr_no_len
 
 ## Location
-src/backend/utils/adt/varlena.c: 866 - 884
+[src/backend/utils/adt/varlena.c:866-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L866-L884)
 
 ## Overview
 A PostgreSQL function wrapper that extracts a substring from text starting at a specified position, continuing to the end of the string.

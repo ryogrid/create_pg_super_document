@@ -1,7 +1,7 @@
 # pgstat_report_archiver
 
 ## Location
-src/backend/utils/activity/pgstat_archiver.c: 28 - 57
+[src/backend/utils/activity/pgstat_archiver.c:28-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_archiver.c#L28-L57)
 
 ## Overview
 Reports archiver statistics to the shared memory statistics collector, tracking successful archival operations and failed attempts with corresponding WAL file names and timestamps.

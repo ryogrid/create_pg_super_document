@@ -1,7 +1,7 @@
 # transformRangeTableFunc
 
 ## Location
-src/backend/parser/parse_clause.c: 688 - 909
+[src/backend/parser/parse_clause.c:688-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L688-L909)
 
 ## Overview
 Transforms a raw RangeTableFunc (currently XMLTABLE construct) into a TableFunc structure, processing namespace clauses, document expression, row expression, column specifications, and default values.

@@ -1,7 +1,7 @@
 # pg_index_column_has_property
 
 ## Location
-src/backend/utils/adt/amutils.c: 433 - 450
+[src/backend/utils/adt/amutils.c:433-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L433-L450)
 
 ## Overview
 This function tests a property of a specific column in an index, identified by the index OID and column number.

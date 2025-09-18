@@ -1,7 +1,7 @@
 # path_usage_comparator
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1493 - 1525
+[src/backend/optimizer/path/indxpath.c:1493-1525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1493-L1525)
 
 ## Overview
 A qsort comparator function used to sort PathClauseUsage structures in increasing order of index access cost, with selectivity as a secondary sort criterion.

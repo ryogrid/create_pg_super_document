@@ -1,7 +1,7 @@
 # range_ne
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 625 - 637
+[src/backend/utils/adt/rangetypes.c:625-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L625-L637)
 
 ## Overview
 This PostgreSQL function implements the inequality operator (<>) for range types, providing the public interface for comparing two ranges for inequality.

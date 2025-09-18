@@ -1,7 +1,7 @@
 # free_plperl_function
 
 ## Location
-src/pl/plperl/plperl.c: 2700 - 2717
+[src/pl/plperl/plperl.c:2700-2717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2700-L2717)
 
 ## Overview
 Frees all resources associated with a PL/Perl function descriptor including Perl code references and PostgreSQL memory contexts.

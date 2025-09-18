@@ -1,7 +1,7 @@
 # drop_failover_replication_slots
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1282 - 1323
+[src/bin/pg_basebackup/pg_createsubscriber.c:1282-1323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1282-L1323)
 
 ## Overview
 Drops failover replication slots on the subscriber server that become unnecessary after the standby-to-subscriber transformation.

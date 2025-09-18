@@ -1,7 +1,7 @@
 # RemoveStatisticsById
 
 ## Location
-src/backend/commands/statscmds.c: 747 - 808
+[src/backend/commands/statscmds.c:747-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L747-L808)
 
 ## Overview
 Completely removes an extended statistics object by deleting its metadata from pg_statistic_ext and all associated statistical data from pg_statistic_ext_data.

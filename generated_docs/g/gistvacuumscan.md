@@ -1,7 +1,7 @@
 # gistvacuumscan
 
 ## Location
-src/backend/access/gist/gistvacuum.c: 125 - 271
+[src/backend/access/gist/gistvacuum.c:125-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvacuum.c#L125-L271)
 
 ## Overview
 Core scanning function for GiST index vacuum operations that processes all index pages, removes deletable tuples, tracks empty pages, and updates statistics.

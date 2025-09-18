@@ -1,7 +1,7 @@
 # binary_upgrade_logical_slot_has_caught_up
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 285 - 324
+[src/backend/utils/adt/pg_upgrade_support.c:285-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L285-L324)
 
 ## Overview
 Verifies that a logical replication slot has consumed all available WAL changes and is ready for binary upgrade without data loss.

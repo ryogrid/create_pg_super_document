@@ -1,7 +1,7 @@
 # SH_STATUS
 
 ## Location
-src/include/lib/simplehash.h: 179 - 180
+[src/include/lib/simplehash.h:179-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L179-L180)
 
 ## Overview
 SH_STATUS is a macro that generates a type name for hash bucket status enumeration in PostgreSQL's templated simple hash table implementation.

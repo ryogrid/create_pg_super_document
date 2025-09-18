@@ -1,7 +1,7 @@
 # getObjectIdentity
 
 ## Location
-src/backend/catalog/objectaddress.c: 4740 - 4754
+[src/backend/catalog/objectaddress.c:4740-4754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4740-L4754)
 
 ## Overview
 A public function that obtains a human-readable string representation of a database object's identity, suitable for machine consumption and logging purposes.

@@ -1,7 +1,7 @@
 # PageSetAllVisible
 
 ## Location
-src/include/storage/bufpage.h: 432 - 436
+[src/include/storage/bufpage.h:432-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L432-L436)
 
 ## Overview
 PageSetAllVisible sets the PD_ALL_VISIBLE flag on a page header, marking that all tuples on the page are visible to everyone.

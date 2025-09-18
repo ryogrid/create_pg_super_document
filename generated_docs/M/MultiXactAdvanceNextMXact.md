@@ -1,7 +1,7 @@
 # MultiXactAdvanceNextMXact
 
 ## Location
-src/backend/access/transam/multixact.c: 2503 - 2527
+[src/backend/access/transam/multixact.c:2503-2527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2503-L2527)
 
 ## Overview
 Ensures that the next-to-be-assigned MultiXactId and nextOffset values are advanced to at least the specified minimum values during XLog replay.

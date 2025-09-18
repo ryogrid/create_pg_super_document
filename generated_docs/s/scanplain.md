@@ -1,7 +1,7 @@
 # scanplain
 
 ## Location
-src/backend/regex/regcomp.c: 1886 - 1910
+[src/backend/regex/regcomp.c:1886-1910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1886-L1910)
 
 ## Overview
 Scans the PLAIN contents within bracket expression delimiters like [. .], [= =], or [: :], returning a pointer to the end of the sequence.

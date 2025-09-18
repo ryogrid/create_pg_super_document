@@ -1,7 +1,7 @@
 # AggInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 3365 - 3390
+[src/include/nodes/pathnodes.h:3365-3390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3365-L3390)
 
 ## Overview
 AggInfo is a structure representing aggregate function metadata in pg_dump, serving as a superset of FuncInfo to store information needed for dumping aggregate function definitions.

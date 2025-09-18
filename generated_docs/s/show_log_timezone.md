@@ -1,7 +1,7 @@
 # show_log_timezone
 
 ## Location
-src/backend/commands/variable.c: 463 - 484
+[src/backend/commands/variable.c:463-484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L463-L484)
 
 ## Overview
 This is a GUC show hook function that returns the current value of the log_timezone configuration parameter as a displayable string in PostgreSQL.

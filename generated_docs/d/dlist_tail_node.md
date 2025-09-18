@@ -1,7 +1,7 @@
 # dlist_tail_node
 
 ## Location
-src/include/lib/ilist.h: 582 - 592
+[src/include/lib/ilist.h:582-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L582-L592)
 
 ## Overview
 Returns the last node in a doubly-linked list, providing direct access to the tail node element when the list is guaranteed to contain at least one element.

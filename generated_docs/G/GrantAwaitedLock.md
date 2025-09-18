@@ -1,7 +1,7 @@
 # GrantAwaitedLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1789 - 1801
+[src/backend/storage/lmgr/lock.c:1789-1801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1789-L1801)
 
 ## Overview
 GrantAwaitedLock is a wrapper function that calls GrantLockLocal for the specific lock that the current process is waiting on, used primarily when a lock is granted during timeout scenarios.

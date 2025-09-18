@@ -1,7 +1,7 @@
 # pg_postmaster_start_time
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1636 - 1641
+[src/backend/utils/adt/timestamp.c:1636-1641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1636-L1641)
 
 ## Overview
 Returns the timestamp when the PostgreSQL postmaster (main server process) was started, providing a fixed reference point for server uptime calculations.

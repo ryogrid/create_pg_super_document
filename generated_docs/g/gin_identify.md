@@ -1,7 +1,7 @@
 # gin_identify
 
 ## Location
-src/backend/access/rmgrdesc/gindesc.c: 180 - 216
+[src/backend/access/rmgrdesc/gindesc.c:180-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gindesc.c#L180-L216)
 
 ## Overview
 Returns human-readable string identifiers for GIN (Generalized Inverted Index) WAL record operation types.

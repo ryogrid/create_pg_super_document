@@ -1,7 +1,7 @@
 # PLySRFState
 
 ## Location
-src/pl/plpython/plpy_exec.c: 27 - 32
+[src/pl/plpython/plpy_exec.c:27-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L27-L32)
 
 ## Overview
 PLySRFState is a state structure used to manage the execution context for Python set-returning functions (SRFs) in PostgreSQLs PL/Python language extension.

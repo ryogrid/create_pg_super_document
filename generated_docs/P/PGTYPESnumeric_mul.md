@@ -1,7 +1,7 @@
 # PGTYPESnumeric_mul
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 896 - 986
+[src/interfaces/ecpg/pgtypeslib/numeric.c:896-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L896-L986)
 
 ## Overview
 Performs multiplication of two numeric values in PostgreSQL's ECPG pgtypes library, implementing variable-precision decimal arithmetic.

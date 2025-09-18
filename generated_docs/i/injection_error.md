@@ -1,7 +1,7 @@
 # injection_error
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 178 - 188
+[src/test/modules/injection_points/injection_points.c:178-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L178-L188)
 
 ## Overview
 A public callback function that triggers an ERROR-level log message when attached to an injection point, used for testing error handling scenarios.

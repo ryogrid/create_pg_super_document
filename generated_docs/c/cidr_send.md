@@ -1,7 +1,7 @@
 # cidr_send
 
 ## Location
-src/backend/utils/adt/network.c: 300 - 308
+[src/backend/utils/adt/network.c:300-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L300-L308)
 
 ## Overview
 Converts a CIDR data type to its binary representation for transmission over the network or storage in binary format.

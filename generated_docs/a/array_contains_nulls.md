@@ -1,7 +1,7 @@
 # array_contains_nulls
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3755 - 3801
+[src/backend/utils/adt/arrayfuncs.c:3755-3801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3755-L3801)
 
 ## Overview
 Efficiently determines whether a PostgreSQL array contains any null elements by examining the array's null bitmap, providing a definitive answer unlike the ARR_HASNULL macro.

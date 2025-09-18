@@ -1,7 +1,7 @@
 # ExecReScanSetParamPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 1291 - 1328
+[src/backend/executor/nodeSubplan.c:1291-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L1291-L1328)
 
 ## Overview
 ExecReScanSetParamPlan marks an initplan as needing recalculation by setting its output parameters as dirty and updating the parent node's change parameter bitmap to trigger rescanning of dependent nodes.

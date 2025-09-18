@@ -1,7 +1,7 @@
 # mXactCacheEnt
 
 ## Location
-src/backend/access/transam/multixact.c: 361 - 367
+[src/backend/access/transam/multixact.c:361-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L361-L367)
 
 ## Overview
 mXactCacheEnt is a cache entry structure that stores MultiXact information in backend-local memory to avoid frequent SLRU access, optimizing multixact lookups within a single transaction.

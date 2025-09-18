@@ -1,7 +1,7 @@
 # oidle
 
 ## Location
-src/backend/utils/adt/oid.c: 299 - 307
+[src/backend/utils/adt/oid.c:299-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L299-L307)
 
 ## Overview
 A PostgreSQL function that tests whether one Oid (Object Identifier) value is less than or equal to another, returning a boolean result indicating the comparison outcome.

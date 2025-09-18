@@ -1,7 +1,7 @@
 # find_mergeclauses_for_outer_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1524 - 1638
+[src/backend/optimizer/path/pathkeys.c:1524-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1524-L1638)
 
 ## Overview
 This function attempts to find a list of mergeclauses that can be used with a specified ordering for the join's outer relation in merge join operations.

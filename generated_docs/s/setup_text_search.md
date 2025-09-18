@@ -1,7 +1,7 @@
 # setup_text_search
 
 ## Location
-src/bin/initdb/initdb.c: 2812 - 2845
+[src/bin/initdb/initdb.c:2812-2845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2812-L2845)
 
 ## Overview
 Sets up the default text search configuration for a PostgreSQL database during initialization, determining the appropriate configuration based on the system locale.

@@ -1,7 +1,7 @@
 # selectDumpableProcLang
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2001 - 2033
+[src/bin/pg_dump/pg_dump.c:2001-2033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2001-L2033)
 
 ## Overview
 This function determines whether a procedural language should be included in a PostgreSQL database dump, with special handling for built-in languages and version-specific ACL support.

@@ -1,7 +1,7 @@
 # xmltotext
 
 ## Location
-src/backend/utils/adt/xml.c: 646 - 655
+[src/backend/utils/adt/xml.c:646-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L646-L655)
 
 ## Overview
 Converts an XML value to a text value through binary-compatible casting, providing a simple interface to extract the textual content from XML data.

@@ -1,7 +1,7 @@
 # PGTYPESdate_to_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 101 - 114
+[src/interfaces/ecpg/pgtypeslib/datetime.c:101-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L101-L114)
 
 ## Overview
 Converts a PostgreSQL date value to its string representation using PostgreSQL's standard date formatting conventions.

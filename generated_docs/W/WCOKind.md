@@ -1,7 +1,7 @@
 # WCOKind
 
 ## Location
-src/include/nodes/parsenodes.h: 1366 - 1367
+[src/include/nodes/parsenodes.h:1366-1367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1366-L1367)
 
 ## Overview
 WCOKind is an enumeration that defines the different types of WITH CHECK OPTION constraints that can be applied to tuples during INSERT/UPDATE operations on auto-updatable views or relations with Row Level Security (RLS) policies.

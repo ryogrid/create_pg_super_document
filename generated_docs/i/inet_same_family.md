@@ -1,7 +1,7 @@
 # inet_same_family
 
 ## Location
-src/backend/utils/adt/network.c: 1464 - 1475
+[src/backend/utils/adt/network.c:1464-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1464-L1475)
 
 ## Overview
 Determines whether two inet addresses belong to the same address family (IPv4 or IPv6).

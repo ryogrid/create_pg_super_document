@@ -1,7 +1,7 @@
 # ExecInitLockRows
 
 ## Location
-src/backend/executor/nodeLockRows.c: 291 - 384
+[src/backend/executor/nodeLockRows.c:291-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLockRows.c#L291-L384)
 
 ## Overview
 ExecInitLockRows initializes the LockRows node state structures and its subplan, setting up row marking infrastructure for tuple locking operations.

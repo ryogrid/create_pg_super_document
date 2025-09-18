@@ -1,7 +1,7 @@
 # clause_sides_match_join
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 128 - 159
+[src/backend/optimizer/plan/analyzejoins.c:128-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L128-L159)
 
 ## Overview
 Determines whether a join clause has the correct form to be used in a specific join by checking if the clause's operands properly separate outer and inner relation variables.

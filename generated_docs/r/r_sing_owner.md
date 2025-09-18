@@ -1,7 +1,7 @@
 # r_sing_owner
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 739 - 767
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:739-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L739-L767)
 
 ## Overview
 The r_sing_owner function handles singular possessor suffix removal for the Hungarian stemming algorithm in the Snowball stemming library.

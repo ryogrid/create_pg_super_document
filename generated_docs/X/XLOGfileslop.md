@@ -1,7 +1,7 @@
 # XLOGfileslop
 
 ## Location
-src/backend/access/transam/xlog.c: 2223 - 2272
+[src/backend/access/transam/xlog.c:2223-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2223-L2272)
 
 ## Overview
 Calculates the highest WAL segment number that should be preallocated (recycled) at checkpoint time to balance WAL space usage between minimum and maximum limits.

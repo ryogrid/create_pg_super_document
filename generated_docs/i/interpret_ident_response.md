@@ -1,7 +1,7 @@
 # interpret_ident_response
 
 ## Location
-src/backend/libpq/auth.c: 1597 - 1677
+[src/backend/libpq/auth.c:1597-1677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1597-L1677)
 
 ## Overview
 Parses a response from an Ident server to extract the authenticated username for PostgreSQL ident authentication.

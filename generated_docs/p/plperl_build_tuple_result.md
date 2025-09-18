@@ -1,7 +1,7 @@
 # plperl_build_tuple_result
 
 ## Location
-src/pl/plperl/plperl.c: 1075 - 1125
+[src/pl/plperl/plperl.c:1075-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1075-L1125)
 
 ## Overview
 Constructs a PostgreSQL HeapTuple from a Perl hash reference, mapping hash keys to tuple attributes based on the provided tuple descriptor.

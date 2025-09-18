@@ -1,7 +1,7 @@
 # pgstat_report_autovac
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 55 - 80
+[src/backend/utils/activity/pgstat_database.c:55-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L55-L80)
 
 ## Overview
 Records the start time of an autovacuum process for a specific database in PostgreSQL's statistics system.

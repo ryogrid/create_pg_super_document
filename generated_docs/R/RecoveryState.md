@@ -1,7 +1,7 @@
 # RecoveryState
 
 ## Location
-src/include/access/xlog.h: 92 - 96
+[src/include/access/xlog.h:92-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog.h#L92-L96)
 
 ## Overview
 An enumeration that represents the different states of database recovery operations in PostgreSQL's WAL recovery system.

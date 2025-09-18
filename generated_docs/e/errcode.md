@@ -1,7 +1,7 @@
 # errcode
 
 ## Location
-src/backend/utils/error/elog.c: 857 - 879
+[src/backend/utils/error/elog.c:857-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L857-L879)
 
 ## Overview
 Sets the SQLSTATE error code for the current error being constructed, providing standardized SQL error classification according to the SQL standard.

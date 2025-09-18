@@ -1,7 +1,7 @@
 # range_adjacent
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 828 - 840
+[src/backend/utils/adt/rangetypes.c:828-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L828-L840)
 
 ## Overview
 PostgreSQL SQL function that determines if two ranges are adjacent (touching but not overlapping).

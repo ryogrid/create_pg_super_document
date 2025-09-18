@@ -1,7 +1,7 @@
 # is_code_in_table
 
 ## Location
-src/common/saslprep.c: 987 - 1006
+[src/common/saslprep.c:987-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/saslprep.c#L987-L1006)
 
 ## Overview
 A static utility function that determines whether a given Unicode codepoint exists within a sorted table of codepoint ranges using binary search.

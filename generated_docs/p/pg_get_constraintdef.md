@@ -1,7 +1,7 @@
 # pg_get_constraintdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2126 - 2142
+[src/backend/utils/adt/ruleutils.c:2126-2142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2126-L2142)
 
 ## Overview
 PostgreSQL function that returns the complete definition for a constraint, formatted as the SQL text that would appear after "ALTER TABLE ... ADD CONSTRAINT <constraintname>".

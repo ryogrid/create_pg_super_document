@@ -1,7 +1,7 @@
 # uuid_lt
 
 ## Location
-src/backend/utils/adt/uuid.c: 174 - 182
+[src/backend/utils/adt/uuid.c:174-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L174-L182)
 
 ## Overview
 SQL-callable function that tests whether the first UUID argument is less than the second UUID argument.

@@ -1,7 +1,7 @@
 # wait_for_workers_to_become_ready
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 258 - 305
+[src/test/modules/test_shm_mq/setup.c:258-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L258-L305)
 
 ## Overview
 This static function synchronously waits for all background worker processes to complete their initialization and become ready for message queue operations, providing robust error handling and status monitoring.

@@ -1,7 +1,7 @@
 # scan_directory_ci
 
 ## Location
-src/timezone/pgtz.c: 151 - 195
+[src/timezone/pgtz.c:151-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L151-L195)
 
 ## Overview
 Scans a specified directory for a case-insensitive match to a given filename and returns the actual (canonical) filename if found.

@@ -1,7 +1,7 @@
 # hashgetbitmap
 
 ## Location
-src/backend/access/hash/hash.c: 335 - 366
+[src/backend/access/hash/hash.c:335-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L335-L366)
 
 ## Overview
 Retrieves all tuples from a hash index scan at once and stores them in a TID bitmap for efficient bulk processing.

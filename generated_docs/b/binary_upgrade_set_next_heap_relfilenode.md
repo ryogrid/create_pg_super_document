@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_heap_relfilenode
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 109 - 119
+[src/backend/utils/adt/pg_upgrade_support.c:109-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L109-L119)
 
 ## Overview
 Sets the next heap relation file node number to be used during binary upgrade operations for new heap tables.

@@ -1,7 +1,7 @@
 # getQueryParams
 
 ## Location
-src/bin/pgbench/pgbench.c: 1972 - 1981
+[src/bin/pgbench/pgbench.c:1972-1981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1972-L1981)
 
 ## Overview
 Extracts parameter values from command arguments and populates a parameter array for prepared statement execution in pgbench.

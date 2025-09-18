@@ -1,7 +1,7 @@
 # r_plural
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 679 - 708
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:679-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L679-L708)
 
 ## Overview
 The r_plural function handles plural suffix removal for the Hungarian stemming algorithm in the Snowball stemming library.

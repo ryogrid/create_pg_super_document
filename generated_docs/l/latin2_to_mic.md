@@ -1,7 +1,7 @@
 # latin2_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/latin2_and_win1250/latin2_and_win1250.c: 83 - 98
+[src/backend/utils/mb/conversion_procs/latin2_and_win1250/latin2_and_win1250.c:83-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/latin2_and_win1250/latin2_and_win1250.c#L83-L98)
 
 ## Overview
 A PostgreSQL character encoding conversion function that converts text from ISO 8859-2 (Latin-2) encoding to PostgreSQL's internal Mule Internal Code (MIC) encoding.

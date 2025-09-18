@@ -1,7 +1,7 @@
 # btparallelrescan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 561 - 603
+[src/backend/access/nbtree/nbtree.c:561-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L561-L603)
 
 ## Overview
 Resets a parallel btree scan to its initial state, allowing the scan to be restarted from the beginning.

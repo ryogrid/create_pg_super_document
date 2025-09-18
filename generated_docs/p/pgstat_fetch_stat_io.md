@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_io
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 157 - 172
+[src/backend/utils/activity/pgstat_io.c:157-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L157-L172)
 
 ## Overview
 Retrieves a snapshot of I/O statistics from PostgreSQL's shared statistics system.

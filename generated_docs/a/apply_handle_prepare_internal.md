@@ -1,7 +1,7 @@
 # apply_handle_prepare_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 1073 - 1109
+[src/backend/replication/logical/worker.c:1073-1109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1073-L1109)
 
 ## Overview
 apply_handle_prepare_internal is a common function that handles the internal preparation of two-phase transactions by generating unique GIDs and executing the prepare phase in PostgreSQL logical replication.

@@ -1,7 +1,7 @@
 # JsObject
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 307 - 315
+[src/backend/utils/adt/jsonfuncs.c:307-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L307-L315)
 
 ## Overview
 JsObject is a structure that represents JSON objects in PostgreSQL, providing efficient access to key-value pairs for both JSON text and binary JSONB representations.

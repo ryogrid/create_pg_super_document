@@ -1,7 +1,7 @@
 # pgstat_beshutdown_hook
 
 ## Location
-src/backend/utils/activity/backend_status.c: 440 - 466
+[src/backend/utils/activity/backend_status.c:440-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L440-L466)
 
 ## Overview
 Process exit hook that clears the backend's entry in the shared PgBackendStatus array during process shutdown.

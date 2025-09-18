@@ -1,7 +1,7 @@
 # find_reconstructed_block_length
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 438 - 454
+[src/bin/pg_combinebackup/reconstruct.c:438-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L438-L454)
 
 ## Overview
 Calculates the required block length for a reconstructed file based on the truncation length and the highest block number present in an incremental backup.

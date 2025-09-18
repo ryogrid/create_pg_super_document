@@ -1,7 +1,7 @@
 # PLy_plan_new
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 48 - 65
+[src/pl/plpython/plpy_planobject.c:48-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L48-L65)
 
 ## Overview
 Creates and initializes a new PLyPlan Python object that represents a prepared SQL statement in the PL/Python extension.

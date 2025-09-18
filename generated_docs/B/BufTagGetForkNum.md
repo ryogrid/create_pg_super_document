@@ -1,7 +1,7 @@
 # BufTagGetForkNum
 
 ## Location
-src/include/storage/buf_internals.h: 109 - 114
+[src/include/storage/buf_internals.h:109-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L109-L114)
 
 ## Overview
 Extracts the fork number (ForkNumber) from a BufferTag structure to identify which fork of a relation the buffer contains.

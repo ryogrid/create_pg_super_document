@@ -1,7 +1,7 @@
 # textgename
 
 ## Location
-src/backend/utils/adt/varlena.c: 2780 - 2784
+[src/backend/utils/adt/varlena.c:2780-2784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2780-L2784)
 
 ## Overview
 PostgreSQL function that compares a text value with a name value and returns true if the text is greater than or equal to the name in lexicographic order.

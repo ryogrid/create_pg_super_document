@@ -1,7 +1,7 @@
 # populate_recordset_worker
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4039 - 4212
+[src/backend/utils/adt/jsonfuncs.c:4039-4212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4039-L4212)
 
 ## Overview
 A static worker function that implements the core logic for converting JSON/JSONB arrays into PostgreSQL recordsets, serving as the common backend for multiple JSON recordset functions.

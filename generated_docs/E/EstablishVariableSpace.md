@@ -1,7 +1,7 @@
 # EstablishVariableSpace
 
 ## Location
-src/bin/psql/startup.c: 1198 - 1268
+[src/bin/psql/startup.c:1198-1268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1198-L1268)
 
 ## Overview
 Initializes the psql variable space and sets up all configuration variable hooks for psql session management.

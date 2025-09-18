@@ -1,7 +1,7 @@
 # pq_getmsgbytes
 
 ## Location
-src/backend/libpq/pqformat.c: 508 - 527
+[src/backend/libpq/pqformat.c:508-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L508-L527)
 
 ## Overview
 Extracts raw data bytes from a message buffer and returns a pointer directly into the buffer for efficient data access.

@@ -1,7 +1,7 @@
 # ts_headline
 
 ## Location
-src/backend/tsearch/wparser.c: 348 - 356
+[src/backend/tsearch/wparser.c:348-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L348-L356)
 
 ## Overview
 A PostgreSQL function that generates highlighted headlines from text based on a text search query, using the current default text search configuration.

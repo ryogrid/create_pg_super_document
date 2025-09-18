@@ -1,7 +1,7 @@
 # element_alloc
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1666 - 1715
+[src/backend/utils/hash/dynahash.c:1666-1715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1666-L1715)
 
 ## Overview
 Allocates new hash table elements and links them into the specified free list for dynamic hash tables.

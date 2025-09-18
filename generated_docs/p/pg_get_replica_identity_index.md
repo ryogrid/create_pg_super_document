@@ -1,7 +1,7 @@
 # pg_get_replica_identity_index
 
 ## Location
-src/backend/utils/adt/misc.c: 1101 - 1120
+[src/backend/utils/adt/misc.c:1101-1120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L1101-L1120)
 
 ## Overview
 An SQL-accessible function that returns the OID of the replica identity index for a given relation, used in PostgreSQL's logical replication system.

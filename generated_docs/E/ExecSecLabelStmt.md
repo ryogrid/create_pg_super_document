@@ -1,7 +1,7 @@
 # ExecSecLabelStmt
 
 ## Location
-src/backend/commands/seclabel.c: 115 - 223
+[src/backend/commands/seclabel.c:115-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L115-L223)
 
 ## Overview
 Executes a SECURITY LABEL statement to apply a security label to a database object, handling provider validation, object type checking, and label application.

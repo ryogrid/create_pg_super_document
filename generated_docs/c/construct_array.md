@@ -1,7 +1,7 @@
 # construct_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3361 - 3380
+[src/backend/utils/adt/arrayfuncs.c:3361-3380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3361-L3380)
 
 ## Overview
 Creates a simple 1-dimensional array object from an array of Datum elements, providing a convenient wrapper around the more complex multi-dimensional array construction function.

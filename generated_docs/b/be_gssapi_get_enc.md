@@ -1,7 +1,7 @@
 # be_gssapi_get_enc
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 753 - 765
+[src/backend/libpq/be-secure-gssapi.c:753-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L753-L765)
 
 ## Overview
 Returns whether GSSAPI encryption is enabled and actively being used on the given connection.

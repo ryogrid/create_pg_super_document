@@ -1,7 +1,7 @@
 # ExecuteDoStmt
 
 ## Location
-src/backend/commands/functioncmds.c: 2066 - 2187
+[src/backend/commands/functioncmds.c:2066-2187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L2066-L2187)
 
 ## Overview
 Executes inline procedural-language code blocks specified in DO statements, handling language validation, permission checks, and code execution.

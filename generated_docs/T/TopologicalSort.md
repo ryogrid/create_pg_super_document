@@ -1,7 +1,7 @@
 # TopologicalSort
 
 ## Location
-src/backend/parser/parse_cte.c: 863 - 914
+[src/backend/parser/parse_cte.c:863-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L863-L914)
 
 ## Overview
 TopologicalSort performs a standard topological sorting operation on CTE (Common Table Expression) items to arrange them in dependency order, ensuring that each CTE appears before any CTE that depends on it.

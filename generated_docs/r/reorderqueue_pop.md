@@ -1,7 +1,7 @@
 # reorderqueue_pop
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 492 - 518
+[src/backend/executor/nodeIndexscan.c:492-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L492-L518)
 
 ## Overview
 A helper function that removes and returns the next tuple from the reorder queue in PostgreSQL's index scan operations, handling proper cleanup of associated ordering data.

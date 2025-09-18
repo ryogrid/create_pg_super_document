@@ -1,7 +1,7 @@
 # ReadRecentBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 669 - 744
+[src/backend/storage/buffer/bufmgr.c:669-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L669-L744)
 
 ## Overview
 Optimized buffer access function that attempts to pin a block using a recently observed buffer identifier, avoiding buffer table lookups.

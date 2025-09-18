@@ -1,7 +1,7 @@
 # stringrule
 
 ## Location
-src/timezone/zic.c: 2716 - 2796
+[src/timezone/zic.c:2716-2796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2716-L2796)
 
 ## Overview
 Converts a timezone rule to its string representation in POSIX timezone format, handling both day-of-month and day-of-week rule types with time offset calculations.

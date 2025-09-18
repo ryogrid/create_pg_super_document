@@ -1,7 +1,7 @@
 # commit_ts_redo
 
 ## Location
-src/backend/access/transam/commit_ts.c: 1023 - 1069
+[src/backend/access/transam/commit_ts.c:1023-1069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L1023-L1069)
 
 ## Overview
 The commit timestamp resource manager's WAL replay function that handles recovery of commit timestamp SLRU operations during crash recovery and standby replay.

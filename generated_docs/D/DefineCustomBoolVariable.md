@@ -1,7 +1,7 @@
 # DefineCustomBoolVariable
 
 ## Location
-src/backend/utils/misc/guc.c: 5140 - 5165
+[src/backend/utils/misc/guc.c:5140-5165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5140-L5165)
 
 ## Overview
 Public API function that allows PostgreSQL extensions to define custom boolean GUC variables with validation and callback hooks.

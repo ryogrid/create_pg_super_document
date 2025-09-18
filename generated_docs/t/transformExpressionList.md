@@ -1,7 +1,7 @@
 # transformExpressionList
 
 ## Location
-src/backend/parser/parse_target.c: 220 - 287
+[src/backend/parser/parse_target.c:220-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L220-L287)
 
 ## Overview
 Transforms a list of bare expression nodes into a list of transformed expressions, handling star expansion for ROW() and VALUES() constructs without TargetEntry decoration.

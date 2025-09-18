@@ -1,7 +1,7 @@
 # inject_projection_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2121 - 2152
+[src/backend/optimizer/plan/createplan.c:2121-2152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2121-L2152)
 
 ## Overview
 Inserts a Result node to perform projection on-the-fly when a projection step is needed during plan tree construction.

@@ -1,7 +1,7 @@
 # injection_point_cache_get
 
 ## Location
-src/backend/utils/misc/injection_point.c: 209 - 231
+[src/backend/utils/misc/injection_point.c:209-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L209-L231)
 
 ## Overview
 Retrieves an injection point entry from the local backend cache by name, returning NULL if not found or cache is uninitialized.

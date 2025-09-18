@@ -1,7 +1,7 @@
 # readRecoverySignalFile
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1027 - 1108
+[src/backend/access/transam/xlogrecovery.c:1027-1108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1027-L1108)
 
 ## Overview
 Detects and processes PostgreSQL recovery signal files to determine the appropriate recovery mode and sets up recovery state variables accordingly.

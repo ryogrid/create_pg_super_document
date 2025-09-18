@@ -1,7 +1,7 @@
 # pqsecure_close
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 167 - 181
+[src/interfaces/libpq/fe-secure.c:167-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L167-L181)
 
 ## Overview
 Closes the secure session for a PostgreSQL connection, specifically handling SSL/TLS cleanup when SSL support is enabled.

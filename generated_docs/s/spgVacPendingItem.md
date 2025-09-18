@@ -1,7 +1,7 @@
 # spgVacPendingItem
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 32 - 37
+[src/backend/access/spgist/spgvacuum.c:32-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L32-L37)
 
 ## Overview
 A structure representing an entry in a pending list of TIDs (Tuple IDs) that need to be revisited during SPGiST vacuum operations.

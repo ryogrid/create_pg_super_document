@@ -1,7 +1,7 @@
 # ECPGdeallocate
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 315 - 336
+[src/interfaces/ecpg/ecpglib/prepare.c:315-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L315-L336)
 
 ## Overview
 The main public interface function for deallocating a named prepared statement in the ECPG library, handling the SQL DEALLOCATE PREPARE statement.

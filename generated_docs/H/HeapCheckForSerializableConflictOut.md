@@ -1,7 +1,7 @@
 # HeapCheckForSerializableConflictOut
 
 ## Location
-src/backend/access/heap/heapam.c: 10519 - 10600
+[src/backend/access/heap/heapam.c:10519-10600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10519-L10600)
 
 ## Overview
 Detects potential serializable isolation conflicts when reading heap tuples by checking for read-write conflicts with concurrent transactions.

@@ -1,7 +1,7 @@
 # default_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1847 - 1916
+[src/backend/access/common/reloptions.c:1847-1916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1847-L1916)
 
 ## Overview
 A function that provides standardized parsing of relation options for tables that use the StdRdOptions structure, handling common table storage parameters and autovacuum settings.

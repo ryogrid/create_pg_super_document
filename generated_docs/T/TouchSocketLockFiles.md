@@ -1,7 +1,7 @@
 # TouchSocketLockFiles
 
 ## Location
-src/backend/utils/init/miscinit.c: 1537 - 1565
+[src/backend/utils/init/miscinit.c:1537-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1537-L1565)
 
 ## Overview
 Updates the modification and access timestamps of socket lock files to prevent their removal by system cleanup daemons.

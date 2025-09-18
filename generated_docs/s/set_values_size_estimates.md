@@ -1,7 +1,7 @@
 # set_values_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5935 - 5966
+[src/backend/optimizer/path/costsize.c:5935-5966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5935-L5966)
 
 ## Overview
 Sets the size estimates for a base relation that represents a VALUES list, providing precise cardinality based on the actual number of value rows specified.

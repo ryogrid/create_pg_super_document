@@ -1,7 +1,7 @@
 # AtEOXact_Buffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3548 - 3564
+[src/backend/storage/buffer/bufmgr.c:3548-3564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3548-L3564)
 
 ## Overview
 AtEOXact_Buffers is a cleanup function called at the end of a transaction to ensure that no buffer pins remain and to perform necessary buffer-related cleanup operations.

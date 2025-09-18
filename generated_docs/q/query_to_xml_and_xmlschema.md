@@ -1,7 +1,7 @@
 # query_to_xml_and_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3145 - 3180
+[src/backend/utils/adt/xml.c:3145-3180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3145-L3180)
 
 ## Overview
 Executes a SQL query and returns both the XML representation of the query results and the corresponding XML schema definition.

@@ -1,7 +1,7 @@
 # FreeBulkInsertState
 
 ## Location
-src/backend/access/heap/heapam.c: 1988 - 1999
+[src/backend/access/heap/heapam.c:1988-1999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1988-L1999)
 
 ## Overview
 FreeBulkInsertState cleans up and deallocates a BulkInsertState object after bulk insert operations are completed, releasing associated buffers and memory.

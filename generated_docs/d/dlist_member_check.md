@@ -1,7 +1,7 @@
 # dlist_member_check
 
 ## Location
-src/backend/lib/ilist.c: 60 - 76
+[src/backend/lib/ilist.c:60-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/ilist.c#L60-L76)
 
 ## Overview
 Validates that a specified node is actually a member of a doubly-linked list by traversing the entire list to find the node.

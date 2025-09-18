@@ -1,7 +1,7 @@
 # tuplesort_getheaptuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 928 - 948
+[src/backend/utils/sort/tuplesortvariants.c:928-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L928-L948)
 
 ## Overview
 Fetches the next heap tuple from a sorted tuplesort operation in either forward or backward direction, returning a direct pointer to the tuple.

@@ -1,7 +1,7 @@
 # ReplicationSlotDropAcquired
 
 ## Location
-src/backend/replication/slot.c: 868 - 884
+[src/backend/replication/slot.c:868-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L868-L884)
 
 ## Overview
 Permanently drops the currently acquired replication slot, serving as a low-level function that assumes the slot is already held by the calling backend.

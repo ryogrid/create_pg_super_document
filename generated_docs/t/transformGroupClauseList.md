@@ -1,7 +1,7 @@
 # transformGroupClauseList
 
 ## Location
-src/backend/parser/parse_clause.c: 2475 - 2527
+[src/backend/parser/parse_clause.c:2475-2527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2475-L2527)
 
 ## Overview
 Transforms a list of expressions within a GROUP BY clause or grouping set, returning a list of ressortgroupref values while safely eliminating duplicates within the clause.

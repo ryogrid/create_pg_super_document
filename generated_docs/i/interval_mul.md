@@ -1,7 +1,7 @@
 # interval_mul
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3567 - 3686
+[src/backend/utils/adt/timestamp.c:3567-3686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3567-L3686)
 
 ## Overview
 A PostgreSQL function that implements interval multiplication by a floating-point factor with comprehensive handling of special values and fractional unit cascading.

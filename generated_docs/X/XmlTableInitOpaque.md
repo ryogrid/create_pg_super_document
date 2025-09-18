@@ -1,7 +1,7 @@
 # XmlTableInitOpaque
 
 ## Location
-src/backend/utils/adt/xml.c: 4684 - 4731
+[src/backend/utils/adt/xml.c:4684-4731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4684-L4731)
 
 ## Overview
 Initializes the opaque data structure and XML parser context for XmlTable processing operations in PostgreSQL's table function system.

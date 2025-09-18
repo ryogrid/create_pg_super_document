@@ -1,7 +1,7 @@
 # vector8_is_highbit_set
 
 ## Location
-src/include/port/simd.h: 271 - 293
+[src/include/port/simd.h:271-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L271-L293)
 
 ## Overview
 A function that returns true if the high bit (most significant bit) of any element in a Vector8 is set.

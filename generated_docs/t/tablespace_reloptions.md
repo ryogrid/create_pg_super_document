@@ -1,7 +1,7 @@
 # tablespace_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 2095 - 2116
+[src/backend/access/common/reloptions.c:2095-2116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2095-L2116)
 
 ## Overview
 Parses and validates relation options specifically for tablespaces, handling I/O cost parameters and concurrency settings that influence query planning and execution performance.

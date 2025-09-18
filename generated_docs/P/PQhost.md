@@ -1,7 +1,7 @@
 # PQhost
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7036 - 7058
+[src/interfaces/libpq/fe-connect.c:7036-7058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7036-L7058)
 
 ## Overview
 PQhost returns the host name or address associated with a PostgreSQL database connection, implementing a fallback strategy from hostname to host address.

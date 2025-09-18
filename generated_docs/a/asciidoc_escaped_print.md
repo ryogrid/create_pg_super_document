@@ -1,7 +1,7 @@
 # asciidoc_escaped_print
 
 ## Location
-src/fe_utils/print.c: 2168 - 2185
+[src/fe_utils/print.c:2168-2185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2168-L2185)
 
 ## Overview
 Escapes special AsciiDoc characters in a string for safe output to AsciiDoc format, specifically handling the pipe character which has special meaning in AsciiDoc tables.

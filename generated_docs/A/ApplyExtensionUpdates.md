@@ -1,7 +1,7 @@
 # ApplyExtensionUpdates
 
 ## Location
-src/backend/commands/extension.c: 3134 - 3291
+[src/backend/commands/extension.c:3134-3291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L3134-L3291)
 
 ## Overview
 Applies a series of update scripts sequentially to upgrade an extension through multiple versions, treating each step as an individual ALTER EXTENSION UPDATE command.

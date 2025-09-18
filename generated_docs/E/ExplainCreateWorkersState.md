@@ -1,7 +1,7 @@
 # ExplainCreateWorkersState
 
 ## Location
-src/backend/commands/explain.c: 4481 - 4497
+[src/backend/commands/explain.c:4481-4497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4481-L4497)
 
 ## Overview
 ExplainCreateWorkersState is a static function in PostgreSQL's explain module that creates a workspace structure for collecting and organizing per-worker data during parallel query execution explanation.

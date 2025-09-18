@@ -1,7 +1,7 @@
 # system_nextsampletuple
 
 ## Location
-src/backend/access/tablesample/system.c: 236 - 256
+[src/backend/access/tablesample/system.c:236-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/system.c#L236-L256)
 
 ## Overview
 This function selects the next sampled tuple in the current block for PostgreSQL's SYSTEM table sampling method, which implements block-level sampling by returning all tuples in each selected block.

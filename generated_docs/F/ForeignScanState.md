@@ -1,7 +1,7 @@
 # ForeignScanState
 
 ## Location
-src/include/nodes/execnodes.h: 2038 - 2047
+[src/include/nodes/execnodes.h:2038-2047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2038-L2047)
 
 ## Overview
 ForeignScanState is the execution state node for scanning foreign-data tables in PostgreSQL. It provides the interface between the PostgreSQL executor and Foreign Data Wrapper (FDW) implementations for accessing external data sources.

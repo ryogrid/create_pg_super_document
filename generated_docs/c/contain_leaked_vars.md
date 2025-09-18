@@ -1,7 +1,7 @@
 # contain_leaked_vars
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1263 - 1268
+[src/backend/optimizer/util/clauses.c:1263-1268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1263-L1268)
 
 ## Overview
 The `contain_leaked_vars` function recursively scans a clause to discover whether it contains any Var nodes (of the current query level) that are passed as arguments to leaky functions that might leak sensitive data.

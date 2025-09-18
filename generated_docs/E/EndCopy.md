@@ -1,7 +1,7 @@
 # EndCopy
 
 ## Location
-src/backend/commands/copyto.c: 314 - 349
+[src/backend/commands/copyto.c:314-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L314-L349)
 
 ## Overview
 Releases all resources allocated for a COPY TO operation, including files, pipes, memory contexts, and progress reporting.

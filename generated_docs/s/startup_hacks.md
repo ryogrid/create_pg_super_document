@@ -1,7 +1,7 @@
 # startup_hacks
 
 ## Location
-src/backend/main/main.c: 218 - 302
+[src/backend/main/main.c:218-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/main/main.c#L218-L302)
 
 ## Overview
 Platform-specific startup initialization function that configures the execution environment, primarily for Windows systems, to ensure proper behavior of PostgreSQL server processes.

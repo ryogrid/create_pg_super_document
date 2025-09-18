@@ -1,7 +1,7 @@
 # ts_match_vq
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2214 - 2243
+[src/backend/utils/adt/tsvector_op.c:2214-2243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2214-L2243)
 
 ## Overview
 The core PostgreSQL function that implements text search matching between a tsvector document and a tsquery, performing the actual @@ operator logic.

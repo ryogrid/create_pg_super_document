@@ -1,7 +1,7 @@
 # get_command_type
 
 ## Location
-src/test/modules/test_ddl_deparse/test_ddl_deparse.c: 31 - 71
+[src/test/modules/test_ddl_deparse/test_ddl_deparse.c:31-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_ddl_deparse/test_ddl_deparse.c#L31-L71)
 
 ## Overview
 Returns the textual representation of the command type from a CollectedCommand structure used in DDL deparsing tests.

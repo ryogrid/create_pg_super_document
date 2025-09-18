@@ -1,7 +1,7 @@
 # HashInstrumentation
 
 ## Location
-src/include/nodes/execnodes.h: 2721 - 2728
+[src/include/nodes/execnodes.h:2721-2728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2721-L2728)
 
 ## Overview
 HashInstrumentation is a structure that collects and stores performance metrics for hash operations, specifically used for display by PostgreSQL's EXPLAIN ANALYZE command.

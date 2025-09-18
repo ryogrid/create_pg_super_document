@@ -1,7 +1,7 @@
 # leafRepackItems
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1571 - 1774
+[src/backend/access/gin/gindatapage.c:1571-1774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1571-L1774)
 
 ## Overview
 leafRepackItems recompresses all modified segments in a disassembled GIN data leaf page and determines if the page needs to be split due to size constraints.

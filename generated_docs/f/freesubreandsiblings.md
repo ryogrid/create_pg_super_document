@@ -1,7 +1,7 @@
 # freesubreandsiblings
 
 ## Location
-src/backend/regex/regcomp.c: 2171 - 2186
+[src/backend/regex/regcomp.c:2171-2186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2171-L2186)
 
 ## Overview
 A utility function that recursively frees a subRE (sub-regular expression) subtree along with all its siblings in a linked list structure.

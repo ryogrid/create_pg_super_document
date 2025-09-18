@@ -1,7 +1,7 @@
 # json_populate_type
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3343 - 3403
+[src/backend/utils/adt/jsonfuncs.c:3343-3403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3343-L3403)
 
 ## Overview
 Populates and returns a PostgreSQL value of a specified type from a given JSON/JSONB value, handling both JSON text and binary JSONB formats with caching optimization.

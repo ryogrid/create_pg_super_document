@@ -1,7 +1,7 @@
 # disable_statement_timeout
 
 ## Location
-src/backend/tcop/postgres.c: 5254 - 5258
+[src/backend/tcop/postgres.c:5254-5258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5254-L5258)
 
 ## Overview
 A static utility function that disables the currently active statement timeout to prevent query termination due to time limits.

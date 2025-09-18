@@ -1,7 +1,7 @@
 # contain_vars_of_level_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 452 - 508
+[src/backend/optimizer/util/var.c:452-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L452-L508)
 
 ## Overview
 A static tree walker function that recursively traverses an expression tree to detect whether it contains any Var nodes, PlaceHolderVar nodes, or CurrentOfExpr nodes at a specified query nesting level.

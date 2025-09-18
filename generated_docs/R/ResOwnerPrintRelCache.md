@@ -1,7 +1,7 @@
 # ResOwnerPrintRelCache
 
 ## Location
-src/backend/utils/cache/relcache.c: 6880 - 6887
+[src/backend/utils/cache/relcache.c:6880-6887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6880-L6887)
 
 ## Overview
 ResourceOwner callback function that provides a human-readable string representation of a cached relation for debugging and error reporting purposes.

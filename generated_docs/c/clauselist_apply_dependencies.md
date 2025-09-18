@@ -1,7 +1,7 @@
 # clauselist_apply_dependencies
 
 ## Location
-src/backend/statistics/dependencies.c: 1014 - 1167
+[src/backend/statistics/dependencies.c:1014-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L1014-L1167)
 
 ## Overview
 Applies functional dependencies to a list of clauses and returns the estimated selectivity by combining per-column selectivities using dependency degrees, accounting for the correlation between attributes.

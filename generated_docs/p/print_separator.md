@@ -1,7 +1,7 @@
 # print_separator
 
 ## Location
-src/fe_utils/print.c: 379 - 397
+[src/fe_utils/print.c:379-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L379-L397)
 
 ## Overview
 Outputs a separator character or string to a file stream, handling both null-terminated strings and null byte separators.

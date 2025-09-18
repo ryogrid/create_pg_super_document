@@ -1,7 +1,7 @@
 # cachedNamespacePath
 
 ## Location
-src/backend/catalog/namespace.c: 4244 - 4298
+[src/backend/catalog/namespace.c:4244-4298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4244-L4298)
 
 ## Overview
 Retrieves search path information from a cache, computing missing components if needed. This function optimizes repeated namespace path lookups by caching preprocessed results.

@@ -1,7 +1,7 @@
 # spgdoinsert
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 1914 - 2357
+[src/backend/access/spgist/spgdoinsert.c:1914-2357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L1914-L2357)
 
 ## Overview
 Primary insertion function for SP-GiST that coordinates the complete process of inserting a tuple into the index, handling tree navigation, space management, and various insertion scenarios.

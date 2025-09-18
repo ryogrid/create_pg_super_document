@@ -1,7 +1,7 @@
 # schema_to_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3315 - 3327
+[src/backend/utils/adt/xml.c:3315-3327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3315-L3327)
 
 ## Overview
 PostgreSQL SQL function wrapper that generates XML Schema (XSD) definition for all visible tables in a specified database schema, providing a user-accessible interface to schema-to-XSD conversion functionality.

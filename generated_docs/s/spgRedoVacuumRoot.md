@@ -1,7 +1,7 @@
 # spgRedoVacuumRoot
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 834 - 859
+[src/backend/access/spgist/spgxlog.c:834-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L834-L859)
 
 ## Overview
 Replays a vacuum root operation from the WAL for SP-GiST indexes, reconstructing the deletion of dead tuples from the root page during crash recovery.

@@ -1,7 +1,7 @@
 # conninfo_array_parse
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6029 - 6186
+[src/interfaces/libpq/fe-connect.c:6029-6186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6029-L6186)
 
 ## Overview
 Parses parallel arrays of PostgreSQL connection parameter keywords and values, with support for expanding dbname connection strings and applying defaults.

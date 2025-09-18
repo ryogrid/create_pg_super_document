@@ -1,7 +1,7 @@
 # test_slru_shmem_startup
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 214 - 248
+[src/test/modules/test_slru/test_slru.c:214-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L214-L248)
 
 ## Overview
 A shared memory startup hook function that initializes the test SLRU (Simple LRU) module by setting up the SLRU directory, lock tranches, and the SLRU control structure during PostgreSQL's shared memory initialization phase.

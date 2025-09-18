@@ -1,7 +1,7 @@
 # XLogRequestWalReceiverReply
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4488 - 4502
+[src/backend/access/transam/xlogrecovery.c:4488-4502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4488-L4502)
 
 ## Overview
 Schedules a walreceiver wakeup in the main recovery loop by setting a flag to request communication with the primary server.

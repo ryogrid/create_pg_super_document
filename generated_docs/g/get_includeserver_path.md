@@ -1,7 +1,7 @@
 # get_includeserver_path
 
 ## Location
-src/port/path.c: 937 - 945
+[src/port/path.c:937-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L937-L945)
 
 ## Overview
 Constructs the path to the PostgreSQL server-specific include directory relative to the PostgreSQL executable path.

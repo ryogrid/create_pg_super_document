@@ -1,7 +1,7 @@
 # existsTimeLineHistory
 
 ## Location
-src/backend/access/transam/timeline.c: 222 - 263
+[src/backend/access/transam/timeline.c:222-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L222-L263)
 
 ## Overview
 Probes whether a timeline history file exists for a given timeline ID without actually reading its contents.

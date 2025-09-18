@@ -1,7 +1,7 @@
 # ClosePipeFromProgram
 
 ## Location
-src/backend/commands/copyfrom.c: 1813 - 1842
+[src/backend/commands/copyfrom.c:1813-1842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L1813-L1842)
 
 ## Overview
 Closes the pipe from an external program and performs proper error checking on the pclose() return code, handling expected and unexpected failure scenarios during COPY FROM PROGRAM operations.

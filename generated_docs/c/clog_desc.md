@@ -1,7 +1,7 @@
 # clog_desc
 
 ## Location
-src/backend/access/rmgrdesc/clogdesc.c: 21 - 43
+[src/backend/access/rmgrdesc/clogdesc.c:21-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/clogdesc.c#L21-L43)
 
 ## Overview
 A PostgreSQL WAL (Write-Ahead Logging) resource manager description function that generates human-readable descriptions of commit log (CLOG) WAL records for debugging and monitoring purposes.

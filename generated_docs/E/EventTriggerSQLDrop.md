@@ -1,7 +1,7 @@
 # EventTriggerSQLDrop
 
 ## Location
-src/backend/commands/event_trigger.c: 820 - 892
+[src/backend/commands/event_trigger.c:820-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L820-L892)
 
 ## Overview
 EventTriggerSQLDrop fires sql_drop event triggers when objects are dropped during DDL operations, providing access to information about dropped objects before they are permanently removed.

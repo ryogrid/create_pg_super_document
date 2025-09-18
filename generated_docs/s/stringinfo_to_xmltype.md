@@ -1,7 +1,7 @@
 # stringinfo_to_xmltype
 
 ## Location
-src/backend/utils/adt/xml.c: 467 - 473
+[src/backend/utils/adt/xml.c:467-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L467-L473)
 
 ## Overview
 Converts a StringInfo buffer containing XML data into a PostgreSQL xmltype value.

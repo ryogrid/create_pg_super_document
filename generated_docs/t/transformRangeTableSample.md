@@ -1,7 +1,7 @@
 # transformRangeTableSample
 
 ## Location
-src/backend/parser/parse_clause.c: 910 - 1012
+[src/backend/parser/parse_clause.c:910-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L910-L1012)
 
 ## Overview
 Transforms a TABLESAMPLE clause into a TableSampleClause node, validating the sampling method, processing arguments with type coercion, and handling REPEATABLE specifications.

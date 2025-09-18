@@ -1,7 +1,7 @@
 # assign_wal_sync_method
 
 ## Location
-src/backend/access/transam/xlog.c: 8657 - 8698
+[src/backend/access/transam/xlog.c:8657-8698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8657-L8698)
 
 ## Overview
 A GUC assign hook function that safely transitions the WAL synchronization method by ensuring data integrity through proper file synchronization and reopening.

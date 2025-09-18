@@ -1,7 +1,7 @@
 # textlen
 
 ## Location
-src/backend/utils/adt/varlena.c: 693 - 710
+[src/backend/utils/adt/varlena.c:693-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L693-L710)
 
 ## Overview
 Returns the logical character length of a text value, optimizing for cases where the text may be compressed.

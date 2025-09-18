@@ -1,7 +1,7 @@
 # index_beginscan
 
 ## Location
-src/backend/access/index/indexam.c: 256 - 286
+[src/backend/access/index/indexam.c:256-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L256-L286)
 
 ## Overview
 The  function initiates a new index scan operation using the amgettuple access method, setting up the necessary structures for tuple-by-tuple index traversal.

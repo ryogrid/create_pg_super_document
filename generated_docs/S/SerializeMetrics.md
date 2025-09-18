@@ -1,7 +1,7 @@
 # SerializeMetrics
 
 ## Location
-src/backend/commands/explain.c: 53 - 58
+[src/backend/commands/explain.c:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L53-L58)
 
 ## Overview
 SerializeMetrics is a struct that tracks instrumentation data for PostgreSQL's SERIALIZE option in EXPLAIN commands, capturing performance metrics during result serialization.

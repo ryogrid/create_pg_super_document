@@ -1,7 +1,7 @@
 # RestrictInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 2559 - 2711
+[src/include/nodes/pathnodes.h:2559-2711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2559-L2711)
 
 ## Overview
 RestrictInfo is a comprehensive data structure that represents restriction clauses (WHERE or JOIN/ON conditions) with extensive metadata used by the PostgreSQL optimizer for query planning, cost estimation, and join optimization.

@@ -1,7 +1,7 @@
 # assign_tcp_user_timeout
 
 ## Location
-src/backend/libpq/pqcomm.c: 2030 - 2039
+[src/backend/libpq/pqcomm.c:2030-2039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L2030-L2039)
 
 ## Overview
 GUC assign hook function that sets the TCP_USER_TIMEOUT socket option on the current connection when the tcp_user_timeout GUC parameter is changed.

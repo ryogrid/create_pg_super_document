@@ -1,7 +1,7 @@
 # hladdword
 
 ## Location
-src/backend/tsearch/ts_parse.c: 440 - 463
+[src/backend/tsearch/ts_parse.c:440-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L440-L463)
 
 ## Overview
 A static utility function that adds a word entry to the HeadlineParsedText structure's words array during text search headline generation.

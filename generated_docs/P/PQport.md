@@ -1,7 +1,7 @@
 # PQport
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7072 - 7089
+[src/interfaces/libpq/fe-connect.c:7072-7089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7072-L7089)
 
 ## Overview
 PQport returns the port number associated with a PostgreSQL database connection as a string, providing access to the network port used for the connection.

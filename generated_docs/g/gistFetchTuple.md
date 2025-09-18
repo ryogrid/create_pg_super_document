@@ -1,7 +1,7 @@
 # gistFetchTuple
 
 ## Location
-src/backend/access/gist/gistutil.c: 666 - 722
+[src/backend/access/gist/gistutil.c:666-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L666-L722)
 
 ## Overview
 Reconstructs the originally-indexed data from a GiST index tuple by fetching/decompressing all key attributes and copying included attributes, returning a new HeapTuple suitable for index-only scans.

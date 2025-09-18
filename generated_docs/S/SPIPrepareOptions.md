@@ -1,7 +1,7 @@
 # SPIPrepareOptions
 
 ## Location
-src/include/executor/spi.h: 37 - 43
+[src/include/executor/spi.h:37-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/spi.h#L37-L43)
 
 ## Overview
 SPIPrepareOptions is a structure that provides optional configuration parameters for the SPI_prepare_extended function, allowing customization of SQL parsing and cursor behavior during statement preparation.

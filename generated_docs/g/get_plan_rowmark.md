@@ -1,7 +1,7 @@
 # get_plan_rowmark
 
 ## Location
-src/backend/optimizer/prep/preptlist.c: 526 - 538
+[src/backend/optimizer/prep/preptlist.c:526-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/preptlist.c#L526-L538)
 
 ## Overview
 Utility function that locates a PlanRowMark structure for a given range table index in a list of row marks, or returns NULL if not found.

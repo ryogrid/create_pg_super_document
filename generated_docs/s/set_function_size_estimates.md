@@ -1,7 +1,7 @@
 # set_function_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5875 - 5912
+[src/backend/optimizer/path/costsize.c:5875-5912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5875-L5912)
 
 ## Overview
 Sets the size estimates for a base relation that represents a function call, calculating the expected number of rows the function will return.

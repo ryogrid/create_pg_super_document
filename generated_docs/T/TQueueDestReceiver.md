@@ -1,7 +1,7 @@
 # TQueueDestReceiver
 
 ## Location
-src/backend/executor/tqueue.c: 30 - 34
+[src/backend/executor/tqueue.c:30-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L30-L34)
 
 ## Overview
 TQueueDestReceiver is a specialized DestReceiver structure used for sending tuples through a shared memory message queue in PostgreSQL parallel query execution.

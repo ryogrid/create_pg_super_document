@@ -1,7 +1,7 @@
 # RemoveConstraintById
 
 ## Location
-src/backend/catalog/pg_constraint.c: 612 - 702
+[src/backend/catalog/pg_constraint.c:612-702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L612-L702)
 
 ## Overview
 Deletes a single constraint record from the system catalog by constraint OID, handling necessary cleanup and metadata updates for both relation and domain constraints.

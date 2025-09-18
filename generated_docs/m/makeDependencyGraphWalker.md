@@ -1,7 +1,7 @@
 # makeDependencyGraphWalker
 
 ## Location
-src/backend/parser/parse_cte.c: 670 - 811
+[src/backend/parser/parse_cte.c:670-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L670-L811)
 
 ## Overview
 Tree walker function that detects cross-references and self-references between CTEs in a WITH RECURSIVE list by traversing parse tree nodes.

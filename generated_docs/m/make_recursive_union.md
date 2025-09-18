@@ -1,7 +1,7 @@
 # make_recursive_union
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5863 - 5918
+[src/backend/optimizer/plan/createplan.c:5863-5918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5863-L5918)
 
 ## Overview
 Creates and initializes a RecursiveUnion plan node that implements recursive Common Table Expressions (CTEs) by managing the union between base and recursive branches while detecting duplicates.

@@ -1,7 +1,7 @@
 # PLyObToScalar
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 93 - 97
+[src/pl/plpython/plpy_typeio.h:93-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L93-L97)
 
 ## Overview
 PLyObToScalar is a specialized conversion structure used within PostgreSQL's PLpython extension to handle conversion of Python objects to PostgreSQL scalar data types.

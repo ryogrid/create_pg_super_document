@@ -1,7 +1,7 @@
 # ItemArray
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 40 - 47
+[src/test/modules/test_tidstore/test_tidstore.c:40-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L40-L47)
 
 ## Overview
 ItemArray is a test data structure used for verification in the TidStore test module that stores multiple arrays of ItemPointerData for different testing purposes.

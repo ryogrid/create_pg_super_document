@@ -1,7 +1,7 @@
 # do_start
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 923 - 1014
+[src/bin/pg_ctl/pg_ctl.c:923-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L923-L1014)
 
 ## Overview
 Starts a PostgreSQL server process, handling configuration setup, process launching, and optional startup monitoring with proper signal handling and status reporting.

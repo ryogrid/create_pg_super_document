@@ -1,7 +1,7 @@
 # AttachPartitionEnsureIndexes
 
 ## Location
-src/backend/commands/tablecmds.c: 18803 - 18983
+[src/backend/commands/tablecmds.c:18803-18983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L18803-L18983)
 
 ## Overview
 AttachPartitionEnsureIndexes ensures that a partition being attached has all the required indexes that match the partitioned indexes on the parent table, either by finding existing compatible indexes or creating new ones.

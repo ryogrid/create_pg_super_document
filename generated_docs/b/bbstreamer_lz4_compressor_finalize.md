@@ -1,7 +1,7 @@
 # bbstreamer_lz4_compressor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 199 - 257
+[src/bin/pg_basebackup/bbstreamer_lz4.c:199-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L199-L257)
 
 ## Overview
 Finalizes LZ4 compression by writing the frame footer and flushing remaining data through the streaming chain.

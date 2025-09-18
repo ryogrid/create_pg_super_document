@@ -1,7 +1,7 @@
 # brin_inclusion_consistent
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 250 - 473
+[src/backend/access/brin/brin_inclusion.c:250-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L250-L473)
 
 ## Overview
 BRIN inclusion consistent function that determines whether a BRIN index tuple could contain values matching a scan key predicate.

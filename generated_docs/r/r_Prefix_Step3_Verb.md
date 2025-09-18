@@ -1,7 +1,7 @@
 # r_Prefix_Step3_Verb
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1154 - 1188
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1154-1188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1154-L1188)
 
 ## Overview
 This function implements Step 3 of Arabic prefix processing for verbs in the Arabic stemming algorithm, performing prefix replacement operations to normalize verb forms.

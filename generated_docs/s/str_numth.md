@@ -1,7 +1,7 @@
 # str_numth
 
 ## Location
-src/backend/utils/adt/formatting.c: 1561 - 1580
+[src/backend/utils/adt/formatting.c:1561-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1561-L1580)
 
 ## Overview
 A string manipulation function that converts a numeric string into its ordinal form by appending the appropriate ordinal suffix (ST/ND/RD/TH).

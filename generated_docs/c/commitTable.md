@@ -1,7 +1,7 @@
 # commitTable
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-declare.c: 581 - 599
+[src/interfaces/ecpg/test/expected/sql-declare.c:581-599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-declare.c#L581-L599)
 
 ## Overview
 The commitTable function commits database transactions on both con1 and con2 connections in an ECPG test environment.

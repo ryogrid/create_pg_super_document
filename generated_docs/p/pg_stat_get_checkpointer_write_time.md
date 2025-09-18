@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_write_time
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1231 - 1238
+[src/backend/utils/adt/pgstatfuncs.c:1231-1238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1231-L1238)
 
 ## Overview
 Returns the total time spent by the checkpointer process writing data files to disk, measured in milliseconds since server startup.

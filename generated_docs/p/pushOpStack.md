@@ -1,7 +1,7 @@
 # pushOpStack
 
 ## Location
-src/backend/utils/adt/tsquery.c: 636 - 647
+[src/backend/utils/adt/tsquery.c:636-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L636-L647)
 
 ## Overview
 A utility function that pushes an operator element onto an operator stack used during tsquery parsing in PostgreSQL's text search functionality.

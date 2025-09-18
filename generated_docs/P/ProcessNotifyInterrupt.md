@@ -1,7 +1,7 @@
 # ProcessNotifyInterrupt
 
 ## Location
-src/backend/commands/async.c: 1834 - 1850
+[src/backend/commands/async.c:1834-1850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1834-L1850)
 
 ## Overview
 Processes pending NOTIFY interrupts by checking transaction state and calling ProcessIncomingNotify() when the backend is truly idle outside of any transaction block.

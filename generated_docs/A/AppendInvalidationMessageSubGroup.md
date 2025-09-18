@@ -1,7 +1,7 @@
 # AppendInvalidationMessageSubGroup
 
 ## Location
-src/backend/utils/cache/inval.c: 331 - 354
+[src/backend/utils/cache/inval.c:331-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L331-L354)
 
 ## Overview
 AppendInvalidationMessageSubGroup is a static function that merges one invalidation message subgroup into another by appending the source subgroup's messages to the destination and resetting the source to follow the destination.

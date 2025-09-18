@@ -1,7 +1,7 @@
 # BTPageOpaqueData
 
 ## Location
-src/include/access/nbtree.h: 62 - 69
+[src/include/access/nbtree.h:62-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L62-L69)
 
 ## Overview
 BTPageOpaqueData is a structure stored at the end of every B-tree page in PostgreSQL that contains metadata for page navigation, level information, and vacuum cycle tracking to support concurrent operations and recovery.

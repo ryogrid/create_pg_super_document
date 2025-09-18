@@ -1,7 +1,7 @@
 # int8_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 1166 - 1190
+[src/backend/utils/adt/cash.c:1166-1190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L1166-L1190)
 
 ## Overview
 Converts a PostgreSQL int8 (64-bit integer/bigint) data type to a cash (money) data type, scaling the value according to locale-specific decimal precision.

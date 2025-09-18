@@ -1,7 +1,7 @@
 # pqGets_internal
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 109 - 135
+[src/interfaces/libpq/fe-misc.c:109-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L109-L135)
 
 ## Overview
 Internal function that reads a null-terminated string from the connection's input buffer and stores it in an expandable buffer.

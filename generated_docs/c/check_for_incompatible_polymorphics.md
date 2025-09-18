@@ -1,7 +1,7 @@
 # check_for_incompatible_polymorphics
 
 ## Location
-src/bin/pg_upgrade/check.c: 1393 - 1518
+[src/bin/pg_upgrade/check.c:1393-1518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1393-L1518)
 
 ## Overview
 Detects user-defined objects that reference deprecated polymorphic functions using anyarray/anyelement arguments, blocking upgrades until they're migrated to anycompatible variants.

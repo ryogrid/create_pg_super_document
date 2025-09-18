@@ -1,7 +1,7 @@
 # logfile_open
 
 ## Location
-src/backend/postmaster/syslogger.c: 1218 - 1262
+[src/backend/postmaster/syslogger.c:1218-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1218-L1262)
 
 ## Overview
 Opens a new log file with proper Unix permissions and buffering options, with configurable error handling behavior.

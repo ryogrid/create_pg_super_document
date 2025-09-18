@@ -1,7 +1,7 @@
 # _fileExistsInDirectory
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2209 - 2220
+[src/bin/pg_dump/pg_backup_archiver.c:2209-2220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2209-L2220)
 
 ## Overview
 _fileExistsInDirectory is a static utility function that checks whether a specific file exists within a given directory and is a regular file.

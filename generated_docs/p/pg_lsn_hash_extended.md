@@ -1,7 +1,7 @@
 # pg_lsn_hash_extended
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 213 - 223
+[src/backend/utils/adt/pg_lsn.c:213-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L213-L223)
 
 ## Overview
 The pg_lsn_hash_extended function computes an extended hash value for a PostgreSQL Log Sequence Number (LSN) type, providing a hash function suitable for use in hash tables with seed values.

@@ -1,7 +1,7 @@
 # output_set_descr
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 275 - 334
+[src/interfaces/ecpg/preproc/descriptor.c:275-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L275-L334)
 
 ## Overview
 Generates C code for setting descriptor items in ECPG (Embedded SQL in C for PostgreSQL), processing assignment statements and outputting appropriate ECPGset_desc function calls.

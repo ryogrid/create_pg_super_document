@@ -1,7 +1,7 @@
 # PLy_modify_tuple
 
 ## Location
-src/pl/plpython/plpy_exec.c: 922 - 1051
+[src/pl/plpython/plpy_exec.c:922-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L922-L1051)
 
 ## Overview
 Applies row modifications requested by a PL/Python trigger function by converting Python dictionary changes back to PostgreSQL tuple format and creating a modified HeapTuple.

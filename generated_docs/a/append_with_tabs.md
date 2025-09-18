@@ -1,7 +1,7 @@
 # append_with_tabs
 
 ## Location
-src/backend/utils/error/elog.c: 3719 - 3737
+[src/backend/utils/error/elog.c:3719-3737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3719-L3737)
 
 ## Overview
 A static utility function that appends a string to a StringInfo buffer while automatically inserting tab characters after newlines for proper indentation formatting.

@@ -1,7 +1,7 @@
 # getExtensionOfObject
 
 ## Location
-src/backend/catalog/pg_depend.c: 733 - 778
+[src/backend/catalog/pg_depend.c:733-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L733-L778)
 
 ## Overview
 Finds the extension that contains a specified database object, returning the extension's OID or InvalidOid if the object doesn't belong to any extension.

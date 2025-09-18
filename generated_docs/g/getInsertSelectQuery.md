@@ -1,7 +1,7 @@
 # getInsertSelectQuery
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 999 - 1056
+[src/backend/rewrite/rewriteManip.c:999-1056](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L999-L1056)
 
 ## Overview
 Extracts and returns the SELECT subquery from an INSERT ... SELECT construct, which is essential for applying rule transformations to the correct part of the query tree.

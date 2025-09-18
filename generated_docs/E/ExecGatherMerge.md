@@ -1,7 +1,7 @@
 # ExecGatherMerge
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 183 - 283
+[src/backend/executor/nodeGatherMerge.c:183-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L183-L283)
 
 ## Overview
 ExecGatherMerge is the main execution function for GatherMerge nodes that scans relations via multiple parallel workers and returns the next qualifying tuple in sorted order.

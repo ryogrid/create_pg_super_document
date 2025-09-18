@@ -1,7 +1,7 @@
 # getPublications
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4235 - 4338
+[src/bin/pg_dump/pg_dump.c:4235-4338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4235-L4338)
 
 ## Overview
 Retrieves information about all logical replication publications from the PostgreSQL system catalogs and creates PublicationInfo objects for them.

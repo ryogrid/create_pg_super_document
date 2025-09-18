@@ -1,7 +1,7 @@
 # create_group_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3044 - 3102
+[src/backend/optimizer/util/pathnode.c:3044-3102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3044-L3102)
 
 ## Overview
 Creates a pathnode that represents performing grouping of presorted input data, typically used to implement GROUP BY operations.

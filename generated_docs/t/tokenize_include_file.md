@@ -1,7 +1,7 @@
 # tokenize_include_file
 
 ## Location
-src/backend/libpq/hba.c: 438 - 492
+[src/backend/libpq/hba.c:438-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L438-L492)
 
 ## Overview
 Opens and processes an authentication configuration file that is included from another authentication file, tokenizing its contents and adding the tokens to an existing list.

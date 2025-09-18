@@ -1,7 +1,7 @@
 # RestoreOptions
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 162 - 163
+[src/bin/pg_dump/pg_backup.h:162-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L162-L163)
 
 ## Overview
 RestoreOptions is a structure that contains configuration options and parameters used during PostgreSQL database restoration operations via pg_restore.

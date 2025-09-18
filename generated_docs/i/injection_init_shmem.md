@@ -1,7 +1,7 @@
 # injection_init_shmem
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 117 - 136
+[src/test/modules/injection_points/injection_points.c:117-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L117-L136)
 
 ## Overview
 A static function that initializes the shared memory area for the injection points testing module in PostgreSQL.

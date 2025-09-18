@@ -1,7 +1,7 @@
 # exec_command_g
 
 ## Location
-src/bin/psql/command.c: 1435 - 1487
+[src/bin/psql/command.c:1435-1487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1435-L1487)
 
 ## Overview
 Implements the \g and \gx commands in psql, which send the current query buffer for execution with optional output redirection and formatting options.

@@ -1,7 +1,7 @@
 # right_offset
 
 ## Location
-src/common/binaryheap.c: 96 - 101
+[src/common/binaryheap.c:96-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L96-L101)
 
 ## Overview
 Calculates the array index of the right child node in a binary heap given the parent node's index.

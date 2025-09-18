@@ -1,7 +1,7 @@
 # interval_support
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1274 - 1336
+[src/backend/utils/adt/timestamp.c:1274-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1274-L1336)
 
 ## Overview
 Planner support function that optimizes calls to `interval_scale()` by identifying and eliminating redundant type conversions when the effective granularity and precision remain unchanged.

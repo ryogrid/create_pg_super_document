@@ -1,7 +1,7 @@
 # record_in
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 74 - 328
+[src/backend/utils/adt/rowtypes.c:74-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L74-L328)
 
 ## Overview
 Converts a string representation of a composite type (record) into its internal binary format for PostgreSQL storage.

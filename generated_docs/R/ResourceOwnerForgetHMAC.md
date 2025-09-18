@@ -1,7 +1,7 @@
 # ResourceOwnerForgetHMAC
 
 ## Location
-src/common/hmac_openssl.c: 96 - 102
+[src/common/hmac_openssl.c:96-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L96-L102)
 
 ## Overview
 A convenience wrapper function that unregisters an HMAC context from PostgreSQL's resource owner mechanism during cleanup operations.

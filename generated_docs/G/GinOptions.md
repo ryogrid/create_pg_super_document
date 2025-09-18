@@ -1,7 +1,7 @@
 # GinOptions
 
 ## Location
-src/include/access/gin_private.h: 26 - 31
+[src/include/access/gin_private.h:26-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L26-L31)
 
 ## Overview
 GinOptions is a storage structure that holds reloption (relation options) parameters for GIN (Generalized Inverted Index) indexes, controlling fast update behavior and pending list management.

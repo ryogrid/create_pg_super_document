@@ -1,7 +1,7 @@
 # MergeMatchKind
 
 ## Location
-src/include/nodes/primnodes.h: 1999 - 2000
+[src/include/nodes/primnodes.h:1999-2000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1999-L2000)
 
 ## Overview
 An enumeration type that defines the different match conditions for WHEN clauses in PostgreSQL MERGE statements, specifying whether a row is matched, not matched by source, or not matched by target.

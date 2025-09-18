@@ -1,7 +1,7 @@
 # get_json_object_as_hash
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3809 - 3850
+[src/backend/utils/adt/jsonfuncs.c:3809-3850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3809-L3850)
 
 ## Overview
 A static function that parses a JSON object string and decomposes it into a PostgreSQL hash table for efficient field access during record population operations.

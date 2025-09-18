@@ -1,7 +1,7 @@
 # inet_hist_inclusion_join_sel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 742 - 792
+[src/backend/utils/adt/network_selfuncs.c:742-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L742-L792)
 
 ## Overview
 Estimates join selectivity between two histogram distributions for inet network inclusion operators by sampling values from one histogram and measuring their matches against the other.

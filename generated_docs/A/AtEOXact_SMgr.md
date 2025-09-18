@@ -1,7 +1,7 @@
 # AtEOXact_SMgr
 
 ## Location
-src/backend/storage/smgr/smgr.c: 833 - 842
+[src/backend/storage/smgr/smgr.c:833-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L833-L842)
 
 ## Overview
 Called during transaction commit or abort to destroy all unpinned SMgrRelation objects as part of resource cleanup and file descriptor management.

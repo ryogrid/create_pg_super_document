@@ -1,7 +1,7 @@
 # unknownin
 
 ## Location
-src/backend/utils/adt/varlena.c: 634 - 645
+[src/backend/utils/adt/varlena.c:634-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L634-L645)
 
 ## Overview
 The  function converts a C-style string to internal representation for the  data type, which maintains the same representation as the input cstring.

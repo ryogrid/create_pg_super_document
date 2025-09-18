@@ -1,7 +1,7 @@
 # GetCatCacheHashValue
 
 ## Location
-src/backend/utils/cache/catcache.c: 1663 - 1696
+[src/backend/utils/cache/catcache.c:1663-1696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1663-L1696)
 
 ## Overview
 Computes the hash value for a given set of search keys in a catalog cache, primarily for use in cache invalidation operations.

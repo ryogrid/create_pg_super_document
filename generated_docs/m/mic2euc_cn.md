@@ -1,7 +1,7 @@
 # mic2euc_cn
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c: 120 - 166
+[src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c:120-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c#L120-L166)
 
 ## Overview
 Core conversion function that performs the actual character-by-character conversion from MIC (Multi-byte Internal Code) format to EUC-CN (Extended Unix Code for Chinese) encoding.

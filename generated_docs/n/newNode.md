@@ -1,7 +1,7 @@
 # newNode
 
 ## Location
-src/include/nodes/nodes.h: 144 - 154
+[src/include/nodes/nodes.h:144-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodes.h#L144-L154)
 
 ## Overview
 The `newNode` function is a low-level utility for creating new PostgreSQL node structures with proper memory allocation and type tagging.

@@ -1,7 +1,7 @@
 # GetAttributeByNum
 
 ## Location
-src/backend/executor/execUtils.c: 1058 - 1108
+[src/backend/executor/execUtils.c:1058-1108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1058-L1108)
 
 ## Overview
 GetAttributeByNum extracts a specific attribute value from a HeapTuple by attribute number, providing efficient access to tuple fields when the attribute position is known.

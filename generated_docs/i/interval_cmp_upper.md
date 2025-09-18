@@ -1,7 +1,7 @@
 # interval_cmp_upper
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1757 - 1769
+[src/backend/utils/adt/rangetypes_gist.c:1757-1769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1757-L1769)
 
 ## Overview
 A comparison function that compares two SplitInterval structures based on their upper bound values for use in GiST index operations.

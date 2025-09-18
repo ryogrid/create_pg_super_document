@@ -1,7 +1,7 @@
 # ResourceOwnerReleaseAllOfKind
 
 ## Location
-src/backend/utils/resowner/resowner.c: 801 - 853
+[src/backend/utils/resowner/resowner.c:801-853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L801-L853)
 
 ## Overview
 Releases all resources of a specific type held by a resource owner, providing selective cleanup capability for particular resource categories.

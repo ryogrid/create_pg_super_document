@@ -1,7 +1,7 @@
 # CreateParallelContext
 
 ## Location
-src/backend/access/transam/parallel.c: 169 - 206
+[src/backend/access/transam/parallel.c:169-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L169-L206)
 
 ## Overview
 Creates a new parallel execution context for coordinating parallel workers, initializing the necessary data structures to manage a group of background worker processes.

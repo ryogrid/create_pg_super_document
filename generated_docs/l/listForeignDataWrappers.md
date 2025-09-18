@@ -1,7 +1,7 @@
 # listForeignDataWrappers
 
 ## Location
-src/bin/psql/describe.c: 5728 - 5798
+[src/bin/psql/describe.c:5728-5798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5728-L5798)
 
 ## Overview
 Lists foreign data wrappers in the PostgreSQL database, showing their names, owners, handlers, and validators, with optional verbose information including access privileges and options.

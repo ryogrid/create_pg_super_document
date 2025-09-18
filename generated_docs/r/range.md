@@ -1,7 +1,7 @@
 # range
 
 ## Location
-src/backend/regex/regc_locale.c: 412 - 487
+[src/backend/regex/regc_locale.c:412-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_locale.c#L412-L487)
 
 ## Overview
 The range function creates a character vector (cvec) representing a character range with optional case-independence support, including legality validation for PostgreSQL's regular expression engine.

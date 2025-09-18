@@ -1,7 +1,7 @@
 # checkTempNamespaceStatus
 
 ## Location
-src/backend/catalog/namespace.c: 3729 - 3765
+[src/backend/catalog/namespace.c:3729-3765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3729-L3765)
 
 ## Overview
 This function determines the status of a temporary namespace by checking if it is owned and actively used by a backend process.

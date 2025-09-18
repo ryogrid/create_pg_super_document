@@ -1,7 +1,7 @@
 # ReadyForQuery
 
 ## Location
-src/backend/tcop/dest.c: 256 - 286
+[src/backend/tcop/dest.c:256-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L256-L286)
 
 ## Overview
 ReadyForQuery signals to clients that the server is ready to accept a new query, including transaction state information in protocol version 3.0 and above.

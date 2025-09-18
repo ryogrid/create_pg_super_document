@@ -1,7 +1,7 @@
 # array_out
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1016 - 1200
+[src/backend/utils/adt/arrayfuncs.c:1016-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1016-L1200)
 
 ## Overview
 Converts the internal representation of a PostgreSQL array to its external string format for output and display purposes.

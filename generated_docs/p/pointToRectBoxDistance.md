@@ -1,7 +1,7 @@
 # pointToRectBoxDistance
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 374 - 400
+[src/backend/utils/adt/geo_spgist.c:374-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L374-L400)
 
 ## Overview
 A static function that calculates the lower bound distance between a point and a rectangular bounding box in 2D space.

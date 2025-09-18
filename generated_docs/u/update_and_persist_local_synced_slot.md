@@ -1,7 +1,7 @@
 # update_and_persist_local_synced_slot
 
 ## Location
-src/backend/replication/logical/slotsync.c: 545 - 608
+[src/backend/replication/logical/slotsync.c:545-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L545-L608)
 
 ## Overview
 Updates local synchronized replication slot with remote slot data and persists it to disk if the slot has reached a consistent state and caught up with the primary server.

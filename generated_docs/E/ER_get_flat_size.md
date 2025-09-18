@@ -1,7 +1,7 @@
 # ER_get_flat_size
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 652 - 763
+[src/backend/utils/adt/expandedrecord.c:652-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L652-L763)
 
 ## Overview
 ER_get_flat_size calculates the size required to store an expanded record in its flattened (serialized) composite datum format.

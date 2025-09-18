@@ -1,7 +1,7 @@
 # RenameConstraintById
 
 ## Location
-src/backend/catalog/pg_constraint.c: 703 - 754
+[src/backend/catalog/pg_constraint.c:703-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L703-L754)
 
 ## Overview
 Renames an existing constraint in the system catalog, performing duplicate name checking and updating the pg_constraint catalog entry.

@@ -1,7 +1,7 @@
 # _SPI_prepare_plan
 
 ## Location
-src/backend/executor/spi.c: 2221 - 2328
+[src/backend/executor/spi.c:2221-2328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2221-L2328)
 
 ## Overview
 _SPI_prepare_plan is an internal SPI function that parses and analyzes a SQL query string, creating cached plan sources for later execution.

@@ -1,7 +1,7 @@
 # IndexAmRoutine
 
 ## Location
-src/include/access/amapi.h: 214 - 296
+[src/include/access/amapi.h:214-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/amapi.h#L214-L296)
 
 ## Overview
 IndexAmRoutine is the main API structure that defines the interface and capabilities of an index access method (AM) in PostgreSQL, containing function pointers and capability flags that describe how the access method behaves.

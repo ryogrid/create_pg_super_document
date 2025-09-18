@@ -1,7 +1,7 @@
 # sa
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 83 - 84
+[src/interfaces/ecpg/test/expected/preproc-init.c:83-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L83-L84)
 
 ## Overview
 A simple test structure used in ECPG (Embedded C for PostgreSQL) preprocessing tests to verify basic struct handling and variable initialization.

@@ -1,7 +1,7 @@
 # count_lines_in_buf
 
 ## Location
-src/bin/psql/command.c: 5884 - 5913
+[src/bin/psql/command.c:5884-5913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5884-L5913)
 
 ## Overview
 Counts the number of lines in a PQExpBuffer to determine whether a pager should be used for output display.

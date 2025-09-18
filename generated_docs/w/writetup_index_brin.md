@@ -1,7 +1,7 @@
 # writetup_index_brin
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1741 - 1754
+[src/backend/utils/sort/tuplesortvariants.c:1741-1754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1741-L1754)
 
 ## Overview
 Writes a BRIN index tuple to a logical tape during external sorting operations, handling the serialization format and optional random access requirements.

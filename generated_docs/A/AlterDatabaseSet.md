@@ -1,7 +1,7 @@
 # AlterDatabaseSet
 
 ## Location
-src/backend/commands/dbcommands.c: 2598 - 2623
+[src/backend/commands/dbcommands.c:2598-2623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2598-L2623)
 
 ## Overview
 AlterDatabaseSet implements the ALTER DATABASE name SET configuration_parameter TO value command, which sets database-specific configuration parameters that apply to all sessions connecting to that database.

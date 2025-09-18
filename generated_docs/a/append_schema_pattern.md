@@ -1,7 +1,7 @@
 # append_schema_pattern
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1386 - 1427
+[src/bin/pg_amcheck/pg_amcheck.c:1386-1427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1386-L1427)
 
 ## Overview
 Adds a schema name pattern to a pattern information array, handling potentially qualified patterns that may include both database and schema components.

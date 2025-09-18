@@ -1,7 +1,7 @@
 # separator
 
 ## Location
-src/include/fe_utils/print.h: 105 - 110
+[src/include/fe_utils/print.h:105-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L105-L110)
 
 ## Overview
 A simple structure that holds separator string information with an optional zero-termination flag, used for various string parsing and formatting operations throughout PostgreSQL.

@@ -1,7 +1,7 @@
 # systable_endscan
 
 ## Location
-src/backend/access/index/genam.c: 598 - 644
+[src/backend/access/index/genam.c:598-644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L598-L644)
 
 ## Overview
 systable_endscan is a cleanup function that closes a PostgreSQL system catalog scan, releasing all associated resources including tuple slots, index scans, and snapshots.

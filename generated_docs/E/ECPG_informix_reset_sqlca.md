@@ -1,7 +1,7 @@
 # ECPG_informix_reset_sqlca
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1031 - 1041
+[src/interfaces/ecpg/compatlib/informix.c:1031-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1031-L1041)
 
 ## Overview
 ECPG_informix_reset_sqlca is a function in PostgreSQL's ECPG Informix compatibility library that resets the SQL Communications Area (SQLCA) to its initial state.

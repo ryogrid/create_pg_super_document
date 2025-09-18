@@ -1,7 +1,7 @@
 # interval2itm
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2047 - 2076
+[src/backend/utils/adt/timestamp.c:2047-2076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2047-L2076)
 
 ## Overview
 Converts a PostgreSQL Interval data type to a human-readable interval time structure (struct pg_itm), breaking down the interval into years, months, days, hours, minutes, seconds, and microseconds.

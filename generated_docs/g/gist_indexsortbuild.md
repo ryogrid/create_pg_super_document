@@ -1,7 +1,7 @@
 # gist_indexsortbuild
 
 ## Location
-src/backend/access/gist/gistbuild.c: 400 - 460
+[src/backend/access/gist/gistbuild.c:400-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L400-L460)
 
 ## Overview
 Builds GiST index pages from bottom-up using pre-sorted tuples, implementing the core logic for sorted GiST index construction by managing level states and coordinating page creation.

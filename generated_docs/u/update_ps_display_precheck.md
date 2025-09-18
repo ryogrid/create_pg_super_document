@@ -1,7 +1,7 @@
 # update_ps_display_precheck
 
 ## Location
-src/backend/utils/misc/ps_status.c: 343 - 368
+[src/backend/utils/misc/ps_status.c:343-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L343-L368)
 
 ## Overview
 A helper function that determines whether updating the process title is necessary and possible based on current configuration and runtime conditions.

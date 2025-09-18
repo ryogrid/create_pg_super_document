@@ -1,7 +1,7 @@
 # FindColsContext
 
 ## Location
-src/backend/executor/nodeAgg.c: 360 - 365
+[src/backend/executor/nodeAgg.c:360-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L360-L365)
 
 ## Overview
 FindColsContext is a helper structure used during column reference analysis to track which columns are referenced within aggregate functions versus those referenced outside of aggregates.

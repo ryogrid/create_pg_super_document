@@ -1,7 +1,7 @@
 # AtAbort_Notify
 
 ## Location
-src/backend/commands/async.c: 1671 - 1690
+[src/backend/commands/async.c:1671-1690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1671-L1690)
 
 ## Overview
 Transaction abort cleanup function that removes pending notification actions and handles listener deregistration when transactions containing LISTEN/NOTIFY operations are rolled back.

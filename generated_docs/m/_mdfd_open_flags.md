@@ -1,7 +1,7 @@
 # _mdfd_open_flags
 
 ## Location
-src/backend/storage/smgr/md.c: 144 - 157
+[src/backend/storage/smgr/md.c:144-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L144-L157)
 
 ## Overview
 _mdfd_open_flags is a static inline function that constructs the appropriate file open flags for magnetic disk storage operations, including conditional direct I/O support.

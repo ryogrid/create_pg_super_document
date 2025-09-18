@@ -1,7 +1,7 @@
 # dsa_on_shmem_exit_release_in_place
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 590 - 604
+[src/backend/utils/mmgr/dsa.c:590-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L590-L604)
 
 ## Overview
 A callback function that automatically releases in-place DSA areas at backend process exit, providing cleanup for DSA areas in shared memory outside of DSM segments.

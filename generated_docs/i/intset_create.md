@@ -1,7 +1,7 @@
 # intset_create
 
 ## Location
-src/backend/lib/integerset.c: 284 - 315
+[src/backend/lib/integerset.c:284-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L284-L315)
 
 ## Overview
 Creates a new, initially empty IntegerSet data structure for storing compressed 64-bit integers in PostgreSQL.

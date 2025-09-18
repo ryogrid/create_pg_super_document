@@ -1,7 +1,7 @@
 # yesno_prompt
 
 ## Location
-src/bin/scripts/common.c: 137 - 168
+[src/bin/scripts/common.c:137-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/common.c#L137-L168)
 
 ## Overview
 Displays a yes/no question to the user and returns a boolean result based on their response, repeatedly prompting until a valid answer is given.

@@ -1,7 +1,7 @@
 # makeInt128AggState
 
 ## Location
-src/backend/utils/adt/numeric.c: 5496 - 5519
+[src/backend/utils/adt/numeric.c:5496-5519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5496-L5519)
 
 ## Overview
 Creates and initializes a state structure for 128-bit aggregate functions that compute sum, count, and optionally sum of squares of input values.

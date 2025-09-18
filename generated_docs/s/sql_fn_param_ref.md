@@ -1,7 +1,7 @@
 # sql_fn_param_ref
 
 ## Location
-src/backend/executor/functions.c: 394 - 409
+[src/backend/executor/functions.c:394-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L394-L409)
 
 ## Overview
 Parser callback function for handling ParamRef nodes ( symbols) in SQL function bodies.

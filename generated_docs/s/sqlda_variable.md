@@ -1,7 +1,7 @@
 # sqlda_variable
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 351 - 366
+[src/interfaces/ecpg/preproc/descriptor.c:351-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L351-L366)
 
 ## Overview
 Creates and returns a dynamically allocated variable structure for SQLDA (SQL Descriptor Area) variables used in ECPG preprocessing.

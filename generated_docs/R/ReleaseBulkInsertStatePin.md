@@ -1,7 +1,7 @@
 # ReleaseBulkInsertStatePin
 
 ## Location
-src/backend/access/heap/heapam.c: 2000 - 2037
+[src/backend/access/heap/heapam.c:2000-2037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2000-L2037)
 
 ## Overview
 ReleaseBulkInsertStatePin releases any currently held buffer pin in a BulkInsertState and resets bulk relation extension tracking state.

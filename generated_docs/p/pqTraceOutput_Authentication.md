@@ -1,7 +1,7 @@
 # pqTraceOutput_Authentication
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 428 - 434
+[src/interfaces/libpq/fe-trace.c:428-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L428-L434)
 
 ## Overview
 Outputs a formatted trace message for Authentication protocol messages in PostgreSQL client tracing.

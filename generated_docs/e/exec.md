@@ -1,7 +1,7 @@
 # exec
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 114 - 119
+[src/interfaces/ecpg/preproc/type.h:114-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L114-L119)
 
 ## Overview
 The  structure is a simple data container used in the ECPG (Embedded SQL in C) preprocessor to store execution-related information, containing a name identifier and associated type information.

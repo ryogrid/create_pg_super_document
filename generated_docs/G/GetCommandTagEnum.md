@@ -1,7 +1,7 @@
 # GetCommandTagEnum
 
 ## Location
-src/backend/tcop/cmdtag.c: 83 - 120
+[src/backend/tcop/cmdtag.c:83-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L83-L120)
 
 ## Overview
 Performs a binary search to convert a command name string into its corresponding CommandTag enumeration value, returning CMDTAG_UNKNOWN if the command is not recognized.

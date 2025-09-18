@@ -1,7 +1,7 @@
 # ExecHash
 
 ## Location
-src/backend/executor/nodeHash.c: 91 - 104
+[src/backend/executor/nodeHash.c:91-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L91-L104)
 
 ## Overview
 ExecHash is a stub function for pro forma compliance that serves as a placeholder in the Hash node's execution interface but is not intended to be called during normal operation.

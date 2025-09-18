@@ -1,7 +1,7 @@
 # ShmemInitStruct
 
 ## Location
-src/backend/storage/ipc/shmem.c: 387 - 492
+[src/backend/storage/ipc/shmem.c:387-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L387-L492)
 
 ## Overview
 ShmemInitStruct creates or attaches to a named data structure in shared memory, serving as the primary interface for initializing persistent shared memory objects that can be accessed across PostgreSQL processes.

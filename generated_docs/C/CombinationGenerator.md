@@ -1,7 +1,7 @@
 # CombinationGenerator
 
 ## Location
-src/backend/statistics/mvdistinct.c: 61 - 68
+[src/backend/statistics/mvdistinct.c:61-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L61-L68)
 
 ## Overview
 CombinationGenerator is a data structure used in PostgreSQL's multivariate statistics system to efficiently generate and iterate through all possible k-combinations of n elements for statistical analysis.

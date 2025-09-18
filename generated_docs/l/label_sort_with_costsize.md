@@ -1,7 +1,7 @@
 # label_sort_with_costsize
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5447 - 5478
+[src/backend/optimizer/plan/createplan.c:5447-5478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5447-L5478)
 
 ## Overview
 A utility function that estimates and labels the cost of a Sort plan node when it doesn't have a directly corresponding Path node, primarily used for EXPLAIN output.

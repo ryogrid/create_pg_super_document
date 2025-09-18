@@ -1,7 +1,7 @@
 # defGetStreamingMode
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2391 - 2441
+[src/backend/commands/subscriptioncmds.c:2391-2441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2391-L2441)
 
 ## Overview
 Extracts and validates streaming mode values from DefElem parameters, supporting boolean values and the special "parallel" mode for logical replication subscriptions.

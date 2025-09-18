@@ -1,7 +1,7 @@
 # lo_import_internal
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 419 - 480
+[src/backend/libpq/be-fsstubs.c:419-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L419-L480)
 
 ## Overview
 Internal function that imports data from a server-side file into a large object, creating a new large object or using a specified OID.

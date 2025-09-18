@@ -1,7 +1,7 @@
 # RevokeRoleGrantAction
 
 ## Location
-src/backend/commands/user.c: 67 - 77
+[src/backend/commands/user.c:67-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L67-L77)
 
 ## Overview
 An enumeration that defines the possible actions that can be taken when revoking role grants, including specific options or the entire grant itself.

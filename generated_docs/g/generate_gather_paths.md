@@ -1,7 +1,7 @@
 # generate_gather_paths
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3052 - 3121
+[src/backend/optimizer/path/allpaths.c:3052-3121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3052-L3121)
 
 ## Overview
 Generates parallel access paths for a relation by creating Gather and GatherMerge paths on top of existing partial paths, enabling parallel query execution.

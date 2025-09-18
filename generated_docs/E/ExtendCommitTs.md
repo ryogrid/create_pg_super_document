@@ -1,7 +1,7 @@
 # ExtendCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 849 - 889
+[src/backend/access/transam/commit_ts.c:849-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L849-L889)
 
 ## Overview
 Ensures the commit timestamp SLRU has sufficient space for a newly-allocated transaction ID by extending storage when needed.

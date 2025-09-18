@@ -1,7 +1,7 @@
 # check_required_directory
 
 ## Location
-src/bin/pg_upgrade/option.c: 359 - 403
+[src/bin/pg_upgrade/option.c:359-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/option.c#L359-L403)
 
 ## Overview
 Validates and resolves directory paths for pg_upgrade, checking command-line arguments, environment variables, or current working directory as fallbacks.

@@ -1,7 +1,7 @@
 # jsonb_path_ops__extract_nodes
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 478 - 503
+[src/backend/utils/adt/jsonb_gin.c:478-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L478-L503)
 
 ## Overview
 Extracts GIN index nodes from a JSON path for the jsonb_path_ops operator class, creating hash-based index entries for equality queries only.

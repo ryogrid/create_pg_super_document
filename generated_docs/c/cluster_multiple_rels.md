@@ -1,7 +1,7 @@
 # cluster_multiple_rels
 
 ## Location
-src/backend/commands/cluster.c: 266 - 310
+[src/backend/commands/cluster.c:266-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L266-L310)
 
 ## Overview
 Processes a list of relations to be clustered, with each relation being clustered in its own separate transaction to avoid deadlock issues.

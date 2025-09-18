@@ -1,7 +1,7 @@
 # pg_eucjp_increment
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1437 - 1522
+[src/backend/utils/mb/mbutils.c:1437-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1437-L1522)
 
 ## Overview
 An EUC-JP character incrementer function that handles the complex multi-byte encoding rules of Extended Unix Code for Japanese to generate the next valid character in lexicographic order.

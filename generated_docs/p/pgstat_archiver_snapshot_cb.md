@@ -1,7 +1,7 @@
 # pgstat_archiver_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_archiver.c: 81 - 111
+[src/backend/utils/activity/pgstat_archiver.c:81-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_archiver.c#L81-L111)
 
 ## Overview
 Callback function that creates a local snapshot of archiver statistics, applying reset offsets to provide delta values since the last statistics reset.

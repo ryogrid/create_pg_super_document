@@ -1,7 +1,7 @@
 # slist_insert_after
 
 ## Location
-src/include/lib/ilist.h: 1018 - 1027
+[src/include/lib/ilist.h:1018-1027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1018-L1027)
 
 ## Overview
 Inserts a node after a specified node in a singly linked list within PostgreSQL's intrusive list implementation.

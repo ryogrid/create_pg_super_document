@@ -1,7 +1,7 @@
 # l_struct_gep
 
 ## Location
-src/include/jit/llvmjit_emit.h: 108 - 117
+[src/include/jit/llvmjit_emit.h:108-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L108-L117)
 
 ## Overview
 Provides a version-compatible wrapper for LLVM's struct GEP (Get Element Pointer) instruction to access struct member elements within PostgreSQL's JIT compilation system.

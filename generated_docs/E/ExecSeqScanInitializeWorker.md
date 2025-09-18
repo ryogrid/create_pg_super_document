@@ -1,7 +1,7 @@
 # ExecSeqScanInitializeWorker
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 294 - 302
+[src/backend/executor/nodeSeqscan.c:294-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L294-L302)
 
 ## Overview
 ExecSeqScanInitializeWorker initializes a worker process's sequential scan state by copying relevant information from the shared memory table-of-contents into the worker's plan state.

@@ -1,7 +1,7 @@
 # AddQual
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1057 - 1124
+[src/backend/rewrite/rewriteManip.c:1057-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1057-L1124)
 
 ## Overview
 Adds a qualifier condition to a query's WHERE clause, with special handling for utility statements and set operations, commonly used in rule processing and query rewriting.

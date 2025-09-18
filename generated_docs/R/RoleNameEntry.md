@@ -1,7 +1,7 @@
 # RoleNameEntry
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 41 - 42
+[src/bin/pg_dump/pg_dumpall.c:41-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L41-L42)
 
 ## Overview
 RoleNameEntry is a structure used as the element type for a hash table that tracks role names during PostgreSQL role membership dumping operations in pg_dumpall.

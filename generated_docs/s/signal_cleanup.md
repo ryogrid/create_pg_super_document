@@ -1,7 +1,7 @@
 # signal_cleanup
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 599 - 614
+[src/bin/pg_test_fsync/pg_test_fsync.c:599-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L599-L614)
 
 ## Overview
 A signal handler function in pg_test_fsync that performs cleanup operations when the program receives a signal, ensuring proper resource cleanup and termination.

@@ -1,7 +1,7 @@
 # pg_get_triggerdef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 880 - 1157
+[src/backend/utils/adt/ruleutils.c:880-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L880-L1157)
 
 ## Overview
 A static worker function that constructs the complete CREATE TRIGGER statement for a given trigger OID by querying the system catalog and building the DDL string.

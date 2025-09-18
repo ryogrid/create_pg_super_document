@@ -1,7 +1,7 @@
 # tqueueStartupReceiver
 
 ## Location
-src/backend/executor/tqueue.c: 83 - 91
+[src/backend/executor/tqueue.c:83-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L83-L91)
 
 ## Overview
 A no-op startup callback function for tuple queue destination receivers that prepares to receive tuples from the executor.

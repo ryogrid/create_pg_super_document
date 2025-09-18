@@ -1,7 +1,7 @@
 # GinBtreeEntryInsertData
 
 ## Location
-src/include/access/gin_private.h: 187 - 197
+[src/include/access/gin_private.h:187-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L187-L197)
 
 ## Overview
 GinBtreeEntryInsertData is a structure that represents a tuple to be inserted into a GIN entry tree, along with metadata indicating whether an existing tuple should be deleted.

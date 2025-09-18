@@ -1,7 +1,7 @@
 # Gzip_gets
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 319 - 326
+[src/bin/pg_dump/compress_gzip.c:319-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L319-L326)
 
 ## Overview
 Reads a line of text from a gzip-compressed file handle as a simple wrapper around zlib's gzgets function.

@@ -1,7 +1,7 @@
 # JsonPathExecContext
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 98 - 119
+[src/backend/utils/adt/jsonpath_exec.c:98-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L98-L119)
 
 ## Overview
 The primary execution context structure for PostgreSQL's JSON path evaluation engine, containing all state information needed during path expression execution.

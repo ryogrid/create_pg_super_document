@@ -1,7 +1,7 @@
 # RecoveryInProgress
 
 ## Location
-src/backend/access/transam/xlog.c: 6313 - 6348
+[src/backend/access/transam/xlog.c:6313-6348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6313-L6348)
 
 ## Overview
 RecoveryInProgress checks whether the database system is still in recovery mode by examining shared memory state, providing a thread-safe way for any process to determine recovery status.

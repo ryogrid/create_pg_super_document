@@ -1,7 +1,7 @@
 # AlterObjectNamespace_oid
 
 ## Location
-src/backend/commands/alter.c: 614 - 680
+[src/backend/commands/alter.c:614-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L614-L680)
 
 ## Overview
 Changes an object's namespace given its class OID and object OID, primarily designed for ALTER EXTENSION SET SCHEMA operations.

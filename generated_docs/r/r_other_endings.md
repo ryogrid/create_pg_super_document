@@ -1,7 +1,7 @@
 # r_other_endings
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 482 - 509
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:482-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L482-L509)
 
 ## Overview
 The r_other_endings function identifies and removes miscellaneous Finnish word endings that are not covered by other specific ending removal functions in the stemming process.

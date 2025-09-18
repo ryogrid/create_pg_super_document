@@ -1,7 +1,7 @@
 # dshash_partition
 
 ## Location
-src/backend/lib/dshash.c: 73 - 77
+[src/backend/lib/dshash.c:73-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L73-L77)
 
 ## Overview
 The dshash_partition struct provides tracking and synchronization information for each lock partition in a dynamic shared hash table, where each partition protects multiple buckets.

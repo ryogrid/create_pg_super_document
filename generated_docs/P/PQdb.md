@@ -1,7 +1,7 @@
 # PQdb
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7003 - 7010
+[src/interfaces/libpq/fe-connect.c:7003-7010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7003-L7010)
 
 ## Overview
 A public libpq API accessor function that returns the database name associated with a PostgreSQL connection.

@@ -1,7 +1,7 @@
 # constraints_equivalent
 
 ## Location
-src/backend/commands/tablecmds.c: 15867 - 15895
+[src/backend/commands/tablecmds.c:15867-15895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15867-L15895)
 
 ## Overview
 constraints_equivalent is a static function that determines whether two check constraints are functionally equivalent by comparing their properties and decompiled source expressions.

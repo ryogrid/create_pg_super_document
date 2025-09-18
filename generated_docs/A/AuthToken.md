@@ -1,7 +1,7 @@
 # AuthToken
 
 ## Location
-src/include/libpq/hba.h: 87 - 92
+[src/include/libpq/hba.h:87-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L87-L92)
 
 ## Overview
 AuthToken is a structure that represents a single string token lexed from authentication configuration files (pg_ident.conf or pg_hba.conf), including metadata about whether the token was quoted and optional regex compilation.

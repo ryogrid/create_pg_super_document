@@ -1,7 +1,7 @@
 # hashint8
 
 ## Location
-src/backend/access/hash/hashfunc.c: 83 - 102
+[src/backend/access/hash/hashfunc.c:83-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L83-L102)
 
 ## Overview
 The hashint8 function computes a hash value for a 64-bit signed integer (int8) while maintaining compatibility with hash values produced by hashint4 and hashint2 for logically equal inputs.

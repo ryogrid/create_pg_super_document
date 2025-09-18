@@ -1,7 +1,7 @@
 # transformRelOptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1156 - 1339
+[src/backend/access/common/reloptions.c:1156-1339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1156-L1339)
 
 ## Overview
 Transforms a list of relation option definitions (DefElem) into a text array format suitable for storage in pg_class.reloptions, handling CREATE/ALTER/RESET operations with namespace filtering.

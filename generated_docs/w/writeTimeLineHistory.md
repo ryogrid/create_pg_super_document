@@ -1,7 +1,7 @@
 # writeTimeLineHistory
 
 ## Location
-src/backend/access/transam/timeline.c: 304 - 462
+[src/backend/access/transam/timeline.c:304-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L304-L462)
 
 ## Overview
 Creates a new timeline history file by copying the parent timeline history and appending information about the new timeline split.

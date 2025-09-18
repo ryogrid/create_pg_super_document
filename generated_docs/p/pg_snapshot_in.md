@@ -1,7 +1,7 @@
 # pg_snapshot_in
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 420 - 435
+[src/backend/utils/adt/xid8funcs.c:420-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L420-L435)
 
 ## Overview
 Input function for the pg_snapshot data type that converts a string representation of a snapshot into the internal pg_snapshot structure.

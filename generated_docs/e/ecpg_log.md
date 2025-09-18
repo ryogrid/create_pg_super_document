@@ -1,7 +1,7 @@
 # ecpg_log
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 232 - 289
+[src/interfaces/ecpg/ecpglib/misc.c:232-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L232-L289)
 
 ## Overview
 Provides thread-safe debug logging functionality for the ECPG library with internationalization and process ID tracking support.

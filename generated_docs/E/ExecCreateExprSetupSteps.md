@@ -1,7 +1,7 @@
 # ExecCreateExprSetupSteps
 
 ## Location
-src/backend/executor/execExpr.c: 2733 - 2748
+[src/backend/executor/execExpr.c:2733-2748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L2733-L2748)
 
 ## Overview
 Orchestrates the creation of expression setup steps by analyzing an expression tree to determine setup requirements and generating the necessary initialization steps.

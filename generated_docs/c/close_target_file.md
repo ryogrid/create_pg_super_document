@@ -1,7 +1,7 @@
 # close_target_file
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 75 - 87
+[src/bin/pg_rewind/file_ops.c:75-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L75-L87)
 
 ## Overview
 Closes the currently open target file in pg_rewind's file operations system.

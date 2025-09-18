@@ -1,7 +1,7 @@
 # libpqrcv_identify_system
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 444 - 490
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:444-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L444-L490)
 
 ## Overview
 Checks that the primary server's system identifier matches the local system, and fetches the current timeline ID of the primary server during WAL receiver connection establishment.

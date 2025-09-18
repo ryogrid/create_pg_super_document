@@ -1,7 +1,7 @@
 # dlist_pop_head_node
 
 ## Location
-src/include/lib/ilist.h: 450 - 466
+[src/include/lib/ilist.h:450-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L450-L466)
 
 ## Overview
 Removes and returns the first node from a doubly-linked list, providing a stack-like LIFO (Last In, First Out) operation for the head of the list.

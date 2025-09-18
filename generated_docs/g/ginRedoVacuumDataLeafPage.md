@@ -1,7 +1,7 @@
 # ginRedoVacuumDataLeafPage
 
 ## Location
-src/backend/access/gin/ginxlog.c: 452 - 476
+[src/backend/access/gin/ginxlog.c:452-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L452-L476)
 
 ## Overview
 Replays GIN data leaf page vacuum operations during WAL recovery, recompressing the page using stored compression data.

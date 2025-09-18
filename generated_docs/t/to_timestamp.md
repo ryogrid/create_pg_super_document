@@ -1,7 +1,7 @@
 # to_timestamp
 
 ## Location
-src/backend/utils/adt/formatting.c: 4368 - 4406
+[src/backend/utils/adt/formatting.c:4368-4406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4368-L4406)
 
 ## Overview
 SQL callable function that parses a formatted date/time string into a TIMESTAMP value according to a specified format template, implementing the `to_timestamp(text, format)` SQL function.

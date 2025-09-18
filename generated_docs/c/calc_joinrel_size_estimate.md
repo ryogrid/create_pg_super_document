@@ -1,7 +1,7 @@
 # calc_joinrel_size_estimate
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5394 - 5543
+[src/backend/optimizer/path/costsize.c:5394-5543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5394-L5543)
 
 ## Overview
 The core workhorse function that calculates join size estimates by applying selectivity computations to the Cartesian product of input relations, with special handling for different join types.

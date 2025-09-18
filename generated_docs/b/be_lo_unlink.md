@@ -1,7 +1,7 @@
 # be_lo_unlink
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 314 - 356
+[src/backend/libpq/be-fsstubs.c:314-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L314-L356)
 
 ## Overview
 Deletes a large object from the database and returns the result of the deletion operation.

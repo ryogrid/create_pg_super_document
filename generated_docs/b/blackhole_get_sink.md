@@ -1,7 +1,7 @@
 # blackhole_get_sink
 
 ## Location
-src/backend/backup/basebackup_target.c: 194 - 202
+[src/backend/backup/basebackup_target.c:194-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L194-L202)
 
 ## Overview
 A specialized get_sink function for the "blackhole" backup target that efficiently discards backup data by simply returning the next sink in the chain without adding any processing layer.

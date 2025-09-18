@@ -1,7 +1,7 @@
 # suppress_redundant_updates_trigger
 
 ## Location
-src/backend/utils/adt/trigfuncs.c: 28 - 84
+[src/backend/utils/adt/trigfuncs.c:28-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/trigfuncs.c#L28-L84)
 
 ## Overview
 A trigger function designed to optimize database performance by preventing redundant UPDATE operations when the OLD and NEW row data are identical.

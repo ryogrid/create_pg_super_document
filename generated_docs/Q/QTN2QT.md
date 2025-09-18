@@ -1,7 +1,7 @@
 # QTN2QT
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 363 - 395
+[src/backend/utils/adt/tsquery_util.c:363-395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L363-L395)
 
 ## Overview
 Converts a QTNode tree representation into a flat TSQuery structure for efficient storage and processing.

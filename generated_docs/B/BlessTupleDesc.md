@@ -1,7 +1,7 @@
 # BlessTupleDesc
 
 ## Location
-src/backend/executor/execTuples.c: 2158 - 2172
+[src/backend/executor/execTuples.c:2158-2172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2158-L2172)
 
 ## Overview
 BlessTupleDesc finalizes a tuple descriptor for use with Set-Returning Functions (SRFs) by ensuring that transient RECORD types have valid type information registered in the type cache.

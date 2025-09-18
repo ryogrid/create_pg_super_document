@@ -1,7 +1,7 @@
 # be_tls_get_peer_serial
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1534 - 1554
+[src/backend/libpq/be-secure-openssl.c:1534-1554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1534-L1554)
 
 ## Overview
 Extracts the serial number from the peer's X.509 certificate and converts it to a decimal string representation.

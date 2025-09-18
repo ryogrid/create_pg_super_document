@@ -1,7 +1,7 @@
 # path_add_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4396 - 4408
+[src/backend/utils/adt/geo_ops.c:4396-4408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4396-L4408)
 
 ## Overview
 Translates a path by adding a point offset to all points in the path, effectively moving the entire path by the specified displacement.

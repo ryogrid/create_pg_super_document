@@ -1,7 +1,7 @@
 # timestamp_eq_date
 
 ## Location
-src/backend/utils/adt/date.c: 907 - 915
+[src/backend/utils/adt/date.c:907-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L907-L915)
 
 ## Overview
 Compares a timestamp value against a date value and returns true if they represent the same date (i.e., they are equal).

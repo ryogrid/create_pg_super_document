@@ -1,7 +1,7 @@
 # close_lseg
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2853 - 2877
+[src/backend/utils/adt/geo_ops.c:2853-2877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2853-L2877)
 
 ## Overview
 PostgreSQL SQL function that returns the closest point between two line segments.

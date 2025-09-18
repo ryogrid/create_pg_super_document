@@ -1,7 +1,7 @@
 # execCurrentOf
 
 ## Location
-src/backend/executor/execCurrent.c: 44 - 257
+[src/backend/executor/execCurrent.c:44-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execCurrent.c#L44-L257)
 
 ## Overview
 Determines which row of a specified table is currently being scanned by a named cursor in a CURRENT OF expression, returning the row's TID (tuple identifier).

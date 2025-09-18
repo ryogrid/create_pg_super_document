@@ -1,7 +1,7 @@
 # bms_hash_value
 
 ## Location
-src/backend/nodes/bitmapset.c: 1416 - 1431
+[src/backend/nodes/bitmapset.c:1416-1431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1416-L1431)
 
 ## Overview
 The `bms_hash_value` function computes a hash key for a Bitmapset, enabling Bitmapsets to be used in hash tables and hash-based operations.

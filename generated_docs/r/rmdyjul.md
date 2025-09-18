@@ -1,7 +1,7 @@
 # rmdyjul
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 592 - 603
+[src/interfaces/ecpg/compatlib/informix.c:592-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L592-L603)
 
 ## Overview
 Converts month, day, and year components into a Julian date value in the ECPG Informix compatibility library.

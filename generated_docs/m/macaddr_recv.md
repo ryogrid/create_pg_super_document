@@ -1,7 +1,7 @@
 # macaddr_recv
 
 ## Location
-src/backend/utils/adt/mac.c: 140 - 160
+[src/backend/utils/adt/mac.c:140-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L140-L160)
 
 ## Overview
 This function converts an external binary representation of a MAC address (6 bytes in network byte order) to PostgreSQL's internal macaddr data type structure.

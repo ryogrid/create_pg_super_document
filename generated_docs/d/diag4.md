@@ -1,7 +1,7 @@
 # diag4
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 556 - 572
+[src/tools/pg_bsd_indent/io.c:556-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L556-L572)
 
 ## Overview
 Outputs diagnostic messages (warnings and errors) with formatted output that includes line numbers and two integer parameters.

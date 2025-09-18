@@ -1,7 +1,7 @@
 # ginxlogInsert
 
 ## Location
-src/include/access/ginxlog.h: 55 - 61
+[src/include/access/ginxlog.h:55-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L55-L61)
 
 ## Overview
 ginxlogInsert is a WAL (Write-Ahead Logging) record structure used to log insertion operations in PostgreSQL's GIN (Generalized Inverted Index) access method, serving as the common header for all GIN insertion log records.

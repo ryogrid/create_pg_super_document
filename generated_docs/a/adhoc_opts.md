@@ -1,7 +1,7 @@
 # adhoc_opts
 
 ## Location
-src/bin/psql/startup.c: 66 - 88
+[src/bin/psql/startup.c:66-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L66-L88)
 
 ## Overview
 A structure that holds all command-line options and parsed arguments for psql, serving as the primary container for startup configuration.

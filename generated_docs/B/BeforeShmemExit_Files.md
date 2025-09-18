@@ -1,7 +1,7 @@
 # BeforeShmemExit_Files
 
 ## Location
-src/backend/storage/file/fd.c: 3176 - 3198
+[src/backend/storage/file/fd.c:3176-3198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3176-L3198)
 
 ## Overview
 A cleanup hook function that ensures all temporary files are removed during backend process shutdown, including inter-transaction temporary files.

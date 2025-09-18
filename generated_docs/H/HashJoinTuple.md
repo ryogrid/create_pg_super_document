@@ -1,7 +1,7 @@
 # HashJoinTuple
 
 ## Location
-src/include/nodes/execnodes.h: 2186 - 2186
+[src/include/nodes/execnodes.h:2186-2186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2186-L2186)
 
 ## Overview
 HashJoinTuple is a typedef for a pointer to HashJoinTupleData structure, representing individual tuples stored in the hash table during hash join operations.

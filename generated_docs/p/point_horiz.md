@@ -1,7 +1,7 @@
 # point_horiz
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1946 - 1954
+[src/backend/utils/adt/geo_ops.c:1946-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1946-L1954)
 
 ## Overview
 Tests whether two points have the same y-coordinate, determining if they lie on a horizontal line.

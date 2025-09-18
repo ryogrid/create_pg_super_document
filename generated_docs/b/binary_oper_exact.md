@@ -1,7 +1,7 @@
 # binary_oper_exact
 
 ## Location
-src/backend/parser/parse_oper.c: 262 - 311
+[src/backend/parser/parse_oper.c:262-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L262-L311)
 
 ## Overview
 A static helper function that searches for an exact operator match given specific operand types, with special handling for unknown literals and domain types.

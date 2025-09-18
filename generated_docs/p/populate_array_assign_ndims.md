@@ -1,7 +1,7 @@
 # populate_array_assign_ndims
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2558 - 2587
+[src/backend/utils/adt/jsonfuncs.c:2558-2587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2558-L2587)
 
 ## Overview
 Validates and initializes the number of dimensions for array population operations, setting up dimension tracking structures for JSON/JSONB array processing.

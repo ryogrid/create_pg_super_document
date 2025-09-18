@@ -1,7 +1,7 @@
 # expand_table_name_patterns
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1613 - 1708
+[src/bin/pg_dump/pg_dump.c:1613-1708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1613-L1708)
 
 ## Overview
 Finds the OIDs of all tables (including relations, sequences, views, materialized views, foreign tables, and partitioned tables) matching the given list of patterns and appends them to the provided OID list, with optional inclusion of child tables through inheritance.

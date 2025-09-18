@@ -1,7 +1,7 @@
 # setNamespaceColumnVisibility
 
 ## Location
-src/backend/parser/parse_clause.c: 1815 - 1831
+[src/backend/parser/parse_clause.c:1815-1831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1815-L1831)
 
 ## Overview
 A convenience subroutine that updates the column visibility flags in a namespace list to control whether columns are visible during parsing operations.

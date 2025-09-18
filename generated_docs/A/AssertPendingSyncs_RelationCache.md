@@ -1,7 +1,7 @@
 # AssertPendingSyncs_RelationCache
 
 ## Location
-src/backend/utils/cache/relcache.c: 3166 - 3236
+[src/backend/utils/cache/relcache.c:3166-3236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3166-L3236)
 
 ## Overview
 Asserts that the relcache.c and storage.c modules agree on whether to skip WAL (Write-Ahead Logging) for relations, ensuring consistency between these two critical subsystems.

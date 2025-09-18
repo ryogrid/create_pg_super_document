@@ -1,7 +1,7 @@
 # ATExecAddStatistics
 
 ## Location
-src/backend/commands/tablecmds.c: 9242 - 9262
+[src/backend/commands/tablecmds.c:9242-9262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L9242-L9262)
 
 ## Overview
 ATExecAddStatistics implements the internal creation of extended statistics objects during ALTER TABLE operations, specifically for rebuilding statistics after column type changes.

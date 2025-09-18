@@ -1,7 +1,7 @@
 # typenameTypeMod
 
 ## Location
-src/backend/parser/parse_type.c: 332 - 438
+[src/backend/parser/parse_type.c:332-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L332-L438)
 
 ## Overview
 A static function that processes type modifier expressions from a TypeName structure and converts them into the internal typmod integer value used by PostgreSQL's type system.

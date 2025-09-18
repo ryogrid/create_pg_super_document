@@ -1,7 +1,7 @@
 # sift_down
 
 ## Location
-src/common/binaryheap.c: 313 - 365
+[src/common/binaryheap.c:313-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L313-L365)
 
 ## Overview
 A static helper function that moves a node downward in the heap to maintain the heap property by comparing it with child nodes.

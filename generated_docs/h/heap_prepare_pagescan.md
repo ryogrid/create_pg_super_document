@@ -1,7 +1,7 @@
 # heap_prepare_pagescan
 
 ## Location
-src/backend/access/heap/heapam.c: 538 - 628
+[src/backend/access/heap/heapam.c:538-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L538-L628)
 
 ## Overview
 heap_prepare_pagescan prepares a heap page for efficient pagemode scanning by pruning the page and collecting offsets of all visible tuples into an array for subsequent tuple retrieval operations.

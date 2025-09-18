@@ -1,7 +1,7 @@
 # pg_rotate_right32
 
 ## Location
-src/include/port/pg_bitutils.h: 398 - 403
+[src/include/port/pg_bitutils.h:398-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L398-L403)
 
 ## Overview
 The pg_rotate_right32 function performs a bitwise right rotation of a 32-bit unsigned integer, commonly used in hash functions and cryptographic operations for bit mixing and distribution.

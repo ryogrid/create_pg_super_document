@@ -1,7 +1,7 @@
 # inittapes
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1891 - 1941
+[src/backend/utils/sort/tuplesort.c:1891-1941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1891-L1941)
 
 ## Overview
 Initializes the tape-based external sorting infrastructure when the sort cannot be completed in memory, setting up logical tapes and determining the optimal merge order.

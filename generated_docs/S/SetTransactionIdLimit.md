@@ -1,7 +1,7 @@
 # SetTransactionIdLimit
 
 ## Location
-src/backend/access/transam/varsup.c: 372 - 516
+[src/backend/access/transam/varsup.c:372-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L372-L516)
 
 ## Overview
 Determines and sets various transaction ID limits for wraparound prevention based on the oldest database frozen XID, configuring autovacuum triggers and warning thresholds to prevent transaction ID wraparound.

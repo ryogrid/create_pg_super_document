@@ -1,7 +1,7 @@
 # spgLeafConsistentIn
 
 ## Location
-src/include/access/spgist.h: 167 - 181
+[src/include/access/spgist.h:167-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L167-L181)
 
 ## Overview
 spgLeafConsistentIn is a structure that provides input parameters for SP-GiST leaf node consistency checking operations, containing scan keys, traversal context, and the actual leaf datum needed to determine if a leaf tuple matches the search criteria.

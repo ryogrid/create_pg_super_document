@@ -1,7 +1,7 @@
 # numeric_avg
 
 ## Location
-src/backend/utils/adt/numeric.c: 6144 - 6178
+[src/backend/utils/adt/numeric.c:6144-6178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6144-L6178)
 
 ## Overview
 Computes the average (arithmetic mean) of accumulated numeric values during aggregate operations.

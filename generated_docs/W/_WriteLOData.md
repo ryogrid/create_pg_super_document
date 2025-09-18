@@ -1,7 +1,7 @@
 # _WriteLOData
 
 ## Location
-src/bin/pg_dump/pg_backup_null.c: 92 - 109
+[src/bin/pg_dump/pg_backup_null.c:92-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_null.c#L92-L109)
 
 ## Overview
 A specialized data writing function for the null archive format that converts large object (LO) binary data into SQL INSERT statements with bytea literals.

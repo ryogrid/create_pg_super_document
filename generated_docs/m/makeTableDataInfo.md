@@ -1,7 +1,7 @@
 # makeTableDataInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2825 - 2898
+[src/bin/pg_dump/pg_dump.c:2825-2898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2825-L2898)
 
 ## Overview
 Creates a dumpable object for the data of a specific table, determining whether table data should be included in the pg_dump output.

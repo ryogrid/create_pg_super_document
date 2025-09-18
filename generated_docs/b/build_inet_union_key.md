@@ -1,7 +1,7 @@
 # build_inet_union_key
 
 ## Location
-src/backend/utils/adt/network_gist.c: 472 - 504
+[src/backend/utils/adt/network_gist.c:472-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L472-L504)
 
 ## Overview
 A static helper function that constructs a GistInetKey representing the union of multiple inet values by creating a key with specified parameters and common address bits.

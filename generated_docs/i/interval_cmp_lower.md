@@ -1,7 +1,7 @@
 # interval_cmp_lower
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1744 - 1756
+[src/backend/utils/adt/rangetypes_gist.c:1744-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1744-L1756)
 
 ## Overview
 A comparison function that compares two SplitInterval structures based on their lower bound values for use in GiST index operations.

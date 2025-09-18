@@ -1,7 +1,7 @@
 # jsonb_array_length
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1876 - 1897
+[src/backend/utils/adt/jsonfuncs.c:1876-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1876-L1897)
 
 ## Overview
 A SQL function that returns the number of elements in a JSONB array as an integer, providing efficient array length calculation for the binary JSON format.

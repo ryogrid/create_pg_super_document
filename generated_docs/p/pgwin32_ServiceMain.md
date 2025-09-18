@@ -1,7 +1,7 @@
 # pgwin32_ServiceMain
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1613 - 1705
+[src/bin/pg_ctl/pg_ctl.c:1613-1705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1613-L1705)
 
 ## Overview
 The main entry point for PostgreSQL when running as a Windows service, handling the complete service lifecycle from startup through shutdown.

@@ -1,7 +1,7 @@
 # listTSTemplates
 
 ## Location
-src/bin/psql/describe.c: 5459 - 5523
+[src/bin/psql/describe.c:5459-5523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5459-L5523)
 
 ## Overview
 Lists PostgreSQL text search templates with optional verbose details including initialization and lexize function information.

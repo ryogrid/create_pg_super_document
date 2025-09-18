@@ -1,7 +1,7 @@
 # AttachIndexCallbackState
 
 ## Location
-src/backend/commands/tablecmds.c: 19787 - 19794
+[src/backend/commands/tablecmds.c:19787-19794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19787-L19794)
 
 ## Overview
 A state structure used during index partition attachment operations to coordinate proper locking order between index and table objects, preventing deadlocks during ALTER INDEX ATTACH PARTITION commands.

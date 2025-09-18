@@ -1,7 +1,7 @@
 # pg_timezone_initialize
 
 ## Location
-src/timezone/pgtz.c: 361 - 382
+[src/timezone/pgtz.c:361-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L361-L382)
 
 ## Overview
 Initializes the timezone library by setting both session_timezone and log_timezone to GMT, ensuring valid timezone values are available before GUC variable initialization begins.

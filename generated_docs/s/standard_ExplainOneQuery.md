@@ -1,7 +1,7 @@
 # standard_ExplainOneQuery
 
 ## Location
-src/backend/commands/explain.c: 455 - 526
+[src/backend/commands/explain.c:455-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L455-L526)
 
 ## Overview
 standard_ExplainOneQuery implements the core PostgreSQL logic for explaining a single plannable query, including planning, resource measurement, and output generation.

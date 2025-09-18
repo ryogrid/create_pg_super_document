@@ -1,7 +1,7 @@
 # TSParserInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 541 - 542
+[src/bin/pg_dump/pg_dump.h:541-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L541-L542)
 
 ## Overview
 TSParserInfo is a structure used in pg_dump to represent a PostgreSQL text search parser, storing metadata needed to dump and restore text search parsers.

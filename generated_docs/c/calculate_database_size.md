@@ -1,7 +1,7 @@
 # calculate_database_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 118 - 167
+[src/backend/utils/adt/dbsize.c:118-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L118-L167)
 
 ## Overview
 A static function that calculates the total physical size of a database across all tablespaces, including both the default tablespace (pg_default) and any user-defined tablespaces.

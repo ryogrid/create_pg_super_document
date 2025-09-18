@@ -1,7 +1,7 @@
 # OpFamilyOpFuncGroup
 
 ## Location
-src/include/access/amvalidate.h: 20 - 26
+[src/include/access/amvalidate.h:20-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/amvalidate.h#L20-L26)
 
 ## Overview
 OpFamilyOpFuncGroup is a structure used to group operators and support functions by their left and right data types within PostgreSQL operator families, facilitating operator family validation.

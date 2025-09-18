@@ -1,7 +1,7 @@
 # plperl_proc_ptr
 
 ## Location
-src/pl/plperl/plperl.c: 161 - 165
+[src/pl/plperl/plperl.c:161-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L161-L165)
 
 ## Overview
 The plperl_proc_ptr structure serves as a hash table entry that maps composite keys to cached Perl procedure descriptors, facilitating efficient lookup and management of compiled Perl functions.

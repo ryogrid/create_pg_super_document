@@ -1,7 +1,7 @@
 # brin_xlog_revmap_extend
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 208 - 268
+[src/backend/access/brin/brin_xlog.c:208-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L208-L268)
 
 ## Overview
 Replays a BRIN revmap page extension operation during WAL recovery, updating the metapage and initializing the new revmap page.

@@ -1,7 +1,7 @@
 # plainto_tsquery
 
 ## Location
-src/backend/tsearch/to_tsany.c: 642 - 654
+[src/backend/tsearch/to_tsany.c:642-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L642-L654)
 
 ## Overview
 A user-facing function that converts plain text to a TSQuery using the current default text search configuration.

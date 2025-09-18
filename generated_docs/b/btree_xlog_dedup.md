@@ -1,7 +1,7 @@
 # btree_xlog_dedup
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 464 - 556
+[src/backend/access/nbtree/nbtxlog.c:464-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L464-L556)
 
 ## Overview
 Replays WAL (Write-Ahead Log) records for B-tree page deduplication operations during recovery or standby replay.

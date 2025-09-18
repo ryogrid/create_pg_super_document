@@ -1,7 +1,7 @@
 # BTScanPosItem
 
 ## Location
-src/include/access/nbtree.h: 944 - 949
+[src/include/access/nbtree.h:944-949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L944-L949)
 
 ## Overview
 BTScanPosItem is a structure that stores information about each matching item found during a B-tree index scan, including heap TID, index offset, and tuple workspace location.

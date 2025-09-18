@@ -1,7 +1,7 @@
 # point_eq_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1977 - 1992
+[src/backend/utils/adt/geo_ops.c:1977-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1977-L1992)
 
 ## Overview
 Internal static function that performs the core logic for comparing two points for equality, handling both regular floating-point values and NaN cases.

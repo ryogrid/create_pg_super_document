@@ -1,7 +1,7 @@
 # spg_text_inner_consistent
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 426 - 573
+[src/backend/access/spgist/spgtextproc.c:426-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L426-L573)
 
 ## Overview
 The inner consistent function for SP-GiST text operator class that determines which child nodes to visit during index traversal by testing search conditions against reconstructed key values.

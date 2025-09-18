@@ -1,7 +1,7 @@
 # defGetCopyOnErrorChoice
 
 ## Location
-src/backend/commands/copy.c: 393 - 424
+[src/backend/commands/copy.c:393-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L393-L424)
 
 ## Overview
 defGetCopyOnErrorChoice extracts and validates a CopyOnErrorChoice value from a DefElem parameter, supporting "stop" and "ignore" options exclusively for COPY FROM operations.

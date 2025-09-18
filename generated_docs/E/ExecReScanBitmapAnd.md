@@ -1,7 +1,7 @@
 # ExecReScanBitmapAnd
 
 ## Location
-src/backend/executor/nodeBitmapAnd.c: 201 - 223
+[src/backend/executor/nodeBitmapAnd.c:201-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapAnd.c#L201-L223)
 
 ## Overview
 ExecReScanBitmapAnd handles parameter changes and rescan operations for BitmapAndState nodes by propagating parameter updates and rescanning all child subplans.

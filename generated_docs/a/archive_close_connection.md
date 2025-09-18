@@ -1,7 +1,7 @@
 # archive_close_connection
 
 ## Location
-src/bin/pg_dump/parallel.c: 339 - 394
+[src/bin/pg_dump/parallel.c:339-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L339-L394)
 
 ## Overview
 An exit handler function that performs clean shutdown of database connections and worker processes in both parallel and non-parallel dump operations.

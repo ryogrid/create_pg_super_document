@@ -1,7 +1,7 @@
 # deconstruct_jointree
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 740 - 821
+[src/backend/optimizer/plan/initsplan.c:740-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L740-L821)
 
 ## Overview
 Recursively processes the query's join tree to extract and organize WHERE and JOIN/ON clauses, creating a joinlist structure for join order planning.

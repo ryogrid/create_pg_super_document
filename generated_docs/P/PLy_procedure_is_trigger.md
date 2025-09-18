@@ -1,7 +1,7 @@
 # PLy_procedure_is_trigger
 
 ## Location
-src/pl/plpython/plpy_main.c: 339 - 344
+[src/pl/plpython/plpy_main.c:339-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L339-L344)
 
 ## Overview
 PLy_procedure_is_trigger is a static utility function that determines whether a PostgreSQL procedure is defined as a trigger function.

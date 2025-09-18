@@ -1,7 +1,7 @@
 # ExecInitTableFuncScan
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 111 - 219
+[src/backend/executor/nodeTableFuncscan.c:111-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L111-L219)
 
 ## Overview
 ExecInitTableFuncScan initializes a TableFuncScanState node for executing table function scans, setting up all necessary data structures, expression contexts, and type conversion information.

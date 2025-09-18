@@ -1,7 +1,7 @@
 # RI_FKey_fk_upd_check_required
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1258 - 1358
+[src/backend/utils/adt/ri_triggers.c:1258-1358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1258-L1358)
 
 ## Overview
 Determines whether a referential integrity trigger needs to be fired for a foreign key update operation by analyzing NULL values, match types, and key equality.

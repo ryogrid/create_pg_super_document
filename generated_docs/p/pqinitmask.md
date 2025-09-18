@@ -1,7 +1,7 @@
 # pqinitmask
 
 ## Location
-src/backend/libpq/pqsignal.c: 41 - 99
+[src/backend/libpq/pqsignal.c:41-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqsignal.c#L41-L99)
 
 ## Overview
 Initializes the global signal mask sets used throughout PostgreSQL for signal management during different operational phases.

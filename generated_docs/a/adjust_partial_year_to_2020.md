@@ -1,7 +1,7 @@
 # adjust_partial_year_to_2020
 
 ## Location
-src/backend/utils/adt/formatting.c: 2354 - 2377
+[src/backend/utils/adt/formatting.c:2354-2377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2354-L2377)
 
 ## Overview
 Adjusts partial year values to full 4-digit years using a pivot approach centered around the year 2020.

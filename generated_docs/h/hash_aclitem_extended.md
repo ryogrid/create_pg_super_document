@@ -1,7 +1,7 @@
 # hash_aclitem_extended
 
 ## Location
-src/backend/utils/adt/acl.c: 782 - 802
+[src/backend/utils/adt/acl.c:782-802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L782-L802)
 
 ## Overview
 A PostgreSQL system function that computes a 64-bit hash value for AclItem structures with an optional seed parameter, providing enhanced hashing capabilities for advanced hash operations.

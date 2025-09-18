@@ -1,7 +1,7 @@
 # SPI_exec
 
 ## Location
-src/backend/executor/spi.c: 630 - 636
+[src/backend/executor/spi.c:630-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L630-L636)
 
 ## Overview
 SPI_exec is an obsolete version of SPI_execute that provides a simpler interface for executing SQL queries without explicit read-only specification.

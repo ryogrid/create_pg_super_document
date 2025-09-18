@@ -1,7 +1,7 @@
 # EventTriggerDDLCommandStart
 
 ## Location
-src/backend/commands/event_trigger.c: 721 - 771
+[src/backend/commands/event_trigger.c:721-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L721-L771)
 
 ## Overview
 EventTriggerDDLCommandStart fires ddl_command_start event triggers when a DDL command begins execution, providing a hook for monitoring and potentially modifying DDL operations.

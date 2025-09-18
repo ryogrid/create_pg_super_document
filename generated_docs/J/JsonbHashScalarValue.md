@@ -1,7 +1,7 @@
 # JsonbHashScalarValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1322 - 1364
+[src/backend/utils/adt/jsonb_util.c:1322-1364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1322-L1364)
 
 ## Overview
 JsonbHashScalarValue computes a hash value for a PostgreSQL JSONB scalar value and mixes it into an existing hash, used primarily in JSONB indexing operations.

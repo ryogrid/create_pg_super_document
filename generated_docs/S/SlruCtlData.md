@@ -1,7 +1,7 @@
 # SlruCtlData
 
 ## Location
-src/include/access/slru.h: 127 - 164
+[src/include/access/slru.h:127-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/slru.h#L127-L164)
 
 ## Overview
 SlruCtlData is a process-local control structure that provides configuration and access to PostgreSQL's SLRU (Simple LRU) shared memory structures, containing both shared memory pointers and local configuration parameters.

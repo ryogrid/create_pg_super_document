@@ -1,7 +1,7 @@
 # initSimpleStats
 
 ## Location
-src/bin/pgbench/pgbench.c: 1394 - 1402
+[src/bin/pgbench/pgbench.c:1394-1402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1394-L1402)
 
 ## Overview
 Initializes a SimpleStats structure to all zero values, preparing it for statistical data collection in pgbench.

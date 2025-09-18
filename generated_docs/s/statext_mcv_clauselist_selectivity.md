@@ -1,7 +1,7 @@
 # statext_mcv_clauselist_selectivity
 
 ## Location
-src/backend/statistics/extended_stats.c: 1696 - 1983
+[src/backend/statistics/extended_stats.c:1696-1983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1696-L1983)
 
 ## Overview
 Estimates clause selectivity using the best multi-column MCV (Most Common Values) statistics through a greedy algorithm that iteratively applies available statistics to maximize coverage.

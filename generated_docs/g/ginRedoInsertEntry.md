@@ -1,7 +1,7 @@
 # ginRedoInsertEntry
 
 ## Location
-src/backend/access/gin/ginxlog.c: 71 - 116
+[src/backend/access/gin/ginxlog.c:71-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L71-L116)
 
 ## Overview
 Replays the insertion, deletion, or modification of an index tuple entry in a GIN index page during WAL recovery, handling both leaf and internal page operations.

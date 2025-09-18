@@ -1,7 +1,7 @@
 # timestamptz_at_local
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6698 - 6701
+[src/backend/utils/adt/timestamp.c:6698-6701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6698-L6701)
 
 ## Overview
 A wrapper function for converting timestamp with timezone to timestamp without timezone using the session timezone, supporting the SQL AT LOCAL syntax.

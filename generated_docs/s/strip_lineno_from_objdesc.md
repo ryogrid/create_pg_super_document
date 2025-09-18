@@ -1,7 +1,7 @@
 # strip_lineno_from_objdesc
 
 ## Location
-src/bin/psql/command.c: 5826 - 5883
+[src/bin/psql/command.c:5826-5883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5826-L5883)
 
 ## Overview
 Parses and removes a line number suffix from object descriptions used in psql's \ef and \ev commands, returning the extracted line number as an integer.

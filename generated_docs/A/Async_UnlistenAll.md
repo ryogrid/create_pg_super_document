@@ -1,7 +1,7 @@
 # Async_UnlistenAll
 
 ## Location
-src/backend/commands/async.c: 770 - 789
+[src/backend/commands/async.c:770-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L770-L789)
 
 ## Overview
 Executes the SQL UNLISTEN * command and is also invoked at backend exit to remove all listen subscriptions for the current session.

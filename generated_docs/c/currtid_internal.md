@@ -1,7 +1,7 @@
 # currtid_internal
 
 ## Location
-src/backend/utils/adt/tid.c: 296 - 335
+[src/backend/utils/adt/tid.c:296-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L296-L335)
 
 ## Overview
 A utility wrapper function that returns the latest version of a tuple pointing at a specified tuple identifier (TID) for a given relation, with proper access control checks.

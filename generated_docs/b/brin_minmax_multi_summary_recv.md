@@ -1,7 +1,7 @@
 # brin_minmax_multi_summary_recv
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 3117 - 3133
+[src/backend/access/brin/brin_minmax_multi.c:3117-3133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L3117-L3133)
 
 ## Overview
 This function serves as the binary input routine for the BRIN minmax-multi summary type, but intentionally raises an error to prevent binary input operations on this type.

@@ -1,7 +1,7 @@
 # pg_to_ascii
 
 ## Location
-src/backend/utils/adt/ascii.c: 29 - 37
+[src/backend/utils/adt/ascii.c:29-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ascii.c#L29-L37)
 
 ## Overview
 A static function that converts text from various single-byte character encodings to ASCII by replacing non-ASCII characters with their ASCII equivalents or spaces.

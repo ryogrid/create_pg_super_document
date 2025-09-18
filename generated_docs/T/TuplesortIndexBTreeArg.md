@@ -1,7 +1,7 @@
 # TuplesortIndexBTreeArg
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 126 - 137
+[src/backend/utils/sort/tuplesortvariants.c:126-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L126-L137)
 
 ## Overview
 A data structure that extends TuplesortIndexArg with additional fields specific to B-tree index sorting, used to handle unique constraint enforcement during index creation.

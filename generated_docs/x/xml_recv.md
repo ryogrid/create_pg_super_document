@@ -1,7 +1,7 @@
 # xml_recv
 
 ## Location
-src/backend/utils/adt/xml.c: 371 - 437
+[src/backend/utils/adt/xml.c:371-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L371-L437)
 
 ## Overview
 PostgreSQL binary input function that receives XML data from client in binary protocol format, handling encoding detection and conversion with well-formedness validation.

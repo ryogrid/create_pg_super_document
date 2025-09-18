@@ -1,7 +1,7 @@
 # arrayexpr_startup_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1042 - 1068
+[src/backend/optimizer/util/predtest.c:1042-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1042-L1068)
 
 ## Overview
 A static initialization function that sets up iteration state for processing array expressions during predicate testing operations in PostgreSQL's query optimizer.

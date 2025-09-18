@@ -1,7 +1,7 @@
 # subxact_filename
 
 ## Location
-src/backend/replication/logical/worker.c: 4197 - 4203
+[src/backend/replication/logical/worker.c:4197-4203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4197-L4203)
 
 ## Overview
 Generates a standardized filename for storing subtransaction information files in logical replication.

@@ -1,7 +1,7 @@
 # int84ne
 
 ## Location
-src/backend/utils/adt/int8.c: 179 - 187
+[src/backend/utils/adt/int8.c:179-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L179-L187)
 
 ## Overview
 Compares a 64-bit integer with a 32-bit integer for inequality, returning true if they are not equal.

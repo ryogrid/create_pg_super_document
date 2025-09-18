@@ -1,7 +1,7 @@
 # InitProcessLocalLatch
 
 ## Location
-src/backend/utils/init/miscinit.c: 242 - 248
+[src/backend/utils/init/miscinit.c:242-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L242-L248)
 
 ## Overview
 Initializes the process-local latch for the current process, setting up the initial latch mechanism used before transitioning to shared memory-based latches.

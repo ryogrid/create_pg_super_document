@@ -1,7 +1,7 @@
 # create_partitionwise_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7940 - 8083
+[src/backend/optimizer/plan/planner.c:7940-8083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7940-L8083)
 
 ## Overview
 Creates partitionwise grouping and aggregation paths for partitioned relations by breaking down aggregation into per-partition operations followed by combining results via append operations.

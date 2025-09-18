@@ -1,7 +1,7 @@
 # arraycontsel
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 241 - 320
+[src/backend/utils/adt/array_selfuncs.c:241-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L241-L320)
 
 ## Overview
 Restriction selectivity function for array containment operators (@>, &&, <@), estimating the probability that array containment conditions will be satisfied.

@@ -1,7 +1,7 @@
 # get_backend_type_for_log
 
 ## Location
-src/backend/utils/error/elog.c: 2751 - 2772
+[src/backend/utils/error/elog.c:2751-2772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2751-L2772)
 
 ## Overview
 Returns a human-readable string identifying the type of PostgreSQL backend process for use in log entries, handling special cases for postmaster and background workers.

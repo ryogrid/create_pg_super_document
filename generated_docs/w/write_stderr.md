@@ -1,7 +1,7 @@
 # write_stderr
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 115 - 201
+[src/bin/pg_ctl/pg_ctl.c:115-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L115-L201)
 
 ## Overview
 A low-level error output function that writes formatted error messages to stderr or equivalent output mechanisms, designed for use during early PostgreSQL startup before the full error handling system is available.

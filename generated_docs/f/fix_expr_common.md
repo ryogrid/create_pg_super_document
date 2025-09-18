@@ -1,7 +1,7 @@
 # fix_expr_common
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1978 - 2072
+[src/backend/optimizer/plan/setrefs.c:1978-2072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1978-L2072)
 
 ## Overview
 A core utility function that performs generic expression node processing during plan reference fixing, handling operator function lookups, dependency tracking, and expression metadata updates.

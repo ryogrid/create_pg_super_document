@@ -1,7 +1,7 @@
 # GenericXLogState
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 64 - 89
+[src/backend/access/transam/generic_xlog.c:64-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L64-L89)
 
 ## Overview
 GenericXLogState is a structure that maintains the state during generic WAL (Write-Ahead Logging) record construction, designed to handle multiple page modifications in a single transaction with proper I/O alignment requirements.

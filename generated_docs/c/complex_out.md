@@ -1,7 +1,7 @@
 # complex_out
 
 ## Location
-src/tutorial/complex.c: 53 - 70
+[src/tutorial/complex.c:53-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L53-L70)
 
 ## Overview
 Output function for the  data type that converts PostgreSQL's internal representation of a complex number to its external string format.

@@ -1,7 +1,7 @@
 # HashScanPosData
 
 ## Location
-src/include/access/hash.h: 109 - 128
+[src/include/access/hash.h:109-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash.h#L109-L128)
 
 ## Overview
 HashScanPosData is a structure that maintains the state and position information for hash index scans, including page navigation data and an array of matched items.

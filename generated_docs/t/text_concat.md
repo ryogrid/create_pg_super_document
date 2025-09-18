@@ -1,7 +1,7 @@
 # text_concat
 
 ## Location
-src/backend/utils/adt/varlena.c: 5502 - 5516
+[src/backend/utils/adt/varlena.c:5502-5516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5502-L5516)
 
 ## Overview
 PostgreSQL built-in function that concatenates all provided arguments without any separator, ignoring NULL arguments.

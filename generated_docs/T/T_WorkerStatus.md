@@ -1,7 +1,7 @@
 # T_WorkerStatus
 
 ## Location
-src/bin/pg_dump/parallel.c: 81 - 82
+[src/bin/pg_dump/parallel.c:81-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L81-L82)
 
 ## Overview
 Enum type that defines the possible status states for parallel worker processes in PostgreSQL's pg_dump utility.

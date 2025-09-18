@@ -1,7 +1,7 @@
 # consume_xids
 
 ## Location
-src/test/modules/xid_wraparound/xid_wraparound.c: 32 - 52
+[src/test/modules/xid_wraparound/xid_wraparound.c:32-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/xid_wraparound/xid_wraparound.c#L32-L52)
 
 ## Overview
 A PostgreSQL test function that consumes a specified number of transaction IDs (XIDs) from the transaction ID counter for testing XID wraparound behavior.

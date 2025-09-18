@@ -1,7 +1,7 @@
 # locale_map
 
 ## Location
-src/port/win32setlocale.c: 39 - 107
+[src/port/win32setlocale.c:39-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32setlocale.c#L39-L107)
 
 ## Overview
 A structure that defines mapping rules for transforming problematic locale names on Windows to their acceptable equivalents.

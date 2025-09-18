@@ -1,7 +1,7 @@
 # logical_heap_rewrite_flush_mappings
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 807 - 904
+[src/backend/access/heap/rewriteheap.c:807-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L807-L904)
 
 ## Overview
 Flushes all accumulated logical rewrite mappings from memory to disk and logs them via WAL, ensuring that tuple location mappings needed for logical decoding are persistently stored during heap rewrite operations.

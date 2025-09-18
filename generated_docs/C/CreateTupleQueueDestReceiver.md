@@ -1,7 +1,7 @@
 # CreateTupleQueueDestReceiver
 
 ## Location
-src/backend/executor/tqueue.c: 119 - 138
+[src/backend/executor/tqueue.c:119-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L119-L138)
 
 ## Overview
 Creates and initializes a destination receiver that writes tuples to a shared memory message queue for inter-process communication in parallel query execution.

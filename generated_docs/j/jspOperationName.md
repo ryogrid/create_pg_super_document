@@ -1,7 +1,7 @@
 # jspOperationName
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 836 - 916
+[src/backend/utils/adt/jsonpath.c:836-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L836-L916)
 
 ## Overview
 Returns the string representation of a JSON path operation based on its JsonPathItemType, used for debugging and error reporting in JSON path expression processing.

@@ -1,7 +1,7 @@
 # ExecuteGrantStmt
 
 ## Location
-src/backend/catalog/aclchk.c: 392 - 601
+[src/backend/catalog/aclchk.c:392-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L392-L601)
 
 ## Overview
 Main entry point for executing GRANT and REVOKE SQL utility commands, converting the parsed statement into an internal representation and delegating to the actual execution logic.

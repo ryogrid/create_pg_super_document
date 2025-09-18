@@ -1,7 +1,7 @@
 # _bt_dedup_save_htid
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 484 - 554
+[src/backend/access/nbtree/nbtdedup.c:484-554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L484-L554)
 
 ## Overview
 Attempts to save heap TIDs from an index tuple into the current pending posting list, checking size limits and merging duplicates where possible.

@@ -1,7 +1,7 @@
 # cmpLexeme
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 356 - 371
+[src/backend/tsearch/dict_thesaurus.c:356-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L356-L371)
 
 ## Overview
 A static comparison function that compares two TheLexeme structures by their lexeme strings, handling NULL lexemes appropriately.

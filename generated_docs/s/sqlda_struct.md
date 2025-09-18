@@ -1,7 +1,7 @@
 # sqlda_struct
 
 ## Location
-src/interfaces/ecpg/include/sqlda-native.h: 33 - 43
+[src/interfaces/ecpg/include/sqlda-native.h:33-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/sqlda-native.h#L33-L43)
 
 ## Overview
 The  is the main SQL Descriptor Area structure in PostgreSQL's ECPG native interface, providing a complete descriptor for result sets or parameter lists with metadata and variable information.

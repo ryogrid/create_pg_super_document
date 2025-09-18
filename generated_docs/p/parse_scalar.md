@@ -1,7 +1,7 @@
 # parse_scalar
 
 ## Location
-src/common/jsonapi.c: 1008 - 1051
+[src/common/jsonapi.c:1008-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1008-L1051)
 
 ## Overview
 A recursive descent parsing function that processes JSON scalar values (string, number, true, false, null) and invokes the appropriate semantic action callback.

@@ -1,7 +1,7 @@
 # CC_WORD
 
 ## Location
-src/include/regex/regguts.h: 141 - 143
+[src/include/regex/regguts.h:141-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L141-L143)
 
 ## Overview
 CC_WORD is an enumeration constant representing the word character class in PostgreSQL's regular expression engine, used to identify characters that are considered part of words (letters, digits, and underscores).

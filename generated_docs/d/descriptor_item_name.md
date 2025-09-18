@@ -1,7 +1,7 @@
 # descriptor_item_name
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 233 - 274
+[src/interfaces/ecpg/preproc/descriptor.c:233-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L233-L274)
 
 ## Overview
 Converts ECPG descriptor type enumeration values to their corresponding SQL standard string names for use in generated code and error messages.

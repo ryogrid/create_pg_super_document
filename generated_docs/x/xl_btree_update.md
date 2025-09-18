@@ -1,7 +1,7 @@
 # xl_btree_update
 
 ## Location
-src/include/access/nbtxlog.h: 264 - 269
+[src/include/access/nbtxlog.h:264-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L264-L269)
 
 ## Overview
 WAL record metadata structure describing partial updates to B-tree posting list tuples, specifying which TIDs within a posting list are to be deleted while preserving the tuple.

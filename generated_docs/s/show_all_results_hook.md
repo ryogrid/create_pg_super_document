@@ -1,7 +1,7 @@
 # show_all_results_hook
 
 ## Location
-src/bin/psql/startup.c: 1150 - 1155
+[src/bin/psql/startup.c:1150-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1150-L1155)
 
 ## Overview
 A variable hook function that processes changes to the SHOW_ALL_RESULTS variable in psql, controlling whether all result sets from a multi-statement query are displayed or just the last one.

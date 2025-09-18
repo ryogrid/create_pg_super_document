@@ -1,7 +1,7 @@
 # print2
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-whenever.c: 33 - 38
+[src/interfaces/ecpg/test/expected/preproc-whenever.c:33-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-whenever.c#L33-L38)
 
 ## Overview
 The print2 function is a static error handling utility in ECPG test code that prints an error message and displays SQL diagnostic information.

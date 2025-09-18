@@ -1,7 +1,7 @@
 # ecpg_sqlda_align_add_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 33 - 44
+[src/interfaces/ecpg/ecpglib/sqlda.c:33-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L33-L44)
 
 ## Overview
 A static helper function that computes memory alignment offsets for variables in PostgreSQL's ECPG SQLDA (SQL Descriptor Area) implementation.

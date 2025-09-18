@@ -1,7 +1,7 @@
 # ts_stat_sql
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2575 - 2663
+[src/backend/utils/adt/tsvector_op.c:2575-2663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2575-L2663)
 
 ## Overview
 Executes a SQL query that returns tsvector data and accumulates text search statistics from the results, optionally filtering by specified weights.

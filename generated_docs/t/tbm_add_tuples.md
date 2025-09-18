@@ -1,7 +1,7 @@
 # tbm_add_tuples
 
 ## Location
-src/backend/nodes/tidbitmap.c: 377 - 442
+[src/backend/nodes/tidbitmap.c:377-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L377-L442)
 
 ## Overview
 Adds multiple tuple identifiers (TIDs) to a TID bitmap, efficiently handling consecutive tuples on the same page and managing memory constraints through lossification.

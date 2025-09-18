@@ -1,7 +1,7 @@
 # ECPGd_cardinality
 
 ## Location
-src/interfaces/ecpg/include/ecpgtype.h: 89 - 91
+[src/interfaces/ecpg/include/ecpgtype.h:89-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/ecpgtype.h#L89-L91)
 
 ## Overview
 ECPGd_cardinality is an enumeration constant that represents the cardinality descriptor item within the ECPG (Embedded SQL in C for PostgreSQL) descriptor type system.

@@ -1,7 +1,7 @@
 # _PublicationRelInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 648 - 654
+[src/bin/pg_dump/pg_dump.h:648-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L648-L654)
 
 ## Overview
 The  struct represents publication table mapping, used by pg_dump to store information about tables that are included in logical replication publications.

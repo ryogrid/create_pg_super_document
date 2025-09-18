@@ -1,7 +1,7 @@
 # ATPrepAlterColumnType
 
 ## Location
-src/backend/commands/tablecmds.c: 12807 - 13098
+[src/backend/commands/tablecmds.c:12807-13098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12807-L13098)
 
 ## Overview
 Prepares ALTER COLUMN TYPE operations during Phase 1 of ALTER TABLE processing, handling type validation, expression transformation, and inheritance recursion.

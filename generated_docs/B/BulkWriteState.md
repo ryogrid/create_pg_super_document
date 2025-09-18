@@ -1,7 +1,7 @@
 # BulkWriteState
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 62 - 87
+[src/backend/storage/smgr/bulk_write.c:62-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L62-L87)
 
 ## Overview
 BulkWriteState is a structure that maintains state for bulk write operations on a single relation fork, allowing efficient batch processing of page writes with WAL logging optimization.

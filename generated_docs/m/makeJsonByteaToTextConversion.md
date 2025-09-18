@@ -1,7 +1,7 @@
 # makeJsonByteaToTextConversion
 
 ## Location
-src/backend/parser/parse_expr.c: 3266 - 3287
+[src/backend/parser/parse_expr.c:3266-3287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3266-L3287)
 
 ## Overview
 Creates a function expression that converts bytea data to text using a specified JSON format encoding.

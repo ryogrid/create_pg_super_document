@@ -1,7 +1,7 @@
 # pickss
 
 ## Location
-src/backend/regex/rege_dfa.c: 1044 - 1102
+[src/backend/regex/rege_dfa.c:1044-1102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L1044-L1102)
 
 ## Overview
 A static function that selects the next state set to be used in the DFA regex engine, implementing a cache replacement strategy that prioritizes reusing older, unlocked state sets.

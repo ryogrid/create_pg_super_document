@@ -1,7 +1,7 @@
 # tuplesort_begin_datum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 584 - 668
+[src/backend/utils/sort/tuplesortvariants.c:584-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L584-L668)
 
 ## Overview
 Initializes a tuplesort state for sorting individual datum values of a specific data type, supporting efficient sorting of single-column data with comprehensive type-aware optimizations.

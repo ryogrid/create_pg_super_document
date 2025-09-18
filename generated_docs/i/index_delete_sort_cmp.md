@@ -1,7 +1,7 @@
 # index_delete_sort_cmp
 
 ## Location
-src/backend/access/heap/heapam.c: 8404 - 8439
+[src/backend/access/heap/heapam.c:8404-8439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8404-L8439)
 
 ## Overview
 A specialized inlineable comparison function used for sorting TM_IndexDelete structures by their ItemPointer (TID) values in index_delete_sort().

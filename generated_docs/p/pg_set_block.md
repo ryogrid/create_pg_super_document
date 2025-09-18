@@ -1,7 +1,7 @@
 # pg_set_block
 
 ## Location
-src/port/noblock.c: 49 - 66
+[src/port/noblock.c:49-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/noblock.c#L49-L66)
 
 ## Overview
 Sets a socket to blocking mode, ensuring I/O operations will wait for completion before returning.

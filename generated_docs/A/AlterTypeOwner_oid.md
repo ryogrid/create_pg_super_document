@@ -1,7 +1,7 @@
 # AlterTypeOwner_oid
 
 ## Location
-src/backend/commands/typecmds.c: 3947 - 3986
+[src/backend/commands/typecmds.c:3947-3986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3947-L3986)
 
 ## Overview
 Low-level function that unconditionally changes the ownership of a type by OID, handling dependent types and composite type special cases without performing permission checks.

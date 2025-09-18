@@ -1,7 +1,7 @@
 # dshash_memcpy
 
 ## Location
-src/backend/lib/dshash.c: 590 - 598
+[src/backend/lib/dshash.c:590-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L590-L598)
 
 ## Overview
 A utility function that provides a standardized interface for memory copying in the dshash (dynamic shared hash) system by forwarding calls to the standard memcpy function.

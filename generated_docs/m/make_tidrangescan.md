@@ -1,7 +1,7 @@
 # make_tidrangescan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5665 - 5683
+[src/backend/optimizer/plan/createplan.c:5665-5683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5665-L5683)
 
 ## Overview
 Creates and initializes a TidRangeScan plan node that scans a range of tuples in a heap table using tuple identifier (TID) range conditions, providing efficient access to contiguous blocks of tuples.

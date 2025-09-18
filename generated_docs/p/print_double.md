@@ -1,7 +1,7 @@
 # print_double
 
 ## Location
-src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c: 34 - 77
+[src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c:34-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c#L34-L77)
 
 ## Overview
 A utility function that provides cross-platform consistent formatting when printing double precision floating-point numbers, designed to normalize the output format across different operating systems.

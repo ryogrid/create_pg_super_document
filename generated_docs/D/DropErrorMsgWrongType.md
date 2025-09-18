@@ -1,7 +1,7 @@
 # DropErrorMsgWrongType
 
 ## Location
-src/backend/commands/tablecmds.c: 1441 - 1467
+[src/backend/commands/tablecmds.c:1441-1467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1441-L1467)
 
 ## Overview
 DropErrorMsgWrongType generates specific error messages when a DROP command is issued on a relation that exists but is of the wrong type.

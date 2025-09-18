@@ -1,7 +1,7 @@
 # line_construct
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1083 - 1114
+[src/backend/utils/adt/geo_ops.c:1083-1114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1083-L1114)
 
 ## Overview
 Constructs the internal representation of a line from a point and slope. This is a utility function that converts point-slope form to the standard Ax + By + C = 0 equation form.

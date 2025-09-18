@@ -1,7 +1,7 @@
 # IsValidJsonNumber
 
 ## Location
-src/common/jsonapi.c: 272 - 325
+[src/common/jsonapi.c:272-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L272-L325)
 
 ## Overview
 A utility function that validates whether a given string represents a valid JSON number according to the JSON specification.

@@ -1,7 +1,7 @@
 # bbsink_forward_end_manifest
 
 ## Location
-src/backend/backup/basebackup_sink.c: 101 - 110
+[src/backend/backup/basebackup_sink.c:101-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L101-L110)
 
 ## Overview
 A forwarding function that passes the end manifest signal to the next backup sink in a chain, used in PostgreSQL's base backup system to indicate completion of manifest processing.

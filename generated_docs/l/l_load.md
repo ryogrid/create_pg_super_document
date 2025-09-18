@@ -1,7 +1,7 @@
 # l_load
 
 ## Location
-src/include/jit/llvmjit_emit.h: 128 - 137
+[src/include/jit/llvmjit_emit.h:128-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L128-L137)
 
 ## Overview
 A static inline function that provides a version-agnostic wrapper for LLVM's load instruction, ensuring compatibility across different LLVM versions.

@@ -1,7 +1,7 @@
 # ExecInitIndexScan
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 886 - 1134
+[src/backend/executor/nodeIndexscan.c:886-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L886-L1134)
 
 ## Overview
 ExecInitIndexScan initializes the execution state for an index scan node, setting up scan keys, opening relations, and preparing all necessary data structures for index scanning operations.

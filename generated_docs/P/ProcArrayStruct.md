@@ -1,7 +1,7 @@
 # ProcArrayStruct
 
 ## Location
-src/backend/storage/ipc/procarray.c: 71 - 100
+[src/backend/storage/ipc/procarray.c:71-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L71-L100)
 
 ## Overview
 ProcArrayStruct is the core shared memory structure that maintains global transaction state information, tracking active processes and transaction IDs for concurrency control and snapshot management in PostgreSQL.

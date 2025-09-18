@@ -1,7 +1,7 @@
 # getTransforms
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8714 - 8804
+[src/bin/pg_dump/pg_dump.c:8714-8804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8714-L8804)
 
 ## Overview
 Retrieves basic information about every transform in the PostgreSQL system for use by pg_dump, handling version compatibility for features introduced in PostgreSQL 9.5.

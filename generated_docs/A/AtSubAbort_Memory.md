@@ -1,7 +1,7 @@
 # AtSubAbort_Memory
 
 ## Location
-src/backend/access/transam/xact.c: 1873 - 1884
+[src/backend/access/transam/xact.c:1873-1884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1873-L1884)
 
 ## Overview
 AtSubAbort_Memory switches the current memory context to TransactionAbortContext specifically during subtransaction abort processing, ensuring cleanup operations have access to reserved memory.

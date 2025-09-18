@@ -1,7 +1,7 @@
 # SnapBuildAddCommittedTxn
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 967 - 1000
+[src/backend/replication/logical/snapbuild.c:967-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L967-L1000)
 
 ## Overview
 Tracks a catalog-changing transaction that has committed by adding it to the builder's committed transaction list.

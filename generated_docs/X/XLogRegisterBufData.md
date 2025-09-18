@@ -1,7 +1,7 @@
 # XLogRegisterBufData
 
 ## Location
-src/backend/access/transam/xloginsert.c: 405 - 455
+[src/backend/access/transam/xloginsert.c:405-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L405-L455)
 
 ## Overview
 XLogRegisterBufData adds buffer-specific data to a WAL record being constructed, associating the data with a previously registered buffer block for replay purposes.

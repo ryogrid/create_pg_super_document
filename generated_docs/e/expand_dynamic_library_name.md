@@ -1,7 +1,7 @@
 # expand_dynamic_library_name
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 414 - 468
+[src/backend/utils/fmgr/dfmgr.c:414-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L414-L468)
 
 ## Overview
 Expands a dynamic library name to its full path by searching the dynamic library path and handling platform-specific extensions.

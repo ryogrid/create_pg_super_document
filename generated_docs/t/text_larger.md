@@ -1,7 +1,7 @@
 # text_larger
 
 ## Location
-src/backend/utils/adt/varlena.c: 2571 - 2582
+[src/backend/utils/adt/varlena.c:2571-2582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2571-L2582)
 
 ## Overview
 A comparison function that returns the lexicographically larger of two text values according to the specified collation.

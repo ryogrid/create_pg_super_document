@@ -1,7 +1,7 @@
 # pg_stats_ext_mcvlist_items
 
 ## Location
-src/backend/statistics/mcv.c: 1338 - 1471
+[src/backend/statistics/mcv.c:1338-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1338-L1471)
 
 ## Overview
 A Set-Returning Function (SRF) that exposes detailed information about individual items in a Most Common Values (MCV) statistics list as SQL-accessible tuples for administrative and analytical purposes.

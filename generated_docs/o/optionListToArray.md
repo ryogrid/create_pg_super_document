@@ -1,7 +1,7 @@
 # optionListToArray
 
 ## Location
-src/backend/commands/foreigncmds.c: 66 - 120
+[src/backend/commands/foreigncmds.c:66-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L66-L120)
 
 ## Overview
 Converts a list of DefElem structures into a text array format that is used for storing options in PostgreSQL system catalogs such as pg_foreign_data_wrapper, pg_foreign_server, pg_user_mapping, and pg_foreign_table.

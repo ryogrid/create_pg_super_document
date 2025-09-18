@@ -1,7 +1,7 @@
 # BTShared
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 94 - 151
+[src/backend/access/nbtree/nbtsort.c:94-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L94-L151)
 
 ## Overview
 BTShared is a structure that contains status information for B-tree index builds performed in parallel, allocated in a dynamic shared memory segment to coordinate between the leader and worker processes.

@@ -1,7 +1,7 @@
 # PQcancelBlocking
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 172 - 185
+[src/interfaces/libpq/fe-cancel.c:172-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L172-L185)
 
 ## Overview
 Sends a cancellation request in a blocking fashion, providing a simple synchronous interface for query cancellation.

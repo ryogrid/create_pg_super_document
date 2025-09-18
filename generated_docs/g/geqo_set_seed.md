@@ -1,7 +1,7 @@
 # geqo_set_seed
 
 ## Location
-src/backend/optimizer/geqo/geqo_random.c: 20 - 27
+[src/backend/optimizer/geqo/geqo_random.c:20-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_random.c#L20-L27)
 
 ## Overview
 Initializes the random number generator seed for the Genetic Query Optimizer (GEQO) to ensure reproducible random behavior during query optimization.

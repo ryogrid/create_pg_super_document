@@ -1,7 +1,7 @@
 # boolsend
 
 ## Location
-src/backend/utils/adt/bool.c: 187 - 203
+[src/backend/utils/adt/bool.c:187-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L187-L203)
 
 ## Overview
 Converts a PostgreSQL boolean value to binary format for network transmission or storage.

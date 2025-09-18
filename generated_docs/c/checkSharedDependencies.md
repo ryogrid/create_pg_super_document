@@ -1,7 +1,7 @@
 # checkSharedDependencies
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 676 - 715
+[src/backend/catalog/pg_shdepend.c:676-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L676-L715)
 
 ## Overview
 Checks for shared dependency entries for a given shared object and returns detailed information about dependent objects, used primarily during DROP operations to prevent deletion of objects that are still in use.

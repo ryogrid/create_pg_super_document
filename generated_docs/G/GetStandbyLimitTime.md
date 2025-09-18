@@ -1,7 +1,7 @@
 # GetStandbyLimitTime
 
 ## Location
-src/backend/storage/ipc/standby.c: 200 - 223
+[src/backend/storage/ipc/standby.c:200-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L200-L223)
 
 ## Overview
 Determines the cutoff time at which the standby server should start canceling conflicting transactions based on configured delay settings and WAL data receipt time.

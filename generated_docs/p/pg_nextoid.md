@@ -1,7 +1,7 @@
 # pg_nextoid
 
 ## Location
-src/backend/catalog/catalog.c: 616 - 694
+[src/backend/catalog/catalog.c:616-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L616-L694)
 
 ## Overview
 A SQL callable interface for GetNewOidWithIndex() that generates the next available OID for a specified column in a system catalog table, primarily used during initdb and corruption recovery scenarios.

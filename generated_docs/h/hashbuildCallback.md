@@ -1,7 +1,7 @@
 # hashbuildCallback
 
 ## Location
-src/backend/access/hash/hash.c: 210 - 250
+[src/backend/access/hash/hash.c:210-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L210-L250)
 
 ## Overview
 Per-tuple callback function used during hash index building to process each heap tuple encountered during the table scan.

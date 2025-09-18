@@ -1,7 +1,7 @@
 # create_tablefuncscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3804 - 3846
+[src/backend/optimizer/plan/createplan.c:3804-3846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3804-L3846)
 
 ## Overview
 Creates a table function scan plan for scanning table functions such as XMLTABLE, JSON_TABLE, or other structured data parsing functions that generate table-like output.

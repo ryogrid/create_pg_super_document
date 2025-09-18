@@ -1,7 +1,7 @@
 # index_open
 
 ## Location
-src/backend/access/index/indexam.c: 133 - 151
+[src/backend/access/index/indexam.c:133-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L133-L151)
 
 ## Overview
 Opens an index relation by its object identifier (OID) and optionally acquires a lock on the index, with validation that the relation is indeed an index.

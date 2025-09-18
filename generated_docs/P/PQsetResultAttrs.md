@@ -1,7 +1,7 @@
 # PQsetResultAttrs
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 249 - 317
+[src/interfaces/libpq/fe-exec.c:249-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L249-L317)
 
 ## Overview
 Sets the column attribute descriptors for a PGresult, including column names, types, and formats, with validation to prevent overwriting existing attributes.

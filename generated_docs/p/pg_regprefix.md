@@ -1,7 +1,7 @@
 # pg_regprefix
 
 ## Location
-src/backend/regex/regprefix.c: 46 - 115
+[src/backend/regex/regprefix.c:46-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regprefix.c#L46-L115)
 
 ## Overview
 Extracts a common prefix from strings that would match a compiled regular expression, providing optimization opportunities for pattern matching operations.

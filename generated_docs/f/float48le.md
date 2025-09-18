@@ -1,7 +1,7 @@
 # float48le
 
 ## Location
-src/backend/utils/adt/float.c: 3891 - 3899
+[src/backend/utils/adt/float.c:3891-3899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3891-L3899)
 
 ## Overview
 PostgreSQL function that performs less-than-or-equal comparison between a float4 (single precision) and a float8 (double precision) value.

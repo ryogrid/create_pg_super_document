@@ -1,7 +1,7 @@
 # exec_command_restrict
 
 ## Location
-src/bin/psql/command.c: 2365 - 2393
+[src/bin/psql/command.c:2365-2393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2365-L2393)
 
 ## Overview
 Implements the psql \restrict backslash command that enables restricted mode with a specified security key to limit command execution.

@@ -1,7 +1,7 @@
 # btree_xlog_newroot
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 937 - 1002
+[src/backend/access/nbtree/nbtxlog.c:937-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L937-L1002)
 
 ## Overview
 Replays the creation of a new B-tree root page during WAL recovery, establishing a new root level for the index.

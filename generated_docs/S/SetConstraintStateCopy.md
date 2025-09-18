@@ -1,7 +1,7 @@
 # SetConstraintStateCopy
 
 ## Location
-src/backend/commands/trigger.c: 5696 - 5715
+[src/backend/commands/trigger.c:5696-5715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5696-L5715)
 
 ## Overview
 SetConstraintStateCopy creates a deep copy of an existing SetConstraintState structure, duplicating all constraint state information and trigger data.

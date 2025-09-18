@@ -1,7 +1,7 @@
 # attnumTypeId
 
 ## Location
-src/backend/parser/parse_relation.c: 3555 - 3574
+[src/backend/parser/parse_relation.c:3555-3574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3555-L3574)
 
 ## Overview
 This function retrieves the data type OID for a given attribute number within an opened relation.

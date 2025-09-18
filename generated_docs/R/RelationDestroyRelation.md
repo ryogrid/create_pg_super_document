@@ -1,7 +1,7 @@
 # RelationDestroyRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2443 - 2521
+[src/backend/utils/cache/relcache.c:2443-2521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2443-L2521)
 
 ## Overview
 RelationDestroyRelation physically destroys a relation cache entry and deallocates all its subsidiary data structures when the relation is no longer referenced.

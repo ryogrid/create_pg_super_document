@@ -1,7 +1,7 @@
 # ExecParallelHashJoinOuterGetTuple
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 964 - 1030
+[src/backend/executor/nodeHashjoin.c:964-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L964-L1030)
 
 ## Overview
 ExecParallelHashJoinOuterGetTuple is the parallel variant of outer tuple retrieval for hash joins, handling outer tuple fetching in parallel hash join execution with different behavior for single-batch versus multi-batch scenarios.

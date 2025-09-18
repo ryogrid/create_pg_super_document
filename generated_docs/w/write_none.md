@@ -1,7 +1,7 @@
 # write_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 100 - 113
+[src/bin/pg_dump/compress_none.c:100-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L100-L113)
 
 ## Overview
 The  function provides uncompressed file writing functionality for PostgreSQL's pg_dump utility, serving as the write operation handler when no compression is applied.

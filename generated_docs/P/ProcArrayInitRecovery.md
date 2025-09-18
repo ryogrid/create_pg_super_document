@@ -1,7 +1,7 @@
 # ProcArrayInitRecovery
 
 ## Location
-src/backend/storage/ipc/procarray.c: 1023 - 1053
+[src/backend/storage/ipc/procarray.c:1023-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L1023-L1053)
 
 ## Overview
 ProcArrayInitRecovery initializes the recovery transaction ID management environment by setting up the tracking of the latest observed XID during standby recovery.

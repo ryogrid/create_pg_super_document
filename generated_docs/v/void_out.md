@@ -1,7 +1,7 @@
 # void_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 269 - 274
+[src/backend/utils/adt/pseudotypes.c:269-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L269-L274)
 
 ## Overview
 An output function for the void pseudotype that converts void values to an empty string representation for display purposes.

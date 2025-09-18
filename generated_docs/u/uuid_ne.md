@@ -1,7 +1,7 @@
 # uuid_ne
 
 ## Location
-src/backend/utils/adt/uuid.c: 219 - 228
+[src/backend/utils/adt/uuid.c:219-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L219-L228)
 
 ## Overview
 Implements the not equal comparison operator (!=) for PostgreSQL UUID data type, returning true if the two UUID values are not equal.

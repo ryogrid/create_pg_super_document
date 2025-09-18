@@ -1,7 +1,7 @@
 # dumpPublicationTable
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4697 - 4757
+[src/bin/pg_dump/pg_dump.c:4697-4757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4697-L4757)
 
 ## Overview
 Generates SQL commands to recreate publication table mappings by producing ALTER PUBLICATION statements that add specific tables to publications with optional column lists and row filters.

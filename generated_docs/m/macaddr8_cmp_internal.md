@@ -1,7 +1,7 @@
 # macaddr8_cmp_internal
 
 ## Location
-src/backend/utils/adt/mac8.c: 310 - 324
+[src/backend/utils/adt/mac8.c:310-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L310-L324)
 
 ## Overview
 Internal comparison function for macaddr8 (EUI-64) MAC addresses that returns a tri-state comparison result for sorting operations.

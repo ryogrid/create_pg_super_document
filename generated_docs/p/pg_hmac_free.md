@@ -1,7 +1,7 @@
 # pg_hmac_free
 
 ## Location
-src/common/hmac_openssl.c: 326 - 353
+[src/common/hmac_openssl.c:326-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L326-L353)
 
 ## Overview
 Frees a HMAC context and securely clears its memory contents.

@@ -1,7 +1,7 @@
 # IpcSemaphoreKill
 
 ## Location
-src/backend/port/sysv_sema.c: 186 - 197
+[src/backend/port/sysv_sema.c:186-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_sema.c#L186-L197)
 
 ## Overview
 IpcSemaphoreKill is a static function that removes a System V IPC semaphore set from the system using the semctl() system call with the IPC_RMID operation.

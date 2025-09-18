@@ -1,7 +1,7 @@
 # pgwin32_poll_signals
 
 ## Location
-src/backend/port/win32/socket.c: 157 - 168
+[src/backend/port/win32/socket.c:157-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L157-L168)
 
 ## Overview
 pgwin32_poll_signals is a static utility function that checks for and processes queued signals on Windows, returning 1 if signals were processed and setting errno to EINTR for proper signal handling integration.

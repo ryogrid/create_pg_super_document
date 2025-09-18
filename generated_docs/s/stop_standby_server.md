@@ -1,7 +1,7 @@
 # stop_standby_server
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1487 - 1510
+[src/bin/pg_basebackup/pg_createsubscriber.c:1487-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1487-L1510)
 
 ## Overview
 A utility function that safely stops a PostgreSQL standby server using pg_ctl during the pg_createsubscriber process.

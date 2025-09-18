@@ -1,7 +1,7 @@
 # GetSubscription
 
 ## Location
-src/backend/catalog/pg_subscription.c: 41 - 122
+[src/backend/catalog/pg_subscription.c:41-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L41-L122)
 
 ## Overview
 Fetches a subscription record from the pg_subscription system catalog cache and constructs a Subscription structure with all subscription details.

@@ -1,7 +1,7 @@
 # GinVacuumState
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 28 - 47
+[src/backend/access/gin/ginvacuum.c:28-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L28-L47)
 
 ## Overview
 GinVacuumState is a structure that maintains the state and context information during GIN (Generalized Inverted Index) vacuum operations, encapsulating all necessary data for efficient garbage collection and space reclamation.

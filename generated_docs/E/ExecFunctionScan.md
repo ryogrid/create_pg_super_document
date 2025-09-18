@@ -1,7 +1,7 @@
 # ExecFunctionScan
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 265 - 278
+[src/backend/executor/nodeFunctionscan.c:265-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L265-L278)
 
 ## Overview
 ExecFunctionScan is the main execution function for function scan nodes that sequentially scans function results and returns qualifying tuples.

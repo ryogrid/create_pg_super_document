@@ -1,7 +1,7 @@
 # pg_popcount64_fast
 
 ## Location
-src/port/pg_bitutils.c: 232 - 248
+[src/port/pg_bitutils.c:232-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L232-L248)
 
 ## Overview
 A fast implementation of 64-bit population count that uses hardware-accelerated instructions to count the number of set bits in a 64-bit word.

@@ -1,7 +1,7 @@
 # BrinMetaPageData
 
 ## Location
-src/include/access/brin_page.h: 64 - 70
+[src/include/access/brin_page.h:64-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_page.h#L64-L70)
 
 ## Overview
 BrinMetaPageData is a structure that defines the metadata stored on BRIN index metapages, containing essential information about the BRIN index configuration and state.

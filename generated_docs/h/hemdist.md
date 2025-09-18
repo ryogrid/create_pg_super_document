@@ -1,7 +1,7 @@
 # hemdist
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 131 - 138
+[src/backend/utils/adt/tsquery_gist.c:131-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L131-L138)
 
 ## Overview
 Calculates the Hamming distance between two text search vector signatures, which represents the dissimilarity between document signatures in the GiST indexing system for full-text search.

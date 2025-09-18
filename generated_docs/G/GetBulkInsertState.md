@@ -1,7 +1,7 @@
 # GetBulkInsertState
 
 ## Location
-src/backend/access/heap/heapam.c: 1971 - 1987
+[src/backend/access/heap/heapam.c:1971-1987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1971-L1987)
 
 ## Overview
 GetBulkInsertState creates and initializes a BulkInsertState object that manages buffer allocation strategy and block tracking for efficient bulk insert operations.

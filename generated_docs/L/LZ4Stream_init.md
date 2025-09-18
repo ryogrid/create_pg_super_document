@@ -1,7 +1,7 @@
 # LZ4Stream_init
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 354 - 408
+[src/bin/pg_dump/compress_lz4.c:354-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L354-L408)
 
 ## Overview
 Initializes an already allocated LZ4State structure for subsequent compression or decompression operations, setting up the necessary LZ4 contexts and buffers.

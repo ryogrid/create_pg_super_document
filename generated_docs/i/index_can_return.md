@@ -1,7 +1,7 @@
 # index_can_return
 
 ## Location
-src/backend/access/index/indexam.c: 788 - 825
+[src/backend/access/index/indexam.c:788-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L788-L825)
 
 ## Overview
 Determines whether an index access method supports index-only scans for a given column, enabling query optimization decisions for covering indexes.

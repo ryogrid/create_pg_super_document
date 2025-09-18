@@ -1,7 +1,7 @@
 # pgwin32_setenv
 
 ## Location
-src/port/win32env.c: 121 - 149
+[src/port/win32env.c:121-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32env.c#L121-L149)
 
 ## Overview
 Windows-specific replacement for POSIX setenv() that provides a convenient interface for setting environment variables with optional overwrite control, internally using pgwin32_putenv() for cross-CRT compatibility.

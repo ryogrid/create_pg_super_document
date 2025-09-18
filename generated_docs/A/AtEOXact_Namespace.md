@@ -1,7 +1,7 @@
 # AtEOXact_Namespace
 
 ## Location
-src/backend/catalog/namespace.c: 4512 - 4557
+[src/backend/catalog/namespace.c:4512-4557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4512-L4557)
 
 ## Overview
 Handles end-of-transaction cleanup for namespace state, managing temporary namespace lifecycle and registering cleanup callbacks.

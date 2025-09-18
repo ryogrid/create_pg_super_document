@@ -1,7 +1,7 @@
 # parseArchiveFormat
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1411 - 1448
+[src/bin/pg_dump/pg_dump.c:1411-1448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1411-L1448)
 
 ## Overview
 Parses a command-line archive format string and converts it into the corresponding ArchiveFormat enum value, while also setting the appropriate ArchiveMode.

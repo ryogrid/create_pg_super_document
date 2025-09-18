@@ -1,7 +1,7 @@
 # dlist_next_node
 
 ## Location
-src/include/lib/ilist.h: 537 - 546
+[src/include/lib/ilist.h:537-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L537-L546)
 
 ## Overview
 Returns the next node in a doubly-linked list, with an assertion to ensure that a next node actually exists.

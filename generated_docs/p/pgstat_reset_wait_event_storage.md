@@ -1,7 +1,7 @@
 # pgstat_reset_wait_event_storage
 
 ## Location
-src/backend/utils/activity/wait_event.c: 362 - 373
+[src/backend/utils/activity/wait_event.c:362-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L362-L373)
 
 ## Overview
 Resets wait event storage location back to a local variable, typically called during backend shutdown.

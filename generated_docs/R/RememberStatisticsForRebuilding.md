@@ -1,7 +1,7 @@
 # RememberStatisticsForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13811 - 13839
+[src/backend/commands/tablecmds.c:13811-13839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13811-L13839)
 
 ## Overview
 RememberStatisticsForRebuilding records extended statistics objects that need to be rebuilt during ALTER TABLE operations, ensuring deduplication and proper definition capture before column type changes.

@@ -1,7 +1,7 @@
 # free_chromo
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 176 - 186
+[src/backend/optimizer/geqo/geqo_pool.c:176-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L176-L186)
 
 ## Overview
 The  function deallocates memory for a chromosome structure and its associated gene string space in PostgreSQL's Genetic Query Optimizer (GEQO).

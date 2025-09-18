@@ -1,7 +1,7 @@
 # NIImportDictionary
 
 ## Location
-src/backend/tsearch/spell.c: 518 - 602
+[src/backend/tsearch/spell.c:518-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L518-L602)
 
 ## Overview
 Imports dictionary data from a .dict file into the temporary array Spell, parsing word entries and their associated affix flags for text search operations.

@@ -1,7 +1,7 @@
 # get_last_relevant_decnum
 
 ## Location
-src/backend/utils/adt/formatting.c: 5369 - 5396
+[src/backend/utils/adt/formatting.c:5369-5396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5369-L5396)
 
 ## Overview
 Finds the position of the last non-zero digit after the decimal point in a numeric string, used for formatting control in PostgreSQL's FM (Fill Mode) formatting.

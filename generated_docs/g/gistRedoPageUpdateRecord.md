@@ -1,7 +1,7 @@
 # gistRedoPageUpdateRecord
 
 ## Location
-src/backend/access/gist/gistxlog.c: 70 - 171
+[src/backend/access/gist/gistxlog.c:70-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L70-L171)
 
 ## Overview
 Replays any GiST page update operation (except page splits) during WAL recovery, handling insertion, deletion, and replacement of index tuples on a page.

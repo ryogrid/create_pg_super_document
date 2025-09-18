@@ -1,7 +1,7 @@
 # showVersion
 
 ## Location
-src/bin/psql/startup.c: 839 - 857
+[src/bin/psql/startup.c:839-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L839-L857)
 
 ## Overview
 A static utility function that displays the psql version information in a format compatible with GNU standards.

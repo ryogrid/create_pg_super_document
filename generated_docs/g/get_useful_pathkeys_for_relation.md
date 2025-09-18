@@ -1,7 +1,7 @@
 # get_useful_pathkeys_for_relation
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3122 - 3189
+[src/backend/optimizer/path/allpaths.c:3122-3189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3122-L3189)
 
 ## Overview
 Determines which orderings of a relation might be useful for the query, considering both final output ordering and efficient merge joins, with support for parallel-safe requirements.

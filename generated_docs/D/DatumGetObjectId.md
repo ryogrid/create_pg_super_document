@@ -1,7 +1,7 @@
 # DatumGetObjectId
 
 ## Location
-src/include/postgres.h: 242 - 251
+[src/include/postgres.h:242-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L242-L251)
 
 ## Overview
 DatumGetObjectId is a static inline function that extracts an object identifier (Oid) value from a Datum, serving as a type conversion utility in PostgreSQL's internal data representation system.

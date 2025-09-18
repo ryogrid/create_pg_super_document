@@ -1,7 +1,7 @@
 # SessionBackupState
 
 ## Location
-src/include/access/xlog.h: 288 - 298
+[src/include/access/xlog.h:288-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog.h#L288-L298)
 
 ## Overview
 An enumeration that tracks the session-level status of base backup operations in PostgreSQL, used to coordinate backup state within individual database sessions.

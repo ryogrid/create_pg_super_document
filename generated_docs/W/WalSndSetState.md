@@ -1,7 +1,7 @@
 # WalSndSetState
 
 ## Location
-src/backend/replication/walsender.c: 3851 - 3869
+[src/backend/replication/walsender.c:3851-3869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3851-L3869)
 
 ## Overview
 Sets the replication state for the current WAL sender process, managing state transitions with proper synchronization using spinlocks.

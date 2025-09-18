@@ -1,7 +1,7 @@
 # gin_redo
 
 ## Location
-src/backend/access/gin/ginxlog.c: 726 - 774
+[src/backend/access/gin/ginxlog.c:726-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L726-L774)
 
 ## Overview
 This function serves as the main entry point for GIN (Generalized Inverted Index) WAL redo operations, dispatching different types of GIN WAL records to their appropriate handler functions during crash recovery.

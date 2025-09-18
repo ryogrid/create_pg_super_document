@@ -1,7 +1,7 @@
 # ExecProcNodeFirst
 
 ## Location
-src/backend/executor/execProcnode.c: 443 - 473
+[src/backend/executor/execProcnode.c:443-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L443-L473)
 
 ## Overview
 ExecProcNodeFirst is a one-time wrapper function that performs initial setup checks before delegating to the actual execution function, optimizing subsequent calls by removing unnecessary overhead.

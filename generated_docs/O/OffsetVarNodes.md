@@ -1,7 +1,7 @@
 # OffsetVarNodes
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 481 - 532
+[src/backend/rewrite/rewriteManip.c:481-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L481-L532)
 
 ## Overview
 A public function that adjusts variable node numbers and relation identifiers throughout an expression tree or Query structure by a specified offset.

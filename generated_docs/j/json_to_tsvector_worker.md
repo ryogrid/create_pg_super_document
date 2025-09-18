@@ -1,7 +1,7 @@
 # json_to_tsvector_worker
 
 ## Location
-src/backend/tsearch/to_tsany.c: 364 - 379
+[src/backend/tsearch/to_tsany.c:364-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L364-L379)
 
 ## Overview
 A static worker function that converts JSON text data to a text search vector (TSVector) using the specified text search configuration and indexing flags.

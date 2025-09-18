@@ -1,7 +1,7 @@
 # AlignedAllocRealloc
 
 ## Location
-src/backend/utils/mmgr/alignedalloc.c: 61 - 135
+[src/backend/utils/mmgr/alignedalloc.c:61-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/alignedalloc.c#L61-L135)
 
 ## Overview
 Resizes an aligned memory allocation while preserving the original alignment boundary, copying existing data to the new allocation and freeing the old one.

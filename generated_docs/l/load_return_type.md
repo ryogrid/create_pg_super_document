@@ -1,7 +1,7 @@
 # load_return_type
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1052 - 1071
+[src/backend/jit/llvm/llvmjit.c:1052-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1052-L1071)
 
 ## Overview
 Helper function that extracts and returns the return type of a named function from an LLVM module for use in type system setup.

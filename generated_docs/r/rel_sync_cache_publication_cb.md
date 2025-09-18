@@ -1,7 +1,7 @@
 # rel_sync_cache_publication_cb
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 2380 - 2405
+[src/backend/replication/pgoutput/pgoutput.c:2380-2405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L2380-L2405)
 
 ## Overview
 A syscache invalidation callback function that invalidates all relation sync cache entries when publication-related system catalog changes occur.

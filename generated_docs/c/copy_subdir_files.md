@@ -1,7 +1,7 @@
 # copy_subdir_files
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 677 - 701
+[src/bin/pg_upgrade/pg_upgrade.c:677-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L677-L701)
 
 ## Overview
 Copies the contents of a subdirectory from the old PostgreSQL cluster to the corresponding subdirectory in the new cluster during pg_upgrade.

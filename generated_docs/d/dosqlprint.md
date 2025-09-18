@@ -1,7 +1,7 @@
 # dosqlprint
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-test_informix.c: 28 - 31
+[src/interfaces/ecpg/test/expected/compat_informix-test_informix.c:28-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-test_informix.c#L28-L31)
 
 ## Overview
 A static utility function used in ECPG (Embedded SQL in C) compatibility testing to print SQL error messages to standard output.

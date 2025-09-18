@@ -1,7 +1,7 @@
 # inv_write
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 581 - 777
+[src/backend/storage/large_object/inv_api.c:581-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L581-L777)
 
 ## Overview
 Writes data to a PostgreSQL large object starting at the current position, similar to fwrite() in standard C file I/O, handling page-based storage, size limits, and both updating existing pages and creating new ones.

@@ -1,7 +1,7 @@
 # DefElem
 
 ## Location
-src/include/nodes/parsenodes.h: 811 - 820
+[src/include/nodes/parsenodes.h:811-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L811-L820)
 
 ## Overview
 DefElem represents a generic definition element used throughout PostgreSQL's DDL commands to specify named options, parameters, and attributes with associated values and actions.

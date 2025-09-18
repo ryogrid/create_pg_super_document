@@ -1,7 +1,7 @@
 # SyncRepUpdateSyncStandbysDefined
 
 ## Location
-src/backend/replication/syncrep.c: 964 - 1023
+[src/backend/replication/syncrep.c:964-1023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L964-L1023)
 
 ## Overview
 Updates the shared memory flag indicating whether synchronous standbys are currently defined, and wakes up waiting backends when synchronous replication is disabled to prevent them from waiting indefinitely.

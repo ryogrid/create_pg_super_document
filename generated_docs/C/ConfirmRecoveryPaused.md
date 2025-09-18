@@ -1,7 +1,7 @@
 # ConfirmRecoveryPaused
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3110 - 3130
+[src/backend/access/transam/xlogrecovery.c:3110-3130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3110-L3130)
 
 ## Overview
 Confirms a pending recovery pause request by transitioning the state from RECOVERY_PAUSE_REQUESTED to RECOVERY_PAUSED.

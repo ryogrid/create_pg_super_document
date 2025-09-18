@@ -1,7 +1,7 @@
 # PQconnectionUsedPassword
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7225 - 7235
+[src/interfaces/libpq/fe-connect.c:7225-7235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7225-L7235)
 
 ## Overview
 Indicates whether password authentication was required and used during the establishment of a PostgreSQL connection.

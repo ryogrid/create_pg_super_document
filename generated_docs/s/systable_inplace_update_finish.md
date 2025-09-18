@@ -1,7 +1,7 @@
 # systable_inplace_update_finish
 
 ## Location
-src/backend/access/index/genam.c: 873 - 891
+[src/backend/access/index/genam.c:873-891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L873-L891)
 
 ## Overview
 Completes an in-place tuple update operation by performing the actual overwrite of tuple data and properly cleaning up the scan state.

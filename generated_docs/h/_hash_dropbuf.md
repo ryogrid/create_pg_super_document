@@ -1,7 +1,7 @@
 # _hash_dropbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 277 - 288
+[src/backend/access/hash/hashpage.c:277-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L277-L288)
 
 ## Overview
 This function releases an unlocked buffer by dropping only its pin (reference count), specifically designed for buffers on which no lock is currently held.

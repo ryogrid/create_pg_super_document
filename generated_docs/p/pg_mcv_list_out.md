@@ -1,7 +1,7 @@
 # pg_mcv_list_out
 
 ## Location
-src/backend/statistics/mcv.c: 1498 - 1506
+[src/backend/statistics/mcv.c:1498-1506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1498-L1506)
 
 ## Overview
 Output routine for the pg_mcv_list data type that converts MCV list data to text representation by delegating to the bytea output function.

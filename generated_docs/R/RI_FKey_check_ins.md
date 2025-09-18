@@ -1,7 +1,7 @@
 # RI_FKey_check_ins
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 424 - 439
+[src/backend/utils/adt/ri_triggers.c:424-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L424-L439)
 
 ## Overview
 Trigger function that validates foreign key constraints during INSERT operations on a foreign key table by checking that the referenced key exists in the primary key table.

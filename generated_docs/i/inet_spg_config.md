@@ -1,7 +1,7 @@
 # inet_spg_config
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 51 - 67
+[src/backend/utils/adt/network_spgist.c:51-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L51-L67)
 
 ## Overview
 SP-GiST configuration function for inet/cidr data types that defines the index structure and operational parameters.

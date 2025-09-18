@@ -1,7 +1,7 @@
 # CommentObject
 
 ## Location
-src/backend/commands/comment.c: 40 - 142
+[src/backend/commands/comment.c:40-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/comment.c#L40-L142)
 
 ## Overview
 Handles the COMMENT ON SQL command by adding comments to pg_description or pg_shdescription catalog tables for various database objects.

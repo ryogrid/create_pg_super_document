@@ -1,7 +1,7 @@
 # Session
 
 ## Location
-src/test/isolation/isolationtester.h: 31 - 32
+[src/test/isolation/isolationtester.h:31-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/isolationtester.h#L31-L32)
 
 ## Overview
 A struct that encapsulates elements of a user's session, primarily managing state for parallel query execution and other session-scoped resources.

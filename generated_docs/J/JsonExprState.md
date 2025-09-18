@@ -1,7 +1,7 @@
 # JsonExprState
 
 ## Location
-src/include/nodes/execnodes.h: 1022 - 1085
+[src/include/nodes/execnodes.h:1022-1085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1022-L1085)
 
 ## Overview
 JsonExprState manages the execution state for JSON path expressions, handling JSON path evaluation, type coercion, error handling, and empty result behaviors during query execution.

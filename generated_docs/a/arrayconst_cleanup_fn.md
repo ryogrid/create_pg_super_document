@@ -1,7 +1,7 @@
 # arrayconst_cleanup_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1021 - 1038
+[src/backend/optimizer/util/predtest.c:1021-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1021-L1038)
 
 ## Overview
 A static cleanup function that deallocates memory and resources used by an array constant iterator during predicate testing operations in PostgreSQL's query optimizer.

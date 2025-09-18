@@ -1,7 +1,7 @@
 # makeSortGroupClauseForSetOp
 
 ## Location
-src/backend/parser/analyze.c: 1956 - 2002
+[src/backend/parser/analyze.c:1956-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1956-L2002)
 
 ## Overview
 Creates a SortGroupClause node for SetOperationStmt's groupClauses, determining appropriate equality and sorting operators for set operation processing.

@@ -1,7 +1,7 @@
 # ExecGetAncestorResultRels
 
 ## Location
-src/backend/executor/execMain.c: 1371 - 1430
+[src/backend/executor/execMain.c:1371-1430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1371-L1430)
 
 ## Overview
 Returns ResultRelInfo structures for all ancestor relations of a given leaf partition up to and including the query's root target relation, enabling operations that must traverse the partition hierarchy.

@@ -1,7 +1,7 @@
 # CatalogCacheInitializeCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 1086 - 1194
+[src/backend/utils/cache/catcache.c:1086-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1086-L1194)
 
 ## Overview
 CatalogCacheInitializeCache initializes a catalog cache structure by opening the target relation, copying its tuple descriptor, and setting up key information for efficient hash-based lookups.

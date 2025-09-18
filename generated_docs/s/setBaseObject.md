@@ -1,7 +1,7 @@
 # setBaseObject
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3494 - 3505
+[src/backend/utils/adt/jsonpath_exec.c:3494-3505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3494-L3505)
 
 ## Overview
 Saves the current base object and its identifier in the JSONPath execution context, primarily needed for the execution of .keyvalue() operations.

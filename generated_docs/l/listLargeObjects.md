@@ -1,7 +1,7 @@
 # listLargeObjects
 
 ## Location
-src/bin/psql/describe.c: 7054 - 7092
+[src/bin/psql/describe.c:7054-7092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L7054-L7092)
 
 ## Overview
 The  function implements the  and  psql commands to display a formatted list of large objects stored in the PostgreSQL database.

@@ -1,7 +1,7 @@
 # multirange_minus
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1114 - 1143
+[src/backend/utils/adt/multirangetypes.c:1114-1143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1114-L1143)
 
 ## Overview
 Computes the difference between two multirange values, removing all ranges from the second multirange from the first multirange.

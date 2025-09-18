@@ -1,7 +1,7 @@
 # range_cmp_bounds
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2016 - 2089
+[src/backend/utils/adt/rangetypes.c:2016-2089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2016-L2089)
 
 ## Overview
 Compares two range boundary points and returns a comparison result indicating their relative ordering, handling both finite and infinite bounds with inclusive/exclusive semantics.

@@ -1,7 +1,7 @@
 # compareWORD
 
 ## Location
-src/backend/tsearch/to_tsany.c: 57 - 76
+[src/backend/tsearch/to_tsany.c:57-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L57-L76)
 
 ## Overview
 A static comparison function used for sorting ParsedWord structures, comparing both the lexeme (word) and positional information to establish a total ordering.

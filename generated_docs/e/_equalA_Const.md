@@ -1,7 +1,7 @@
 # _equalA_Const
 
 ## Location
-src/backend/nodes/equalfuncs.c: 134 - 146
+[src/backend/nodes/equalfuncs.c:134-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L134-L146)
 
 ## Overview
 A static comparison function that determines if two A_Const nodes (parse-time literal constants) are equal by comparing their null status, values, and location information.

@@ -1,7 +1,7 @@
 # LagTracker
 
 ## Location
-src/backend/replication/walsender.c: 232 - 243
+[src/backend/replication/walsender.c:232-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L232-L243)
 
 ## Overview
 LagTracker is a data structure used to track replication lag in PostgreSQL's WAL sender process by maintaining a circular buffer of WAL location and time samples.

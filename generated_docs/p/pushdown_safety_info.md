@@ -1,7 +1,7 @@
 # pushdown_safety_info
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 60 - 67
+[src/backend/optimizer/path/allpaths.c:60-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L60-L67)
 
 ## Overview
 A structure that holds safety information for determining whether qualifiers can be pushed down into a subquery during query optimization.

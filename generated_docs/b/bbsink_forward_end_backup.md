@@ -1,7 +1,7 @@
 # bbsink_forward_end_backup
 
 ## Location
-src/backend/backup/basebackup_sink.c: 111 - 120
+[src/backend/backup/basebackup_sink.c:111-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L111-L120)
 
 ## Overview
 A forwarding function that passes the end backup signal along with WAL position information to the next backup sink in a chain, used to finalize the entire base backup process in PostgreSQL.

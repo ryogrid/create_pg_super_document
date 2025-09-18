@@ -1,7 +1,7 @@
 # enum_range_internal
 
 ## Location
-src/backend/utils/adt/enum.c: 547 - 616
+[src/backend/utils/adt/enum.c:547-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L547-L616)
 
 ## Overview
 Generates an array containing enum values within a specified range by scanning pg_enum in sorted order and filtering based on lower and upper bounds.

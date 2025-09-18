@@ -1,7 +1,7 @@
 # SetOffsetVacuumLimit
 
 ## Location
-src/backend/access/transam/multixact.c: 2705 - 2831
+[src/backend/access/transam/multixact.c:2705-2831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2705-L2831)
 
 ## Overview
 Determines how aggressively vacuum needs to run to prevent member wraparound by calculating the oldest member offset and installing limit information in MultiXactState.

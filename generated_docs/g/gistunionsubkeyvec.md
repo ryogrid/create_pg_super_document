@@ -1,7 +1,7 @@
 # gistunionsubkeyvec
 
 ## Location
-src/backend/access/gist/gistsplit.c: 47 - 79
+[src/backend/access/gist/gistsplit.c:47-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L47-L79)
 
 ## Overview
 Forms unions of subkeys in index tuples, filtering out tuples marked as "don't care" entries during GiST index splitting operations.

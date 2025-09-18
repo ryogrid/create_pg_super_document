@@ -1,7 +1,7 @@
 # range_merge
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1114 - 1126
+[src/backend/utils/adt/rangetypes.c:1114-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1114-L1126)
 
 ## Overview
 The range_merge function computes a range that spans from the minimum bound to the maximum bound of two input ranges, allowing non-adjacent ranges and potentially creating gaps.

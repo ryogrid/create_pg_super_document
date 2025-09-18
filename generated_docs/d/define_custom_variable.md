@@ -1,7 +1,7 @@
 # define_custom_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 4939 - 5047
+[src/backend/utils/misc/guc.c:4939-5047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4939-L5047)
 
 ## Overview
 Inserts a newly created custom GUC variable into the global GUC hash table, handling placeholder replacement and value migration from any existing placeholder.

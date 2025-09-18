@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_num_requested
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1189 - 1194
+[src/backend/utils/adt/pgstatfuncs.c:1189-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1189-L1194)
 
 ## Overview
 Returns the total number of checkpoint requests made to the checkpointer process since database cluster startup.

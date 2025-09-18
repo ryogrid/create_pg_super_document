@@ -1,7 +1,7 @@
 # EvictUnpinnedBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 6070 - 6114
+[src/backend/storage/buffer/bufmgr.c:6070-6114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L6070-L6114)
 
 ## Overview
 Attempts to evict the current block in a shared buffer, intended for testing and development purposes only.

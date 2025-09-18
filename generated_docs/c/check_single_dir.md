@@ -1,7 +1,7 @@
 # check_single_dir
 
 ## Location
-src/bin/pg_upgrade/exec.c: 312 - 340
+[src/bin/pg_upgrade/exec.c:312-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L312-L340)
 
 ## Overview
 This function validates the presence and accessibility of a specific subdirectory within a PostgreSQL data directory, failing with a fatal error if the directory is missing or inaccessible.

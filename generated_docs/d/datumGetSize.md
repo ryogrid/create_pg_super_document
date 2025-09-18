@@ -1,7 +1,7 @@
 # datumGetSize
 
 ## Location
-src/backend/utils/adt/datum.c: 65 - 131
+[src/backend/utils/adt/datum.c:65-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L65-L131)
 
 ## Overview
 Determines the actual memory size required to store a PostgreSQL datum, handling the different storage methods (by-value, fixed-length by-reference, variable-length, and C-string types).

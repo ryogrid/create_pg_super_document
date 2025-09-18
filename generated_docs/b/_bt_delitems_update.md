@@ -1,7 +1,7 @@
 # _bt_delitems_update
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1405 - 1463
+[src/backend/access/nbtree/nbtpage.c:1405-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1405-L1463)
 
 ## Overview
 Prepares state needed to update posting list tuples by removing specific TIDs, performing common setup steps for both vacuum and delete operations before their critical sections begin.

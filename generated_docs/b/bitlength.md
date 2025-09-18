@@ -1,7 +1,7 @@
 # bitlength
 
 ## Location
-src/backend/utils/adt/varbit.c: 1223 - 1230
+[src/backend/utils/adt/varbit.c:1223-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1223-L1230)
 
 ## Overview
 Implements the SQL BIT_LENGTH() function that returns the length of a bit string in bits.

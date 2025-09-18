@@ -1,7 +1,7 @@
 # GetAttributeStorage
 
 ## Location
-src/backend/commands/tablecmds.c: 20268 - 20299
+[src/backend/commands/tablecmds.c:20268-20299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L20268-L20299)
 
 ## Overview
 Resolves a column storage specification string to a storage type character, validating that the data type supports the requested storage mode.

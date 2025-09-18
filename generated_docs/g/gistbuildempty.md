@@ -1,7 +1,7 @@
 # gistbuildempty
 
 ## Location
-src/backend/access/gist/gist.c: 133 - 158
+[src/backend/access/gist/gist.c:133-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L133-L158)
 
 ## Overview
 Builds an empty GiST index in the initialization fork, creating and initializing the root page as a leaf page.

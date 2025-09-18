@@ -1,7 +1,7 @@
 # EventTriggerAlterTableEnd
 
 ## Location
-src/backend/commands/event_trigger.c: 1713 - 1750
+[src/backend/commands/event_trigger.c:1713-1750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1713-L1750)
 
 ## Overview
 Finalizes the collection of an ALTER TABLE command and adds it to the event trigger command list, completing the event trigger data collection process for ALTER TABLE operations.

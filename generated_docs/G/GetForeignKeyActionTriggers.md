@@ -1,7 +1,7 @@
 # GetForeignKeyActionTriggers
 
 ## Location
-src/backend/commands/tablecmds.c: 11289 - 11349
+[src/backend/commands/tablecmds.c:11289-11349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11289-L11349)
 
 ## Overview
 GetForeignKeyActionTriggers retrieves the delete and update action triggers associated with a foreign key constraint on the referenced (primary key) side.

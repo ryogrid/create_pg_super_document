@@ -1,7 +1,7 @@
 # asyncQueueAdvanceTail
 
 ## Location
-src/backend/commands/async.c: 2108 - 2182
+[src/backend/commands/async.c:2108-2182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2108-L2182)
 
 ## Overview
 Advances the shared notification queue tail to the minimum position among all backend processes and truncates old notification data when possible.

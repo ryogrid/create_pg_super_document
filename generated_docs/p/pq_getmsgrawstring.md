@@ -1,7 +1,7 @@
 # pq_getmsgrawstring
 
 ## Location
-src/backend/libpq/pqformat.c: 608 - 634
+[src/backend/libpq/pqformat.c:608-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L608-L634)
 
 ## Overview
 Extracts a null-terminated text string from a message buffer without character encoding conversion, returning a direct pointer into the buffer.

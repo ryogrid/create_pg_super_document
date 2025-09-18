@@ -1,7 +1,7 @@
 # ShowTransactionStateRec
 
 ## Location
-src/backend/access/transam/xact.c: 5598 - 5644
+[src/backend/access/transam/xact.c:5598-5644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5598-L5644)
 
 ## Overview
 A recursive debugging function that displays detailed transaction state information for a transaction and all its parent transactions in PostgreSQL's transaction hierarchy.

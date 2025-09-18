@@ -1,7 +1,7 @@
 # printMixedStruct
 
 ## Location
-src/backend/utils/misc/help_config.c: 87 - 136
+[src/backend/utils/misc/help_config.c:87-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/help_config.c#L87-L136)
 
 ## Overview
 A formatting function that prints detailed information about a PostgreSQL GUC configuration parameter in a tab-delimited format, handling different parameter types appropriately.

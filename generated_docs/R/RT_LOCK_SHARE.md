@@ -1,7 +1,7 @@
 # RT_LOCK_SHARE
 
 ## Location
-src/include/lib/radixtree.h: 1948 - 1954
+[src/include/lib/radixtree.h:1948-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1948-L1954)
 
 ## Overview
 RT_LOCK_SHARE is a macro that generates a function name for acquiring a shared lock on a shared memory radix tree structure in PostgreSQL.

@@ -1,7 +1,7 @@
 # box_contain_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3130 - 3136
+[src/backend/utils/adt/geo_ops.c:3130-3136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3130-L3136)
 
 ## Overview
 Determines whether a given point lies within a box (rectangle) or on its border using simple coordinate range checking.

@@ -1,7 +1,7 @@
 # WalSndKill
 
 ## Location
-src/backend/replication/walsender.c: 3004 - 3021
+[src/backend/replication/walsender.c:3004-3021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3004-L3021)
 
 ## Overview
 Cleanup function that destroys the per-walsender data structure when a WAL sender process terminates.

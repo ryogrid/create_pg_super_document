@@ -1,7 +1,7 @@
 # emode_for_corrupt_record
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4031 - 4049
+[src/backend/access/transam/xlogrecovery.c:4031-4049](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4031-L4049)
 
 ## Overview
 emode_for_corrupt_record is a utility function that determines the appropriate error reporting level for corrupt WAL records, implementing noise reduction by suppressing repeated complaints about the same record location.

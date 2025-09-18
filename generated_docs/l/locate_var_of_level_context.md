@@ -1,7 +1,7 @@
 # locate_var_of_level_context
 
 ## Location
-src/backend/optimizer/util/var.c: 55 - 60
+[src/backend/optimizer/util/var.c:55-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L55-L60)
 
 ## Overview
 A context structure used by the locate_var_of_level functionality to find the parse location of Var nodes from a specific query level during expression tree traversal, primarily for error reporting purposes.

@@ -1,7 +1,7 @@
 # outBitmapset
 
 ## Location
-src/backend/nodes/outfuncs.c: 325 - 340
+[src/backend/nodes/outfuncs.c:325-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L325-L340)
 
 ## Overview
 Converts a PostgreSQL Bitmapset structure into a parenthesized string format with a 'b' type indicator, outputting all set member integers in ascending order.

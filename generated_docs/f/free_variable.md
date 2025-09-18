@@ -1,7 +1,7 @@
 # free_variable
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 83 - 95
+[src/interfaces/ecpg/ecpglib/execute.c:83-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L83-L95)
 
 ## Overview
 A static utility function that deallocates a linked list of variable structures used in ECPG statement execution.

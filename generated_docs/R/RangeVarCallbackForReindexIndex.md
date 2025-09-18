@@ -1,7 +1,7 @@
 # RangeVarCallbackForReindexIndex
 
 ## Location
-src/backend/commands/indexcmds.c: 2842 - 2917
+[src/backend/commands/indexcmds.c:2842-2917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2842-L2917)
 
 ## Overview
 RangeVarCallbackForReindexIndex is a callback function used during index reindexing operations to validate permissions and manage locking for the target index and its associated table.

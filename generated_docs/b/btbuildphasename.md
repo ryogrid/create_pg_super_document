@@ -1,7 +1,7 @@
 # btbuildphasename
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4609 - 4656
+[src/backend/access/nbtree/nbtutils.c:4609-4656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4609-L4656)
 
 ## Overview
 The btbuildphasename function returns human-readable names for different phases of B-tree index construction, used for progress reporting during index builds.

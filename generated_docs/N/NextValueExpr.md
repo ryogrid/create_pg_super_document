@@ -1,7 +1,7 @@
 # NextValueExpr
 
 ## Location
-src/include/nodes/primnodes.h: 2109 - 2114
+[src/include/nodes/primnodes.h:2109-2114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2109-L2114)
 
 ## Overview
 A node representing the generation of the next value from a sequence, equivalent to nextval() but without permission checks, primarily used for identity columns.

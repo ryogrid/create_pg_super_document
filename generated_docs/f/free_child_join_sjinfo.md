@@ -1,7 +1,7 @@
 # free_child_join_sjinfo
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1748 - 1789
+[src/backend/optimizer/path/joinrels.c:1748-1789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1748-L1789)
 
 ## Overview
 Frees memory consumed by a SpecialJoinInfo structure that was created by build_child_join_sjinfo().

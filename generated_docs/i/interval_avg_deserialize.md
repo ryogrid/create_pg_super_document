@@ -1,7 +1,7 @@
 # interval_avg_deserialize
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4106 - 4148
+[src/backend/utils/adt/timestamp.c:4106-4148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4106-L4148)
 
 ## Overview
 Deserializes bytea back into IntervalAggState for interval aggregates, reconstructing the aggregation state from serialized binary data.

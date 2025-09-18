@@ -1,7 +1,7 @@
 # gen_random_uuid
 
 ## Location
-src/backend/utils/adt/uuid.c: 411 - 429
+[src/backend/utils/adt/uuid.c:411-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L411-L429)
 
 ## Overview
 A SQL function that generates a random UUID (version 4) using cryptographically strong random number generation according to RFC 4122 specifications.

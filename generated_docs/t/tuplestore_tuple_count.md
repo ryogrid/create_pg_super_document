@@ -1,7 +1,7 @@
 # tuplestore_tuple_count
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 546 - 556
+[src/backend/utils/sort/tuplestore.c:546-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L546-L556)
 
 ## Overview
 Returns the total number of tuples that have been added to the tuplestore since its creation or the last clear operation.

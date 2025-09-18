@@ -1,7 +1,7 @@
 # RegisterResourceReleaseCallback
 
 ## Location
-src/backend/utils/resowner/resowner.c: 944 - 957
+[src/backend/utils/resowner/resowner.c:944-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L944-L957)
 
 ## Overview
 Registers a callback function that will be invoked during resource cleanup phases, allowing dynamically loaded modules to participate in PostgreSQL's resource management system.

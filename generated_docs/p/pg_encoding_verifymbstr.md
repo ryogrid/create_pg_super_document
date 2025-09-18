@@ -1,7 +1,7 @@
 # pg_encoding_verifymbstr
 
 ## Location
-src/common/wchar.c: 2202 - 2212
+[src/common/wchar.c:2202-2212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2202-L2212)
 
 ## Overview
 Verifies that an entire string is valid for the specified encoding and returns the number of valid input bytes.

@@ -1,7 +1,7 @@
 # ExecParallelHashRepartitionRest
 
 ## Location
-src/backend/executor/nodeHash.c: 1379 - 1438
+[src/backend/executor/nodeHash.c:1379-1438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1379-L1438)
 
 ## Overview
 ExecParallelHashRepartitionRest assists in repartitioning inner batches 1 through n from the previous generation of batches during a parallel hash join batch increase operation.

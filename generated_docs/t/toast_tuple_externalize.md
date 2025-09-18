@@ -1,7 +1,7 @@
 # toast_tuple_externalize
 
 ## Location
-src/backend/access/table/toast_helper.c: 256 - 274
+[src/backend/access/table/toast_helper.c:256-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/toast_helper.c#L256-L274)
 
 ## Overview
 Moves a large attribute to external storage in the TOAST table, replacing the original value with a pointer reference in the main tuple.

@@ -1,7 +1,7 @@
 # XLogPrefetcherAllocate
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 362 - 391
+[src/backend/access/transam/xlogprefetcher.c:362-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L362-L391)
 
 ## Overview
 Creates and initializes a new XLogPrefetcher instance that manages WAL record prefetching during recovery operations.

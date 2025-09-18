@@ -1,7 +1,7 @@
 # umul128
 
 ## Location
-src/common/d2s_intrinsics.h: 42 - 47
+[src/common/d2s_intrinsics.h:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s_intrinsics.h#L42-L47)
 
 ## Overview
 Computes the full 128-bit product of two 64-bit unsigned integers, returning the low 64 bits and storing the high 64 bits in an output parameter.

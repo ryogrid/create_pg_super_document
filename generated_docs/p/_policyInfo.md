@@ -1,7 +1,7 @@
 # _policyInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 617 - 626
+[src/bin/pg_dump/pg_dump.h:617-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L617-L626)
 
 ## Overview
 The `_policyInfo` structure represents row-level security (RLS) policies on tables and indicates whether RLS is enabled, used by pg_dump to preserve security policy configurations during database operations.

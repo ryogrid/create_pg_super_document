@@ -1,7 +1,7 @@
 # set_ps_display_remove_suffix
 
 ## Location
-src/backend/utils/misc/ps_status.c: 421 - 450
+[src/backend/utils/misc/ps_status.c:421-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L421-L450)
 
 ## Overview
 Removes the suffix that was previously added to the process title by set_ps_display_suffix, restoring the process title to its original state.

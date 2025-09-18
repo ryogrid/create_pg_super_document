@@ -1,7 +1,7 @@
 # SetRelationTableSpace
 
 ## Location
-src/backend/commands/tablecmds.c: 3618 - 3662
+[src/backend/commands/tablecmds.c:3618-3662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3618-L3662)
 
 ## Overview
 SetRelationTableSpace updates the tablespace and optionally the file number for a relation in the pg_class system catalog, handling the low-level catalog modification aspect of tablespace moves.

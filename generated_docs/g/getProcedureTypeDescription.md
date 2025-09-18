@@ -1,7 +1,7 @@
 # getProcedureTypeDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4703 - 4739
+[src/backend/catalog/objectaddress.c:4703-4739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4703-L4739)
 
 ## Overview
 A static helper function that appends a human-readable description of a procedure type ("aggregate", "procedure", or "function") to a StringInfo buffer based on the procedure's kind stored in the pg_proc catalog.

@@ -1,7 +1,7 @@
 # timetz_recv
 
 ## Location
-src/backend/utils/adt/date.c: 2335 - 2370
+[src/backend/utils/adt/date.c:2335-2370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2335-L2370)
 
 ## Overview
 The timetz_recv function is PostgreSQL's binary receive function for the TIME WITH TIME ZONE data type, responsible for converting external binary format data into the internal TimeTzADT representation.

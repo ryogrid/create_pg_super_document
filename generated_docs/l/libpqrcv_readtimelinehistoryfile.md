@@ -1,7 +1,7 @@
 # libpqrcv_readtimelinehistoryfile
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 732 - 785
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:732-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L732-L785)
 
 ## Overview
 Fetches the timeline history file for a specified timeline ID from the primary server during WAL replication.

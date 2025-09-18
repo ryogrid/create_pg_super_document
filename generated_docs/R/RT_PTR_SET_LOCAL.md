@@ -1,7 +1,7 @@
 # RT_PTR_SET_LOCAL
 
 ## Location
-src/include/lib/radixtree.h: 767 - 777
+[src/include/lib/radixtree.h:767-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L767-L777)
 
 ## Overview
 A macro that expands to a function name for setting the local pointer in a child pointer structure when using shared memory in radix tree operations.

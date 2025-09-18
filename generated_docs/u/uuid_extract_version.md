@@ -1,7 +1,7 @@
 # uuid_extract_version
 
 ## Location
-src/backend/utils/adt/uuid.c: 479 - 491
+[src/backend/utils/adt/uuid.c:479-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L479-L491)
 
 ## Overview
 Extracts the version number from a UUID value, returning null for non-RFC 4122 variant UUIDs.

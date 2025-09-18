@@ -1,7 +1,7 @@
 # _bt_verify_keys_with_arraykeys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3044 - 3121
+[src/backend/access/nbtree/nbtutils.c:3044-3121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3044-L3121)
 
 ## Overview
 Verifies that the scan's keyData[] scan keys are in agreement with its array key state, ensuring consistency between scan keys and array key metadata during B-tree index scans.

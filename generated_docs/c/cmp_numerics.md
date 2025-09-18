@@ -1,7 +1,7 @@
 # cmp_numerics
 
 ## Location
-src/backend/utils/adt/numeric.c: 2521 - 2577
+[src/backend/utils/adt/numeric.c:2521-2577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2521-L2577)
 
 ## Overview
 Core internal function that performs three-way comparison between two NUMERIC values, handling all special cases including NaN and infinity values.

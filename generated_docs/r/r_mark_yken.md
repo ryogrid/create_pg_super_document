@@ -1,7 +1,7 @@
 # r_mark_yken
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 893 - 900
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:893-900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L893-L900)
 
 ## Overview
 Identifies and marks the Turkish temporal suffix -yken (meaning 'while' or 'when') in the Snowball stemming algorithm for Turkish text processing.

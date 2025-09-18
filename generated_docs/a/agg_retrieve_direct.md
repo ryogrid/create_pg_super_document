@@ -1,7 +1,7 @@
 # agg_retrieve_direct
 
 ## Location
-src/backend/executor/nodeAgg.c: 2194 - 2539
+[src/backend/executor/nodeAgg.c:2194-2539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2194-L2539)
 
 ## Overview
 agg_retrieve_direct implements non-hashed aggregation processing for PostgreSQL, handling plain aggregation and sorted grouping by directly processing input tuples and managing grouping set boundaries.

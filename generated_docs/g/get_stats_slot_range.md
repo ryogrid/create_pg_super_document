@@ -1,7 +1,7 @@
 # get_stats_slot_range
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6090 - 6152
+[src/backend/utils/adt/selfuncs.c:6090-6152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6090-L6152)
 
 ## Overview
 Scans a statistics slot to find minimum and maximum values among the stored values, used as a subroutine for get_variable_range to update min/max/have_data according to statistics array contents.

@@ -1,7 +1,7 @@
 # brin_doinsert
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 342 - 474
+[src/backend/access/brin/brin_pageops.c:342-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L342-L474)
 
 ## Overview
 Inserts a new BRIN tuple into the index relation, updating the revmap to associate the heap block range with the inserted tuple and ensuring proper WAL logging.

@@ -1,7 +1,7 @@
 # UnsyncVariables
 
 ## Location
-src/bin/psql/command.c: 4083 - 4102
+[src/bin/psql/command.c:4083-4102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4083-L4102)
 
 ## Overview
 Clears connection-specific psql variables when there is no active database connection, ensuring that stale connection information is not retained.

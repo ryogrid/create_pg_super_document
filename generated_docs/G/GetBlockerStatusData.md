@@ -1,7 +1,7 @@
 # GetBlockerStatusData
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3813 - 3892
+[src/backend/storage/lmgr/lock.c:3813-3892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3813-L3892)
 
 ## Overview
 GetBlockerStatusData returns a summary of the lock manager's state concerning locks that are blocking a specified PID or any member of the PID's lock group, providing detailed information about blocking relationships.

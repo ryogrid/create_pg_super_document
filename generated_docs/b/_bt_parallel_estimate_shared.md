@@ -1,7 +1,7 @@
 # _bt_parallel_estimate_shared
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1633 - 1652
+[src/backend/access/nbtree/nbtsort.c:1633-1652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1633-L1652)
 
 ## Overview
 Calculates the total shared memory size required for B-tree parallel index build operations, including both B-tree specific state and parallel table scan requirements.

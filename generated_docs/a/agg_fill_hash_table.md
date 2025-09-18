@@ -1,7 +1,7 @@
 # agg_fill_hash_table
 
 ## Location
-src/backend/executor/nodeAgg.c: 2540 - 2593
+[src/backend/executor/nodeAgg.c:2540-2593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2540-L2593)
 
 ## Overview
 agg_fill_hash_table builds hash tables for hashed aggregation by reading all input tuples from the outer plan and populating hash entries with aggregate state values.

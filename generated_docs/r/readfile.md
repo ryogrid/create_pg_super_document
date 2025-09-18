@@ -1,7 +1,7 @@
 # readfile
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 313 - 408
+[src/bin/pg_ctl/pg_ctl.c:313-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L313-L408)
 
 ## Overview
 Reads all lines from a text file and returns them as a dynamically allocated array of strings, with automatic memory management for growing arrays.

@@ -1,7 +1,7 @@
 # parse_jsonb_index_flags
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5572 - 5639
+[src/backend/utils/adt/jsonfuncs.c:5572-5639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5572-L5639)
 
 ## Overview
 parse_jsonb_index_flags parses a JSONB array containing string flags that specify which JSON value types should be included when iterating over JSON documents in text search operations.

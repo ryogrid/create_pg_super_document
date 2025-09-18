@@ -1,7 +1,7 @@
 # TryReuseForeignKey
 
 ## Location
-src/backend/commands/tablecmds.c: 14319 - 14358
+[src/backend/commands/tablecmds.c:14319-14358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14319-L14358)
 
 ## Overview
 TryReuseForeignKey is a subroutine used during column type alteration to extract and preserve the primary-foreign key equality operators from an existing foreign key constraint for potential reuse during constraint revalidation.

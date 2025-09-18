@@ -1,7 +1,7 @@
 # ExecParallelEstimateContext
 
 ## Location
-src/backend/executor/execParallel.c: 111 - 115
+[src/backend/executor/execParallel.c:111-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L111-L115)
 
 ## Overview
 ExecParallelEstimateContext is a context structure used during the estimation phase of parallel query execution to collect information about shared memory requirements and plan node counts.

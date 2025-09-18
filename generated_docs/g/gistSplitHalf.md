@@ -1,7 +1,7 @@
 # gistSplitHalf
 
 ## Location
-src/backend/access/gist/gistsplit.c: 585 - 622
+[src/backend/access/gist/gistsplit.c:585-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L585-L622)
 
 ## Overview
 Performs a simple even split of a GiST index page by dividing tuples in half between left and right sides.

@@ -1,7 +1,7 @@
 # scram_state_enum
 
 ## Location
-src/backend/libpq/auth-scram.c: 128 - 170
+[src/backend/libpq/auth-scram.c:128-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L128-L170)
 
 ## Overview
 scram_state_enum is an enumeration that tracks the state of a SCRAM-SHA-256 authentication exchange between the PostgreSQL server and a client.

@@ -1,7 +1,7 @@
 # _bt_getrootheight
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 675 - 738
+[src/backend/access/nbtree/nbtpage.c:675-738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L675-L738)
 
 ## Overview
 _bt_getrootheight returns the height of the B-tree search tree by retrieving the fast root level, used primarily for query planner cost estimation.

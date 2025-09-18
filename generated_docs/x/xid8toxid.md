@@ -1,7 +1,7 @@
 # xid8toxid
 
 ## Location
-src/backend/utils/adt/xid.c: 174 - 181
+[src/backend/utils/adt/xid.c:174-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L174-L181)
 
 ## Overview
 Converts a FullTransactionId (XID8) to a TransactionId (XID), effectively extracting the 32-bit transaction ID portion from the 64-bit full transaction identifier.

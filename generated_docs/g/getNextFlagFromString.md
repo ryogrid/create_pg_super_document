@@ -1,7 +1,7 @@
 # getNextFlagFromString
 
 ## Location
-src/backend/tsearch/spell.c: 349 - 454
+[src/backend/tsearch/spell.c:349-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L349-L454)
 
 ## Overview
 A static function that parses and extracts individual affix flags from a string containing multiple flags, supporting different flag representation formats.

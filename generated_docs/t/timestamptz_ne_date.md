@@ -1,7 +1,7 @@
 # timestamptz_ne_date
 
 ## Location
-src/backend/utils/adt/date.c: 979 - 987
+[src/backend/utils/adt/date.c:979-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L979-L987)
 
 ## Overview
 A PostgreSQL function that compares a timestamp with timezone to a date value to determine if they are not equal.

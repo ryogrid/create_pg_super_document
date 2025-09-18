@@ -1,7 +1,7 @@
 # complete_from_list
 
 ## Location
-src/bin/psql/tab-complete.c: 5625 - 5704
+[src/bin/psql/tab-complete.c:5625-5704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5625-L5704)
 
 ## Overview
 Returns matching strings from a fixed, NULL-terminated list of strings for PostgreSQL's psql tab completion system, supporting both case-sensitive and case-insensitive matching.

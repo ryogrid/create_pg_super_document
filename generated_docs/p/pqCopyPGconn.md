@@ -1,7 +1,7 @@
 # pqCopyPGconn
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 956 - 996
+[src/interfaces/libpq/fe-connect.c:956-996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L956-L996)
 
 ## Overview
 Copies connection option values from a source PGconn structure to a destination PGconn structure, handling memory allocation and deallocation for string fields.

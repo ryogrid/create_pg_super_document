@@ -1,7 +1,7 @@
 # timerCA
 
 ## Location
-src/backend/port/win32/timer.c: 23 - 28
+[src/backend/port/win32/timer.c:23-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/timer.c#L23-L28)
 
 ## Overview
 A structure defining the communication area for inter-thread communication between the main thread and timer management thread on Windows.

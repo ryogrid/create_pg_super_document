@@ -1,7 +1,7 @@
 # shm_mq_receive_bytes
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1079 - 1178
+[src/backend/storage/ipc/shm_mq.c:1079-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1079-L1178)
 
 ## Overview
 Waits for a minimum number of bytes to become available for reading from a shared message queue, handling buffer wrapping and various blocking scenarios.

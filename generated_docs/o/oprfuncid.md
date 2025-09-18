@@ -1,7 +1,7 @@
 # oprfuncid
 
 ## Location
-src/backend/parser/parse_oper.c: 245 - 261
+[src/backend/parser/parse_oper.c:245-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L245-L261)
 
 ## Overview
 Extracts the underlying function OID from an operator tuple, providing access to the function that implements the operator's behavior.

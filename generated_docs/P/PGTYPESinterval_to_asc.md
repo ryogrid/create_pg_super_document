@@ -1,7 +1,7 @@
 # PGTYPESinterval_to_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 1062 - 1081
+[src/interfaces/ecpg/pgtypeslib/interval.c:1062-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L1062-L1081)
 
 ## Overview
 Converts an interval data structure to its string representation in PostgreSQL format.

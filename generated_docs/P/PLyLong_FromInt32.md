@@ -1,7 +1,7 @@
 # PLyLong_FromInt32
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 610 - 615
+[src/pl/plpython/plpy_typeio.c:610-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L610-L615)
 
 ## Overview
 Converts a PostgreSQL int4 (integer) value to a Python long object in the PL/Python extension.

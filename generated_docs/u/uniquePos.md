@@ -1,7 +1,7 @@
 # uniquePos
 
 ## Location
-src/backend/utils/adt/tsvector.c: 52 - 86
+[src/backend/utils/adt/tsvector.c:52-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L52-L86)
 
 ## Overview
 Removes duplicate position entries from a WordEntryPos array while preserving the highest weight for each position.

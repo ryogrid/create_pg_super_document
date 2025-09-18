@@ -1,7 +1,7 @@
 # check_ssl
 
 ## Location
-src/backend/commands/variable.c: 1249 - 1259
+[src/backend/commands/variable.c:1249-1259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1249-L1259)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates whether SSL can be enabled based on the build configuration.

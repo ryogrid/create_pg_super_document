@@ -1,7 +1,7 @@
 # ExecScanReScan
 
 ## Location
-src/backend/executor/execScan.c: 297 - 345
+[src/backend/executor/execScan.c:297-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execScan.c#L297-L345)
 
 ## Overview
 ExecScanReScan resets scan state for rescanning operations, handling tuple slot clearing and EvalPlanQual state management for all scan node types.

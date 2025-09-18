@@ -1,7 +1,7 @@
 # HandleWalSummarizerInterrupts
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 858 - 905
+[src/backend/postmaster/walsummarizer.c:858-905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L858-L905)
 
 ## Overview
 Handles various interrupt signals in the WAL summarizer process, managing configuration reloads, shutdown requests, and process barrier signals.

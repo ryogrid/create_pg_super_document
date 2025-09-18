@@ -1,7 +1,7 @@
 # RI_ConstraintInfo
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 100 - 125
+[src/backend/utils/adt/ri_triggers.c:100-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L100-L125)
 
 ## Overview
 RI_ConstraintInfo is a structure that stores information extracted from a foreign key constraint entry in pg_constraint and is cached in ri_constraint_cache for efficient access during referential integrity operations.

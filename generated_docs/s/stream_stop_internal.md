@@ -1,7 +1,7 @@
 # stream_stop_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 1605 - 1627
+[src/backend/replication/logical/worker.c:1605-1627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1605-L1627)
 
 ## Overview
 Finalizes the processing of a streaming transaction by serializing subtransaction information, closing the stream spool file, committing the per-stream transaction, and resetting the streaming context.

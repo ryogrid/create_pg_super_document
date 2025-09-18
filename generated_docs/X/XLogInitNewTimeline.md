@@ -1,7 +1,7 @@
 # XLogInitNewTimeline
 
 ## Location
-src/backend/access/transam/xlog.c: 5169 - 5243
+[src/backend/access/transam/xlog.c:5169-5243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L5169-L5243)
 
 ## Overview
 Initializes the first WAL segment on a new timeline after recovery, handling the transition from an old timeline to a new one during archive recovery completion.

@@ -1,7 +1,7 @@
 # GetIndexAmRoutine
 
 ## Location
-src/backend/access/index/amapi.c: 33 - 55
+[src/backend/access/index/amapi.c:33-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amapi.c#L33-L55)
 
 ## Overview
 GetIndexAmRoutine calls the specified access method handler routine to get its IndexAmRoutine struct, which contains the function pointers and metadata for an index access method.

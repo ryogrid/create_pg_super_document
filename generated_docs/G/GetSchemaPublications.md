@@ -1,7 +1,7 @@
 # GetSchemaPublications
 
 ## Location
-src/backend/catalog/pg_publication.c: 899 - 924
+[src/backend/catalog/pg_publication.c:899-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L899-L924)
 
 ## Overview
 Retrieves a list of publication OIDs that are associated with a specified schema, used for logical replication to determine which publications include tables from a particular schema.

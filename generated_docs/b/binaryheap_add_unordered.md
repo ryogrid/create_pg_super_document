@@ -1,7 +1,7 @@
 # binaryheap_add_unordered
 
 ## Location
-src/common/binaryheap.c: 116 - 137
+[src/common/binaryheap.c:116-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L116-L137)
 
 ## Overview
 A function that adds a new element to the end of a binary heap's array without maintaining the heap property, designed for efficient bulk insertion followed by heap construction.

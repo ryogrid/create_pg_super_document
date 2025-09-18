@@ -1,7 +1,7 @@
 # TupleDescData
 
 ## Location
-src/include/access/tupdesc.h: 79 - 88
+[src/include/access/tupdesc.h:79-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupdesc.h#L79-L88)
 
 ## Overview
 TupleDescData is the core structure that describes the layout and properties of tuples in PostgreSQL, containing attribute information, type metadata, and constraint details.

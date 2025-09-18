@@ -1,7 +1,7 @@
 # ReorderBufferSaveTXNSnapshot
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2060 - 2080
+[src/backend/replication/logical/reorderbuffer.c:2060-2080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2060-L2080)
 
 ## Overview
 Stores the current command ID and snapshot state in a transaction for reuse during streaming logical replication, optimizing snapshot management across stream boundaries.

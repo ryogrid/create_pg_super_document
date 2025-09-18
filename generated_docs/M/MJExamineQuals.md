@@ -1,7 +1,7 @@
 # MJExamineQuals
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 175 - 293
+[src/backend/executor/nodeMergejoin.c:175-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L175-L293)
 
 ## Overview
 Deconstructs the list of mergejoinable expressions and builds an array of MergeJoinClause structs containing comparison information needed at runtime for merge join execution.

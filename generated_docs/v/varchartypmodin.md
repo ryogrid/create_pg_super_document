@@ -1,7 +1,7 @@
 # varchartypmodin
 
 ## Location
-src/backend/utils/adt/varchar.c: 648 - 655
+[src/backend/utils/adt/varchar.c:648-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L648-L655)
 
 ## Overview
 Processes type modifiers for VARCHAR data types by parsing the input array and validating the length specification.

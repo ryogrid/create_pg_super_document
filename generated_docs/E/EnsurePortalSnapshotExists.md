@@ -1,7 +1,7 @@
 # EnsurePortalSnapshotExists
 
 ## Location
-src/backend/tcop/pquery.c: 1766 - 1793
+[src/backend/tcop/pquery.c:1766-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1766-L1793)
 
 ## Overview
 EnsurePortalSnapshotExists recreates a portal-level snapshot when none exists, typically after transactions have been committed or aborted within procedures or DO blocks.

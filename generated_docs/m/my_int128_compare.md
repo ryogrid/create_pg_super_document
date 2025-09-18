@@ -1,7 +1,7 @@
 # my_int128_compare
 
 ## Location
-src/tools/testint128.c: 56 - 73
+[src/tools/testint128.c:56-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/testint128.c#L56-L73)
 
 ## Overview
 A control version of a comparator function that compares two 128-bit integer values and returns a standard comparison result.

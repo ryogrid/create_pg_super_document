@@ -1,7 +1,7 @@
 # json_array_element
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 920 - 934
+[src/backend/utils/adt/jsonfuncs.c:920-934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L920-L934)
 
 ## Overview
 Extracts an element from a JSON array by zero-based index and returns the element value as JSON text, or NULL if the index is out of bounds or the input is not a valid JSON array.

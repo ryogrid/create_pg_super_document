@@ -1,7 +1,7 @@
 # end_replication_step
 
 ## Location
-src/backend/replication/logical/worker.c: 533 - 560
+[src/backend/replication/logical/worker.c:533-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L533-L560)
 
 ## Overview
 Completes a single replication step by cleaning up the snapshot context and making the step's effects visible within the current transaction.

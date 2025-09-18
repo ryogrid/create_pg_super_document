@@ -1,7 +1,7 @@
 # identify_update_path
 
 ## Location
-src/backend/commands/extension.c: 1267 - 1309
+[src/backend/commands/extension.c:1267-1309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1267-L1309)
 
 ## Overview
 Determines the sequence of version transitions required to update an extension from one version to another using the shortest path algorithm.

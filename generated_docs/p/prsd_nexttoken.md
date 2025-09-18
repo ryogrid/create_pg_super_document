@@ -1,7 +1,7 @@
 # prsd_nexttoken
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1902 - 1917
+[src/backend/tsearch/wparser_def.c:1902-1917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1902-L1917)
 
 ## Overview
 A PostgreSQL function that extracts the next token from an initialized text parser, returning the token type and providing the token text and length through output parameters.

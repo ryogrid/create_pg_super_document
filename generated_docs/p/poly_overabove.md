@@ -1,7 +1,7 @@
 # poly_overabove
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3694 - 3719
+[src/backend/utils/adt/geo_ops.c:3694-3719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3694-L3719)
 
 ## Overview
 Tests whether polygon A is overlapping with or positioned above polygon B by comparing their lower bounds in the coordinate system.

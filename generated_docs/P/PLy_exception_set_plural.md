@@ -1,7 +1,7 @@
 # PLy_exception_set_plural
 
 ## Location
-src/pl/plpython/plpy_elog.c: 491 - 508
+[src/pl/plpython/plpy_elog.c:491-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L491-L508)
 
 ## Overview  
 A specialized utility function that sets Python exception strings with printf-style formatting and proper plural form handling for internationalized messages.

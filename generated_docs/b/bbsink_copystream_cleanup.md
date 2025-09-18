@@ -1,7 +1,7 @@
 # bbsink_copystream_cleanup
 
 ## Location
-src/backend/backup/basebackup_copy.c: 308 - 316
+[src/backend/backup/basebackup_copy.c:308-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L308-L316)
 
 ## Overview
 A no-op cleanup function for copystream-based backup sinks that requires no specific resource deallocation.

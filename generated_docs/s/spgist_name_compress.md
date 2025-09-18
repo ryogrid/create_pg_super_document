@@ -1,7 +1,7 @@
 # spgist_name_compress
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 496 - 502
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:496-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L496-L502)
 
 ## Overview
 Converts PostgreSQL name data type to text format for storage in SP-GiST index structures.

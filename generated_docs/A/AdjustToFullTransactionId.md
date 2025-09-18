@@ -1,7 +1,7 @@
 # AdjustToFullTransactionId
 
 ## Location
-src/backend/access/transam/twophase.c: 938 - 944
+[src/backend/access/transam/twophase.c:938-944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L938-L944)
 
 ## Overview
 Computes the FullTransactionId for a given TransactionId, safely handling epoch wraparound during two-phase commit operations.

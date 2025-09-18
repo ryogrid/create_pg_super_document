@@ -1,7 +1,7 @@
 # _bt_split_penalty
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 1131 - 1158
+[src/backend/access/nbtree/nbtsplitloc.c:1131-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L1131-L1158)
 
 ## Overview
 Calculates a penalty score for a B-tree split point candidate, helping to determine the optimal location to split a B-tree page during node splits.

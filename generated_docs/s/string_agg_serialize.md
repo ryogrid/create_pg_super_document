@@ -1,7 +1,7 @@
 # string_agg_serialize
 
 ## Location
-src/backend/utils/adt/varlena.c: 5291 - 5321
+[src/backend/utils/adt/varlena.c:5291-5321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5291-L5321)
 
 ## Overview
 The serialize function for PostgreSQL's string_agg() aggregate that converts the internal StringInfo state into a bytea for parallel worker communication.

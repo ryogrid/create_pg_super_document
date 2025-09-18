@@ -1,7 +1,7 @@
 # pg_lsn_in_internal
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 29 - 62
+[src/backend/utils/adt/pg_lsn.c:29-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L29-L62)
 
 ## Overview
 An internal function that parses a string representation of a PostgreSQL Log Sequence Number (LSN) and converts it to an XLogRecPtr value with error handling.

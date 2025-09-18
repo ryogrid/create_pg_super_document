@@ -1,7 +1,7 @@
 # RelationMapInvalidate
 
 ## Location
-src/backend/utils/cache/relmapper.c: 468 - 489
+[src/backend/utils/cache/relmapper.c:468-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L468-L489)
 
 ## Overview
 A public function that handles shared invalidation (SI) cache flush messages by selectively reloading relation mapping files when they are currently valid.

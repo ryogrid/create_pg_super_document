@@ -1,7 +1,7 @@
 # XLogCheckBufferNeedsBackup
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1027 - 1064
+[src/backend/access/transam/xloginsert.c:1027-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1027-L1064)
 
 ## Overview
 XLogCheckBufferNeedsBackup determines whether a buffer requires a full-page backup in the WAL record for crash recovery safety.

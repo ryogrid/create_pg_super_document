@@ -1,7 +1,7 @@
 # execTuplesUnequal
 
 ## Location
-src/backend/executor/nodeSubplan.c: 675 - 743
+[src/backend/executor/nodeSubplan.c:675-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L675-L743)
 
 ## Overview
 execTuplesUnequal determines if two tuples are definitively unequal by comparing specified columns, implementing SQL's NULL semantics where NULLs are neither equal nor unequal to anything.

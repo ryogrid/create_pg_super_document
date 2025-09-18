@@ -1,7 +1,7 @@
 # ParallelIndexScanDesc
 
 ## Location
-src/include/access/genam.h: 93 - 114
+[src/include/access/genam.h:93-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L93-L114)
 
 ## Overview
 ParallelIndexScanDesc is a pointer type to ParallelIndexScanDescData structure that represents the shared state needed for parallel index scanning operations in PostgreSQL.

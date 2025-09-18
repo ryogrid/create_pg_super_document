@@ -1,7 +1,7 @@
 # pg_lsn_send
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 102 - 117
+[src/backend/utils/adt/pg_lsn.c:102-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L102-L117)
 
 ## Overview
 A PostgreSQL send function that serializes a pg_lsn value into binary format for network communication or binary data transfer.

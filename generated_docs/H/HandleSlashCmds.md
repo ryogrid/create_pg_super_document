@@ -1,7 +1,7 @@
 # HandleSlashCmds
 
 ## Location
-src/bin/psql/command.c: 221 - 304
+[src/bin/psql/command.c:221-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L221-L304)
 
 ## Overview
 HandleSlashCmds is the main dispatcher function that processes all PostgreSQL psql backslash commands (commands starting with '\'). It serves as the central entry point for executing psql meta-commands.

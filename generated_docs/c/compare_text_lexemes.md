@@ -1,7 +1,7 @@
 # compare_text_lexemes
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 442 - 463
+[src/backend/utils/adt/tsvector_op.c:442-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L442-L463)
 
 ## Overview
 A static qsort comparator function that compares two text lexemes (represented as Datum values) for sorting purposes in TSVector operations.

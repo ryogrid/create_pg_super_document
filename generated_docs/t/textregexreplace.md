@@ -1,7 +1,7 @@
 # textregexreplace
 
 ## Location
-src/backend/utils/adt/regexp.c: 658 - 698
+[src/backend/utils/adt/regexp.c:658-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L658-L698)
 
 ## Overview
 Performs regular expression-based text replacement with pattern matching flags, taking a source text, regex pattern, replacement text, and option flags as input.

@@ -1,7 +1,7 @@
 # pgstat_set_wait_event_storage
 
 ## Location
-src/backend/utils/activity/wait_event.c: 350 - 361
+[src/backend/utils/activity/wait_event.c:350-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L350-L361)
 
 ## Overview
 Configures wait event reporting by setting the storage location where wait event information will be reported.

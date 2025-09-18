@@ -1,7 +1,7 @@
 # AllocSetIsEmpty
 
 ## Location
-src/backend/utils/mmgr/aset.c: 1496 - 1520
+[src/backend/utils/mmgr/aset.c:1496-1520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L1496-L1520)
 
 ## Overview
 Determines whether a MemoryContext is empty of any allocated space by checking if the context has been reset.

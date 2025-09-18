@@ -1,7 +1,7 @@
 # RI_CompareKey
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 152 - 156
+[src/backend/utils/adt/ri_triggers.c:152-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L152-L156)
 
 ## Overview
 RI_CompareKey is a structure that serves as a key for identifying cached comparison operators and data types used in referential integrity operations, enabling efficient lookup of how to compare two values of specific types.

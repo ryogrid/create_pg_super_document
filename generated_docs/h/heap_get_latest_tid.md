@@ -1,7 +1,7 @@
 # heap_get_latest_tid
 
 ## Location
-src/backend/access/heap/heapam.c: 1827 - 1948
+[src/backend/access/heap/heapam.c:1827-1948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1827-L1948)
 
 ## Overview
 This function follows a chain of tuple updates through t_ctid links to find the latest version of a row that is visible according to the scan's snapshot.

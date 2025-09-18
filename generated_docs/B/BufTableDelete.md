@@ -1,7 +1,7 @@
 # BufTableDelete
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 148 - 161
+[src/backend/storage/buffer/buf_table.c:148-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L148-L161)
 
 ## Overview
 BufTableDelete removes an entry from the shared buffer hash table for a given buffer tag, used during buffer invalidation and cleanup operations.

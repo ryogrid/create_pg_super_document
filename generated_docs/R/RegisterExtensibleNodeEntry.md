@@ -1,7 +1,7 @@
 # RegisterExtensibleNodeEntry
 
 ## Location
-src/backend/nodes/extensible.c: 39 - 75
+[src/backend/nodes/extensible.c:39-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L39-L75)
 
 ## Overview
 An internal function that registers a new callback structure in the extensible node system, creating and managing hash tables for extensible node type registration.

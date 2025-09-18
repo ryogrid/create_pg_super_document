@@ -1,7 +1,7 @@
 # scanNameSpaceForRefname
 
 ## Location
-src/backend/parser/parse_relation.c: 200 - 239
+[src/backend/parser/parse_relation.c:200-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L200-L239)
 
 ## Overview
 Searches the current parsing state's namespace for an item matching an unqualified reference name, handling ambiguity detection and lateral reference validation.

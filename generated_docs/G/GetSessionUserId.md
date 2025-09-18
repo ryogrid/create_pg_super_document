@@ -1,7 +1,7 @@
 # GetSessionUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 554 - 560
+[src/backend/utils/init/miscinit.c:554-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L554-L560)
 
 ## Overview
 GetSessionUserId returns the session user ID, which is the user identity established at session start and can be modified by SET SESSION AUTHORIZATION.

@@ -1,7 +1,7 @@
 # transformAExprOpAll
 
 ## Location
-src/backend/parser/parse_expr.c: 1018 - 1031
+[src/backend/parser/parse_expr.c:1018-1031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1018-L1031)
 
 ## Overview
 Transforms "op ALL" expressions from the parse tree into scalar array operation nodes for evaluating whether a value matches all elements in an array or subquery result.

@@ -1,7 +1,7 @@
 # palloc0
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1346 - 1366
+[src/backend/utils/mmgr/mcxt.c:1346-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1346-L1366)
 
 ## Overview
 palloc0 is PostgreSQL's zero-initialized memory allocation function that allocates memory from the current memory context and automatically clears it to zero, providing a convenient interface for allocating clean memory.

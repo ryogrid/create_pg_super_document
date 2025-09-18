@@ -1,7 +1,7 @@
 # validate_relation_kind
 
 ## Location
-src/backend/access/sequence/sequence.c: 70 - 78
+[src/backend/access/sequence/sequence.c:70-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/sequence/sequence.c#L70-L78)
 
 ## Overview
 A static inline validation function that ensures a relation is a sequence, raising an error if the relation kind is incorrect.

@@ -1,7 +1,7 @@
 # match_clauses_to_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2051 - 2083
+[src/backend/optimizer/path/indxpath.c:2051-2083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2051-L2083)
 
 ## Overview
 A utility function that iterates through a list of restriction clauses and applies match_clause_to_index() to each one, adding matching clauses to the provided clause set.

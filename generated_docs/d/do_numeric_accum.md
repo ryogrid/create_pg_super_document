@@ -1,7 +1,7 @@
 # do_numeric_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 4873 - 4942
+[src/backend/utils/adt/numeric.c:4873-4942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4873-L4942)
 
 ## Overview
 Accumulates a new numeric input value into a NumericAggState structure, handling special values and maintaining running sums for aggregate functions.

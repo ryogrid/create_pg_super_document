@@ -1,7 +1,7 @@
 # GISTInitBuffer
 
 ## Location
-src/backend/access/gist/gistutil.c: 772 - 783
+[src/backend/access/gist/gistutil.c:772-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L772-L783)
 
 ## Overview
 GISTInitBuffer is a utility function that initializes a new GiST (Generalized Search Tree) index buffer by setting up the page structure with specified flags.

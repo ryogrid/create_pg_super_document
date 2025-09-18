@@ -1,7 +1,7 @@
 # pgoutput_ensure_entry_cxt
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 873 - 894
+[src/backend/replication/pgoutput/pgoutput.c:873-894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L873-L894)
 
 ## Overview
 Ensures that a per-entry memory context exists for a RelationSyncEntry in the pgoutput plugin, creating it if it doesn't already exist.

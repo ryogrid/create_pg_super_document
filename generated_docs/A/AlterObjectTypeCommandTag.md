@@ -1,7 +1,7 @@
 # AlterObjectTypeCommandTag
 
 ## Location
-src/backend/tcop/utility.c: 2214 - 2359
+[src/backend/tcop/utility.c:2214-2359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L2214-L2359)
 
 ## Overview
 AlterObjectTypeCommandTag is a static helper function that maps PostgreSQL object types to their corresponding ALTER command tags for logging and monitoring purposes.

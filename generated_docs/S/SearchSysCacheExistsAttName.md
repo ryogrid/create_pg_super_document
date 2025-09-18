@@ -1,7 +1,7 @@
 # SearchSysCacheExistsAttName
 
 ## Location
-src/backend/utils/cache/syscache.c: 523 - 543
+[src/backend/utils/cache/syscache.c:523-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L523-L543)
 
 ## Overview
 Checks whether an attribute with the given name exists in a relation, ignoring dropped attributes.

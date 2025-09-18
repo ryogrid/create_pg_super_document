@@ -1,7 +1,7 @@
 # setup_privileges
 
 ## Location
-src/bin/initdb/initdb.c: 1786 - 1926
+[src/bin/initdb/initdb.c:1786-1926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1786-L1926)
 
 ## Overview
 Sets up default privileges for system catalogs and populates the pg_init_privs table to preserve privilege information at database initialization time.

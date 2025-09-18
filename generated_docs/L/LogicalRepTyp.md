@@ -1,7 +1,7 @@
 # LogicalRepTyp
 
 ## Location
-src/include/replication/logicalproto.h: 119 - 124
+[src/include/replication/logicalproto.h:119-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L119-L124)
 
 ## Overview
 LogicalRepTyp is a structure that stores type mapping information for custom data types used in logical replication, enabling proper type handling between publisher and subscriber.

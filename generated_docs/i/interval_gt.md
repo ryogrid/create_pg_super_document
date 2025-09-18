@@ -1,7 +1,7 @@
 # interval_gt
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2550 - 2558
+[src/backend/utils/adt/timestamp.c:2550-2558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2550-L2558)
 
 ## Overview
 Compares two interval values to determine if the first is greater than the second, returning true if the first interval represents a longer time span.

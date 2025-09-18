@@ -1,7 +1,7 @@
 # SPI_getargtypeid
 
 ## Location
-src/backend/executor/spi.c: 1875 - 1889
+[src/backend/executor/spi.c:1875-1889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1875-L1889)
 
 ## Overview
 Retrieve the type identifier (Oid) for a specific parameter of a prepared SPI plan.

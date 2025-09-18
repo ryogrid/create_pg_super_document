@@ -1,7 +1,7 @@
 # AlteredTableInfo
 
 ## Location
-src/backend/commands/tablecmds.c: 166 - 208
+[src/backend/commands/tablecmds.c:166-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L166-L208)
 
 ## Overview
 AlteredTableInfo is a comprehensive structure that manages the state and metadata for table alteration operations in PostgreSQL. It tracks all phases of ALTER TABLE commands, from initial analysis through final execution and cleanup.

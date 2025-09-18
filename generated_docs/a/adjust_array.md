@@ -1,7 +1,7 @@
 # adjust_array
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 515 - 628
+[src/interfaces/ecpg/preproc/variable.c:515-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L515-L628)
 
 ## Overview
 Adjusts array dimension and length parameters for ECPG variable types based on type specifications, pointer levels, and various constraints to ensure proper array handling in embedded SQL contexts.

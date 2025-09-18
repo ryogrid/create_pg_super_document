@@ -1,7 +1,7 @@
 # json_categorize_type
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5975 - 6075
+[src/backend/utils/adt/jsonfuncs.c:5975-6075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5975-L6075)
 
 ## Overview
 Analyzes a PostgreSQL data type and determines how it should be converted to JSON, returning both the JSON type category and the appropriate output function for the conversion.

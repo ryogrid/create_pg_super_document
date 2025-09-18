@@ -1,7 +1,7 @@
 # trueConsistentFn
 
 ## Location
-src/backend/access/gin/ginlogic.c: 50 - 55
+[src/backend/access/gin/ginlogic.c:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L50-L55)
 
 ## Overview
 A dummy consistent function for GIN index EVERYTHING keys that always returns true, claiming the key matches any query.

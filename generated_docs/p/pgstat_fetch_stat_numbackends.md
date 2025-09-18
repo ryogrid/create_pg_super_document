@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_numbackends
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1148 - 1163
+[src/backend/utils/activity/backend_status.c:1148-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1148-L1163)
 
 ## Overview
 Returns the current number of active backend sessions tracked in the localBackendStatusTable, providing the maximum valid 1-based index for accessing backend entries.

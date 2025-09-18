@@ -1,7 +1,7 @@
 # parallel_vacuum_process_safe_indexes
 
 ## Location
-src/backend/commands/vacuumparallel.c: 772 - 825
+[src/backend/commands/vacuumparallel.c:772-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L772-L825)
 
 ## Overview
 This static function processes indexes that are safe for parallel vacuum operations, used by both the leader process and parallel worker processes to vacuum indexes concurrently.

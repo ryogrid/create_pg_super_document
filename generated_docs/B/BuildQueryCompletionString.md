@@ -1,7 +1,7 @@
 # BuildQueryCompletionString
 
 ## Location
-src/backend/tcop/cmdtag.c: 121 - 163
+[src/backend/tcop/cmdtag.c:121-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L121-L163)
 
 ## Overview
 Constructs a command completion string containing the command tag name and optionally the number of processed rows, formatted according to PostgreSQL's wire protocol requirements.

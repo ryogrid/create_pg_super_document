@@ -1,7 +1,7 @@
 # pg_input_is_valid_common
 
 ## Location
-src/backend/utils/adt/misc.c: 765 - 827
+[src/backend/utils/adt/misc.c:765-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L765-L827)
 
 ## Overview
 A static utility function that validates whether a given text string can be successfully parsed as a specified PostgreSQL data type.

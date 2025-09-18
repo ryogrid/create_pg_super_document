@@ -1,7 +1,7 @@
 # timetz_part
 
 ## Location
-src/backend/utils/adt/date.c: 3044 - 3049
+[src/backend/utils/adt/date.c:3044-3049](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L3044-L3049)
 
 ## Overview
 Extracts specified field from a time with time zone (TIMETZ) data type, returning the result as a float8 value.

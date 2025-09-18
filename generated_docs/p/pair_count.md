@@ -1,7 +1,7 @@
 # pair_count
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 392 - 421
+[src/backend/utils/adt/geo_ops.c:392-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L392-L421)
 
 ## Overview
 Counts the number of coordinate pairs in a delimited string representation of geometric data, supporting both nested and flat coordinate notation.

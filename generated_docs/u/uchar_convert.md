@@ -1,7 +1,7 @@
 # uchar_convert
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2731 - 2757
+[src/backend/utils/adt/pg_locale.c:2731-2757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2731-L2757)
 
 ## Overview
 Converts a string from the source encoding to ICU's Unicode (UChar) representation, storing the result in a provided destination buffer.

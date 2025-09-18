@@ -1,7 +1,7 @@
 # WalUsageAccumDiff
 
 ## Location
-src/backend/executor/instrument.c: 286 - 291
+[src/backend/executor/instrument.c:286-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L286-L291)
 
 ## Overview
 A utility function that accumulates Write-Ahead Log (WAL) usage statistics by computing the difference between two WalUsage snapshots and adding that difference to a destination WalUsage structure.

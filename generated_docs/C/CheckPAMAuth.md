@@ -1,7 +1,7 @@
 # CheckPAMAuth
 
 ## Location
-src/backend/libpq/auth.c: 2031 - 2175
+[src/backend/libpq/auth.c:2031-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2031-L2175)
 
 ## Overview
 The CheckPAMAuth function implements PAM (Pluggable Authentication Modules) authentication for PostgreSQL, performing the complete PAM authentication sequence to validate user credentials against the configured PAM service.

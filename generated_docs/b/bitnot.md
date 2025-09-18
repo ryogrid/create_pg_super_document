@@ -1,7 +1,7 @@
 # bitnot
 
 ## Location
-src/backend/utils/adt/varbit.c: 1365 - 1391
+[src/backend/utils/adt/varbit.c:1365-1391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1365-L1391)
 
 ## Overview
 Performs a logical NOT operation on a single bit string, returning a new bit string containing the bitwise complement (inverted bits).

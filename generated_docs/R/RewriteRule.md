@@ -1,7 +1,7 @@
 # RewriteRule
 
 ## Location
-src/include/rewrite/prs2lock.h: 24 - 32
+[src/include/rewrite/prs2lock.h:24-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/prs2lock.h#L24-L32)
 
 ## Overview
 RewriteRule is a structure that holds information for a rewrite rule in PostgreSQL's rule system, which is used for implementing views, query rewriting, and other rule-based transformations.

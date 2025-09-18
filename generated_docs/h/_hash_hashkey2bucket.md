@@ -1,7 +1,7 @@
 # _hash_hashkey2bucket
 
 ## Location
-src/backend/access/hash/hashutil.c: 125 - 141
+[src/backend/access/hash/hashutil.c:125-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L125-L141)
 
 ## Overview
 Function that maps a hash key to its corresponding bucket number using the hash index's split algorithm.

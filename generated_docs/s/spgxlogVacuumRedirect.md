@@ -1,7 +1,7 @@
 # spgxlogVacuumRedirect
 
 ## Location
-src/include/access/spgxlog.h: 238 - 248
+[src/include/access/spgxlog.h:238-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L238-L248)
 
 ## Overview
 The spgxlogVacuumRedirect struct is a PostgreSQL WAL record structure used to log vacuum operations that clean up redirect tuples and placeholder tuples in SP-GiST indexes, which are created during tuple movements and updates.

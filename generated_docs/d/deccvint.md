@@ -1,7 +1,7 @@
 # deccvint
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 268 - 289
+[src/interfaces/ecpg/compatlib/informix.c:268-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L268-L289)
 
 ## Overview
 Converts an integer value to a decimal data type, providing Informix-compatible decimal conversion functionality in PostgreSQL ECPG.

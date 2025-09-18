@@ -1,7 +1,7 @@
 # adjust_inherited_attnums
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 628 - 661
+[src/backend/optimizer/util/appendinfo.c:628-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L628-L661)
 
 ## Overview
 Translates a list of parent attribute numbers to their corresponding child attribute numbers using AppendRelInfo context for inheritance relationships.

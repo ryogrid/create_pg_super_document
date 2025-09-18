@@ -1,7 +1,7 @@
 # get_record_type_from_query
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3660 - 3696
+[src/backend/utils/adt/jsonfuncs.c:3660-3696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3660-L3696)
 
 ## Overview
 A static function that determines the record type from the calling query context when the target type cannot be extracted from function arguments, particularly for  functions.

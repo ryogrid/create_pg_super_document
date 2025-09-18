@@ -1,7 +1,7 @@
 # cleanup_tsquery_stopwords
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 387 - 446
+[src/backend/utils/adt/tsquery_cleanup.c:387-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L387-L446)
 
 ## Overview
 Main entry point for removing stopword nodes from a TSQuery, converting between flat and tree representations while handling memory allocation and phrase distance adjustments.

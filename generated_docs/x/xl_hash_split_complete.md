@@ -1,7 +1,7 @@
 # xl_hash_split_complete
 
 ## Location
-src/include/access/hash_xlog.h: 117 - 121
+[src/include/access/hash_xlog.h:117-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L117-L121)
 
 ## Overview
 A PostgreSQL WAL record structure that captures the information needed to replay the completion phase of a hash index bucket split operation during recovery.

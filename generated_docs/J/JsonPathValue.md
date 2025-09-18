@@ -1,7 +1,7 @@
 # JsonPathValue
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4005 - 4089
+[src/backend/utils/adt/jsonpath_exec.c:4005-4089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4005-L4089)
 
 ## Overview
 An executor-callable function that implements JSON_VALUE functionality, extracting scalar values from JSON documents using path expressions with strict single-item and scalar-only validation.

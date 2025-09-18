@@ -1,7 +1,7 @@
 # rfree
 
 ## Location
-src/backend/regex/regcomp.c: 2447 - 2482
+[src/backend/regex/regcomp.c:2447-2482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2447-L2482)
 
 ## Overview
 Completely deallocates a compiled regular expression structure, freeing all associated memory including the parse tree, lookaround constraints, search NFA, and color map.

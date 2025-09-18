@@ -1,7 +1,7 @@
 # RelationMapInitializePhase2
 
 ## Location
-src/backend/utils/cache/relmapper.c: 671 - 691
+[src/backend/utils/cache/relmapper.c:671-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L671-L691)
 
 ## Overview
 RelationMapInitializePhase2 prepares the relation mapper for accessing pg_database during startup by loading the shared relation map file from disk.

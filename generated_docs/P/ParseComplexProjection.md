@@ -1,7 +1,7 @@
 # ParseComplexProjection
 
 ## Location
-src/backend/parser/parse_func.c: 1912 - 1992
+[src/backend/parser/parse_func.c:1912-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1912-L1992)
 
 ## Overview
 Handles function calls with a single complex-type argument by checking if the call is actually a column projection and transforming it into the appropriate expression tree.

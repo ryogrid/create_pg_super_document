@@ -1,7 +1,7 @@
 # gist_bbox_zorder_abbrev_convert
 
 ## Location
-src/backend/access/gist/gistproc.c: 1714 - 1735
+[src/backend/access/gist/gistproc.c:1714-1735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1714-L1735)
 
 ## Overview
 Converts a box datum to an abbreviated Z-order value for efficient spatial sorting in GiST index operations.

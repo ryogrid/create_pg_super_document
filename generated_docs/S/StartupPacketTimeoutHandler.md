@@ -1,7 +1,7 @@
 # StartupPacketTimeoutHandler
 
 ## Location
-src/backend/tcop/backend_startup.c: 895 - 898
+[src/backend/tcop/backend_startup.c:895-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L895-L898)
 
 ## Overview
 A timeout handler function that terminates the backend process when a timeout occurs during startup packet processing, ensuring the server doesn't hang on slow or malicious clients.

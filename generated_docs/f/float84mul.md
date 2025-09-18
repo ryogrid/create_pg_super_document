@@ -1,7 +1,7 @@
 # float84mul
 
 ## Location
-src/backend/utils/adt/float.c: 3837 - 3845
+[src/backend/utils/adt/float.c:3837-3845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3837-L3845)
 
 ## Overview
 Multiplies a float8 (double precision) value by a float4 (single precision) value, returning the result as a float8.

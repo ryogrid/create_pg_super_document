@@ -1,7 +1,7 @@
 # PQcmdTuples
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3822 - 3875
+[src/interfaces/libpq/fe-exec.c:3822-3875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3822-L3875)
 
 ## Overview
 PQcmdTuples extracts the number of affected tuples from SQL command results, supporting INSERT, UPDATE, DELETE, MERGE, MOVE, FETCH, COPY, and SELECT operations.

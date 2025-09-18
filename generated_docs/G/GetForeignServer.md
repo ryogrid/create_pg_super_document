@@ -1,7 +1,7 @@
 # GetForeignServer
 
 ## Location
-src/backend/foreign/foreign.c: 111 - 122
+[src/backend/foreign/foreign.c:111-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L111-L122)
 
 ## Overview
 Retrieves a foreign server object by its Object ID (OID), providing a simplified interface to access foreign server information without error handling options.

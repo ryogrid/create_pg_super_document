@@ -1,7 +1,7 @@
 # ExecBuildSlotValueDescription
 
 ## Location
-src/backend/executor/execMain.c: 2216 - 2352
+[src/backend/executor/execMain.c:2216-2352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2216-L2352)
 
 ## Overview
 Constructs a human-readable string representation of tuple values with security-aware column filtering and field length truncation for error reporting.

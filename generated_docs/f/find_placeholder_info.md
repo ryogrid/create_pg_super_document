@@ -1,7 +1,7 @@
 # find_placeholder_info
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 83 - 184
+[src/backend/optimizer/util/placeholder.c:83-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L83-L184)
 
 ## Overview
 Retrieves or creates a PlaceHolderInfo structure for a given PlaceHolderVar, managing the metadata needed for proper evaluation placement and optimization of placeholder expressions in query plans.

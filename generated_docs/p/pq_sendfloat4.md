@@ -1,7 +1,7 @@
 # pq_sendfloat4
 
 ## Location
-src/backend/libpq/pqformat.c: 252 - 275
+[src/backend/libpq/pqformat.c:252-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L252-L275)
 
 ## Overview
 Appends a float4 (single-precision floating-point) value to a StringInfo buffer in PostgreSQL's external binary representation format.

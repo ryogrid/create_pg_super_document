@@ -1,7 +1,7 @@
 # ECPGdeallocate_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 748 - 779
+[src/interfaces/ecpg/ecpglib/descriptor.c:748-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L748-L779)
 
 ## Overview
 Deallocates a SQL descriptor by name, removing it from the global descriptor list and freeing its associated memory.

@@ -1,7 +1,7 @@
 # GetCommandTagName
 
 ## Location
-src/backend/tcop/cmdtag.c: 47 - 52
+[src/backend/tcop/cmdtag.c:47-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L47-L52)
 
 ## Overview
 Returns the textual name string associated with a given CommandTag enumeration value.

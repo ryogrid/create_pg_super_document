@@ -1,7 +1,7 @@
 # do_tup_output
 
 ## Location
-src/backend/executor/execTuples.c: 2362 - 2389
+[src/backend/executor/execTuples.c:2362-2389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2362-L2389)
 
 ## Overview
 Writes a single tuple using the tuple output infrastructure by populating a TupleTableSlot with provided values and sending it to the configured destination receiver.

@@ -1,7 +1,7 @@
 # rbt_delete_node
 
 ## Location
-src/backend/lib/rbtree.c: 619 - 694
+[src/backend/lib/rbtree.c:619-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L619-L694)
 
 ## Overview
 Deletes a specified node from a Red-Black tree while maintaining tree structure and preparing for balance restoration if necessary.

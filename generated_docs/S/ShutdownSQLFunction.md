@@ -1,7 +1,7 @@
 # ShutdownSQLFunction
 
 ## Location
-src/backend/executor/functions.c: 1488 - 1533
+[src/backend/executor/functions.c:1488-1533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L1488-L1533)
 
 ## Overview
 A callback function used to shut down SQL functions that return sets before they have been run to completion, ensuring proper cleanup of execution states and resources.

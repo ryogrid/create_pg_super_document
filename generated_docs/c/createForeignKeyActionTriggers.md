@@ -1,7 +1,7 @@
 # createForeignKeyActionTriggers
 
 ## Location
-src/backend/commands/tablecmds.c: 12401 - 12535
+[src/backend/commands/tablecmds.c:12401-12535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12401-L12535)
 
 ## Overview
 Creates the referenced-side "action" triggers that implement foreign key constraints on the referenced table, handling ON DELETE and ON UPDATE actions.

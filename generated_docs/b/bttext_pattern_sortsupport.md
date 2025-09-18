@@ -1,7 +1,7 @@
 # bttext_pattern_sortsupport
 
 ## Location
-src/backend/utils/adt/varlena.c: 2899 - 2921
+[src/backend/utils/adt/varlena.c:2899-2921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2899-L2921)
 
 ## Overview
 A PostgreSQL sort support function that configures optimized sorting for text pattern operations by setting up generic string sorting with "C" collation for B-tree indexes.

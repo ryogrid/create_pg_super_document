@@ -1,7 +1,7 @@
 # rtoday
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 535 - 540
+[src/interfaces/ecpg/compatlib/informix.c:535-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L535-L540)
 
 ## Overview
 Sets a date variable to the current date, providing Informix compatibility functionality in PostgreSQL's ECPG interface.

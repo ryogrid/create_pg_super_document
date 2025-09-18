@@ -1,7 +1,7 @@
 # ATExecDetachPartition
 
 ## Location
-src/backend/commands/tablecmds.c: 19141 - 19319
+[src/backend/commands/tablecmds.c:19141-19319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19141-L19319)
 
 ## Overview
 ATExecDetachPartition implements the ALTER TABLE DETACH PARTITION command, removing the inheritance relationship between a partition and its parent table, with support for both immediate and concurrent detaching modes.

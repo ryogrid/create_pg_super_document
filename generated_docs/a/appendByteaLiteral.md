@@ -1,7 +1,7 @@
 # appendByteaLiteral
 
 ## Location
-src/fe_utils/string_utils.c: 527 - 581
+[src/fe_utils/string_utils.c:527-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L527-L581)
 
 ## Overview
 Converts raw binary data (bytea) to a hexadecimal SQL string literal and appends it to a PQExpBuffer, accounting for different string escaping standards.

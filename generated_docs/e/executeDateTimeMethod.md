@@ -1,7 +1,7 @@
 # executeDateTimeMethod
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2339 - 2819
+[src/backend/utils/adt/jsonpath_exec.c:2339-2819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2339-L2819)
 
 ## Overview
 Implements JSON path datetime methods (.datetime(), .date(), .time(), .time_tz(), .timestamp(), .timestamp_tz()) that convert string values to PostgreSQL datetime types.

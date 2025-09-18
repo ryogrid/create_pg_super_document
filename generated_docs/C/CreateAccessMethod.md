@@ -1,7 +1,7 @@
 # CreateAccessMethod
 
 ## Location
-src/backend/commands/amcmds.c: 43 - 128
+[src/backend/commands/amcmds.c:43-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L43-L128)
 
 ## Overview
 Registers a new access method in the PostgreSQL system catalog, creating the necessary catalog entries and dependency records.

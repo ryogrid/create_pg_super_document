@@ -1,7 +1,7 @@
 # gincost_opexpr
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7483 - 7532
+[src/backend/utils/adt/selfuncs.c:7483-7532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7483-L7532)
 
 ## Overview
 Estimates the number of index terms that need to be searched for a GIN index clause represented as an operator expression (OpExpr).

@@ -1,7 +1,7 @@
 # pg_drop_replication_slot
 
 ## Location
-src/backend/replication/slotfuncs.c: 222 - 239
+[src/backend/replication/slotfuncs.c:222-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L222-L239)
 
 ## Overview
 SQL function for dropping an existing replication slot by name with proper permission validation.

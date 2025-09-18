@@ -1,7 +1,7 @@
 # GetForeignTable
 
 ## Location
-src/backend/foreign/foreign.c: 254 - 291
+[src/backend/foreign/foreign.c:254-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L254-L291)
 
 ## Overview
 Retrieves a foreign table definition by relation OID and constructs a complete ForeignTable structure with associated options.

@@ -1,7 +1,7 @@
 # FetchDynamicTimeZone
 
 ## Location
-src/backend/utils/adt/datetime.c: 4970 - 5000
+[src/backend/utils/adt/datetime.c:4970-5000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4970-L5000)
 
 ## Overview
 FetchDynamicTimeZone resolves dynamic timezone abbreviations by lazy-loading the underlying pg_tz timezone object from the system timezone database.

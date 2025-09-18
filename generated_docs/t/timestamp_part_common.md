@@ -1,7 +1,7 @@
 # timestamp_part_common
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5353 - 5610
+[src/backend/utils/adt/timestamp.c:5353-5610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5353-L5610)
 
 ## Overview
 Core implementation function for extracting specific date/time components from timestamp values, supporting both float8 and numeric return types.

@@ -1,7 +1,7 @@
 # ExecEvalCoerceViaIOSafe
 
 ## Location
-src/backend/executor/execExprInterp.c: 2579 - 2638
+[src/backend/executor/execExprInterp.c:2579-2638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2579-L2638)
 
 ## Overview
 ExecEvalCoerceViaIOSafe performs type coercion through input/output functions in soft-error mode, converting values by serializing to text and deserializing to the target type while gracefully handling conversion errors.

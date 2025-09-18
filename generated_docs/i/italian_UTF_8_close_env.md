@@ -1,7 +1,7 @@
 # italian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_italian.c: 1029 - 1030
+[src/backend/snowball/libstemmer/stem_UTF_8_italian.c:1029-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_italian.c#L1029-L1030)
 
 ## Overview
 The italian_UTF_8_close_env function deallocates and cleans up a Snowball environment structure that was previously created for Italian UTF-8 text stemming operations.

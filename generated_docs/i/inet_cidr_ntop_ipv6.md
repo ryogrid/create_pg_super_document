@@ -1,7 +1,7 @@
 # inet_cidr_ntop_ipv6
 
 ## Location
-src/backend/utils/adt/inet_cidr_ntop.c: 165 - 294
+[src/backend/utils/adt/inet_cidr_ntop.c:165-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_cidr_ntop.c#L165-L294)
 
 ## Overview
 Converts IPv6 network addresses from binary format to CIDR presentation format with zero compression optimization and IPv4-mapped address detection.

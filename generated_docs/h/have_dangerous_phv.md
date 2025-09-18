@@ -1,7 +1,7 @@
 # have_dangerous_phv
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1305 - 1332
+[src/backend/optimizer/path/joinrels.c:1305-1332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1305-L1332)
 
 ## Overview
 Detects whether any PlaceHolderVars (PHVs) in the query would create dangerous parameterization scenarios for nestloop joins, preventing executor complications with complex parameter expressions.

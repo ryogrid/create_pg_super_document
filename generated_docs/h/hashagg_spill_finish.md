@@ -1,7 +1,7 @@
 # hashagg_spill_finish
 
 ## Location
-src/backend/executor/nodeAgg.c: 3093 - 3132
+[src/backend/executor/nodeAgg.c:3093-3132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L3093-L3132)
 
 ## Overview
 Transforms spilled hash aggregation partitions into new HashAggBatch structures for subsequent processing iterations.

@@ -1,7 +1,7 @@
 # each_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2180 - 2205
+[src/backend/utils/adt/jsonfuncs.c:2180-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2180-L2205)
 
 ## Overview
 A callback function used during JSON parsing that handles scalar values, providing validation for object expansion operations and storing de-escaped scalar values when needed.

@@ -1,7 +1,7 @@
 # dir_sync
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 514 - 564
+[src/bin/pg_basebackup/walmethods.c:514-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L514-L564)
 
 ## Overview
 Synchronizes a WAL file to persistent storage, handling compression-specific flushing operations and performing fsync on the underlying file descriptor.

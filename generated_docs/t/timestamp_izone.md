@@ -1,7 +1,7 @@
 # timestamp_izone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6229 - 6272
+[src/backend/utils/adt/timestamp.c:6229-6272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6229-L6272)
 
 ## Overview
 Converts a timestamp to a timestamptz by applying a specified interval as a time zone offset.

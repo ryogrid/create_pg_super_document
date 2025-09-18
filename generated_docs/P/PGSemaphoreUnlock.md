@@ -1,7 +1,7 @@
 # PGSemaphoreUnlock
 
 ## Location
-src/backend/port/posix_sema.c: 340 - 364
+[src/backend/port/posix_sema.c:340-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L340-L364)
 
 ## Overview
 Unlocks a PostgreSQL semaphore by incrementing its count, potentially waking up processes blocked on PGSemaphoreLock calls.

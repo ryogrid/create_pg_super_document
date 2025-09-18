@@ -1,7 +1,7 @@
 # ExecWorkTableScan
 
 ## Location
-src/backend/executor/nodeWorktablescan.c: 81 - 129
+[src/backend/executor/nodeWorktablescan.c:81-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWorktablescan.c#L81-L129)
 
 ## Overview
 ExecWorkTableScan is the main execution function for worktable scan nodes, orchestrating the sequential scanning of temporary worktables used in recursive queries and returning qualifying tuples.

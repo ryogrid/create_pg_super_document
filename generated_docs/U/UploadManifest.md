@@ -1,7 +1,7 @@
 # UploadManifest
 
 ## Location
-src/backend/replication/walsender.c: 683 - 746
+[src/backend/replication/walsender.c:683-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L683-L746)
 
 ## Overview
 Handles the UPLOAD_MANIFEST replication command by receiving incremental backup manifest data from the client via PostgreSQL's COPY protocol and processing it for subsequent incremental backup operations.

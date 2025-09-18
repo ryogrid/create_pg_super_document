@@ -1,7 +1,7 @@
 # IsCatalogRelationOid
 
 ## Location
-src/backend/catalog/catalog.c: 120 - 151
+[src/backend/catalog/catalog.c:120-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L120-L151)
 
 ## Overview
 IsCatalogRelationOid determines whether a relation OID corresponds to a system catalog by checking if the OID is in the "pinned" range created during bootstrap.

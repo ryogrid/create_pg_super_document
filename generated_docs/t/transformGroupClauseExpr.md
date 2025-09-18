@@ -1,7 +1,7 @@
 # transformGroupClauseExpr
 
 ## Location
-src/backend/parser/parse_clause.c: 2367 - 2474
+[src/backend/parser/parse_clause.c:2367-2474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2367-L2474)
 
 ## Overview
 Transforms a single expression within a GROUP BY clause or grouping set, adding it to the targetlist and flatresult list while handling operator and sort order hints from the ORDER BY clause.

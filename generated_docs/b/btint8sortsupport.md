@@ -1,7 +1,7 @@
 # btint8sortsupport
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 162 - 174
+[src/backend/access/nbtree/nbtcompare.c:162-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L162-L174)
 
 ## Overview
 A PostgreSQL function that sets up optimized sort support for 64-bit integer (int8/bigint) data types in B-tree indexes with platform-specific optimizations.

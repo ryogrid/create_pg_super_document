@@ -1,7 +1,7 @@
 # ExecMemoize
 
 ## Location
-src/backend/executor/nodeMemoize.c: 697 - 951
+[src/backend/executor/nodeMemoize.c:697-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L697-L951)
 
 ## Overview
 ExecMemoize is the main execution function for the Memoize node that caches and reuses query results based on parameter values to avoid redundant computation of expensive subplans.

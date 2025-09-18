@@ -1,7 +1,7 @@
 # set_completion_reference_verbatim
 
 ## Location
-src/bin/psql/tab-complete.c: 5612 - 5624
+[src/bin/psql/tab-complete.c:5612-5624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5612-L5624)
 
 ## Overview
 Sets up the completion reference object to be exactly the given word verbatim, used in PostgreSQL's psql tab completion system.

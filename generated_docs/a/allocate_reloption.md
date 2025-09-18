@@ -1,7 +1,7 @@
 # allocate_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 775 - 831
+[src/backend/access/common/reloptions.c:775-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L775-L831)
 
 ## Overview
 Allocates a new reloption structure and initializes the type-agnostic fields for various reloption types (excluding string-specific initialization).

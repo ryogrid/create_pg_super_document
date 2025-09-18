@@ -1,7 +1,7 @@
 # cost_memoize_rescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2509 - 2649
+[src/backend/optimizer/path/costsize.c:2509-2649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2509-L2649)
 
 ## Overview
 Calculates the estimated costs for rescanning a Memoize node by analyzing cache hit ratios, memory constraints, and the distinctness of parameter values to determine caching effectiveness.

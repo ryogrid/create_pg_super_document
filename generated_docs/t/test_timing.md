@@ -1,7 +1,7 @@
 # test_timing
 
 ## Location
-src/bin/pg_test_timing/pg_test_timing.c: 122 - 181
+[src/bin/pg_test_timing/pg_test_timing.c:122-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_timing/pg_test_timing.c#L122-L181)
 
 ## Overview
 The test_timing function performs a timing measurement loop to assess the resolution and accuracy of the system clock, collecting statistics about timing granularity for performance analysis.

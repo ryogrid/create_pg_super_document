@@ -1,7 +1,7 @@
 # multirange_lower_inf
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1603 - 1621
+[src/backend/utils/adt/multirangetypes.c:1603-1621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1603-L1621)
 
 ## Overview
 Returns whether the lower bound of the first range in a multirange is infinite (unbounded).

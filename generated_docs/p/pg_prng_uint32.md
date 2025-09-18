@@ -1,7 +1,7 @@
 # pg_prng_uint32
 
 ## Location
-src/common/pg_prng.c: 227 - 242
+[src/common/pg_prng.c:227-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L227-L242)
 
 ## Overview
 Generates a random 32-bit unsigned integer uniformly distributed over the full range [0, PG_UINT32_MAX].

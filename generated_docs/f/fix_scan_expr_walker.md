@@ -1,7 +1,7 @@
 # fix_scan_expr_walker
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2261 - 2281
+[src/backend/optimizer/plan/setrefs.c:2261-2281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2261-L2281)
 
 ## Overview
 A tree walker function that performs minimal in-place processing of expression nodes when no structural modifications are needed during scan-level expression fixing.

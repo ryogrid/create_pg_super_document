@@ -1,7 +1,7 @@
 # run_single_test
 
 ## Location
-src/test/regress/pg_regress.c: 1844 - 1910
+[src/test/regress/pg_regress.c:1844-1910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1844-L1910)
 
 ## Overview
 Executes a single PostgreSQL regression test and compares the results with expected output to determine test success or failure.

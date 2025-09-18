@@ -1,7 +1,7 @@
 # clean_NOT_intree
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 136 - 189
+[src/backend/utils/adt/tsquery_cleanup.c:136-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L136-L189)
 
 ## Overview
 The `clean_NOT_intree` function removes and simplifies NOT operators from a binary tree representation of a TSQuery, optimizing the query structure by eliminating negation operations that always evaluate to TRUE.

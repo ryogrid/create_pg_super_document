@@ -1,7 +1,7 @@
 # read_post_opts
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 794 - 848
+[src/bin/pg_ctl/pg_ctl.c:794-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L794-L848)
 
 ## Overview
 Reads and parses PostgreSQL server startup options from a file, specifically used during RESTART operations to preserve the original server startup configuration.

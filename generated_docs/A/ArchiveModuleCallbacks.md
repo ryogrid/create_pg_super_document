@@ -1,7 +1,7 @@
 # ArchiveModuleCallbacks
 
 ## Location
-src/include/archive/archive_module.h: 43 - 49
+[src/include/archive/archive_module.h:43-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/archive/archive_module.h#L43-L49)
 
 ## Overview
 ArchiveModuleCallbacks is a structure that defines the callback function interface for PostgreSQL archive modules, containing function pointers for the various lifecycle operations of archive modules.

@@ -1,7 +1,7 @@
 # pq_sendstring
 
 ## Location
-src/backend/libpq/pqformat.c: 195 - 226
+[src/backend/libpq/pqformat.c:195-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L195-L226)
 
 ## Overview
 Appends a null-terminated text string to a StringInfo buffer with character set conversion from server to client encoding.

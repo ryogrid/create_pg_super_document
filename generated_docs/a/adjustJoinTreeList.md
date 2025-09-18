@@ -1,7 +1,7 @@
 # adjustJoinTreeList
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 702 - 763
+[src/backend/rewrite/rewriteHandler.c:702-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L702-L763)
 
 ## Overview
 Creates a copy of the query's join tree list and optionally removes a specified range table entry from the top-level join items.

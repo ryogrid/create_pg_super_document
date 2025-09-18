@@ -1,7 +1,7 @@
 # GetSysCacheHashValue
 
 ## Location
-src/backend/utils/cache/syscache.c: 662 - 678
+[src/backend/utils/cache/syscache.c:662-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L662-L678)
 
 ## Overview
 Computes the hash value that would be used for a tuple in a specified system catalog cache with the given search keys.

@@ -1,7 +1,7 @@
 # convert_schema_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3965 - 3976
+[src/backend/utils/adt/acl.c:3965-3976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3965-L3976)
 
 ## Overview
 Converts a schema name expressed as text to its corresponding Object Identifier (OID).

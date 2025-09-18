@@ -1,7 +1,7 @@
 # btvacuumpage
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 1073 - 1407
+[src/backend/access/nbtree/nbtree.c:1073-1407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L1073-L1407)
 
 ## Overview
 Processes a single page during B-tree vacuum operations, handling deletions, updates to posting list tuples, and page splits that occurred during the vacuum cycle.

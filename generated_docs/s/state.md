@@ -1,7 +1,7 @@
 # state
 
 ## Location
-src/timezone/pgtz.h: 41 - 64
+[src/timezone/pgtz.h:41-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.h#L41-L64)
 
 ## Overview
 The state struct represents the complete timezone state information, containing all data needed to perform timezone calculations for a specific timezone.

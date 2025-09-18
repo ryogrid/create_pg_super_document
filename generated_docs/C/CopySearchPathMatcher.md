@@ -1,7 +1,7 @@
 # CopySearchPathMatcher
 
 ## Location
-src/backend/catalog/namespace.c: 3889 - 3910
+[src/backend/catalog/namespace.c:3889-3910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3889-L3910)
 
 ## Overview
 Creates a deep copy of an existing SearchPathMatcher structure, allocating the result in the current memory context.

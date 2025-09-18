@@ -1,7 +1,7 @@
 # RewriteState
 
 ## Location
-src/include/access/rewriteheap.h: 22 - 34
+[src/include/access/rewriteheap.h:22-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/rewriteheap.h#L22-L34)
 
 ## Overview
 RewriteState is an opaque pointer type that encapsulates the complete state associated with a heap rewrite operation in PostgreSQL, providing a handle to the underlying RewriteStateData structure.

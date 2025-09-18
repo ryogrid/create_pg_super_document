@@ -1,7 +1,7 @@
 # RTEKind
 
 ## Location
-src/include/nodes/parsenodes.h: 1036 - 1037
+[src/include/nodes/parsenodes.h:1036-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1036-L1037)
 
 ## Overview
 RTEKind is an enumeration that defines the different types of range table entries that can appear in PostgreSQL's query processing, indicating what kind of relation or data source each entry represents.

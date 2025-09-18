@@ -1,7 +1,7 @@
 # GinDataPageAddPostingItem
 
 ## Location
-src/backend/access/gin/gindatapage.c: 380 - 416
+[src/backend/access/gin/gindatapage.c:380-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L380-L416)
 
 ## Overview
 GinDataPageAddPostingItem inserts a PostingItem into a non-leaf GIN data page at a specified offset, handling memory management and page layout updates.

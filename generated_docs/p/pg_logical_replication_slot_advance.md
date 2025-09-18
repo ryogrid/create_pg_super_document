@@ -1,7 +1,7 @@
 # pg_logical_replication_slot_advance
 
 ## Location
-src/backend/replication/slotfuncs.c: 499 - 507
+[src/backend/replication/slotfuncs.c:499-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L499-L507)
 
 ## Overview
 A helper function that advances a logical replication slot forward by delegating to the logical slot advancement and snapshot state checking functionality.

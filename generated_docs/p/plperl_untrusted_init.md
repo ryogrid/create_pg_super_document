@@ -1,7 +1,7 @@
 # plperl_untrusted_init
 
 ## Location
-src/pl/plperl/plperl.c: 1038 - 1060
+[src/pl/plperl/plperl.c:1038-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1038-L1060)
 
 ## Overview
 Initializes the current Perl interpreter as an untrusted interpreter, allowing unrestricted Perl code execution with optional custom initialization.

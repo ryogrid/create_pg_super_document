@@ -1,7 +1,7 @@
 # tuplesort_initialize_shared
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2976 - 2998
+[src/backend/utils/sort/tuplesort.c:2976-2998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2976-L2998)
 
 ## Overview
 Initializes shared tuplesort state that must be established in the leader process before parallel workers are launched.

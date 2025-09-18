@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesVisibility
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1767 - 1788
+[src/backend/access/heap/heapam_visibility.c:1767-1788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1767-L1788)
 
 ## Overview
 HeapTupleSatisfiesVisibility is a central dispatcher function that determines if a heap tuple satisfies visibility requirements according to different snapshot types in PostgreSQL's MVCC system.

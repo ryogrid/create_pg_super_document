@@ -1,7 +1,7 @@
 # void_recv
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 275 - 284
+[src/backend/utils/adt/pseudotypes.c:275-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L275-L284)
 
 ## Overview
 The void_recv function is an input function for the void pseudo-type that handles receiving binary data for void values during PostgreSQL's binary protocol communication.

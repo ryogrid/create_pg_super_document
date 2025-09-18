@@ -1,7 +1,7 @@
 # PLy_function_drop_args
 
 ## Location
-src/pl/plpython/plpy_exec.c: 584 - 612
+[src/pl/plpython/plpy_exec.c:584-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L584-L612)
 
 ## Overview
 Frees a PLySavedArgs struct and all its Python object references without restoring the values to the global argument context.

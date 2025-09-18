@@ -1,7 +1,7 @@
 # BumpGetChunkContext
 
 ## Location
-src/backend/utils/mmgr/bump.c: 638 - 648
+[src/backend/utils/mmgr/bump.c:638-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L638-L648)
 
 ## Overview
 A deliberately unsupported function that throws an error when called, enforcing the bump allocator's constraint that chunk-to-context mapping information is not maintained.

@@ -1,7 +1,7 @@
 # write_inheritable_socket
 
 ## Location
-src/backend/postmaster/launch_backend.c: 825 - 845
+[src/backend/postmaster/launch_backend.c:825-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L825-L845)
 
 ## Overview
 Duplicates a Windows socket for usage in a child process and stores the socket information in an InheritableSocket structure to work around LSP (Layered Service Provider) issues.

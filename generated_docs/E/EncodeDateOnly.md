@@ -1,7 +1,7 @@
 # EncodeDateOnly
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 669 - 721
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:669-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L669-L721)
 
 ## Overview
 Encodes a date as a formatted string according to the specified style, supporting various date output formats including ISO, SQL, German, and PostgreSQL styles.

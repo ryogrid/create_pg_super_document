@@ -1,7 +1,7 @@
 # lose_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 15 - 26
+[src/backend/snowball/libstemmer/utilities.c:15-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L15-L26)
 
 ## Overview
 Deallocates memory for a symbol structure, safely handling NULL pointers in the Snowball stemming library.

@@ -1,7 +1,7 @@
 # type_in_list_does_not_exist_skipping
 
 ## Location
-src/backend/commands/dropcmds.c: 206 - 242
+[src/backend/commands/dropcmds.c:206-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dropcmds.c#L206-L242)
 
 ## Overview
 type_in_list_does_not_exist_skipping is a helper function that determines whether a missing function, cast, aggregate, or operator should be skipped because one of its involved datatypes or their schemas doesn't exist.

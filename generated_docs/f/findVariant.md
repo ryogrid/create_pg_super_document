@@ -1,7 +1,7 @@
 # findVariant
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 696 - 752
+[src/backend/tsearch/dict_thesaurus.c:696-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L696-L752)
 
 ## Overview
 Finds matching lexeme variants by coordinating substitution IDs across multiple input lexeme arrays and building a linked list of compatible variants.

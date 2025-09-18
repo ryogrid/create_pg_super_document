@@ -1,7 +1,7 @@
 # GetDbnameFromConnectionOptions
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 308 - 346
+[src/bin/pg_basebackup/streamutil.c:308-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L308-L346)
 
 ## Overview
 Retrieves the database name from connection options including connection strings and environment variables.

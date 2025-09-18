@@ -1,7 +1,7 @@
 # ftoi2
 
 ## Location
-src/backend/utils/adt/float.c: 1306 - 1330
+[src/backend/utils/adt/float.c:1306-1330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1306-L1330)
 
 ## Overview
 The ftoi2 function converts a float4 (single precision floating-point) number to an int2 (smallint, 16-bit signed integer), performing range validation and error handling for values outside the representable smallint range.

@@ -1,7 +1,7 @@
 # pgstat_checkpointer_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_checkpointer.c: 103 - 118
+[src/backend/utils/activity/pgstat_checkpointer.c:103-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_checkpointer.c#L103-L118)
 
 ## Overview
 Creates a consistent snapshot of checkpointer statistics by copying shared memory statistics and applying reset offsets to provide cumulative values since the last statistics reset.

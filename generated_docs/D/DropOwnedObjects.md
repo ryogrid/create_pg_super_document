@@ -1,7 +1,7 @@
 # DropOwnedObjects
 
 ## Location
-src/backend/commands/user.c: 1583 - 1610
+[src/backend/commands/user.c:1583-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1583-L1610)
 
 ## Overview
 Implements the DROP OWNED command by dropping all objects owned by specified roles after performing appropriate privilege checks.

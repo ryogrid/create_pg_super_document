@@ -1,7 +1,7 @@
 # _PrintExtraToc
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 265 - 284
+[src/bin/pg_dump/pg_backup_custom.c:265-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L265-L284)
 
 ## Overview
 _PrintExtraToc is a callback function that outputs diagnostic information about TOC entries during archive restoration, specifically printing data position information when verbose mode is enabled.

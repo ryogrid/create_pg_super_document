@@ -1,7 +1,7 @@
 # do_pg_abort_backup
 
 ## Location
-src/backend/access/transam/xlog.c: 9410 - 9436
+[src/backend/access/transam/xlog.c:9410-9436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9410-L9436)
 
 ## Overview
 Aborts a running backup operation by taking the system out of backup mode, providing a safe cleanup mechanism for error handling and process termination scenarios.

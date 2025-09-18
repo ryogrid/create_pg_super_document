@@ -1,7 +1,7 @@
 # heap_freeze_prepared_tuples
 
 ## Location
-src/backend/access/heap/heapam.c: 7359 - 7380
+[src/backend/access/heap/heapam.c:7359-7380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7359-L7380)
 
 ## Overview
 Helper function that executes freezing of one or more heap tuples on a page, taking an array of prepared tuple freeze plans and applying them to the specified tuples.

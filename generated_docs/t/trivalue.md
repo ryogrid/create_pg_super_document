@@ -1,7 +1,7 @@
 # trivalue
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 37 - 38
+[src/bin/pg_dump/pg_backup.h:37-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L37-L38)
 
 ## Overview
 A three-state enumeration type used throughout PostgreSQL client utilities to represent boolean-like values with a default/unset state.

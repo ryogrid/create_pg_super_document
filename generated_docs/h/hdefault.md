@@ -1,7 +1,7 @@
 # hdefault
 
 ## Location
-src/backend/utils/hash/dynahash.c: 630 - 656
+[src/backend/utils/hash/dynahash.c:630-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L630-L656)
 
 ## Overview
 hdefault is a static function that initializes a hash table's header structure with default parameters and settings.

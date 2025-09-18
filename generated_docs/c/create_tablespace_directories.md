@@ -1,7 +1,7 @@
 # create_tablespace_directories
 
 ## Location
-src/backend/commands/tablespace.c: 572 - 685
+[src/backend/commands/tablespace.c:572-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L572-L685)
 
 ## Overview
 Creates the filesystem infrastructure for a tablespace by establishing directory structures and symlinks between $PGDATA/pg_tblspc/ and the specified location.

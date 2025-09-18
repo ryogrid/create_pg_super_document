@@ -1,7 +1,7 @@
 # init_tuple_slot
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1156 - 1247
+[src/backend/replication/pgoutput/pgoutput.c:1156-1247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1156-L1247)
 
 ## Overview
 Initializes tuple table slots and attribute mapping for storing old and new tuple versions during logical replication in the pgoutput plugin.

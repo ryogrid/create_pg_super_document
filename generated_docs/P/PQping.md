@@ -1,7 +1,7 @@
 # PQping
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 760 - 790
+[src/interfaces/libpq/fe-connect.c:760-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L760-L790)
 
 ## Overview
 Checks the status of a PostgreSQL server connection without establishing a persistent connection, using the same connection parameters as PQconnectdb.

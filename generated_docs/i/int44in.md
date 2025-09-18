@@ -1,7 +1,7 @@
 # int44in
 
 ## Location
-src/test/regress/regress.c: 502 - 525
+[src/test/regress/regress.c:502-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L502-L525)
 
 ## Overview
 A PostgreSQL test function that parses a string representation of four comma-separated integers into an internal int32 array format.

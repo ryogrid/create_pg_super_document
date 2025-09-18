@@ -1,7 +1,7 @@
 # pg_function_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4922 - 4935
+[src/backend/catalog/namespace.c:4922-4935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4922-L4935)
 
 ## Overview
 SQL-callable function that determines whether a function is visible in the current search path without explicit schema qualification.

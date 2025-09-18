@@ -1,7 +1,7 @@
 # NIFinishBuild
 
 ## Location
-src/backend/tsearch/spell.c: 103 - 125
+[src/backend/tsearch/spell.c:103-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L103-L125)
 
 ## Overview
 NIFinishBuild cleans up resources and finalizes the ISpell dictionary construction process by releasing temporary memory and clearing pointers.

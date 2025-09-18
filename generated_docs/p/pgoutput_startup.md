@@ -1,7 +1,7 @@
 # pgoutput_startup
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 434 - 573
+[src/backend/replication/pgoutput/pgoutput.c:434-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L434-L573)
 
 ## Overview
 The initialization function for the pgoutput logical replication plugin that sets up memory contexts, validates parameters, and configures plugin state.

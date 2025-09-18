@@ -1,7 +1,7 @@
 # BaseBackupAddTarget
 
 ## Location
-src/backend/backup/basebackup_target.c: 61 - 116
+[src/backend/backup/basebackup_target.c:61-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L61-L116)
 
 ## Overview
 Registers a new base backup target type with the PostgreSQL backup system, allowing server extensions to define custom backup destinations and handlers.

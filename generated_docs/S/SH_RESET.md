@@ -1,7 +1,7 @@
 # SH_RESET
 
 ## Location
-src/include/lib/simplehash.h: 480 - 493
+[src/include/lib/simplehash.h:480-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L480-L493)
 
 ## Overview
 SH_RESET is a macro that defines a function name for resetting the contents of a simple hash table, clearing all entries while preserving the table structure.

@@ -1,7 +1,7 @@
 # RegisterExprContextCallback
 
 ## Location
-src/backend/executor/execUtils.c: 897 - 922
+[src/backend/executor/execUtils.c:897-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L897-L922)
 
 ## Overview
 Registers a shutdown callback function in an ExprContext to provide cleanup hooks for functions that need resource cleanup during expression evaluation.

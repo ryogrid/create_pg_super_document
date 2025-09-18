@@ -1,7 +1,7 @@
 # get_opclass
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2026 - 2057
+[src/backend/parser/parse_utilcmd.c:2026-2057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2026-L2057)
 
 ## Overview
 Fetches the qualified name of an index operator class, returning NIL if the operator class is the default for the given data type.

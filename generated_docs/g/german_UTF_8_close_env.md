@@ -1,7 +1,7 @@
 # german_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_german.c: 499 - 500
+[src/backend/snowball/libstemmer/stem_UTF_8_german.c:499-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_german.c#L499-L500)
 
 ## Overview
 The german_UTF_8_close_env function properly destroys and deallocates a German UTF-8 Snowball stemming environment structure to prevent memory leaks.

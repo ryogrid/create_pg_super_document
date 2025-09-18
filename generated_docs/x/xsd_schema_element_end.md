@@ -1,7 +1,7 @@
 # xsd_schema_element_end
 
 ## Location
-src/backend/utils/adt/xml.c: 3263 - 3269
+[src/backend/utils/adt/xml.c:3263-3269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3263-L3269)
 
 ## Overview
 Simple internal helper function that writes the closing tag for an XML Schema (XSD) root element.

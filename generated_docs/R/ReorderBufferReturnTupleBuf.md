@@ -1,7 +1,7 @@
 # ReorderBufferReturnTupleBuf
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 606 - 620
+[src/backend/replication/logical/reorderbuffer.c:606-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L606-L620)
 
 ## Overview
 Frees a HeapTuple that was previously allocated by ReorderBufferGetTupleBuf().

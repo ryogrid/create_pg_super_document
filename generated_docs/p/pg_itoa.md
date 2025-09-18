@@ -1,7 +1,7 @@
 # pg_itoa
 
 ## Location
-src/backend/utils/adt/numutils.c: 1044 - 1056
+[src/backend/utils/adt/numutils.c:1044-1056](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L1044-L1056)
 
 ## Overview
 Converts a signed 16-bit integer to its string representation and returns the length of the resulting string.

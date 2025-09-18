@@ -1,7 +1,7 @@
 # range_intersect
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1127 - 1142
+[src/backend/utils/adt/rangetypes.c:1127-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1127-L1142)
 
 ## Overview
 Computes the intersection of two range values, returning a new range that contains only the overlap between the input ranges.

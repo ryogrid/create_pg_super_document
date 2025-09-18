@@ -1,7 +1,7 @@
 # window_gettupleslot
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3066 - 3169
+[src/backend/executor/nodeWindowAgg.c:3066-3169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3066-L3169)
 
 ## Overview
 Fetches the pos'th tuple of the current partition into the specified slot using the WindowObject's read pointer for window function operations.

@@ -1,7 +1,7 @@
 # use_physical_tlist
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 866 - 1002
+[src/backend/optimizer/plan/createplan.c:866-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L866-L1002)
 
 ## Overview
 Determines whether to use a physical target list (matching relation structure) instead of only including variables actually referenced by the query.

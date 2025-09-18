@@ -1,7 +1,7 @@
 # get_db_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 379 - 444
+[src/bin/pg_upgrade/info.c:379-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L379-L444)
 
 ## Overview
 The get_db_infos function scans the pg_database system catalog and populates database information for all user databases within a PostgreSQL cluster during the upgrade process.

@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_tid
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1990 - 2020
+[src/backend/access/brin/brin_minmax_multi.c:1990-2020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1990-L2020)
 
 ## Overview
 Computes the distance between two tid (tuple identifier) values used as range boundaries in BRIN minmax-multi indexes by mapping them to a linear address space.

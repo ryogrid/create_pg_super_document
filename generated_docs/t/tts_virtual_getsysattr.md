@@ -1,7 +1,7 @@
 # tts_virtual_getsysattr
 
 ## Location
-src/backend/executor/execTuples.c: 141 - 156
+[src/backend/executor/execTuples.c:141-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L141-L156)
 
 ## Overview
 Attempts to retrieve system attributes from virtual tuple table slots, but throws an error as virtual slots do not support most system attributes.

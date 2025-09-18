@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_add_interval
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 862 - 916
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:862-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L862-L916)
 
 ## Overview
 Adds an interval to a PostgreSQL timestamp, handling both month-based and time-based components of the interval.

@@ -1,7 +1,7 @@
 # can_coerce_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 556 - 675
+[src/backend/parser/parse_coerce.c:556-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L556-L675)
 
 ## Overview
 Determines whether a set of input types can be coerced to corresponding target types within a given coercion context.

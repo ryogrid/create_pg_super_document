@@ -1,7 +1,7 @@
 # SimpleLruReadPage_ReadOnly
 
 ## Location
-src/backend/access/transam/slru.c: 605 - 651
+[src/backend/access/transam/slru.c:605-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L605-L651)
 
 ## Overview
 Optimized function for read-only access to SLRU pages that first attempts to find the page using only shared locks before falling back to exclusive lock access.

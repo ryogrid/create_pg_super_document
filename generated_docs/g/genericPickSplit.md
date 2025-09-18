@@ -1,7 +1,7 @@
 # genericPickSplit
 
 ## Location
-src/backend/access/gist/gistsplit.c: 344 - 414
+[src/backend/access/gist/gistsplit.c:344-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L344-L414)
 
 ## Overview
 A fallback split implementation that evenly distributes tuples when the user-defined picksplit function incorrectly places all keys on one side of the split.

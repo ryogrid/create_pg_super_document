@@ -1,7 +1,7 @@
 # PgStatShared_Wal
 
 ## Location
-src/include/utils/pgstat_internal.h: 369 - 374
+[src/include/utils/pgstat_internal.h:369-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L369-L374)
 
 ## Overview
 A shared memory structure that holds WAL (Write-Ahead Logging) statistics for PostgreSQL, protected by a lightweight lock for concurrent access.

@@ -1,7 +1,7 @@
 # ReorderBufferTruncateTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1651 - 1777
+[src/backend/replication/logical/reorderbuffer.c:1651-1777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1651-L1777)
 
 ## Overview
 Discards changes from a transaction while preserving essential metadata (transactions, tuplecids, invalidations, and snapshots), typically used after streaming or decoding transactions at PREPARE time.

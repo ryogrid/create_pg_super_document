@@ -1,7 +1,7 @@
 # descriptor_deallocate_all
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 780 - 791
+[src/interfaces/ecpg/ecpglib/descriptor.c:780-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L780-L791)
 
 ## Overview
 A static utility function that deallocates all descriptors in a linked list, traversing the entire list and freeing each descriptor.

@@ -1,7 +1,7 @@
 # executeStartsWith
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2243 - 2266
+[src/backend/utils/adt/jsonpath_exec.c:2243-2266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2243-L2266)
 
 ## Overview
 A JSON path predicate callback function that checks if a string value starts with another specified string.

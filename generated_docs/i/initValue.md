@@ -1,7 +1,7 @@
 # initValue
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 702 - 749
+[src/interfaces/ecpg/compatlib/informix.c:702-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L702-L749)
 
 ## Overview
 A static helper function that initializes a file-scoped structure with various forms and metadata of a long integer value, used for advanced numeric formatting operations.

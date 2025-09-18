@@ -1,7 +1,7 @@
 # finnish_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c: 715 - 716
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c:715-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c#L715-L716)
 
 ## Overview
 The finnish_ISO_8859_1_create_env function creates and initializes a Snowball environment structure specifically configured for Finnish text stemming with ISO-8859-1 character encoding.

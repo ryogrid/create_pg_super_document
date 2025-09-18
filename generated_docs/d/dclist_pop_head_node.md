@@ -1,7 +1,7 @@
 # dclist_pop_head_node
 
 ## Location
-src/include/lib/ilist.h: 789 - 807
+[src/include/lib/ilist.h:789-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L789-L807)
 
 ## Overview
 Removes and returns the first node from a doubly-linked counted list, ensuring the list contains at least one element.

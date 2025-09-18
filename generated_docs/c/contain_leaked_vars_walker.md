@@ -1,7 +1,7 @@
 # contain_leaked_vars_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1275 - 1455
+[src/backend/optimizer/util/clauses.c:1275-1455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1275-L1455)
 
 ## Overview
 The `contain_leaked_vars_walker` function is a tree-walking function that recursively traverses expression nodes to detect whether any Var nodes are passed to non-leakproof functions that could potentially leak sensitive data.

@@ -1,7 +1,7 @@
 # AlterTableMoveAll
 
 ## Location
-src/backend/commands/tablecmds.c: 15385 - 15546
+[src/backend/commands/tablecmds.c:15385-15546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15385-L15546)
 
 ## Overview
 AlterTableMoveAll implements the ALTER TABLE ALL ... SET TABLESPACE command, allowing batch movement of all objects of a specified type from one tablespace to another, with optional filtering by object owner.

@@ -1,7 +1,7 @@
 # uniqueifyJsonbObject
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1949 - 1998
+[src/backend/utils/adt/jsonb_util.c:1949-1998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1949-L1998)
 
 ## Overview
 Sorts and removes duplicate key-value pairs from a JsonbValue object, with options to enforce unique keys and skip null values during the process.

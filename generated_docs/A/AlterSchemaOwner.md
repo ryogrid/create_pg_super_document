@@ -1,7 +1,7 @@
 # AlterSchemaOwner
 
 ## Location
-src/backend/commands/schemacmds.c: 330 - 360
+[src/backend/commands/schemacmds.c:330-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/schemacmds.c#L330-L360)
 
 ## Overview
 AlterSchemaOwner implements the ALTER SCHEMA OWNER operation for schemas identified by name, changing schema ownership through the internal ownership change mechanism.

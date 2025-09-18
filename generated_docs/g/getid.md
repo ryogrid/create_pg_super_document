@@ -1,7 +1,7 @@
 # getid
 
 ## Location
-src/backend/utils/adt/acl.c: 165 - 217
+[src/backend/utils/adt/acl.c:165-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L165-L217)
 
 ## Overview
 Parses the first identifier from a string, handling both quoted and unquoted identifiers while ignoring leading whitespace, and returns the position after the parsed identifier.

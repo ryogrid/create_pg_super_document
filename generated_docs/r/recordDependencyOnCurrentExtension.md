@@ -1,7 +1,7 @@
 # recordDependencyOnCurrentExtension
 
 ## Location
-src/backend/catalog/pg_depend.c: 194 - 258
+[src/backend/catalog/pg_depend.c:194-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L194-L258)
 
 ## Overview
 Records a dependency between an object and the currently executing extension, ensuring proper extension membership during CREATE EXTENSION operations.

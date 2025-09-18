@@ -1,7 +1,7 @@
 # count_old_cluster_logical_slots
 
 ## Location
-src/bin/pg_upgrade/info.c: 732 - 747
+[src/bin/pg_upgrade/info.c:732-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L732-L747)
 
 ## Overview
 The count_old_cluster_logical_slots function returns the total number of logical replication slots across all databases in the old PostgreSQL cluster.

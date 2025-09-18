@@ -1,7 +1,7 @@
 # make_tlist_from_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 624 - 656
+[src/backend/optimizer/util/tlist.c:624-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L624-L656)
 
 ## Overview
 Constructs a targetlist from a PathTarget structure, essentially performing the reverse operation of make_pathtarget_from_tlist by creating TargetEntry nodes from PathTarget expressions.

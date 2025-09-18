@@ -1,7 +1,7 @@
 # tbm_prepare_shared_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 766 - 910
+[src/backend/nodes/tidbitmap.c:766-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L766-L910)
 
 ## Overview
 Prepares shared iteration state for a TIDBitmap that can be accessed by multiple processes using dynamic shared memory.

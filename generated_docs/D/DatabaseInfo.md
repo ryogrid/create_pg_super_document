@@ -1,7 +1,7 @@
 # DatabaseInfo
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 149 - 154
+[src/bin/pg_amcheck/pg_amcheck.c:149-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L149-L154)
 
 ## Overview
 DatabaseInfo is a structure used in PostgreSQL's pg_amcheck utility to store essential information about a database that needs to be checked, including the database name, amcheck extension schema, and unique constraint checking status.

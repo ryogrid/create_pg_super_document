@@ -1,7 +1,7 @@
 # hashcostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7197 - 7238
+[src/backend/utils/adt/selfuncs.c:7197-7238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7197-L7238)
 
 ## Overview
 A cost estimation function for hash index access paths that leverages generic cost estimation while accounting for hash index specific characteristics and limitations.

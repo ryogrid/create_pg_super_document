@@ -1,7 +1,7 @@
 # addWrd
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 106 - 161
+[src/backend/tsearch/dict_thesaurus.c:106-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L106-L161)
 
 ## Overview
 Adds a replacement word to the thesaurus substitution rule, managing dynamic storage for both substitution rules and their result lexemes.

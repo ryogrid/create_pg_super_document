@@ -1,7 +1,7 @@
 # RangeDelete
 
 ## Location
-src/backend/catalog/pg_range.c: 113 - 138
+[src/backend/catalog/pg_range.c:113-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_range.c#L113-L138)
 
 ## Overview
 Removes the pg_range catalog entry for a specified range type when the range type is being dropped from the database.

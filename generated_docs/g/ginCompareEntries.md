@@ -1,7 +1,7 @@
 # ginCompareEntries
 
 ## Location
-src/backend/access/gin/ginutil.c: 388 - 409
+[src/backend/access/gin/ginutil.c:388-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L388-L409)
 
 ## Overview
 Compares two GIN index keys of the same column, handling null categories and delegating to the appropriate comparison function for non-null values.

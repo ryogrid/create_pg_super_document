@@ -1,7 +1,7 @@
 # cideq
 
 ## Location
-src/backend/utils/adt/xid.c: 370 - 376
+[src/backend/utils/adt/xid.c:370-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L370-L376)
 
 ## Overview
 A PostgreSQL internal function that performs equality comparison between two CommandId (cid) values.

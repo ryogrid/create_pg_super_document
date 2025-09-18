@@ -1,7 +1,7 @@
 # GetAggInitVal
 
 ## Location
-src/backend/executor/nodeAgg.c: 4288 - 4303
+[src/backend/executor/nodeAgg.c:4288-4303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4288-L4303)
 
 ## Overview
 GetAggInitVal converts a text representation of an aggregate's initial value to the appropriate Datum format for the aggregate's transition data type.

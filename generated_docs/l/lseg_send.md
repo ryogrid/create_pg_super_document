@@ -1,7 +1,7 @@
 # lseg_send
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2111 - 2128
+[src/backend/utils/adt/geo_ops.c:2111-2128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2111-L2128)
 
 ## Overview
 Converts an internal line segment (LSEG) representation to PostgreSQL's binary wire protocol format for transmission to clients.

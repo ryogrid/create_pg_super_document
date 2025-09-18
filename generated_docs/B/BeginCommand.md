@@ -1,7 +1,7 @@
 # BeginCommand
 
 ## Location
-src/backend/tcop/dest.c: 103 - 112
+[src/backend/tcop/dest.c:103-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L103-L112)
 
 ## Overview
 BeginCommand initializes the destination at the start of command execution, serving as a command setup hook in PostgreSQL's command processing infrastructure.

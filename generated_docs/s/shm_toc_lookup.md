@@ -1,7 +1,7 @@
 # shm_toc_lookup
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 232 - 262
+[src/backend/storage/ipc/shm_toc.c:232-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L232-L262)
 
 ## Overview
 Searches for and retrieves a data chunk from a shared memory table of contents (TOC) using a specified key, with lock-free operation using memory barriers for thread safety.

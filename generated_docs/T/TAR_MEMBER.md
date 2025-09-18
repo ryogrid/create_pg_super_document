@@ -1,7 +1,7 @@
 # TAR_MEMBER
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 76 - 88
+[src/bin/pg_dump/pg_backup_tar.c:76-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L76-L88)
 
 ## Overview
 TAR_MEMBER is a structure that represents a member (file) within a tar archive used by PostgreSQL's pg_dump utility for backup operations.

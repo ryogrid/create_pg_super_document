@@ -1,7 +1,7 @@
 # network_sup
 
 ## Location
-src/backend/utils/adt/network.c: 933 - 947
+[src/backend/utils/adt/network.c:933-947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L933-L947)
 
 ## Overview
 Implements the supernet operator (>> operator) to test whether one network is a strict supernet of another network.

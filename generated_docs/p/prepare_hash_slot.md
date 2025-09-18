@@ -1,7 +1,7 @@
 # prepare_hash_slot
 
 ## Location
-src/backend/executor/nodeAgg.c: 1204 - 1248
+[src/backend/executor/nodeAgg.c:1204-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1204-L1248)
 
 ## Overview
 Extracts the attributes that make up the grouping key from the input tuple into a hash slot, which is necessary for computing hash values or performing hash table lookups.

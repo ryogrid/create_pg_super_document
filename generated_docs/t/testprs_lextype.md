@@ -1,7 +1,7 @@
 # testprs_lextype
 
 ## Location
-src/test/modules/test_parser/test_parser.c: 108 - 127
+[src/test/modules/test_parser/test_parser.c:108-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_parser/test_parser.c#L108-L127)
 
 ## Overview
 Provide lexical type information and descriptions for tokens recognized by the PostgreSQL test parser module.

@@ -1,7 +1,7 @@
 # _bt_leftsib_splitflag
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1695 - 1751
+[src/backend/access/nbtree/nbtpage.c:1695-1751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1695-L1751)
 
 ## Overview
 Checks whether the left sibling page of a target page is marked with the INCOMPLETE_SPLIT flag, which would prevent safe deletion of the target page.

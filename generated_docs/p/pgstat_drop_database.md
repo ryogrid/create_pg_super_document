@@ -1,7 +1,7 @@
 # pgstat_drop_database
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 44 - 54
+[src/backend/utils/activity/pgstat_database.c:44-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L44-L54)
 
 ## Overview
 Removes the statistics entry for a database when it is being dropped from the PostgreSQL cluster.

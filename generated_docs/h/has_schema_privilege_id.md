@@ -1,7 +1,7 @@
 # has_schema_privilege_id
 
 ## Location
-src/backend/utils/adt/acl.c: 3885 - 3912
+[src/backend/utils/adt/acl.c:3885-3912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3885-L3912)
 
 ## Overview
 Checks current user privileges on a schema given a schema OID and privilege type as text.

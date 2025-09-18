@@ -1,7 +1,7 @@
 # dtrunc
 
 ## Location
-src/backend/utils/adt/float.c: 1421 - 1438
+[src/backend/utils/adt/float.c:1421-1438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1421-L1438)
 
 ## Overview
 The dtrunc function performs truncation towards zero for double-precision floating-point numbers, effectively removing the fractional part while preserving the sign.

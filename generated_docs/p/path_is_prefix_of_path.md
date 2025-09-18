@@ -1,7 +1,7 @@
 # path_is_prefix_of_path
 
 ## Location
-src/port/path.c: 636 - 650
+[src/port/path.c:636-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L636-L650)
 
 ## Overview
 Determines whether one path is a proper prefix of another path, including the case where the paths are identical.

@@ -1,7 +1,7 @@
 # pg_get_viewdef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 768 - 850
+[src/backend/utils/adt/ruleutils.c:768-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L768-L850)
 
 ## Overview
 The core worker function that retrieves and formats the SQL definition of a view by accessing the PostgreSQL system catalogs through SPI.

@@ -1,7 +1,7 @@
 # predicate_implied_by
 
 ## Location
-src/backend/optimizer/util/predtest.c: 152 - 221
+[src/backend/optimizer/util/predtest.c:152-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L152-L221)
 
 ## Overview
 Tests whether a given predicate is logically implied by a set of clauses, supporting both strong and weak implication semantics for query optimization and constraint validation.

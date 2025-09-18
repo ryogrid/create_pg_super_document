@@ -1,7 +1,7 @@
 # FigureIndexColname
 
 ## Location
-src/backend/parser/parse_target.c: 1723 - 1742
+[src/backend/parser/parse_target.c:1723-1742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1723-L1742)
 
 ## Overview
 Determines a suitable column name for expression-based index columns, similar to FigureColname but returns NULL when no good name can be determined.

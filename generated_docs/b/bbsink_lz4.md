@@ -1,7 +1,7 @@
 # bbsink_lz4
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 23 - 36
+[src/backend/backup/basebackup_lz4.c:23-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L23-L36)
 
 ## Overview
 A specialized basebackup sink structure that implements LZ4 compression for PostgreSQL base backup archives and manifest files.

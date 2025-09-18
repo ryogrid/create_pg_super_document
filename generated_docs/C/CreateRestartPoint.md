@@ -1,7 +1,7 @@
 # CreateRestartPoint
 
 ## Location
-src/backend/access/transam/xlog.c: 7585 - 7880
+[src/backend/access/transam/xlog.c:7585-7880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7585-L7880)
 
 ## Overview
 CreateRestartPoint establishes a restart point during WAL recovery, similar to CreateCheckPoint but used to create recovery checkpoints that allow rolling forward without replaying the entire recovery log.

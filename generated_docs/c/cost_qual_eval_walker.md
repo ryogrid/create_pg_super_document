@@ -1,7 +1,7 @@
 # cost_qual_eval_walker
 
 ## Location
-src/backend/optimizer/path/costsize.c: 4683 - 4964
+[src/backend/optimizer/path/costsize.c:4683-4964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L4683-L4964)
 
 ## Overview
 A recursive tree-walking function that computes detailed execution costs for individual expression nodes in qualification clauses.

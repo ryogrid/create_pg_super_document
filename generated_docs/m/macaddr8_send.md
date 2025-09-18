@@ -1,7 +1,7 @@
 # macaddr8_send
 
 ## Location
-src/backend/utils/adt/mac8.c: 287 - 309
+[src/backend/utils/adt/mac8.c:287-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L287-L309)
 
 ## Overview
 A PostgreSQL binary output function that converts the internal macaddr8 structure to binary format for transmission over the network protocol.

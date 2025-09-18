@@ -1,7 +1,7 @@
 # ReorderBufferLargestStreamableTopTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3723 - 3766
+[src/backend/replication/logical/reorderbuffer.c:3723-3766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3723-L3766)
 
 ## Overview
 Identifies the largest streamable top-level transaction from the reorder buffer that can be evicted via streaming, focusing only on transactions with base snapshots and complete changes.

@@ -1,7 +1,7 @@
 # set_archive_cancel_info
 
 ## Location
-src/bin/pg_dump/parallel.c: 730 - 788
+[src/bin/pg_dump/parallel.c:730-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L730-L788)
 
 ## Overview
 Manages cancellation information for PostgreSQL database connections in the pg_dump parallel backup system, allowing graceful interruption of backup operations.

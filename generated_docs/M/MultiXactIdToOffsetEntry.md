@@ -1,7 +1,7 @@
 # MultiXactIdToOffsetEntry
 
 ## Location
-src/backend/access/transam/multixact.c: 118 - 123
+[src/backend/access/transam/multixact.c:118-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L118-L123)
 
 ## Overview
 Calculates the entry index within a MultiXact offsets SLRU page for a given MultiXact ID.

@@ -1,7 +1,7 @@
 # lo_tell
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 515 - 547
+[src/interfaces/libpq/fe-lobj.c:515-547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L515-L547)
 
 ## Overview
 Returns the current seek location (file position) within a PostgreSQL large object.

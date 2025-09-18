@@ -1,7 +1,7 @@
 # keyEntryData
 
 ## Location
-src/backend/access/gin/ginutil.c: 433 - 439
+[src/backend/access/gin/ginutil.c:433-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L433-L439)
 
 ## Overview
 A simple structure used for sorting key datums during GIN index key extraction operations, holding both the data value and its null status.

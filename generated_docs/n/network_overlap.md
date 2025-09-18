@@ -1,7 +1,7 @@
 # network_overlap
 
 ## Location
-src/backend/utils/adt/network.c: 963 - 980
+[src/backend/utils/adt/network.c:963-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L963-L980)
 
 ## Overview
 Implements the network overlap operator (&&) for INET data types, checking if two networks have any overlapping address space.

@@ -1,7 +1,7 @@
 # GinInitPage
 
 ## Location
-src/backend/access/gin/ginutil.c: 338 - 349
+[src/backend/access/gin/ginutil.c:338-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L338-L349)
 
 ## Overview
 Initializes a generic GIN (Generalized Inverted Index) page with the specified flags and page size, setting up the basic page structure and opaque data.

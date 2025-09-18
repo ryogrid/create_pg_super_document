@@ -1,7 +1,7 @@
 # dump_one_relation
 
 ## Location
-src/bin/pg_walsummary/pg_walsummary.c: 129 - 218
+[src/bin/pg_walsummary/pg_walsummary.c:129-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_walsummary/pg_walsummary.c#L129-L218)
 
 ## Overview
 Dumps detailed block information for a single relation (table or index) from WAL summary data, handling memory allocation and formatting output in ranges.

@@ -1,7 +1,7 @@
 # sqlfunction_destroy
 
 ## Location
-src/backend/executor/functions.c: 2123 - 2126
+[src/backend/executor/functions.c:2123-2126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2123-L2126)
 
 ## Overview
 Destroys and deallocates memory for SQL function destination receiver objects when they are no longer needed.

@@ -1,7 +1,7 @@
 # r_has_min_length
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 657 - 661
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:657-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L657-L661)
 
 ## Overview
 A helper function in the Greek stemmer that checks if a word has a minimum required length for processing (at least 3 UTF-8 characters).

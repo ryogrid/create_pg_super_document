@@ -1,7 +1,7 @@
 # time_support
 
 ## Location
-src/backend/utils/adt/date.c: 1605 - 1624
+[src/backend/utils/adt/date.c:1605-1624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1605-L1624)
 
 ## Overview
 A planner support function that provides optimization support for the time_scale() and timetz_scale() length coercion functions in PostgreSQL's query planning phase.

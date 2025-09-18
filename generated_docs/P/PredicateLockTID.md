@@ -1,7 +1,7 @@
 # PredicateLockTID
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2611 - 2658
+[src/backend/storage/lmgr/predicate.c:2611-2658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2611-L2658)
 
 ## Overview
 Acquires a predicate lock at the tuple level for serializable transaction isolation, preventing read-write conflicts by tracking tuple-level reads during serializable transactions.

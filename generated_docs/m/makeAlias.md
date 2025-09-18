@@ -1,7 +1,7 @@
 # makeAlias
 
 ## Location
-src/backend/nodes/makefuncs.c: 436 - 450
+[src/backend/nodes/makefuncs.c:436-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L436-L450)
 
 ## Overview
 Creates an Alias node that represents table and column aliases used in SQL queries.

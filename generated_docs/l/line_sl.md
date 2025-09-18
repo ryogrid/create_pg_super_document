@@ -1,7 +1,7 @@
 # line_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1233 - 1246
+[src/backend/utils/adt/geo_ops.c:1233-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1233-L1246)
 
 ## Overview
 Calculates and returns the slope of a line from its standard equation coefficients Ax + By + C = 0.

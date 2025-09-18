@@ -1,7 +1,7 @@
 # have_unsafe_outer_join_ref
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 390 - 438
+[src/backend/optimizer/path/joinpath.c:390-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L390-L438)
 
 ## Overview
 Checks whether a parameterized nested loop join would create unsafe references to outer join relations that could produce incorrect query results.

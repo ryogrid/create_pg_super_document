@@ -1,7 +1,7 @@
 # WalReceiverFunctionsType
 
 ## Location
-src/include/replication/walreceiver.h: 409 - 428
+[src/include/replication/walreceiver.h:409-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walreceiver.h#L409-L428)
 
 ## Overview
 The WalReceiverFunctionsType structure defines a function pointer interface for WAL (Write-Ahead Log) receiver operations, providing a pluggable architecture for different WAL receiver implementations in PostgreSQL's replication system.

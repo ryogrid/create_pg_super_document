@@ -1,7 +1,7 @@
 # btfloat4sortsupport
 
 ## Location
-src/backend/utils/adt/float.c: 891 - 902
+[src/backend/utils/adt/float.c:891-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L891-L902)
 
 ## Overview
 Sort support initialization function for single-precision floating-point numbers (float4) that configures optimized comparison for sorting operations.

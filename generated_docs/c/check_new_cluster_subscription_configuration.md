@@ -1,7 +1,7 @@
 # check_new_cluster_subscription_configuration
 
 ## Location
-src/bin/pg_upgrade/check.c: 1885 - 1927
+[src/bin/pg_upgrade/check.c:1885-1927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1885-L1927)
 
 ## Overview
 Validates that the new PostgreSQL cluster has sufficient max_replication_slots configuration to accommodate all subscriptions being migrated from the old cluster.

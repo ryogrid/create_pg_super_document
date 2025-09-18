@@ -1,7 +1,7 @@
 # ATExecAlterColumnGenericOptions
 
 ## Location
-src/backend/commands/tablecmds.c: 14359 - 14475
+[src/backend/commands/tablecmds.c:14359-14475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14359-L14475)
 
 ## Overview
 ATExecAlterColumnGenericOptions implements the ALTER COLUMN ... OPTIONS command for foreign table columns, allowing modification of foreign data wrapper specific options for individual columns.

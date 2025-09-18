@@ -1,7 +1,7 @@
 # import_error_callback
 
 ## Location
-src/backend/commands/foreigncmds.c: 1611 - 1628
+[src/backend/commands/foreigncmds.c:1611-1628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1611-L1628)
 
 ## Overview
 import_error_callback is an error context callback function that provides enhanced error reporting during IMPORT FOREIGN SCHEMA operations by supplying the failing SQL statement's text and table context.

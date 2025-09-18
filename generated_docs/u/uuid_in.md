@@ -1,7 +1,7 @@
 # uuid_in
 
 ## Location
-src/backend/utils/adt/uuid.c: 42 - 52
+[src/backend/utils/adt/uuid.c:42-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L42-L52)
 
 ## Overview
 PostgreSQL input function that converts a string representation of a UUID into internal UUID binary format.

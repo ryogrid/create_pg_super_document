@@ -1,7 +1,7 @@
 # MultiXactStateData
 
 ## Location
-src/backend/access/transam/multixact.c: 241 - 331
+[src/backend/access/transam/multixact.c:241-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L241-L331)
 
 ## Overview
 MultiXactStateData is a core data structure that maintains the shared state for PostgreSQL's multixact system across all backend processes, managing multixact allocation and tracking for shared lock coordination.

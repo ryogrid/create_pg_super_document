@@ -1,7 +1,7 @@
 # accum_sum_carry
 
 ## Location
-src/backend/utils/adt/numeric.c: 12040 - 12112
+[src/backend/utils/adt/numeric.c:12040-12112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L12040-L12112)
 
 ## Overview
 Propagates carries in both positive and negative digit arrays of a NumericSumAccum structure to maintain proper numeric representation after accumulating values.

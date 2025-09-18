@@ -1,7 +1,7 @@
 # p_isascii
 
 ## Location
-src/backend/tsearch/wparser_def.c: 493 - 498
+[src/backend/tsearch/wparser_def.c:493-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L493-L498)
 
 ## Overview
 A function that determines whether the current character in the parser is a valid ASCII character.

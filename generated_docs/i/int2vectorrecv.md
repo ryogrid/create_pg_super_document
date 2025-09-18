@@ -1,7 +1,7 @@
 # int2vectorrecv
 
 ## Location
-src/backend/utils/adt/int.c: 231 - 272
+[src/backend/utils/adt/int.c:231-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L231-L272)
 
 ## Overview
 Converts external binary format data received over the network or from storage into PostgreSQL's internal int2vector data type.

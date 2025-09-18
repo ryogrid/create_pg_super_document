@@ -1,7 +1,7 @@
 # write_version_file
 
 ## Location
-src/bin/initdb/initdb.c: 1019 - 1041
+[src/bin/initdb/initdb.c:1019-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1019-L1041)
 
 ## Overview
 A static utility function in initdb that creates the PG_VERSION file containing the PostgreSQL major version number in the data directory or its subdirectories.

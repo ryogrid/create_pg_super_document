@@ -1,7 +1,7 @@
 # pgoutput_row_filter
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1248 - 1428
+[src/backend/replication/pgoutput/pgoutput.c:1248-1428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1248-L1428)
 
 ## Overview
 Evaluates row filter expressions to determine if a tuple change should be replicated, potentially transforming UPDATE operations into INSERT or DELETE based on filter match results.

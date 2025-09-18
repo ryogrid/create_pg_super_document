@@ -1,7 +1,7 @@
 # _dumpOptions
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 164 - 209
+[src/bin/pg_dump/pg_backup.h:164-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L164-L209)
 
 ## Overview
 A structure that contains all configuration options and parameters needed for the pg_dump utility to control database dumping behavior and output format.

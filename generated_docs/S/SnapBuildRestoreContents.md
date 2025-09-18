@@ -1,7 +1,7 @@
 # SnapBuildRestoreContents
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 2081 - 2117
+[src/backend/replication/logical/snapbuild.c:2081-2117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L2081-L2117)
 
 ## Overview
 SnapBuildRestoreContents is a low-level utility function that reads a specified amount of data from a file descriptor into a destination buffer with proper error handling and wait event reporting.

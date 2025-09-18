@@ -1,7 +1,7 @@
 # apply_handle_stream_abort
 
 ## Location
-src/backend/replication/logical/worker.c: 1814 - 1970
+[src/backend/replication/logical/worker.c:1814-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1814-L1970)
 
 ## Overview
 Handles the STREAM ABORT message in logical replication, coordinating the abort of streaming transactions between leader and parallel apply workers with different strategies based on the current transaction state.

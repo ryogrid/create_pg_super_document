@@ -1,7 +1,7 @@
 # get_altertable_subcmdinfo
 
 ## Location
-src/test/modules/test_ddl_deparse/test_ddl_deparse.c: 87 - 335
+[src/test/modules/test_ddl_deparse/test_ddl_deparse.c:87-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_ddl_deparse/test_ddl_deparse.c#L87-L335)
 
 ## Overview
 Returns a text array representation of the subcommands contained within an ALTER TABLE command, providing detailed information about each subcommand type and associated objects.

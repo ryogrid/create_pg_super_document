@@ -1,7 +1,7 @@
 # Generic_Text_IC_like
 
 ## Location
-src/backend/utils/adt/like.c: 171 - 239
+[src/backend/utils/adt/like.c:171-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L171-L239)
 
 ## Overview
 A case-insensitive LIKE pattern matching function that handles different character encodings and collations for ILIKE operations in PostgreSQL.

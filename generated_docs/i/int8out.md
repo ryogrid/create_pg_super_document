@@ -1,7 +1,7 @@
 # int8out
 
 ## Location
-src/backend/utils/adt/int8.c: 61 - 82
+[src/backend/utils/adt/int8.c:61-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L61-L82)
 
 ## Overview
 Converts PostgreSQL's internal int8 (bigint) value to its string representation for output.

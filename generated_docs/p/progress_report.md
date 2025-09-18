@@ -1,7 +1,7 @@
 # progress_report
 
 ## Location
-src/bin/pg_checksums/pg_checksums.c: 124 - 157
+[src/bin/pg_checksums/pg_checksums.c:124-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_checksums/pg_checksums.c#L124-L157)
 
 ## Overview
 The `progress_report` function displays real-time progress information during database relation and page checking operations in the pg_amcheck utility, showing completion percentages and current database being processed.

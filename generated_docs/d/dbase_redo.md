@@ -1,7 +1,7 @@
 # dbase_redo
 
 ## Location
-src/backend/commands/dbcommands.c: 3270 - 3431
+[src/backend/commands/dbcommands.c:3270-3431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3270-L3431)
 
 ## Overview
 The WAL replay function for database-related operations that handles the redo of database creation and dropping during recovery.

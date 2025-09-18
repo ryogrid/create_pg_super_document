@@ -1,7 +1,7 @@
 # get_pkginclude_path
 
 ## Location
-src/port/path.c: 928 - 936
+[src/port/path.c:928-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L928-L936)
 
 ## Overview
 Constructs the path to the PostgreSQL package-specific include directory relative to the PostgreSQL executable path.

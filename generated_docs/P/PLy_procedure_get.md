@@ -1,7 +1,7 @@
 # PLy_procedure_get
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 69 - 132
+[src/pl/plpython/plpy_procedure.c:69-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L69-L132)
 
 ## Overview
 Retrieves a cached PLyProcedure or creates, stores, and returns a new one, serving as the main entry point for obtaining compiled PL/Python procedures with intelligent caching and validation.

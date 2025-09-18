@@ -1,7 +1,7 @@
 # box_lt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 744 - 752
+[src/backend/utils/adt/geo_ops.c:744-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L744-L752)
 
 ## Overview
 Compares two boxes by area and returns true if the area of the first box is less than the area of the second box.

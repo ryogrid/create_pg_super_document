@@ -1,7 +1,7 @@
 # icregexnejoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 939 - 947
+[src/backend/utils/adt/like_support.c:939-947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L939-L947)
 
 ## Overview
 Computes join selectivity estimates for case-insensitive regular expression non-match operations between two tables.

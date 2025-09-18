@@ -1,7 +1,7 @@
 # AutoVacuumShmemInit
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3319 - 3363
+[src/backend/postmaster/autovacuum.c:3319-3363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3319-L3363)
 
 ## Overview
 AutoVacuumShmemInit allocates and initializes the shared memory structures required for the autovacuum subsystem, setting up worker pools and control data structures.

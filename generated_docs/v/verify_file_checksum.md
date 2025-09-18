@@ -1,7 +1,7 @@
 # verify_file_checksum
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 851 - 951
+[src/bin/pg_verifybackup/pg_verifybackup.c:851-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L851-L951)
 
 ## Overview
 Verifies the checksum of a single backup file by reading the file contents and comparing the computed checksum against the expected checksum from the manifest.

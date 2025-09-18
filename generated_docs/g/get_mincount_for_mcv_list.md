@@ -1,7 +1,7 @@
 # get_mincount_for_mcv_list
 
 ## Location
-src/backend/statistics/mcv.c: 148 - 179
+[src/backend/statistics/mcv.c:148-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L148-L179)
 
 ## Overview
 Calculates the minimum number of times a value needs to appear in a sample for it to be included in the Most Common Values (MCV) list, based on statistical error analysis principles.

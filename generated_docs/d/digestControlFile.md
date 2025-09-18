@@ -1,7 +1,7 @@
 # digestControlFile
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 1023 - 1055
+[src/bin/pg_rewind/pg_rewind.c:1023-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L1023-L1055)
 
 ## Overview
 Verifies the contents of a PostgreSQL control file buffer and copies it to a ControlFileData structure, performing validation checks on the data.

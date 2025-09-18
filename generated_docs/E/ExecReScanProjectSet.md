@@ -1,7 +1,7 @@
 # ExecReScanProjectSet
 
 ## Location
-src/backend/executor/nodeProjectSet.c: 337 - 350
+[src/backend/executor/nodeProjectSet.c:337-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeProjectSet.c#L337-L350)
 
 ## Overview
 ExecReScanProjectSet resets a ProjectSet node to restart execution from the beginning, handling SRF state cleanup and child node rescanning.

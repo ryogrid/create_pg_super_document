@@ -1,7 +1,7 @@
 # pg_u_isalnum
 
 ## Location
-src/common/unicode_category.c: 226 - 231
+[src/common/unicode_category.c:226-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L226-L231)
 
 ## Overview
 Tests whether a Unicode character is alphanumeric (either alphabetic or digit) with support for both POSIX-compatible and Unicode standard digit classification.

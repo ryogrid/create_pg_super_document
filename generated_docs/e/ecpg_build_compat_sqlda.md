@@ -1,7 +1,7 @@
 # ecpg_build_compat_sqlda
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 205 - 254
+[src/interfaces/ecpg/ecpglib/sqlda.c:205-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L205-L254)
 
 ## Overview
 Builds a compatibility SQLDA (SQL Descriptor Area) structure from a PostgreSQL result set, allocating metadata for all fields while leaving space for field values in a specified row.

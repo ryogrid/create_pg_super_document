@@ -1,7 +1,7 @@
 # ri_BuildQueryKey
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1980 - 2011
+[src/backend/utils/adt/ri_triggers.c:1980-2011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1980-L2011)
 
 ## Overview
 A utility function that constructs a hashtable key for identifying cached prepared SPI plans used in foreign key constraint operations, with optimization for inherited constraints.

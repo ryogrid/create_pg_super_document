@@ -1,7 +1,7 @@
 # _readRangeTblEntry
 
 ## Location
-src/backend/nodes/readfuncs.c: 347 - 438
+[src/backend/nodes/readfuncs.c:347-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L347-L438)
 
 ## Overview
 A static function that deserializes a RangeTblEntry node from its string representation, handling all types of range table entries used in PostgreSQL query planning.

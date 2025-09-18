@@ -1,7 +1,7 @@
 # RelationCacheInitFilePostInvalidate
 
 ## Location
-src/backend/utils/cache/relcache.c: 6791 - 6805
+[src/backend/utils/cache/relcache.c:6791-6805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6791-L6805)
 
 ## Overview
 Releases the RelCacheInitLock after relation cache initialization file invalidation processing is complete.

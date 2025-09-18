@@ -1,7 +1,7 @@
 # _bt_tuple_before_array_skeys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1544 - 1667
+[src/backend/access/nbtree/nbtutils.c:1544-1667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1544-L1667)
 
 ## Overview
 Determines whether it is too early to advance array keys by comparing a tuple against the current array keys in a B-tree index scan.

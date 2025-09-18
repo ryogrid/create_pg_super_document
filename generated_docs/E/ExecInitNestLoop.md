@@ -1,7 +1,7 @@
 # ExecInitNestLoop
 
 ## Location
-src/backend/executor/nodeNestloop.c: 262 - 360
+[src/backend/executor/nodeNestloop.c:262-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNestloop.c#L262-L360)
 
 ## Overview
 ExecInitNestLoop initializes a NestLoopState node for executing nested loop joins, setting up child plan nodes, expression contexts, and join-specific state information.

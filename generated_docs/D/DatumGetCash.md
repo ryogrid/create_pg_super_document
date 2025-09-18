@@ -1,7 +1,7 @@
 # DatumGetCash
 
 ## Location
-src/include/utils/cash.h: 21 - 26
+[src/include/utils/cash.h:21-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/cash.h#L21-L26)
 
 ## Overview
 DatumGetCash is an inline utility function that converts a Datum value to a Cash value, leveraging the underlying int64 representation of the Cash type.

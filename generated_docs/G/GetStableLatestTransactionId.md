@@ -1,7 +1,7 @@
 # GetStableLatestTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 604 - 631
+[src/backend/access/transam/xact.c:604-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L604-L631)
 
 ## Overview
 Returns a stable transaction ID reference point for the current transaction, either the transaction's own XID or the next-to-be-assigned XID, ensuring the same value is returned throughout the transaction's lifetime.

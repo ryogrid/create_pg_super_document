@@ -1,7 +1,7 @@
 # gist_point_fetch
 
 ## Location
-src/backend/access/gist/gistproc.c: 1196 - 1215
+[src/backend/access/gist/gistproc.c:1196-1215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1196-L1215)
 
 ## Overview
 Implements the GiST fetch method for points, converting compressed bounding box representation back to the original point format for query result presentation.

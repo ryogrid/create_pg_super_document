@@ -1,7 +1,7 @@
 # AggStatePerTrans
 
 ## Location
-src/include/nodes/execnodes.h: 2458 - 2458
+[src/include/nodes/execnodes.h:2458-2458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2458-L2458)
 
 ## Overview
 AggStatePerTrans is a typedef pointer to AggStatePerTransData structure that represents per-transition-state information for aggregate functions, managing the working state and transition function execution during aggregate computation.

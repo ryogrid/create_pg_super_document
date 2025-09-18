@@ -1,7 +1,7 @@
 # pgoutput_row_filter_exec_expr
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 850 - 872
+[src/backend/replication/pgoutput/pgoutput.c:850-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L850-L872)
 
 ## Overview
 Executes row filter expressions to determine whether a change should be replicated, treating NULL results as false to exclude the change from replication.

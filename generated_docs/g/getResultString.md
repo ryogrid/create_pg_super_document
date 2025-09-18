@@ -1,7 +1,7 @@
 # getResultString
 
 ## Location
-src/bin/pgbench/pgbench.c: 4530 - 4560
+[src/bin/pgbench/pgbench.c:4530-4560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4530-L4560)
 
 ## Overview
 Returns a string constant representing the result status of a transaction that was not successfully processed, providing detailed failure information when requested.

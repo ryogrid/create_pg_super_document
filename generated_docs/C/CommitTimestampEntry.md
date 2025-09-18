@@ -1,7 +1,7 @@
 # CommitTimestampEntry
 
 ## Location
-src/backend/access/transam/commit_ts.c: 54 - 58
+[src/backend/access/transam/commit_ts.c:54-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L54-L58)
 
 ## Overview
 CommitTimestampEntry is a data structure that stores commit timestamp information for transactions, containing both the commit time and the replication origin node identifier.

@@ -1,7 +1,7 @@
 # pg_stat_get_backend_client_port
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 924 - 969
+[src/backend/utils/adt/pgstatfuncs.c:924-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L924-L969)
 
 ## Overview
 Returns the client port number of a backend process identified by its process number, accessible through PostgreSQL's statistics views.

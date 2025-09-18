@@ -1,7 +1,7 @@
 # numeric_truncated_divide
 
 ## Location
-src/backend/utils/adt/dbsize.c: 660 - 671
+[src/backend/utils/adt/dbsize.c:660-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L660-L671)
 
 ## Overview
 This static helper function performs truncated division of a PostgreSQL Numeric value by an int64 divisor, ensuring the result is truncated toward zero.

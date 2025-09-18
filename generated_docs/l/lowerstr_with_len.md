@@ -1,7 +1,7 @@
 # lowerstr_with_len
 
 ## Location
-src/backend/tsearch/ts_locale.c: 266 - 333
+[src/backend/tsearch/ts_locale.c:266-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L266-L333)
 
 ## Overview
 Converts a string to lowercase with locale-aware processing for multi-byte character encodings, designed for text search functionality in PostgreSQL.

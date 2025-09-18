@@ -1,7 +1,7 @@
 # IsImportableForeignTable
 
 ## Location
-src/backend/foreign/foreign.c: 482 - 521
+[src/backend/foreign/foreign.c:482-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L482-L521)
 
 ## Overview
 Determines whether a given table name should be imported during IMPORT FOREIGN SCHEMA operations based on the statement's filter options.

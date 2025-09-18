@@ -1,7 +1,7 @@
 # StoreAttrMissingVal
 
 ## Location
-src/backend/catalog/heap.c: 2013 - 2068
+[src/backend/catalog/heap.c:2013-2068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2013-L2068)
 
 ## Overview
 StoreAttrMissingVal sets the missing value for a single attribute by updating pg_attribute to mark the attribute as having a missing value and storing the default value in array format.

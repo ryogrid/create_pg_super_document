@@ -1,7 +1,7 @@
 # timestamptz_time
 
 ## Location
-src/backend/utils/adt/date.c: 1935 - 1965
+[src/backend/utils/adt/date.c:1935-1965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1935-L1965)
 
 ## Overview
 Converts a timestamp with time zone (timestamptz) value to a time-only value, extracting just the time portion and discarding the date and timezone information.

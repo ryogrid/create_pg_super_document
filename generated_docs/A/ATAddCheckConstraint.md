@@ -1,7 +1,7 @@
 # ATAddCheckConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 9470 - 9606
+[src/backend/commands/tablecmds.c:9470-9606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L9470-L9606)
 
 ## Overview
 ATAddCheckConstraint adds a check constraint to a table and recursively applies it to all child tables in an inheritance hierarchy, ensuring consistent constraint naming across the hierarchy.

@@ -1,7 +1,7 @@
 # charin
 
 ## Location
-src/backend/utils/adt/char.c: 41 - 63
+[src/backend/utils/adt/char.c:41-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L41-L63)
 
 ## Overview
 Converts a string representation of a character to a single character value, handling both regular character input and octal escape sequences.

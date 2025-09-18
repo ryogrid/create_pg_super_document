@@ -1,7 +1,7 @@
 # set_mergeappend_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1822 - 1900
+[src/backend/optimizer/plan/setrefs.c:1822-1900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1822-L1900)
 
 ## Overview
 Processes reference adjustments for MergeAppend plan nodes with optimization to eliminate unnecessary single-child MergeAppend nodes during the plan finalization phase.

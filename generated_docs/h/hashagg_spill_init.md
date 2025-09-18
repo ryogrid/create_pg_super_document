@@ -1,7 +1,7 @@
 # hashagg_spill_init
 
 ## Location
-src/backend/executor/nodeAgg.c: 2894 - 2924
+[src/backend/executor/nodeAgg.c:2894-2924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2894-L2924)
 
 ## Overview
 Initializes the spilling infrastructure for hash aggregation by creating partitions and setting up the necessary data structures when memory limits are exceeded.

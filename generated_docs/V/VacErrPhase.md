@@ -1,7 +1,7 @@
 # VacErrPhase
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 134 - 135
+[src/backend/access/heap/vacuumlazy.c:134-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L134-L135)
 
 ## Overview
 VacErrPhase is an enumerated type that defines different phases of the vacuum operation during which error context information is reported in PostgreSQL's lazy vacuum implementation.

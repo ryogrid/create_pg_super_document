@@ -1,7 +1,7 @@
 # gistbeginscan
 
 ## Location
-src/backend/access/gist/gistscan.c: 74 - 126
+[src/backend/access/gist/gistscan.c:74-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistscan.c#L74-L126)
 
 ## Overview
 Initializes and begins a scan operation on a GiST (Generalized Search Tree) index, setting up all necessary data structures and memory contexts for the scan lifecycle.

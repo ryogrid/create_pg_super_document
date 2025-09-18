@@ -1,7 +1,7 @@
 # getKeyJsonValueFromContainer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 395 - 464
+[src/backend/utils/adt/jsonb_util.c:395-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L395-L464)
 
 ## Overview
 Performs efficient binary search lookup of values by string key within a JSONB object container and returns the associated value.

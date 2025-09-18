@@ -1,7 +1,7 @@
 # PageIndexTupleDeleteNoCompact
 
 ## Location
-src/backend/storage/page/bufpage.c: 1295 - 1404
+[src/backend/storage/page/bufpage.c:1295-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1295-L1404)
 
 ## Overview
 Removes a specified tuple from an index page by marking its line pointer as unused rather than compacting it out, preserving existing tuple identifier (TID) stability.

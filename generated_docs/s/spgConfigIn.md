@@ -1,7 +1,7 @@
 # spgConfigIn
 
 ## Location
-src/include/access/spgist.h: 36 - 39
+[src/include/access/spgist.h:36-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L36-L39)
 
 ## Overview
 A struct that serves as input parameter for the SP-GiST opclass config method, containing information about the data type to be indexed.

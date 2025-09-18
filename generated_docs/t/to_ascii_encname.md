@@ -1,7 +1,7 @@
 # to_ascii_encname
 
 ## Location
-src/backend/utils/adt/ascii.c: 119 - 137
+[src/backend/utils/adt/ascii.c:119-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ascii.c#L119-L137)
 
 ## Overview
 A PostgreSQL function that converts text to ASCII encoding where the source encoding is specified by name as a string parameter.

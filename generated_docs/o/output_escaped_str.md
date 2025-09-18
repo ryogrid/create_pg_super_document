@@ -1,7 +1,7 @@
 # output_escaped_str
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 200 - 251
+[src/interfaces/ecpg/preproc/output.c:200-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L200-L251)
 
 ## Overview
 The output_escaped_str function properly escapes string content for inclusion in generated C code, handling quotes, newlines, backslashes and other special characters.

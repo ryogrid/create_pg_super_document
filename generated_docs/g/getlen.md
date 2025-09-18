@@ -1,7 +1,7 @@
 # getlen
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1466 - 1489
+[src/backend/utils/sort/tuplestore.c:1466-1489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1466-L1489)
 
 ## Overview
 A low-level tape interface routine that reads the length prefix from a logical tape, used in tuple sorting operations to determine the size of the next data item to be read.

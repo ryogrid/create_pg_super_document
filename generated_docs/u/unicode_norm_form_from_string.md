@@ -1,7 +1,7 @@
 # unicode_norm_form_from_string
 
 ## Location
-src/backend/utils/adt/varlena.c: 6256 - 6292
+[src/backend/utils/adt/varlena.c:6256-6292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6256-L6292)
 
 ## Overview
 Converts a string representation of a Unicode normalization form into the corresponding `UnicodeNormalizationForm` enumeration value, with validation for database encoding compatibility.

@@ -1,7 +1,7 @@
 # be_lo_truncate64
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 586 - 601
+[src/backend/libpq/be-fsstubs.c:586-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L586-L601)
 
 ## Overview
 Backend function that truncates a PostgreSQL large object to a specified 64-bit length, implementing the lo_truncate64() SQL function for large objects exceeding 2GB.

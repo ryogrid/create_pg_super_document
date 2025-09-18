@@ -1,7 +1,7 @@
 # bytea_1
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-bytea.c: 54 - 56
+[src/interfaces/ecpg/test/expected/sql-bytea.c:54-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-bytea.c#L54-L56)
 
 ## Overview
 A struct definition used in PostgreSQL's ECPG test suite for handling bytea (binary data) operations with a length field and character array buffer.

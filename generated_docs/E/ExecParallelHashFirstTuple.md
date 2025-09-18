@@ -1,7 +1,7 @@
 # ExecParallelHashFirstTuple
 
 ## Location
-src/backend/executor/nodeHash.c: 3431 - 3446
+[src/backend/executor/nodeHash.c:3431-3446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3431-L3446)
 
 ## Overview
 Retrieves the first tuple from a specified bucket in a parallel hash table using thread-safe atomic operations.

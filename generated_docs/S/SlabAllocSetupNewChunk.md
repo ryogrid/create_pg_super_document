@@ -1,7 +1,7 @@
 # SlabAllocSetupNewChunk
 
 ## Location
-src/backend/utils/mmgr/slab.c: 498 - 538
+[src/backend/utils/mmgr/slab.c:498-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L498-L538)
 
 ## Overview
 SlabAllocSetupNewChunk is a static inline helper function that initializes and sets up a new memory chunk within a slab block, handling all necessary header setup, memory checking, and debugging features.

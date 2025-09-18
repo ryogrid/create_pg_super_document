@@ -1,7 +1,7 @@
 # regexp_match
 
 ## Location
-src/backend/utils/adt/regexp.c: 1321 - 1356
+[src/backend/utils/adt/regexp.c:1321-1356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1321-L1356)
 
 ## Overview
 Returns the first substring(s) matching a regular expression pattern within a string, including any captured subgroups from parenthesized subexpressions.

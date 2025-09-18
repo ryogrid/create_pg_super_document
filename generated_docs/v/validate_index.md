@@ -1,7 +1,7 @@
 # validate_index
 
 ## Location
-src/backend/catalog/index.c: 3289 - 3421
+[src/backend/catalog/index.c:3289-3421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3289-L3421)
 
 ## Overview
 Validates a concurrently built index by ensuring all tuples visible in a reference snapshot are present in the index, completing the concurrent index build process.

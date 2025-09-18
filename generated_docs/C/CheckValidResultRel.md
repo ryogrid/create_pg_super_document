@@ -1,7 +1,7 @@
 # CheckValidResultRel
 
 ## Location
-src/backend/executor/execMain.c: 1019 - 1130
+[src/backend/executor/execMain.c:1019-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1019-L1130)
 
 ## Overview
 Validates that a proposed result relation is a legal target for the specified database operation, ensuring compatibility between the relation type and the intended command.

@@ -1,7 +1,7 @@
 # create_valuesscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2098 - 2123
+[src/backend/optimizer/util/pathnode.c:2098-2123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2098-L2123)
 
 ## Overview
 Creates a Path node corresponding to a scan of a VALUES list, which represents accessing data from a VALUES clause that provides explicit row data in PostgreSQL's query planner.

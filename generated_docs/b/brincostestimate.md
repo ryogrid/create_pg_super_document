@@ -1,7 +1,7 @@
 # brincostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 8039 - 8254
+[src/backend/utils/adt/selfuncs.c:8039-8254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L8039-L8254)
 
 ## Overview
 The  function estimates the cost of using a BRIN (Block Range Index) index for query execution, calculating startup costs, total costs, selectivity, correlation, and pages required for the PostgreSQL query planner.

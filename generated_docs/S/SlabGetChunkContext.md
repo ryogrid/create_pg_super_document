@@ -1,7 +1,7 @@
 # SlabGetChunkContext
 
 ## Location
-src/backend/utils/mmgr/slab.c: 863 - 886
+[src/backend/utils/mmgr/slab.c:863-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L863-L886)
 
 ## Overview
 SlabGetChunkContext retrieves the MemoryContext that owns a given memory chunk allocated by the slab allocator.

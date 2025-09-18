@@ -1,7 +1,7 @@
 # AllocSetAlloc
 
 ## Location
-src/backend/utils/mmgr/aset.c: 967 - 1061
+[src/backend/utils/mmgr/aset.c:967-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L967-L1061)
 
 ## Overview
 AllocSetAlloc is the main allocation function for the AllocSet memory context, returning a pointer to allocated memory of the given size or handling allocation failures based on the provided flags.

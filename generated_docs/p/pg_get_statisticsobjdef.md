@@ -1,7 +1,7 @@
 # pg_get_statisticsobjdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1588 - 1606
+[src/backend/utils/adt/ruleutils.c:1588-1606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1588-L1606)
 
 ## Overview
 PostgreSQL function that retrieves the definition of an extended statistics object as a formatted SQL CREATE STATISTICS statement.

@@ -1,7 +1,7 @@
 # PolygonPGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 257 - 260
+[src/include/utils/geo_decls.h:257-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L257-L260)
 
 ## Overview
 PolygonPGetDatum is a static inline function that converts a POLYGON pointer to a PostgreSQL Datum value, enabling polygon geometric data to be stored and manipulated within PostgreSQL's internal data representation system.

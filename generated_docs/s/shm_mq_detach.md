@@ -1,7 +1,7 @@
 # shm_mq_detach
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 843 - 881
+[src/backend/storage/ipc/shm_mq.c:843-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L843-L881)
 
 ## Overview
 Detaches from a shared memory message queue and destroys the associated handle, performing necessary cleanup operations to ensure proper resource management and communication with counterpart processes.

@@ -1,7 +1,7 @@
 # message_level_is_interesting
 
 ## Location
-src/backend/utils/error/elog.c: 276 - 296
+[src/backend/utils/error/elog.c:276-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L276-L296)
 
 ## Overview
 Determines whether an ereport/elog call with a given error level would actually produce any output, allowing callers to skip expensive preparatory work for messages that won't be processed.

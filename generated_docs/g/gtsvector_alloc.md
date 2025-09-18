@@ -1,7 +1,7 @@
 # gtsvector_alloc
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 156 - 171
+[src/backend/utils/adt/tsgistidx.c:156-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L156-L171)
 
 ## Overview
 A static utility function that allocates and initializes a SignTSVector structure with specified flags, length, and optional signature data.

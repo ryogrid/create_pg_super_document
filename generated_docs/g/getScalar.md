@@ -1,7 +1,7 @@
 # getScalar
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3638 - 3648
+[src/backend/utils/adt/jsonpath_exec.c:3638-3648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3638-L3648)
 
 ## Overview
 getScalar is a static utility function that validates and returns a JsonbValue if it matches a specified scalar type, or returns NULL if there's a type mismatch.

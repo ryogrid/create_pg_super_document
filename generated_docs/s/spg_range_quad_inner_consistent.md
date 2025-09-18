@@ -1,7 +1,7 @@
 # spg_range_quad_inner_consistent
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 300 - 784
+[src/backend/utils/adt/rangetypes_spgist.c:300-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L300-L784)
 
 ## Overview
 SP-GiST inner node consistent function for range types that determines which child nodes should be visited during index traversal based on query conditions.

@@ -1,7 +1,7 @@
 # pullback
 
 ## Location
-src/backend/regex/regc_nfa.c: 1640 - 1719
+[src/backend/regex/regc_nfa.c:1640-1719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1640-L1719)
 
 ## Overview
 Eliminates constraint arcs (^ and BEHIND) by pulling them backward through the NFA structure, ultimately converting them to PLAIN arcs with special boundary colors.

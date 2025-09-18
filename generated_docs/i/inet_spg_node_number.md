@@ -1,7 +1,7 @@
 # inet_spg_node_number
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 350 - 373
+[src/backend/utils/adt/network_spgist.c:350-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L350-L373)
 
 ## Overview
 Calculates the node number within a 4-node, single-family inner index tuple for SP-GiST indexing of network addresses.

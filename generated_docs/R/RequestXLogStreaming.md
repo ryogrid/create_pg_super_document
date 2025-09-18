@@ -1,7 +1,7 @@
 # RequestXLogStreaming
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 245 - 330
+[src/backend/replication/walreceiverfuncs.c:245-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L245-L330)
 
 ## Overview
 Requests the postmaster to start or restart a WAL receiver process to stream transaction log data from a primary server at a specified position.

@@ -1,7 +1,7 @@
 # range_parse_bound
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2438 - 2506
+[src/backend/utils/adt/rangetypes.c:2438-2506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2438-L2506)
 
 ## Overview
 Static helper function that parses and de-quotes a single bound string from a range literal, handling escape sequences and determining if the bound represents an infinite value.

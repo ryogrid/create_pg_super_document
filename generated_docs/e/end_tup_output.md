@@ -1,7 +1,7 @@
 # end_tup_output
 
 ## Location
-src/backend/executor/execTuples.c: 2420 - 2426
+[src/backend/executor/execTuples.c:2420-2426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2420-L2426)
 
 ## Overview
 Cleans up and deallocates a TupOutputState structure, properly shutting down the destination receiver and freeing associated resources.

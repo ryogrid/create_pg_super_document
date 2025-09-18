@@ -1,7 +1,7 @@
 # populate_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3123 - 3214
+[src/backend/utils/adt/jsonfuncs.c:3123-3214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3123-L3214)
 
 ## Overview
 Populates a non-null scalar value from JSON/JsonB input, handling type conversion and string formatting for various PostgreSQL data types.

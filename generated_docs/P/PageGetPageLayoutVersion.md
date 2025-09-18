@@ -1,7 +1,7 @@
 # PageGetPageLayoutVersion
 
 ## Location
-src/include/storage/bufpage.h: 284 - 296
+[src/include/storage/bufpage.h:284-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L284-L296)
 
 ## Overview
 Retrieves the page layout version from a formatted page header, extracting version information from the pd_pagesize_version field.

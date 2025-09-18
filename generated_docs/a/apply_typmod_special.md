@@ -1,7 +1,7 @@
 # apply_typmod_special
 
 ## Location
-src/backend/utils/adt/numeric.c: 8008 - 8044
+[src/backend/utils/adt/numeric.c:8008-8044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8008-L8044)
 
 ## Overview
 The `apply_typmod_special` function handles bounds checking for special numeric values (NaN and Infinity) according to specified type modifier constraints, operating on packed numeric forms.

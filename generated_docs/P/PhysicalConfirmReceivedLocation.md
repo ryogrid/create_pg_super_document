@@ -1,7 +1,7 @@
 # PhysicalConfirmReceivedLocation
 
 ## Location
-src/backend/replication/walsender.c: 2369 - 2405
+[src/backend/replication/walsender.c:2369-2405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2369-L2405)
 
 ## Overview
 Updates the restart LSN for a physical replication slot when a walreceiver confirms receipt of WAL data at a specific LSN, ensuring proper tracking of received data for WAL retention purposes.

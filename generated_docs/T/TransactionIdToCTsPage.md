@@ -1,7 +1,7 @@
 # TransactionIdToCTsPage
 
 ## Location
-src/backend/access/transam/commit_ts.c: 72 - 76
+[src/backend/access/transam/commit_ts.c:72-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L72-L76)
 
 ## Overview
 Calculates the page number within the commit timestamp SLRU that contains the commit timestamp entry for a given transaction ID.

@@ -1,7 +1,7 @@
 # LargeObjectDrop
 
 ## Location
-src/backend/catalog/pg_largeobject.c: 83 - 154
+[src/backend/catalog/pg_largeobject.c:83-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_largeobject.c#L83-L154)
 
 ## Overview
 Completely removes a large object by deleting both its metadata from pg_largeobject_metadata and all associated data pages from pg_largeobject.

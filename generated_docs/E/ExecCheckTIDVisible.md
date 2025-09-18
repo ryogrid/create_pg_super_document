@@ -1,7 +1,7 @@
 # ExecCheckTIDVisible
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 343 - 372
+[src/backend/executor/nodeModifyTable.c:343-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L343-L372)
 
 ## Overview
 A convenience variant of ExecCheckTupleVisible that fetches a tuple by its TID (tuple identifier) and then performs visibility checking for ON CONFLICT processing.

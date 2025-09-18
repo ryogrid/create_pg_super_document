@@ -1,7 +1,7 @@
 # json_manifest_object_start
 
 ## Location
-src/common/parse_manifest.c: 276 - 316
+[src/common/parse_manifest.c:276-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L276-L316)
 
 ## Overview
 JSON semantic action handler that processes the start of objects in backup manifest JSON documents, managing parser state transitions.

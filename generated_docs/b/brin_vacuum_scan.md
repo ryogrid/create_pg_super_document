@@ -1,7 +1,7 @@
 # brin_vacuum_scan
 
 ## Location
-src/backend/access/brin/brin.c: 2163 - 2195
+[src/backend/access/brin/brin.c:2163-2195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2163-L2195)
 
 ## Overview
 Performs a complete physical scan of a BRIN index during VACUUM operations to identify and clean up uncataloged index pages that may have been lost due to crashes or other failures.

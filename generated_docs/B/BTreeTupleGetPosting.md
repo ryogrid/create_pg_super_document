@@ -1,7 +1,7 @@
 # BTreeTupleGetPosting
 
 ## Location
-src/include/access/nbtree.h: 537 - 543
+[src/include/access/nbtree.h:537-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L537-L543)
 
 ## Overview
 BTreeTupleGetPosting is an inline function that returns a pointer to the posting list array contained within a posting list tuple.

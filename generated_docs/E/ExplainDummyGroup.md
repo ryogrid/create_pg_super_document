@@ -1,7 +1,7 @@
 # ExplainDummyGroup
 
 ## Location
-src/backend/commands/explain.c: 5077 - 5122
+[src/backend/commands/explain.c:5077-5122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5077-L5122)
 
 ## Overview
 ExplainDummyGroup emits a group object that never has any members, used for representing empty or placeholder groups in EXPLAIN output across different formats.

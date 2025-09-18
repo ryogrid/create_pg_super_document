@@ -1,7 +1,7 @@
 # inetmi_int8
 
 ## Location
-src/backend/utils/adt/network.c: 2008 - 2017
+[src/backend/utils/adt/network.c:2008-2017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L2008-L2017)
 
 ## Overview
 A PostgreSQL built-in function that subtracts a 64-bit integer from an inet address, providing IP address subtraction functionality for SQL operations.

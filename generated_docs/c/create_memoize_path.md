@@ -1,7 +1,7 @@
 # create_memoize_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1598 - 1653
+[src/backend/optimizer/util/pathnode.c:1598-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1598-L1653)
 
 ## Overview
 Creates a MemoizePath node that represents a Memoize plan operation, which caches the results of its subpath based on parameter values to avoid redundant computations in nested loop scenarios.

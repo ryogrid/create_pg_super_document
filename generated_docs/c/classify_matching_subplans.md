@@ -1,7 +1,7 @@
 # classify_matching_subplans
 
 ## Location
-src/backend/executor/nodeAppend.c: 1173 - 1205
+[src/backend/executor/nodeAppend.c:1173-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L1173-L1205)
 
 ## Overview
 Classifies the node's valid subplans into synchronous and asynchronous categories, separating them into appropriate bitmapsets for execution control.

@@ -1,7 +1,7 @@
 # xlhp_freeze_plan
 
 ## Location
-src/include/access/heapam_xlog.h: 341 - 350
+[src/include/access/heapam_xlog.h:341-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L341-L350)
 
 ## Overview
 A structure representing a single freeze plan within a heap page prune operation, containing the transaction visibility and tuple header information needed to freeze a group of tuples with identical characteristics.

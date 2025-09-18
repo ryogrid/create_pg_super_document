@@ -1,7 +1,7 @@
 # check_sql_fn_retval
 
 ## Location
-src/backend/executor/functions.c: 1609 - 2002
+[src/backend/executor/functions.c:1609-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L1609-L2002)
 
 ## Overview
 Validates and potentially modifies the return value structure of SQL functions to ensure type compatibility between the function's declared return type and its actual output.

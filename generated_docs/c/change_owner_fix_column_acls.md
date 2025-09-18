@@ -1,7 +1,7 @@
 # change_owner_fix_column_acls
 
 ## Location
-src/backend/commands/tablecmds.c: 14717 - 14781
+[src/backend/commands/tablecmds.c:14717-14781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14717-L14781)
 
 ## Overview
 change_owner_fix_column_acls is a helper function for ATExecChangeOwner that scans all columns of a table and updates any non-null column-level access control lists (ACLs) to reflect the new table owner.

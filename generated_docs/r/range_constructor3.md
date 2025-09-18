@@ -1,7 +1,7 @@
 # range_constructor3
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 406 - 445
+[src/backend/utils/adt/rangetypes.c:406-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L406-L445)
 
 ## Overview
 Creates a general range value from three arguments, allowing explicit specification of boundary inclusiveness through a flags parameter.

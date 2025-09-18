@@ -1,7 +1,7 @@
 # InitBufTable
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 51 - 77
+[src/backend/storage/buffer/buf_table.c:51-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L51-L77)
 
 ## Overview
 Initializes the shared memory hash table used for mapping buffer tags to buffer descriptors during PostgreSQL startup.

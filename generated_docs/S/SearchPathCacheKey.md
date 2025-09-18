@@ -1,7 +1,7 @@
 # SearchPathCacheKey
 
 ## Location
-src/backend/catalog/namespace.c: 167 - 171
+[src/backend/catalog/namespace.c:167-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L167-L171)
 
 ## Overview
 SearchPathCacheKey is a struct used as the key in PostgreSQL's search path caching system to uniquely identify cached search path computations based on the search path string and role ID.

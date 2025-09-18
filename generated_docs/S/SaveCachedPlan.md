@@ -1,7 +1,7 @@
 # SaveCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 482 - 525
+[src/backend/utils/cache/plancache.c:482-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L482-L525)
 
 ## Overview
 SaveCachedPlan permanently saves a completed cached plan by moving it to long-lived memory and registering it for cache invalidation events.

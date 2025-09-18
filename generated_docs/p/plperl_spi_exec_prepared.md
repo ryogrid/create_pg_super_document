@@ -1,7 +1,7 @@
 # plperl_spi_exec_prepared
 
 ## Location
-src/pl/plperl/plperl.c: 3715 - 3841
+[src/pl/plperl/plperl.c:3715-3841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3715-L3841)
 
 ## Overview
 Executes a previously prepared SQL statement with parameters in the PL/Perl language extension, handling errors within a sub-transaction to ensure proper cleanup.

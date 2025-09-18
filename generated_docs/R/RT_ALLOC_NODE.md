@@ -1,7 +1,7 @@
 # RT_ALLOC_NODE
 
 ## Location
-src/include/lib/radixtree.h: 834 - 896
+[src/include/lib/radixtree.h:834-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L834-L896)
 
 ## Overview
 A macro that expands to a function allocating and initializing a new radix tree node of the specified kind and size class.

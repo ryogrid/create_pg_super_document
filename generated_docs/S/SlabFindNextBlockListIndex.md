@@ -1,7 +1,7 @@
 # SlabFindNextBlockListIndex
 
 ## Location
-src/backend/utils/mmgr/slab.c: 251 - 270
+[src/backend/utils/mmgr/slab.c:251-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L251-L270)
 
 ## Overview
 SlabFindNextBlockListIndex searches through the slab allocator's blocklists to find the first blocklist containing blocks with available free chunks for allocation.

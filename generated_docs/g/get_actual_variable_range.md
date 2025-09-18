@@ -1,7 +1,7 @@
 # get_actual_variable_range
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6153 - 6332
+[src/backend/utils/adt/selfuncs.c:6153-6332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6153-L6332)
 
 ## Overview
 Attempts to identify the current actual minimum and/or maximum values of a specified variable by searching for a suitable B-tree index and fetching its low and/or high values from the actual table data.

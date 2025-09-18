@@ -1,7 +1,7 @@
 # ginStepRight
 
 ## Location
-src/backend/access/gin/ginbtree.c: 177 - 197
+[src/backend/access/gin/ginbtree.c:177-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L177-L197)
 
 ## Overview
 ginStepRight performs atomic rightward navigation between sibling pages in a GIN B-tree, using lock-coupling to ensure consistency during concurrent operations.

@@ -1,7 +1,7 @@
 # utf8_to_euc_jis_2004
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_euc2004/utf8_and_euc2004.c: 60 - 78
+[src/backend/utils/mb/conversion_procs/utf8_and_euc2004/utf8_and_euc2004.c:60-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_euc2004/utf8_and_euc2004.c#L60-L78)
 
 ## Overview
 Converts text from UTF-8 encoding to EUC-JIS-2004 encoding, serving as a PostgreSQL conversion function for Japanese text processing.

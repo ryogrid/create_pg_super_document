@@ -1,7 +1,7 @@
 # GenerationBlockFreeBytes
 
 ## Location
-src/backend/utils/mmgr/generation.c: 654 - 663
+[src/backend/utils/mmgr/generation.c:654-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L654-L663)
 
 ## Overview
 A simple static inline function that calculates and returns the number of free bytes remaining in a GenerationBlock for allocation purposes.

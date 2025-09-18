@@ -1,7 +1,7 @@
 # fix_upper_expr_mutator
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3214 - 3316
+[src/backend/optimizer/plan/setrefs.c:3214-3316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3214-L3316)
 
 ## Overview
 A recursive expression tree mutator that transforms variable references in upper-level plan node expressions by mapping them to subplan target list entries, with specialized handling for aggregates and placeholder variables.

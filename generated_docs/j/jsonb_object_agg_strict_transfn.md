@@ -1,7 +1,7 @@
 # jsonb_object_agg_strict_transfn
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1906 - 1914
+[src/backend/utils/adt/jsonb.c:1906-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1906-L1914)
 
 ## Overview
 Transition function for strict JSONB object aggregation that excludes key-value pairs where the value is NULL.

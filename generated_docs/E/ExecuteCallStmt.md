@@ -1,7 +1,7 @@
 # ExecuteCallStmt
 
 ## Location
-src/backend/commands/functioncmds.c: 2188 - 2364
+[src/backend/commands/functioncmds.c:2188-2364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L2188-L2364)
 
 ## Overview
 Executes CALL statements to invoke stored procedures, handling transaction control, parameter evaluation, and result processing in both atomic and non-atomic execution contexts.

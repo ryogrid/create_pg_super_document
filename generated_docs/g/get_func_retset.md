@@ -1,7 +1,7 @@
 # get_func_retset
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1742 - 1760
+[src/backend/utils/cache/lsyscache.c:1742-1760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1742-L1760)
 
 ## Overview
 Retrieves the proretset flag for a given function, indicating whether the function returns a set of values rather than a single value.

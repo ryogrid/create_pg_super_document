@@ -1,7 +1,7 @@
 # InitShmemIndex
 
 ## Location
-src/backend/storage/ipc/shmem.c: 283 - 331
+[src/backend/storage/ipc/shmem.c:283-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L283-L331)
 
 ## Overview
 InitShmemIndex initializes the shared memory index hash table that tracks all named shared memory structures allocated within the PostgreSQL shared memory segment.

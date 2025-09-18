@@ -1,7 +1,7 @@
 # injection_point_cache_remove
 
 ## Location
-src/backend/utils/misc/injection_point.c: 162 - 175
+[src/backend/utils/misc/injection_point.c:162-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L162-L175)
 
 ## Overview
 Removes an injection point entry from the local backend cache by name, using hash table removal operations.

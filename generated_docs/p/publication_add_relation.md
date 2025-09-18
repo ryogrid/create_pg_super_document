@@ -1,7 +1,7 @@
 # publication_add_relation
 
 ## Location
-src/backend/catalog/pg_publication.c: 358 - 480
+[src/backend/catalog/pg_publication.c:358-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L358-L480)
 
 ## Overview
 Inserts a new publication/relation mapping into the pg_publication_rel catalog table, establishing a relationship between a publication and a table with optional column list and WHERE clause qualifications.

@@ -1,7 +1,7 @@
 # array_ref
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3146 - 3162
+[src/backend/utils/adt/arrayfuncs.c:3146-3162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3146-L3162)
 
 ## Overview
 A backwards compatibility wrapper function for array_get_element that provides element access for detoasted/flattened varlena arrays.

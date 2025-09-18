@@ -1,7 +1,7 @@
 # PgStat_StatTabEntry
 
 ## Location
-src/include/pgstat.h: 399 - 429
+[src/include/pgstat.h:399-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L399-L429)
 
 ## Overview
 PgStat_StatTabEntry is a comprehensive structure that contains detailed statistics for PostgreSQL tables, tracking various metrics including scan operations, tuple operations, buffer usage, and maintenance activities like vacuum and analyze operations.

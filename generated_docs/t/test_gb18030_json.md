@@ -1,7 +1,7 @@
 # test_gb18030_json
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 213 - 250
+[src/test/modules/test_escape/test_escape.c:213-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L213-L250)
 
 ## Overview
 A specialized test function that verifies memory boundary safety when PostgreSQL's JSON parser processes invalid GB18030-encoded Unicode escape sequences at memory allocation boundaries.

@@ -1,7 +1,7 @@
 # jsonb_subscript_check_subscripts
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 175 - 234
+[src/backend/utils/adt/jsonbsubs.c:175-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L175-L234)
 
 ## Overview
 Processes and validates subscripts in a SubscriptingRef expression during execution, converting them to the appropriate format for JSONB operations.

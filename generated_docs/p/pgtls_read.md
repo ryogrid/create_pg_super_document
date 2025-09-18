@@ -1,7 +1,7 @@
 # pgtls_read
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 140 - 255
+[src/interfaces/libpq/fe-secure-openssl.c:140-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L140-L255)
 
 ## Overview
 Performs secure SSL/TLS data reading from a PostgreSQL connection with comprehensive error handling and OpenSSL error queue management.

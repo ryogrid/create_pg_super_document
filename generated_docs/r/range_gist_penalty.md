@@ -1,7 +1,7 @@
 # range_gist_penalty
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 362 - 618
+[src/backend/utils/adt/rangetypes_gist.c:362-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L362-L618)
 
 ## Overview
 Implements the GiST penalty function for range types, calculating the cost of inserting a new range into an existing index entry to guide optimal page split decisions.

@@ -1,7 +1,7 @@
 # PageSetChecksumInplace
 
 ## Location
-src/backend/storage/page/bufpage.c: 1542 - 1549
+[src/backend/storage/page/bufpage.c:1542-1549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1542-L1549)
 
 ## Overview
 Calculates and sets the checksum directly on a page in private memory, used when concurrent modifications are guaranteed not to occur.

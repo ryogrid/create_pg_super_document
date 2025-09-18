@@ -1,7 +1,7 @@
 # numeric_abs
 
 ## Location
-src/backend/utils/adt/numeric.c: 1391 - 1417
+[src/backend/utils/adt/numeric.c:1391-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1391-L1417)
 
 ## Overview
 The  function computes the absolute value of a NUMERIC data type, removing the sign to always return a non-negative result.

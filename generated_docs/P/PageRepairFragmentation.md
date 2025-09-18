@@ -1,7 +1,7 @@
 # PageRepairFragmentation
 
 ## Location
-src/backend/storage/page/bufpage.c: 699 - 834
+[src/backend/storage/page/bufpage.c:699-834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L699-L834)
 
 ## Overview
 Removes fragmentation from a heap page by eliminating unused line pointers and compacting remaining tuples to create contiguous free space.

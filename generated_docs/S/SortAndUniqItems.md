@@ -1,7 +1,7 @@
 # SortAndUniqItems
 
 ## Location
-src/backend/utils/adt/tsrank.c: 154 - 199
+[src/backend/utils/adt/tsrank.c:154-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L154-L199)
 
 ## Overview
 Extracts, sorts, and deduplicates all operands from a TSQuery, returning an array of unique QueryOperand pointers in lexicographical order.

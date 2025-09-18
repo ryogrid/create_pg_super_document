@@ -1,7 +1,7 @@
 # fileattr_to_unixmode
 
 ## Location
-src/port/win32stat.c: 48 - 67
+[src/port/win32stat.c:48-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L48-L67)
 
 ## Overview
 Converts Windows file attributes to a Unix-style file mode, setting only owner permissions.

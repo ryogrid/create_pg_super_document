@@ -1,7 +1,7 @@
 # pg_statistics_obj_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 5006 - 5019
+[src/backend/catalog/namespace.c:5006-5019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5006-L5019)
 
 ## Overview
 Determines whether a given extended statistics object is visible in the current search path, returning NULL if the statistics object does not exist.

@@ -1,7 +1,7 @@
 # pg_dependencies_out
 
 ## Location
-src/backend/statistics/dependencies.c: 670 - 709
+[src/backend/statistics/dependencies.c:670-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L670-L709)
 
 ## Overview
 This function serves as the output routine for the pg_dependencies data type, converting binary dependency statistics into a human-readable string representation for display purposes.

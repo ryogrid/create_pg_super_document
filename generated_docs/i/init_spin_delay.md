@@ -1,7 +1,7 @@
 # init_spin_delay
 
 ## Location
-src/include/storage/s_lock.h: 832 - 842
+[src/include/storage/s_lock.h:832-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/s_lock.h#L832-L842)
 
 ## Overview
 The `init_spin_delay` function initializes a SpinDelayStatus structure for tracking spinlock delay statistics and debugging information.

@@ -1,7 +1,7 @@
 # pg_u_isword
 
 ## Location
-src/common/unicode_category.c: 232 - 242
+[src/common/unicode_category.c:232-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L232-L242)
 
 ## Overview
 Tests whether a Unicode character is a word character according to Unicode TR18 specification, including alphabetic characters, marks, decimal numbers, connector punctuation, and join control characters.

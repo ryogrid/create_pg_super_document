@@ -1,7 +1,7 @@
 # PLyList_FromArray_recurse
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 707 - 780
+[src/pl/plpython/plpy_typeio.c:707-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L707-L780)
 
 ## Overview
 Recursively converts PostgreSQL multi-dimensional arrays into nested Python lists, handling NULL values and proper memory alignment during the conversion process.

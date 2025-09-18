@@ -1,7 +1,7 @@
 # PredicateLockPageSplit
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3134 - 3218
+[src/backend/storage/lmgr/predicate.c:3134-3218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3134-L3218)
 
 ## Overview
 Handles the transfer of predicate locks from an old page to a new page during page splits in PostgreSQL's serializable snapshot isolation implementation.

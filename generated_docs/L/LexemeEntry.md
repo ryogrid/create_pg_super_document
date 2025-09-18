@@ -1,7 +1,7 @@
 # LexemeEntry
 
 ## Location
-src/backend/tsearch/wparser.c: 151 - 157
+[src/backend/tsearch/wparser.c:151-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L151-L157)
 
 ## Overview
 LexemeEntry is a structure used in PostgreSQL's text search system to represent individual lexemes (tokens) extracted by text parsers, storing both the token type and the actual lexeme text.

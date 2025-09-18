@@ -1,7 +1,7 @@
 # _SPI_strdup
 
 ## Location
-src/backend/utils/adt/xml.c: 2729 - 2785
+[src/backend/utils/adt/xml.c:2729-2785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2729-L2785)
 
 ## Overview
 A static utility function that duplicates a string using SPI memory allocation, providing a SPI-compatible alternative to the standard  function.

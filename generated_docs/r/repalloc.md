@@ -1,7 +1,7 @@
 # repalloc
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1540 - 1580
+[src/backend/utils/mmgr/mcxt.c:1540-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1540-L1580)
 
 ## Overview
 Resizes a previously allocated memory chunk to a new size, preserving existing data and handling both regular and aligned allocations.

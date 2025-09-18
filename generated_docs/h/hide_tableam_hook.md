@@ -1,7 +1,7 @@
 # hide_tableam_hook
 
 ## Location
-src/bin/psql/startup.c: 1192 - 1197
+[src/bin/psql/startup.c:1192-1197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1192-L1197)
 
 ## Overview
 A validation hook function for the hide_tableam parameter in psql that controls whether table access method information is displayed.

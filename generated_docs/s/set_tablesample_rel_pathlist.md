@@ -1,7 +1,7 @@
 # set_tablesample_rel_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 854 - 901
+[src/backend/optimizer/path/allpaths.c:854-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L854-L901)
 
 ## Overview
 Builds access paths for a sampled relation, creating a SampleScan path and optionally wrapping it in a Materialize node for sampling methods that don't support repeatable scans.

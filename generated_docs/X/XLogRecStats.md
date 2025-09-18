@@ -1,7 +1,7 @@
 # XLogRecStats
 
 ## Location
-src/include/access/xlogstats.h: 21 - 26
+[src/include/access/xlogstats.h:21-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogstats.h#L21-L26)
 
 ## Overview
 XLogRecStats is a structure used to collect and store statistical information about individual WAL (Write-Ahead Log) records in PostgreSQL, tracking count, data length, and full page image length.

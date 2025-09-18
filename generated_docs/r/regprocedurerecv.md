@@ -1,7 +1,7 @@
 # regprocedurerecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 452 - 461
+[src/backend/utils/adt/regproc.c:452-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L452-L461)
 
 ## Overview
 Converts external binary format data to regprocedure type, serving as the binary input function for the regprocedure data type.

@@ -1,7 +1,7 @@
 # get_major_server_version
 
 ## Location
-src/bin/pg_upgrade/server.c: 159 - 190
+[src/bin/pg_upgrade/server.c:159-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L159-L190)
 
 ## Overview
 Retrieves the major PostgreSQL server version number by reading and parsing the PG_VERSION file from the cluster's data directory.

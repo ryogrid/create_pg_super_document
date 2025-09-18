@@ -1,7 +1,7 @@
 # apply_handle_stream_commit
 
 ## Location
-src/backend/replication/logical/worker.c: 2133 - 2242
+[src/backend/replication/logical/worker.c:2133-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2133-L2242)
 
 ## Overview
 apply_handle_stream_commit handles STREAM COMMIT messages in PostgreSQL logical replication, coordinating the commit process for streaming transactions across different apply strategies including parallel processing and spooling.

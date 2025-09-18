@@ -1,7 +1,7 @@
 # CatCInProgress
 
 ## Location
-src/backend/utils/cache/catcache.c: 52 - 59
+[src/backend/utils/cache/catcache.c:52-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L52-L59)
 
 ## Overview
 CatCInProgress is a struct used to track catalog cache entries that are currently being created to handle cache invalidation race conditions during entry construction.

@@ -1,7 +1,7 @@
 # PLy_subtransaction_init_type
 
 ## Location
-src/pl/plpython/plpy_subxactobject.c: 46 - 53
+[src/pl/plpython/plpy_subxactobject.c:46-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_subxactobject.c#L46-L53)
 
 ## Overview
 Initializes the Python type object for PLy_SubtransactionType, preparing it for use in the PLPython extension's subtransaction management.

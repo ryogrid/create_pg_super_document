@@ -1,7 +1,7 @@
 # open_client_SSL
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1480 - 1643
+[src/interfaces/libpq/fe-secure-openssl.c:1480-1643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1480-L1643)
 
 ## Overview
 Attempts to negotiate and establish an SSL/TLS connection with a PostgreSQL server, handling the handshake process and performing certificate validation.

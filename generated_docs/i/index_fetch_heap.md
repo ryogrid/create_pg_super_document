@@ -1,7 +1,7 @@
 # index_fetch_heap
 
 ## Location
-src/backend/access/index/indexam.c: 632 - 672
+[src/backend/access/index/indexam.c:632-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L632-L672)
 
 ## Overview
 The `index_fetch_heap` function retrieves the actual heap tuple corresponding to the most recently obtained index TID, handling MVCC visibility and HOT chain traversal.

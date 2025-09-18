@@ -1,7 +1,7 @@
 # object_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3101 - 3111
+[src/backend/catalog/aclchk.c:3101-3111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3101-L3111)
 
 ## Overview
 A simple wrapper function that provides a generic interface for examining user privileges on database objects by delegating to the extended version with default parameters.

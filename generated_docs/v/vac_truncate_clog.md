@@ -1,7 +1,7 @@
 # vac_truncate_clog
 
 ## Location
-src/backend/commands/vacuum.c: 1804 - 1972
+[src/backend/commands/vacuum.c:1804-1972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1804-L1972)
 
 ## Overview
 Attempts to truncate transaction commit logs (pg_xact), commit timestamps, and MultiXact logs by scanning all databases to find the system-wide oldest datfrozenxid and datminmxid values.

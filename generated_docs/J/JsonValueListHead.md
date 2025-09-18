@@ -1,7 +1,7 @@
 # JsonValueListHead
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3539 - 3544
+[src/backend/utils/adt/jsonpath_exec.c:3539-3544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3539-L3544)
 
 ## Overview
 Retrieves the first JSON value from a JsonValueList structure, handling both singleton and list representations efficiently.

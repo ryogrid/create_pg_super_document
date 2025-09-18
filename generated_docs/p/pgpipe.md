@@ -1,7 +1,7 @@
 # pgpipe
 
 ## Location
-src/bin/pg_dump/parallel.c: 1719 - 1801
+[src/bin/pg_dump/parallel.c:1719-1801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1719-L1801)
 
 ## Overview
 A Windows-specific replacement for the Unix pipe(2) system call that creates socket-based pipe handles usable with select().

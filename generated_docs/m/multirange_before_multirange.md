@@ -1,7 +1,7 @@
 # multirange_before_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2352 - 2364
+[src/backend/utils/adt/multirangetypes.c:2352-2364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2352-L2364)
 
 ## Overview
 Determines if one multirange is strictly positioned before (to the left of) another multirange, meaning the first multirange's rightmost upper bound is less than the second multirange's leftmost lower bound.

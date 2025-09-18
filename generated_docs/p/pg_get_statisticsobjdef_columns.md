@@ -1,7 +1,7 @@
 # pg_get_statisticsobjdef_columns
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1617 - 1633
+[src/backend/utils/adt/ruleutils.c:1617-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1617-L1633)
 
 ## Overview
 A PostgreSQL system function that retrieves the column list and expressions for an extended statistics object and returns them as formatted text.

@@ -1,7 +1,7 @@
 # AbortCurrentTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 3387 - 3404
+[src/backend/access/transam/xact.c:3387-3404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3387-L3404)
 
 ## Overview
 AbortCurrentTransaction is a wrapper function that handles the complete abortion of the current transaction and any nested subtransactions through an iterative approach to prevent dangerous recursion.

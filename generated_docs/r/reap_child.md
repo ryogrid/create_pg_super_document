@@ -1,7 +1,7 @@
 # reap_child
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 278 - 341
+[src/bin/pg_upgrade/parallel.c:278-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L278-L341)
 
 ## Overview
 Collects status from completed worker child processes or threads, managing the lifecycle of parallel jobs in PostgreSQL's pg_upgrade utility.

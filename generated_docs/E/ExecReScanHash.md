@@ -1,7 +1,7 @@
 # ExecReScanHash
 
 ## Location
-src/backend/executor/nodeHash.c: 2360 - 2381
+[src/backend/executor/nodeHash.c:2360-2381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2360-L2381)
 
 ## Overview
 Rescans a Hash node by conditionally rescanning its outer plan, used when hash join operations need to be restarted or reprocessed.

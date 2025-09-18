@@ -1,7 +1,7 @@
 # biteq
 
 ## Location
-src/backend/utils/adt/varbit.c: 841 - 864
+[src/backend/utils/adt/varbit.c:841-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L841-L864)
 
 ## Overview
 Equality comparison operator for bit string data types that returns true if two bit strings are identical in both content and length.

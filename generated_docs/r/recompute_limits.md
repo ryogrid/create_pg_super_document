@@ -1,7 +1,7 @@
 # recompute_limits
 
 ## Location
-src/backend/executor/nodeLimit.c: 353 - 430
+[src/backend/executor/nodeLimit.c:353-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLimit.c#L353-L430)
 
 ## Overview
 recompute_limits evaluates LIMIT and OFFSET expressions at node startup or rescan, converting them to concrete numeric values and resetting the limit node's execution state.

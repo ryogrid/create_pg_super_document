@@ -1,7 +1,7 @@
 # ExecTidRangeScan
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 294 - 307
+[src/backend/executor/nodeTidrangescan.c:294-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L294-L307)
 
 ## Overview
 ExecTidRangeScan is the main execution function for TID range scan operations, responsible for scanning a relation using tuple identifiers (TIDs) and returning the next qualifying tuple from the range.

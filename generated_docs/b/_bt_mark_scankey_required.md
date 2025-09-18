@@ -1,7 +1,7 @@
 # _bt_mark_scankey_required
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3438 - 3507
+[src/backend/access/nbtree/nbtutils.c:3438-3507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3438-L3507)
 
 ## Overview
 Marks a scankey as "required to continue the scan" by setting appropriate directional flags based on the operator strategy, handling both simple and row comparison scankeys.

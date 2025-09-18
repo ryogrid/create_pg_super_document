@@ -1,7 +1,7 @@
 # populate_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2690 - 2707
+[src/backend/utils/adt/jsonfuncs.c:2690-2707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2690-L2707)
 
 ## Overview
 JSON parse handler that processes the start of array elements during JSON array population, capturing element positioning and type information.

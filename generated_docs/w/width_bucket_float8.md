@@ -1,7 +1,7 @@
 # width_bucket_float8
 
 ## Location
-src/backend/utils/adt/float.c: 3989 - 4082
+[src/backend/utils/adt/float.c:3989-4082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3989-L4082)
 
 ## Overview
 Implements the float8 version of the SQL2003 width_bucket() function, which assigns a value to a histogram bucket number based on specified bounds and bucket count.

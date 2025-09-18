@@ -1,7 +1,7 @@
 # pgoutput_stream_prepare_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1897 - 1916
+[src/backend/replication/pgoutput/pgoutput.c:1897-1916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1897-L1916)
 
 ## Overview
 This function handles the PREPARE callback for streaming two-phase commit transactions, notifying downstream subscribers to prepare a streamed transaction for commit.

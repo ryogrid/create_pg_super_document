@@ -1,7 +1,7 @@
 # handle_sigint
 
 ## Location
-src/fe_utils/cancel.c: 153 - 182
+[src/fe_utils/cancel.c:153-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/cancel.c#L153-L182)
 
 ## Overview
 handle_sigint is a signal handler function that responds to interrupt signals (typically Ctrl+C) by attempting to cancel the currently executing database query.

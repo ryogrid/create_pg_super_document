@@ -1,7 +1,7 @@
 # findTypeSendFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2105 - 2139
+[src/backend/commands/typecmds.c:2105-2139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2105-L2139)
 
 ## Overview
 Validates and retrieves the OID of a type's send function, which converts internal binary representation to external binary format for network transmission and storage.

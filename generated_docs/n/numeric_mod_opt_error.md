@@ -1,7 +1,7 @@
 # numeric_mod_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 3384 - 3452
+[src/backend/utils/adt/numeric.c:3384-3452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3384-L3452)
 
 ## Overview
 Internal version of numeric modulo operation that provides optional error handling, allowing callers to handle modulo errors (like division by zero) without raising exceptions.

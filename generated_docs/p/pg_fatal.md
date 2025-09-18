@@ -1,7 +1,7 @@
 # pg_fatal
 
 ## Location
-src/bin/pg_upgrade/util.c: 270 - 283
+[src/bin/pg_upgrade/util.c:270-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L270-L283)
 
 ## Overview
 pg_fatal is a convenience macro that logs an error message and immediately terminates the program, serving as PostgreSQL's standard mechanism for handling fatal errors in frontend utilities.

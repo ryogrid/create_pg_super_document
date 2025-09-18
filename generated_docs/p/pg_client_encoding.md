@@ -1,7 +1,7 @@
 # pg_client_encoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1279 - 1284
+[src/backend/utils/mb/mbutils.c:1279-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1279-L1284)
 
 ## Overview
 Returns the name of the current client character encoding as a PostgreSQL SQL function that can be called from within SQL queries.

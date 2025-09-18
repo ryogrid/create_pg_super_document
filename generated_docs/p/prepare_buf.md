@@ -1,7 +1,7 @@
 # prepare_buf
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 231 - 242
+[src/bin/pg_test_fsync/pg_test_fsync.c:231-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L231-L242)
 
 ## Overview
 The prepare_buf function initializes a buffer with random data for filesystem sync testing, ensuring proper alignment for PostgreSQL WAL block operations.

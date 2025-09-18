@@ -1,7 +1,7 @@
 # numeric_int8_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 4501 - 4550
+[src/backend/utils/adt/numeric.c:4501-4550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4501-L4550)
 
 ## Overview
 Converts a PostgreSQL numeric value to a 64-bit signed integer with optional error handling instead of throwing exceptions.

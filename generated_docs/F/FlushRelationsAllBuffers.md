@@ -1,7 +1,7 @@
 # FlushRelationsAllBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4580 - 4679
+[src/backend/storage/buffer/bufmgr.c:4580-4679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4580-L4679)
 
 ## Overview
 Flushes all dirty pages from the buffer pool for multiple specified relations, equivalent to calling FlushRelationBuffers for each relation but optimized for bulk operations.

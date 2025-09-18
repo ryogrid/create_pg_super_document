@@ -1,7 +1,7 @@
 # xl_hash_squeeze_page
 
 ## Location
-src/include/access/hash_xlog.h: 159 - 171
+[src/include/access/hash_xlog.h:159-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L159-L171)
 
 ## Overview
 The xl_hash_squeeze_page struct represents the WAL record data for hash index squeeze page operations, which are used to reclaim space by moving tuples from a freed overflow page to other pages.

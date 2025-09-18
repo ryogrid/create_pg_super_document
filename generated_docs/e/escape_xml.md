@@ -1,7 +1,7 @@
 # escape_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 2697 - 2728
+[src/backend/utils/adt/xml.c:2697-2728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2697-L2728)
 
 ## Overview
 Escapes special XML characters in text strings by replacing them with appropriate XML entity references, ensuring the text is safe for inclusion in XML content.

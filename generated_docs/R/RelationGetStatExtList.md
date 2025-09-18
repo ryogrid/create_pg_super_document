@@ -1,7 +1,7 @@
 # RelationGetStatExtList
 
 ## Location
-src/backend/utils/cache/relcache.c: 4927 - 4996
+[src/backend/utils/cache/relcache.c:4927-4996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4927-L4996)
 
 ## Overview
 RelationGetStatExtList returns a list of statistics extension object OIDs associated with a relation by scanning pg_statistic_ext.

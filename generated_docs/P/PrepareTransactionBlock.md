@@ -1,7 +1,7 @@
 # PrepareTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3941 - 3992
+[src/backend/access/transam/xact.c:3941-3992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3941-L3992)
 
 ## Overview
 PrepareTransactionBlock implements the SQL PREPARE TRANSACTION command by initiating the two-phase commit process, transitioning the transaction block state to TBLOCK_PREPARE for later completion.

@@ -1,7 +1,7 @@
 # SlabAlloc
 
 ## Location
-src/backend/utils/mmgr/slab.c: 630 - 700
+[src/backend/utils/mmgr/slab.c:630-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L630-L700)
 
 ## Overview
 SlabAlloc is the main allocation function for the slab memory allocator that returns a pointer to a newly allocated memory chunk of a fixed size.

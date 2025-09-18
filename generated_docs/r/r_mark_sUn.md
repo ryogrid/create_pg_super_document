@@ -1,7 +1,7 @@
 # r_mark_sUn
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 801 - 809
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:801-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L801-L809)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the suffix "sUn" (meaning "you are" in Turkish) and its variations, used in Turkish verb conjugation processing.

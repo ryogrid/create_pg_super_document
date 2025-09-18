@@ -1,7 +1,7 @@
 # set_foreign_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6067 - 6101
+[src/backend/optimizer/path/costsize.c:6067-6101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6067-L6101)
 
 ## Overview
 Sets preliminary size estimates for a foreign table base relation, providing default values that will be refined by the foreign-data wrapper's GetForeignRelSize function.

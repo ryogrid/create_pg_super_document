@@ -1,7 +1,7 @@
 # cmpEntries
 
 ## Location
-src/backend/access/gin/ginutil.c: 443 - 482
+[src/backend/access/gin/ginutil.c:443-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L443-L482)
 
 ## Overview
 A static comparison function used for sorting key entries in GIN indexes, handling both regular data values and NULL values with appropriate ordering semantics.

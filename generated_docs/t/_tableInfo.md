@@ -1,7 +1,7 @@
 # _tableInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 295 - 378
+[src/bin/pg_dump/pg_dump.h:295-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L295-L378)
 
 ## Overview
 The  structure is a comprehensive data structure used by pg_dump to store metadata information about database tables during the dump process.

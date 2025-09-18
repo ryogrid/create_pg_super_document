@@ -1,7 +1,7 @@
 # FunctionCall4Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1196 - 1222
+[src/backend/utils/fmgr/fmgr.c:1196-1222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1196-L1222)
 
 ## Overview
 FunctionCall4Coll is a utility function that invokes a previously-looked-up PostgreSQL function with four parameters and an explicit collation setting.

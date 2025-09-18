@@ -1,7 +1,7 @@
 # tuplesort_getindextuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 949 - 969
+[src/backend/utils/sort/tuplesortvariants.c:949-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L949-L969)
 
 ## Overview
 Fetches the next index tuple from a sorted tuplesort operation in either forward or backward direction, returning a direct pointer to the IndexTuple.

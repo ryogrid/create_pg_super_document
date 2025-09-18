@@ -1,7 +1,7 @@
 # initGenerateDataServerSide
 
 ## Location
-src/bin/pgbench/pgbench.c: 5117 - 5161
+[src/bin/pgbench/pgbench.c:5117-5161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5117-L5161)
 
 ## Overview
 The  function implements server-side data generation for pgbench tables using PostgreSQL's generate_series function and SQL INSERT statements instead of client-side data generation.

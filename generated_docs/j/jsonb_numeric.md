@@ -1,7 +1,7 @@
 # jsonb_numeric
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2052 - 2072
+[src/backend/utils/adt/jsonb.c:2052-2072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2052-L2072)
 
 ## Overview
 Converts a JSONB value to a PostgreSQL numeric type, extracting the numeric value from a JSONB scalar with proper memory management.

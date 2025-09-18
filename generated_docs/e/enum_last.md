@@ -1,7 +1,7 @@
 # enum_last
 
 ## Location
-src/backend/utils/adt/enum.c: 466 - 495
+[src/backend/utils/adt/enum.c:466-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L466-L495)
 
 ## Overview
 A PostgreSQL built-in function that returns the last (maximum) value of an enum type.

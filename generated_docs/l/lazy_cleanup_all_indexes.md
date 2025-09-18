@@ -1,7 +1,7 @@
 # lazy_cleanup_all_indexes
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2353 - 2420
+[src/backend/access/heap/vacuumlazy.c:2353-2420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2353-L2420)
 
 ## Overview
 Performs cleanup operations on all indexes of a relation during vacuum, handling both serial and parallel execution modes while tracking progress statistics.

@@ -1,7 +1,7 @@
 # hungarian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 798 - 864
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:798-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L798-L864)
 
 ## Overview
 The hungarian_UTF_8_stem function is the main entry point for Hungarian word stemming using UTF-8 character encoding in the Snowball stemming library.

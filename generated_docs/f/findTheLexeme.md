@@ -1,7 +1,7 @@
 # findTheLexeme
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 657 - 675
+[src/backend/tsearch/dict_thesaurus.c:657-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L657-L675)
 
 ## Overview
 Searches for a lexeme in the thesaurus dictionary's compiled word list and returns associated lexeme information if found.

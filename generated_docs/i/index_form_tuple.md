@@ -1,7 +1,7 @@
 # index_form_tuple
 
 ## Location
-src/backend/access/common/indextuple.c: 44 - 64
+[src/backend/access/common/indextuple.c:44-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L44-L64)
 
 ## Overview
 The `index_form_tuple` function creates an IndexTuple from arrays of attribute values and null indicators, allocating the tuple in the current memory context.

@@ -1,7 +1,7 @@
 # getTableDataFKConstraints
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3014 - 3054
+[src/bin/pg_dump/pg_dump.c:3014-3054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3014-L3054)
 
 ## Overview
 Adds dump-order dependencies reflecting foreign key constraints to ensure referenced tables are restored before referencing tables in data-only dumps.

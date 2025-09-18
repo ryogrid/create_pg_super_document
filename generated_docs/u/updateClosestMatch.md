@@ -1,7 +1,7 @@
 # updateClosestMatch
 
 ## Location
-src/backend/utils/adt/varlena.c: 6208 - 6242
+[src/backend/utils/adt/varlena.c:6208-6242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6208-L6242)
 
 ## Overview
 Updates the closest match in a `ClosestMatchState` structure by comparing a candidate string with the current best match using Levenshtein distance calculation.

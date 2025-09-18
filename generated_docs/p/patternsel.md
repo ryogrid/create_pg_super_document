@@ -1,7 +1,7 @@
 # patternsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 760 - 792
+[src/backend/utils/adt/like_support.c:760-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L760-L792)
 
 ## Overview
 A SQL-callable adapter function that bridges the PostgreSQL function call interface with the internal `patternsel_common` selectivity estimation engine for pattern matching operations.

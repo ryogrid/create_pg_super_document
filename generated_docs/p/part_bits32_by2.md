@@ -1,7 +1,7 @@
 # part_bits32_by2
 
 ## Location
-src/backend/access/gist/gistproc.c: 1586 - 1602
+[src/backend/access/gist/gistproc.c:1586-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1586-L1602)
 
 ## Overview
 A static utility function that performs bit interleaving by spreading the bits of a 32-bit unsigned integer across a 64-bit result, with zeros inserted between each original bit.

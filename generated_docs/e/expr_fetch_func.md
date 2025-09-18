@@ -1,7 +1,7 @@
 # expr_fetch_func
 
 ## Location
-src/backend/statistics/extended_stats.c: 2234 - 2249
+[src/backend/statistics/extended_stats.c:2234-2249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2234-L2249)
 
 ## Overview
 A specialized data fetch function that retrieves expression evaluation results from pre-computed Datum arrays for statistics computation.

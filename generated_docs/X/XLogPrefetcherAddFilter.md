@@ -1,7 +1,7 @@
 # XLogPrefetcherAddFilter
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 858 - 895
+[src/backend/access/transam/xlogprefetcher.c:858-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L858-L895)
 
 ## Overview
 Adds a filter to prevent prefetching blocks from a specific relation starting at a given block number until a specified LSN has been replayed during WAL recovery.

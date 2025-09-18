@@ -1,7 +1,7 @@
 # list_member
 
 ## Location
-src/backend/nodes/list.c: 661 - 681
+[src/backend/nodes/list.c:661-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L661-L681)
 
 ## Overview
 The  function performs a linear search to determine if a given datum is present in a pointer list, using deep equality comparison.

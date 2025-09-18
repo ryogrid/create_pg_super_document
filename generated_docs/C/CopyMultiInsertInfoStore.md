@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoStore
 
 ## Location
-src/backend/commands/copyfrom.c: 605 - 627
+[src/backend/commands/copyfrom.c:605-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L605-L627)
 
 ## Overview
 Records a previously reserved TupleTableSlot as consumed and updates buffering statistics during COPY FROM operations.

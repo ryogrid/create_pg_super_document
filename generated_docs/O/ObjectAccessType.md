@@ -1,7 +1,7 @@
 # ObjectAccessType
 
 ## Location
-src/include/catalog/objectaccess.h: 56 - 68
+[src/include/catalog/objectaccess.h:56-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/objectaccess.h#L56-L68)
 
 ## Overview
 ObjectAccessType is an enumeration that defines different types of object access events in PostgreSQL's security and logging infrastructure, used by object access hooks to determine when and how to intercept database operations.

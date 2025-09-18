@@ -1,7 +1,7 @@
 # update_proconfig_value
 
 ## Location
-src/backend/commands/functioncmds.c: 645 - 669
+[src/backend/commands/functioncmds.c:645-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L645-L669)
 
 ## Overview
 Updates a proconfig value according to a list of VariableSetStmt items, handling GUC parameter configuration for PostgreSQL functions.

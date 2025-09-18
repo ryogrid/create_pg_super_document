@@ -1,7 +1,7 @@
 # BeginReportingGUCOptions
 
 ## Location
-src/backend/utils/misc/guc.c: 2548 - 2597
+[src/backend/utils/misc/guc.c:2548-2597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2548-L2597)
 
 ## Overview
 BeginReportingGUCOptions initializes automatic reporting of PostgreSQL configuration variables marked with GUC_REPORT flag to the frontend client upon completion of backend startup.

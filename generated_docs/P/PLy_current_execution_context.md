@@ -1,7 +1,7 @@
 # PLy_current_execution_context
 
 ## Location
-src/pl/plpython/plpy_main.c: 367 - 375
+[src/pl/plpython/plpy_main.c:367-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L367-L375)
 
 ## Overview
 PLy_current_execution_context is a utility function that returns the current PL/Python execution context, providing access to the active execution state information.

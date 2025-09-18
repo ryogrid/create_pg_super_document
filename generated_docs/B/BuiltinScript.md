@@ -1,7 +1,7 @@
 # BuiltinScript
 
 ## Location
-src/bin/pgbench/pgbench.c: 773 - 778
+[src/bin/pgbench/pgbench.c:773-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L773-L778)
 
 ## Overview
 BuiltinScript is a structure that defines predefined test scripts available in pgbench for database performance benchmarking.

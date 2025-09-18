@@ -1,7 +1,7 @@
 # network_supeq
 
 ## Location
-src/backend/utils/adt/network.c: 948 - 962
+[src/backend/utils/adt/network.c:948-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L948-L962)
 
 ## Overview
 Implements the supernet-or-equal (>>= operator) comparison for INET data types, checking if the first network contains or is equal to the second network.

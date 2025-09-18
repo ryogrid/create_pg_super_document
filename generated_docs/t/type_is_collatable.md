@@ -1,7 +1,7 @@
 # type_is_collatable
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3081 - 3096
+[src/backend/utils/cache/lsyscache.c:3081-3096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3081-L3096)
 
 ## Overview
 Determines whether a given data type cares about collations, which is essential for operations that need to know if collation-sensitive comparison or sorting can be applied to values of that type.

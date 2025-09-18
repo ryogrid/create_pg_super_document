@@ -1,7 +1,7 @@
 # HeadlineWordEntry
 
 ## Location
-src/include/tsearch/ts_public.h: 71 - 88
+[src/include/tsearch/ts_public.h:71-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_public.h#L71-L88)
 
 ## Overview
 HeadlineWordEntry is a structure that represents a single word token in text search headline generation, containing metadata about whether the token should be highlighted, its position, and references to matching query operands.

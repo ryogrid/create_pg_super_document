@@ -1,7 +1,7 @@
 # get_primary_key_attnos
 
 ## Location
-src/backend/catalog/pg_constraint.c: 1149 - 1234
+[src/backend/catalog/pg_constraint.c:1149-1234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L1149-L1234)
 
 ## Overview
 Identifies the columns that comprise a relation's primary key and returns them as a bitmap set of column attribute numbers.

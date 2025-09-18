@@ -1,7 +1,7 @@
 # compare_sort_item_count
 
 ## Location
-src/backend/statistics/mcv.c: 403 - 423
+[src/backend/statistics/mcv.c:403-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L403-L423)
 
 ## Overview
 A comparator function that sorts SortItem structures by their count (frequency) values in descending order, used for organizing groups by their occurrence frequency.

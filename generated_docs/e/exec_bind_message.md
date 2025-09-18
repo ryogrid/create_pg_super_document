@@ -1,7 +1,7 @@
 # exec_bind_message
 
 ## Location
-src/backend/tcop/postgres.c: 1630 - 2100
+[src/backend/tcop/postgres.c:1630-2100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L1630-L2100)
 
 ## Overview
 Processes a "Bind" message to create a portal from a prepared statement, binding parameter values and format specifications for subsequent execution.

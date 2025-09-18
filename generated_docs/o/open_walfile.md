@@ -1,7 +1,7 @@
 # open_walfile
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 90 - 191
+[src/bin/pg_basebackup/receivelog.c:90-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L90-L191)
 
 ## Overview
 Opens a new WAL file in the specified directory for writing during PostgreSQL base backup operations, with proper size validation and padding.

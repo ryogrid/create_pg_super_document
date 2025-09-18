@@ -1,7 +1,7 @@
 # compare_rows
 
 ## Location
-src/backend/commands/analyze.c: 1315 - 1344
+[src/backend/commands/analyze.c:1315-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1315-L1344)
 
 ## Overview
 A comparator function used for sorting HeapTuple arrays by their physical storage position (ItemPointer) to maintain tuples in table order during analysis operations.

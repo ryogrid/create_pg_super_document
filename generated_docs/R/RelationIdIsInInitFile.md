@@ -1,7 +1,7 @@
 # RelationIdIsInInitFile
 
 ## Location
-src/backend/utils/cache/relcache.c: 6726 - 6765
+[src/backend/utils/cache/relcache.c:6726-6765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6726-L6765)
 
 ## Overview
 Determines whether a given relation (identified by OID) should be stored in the local relcache initialization file for fast backend startup.

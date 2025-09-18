@@ -1,7 +1,7 @@
 # unicode_lowercase_simple
 
 ## Location
-src/common/unicode_case.c: 29 - 36
+[src/common/unicode_case.c:29-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L29-L36)
 
 ## Overview
 Converts a Unicode codepoint to its lowercase equivalent using simple case mapping rules.

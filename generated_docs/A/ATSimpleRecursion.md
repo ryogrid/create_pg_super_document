@@ -1,7 +1,7 @@
 # ATSimpleRecursion
 
 ## Location
-src/backend/commands/tablecmds.c: 6618 - 6662
+[src/backend/commands/tablecmds.c:6618-6662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6618-L6662)
 
 ## Overview
 A table inheritance recursion function that applies ALTER TABLE commands to all direct and indirect child tables in an inheritance hierarchy when recursion is requested.

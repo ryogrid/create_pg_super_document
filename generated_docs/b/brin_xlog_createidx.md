@@ -1,7 +1,7 @@
 # brin_xlog_createidx
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 24 - 45
+[src/backend/access/brin/brin_xlog.c:24-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L24-L45)
 
 ## Overview
 A static function that handles WAL (Write-Ahead Logging) replay for BRIN (Block Range Index) creation operations during recovery.

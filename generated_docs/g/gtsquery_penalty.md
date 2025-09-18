@@ -1,7 +1,7 @@
 # gtsquery_penalty
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 139 - 154
+[src/backend/utils/adt/tsquery_gist.c:139-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L139-L154)
 
 ## Overview
 A GiST penalty function for TSQuery indexes that calculates the cost of inserting a new TSQuery signature into an existing index node by measuring the Hamming distance between signatures.

@@ -1,7 +1,7 @@
 # ReleaseAuxProcessResourcesCallback
 
 ## Location
-src/backend/utils/resowner/resowner.c: 1027 - 1044
+[src/backend/utils/resowner/resowner.c:1027-1044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L1027-L1044)
 
 ## Overview
 A shared memory exit callback function that automatically releases auxiliary process resources during process termination, with leak warning behavior based on exit status.

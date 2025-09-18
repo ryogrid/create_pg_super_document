@@ -1,7 +1,7 @@
 # gin_consistent_jsonb_path
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1220 - 1271
+[src/backend/utils/adt/jsonb_gin.c:1220-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1220-L1271)
 
 ## Overview
 The consistency check function for the jsonb_path_ops GIN opclass that determines whether an indexed tuple could match a query using path-sensitive hash comparisons.

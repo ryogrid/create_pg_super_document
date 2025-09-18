@@ -1,7 +1,7 @@
 # ProcLangInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 505 - 506
+[src/bin/pg_dump/pg_dump.h:505-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L505-L506)
 
 ## Overview
 ProcLangInfo is a structure used by pg_dump to store metadata about procedural languages during the dump and restore process.

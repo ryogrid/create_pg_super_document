@@ -1,7 +1,7 @@
 # dumpRoleGUCPrivs
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1245 - 1299
+[src/bin/pg_dump/pg_dumpall.c:1245-1299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1245-L1299)
 
 ## Overview
 Dumps role configuration parameter privileges for PostgreSQL 15.0 and later servers, generating SQL commands to recreate ACL permissions on configuration parameters.

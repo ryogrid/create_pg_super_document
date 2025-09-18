@@ -1,7 +1,7 @@
 # newdfa
 
 ## Location
-src/backend/regex/rege_dfa.c: 607 - 690
+[src/backend/regex/rege_dfa.c:607-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L607-L690)
 
 ## Overview
 Creates and initializes a fresh DFA structure for regex execution, handling both small and large DFA configurations with appropriate memory allocation.

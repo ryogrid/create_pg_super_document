@@ -1,7 +1,7 @@
 # spcache_insert
 
 ## Location
-src/backend/catalog/namespace.c: 374 - 440
+[src/backend/catalog/namespace.c:374-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L374-L440)
 
 ## Overview
 Looks up or inserts a new entry in PostgreSQL's search path cache, handling both cache hits and the creation of new cache entries with proper memory management and initialization.

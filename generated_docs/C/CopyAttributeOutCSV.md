@@ -1,7 +1,7 @@
 # CopyAttributeOutCSV
 
 ## Location
-src/backend/commands/copyto.c: 1140 - 1225
+[src/backend/commands/copyto.c:1140-1225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1140-L1225)
 
 ## Overview
 Outputs a single attribute value in CSV format with proper escaping and quoting as needed for PostgreSQL's COPY TO command.

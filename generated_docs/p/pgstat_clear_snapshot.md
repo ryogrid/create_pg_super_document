@@ -1,7 +1,7 @@
 # pgstat_clear_snapshot
 
 ## Location
-src/backend/utils/activity/pgstat.c: 781 - 810
+[src/backend/utils/activity/pgstat.c:781-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L781-L810)
 
 ## Overview
 This function discards any statistics data collected in the current transaction and clears the statistics snapshot, forcing subsequent requests to read fresh snapshots from the statistics system.

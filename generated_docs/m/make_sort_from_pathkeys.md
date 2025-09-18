@@ -1,7 +1,7 @@
 # make_sort_from_pathkeys
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6347 - 6381
+[src/backend/optimizer/plan/createplan.c:6347-6381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6347-L6381)
 
 ## Overview
 The make_sort_from_pathkeys function creates a Sort plan node based on pathkey specifications, combining the functionality of prepare_sort_from_pathkeys and make_sort into a single convenient interface.

@@ -1,7 +1,7 @@
 # InitPlan
 
 ## Location
-src/backend/executor/execMain.c: 826 - 1018
+[src/backend/executor/execMain.c:826-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L826-L1018)
 
 ## Overview
 Initializes the query execution plan by opening files, allocating storage, setting up execution state, and preparing all necessary data structures for query execution.

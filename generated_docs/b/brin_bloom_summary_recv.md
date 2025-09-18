@@ -1,7 +1,7 @@
 # brin_bloom_summary_recv
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 823 - 839
+[src/backend/access/brin/brin_bloom.c:823-839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L823-L839)
 
 ## Overview
 Binary input function for the brin_bloom_summary PostgreSQL data type that explicitly disallows binary input, maintaining the restriction that this type should only be used internally by the BRIN Bloom index access method.

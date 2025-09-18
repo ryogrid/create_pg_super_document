@@ -1,7 +1,7 @@
 # _bt_stepright
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 1027 - 1104
+[src/backend/access/nbtree/nbtinsert.c:1027-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L1027-L1104)
 
 ## Overview
 Steps right to the next non-dead leaf page during insertion while maintaining proper write-lock ordering to prevent concurrency issues.

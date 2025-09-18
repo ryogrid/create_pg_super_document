@@ -1,7 +1,7 @@
 # parse_re_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 385 - 458
+[src/backend/utils/adt/regexp.c:385-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L385-L458)
 
 ## Overview
 Parses and validates regular expression flag options from a text string, converting user-specified flags into internal regex compilation flags used by PostgreSQL's regex engine.

@@ -1,7 +1,7 @@
 # init_gin_entries
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 163 - 171
+[src/backend/utils/adt/jsonb_gin.c:163-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L163-L171)
 
 ## Overview
 Initializes a GinEntries structure with a specified pre-allocation size for storing GIN index entries used in JSONB indexing operations.

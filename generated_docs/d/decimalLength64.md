@@ -1,7 +1,7 @@
 # decimalLength64
 
 ## Location
-src/backend/utils/adt/numutils.c: 63 - 120
+[src/backend/utils/adt/numutils.c:63-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L63-L120)
 
 ## Overview
 Calculates the number of decimal digits required to represent a 64-bit unsigned integer value.

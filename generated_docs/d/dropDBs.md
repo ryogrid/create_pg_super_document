@@ -1,7 +1,7 @@
 # dropDBs
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1439 - 1485
+[src/bin/pg_dump/pg_dumpall.c:1439-1485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1439-L1485)
 
 ## Overview
 Generates DROP DATABASE statements for all user databases in a PostgreSQL cluster, excluding system databases and those that don't allow connections.

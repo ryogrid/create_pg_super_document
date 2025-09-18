@@ -1,7 +1,7 @@
 # afterTriggerInvokeEvents
 
 ## Location
-src/backend/commands/trigger.c: 4714 - 4882
+[src/backend/commands/trigger.c:4714-4882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4714-L4882)
 
 ## Overview
 Scans a given event list for trigger events marked to be fired in the current firing cycle and executes them, with support for efficient resource management and optional cleanup of processed events.

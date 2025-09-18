@@ -1,7 +1,7 @@
 # analyze_requires_snapshot
 
 ## Location
-src/backend/parser/analyze.c: 485 - 507
+[src/backend/parser/analyze.c:485-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L485-L507)
 
 ## Overview
 Determines whether a database snapshot must be established before performing parse analysis on a raw statement.

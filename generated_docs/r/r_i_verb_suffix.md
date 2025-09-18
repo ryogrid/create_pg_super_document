@@ -1,7 +1,7 @@
 # r_i_verb_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_french.c: 978 - 1002
+[src/backend/snowball/libstemmer/stem_UTF_8_french.c:978-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_french.c#L978-L1002)
 
 ## Overview
 The r_i_verb_suffix function handles the removal of French infinitive verb suffixes during morphological stemming, specifically targeting suffixes that occur after certain vowel patterns.

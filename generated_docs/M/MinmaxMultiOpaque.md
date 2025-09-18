@@ -1,7 +1,7 @@
 # MinmaxMultiOpaque
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 111 - 116
+[src/backend/access/brin/brin_minmax_multi.c:111-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L111-L116)
 
 ## Overview
 MinmaxMultiOpaque is a private data structure used by the BRIN (Block Range Index) minmax-multi operator class to cache function metadata and strategy information for efficient range operations.

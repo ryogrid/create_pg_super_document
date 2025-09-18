@@ -1,7 +1,7 @@
 # try_hashjoin_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1096 - 1172
+[src/backend/optimizer/path/joinpath.c:1096-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1096-L1172)
 
 ## Overview
 Evaluates and potentially adds a hash join path to the joinrel's pathlist, performing validation checks and cost estimation for hash-based join strategies.

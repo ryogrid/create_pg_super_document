@@ -1,7 +1,7 @@
 # WalSndWriteData
 
 ## Location
-src/backend/replication/walsender.c: 1576 - 1617
+[src/backend/replication/walsender.c:1576-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1576-L1617)
 
 ## Overview
 WalSndWriteData is a callback function that actually sends prepared logical replication data to clients over the network, handling timing, flow control, and timeout management.

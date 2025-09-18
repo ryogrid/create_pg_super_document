@@ -1,7 +1,7 @@
 # _tableDataInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 397 - 401
+[src/bin/pg_dump/pg_dump.h:397-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L397-L401)
 
 ## Overview
 The  structure represents the actual data content of a table that needs to be dumped by pg_dump, serving as a separate dumpable object for table data.

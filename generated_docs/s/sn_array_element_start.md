@@ -1,7 +1,7 @@
 # sn_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4458 - 4468
+[src/backend/utils/adt/jsonfuncs.c:4458-4468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4458-L4468)
 
 ## Overview
 A callback function used during JSON parsing to handle the start of an array element, managing comma separation between array elements.

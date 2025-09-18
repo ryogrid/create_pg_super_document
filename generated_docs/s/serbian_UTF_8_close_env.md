@@ -1,7 +1,7 @@
 # serbian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_serbian.c: 6542 - 6543
+[src/backend/snowball/libstemmer/stem_UTF_8_serbian.c:6542-6543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_serbian.c#L6542-L6543)
 
 ## Overview
 The serbian_UTF_8_close_env function properly deallocates and cleans up a Snowball environment structure that was created for Serbian UTF-8 text stemming operations.

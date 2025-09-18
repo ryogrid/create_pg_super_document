@@ -1,7 +1,7 @@
 # get_relation_data_width
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1227 - 1266
+[src/backend/optimizer/util/plancat.c:1227-1266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1227-L1266)
 
 ## Overview
 External API wrapper for  that provides the same functionality but handles the relcache entry management internally.

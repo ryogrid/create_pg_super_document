@@ -1,7 +1,7 @@
 # Gzip_close
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 327 - 336
+[src/bin/pg_dump/compress_gzip.c:327-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L327-L336)
 
 ## Overview
 Closes a gzip-compressed file handle and performs cleanup operations for the compression file handle structure.

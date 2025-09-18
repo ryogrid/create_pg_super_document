@@ -1,7 +1,7 @@
 # r_reflexive
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 463 - 473
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:463-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L463-L473)
 
 ## Overview
 The r_reflexive function removes reflexive endings (ся, сь) from Russian words during the stemming process in the KOI8-R encoding variant of the Snowball Russian stemmer.

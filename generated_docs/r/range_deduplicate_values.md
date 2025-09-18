@@ -1,7 +1,7 @@
 # range_deduplicate_values
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 516 - 575
+[src/backend/access/brin/brin_minmax_multi.c:516-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L516-L575)
 
 ## Overview
 range_deduplicate_values is an optimization function that removes duplicate values from the unsorted portion of a Ranges structure, improving storage efficiency and query performance in BRIN minmax-multi indexes.

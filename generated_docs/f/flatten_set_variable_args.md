@@ -1,7 +1,7 @@
 # flatten_set_variable_args
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 192 - 314
+[src/backend/utils/misc/guc_funcs.c:192-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L192-L314)
 
 ## Overview
 Converts a parsed List of arguments from SET statements into the flat string representation used by PostgreSQL's GUC (Grand Unified Configuration) system, handling different data types and formatting rules.

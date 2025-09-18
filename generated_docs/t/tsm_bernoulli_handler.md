@@ -1,7 +1,7 @@
 # tsm_bernoulli_handler
 
 ## Location
-src/backend/access/tablesample/bernoulli.c: 65 - 85
+[src/backend/access/tablesample/bernoulli.c:65-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/bernoulli.c#L65-L85)
 
 ## Overview
 This function creates a TsmRoutine descriptor for the BERNOULLI tablesample method, which implements statistical sampling based on the Bernoulli distribution.

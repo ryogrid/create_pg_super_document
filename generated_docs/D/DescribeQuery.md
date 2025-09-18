@@ -1,7 +1,7 @@
 # DescribeQuery
 
 ## Location
-src/bin/psql/common.c: 1314 - 1445
+[src/bin/psql/common.c:1314-1445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1314-L1445)
 
 ## Overview
 DescribeQuery describes the result columns of a query without executing it, using PostgreSQL's prepared statement mechanism to parse and analyze the query structure.

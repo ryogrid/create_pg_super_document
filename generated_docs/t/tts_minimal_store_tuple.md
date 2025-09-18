@@ -1,7 +1,7 @@
 # tts_minimal_store_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 680 - 708
+[src/backend/executor/execTuples.c:680-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L680-L708)
 
 ## Overview
 Stores a MinimalTuple into a MinimalTupleTableSlot, setting up the slot's internal structures to reference the tuple data.

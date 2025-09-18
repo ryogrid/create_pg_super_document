@@ -1,7 +1,7 @@
 # copyTSLexeme
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 753 - 770
+[src/backend/tsearch/dict_thesaurus.c:753-770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L753-L770)
 
 ## Overview
 Creates a deep copy of a TSLexeme array from a TheSubstitute structure, duplicating both the array and all contained lexeme strings.

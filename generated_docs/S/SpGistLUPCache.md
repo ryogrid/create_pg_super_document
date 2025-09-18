@@ -1,7 +1,7 @@
 # SpGistLUPCache
 
 ## Location
-src/include/access/spgist_private.h: 108 - 111
+[src/include/access/spgist_private.h:108-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L108-L111)
 
 ## Overview
 SpGistLUPCache is a structure that maintains an array of cached last-used page information for efficient page management in SP-GiST indexes.

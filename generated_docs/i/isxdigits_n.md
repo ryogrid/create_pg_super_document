@@ -1,7 +1,7 @@
 # isxdigits_n
 
 ## Location
-src/backend/utils/adt/varlena.c: 6462 - 6471
+[src/backend/utils/adt/varlena.c:6462-6471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6462-L6471)
 
 ## Overview
 A utility function that checks whether the first n characters of a string are all valid hexadecimal digits.

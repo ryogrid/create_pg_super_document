@@ -1,7 +1,7 @@
 # GetExtensibleNodeMethods
 
 ## Location
-src/backend/nodes/extensible.c: 125 - 136
+[src/backend/nodes/extensible.c:125-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L125-L136)
 
 ## Overview
 Retrieves the method structure for a given type of extensible node, providing access to the callbacks needed for node operations.

@@ -1,7 +1,7 @@
 # compute_expr_stats
 
 ## Location
-src/backend/statistics/extended_stats.c: 2090 - 2233
+[src/backend/statistics/extended_stats.c:2090-2233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2090-L2233)
 
 ## Overview
 Computes statistics for expression columns by evaluating expressions against sampled table rows and generating statistical summaries for use in query optimization.

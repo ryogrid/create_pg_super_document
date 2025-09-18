@@ -1,7 +1,7 @@
 # WaitEventAdjustKqueue
 
 ## Location
-src/backend/storage/ipc/latch.c: 1263 - 1368
+[src/backend/storage/ipc/latch.c:1263-1368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1263-L1368)
 
 ## Overview
 A static function that manages kqueue event registration for a WaitEvent by computing differences between old and new event masks and making appropriate kevent system calls to add, modify, or delete event monitoring.

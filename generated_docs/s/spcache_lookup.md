@@ -1,7 +1,7 @@
 # spcache_lookup
 
 ## Location
-src/backend/catalog/namespace.c: 344 - 373
+[src/backend/catalog/namespace.c:344-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L344-L373)
 
 ## Overview
 Searches for an existing entry in the search path cache without inserting new entries, providing optimized lookup with a last-entry optimization for repeated access patterns.

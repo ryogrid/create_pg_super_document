@@ -1,7 +1,7 @@
 # timetz_at_local
 
 ## Location
-src/backend/utils/adt/date.c: 3165 - 3172
+[src/backend/utils/adt/date.c:3165-3172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L3165-L3172)
 
 ## Overview
 Converts a time with time zone to the session's local timezone, providing a convenient function for displaying times in the user's local timezone context.

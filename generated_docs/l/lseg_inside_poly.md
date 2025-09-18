@@ -1,7 +1,7 @@
 # lseg_inside_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3866 - 3937
+[src/backend/utils/adt/geo_ops.c:3866-3937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3866-L3937)
 
 ## Overview
 lseg_inside_poly is a recursive static function that determines whether a line segment defined by two points lies completely inside a polygon.

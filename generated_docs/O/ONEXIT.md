@@ -1,7 +1,7 @@
 # ONEXIT
 
 ## Location
-src/backend/storage/ipc/ipc.c: 73 - 103
+[src/backend/storage/ipc/ipc.c:73-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L73-L103)
 
 ## Overview
 ONEXIT is a structure that represents a single callback entry in PostgreSQL's process exit management system, storing a function pointer and its associated argument for deferred execution during process termination.

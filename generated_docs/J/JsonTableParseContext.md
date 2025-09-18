@@ -1,7 +1,7 @@
 # JsonTableParseContext
 
 ## Location
-src/backend/parser/parse_jsontable.c: 34 - 41
+[src/backend/parser/parse_jsontable.c:34-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L34-L41)
 
 ## Overview
 JsonTableParseContext is a context structure used during the parsing and transformation of JSON_TABLE expressions, providing necessary state and metadata for processing JSON table columns and path specifications.

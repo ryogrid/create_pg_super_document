@@ -1,7 +1,7 @@
 # CatalogCacheComputeTupleHashValue
 
 ## Location
-src/backend/utils/cache/catcache.c: 386 - 440
+[src/backend/utils/cache/catcache.c:386-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L386-L440)
 
 ## Overview
 A static function that extracts key attribute values from a HeapTuple and computes the corresponding hash value for catalog cache storage and lookup operations.

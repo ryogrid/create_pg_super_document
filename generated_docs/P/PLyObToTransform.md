@@ -1,7 +1,7 @@
 # PLyObToTransform
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 125 - 128
+[src/pl/plpython/plpy_typeio.h:125-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L125-L128)
 
 ## Overview
 A structure used in PostgreSQL's PL/Python extension to store function information for transform functions when converting Python objects to PostgreSQL Datum values.

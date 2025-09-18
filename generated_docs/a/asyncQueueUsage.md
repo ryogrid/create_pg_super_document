@@ -1,7 +1,7 @@
 # asyncQueueUsage
 
 ## Location
-src/backend/commands/async.c: 1506 - 1526
+[src/backend/commands/async.c:1506-1526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1506-L1526)
 
 ## Overview
 Internal function that calculates and returns the fraction of the notification queue currently occupied, measured as the ratio of occupied pages to maximum allowed pages.

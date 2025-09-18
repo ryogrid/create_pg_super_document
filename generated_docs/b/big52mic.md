@@ -1,7 +1,7 @@
 # big52mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c: 446 - 510
+[src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:446-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c#L446-L510)
 
 ## Overview
 Converts character data from Big5 encoding to MIC (Mule Internal Code) encoding, handling multi-byte character conversion with proper error checking and plane number management.

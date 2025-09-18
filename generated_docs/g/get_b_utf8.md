@@ -1,7 +1,7 @@
 # get_b_utf8
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 93 - 116
+[src/backend/snowball/libstemmer/utilities.c:93-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L93-L116)
 
 ## Overview
 Decodes a UTF-8 character from a symbol buffer in reverse direction (backward), extracting the Unicode code point and returning the number of bytes consumed.

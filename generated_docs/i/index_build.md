@@ -1,7 +1,7 @@
 # index_build
 
 ## Location
-src/backend/catalog/index.c: 2940 - 3132
+[src/backend/catalog/index.c:2940-3132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2940-L3132)
 
 ## Overview
 index_build orchestrates the complete process of building an index by invoking access-method-specific build procedures and updating catalog metadata.

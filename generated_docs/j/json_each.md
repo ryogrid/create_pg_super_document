@@ -1,7 +1,7 @@
 # json_each
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1948 - 1953
+[src/backend/utils/adt/jsonfuncs.c:1948-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1948-L1953)
 
 ## Overview
 A SQL function that decomposes a JSON object into key-value pairs as a set-returning function.

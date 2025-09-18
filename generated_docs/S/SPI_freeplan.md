@@ -1,7 +1,7 @@
 # SPI_freeplan
 
 ## Location
-src/backend/executor/spi.c: 1025 - 1046
+[src/backend/executor/spi.c:1025-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1025-L1046)
 
 ## Overview
 Frees an SPI execution plan and all its associated resources, including cached plan sources and the plans memory context.

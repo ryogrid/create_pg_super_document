@@ -1,7 +1,7 @@
 # RemoveGUCFromLists
 
 ## Location
-src/backend/utils/misc/guc.c: 1763 - 1785
+[src/backend/utils/misc/guc.c:1763-1785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1763-L1785)
 
 ## Overview
 RemoveGUCFromLists is a static helper function that summarily removes a GUC (Grand Unified Configuration) variable from any linked lists it participates in, used when the variable is about to be deleted or reset.

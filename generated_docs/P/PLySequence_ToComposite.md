@@ -1,7 +1,7 @@
 # PLySequence_ToComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1407 - 1483
+[src/pl/plpython/plpy_typeio.c:1407-1483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1407-L1483)
 
 ## Overview
 Converts a Python sequence (list, tuple) to a PostgreSQL composite type by mapping sequence elements to tuple attributes by positional order.

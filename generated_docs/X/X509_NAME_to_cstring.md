@@ -1,7 +1,7 @@
 # X509_NAME_to_cstring
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1618 - 1690
+[src/backend/libpq/be-secure-openssl.c:1618-1690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1618-L1690)
 
 ## Overview
 Converts an X.509 certificate subject or issuer name from ASN.1 format to a human-readable C string representation.

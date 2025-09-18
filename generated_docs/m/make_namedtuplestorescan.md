@@ -1,7 +1,7 @@
 # make_namedtuplestorescan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5784 - 5803
+[src/backend/optimizer/plan/createplan.c:5784-5803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5784-L5803)
 
 ## Overview
 Creates and initializes a NamedTuplestoreScan plan node for scanning Ephemeral Named Relations (ENRs) in PostgreSQL query execution.

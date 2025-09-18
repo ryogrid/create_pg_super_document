@@ -1,7 +1,7 @@
 # logicalrep_read_origin
 
 ## Location
-src/backend/replication/logical/proto.c: 401 - 413
+[src/backend/replication/logical/proto.c:401-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L401-L413)
 
 ## Overview
 This function reads an ORIGIN message from the logical replication input stream, parsing replication origin information and returning the origin name string.

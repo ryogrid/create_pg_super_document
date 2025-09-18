@@ -1,7 +1,7 @@
 # SPI_scroll_cursor_fetch
 
 ## Location
-src/backend/executor/spi.c: 1835 - 1849
+[src/backend/executor/spi.c:1835-1849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1835-L1849)
 
 ## Overview
 SPI_scroll_cursor_fetch provides advanced cursor navigation by allowing fetches in multiple directions using explicit FetchDirection constants, offering more control than the simple forward/backward boolean used by SPI_cursor_fetch.

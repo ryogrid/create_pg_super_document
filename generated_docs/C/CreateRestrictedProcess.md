@@ -1,7 +1,7 @@
 # CreateRestrictedProcess
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1756 - 1895
+[src/bin/pg_ctl/pg_ctl.c:1756-1895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1756-L1895)
 
 ## Overview
 Creates a Windows process with restricted security privileges by using a restricted token and optional job object sandbox to enhance security when running PostgreSQL processes.

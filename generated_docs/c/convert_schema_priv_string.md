@@ -1,7 +1,7 @@
 # convert_schema_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 3977 - 4006
+[src/backend/utils/adt/acl.c:3977-4006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3977-L4006)
 
 ## Overview
 Converts a text string representing schema privilege names to an AclMode bitmask value for PostgreSQL's access control system.

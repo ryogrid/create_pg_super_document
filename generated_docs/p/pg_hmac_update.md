@@ -1,7 +1,7 @@
 # pg_hmac_update
 
 ## Location
-src/common/hmac_openssl.c: 229 - 253
+[src/common/hmac_openssl.c:229-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L229-L253)
 
 ## Overview
 Updates a HMAC context with new data during the HMAC computation process.

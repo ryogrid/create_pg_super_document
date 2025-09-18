@@ -1,7 +1,7 @@
 # cert_cb
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 468 - 491
+[src/interfaces/libpq/fe-secure-openssl.c:468-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L468-L491)
 
 ## Overview
 Certificate selection callback function that tracks client certificate requests and responses during SSL handshake in libpq.

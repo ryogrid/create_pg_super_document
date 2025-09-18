@@ -1,7 +1,7 @@
 # brinbulkdelete
 
 ## Location
-src/backend/access/brin/brin.c: 1293 - 1307
+[src/backend/access/brin/brin.c:1293-1307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1293-L1307)
 
 ## Overview
 A bulk delete operation handler for BRIN indexes that currently performs minimal operations due to the summarized nature of BRIN index structure.

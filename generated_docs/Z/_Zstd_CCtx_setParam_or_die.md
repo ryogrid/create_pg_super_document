@@ -1,7 +1,7 @@
 # _Zstd_CCtx_setParam_or_die
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 60 - 72
+[src/bin/pg_dump/compress_zstd.c:60-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L60-L72)
 
 ## Overview
 A static utility function that safely sets compression parameters for a ZSTD compression context, terminating the program with a fatal error if the parameter setting fails.

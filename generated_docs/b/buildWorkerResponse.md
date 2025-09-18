@@ -1,7 +1,7 @@
 # buildWorkerResponse
 
 ## Location
-src/bin/pg_dump/parallel.c: 1156 - 1170
+[src/bin/pg_dump/parallel.c:1156-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1156-L1170)
 
 ## Overview
 Formats response strings that worker processes send back to the leader after completing assigned dump or restore operations.

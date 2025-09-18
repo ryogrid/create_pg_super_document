@@ -1,7 +1,7 @@
 # _copyBitmapset
 
 ## Location
-src/backend/nodes/copyfuncs.c: 164 - 176
+[src/backend/nodes/copyfuncs.c:164-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/copyfuncs.c#L164-L176)
 
 ## Overview
 Creates a deep copy of a Bitmapset by delegating to the dedicated Bitmapset copy function .

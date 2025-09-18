@@ -1,7 +1,7 @@
 # IsBinaryCoercible
 
 ## Location
-src/backend/parser/parse_coerce.c: 3032 - 3046
+[src/backend/parser/parse_coerce.c:3032-3046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3032-L3046)
 
 ## Overview
 Checks if a source type can be binary-coercible to a target type without requiring a conversion function call, serving as an implementation shortcut for type conversion.

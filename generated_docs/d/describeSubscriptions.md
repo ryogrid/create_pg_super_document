@@ -1,7 +1,7 @@
 # describeSubscriptions
 
 ## Location
-src/bin/psql/describe.c: 6525 - 6658
+[src/bin/psql/describe.c:6525-6658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6525-L6658)
 
 ## Overview
 Lists PostgreSQL logical replication subscriptions with their properties and configuration details, implementing the psql \dRs meta-command functionality.

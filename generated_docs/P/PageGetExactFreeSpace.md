@@ -1,7 +1,7 @@
 # PageGetExactFreeSpace
 
 ## Location
-src/backend/storage/page/bufpage.c: 958 - 990
+[src/backend/storage/page/bufpage.c:958-990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L958-L990)
 
 ## Overview
 Returns the size of the free (allocatable) space on a page, without any consideration for adding/removing line pointers.

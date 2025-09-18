@@ -1,7 +1,7 @@
 # SimpleLruWriteAll
 
 ## Location
-src/backend/access/transam/slru.c: 1319 - 1404
+[src/backend/access/transam/slru.c:1319-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1319-L1404)
 
 ## Overview
 Writes all dirty pages to disk during checkpoint or database shutdown operations, implementing a coordinated flush of all modified SLRU buffer contents.

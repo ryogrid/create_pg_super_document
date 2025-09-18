@@ -1,7 +1,7 @@
 # PQrequestCancel
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 662 - 703
+[src/interfaces/libpq/fe-cancel.c:662-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L662-L703)
 
 ## Overview
 A convenience wrapper function that requests query cancellation on an active PostgreSQL connection using the old, non-thread-safe cancellation protocol.

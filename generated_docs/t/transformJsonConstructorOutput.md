@@ -1,7 +1,7 @@
 # transformJsonConstructorOutput
 
 ## Location
-src/backend/parser/parse_expr.c: 3547 - 3589
+[src/backend/parser/parse_expr.c:3547-3589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3547-L3589)
 
 ## Overview
 Transforms JSON output clause specifically for JSON constructor functions, with automatic type derivation based on constructor argument types when no explicit return type is specified.

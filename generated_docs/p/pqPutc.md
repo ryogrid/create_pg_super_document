@@ -1,7 +1,7 @@
 # pqPutc
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 92 - 108
+[src/interfaces/libpq/fe-misc.c:92-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L92-L108)
 
 ## Overview
 Writes a single character to the current outgoing message being constructed for the PostgreSQL backend.

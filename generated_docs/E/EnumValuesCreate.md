@@ -1,7 +1,7 @@
 # EnumValuesCreate
 
 ## Location
-src/backend/catalog/pg_enum.c: 84 - 223
+[src/backend/catalog/pg_enum.c:84-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L84-L223)
 
 ## Overview
 Creates entries in the pg_enum catalog table for each supplied enum value during CREATE TYPE AS ENUM, assigning sorted OIDs and managing transaction-level enum type tracking.

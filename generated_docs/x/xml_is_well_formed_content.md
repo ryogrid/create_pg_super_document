@@ -1,7 +1,7 @@
 # xml_is_well_formed_content
 
 ## Location
-src/backend/utils/adt/xml.c: 4635 - 4657
+[src/backend/utils/adt/xml.c:4635-4657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4635-L4657)
 
 ## Overview
 A PostgreSQL function that validates whether a given XML text content is well-formed according to XML standards.

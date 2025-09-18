@@ -1,7 +1,7 @@
 # _SPI_convert_params
 
 ## Location
-src/backend/executor/spi.c: 2849 - 2873
+[src/backend/executor/spi.c:2849-2873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2849-L2873)
 
 ## Overview
 _SPI_convert_params is a utility function that converts arrays of query parameters from SPI format into ParamListInfo structure used by the planner and executor.

@@ -1,7 +1,7 @@
 # parse_ident_line
 
 ## Location
-src/backend/libpq/hba.c: 2689 - 2756
+[src/backend/libpq/hba.c:2689-2756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2689-L2756)
 
 ## Overview
 Parses a single tokenized line from the pg_ident.conf file and creates an IdentLine structure containing the user mapping rule with compiled regular expressions.

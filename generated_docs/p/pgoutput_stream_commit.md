@@ -1,7 +1,7 @@
 # pgoutput_stream_commit
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1869 - 1896
+[src/backend/replication/pgoutput/pgoutput.c:1869-1896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1869-L1896)
 
 ## Overview
 This function notifies downstream to apply a streamed transaction along with all its subtransactions by writing a stream commit message to the logical replication output stream.

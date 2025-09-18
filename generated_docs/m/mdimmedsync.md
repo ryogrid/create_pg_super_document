@@ -1,7 +1,7 @@
 # mdimmedsync
 
 ## Location
-src/backend/storage/smgr/md.c: 1293 - 1354
+[src/backend/storage/smgr/md.c:1293-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1293-L1354)
 
 ## Overview
 Immediately syncs a relation to stable storage, ensuring all segments (both active and inactive) are flushed to disk.

@@ -1,7 +1,7 @@
 # single_bound_cmp
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1731 - 1743
+[src/backend/utils/adt/rangetypes_gist.c:1731-1743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1731-L1743)
 
 ## Overview
 A comparison function used for sorting SingleBoundSortItem structures during GiST range index splitting operations.

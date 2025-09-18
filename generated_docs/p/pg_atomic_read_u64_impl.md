@@ -1,7 +1,7 @@
 # pg_atomic_read_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 317 - 329
+[src/include/port/atomics/generic.h:317-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L317-L329)
 
 ## Overview
 Atomically reads a 64-bit unsigned integer value from a memory location, providing thread-safe access to 64-bit values on platforms where aligned 64-bit reads are guaranteed to be atomic.

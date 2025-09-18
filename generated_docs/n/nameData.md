@@ -1,7 +1,7 @@
 # nameData
 
 ## Location
-src/include/c.h: 740 - 742
+[src/include/c.h:740-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L740-L742)
 
 ## Overview
 The `nameData` struct is PostgreSQL's fundamental data type for storing identifiers such as table names, column names, function names, and other database object names. It provides a fixed-size, null-padded string representation that ensures consistent storage and handling of names throughout the system.

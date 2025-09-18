@@ -1,7 +1,7 @@
 # verify_backup_checksums
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 811 - 850
+[src/bin/pg_verifybackup/pg_verifybackup.c:811-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L811-L850)
 
 ## Overview
 Verifies the checksums of all files in the backup manifest that are eligible for checksum verification and have not already encountered problems.

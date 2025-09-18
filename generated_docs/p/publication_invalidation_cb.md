@@ -1,7 +1,7 @@
 # publication_invalidation_cb
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1768 - 1782
+[src/backend/replication/pgoutput/pgoutput.c:1768-1782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1768-L1782)
 
 ## Overview
 publication_invalidation_cb is a callback function that handles syscache invalidation events for the pg_publication system catalog, ensuring publication-related cached data remains consistent.

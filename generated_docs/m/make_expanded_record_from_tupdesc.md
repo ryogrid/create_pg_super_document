@@ -1,7 +1,7 @@
 # make_expanded_record_from_tupdesc
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 205 - 328
+[src/backend/utils/adt/expandedrecord.c:205-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L205-L328)
 
 ## Overview
 Creates an expanded record object from a given TupleDesc, copying the tupdesc if necessary or incrementing its reference count when possible.

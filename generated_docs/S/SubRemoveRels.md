@@ -1,7 +1,7 @@
 # SubRemoveRels
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 872 - 876
+[src/backend/commands/subscriptioncmds.c:872-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L872-L876)
 
 ## Overview
 SubRemoveRels is a local structure used within the  function to track relations that need to be removed from a subscription along with their current replication state.

@@ -1,7 +1,7 @@
 # dtsub
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 650 - 655
+[src/interfaces/ecpg/compatlib/informix.c:650-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L650-L655)
 
 ## Overview
 The dtsub function calculates the difference between two timestamps and returns the result as an interval, providing Informix ESQL/C compatibility for timestamp arithmetic operations.

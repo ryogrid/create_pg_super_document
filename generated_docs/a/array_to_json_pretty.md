@@ -1,7 +1,7 @@
 # array_to_json_pretty
 
 ## Location
-src/backend/utils/adt/json.c: 637 - 653
+[src/backend/utils/adt/json.c:637-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L637-L653)
 
 ## Overview
 SQL function that converts a PostgreSQL array into its JSON representation with optional pretty-printing (line feeds and indentation).

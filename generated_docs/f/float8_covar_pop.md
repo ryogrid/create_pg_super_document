@@ -1,7 +1,7 @@
 # float8_covar_pop
 
 ## Location
-src/backend/utils/adt/float.c: 3606 - 3624
+[src/backend/utils/adt/float.c:3606-3624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3606-L3624)
 
 ## Overview
 Computes the population covariance from a regression transition array, measuring the degree to which two variables vary together across the entire population.

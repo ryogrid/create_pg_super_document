@@ -1,7 +1,7 @@
 # connectMaintenanceDatabase
 
 ## Location
-src/fe_utils/connect_utils.c: 134 - 157
+[src/fe_utils/connect_utils.c:134-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/connect_utils.c#L134-L157)
 
 ## Overview
 Establishes a connection to an appropriate maintenance database, with automatic fallback logic to standard PostgreSQL maintenance databases.

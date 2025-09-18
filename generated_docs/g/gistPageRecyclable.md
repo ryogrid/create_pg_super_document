@@ -1,7 +1,7 @@
 # gistPageRecyclable
 
 ## Location
-src/backend/access/gist/gistutil.c: 887 - 910
+[src/backend/access/gist/gistutil.c:887-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L887-L910)
 
 ## Overview
 gistPageRecyclable determines whether a GiST index page can be safely recycled for reuse by checking if it's safe from concurrent access considerations.

@@ -1,7 +1,7 @@
 # width_bucket_array_fixed
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6785 - 6839
+[src/backend/utils/adt/arrayfuncs.c:6785-6839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6785-L6839)
 
 ## Overview
 Implements width_bucket functionality for generic fixed-width data types using binary search with custom comparison functions.

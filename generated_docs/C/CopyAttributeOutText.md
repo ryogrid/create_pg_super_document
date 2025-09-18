@@ -1,7 +1,7 @@
 # CopyAttributeOutText
 
 ## Location
-src/backend/commands/copyto.c: 987 - 1139
+[src/backend/commands/copyto.c:987-1139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L987-L1139)
 
 ## Overview
 CopyAttributeOutText formats a string attribute for text-mode COPY TO output by applying proper escaping and encoding conversion as needed.

@@ -1,7 +1,7 @@
 # RmgrIdIsBuiltin
 
 ## Location
-src/include/access/rmgr.h: 42 - 47
+[src/include/access/rmgr.h:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/rmgr.h#L42-L47)
 
 ## Overview
 Determines whether a resource manager ID corresponds to a built-in PostgreSQL resource manager.

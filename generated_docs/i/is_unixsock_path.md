@@ -1,7 +1,7 @@
 # is_unixsock_path
 
 ## Location
-src/include/libpq/pqcomm.h: 67 - 86
+[src/include/libpq/pqcomm.h:67-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqcomm.h#L67-L86)
 
 ## Overview
 A static inline function that determines whether a given path string represents a Unix domain socket address by checking if it's an absolute path or starts with the '@' character.

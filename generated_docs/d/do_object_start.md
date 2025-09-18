@@ -1,7 +1,7 @@
 # do_object_start
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 194 - 204
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:194-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L194-L204)
 
 ## Overview
 A semantic action callback function used in JSON parsing tests that handles the start of JSON objects by outputting the opening brace and resetting state flags.

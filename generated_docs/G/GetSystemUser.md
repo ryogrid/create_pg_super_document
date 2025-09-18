@@ -1,7 +1,7 @@
 # GetSystemUser
 
 ## Location
-src/backend/utils/init/miscinit.c: 581 - 590
+[src/backend/utils/init/miscinit.c:581-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L581-L590)
 
 ## Overview
 Returns the system user string representing the authenticated identity, formatted as "auth_method:authn_id" to uniquely identify how and as whom the current session was authenticated.

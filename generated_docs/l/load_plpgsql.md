@@ -1,7 +1,7 @@
 # load_plpgsql
 
 ## Location
-src/bin/initdb/initdb.c: 1974 - 1982
+[src/bin/initdb/initdb.c:1974-1982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1974-L1982)
 
 ## Overview
 Installs the PL/pgSQL procedural language extension during database initialization.

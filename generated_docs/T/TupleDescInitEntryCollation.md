@@ -1,7 +1,7 @@
 # TupleDescInitEntryCollation
 
 ## Location
-src/backend/access/common/tupdesc.c: 833 - 857
+[src/backend/access/common/tupdesc.c:833-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L833-L857)
 
 ## Overview
 Assigns a nondefault collation to a previously initialized tuple descriptor attribute entry.

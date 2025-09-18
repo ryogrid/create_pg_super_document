@@ -1,7 +1,7 @@
 # lazy_vacuum_heap_page
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2195 - 2299
+[src/backend/access/heap/vacuumlazy.c:2195-2299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2195-L2299)
 
 ## Overview
 Processes a single heap page during vacuum by converting specified LP_DEAD items to LP_UNUSED, attempting line pointer array truncation, and updating visibility map information.

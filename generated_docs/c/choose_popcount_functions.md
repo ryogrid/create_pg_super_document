@@ -1,7 +1,7 @@
 # choose_popcount_functions
 
 ## Location
-src/port/pg_bitutils.c: 156 - 182
+[src/port/pg_bitutils.c:156-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L156-L182)
 
 ## Overview
 Selects and configures the optimal popcount function implementations based on CPU capabilities detected at runtime.

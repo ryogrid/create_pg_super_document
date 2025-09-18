@@ -1,7 +1,7 @@
 # show_all_settings
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 849 - 983
+[src/backend/utils/misc/guc_funcs.c:849-983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L849-L983)
 
 ## Overview
 A PostgreSQL system function that returns a set of tuples containing all configuration parameters and their attributes, implementing the pg_settings system view.

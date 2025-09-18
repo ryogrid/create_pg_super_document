@@ -1,7 +1,7 @@
 # RemovePublicationById
 
 ## Location
-src/backend/commands/publicationcmds.c: 1482 - 1510
+[src/backend/commands/publicationcmds.c:1482-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1482-L1510)
 
 ## Overview
 RemovePublicationById removes a publication from the system catalog using its OID, performing appropriate cache invalidation based on the publication type.

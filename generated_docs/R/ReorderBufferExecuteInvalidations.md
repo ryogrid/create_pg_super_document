@@ -1,7 +1,7 @@
 # ReorderBufferExecuteInvalidations
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3518 - 3529
+[src/backend/replication/logical/reorderbuffer.c:3518-3529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3518-L3529)
 
 ## Overview
 Executes all accumulated invalidation messages during logical replication replay to maintain cache consistency.

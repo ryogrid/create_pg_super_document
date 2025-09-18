@@ -1,7 +1,7 @@
 # RelationNameGetTupleDesc
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1870 - 1902
+[src/backend/utils/fmgr/funcapi.c:1870-1902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1870-L1902)
 
 ## Overview
 Creates a tuple descriptor by looking up and copying the structure of an existing relation (table) by name.

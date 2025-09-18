@@ -1,7 +1,7 @@
 # ExecMemoizeInitializeWorker
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1236 - 1248
+[src/backend/executor/nodeMemoize.c:1236-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1236-L1248)
 
 ## Overview
 Attaches a parallel worker process to the previously initialized Dynamic Shared Memory (DSM) space for memoize statistics collection.

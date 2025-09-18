@@ -1,7 +1,7 @@
 # vector8_eq
 
 ## Location
-src/include/port/simd.h: 385 - 396
+[src/include/port/simd.h:385-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L385-L396)
 
 ## Overview
 Performs element-wise equality comparison between two 8-byte SIMD vectors, returning a mask vector indicating which elements are equal.

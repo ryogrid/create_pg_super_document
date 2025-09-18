@@ -1,7 +1,7 @@
 # get_ts_template_oid
 
 ## Location
-src/backend/catalog/namespace.c: 3007 - 3064
+[src/backend/catalog/namespace.c:3007-3064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3007-L3064)
 
 ## Overview
 get_ts_template_oid finds and returns the OID of a text search template by its qualified or unqualified name, with optional error handling for missing templates.

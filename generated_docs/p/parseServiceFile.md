@@ -1,7 +1,7 @@
 # parseServiceFile
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5560 - 5737
+[src/interfaces/libpq/fe-connect.c:5560-5737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5560-L5737)
 
 ## Overview
 Parses a PostgreSQL service configuration file to extract connection parameters for a specified service name.

@@ -1,7 +1,7 @@
 # AlterSubscription_refresh
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 859 - 871
+[src/backend/commands/subscriptioncmds.c:859-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L859-L871)
 
 ## Overview
 Refreshes a subscription by synchronizing its table list with the publisher, adding new tables and removing tables that are no longer published.

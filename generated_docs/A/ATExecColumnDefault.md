@@ -1,7 +1,7 @@
 # ATExecColumnDefault
 
 ## Location
-src/backend/commands/tablecmds.c: 7908 - 7993
+[src/backend/commands/tablecmds.c:7908-7993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7908-L7993)
 
 ## Overview
 ATExecColumnDefault handles both SET DEFAULT and DROP DEFAULT operations for table columns during ALTER TABLE commands, managing default value expressions and validating column constraints.

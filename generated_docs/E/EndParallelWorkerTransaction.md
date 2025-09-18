@@ -1,7 +1,7 @@
 # EndParallelWorkerTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 5574 - 5585
+[src/backend/access/transam/xact.c:5574-5585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5574-L5585)
 
 ## Overview
 EndParallelWorkerTransaction cleanly terminates a parallel worker transaction by committing changes and resetting the transaction state to its default condition.

@@ -1,7 +1,7 @@
 # pg_ls_waldir
 
 ## Location
-src/backend/utils/adt/genfile.c: 640 - 648
+[src/backend/utils/adt/genfile.c:640-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L640-L648)
 
 ## Overview
 Returns a list of regular files in the PostgreSQL WAL (Write-Ahead Log) directory with detailed information including filename, size, and modification time.

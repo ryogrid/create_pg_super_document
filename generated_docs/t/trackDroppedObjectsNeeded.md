@@ -1,7 +1,7 @@
 # trackDroppedObjectsNeeded
 
 ## Location
-src/backend/commands/event_trigger.c: 1246 - 1277
+[src/backend/commands/event_trigger.c:1246-1277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1246-L1277)
 
 ## Overview
 A utility function that determines whether PostgreSQL needs to track objects being dropped, which is necessary for proper event trigger processing.

@@ -1,7 +1,7 @@
 # CustomScanMethods
 
 ## Location
-src/include/nodes/extensible.h: 112 - 118
+[src/include/nodes/extensible.h:112-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/extensible.h#L112-L118)
 
 ## Overview
 CustomScanMethods defines the callback interface for custom scan implementations in PostgreSQL, enabling extensions to provide specialized scan execution logic during query execution.

@@ -1,7 +1,7 @@
 # pltcl_fetch_interp
 
 ## Location
-src/pl/tcl/pltcl.c: 563 - 592
+[src/pl/tcl/pltcl.c:563-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L563-L592)
 
 ## Overview
 Retrieves or creates a Tcl interpreter for executing PL/Tcl functions, managing per-user interpreter instances and handling lazy initialization.

@@ -1,7 +1,7 @@
 # dsa_create_in_place_ext
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 471 - 497
+[src/backend/utils/mmgr/dsa.c:471-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L471-L497)
 
 ## Overview
 Creates a new Dynamic Shared Area (DSA) within existing shared memory space (either DSM or Postmaster-initialized memory) with extended control over segment sizing parameters.

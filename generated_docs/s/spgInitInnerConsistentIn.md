@@ -1,7 +1,7 @@
 # spgInitInnerConsistentIn
 
 ## Location
-src/backend/access/spgist/spgscan.c: 606 - 628
+[src/backend/access/spgist/spgscan.c:606-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L606-L628)
 
 ## Overview
 Initializes the input structure for calling an SP-GiST opclass inner_consistent method by populating all required fields from scan state and current search context.

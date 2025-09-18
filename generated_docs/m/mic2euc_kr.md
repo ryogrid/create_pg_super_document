@@ -1,7 +1,7 @@
 # mic2euc_kr
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c: 124 - 174
+[src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c:124-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c#L124-L174)
 
 ## Overview
 Performs the actual character-by-character conversion from PostgreSQL's internal MULE encoding to EUC-KR encoding, handling Korean characters with language prefixes and ASCII characters.

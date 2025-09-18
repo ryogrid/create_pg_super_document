@@ -1,7 +1,7 @@
 # bbstreamer_lz4_decompressor_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 310 - 389
+[src/bin/pg_basebackup/bbstreamer_lz4.c:310-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L310-L389)
 
 ## Overview
 Processes LZ4-compressed backup stream data by decompressing input data to an output buffer and forwarding decompressed chunks to the next streamer in the pipeline when the buffer is full.

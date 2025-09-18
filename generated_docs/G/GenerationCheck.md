@@ -1,7 +1,7 @@
 # GenerationCheck
 
 ## Location
-src/backend/utils/mmgr/generation.c: 1093 - 1205
+[src/backend/utils/mmgr/generation.c:1093-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L1093-L1205)
 
 ## Overview
 Performs comprehensive memory integrity validation for a Generation memory context by walking through all blocks and chunks to verify consistency and detect corruption.

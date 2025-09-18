@@ -1,7 +1,7 @@
 # WaitForProcSignalBarrier
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 389 - 447
+[src/backend/storage/ipc/procsignal.c:389-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L389-L447)
 
 ## Overview
 Waits until it is guaranteed that all changes requested by a specific call to EmitProcSignalBarrier() have taken effect across all PostgreSQL backend processes.

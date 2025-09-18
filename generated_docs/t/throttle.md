@@ -1,7 +1,7 @@
 # throttle
 
 ## Location
-src/backend/backup/basebackup_throttle.c: 134 - 199
+[src/backend/backup/basebackup_throttle.c:134-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_throttle.c#L134-L199)
 
 ## Overview
 Core throttling function that controls data transfer rate by incrementing a counter and sleeping when necessary to comply with the configured bandwidth limits.

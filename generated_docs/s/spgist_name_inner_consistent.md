@@ -1,7 +1,7 @@
 # spgist_name_inner_consistent
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 266 - 398
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:266-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L266-L398)
 
 ## Overview
 Implements the inner consistent function for SP-GiST name operator class, evaluating which child nodes should be visited during index traversal based on search predicates.

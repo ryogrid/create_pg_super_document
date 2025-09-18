@@ -1,7 +1,7 @@
 # btestimateparallelscan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 537 - 546
+[src/backend/access/nbtree/nbtree.c:537-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L537-L546)
 
 ## Overview
 Estimates the storage size required for BTParallelScanDescData structure to support parallel btree index scans.

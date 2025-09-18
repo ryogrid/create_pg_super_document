@@ -1,7 +1,7 @@
 # float8_regr_accum
 
 ## Location
-src/backend/utils/adt/float.c: 3247 - 3370
+[src/backend/utils/adt/float.c:3247-3370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3247-L3370)
 
 ## Overview
 Accumulates transition state values for SQL regression aggregate functions using the Youngs-Cramer algorithm to maintain numerical stability and reduce rounding errors.

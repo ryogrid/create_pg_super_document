@@ -1,7 +1,7 @@
 # lowerstr
 
 ## Location
-src/backend/tsearch/ts_locale.c: 253 - 265
+[src/backend/tsearch/ts_locale.c:253-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L253-L265)
 
 ## Overview
 Converts a null-terminated string to lowercase using locale-appropriate case conversion and returns a newly allocated result.

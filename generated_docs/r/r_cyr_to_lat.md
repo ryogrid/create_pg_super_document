@@ -1,7 +1,7 @@
 # r_cyr_to_lat
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_serbian.c: 4793 - 4974
+[src/backend/snowball/libstemmer/stem_UTF_8_serbian.c:4793-4974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_serbian.c#L4793-L4974)
 
 ## Overview
 Converts Cyrillic characters to their corresponding Latin equivalents in the Serbian text stemming algorithm.

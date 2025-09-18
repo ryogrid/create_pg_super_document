@@ -1,7 +1,7 @@
 # assign_synchronized_standby_slots
 
 ## Location
-src/backend/replication/slot.c: 2544 - 2558
+[src/backend/replication/slot.c:2544-2558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2544-L2558)
 
 ## Overview
 GUC assign_hook for the synchronized_standby_slots configuration parameter that updates global configuration and resets cached LSN values when the parameter changes.

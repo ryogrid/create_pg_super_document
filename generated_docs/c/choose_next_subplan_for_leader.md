@@ -1,7 +1,7 @@
 # choose_next_subplan_for_leader
 
 ## Location
-src/backend/executor/nodeAppend.c: 620 - 701
+[src/backend/executor/nodeAppend.c:620-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L620-L701)
 
 ## Overview
 Implements leader process subplan selection strategy for parallel Append execution, optimizing work distribution by preferring cheaper subplans and coordinating with worker processes through shared memory.

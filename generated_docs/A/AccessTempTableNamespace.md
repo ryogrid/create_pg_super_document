@@ -1,7 +1,7 @@
 # AccessTempTableNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 4362 - 4389
+[src/backend/catalog/namespace.c:4362-4389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4362-L4389)
 
 ## Overview
 Provides access to the temporary namespace, creating it if necessary and registering its usage in the current transaction.

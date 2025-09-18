@@ -1,7 +1,7 @@
 # pg_strncoll_icu
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2075 - 2120
+[src/backend/utils/adt/pg_locale.c:2075-2120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2075-L2120)
 
 ## Overview
 Provides ICU-based string collation with automatic optimization for UTF-8 database encodings, selecting the most efficient ICU collation function available.

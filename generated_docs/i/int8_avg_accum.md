@@ -1,7 +1,7 @@
 # int8_avg_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5808 - 5834
+[src/backend/utils/adt/numeric.c:5808-5834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5808-L5834)
 
 ## Overview
 Transition function for int8 input aggregation when computing averages that don't require sum of squares (sumX2).

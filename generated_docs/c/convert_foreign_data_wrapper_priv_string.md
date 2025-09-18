@@ -1,7 +1,7 @@
 # convert_foreign_data_wrapper_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 3368 - 3395
+[src/backend/utils/adt/acl.c:3368-3395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3368-L3395)
 
 ## Overview
 Converts a text string representing foreign data wrapper privilege types into an AclMode bitmask value.

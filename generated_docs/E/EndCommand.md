@@ -1,7 +1,7 @@
 # EndCommand
 
 ## Location
-src/backend/tcop/dest.c: 169 - 204
+[src/backend/tcop/dest.c:169-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L169-L204)
 
 ## Overview
 EndCommand is responsible for clean up operations at the completion of a SQL command, primarily sending completion status messages to the client for remote destinations.

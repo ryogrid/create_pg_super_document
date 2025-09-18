@@ -1,7 +1,7 @@
 # is_orclause
 
 ## Location
-src/include/nodes/nodeFuncs.h: 116 - 124
+[src/include/nodes/nodeFuncs.h:116-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L116-L124)
 
 ## Overview
 Tests whether a given clause is an OR clause (BoolExpr with OR_EXPR operator).

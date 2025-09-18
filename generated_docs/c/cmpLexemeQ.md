@@ -1,7 +1,7 @@
 # cmpLexemeQ
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 372 - 377
+[src/backend/tsearch/dict_thesaurus.c:372-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L372-L377)
 
 ## Overview
 A qsort-compatible wrapper function for cmpLexeme that enables sorting arrays of TheLexeme structures using standard library sorting functions.

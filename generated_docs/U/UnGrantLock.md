@@ -1,7 +1,7 @@
 # UnGrantLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1581 - 1637
+[src/backend/storage/lmgr/lock.c:1581-1637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1581-L1637)
 
 ## Overview
 UnGrantLock is the opposite of GrantLock, updating lock and proclock data structures to show that a lock is no longer held and determining if any waiting processes should be awakened.

@@ -1,7 +1,7 @@
 # find_inheritance_children
 
 ## Location
-src/backend/catalog/pg_inherits.c: 58 - 81
+[src/backend/catalog/pg_inherits.c:58-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L58-L81)
 
 ## Overview
 Returns a list of OIDs for all relations that directly inherit from a specified parent relation, with automatic locking and exclusion of detached partitions.

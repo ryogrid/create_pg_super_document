@@ -1,7 +1,7 @@
 # ox2
 
 ## Location
-src/backend/optimizer/geqo/geqo_ox2.c: 49 - 113
+[src/backend/optimizer/geqo/geqo_ox2.c:49-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_ox2.c#L49-L113)
 
 ## Overview
 The ox2 function implements position crossover (OX2) operation for the Genetic Query Optimizer (GEQO) in PostgreSQL, combining genetic material from two parent tours to generate an offspring tour.

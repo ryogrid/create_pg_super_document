@@ -1,7 +1,7 @@
 # add_one
 
 ## Location
-src/tutorial/funcs.c: 24 - 35
+[src/tutorial/funcs.c:24-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L24-L35)
 
 ## Overview
 A simple PostgreSQL C function that increments an integer argument by one, serving as a basic example in the PostgreSQL tutorial for creating user-defined functions.

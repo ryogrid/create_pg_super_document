@@ -1,7 +1,7 @@
 # r_steps2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2570 - 2587
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2570-2587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2570-L2587)
 
 ## Overview
 The final phase Greek stemming function that performs cleanup suffix removal followed by standardized stem ending restoration, completing the multi-step stemming pipeline.

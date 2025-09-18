@@ -1,7 +1,7 @@
 # ExecForeignScanReInitializeDSM
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 397 - 417
+[src/backend/executor/nodeForeignscan.c:397-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L397-L417)
 
 ## Overview
 ExecForeignScanReInitializeDSM resets the shared state in dynamic shared memory before beginning a fresh parallel foreign scan.

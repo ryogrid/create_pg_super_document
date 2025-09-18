@@ -1,7 +1,7 @@
 # get_am_type_string
 
 ## Location
-src/backend/commands/amcmds.c: 212 - 233
+[src/backend/commands/amcmds.c:212-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L212-L233)
 
 ## Overview
 Converts a single-character access method type code into a human-readable string representation for error reporting and diagnostics.

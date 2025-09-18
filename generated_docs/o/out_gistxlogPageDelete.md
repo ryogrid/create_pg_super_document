@@ -1,7 +1,7 @@
 # out_gistxlogPageDelete
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 52 - 60
+[src/backend/access/rmgrdesc/gistdesc.c:52-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L52-L60)
 
 ## Overview
 A static function that formats and outputs information about GiST page deletion WAL records, including the deletion transaction ID and downlink offset details.

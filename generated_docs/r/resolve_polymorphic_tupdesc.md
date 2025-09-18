@@ -1,7 +1,7 @@
 # resolve_polymorphic_tupdesc
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 744 - 1063
+[src/backend/utils/fmgr/funcapi.c:744-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L744-L1063)
 
 ## Overview
 Resolves polymorphic column types in a function's result tuple descriptor by replacing them with concrete data types deduced from the function's input arguments.

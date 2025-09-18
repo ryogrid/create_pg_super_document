@@ -1,7 +1,7 @@
 # readOneRecord
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 124 - 167
+[src/bin/pg_rewind/parsexlog.c:124-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L124-L167)
 
 ## Overview
 Reads a single WAL record from the specified position and returns the end position of that record without processing its contents.

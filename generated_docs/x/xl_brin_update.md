@@ -1,7 +1,7 @@
 # xl_brin_update
 
 ## Location
-src/include/access/brin_xlog.h: 87 - 93
+[src/include/access/brin_xlog.h:87-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_xlog.h#L87-L93)
 
 ## Overview
 A WAL record structure for logging BRIN tuple update operations, specifically cross-page updates where the new tuple is placed on a different page than the old tuple.

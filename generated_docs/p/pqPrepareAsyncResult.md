@@ -1,7 +1,7 @@
 # pqPrepareAsyncResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 851 - 937
+[src/interfaces/libpq/fe-exec.c:851-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L851-L937)
 
 ## Overview
 pqPrepareAsyncResult is an internal libpq function that prepares the current asynchronous result object for return to the caller, ensuring a valid PGresult is always returned even under error or out-of-memory conditions.

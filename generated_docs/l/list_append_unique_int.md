@@ -1,7 +1,7 @@
 # list_append_unique_int
 
 ## Location
-src/backend/nodes/list.c: 1368 - 1379
+[src/backend/nodes/list.c:1368-1379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1368-L1379)
 
 ## Overview
 Appends an integer value to a list only if it is not already present, ensuring uniqueness of integer values in the list.

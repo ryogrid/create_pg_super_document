@@ -1,7 +1,7 @@
 # arabic_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1663 - 1664
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1663-1664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1663-L1664)
 
 ## Overview
 Destructor function that properly cleans up and deallocates a Snowball environment structure that was created for Arabic UTF-8 text stemming operations.

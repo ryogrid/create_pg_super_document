@@ -1,7 +1,7 @@
 # pg_encoding_mbcliplen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1093 - 1124
+[src/backend/utils/mb/mbutils.c:1093-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1093-L1124)
 
 ## Overview
 Clips a multi-byte string to a specified length limit with a given encoding, ensuring the result remains valid by not breaking multi-byte character boundaries.

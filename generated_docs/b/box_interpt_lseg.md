@@ -1,7 +1,7 @@
 # box_interpt_lseg
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3263 - 3314
+[src/backend/utils/adt/geo_ops.c:3263-3314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3263-L3314)
 
 ## Overview
 Determines if a line segment intersects with a box and optionally computes the closest point on the segment to the box center.

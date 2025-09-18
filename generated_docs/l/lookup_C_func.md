@@ -1,7 +1,7 @@
 # lookup_C_func
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 515 - 538
+[src/backend/utils/fmgr/fmgr.c:515-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L515-L538)
 
 ## Overview
 This static function searches a hash table cache to find a previously loaded C function entry, verifying that the cached entry is still current.

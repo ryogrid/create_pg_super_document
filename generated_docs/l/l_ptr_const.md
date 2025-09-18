@@ -1,7 +1,7 @@
 # l_ptr_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 28 - 38
+[src/include/jit/llvmjit_emit.h:28-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L28-L38)
 
 ## Overview
 A static inline utility function that converts a non-LLVM pointer into an LLVM constant value for use in JIT compilation.

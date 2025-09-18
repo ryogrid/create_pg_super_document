@@ -1,7 +1,7 @@
 # heap_modify_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1209 - 1276
+[src/backend/access/common/heaptuple.c:1209-1276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1209-L1276)
 
 ## Overview
 Creates a new HeapTuple by selectively replacing attributes from an existing tuple with new values based on a replacement mask.

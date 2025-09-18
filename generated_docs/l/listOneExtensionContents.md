@@ -1,7 +1,7 @@
 # listOneExtensionContents
 
 ## Location
-src/bin/psql/describe.c: 6120 - 6163
+[src/bin/psql/describe.c:6120-6163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6120-L6163)
 
 ## Overview
 A static helper function that displays the detailed contents (objects) of a single PostgreSQL extension by querying the dependency catalog and using pg_describe_object to show human-readable object descriptions.

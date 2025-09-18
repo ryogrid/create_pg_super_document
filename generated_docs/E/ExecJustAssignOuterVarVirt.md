@@ -1,7 +1,7 @@
 # ExecJustAssignOuterVarVirt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2355 - 2361
+[src/backend/executor/execExprInterp.c:2355-2361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2355-L2361)
 
 ## Overview
 An optimized expression evaluation function for assigning variables from virtual outer tuple slots to result slots in PostgreSQL's join operations.

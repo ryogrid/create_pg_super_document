@@ -1,7 +1,7 @@
 # scan_profile
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 198 - 232
+[src/tools/pg_bsd_indent/args.c:198-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L198-L232)
 
 ## Overview
 The scan_profile function parses a profile configuration file to extract indent options, handling C-style comments and whitespace while processing each option found.

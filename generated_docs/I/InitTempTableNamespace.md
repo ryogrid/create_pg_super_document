@@ -1,7 +1,7 @@
 # InitTempTableNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 4390 - 4511
+[src/backend/catalog/namespace.c:4390-4511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4390-L4511)
 
 ## Overview
 Initializes the temporary table namespace on first use in a backend, creating both temp and toast namespaces with proper permissions and cleanup.

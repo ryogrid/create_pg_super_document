@@ -1,7 +1,7 @@
 # pairingheap
 
 ## Location
-src/include/lib/pairingheap.h: 71 - 76
+[src/include/lib/pairingheap.h:71-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/pairingheap.h#L71-L76)
 
 ## Overview
 A pairing heap data structure that provides an efficient priority queue implementation with O(log n) amortized complexity for most operations.

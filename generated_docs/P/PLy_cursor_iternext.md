@@ -1,7 +1,7 @@
 # PLy_cursor_iternext
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 304 - 365
+[src/pl/plpython/plpy_cursorobject.c:304-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L304-L365)
 
 ## Overview
 Implements the Python iterator protocol for PLyCursor objects, allowing cursors to be used in Python for-loops by fetching the next row from the cursor.

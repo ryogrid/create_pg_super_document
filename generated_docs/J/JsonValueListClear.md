@@ -1,7 +1,7 @@
 # JsonValueListClear
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3506 - 3512
+[src/backend/utils/adt/jsonpath_exec.c:3506-3512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3506-L3512)
 
 ## Overview
 Clears a JsonValueList structure by resetting both its singleton pointer and list to their initial empty states.

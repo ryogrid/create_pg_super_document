@@ -1,7 +1,7 @@
 # pnstrdup
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1706 - 1722
+[src/backend/utils/mmgr/mcxt.c:1706-1722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1706-L1722)
 
 ## Overview
 A utility function that creates a null-terminated string copy from an input string that may not be null-terminated, with length specified explicitly.

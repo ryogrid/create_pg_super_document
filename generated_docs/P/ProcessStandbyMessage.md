@@ -1,7 +1,7 @@
 # ProcessStandbyMessage
 
 ## Location
-src/backend/replication/walsender.c: 2338 - 2368
+[src/backend/replication/walsender.c:2338-2368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2338-L2368)
 
 ## Overview
 ProcessStandbyMessage acts as a message type dispatcher for processing status update messages received from standby servers in PostgreSQL's replication protocol.

@@ -1,7 +1,7 @@
 # get_object_oid_index
 
 ## Location
-src/backend/catalog/objectaddress.c: 2628 - 2635
+[src/backend/catalog/objectaddress.c:2628-2635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2628-L2635)
 
 ## Overview
 Retrieves the OID of the unique index used for object identification for a given object class.

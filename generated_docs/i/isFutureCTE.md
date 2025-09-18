@@ -1,7 +1,7 @@
 # isFutureCTE
 
 ## Location
-src/backend/parser/parse_relation.c: 313 - 334
+[src/backend/parser/parse_relation.c:313-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L313-L334)
 
 ## Overview
 Checks if a given reference name matches a "future CTE" that is not yet in scope according to WITH scoping rules, used for improved error reporting.

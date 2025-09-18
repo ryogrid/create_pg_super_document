@@ -1,7 +1,7 @@
 # pgTypeNameCompare
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 471 - 514
+[src/bin/pg_dump/pg_dump_sort.c:471-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L471-L514)
 
 ## Overview
 A static utility function that compares two PostgreSQL data types by their namespace and type name, providing consistent ordering for type-based sorting operations in pg_dump.

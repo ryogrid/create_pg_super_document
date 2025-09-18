@@ -1,7 +1,7 @@
 # generate_subquery_params
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 580 - 612
+[src/backend/optimizer/plan/subselect.c:580-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L580-L612)
 
 ## Overview
 Creates a list of Param nodes representing the output columns of a subquery's target list, used for parameter passing between subqueries and outer queries.

@@ -1,7 +1,7 @@
 # ExplainFlushWorkersState
 
 ## Location
-src/backend/commands/explain.c: 4596 - 4625
+[src/backend/commands/explain.c:4596-4625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4596-L4625)
 
 ## Overview
 Prints per-worker information for the current node and then deallocates the ExplainWorkersState structure, finalizing the output of parallel execution details in query plans.

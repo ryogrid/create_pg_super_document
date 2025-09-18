@@ -1,7 +1,7 @@
 # varchar_input
 
 ## Location
-src/backend/utils/adt/varchar.c: 457 - 494
+[src/backend/utils/adt/varchar.c:457-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L457-L494)
 
 ## Overview
 Internal function that handles the common logic for varchar input processing, performing length validation and truncation according to SQL standards.

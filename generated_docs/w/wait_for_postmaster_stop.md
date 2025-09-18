@@ -1,7 +1,7 @@
 # wait_for_postmaster_stop
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 709 - 745
+[src/bin/pg_ctl/pg_ctl.c:709-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L709-L745)
 
 ## Overview
 Waits for the PostgreSQL postmaster process to stop completely, monitoring both the PID file removal and process liveness.

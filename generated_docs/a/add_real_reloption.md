@@ -1,7 +1,7 @@
 # add_real_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 954 - 971
+[src/backend/access/common/reloptions.c:954-971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L954-L971)
 
 ## Overview
 A public function that creates and registers a new real (floating-point) type relation option (reloption) with the PostgreSQL reloptions system.

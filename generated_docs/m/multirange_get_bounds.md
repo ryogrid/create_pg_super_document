@@ -1,7 +1,7 @@
 # multirange_get_bounds
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 744 - 801
+[src/backend/utils/adt/multirangetypes.c:744-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L744-L801)
 
 ## Overview
 This function efficiently extracts the lower and upper bounds from the i-th range within a multirange, providing a performance-optimized alternative to deserializing a complete range object.

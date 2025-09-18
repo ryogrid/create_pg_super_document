@@ -1,7 +1,7 @@
 # dataSplitPageInternal
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1252 - 1332
+[src/backend/access/gin/gindatapage.c:1252-1332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1252-L1332)
 
 ## Overview
 dataSplitPageInternal splits an internal GIN data page when there is insufficient space for a new PostingItem, creating two new temporary pages with the existing and new items distributed between them.

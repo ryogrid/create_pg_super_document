@@ -1,7 +1,7 @@
 # check_locale_messages
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 427 - 449
+[src/backend/utils/adt/pg_locale.c:427-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L427-L449)
 
 ## Overview
 This function validates locale values for the LC_MESSAGES category during PostgreSQL configuration parameter processing, allowing global setting of message locale while handling platform-specific limitations.

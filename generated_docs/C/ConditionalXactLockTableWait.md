@@ -1,7 +1,7 @@
 # ConditionalXactLockTableWait
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 733 - 777
+[src/backend/storage/lmgr/lmgr.c:733-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L733-L777)
 
 ## Overview
 ConditionalXactLockTableWait attempts to wait for a specified transaction to complete, but returns immediately if the lock cannot be acquired without blocking, providing a non-blocking alternative to XactLockTableWait.

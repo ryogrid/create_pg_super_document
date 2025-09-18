@@ -1,7 +1,7 @@
 # get_partition_for_tuple
 
 ## Location
-src/backend/executor/execPartition.c: 1391 - 1610
+[src/backend/executor/execPartition.c:1391-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1391-L1610)
 
 ## Overview
 Finds the partition of a relation that accepts the specified partition key values, implementing an optimized lookup algorithm with caching for improved performance on repeated searches.

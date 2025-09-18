@@ -1,7 +1,7 @@
 # has_param_priv_byname
 
 ## Location
-src/backend/utils/adt/acl.c: 4615 - 4627
+[src/backend/utils/adt/acl.c:4615-4627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4615-L4627)
 
 ## Overview
 A static helper function that checks if a specific role has the given privileges on a parameter identified by its text name.

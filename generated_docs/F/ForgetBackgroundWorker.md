@@ -1,7 +1,7 @@
 # ForgetBackgroundWorker
 
 ## Location
-src/backend/postmaster/bgworker.c: 432 - 466
+[src/backend/postmaster/bgworker.c:432-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L432-L466)
 
 ## Overview
 Removes a background worker from the postmaster's private list and marks its shared memory slot as unused, completing the worker cleanup process.

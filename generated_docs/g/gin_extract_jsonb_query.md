@@ -1,7 +1,7 @@
 # gin_extract_jsonb_query
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 848 - 928
+[src/backend/utils/adt/jsonb_gin.c:848-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L848-L928)
 
 ## Overview
 Main GIN query extraction function for the jsonb_ops operator class, handling multiple jsonb query strategies including containment, key existence, and jsonpath operations by dispatching to appropriate extraction methods.

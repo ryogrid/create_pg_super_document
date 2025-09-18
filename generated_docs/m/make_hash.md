@@ -1,7 +1,7 @@
 # make_hash
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6005 - 6027
+[src/backend/optimizer/plan/createplan.c:6005-6027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6005-L6027)
 
 ## Overview
 Creates a Hash plan node that builds a hash table for use by a HashJoin operation in PostgreSQL's query execution plan tree.

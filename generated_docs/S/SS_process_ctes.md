@@ -1,7 +1,7 @@
 # SS_process_ctes
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 880 - 1055
+[src/backend/optimizer/plan/subselect.c:880-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L880-L1055)
 
 ## Overview
 Processes a query's WITH list by determining whether to ignore, inline, or convert each Common Table Expression (CTE) to an initplan based on usage patterns and characteristics.

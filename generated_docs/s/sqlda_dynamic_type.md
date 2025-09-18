@@ -1,7 +1,7 @@
 # sqlda_dynamic_type
 
 ## Location
-src/interfaces/ecpg/ecpglib/typename.c: 107 - 144
+[src/interfaces/ecpg/ecpglib/typename.c:107-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/typename.c#L107-L144)
 
 ## Overview
 This function maps PostgreSQL object identifiers (OIDs) to ECPG type constants specifically for SQLDA (SQL Descriptor Area) operations, with compatibility mode considerations for different database systems.

@@ -1,7 +1,7 @@
 # PLy_get_error_data
 
 ## Location
-src/pl/plpython/plpy_elog.c: 417 - 434
+[src/pl/plpython/plpy_elog.c:417-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L417-L434)
 
 ## Overview
 PLy_get_error_data extracts error information from Python Error exception objects, retrieving SQL error codes and database object context information for PostgreSQL error reporting.

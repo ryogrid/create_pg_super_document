@@ -1,7 +1,7 @@
 # brin_bloom_summary_in
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 777 - 798
+[src/backend/access/brin/brin_bloom.c:777-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L777-L798)
 
 ## Overview
 Input function for the brin_bloom_summary PostgreSQL data type that explicitly disallows text input, as this type is designed only for internal binary representation of BRIN Bloom index summaries.

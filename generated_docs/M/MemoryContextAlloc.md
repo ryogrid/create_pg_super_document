@@ -1,7 +1,7 @@
 # MemoryContextAlloc
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1180 - 1213
+[src/backend/utils/mmgr/mcxt.c:1180-1213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1180-L1213)
 
 ## Overview
 MemoryContextAlloc is the primary function for allocating memory within a specified PostgreSQL memory context, providing a standardized interface for memory allocation across the system.

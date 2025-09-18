@@ -1,7 +1,7 @@
 # cost_bitmap_or_node
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1201 - 1248
+[src/backend/optimizer/path/costsize.c:1201-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1201-L1248)
 
 ## Overview
 Estimates the cost of a BitmapOr node by calculating the combined costs of its constituent bitmap operations and the bitmap union overhead.

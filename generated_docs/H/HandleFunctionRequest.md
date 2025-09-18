@@ -1,7 +1,7 @@
 # HandleFunctionRequest
 
 ## Location
-src/backend/tcop/fastpath.c: 189 - 329
+[src/backend/tcop/fastpath.c:189-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/fastpath.c#L189-L329)
 
 ## Overview
 Handles fast-path function calls from the frontend client, serving as the server-side implementation of the PQfn protocol for direct function invocation without SQL parsing.

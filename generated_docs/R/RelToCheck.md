@@ -1,7 +1,7 @@
 # RelToCheck
 
 ## Location
-src/backend/commands/typecmds.c: 85 - 105
+[src/backend/commands/typecmds.c:85-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L85-L105)
 
 ## Overview
 RelToCheck is a result structure used to represent relations (tables) that contain columns of a specific domain type, along with information about which attributes need to be checked during domain validation operations.

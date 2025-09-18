@@ -1,7 +1,7 @@
 # LookupExplicitNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3385 - 3427
+[src/backend/catalog/namespace.c:3385-3427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3385-L3427)
 
 ## Overview  
 Processes an explicitly-specified schema name by looking up the schema and verifying the current user has USAGE (lookup) rights in it.

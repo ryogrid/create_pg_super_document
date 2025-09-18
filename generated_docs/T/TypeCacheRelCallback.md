@@ -1,7 +1,7 @@
 # TypeCacheRelCallback
 
 ## Location
-src/backend/utils/cache/typcache.c: 2290 - 2354
+[src/backend/utils/cache/typcache.c:2290-2354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2290-L2354)
 
 ## Overview
 Relcache invalidation callback function that cleans up cached tuple descriptors and resets comparability information for composite types when their underlying relations change.

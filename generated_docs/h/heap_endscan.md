@@ -1,7 +1,7 @@
 # heap_endscan
 
 ## Location
-src/backend/access/heap/heapam.c: 1254 - 1295
+[src/backend/access/heap/heapam.c:1254-1295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1254-L1295)
 
 ## Overview
 Terminates a heap table scan by releasing all associated resources including buffers, access strategies, and scan descriptors.

@@ -1,7 +1,7 @@
 # portuguese_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c: 884 - 963
+[src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c:884-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c#L884-L963)
 
 ## Overview
 The portuguese_UTF_8_stem function is the main entry point for Portuguese word stemming using the Snowball algorithm, performing a complete stemming pipeline that reduces Portuguese words to their root forms.

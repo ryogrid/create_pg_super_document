@@ -1,7 +1,7 @@
 # ExecIndexOnlyScan
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 336 - 362
+[src/backend/executor/nodeIndexonlyscan.c:336-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L336-L362)
 
 ## Overview
 The main execution entry point for index-only scan nodes, coordinating runtime key setup and delegating tuple retrieval to the executor scan framework.

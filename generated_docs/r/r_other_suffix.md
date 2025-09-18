@@ -1,7 +1,7 @@
 # r_other_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 210 - 254
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:210-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L210-L254)
 
 ## Overview
 This function handles secondary suffix removal in Scandinavian stemming, processing additional suffix patterns and performing consonant pair cleanup after the main suffix removal phase.

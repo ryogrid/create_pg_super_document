@@ -1,7 +1,7 @@
 # CloseMatViewIncrementalMaintenance
 
 ## Location
-src/backend/commands/matview.c: 964 - 968
+[src/backend/commands/matview.c:964-968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L964-L968)
 
 ## Overview
 Decrements the materialized view incremental maintenance depth counter to mark the end of an incremental maintenance operation.

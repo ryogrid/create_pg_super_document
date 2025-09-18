@@ -1,7 +1,7 @@
 # NtDllRoutine
 
 ## Location
-src/port/win32ntdll.c: 24 - 28
+[src/port/win32ntdll.c:24-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32ntdll.c#L24-L28)
 
 ## Overview
 A structure used to define the mapping between Windows NT function names and their corresponding function pointer addresses for dynamic loading.

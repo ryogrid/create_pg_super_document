@@ -1,7 +1,7 @@
 # pqTraceOutput_ErrorResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 320 - 325
+[src/interfaces/libpq/fe-trace.c:320-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L320-L325)
 
 ## Overview
 A static wrapper function that specifically handles tracing of ErrorResponse messages in PostgreSQL's libpq protocol tracing.

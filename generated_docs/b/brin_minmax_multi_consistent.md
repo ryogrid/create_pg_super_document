@@ -1,7 +1,7 @@
 # brin_minmax_multi_consistent
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2549 - 2734
+[src/backend/access/brin/brin_minmax_multi.c:2549-2734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2549-L2734)
 
 ## Overview
 Determines whether scan keys are consistent with BRIN minmax multi-column index summaries by evaluating query conditions against stored range and discrete value summaries.

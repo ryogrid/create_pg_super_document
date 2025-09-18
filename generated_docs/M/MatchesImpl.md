@@ -1,7 +1,7 @@
 # MatchesImpl
 
 ## Location
-src/bin/psql/tab-complete.c: 1570 - 1602
+[src/bin/psql/tab-complete.c:1570-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1570-L1602)
 
 ## Overview
 Implements the core logic for Matches and MatchesCS macros, checking if all words in the command line exactly match a given pattern for tab completion purposes.

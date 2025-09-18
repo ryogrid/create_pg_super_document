@@ -1,7 +1,7 @@
 # IncrTupleDescRefCount
 
 ## Location
-src/backend/access/common/tupdesc.c: 388 - 405
+[src/backend/access/common/tupdesc.c:388-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L388-L405)
 
 ## Overview
 Increments the reference count of a tuple descriptor and registers it with the current resource owner for automatic cleanup.

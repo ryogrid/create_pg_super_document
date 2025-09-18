@@ -1,7 +1,7 @@
 # ReorderBufferFree
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 413 - 430
+[src/backend/replication/logical/reorderbuffer.c:413-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L413-L430)
 
 ## Overview
 Deallocates a ReorderBuffer instance by deleting its memory context and cleaning up any associated serialized transaction data on disk.

@@ -1,7 +1,7 @@
 # is_ident_start
 
 ## Location
-src/backend/utils/adt/misc.c: 828 - 845
+[src/backend/utils/adt/misc.c:828-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L828-L845)
 
 ## Overview
 A static utility function that determines whether a character is valid as the starting character of a PostgreSQL identifier.

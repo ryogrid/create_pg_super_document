@@ -1,7 +1,7 @@
 # UpdateLogicalMappings
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5326 - 5403
+[src/backend/replication/logical/reorderbuffer.c:5326-5403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5326-L5403)
 
 ## Overview
 UpdateLogicalMappings applies existing logical remapping files that are targeted at a specific transaction and relation during logical replication decoding.

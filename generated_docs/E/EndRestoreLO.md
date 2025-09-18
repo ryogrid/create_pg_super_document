@@ -1,7 +1,7 @@
 # EndRestoreLO
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1522 - 1547
+[src/bin/pg_dump/pg_backup_archiver.c:1522-1547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1522-L1547)
 
 ## Overview
 Finalizes the restoration of a single Large Object by flushing any remaining buffered data and closing the LO handle.

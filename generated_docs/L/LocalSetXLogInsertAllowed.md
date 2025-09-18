@@ -1,7 +1,7 @@
 # LocalSetXLogInsertAllowed
 
 ## Location
-src/backend/access/transam/xlog.c: 6401 - 6415
+[src/backend/access/transam/xlog.c:6401-6415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6401-L6415)
 
 ## Overview
 LocalSetXLogInsertAllowed forces XLogInsertAllowed() to return true in the current process only, providing process-specific override capability for WAL insertion permissions.

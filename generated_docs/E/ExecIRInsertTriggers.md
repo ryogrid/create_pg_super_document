@@ -1,7 +1,7 @@
 # ExecIRInsertTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2562 - 2622
+[src/backend/commands/trigger.c:2562-2622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2562-L2622)
 
 ## Overview
 Executes INSTEAD OF ROW INSERT triggers for views, allowing triggers to replace the default insert operation with custom logic.

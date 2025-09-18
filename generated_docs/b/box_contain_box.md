@@ -1,7 +1,7 @@
 # box_contain_box
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 704 - 721
+[src/backend/utils/adt/geo_ops.c:704-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L704-L721)
 
 ## Overview
 Checks whether the second box is contained within the first box or lies on its border.

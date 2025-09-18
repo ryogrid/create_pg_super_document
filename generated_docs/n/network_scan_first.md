@@ -1,7 +1,7 @@
 # network_scan_first
 
 ## Location
-src/backend/utils/adt/network.c: 1690 - 1703
+[src/backend/utils/adt/network.c:1690-1703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1690-L1703)
 
 ## Overview
 Returns the minimal (first) IP address value for a given network, used by the PostgreSQL query planner to generate index scan limits for network containment operators.

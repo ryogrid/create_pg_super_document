@@ -1,7 +1,7 @@
 # SyncRepQueueInsert
 
 ## Location
-src/backend/replication/syncrep.c: 372 - 405
+[src/backend/replication/syncrep.c:372-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L372-L405)
 
 ## Overview
 Inserts the current process (MyProc) into the appropriate synchronous replication wait queue while maintaining the sorted order by LSN (Log Sequence Number).

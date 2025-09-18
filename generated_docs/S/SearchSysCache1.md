@@ -1,7 +1,7 @@
 # SearchSysCache1
 
 ## Location
-src/backend/utils/cache/syscache.c: 221 - 231
+[src/backend/utils/cache/syscache.c:221-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L221-L231)
 
 ## Overview
 A specialized wrapper around SearchCatCache1 optimized for system catalog caches that use exactly one search key.

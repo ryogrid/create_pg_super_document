@@ -1,7 +1,7 @@
 # ExecBuildSlotPartitionKeyDescription
 
 ## Location
-src/backend/executor/execPartition.c: 1611 - 1698
+[src/backend/executor/execPartition.c:1611-1698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1611-L1698)
 
 ## Overview
 Builds a human-readable string description of partition key values for error messages when ExecFindPartition() fails to find a suitable partition for a row.

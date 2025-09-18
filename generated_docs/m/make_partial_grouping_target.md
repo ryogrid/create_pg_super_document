@@ -1,7 +1,7 @@
 # make_partial_grouping_target
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5609 - 5711
+[src/backend/optimizer/plan/planner.c:5609-5711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5609-L5711)
 
 ## Overview
 Generates the appropriate PathTarget for output of partial aggregate nodes by including grouping columns as-is and converting aggregate functions to partial aggregates with AGGSPLIT_INITIAL_SERIAL mode.

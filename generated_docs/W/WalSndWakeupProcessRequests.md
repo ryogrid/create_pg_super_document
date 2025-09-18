@@ -1,7 +1,7 @@
 # WalSndWakeupProcessRequests
 
 ## Location
-src/include/replication/walsender.h: 66 - 76
+[src/include/replication/walsender.h:66-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walsender.h#L66-L76)
 
 ## Overview
 A static inline function that conditionally wakes up WAL sender processes when there is replication work to be done, checking a global flag to avoid unnecessary wake-ups.

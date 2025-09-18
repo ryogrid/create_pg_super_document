@@ -1,7 +1,7 @@
 # AtCleanup_Portals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 858 - 916
+[src/backend/utils/mmgr/portalmem.c:858-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L858-L916)
 
 ## Overview
 AtCleanup_Portals performs final cleanup after transaction abort by dropping all portals created in the failed transaction while preserving those from previous transactions.

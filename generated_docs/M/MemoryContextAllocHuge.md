@@ -1,7 +1,7 @@
 # MemoryContextAllocHuge
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1639 - 1670
+[src/backend/utils/mmgr/mcxt.c:1639-1670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1639-L1670)
 
 ## Overview
 MemoryContextAllocHuge is a PostgreSQL memory management function that allocates potentially very large memory chunks within a specified memory context, bypassing normal size limitations.

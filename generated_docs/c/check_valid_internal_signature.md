@@ -1,7 +1,7 @@
 # check_valid_internal_signature
 
 ## Location
-src/backend/parser/parse_coerce.c: 2954 - 2977
+[src/backend/parser/parse_coerce.c:2954-2977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L2954-L2977)
 
 ## Overview
 Validates whether a proposed function signature is safe according to PostgreSQL's INTERNAL type safety rules.

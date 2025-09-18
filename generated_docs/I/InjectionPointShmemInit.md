@@ -1,7 +1,7 @@
 # InjectionPointShmemInit
 
 ## Location
-src/backend/utils/misc/injection_point.c: 248 - 271
+[src/backend/utils/misc/injection_point.c:248-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L248-L271)
 
 ## Overview
 Initializes shared memory space for the injection point system, setting up the dynamic shared hash table used to track active injection points across PostgreSQL processes.

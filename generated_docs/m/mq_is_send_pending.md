@@ -1,7 +1,7 @@
 # mq_is_send_pending
 
 ## Location
-src/backend/libpq/pqmq.c: 106 - 117
+[src/backend/libpq/pqmq.c:106-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L106-L117)
 
 ## Overview
 A function that always returns false, indicating that there are never any pending send operations in the shared memory message queue communication system.

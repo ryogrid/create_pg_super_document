@@ -1,7 +1,7 @@
 # namegetext
 
 ## Location
-src/backend/utils/adt/varlena.c: 2756 - 2761
+[src/backend/utils/adt/varlena.c:2756-2761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2756-L2761)
 
 ## Overview
 Compares a name data type with a text data type and returns true if the name is greater than or equal to the text value.

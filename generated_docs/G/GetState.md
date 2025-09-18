@@ -1,7 +1,7 @@
 # GetState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 85 - 98
+[src/backend/utils/adt/jsonfuncs.c:85-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L85-L98)
 
 ## Overview
 GetState is a structure that maintains state information for the json_get* family of functions, which extract specific values from JSON documents using path-based navigation.

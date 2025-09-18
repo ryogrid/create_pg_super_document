@@ -1,7 +1,7 @@
 # TrackFunctionsLevel
 
 ## Location
-src/include/pgstat.h: 66 - 67
+[src/include/pgstat.h:66-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L66-L67)
 
 ## Overview
 TrackFunctionsLevel is an enumeration that defines the possible values for the track_functions GUC (Grand Unified Configuration) parameter, controlling which function calls are tracked for statistics collection in PostgreSQL.

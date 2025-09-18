@@ -1,7 +1,7 @@
 # heap_multi_insert_pages
 
 ## Location
-src/backend/access/heap/heapam.c: 2277 - 2308
+[src/backend/access/heap/heapam.c:2277-2308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2277-L2308)
 
 ## Overview
 heap_multi_insert_pages is a static helper function for heap_multi_insert() that computes the number of entire pages required to insert the remaining heap tuples, used to determine how much a relation needs to be extended.

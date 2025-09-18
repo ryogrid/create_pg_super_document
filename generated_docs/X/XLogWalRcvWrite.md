@@ -1,7 +1,7 @@
 # XLogWalRcvWrite
 
 ## Location
-src/backend/replication/walreceiver.c: 910 - 992
+[src/backend/replication/walreceiver.c:910-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L910-L992)
 
 ## Overview
 Writes WAL (Write-Ahead Logging) data received from the primary server to local disk storage during streaming replication, handling segment boundaries and file management.

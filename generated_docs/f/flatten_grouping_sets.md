@@ -1,7 +1,7 @@
 # flatten_grouping_sets
 
 ## Location
-src/backend/parser/parse_clause.c: 2258 - 2366
+[src/backend/parser/parse_clause.c:2258-2366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2258-L2366)
 
 ## Overview
 Flattens out parenthesized sublists in grouping lists and handles nested grouping sets according to SQL specification requirements, while preserving CUBE and ROLLUP syntax for deparsing.

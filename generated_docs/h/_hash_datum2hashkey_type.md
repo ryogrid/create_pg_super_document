@@ -1,7 +1,7 @@
 # _hash_datum2hashkey_type
 
 ## Location
-src/backend/access/hash/hashutil.c: 102 - 124
+[src/backend/access/hash/hashutil.c:102-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L102-L124)
 
 ## Overview
 Function that converts a Datum value of a specified type to a hash key, designed for cross-type situations where the data type differs from the index column type.

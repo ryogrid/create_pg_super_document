@@ -1,7 +1,7 @@
 # AtEOXact_GUC
 
 ## Location
-src/backend/utils/misc/guc.c: 2264 - 2547
+[src/backend/utils/misc/guc.c:2264-2547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2264-L2547)
 
 ## Overview
 AtEOXact_GUC handles the complex cleanup and restoration of GUC (Grand Unified Configuration) variable states at transaction commit, abort, or when exiting nested GUC contexts.

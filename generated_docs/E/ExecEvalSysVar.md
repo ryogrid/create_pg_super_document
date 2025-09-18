@@ -1,7 +1,7 @@
 # ExecEvalSysVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 4997 - 5016
+[src/backend/executor/execExprInterp.c:4997-5016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4997-L5016)
 
 ## Overview
 ExecEvalSysVar evaluates system variables during expression execution by fetching system attributes from tuple slots in PostgreSQL executor.

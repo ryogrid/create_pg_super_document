@@ -1,7 +1,7 @@
 # PGTYPESnumeric_from_long
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1318 - 1387
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1318-1387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1318-L1387)
 
 ## Overview
 Converts a signed long integer value into PostgreSQL's numeric type representation, handling sign conversion and decimal formatting.

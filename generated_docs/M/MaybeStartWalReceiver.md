@@ -1,7 +1,7 @@
 # MaybeStartWalReceiver
 
 ## Location
-src/backend/postmaster/postmaster.c: 4053 - 4071
+[src/backend/postmaster/postmaster.c:4053-4071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4053-L4071)
 
 ## Overview
 MaybeStartWalReceiver conditionally starts a WAL receiver process if none is currently running and the postmaster state allows for recovery operations.

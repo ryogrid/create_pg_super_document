@@ -1,7 +1,7 @@
 # BuildOnConflictExcludedTargetlist
 
 ## Location
-src/backend/parser/analyze.c: 1225 - 1294
+[src/backend/parser/analyze.c:1225-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1225-L1294)
 
 ## Overview
 Creates a target list for the EXCLUDED pseudo-relation used in ON CONFLICT clauses, representing all columns of the target relation with proper variable references.

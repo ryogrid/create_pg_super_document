@@ -1,7 +1,7 @@
 # check_default_tablespace
 
 ## Location
-src/backend/commands/tablespace.c: 1091 - 1142
+[src/backend/commands/tablespace.c:1091-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1091-L1142)
 
 ## Overview
 Validates the default_tablespace GUC (Grand Unified Configuration) parameter by verifying that the specified tablespace exists in the system catalog.

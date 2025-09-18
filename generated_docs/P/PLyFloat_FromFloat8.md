@@ -1,7 +1,7 @@
 # PLyFloat_FromFloat8
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 564 - 569
+[src/pl/plpython/plpy_typeio.c:564-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L564-L569)
 
 ## Overview
 Converts a PostgreSQL float8 (double precision) value to a Python float object in the PL/Python extension.

@@ -1,7 +1,7 @@
 # moveins
 
 ## Location
-src/backend/regex/regc_nfa.c: 778 - 881
+[src/backend/regex/regc_nfa.c:778-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L778-L881)
 
 ## Overview
 Moves all incoming arcs from one NFA state to another state, with intelligent duplicate suppression and performance optimizations based on the number of arcs involved.

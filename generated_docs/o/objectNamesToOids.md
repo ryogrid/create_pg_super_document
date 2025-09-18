@@ -1,7 +1,7 @@
 # objectNamesToOids
 
 ## Location
-src/backend/catalog/aclchk.c: 669 - 848
+[src/backend/catalog/aclchk.c:669-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L669-L848)
 
 ## Overview
 Converts a list of object names of a specified type into a list of corresponding Object IDs (OIDs) by performing name resolution lookups in the PostgreSQL system catalogs.

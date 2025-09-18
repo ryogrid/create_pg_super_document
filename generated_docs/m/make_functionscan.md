@@ -1,7 +1,7 @@
 # make_functionscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5704 - 5724
+[src/backend/optimizer/plan/createplan.c:5704-5724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5704-L5724)
 
 ## Overview
 Creates and initializes a FunctionScan plan node, which represents a scan operation on the result set returned by one or more table-valued functions in PostgreSQL's query execution plan.

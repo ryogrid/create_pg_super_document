@@ -1,7 +1,7 @@
 # connectFailureMessage
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2149 - 2168
+[src/interfaces/libpq/fe-connect.c:2149-2168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2149-L2168)
 
 ## Overview
 Creates a user-friendly error message for connection failures by combining system error information with helpful diagnostic suggestions based on the connection type.

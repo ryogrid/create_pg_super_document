@@ -1,7 +1,7 @@
 # PATH
 
 ## Location
-src/include/utils/geo_decls.h: 122 - 132
+[src/include/utils/geo_decls.h:122-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L122-L132)
 
 ## Overview
 PATH is a geometric data type in PostgreSQL that represents a sequence of connected line segments specified by vertex points, which can be either open or closed.

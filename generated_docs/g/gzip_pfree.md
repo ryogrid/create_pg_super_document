@@ -1,7 +1,7 @@
 # gzip_pfree
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 299 - 304
+[src/backend/backup/basebackup_gzip.c:299-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L299-L304)
 
 ## Overview
 This function serves as a wrapper around PostgreSQL's pfree() to provide memory deallocation functionality compatible with the zlib library's expected deallocation function signature.

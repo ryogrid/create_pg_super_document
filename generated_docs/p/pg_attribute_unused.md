@@ -1,7 +1,7 @@
 # pg_attribute_unused
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2826 - 2943
+[src/backend/utils/adt/pg_locale.c:2826-2943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2826-L2943)
 
 ## Overview
 A preprocessor macro that marks variables or functions as unused to suppress compiler warnings when they are intentionally not used.

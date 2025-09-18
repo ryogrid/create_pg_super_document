@@ -1,7 +1,7 @@
 # jsonb_path_query_array_internal
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 591 - 606
+[src/backend/utils/adt/jsonpath_exec.c:591-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L591-L606)
 
 ## Overview
 Internal implementation function that executes a JSONPath expression against a JSONB document and returns all matching values wrapped in a JSONB array.

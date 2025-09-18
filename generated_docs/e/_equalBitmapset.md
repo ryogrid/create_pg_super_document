@@ -1,7 +1,7 @@
 # _equalBitmapset
 
 ## Location
-src/backend/nodes/equalfuncs.c: 147 - 155
+[src/backend/nodes/equalfuncs.c:147-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L147-L155)
 
 ## Overview
 A static comparison function that determines if two Bitmapset nodes are equal by delegating to the specialized bms_equal function.

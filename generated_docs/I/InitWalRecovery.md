@@ -1,7 +1,7 @@
 # InitWalRecovery
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 512 - 1026
+[src/backend/access/transam/xlogrecovery.c:512-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L512-L1026)
 
 ## Overview
 Prepares and initializes the PostgreSQL system for WAL (Write-Ahead Log) recovery, analyzing control files and backup labels to determine the appropriate recovery strategy and starting point.

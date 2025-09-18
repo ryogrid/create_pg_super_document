@@ -1,7 +1,7 @@
 # exec_parse_message
 
 ## Location
-src/backend/tcop/postgres.c: 1395 - 1629
+[src/backend/tcop/postgres.c:1395-1629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L1395-L1629)
 
 ## Overview
 Executes a "Parse" protocol message, which parses SQL query strings and creates prepared statements for later execution in the PostgreSQL frontend/backend protocol.

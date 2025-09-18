@@ -1,7 +1,7 @@
 # spgAddNodeAction
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 1513 - 1714
+[src/backend/access/spgist/spgdoinsert.c:1513-1714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L1513-L1714)
 
 ## Overview
 Adds a new node to an existing inner tuple, either by in-place replacement or by moving the enlarged tuple to a new page and updating parent references.

@@ -1,7 +1,7 @@
 # CreateProceduralLanguage
 
 ## Location
-src/backend/commands/proclang.c: 37 - 225
+[src/backend/commands/proclang.c:37-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/proclang.c#L37-L225)
 
 ## Overview
 Creates a new procedural language or replaces an existing one in the PostgreSQL system, handling all aspects of language definition including handler functions, validation, and dependency management.

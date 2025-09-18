@@ -1,7 +1,7 @@
 # listDomains
 
 ## Location
-src/bin/psql/describe.c: 4383 - 4465
+[src/bin/psql/describe.c:4383-4465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4383-L4465)
 
 ## Overview
 Lists and displays information about user-defined domains in the PostgreSQL database, corresponding to the psql \dD command.

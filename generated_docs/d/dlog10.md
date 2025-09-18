@@ -1,7 +1,7 @@
 # dlog10
 
 ## Location
-src/backend/utils/adt/float.c: 1715 - 1747
+[src/backend/utils/adt/float.c:1715-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1715-L1747)
 
 ## Overview
 The dlog10 function implements PostgreSQL's base-10 logarithm function, returning the logarithm base 10 of the input argument.

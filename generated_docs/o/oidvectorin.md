@@ -1,7 +1,7 @@
 # oidvectorin
 
 ## Location
-src/backend/utils/adt/oid.c: 114 - 157
+[src/backend/utils/adt/oid.c:114-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L114-L157)
 
 ## Overview
 Input function that converts a string representation of space-separated OIDs ("num num ...") into PostgreSQL's internal oidvector format.

@@ -1,7 +1,7 @@
 # initialize
 
 ## Location
-src/backend/regex/rege_dfa.c: 731 - 776
+[src/backend/regex/rege_dfa.c:731-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L731-L776)
 
 ## Overview
 The  function prepares the initial state set for DFA execution in PostgreSQL's regular expression engine, either by reusing an existing starter state or creating a new one.

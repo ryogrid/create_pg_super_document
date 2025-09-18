@@ -1,7 +1,7 @@
 # PQdsplen
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1252 - 1260
+[src/interfaces/libpq/fe-misc.c:1252-1260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1252-L1260)
 
 ## Overview
 PQdsplen calculates the display length (visual width) of a character at the beginning of a string, accounting for multibyte character encoding and display characteristics.

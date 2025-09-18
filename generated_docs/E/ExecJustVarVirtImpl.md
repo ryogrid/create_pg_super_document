@@ -1,7 +1,7 @@
 # ExecJustVarVirtImpl
 
 ## Location
-src/backend/executor/execExprInterp.c: 2283 - 2304
+[src/backend/executor/execExprInterp.c:2283-2304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2283-L2304)
 
 ## Overview
 ExecJustVarVirtImpl is a core implementation function for efficiently accessing variables from virtual tuple slots in PostgreSQL's expression evaluation system.

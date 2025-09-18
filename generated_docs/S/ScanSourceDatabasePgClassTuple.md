@@ -1,7 +1,7 @@
 # ScanSourceDatabasePgClassTuple
 
 ## Location
-src/backend/commands/dbcommands.c: 391 - 455
+[src/backend/commands/dbcommands.c:391-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L391-L455)
 
 ## Overview
 ScanSourceDatabasePgClassTuple examines a pg_class tuple to determine if it represents a relation that needs to be copied during database creation and constructs a CreateDBRelInfo structure if copying is required.

@@ -1,7 +1,7 @@
 # heap_toast_insert_or_update
 
 ## Location
-src/backend/access/heap/heaptoast.c: 96 - 349
+[src/backend/access/heap/heaptoast.c:96-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heaptoast.c#L96-L349)
 
 ## Overview
 Handles TOAST processing for INSERT or UPDATE operations by compressing and/or externalizing large attributes to make the tuple fit within size constraints.

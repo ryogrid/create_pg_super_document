@@ -1,7 +1,7 @@
 # uncolorchain
 
 ## Location
-src/backend/regex/regc_color.c: 1001 - 1030
+[src/backend/regex/regc_color.c:1001-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L1001-L1030)
 
 ## Overview
 The  function removes an arc from the color chain of its associated color, properly maintaining the doubly-linked list structure during arc removal operations.

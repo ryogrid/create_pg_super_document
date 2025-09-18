@@ -1,7 +1,7 @@
 # check_client_encoding
 
 ## Location
-src/backend/commands/variable.c: 680 - 755
+[src/backend/commands/variable.c:680-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L680-L755)
 
 ## Overview
 A GUC check hook function that validates and canonicalizes client encoding values when the client_encoding parameter is being set in PostgreSQL.

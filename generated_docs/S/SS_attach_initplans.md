@@ -1,7 +1,7 @@
 # SS_attach_initplans
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2239 - 2253
+[src/backend/optimizer/plan/subselect.c:2239-2253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2239-L2253)
 
 ## Overview
 Attaches initialization plans (initplans) created during the current query level to the specified plan node, which should be the topmost node for that query level.

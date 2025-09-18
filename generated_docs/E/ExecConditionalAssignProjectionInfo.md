@@ -1,7 +1,7 @@
 # ExecConditionalAssignProjectionInfo
 
 ## Location
-src/backend/executor/execUtils.c: 558 - 584
+[src/backend/executor/execUtils.c:558-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L558-L584)
 
 ## Overview
 Conditionally assigns projection information to a plan state node, optimizing performance by avoiding projection setup when the target list matches the input tuple descriptor exactly.

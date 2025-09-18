@@ -1,7 +1,7 @@
 # pg_get_userbyid
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2749 - 2786
+[src/backend/utils/adt/ruleutils.c:2749-2786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2749-L2786)
 
 ## Overview
 Retrieves the role name for a given role OID, providing a fallback display format when the role does not exist or is not accessible.

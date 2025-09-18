@@ -1,7 +1,7 @@
 # printtup
 
 ## Location
-src/backend/access/common/printtup.c: 304 - 388
+[src/backend/access/common/printtup.c:304-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L304-L388)
 
 ## Overview
 The printtup function sends a tuple (row) to the client through the PostgreSQL communication protocol, handling both text and binary output formats.

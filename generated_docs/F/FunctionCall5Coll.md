@@ -1,7 +1,7 @@
 # FunctionCall5Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1223 - 1251
+[src/backend/utils/fmgr/fmgr.c:1223-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1223-L1251)
 
 ## Overview
 FunctionCall5Coll is a PostgreSQL function manager utility that invokes a database function with 5 arguments and a specified collation, ensuring a non-null result is returned.

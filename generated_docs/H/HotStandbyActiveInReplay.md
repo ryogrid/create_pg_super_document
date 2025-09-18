@@ -1,7 +1,7 @@
 # HotStandbyActiveInReplay
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4528 - 4539
+[src/backend/access/transam/xlogrecovery.c:4528-4539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4528-L4539)
 
 ## Overview
 A specialized version of HotStandbyActive() designed specifically for use within WAL replay code, providing direct access to Hot Standby status without inter-process communication.

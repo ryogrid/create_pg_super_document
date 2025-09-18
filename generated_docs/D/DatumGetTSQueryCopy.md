@@ -1,7 +1,7 @@
 # DatumGetTSQueryCopy
 
 ## Location
-src/include/tsearch/ts_type.h: 257 - 262
+[src/include/tsearch/ts_type.h:257-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L257-L262)
 
 ## Overview
 Converts a PostgreSQL Datum value to a TSQuery pointer, creating a modifiable copy for text search query operations.

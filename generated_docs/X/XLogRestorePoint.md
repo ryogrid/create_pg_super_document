@@ -1,7 +1,7 @@
 # XLogRestorePoint
 
 ## Location
-src/backend/access/transam/xlog.c: 8094 - 8118
+[src/backend/access/transam/xlog.c:8094-8118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8094-L8118)
 
 ## Overview
 XLogRestorePoint creates a named restore point in the WAL (Write-Ahead Log) that can be used as a target for point-in-time recovery operations.

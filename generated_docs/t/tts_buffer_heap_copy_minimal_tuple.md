@@ -1,7 +1,7 @@
 # tts_buffer_heap_copy_minimal_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 929 - 941
+[src/backend/executor/execTuples.c:929-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L929-L941)
 
 ## Overview
 Creates a MinimalTuple copy from a BufferHeapTupleTableSlot by first ensuring the slot contains a HeapTuple and then converting it to the more compact MinimalTuple format.

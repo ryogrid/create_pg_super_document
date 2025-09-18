@@ -1,7 +1,7 @@
 # convert_server_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4167 - 4178
+[src/backend/utils/adt/acl.c:4167-4178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4167-L4178)
 
 ## Overview
 This static helper function converts a text representation of a foreign server name to its corresponding OID for use in privilege checking operations.

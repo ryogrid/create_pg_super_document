@@ -1,7 +1,7 @@
 # eq_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 215 - 219
+[src/backend/snowball/libstemmer/utilities.c:215-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L215-L219)
 
 ## Overview
 The `eq_s` function performs exact string comparison at the current position in a Snowball stemmer environment, advancing the position if the match is successful.

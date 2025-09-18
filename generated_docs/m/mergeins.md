@@ -1,7 +1,7 @@
 # mergeins
 
 ## Location
-src/backend/regex/regc_nfa.c: 971 - 1065
+[src/backend/regex/regc_nfa.c:971-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L971-L1065)
 
 ## Overview
 Merges a list of incoming arcs into a state by eliminating duplicates and adding only unique arcs.

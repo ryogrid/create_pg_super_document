@@ -1,7 +1,7 @@
 # create_mergejoin_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2553 - 2618
+[src/backend/optimizer/util/pathnode.c:2553-2618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2553-L2618)
 
 ## Overview
 Creates a pathnode corresponding to a mergejoin between two relations, setting up all necessary metadata and cost information for the PostgreSQL query optimizer.

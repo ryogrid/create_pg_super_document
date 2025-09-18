@@ -1,7 +1,7 @@
 # pqConnectDBStart
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2392 - 2469
+[src/interfaces/libpq/fe-connect.c:2392-2469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2392-L2469)
 
 ## Overview
 Initiates the asynchronous connection process to a PostgreSQL backend server, setting up initial state and beginning the connection sequence.

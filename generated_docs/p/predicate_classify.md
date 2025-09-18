@@ -1,7 +1,7 @@
 # predicate_classify
 
 ## Location
-src/backend/optimizer/util/predtest.c: 826 - 907
+[src/backend/optimizer/util/predtest.c:826-907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L826-L907)
 
 ## Overview
 Classifies expression nodes as AND-type, OR-type, or atomic expressions, and sets up iteration information for processing compound expressions in predicate testing.

@@ -1,7 +1,7 @@
 # FreeFakeRelcacheEntry
 
 ## Location
-src/backend/access/transam/xlogutils.c: 629 - 640
+[src/backend/access/transam/xlogutils.c:629-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L629-L640)
 
 ## Overview
 Frees the memory allocated for a fake relation cache entry created by CreateFakeRelcacheEntry().

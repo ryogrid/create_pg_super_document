@@ -1,7 +1,7 @@
 # RememberClusterOnForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13704 - 13719
+[src/backend/commands/tablecmds.c:13704-13719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13704-L13719)
 
 ## Overview
 RememberClusterOnForRebuilding records clustered index information when an index needs to be rebuilt during table alterations.

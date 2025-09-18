@@ -1,7 +1,7 @@
 # bbstreamer_zstd_decompressor_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_zstd.c: 359 - 368
+[src/bin/pg_basebackup/bbstreamer_zstd.c:359-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_zstd.c#L359-L368)
 
 ## Overview
 Frees all memory and resources associated with a ZSTD decompressor streamer, including the ZSTD decompression context and internal buffers.

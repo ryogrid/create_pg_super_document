@@ -1,7 +1,7 @@
 # int4div
 
 ## Location
-src/backend/utils/adt/int.c: 833 - 871
+[src/backend/utils/adt/int.c:833-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L833-L871)
 
 ## Overview
 Performs division of two 32-bit integers with comprehensive error checking for division by zero and overflow conditions, implementing the PostgreSQL SQL function for integer division.

@@ -1,7 +1,7 @@
 # pg_spin_delay_impl
 
 ## Location
-src/include/port/atomics/arch-x86.h: 126 - 138
+[src/include/port/atomics/arch-x86.h:126-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/arch-x86.h#L126-L138)
 
 ## Overview
 Architecture-specific inline function that implements a CPU spin delay using the x86 PAUSE instruction to optimize busy-wait loops by reducing CPU power consumption and avoiding memory order violations.

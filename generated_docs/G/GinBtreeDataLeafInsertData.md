@@ -1,7 +1,7 @@
 # GinBtreeDataLeafInsertData
 
 ## Location
-src/include/access/gin_private.h: 198 - 241
+[src/include/access/gin_private.h:198-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L198-L241)
 
 ## Overview
 GinBtreeDataLeafInsertData represents one or many item pointers (TIDs) to be inserted into a GIN data (posting tree) leaf page, with tracking for batch processing operations.

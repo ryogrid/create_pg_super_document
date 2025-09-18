@@ -1,7 +1,7 @@
 # dump_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 6874 - 6915
+[src/backend/utils/adt/numeric.c:6874-6915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6874-L6915)
 
 ## Overview
 A debugging utility function that prints detailed information about a Numeric value's internal storage format to stdout.

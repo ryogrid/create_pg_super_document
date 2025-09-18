@@ -1,7 +1,7 @@
 # ReadArrayStr
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 579 - 795
+[src/backend/utils/adt/arrayfuncs.c:579-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L579-L795)
 
 ## Overview
 Parses array string content enclosed in braces and converts element values to internal format, determining or validating array dimensions during parsing.

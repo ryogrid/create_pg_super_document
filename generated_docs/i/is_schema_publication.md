@@ -1,7 +1,7 @@
 # is_schema_publication
 
 ## Location
-src/backend/catalog/pg_publication.c: 236 - 266
+[src/backend/catalog/pg_publication.c:236-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L236-L266)
 
 ## Overview
 A function that determines whether a given publication has any schemas associated with it by querying the pg_publication_namespace system catalog.

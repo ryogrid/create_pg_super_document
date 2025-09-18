@@ -1,7 +1,7 @@
 # pg_available_extension_versions
 
 ## Location
-src/backend/commands/extension.c: 2088 - 2145
+[src/backend/commands/extension.c:2088-2145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2088-L2145)
 
 ## Overview
 This function provides a set-returning function (SRF) that lists all available versions for PostgreSQL extensions by scanning extension control files and their associated version scripts.

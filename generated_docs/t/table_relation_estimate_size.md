@@ -1,7 +1,7 @@
 # table_relation_estimate_size
 
 ## Location
-src/include/access/tableam.h: 1938 - 1961
+[src/include/access/tableam.h:1938-1961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1938-L1961)
 
 ## Overview
 Estimates the current size and statistics of a relation, serving as an access method-specific implementation for the query planner's size estimation needs.

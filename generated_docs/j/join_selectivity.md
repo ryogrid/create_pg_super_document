@@ -1,7 +1,7 @@
 # join_selectivity
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1986 - 2026
+[src/backend/optimizer/util/plancat.c:1986-2026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1986-L2026)
 
 ## Overview
 Calculates the selectivity of a join operator clause by invoking the operator's registered join selectivity estimation procedure.

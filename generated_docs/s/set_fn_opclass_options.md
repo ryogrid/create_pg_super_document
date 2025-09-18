@@ -1,7 +1,7 @@
 # set_fn_opclass_options
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 2070 - 2080
+[src/backend/utils/fmgr/fmgr.c:2070-2080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L2070-L2080)
 
 ## Overview
 Sets opclass-specific options in an FmgrInfo structure by storing them as a bytea constant in the fn_expr field, enabling opclass support functions to access configuration data.

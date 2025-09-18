@@ -1,7 +1,7 @@
 # last_dir_separator
 
 ## Location
-src/port/path.c: 144 - 162
+[src/port/path.c:144-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L144-L162)
 
 ## Overview
 A utility function that locates the last directory separator in a pathname, commonly used to separate directory path from filename components.

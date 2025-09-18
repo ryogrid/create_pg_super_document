@@ -1,7 +1,7 @@
 # uuid_hash_extended
 
 ## Location
-src/backend/utils/adt/uuid.c: 403 - 410
+[src/backend/utils/adt/uuid.c:403-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L403-L410)
 
 ## Overview
 An extended hash function for UUIDs that incorporates a seed value to support advanced hashing scenarios like hash partitioning and salted hash operations.

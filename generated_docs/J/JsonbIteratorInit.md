@@ -1,7 +1,7 @@
 # JsonbIteratorInit
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 814 - 851
+[src/backend/utils/adt/jsonb_util.c:814-851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L814-L851)
 
 ## Overview
 Initializes a JsonbIterator for traversing and iterating over the elements of a JsonbContainer, expanding all items to their full in-memory representation for manipulation.

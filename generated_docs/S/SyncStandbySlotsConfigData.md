@@ -1,7 +1,7 @@
 # SyncStandbySlotsConfigData
 
 ## Location
-src/backend/replication/slot.c: 100 - 112
+[src/backend/replication/slot.c:100-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L100-L112)
 
 ## Overview
 Configuration data structure for synchronized standby slots, designed to store a list of slot names that can be synchronized from the primary to standby servers.

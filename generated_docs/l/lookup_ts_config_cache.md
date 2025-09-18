@@ -1,7 +1,7 @@
 # lookup_ts_config_cache
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 385 - 555
+[src/backend/utils/cache/ts_cache.c:385-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L385-L555)
 
 ## Overview
 Retrieves and caches complete text search configuration information, including the mapping between token types and their associated dictionaries from the system catalogs.

@@ -1,7 +1,7 @@
 # pgstat_report_disconnect
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 208 - 241
+[src/backend/utils/activity/pgstat_database.c:208-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L208-L241)
 
 ## Overview
 Reports a database disconnection to PostgreSQL's statistics system, tracking different types of session termination causes.

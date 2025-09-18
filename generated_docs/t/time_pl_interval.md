@@ -1,7 +1,7 @@
 # time_pl_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2052 - 2074
+[src/backend/utils/adt/date.c:2052-2074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2052-L2074)
 
 ## Overview
 The  function adds an interval to a time value, performing time arithmetic while handling overflow and ensuring the result remains within a valid 24-hour day range.

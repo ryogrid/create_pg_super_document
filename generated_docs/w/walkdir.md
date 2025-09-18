@@ -1,7 +1,7 @@
 # walkdir
 
 ## Location
-src/common/file_utils.c: 271 - 336
+[src/common/file_utils.c:271-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L271-L336)
 
 ## Overview
 Recursively traverses a directory tree, applying a specified action function to each regular file and directory encountered during the traversal.

@@ -1,7 +1,7 @@
 # free_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 6985 - 7000
+[src/backend/utils/adt/numeric.c:6985-7000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6985-L7000)
 
 ## Overview
 A static utility function that returns the digit buffer of a NumericVar variable to the free pool and resets the variable to an invalid state.

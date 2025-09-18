@@ -1,7 +1,7 @@
 # CreateConstraintEntry
 
 ## Location
-src/backend/catalog/pg_constraint.c: 48 - 398
+[src/backend/catalog/pg_constraint.c:48-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L48-L398)
 
 ## Overview
 Creates a constraint table entry in the pg_constraint catalog and establishes necessary dependency relationships, but does not create subsidiary records like triggers or indexes.

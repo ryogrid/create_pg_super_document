@@ -1,7 +1,7 @@
 # datanh
 
 ## Location
-src/backend/utils/adt/float.c: 2707 - 2744
+[src/backend/utils/adt/float.c:2707-2744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2707-L2744)
 
 ## Overview
 The datanh function computes the inverse hyperbolic tangent of a floating-point number with comprehensive domain validation and boundary case handling, providing PostgreSQL-specific error handling for mathematical operations.

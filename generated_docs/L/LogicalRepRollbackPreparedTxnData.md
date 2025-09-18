@@ -1,7 +1,7 @@
 # LogicalRepRollbackPreparedTxnData
 
 ## Location
-src/include/replication/logicalproto.h: 173 - 181
+[src/include/replication/logicalproto.h:173-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L173-L181)
 
 ## Overview
 LogicalRepRollbackPreparedTxnData is a structure that holds protocol information for rolling back prepared transactions in PostgreSQL logical replication, including additional metadata to ensure proper rollback validation.

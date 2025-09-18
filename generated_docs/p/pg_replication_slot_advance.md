@@ -1,7 +1,7 @@
 # pg_replication_slot_advance
 
 ## Location
-src/backend/replication/slotfuncs.c: 508 - 600
+[src/backend/replication/slotfuncs.c:508-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L508-L600)
 
 ## Overview
 SQL function that moves the position of a replication slot (both physical and logical) to a specified WAL LSN position, returning the slot name and actual position reached.

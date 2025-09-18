@@ -1,7 +1,7 @@
 # stream_open_and_write_change
 
 ## Location
-src/backend/replication/logical/worker.c: 4335 - 4350
+[src/backend/replication/logical/worker.c:4335-4350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4335-L4350)
 
 ## Overview
 A static function in PostgreSQL's logical replication worker that serializes a replication message to a file for a given transaction, handling file opening and closing automatically.

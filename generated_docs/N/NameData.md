@@ -1,7 +1,7 @@
 # NameData
 
 ## Location
-src/include/c.h: 743 - 743
+[src/include/c.h:743-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L743-L743)
 
 ## Overview
 A fixed-size structure representing PostgreSQL identifier names (such as table names, column names, function names) with a maximum length of NAMEDATALEN bytes, designed for efficient storage and comparison in the system catalogs.

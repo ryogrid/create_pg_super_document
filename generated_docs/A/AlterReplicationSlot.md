@@ -1,7 +1,7 @@
 # AlterReplicationSlot
 
 ## Location
-src/backend/replication/walsender.c: 1443 - 1455
+[src/backend/replication/walsender.c:1443-1455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1443-L1455)
 
 ## Overview
 Modifies the configuration of an existing replication slot, specifically handling changes to the failover property.

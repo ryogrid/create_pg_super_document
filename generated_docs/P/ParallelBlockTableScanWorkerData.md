@@ -1,7 +1,7 @@
 # ParallelBlockTableScanWorkerData
 
 ## Location
-src/include/access/relscan.h: 90 - 96
+[src/include/access/relscan.h:90-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L90-L96)
 
 ## Overview
 A structure that maintains per-worker state for parallel table scans in block-oriented storage systems, tracking allocation progress and chunk management for individual worker processes.

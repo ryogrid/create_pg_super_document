@@ -1,7 +1,7 @@
 # PerformMembersTruncation
 
 ## Location
-src/backend/access/transam/multixact.c: 3040 - 3068
+[src/backend/access/transam/multixact.c:3040-3068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3040-L3068)
 
 ## Overview
 PerformMembersTruncation deletes MultiXact member segments in a specified range, handling the cleanup of member data during MultiXact truncation operations.

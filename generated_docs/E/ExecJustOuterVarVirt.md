@@ -1,7 +1,7 @@
 # ExecJustOuterVarVirt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2312 - 2318
+[src/backend/executor/execExprInterp.c:2312-2318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2312-L2318)
 
 ## Overview
 ExecJustOuterVarVirt is a specialized function for efficiently accessing variables from the outer relation tuple in join operations when using virtual tuple slots.

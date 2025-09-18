@@ -1,7 +1,7 @@
 # repairTableAttrDefMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1098 - 1112
+[src/bin/pg_dump/pg_dump_sort.c:1098-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1098-L1112)
 
 ## Overview
 Repairs multi-loop circular dependencies involving table attribute defaults by reversing dependency direction and marking the attribute default for separate dumping.

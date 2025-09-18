@@ -1,7 +1,7 @@
 # optimize_window_clauses
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5784 - 5923
+[src/backend/optimizer/plan/planner.c:5784-5923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5784-L5923)
 
 ## Overview
 Optimizes window clauses by calling each window function's support function to determine if frame options can be adjusted for more optimal execution.

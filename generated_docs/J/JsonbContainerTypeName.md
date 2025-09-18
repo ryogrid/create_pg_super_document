@@ -1,7 +1,7 @@
 # JsonbContainerTypeName
 
 ## Location
-src/backend/utils/adt/jsonb.c: 159 - 179
+[src/backend/utils/adt/jsonb.c:159-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L159-L179)
 
 ## Overview
 A static utility function that determines and returns the type name of a JSONB container as a string representation.

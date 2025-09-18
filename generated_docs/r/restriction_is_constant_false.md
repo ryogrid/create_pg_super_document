@@ -1,7 +1,7 @@
 # restriction_is_constant_false
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1425 - 1478
+[src/backend/optimizer/path/joinrels.c:1425-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1425-L1478)
 
 ## Overview
 Analyzes a restriction list to determine if it contains constant FALSE conditions, helping the optimizer avoid unnecessary computation in outer join scenarios where no matches are possible.

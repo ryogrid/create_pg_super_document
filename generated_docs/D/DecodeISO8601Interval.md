@@ -1,7 +1,7 @@
 # DecodeISO8601Interval
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 112 - 325
+[src/interfaces/ecpg/pgtypeslib/interval.c:112-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L112-L325)
 
 ## Overview
 Decodes an ISO 8601 time interval string in either the "format with designators" or "alternative format" according to ISO 8601 standard sections 4.4.3.2 and 4.4.3.3.

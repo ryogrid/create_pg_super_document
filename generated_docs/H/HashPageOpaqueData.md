@@ -1,7 +1,7 @@
 # HashPageOpaqueData
 
 ## Location
-src/include/access/hash.h: 77 - 84
+[src/include/access/hash.h:77-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash.h#L77-L84)
 
 ## Overview
 HashPageOpaqueData is a structure that stores metadata in the opaque area of hash index pages, containing information about bucket chains and page identification.

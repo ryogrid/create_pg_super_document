@@ -1,7 +1,7 @@
 # getAutoExtensionsOfObject
 
 ## Location
-src/backend/catalog/pg_depend.c: 779 - 828
+[src/backend/catalog/pg_depend.c:779-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L779-L828)
 
 ## Overview
 Returns a list of extensions that the specified object depends on through DEPENDENCY_AUTO_EXTENSION relationships.

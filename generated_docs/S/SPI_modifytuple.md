@@ -1,7 +1,7 @@
 # SPI_modifytuple
 
 ## Location
-src/backend/executor/spi.c: 1106 - 1174
+[src/backend/executor/spi.c:1106-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1106-L1174)
 
 ## Overview
 Creates a modified copy of a tuple by replacing specified attribute values, used for updating tuples in stored procedures and trigger functions.

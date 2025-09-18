@@ -1,7 +1,7 @@
 # PostPrepare_MultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 1842 - 1890
+[src/backend/access/transam/multixact.c:1842-1890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1842-L1890)
 
 ## Overview
 Performs cleanup and state transfer after a successful PREPARE TRANSACTION operation in two-phase commit.

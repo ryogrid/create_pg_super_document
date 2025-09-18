@@ -1,7 +1,7 @@
 # ExecInitTidRangeScan
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 347 - 405
+[src/backend/executor/nodeTidrangescan.c:347-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L347-L405)
 
 ## Overview
 ExecInitTidRangeScan initializes a TID range scan node by setting up the execution state, opening the scan relation, and preparing all necessary components for TID range scanning operations.

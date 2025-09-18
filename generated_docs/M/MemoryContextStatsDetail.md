@@ -1,7 +1,7 @@
 # MemoryContextStatsDetail
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 829 - 875
+[src/backend/utils/mmgr/mcxt.c:829-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L829-L875)
 
 ## Overview
 MemoryContextStatsDetail provides configurable memory context statistics reporting with control over output depth and format, supporting both stderr and logging system output.

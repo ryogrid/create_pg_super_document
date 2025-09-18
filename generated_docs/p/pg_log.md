@@ -1,7 +1,7 @@
 # pg_log
 
 ## Location
-src/bin/pg_upgrade/util.c: 259 - 269
+[src/bin/pg_upgrade/util.c:259-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L259-L269)
 
 ## Overview
 pg_log is a wrapper function for logging messages in PostgreSQL's pg_upgrade utility that provides a variable-argument interface to the internal logging system.

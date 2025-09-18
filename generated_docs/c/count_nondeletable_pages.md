@@ -1,7 +1,7 @@
 # count_nondeletable_pages
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2681 - 2822
+[src/backend/access/heap/vacuumlazy.c:2681-2822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2681-L2822)
 
 ## Overview
 Rescans pages from the end of a relation backwards to verify they are still empty and safe for truncation, detecting concurrent lock conflicts.

@@ -1,7 +1,7 @@
 # PLyObToDomain
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 119 - 123
+[src/pl/plpython/plpy_typeio.h:119-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L119-L123)
 
 ## Overview
 A structure used in PostgreSQL's PL/Python extension to store conversion information for domain types when converting Python objects to PostgreSQL Datum values.

@@ -1,7 +1,7 @@
 # slist_pop_head_node
 
 ## Location
-src/include/lib/ilist.h: 1028 - 1042
+[src/include/lib/ilist.h:1028-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1028-L1042)
 
 ## Overview
 Removes and returns the first node from a singly linked list in PostgreSQL's intrusive list implementation.

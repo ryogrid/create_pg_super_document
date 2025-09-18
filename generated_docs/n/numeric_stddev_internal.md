@@ -1,7 +1,7 @@
 # numeric_stddev_internal
 
 ## Location
-src/backend/utils/adt/numeric.c: 6222 - 6305
+[src/backend/utils/adt/numeric.c:6222-6305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6222-L6305)
 
 ## Overview
 Internal workhorse routine that computes standard deviation and variance statistics from accumulated numeric aggregate state.

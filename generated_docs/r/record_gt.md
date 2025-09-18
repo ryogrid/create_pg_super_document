@@ -1,7 +1,7 @@
 # record_gt
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1295 - 1300
+[src/backend/utils/adt/rowtypes.c:1295-1300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1295-L1300)
 
 ## Overview
 Compares two records (row types) to determine if the first record is greater than the second record.

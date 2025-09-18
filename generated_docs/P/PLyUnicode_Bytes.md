@@ -1,7 +1,7 @@
 # PLyUnicode_Bytes
 
 ## Location
-src/pl/plpython/plpy_util.c: 21 - 82
+[src/pl/plpython/plpy_util.c:21-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_util.c#L21-L82)
 
 ## Overview
 Converts a Python unicode object to a Python bytes object encoded in PostgreSQL server encoding, handling encoding conversion from UTF-8 when necessary.

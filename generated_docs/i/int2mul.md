@@ -1,7 +1,7 @@
 # int2mul
 
 ## Location
-src/backend/utils/adt/int.c: 934 - 948
+[src/backend/utils/adt/int.c:934-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L934-L948)
 
 ## Overview
 A PostgreSQL system function that implements multiplication for 16-bit signed integers (int2/smallint) with overflow detection and error handling.

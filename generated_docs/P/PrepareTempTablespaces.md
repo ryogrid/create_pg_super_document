@@ -1,7 +1,7 @@
 # PrepareTempTablespaces
 
 ## Location
-src/backend/commands/tablespace.c: 1331 - 1425
+[src/backend/commands/tablespace.c:1331-1425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1331-L1425)
 
 ## Overview
 Parses the temp_tablespaces GUC variable and configures the storage subsystem to use the specified tablespaces for temporary files, performing validation and permission checks.

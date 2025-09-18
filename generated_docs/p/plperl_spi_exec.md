@@ -1,7 +1,7 @@
 # plperl_spi_exec
 
 ## Location
-src/pl/plperl/plperl.c: 3133 - 3192
+[src/pl/plperl/plperl.c:3133-3192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3133-L3192)
 
 ## Overview
 Executes an SQL query from within PL/Perl and returns the results as a Perl hash, handling errors through sub-transaction management.

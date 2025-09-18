@@ -1,7 +1,7 @@
 # SetSessionUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 568 - 580
+[src/backend/utils/init/miscinit.c:568-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L568-L580)
 
 ## Overview
 Sets the session user ID and superuser status for the current PostgreSQL session, establishing the identity that will be used for permission checks and session-related operations.

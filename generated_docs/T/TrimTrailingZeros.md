@@ -1,7 +1,7 @@
 # TrimTrailingZeros
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 722 - 752
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:722-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L722-L752)
 
 ## Overview
 Removes trailing zeros from a numeric string while preserving at least 2 fractional digits to maintain proper decimal formatting.

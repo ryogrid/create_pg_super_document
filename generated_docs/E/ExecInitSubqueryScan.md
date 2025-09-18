@@ -1,7 +1,7 @@
 # ExecInitSubqueryScan
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 97 - 167
+[src/backend/executor/nodeSubqueryscan.c:97-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L97-L167)
 
 ## Overview
 ExecInitSubqueryScan initializes a SubqueryScan node for execution, setting up the necessary state structures and initializing the underlying subplan.

@@ -1,7 +1,7 @@
 # pg_md5_binary
 
 ## Location
-src/common/md5_common.c: 108 - 144
+[src/common/md5_common.c:108-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5_common.c#L108-L144)
 
 ## Overview
 Calculates the MD5 hash digest of a buffer and returns it as a binary byte array rather than hexadecimal string representation.

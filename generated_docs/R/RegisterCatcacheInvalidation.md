@@ -1,7 +1,7 @@
 # RegisterCatcacheInvalidation
 
 ## Location
-src/backend/utils/cache/inval.c: 545 - 558
+[src/backend/utils/cache/inval.c:545-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L545-L558)
 
 ## Overview
 Registers an invalidation event for a catalog cache (catcache) tuple entry by adding it to the current command's invalidation message group.

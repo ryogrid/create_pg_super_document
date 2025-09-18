@@ -1,7 +1,7 @@
 # FreeExecutorState
 
 ## Location
-src/backend/executor/execUtils.c: 189 - 233
+[src/backend/executor/execUtils.c:189-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L189-L233)
 
 ## Overview
 Releases an EState along with all remaining working storage, performing proper cleanup of expression contexts, JIT resources, and the per-query memory context.

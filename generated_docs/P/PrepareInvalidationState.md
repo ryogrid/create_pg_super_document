@@ -1,7 +1,7 @@
 # PrepareInvalidationState
 
 ## Location
-src/backend/utils/cache/inval.c: 612 - 674
+[src/backend/utils/cache/inval.c:612-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L612-L674)
 
 ## Overview
 Initializes invalidation data structures for the current transaction or subtransaction, managing the hierarchical invalidation state stack.

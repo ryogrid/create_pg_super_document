@@ -1,7 +1,7 @@
 # hash_agg_enter_spill_mode
 
 ## Location
-src/backend/executor/nodeAgg.c: 1882 - 1916
+[src/backend/executor/nodeAgg.c:1882-1916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1882-L1916)
 
 ## Overview
 Transitions hash aggregation into "spill mode" where new groups are no longer added to hash tables but are instead written to disk for later processing, enabling memory-bounded aggregation.

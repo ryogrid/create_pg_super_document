@@ -1,7 +1,7 @@
 # PLy_spi_execute_plan
 
 ## Location
-src/pl/plpython/plpy_spi.c: 175 - 297
+[src/pl/plpython/plpy_spi.c:175-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L175-L297)
 
 ## Overview
 PLy_spi_execute_plan executes a previously prepared SQL plan with provided parameter values, handling parameter conversion and result processing within a managed subtransaction context.

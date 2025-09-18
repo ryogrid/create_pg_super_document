@@ -1,7 +1,7 @@
 # heap_vac_scan_next_block
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1088 - 1185
+[src/backend/access/heap/vacuumlazy.c:1088-1185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1088-L1185)
 
 ## Overview
 heap_vac_scan_next_block determines the next block that vacuum should process, using visibility map information and optimization thresholds to skip unnecessary blocks.

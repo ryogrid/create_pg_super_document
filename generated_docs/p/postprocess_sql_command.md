@@ -1,7 +1,7 @@
 # postprocess_sql_command
 
 ## Location
-src/bin/pgbench/pgbench.c: 5634 - 5670
+[src/bin/pgbench/pgbench.c:5634-5670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5634-L5670)
 
 ## Overview
 Completes the processing of an SQL command after it has been fully parsed, setting up additional fields in the Command structure for execution.

@@ -1,7 +1,7 @@
 # serialize_deflist
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1565 - 1620
+[src/backend/commands/tsearchcmds.c:1565-1620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1565-L1620)
 
 ## Overview
 A utility function that converts a list of DefElem structures into a formatted TEXT datum suitable for storage in pg_ts_dict.dictinitoption, formatted exactly as needed for CREATE TEXT SEARCH DICTIONARY commands.

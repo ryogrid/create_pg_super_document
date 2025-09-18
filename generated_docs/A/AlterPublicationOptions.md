@@ -1,7 +1,7 @@
 # AlterPublicationOptions
 
 ## Location
-src/backend/commands/publicationcmds.c: 871 - 1057
+[src/backend/commands/publicationcmds.c:871-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L871-L1057)
 
 ## Overview
 AlterPublicationOptions modifies the options of an existing publication, handling changes to publish actions and partition root publishing preferences while enforcing constraints related to WHERE clauses and column lists.

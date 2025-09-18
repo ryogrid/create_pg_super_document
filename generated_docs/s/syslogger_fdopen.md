@@ -1,7 +1,7 @@
 # syslogger_fdopen
 
 ## Location
-src/backend/postmaster/syslogger.c: 824 - 879
+[src/backend/postmaster/syslogger.c:824-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L824-L879)
 
 ## Overview
 syslogger_fdopen is a utility wrapper that re-opens error output files from file descriptors, used in EXEC_BACKEND builds when the logging collector process needs to reconstruct FILE streams from inherited descriptors.

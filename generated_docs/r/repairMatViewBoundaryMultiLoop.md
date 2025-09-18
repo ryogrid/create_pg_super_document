@@ -1,7 +1,7 @@
 # repairMatViewBoundaryMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1012 - 1034
+[src/bin/pg_dump/pg_dump_sort.c:1012-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1012-L1034)
 
 ## Overview
 Repairs circular dependencies involving materialized views in pg_dump by removing pre-data phase constraints and postponing matview definitions to the post-data phase as a stopgap solution.

@@ -1,7 +1,7 @@
 # checkExtensionMembership
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1734 - 1783
+[src/bin/pg_dump/pg_dump.c:1734-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1734-L1783)
 
 ## Overview
 Determines whether a database object is a member of an extension and configures appropriate dump settings and dependencies based on extension membership status.

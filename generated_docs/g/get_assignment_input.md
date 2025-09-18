@@ -1,7 +1,7 @@
 # get_assignment_input
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1189 - 1217
+[src/backend/rewrite/rewriteHandler.c:1189-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1189-L1217)
 
 ## Overview
 Returns the input expression from assignment nodes (FieldStore or SubscriptingRef), or NULL if the node is not an assignment operation.

@@ -1,7 +1,7 @@
 # _mdfd_segpath
 
 ## Location
-src/backend/storage/smgr/md.c: 1528 - 1550
+[src/backend/storage/smgr/md.c:1528-1550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1528-L1550)
 
 ## Overview
 A static helper function that constructs the filesystem path for a specific segment of a relation fork, handling both the main segment and numbered segment files.

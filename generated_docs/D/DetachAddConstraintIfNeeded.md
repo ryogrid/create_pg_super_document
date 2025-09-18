@@ -1,7 +1,7 @@
 # DetachAddConstraintIfNeeded
 
 ## Location
-src/backend/commands/tablecmds.c: 19681 - 19721
+[src/backend/commands/tablecmds.c:19681-19721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19681-L19721)
 
 ## Overview
 DetachAddConstraintIfNeeded creates a check constraint equivalent to the partition constraint on a partition being detached, but only if no existing constraint already implies the needed constraint.

@@ -1,7 +1,7 @@
 # ReorderBufferTXNByIdEnt
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 128 - 132
+[src/backend/replication/logical/reorderbuffer.c:128-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L128-L132)
 
 ## Overview
 ReorderBufferTXNByIdEnt is a hash table entry structure used to map transaction IDs (xid) to their corresponding transaction state objects in PostgreSQL's logical replication reorder buffer system.

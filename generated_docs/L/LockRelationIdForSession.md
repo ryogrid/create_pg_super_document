@@ -1,7 +1,7 @@
 # LockRelationIdForSession
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 387 - 399
+[src/backend/storage/lmgr/lmgr.c:387-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L387-L399)
 
 ## Overview
 LockRelationIdForSession acquires a session-level lock on a relation that persists across transaction boundaries until explicitly released.

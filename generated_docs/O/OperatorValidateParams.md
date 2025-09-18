@@ -1,7 +1,7 @@
 # OperatorValidateParams
 
 ## Location
-src/backend/catalog/pg_operator.c: 556 - 621
+[src/backend/catalog/pg_operator.c:556-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_operator.c#L556-L621)
 
 ## Overview
 Validates that an operator definition with specific input/output types and attributes is logically consistent, enforcing PostgreSQL's rules about which operator attributes are allowed for different operator types.

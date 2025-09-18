@@ -1,7 +1,7 @@
 # pg_hmac_init
 
 ## Location
-src/common/hmac_openssl.c: 183 - 228
+[src/common/hmac_openssl.c:183-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L183-L228)
 
 ## Overview
 Initializes an HMAC context with a secret key, preparing it for message authentication operations using the HMAC algorithm.

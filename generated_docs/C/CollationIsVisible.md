@@ -1,7 +1,7 @@
 # CollationIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2407 - 2418
+[src/backend/catalog/namespace.c:2407-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2407-L2418)
 
 ## Overview
 A simple wrapper function that determines whether a collation identified by OID is visible in the current search path, meaning it would be found when searching for the unqualified collation name.

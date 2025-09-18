@@ -1,7 +1,7 @@
 # index_vacuum_cleanup
 
 ## Location
-src/backend/access/index/indexam.c: 769 - 787
+[src/backend/access/index/indexam.c:769-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L769-L787)
 
 ## Overview
 Performs post-deletion cleanup operations on an index after bulk deletion, finalizing the vacuum process and updating index statistics.

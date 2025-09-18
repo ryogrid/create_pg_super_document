@@ -1,7 +1,7 @@
 # icu_test
 
 ## Location
-src/common/unicode/category_test.c: 56 - 222
+[src/common/unicode/category_test.c:56-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/category_test.c#L56-L222)
 
 ## Overview
 Performs comprehensive validation of PostgreSQL's Unicode tables by comparing them against the International Components for Unicode (ICU) library across all Unicode codepoints.

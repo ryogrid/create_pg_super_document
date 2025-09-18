@@ -1,7 +1,7 @@
 # PageTruncateLinePointerArray
 
 ## Location
-src/backend/storage/page/bufpage.c: 835 - 906
+[src/backend/storage/page/bufpage.c:835-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L835-L906)
 
 ## Overview
 Removes unused line pointers from the end of the line pointer array to reclaim space while preserving at least one unused item to avoid creating an empty page.

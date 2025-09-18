@@ -1,7 +1,7 @@
 # checkRuleResultList
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 506 - 630
+[src/backend/rewrite/rewriteDefine.c:506-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L506-L630)
 
 ## Overview
 checkRuleResultList validates that a target list (either SELECT or RETURNING) produces output that is compatible with a relation's tuple descriptor, ensuring type and structure consistency.

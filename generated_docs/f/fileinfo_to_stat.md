@@ -1,7 +1,7 @@
 # fileinfo_to_stat
 
 ## Location
-src/port/win32stat.c: 68 - 112
+[src/port/win32stat.c:68-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L68-L112)
 
 ## Overview
 Converts Windows file information obtained from a file handle to a Unix-style struct stat structure.

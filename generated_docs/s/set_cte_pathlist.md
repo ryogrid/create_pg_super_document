@@ -1,7 +1,7 @@
 # set_cte_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2860 - 2938
+[src/backend/optimizer/path/allpaths.c:2860-2938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2860-L2938)
 
 ## Overview
 Builds the single access path for a non-self-reference CTE RTE (Range Table Entry), handling pathlist generation for Common Table Expression scans in PostgreSQL's query planner.

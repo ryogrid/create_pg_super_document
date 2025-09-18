@@ -1,7 +1,7 @@
 # ZeroAndLockBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1018 - 1104
+[src/backend/storage/buffer/bufmgr.c:1018-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1018-L1104)
 
 ## Overview
 A static function that zeros a buffer page if needed and locks it, implementing the core functionality for RBM_ZERO_AND_LOCK and RBM_ZERO_AND_CLEANUP_LOCK buffer reading modes.

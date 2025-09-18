@@ -1,7 +1,7 @@
 # IsTransactionExitStmtList
 
 ## Location
-src/backend/tcop/postgres.c: 2847 - 2861
+[src/backend/tcop/postgres.c:2847-2861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2847-L2861)
 
 ## Overview
 Tests whether a list of PlannedStmt nodes contains a single transaction exit statement (COMMIT, ROLLBACK, etc.).

@@ -1,7 +1,7 @@
 # tsvector_filter
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 819 - 924
+[src/backend/utils/adt/tsvector_op.c:819-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L819-L924)
 
 ## Overview
 Filters a tsvector to keep only lexemes with specified weights, returning a new tsvector containing only those lexemes that have positions with the given weight values.

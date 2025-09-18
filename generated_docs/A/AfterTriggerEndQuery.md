@@ -1,7 +1,7 @@
 # AfterTriggerEndQuery
 
 ## Location
-src/backend/commands/trigger.c: 5125 - 5215
+[src/backend/commands/trigger.c:5125-5215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5125-L5215)
 
 ## Overview
 Finalizes query-level trigger processing by executing immediate triggers and transferring deferred triggers to the global list, then cleaning up query-specific resources.

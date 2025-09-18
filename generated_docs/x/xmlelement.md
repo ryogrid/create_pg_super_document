@@ -1,7 +1,7 @@
 # xmlelement
 
 ## Location
-src/backend/utils/adt/xml.c: 869 - 992
+[src/backend/utils/adt/xml.c:869-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L869-L992)
 
 ## Overview
 Constructs an XML element with specified name, attributes, and content from PostgreSQL expressions, providing the core functionality for the SQL XMLELEMENT function.

@@ -1,7 +1,7 @@
 # pg_u_prop_case_ignorable
 
 ## Location
-src/common/unicode_category.c: 159 - 169
+[src/common/unicode_category.c:159-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L159-L169)
 
 ## Overview
 Determines whether a Unicode code point has the Case_Ignorable property, which identifies characters that should be ignored when performing case-sensitive operations.

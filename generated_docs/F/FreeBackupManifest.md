@@ -1,7 +1,7 @@
 # FreeBackupManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 91 - 100
+[src/backend/backup/backup_manifest.c:91-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L91-L100)
 
 ## Overview
 Releases the cryptographic hash context resources allocated during backup manifest generation to prevent memory leaks.

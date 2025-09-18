@@ -1,7 +1,7 @@
 # _bt_pagedel
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1802 - 2087
+[src/backend/access/nbtree/nbtpage.c:1802-2087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1802-L2087)
 
 ## Overview
 This function performs the complete deletion of a leaf page from a B-tree index, coordinating both the marking phase and unlinking phase of page deletion while maintaining index integrity.

@@ -1,7 +1,7 @@
 # TypenameGetTypidExtended
 
 ## Location
-src/backend/catalog/namespace.c: 1008 - 1039
+[src/backend/catalog/namespace.c:1008-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1008-L1039)
 
 ## Overview
 Attempts to resolve an unqualified datatype name by searching through the current namespace search path.

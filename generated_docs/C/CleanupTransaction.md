@@ -1,7 +1,7 @@
 # CleanupTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 2945 - 2994
+[src/backend/access/transam/xact.c:2945-2994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L2945-L2994)
 
 ## Overview
 CleanupTransaction performs the final cleanup phase after a transaction abort, resetting all transaction state back to default and releasing remaining resources.

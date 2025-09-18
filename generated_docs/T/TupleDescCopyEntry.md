@@ -1,7 +1,7 @@
 # TupleDescCopyEntry
 
 ## Location
-src/backend/access/common/tupdesc.c: 289 - 330
+[src/backend/access/common/tupdesc.c:289-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L289-L330)
 
 ## Overview
 Copies a single attribute structure from one tuple descriptor to another without copying constraints or defaults.

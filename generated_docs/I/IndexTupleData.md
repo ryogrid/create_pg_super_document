@@ -1,7 +1,7 @@
 # IndexTupleData
 
 ## Location
-src/include/access/itup.h: 35 - 51
+[src/include/access/itup.h:35-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/itup.h#L35-L51)
 
 ## Overview
 IndexTupleData is the header structure for all index tuples in PostgreSQL, providing essential metadata including a reference to the corresponding heap tuple and various tuple attributes encoded in a compact information field.

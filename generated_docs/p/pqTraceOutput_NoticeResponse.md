@@ -1,7 +1,7 @@
 # pqTraceOutput_NoticeResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 326 - 331
+[src/interfaces/libpq/fe-trace.c:326-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L326-L331)
 
 ## Overview
 A static wrapper function that specifically handles tracing of NoticeResponse messages in PostgreSQL's libpq protocol tracing.

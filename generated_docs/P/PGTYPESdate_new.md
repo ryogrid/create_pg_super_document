@@ -1,7 +1,7 @@
 # PGTYPESdate_new
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 15 - 24
+[src/interfaces/ecpg/pgtypeslib/datetime.c:15-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L15-L24)
 
 ## Overview
 Allocates memory for a new date object and returns a pointer to it for use in PostgreSQL ECPG date handling operations.

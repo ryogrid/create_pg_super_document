@@ -1,7 +1,7 @@
 # gist_box_union
 
 ## Location
-src/backend/access/gist/gistproc.c: 164 - 198
+[src/backend/access/gist/gistproc.c:164-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L164-L198)
 
 ## Overview
 The GiST Union method for boxes that returns the minimal bounding box that encloses all the entries in the provided entry vector.

@@ -1,7 +1,7 @@
 # pgstat_flush_io
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 173 - 220
+[src/backend/utils/activity/pgstat_io.c:173-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L173-L220)
 
 ## Overview
 Flushes locally pending I/O statistics from the current backend to the shared statistics memory.

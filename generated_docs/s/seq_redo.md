@@ -1,7 +1,7 @@
 # seq_redo
 
 ## Location
-src/backend/commands/sequence.c: 1834 - 1886
+[src/backend/commands/sequence.c:1834-1886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1834-L1886)
 
 ## Overview
 Handles WAL (Write-Ahead Log) redo operations for sequence-related log records during crash recovery and replication.

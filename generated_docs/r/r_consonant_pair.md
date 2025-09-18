@@ -1,7 +1,7 @@
 # r_consonant_pair
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 187 - 209
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:187-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L187-L209)
 
 ## Overview
 This function removes doubled consonants (specifically 'd' and 't') that occur after suffix removal in Scandinavian language stemming algorithms.

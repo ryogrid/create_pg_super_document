@@ -1,7 +1,7 @@
 # jsonb_set
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4844 - 4892
+[src/backend/utils/adt/jsonfuncs.c:4844-4892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4844-L4892)
 
 ## Overview
 Sets a value at a specified path in a JSONB structure, with optional creation of missing path components.

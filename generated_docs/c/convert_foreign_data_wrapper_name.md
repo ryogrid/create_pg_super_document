@@ -1,7 +1,7 @@
 # convert_foreign_data_wrapper_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3356 - 3367
+[src/backend/utils/adt/acl.c:3356-3367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3356-L3367)
 
 ## Overview
 Converts a foreign data wrapper name (text) to its corresponding object identifier (Oid) for privilege checking operations.

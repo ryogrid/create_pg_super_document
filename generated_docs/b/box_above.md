@@ -1,7 +1,7 @@
 # box_above
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 658 - 669
+[src/backend/utils/adt/geo_ops.c:658-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L658-L669)
 
 ## Overview
 Tests whether the first box is strictly above the second box in PostgreSQL's geometric box operations.

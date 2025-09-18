@@ -1,7 +1,7 @@
 # cost_tuplesort
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1884 - 1985
+[src/backend/optimizer/path/costsize.c:1884-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1884-L1985)
 
 ## Overview
 Determines and returns the cost of sorting a relation using PostgreSQL's tuplesort algorithm, excluding the cost of reading the input data.

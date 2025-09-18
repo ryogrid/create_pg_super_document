@@ -1,7 +1,7 @@
 # RelationInitPhysicalAddr
 
 ## Location
-src/backend/utils/cache/relcache.c: 1320 - 1401
+[src/backend/utils/cache/relcache.c:1320-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1320-L1401)
 
 ## Overview
 Initializes the physical addressing information (RelFileLocator) for a relation cache entry, determining the tablespace, database, and file number for the relation's storage.

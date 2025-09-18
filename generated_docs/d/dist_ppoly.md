@@ -1,7 +1,7 @@
 # dist_ppoly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2612 - 2620
+[src/backend/utils/adt/geo_ops.c:2612-2620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2612-L2620)
 
 ## Overview
 PostgreSQL SQL-callable function that calculates the distance from a point to a polygon.

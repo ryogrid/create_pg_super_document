@@ -1,7 +1,7 @@
 # CheckMD5Auth
 
 ## Location
-src/backend/libpq/auth.c: 890 - 927
+[src/backend/libpq/auth.c:890-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L890-L927)
 
 ## Overview
 CheckMD5Auth implements MD5 challenge-response authentication for PostgreSQL, generating a random salt and verifying the client's MD5-hashed password response.

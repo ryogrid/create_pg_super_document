@@ -1,7 +1,7 @@
 # RecordTransactionCommitPrepared
 
 ## Location
-src/backend/access/transam/twophase.c: 2297 - 2394
+[src/backend/access/transam/twophase.c:2297-2394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2297-L2394)
 
 ## Overview
 RecordTransactionCommitPrepared records the commit of a previously prepared two-phase transaction to the Write-Ahead Log and transaction status system, handling replication origins and synchronous replication.

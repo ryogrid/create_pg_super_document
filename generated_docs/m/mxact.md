@@ -1,7 +1,7 @@
 # mxact
 
 ## Location
-src/backend/access/transam/multixact.c: 3509 - 3566
+[src/backend/access/transam/multixact.c:3509-3566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3509-L3566)
 
 ## Overview
 mxact is a typedef struct used within the pg_get_multixact_members function to store state information for iterating through multixact members when returning set-returning function results.

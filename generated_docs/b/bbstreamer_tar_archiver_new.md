@@ -1,7 +1,7 @@
 # bbstreamer_tar_archiver_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 356 - 389
+[src/bin/pg_basebackup/bbstreamer_tar.c:356-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L356-L389)
 
 ## Overview
 Creates a new bbstreamer that can generate a tar archive, intended for creating brand-new archives or modifying existing ones on the fly.

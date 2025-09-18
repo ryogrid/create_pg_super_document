@@ -1,7 +1,7 @@
 # comparetup_index_btree_tiebreak
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1466 - 1587
+[src/backend/utils/sort/tuplesortvariants.c:1466-1587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1466-L1587)
 
 ## Overview
 A specialized comparison function for B-tree index sorting that performs tiebreaking comparisons when the primary sort keys are equal, including uniqueness enforcement and ItemPointer-based ordering.

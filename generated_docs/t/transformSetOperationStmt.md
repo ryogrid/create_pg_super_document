@@ -1,7 +1,7 @@
 # transformSetOperationStmt
 
 ## Location
-src/backend/parser/analyze.c: 1699 - 1955
+[src/backend/parser/analyze.c:1699-1955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1699-L1955)
 
 ## Overview
 Transforms a set-operations tree (UNION/INTERSECT/EXCEPT) into a Query containing the leaf SELECTs as subqueries and a top-level setOperations tree.

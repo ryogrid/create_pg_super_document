@@ -1,7 +1,7 @@
 # RemoveTempRelations
 
 ## Location
-src/backend/catalog/namespace.c: 4598 - 4623
+[src/backend/catalog/namespace.c:4598-4623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4598-L4623)
 
 ## Overview
 RemoveTempRelations removes all relations within a specified temporary namespace while preserving the namespace itself, used for cleanup during backend shutdown or when reusing pre-existing temporary namespaces.

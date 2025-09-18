@@ -1,7 +1,7 @@
 # tsvector_update_trigger
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2739 - 2891
+[src/backend/utils/adt/tsvector_op.c:2739-2891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2739-L2891)
 
 ## Overview
 The core implementation function for PostgreSQL triggers that automatically update tsvector columns when text columns are modified, supporting both named configurations and column-based configurations.

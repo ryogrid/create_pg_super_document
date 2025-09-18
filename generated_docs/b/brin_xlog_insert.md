@@ -1,7 +1,7 @@
 # brin_xlog_insert
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 124 - 134
+[src/backend/access/brin/brin_xlog.c:124-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L124-L134)
 
 ## Overview
 A static function that handles WAL replay for BRIN index insertion operations during crash recovery.

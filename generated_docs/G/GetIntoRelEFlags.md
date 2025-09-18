@@ -1,7 +1,7 @@
 # GetIntoRelEFlags
 
 ## Location
-src/backend/commands/createas.c: 368 - 385
+[src/backend/commands/createas.c:368-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L368-L385)
 
 ## Overview
 Utility function that computes executor flags needed for CREATE TABLE AS operations, particularly handling the WITH NO DATA option for query execution control.

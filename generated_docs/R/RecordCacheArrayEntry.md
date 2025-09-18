@@ -1,7 +1,7 @@
 # RecordCacheArrayEntry
 
 ## Location
-src/backend/utils/cache/typcache.c: 278 - 282
+[src/backend/utils/cache/typcache.c:278-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L278-L282)
 
 ## Overview
 RecordCacheArrayEntry is a structure used in PostgreSQL's type cache system to store mappings between unique identifiers and their corresponding TupleDesc structures in a local backend array cache.

@@ -1,7 +1,7 @@
 # advance_transition_function
 
 ## Location
-src/backend/executor/nodeAgg.c: 706 - 815
+[src/backend/executor/nodeAgg.c:706-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L706-L815)
 
 ## Overview
 Advances the transition function for a single aggregate state within one grouping set, processing new input values and updating the aggregate's transValue.

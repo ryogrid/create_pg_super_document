@@ -1,7 +1,7 @@
 # lower2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 286 - 293
+[src/backend/utils/adt/geo_spgist.c:286-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L286-L293)
 
 ## Overview
 The `lower2D` function determines whether any range from a `RangeBox` can be positioned lower than a given `Range` query in 2-dimensional space.

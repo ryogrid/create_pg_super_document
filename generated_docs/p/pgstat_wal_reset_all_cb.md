@@ -1,7 +1,7 @@
 # pgstat_wal_reset_all_cb
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 167 - 177
+[src/backend/utils/activity/pgstat_wal.c:167-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L167-L177)
 
 ## Overview
 This function resets all WAL (Write-Ahead Log) statistics to zero values and sets the statistics reset timestamp in the shared memory statistics area.

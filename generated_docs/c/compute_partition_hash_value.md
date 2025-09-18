@@ -1,7 +1,7 @@
 # compute_partition_hash_value
 
 ## Location
-src/backend/partitioning/partbounds.c: 4722 - 4770
+[src/backend/partitioning/partbounds.c:4722-4770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L4722-L4770)
 
 ## Overview
 Computes a 64-bit hash value for given partition key values used in hash partitioning to determine which partition a tuple belongs to.

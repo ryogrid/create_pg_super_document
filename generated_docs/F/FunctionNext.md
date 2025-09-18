@@ -1,7 +1,7 @@
 # FunctionNext
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 59 - 248
+[src/backend/executor/nodeFunctionscan.c:59-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L59-L248)
 
 ## Overview
 FunctionNext is the core workhorse function for ExecFunctionScan that retrieves the next tuple from table functions in a function scan operation.

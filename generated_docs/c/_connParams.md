@@ -1,7 +1,7 @@
 # _connParams
 
 ## Location
-src/include/fe_utils/connect_utils.h: 25 - 35
+[src/include/fe_utils/connect_utils.h:25-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/connect_utils.h#L25-L35)
 
 ## Overview
 A structure that holds database connection parameters needed by PostgreSQL client programs for establishing database connections, used primarily in pg_dump and related utilities.

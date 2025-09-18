@@ -1,7 +1,7 @@
 # hash_seq_search
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1398 - 1473
+[src/backend/utils/hash/dynahash.c:1398-1473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1398-L1473)
 
 ## Overview
 Retrieves the next entry during a sequential scan of a PostgreSQL dynamic hash table, returning NULL when the scan is complete.

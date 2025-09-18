@@ -1,7 +1,7 @@
 # open_file_in_directory
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 188 - 209
+[src/bin/pg_waldump/pg_waldump.c:188-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L188-L209)
 
 ## Overview
 Opens a file with a specified filename within a given directory and returns a read-only file descriptor for use by PostgreSQL's WAL dump utility.

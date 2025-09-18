@@ -1,7 +1,7 @@
 # intset_num_entries
 
 ## Location
-src/backend/lib/integerset.c: 350 - 358
+[src/backend/lib/integerset.c:350-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L350-L358)
 
 ## Overview
 Returns the total number of integer entries stored in an IntegerSet.

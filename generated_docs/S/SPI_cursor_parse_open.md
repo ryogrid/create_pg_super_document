@@ -1,7 +1,7 @@
 # SPI_cursor_parse_open
 
 ## Location
-src/backend/executor/spi.c: 1533 - 1576
+[src/backend/executor/spi.c:1533-1576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1533-L1576)
 
 ## Overview
 SPI_cursor_parse_open is a modern, flexible interface for parsing a SQL query and opening it as a cursor, using a structured options parameter to provide comprehensive control over parsing and cursor behavior.

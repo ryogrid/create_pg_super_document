@@ -1,7 +1,7 @@
 # create_bitmap_scan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3202 - 3331
+[src/backend/optimizer/plan/createplan.c:3202-3331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3202-L3331)
 
 ## Overview
 Creates a bitmap heap scan plan node that combines bitmap index scans with heap tuple retrieval for efficient multi-index and complex condition processing.

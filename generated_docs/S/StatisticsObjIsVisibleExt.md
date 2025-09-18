@@ -1,7 +1,7 @@
 # StatisticsObjIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2644 - 2715
+[src/backend/catalog/namespace.c:2644-2715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2644-L2715)
 
 ## Overview
 Extended version of StatisticsObjIsVisible that determines whether a statistics object is visible in the current search path, with optional graceful handling of missing statistics objects.

@@ -1,7 +1,7 @@
 # ecpg_dynamic_type
 
 ## Location
-src/interfaces/ecpg/ecpglib/typename.c: 73 - 106
+[src/interfaces/ecpg/ecpglib/typename.c:73-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/typename.c#L73-L106)
 
 ## Overview
 This function maps PostgreSQL object identifiers (OIDs) to SQL3 standard data type constants for dynamic SQL operations in the ECPG preprocessor.

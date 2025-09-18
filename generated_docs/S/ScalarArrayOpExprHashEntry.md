@@ -1,7 +1,7 @@
 # ScalarArrayOpExprHashEntry
 
 ## Location
-src/backend/executor/execExprInterp.c: 189 - 194
+[src/backend/executor/execExprInterp.c:189-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L189-L194)
 
 ## Overview
 ScalarArrayOpExprHashEntry is a hash table entry structure used to optimize scalar-array operations (like 'x = ANY(array)') by caching frequently accessed array elements during EEOP_HASHED_SCALARARRAYOP expression evaluation.

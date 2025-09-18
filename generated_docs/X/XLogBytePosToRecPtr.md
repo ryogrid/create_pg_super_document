@@ -1,7 +1,7 @@
 # XLogBytePosToRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 1860 - 1899
+[src/backend/access/transam/xlog.c:1860-1899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1860-L1899)
 
 ## Overview
 Converts a usable byte position to an XLogRecPtr by accounting for WAL page headers and segment structure.

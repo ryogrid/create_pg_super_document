@@ -1,7 +1,7 @@
 # GetSlotInformation
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 561 - 654
+[src/bin/pg_basebackup/streamutil.c:561-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L561-L654)
 
 ## Overview
 Executes the READ_REPLICATION_SLOT replication command to retrieve information about a specified physical replication slot, including its restart LSN position and current timeline ID.

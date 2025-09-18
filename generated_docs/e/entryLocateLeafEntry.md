@@ -1,7 +1,7 @@
 # entryLocateLeafEntry
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 346 - 404
+[src/backend/access/gin/ginentrypage.c:346-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L346-L404)
 
 ## Overview
 Searches for the correct position of a value on a GIN index leaf page using binary search, returning whether the exact value was found.

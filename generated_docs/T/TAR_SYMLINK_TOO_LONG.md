@@ -1,7 +1,7 @@
 # TAR_SYMLINK_TOO_LONG
 
 ## Location
-src/include/pgtar.h: 23 - 36
+[src/include/pgtar.h:23-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgtar.h#L23-L36)
 
 ## Overview
 An enumeration constant representing an error condition when a symbolic link target path exceeds the maximum length allowed in tar archive format.

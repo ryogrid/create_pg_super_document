@@ -1,7 +1,7 @@
 # typeIsOfTypedTable
 
 ## Location
-src/backend/parser/parse_coerce.c: 3382 - 3404
+[src/backend/parser/parse_coerce.c:3382-3404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3382-L3404)
 
 ## Overview
 Checks whether a given relation type ID corresponds to the row type of a typed table with a specific type, or is a domain over such a row type.

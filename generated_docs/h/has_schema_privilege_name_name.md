@@ -1,7 +1,7 @@
 # has_schema_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3805 - 3830
+[src/backend/utils/adt/acl.c:3805-3830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3805-L3830)
 
 ## Overview
 Checks whether a specific user (identified by username) has the specified privileges on a schema (identified by schema name).

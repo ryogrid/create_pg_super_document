@@ -1,7 +1,7 @@
 # ExecParallelSetupTupleQueues
 
 ## Location
-src/backend/executor/execParallel.c: 535 - 586
+[src/backend/executor/execParallel.c:535-586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L535-L586)
 
 ## Overview
 ExecParallelSetupTupleQueues creates and configures shared memory message queues that enable parallel worker processes to return result tuples to the main backend process.

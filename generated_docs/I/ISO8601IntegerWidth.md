@@ -1,7 +1,7 @@
 # ISO8601IntegerWidth
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 81 - 93
+[src/interfaces/ecpg/pgtypeslib/interval.c:81-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L81-L93)
 
 ## Overview
 ISO8601IntegerWidth determines the number of integral digits in a valid ISO 8601 number field, ignoring any sign and fractional parts.

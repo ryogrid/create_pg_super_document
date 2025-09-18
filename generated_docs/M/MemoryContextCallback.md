@@ -1,7 +1,7 @@
 # MemoryContextCallback
 
 ## Location
-src/include/utils/palloc.h: 47 - 52
+[src/include/utils/palloc.h:47-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/palloc.h#L47-L52)
 
 ## Overview
 A structure that defines callback functions to be executed just before a memory context is reset or deleted, enabling cleanup operations and resource management.

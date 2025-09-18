@@ -1,7 +1,7 @@
 # get_opclass_oid
 
 ## Location
-src/backend/commands/opclasscmds.c: 220 - 242
+[src/backend/commands/opclasscmds.c:220-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L220-L242)
 
 ## Overview
 get_opclass_oid is a utility function that finds an operator class OID by its possibly qualified name, serving as a convenient wrapper around OpClassCacheLookup.

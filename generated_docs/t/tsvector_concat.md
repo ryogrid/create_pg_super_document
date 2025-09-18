@@ -1,7 +1,7 @@
 # tsvector_concat
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 925 - 1151
+[src/backend/utils/adt/tsvector_op.c:925-1151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L925-L1151)
 
 ## Overview
 Concatenates two tsvectors by merging their lexemes in sorted order, combining duplicate entries and adjusting position offsets to maintain proper position sequencing across the concatenated result.

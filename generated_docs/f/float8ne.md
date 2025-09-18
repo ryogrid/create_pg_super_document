@@ -1,7 +1,7 @@
 # float8ne
 
 ## Location
-src/backend/utils/adt/float.c: 922 - 930
+[src/backend/utils/adt/float.c:922-930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L922-L930)
 
 ## Overview
 The float8ne function implements the not-equal comparison operator for PostgreSQL double-precision floating-point numbers, handling special cases like NaN values according to IEEE 754 standards.

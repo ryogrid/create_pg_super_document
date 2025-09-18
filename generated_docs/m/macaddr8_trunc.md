@@ -1,7 +1,7 @@
 # macaddr8_trunc
 
 ## Location
-src/backend/utils/adt/mac8.c: 477 - 499
+[src/backend/utils/adt/mac8.c:477-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L477-L499)
 
 ## Overview
 Truncates a MAC-8 (EUI-64) address to its manufacturer identifier by preserving only the first 3 bytes and zeroing the remaining 5 bytes.

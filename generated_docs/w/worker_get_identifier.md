@@ -1,7 +1,7 @@
 # worker_get_identifier
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 3019 - 3046
+[src/backend/utils/sort/tuplesort.c:3019-3046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L3019-L3046)
 
 ## Overview
 Assigns and returns a unique ordinal identifier for a worker process in parallel tuplesort operations.

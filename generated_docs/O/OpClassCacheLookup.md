@@ -1,7 +1,7 @@
 # OpClassCacheLookup
 
 ## Location
-src/backend/commands/opclasscmds.c: 162 - 219
+[src/backend/commands/opclasscmds.c:162-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L162-L219)
 
 ## Overview
 OpClassCacheLookup is a static function that looks up an existing operator class by name in the PostgreSQL system catalog, returning a syscache tuple reference for further processing.

@@ -1,7 +1,7 @@
 # buildDefItem
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1834 - 1870
+[src/backend/commands/tsearchcmds.c:1834-1870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1834-L1870)
 
 ## Overview
 buildDefItem is a static function that constructs a DefElem node from parsed key-value parameters during text search configuration deserialization, with intelligent type detection and conversion.

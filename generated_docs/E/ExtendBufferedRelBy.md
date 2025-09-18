@@ -1,7 +1,7 @@
 # ExtendBufferedRelBy
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 877 - 908
+[src/backend/storage/buffer/bufmgr.c:877-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L877-L908)
 
 ## Overview
 Extends a buffered relation by multiple blocks, providing bulk extension capabilities with flexible buffer management and resource-aware allocation strategies.

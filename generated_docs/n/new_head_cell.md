@@ -1,7 +1,7 @@
 # new_head_cell
 
 ## Location
-src/backend/nodes/list.c: 305 - 322
+[src/backend/nodes/list.c:305-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L305-L322)
 
 ## Overview
 Creates space for a new head cell at the beginning of an existing PostgreSQL list by shifting all current elements one position to the right.

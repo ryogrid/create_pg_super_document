@@ -1,7 +1,7 @@
 # _hash_relbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 266 - 276
+[src/backend/access/hash/hashpage.c:266-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L266-L276)
 
 ## Overview
 This function releases a locked buffer by dropping both its lock and pin (reference count), providing a clean way to release buffer resources in hash index operations.

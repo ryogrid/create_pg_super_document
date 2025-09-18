@@ -1,7 +1,7 @@
 # DeleteChildTargetLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2204 - 2278
+[src/backend/storage/lmgr/predicate.c:2204-2278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2204-L2278)
 
 ## Overview
 Deletes child target locks owned by the current process that are covered by a new target, implementing lock promotion optimization in the predicate locking system.

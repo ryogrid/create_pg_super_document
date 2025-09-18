@@ -1,7 +1,7 @@
 # bbsink_forward_cleanup
 
 ## Location
-src/backend/backup/basebackup_sink.c: 121 - 125
+[src/backend/backup/basebackup_sink.c:121-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L121-L125)
 
 ## Overview
 A forwarding function that passes the cleanup signal to the next backup sink in a chain, used to ensure proper resource cleanup and destruction across all sinks in PostgreSQL's base backup system.

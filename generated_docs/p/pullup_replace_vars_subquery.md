@@ -1,7 +1,7 @@
 # pullup_replace_vars_subquery
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2787 - 2813
+[src/backend/optimizer/prep/prepjointree.c:2787-2813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2787-L2813)
 
 ## Overview
 Specialized wrapper for applying pullup variable replacement to subquery nodes, handling the correct sublevels_up adjustment needed for nested Query processing.

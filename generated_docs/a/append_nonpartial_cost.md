@@ -1,7 +1,7 @@
 # append_nonpartial_cost
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2155 - 2230
+[src/backend/optimizer/path/costsize.c:2155-2230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2155-L2230)
 
 ## Overview
 Estimates the cost of the non-partial paths in a Parallel Append operation by simulating work distribution among parallel workers.

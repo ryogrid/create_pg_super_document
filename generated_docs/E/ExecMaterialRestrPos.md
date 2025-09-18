@@ -1,7 +1,7 @@
 # ExecMaterialRestrPos
 
 ## Location
-src/backend/executor/nodeMaterial.c: 290 - 312
+[src/backend/executor/nodeMaterial.c:290-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMaterial.c#L290-L312)
 
 ## Overview
 ExecMaterialRestrPos restores the tuplestore read position to the previously marked position, completing the mark/restore functionality for Material nodes.

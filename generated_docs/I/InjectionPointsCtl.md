@@ -1,7 +1,7 @@
 # InjectionPointsCtl
 
 ## Location
-src/backend/utils/misc/injection_point.c: 82 - 86
+[src/backend/utils/misc/injection_point.c:82-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L82-L86)
 
 ## Overview
 InjectionPointsCtl is the main control structure for managing an array of active injection points in shared memory, with optimization for efficient scanning.

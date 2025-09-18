@@ -1,7 +1,7 @@
 # bbsink_copystream
 
 ## Location
-src/backend/backup/basebackup_copy.c: 39 - 62
+[src/backend/backup/basebackup_copy.c:39-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L39-L62)
 
 ## Overview
 A specialized base backup sink structure that handles streaming backup data to clients or other destinations via PostgreSQL's COPY protocol messaging system.

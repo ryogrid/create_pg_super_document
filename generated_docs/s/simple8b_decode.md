@@ -1,7 +1,7 @@
 # simple8b_decode
 
 ## Location
-src/backend/lib/integerset.c: 975 - 1003
+[src/backend/lib/integerset.c:975-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L975-L1003)
 
 ## Overview
 Decodes a Simple8b compressed 64-bit codeword back into the original sequence of integers, reconstructing values from their stored deltas.

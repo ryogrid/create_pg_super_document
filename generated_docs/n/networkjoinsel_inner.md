@@ -1,7 +1,7 @@
 # networkjoinsel_inner
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 263 - 389
+[src/backend/utils/adt/network_selfuncs.c:263-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L263-L389)
 
 ## Overview
 Calculates inner join selectivity estimation for network subnet inclusion/overlap operators by evaluating MCV vs MCV, MCV vs histogram, and histogram vs histogram match probabilities.

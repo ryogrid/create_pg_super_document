@@ -1,7 +1,7 @@
 # add_socket_to_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 7915 - 7939
+[src/bin/pgbench/pgbench.c:7915-7939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7915-L7939)
 
 ## Overview
 Adds a socket file descriptor to a socket set for monitoring with select(), performing platform-specific validation to ensure the descriptor is within acceptable limits.

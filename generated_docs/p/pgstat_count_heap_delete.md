@@ -1,7 +1,7 @@
 # pgstat_count_heap_delete
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 401 - 415
+[src/backend/utils/activity/pgstat_relation.c:401-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L401-L415)
 
 ## Overview
 Updates PostgreSQL statistics to record a tuple deletion operation for heap tables.

@@ -1,7 +1,7 @@
 # GetJsonTableExecContext
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4090 - 4110
+[src/backend/utils/adt/jsonpath_exec.c:4090-4110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4090-L4110)
 
 ## Overview
 A static inline validation function that safely extracts and validates the JsonTableExecContext from a TableFuncScanState structure with comprehensive error checking.

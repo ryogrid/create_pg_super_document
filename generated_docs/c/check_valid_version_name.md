@@ -1,7 +1,7 @@
 # check_valid_version_name
 
 ## Location
-src/backend/commands/extension.c: 313 - 359
+[src/backend/commands/extension.c:313-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L313-L359)
 
 ## Overview
 Validates the format and content of a PostgreSQL extension version name to ensure it meets security and parsing requirements.

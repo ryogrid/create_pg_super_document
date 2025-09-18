@@ -1,7 +1,7 @@
 # aclcheck_error_type
 
 ## Location
-src/backend/catalog/aclchk.c: 3024 - 3035
+[src/backend/catalog/aclchk.c:3024-3035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3024-L3035)
 
 ## Overview
 Specialized error reporting function for type-related access control failures, with special handling for array types to display the underlying element type in error messages.

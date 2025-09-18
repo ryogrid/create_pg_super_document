@@ -1,7 +1,7 @@
 # brin_minmax_multi_serialize
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2380 - 2398
+[src/backend/access/brin/brin_minmax_multi.c:2380-2398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2380-L2398)
 
 ## Overview
 Serializes BRIN minmax multi-column range data structures for storage, converting in-memory range representations to their persistent binary format.

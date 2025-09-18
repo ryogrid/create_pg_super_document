@@ -1,7 +1,7 @@
 # CreatePartitionDirectory
 
 ## Location
-src/backend/partitioning/partdesc.c: 423 - 455
+[src/backend/partitioning/partdesc.c:423-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L423-L455)
 
 ## Overview
 Creates a new partition directory object that provides efficient hash-based lookup for partition descriptors.

@@ -1,7 +1,7 @@
 # contain_windowfuncs_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 229 - 253
+[src/backend/rewrite/rewriteManip.c:229-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L229-L253)
 
 ## Overview
 A static walker function that recursively traverses expression trees to detect the presence of window function calls at the current query level.

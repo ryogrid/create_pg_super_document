@@ -1,7 +1,7 @@
 # xml_xpathobjtoxmlarray
 
 ## Location
-src/backend/utils/adt/xml.c: 4246 - 4323
+[src/backend/utils/adt/xml.c:4246-4323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4246-L4323)
 
 ## Overview
 Converts an XML XPath evaluation result object into a PostgreSQL array of XML values, handling different XPath result types (nodesets, primitives) appropriately.

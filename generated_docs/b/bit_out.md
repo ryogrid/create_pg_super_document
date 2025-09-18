@@ -1,7 +1,7 @@
 # bit_out
 
 ## Location
-src/backend/utils/adt/varbit.c: 280 - 330
+[src/backend/utils/adt/varbit.c:280-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L280-L330)
 
 ## Overview
 Converts PostgreSQL's internal bit string representation to its external string format, currently implemented as a wrapper around varbit_out for consistent output formatting.

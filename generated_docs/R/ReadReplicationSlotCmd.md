@@ -1,7 +1,7 @@
 # ReadReplicationSlotCmd
 
 ## Location
-src/include/nodes/replnodes.h: 106 - 110
+[src/include/nodes/replnodes.h:106-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L106-L110)
 
 ## Overview
 ReadReplicationSlotCmd is a command structure used to read information about a specific replication slot in PostgreSQL's replication system.

@@ -1,7 +1,7 @@
 # create_estate_for_relation
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 820 - 849
+[src/backend/replication/pgoutput/pgoutput.c:820-849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L820-L849)
 
 ## Overview
 Creates and initializes an executor state (EState) for evaluating row filter expressions on a specific relation in logical replication.

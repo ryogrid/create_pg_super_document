@@ -1,7 +1,7 @@
 # pg_stat_reset_shared
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1702 - 1749
+[src/backend/utils/adt/pgstatfuncs.c:1702-1749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1702-L1749)
 
 ## Overview
 A PostgreSQL system function that resets cluster-wide statistics counters, allowing selective reset of specific statistic categories or all statistics when no target is specified.

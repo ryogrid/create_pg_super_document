@@ -1,7 +1,7 @@
 # ExecScanHashTableForUnmatched
 
 ## Location
-src/backend/executor/nodeHash.c: 2169 - 2242
+[src/backend/executor/nodeHash.c:2169-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2169-L2242)
 
 ## Overview
 Scans the hash table for unmatched inner tuples during hash join operations, typically used for implementing RIGHT and FULL OUTER joins.

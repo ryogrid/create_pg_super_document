@@ -1,7 +1,7 @@
 # should_attempt_truncation
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2530 - 2549
+[src/backend/access/heap/vacuumlazy.c:2530-2549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2530-L2549)
 
 ## Overview
 Determines whether vacuum should attempt to truncate the heap relation by evaluating cost-benefit factors and system constraints.

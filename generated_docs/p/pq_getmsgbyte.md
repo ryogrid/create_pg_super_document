@@ -1,7 +1,7 @@
 # pq_getmsgbyte
 
 ## Location
-src/backend/libpq/pqformat.c: 399 - 414
+[src/backend/libpq/pqformat.c:399-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L399-L414)
 
 ## Overview
 Extracts a single byte from a message buffer and advances the cursor position.

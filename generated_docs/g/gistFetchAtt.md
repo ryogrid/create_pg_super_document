@@ -1,7 +1,7 @@
 # gistFetchAtt
 
 ## Location
-src/backend/access/gist/gistutil.c: 645 - 665
+[src/backend/access/gist/gistutil.c:645-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L645-L665)
 
 ## Overview
 A static helper function that initializes a GiST entry with a fetched value by applying the fetch function from the operator class to decompress or reconstruct the original key value.

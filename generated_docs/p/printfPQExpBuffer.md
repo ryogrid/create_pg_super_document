@@ -1,7 +1,7 @@
 # printfPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 235 - 264
+[src/interfaces/libpq/pqexpbuffer.c:235-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L235-L264)
 
 ## Overview
 Formats text data using printf-style formatting and replaces the entire contents of a PQExpBuffer with the formatted result.

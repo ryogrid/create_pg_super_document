@@ -1,7 +1,7 @@
 # ExecParallelHashEnsureBatchAccessors
 
 ## Location
-src/backend/executor/nodeHash.c: 3205 - 3268
+[src/backend/executor/nodeHash.c:3205-3268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3205-L3268)
 
 ## Overview
 Ensures that the current backend has up-to-date batch accessor structures that match the current shared batch state, handling dynamic changes in batch count during parallel hash join execution.

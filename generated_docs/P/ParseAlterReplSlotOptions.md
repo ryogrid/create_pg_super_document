@@ -1,7 +1,7 @@
 # ParseAlterReplSlotOptions
 
 ## Location
-src/backend/replication/walsender.c: 1418 - 1442
+[src/backend/replication/walsender.c:1418-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1418-L1442)
 
 ## Overview
 Parses and validates the options provided to ALTER_REPLICATION_SLOT commands, specifically handling the failover option.

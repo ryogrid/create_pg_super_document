@@ -1,7 +1,7 @@
 # shm_mq_get_sender
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 257 - 289
+[src/backend/storage/ipc/shm_mq.c:257-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L257-L289)
 
 ## Overview
 Retrieves the currently configured sender process from a shared message queue in a thread-safe manner.

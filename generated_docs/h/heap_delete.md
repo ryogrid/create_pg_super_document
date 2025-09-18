@@ -1,7 +1,7 @@
 # heap_delete
 
 ## Location
-src/backend/access/heap/heapam.c: 2731 - 3153
+[src/backend/access/heap/heapam.c:2731-3153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2731-L3153)
 
 ## Overview
 heap_delete is the core function responsible for deleting a tuple from a heap table in PostgreSQL, handling complex visibility rules, transaction concurrency, and logging to ensure ACID compliance.

@@ -1,7 +1,7 @@
 # dummy_object_relabel
 
 ## Location
-src/test/modules/dummy_seclabel/dummy_seclabel.c: 25 - 46
+[src/test/modules/dummy_seclabel/dummy_seclabel.c:25-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_seclabel/dummy_seclabel.c#L25-L46)
 
 ## Overview
 A callback function for the dummy security label module that validates and processes security label assignments on database objects.

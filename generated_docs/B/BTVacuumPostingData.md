@@ -1,7 +1,7 @@
 # BTVacuumPostingData
 
 ## Location
-src/include/access/nbtree.h: 903 - 912
+[src/include/access/nbtree.h:903-912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L903-L912)
 
 ## Overview
 BTVacuumPostingData is a state structure used during B-tree VACUUM operations to represent how to process a posting list tuple when some (but not all) of its TIDs are to be deleted.

@@ -1,7 +1,7 @@
 # bbstreamer_plain_writer
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 21 - 27
+[src/bin/pg_basebackup/bbstreamer_file.c:21-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L21-L27)
 
 ## Overview
 A specialized bbstreamer structure designed to write backup data directly to a plain file, providing a simple file output mechanism for PostgreSQL base backup operations.

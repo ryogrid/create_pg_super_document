@@ -1,7 +1,7 @@
 # tuplesort_gettuple_common
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1496 - 1735
+[src/backend/utils/sort/tuplesort.c:1496-1735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1496-L1735)
 
 ## Overview
 The core internal function that fetches the next tuple in either forward or backward direction during the tuple sorting process, handling different sorting states and memory management strategies.

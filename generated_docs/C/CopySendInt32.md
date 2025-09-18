@@ -1,7 +1,7 @@
 # CopySendInt32
 
 ## Location
-src/backend/commands/copyto.c: 265 - 276
+[src/backend/commands/copyto.c:265-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L265-L276)
 
 ## Overview
 Sends a 32-bit integer value in network byte order as part of PostgreSQL's binary COPY format operations.

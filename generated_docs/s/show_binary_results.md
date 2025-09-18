@@ -1,7 +1,7 @@
 # show_binary_results
 
 ## Location
-src/test/examples/testlibpq3.c: 60 - 114
+[src/test/examples/testlibpq3.c:60-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlibpq3.c#L60-L114)
 
 ## Overview
 A utility function that demonstrates how to process and display binary-format query results from PostgreSQL, specifically designed to handle different data types including integers, text, and binary data.

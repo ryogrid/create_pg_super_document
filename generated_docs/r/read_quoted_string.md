@@ -1,7 +1,7 @@
 # read_quoted_string
 
 ## Location
-src/bin/pg_dump/filter.c: 218 - 302
+[src/bin/pg_dump/filter.c:218-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/filter.c#L218-L302)
 
 ## Overview
 Reads a quoted string that can span multiple lines and handles escape sequences, returning a pointer to the character after the closing quote.

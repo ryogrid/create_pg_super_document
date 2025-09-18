@@ -1,7 +1,7 @@
 # arcp
 
 ## Location
-src/backend/regex/regexec.c: 39 - 44
+[src/backend/regex/regexec.c:39-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L39-L44)
 
 ## Overview
 The arcp struct represents a "pointer" to an outgoing arc in PostgreSQL's lazy-DFA (Deterministic Finite Automaton) representation for regular expression execution.

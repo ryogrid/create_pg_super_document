@@ -1,7 +1,7 @@
 # multirange_contains_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2266 - 2327
+[src/backend/utils/adt/multirangetypes.c:2266-2327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2266-L2327)
 
 ## Overview
 Internal function that implements the core logic to test whether one multirange contains every range from another multirange using an efficient O(n+m) algorithm.

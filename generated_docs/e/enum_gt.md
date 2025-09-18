@@ -1,7 +1,7 @@
 # enum_gt
 
 ## Location
-src/backend/utils/adt/enum.c: 351 - 359
+[src/backend/utils/adt/enum.c:351-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L351-L359)
 
 ## Overview
 PostgreSQL function that implements the greater-than comparison operator for enum data types, returning true if the first enum value is strictly greater than the second.

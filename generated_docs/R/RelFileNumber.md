@@ -1,7 +1,7 @@
 # RelFileNumber
 
 ## Location
-src/include/common/relpath.h: 25 - 25
+[src/include/common/relpath.h:25-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/relpath.h#L25-L25)
 
 ## Overview
 RelFileNumber is a data type that identifies specific relation file names in PostgreSQL's storage system, essentially serving as a unique identifier for physical files that store table and index data.

@@ -1,7 +1,7 @@
 # buildNSItemFromTupleDesc
 
 ## Location
-src/backend/parser/parse_relation.c: 1294 - 1353
+[src/backend/parser/parse_relation.c:1294-1353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1294-L1353)
 
 ## Overview
 Builds a ParseNamespaceItem structure from a tuple descriptor, extracting column metadata and creating the namespace representation for parser operations.

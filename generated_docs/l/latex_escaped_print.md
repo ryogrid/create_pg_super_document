@@ -1,7 +1,7 @@
 # latex_escaped_print
 
 ## Location
-src/fe_utils/print.c: 2392 - 2453
+[src/fe_utils/print.c:2392-2453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2392-L2453)
 
 ## Overview
 Escapes special LaTeX characters in text strings to ensure they are properly rendered in LaTeX documents without causing syntax errors or formatting issues.

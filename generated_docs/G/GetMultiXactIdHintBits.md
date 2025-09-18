@@ -1,7 +1,7 @@
 # GetMultiXactIdHintBits
 
 ## Location
-src/backend/access/heap/heapam.c: 7425 - 7505
+[src/backend/access/heap/heapam.c:7425-7505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7425-L7505)
 
 ## Overview
 Static function that determines the appropriate hint bits to set in a tuple's infomask based on the members and lock modes of a given MultiXactId.

@@ -1,7 +1,7 @@
 # gather_merge_setup
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 388 - 435
+[src/backend/executor/nodeGatherMerge.c:388-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L388-L435)
 
 ## Overview
 Sets up the essential data structures needed for GatherMerge operations, including tuple slots, tuple buffers, and a binary heap for efficient merging of parallel worker results.

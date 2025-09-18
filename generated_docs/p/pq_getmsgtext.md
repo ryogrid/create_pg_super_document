@@ -1,7 +1,7 @@
 # pq_getmsgtext
 
 ## Location
-src/backend/libpq/pqformat.c: 546 - 578
+[src/backend/libpq/pqformat.c:546-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L546-L578)
 
 ## Overview
 Extracts a counted text string from a message buffer with optional character encoding conversion, always returning a freshly allocated null-terminated string.

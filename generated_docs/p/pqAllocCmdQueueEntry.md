@@ -1,7 +1,7 @@
 # pqAllocCmdQueueEntry
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1306 - 1338
+[src/interfaces/libpq/fe-exec.c:1306-1338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1306-L1338)
 
 ## Overview
 Allocates a command queue entry for the caller to fill, either by recycling an existing entry from the recycle queue or allocating a new one if no recycled entries are available.

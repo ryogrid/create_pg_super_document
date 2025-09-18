@@ -1,7 +1,7 @@
 # SPI_execute
 
 ## Location
-src/backend/executor/spi.c: 596 - 629
+[src/backend/executor/spi.c:596-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L596-L629)
 
 ## Overview
 SPI_execute parses, plans, and executes a SQL query string, providing a high-level interface for executing arbitrary SQL from within PostgreSQL server code.

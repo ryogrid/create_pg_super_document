@@ -1,7 +1,7 @@
 # base_yylex
 
 ## Location
-src/backend/parser/parser.c: 111 - 327
+[src/backend/parser/parser.c:111-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parser.c#L111-L327)
 
 ## Overview
 An intermediate lexical analyzer filter between the parser and core lexer that handles multi-token lookahead requirements and converts Unicode identifier/string constants to standard tokens.

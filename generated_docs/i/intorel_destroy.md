@@ -1,7 +1,7 @@
 # intorel_destroy
 
 ## Location
-src/backend/commands/createas.c: 627 - 630
+[src/backend/commands/createas.c:627-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L627-L630)
 
 ## Overview
 intorel_destroy deallocates the memory used by a DR_intorel destination receiver object when it is no longer needed.

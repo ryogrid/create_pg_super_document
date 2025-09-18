@@ -1,7 +1,7 @@
 # compare_context
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 264 - 268
+[src/backend/access/brin/brin_minmax_multi.c:264-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L264-L268)
 
 ## Overview
 compare_context is a structure that encapsulates comparison function information and collation settings for value comparison operations in PostgreSQL's BRIN minmax_multi index access method.

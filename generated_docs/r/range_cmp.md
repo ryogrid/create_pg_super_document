@@ -1,7 +1,7 @@
 # range_cmp
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1249 - 1294
+[src/backend/utils/adt/rangetypes.c:1249-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1249-L1294)
 
 ## Overview
 B-tree comparator function that provides total ordering for range types, enabling range values to be sorted, indexed, and used in ordered operations.

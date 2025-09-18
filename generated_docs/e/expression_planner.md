@@ -1,7 +1,7 @@
 # expression_planner
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6658 - 6684
+[src/backend/optimizer/plan/planner.c:6658-6684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6658-L6684)
 
 ## Overview
 Performs planner transformations on standalone expressions that are not part of a plannable query, preparing them for execution by the PostgreSQL executor.

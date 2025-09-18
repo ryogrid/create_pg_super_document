@@ -1,7 +1,7 @@
 # is_funcclause
 
 ## Location
-src/include/nodes/nodeFuncs.h: 69 - 75
+[src/include/nodes/nodeFuncs.h:69-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L69-L75)
 
 ## Overview
 A static inline utility function that checks whether a given clause is a FuncExpr (function expression) node in PostgreSQL's parse tree.

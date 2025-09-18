@@ -1,7 +1,7 @@
 # AsyncQueueEntry
 
 ## Location
-src/backend/commands/async.c: 177 - 184
+[src/backend/commands/async.c:177-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L177-L184)
 
 ## Overview
 AsyncQueueEntry is a structure that represents an entry in the global notify queue, used by PostgreSQL's asynchronous notification system.

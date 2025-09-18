@@ -1,7 +1,7 @@
 # pg_blocking_pids
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 466 - 572
+[src/backend/utils/adt/lockfuncs.c:466-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L466-L572)
 
 ## Overview
 pg_blocking_pids identifies and returns an array of process IDs (PIDs) that are blocking a given PID from acquiring locks, including both hard blocks (held locks) and soft blocks (queue position).

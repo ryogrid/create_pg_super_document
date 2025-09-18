@@ -1,7 +1,7 @@
 # ValidatePgVersion
 
 ## Location
-src/backend/utils/init/miscinit.c: 1765 - 1845
+[src/backend/utils/init/miscinit.c:1765-1845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1765-L1845)
 
 ## Overview
 ValidatePgVersion verifies that the PostgreSQL data directory version is compatible with the current server version by reading and comparing the PG_VERSION file.

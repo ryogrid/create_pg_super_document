@@ -1,7 +1,7 @@
 # tarClose
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 398 - 417
+[src/bin/pg_dump/pg_backup_tar.c:398-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L398-L417)
 
 ## Overview
 Closes a TAR_MEMBER file handle and performs cleanup operations, adding the file to the tar archive if it was opened for writing.

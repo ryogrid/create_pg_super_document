@@ -1,7 +1,7 @@
 # hashtext
 
 ## Location
-src/backend/access/hash/hashfunc.c: 267 - 322
+[src/backend/access/hash/hashfunc.c:267-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L267-L322)
 
 ## Overview
 A PostgreSQL hash function that computes hash values for text data types with proper collation-aware handling.

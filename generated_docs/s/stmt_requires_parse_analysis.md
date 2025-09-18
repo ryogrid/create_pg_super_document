@@ -1,7 +1,7 @@
 # stmt_requires_parse_analysis
 
 ## Location
-src/backend/parser/analyze.c: 441 - 484
+[src/backend/parser/analyze.c:441-484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L441-L484)
 
 ## Overview
 Determines whether a raw statement requires non-trivial parse analysis or can be treated as a simple utility command.

@@ -1,7 +1,7 @@
 # markNullableIfNeeded
 
 ## Location
-src/backend/parser/parse_relation.c: 1035 - 1065
+[src/backend/parser/parse_relation.c:1035-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1035-L1065)
 
 ## Overview
 Marks a Var node as nullable if the referenced RTE is made nullable by outer joins at the current point in the query.

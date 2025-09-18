@@ -1,7 +1,7 @@
 # check_inplace_rel_lock
 
 ## Location
-src/backend/access/heap/heapam.c: 4265 - 4302
+[src/backend/access/heap/heapam.c:4265-4302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4265-L4302)
 
 ## Overview
 check_inplace_rel_lock is a static validation function that confirms adequate relation-level locking is held when performing inplace operations on system catalog relations, specifically for pg_class entries.

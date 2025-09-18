@@ -1,7 +1,7 @@
 # has_language_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 3736 - 3764
+[src/backend/utils/adt/acl.c:3736-3764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3736-L3764)
 
 ## Overview
 Checks whether a specific user (identified by role OID) has the specified privileges on a procedural language (identified by language OID).

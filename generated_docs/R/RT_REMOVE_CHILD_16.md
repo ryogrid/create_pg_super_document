@@ -1,7 +1,7 @@
 # RT_REMOVE_CHILD_16
 
 ## Location
-src/include/lib/radixtree.h: 2498 - 2522
+[src/include/lib/radixtree.h:2498-2522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2498-L2522)
 
 ## Overview
 RT_REMOVE_CHILD_16 is a macro that expands to a function responsible for removing a child entry from a node16 in PostgreSQL's radix tree implementation.

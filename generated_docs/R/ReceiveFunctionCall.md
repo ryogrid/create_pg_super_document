@@ -1,7 +1,7 @@
 # ReceiveFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1697 - 1743
+[src/backend/utils/fmgr/fmgr.c:1697-1743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1697-L1743)
 
 ## Overview
 ReceiveFunctionCall is a convenience wrapper that calls a previously-looked-up datatype binary-input function to convert binary data to its internal Datum format.

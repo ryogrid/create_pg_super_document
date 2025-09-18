@@ -1,7 +1,7 @@
 # PQcancelCreate
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 65 - 171
+[src/interfaces/libpq/fe-cancel.c:65-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L65-L171)
 
 ## Overview
 Creates and returns a PGcancelConn structure that can be used to securely cancel a query on the given connection, setting up all necessary connection parameters and authentication tokens.

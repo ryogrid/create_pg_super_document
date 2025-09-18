@@ -1,7 +1,7 @@
 # heap_lock_updated_tuple_rec
 
 ## Location
-src/backend/access/heap/heapam.c: 5652 - 5996
+[src/backend/access/heap/heapam.c:5652-5996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L5652-L5996)
 
 ## Overview
 heap_lock_updated_tuple_rec recursively locks a tuple and all its updated versions in an update chain, handling complex concurrency scenarios and MultiXactId management.

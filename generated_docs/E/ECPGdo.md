@@ -1,7 +1,7 @@
 # ECPGdo
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 2277 - 2291
+[src/interfaces/ecpg/ecpglib/execute.c:2277-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L2277-L2291)
 
 ## Overview
 The public API function for executing SQL statements in the ECPG library that provides a variable-argument interface to the underlying execution engine.

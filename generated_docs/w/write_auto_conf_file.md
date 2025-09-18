@@ -1,7 +1,7 @@
 # write_auto_conf_file
 
 ## Location
-src/backend/utils/misc/guc.c: 4472 - 4539
+[src/backend/utils/misc/guc.c:4472-4539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4472-L4539)
 
 ## Overview
 Writes updated configuration parameter values to a temporary file for the PostgreSQL automatic configuration system, handling proper quoting and formatting of parameter values.

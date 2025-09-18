@@ -1,7 +1,7 @@
 # contain_exec_param_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1143 - 1178
+[src/backend/optimizer/util/clauses.c:1143-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1143-L1178)
 
 ## Overview
 A recursive tree walker function that traverses expression nodes to locate PARAM_EXEC parameters with specific parameter IDs.

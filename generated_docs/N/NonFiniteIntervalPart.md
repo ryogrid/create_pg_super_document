@@ -1,7 +1,7 @@
 # NonFiniteIntervalPart
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5906 - 5950
+[src/backend/utils/adt/timestamp.c:5906-5950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5906-L5950)
 
 ## Overview
 Handles extraction of time parts from infinite intervals, returning appropriate infinity values or zero for NULL results depending on the unit type.

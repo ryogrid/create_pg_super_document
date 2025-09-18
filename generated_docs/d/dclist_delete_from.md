@@ -1,7 +1,7 @@
 # dclist_delete_from
 
 ## Location
-src/include/lib/ilist.h: 763 - 775
+[src/include/lib/ilist.h:763-775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L763-L775)
 
 ## Overview
 Deletes a specified node from a doubly-linked circular list while maintaining the accurate count of remaining elements in the list.

@@ -1,7 +1,7 @@
 # numeric_gcd
 
 ## Location
-src/backend/utils/adt/numeric.c: 3537 - 3579
+[src/backend/utils/adt/numeric.c:3537-3579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3537-L3579)
 
 ## Overview
 Calculates the greatest common divisor (GCD) of two numeric values using the Euclidean algorithm.

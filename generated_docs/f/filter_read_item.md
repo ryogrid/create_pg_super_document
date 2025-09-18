@@ -1,7 +1,7 @@
 # filter_read_item
 
 ## Location
-src/bin/pg_dump/filter.c: 393 - 476
+[src/bin/pg_dump/filter.c:393-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/filter.c#L393-L476)
 
 ## Overview
 Reads and parses a complete filter item (command/type/pattern triplet) from a filter file, handling multi-line patterns and various validation checks.

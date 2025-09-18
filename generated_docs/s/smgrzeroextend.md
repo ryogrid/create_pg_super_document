@@ -1,7 +1,7 @@
 # smgrzeroextend
 
 ## Location
-src/backend/storage/smgr/smgr.c: 560 - 584
+[src/backend/storage/smgr/smgr.c:560-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L560-L584)
 
 ## Overview
 The smgrzeroextend function extends a PostgreSQL relation file by adding multiple new blocks filled with zeroes in a single operation.

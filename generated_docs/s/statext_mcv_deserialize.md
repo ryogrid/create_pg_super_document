@@ -1,7 +1,7 @@
 # statext_mcv_deserialize
 
 ## Location
-src/backend/statistics/mcv.c: 996 - 1337
+[src/backend/statistics/mcv.c:996-1337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L996-L1337)
 
 ## Overview
 Deserializes a binary representation of an MCV (Most Common Values) statistics list stored as a bytea into an in-memory MCVList structure, performing comprehensive validation and memory layout optimization.

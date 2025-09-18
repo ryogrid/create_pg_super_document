@@ -1,7 +1,7 @@
 # range_gist_consistent_leaf_element
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1128 - 1147
+[src/backend/utils/adt/rangetypes_gist.c:1128-1147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1128-L1147)
 
 ## Overview
 Performs GiST consistent test on an index leaf page with element query, determining whether a stored range contains the specified scalar element.

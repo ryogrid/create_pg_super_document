@@ -1,7 +1,7 @@
 # preprocess_rowmarks
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2295 - 2406
+[src/backend/optimizer/plan/planner.c:2295-2406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2295-L2406)
 
 ## Overview
 Sets up PlanRowMark structures for row locking operations including FOR UPDATE/SHARE clauses and implicit locking needed for UPDATE/DELETE/MERGE operations.

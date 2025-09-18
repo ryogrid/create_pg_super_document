@@ -1,7 +1,7 @@
 # brin_inclusion_union
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 474 - 543
+[src/backend/access/brin/brin_inclusion.c:474-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L474-L543)
 
 ## Overview
 BRIN inclusion union function that merges two BRIN value summaries by updating the first to represent the union of both ranges.

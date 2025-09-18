@@ -1,7 +1,7 @@
 # ScalarIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 154 - 158
+[src/backend/utils/adt/jsonfuncs.c:154-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L154-L158)
 
 ## Overview
 ScalarIOData is a structure that caches type input/output metadata required for efficiently converting JSON scalar values to PostgreSQL data types.

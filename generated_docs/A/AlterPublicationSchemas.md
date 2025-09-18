@@ -1,7 +1,7 @@
 # AlterPublicationSchemas
 
 ## Location
-src/backend/commands/publicationcmds.c: 1249 - 1332
+[src/backend/commands/publicationcmds.c:1249-1332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1249-L1332)
 
 ## Overview
 AlterPublicationSchemas handles adding, removing, or replacing schemas in a publication, enforcing constraints related to existing table column lists and managing schema locks.

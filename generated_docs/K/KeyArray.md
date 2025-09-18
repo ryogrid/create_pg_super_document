@@ -1,7 +1,7 @@
 # KeyArray
 
 ## Location
-src/backend/access/gin/ginfast.c: 44 - 50
+[src/backend/access/gin/ginfast.c:44-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L44-L50)
 
 ## Overview
 KeyArray is a structure used in the PostgreSQL GIN (Generalized Inverted Index) fast insert implementation to store an expandable array of key values and their associated null categories.

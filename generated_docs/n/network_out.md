@@ -1,7 +1,7 @@
 # network_out
 
 ## Location
-src/backend/utils/adt/network.c: 141 - 164
+[src/backend/utils/adt/network.c:141-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L141-L164)
 
 ## Overview
 A common output formatting function for INET and CIDR data types that converts PostgreSQL's internal inet structure into string representations.

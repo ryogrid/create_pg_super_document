@@ -1,7 +1,7 @@
 # RelMapFile
 
 ## Location
-src/backend/utils/cache/relmapper.c: 89 - 95
+[src/backend/utils/cache/relmapper.c:89-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L89-L95)
 
 ## Overview
 RelMapFile represents the complete structure of a relation mapping file, containing a collection of RelMapping entries along with metadata for validation and integrity checking.

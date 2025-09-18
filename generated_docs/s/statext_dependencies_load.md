@@ -1,7 +1,7 @@
 # statext_dependencies_load
 
 ## Location
-src/backend/statistics/dependencies.c: 619 - 652
+[src/backend/statistics/dependencies.c:619-652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L619-L652)
 
 ## Overview
 This function loads functional dependency statistics from the PostgreSQL system catalog for a specified statistics object, enabling the optimizer to consider column dependencies during query planning.

@@ -1,7 +1,7 @@
 # select_perl_context
 
 ## Location
-src/pl/plperl/plperl.c: 553 - 683
+[src/pl/plperl/plperl.c:553-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L553-L683)
 
 ## Overview
 Selects and activates an appropriate Perl interpreter for executing PL/Perl code, managing interpreter instances based on user ID and trust level.

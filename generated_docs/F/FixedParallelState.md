@@ -1,7 +1,7 @@
 # FixedParallelState
 
 ## Location
-src/backend/access/transam/parallel.c: 81 - 106
+[src/backend/access/transam/parallel.c:81-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L81-L106)
 
 ## Overview
 FixedParallelState is a structure that holds fixed-size state information shared between the leader process and parallel worker processes in PostgreSQL's parallel query execution system.

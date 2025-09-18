@@ -1,7 +1,7 @@
 # clear_subscription_skip_lsn
 
 ## Location
-src/backend/replication/logical/worker.c: 4880 - 4968
+[src/backend/replication/logical/worker.c:4880-4968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4880-L4968)
 
 ## Overview
 Clears the subskiplsn field in the pg_subscription catalog for the current subscription, with validation to ensure the skip LSN matches the expected finish LSN of a transaction.

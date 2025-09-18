@@ -1,7 +1,7 @@
 # oidsmaller
 
 ## Location
-src/backend/utils/adt/oid.c: 335 - 343
+[src/backend/utils/adt/oid.c:335-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L335-L343)
 
 ## Overview
 The  function returns the smaller of two OID (Object Identifier) values, implementing a minimum function for the OID data type.

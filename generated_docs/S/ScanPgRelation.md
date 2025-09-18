@@ -1,7 +1,7 @@
 # ScanPgRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 339 - 408
+[src/backend/utils/cache/relcache.c:339-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L339-L408)
 
 ## Overview
 ScanPgRelation scans the pg_class system catalog to retrieve a specific relation tuple by OID, handling snapshot selection and tuple copying for relcache operations.

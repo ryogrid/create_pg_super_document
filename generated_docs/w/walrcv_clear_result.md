@@ -1,7 +1,7 @@
 # walrcv_clear_result
 
 ## Location
-src/include/replication/walreceiver.h: 468 - 504
+[src/include/replication/walreceiver.h:468-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walreceiver.h#L468-L504)
 
 ## Overview
 Cleans up and deallocates a WalRcvExecResult structure, freeing all associated memory and resources.

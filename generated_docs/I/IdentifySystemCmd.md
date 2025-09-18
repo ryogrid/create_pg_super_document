@@ -1,7 +1,7 @@
 # IdentifySystemCmd
 
 ## Location
-src/include/nodes/replnodes.h: 31 - 34
+[src/include/nodes/replnodes.h:31-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L31-L34)
 
 ## Overview
 IdentifySystemCmd is a simple structure representing the IDENTIFY_SYSTEM replication protocol command, used to request system identification information from a PostgreSQL server during replication connections.

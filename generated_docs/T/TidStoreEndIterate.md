@@ -1,7 +1,7 @@
 # TidStoreEndIterate
 
 ## Location
-src/backend/access/common/tidstore.c: 536 - 550
+[src/backend/access/common/tidstore.c:536-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L536-L550)
 
 ## Overview
 Finishes the iteration on a TidStore by cleaning up the TidStoreIter structure and freeing associated memory resources.

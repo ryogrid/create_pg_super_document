@@ -1,7 +1,7 @@
 # lastval
 
 ## Location
-src/backend/commands/sequence.c: 897 - 944
+[src/backend/commands/sequence.c:897-944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L897-L944)
 
 ## Overview
 Returns the value most recently obtained by nextval() in the current session, without requiring a specific sequence identifier.

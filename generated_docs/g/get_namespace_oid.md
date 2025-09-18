@@ -1,7 +1,7 @@
 # get_namespace_oid
 
 ## Location
-src/backend/catalog/namespace.c: 3535 - 3553
+[src/backend/catalog/namespace.c:3535-3553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3535-L3553)
 
 ## Overview
 Looks up a namespace (schema) by name and returns its OID, with optional error handling for missing namespaces.

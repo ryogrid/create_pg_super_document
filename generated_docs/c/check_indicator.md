@@ -1,7 +1,7 @@
 # check_indicator
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 465 - 497
+[src/interfaces/ecpg/preproc/variable.c:465-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L465-L497)
 
 ## Overview
 Validates that a given variable is a valid indicator variable by checking its type for compliance with ECPG indicator variable requirements.

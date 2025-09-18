@@ -1,7 +1,7 @@
 # ChooseRelationName
 
 ## Location
-src/backend/commands/indexcmds.c: 2475 - 2542
+[src/backend/commands/indexcmds.c:2475-2542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2475-L2542)
 
 ## Overview
 Selects a unique, non-conflicting name for a new relation (index, sequence, etc.) by iteratively appending digits to avoid naming conflicts in the specified namespace.

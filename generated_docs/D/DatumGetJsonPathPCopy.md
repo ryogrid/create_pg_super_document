@@ -1,7 +1,7 @@
 # DatumGetJsonPathPCopy
 
 ## Location
-src/include/utils/jsonpath.h: 41 - 45
+[src/include/utils/jsonpath.h:41-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonpath.h#L41-L45)
 
 ## Overview
 DatumGetJsonPathPCopy is an inline function that converts a PostgreSQL Datum to a JsonPath pointer by detoasting the datum and creating a modifiable copy.

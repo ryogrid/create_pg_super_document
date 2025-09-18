@@ -1,7 +1,7 @@
 # get_mergejoin_opfamilies
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 366 - 409
+[src/backend/utils/cache/lsyscache.c:366-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L366-L409)
 
 ## Overview
 Returns a list of btree operator family OIDs in which a given operator represents equality for merge join operations.

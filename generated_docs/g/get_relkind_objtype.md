@@ -1,7 +1,7 @@
 # get_relkind_objtype
 
 ## Location
-src/backend/catalog/objectaddress.c: 6098 - 6122
+[src/backend/catalog/objectaddress.c:6098-6122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L6098-L6122)
 
 ## Overview
 Maps PostgreSQL relation kinds (relkind) to corresponding ObjectType enumeration values, providing a standardized way to identify database object types for access control and error messaging.

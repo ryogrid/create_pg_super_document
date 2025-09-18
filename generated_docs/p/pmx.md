@@ -1,7 +1,7 @@
 # pmx
 
 ## Location
-src/backend/optimizer/geqo/geqo_pmx.c: 49 - 220
+[src/backend/optimizer/geqo/geqo_pmx.c:49-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pmx.c#L49-L220)
 
 ## Overview
 The  function implements the Partially Matched Crossover (PMX) genetic algorithm operator for the GEQO (Genetic Query Optimizer) in PostgreSQL, used to create offspring solutions by combining two parent tour solutions.

@@ -1,7 +1,7 @@
 # ParallelSlotArray
 
 ## Location
-src/include/fe_utils/parallel_slot.h: 36 - 44
+[src/include/fe_utils/parallel_slot.h:36-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/parallel_slot.h#L36-L44)
 
 ## Overview
 ParallelSlotArray is a structure that manages an array of parallel worker slots for PostgreSQL frontend utilities, providing coordination and management capabilities for parallel operations.

@@ -1,7 +1,7 @@
 # pgoutput_stream_start
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1783 - 1814
+[src/backend/replication/pgoutput/pgoutput.c:1783-1814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1783-L1814)
 
 ## Overview
 pgoutput_stream_start is a callback function that handles the start of streaming for large transactions in PostgreSQL logical replication, outputting stream start messages to the replication protocol.

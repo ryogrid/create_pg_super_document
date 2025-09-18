@@ -1,7 +1,7 @@
 # TupleHashTable
 
 ## Location
-src/include/nodes/execnodes.h: 800 - 801
+[src/include/nodes/execnodes.h:800-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L800-L801)
 
 ## Overview
 TupleHashTable is a typedef pointer to TupleHashTableData, representing a hash table specifically designed for tuple storage and lookup operations in PostgreSQLs executor subsystem.

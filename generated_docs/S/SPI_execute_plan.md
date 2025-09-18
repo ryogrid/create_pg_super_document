@@ -1,7 +1,7 @@
 # SPI_execute_plan
 
 ## Location
-src/backend/executor/spi.c: 672 - 703
+[src/backend/executor/spi.c:672-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L672-L703)
 
 ## Overview
 SPI_execute_plan executes a previously prepared SQL plan with parameter values, providing a fundamental mechanism for executing parameterized queries through the Server Programming Interface.

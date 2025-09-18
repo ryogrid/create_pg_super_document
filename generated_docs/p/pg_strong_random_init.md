@@ -1,7 +1,7 @@
 # pg_strong_random_init
 
 ## Location
-src/port/pg_strong_random.c: 147 - 152
+[src/port/pg_strong_random.c:147-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_strong_random.c#L147-L152)
 
 ## Overview
 Initializes the cryptographically secure random number generator before any calls to pg_strong_random are made.

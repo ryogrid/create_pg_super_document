@@ -1,7 +1,7 @@
 # ExecEndSubqueryScan
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 168 - 182
+[src/backend/executor/nodeSubqueryscan.c:168-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L168-L182)
 
 ## Overview
 ExecEndSubqueryScan performs cleanup operations for a SubqueryScan node, freeing any allocated storage and properly shutting down the subquery execution.

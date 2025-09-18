@@ -1,7 +1,7 @@
 # ExecBRUpdateTriggersNew
 
 ## Location
-src/backend/commands/trigger.c: 2982 - 3146
+[src/backend/commands/trigger.c:2982-3146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2982-L3146)
 
 ## Overview
 Executes BEFORE ROW UPDATE triggers for a new tuple, handling concurrent updates through EPQ (EvalPlanQual) rechecking and managing trigger execution workflow with proper memory management.

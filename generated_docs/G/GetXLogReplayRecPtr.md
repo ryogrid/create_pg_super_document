@@ -1,7 +1,7 @@
 # GetXLogReplayRecPtr
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4540 - 4562
+[src/backend/access/transam/xlogrecovery.c:4540-4562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4540-L4562)
 
 ## Overview
 Retrieves the latest WAL replay position and optionally the associated timeline ID, providing safe access to the current recovery progress.

@@ -1,7 +1,7 @@
 # _bt_search
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 96 - 234
+[src/backend/access/nbtree/nbtsearch.c:96-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L96-L234)
 
 ## Overview
 This function searches the B-tree for a particular scankey or more precisely the first leaf page where the key could be located, returning a stack of parent-page pointers.

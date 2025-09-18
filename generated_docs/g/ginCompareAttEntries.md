@@ -1,7 +1,7 @@
 # ginCompareAttEntries
 
 ## Location
-src/backend/access/gin/ginutil.c: 410 - 432
+[src/backend/access/gin/ginutil.c:410-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L410-L432)
 
 ## Overview
 Compares two GIN index keys that may belong to different columns, first comparing by attribute number then delegating to ginCompareEntries for same-column comparisons.

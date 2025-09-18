@@ -1,7 +1,7 @@
 # PLy_result_length
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 205 - 212
+[src/pl/plpython/plpy_resultobject.c:205-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L205-L212)
 
 ## Overview
 Implements the Python sequence/mapping length operation for PLython result objects, returning the number of rows in the result set.

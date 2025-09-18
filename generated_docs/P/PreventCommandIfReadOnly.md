@@ -1,7 +1,7 @@
 # PreventCommandIfReadOnly
 
 ## Location
-src/backend/tcop/utility.c: 404 - 421
+[src/backend/tcop/utility.c:404-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L404-L421)
 
 ## Overview
 PreventCommandIfReadOnly throws an error if the current transaction is read-only, providing consistent error messaging for commands that cannot execute in read-only transactions.

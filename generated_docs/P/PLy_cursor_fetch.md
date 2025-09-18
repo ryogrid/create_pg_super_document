@@ -1,7 +1,7 @@
 # PLy_cursor_fetch
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 366 - 466
+[src/pl/plpython/plpy_cursorobject.c:366-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L366-L466)
 
 ## Overview
 Fetches a specified number of rows from a PostgreSQL cursor and returns them as a PLyResultObject containing a Python list of row data.

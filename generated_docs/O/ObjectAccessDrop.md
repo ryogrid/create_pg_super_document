@@ -1,7 +1,7 @@
 # ObjectAccessDrop
 
 ## Location
-src/include/catalog/objectaccess.h: 81 - 102
+[src/include/catalog/objectaccess.h:81-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/objectaccess.h#L81-L102)
 
 ## Overview
 ObjectAccessDrop is a struct that holds arguments for the OAT_DROP object access hook event, providing context information about object deletion operations to security and logging extensions.

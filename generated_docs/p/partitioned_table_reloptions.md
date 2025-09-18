@@ -1,7 +1,7 @@
 # partitioned_table_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1993 - 2006
+[src/backend/access/common/reloptions.c:1993-2006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1993-L2006)
 
 ## Overview
 A specialized function that handles relation options for partitioned tables by rejecting storage parameters and directing users to configure leaf partitions instead.

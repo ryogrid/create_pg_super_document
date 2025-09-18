@@ -1,7 +1,7 @@
 # wait_for_relation_state_change
 
 ## Location
-src/backend/replication/logical/tablesync.c: 184 - 231
+[src/backend/replication/logical/tablesync.c:184-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L184-L231)
 
 ## Overview
 Waits until a relation's synchronization state in the subscription catalog matches the expected state, used during logical replication table synchronization.

@@ -1,7 +1,7 @@
 # internal_inetpl
 
 ## Location
-src/backend/utils/adt/network.c: 1946 - 1997
+[src/backend/utils/adt/network.c:1946-1997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1946-L1997)
 
 ## Overview
 A static helper function that performs addition of a signed 64-bit integer value to an inet address, handling IP address arithmetic with proper overflow detection and carry propagation.

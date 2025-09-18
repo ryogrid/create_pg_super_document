@@ -1,7 +1,7 @@
 # expandTupleDesc
 
 ## Location
-src/backend/parser/parse_relation.c: 3042 - 3122
+[src/backend/parser/parse_relation.c:3042-3122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3042-L3122)
 
 ## Overview
 A specialized subroutine that generates column names and Var nodes for a specified range of attributes within a tuple descriptor, handling dropped columns and alias mappings appropriately.

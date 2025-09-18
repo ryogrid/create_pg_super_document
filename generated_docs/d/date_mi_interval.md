@@ -1,7 +1,7 @@
 # date_mi_interval
 
 ## Location
-src/backend/utils/adt/date.c: 1266 - 1282
+[src/backend/utils/adt/date.c:1266-1282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1266-L1282)
 
 ## Overview
 Subtracts an interval from a date value, returning a new timestamp result that represents the date minus the specified time interval.

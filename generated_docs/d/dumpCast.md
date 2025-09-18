@@ -1,7 +1,7 @@
 # dumpCast
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12728 - 12832
+[src/bin/pg_dump/pg_dump.c:12728-12832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12728-L12832)
 
 ## Overview
 Generates SQL DDL statements to recreate a PostgreSQL user-defined cast, handling different cast methods and contexts during database dump operations.

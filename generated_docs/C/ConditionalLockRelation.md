@@ -1,7 +1,7 @@
 # ConditionalLockRelation
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 275 - 309
+[src/backend/storage/lmgr/lmgr.c:275-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L275-L309)
 
 ## Overview
 ConditionalLockRelation attempts to acquire an additional lock on an already-open relation without blocking, returning immediately if the lock cannot be obtained.

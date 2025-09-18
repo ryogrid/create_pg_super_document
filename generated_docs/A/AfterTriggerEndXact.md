@@ -1,7 +1,7 @@
 # AfterTriggerEndXact
 
 ## Location
-src/backend/commands/trigger.c: 5340 - 5387
+[src/backend/commands/trigger.c:5340-5387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5340-L5387)
 
 ## Overview
 Cleans up the after-trigger subsystem when a transaction is finishing, canceling any unfired triggers and discarding all pending trigger events.

@@ -1,7 +1,7 @@
 # manifest_process_file
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 968 - 994
+[src/backend/backup/basebackup_incremental.c:968-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L968-L994)
 
 ## Overview
 A callback function invoked for each file mentioned in the backup manifest to store file path and size information for sanity-checking purposes during incremental backup processing.

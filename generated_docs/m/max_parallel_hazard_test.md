@@ -1,7 +1,7 @@
 # max_parallel_hazard_test
 
 ## Location
-src/backend/optimizer/util/clauses.c: 794 - 821
+[src/backend/optimizer/util/clauses.c:794-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L794-L821)
 
 ## Overview
 Core logic function that evaluates the parallel hazard level of a database object and updates the maximum hazard context accordingly, serving as the central decision point for parallel safety analysis.

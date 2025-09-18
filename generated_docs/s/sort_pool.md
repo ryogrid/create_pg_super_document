@@ -1,7 +1,7 @@
 # sort_pool
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 135 - 144
+[src/backend/optimizer/geqo/geqo_pool.c:135-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L135-L144)
 
 ## Overview
 Sorts a genetic algorithm pool of chromosomes in ascending order by their fitness scores (worth values) using the standard qsort function.

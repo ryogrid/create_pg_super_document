@@ -1,7 +1,7 @@
 # findRangeSubOpclass
 
 ## Location
-src/backend/commands/typecmds.c: 2282 - 2320
+[src/backend/commands/typecmds.c:2282-2320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2282-L2320)
 
 ## Overview
 This function finds and validates a suitable B-tree operator class for a range type's subtype, either by looking up a named operator class or finding the default one.

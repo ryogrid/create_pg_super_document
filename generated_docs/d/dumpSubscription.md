@@ -3,7 +3,7 @@ Documentation for dumpSubscription function.
 # dumpSubscription
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5153 - 5299
+[src/bin/pg_dump/pg_dump.c:5153-5299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5153-L5299)
 
 ## Overview
 Generates CREATE SUBSCRIPTION SQL statements and related commands to restore logical replication subscriptions, including all subscription parameters and binary upgrade specific state preservation.

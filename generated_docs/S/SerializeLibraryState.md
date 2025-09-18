@@ -1,7 +1,7 @@
 # SerializeLibraryState
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 654 - 675
+[src/backend/utils/fmgr/dfmgr.c:654-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L654-L675)
 
 ## Overview
 Serializes the list of currently loaded dynamic libraries into a memory buffer for transmission to parallel worker processes.

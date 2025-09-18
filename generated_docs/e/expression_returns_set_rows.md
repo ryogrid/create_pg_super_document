@@ -1,7 +1,7 @@
 # expression_returns_set_rows
 
 ## Location
-src/backend/optimizer/util/clauses.c: 289 - 329
+[src/backend/optimizer/util/clauses.c:289-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L289-L329)
 
 ## Overview
 Estimates the number of rows returned by a set-returning expression, returning 1.0 if the expression is not set-returning.

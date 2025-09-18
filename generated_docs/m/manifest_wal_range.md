@@ -1,7 +1,7 @@
 # manifest_wal_range
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 87 - 94
+[src/bin/pg_verifybackup/pg_verifybackup.c:87-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L87-L94)
 
 ## Overview
 A linked-list data structure that represents WAL (Write-Ahead Log) ranges described in the backup manifest, used for tracking required WAL segments for backup verification and recovery.

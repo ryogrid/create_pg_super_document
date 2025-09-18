@@ -1,7 +1,7 @@
 # errsave_start
 
 ## Location
-src/backend/utils/error/elog.c: 633 - 684
+[src/backend/utils/error/elog.c:633-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L633-L684)
 
 ## Overview
 Begins a "soft" error-reporting cycle that can capture error details without immediately terminating execution, supporting both traditional error handling and error capture scenarios.

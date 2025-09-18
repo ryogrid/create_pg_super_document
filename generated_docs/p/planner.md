@@ -1,7 +1,7 @@
 # planner
 
 ## Location
-src/backend/optimizer/plan/planner.c: 275 - 287
+[src/backend/optimizer/plan/planner.c:275-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L275-L287)
 
 ## Overview
 The planner function serves as the main entry point to PostgreSQL's query optimizer, providing a hook mechanism that allows loadable plugins to monitor or modify planner behavior before delegating to the standard planning process.

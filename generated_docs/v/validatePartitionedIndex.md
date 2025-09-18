@@ -1,7 +1,7 @@
 # validatePartitionedIndex
 
 ## Location
-src/backend/commands/tablecmds.c: 20027 - 20127
+[src/backend/commands/tablecmds.c:20027-20127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L20027-L20127)
 
 ## Overview
 Validates and potentially marks as valid a partitioned index by checking if all partition indexes are attached and valid, implementing a recursive validation mechanism for multi-level partition hierarchies.

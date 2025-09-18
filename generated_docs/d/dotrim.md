@@ -1,7 +1,7 @@
 # dotrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 378 - 533
+[src/backend/utils/adt/oracle_compat.c:378-533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L378-L533)
 
 ## Overview
 The dotrim function is the core implementation that provides string trimming functionality for PostgreSQL's trim functions, supporting both single-byte and multibyte character encodings.

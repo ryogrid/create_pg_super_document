@@ -1,7 +1,7 @@
 # RunNamespaceSearchHookStr
 
 ## Location
-src/backend/catalog/objectaccess.c: 241 - 264
+[src/backend/catalog/objectaccess.c:241-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L241-L264)
 
 ## Overview
 Invokes the string-based object access hook for namespace search operations, allowing extensions to control access to PostgreSQL schemas by object name rather than OID.

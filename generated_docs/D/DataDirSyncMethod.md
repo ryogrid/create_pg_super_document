@@ -1,7 +1,7 @@
 # DataDirSyncMethod
 
 ## Location
-src/include/common/file_utils.h: 31 - 61
+[src/include/common/file_utils.h:31-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/file_utils.h#L31-L61)
 
 ## Overview
 DataDirSyncMethod is an enumeration that specifies different methods for synchronizing data directory contents to persistent storage during PostgreSQL operations.

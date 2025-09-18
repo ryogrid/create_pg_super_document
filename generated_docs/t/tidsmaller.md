@@ -1,7 +1,7 @@
 # tidsmaller
 
 ## Location
-src/backend/utils/adt/tid.c: 248 - 256
+[src/backend/utils/adt/tid.c:248-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L248-L256)
 
 ## Overview
 A PostgreSQL function that returns the smaller of two tuple identifiers (TIDs) by comparing their positions within the database.

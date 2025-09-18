@@ -1,7 +1,7 @@
 # jsonb_object
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1279 - 1378
+[src/backend/utils/adt/jsonb.c:1279-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1279-L1378)
 
 ## Overview
 SQL function that constructs a JSONB object from a one or two dimensional text array representing name-value pairs.

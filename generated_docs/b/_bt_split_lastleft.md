@@ -1,7 +1,7 @@
 # _bt_split_lastleft
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 1159 - 1174
+[src/backend/access/nbtree/nbtsplitloc.c:1159-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L1159-L1174)
 
 ## Overview
 Retrieves the last IndexTuple that would remain on the left page for a given B-tree split point candidate.

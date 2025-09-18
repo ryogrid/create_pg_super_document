@@ -1,7 +1,7 @@
 # pg_collation_actual_version
 
 ## Location
-src/backend/commands/collationcmds.c: 511 - 582
+[src/backend/commands/collationcmds.c:511-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L511-L582)
 
 ## Overview
 pg_collation_actual_version is a SQL-callable function that returns the actual version string from the underlying collation provider for a given collation OID.

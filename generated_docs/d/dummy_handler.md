@@ -1,7 +1,7 @@
 # dummy_handler
 
 ## Location
-src/backend/postmaster/postmaster.c: 3862 - 3869
+[src/backend/postmaster/postmaster.c:3862-3869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3862-L3869)
 
 ## Overview
 dummy_handler is a signal handler that performs no operations, used in the postmaster for signals that are not used by the postmaster itself but are used by backend processes.

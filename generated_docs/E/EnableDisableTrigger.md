@@ -1,7 +1,7 @@
 # EnableDisableTrigger
 
 ## Location
-src/backend/commands/trigger.c: 1721 - 1855
+[src/backend/commands/trigger.c:1721-1855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1721-L1855)
 
 ## Overview
 Enables or disables triggers on a relation based on specified criteria, with support for recursive processing on partitioned tables and various filtering options.

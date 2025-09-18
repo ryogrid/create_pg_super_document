@@ -1,7 +1,7 @@
 # array_positions
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1399 - 1536
+[src/backend/utils/adt/array_userfuncs.c:1399-1536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1399-L1536)
 
 ## Overview
 A PostgreSQL user function that returns an array of all positions where a specified element occurs in a one-dimensional array.

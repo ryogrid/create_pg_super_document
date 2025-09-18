@@ -1,7 +1,7 @@
 # DecodeTimezoneName
 
 ## Location
-src/backend/utils/adt/datetime.c: 3190 - 3244
+[src/backend/utils/adt/datetime.c:3190-3244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L3190-L3244)
 
 ## Overview
 DecodeTimezoneName interprets timezone strings as either abbreviations or full timezone names, providing a unified interface for timezone resolution with comprehensive error handling.

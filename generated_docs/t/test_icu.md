@@ -1,7 +1,7 @@
 # test_icu
 
 ## Location
-src/common/unicode/case_test.c: 55 - 88
+[src/common/unicode/case_test.c:55-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/case_test.c#L55-L88)
 
 ## Overview
 An exhaustive test function that compares PostgreSQL's Unicode case mappings with ICU library results across the entire Unicode codepoint range.

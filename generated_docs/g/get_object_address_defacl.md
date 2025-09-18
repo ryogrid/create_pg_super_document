@@ -1,7 +1,7 @@
 # get_object_address_defacl
 
 ## Location
-src/backend/catalog/objectaddress.c: 1958 - 2073
+[src/backend/catalog/objectaddress.c:1958-2073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1958-L2073)
 
 ## Overview
 Finds and returns the ObjectAddress for a default ACL (Access Control List) by resolving the object type, username, and optional schema name to locate the corresponding pg_default_acl catalog entry.

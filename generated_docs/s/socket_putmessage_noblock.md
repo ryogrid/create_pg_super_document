@@ -1,7 +1,7 @@
 # socket_putmessage_noblock
 
 ## Location
-src/backend/libpq/pqcomm.c: 1521 - 1557
+[src/backend/libpq/pqcomm.c:1521-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1521-L1557)
 
 ## Overview
 A static function that sends a PostgreSQL protocol message without blocking, automatically enlarging the output buffer if necessary to accommodate the entire message.

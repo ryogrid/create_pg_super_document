@@ -1,7 +1,7 @@
 # getTransactionStatus
 
 ## Location
-src/bin/pgbench/pgbench.c: 3527 - 3563
+[src/bin/pgbench/pgbench.c:3527-3563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3527-L3563)
 
 ## Overview
 Determines the current transaction status of a PostgreSQL connection, specifically checking if the connection is in a transaction block or error state.

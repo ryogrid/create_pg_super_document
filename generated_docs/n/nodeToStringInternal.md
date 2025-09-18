@@ -1,7 +1,7 @@
 # nodeToStringInternal
 
 ## Location
-src/backend/nodes/outfuncs.c: 770 - 790
+[src/backend/nodes/outfuncs.c:770-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L770-L790)
 
 ## Overview
 A static helper function that converts a PostgreSQL node structure to its ASCII string representation, with control over whether location fields are included in the output.

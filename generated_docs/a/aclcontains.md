@@ -1,7 +1,7 @@
 # aclcontains
 
 ## Location
-src/backend/utils/adt/acl.c: 1612 - 1633
+[src/backend/utils/adt/acl.c:1612-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1612-L1633)
 
 ## Overview
 Checks whether an Access Control List (ACL) contains a specific ACL item with matching grantee, grantor, and privileges.

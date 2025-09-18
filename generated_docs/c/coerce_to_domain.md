@@ -1,7 +1,7 @@
 # coerce_to_domain
 
 ## Location
-src/backend/parser/parse_coerce.c: 676 - 752
+[src/backend/parser/parse_coerce.c:676-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L676-L752)
 
 ## Overview
 Creates an expression tree to represent coercion to a domain type, handling domain-specific constraints and base type conversions.

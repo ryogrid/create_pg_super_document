@@ -1,7 +1,7 @@
 # get_call_result_type
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 276 - 298
+[src/backend/utils/fmgr/funcapi.c:276-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L276-L298)
 
 ## Overview
 Determines the datatype that a PostgreSQL function is supposed to return based on its function call information record, handling complex cases like RECORD resolution and polymorphic type resolution.

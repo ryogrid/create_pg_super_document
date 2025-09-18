@@ -1,7 +1,7 @@
 # slice_from_v
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 427 - 430
+[src/backend/snowball/libstemmer/utilities.c:427-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L427-L430)
 
 ## Overview
 Replaces the current slice in a Snowball environment with symbols from a variable-length buffer, providing a convenient interface for slice replacement with dynamically sized content.

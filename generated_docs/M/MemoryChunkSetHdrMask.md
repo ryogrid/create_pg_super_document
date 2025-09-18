@@ -1,7 +1,7 @@
 # MemoryChunkSetHdrMask
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 169 - 189
+[src/include/utils/memutils_memorychunk.h:169-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L169-L189)
 
 ## Overview
 Sets up the header mask of a MemoryChunk by encoding the block offset, value, and memory context method ID into a single 64-bit header mask field.

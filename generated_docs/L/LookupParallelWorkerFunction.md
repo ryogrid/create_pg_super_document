@@ -1,7 +1,7 @@
 # LookupParallelWorkerFunction
 
 ## Location
-src/backend/access/transam/parallel.c: 1629 - 1652
+[src/backend/access/transam/parallel.c:1629-1652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1629-L1652)
 
 ## Overview
 LookupParallelWorkerFunction resolves parallel worker entry point functions by name, supporting both core PostgreSQL functions and external library functions.

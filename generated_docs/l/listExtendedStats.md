@@ -1,7 +1,7 @@
 # listExtendedStats
 
 ## Location
-src/bin/psql/describe.c: 4694 - 4789
+[src/bin/psql/describe.c:4694-4789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4694-L4789)
 
 ## Overview
 The  function implements the  psql command for displaying extended statistics objects in a PostgreSQL database.

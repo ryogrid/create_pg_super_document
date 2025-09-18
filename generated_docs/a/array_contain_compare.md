@@ -1,7 +1,7 @@
 # array_contain_compare
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4369 - 4511
+[src/backend/utils/adt/arrayfuncs.c:4369-4511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4369-L4511)
 
 ## Overview
 Internal function that implements array overlap and containment comparisons by checking if elements from one array exist in another array based on configurable matching criteria.

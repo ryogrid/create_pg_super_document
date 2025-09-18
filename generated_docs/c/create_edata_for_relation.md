@@ -1,7 +1,7 @@
 # create_edata_for_relation
 
 ## Location
-src/backend/replication/logical/worker.c: 654 - 710
+[src/backend/replication/logical/worker.c:654-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L654-L710)
 
 ## Overview
 Creates and initializes executor state data (ApplyExecutionData) for evaluation of constraint expressions, indexes, and triggers for a specific relation during logical replication operations.

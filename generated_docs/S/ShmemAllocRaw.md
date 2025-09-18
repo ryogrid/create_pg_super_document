@@ -1,7 +1,7 @@
 # ShmemAllocRaw
 
 ## Location
-src/backend/storage/ipc/shmem.c: 186 - 237
+[src/backend/storage/ipc/shmem.c:186-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L186-L237)
 
 ## Overview
 ShmemAllocRaw is the core shared memory allocation function that performs cache-line-aligned allocation and returns both the allocated memory pointer and the actual allocated size.

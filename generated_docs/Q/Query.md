@@ -1,7 +1,7 @@
 # Query
 
 ## Location
-src/include/nodes/parsenodes.h: 117 - 241
+[src/include/nodes/parsenodes.h:117-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L117-L241)
 
 ## Overview
 The Query structure is the central parse tree representation in PostgreSQL that all SQL statements are converted into during parse analysis for further processing by the rewriter and planner.

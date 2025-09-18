@@ -1,7 +1,7 @@
 # log_error
 
 ## Location
-src/port/win32security.c: 20 - 48
+[src/port/win32security.c:20-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32security.c#L20-L48)
 
 ## Overview
 A preprocessor macro that provides a convenient interface for logging error messages using PostgreSQL's internal error reporting system.

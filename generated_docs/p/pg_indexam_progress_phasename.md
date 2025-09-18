@@ -1,7 +1,7 @@
 # pg_indexam_progress_phasename
 
 ## Location
-src/backend/utils/adt/amutils.c: 451 - 467
+[src/backend/utils/adt/amutils.c:451-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L451-L467)
 
 ## Overview
 This function returns the human-readable name of a specific progress phase for index building operations within a given access method.

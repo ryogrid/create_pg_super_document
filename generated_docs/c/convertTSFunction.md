@@ -1,7 +1,7 @@
 # convertTSFunction
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13252 - 13273
+[src/bin/pg_dump/pg_dump.c:13252-13273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13252-L13273)
 
 ## Overview
 Converts a function OID obtained from text search parsers or templates into a properly formatted function name string using PostgreSQL's REGPROC type.

@@ -1,7 +1,7 @@
 # RT_LOCK_EXCLUSIVE
 
 ## Location
-src/include/lib/radixtree.h: 1941 - 1947
+[src/include/lib/radixtree.h:1941-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1941-L1947)
 
 ## Overview
 RT_LOCK_EXCLUSIVE is a macro that generates a function name for acquiring an exclusive lock on a shared memory radix tree structure in PostgreSQL.

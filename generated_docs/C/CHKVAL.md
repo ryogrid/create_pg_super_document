@@ -1,7 +1,7 @@
 # CHKVAL
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 42 - 44
+[src/backend/utils/adt/tsvector_op.c:42-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L42-L44)
 
 ## Overview
 CHKVAL is a structure used as a callback parameter for text search (tsquery) operations in PostgreSQL's GiST index implementation, containing array boundaries for efficient range-based lookups.

@@ -1,7 +1,7 @@
 # _hash_next
 
 ## Location
-src/backend/access/hash/hashsearch.c: 48 - 130
+[src/backend/access/hash/hashsearch.c:48-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L48-L130)
 
 ## Overview
 Advances a hash index scan to the next item, handling pagination across overflow pages and managing scan direction (forward/backward).

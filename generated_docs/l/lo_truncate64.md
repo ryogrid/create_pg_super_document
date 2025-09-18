@@ -1,7 +1,7 @@
 # lo_truncate64
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 195 - 244
+[src/interfaces/libpq/fe-lobj.c:195-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L195-L244)
 
 ## Overview
 Truncates an existing large object to the specified 64-bit size, supporting large objects beyond the 32-bit integer limit.

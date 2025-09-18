@@ -1,7 +1,7 @@
 # printtup_destroy
 
 ## Location
-src/backend/access/common/printtup.c: 413 - 422
+[src/backend/access/common/printtup.c:413-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L413-L422)
 
 ## Overview
 The printtup_destroy function deallocates the memory used by a printtup DestReceiver structure.

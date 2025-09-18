@@ -1,7 +1,7 @@
 # ExecResultRestrPos
 
 ## Location
-src/backend/executor/nodeResult.c: 161 - 179
+[src/backend/executor/nodeResult.c:161-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L161-L179)
 
 ## Overview
 ExecResultRestrPos restores a previously marked position in a Result node, delegating the restore operation to its outer plan or throwing an error if no outer plan exists.

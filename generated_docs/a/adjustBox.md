@@ -1,7 +1,7 @@
 # adjustBox
 
 ## Location
-src/backend/access/gist/gistproc.c: 146 - 163
+[src/backend/access/gist/gistproc.c:146-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L146-L163)
 
 ## Overview
 Expands a BOX to include another BOX by updating its coordinates to encompass the minimum bounding rectangle that contains both boxes.

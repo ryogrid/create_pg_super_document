@@ -1,7 +1,7 @@
 # hashcharextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 53 - 58
+[src/backend/access/hash/hashfunc.c:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L53-L58)
 
 ## Overview
 hashcharextended is an extended hash function for "char" and boolean data types in PostgreSQL that accepts an additional seed parameter for enhanced hash computation.

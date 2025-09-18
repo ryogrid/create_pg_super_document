@@ -1,7 +1,7 @@
 # copyParamList
 
 ## Location
-src/backend/nodes/params.c: 78 - 119
+[src/backend/nodes/params.c:78-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L78-L119)
 
 ## Overview
 Creates a static, self-contained copy of a ParamListInfo structure, forcibly instantiating all parameter values and copying their datum values.

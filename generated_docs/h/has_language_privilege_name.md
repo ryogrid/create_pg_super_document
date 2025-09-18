@@ -1,7 +1,7 @@
 # has_language_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3631 - 3654
+[src/backend/utils/adt/acl.c:3631-3654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3631-L3654)
 
 ## Overview
 This function checks whether the current user has a particular privilege on a language, given the language name as a text parameter.

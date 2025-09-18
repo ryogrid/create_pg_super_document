@@ -1,7 +1,7 @@
 # makeString
 
 ## Location
-src/backend/nodes/value.c: 63 - 76
+[src/backend/nodes/value.c:63-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/value.c#L63-L76)
 
 ## Overview
 The makeString function creates a new String node containing a specified string value, used for representing string literals in PostgreSQL's parse tree structure.

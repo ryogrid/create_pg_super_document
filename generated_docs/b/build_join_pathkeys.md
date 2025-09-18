@@ -1,7 +1,7 @@
 # build_join_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1292 - 1329
+[src/backend/optimizer/path/pathkeys.c:1292-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1292-L1329)
 
 ## Overview
 Builds the path keys for a join relation constructed by mergejoin or nestloop join, typically inheriting the outer path's keys but handling special cases for FULL, RIGHT, and RIGHT_ANTI joins.

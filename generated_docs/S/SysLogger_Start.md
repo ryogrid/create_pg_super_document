@@ -1,7 +1,7 @@
 # SysLogger_Start
 
 ## Location
-src/backend/postmaster/syslogger.c: 595 - 801
+[src/backend/postmaster/syslogger.c:595-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L595-L801)
 
 ## Overview
 SysLogger_Start is a postmaster subroutine that initializes and launches the system logger subprocess, setting up the logging infrastructure including pipes, log files, and stderr redirection.

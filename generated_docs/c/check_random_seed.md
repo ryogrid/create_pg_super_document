@@ -1,7 +1,7 @@
 # check_random_seed
 
 ## Location
-src/backend/commands/variable.c: 648 - 659
+[src/backend/commands/variable.c:648-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L648-L659)
 
 ## Overview
 This function validates and prepares random seed value changes, ensuring that only interactive SET SEED commands can affect the random number generator state.

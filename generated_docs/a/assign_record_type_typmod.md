@@ -1,7 +1,7 @@
 # assign_record_type_typmod
 
 ## Location
-src/backend/utils/cache/typcache.c: 1953 - 2044
+[src/backend/utils/cache/typcache.c:1953-2044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1953-L2044)
 
 ## Overview
 Assigns a unique typmod value to a RECORD type TupleDesc by finding or creating a cache entry, enabling subsequent lookups via lookup_rowtype_tupdesc.

@@ -1,7 +1,7 @@
 # r_izenak
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_basque.c: 1046 - 1116
+[src/backend/snowball/libstemmer/stem_UTF_8_basque.c:1046-1116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_basque.c#L1046-L1116)
 
 ## Overview
 A Basque-specific stemming function that handles noun suffix processing ("izenak" means "nouns" in Basque), implementing rule-based suffix removal and transformation for noun forms during text normalization.

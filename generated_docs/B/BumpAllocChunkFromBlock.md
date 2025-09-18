@@ -1,7 +1,7 @@
 # BumpAllocChunkFromBlock
 
 ## Location
-src/backend/utils/mmgr/bump.c: 371 - 429
+[src/backend/utils/mmgr/bump.c:371-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L371-L429)
 
 ## Overview
 A utility function that allocates a chunk from an existing block with sufficient free space, handling both memory context checking and non-checking builds.

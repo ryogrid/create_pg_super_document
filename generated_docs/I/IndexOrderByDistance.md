@@ -1,7 +1,7 @@
 # IndexOrderByDistance
 
 ## Location
-src/include/access/genam.h: 125 - 129
+[src/include/access/genam.h:125-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L125-L129)
 
 ## Overview
 IndexOrderByDistance is a structure that represents a nullable distance value used in "ORDER BY column operator constant" clauses for index scans with distance-based ordering.

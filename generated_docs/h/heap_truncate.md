@@ -1,7 +1,7 @@
 # heap_truncate
 
 ## Location
-src/backend/catalog/heap.c: 3069 - 3109
+[src/backend/catalog/heap.c:3069-3109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3069-L3109)
 
 ## Overview
 heap_truncate is a non-transaction-safe function that deletes all data within specified relations, primarily used for ON COMMIT truncation of temporary tables.

@@ -1,7 +1,7 @@
 # PrinttupAttrInfo
 
 ## Location
-src/backend/access/common/printtup.c: 52 - 63
+[src/backend/access/common/printtup.c:52-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L52-L63)
 
 ## Overview
 PrinttupAttrInfo is a structure that holds per-attribute information for PostgreSQL's tuple output formatting, storing metadata needed to convert internal data types to their text or binary output representations.

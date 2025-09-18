@@ -1,7 +1,7 @@
 # TypeIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 1052 - 1191
+[src/backend/catalog/namespace.c:1052-1191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1052-L1191)
 
 ## Overview
 Determines whether a type (identified by OID) is visible in the current search path, with optional error handling for missing types.

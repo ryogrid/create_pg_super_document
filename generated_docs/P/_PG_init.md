@@ -1,7 +1,7 @@
 # _PG_init
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 120 - 142
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:120-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L120-L142)
 
 ## Overview
 Module initialization function that registers the libpq-based WAL receiver function table with the PostgreSQL replication system.

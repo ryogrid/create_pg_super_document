@@ -1,7 +1,7 @@
 # injection_points_detach
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 386 - 404
+[src/test/modules/injection_points/injection_points.c:386-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L386-L404)
 
 ## Overview
 This function detaches a named injection point and removes it from both the global system and the local process tracking list.

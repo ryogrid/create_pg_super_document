@@ -1,7 +1,7 @@
 # byteagt
 
 ## Location
-src/backend/utils/adt/varlena.c: 3898 - 3917
+[src/backend/utils/adt/varlena.c:3898-3917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3898-L3917)
 
 ## Overview
 A PostgreSQL function that implements the greater-than operator (>) for bytea (binary string) values, performing lexicographic comparison.

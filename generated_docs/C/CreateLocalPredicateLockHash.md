@@ -1,7 +1,7 @@
 # CreateLocalPredicateLockHash
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1930 - 1948
+[src/backend/storage/lmgr/predicate.c:1930-1948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1930-L1948)
 
 ## Overview
 Initializes a backend-local hash table to track predicate locks held by the current transaction, supporting PostgreSQL's Serializable Snapshot Isolation implementation.

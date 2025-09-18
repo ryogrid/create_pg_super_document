@@ -1,7 +1,7 @@
 # singleline_hook
 
 ## Location
-src/bin/psql/startup.c: 893 - 898
+[src/bin/psql/startup.c:893-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L893-L898)
 
 ## Overview
 A hook function used in PostgreSQL's psql client to validate and set the SINGLELINE variable, which controls whether psql should treat each line as a separate command instead of using multi-line SQL statement parsing.

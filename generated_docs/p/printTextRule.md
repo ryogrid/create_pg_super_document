@@ -1,7 +1,7 @@
 # printTextRule
 
 ## Location
-src/include/fe_utils/print.h: 59 - 60
+[src/include/fe_utils/print.h:59-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L59-L60)
 
 ## Overview
 printTextRule is an enumeration type that defines different types of horizontal rules used for drawing table borders and separators in PostgreSQL's frontend text output formatting.

@@ -1,7 +1,7 @@
 # FlushErrorState
 
 ## Location
-src/backend/utils/error/elog.c: 1867 - 1891
+[src/backend/utils/error/elog.c:1867-1891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1867-L1891)
 
 ## Overview
 Resets the error subsystem state after error recovery, clearing the error stack and freeing all ErrorContext memory.

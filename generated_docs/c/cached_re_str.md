@@ -1,7 +1,7 @@
 # cached_re_str
 
 ## Location
-src/backend/utils/adt/regexp.c: 102 - 110
+[src/backend/utils/adt/regexp.c:102-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L102-L110)
 
 ## Overview
 The cached_re_str structure describes one cached regular expression in PostgreSQL's regex caching system, storing both the compiled regex and its associated metadata for efficient reuse.

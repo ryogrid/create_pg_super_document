@@ -1,7 +1,7 @@
 # numeric_sum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6179 - 6221
+[src/backend/utils/adt/numeric.c:6179-6221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6179-L6221)
 
 ## Overview
 Computes the sum of accumulated numeric values during aggregate operations.

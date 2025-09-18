@@ -1,7 +1,7 @@
 # bbstreamer_extractor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 378 - 389
+[src/bin/pg_basebackup/bbstreamer_file.c:378-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L378-L389)
 
 ## Overview
 Performs end-of-stream processing for the bbstreamer extractor, conducting sanity checks to ensure proper state before cleanup.

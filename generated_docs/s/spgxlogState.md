@@ -1,7 +1,7 @@
 # spgxlogState
 
 ## Location
-src/include/access/spgxlog.h: 36 - 40
+[src/include/access/spgxlog.h:36-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L36-L40)
 
 ## Overview
 The spgxlogState structure carries essential state information required by SP-GiST redo functions during WAL (Write-Ahead Logging) recovery operations.

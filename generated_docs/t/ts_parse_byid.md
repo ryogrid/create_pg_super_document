@@ -1,7 +1,7 @@
 # ts_parse_byid
 
 ## Location
-src/backend/tsearch/wparser.c: 242 - 263
+[src/backend/tsearch/wparser.c:242-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L242-L263)
 
 ## Overview
 A PostgreSQL function that parses text using a specified text search parser by its OID, returning tokens as a set of rows with token type and lexeme.

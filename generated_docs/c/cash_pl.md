@@ -1,7 +1,7 @@
 # cash_pl
 
 ## Location
-src/backend/utils/adt/cash.c: 688 - 700
+[src/backend/utils/adt/cash.c:688-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L688-L700)
 
 ## Overview
 The cash_pl function implements addition for PostgreSQL's cash (money) data type, safely adding two cash values together with overflow detection.

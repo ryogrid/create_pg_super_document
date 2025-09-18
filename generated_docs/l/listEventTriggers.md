@@ -1,7 +1,7 @@
 # listEventTriggers
 
 ## Location
-src/bin/psql/describe.c: 4614 - 4693
+[src/bin/psql/describe.c:4614-4693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4614-L4693)
 
 ## Overview
 Lists and displays information about event triggers in the PostgreSQL database, corresponding to the psql \dy command.

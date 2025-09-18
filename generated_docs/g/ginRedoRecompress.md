@@ -1,7 +1,7 @@
 # ginRedoRecompress
 
 ## Location
-src/backend/access/gin/ginxlog.c: 117 - 318
+[src/backend/access/gin/ginxlog.c:117-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L117-L318)
 
 ## Overview
 Replays the recompression of posting lists in a GIN data leaf page during WAL recovery, handling complex in-place modifications and format conversions.

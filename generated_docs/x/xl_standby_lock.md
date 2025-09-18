@@ -1,7 +1,7 @@
 # xl_standby_lock
 
 ## Location
-src/include/storage/lockdefs.h: 54 - 59
+[src/include/storage/lockdefs.h:54-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lockdefs.h#L54-L59)
 
 ## Overview
 A WAL (Write-Ahead Log) record structure that represents an AccessExclusiveLock on a table for standby server lock conflict resolution.

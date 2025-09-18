@@ -1,7 +1,7 @@
 # GenerationBlockInit
 
 ## Location
-src/backend/utils/mmgr/generation.c: 609 - 629
+[src/backend/utils/mmgr/generation.c:609-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L609-L629)
 
 ## Overview
 A static inline function that initializes a newly allocated memory block structure with proper metadata and boundary pointers for the generation memory context.

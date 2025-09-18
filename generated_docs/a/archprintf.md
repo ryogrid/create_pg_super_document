@@ -1,7 +1,7 @@
 # archprintf
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1636 - 1674
+[src/bin/pg_dump/pg_backup_archiver.c:1636-1674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1636-L1674)
 
 ## Overview
 A convenience function that formats and outputs formatted text to a PostgreSQL archive during dump operations, providing printf-style functionality for archive output.

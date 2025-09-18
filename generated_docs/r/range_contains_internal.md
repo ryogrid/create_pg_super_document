@@ -1,7 +1,7 @@
 # range_contains_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2586 - 2617
+[src/backend/utils/adt/rangetypes.c:2586-2617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2586-L2617)
 
 ## Overview
 Tests whether one range contains another range by comparing their bounds to determine if the first range completely encompasses the second range.

@@ -1,7 +1,7 @@
 # show_hashagg_info
 
 ## Location
-src/backend/commands/explain.c: 3471 - 3591
+[src/backend/commands/explain.c:3471-3591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3471-L3591)
 
 ## Overview
 Displays comprehensive hash aggregation statistics for EXPLAIN ANALYZE output, including planned partitions, batch counts, memory usage, disk spill information, and performance metrics from parallel workers.

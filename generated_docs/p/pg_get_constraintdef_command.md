@@ -1,7 +1,7 @@
 # pg_get_constraintdef_command
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2164 - 2172
+[src/backend/utils/adt/ruleutils.c:2164-2172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2164-L2172)
 
 ## Overview
 This internal function returns a complete ALTER TABLE ... ADD CONSTRAINT command for recreating a constraint definition.

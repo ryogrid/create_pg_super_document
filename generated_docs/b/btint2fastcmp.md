@@ -1,7 +1,7 @@
 # btint2fastcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 91 - 99
+[src/backend/access/nbtree/nbtcompare.c:91-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L91-L99)
 
 ## Overview
 This is an optimized comparison function for 16-bit signed integers (smallint) used in PostgreSQL's sort support system, providing faster comparison performance for sorting operations.

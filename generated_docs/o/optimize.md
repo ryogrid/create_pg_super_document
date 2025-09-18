@@ -1,7 +1,7 @@
 # optimize
 
 ## Location
-src/backend/regex/regc_nfa.c: 1594 - 1639
+[src/backend/regex/regc_nfa.c:1594-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1594-L1639)
 
 ## Overview
 Transforms an NFA (Non-deterministic Finite Automaton) from parser output format to a form suitable for the regex executor by eliminating various arc types and optimizing the structure.

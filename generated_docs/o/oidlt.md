@@ -1,7 +1,7 @@
 # oidlt
 
 ## Location
-src/backend/utils/adt/oid.c: 290 - 298
+[src/backend/utils/adt/oid.c:290-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L290-L298)
 
 ## Overview
 A PostgreSQL function that tests whether one Oid (Object Identifier) value is less than another, returning a boolean result indicating the comparison outcome.

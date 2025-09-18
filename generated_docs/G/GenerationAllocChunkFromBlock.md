@@ -1,7 +1,7 @@
 # GenerationAllocChunkFromBlock
 
 ## Location
-src/backend/utils/mmgr/generation.c: 413 - 460
+[src/backend/utils/mmgr/generation.c:413-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L413-L460)
 
 ## Overview
 A helper function that allocates a new chunk from an existing GenerationBlock, handling the common chunk initialization code shared between different allocation paths.

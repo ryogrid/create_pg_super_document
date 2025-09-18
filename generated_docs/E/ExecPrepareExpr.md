@@ -1,7 +1,7 @@
 # ExecPrepareExpr
 
 ## Location
-src/backend/executor/execExpr.c: 740 - 767
+[src/backend/executor/execExpr.c:740-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L740-L767)
 
 ## Overview
 Initializes expressions for execution outside a normal Plan tree context by applying planning transformations and creating an executable ExprState.

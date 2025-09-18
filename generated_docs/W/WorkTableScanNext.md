@@ -1,7 +1,7 @@
 # WorkTableScanNext
 
 ## Location
-src/backend/executor/nodeWorktablescan.c: 30 - 65
+[src/backend/executor/nodeWorktablescan.c:30-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWorktablescan.c#L30-L65)
 
 ## Overview
 WorkTableScanNext is the core function that retrieves the next tuple from a worktable during a recursive query execution, serving as the main workhorse for ExecWorkTableScan.

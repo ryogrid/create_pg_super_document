@@ -1,7 +1,7 @@
 # pg_inet_net_ntop
 
 ## Location
-src/port/inet_net_ntop.c: 77 - 113
+[src/port/inet_net_ntop.c:77-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/inet_net_ntop.c#L77-L113)
 
 ## Overview
 Converts a network address from binary network format to presentation (string) format, supporting both IPv4 and IPv6 address families with CIDR notation.

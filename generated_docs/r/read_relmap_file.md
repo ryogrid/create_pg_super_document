@@ -1,7 +1,7 @@
 # read_relmap_file
 
 ## Location
-src/backend/utils/cache/relmapper.c: 784 - 888
+[src/backend/utils/cache/relmapper.c:784-888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L784-L888)
 
 ## Overview
 read_relmap_file loads and validates relation mapping data from disk files, providing the core functionality for reading both shared and local relation mapping files.

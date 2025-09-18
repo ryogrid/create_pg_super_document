@@ -1,7 +1,7 @@
 # pg_get_partkeydef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1917 - 2075
+[src/backend/utils/adt/ruleutils.c:1917-2075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1917-L2075)
 
 ## Overview
 Internal workhorse function that decompiles and reconstructs a partition key definition from the system catalogs, providing flexible output formatting options.

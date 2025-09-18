@@ -1,7 +1,7 @@
 # AtCommit_Notify
 
 ## Location
-src/backend/commands/async.c: 968 - 1040
+[src/backend/commands/async.c:968-1040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L968-L1040)
 
 ## Overview
 A post-commit hook that finalizes LISTEN/UNLISTEN operations, signals listening backends about new notifications, and cleans up transaction-local notification state after transaction commit.

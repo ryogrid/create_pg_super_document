@@ -1,7 +1,7 @@
 # DirectoryMethodFile
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 82 - 96
+[src/bin/pg_basebackup/walmethods.c:82-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L82-L96)
 
 ## Overview
 DirectoryMethodFile is a structure that represents an individual file handle for directory-based WAL writing in PostgreSQL's pg_basebackup utility, extending the base Walfile structure with directory-specific file management data.

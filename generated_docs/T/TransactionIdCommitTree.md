@@ -1,7 +1,7 @@
 # TransactionIdCommitTree
 
 ## Location
-src/backend/access/transam/transam.c: 240 - 251
+[src/backend/access/transam/transam.c:240-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L240-L251)
 
 ## Overview
 TransactionIdCommitTree marks a top-level transaction and all its subtransactions as committed in a single operation.

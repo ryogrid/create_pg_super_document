@@ -1,7 +1,7 @@
 # _bt_compare
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 682 - 875
+[src/backend/access/nbtree/nbtsearch.c:682-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L682-L875)
 
 ## Overview
 Compares an insertion-type scan key to a tuple on a B-tree page, returning the comparison result used for B-tree traversal and positioning operations.

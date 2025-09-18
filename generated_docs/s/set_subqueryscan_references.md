@@ -1,7 +1,7 @@
 # set_subqueryscan_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1395 - 1463
+[src/backend/optimizer/plan/setrefs.c:1395-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1395-L1463)
 
 ## Overview
 Specialized function that processes SubqueryScan plan nodes, with optimization logic to potentially eliminate trivial SubqueryScans by pulling up their subplans directly.

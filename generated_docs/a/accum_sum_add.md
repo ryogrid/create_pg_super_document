@@ -1,7 +1,7 @@
 # accum_sum_add
 
 ## Location
-src/backend/utils/adt/numeric.c: 11992 - 12039
+[src/backend/utils/adt/numeric.c:11992-12039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11992-L12039)
 
 ## Overview
 Accumulates a new numeric value into a NumericSumAccum structure, which is used for efficient computation of sums and averages over large sets of numeric values.

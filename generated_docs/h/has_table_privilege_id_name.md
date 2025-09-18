@@ -1,7 +1,7 @@
 # has_table_privilege_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 1999 - 2021
+[src/backend/utils/adt/acl.c:1999-2021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1999-L2021)
 
 ## Overview
 Checks whether a specified user (by OID) has a given privilege on a table (by name), providing precise user identification combined with human-readable table specification.

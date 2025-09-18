@@ -1,7 +1,7 @@
 # timestamp_cmp_timestamptz_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2325 - 2345
+[src/backend/utils/adt/timestamp.c:2325-2345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2325-L2345)
 
 ## Overview
 The timestamp_cmp_timestamptz_internal function performs cross-type comparison between timestamp and timestamptz values, handling timezone conversion and overflow conditions.

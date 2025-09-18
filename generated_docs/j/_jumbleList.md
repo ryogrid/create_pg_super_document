@@ -1,7 +1,7 @@
 # _jumbleList
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 292 - 322
+[src/backend/nodes/queryjumblefuncs.c:292-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L292-L322)
 
 ## Overview
 The `_jumbleList` function is a specialized helper function in PostgreSQL's query jumbling system that processes List-type nodes, handling different kinds of lists (generic lists, integer lists, OID lists, and transaction ID lists) appropriately.

@@ -1,7 +1,7 @@
 # i4toi2
 
 ## Location
-src/backend/utils/adt/int.c: 348 - 361
+[src/backend/utils/adt/int.c:348-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L348-L361)
 
 ## Overview
 Converts a 32-bit integer (int4/integer) to a 16-bit integer (int2/smallint) with overflow checking in PostgreSQL.

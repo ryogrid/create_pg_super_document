@@ -1,7 +1,7 @@
 # SH_COMPUTE_SIZE
 
 ## Location
-src/include/lib/simplehash.h: 311 - 336
+[src/include/lib/simplehash.h:311-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L311-L336)
 
 ## Overview
 Computes the optimal hash table size for a PostgreSQL simple hash table, rounding up to the next power of 2 and performing validation checks.

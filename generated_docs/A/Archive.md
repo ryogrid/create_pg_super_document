@@ -1,7 +1,7 @@
 # Archive
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 216 - 248
+[src/bin/pg_dump/pg_backup.h:216-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L216-L248)
 
 ## Overview
 A central structure that represents a PostgreSQL dump/restore archive, containing all state information, options, and metadata needed for dump and restore operations.

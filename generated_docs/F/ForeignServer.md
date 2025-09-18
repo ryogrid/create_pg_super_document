@@ -1,7 +1,7 @@
 # ForeignServer
 
 ## Location
-src/include/foreign/foreign.h: 34 - 43
+[src/include/foreign/foreign.h:34-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/foreign/foreign.h#L34-L43)
 
 ## Overview
 ForeignServer is a structure that represents a foreign server in PostgreSQL, which defines a specific instance of an external data source that uses a particular foreign data wrapper.

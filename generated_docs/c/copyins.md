@@ -1,7 +1,7 @@
 # copyins
 
 ## Location
-src/backend/regex/regc_nfa.c: 882 - 970
+[src/backend/regex/regc_nfa.c:882-970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L882-L970)
 
 ## Overview
 Copies all incoming arcs from one NFA state to another state, designed specifically for use with brand-new target states that require no duplicate suppression.

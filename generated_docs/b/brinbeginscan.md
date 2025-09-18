@@ -1,7 +1,7 @@
 # brinbeginscan
 
 ## Location
-src/backend/access/brin/brin.c: 530 - 557
+[src/backend/access/brin/brin.c:530-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L530-L557)
 
 ## Overview
 The `brinbeginscan` function initializes the state and structures necessary for performing a scan on a BRIN (Block Range Index), setting up the scan descriptor with BRIN-specific opaque data.

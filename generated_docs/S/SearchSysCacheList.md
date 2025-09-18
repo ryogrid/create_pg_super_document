@@ -1,7 +1,7 @@
 # SearchSysCacheList
 
 ## Location
-src/backend/utils/cache/syscache.c: 679 - 698
+[src/backend/utils/cache/syscache.c:679-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L679-L698)
 
 ## Overview
 SearchSysCacheList is a PostgreSQL system cache function that performs list-based searches to find all cached catalog tuples matching a partial key, returning them as a catclist structure.

@@ -1,7 +1,7 @@
 # ExecPrepHashTableForUnmatched
 
 ## Location
-src/backend/executor/nodeHash.c: 2083 - 2103
+[src/backend/executor/nodeHash.c:2083-2103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2083-L2103)
 
 ## Overview
 Initializes the hash join state to prepare for scanning the hash table to find unmatched inner tuples, typically used in RIGHT and FULL outer join operations.

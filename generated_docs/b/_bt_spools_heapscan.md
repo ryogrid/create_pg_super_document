@@ -1,7 +1,7 @@
 # _bt_spools_heapscan
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 363 - 514
+[src/backend/access/nbtree/nbtsort.c:363-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L363-L514)
 
 ## Overview
 Manages the heap scanning phase of B-tree index construction, creating spool structures for temporary storage and coordinating parallel processing when applicable.

@@ -1,7 +1,7 @@
 # CreateCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 192 - 275
+[src/backend/utils/cache/plancache.c:192-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L192-L275)
 
 ## Overview
 Creates and initializes a new CachedPlanSource structure, which serves as the foundation for PostgreSQL's plan caching system.

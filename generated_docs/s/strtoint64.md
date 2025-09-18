@@ -1,7 +1,7 @@
 # strtoint64
 
 ## Location
-src/bin/pgbench/pgbench.c: 988 - 1058
+[src/bin/pgbench/pgbench.c:988-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L988-L1058)
 
 ## Overview
 A robust string-to-64-bit integer conversion function that provides comprehensive error handling and overflow detection, adapted from PostgreSQL's backend utilities.

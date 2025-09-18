@@ -1,7 +1,7 @@
 # AfterTriggerEndSubXact
 
 ## Location
-src/backend/commands/trigger.c: 5436 - 5532
+[src/backend/commands/trigger.c:5436-5532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5436-L5532)
 
 ## Overview
 Handles cleanup and state restoration when a subtransaction ends, either through commit or abort, managing trigger events and constraint states appropriately.

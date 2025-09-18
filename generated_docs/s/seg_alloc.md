@@ -1,7 +1,7 @@
 # seg_alloc
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1647 - 1665
+[src/backend/utils/hash/dynahash.c:1647-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1647-L1665)
 
 ## Overview
 Allocates and initializes a new hash table segment containing the specified number of hash buckets.

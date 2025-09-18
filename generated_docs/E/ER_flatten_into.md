@@ -1,7 +1,7 @@
 # ER_flatten_into
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 764 - 823
+[src/backend/utils/adt/expandedrecord.c:764-823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L764-L823)
 
 ## Overview
 ER_flatten_into serializes an expanded record into a flattened composite datum format at a specified memory location.

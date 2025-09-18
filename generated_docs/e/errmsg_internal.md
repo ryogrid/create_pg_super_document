@@ -1,7 +1,7 @@
 # errmsg_internal
 
 ## Location
-src/backend/utils/error/elog.c: 1157 - 1179
+[src/backend/utils/error/elog.c:1157-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1157-L1179)
 
 ## Overview
 Adds a primary error message text to the current error without translation, used for internal errors that are not intended for internationalization.

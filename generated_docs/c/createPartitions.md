@@ -1,7 +1,7 @@
 # createPartitions
 
 ## Location
-src/bin/pgbench/pgbench.c: 4754 - 4822
+[src/bin/pgbench/pgbench.c:4754-4822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4754-L4822)
 
 ## Overview
 Creates partitions for the pgbench_accounts table to improve performance and manage large datasets by distributing data across multiple partition tables.

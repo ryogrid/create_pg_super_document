@@ -1,7 +1,7 @@
 # ATExecDropInherit
 
 ## Location
-src/backend/commands/tablecmds.c: 16141 - 16182
+[src/backend/commands/tablecmds.c:16141-16182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16141-L16182)
 
 ## Overview
 Executes the ALTER TABLE NO INHERIT command to remove inheritance relationship between a child table and its parent table.

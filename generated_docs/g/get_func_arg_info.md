@@ -1,7 +1,7 @@
 # get_func_arg_info
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1379 - 1474
+[src/backend/utils/fmgr/funcapi.c:1379-1474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1379-L1474)
 
 ## Overview
 Extracts comprehensive function argument information from a pg_proc catalog tuple, including argument types, names, and IN/OUT modes.

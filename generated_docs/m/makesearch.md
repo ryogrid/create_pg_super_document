@@ -1,7 +1,7 @@
 # makesearch
 
 ## Location
-src/backend/regex/regcomp.c: 621 - 716
+[src/backend/regex/regcomp.c:621-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L621-L716)
 
 ## Overview
 Transforms an NFA into a search NFA by implicitly prepending  (non-greedy match-all) to handle non-anchored pattern matching and resolving state conflicts from multiple entry points.

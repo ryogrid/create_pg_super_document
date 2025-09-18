@@ -1,7 +1,7 @@
 # dumpcnfa
 
 ## Location
-src/backend/regex/regc_nfa.c: 3823 - 3859
+[src/backend/regex/regc_nfa.c:3823-3859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3823-L3859)
 
 ## Overview
 A debugging function that prints a human-readable representation of a compiled NFA (Non-deterministic Finite Automaton) structure to a file stream.

@@ -1,7 +1,7 @@
 # GlobalVisUpdateApply
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4165 - 4203
+[src/backend/storage/ipc/procarray.c:4165-4203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4165-L4203)
 
 ## Overview
 Applies computed transaction horizon results to update global visibility state boundaries for all relation types.

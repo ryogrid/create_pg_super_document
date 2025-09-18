@@ -1,7 +1,7 @@
 # recheck_relation_needs_vacanalyze
 
 ## Location
-src/backend/postmaster/autovacuum.c: 2877 - 2941
+[src/backend/postmaster/autovacuum.c:2877-2941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L2877-L2941)
 
 ## Overview
 recheck_relation_needs_vacanalyze fetches fresh statistics for a relation and determines whether it needs vacuum or analyze operations.

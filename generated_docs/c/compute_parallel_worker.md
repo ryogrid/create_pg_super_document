@@ -1,7 +1,7 @@
 # compute_parallel_worker
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 4203 - 4290
+[src/backend/optimizer/path/allpaths.c:4203-4290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L4203-L4290)
 
 ## Overview
 Calculates the optimal number of parallel workers for scanning a relation based on heap and index size, applying logarithmic scaling and configuration constraints.

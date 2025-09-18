@@ -1,7 +1,7 @@
 # execute_attr_map_tuple
 
 ## Location
-src/backend/access/common/tupconvert.c: 154 - 191
+[src/backend/access/common/tupconvert.c:154-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupconvert.c#L154-L191)
 
 ## Overview
 Performs actual tuple conversion according to a pre-built tuple conversion map, transforming a HeapTuple from input format to output format.

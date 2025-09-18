@@ -1,7 +1,7 @@
 # box_cn
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 872 - 882
+[src/backend/utils/adt/geo_ops.c:872-882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L872-L882)
 
 ## Overview
 Calculates and stores the center point coordinates of a geometric box into a provided Point structure.

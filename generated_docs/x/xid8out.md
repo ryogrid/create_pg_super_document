@@ -1,7 +1,7 @@
 # xid8out
 
 ## Location
-src/backend/utils/adt/xid.c: 192 - 201
+[src/backend/utils/adt/xid.c:192-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L192-L201)
 
 ## Overview
 Converts a FullTransactionId (XID8) to its string representation, formatting it as a decimal number for display or serialization.

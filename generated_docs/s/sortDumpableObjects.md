@@ -1,7 +1,7 @@
 # sortDumpableObjects
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 545 - 596
+[src/bin/pg_dump/pg_dump_sort.c:545-596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L545-L596)
 
 ## Overview
 The main function that sorts database objects into a safe dump order using dependency analysis and topological sorting, ensuring that objects are dumped in an order that respects their interdependencies.

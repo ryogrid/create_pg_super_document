@@ -1,7 +1,7 @@
 # verify_dir_is_empty_or_create
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 747 - 791
+[src/bin/pg_basebackup/pg_basebackup.c:747-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L747-L791)
 
 ## Overview
 Verifies that a specified directory exists and is empty, creating it if it does not exist, or terminating with an error if it exists but contains files.

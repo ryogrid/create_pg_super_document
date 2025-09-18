@@ -1,7 +1,7 @@
 # hashline_number
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 94 - 135
+[src/interfaces/ecpg/preproc/output.c:94-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L94-L135)
 
 ## Overview
 Generates a C preprocessor line directive string that maps generated code back to the original source file and line number.

@@ -1,7 +1,7 @@
 # PerformRecoveryXLogAction
 
 ## Location
-src/backend/access/transam/xlog.c: 6263 - 6312
+[src/backend/access/transam/xlog.c:6263-6312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6263-L6312)
 
 ## Overview
 PerformRecoveryXLogAction performs necessary WAL actions at the end of recovery to ensure crash recoverability, either by creating an end-of-recovery record during promotion or requesting a shutdown checkpoint.

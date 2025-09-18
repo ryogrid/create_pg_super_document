@@ -1,7 +1,7 @@
 # bbsink_throttle_new
 
 ## Location
-src/backend/backup/basebackup_throttle.c: 68 - 95
+[src/backend/backup/basebackup_throttle.c:68-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_throttle.c#L68-L95)
 
 ## Overview
 Creates a new basebackup sink that performs bandwidth throttling and forwards data to a successor sink in the basebackup pipeline.

@@ -1,7 +1,7 @@
 # MaintainLatestCompletedXidRecovery
 
 ## Location
-src/backend/storage/ipc/procarray.c: 989 - 1022
+[src/backend/storage/ipc/procarray.c:989-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L989-L1022)
 
 ## Overview
 MaintainLatestCompletedXidRecovery is the recovery-specific version of MaintainLatestCompletedXid, used during WAL replay to update the global latest completed transaction ID.

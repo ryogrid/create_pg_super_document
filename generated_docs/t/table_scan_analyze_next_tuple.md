@@ -1,7 +1,7 @@
 # table_scan_analyze_next_tuple
 
 ## Location
-src/include/access/tableam.h: 1739 - 1775
+[src/include/access/tableam.h:1739-1775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1739-L1775)
 
 ## Overview
 Iterates over tuples in a selected block during table analysis, finding tuples suitable for sampling and tracking live/dead row counts.

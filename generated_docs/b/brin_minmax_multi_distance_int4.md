@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_int4
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1953 - 1970
+[src/backend/access/brin/brin_minmax_multi.c:1953-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1953-L1970)
 
 ## Overview
 Computes the distance between two int4 (32-bit integer) values used as range boundaries in BRIN minmax-multi indexes.

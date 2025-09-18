@@ -1,7 +1,7 @@
 # WalRcvComputeNextWakeup
 
 ## Location
-src/backend/replication/walreceiver.c: 1317 - 1357
+[src/backend/replication/walreceiver.c:1317-1357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1317-L1357)
 
 ## Overview
 Computes the next scheduled wakeup time for various WAL receiver operations based on configuration parameters and wakeup reasons.

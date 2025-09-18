@@ -1,7 +1,7 @@
 # t_isdigit
 
 ## Location
-src/backend/tsearch/ts_locale.c: 35 - 49
+[src/backend/tsearch/ts_locale.c:35-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L35-L49)
 
 ## Overview
 The t_isdigit function checks whether a character is a digit, with proper support for multi-byte characters and locale-aware digit classification in text search contexts.

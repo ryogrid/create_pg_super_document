@@ -1,7 +1,7 @@
 # regtypesend
 
 ## Location
-src/backend/utils/adt/regproc.c: 1305 - 1320
+[src/backend/utils/adt/regproc.c:1305-1320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1305-L1320)
 
 ## Overview
 Converts regtype data to external binary format, serving as the binary output function for the regtype data type.

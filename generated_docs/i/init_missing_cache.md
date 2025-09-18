@@ -1,7 +1,7 @@
 # init_missing_cache
 
 ## Location
-src/backend/access/common/heaptuple.c: 122 - 146
+[src/backend/access/common/heaptuple.c:122-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L122-L146)
 
 ## Overview
 The `init_missing_cache` function initializes a hash table that caches missing attribute values for efficient lookup during PostgreSQL heap tuple processing operations.

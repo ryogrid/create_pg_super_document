@@ -1,7 +1,7 @@
 # brin_inclusion_add_value
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 138 - 249
+[src/backend/access/brin/brin_inclusion.c:138-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L138-L249)
 
 ## Overview
 BRIN inclusion add value function that updates a BRIN index tuple by incorporating a new heap tuple value, expanding the inclusion set if necessary.

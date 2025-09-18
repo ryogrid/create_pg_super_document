@@ -1,7 +1,7 @@
 # heap_prune_record_unchanged_lp_normal
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1330 - 1507
+[src/backend/access/heap/pruneheap.c:1330-1507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1330-L1507)
 
 ## Overview
 Records a normal line pointer that remains unchanged during heap page pruning, handling visibility checks, tuple counting, and freeze planning for live tuples.

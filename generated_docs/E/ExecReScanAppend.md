@@ -1,7 +1,7 @@
 # ExecReScanAppend
 
 ## Location
-src/backend/executor/nodeAppend.c: 406 - 483
+[src/backend/executor/nodeAppend.c:406-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L406-L483)
 
 ## Overview
 Resets an Append node to restart execution from the beginning, handling parameter changes, partition pruning state, and asynchronous execution cleanup.

@@ -1,7 +1,7 @@
 # cloneouts
 
 ## Location
-src/backend/regex/regc_nfa.c: 1256 - 1280
+[src/backend/regex/regc_nfa.c:1256-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1256-L1280)
 
 ## Overview
 Copies outgoing arcs from one state to another state pair while modifying the arc type from PLAIN to AHEAD or BEHIND.

@@ -1,7 +1,7 @@
 # get_ten
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c: 222 - 253
+[src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c:222-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c#L222-L253)
 
 ## Overview
 Helper function that decodes the "ten" (column) value and "ku" (row) parity from a Shift-JIS-2004 second byte.

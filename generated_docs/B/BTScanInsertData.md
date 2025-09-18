@@ -1,7 +1,7 @@
 # BTScanInsertData
 
 ## Location
-src/include/access/nbtree.h: 784 - 794
+[src/include/access/nbtree.h:784-794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L784-L794)
 
 ## Overview
 BTScanInsertData is a structure that contains btree-private state needed to find an initial position for an indexscan or to insert new tuples, implementing an "insertion scankey" for B-tree operations.

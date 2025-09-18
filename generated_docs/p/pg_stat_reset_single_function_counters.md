@@ -1,7 +1,7 @@
 # pg_stat_reset_single_function_counters
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1761 - 1771
+[src/backend/utils/adt/pgstatfuncs.c:1761-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1761-L1771)
 
 ## Overview
 A PostgreSQL system function that resets statistical counters for a single user-defined function within the current database.

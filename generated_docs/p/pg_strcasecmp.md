@@ -1,7 +1,7 @@
 # pg_strcasecmp
 
 ## Location
-src/port/pgstrcasecmp.c: 36 - 68
+[src/port/pgstrcasecmp.c:36-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrcasecmp.c#L36-L68)
 
 ## Overview
 Performs case-independent comparison of two null-terminated strings, providing locale-aware case conversion for both ASCII and extended character sets.

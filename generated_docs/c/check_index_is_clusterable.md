@@ -1,7 +1,7 @@
 # check_index_is_clusterable
 
 ## Location
-src/backend/commands/cluster.c: 500 - 559
+[src/backend/commands/cluster.c:500-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L500-L559)
 
 ## Overview
 Validates that a specified index is suitable for clustering operations by verifying its relationship to the table and checking various clustering requirements.

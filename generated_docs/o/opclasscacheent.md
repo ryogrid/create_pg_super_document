@@ -1,7 +1,7 @@
 # opclasscacheent
 
 ## Location
-src/backend/utils/cache/relcache.c: 261 - 268
+[src/backend/utils/cache/relcache.c:261-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L261-L268)
 
 ## Overview
 The  structure provides a specialized cache for operator class (opclass) related information, storing essential metadata about operator classes and their associated support procedures.

@@ -1,7 +1,7 @@
 # ConditionalStack
 
 ## Location
-src/include/fe_utils/conditional.h: 71 - 102
+[src/include/fe_utils/conditional.h:71-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/conditional.h#L71-L102)
 
 ## Overview
 ConditionalStack is a type alias for ConditionalStackData pointer that provides the public interface for managing nested conditional blocks in PostgreSQL frontend utilities.

@@ -1,7 +1,7 @@
 # HashOptions
 
 ## Location
-src/include/access/hash.h: 269 - 273
+[src/include/access/hash.h:269-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash.h#L269-L273)
 
 ## Overview
 HashOptions is a configuration structure that stores index-level options for PostgreSQL hash indexes, specifically controlling the fill factor parameter for hash index pages.

@@ -1,7 +1,7 @@
 # get_base_element_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2832 - 2873
+[src/backend/utils/cache/lsyscache.c:2832-2873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2832-L2873)
 
 ## Overview
 Retrieves the element type of an array by looking "through" any domain layers to find the underlying base array type, providing efficient domain-aware element type resolution without extra cache lookups.

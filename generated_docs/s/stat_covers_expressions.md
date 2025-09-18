@@ -1,7 +1,7 @@
 # stat_covers_expressions
 
 ## Location
-src/backend/statistics/extended_stats.c: 1168 - 1208
+[src/backend/statistics/extended_stats.c:1168-1208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1168-L1208)
 
 ## Overview
 Tests whether a statistics object covers all expressions in a given list, returning true if all expressions are covered by the statistic.

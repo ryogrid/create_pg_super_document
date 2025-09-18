@@ -1,7 +1,7 @@
 # bbstreamer_tar_terminator_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 478 - 495
+[src/bin/pg_basebackup/bbstreamer_tar.c:478-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L478-L495)
 
 ## Overview
 A static function that passes TAR archive content through to the next bbstreamer without modification, serving as a transparent content handler for the TAR terminator bbstreamer.

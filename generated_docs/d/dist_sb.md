@@ -1,7 +1,7 @@
 # dist_sb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2550 - 2561
+[src/backend/utils/adt/geo_ops.c:2550-2561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2550-L2561)
 
 ## Overview
 Calculates the shortest distance from a line segment (lseg) to a box (rectangle) in 2D coordinate space.

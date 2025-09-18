@@ -1,7 +1,7 @@
 # check_spi_usage_allowed
 
 ## Location
-src/pl/plperl/plperl.c: 3106 - 3132
+[src/pl/plperl/plperl.c:3106-3132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3106-L3132)
 
 ## Overview
 Validates that SPI (Server Programming Interface) functions can be safely called in the current execution context within PL/Perl.

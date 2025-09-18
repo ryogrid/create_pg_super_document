@@ -1,7 +1,7 @@
 # validateFkOnDeleteSetColumns
 
 ## Location
-src/backend/commands/tablecmds.c: 10048 - 10122
+[src/backend/commands/tablecmds.c:10048-10122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10048-L10122)
 
 ## Overview
 Validates that columns specified in ON DELETE SET NULL/DEFAULT (...) column lists are valid foreign key columns and removes any duplicate entries from the list.

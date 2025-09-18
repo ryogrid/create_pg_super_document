@@ -1,7 +1,7 @@
 # PLyObject_ToScalar
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1074 - 1098
+[src/pl/plpython/plpy_typeio.c:1074-1098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1074-L1098)
 
 ## Overview
 Generic output conversion function that converts a Python object to a PostgreSQL scalar type by first converting to a string representation and then using the type's input function.

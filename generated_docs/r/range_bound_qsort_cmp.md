@@ -1,7 +1,7 @@
 # range_bound_qsort_cmp
 
 ## Location
-src/backend/utils/adt/rangetypes_typanalyze.c: 112 - 124
+[src/backend/utils/adt/rangetypes_typanalyze.c:112-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_typanalyze.c#L112-L124)
 
 ## Overview
 The  function is a comparison function for sorting RangeBound structures, used during range statistics computation to order range boundaries for analysis.

@@ -1,7 +1,7 @@
 # adjust_paths_for_srfs
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6542 - 6657
+[src/backend/optimizer/plan/planner.c:6542-6657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6542-L6657)
 
 ## Overview
 Fixes up the Paths of a given upperrel to handle set-returning functions (SRFs) properly by inserting appropriate projection steps where needed.

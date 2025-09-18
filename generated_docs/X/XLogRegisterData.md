@@ -1,7 +1,7 @@
 # XLogRegisterData
 
 ## Location
-src/backend/access/transam/xloginsert.c: 364 - 404
+[src/backend/access/transam/xloginsert.c:364-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L364-L404)
 
 ## Overview
 XLogRegisterData adds arbitrary data to the WAL record currently being constructed, appending it to the "main chunk" that will be available at replay time via XLogRecGetData().

@@ -1,7 +1,7 @@
 # print_filemap
 
 ## Location
-src/bin/pg_rewind/filemap.c: 540 - 569
+[src/bin/pg_rewind/filemap.c:540-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L540-L569)
 
 ## Overview
 Prints debugging information about the filemap showing which files will be processed and what actions will be taken during pg_rewind execution.

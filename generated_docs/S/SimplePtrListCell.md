@@ -1,7 +1,7 @@
 # SimplePtrListCell
 
 ## Location
-src/include/fe_utils/simple_list.h: 46 - 50
+[src/include/fe_utils/simple_list.h:46-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L46-L50)
 
 ## Overview
 SimplePtrListCell is a lightweight linked list node structure designed to store generic void pointers, providing a flexible foundation for managing collections of arbitrary data types in PostgreSQL frontend utilities.

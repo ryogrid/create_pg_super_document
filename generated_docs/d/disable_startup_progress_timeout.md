@@ -1,7 +1,7 @@
 # disable_startup_progress_timeout
 
 ## Location
-src/backend/postmaster/startup.c: 309 - 322
+[src/backend/postmaster/startup.c:309-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L309-L322)
 
 ## Overview
 Disables the startup progress timeout mechanism, stopping progress report timer and clearing any expired timer flag.

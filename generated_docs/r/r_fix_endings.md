@@ -1,7 +1,7 @@
 # r_fix_endings
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 734 - 751
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:734-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L734-L751)
 
 ## Overview
 A Tamil stemmer function that repeatedly applies ending fixes to a word by calling  in a loop until no more fixes can be applied.

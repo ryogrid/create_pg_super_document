@@ -1,7 +1,7 @@
 # SnapBuildInitialSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 579 - 677
+[src/backend/replication/logical/snapbuild.c:579-677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L579-L677)
 
 ## Overview
 Builds the initial slot snapshot for logical replication and converts it to a normal MVCC snapshot that can be used by HeapTupleSatisfiesMVCC for consistent data access.

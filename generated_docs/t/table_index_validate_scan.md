@@ -1,7 +1,7 @@
 # table_index_validate_scan
 
 ## Location
-src/include/access/tableam.h: 1840 - 1868
+[src/include/access/tableam.h:1840-1868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1840-L1868)
 
 ## Overview
 Performs the second table scan during concurrent index build operations to validate index completeness and consistency.

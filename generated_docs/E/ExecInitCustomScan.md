@@ -1,7 +1,7 @@
 # ExecInitCustomScan
 
 ## Location
-src/backend/executor/nodeCustom.c: 26 - 113
+[src/backend/executor/nodeCustom.c:26-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L26-L113)
 
 ## Overview
 Initializes the state for a Custom Scan node during executor startup, setting up the scan relation, tuple descriptors, and calling the custom scan provider's initialization callback.

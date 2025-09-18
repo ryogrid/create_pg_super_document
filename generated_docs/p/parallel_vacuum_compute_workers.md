@@ -1,7 +1,7 @@
 # parallel_vacuum_compute_workers
 
 ## Location
-src/backend/commands/vacuumparallel.c: 547 - 608
+[src/backend/commands/vacuumparallel.c:547-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L547-L608)
 
 ## Overview
 This static function computes the optimal number of parallel worker processes to request for parallel vacuum operations based on index characteristics and system constraints.

@@ -1,7 +1,7 @@
 # pg_snapshot_xmin
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 569 - 581
+[src/backend/utils/adt/xid8funcs.c:569-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L569-L581)
 
 ## Overview
 Extracts and returns the minimum transaction ID (xmin) from a PostgreSQL snapshot, representing the earliest transaction that was still active when the snapshot was taken.

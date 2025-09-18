@@ -1,7 +1,7 @@
 # Zstd_read
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 429 - 434
+[src/bin/pg_dump/compress_zstd.c:429-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L429-L434)
 
 ## Overview
 Reads data from a Zstd-compressed file handle with automatic decompression.

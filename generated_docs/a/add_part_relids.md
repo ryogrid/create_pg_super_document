@@ -1,7 +1,7 @@
 # add_part_relids
 
 ## Location
-src/backend/partitioning/partprune.c: 392 - 437
+[src/backend/partitioning/partprune.c:392-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L392-L437)
 
 ## Overview
 Adds new partition relation IDs to a list of Bitmapsets, organizing them by topmost parent partitioned relations.

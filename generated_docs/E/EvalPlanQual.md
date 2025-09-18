@@ -1,7 +1,7 @@
 # EvalPlanQual
 
 ## Location
-src/backend/executor/execMain.c: 2472 - 2540
+[src/backend/executor/execMain.c:2472-2540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2472-L2540)
 
 ## Overview
 Implements the EvalPlanQual mechanism to recheck modified tuples under READ COMMITTED isolation level, determining whether an updated tuple version should still be processed by the current transaction.

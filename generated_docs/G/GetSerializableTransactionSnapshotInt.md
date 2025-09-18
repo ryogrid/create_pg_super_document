@@ -1,7 +1,7 @@
 # GetSerializableTransactionSnapshotInt
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1754 - 1929
+[src/backend/storage/lmgr/predicate.c:1754-1929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1754-L1929)
 
 ## Overview
 Core internal implementation function that handles the actual setup of serializable transaction context, creating and initializing the SERIALIZABLEXACT structure with snapshot data and conflict tracking mechanisms.

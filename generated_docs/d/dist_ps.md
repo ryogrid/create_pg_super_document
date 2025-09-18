@@ -1,7 +1,7 @@
 # dist_ps
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2414 - 2425
+[src/backend/utils/adt/geo_ops.c:2414-2425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2414-L2425)
 
 ## Overview
 Calculates the distance from a Point to a line segment (LSEG) in PostgreSQL's geometric data types.

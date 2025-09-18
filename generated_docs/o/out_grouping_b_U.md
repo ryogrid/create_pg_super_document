@@ -1,7 +1,7 @@
 # out_grouping_b_U
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 153 - 166
+[src/backend/snowball/libstemmer/utilities.c:153-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L153-L166)
 
 ## Overview
 Moves the cursor backward while characters do NOT belong to a specified character group, stopping when a character in the group is found.

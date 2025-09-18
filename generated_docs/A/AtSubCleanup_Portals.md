@@ -1,7 +1,7 @@
 # AtSubCleanup_Portals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 1092 - 1130
+[src/backend/utils/mmgr/portalmem.c:1092-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L1092-L1130)
 
 ## Overview
 Post-subtransaction abort cleanup function that drops all portals created in the failed subtransaction.

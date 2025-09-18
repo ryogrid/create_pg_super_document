@@ -1,7 +1,7 @@
 # network_larger
 
 ## Location
-src/backend/utils/adt/network.c: 865 - 879
+[src/backend/utils/adt/network.c:865-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L865-L879)
 
 ## Overview
 A support function for MIN/MAX operations that returns the larger of two network addresses (inet/cidr types) in PostgreSQL.

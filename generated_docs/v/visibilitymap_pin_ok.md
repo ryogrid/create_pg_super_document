@@ -1,7 +1,7 @@
 # visibilitymap_pin_ok
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 215 - 243
+[src/backend/access/heap/visibilitymap.c:215-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L215-L243)
 
 ## Overview
 Checks whether a currently pinned buffer contains the correct visibility map page for a given heap block number.

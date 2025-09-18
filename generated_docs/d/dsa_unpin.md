@@ -1,7 +1,7 @@
 # dsa_unpin
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 994 - 1017
+[src/backend/utils/mmgr/dsa.c:994-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L994-L1017)
 
 ## Overview
 Unpins a previously pinned dynamic shared memory area, allowing it to be automatically freed when no backends are attached.

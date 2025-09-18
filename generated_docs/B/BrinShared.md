@@ -1,7 +1,7 @@
 # BrinShared
 
 ## Location
-src/backend/access/brin/brin.c: 57 - 105
+[src/backend/access/brin/brin.c:57-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L57-L105)
 
 ## Overview
 BrinShared is a structure that stores status information for BRIN index builds performed in parallel, allocated in a dynamic shared memory segment to coordinate between leader and worker processes.

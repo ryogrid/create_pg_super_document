@@ -1,7 +1,7 @@
 # WALOpenSegmentInit
 
 ## Location
-src/backend/access/transam/xlogreader.c: 207 - 230
+[src/backend/access/transam/xlogreader.c:207-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L207-L230)
 
 ## Overview
 Initializes WAL (Write Ahead Log) segment structures for reading operations, setting up the necessary state for WAL segment management.

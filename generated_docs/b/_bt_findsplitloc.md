@@ -1,7 +1,7 @@
 # _bt_findsplitloc
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 129 - 448
+[src/backend/access/nbtree/nbtsplitloc.c:129-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L129-L448)
 
 ## Overview
 Finds an appropriate split point for a B-tree page, balancing space utilization while considering the new item to be inserted and optimizing for suffix truncation effectiveness.

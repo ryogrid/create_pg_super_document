@@ -1,7 +1,7 @@
 # socket_putmessage
 
 ## Location
-src/backend/libpq/pqcomm.c: 1488 - 1520
+[src/backend/libpq/pqcomm.c:1488-1520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1488-L1520)
 
 ## Overview
 A static function that sends a complete PostgreSQL protocol message to the client, including the message type, length header, and message body data.

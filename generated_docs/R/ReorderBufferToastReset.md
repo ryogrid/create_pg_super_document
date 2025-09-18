@@ -1,7 +1,7 @@
 # ReorderBufferToastReset
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5112 - 5174
+[src/backend/replication/logical/reorderbuffer.c:5112-5174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5112-L5174)
 
 ## Overview
 Frees all resources allocated for TOAST reconstruction within a PostgreSQL logical replication transaction, cleaning up both hash table entries and associated chunk data.

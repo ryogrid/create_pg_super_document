@@ -1,7 +1,7 @@
 # reindex_error_callback
 
 ## Location
-src/backend/commands/indexcmds.c: 3196 - 3216
+[src/backend/commands/indexcmds.c:3196-3216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L3196-L3216)
 
 ## Overview
 reindex_error_callback provides contextual error information when reindexing operations on partitioned tables or indexes encounter errors.

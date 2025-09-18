@@ -1,7 +1,7 @@
 # pg_popcount_avx512_available
 
 ## Location
-src/port/pg_popcount_avx512_choose.c: 95 - 102
+[src/port/pg_popcount_avx512_choose.c:95-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512_choose.c#L95-L102)
 
 ## Overview
 A public function that determines if the CPU and operating system support all requirements for using AVX-512 optimized population count implementations by combining multiple feature detection checks.

@@ -1,7 +1,7 @@
 # get_local_synced_slots
 
 ## Location
-src/backend/replication/logical/slotsync.c: 333 - 363
+[src/backend/replication/logical/slotsync.c:333-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L333-L363)
 
 ## Overview
 Retrieves a list of all local logical replication slots that are synchronized from the primary server.

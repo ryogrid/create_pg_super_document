@@ -1,7 +1,7 @@
 # proclist_node_get
 
 ## Location
-src/include/storage/proclist.h: 48 - 58
+[src/include/storage/proclist.h:48-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L48-L58)
 
 ## Overview
 Retrieves a pointer to a proclist_node structure within a PGPROC structure using a process number and field offset.

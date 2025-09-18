@@ -1,7 +1,7 @@
 # ExplainResultDesc
 
 ## Location
-src/backend/commands/explain.c: 389 - 427
+[src/backend/commands/explain.c:389-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L389-L427)
 
 ## Overview
 ExplainResultDesc constructs the result tuple descriptor for EXPLAIN command output, determining the appropriate column type based on the specified format option.

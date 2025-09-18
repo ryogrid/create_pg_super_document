@@ -1,7 +1,7 @@
 # brin_minmax_multi_get_values
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2399 - 2411
+[src/backend/access/brin/brin_minmax_multi.c:2399-2411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2399-L2411)
 
 ## Overview
 Retrieves the maximum number of values per range for BRIN minmax multi-column operations based on the configured options.

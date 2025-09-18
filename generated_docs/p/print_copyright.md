@@ -1,7 +1,7 @@
 # print_copyright
 
 ## Location
-src/bin/psql/help.c: 736 - 756
+[src/bin/psql/help.c:736-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/help.c#L736-L756)
 
 ## Overview
 The print_copyright function displays the complete PostgreSQL copyright notice and license terms to standard output.

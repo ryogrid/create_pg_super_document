@@ -1,7 +1,7 @@
 # gincost_pattern
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7369 - 7482
+[src/backend/utils/adt/selfuncs.c:7369-7482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7369-L7482)
 
 ## Overview
 Estimates the number of index terms that need to be searched for a GIN query pattern and updates the provided cost counts accordingly.

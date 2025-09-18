@@ -1,7 +1,7 @@
 # ModifyTableContext
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 86 - 110
+[src/backend/executor/nodeModifyTable.c:86-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L86-L110)
 
 ## Overview
 ModifyTableContext is a context structure that encapsulates the basic execution state and output variables for ModifyTable operations, providing a centralized way to pass execution context to various helper functions during INSERT, UPDATE, DELETE, and MERGE operations.

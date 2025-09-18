@@ -1,7 +1,7 @@
 # sampler_random_init_state
 
 ## Location
-src/backend/utils/misc/sampling.c: 234 - 240
+[src/backend/utils/misc/sampling.c:234-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L234-L240)
 
 ## Overview
 Initializes the random number generator state used by PostgreSQL's sampling algorithms with a given seed value.

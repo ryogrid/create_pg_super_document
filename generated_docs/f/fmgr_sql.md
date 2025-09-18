@@ -1,7 +1,7 @@
 # fmgr_sql
 
 ## Location
-src/backend/executor/functions.c: 1029 - 1405
+[src/backend/executor/functions.c:1029-1405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L1029-L1405)
 
 ## Overview
 The primary function call manager for executing SQL-language functions, handling both scalar and set-returning functions with comprehensive execution state management, parameter substitution, snapshot handling, and result processing.

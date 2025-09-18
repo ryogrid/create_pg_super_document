@@ -1,7 +1,7 @@
 # sanitize_str
 
 ## Location
-src/backend/libpq/auth-scram.c: 813 - 840
+[src/backend/libpq/auth-scram.c:813-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L813-L840)
 
 ## Overview
 A utility function that converts arbitrary strings to printable form for safe display in error messages within PostgreSQL's SCRAM authentication system.

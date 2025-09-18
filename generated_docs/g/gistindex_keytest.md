@@ -1,7 +1,7 @@
 # gistindex_keytest
 
 ## Location
-src/backend/access/gist/gistget.c: 125 - 327
+[src/backend/access/gist/gistget.c:125-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L125-L327)
 
 ## Overview
 gistindex_keytest evaluates whether an index tuple satisfies the scan conditions by testing it against scan keys using the Consistent and Distance functions of the GiST operator classes.

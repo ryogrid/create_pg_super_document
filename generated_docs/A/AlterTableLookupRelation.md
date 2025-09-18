@@ -1,7 +1,7 @@
 # AlterTableLookupRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 4340 - 4398
+[src/backend/commands/tablecmds.c:4340-4398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4340-L4398)
 
 ## Overview
 Looks up and locks the OID for a relation specified in an ALTER TABLE statement, handling missing relation scenarios and providing appropriate callback processing.

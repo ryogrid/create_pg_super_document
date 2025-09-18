@@ -1,7 +1,7 @@
 # ginoptions
 
 ## Location
-src/backend/access/gin/ginutil.c: 602 - 622
+[src/backend/access/gin/ginutil.c:602-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L602-L622)
 
 ## Overview
 Processes and validates storage parameter options specific to GIN indexes, converting them into a structured format for use by the GIN access method.

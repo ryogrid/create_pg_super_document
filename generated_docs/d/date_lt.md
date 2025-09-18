@@ -1,7 +1,7 @@
 # date_lt
 
 ## Location
-src/backend/utils/adt/date.c: 401 - 409
+[src/backend/utils/adt/date.c:401-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L401-L409)
 
 ## Overview
 date_lt is a comparison function that tests whether the first date value is less than the second date value, implementing the less-than operator (<) for the DATE data type.

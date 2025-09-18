@@ -1,7 +1,7 @@
 # DebugPrintBufferRefcount
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3654 - 3698
+[src/backend/storage/buffer/bufmgr.c:3654-3698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3654-L3698)
 
 ## Overview
 DebugPrintBufferRefcount is a utility function that generates detailed diagnostic information about a buffer, including its identity, file path, block number, flags, and reference counts.

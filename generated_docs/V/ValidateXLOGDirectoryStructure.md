@@ -1,7 +1,7 @@
 # ValidateXLOGDirectoryStructure
 
 ## Location
-src/backend/access/transam/xlog.c: 4076 - 4137
+[src/backend/access/transam/xlog.c:4076-4137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4076-L4137)
 
 ## Overview
 Validates the existence of essential WAL directory structures and recreates missing subdirectories (archive_status and summaries) to support proper WAL management functionality.

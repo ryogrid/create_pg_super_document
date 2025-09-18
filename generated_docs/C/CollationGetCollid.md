@@ -1,7 +1,7 @@
 # CollationGetCollid
 
 ## Location
-src/backend/catalog/namespace.c: 2373 - 2406
+[src/backend/catalog/namespace.c:2373-2406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2373-L2406)
 
 ## Overview
 A public function that resolves an unqualified collation name by searching through the database's active search path, returning the OID of the first matching collation that works with the current database encoding.

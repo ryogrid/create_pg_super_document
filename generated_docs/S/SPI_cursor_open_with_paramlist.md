@@ -1,7 +1,7 @@
 # SPI_cursor_open_with_paramlist
 
 ## Location
-src/backend/executor/spi.c: 1525 - 1532
+[src/backend/executor/spi.c:1525-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1525-L1532)
 
 ## Overview
 SPI_cursor_open_with_paramlist opens a prepared SPI plan as a portal (cursor) using PostgreSQL's internal ParamListInfo structure for parameter passing, providing more flexible parameter handling than traditional arrays.

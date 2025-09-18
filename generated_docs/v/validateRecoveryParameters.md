@@ -1,7 +1,7 @@
 # validateRecoveryParameters
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1109 - 1207
+[src/backend/access/transam/xlogrecovery.c:1109-1207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1109-L1207)
 
 ## Overview
 Validates and normalizes recovery configuration parameters for PostgreSQL WAL recovery, ensuring required parameters are present and resolving inconsistencies in recovery target settings.

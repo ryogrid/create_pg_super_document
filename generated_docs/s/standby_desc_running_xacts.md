@@ -1,7 +1,7 @@
 # standby_desc_running_xacts
 
 ## Location
-src/backend/access/rmgrdesc/standbydesc.c: 20 - 46
+[src/backend/access/rmgrdesc/standbydesc.c:20-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/standbydesc.c#L20-L46)
 
 ## Overview
 A static function that formats running transaction information from write-ahead log records into human-readable strings for debugging and monitoring purposes.

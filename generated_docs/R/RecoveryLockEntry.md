@@ -1,7 +1,7 @@
 # RecoveryLockEntry
 
 ## Location
-src/backend/storage/ipc/standby.c: 52 - 56
+[src/backend/storage/ipc/standby.c:52-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L52-L56)
 
 ## Overview
 A structure used to track exclusive locks owned by original transactions during standby recovery, stored in a hash table for efficient lookup and chained together per transaction.

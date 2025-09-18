@@ -1,7 +1,7 @@
 # SyncScanShmemInit
 
 ## Location
-src/backend/access/common/syncscan.c: 135 - 190
+[src/backend/access/common/syncscan.c:135-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L135-L190)
 
 ## Overview
 Initializes the shared memory structures needed for PostgreSQL's synchronized scan feature.

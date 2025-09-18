@@ -1,7 +1,7 @@
 # _bt_allocbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 869 - 1002
+[src/backend/access/nbtree/nbtpage.c:869-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L869-L1002)
 
 ## Overview
 _bt_allocbuf allocates a new block/page for a B-tree index, either by reusing a page from the Free Space Map (FSM) or by extending the relation with a new page.

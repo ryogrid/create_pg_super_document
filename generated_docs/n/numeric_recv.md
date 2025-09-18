@@ -1,7 +1,7 @@
 # numeric_recv
 
 ## Location
-src/backend/utils/adt/numeric.c: 1076 - 1160
+[src/backend/utils/adt/numeric.c:1076-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1076-L1160)
 
 ## Overview
 This function deserializes a PostgreSQL Numeric value from its external binary representation, converting the binary format received over the network or from storage back into the internal Numeric data type.

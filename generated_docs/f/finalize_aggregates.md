@@ -1,7 +1,7 @@
 # finalize_aggregates
 
 ## Location
-src/backend/executor/nodeAgg.c: 1294 - 1370
+[src/backend/executor/nodeAgg.c:1294-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1294-L1370)
 
 ## Overview
 Computes the final value of all aggregates for one group by processing ordered/distinct aggregates and running final functions, storing results in the output expression context.

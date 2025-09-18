@@ -1,7 +1,7 @@
 # float8_regr_r2
 
 ## Location
-src/backend/utils/adt/float.c: 3673 - 3705
+[src/backend/utils/adt/float.c:3673-3705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3673-L3705)
 
 ## Overview
 Computes the coefficient of determination (R-squared) for linear regression from statistical aggregate data stored in a transition array.

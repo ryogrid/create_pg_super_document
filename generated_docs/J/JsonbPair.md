@@ -1,7 +1,7 @@
 # JsonbPair
 
 ## Location
-src/include/utils/jsonb.h: 311 - 318
+[src/include/utils/jsonb.h:311-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonb.h#L311-L318)
 
 ## Overview
 JsonbPair represents a key/value pair within a JSON object during construction, serving as a temporary in-memory structure for building JSONB objects.

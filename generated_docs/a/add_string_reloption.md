@@ -1,7 +1,7 @@
 # add_string_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 1098 - 1117
+[src/backend/access/common/reloptions.c:1098-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1098-L1117)
 
 ## Overview
 Adds a new string-type reloption (relation option) to the PostgreSQL system, allowing tables and other database relations to accept custom string configuration parameters.

@@ -1,7 +1,7 @@
 # poly_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3475 - 3509
+[src/backend/utils/adt/geo_ops.c:3475-3509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3475-L3509)
 
 ## Overview
 The `poly_recv` function deserializes a POLYGON from PostgreSQLs binary external format, converting binary data back into the internal POLYGON data structure.

@@ -1,7 +1,7 @@
 # getObjectDescriptionOids
 
 ## Location
-src/backend/catalog/objectaddress.c: 4071 - 4087
+[src/backend/catalog/objectaddress.c:4071-4087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4071-L4087)
 
 ## Overview
 A convenience wrapper function that creates an ObjectAddress from individual OIDs and calls getObjectDescription to generate human-readable descriptions of database objects.

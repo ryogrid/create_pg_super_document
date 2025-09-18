@@ -1,7 +1,7 @@
 # XLogRecordMatchesRelationBlock
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 438 - 468
+[src/bin/pg_waldump/pg_waldump.c:438-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L438-L468)
 
 ## Overview
 XLogRecordMatchesRelationBlock determines whether a given WAL record matches specific relation and block filtering criteria used in pg_waldump.

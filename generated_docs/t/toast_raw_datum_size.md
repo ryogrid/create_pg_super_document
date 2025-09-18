@@ -1,7 +1,7 @@
 # toast_raw_datum_size
 
 ## Location
-src/backend/access/common/detoast.c: 545 - 600
+[src/backend/access/common/detoast.c:545-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L545-L600)
 
 ## Overview
 Returns the raw (detoasted) size of a varlena datum including the VARHDRSZ header, handling all possible datum storage formats including external, compressed, expanded, and short forms.

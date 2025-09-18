@@ -1,7 +1,7 @@
 # report_newlocale_failure
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1525 - 1553
+[src/backend/utils/adt/pg_locale.c:1525-1553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1525-L1553)
 
 ## Overview
 A static utility function that provides standardized error reporting when newlocale() system calls fail, ensuring consistent error messages and errno handling across different operating systems.

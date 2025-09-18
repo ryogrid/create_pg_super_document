@@ -1,7 +1,7 @@
 # text_regclass
 
 ## Location
-src/backend/utils/adt/regproc.c: 1774 - 1796
+[src/backend/utils/adt/regproc.c:1774-1796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1774-L1796)
 
 ## Overview
 Converts a text representation of a relation name to the regclass PostgreSQL data type, supporting implicit casting for legacy functions like nextval().

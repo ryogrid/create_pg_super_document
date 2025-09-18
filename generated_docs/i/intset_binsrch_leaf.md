@@ -1,7 +1,7 @@
 # intset_binsrch_leaf
 
 ## Location
-src/backend/lib/integerset.c: 747 - 820
+[src/backend/lib/integerset.c:747-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L747-L820)
 
 ## Overview
 A specialized binary search function for arrays of leaf_item structures, used to efficiently locate compressed integer sequences within IntegerSet's B-tree leaf nodes.

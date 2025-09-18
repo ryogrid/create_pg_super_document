@@ -1,7 +1,7 @@
 # range_contained_by
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 651 - 663
+[src/backend/utils/adt/rangetypes.c:651-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L651-L663)
 
 ## Overview
 The  function determines whether one range is completely contained by another range, implementing the PostgreSQL range containment operator (<@).

@@ -1,7 +1,7 @@
 # initRandomState
 
 ## Location
-src/bin/pgbench/pgbench.c: 1088 - 1101
+[src/bin/pgbench/pgbench.c:1088-1101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1088-L1101)
 
 ## Overview
 Initializes a pseudo-random number generator (PRNG) state structure by seeding it with a value derived from the global base random sequence.

@@ -1,7 +1,7 @@
 # ExecInitTableFunctionResult
 
 ## Location
-src/backend/executor/execSRF.c: 56 - 100
+[src/backend/executor/execSRF.c:56-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L56-L100)
 
 ## Overview
 Prepares a table function call in FROM clause (ROWS FROM syntax) for execution by initializing the necessary state structures and determining the execution strategy based on whether the function returns a set.

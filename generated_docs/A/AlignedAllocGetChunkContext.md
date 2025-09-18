@@ -1,7 +1,7 @@
 # AlignedAllocGetChunkContext
 
 ## Location
-src/backend/utils/mmgr/alignedalloc.c: 136 - 157
+[src/backend/utils/mmgr/alignedalloc.c:136-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/alignedalloc.c#L136-L157)
 
 ## Overview
 Returns the MemoryContext that owns the given aligned allocation pointer, allowing memory context operations on aligned allocations.

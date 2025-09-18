@@ -1,7 +1,7 @@
 # bounds_adjacent
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 757 - 797
+[src/backend/utils/adt/rangetypes.c:757-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L757-L797)
 
 ## Overview
 Determines if two range bounds are "adjacent" where one is an upper bound and the other is a lower bound, with no values existing between them.

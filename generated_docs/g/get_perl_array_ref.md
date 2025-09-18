@@ -1,7 +1,7 @@
 # get_perl_array_ref
 
 ## Location
-src/pl/plperl/plperl.c: 1138 - 1169
+[src/pl/plperl/plperl.c:1138-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1138-L1169)
 
 ## Overview
 Extracts and returns a Perl array reference from a Scalar Value (SV), handling both regular Perl array references and PostgreSQL::InServer::ARRAY objects.

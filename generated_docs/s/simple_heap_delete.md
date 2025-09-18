@@ -1,7 +1,7 @@
 # simple_heap_delete
 
 ## Location
-src/backend/access/heap/heapam.c: 3154 - 3199
+[src/backend/access/heap/heapam.c:3154-3199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L3154-L3199)
 
 ## Overview
 simple_heap_delete is a simplified wrapper around heap_delete that provides a convenient interface for deleting tuples when concurrent updates are not expected and any failures should result in errors.

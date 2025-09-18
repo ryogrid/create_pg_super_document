@@ -1,7 +1,7 @@
 # CheckRestrictedOperation
 
 ## Location
-src/backend/tcop/utility.c: 459 - 498
+[src/backend/tcop/utility.c:459-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L459-L498)
 
 ## Overview
 CheckRestrictedOperation is a security validation function that prevents execution of hazardous SQL commands within security-restricted operation contexts, protecting session-local state that lacks other protection mechanisms.

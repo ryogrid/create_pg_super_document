@@ -1,7 +1,7 @@
 # compact
 
 ## Location
-src/backend/regex/regc_nfa.c: 3514 - 3604
+[src/backend/regex/regc_nfa.c:3514-3604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3514-L3604)
 
 ## Overview
 Constructs the compact representation of an NFA (Non-deterministic Finite Automaton) by converting it into a CNFA (Compact NFA) structure for efficient runtime execution.

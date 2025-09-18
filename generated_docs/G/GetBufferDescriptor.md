@@ -1,7 +1,7 @@
 # GetBufferDescriptor
 
 ## Location
-src/include/storage/buf_internals.h: 319 - 324
+[src/include/storage/buf_internals.h:319-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L319-L324)
 
 ## Overview
 Returns a pointer to the buffer descriptor structure for a given buffer ID, providing access to the metadata and control information for a specific shared buffer.

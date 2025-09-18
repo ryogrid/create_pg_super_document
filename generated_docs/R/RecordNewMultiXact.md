@@ -1,7 +1,7 @@
 # RecordNewMultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 910 - 1025
+[src/backend/access/transam/multixact.c:910-1025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L910-L1025)
 
 ## Overview
 Writes information about a new MultiXact into the SLRU offset and member files, handling both normal operation and WAL replay scenarios.

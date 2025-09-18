@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_toast_pg_class_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 142 - 152
+[src/backend/utils/adt/pg_upgrade_support.c:142-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L142-L152)
 
 ## Overview
 Sets the next TOAST table OID to be used during binary upgrade operations for new TOAST tables in the pg_class catalog.

@@ -1,7 +1,7 @@
 # ArrayIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 165 - 170
+[src/backend/utils/adt/jsonfuncs.c:165-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L165-L170)
 
 ## Overview
 ArrayIOData is a structure used to cache metadata needed for populating arrays during JSON processing operations in PostgreSQL.

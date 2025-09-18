@@ -1,7 +1,7 @@
 # bbsink_server_end_manifest
 
 ## Location
-src/backend/backup/basebackup_server.c: 287 - 309
+[src/backend/backup/basebackup_server.c:287-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L287-L309)
 
 ## Overview
 Finalizes the backup manifest file by closing, syncing, and atomically renaming it to its final location during base backup completion.

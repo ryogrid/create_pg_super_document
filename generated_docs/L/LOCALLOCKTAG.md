@@ -1,7 +1,7 @@
 # LOCALLOCKTAG
 
 ## Location
-src/include/storage/lock.h: 408 - 412
+[src/include/storage/lock.h:408-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L408-L412)
 
 ## Overview
 LOCALLOCKTAG serves as a unique identifier for entries in a backend's local lock hash table, combining a lock identifier with a specific lock mode.

@@ -1,7 +1,7 @@
 # libpqsrv_exec_params
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 269 - 289
+[src/include/libpq/libpq-be-fe-helpers.h:269-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L269-L289)
 
 ## Overview
 A PQexecParams() wrapper function that processes interrupts while executing parameterized SQL queries, providing enhanced safety for server-side execution.

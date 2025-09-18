@@ -1,7 +1,7 @@
 # PLy_trigger_build_args
 
 ## Location
-src/pl/plpython/plpy_exec.c: 705 - 921
+[src/pl/plpython/plpy_exec.c:705-921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L705-L921)
 
 ## Overview
 Builds a Python dictionary containing trigger-related information and arguments for PL/Python trigger functions, providing access to trigger context, table metadata, old/new tuples, and trigger arguments.

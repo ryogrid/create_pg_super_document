@@ -1,7 +1,7 @@
 # get_object_namespace
 
 ## Location
-src/backend/catalog/objectaddress.c: 2564 - 2599
+[src/backend/catalog/objectaddress.c:2564-2599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2564-L2599)
 
 ## Overview
 Retrieves the schema (namespace) OID that contains a specified database object, returning InvalidOid for objects that do not belong to any namespace.

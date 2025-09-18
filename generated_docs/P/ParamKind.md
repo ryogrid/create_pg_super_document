@@ -1,7 +1,7 @@
 # ParamKind
 
 ## Location
-src/include/nodes/primnodes.h: 371 - 372
+[src/include/nodes/primnodes.h:371-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L371-L372)
 
 ## Overview
 ParamKind is an enumeration that specifies the different types of parameters used in PostgreSQL's query execution system, distinguishing between external parameters, internal executor parameters, and sublink-related parameters.

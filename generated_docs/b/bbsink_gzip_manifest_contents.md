@@ -1,7 +1,7 @@
 # bbsink_gzip_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 278 - 288
+[src/backend/backup/basebackup_gzip.c:278-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L278-L288)
 
 ## Overview
 This function handles manifest contents processing in the gzip backup sink, specifically copying manifest data to the successor sink without compression.

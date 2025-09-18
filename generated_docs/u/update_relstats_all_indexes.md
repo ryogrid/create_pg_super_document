@@ -1,7 +1,7 @@
 # update_relstats_all_indexes
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 3071 - 3105
+[src/backend/access/heap/vacuumlazy.c:3071-3105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L3071-L3105)
 
 ## Overview
 `update_relstats_all_indexes` updates index statistics in the pg_class system catalog after a vacuum operation, but only when the collected statistics are accurate (non-estimated).

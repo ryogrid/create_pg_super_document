@@ -1,7 +1,7 @@
 # RenameTableSpace
 
 ## Location
-src/backend/commands/tablespace.c: 930 - 1014
+[src/backend/commands/tablespace.c:930-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L930-L1014)
 
 ## Overview
 Renames an existing tablespace by updating its name in the pg_tablespace system catalog, performing ownership and name validation checks.

@@ -1,7 +1,7 @@
 # ExecEndSeqScan
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 184 - 211
+[src/backend/executor/nodeSeqscan.c:184-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L184-L211)
 
 ## Overview
 ExecEndSeqScan performs cleanup operations for a sequential scan node by closing the table scan and freeing associated resources.

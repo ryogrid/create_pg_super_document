@@ -1,7 +1,7 @@
 # GetSchemaPublicationRelations
 
 ## Location
-src/backend/catalog/pg_publication.c: 925 - 981
+[src/backend/catalog/pg_publication.c:925-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L925-L981)
 
 ## Overview
 Retrieves a list of publishable relation OIDs within a specified schema, handling both regular tables and partitioned tables according to publication partition options.

@@ -1,7 +1,7 @@
 # WALReadError
 
 ## Location
-src/include/access/xlogreader.h: 382 - 389
+[src/include/access/xlogreader.h:382-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L382-L389)
 
 ## Overview
 WALReadError is a structure that encapsulates error information from WAL reading operations that can be processed by both backend and frontend callers. It specifically handles errors from pg_pread operations during WAL segment reading.

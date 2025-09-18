@@ -1,7 +1,7 @@
 # RemoveLocalLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1376 - 1428
+[src/backend/storage/lmgr/lock.c:1376-1428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1376-L1428)
 
 ## Overview
 RemoveLocalLock is a static function that completely cleans up and removes a LOCALLOCK entry from the local lock hash table when a lock is no longer needed.

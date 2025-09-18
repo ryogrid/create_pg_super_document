@@ -1,7 +1,7 @@
 # pull_exec_paramids
 
 ## Location
-src/backend/partitioning/partprune.c: 3346 - 3355
+[src/backend/partitioning/partprune.c:3346-3355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3346-L3355)
 
 ## Overview
 Returns a Bitmapset containing the paramids of all Params with paramkind = PARAM_EXEC in the given expression.

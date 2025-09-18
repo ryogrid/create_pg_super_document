@@ -1,7 +1,7 @@
 # socket_close
 
 ## Location
-src/backend/libpq/pqcomm.c: 348 - 416
+[src/backend/libpq/pqcomm.c:348-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L348-L416)
 
 ## Overview
 Performs cleanup of libpq communication resources at backend process exit, shutting down security layers and invalidating the socket while preserving connection state for synchronous client closure.

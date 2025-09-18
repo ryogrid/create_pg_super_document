@@ -1,7 +1,7 @@
 # pg_u_isupper
 
 ## Location
-src/common/unicode_category.c: 243 - 248
+[src/common/unicode_category.c:243-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L243-L248)
 
 ## Overview
 Tests whether a Unicode character has the uppercase property according to Unicode character properties.

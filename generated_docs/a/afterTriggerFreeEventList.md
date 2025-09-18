@@ -1,7 +1,7 @@
 # afterTriggerFreeEventList
 
 ## Location
-src/backend/commands/trigger.c: 4232 - 4252
+[src/backend/commands/trigger.c:4232-4252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4232-L4252)
 
 ## Overview
 Frees all event storage chunks in a given AfterTriggerEventList, releasing memory used by after-trigger events.

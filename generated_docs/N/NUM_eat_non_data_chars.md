@@ -1,7 +1,7 @@
 # NUM_eat_non_data_chars
 
 ## Location
-src/backend/utils/adt/formatting.c: 5810 - 5822
+[src/backend/utils/adt/formatting.c:5810-5822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5810-L5822)
 
 ## Overview
 A static utility function that skips over non-numeric data characters in input string processing for PostgreSQL's number formatting operations.

@@ -1,7 +1,7 @@
 # eclass_useful_for_merging
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 3207 - 3264
+[src/backend/optimizer/path/equivclass.c:3207-3264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L3207-L3264)
 
 ## Overview
 Detects whether an equivalence class could produce any mergejoinable join clauses against a specified relation as a heuristic test for query optimization.

@@ -1,7 +1,7 @@
 # ExecParallelHashRepartitionFirst
 
 ## Location
-src/backend/executor/nodeHash.c: 1312 - 1378
+[src/backend/executor/nodeHash.c:1312-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1312-L1378)
 
 ## Overview
 ExecParallelHashRepartitionFirst repartitions tuples currently loaded in memory for inner batch 0 when the number of batches has been increased, redistributing tuples between memory and disk-based later batches.

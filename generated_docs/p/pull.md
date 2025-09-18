@@ -1,7 +1,7 @@
 # pull
 
 ## Location
-src/backend/regex/regc_nfa.c: 1720 - 1810
+[src/backend/regex/regc_nfa.c:1720-1810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1720-L1810)
 
 ## Overview
 Pulls a single back constraint arc (^ or BEHIND) backward past its source state, handling the complex logic of constraint propagation through the NFA structure.

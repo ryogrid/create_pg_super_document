@@ -1,7 +1,7 @@
 # prepKeepalivesWin32
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2323 - 2352
+[src/interfaces/libpq/fe-connect.c:2323-2352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2323-L2352)
 
 ## Overview
 Prepares and configures TCP keepalive parameters for Windows systems by parsing connection parameters and applying them via the Windows-specific keepalive interface.

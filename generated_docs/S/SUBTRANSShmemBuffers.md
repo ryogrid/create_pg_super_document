@@ -1,7 +1,7 @@
 # SUBTRANSShmemBuffers
 
 ## Location
-src/backend/access/transam/subtrans.c: 201 - 213
+[src/backend/access/transam/subtrans.c:201-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L201-L213)
 
 ## Overview
 Calculates the optimal number of shared memory buffers for the SUBTRANS system, using auto-tuning based on shared buffers or enforcing configured limits.

@@ -1,7 +1,7 @@
 # CreateTableAsRelExists
 
 ## Location
-src/backend/commands/createas.c: 386 - 432
+[src/backend/commands/createas.c:386-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L386-L432)
 
 ## Overview
 Utility function that checks whether the target relation for a CREATE TABLE AS statement already exists, handling IF NOT EXISTS logic and extension membership validation.

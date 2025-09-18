@@ -1,7 +1,7 @@
 # r_mark_suffix_with_optional_U_vowel
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 614 - 645
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:614-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L614-L645)
 
 ## Overview
 This function handles the morphological analysis of Turkish suffixes that may optionally include a 'U' vowel (representing high vowels with harmony), implementing vowel insertion rules for Turkish stemming.

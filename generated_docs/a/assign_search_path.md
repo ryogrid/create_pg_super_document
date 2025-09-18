@@ -1,7 +1,7 @@
 # assign_search_path
 
 ## Location
-src/backend/catalog/namespace.c: 4713 - 4735
+[src/backend/catalog/namespace.c:4713-4735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4713-L4735)
 
 ## Overview
 A GUC assign hook function that handles the assignment of a new value to the search_path configuration parameter by marking the current path as needing recomputation.

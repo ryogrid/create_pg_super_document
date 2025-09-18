@@ -1,7 +1,7 @@
 # int4xor
 
 ## Location
-src/backend/utils/adt/int.c: 1411 - 1419
+[src/backend/utils/adt/int.c:1411-1419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1411-L1419)
 
 ## Overview
 Performs bitwise XOR (exclusive OR) operation on two 32-bit integer values and returns the result as a PostgreSQL function.

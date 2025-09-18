@@ -1,7 +1,7 @@
 # DeactivateCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 785 - 826
+[src/backend/access/transam/commit_ts.c:785-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L785-L826)
 
 ## Overview
 Deactivates the commit timestamp tracking module and cleans up all associated data and state when the track_commit_timestamp parameter is turned off.

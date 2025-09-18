@@ -1,7 +1,7 @@
 # ExecMerge
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2764 - 2889
+[src/backend/executor/nodeModifyTable.c:2764-2889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2764-L2889)
 
 ## Overview
 Performs MERGE operations by handling both MATCHED and NOT MATCHED cases, including concurrent update scenarios during MERGE execution.

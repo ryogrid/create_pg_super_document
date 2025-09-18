@@ -1,7 +1,7 @@
 # initialize_hash_entry
 
 ## Location
-src/backend/executor/nodeAgg.c: 2045 - 2094
+[src/backend/executor/nodeAgg.c:2045-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2045-L2094)
 
 ## Overview
 Initializes a newly-created hash table entry for hash aggregation by setting up per-group state and initializing all aggregate functions for the new tuple group.

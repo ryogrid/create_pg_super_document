@@ -1,7 +1,7 @@
 # char_text
 
 ## Location
-src/backend/utils/adt/char.c: 228 - 254
+[src/backend/utils/adt/char.c:228-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L228-L254)
 
 ## Overview
 Converts a PostgreSQL "char" (single byte character) data type to text with proper handling of special characters and null bytes.

@@ -1,7 +1,7 @@
 # alignStringInfoInt
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 484 - 506
+[src/backend/utils/adt/jsonpath.c:484-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L484-L506)
 
 ## Overview
 Aligns a StringInfo buffer to integer boundary by adding zero padding bytes for optimal memory access performance.

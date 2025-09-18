@@ -1,7 +1,7 @@
 # TParserState
 
 ## Location
-src/backend/tsearch/wparser_def.c: 199 - 216
+[src/backend/tsearch/wparser_def.c:199-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L199-L216)
 
 ## Overview
 TParserState is an enumerated type that defines all possible parser states used in PostgreSQL's text search parser for tokenizing input text and identifying different types of tokens.

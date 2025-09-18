@@ -1,7 +1,7 @@
 # int2in
 
 ## Location
-src/backend/utils/adt/int.c: 63 - 73
+[src/backend/utils/adt/int.c:63-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L63-L73)
 
 ## Overview
 The int2in function converts a string representation of a number to a PostgreSQL int2 (16-bit signed integer) data type.

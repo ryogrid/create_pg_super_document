@@ -1,7 +1,7 @@
 # get_multirange_io_data
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 416 - 476
+[src/backend/utils/adt/multirangetypes.c:416-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L416-L476)
 
 ## Overview
 Retrieves and caches I/O function information needed for multirange type input/output operations, storing it in function call context for efficient reuse.

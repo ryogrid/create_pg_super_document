@@ -1,7 +1,7 @@
 # ProcessParallelApplyInterrupts
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 712 - 733
+[src/backend/replication/logical/applyparallelworker.c:712-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L712-L733)
 
 ## Overview
 ProcessParallelApplyInterrupts is an interrupt handler function that manages system interrupts during the main loop of PostgreSQL's logical replication parallel apply worker.

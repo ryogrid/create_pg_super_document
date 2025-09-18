@@ -1,7 +1,7 @@
 # get_ts_parser_func
 
 ## Location
-src/backend/commands/tsearchcmds.c: 74 - 136
+[src/backend/commands/tsearchcmds.c:74-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L74-L136)
 
 ## Overview
 This function looks up a text search parser support function and returns its OID as a Datum, validating that the function signature matches the expected interface for the specified parser function type.

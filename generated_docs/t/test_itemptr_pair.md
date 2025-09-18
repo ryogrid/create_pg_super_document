@@ -1,7 +1,7 @@
 # test_itemptr_pair
 
 ## Location
-src/test/modules/test_ginpostinglist/test_ginpostinglist.c: 41 - 87
+[src/test/modules/test_ginpostinglist/test_ginpostinglist.c:41-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_ginpostinglist/test_ginpostinglist.c#L41-L87)
 
 ## Overview
 A static test function that validates the GIN posting list encoding and decoding functionality by encoding a pair of TIDs and verifying the round-trip conversion.

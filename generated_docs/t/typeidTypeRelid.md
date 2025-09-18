@@ -1,7 +1,7 @@
 # typeidTypeRelid
 
 ## Location
-src/backend/parser/parse_type.c: 668 - 688
+[src/backend/parser/parse_type.c:668-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L668-L688)
 
 ## Overview
 Gets the associated relation OID (typrelid) for a given type OID, specifically for composite types.

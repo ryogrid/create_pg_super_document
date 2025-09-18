@@ -1,7 +1,7 @@
 # tsvector_update_trigger_bycolumn
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2733 - 2738
+[src/backend/utils/adt/tsvector_op.c:2733-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2733-L2738)
 
 ## Overview
 A PostgreSQL trigger function that automatically updates a tsvector column based on text column(s), using a text search configuration specified by name rather than column ID.

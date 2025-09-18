@@ -1,7 +1,7 @@
 # r_step6
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3429 - 3449
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3429-3449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3429-L3449)
 
 ## Overview
 A static function in the Greek stemmer that performs step 6 of the Greek language stemming algorithm, handling specific morphological transformations and conditional suffix deletion based on step counter state.

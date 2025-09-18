@@ -1,7 +1,7 @@
 # ItemPointerCopy
 
 ## Location
-src/include/storage/itemptr.h: 172 - 183
+[src/include/storage/itemptr.h:172-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L172-L183)
 
 ## Overview
 Copies the complete contents of one disk item pointer to another, providing a safe and validated method for duplicating ItemPointerData structures.

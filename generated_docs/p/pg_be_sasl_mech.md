@@ -1,7 +1,7 @@
 # pg_be_sasl_mech
 
 ## Location
-src/include/libpq/sasl.h: 37 - 130
+[src/include/libpq/sasl.h:37-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/sasl.h#L37-L130)
 
 ## Overview
 The  structure defines callback functions for implementing SASL (Simple Authentication and Security Layer) mechanisms in PostgreSQL's backend authentication system.

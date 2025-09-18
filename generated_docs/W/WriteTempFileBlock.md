@@ -1,7 +1,7 @@
 # WriteTempFileBlock
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 758 - 763
+[src/backend/access/gist/gistbuildbuffers.c:758-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L758-L763)
 
 ## Overview
 WriteTempFileBlock is a static wrapper function that writes a block of data to a temporary file at a specified block number, providing error handling for file operations.

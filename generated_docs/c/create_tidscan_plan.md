@@ -1,7 +1,7 @@
 # create_tidscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3540 - 3636
+[src/backend/optimizer/plan/createplan.c:3540-3636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3540-L3636)
 
 ## Overview
 Creates a TID scan plan for a base relation using tuple identifier (TID) values to directly access specific table rows, with restriction clauses and a target list.

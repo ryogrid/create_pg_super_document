@@ -1,7 +1,7 @@
 # report_clusters_compatible
 
 ## Location
-src/bin/pg_upgrade/check.c: 722 - 740
+[src/bin/pg_upgrade/check.c:722-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L722-L740)
 
 ## Overview
 Reports that clusters are compatible for upgrade and handles appropriate action based on whether this is a check-only run or an actual upgrade.

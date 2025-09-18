@@ -1,7 +1,7 @@
 # BecomeLockGroupLeader
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1898 - 1927
+[src/backend/storage/lmgr/proc.c:1898-1927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1898-L1927)
 
 ## Overview
 Designates the current process as a lock group leader, enabling other processes to join the group for coordinated lock management.

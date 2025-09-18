@@ -1,7 +1,7 @@
 # multixact_twophase_postcommit
 
 ## Location
-src/backend/access/transam/multixact.c: 1912 - 1926
+[src/backend/access/transam/multixact.c:1912-1926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1912-L1926)
 
 ## Overview
 This function handles multixact cleanup during the post-commit phase of two-phase commit transactions, similar to AtEOXact_MultiXact but specifically for COMMIT PREPARED operations.

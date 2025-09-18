@@ -1,7 +1,7 @@
 # float84eq
 
 ## Location
-src/backend/utils/adt/float.c: 3921 - 3929
+[src/backend/utils/adt/float.c:3921-3929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3921-L3929)
 
 ## Overview
 PostgreSQL function that performs equality comparison between a float8 (double precision) and a float4 (single precision) value.

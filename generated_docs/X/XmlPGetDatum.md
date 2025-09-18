@@ -1,7 +1,7 @@
 # XmlPGetDatum
 
 ## Location
-src/include/utils/xml.h: 57 - 61
+[src/include/utils/xml.h:57-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/xml.h#L57-L61)
 
 ## Overview
 XmlPGetDatum is an inline function that converts an xmltype pointer back to a PostgreSQL Datum value for use in the PostgreSQL function call interface.

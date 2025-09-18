@@ -1,7 +1,7 @@
 # CState
 
 ## Location
-src/bin/pgbench/pgbench.c: 640 - 672
+[src/bin/pgbench/pgbench.c:640-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L640-L672)
 
 ## Overview
 The CState structure represents the complete state of a single client connection in pgbench, encapsulating all information needed to track a client's execution progress, variables, timing, and error handling.

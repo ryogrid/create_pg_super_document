@@ -1,7 +1,7 @@
 # PartitionHashBound
 
 ## Location
-src/backend/partitioning/partbounds.c: 49 - 54
+[src/backend/partitioning/partbounds.c:49-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L49-L54)
 
 ## Overview
 PartitionHashBound represents one bound of a hash partition used during the qsort operation when reading partition bounds from the catalog.

@@ -1,7 +1,7 @@
 # create_windowagg_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2617 - 2719
+[src/backend/optimizer/plan/createplan.c:2617-2719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2617-L2719)
 
 ## Overview
 Creates a WindowAgg plan node for WindowAggPath operations that implement SQL window functions like ROW_NUMBER(), RANK(), and aggregate functions with OVER clauses.

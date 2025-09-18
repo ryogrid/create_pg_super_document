@@ -1,7 +1,7 @@
 # tsearch_readline
 
 ## Location
-src/backend/tsearch/ts_locale.c: 157 - 201
+[src/backend/tsearch/ts_locale.c:157-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L157-L201)
 
 ## Overview
 Reads the next line from a text search data file, handling UTF-8 validation and character encoding conversion to the database encoding.

@@ -1,7 +1,7 @@
 # defGetCopyHeaderChoice
 
 ## Location
-src/backend/commands/copy.c: 329 - 392
+[src/backend/commands/copy.c:329-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L329-L392)
 
 ## Overview
 defGetCopyHeaderChoice extracts and validates a CopyHeaderChoice value from a DefElem parameter, supporting boolean values plus the special "match" option for COPY FROM operations.

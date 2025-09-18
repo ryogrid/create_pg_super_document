@@ -1,7 +1,7 @@
 # CopyOneRowTo
 
 ## Location
-src/backend/commands/copyto.c: 907 - 979
+[src/backend/commands/copyto.c:907-979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L907-L979)
 
 ## Overview
 CopyOneRowTo formats and outputs a single tuple from a TupleTableSlot according to the configured COPY TO format settings, handling both binary and text output modes.

@@ -1,7 +1,7 @@
 # gistXLogDelete
 
 ## Location
-src/backend/access/gist/gistxlog.c: 670 - 695
+[src/backend/access/gist/gistxlog.c:670-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L670-L695)
 
 ## Overview
 gistXLogDelete creates a Write-Ahead Log (WAL) record for deleting leaf index tuples marked as DEAD during new tuple insertion in GiST indexes, with special handling for standby query conflicts.

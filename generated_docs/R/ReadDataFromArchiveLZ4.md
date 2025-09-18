@@ -1,7 +1,7 @@
 # ReadDataFromArchiveLZ4
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 145 - 198
+[src/bin/pg_dump/compress_lz4.c:145-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L145-L198)
 
 ## Overview
 Decompresses LZ4-compressed data from a PostgreSQL archive file, reading compressed chunks and writing the decompressed output directly to the archive handle.

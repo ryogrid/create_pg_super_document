@@ -1,7 +1,7 @@
 # GetAllTablesPublications
 
 ## Location
-src/backend/catalog/pg_publication.c: 759 - 799
+[src/backend/catalog/pg_publication.c:759-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L759-L799)
 
 ## Overview
 Retrieves a list of publication OIDs for all publications that are marked as FOR ALL TABLES, used to identify publications that include all tables in the database.

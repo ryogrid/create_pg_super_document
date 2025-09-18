@@ -1,7 +1,7 @@
 # ReleasePredXact
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 596 - 609
+[src/backend/storage/lmgr/predicate.c:596-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L596-L609)
 
 ## Overview
 Deallocates a SERIALIZABLEXACT structure back to the shared memory pool, making it available for reuse by future serializable transactions.

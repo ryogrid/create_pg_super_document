@@ -1,7 +1,7 @@
 # parseNumericOid
 
 ## Location
-src/backend/utils/adt/regproc.c: 1843 - 1867
+[src/backend/utils/adt/regproc.c:1843-1867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1843-L1867)
 
 ## Overview
 Determines if a C string represents a valid numeric OID and converts it to an OID value if so, providing safe parsing with error context support.

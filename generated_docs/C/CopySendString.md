@@ -1,7 +1,7 @@
 # CopySendString
 
 ## Location
-src/backend/commands/copyto.c: 175 - 180
+[src/backend/commands/copyto.c:175-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L175-L180)
 
 ## Overview
 CopySendString is a static function that appends a null-terminated string to the frontend message buffer during COPY TO operations, providing a convenient wrapper for string data transmission.

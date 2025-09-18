@@ -1,7 +1,7 @@
 # coerce_to_common_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 1574 - 1607
+[src/backend/parser/parse_coerce.c:1574-1607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1574-L1607)
 
 ## Overview
 Coerces an expression node to a specified target type, used after select_common_type() to convert individual expressions to the desired common type.

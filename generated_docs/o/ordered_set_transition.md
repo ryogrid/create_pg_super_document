@@ -1,7 +1,7 @@
 # ordered_set_transition
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 358 - 382
+[src/backend/utils/adt/orderedsetaggs.c:358-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L358-L382)
 
 ## Overview
 Generic transition function for ordered-set aggregates with a single input column, handling data collection while suppressing null values.

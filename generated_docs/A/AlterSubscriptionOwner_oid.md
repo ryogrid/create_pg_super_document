@@ -1,7 +1,7 @@
 # AlterSubscriptionOwner_oid
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1995 - 2031
+[src/backend/commands/subscriptioncmds.c:1995-2031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1995-L2031)
 
 ## Overview
 Changes the ownership of a PostgreSQL logical replication subscription using the subscription's OID (Object Identifier) as the lookup key.

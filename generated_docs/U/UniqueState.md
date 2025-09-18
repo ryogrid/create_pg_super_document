@@ -1,7 +1,7 @@
 # UniqueState
 
 ## Location
-src/include/nodes/execnodes.h: 2656 - 2660
+[src/include/nodes/execnodes.h:2656-2660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2656-L2660)
 
 ## Overview
 UniqueState is a structure that represents the execution state for PostgreSQL's UNIQUE node, which is used to eliminate duplicate tuples from sorted input by comparing consecutive tuples.

@@ -1,7 +1,7 @@
 # RT_MEMORY_USAGE
 
 ## Location
-src/include/lib/radixtree.h: 2688 - 2705
+[src/include/lib/radixtree.h:2688-2705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2688-L2705)
 
 ## Overview
 RT_MEMORY_USAGE is a macro that generates the name for a function that returns the total memory usage statistics of a radix tree data structure in PostgreSQL.

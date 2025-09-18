@@ -1,7 +1,7 @@
 # EnumItem
 
 ## Location
-src/backend/utils/cache/typcache.c: 136 - 137
+[src/backend/utils/cache/typcache.c:136-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L136-L137)
 
 ## Overview
 EnumItem is a structure that represents a single enumeration value within PostgreSQL's type cache system, storing the OID and sort order for efficient enum comparison operations.

@@ -1,7 +1,7 @@
 # make_array_ref
 
 ## Location
-src/pl/plperl/plperl.c: 1593 - 1630
+[src/pl/plperl/plperl.c:1593-1630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1593-L1630)
 
 ## Overview
 Creates a Perl array reference from a one-dimensional PostgreSQL array slice, converting elements to appropriate Perl values.

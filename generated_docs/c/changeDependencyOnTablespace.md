@@ -1,7 +1,7 @@
 # changeDependencyOnTablespace
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 391 - 420
+[src/backend/catalog/pg_shdepend.c:391-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L391-L420)
 
 ## Overview
 Updates shared dependency records when an object's tablespace is changed, ensuring proper tracking of tablespace dependencies in the PostgreSQL system catalog.

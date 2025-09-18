@@ -1,7 +1,7 @@
 # InitializeClientEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 281 - 335
+[src/backend/utils/mb/mbutils.c:281-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L281-L335)
 
 ## Overview
 Initializes client encoding conversions during backend startup, finalizing any pending client encoding setup and preparing UTF8-to-server conversion functions.

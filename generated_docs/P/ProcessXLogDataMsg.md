@@ -1,7 +1,7 @@
 # ProcessXLogDataMsg
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 1040 - 1170
+[src/bin/pg_basebackup/receivelog.c:1040-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L1040-L1170)
 
 ## Overview
 ProcessXLogDataMsg processes XLogData messages containing actual WAL (Write-Ahead Log) data from streaming replication and writes the data to WAL files.

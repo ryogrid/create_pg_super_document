@@ -1,7 +1,7 @@
 # AlignedAllocFree
 
 ## Location
-src/backend/utils/mmgr/alignedalloc.c: 29 - 60
+[src/backend/utils/mmgr/alignedalloc.c:29-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/alignedalloc.c#L29-L60)
 
 ## Overview
 Frees memory allocated by aligned allocation functions, properly handling the metadata and returning the memory to its owning memory context.

@@ -1,7 +1,7 @@
 # map_variable_attnos_mutator
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1492 - 1614
+[src/backend/rewrite/rewriteManip.c:1492-1614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1492-L1614)
 
 ## Overview
 The internal mutator function that performs recursive tree walking to remap column attribute numbers in Var nodes, handling whole-row variables and type conversions as needed.

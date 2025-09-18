@@ -1,7 +1,7 @@
 # pg_strncoll_icu_no_utf8
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2020 - 2074
+[src/backend/utils/adt/pg_locale.c:2020-2074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2020-L2074)
 
 ## Overview
 Performs ICU-based string collation for non-UTF8 database encodings by converting input strings to UChar format and using ICU's ucol_strcoll function.

@@ -1,7 +1,7 @@
 # cmp_string
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 298 - 306
+[src/backend/utils/adt/tsquery_op.c:298-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L298-L306)
 
 ## Overview
 A comparison function used for sorting arrays of string pointers using the standard C qsort function.

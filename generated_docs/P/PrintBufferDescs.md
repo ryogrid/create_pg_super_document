@@ -1,7 +1,7 @@
 # PrintBufferDescs
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4414 - 4437
+[src/backend/storage/buffer/bufmgr.c:4414-4437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4414-L4437)
 
 ## Overview
 A debugging function that prints detailed information about all buffer descriptors in the shared buffer pool to the server log.

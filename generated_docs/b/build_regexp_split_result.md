@@ -1,7 +1,7 @@
 # build_regexp_split_result
 
 ## Location
-src/backend/utils/adt/regexp.c: 1817 - 1857
+[src/backend/utils/adt/regexp.c:1817-1857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1817-L1857)
 
 ## Overview
 Builds the output string for the current match in regexp split operations, extracting the substring between consecutive pattern matches.

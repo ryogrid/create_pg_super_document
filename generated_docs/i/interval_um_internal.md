@@ -1,7 +1,7 @@
 # interval_um_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3385 - 3404
+[src/backend/utils/adt/timestamp.c:3385-3404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3385-L3404)
 
 ## Overview
 Negates (reverses the sign of) all components of an interval, handling special infinite values and overflow conditions.

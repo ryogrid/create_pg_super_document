@@ -1,7 +1,7 @@
 # RenameRole
 
 ## Location
-src/backend/commands/user.c: 1334 - 1479
+[src/backend/commands/user.c:1334-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1334-L1479)
 
 ## Overview
 Changes the name of an existing PostgreSQL role while maintaining all its attributes and permissions, with appropriate security checks and validation.

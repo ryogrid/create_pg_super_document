@@ -1,7 +1,7 @@
 # fix_join_expr_context
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 73 - 82
+[src/backend/optimizer/plan/setrefs.c:73-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L73-L82)
 
 ## Overview
 A context structure used during join expression fixing to provide access to outer and inner relation target lists and other necessary information for resolving variable references in join expressions.

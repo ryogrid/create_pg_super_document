@@ -1,7 +1,7 @@
 # initialize_windowaggregate
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 207 - 241
+[src/backend/executor/nodeWindowAgg.c:207-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L207-L241)
 
 ## Overview
 Initializes the state of a window aggregate function, resetting its transition value to the initial state and preparing it for a new computation cycle.

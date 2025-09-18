@@ -1,7 +1,7 @@
 # simple8b_encode
 
 ## Location
-src/backend/lib/integerset.c: 873 - 974
+[src/backend/lib/integerset.c:873-974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L873-L974)
 
 ## Overview
 Encodes a sequence of integers into a compressed 64-bit codeword using the Simple8b compression algorithm, optimizing storage efficiency for sorted integer sequences.

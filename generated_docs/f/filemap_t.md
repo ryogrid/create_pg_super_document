@@ -1,7 +1,7 @@
 # filemap_t
 
 ## Location
-src/bin/pg_rewind/filemap.h: 89 - 97
+[src/bin/pg_rewind/filemap.h:89-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.h#L89-L97)
 
 ## Overview
 The filemap_t structure contains the final decisions and summary information for all file operations to be performed during a PostgreSQL pg_rewind process.

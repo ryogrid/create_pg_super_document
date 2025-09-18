@@ -1,7 +1,7 @@
 # TimestampTimestampTzRequiresRewrite
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6273 - 6285
+[src/backend/utils/adt/timestamp.c:6273-6285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6273-L6285)
 
 ## Overview
 Determines whether conversions between timestamp and timestamptz types require rewriting data based on the current TimeZone GUC setting.

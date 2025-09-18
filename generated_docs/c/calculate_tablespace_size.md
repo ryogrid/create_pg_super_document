@@ -1,7 +1,7 @@
 # calculate_tablespace_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 202 - 271
+[src/backend/utils/adt/dbsize.c:202-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L202-L271)
 
 ## Overview
 A static function that calculates the total physical size of a tablespace, including all databases and objects stored within it, returning -1 if the tablespace directory cannot be found.

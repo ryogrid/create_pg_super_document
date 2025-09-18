@@ -1,7 +1,7 @@
 # VarString
 
 ## Location
-src/backend/utils/adt/varlena.c: 50 - 77
+[src/backend/utils/adt/varlena.c:50-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L50-L77)
 
 ## Overview
 VarString is a type alias for the  that represents variable-length string data in PostgreSQL's type system.

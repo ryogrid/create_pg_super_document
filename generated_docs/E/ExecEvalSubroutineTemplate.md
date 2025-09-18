@@ -1,7 +1,7 @@
 # ExecEvalSubroutineTemplate
 
 ## Location
-src/backend/jit/llvm/llvmjit_types.c: 97 - 108
+[src/backend/jit/llvm/llvmjit_types.c:97-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_types.c#L97-L108)
 
 ## Overview
 ExecEvalSubroutineTemplate is a template function used by PostgreSQL's LLVM JIT compiler to provide a reference signature for expression evaluation subroutines.

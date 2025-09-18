@@ -1,7 +1,7 @@
 # pqPipelineSyncInternal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3294 - 3370
+[src/interfaces/libpq/fe-exec.c:3294-3370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3294-L3370)
 
 ## Overview
 pqPipelineSyncInternal is a static helper function that implements the core logic for sending pipeline synchronization messages in PostgreSQL's libpq client library.

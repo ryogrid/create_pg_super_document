@@ -1,7 +1,7 @@
 # float8_ge
 
 ## Location
-src/include/utils/float.h: 328 - 333
+[src/include/utils/float.h:328-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L328-L333)
 
 ## Overview
 Compares two double-precision floating-point numbers to determine if the first value is greater than or equal to the second, with special handling for NaN values.

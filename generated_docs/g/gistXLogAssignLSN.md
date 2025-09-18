@@ -1,7 +1,7 @@
 # gistXLogAssignLSN
 
 ## Location
-src/backend/access/gist/gistxlog.c: 576 - 593
+[src/backend/access/gist/gistxlog.c:576-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L576-L593)
 
 ## Overview
 Writes an empty WAL record solely to obtain a distinct LSN (Log Sequence Number) for GiST operations that need LSN assignment without substantial logging.

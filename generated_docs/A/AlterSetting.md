@@ -1,7 +1,7 @@
 # AlterSetting
 
 ## Location
-src/backend/catalog/pg_db_role_setting.c: 24 - 169
+[src/backend/catalog/pg_db_role_setting.c:24-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_db_role_setting.c#L24-L169)
 
 ## Overview
 AlterSetting is a core PostgreSQL catalog function that manages database and role-specific configuration parameter settings by updating the pg_db_role_setting system catalog table.

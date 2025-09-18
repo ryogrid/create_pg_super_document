@@ -1,7 +1,7 @@
 # ExecEndGroup
 
 ## Location
-src/backend/executor/nodeGroup.c: 226 - 234
+[src/backend/executor/nodeGroup.c:226-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGroup.c#L226-L234)
 
 ## Overview
 ExecEndGroup performs cleanup and resource deallocation for a Group plan node during query execution shutdown, primarily by recursively ending its child plan node.

@@ -1,7 +1,7 @@
 # pg_u_isgraph
 
 ## Location
-src/common/unicode_category.c: 268 - 278
+[src/common/unicode_category.c:268-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L268-L278)
 
 ## Overview
 Determines whether a Unicode character is a graphical character, meaning it is visible and printable but excludes whitespace characters.

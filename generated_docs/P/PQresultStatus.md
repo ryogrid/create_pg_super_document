@@ -1,7 +1,7 @@
 # PQresultStatus
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3411 - 3418
+[src/interfaces/libpq/fe-exec.c:3411-3418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3411-L3418)
 
 ## Overview
 PQresultStatus returns the execution status of a PostgreSQL query result, providing information about whether the command completed successfully or encountered an error.

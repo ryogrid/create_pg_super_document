@@ -1,7 +1,7 @@
 # SyncScanShmemSize
 
 ## Location
-src/backend/access/common/syncscan.c: 126 - 134
+[src/backend/access/common/syncscan.c:126-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L126-L134)
 
 ## Overview
 Calculates and reports the amount of shared memory space needed for PostgreSQL's synchronized scan feature.

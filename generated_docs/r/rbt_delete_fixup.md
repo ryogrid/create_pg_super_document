@@ -1,7 +1,7 @@
 # rbt_delete_fixup
 
 ## Location
-src/backend/lib/rbtree.c: 521 - 618
+[src/backend/lib/rbtree.c:521-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L521-L618)
 
 ## Overview
 Maintains Red-Black tree balance properties after deleting a black node by performing rotations and recoloring operations to restore the tree's balance.

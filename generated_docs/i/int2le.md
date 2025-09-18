@@ -1,7 +1,7 @@
 # int2le
 
 ## Location
-src/backend/utils/adt/int.c: 477 - 485
+[src/backend/utils/adt/int.c:477-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L477-L485)
 
 ## Overview
 Compares two 16-bit signed integers and returns true if the first is less than or equal to the second.

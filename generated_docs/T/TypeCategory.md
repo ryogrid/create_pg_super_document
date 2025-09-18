@@ -1,7 +1,7 @@
 # TypeCategory
 
 ## Location
-src/backend/parser/parse_coerce.c: 2978 - 2996
+[src/backend/parser/parse_coerce.c:2978-2996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L2978-L2996)
 
 ## Overview
 Assigns a type category to the specified type OID, used for type resolution and coercion decisions.

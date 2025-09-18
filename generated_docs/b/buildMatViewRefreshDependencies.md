@@ -1,7 +1,7 @@
 # buildMatViewRefreshDependencies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2899 - 3013
+[src/bin/pg_dump/pg_dump.c:2899-3013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2899-L3013)
 
 ## Overview
 Establishes dependency relationships between materialized view refresh operations to ensure proper dump ordering when materialized views depend on other materialized views.

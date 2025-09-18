@@ -1,7 +1,7 @@
 # ExecScanFetch
 
 ## Location
-src/backend/executor/execScan.c: 34 - 155
+[src/backend/executor/execScan.c:34-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execScan.c#L34-L155)
 
 ## Overview
 ExecScanFetch is a core function in PostgreSQL's executor that fetches the next potential tuple from a scan operation, handling special cases for EvalPlanQual (EPQ) rechecks during concurrent updates.

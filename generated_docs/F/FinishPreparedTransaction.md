@@ -1,7 +1,7 @@
 # FinishPreparedTransaction
 
 ## Location
-src/backend/access/transam/twophase.c: 1487 - 1679
+[src/backend/access/transam/twophase.c:1487-1679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1487-L1679)
 
 ## Overview
 FinishPreparedTransaction executes the final phase of a two-phase commit, handling both COMMIT PREPARED and ROLLBACK PREPARED operations to complete prepared transactions.

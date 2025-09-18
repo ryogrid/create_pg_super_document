@@ -1,7 +1,7 @@
 # EnableStandbyMode
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 478 - 511
+[src/backend/access/transam/xlogrecovery.c:478-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L478-L511)
 
 ## Overview
 A wrapper function that enables PostgreSQL standby mode and performs necessary preparatory configurations to optimize standby server behavior.

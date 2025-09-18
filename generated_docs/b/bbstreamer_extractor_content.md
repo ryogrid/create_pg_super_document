@@ -1,7 +1,7 @@
 # bbstreamer_extractor_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 203 - 291
+[src/bin/pg_basebackup/bbstreamer_file.c:203-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L203-L291)
 
 ## Overview
 This function handles the extraction of archive contents to the filesystem, processing different types of archive members (files, directories, symbolic links) and managing the extraction workflow through various archive contexts.

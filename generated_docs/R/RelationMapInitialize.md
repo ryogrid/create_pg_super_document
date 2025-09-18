@@ -1,7 +1,7 @@
 # RelationMapInitialize
 
 ## Location
-src/backend/utils/cache/relmapper.c: 651 - 670
+[src/backend/utils/cache/relmapper.c:651-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L651-L670)
 
 ## Overview
 RelationMapInitialize initializes the relation mapper module at process startup, ensuring all mapping structures are reset to empty states before database access begins.

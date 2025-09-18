@@ -1,7 +1,7 @@
 # HeapPageFreeze
 
 ## Location
-src/include/access/heapam.h: 178 - 221
+[src/include/access/heapam.h:178-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L178-L221)
 
 ## Overview
 HeapPageFreeze is a structure used by VACUUM to track the details of freezing all eligible tuples on a given heap page, maintaining transaction ID and multi-transaction ID tracking for both frozen and unfrozen scenarios.

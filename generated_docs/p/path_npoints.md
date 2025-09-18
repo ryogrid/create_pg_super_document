@@ -1,7 +1,7 @@
 # path_npoints
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1618 - 1626
+[src/backend/utils/adt/geo_ops.c:1618-1626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1618-L1626)
 
 ## Overview
 A PostgreSQL function that returns the number of points contained in a PATH object.

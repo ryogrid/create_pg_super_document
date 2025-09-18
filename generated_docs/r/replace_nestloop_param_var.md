@@ -1,7 +1,7 @@
 # replace_nestloop_param_var
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 367 - 415
+[src/backend/optimizer/util/paramassign.c:367-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L367-L415)
 
 ## Overview
 Generates a Param node to replace a Var that references a value from an outer NestLoop plan node, managing parameter passing for nested loop joins with de-duplication support.

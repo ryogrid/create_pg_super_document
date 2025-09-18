@@ -1,7 +1,7 @@
 # _tarWritePadding
 
 ## Location
-src/backend/backup/basebackup.c: 2071 - 2093
+[src/backend/backup/basebackup.c:2071-2093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L2071-L2093)
 
 ## Overview
 Writes zero-byte padding to a TAR archive to align file data to TAR block size boundaries, ensuring proper TAR format compliance.

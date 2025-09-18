@@ -1,7 +1,7 @@
 # ExecEvalSubPlan
 
 ## Location
-src/backend/executor/execExprInterp.c: 4753 - 4769
+[src/backend/executor/execExprInterp.c:4753-4769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4753-L4769)
 
 ## Overview
 ExecEvalSubPlan serves as a bridge function in the expression interpreter that delegates subplan evaluation to the specialized subplan execution infrastructure in nodeSubplan.c.

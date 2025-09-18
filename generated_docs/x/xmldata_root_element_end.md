@@ -1,7 +1,7 @@
 # xmldata_root_element_end
 
 ## Location
-src/backend/utils/adt/xml.c: 2994 - 3000
+[src/backend/utils/adt/xml.c:2994-3000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2994-L3000)
 
 ## Overview
 Internal utility function that generates the closing XML tag for root elements in PostgreSQL's XML data mapping functions, providing the counterpart to xmldata_root_element_start.

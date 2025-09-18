@@ -1,7 +1,7 @@
 # getExtendedStatistics
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7743 - 7821
+[src/bin/pg_dump/pg_dump.c:7743-7821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7743-L7821)
 
 ## Overview
 Retrieves information about extended statistics objects from the PostgreSQL system catalog and creates corresponding DumpableObject entries for pg_dump operations.

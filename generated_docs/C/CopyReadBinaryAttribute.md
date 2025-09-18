@@ -1,7 +1,7 @@
 # CopyReadBinaryAttribute
 
 ## Location
-src/backend/commands/copyfromparse.c: 1986 - 2032
+[src/backend/commands/copyfromparse.c:1986-2032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1986-L2032)
 
 ## Overview
 Reads and processes a single binary attribute from binary-format COPY data, handling the binary protocol's length-prefixed format and invoking the appropriate type input function to convert raw bytes to PostgreSQL datum values.

@@ -1,7 +1,7 @@
 # PQconnectStartParams
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 791 - 871
+[src/interfaces/libpq/fe-connect.c:791-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L791-L871)
 
 ## Overview
 Begins the asynchronous establishment of a connection to a PostgreSQL backend using connection parameters provided as arrays of keywords and values.

@@ -1,7 +1,7 @@
 # ReadRecord
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3131 - 3297
+[src/backend/access/transam/xlogrecovery.c:3131-3297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3131-L3297)
 
 ## Overview
 ReadRecord is the core function responsible for reading the next XLOG record during PostgreSQL's WAL recovery process, handling various recovery scenarios including crash recovery, archive recovery, and standby mode.

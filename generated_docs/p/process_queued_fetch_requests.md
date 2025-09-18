@@ -1,7 +1,7 @@
 # process_queued_fetch_requests
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 427 - 613
+[src/bin/pg_rewind/libpq_source.c:427-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L427-L613)
 
 ## Overview
 Executes all queued file fetch requests by sending a batch query to the remote PostgreSQL server and processing the returned file chunks, writing them to the target data directory.

@@ -1,7 +1,7 @@
 # catalan_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c: 1443 - 1444
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1443-1444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c#L1443-L1444)
 
 ## Overview
 The `catalan_ISO_8859_1_create_env` function creates and initializes a Snowball stemming environment specifically configured for Catalan language processing with ISO-8859-1 character encoding.

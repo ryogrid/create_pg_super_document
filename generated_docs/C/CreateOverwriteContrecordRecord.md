@@ -1,7 +1,7 @@
 # CreateOverwriteContrecordRecord
 
 ## Location
-src/backend/access/transam/xlog.c: 7434 - 7503
+[src/backend/access/transam/xlog.c:7434-7503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7434-L7503)
 
 ## Overview
 Creates a special WAL record to handle the case where a continuation record was missing during recovery, preventing rewind issues for downstream consumers like physical replicas.

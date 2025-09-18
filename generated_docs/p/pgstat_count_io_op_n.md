@@ -1,7 +1,7 @@
 # pgstat_count_io_op_n
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 83 - 99
+[src/backend/utils/activity/pgstat_io.c:83-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L83-L99)
 
 ## Overview
 Records multiple occurrences of a specific IO operation in PostgreSQL's statistics system by adding a specified count to the pending IO statistics.

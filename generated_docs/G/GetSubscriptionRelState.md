@@ -1,7 +1,7 @@
 # GetSubscriptionRelState
 
 ## Location
-src/backend/catalog/pg_subscription.c: 366 - 415
+[src/backend/catalog/pg_subscription.c:366-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L366-L415)
 
 ## Overview
 Retrieves the current replication state and LSN position of a specific table within a logical replication subscription from the pg_subscription_rel system catalog.

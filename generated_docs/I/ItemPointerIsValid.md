@@ -1,7 +1,7 @@
 # ItemPointerIsValid
 
 ## Location
-src/include/storage/itemptr.h: 83 - 92
+[src/include/storage/itemptr.h:83-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L83-L92)
 
 ## Overview
 Validates whether a disk item pointer is valid by checking if the pointer is not NULL and the position ID is non-zero.

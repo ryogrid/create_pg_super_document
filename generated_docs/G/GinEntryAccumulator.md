@@ -1,7 +1,7 @@
 # GinEntryAccumulator
 
 ## Location
-src/include/access/gin_private.h: 419 - 429
+[src/include/access/gin_private.h:419-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L419-L429)
 
 ## Overview
 A structure used during GIN (Generalized Inverted Index) bulk insertion to accumulate item pointers for each unique key value before building the final index structure.

@@ -1,7 +1,7 @@
 # ExecInitSubscriptingRef
 
 ## Location
-src/backend/executor/execExpr.c: 3067 - 3308
+[src/backend/executor/execExpr.c:3067-3308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3067-L3308)
 
 ## Overview
 Prepares evaluation of a SubscriptingRef expression for both array/container access and assignment operations, handling subscript validation and setting up appropriate execution steps.

@@ -1,7 +1,7 @@
 # dumpCompositeTypeColComments
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11993 - 12081
+[src/bin/pg_dump/pg_dump.c:11993-12081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11993-L12081)
 
 ## Overview
 The dumpCompositeTypeColComments function generates COMMENT ON COLUMN statements for the attributes of a user-defined composite type.

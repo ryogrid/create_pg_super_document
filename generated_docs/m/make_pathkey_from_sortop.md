@@ -1,7 +1,7 @@
 # make_pathkey_from_sortop
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 255 - 301
+[src/backend/optimizer/path/pathkeys.c:255-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L255-L301)
 
 ## Overview
 Creates a canonical PathKey from a sort operator, serving as a compatibility wrapper that extracts operator properties and delegates to make_pathkey_from_sortinfo.

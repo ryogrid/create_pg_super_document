@@ -1,7 +1,7 @@
 # ATExecDropOf
 
 ## Location
-src/backend/commands/tablecmds.c: 16628 - 16671
+[src/backend/commands/tablecmds.c:16628-16671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16628-L16671)
 
 ## Overview
 Detaches a typed table from its originating type by clearing the relationship metadata and removing the associated dependency.

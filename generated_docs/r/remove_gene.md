@@ -1,7 +1,7 @@
 # remove_gene
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 240 - 281
+[src/backend/optimizer/geqo/geqo_erx.c:240-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L240-L281)
 
 ## Overview
 The remove_gene function removes a specified gene from the edge table structure, which is part of the ERX (Edge Recombination Crossover) algorithm used in the GEQO (Genetic Query Optimizer).

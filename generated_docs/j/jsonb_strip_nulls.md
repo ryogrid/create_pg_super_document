@@ -1,7 +1,7 @@
 # jsonb_strip_nulls
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4525 - 4582
+[src/backend/utils/adt/jsonfuncs.c:4525-4582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4525-L4582)
 
 ## Overview
 Removes all key-value pairs with null values from a JSONB object, returning a new JSONB object without the null-valued fields.

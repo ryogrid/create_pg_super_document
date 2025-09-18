@@ -1,7 +1,7 @@
 # cache_single_string
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 806 - 828
+[src/backend/utils/adt/pg_locale.c:806-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L806-L828)
 
 ## Overview
 A utility function that converts and caches a single string from a specified encoding to the database encoding, managing memory allocation and cleanup for long-lived storage.

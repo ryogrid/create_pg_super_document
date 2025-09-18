@@ -1,7 +1,7 @@
 # RemoveStatisticsDataById
 
 ## Location
-src/backend/commands/statscmds.c: 722 - 746
+[src/backend/commands/statscmds.c:722-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L722-L746)
 
 ## Overview
 Deletes an entry from the pg_statistic_ext_data catalog table for a specific statistics object and inheritance flag combination.

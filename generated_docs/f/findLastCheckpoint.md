@@ -1,7 +1,7 @@
 # findLastCheckpoint
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 168 - 274
+[src/bin/pg_rewind/parsexlog.c:168-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L168-L274)
 
 ## Overview
 Searches backwards through WAL records from a given fork point to find the last checkpoint record that occurred before the fork, essential for pg_rewind to determine the safe starting point for synchronization.

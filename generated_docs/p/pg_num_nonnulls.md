@@ -1,7 +1,7 @@
 # pg_num_nonnulls
 
 ## Location
-src/backend/utils/adt/misc.c: 178 - 194
+[src/backend/utils/adt/misc.c:178-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L178-L194)
 
 ## Overview
 A PostgreSQL built-in function that counts and returns the number of non-NULL arguments passed to it, supporting both individual arguments and variadic arrays.

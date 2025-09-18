@@ -1,7 +1,7 @@
 # HandleNotifyInterrupt
 
 ## Location
-src/backend/commands/async.c: 1804 - 1833
+[src/backend/commands/async.c:1804-1833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1804-L1833)
 
 ## Overview
 Signal handler function that sets flags to indicate a pending NOTIFY interrupt needs to be processed, safely deferring the actual notification processing to outside the signal handler context.

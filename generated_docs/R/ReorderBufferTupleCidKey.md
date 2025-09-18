@@ -1,7 +1,7 @@
 # ReorderBufferTupleCidKey
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 135 - 139
+[src/backend/replication/logical/reorderbuffer.c:135-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L135-L139)
 
 ## Overview
 ReorderBufferTupleCidKey is a composite key structure used in hash tables to map tuple locations (defined by relation file locator and tuple ID) to their command ID information during logical replication decoding.

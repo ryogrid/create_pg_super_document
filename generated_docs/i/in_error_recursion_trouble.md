@@ -1,7 +1,7 @@
 # in_error_recursion_trouble
 
 ## Location
-src/backend/utils/error/elog.c: 297 - 308
+[src/backend/utils/error/elog.c:297-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L297-L308)
 
 ## Overview
 Detects whether the system is at risk of infinite error recursion by checking if the error handling recursion depth exceeds a safe threshold.

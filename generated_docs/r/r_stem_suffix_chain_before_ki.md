@@ -1,7 +1,7 @@
 # r_stem_suffix_chain_before_ki
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 1158 - 1353
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:1158-1353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L1158-L1353)
 
 ## Overview
 Processes complex suffix chains that appear before the Turkish relativizer suffix "-ki" by recursively identifying and removing layered morphological patterns.

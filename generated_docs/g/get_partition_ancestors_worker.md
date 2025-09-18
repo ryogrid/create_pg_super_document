@@ -1,7 +1,7 @@
 # get_partition_ancestors_worker
 
 ## Location
-src/backend/catalog/partition.c: 153 - 175
+[src/backend/catalog/partition.c:153-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L153-L175)
 
 ## Overview
 A recursive static helper function that builds the list of ancestors for a given partition relation.

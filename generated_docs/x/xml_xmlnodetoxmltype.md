@@ -1,7 +1,7 @@
 # xml_xmlnodetoxmltype
 
 ## Location
-src/backend/utils/adt/xml.c: 4156 - 4245
+[src/backend/utils/adt/xml.c:4156-4245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4156-L4245)
 
 ## Overview
 Converts an XML node to PostgreSQL's xmltype format, handling different node types appropriately by either extracting escaped text content or dumping the entire subtree.

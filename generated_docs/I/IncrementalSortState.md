@@ -1,7 +1,7 @@
 # IncrementalSortState
 
 ## Location
-src/include/nodes/execnodes.h: 2389 - 2410
+[src/include/nodes/execnodes.h:2389-2410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2389-L2410)
 
 ## Overview
 IncrementalSortState is the execution state structure for incremental sort operations, managing both prefix and full sort phases with instrumentation and parallel execution support.

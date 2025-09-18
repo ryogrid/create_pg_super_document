@@ -1,7 +1,7 @@
 # SendProcSignal
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 257 - 328
+[src/backend/storage/ipc/procsignal.c:257-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L257-L328)
 
 ## Overview
 Sends a signal to a PostgreSQL process by setting a signal flag in shared memory and delivering a SIGUSR1 signal, with optional process number optimization for faster lookups.

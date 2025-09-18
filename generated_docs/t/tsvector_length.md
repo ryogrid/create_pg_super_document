@@ -1,7 +1,7 @@
 # tsvector_length
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 201 - 210
+[src/backend/utils/adt/tsvector_op.c:201-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L201-L210)
 
 ## Overview
 PostgreSQL function that returns the number of distinct lexemes (words) contained in a TSVector.

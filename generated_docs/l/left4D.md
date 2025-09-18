@@ -1,7 +1,7 @@
 # left4D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 318 - 324
+[src/backend/utils/adt/geo_spgist.c:318-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L318-L324)
 
 ## Overview
 Determines if any rectangle from a RectBox can be positioned to the left of a given query boundary.

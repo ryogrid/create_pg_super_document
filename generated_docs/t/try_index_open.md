@@ -1,7 +1,7 @@
 # try_index_open
 
 ## Location
-src/backend/access/index/indexam.c: 152 - 176
+[src/backend/access/index/indexam.c:152-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L152-L176)
 
 ## Overview
 Opens an index relation by its object identifier (OID) with optional locking, but returns NULL instead of raising an error if the relation does not exist.

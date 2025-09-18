@@ -1,7 +1,7 @@
 # ConvertTimeZoneAbbrevs
 
 ## Location
-src/backend/utils/adt/datetime.c: 4873 - 4956
+[src/backend/utils/adt/datetime.c:4873-4956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4873-L4956)
 
 ## Overview
 ConvertTimeZoneAbbrevs converts a sorted array of timezone abbreviation entries into a finalized TimeZoneAbbrevTable structure used for timezone abbreviation lookup during timestamp parsing.

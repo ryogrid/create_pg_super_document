@@ -1,7 +1,7 @@
 # GinPageDeletePostingItem
 
 ## Location
-src/backend/access/gin/gindatapage.c: 417 - 447
+[src/backend/access/gin/gindatapage.c:417-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L417-L447)
 
 ## Overview
 GinPageDeletePostingItem removes a PostingItem from a non-leaf GIN data page at a specified offset and compacts the remaining items.

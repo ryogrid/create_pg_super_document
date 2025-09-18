@@ -1,7 +1,7 @@
 # range_union
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1098 - 1113
+[src/backend/utils/adt/rangetypes.c:1098-1113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1098-L1113)
 
 ## Overview
 The range_union function computes the set union of two range values, requiring them to be adjacent or overlapping to ensure a contiguous result.

@@ -1,7 +1,7 @@
 # ExecForceStoreMinimalTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1599 - 1638
+[src/backend/executor/execTuples.c:1599-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1599-L1638)
 
 ## Overview
 Stores a MinimalTuple into any kind of TupleTableSlot, performing automatic type conversion when the target slot is not a minimal tuple slot type.

@@ -1,7 +1,7 @@
 # simple_oid_list_destroy
 
 ## Location
-src/fe_utils/simple_list.c: 106 - 124
+[src/fe_utils/simple_list.c:106-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L106-L124)
 
 ## Overview
 Destroys a simple OID linked list by freeing all allocated memory for the list cells, designed for frontend PostgreSQL utilities.

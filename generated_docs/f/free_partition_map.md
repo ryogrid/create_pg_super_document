@@ -1,7 +1,7 @@
 # free_partition_map
 
 ## Location
-src/backend/partitioning/partbounds.c: 1832 - 1842
+[src/backend/partitioning/partbounds.c:1832-1842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1832-L1842)
 
 ## Overview
 Frees the memory allocated for arrays within a PartitionMap structure used during partition merging operations.

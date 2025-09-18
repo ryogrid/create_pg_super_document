@@ -1,7 +1,7 @@
 # timetz_send
 
 ## Location
-src/backend/utils/adt/date.c: 2371 - 2382
+[src/backend/utils/adt/date.c:2371-2382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2371-L2382)
 
 ## Overview
 Converts a PostgreSQL time with time zone (TIMETZ) value to its binary wire format for network transmission in the PostgreSQL protocol.

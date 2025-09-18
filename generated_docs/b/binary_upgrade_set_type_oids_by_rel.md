@@ -1,7 +1,7 @@
 # binary_upgrade_set_type_oids_by_rel
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5461 - 5472
+[src/bin/pg_dump/pg_dump.c:5461-5472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5461-L5472)
 
 ## Overview
 A convenience wrapper function that preserves type OIDs for table-related composite types during PostgreSQL binary upgrades.

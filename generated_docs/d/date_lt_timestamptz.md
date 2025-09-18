@@ -1,7 +1,7 @@
 # date_lt_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 862 - 870
+[src/backend/utils/adt/date.c:862-870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L862-L870)
 
 ## Overview
 Compares a DATE value with a TIMESTAMPTZ value for less-than ordering, returning true if the date is earlier than the timestamptz.

@@ -1,7 +1,7 @@
 # pqTraceOutput_NegotiateProtocolVersion
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 475 - 482
+[src/interfaces/libpq/fe-trace.c:475-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L475-L482)
 
 ## Overview
 Outputs a formatted trace message for PostgreSQL's NegotiateProtocolVersion backend message, displaying the protocol version numbers in a readable format for debugging purposes.

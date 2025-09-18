@@ -1,7 +1,7 @@
 # index_copy_data
 
 ## Location
-src/backend/commands/tablecmds.c: 15547 - 15603
+[src/backend/commands/tablecmds.c:15547-15603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15547-L15603)
 
 ## Overview
 Copies all data and storage files from an existing relation to a new storage location, handling multiple forks and ensuring proper WAL logging for crash recovery.

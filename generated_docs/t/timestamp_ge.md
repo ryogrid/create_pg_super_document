@@ -1,7 +1,7 @@
 # timestamp_ge
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2261 - 2269
+[src/backend/utils/adt/timestamp.c:2261-2269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2261-L2269)
 
 ## Overview
 Compares two timestamp values and returns true if the first timestamp is greater than or equal to the second timestamp.

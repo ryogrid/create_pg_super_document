@@ -1,7 +1,7 @@
 # in_range_numeric_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 2578 - 2712
+[src/backend/utils/adt/numeric.c:2578-2712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2578-L2712)
 
 ## Overview
 Implements the in_range support function for numeric types in PostgreSQL window functions, determining whether a given numeric value falls within a specified range relative to a base value and offset.

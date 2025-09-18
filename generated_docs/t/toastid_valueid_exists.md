@@ -1,7 +1,7 @@
 # toastid_valueid_exists
 
 ## Location
-src/backend/access/common/toast_internals.c: 509 - 529
+[src/backend/access/common/toast_internals.c:509-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L509-L529)
 
 ## Overview
 Tests whether a toast value with a given ID exists in a toast relation specified by OID, providing a convenient wrapper around toastrel_valueid_exists.

@@ -1,7 +1,7 @@
 # pg_analyze_and_rewrite_withcb
 
 ## Location
-src/backend/tcop/postgres.c: 768 - 807
+[src/backend/tcop/postgres.c:768-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L768-L807)
 
 ## Overview
 Performs parse analysis and query rewriting with a custom parser callback hook, providing a flexible interface for external parameter resolution and other parser customizations.

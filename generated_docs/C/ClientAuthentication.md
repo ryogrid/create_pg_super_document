@@ -1,7 +1,7 @@
 # ClientAuthentication
 
 ## Location
-src/backend/libpq/auth.c: 390 - 510
+[src/backend/libpq/auth.c:390-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L390-L510)
 
 ## Overview
 The main entry point function for client authentication in PostgreSQL that orchestrates the entire authentication process and determines access based on pg_hba.conf rules.

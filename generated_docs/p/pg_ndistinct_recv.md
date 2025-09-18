@@ -1,7 +1,7 @@
 # pg_ndistinct_recv
 
 ## Location
-src/backend/statistics/mvdistinct.c: 392 - 407
+[src/backend/statistics/mvdistinct.c:392-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L392-L407)
 
 ## Overview
 A PostgreSQL binary input function for the pg_ndistinct data type that explicitly rejects binary input operations by throwing an error.

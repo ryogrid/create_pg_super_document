@@ -1,7 +1,7 @@
 # _bt_keep_natts_fast
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4876 - 4922
+[src/backend/access/nbtree/nbtutils.c:4876-4922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4876-L4922)
 
 ## Overview
 A fast bitwise variant of _bt_keep_natts that performs inexpensive suffix truncation evaluation using naive bitwise datum comparisons to save cycles during B-tree split operations.

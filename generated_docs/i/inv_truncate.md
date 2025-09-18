@@ -1,7 +1,7 @@
 # inv_truncate
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 778 - 953
+[src/backend/storage/large_object/inv_api.c:778-953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L778-L953)
 
 ## Overview
 Truncates a PostgreSQL large object to a specified length, similar to ftruncate() in standard C file I/O, handling page-based storage by updating the target page and deleting all pages beyond the truncation point.

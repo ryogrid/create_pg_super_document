@@ -1,7 +1,7 @@
 # _bt_merge_arrays
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 893 - 975
+[src/backend/access/nbtree/nbtutils.c:893-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L893-L975)
 
 ## Overview
 Merges elements from two sorted arrays by finding their intersection, reorganizing the original array in-place to contain only elements that exist in both arrays.

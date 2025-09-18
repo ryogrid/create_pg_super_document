@@ -1,7 +1,7 @@
 # timestamp_ne_date
 
 ## Location
-src/backend/utils/adt/date.c: 916 - 924
+[src/backend/utils/adt/date.c:916-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L916-L924)
 
 ## Overview
 Compares a timestamp value against a date value and returns true if they represent different dates (i.e., they are not equal).

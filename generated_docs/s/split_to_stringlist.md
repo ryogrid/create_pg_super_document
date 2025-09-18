@@ -1,7 +1,7 @@
 # split_to_stringlist
 
 ## Location
-src/test/regress/pg_regress.c: 234 - 253
+[src/test/regress/pg_regress.c:234-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L234-L253)
 
 ## Overview
 A utility function that parses a delimited string and converts it into a `_stringlist` linked list with each token as a separate node.

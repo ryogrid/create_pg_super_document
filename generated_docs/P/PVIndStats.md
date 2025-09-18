@@ -1,7 +1,7 @@
 # PVIndStats
 
 ## Location
-src/backend/commands/vacuumparallel.c: 136 - 156
+[src/backend/commands/vacuumparallel.c:136-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L136-L156)
 
 ## Overview
 PVIndStats is a structure that tracks index vacuum statistics and processing status for individual indexes during parallel vacuum operations in PostgreSQL.

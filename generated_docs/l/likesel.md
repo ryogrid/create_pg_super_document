@@ -1,7 +1,7 @@
 # likesel
 
 ## Location
-src/backend/utils/adt/like_support.c: 811 - 819
+[src/backend/utils/adt/like_support.c:811-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L811-L819)
 
 ## Overview
 A PostgreSQL selectivity estimation function that calculates the selectivity of LIKE pattern match operations for query optimization purposes.

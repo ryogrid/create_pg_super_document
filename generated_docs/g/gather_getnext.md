@@ -1,7 +1,7 @@
 # gather_getnext
 
 ## Location
-src/backend/executor/nodeGather.c: 256 - 303
+[src/backend/executor/nodeGather.c:256-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L256-L303)
 
 ## Overview
 The core tuple retrieval function for Gather nodes that implements the logic for reading tuples from multiple sources: worker processes via tuple queues and local plan execution.

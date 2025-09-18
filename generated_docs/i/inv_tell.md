@@ -1,7 +1,7 @@
 # inv_tell
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 475 - 487
+[src/backend/storage/large_object/inv_api.c:475-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L475-L487)
 
 ## Overview
 Returns the current read/write position (offset) within a PostgreSQL large object, similar to ftell() in standard C file I/O.

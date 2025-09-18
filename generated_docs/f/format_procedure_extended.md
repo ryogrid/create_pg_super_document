@@ -1,7 +1,7 @@
 # format_procedure_extended
 
 ## Location
-src/backend/utils/adt/regproc.c: 326 - 397
+[src/backend/utils/adt/regproc.c:326-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L326-L397)
 
 ## Overview
 Core function that converts procedure OIDs to formatted string representation with configurable behavior through flags, supporting both standard and qualified formatting modes.

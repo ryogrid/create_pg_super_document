@@ -1,7 +1,7 @@
 # check_enable_rls
 
 ## Location
-src/backend/utils/misc/rls.c: 52 - 141
+[src/backend/utils/misc/rls.c:52-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/rls.c#L52-L141)
 
 ## Overview
 Determines whether Row Level Security (RLS) should be applied to a query based on the relation, row_security setting, and current role.

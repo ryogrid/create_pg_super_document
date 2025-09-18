@@ -1,7 +1,7 @@
 # aclinsert
 
 ## Location
-src/backend/utils/adt/acl.c: 1592 - 1601
+[src/backend/utils/adt/acl.c:1592-1601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1592-L1601)
 
 ## Overview
 A deprecated PostgreSQL function that previously supported ACL manipulation but now raises an error indicating it is no longer supported.

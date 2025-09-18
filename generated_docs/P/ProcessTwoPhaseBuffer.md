@@ -1,7 +1,7 @@
 # ProcessTwoPhaseBuffer
 
 ## Location
-src/backend/access/transam/twophase.c: 2177 - 2296
+[src/backend/access/transam/twophase.c:2177-2296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2177-L2296)
 
 ## Overview
 ProcessTwoPhaseBuffer reads and validates two-phase commit transaction state data either from disk files or directly from the Write-Ahead Log, performing integrity checks and establishing transaction relationships during recovery.

@@ -1,7 +1,7 @@
 # make_scalar_array_op
 
 ## Location
-src/backend/parser/parse_oper.c: 770 - 936
+[src/backend/parser/parse_oper.c:770-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L770-L936)
 
 ## Overview
 The  function builds expression trees for "scalar op ANY/ALL (array)" constructs in PostgreSQL's parser, handling type resolution and validation for array operations.

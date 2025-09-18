@@ -1,7 +1,7 @@
 # interval_sum
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4207 - 4246
+[src/backend/utils/adt/timestamp.c:4207-4246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4207-L4246)
 
 ## Overview
 Final function for the interval sum() aggregate that returns the total sum of interval values from accumulated state.

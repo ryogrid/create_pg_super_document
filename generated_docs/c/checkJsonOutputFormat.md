@@ -1,7 +1,7 @@
 # checkJsonOutputFormat
 
 ## Location
-src/backend/parser/parse_expr.c: 3450 - 3499
+[src/backend/parser/parse_expr.c:3450-3499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3450-L3499)
 
 ## Overview
 Validates the compatibility of a specified JSON output format with the target output type, ensuring that format specifications are appropriate for the destination data type.

@@ -1,7 +1,7 @@
 # CATALOG
 
 ## Location
-src/include/catalog/pg_shdescription.h: 41 - 55
+[src/include/catalog/pg_shdescription.h:41-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_shdescription.h#L41-L55)
 
 ## Overview
 The CATALOG macro is a fundamental preprocessor macro that introduces the structure definition for PostgreSQL system catalog tables, serving as the foundation for defining all system catalog schemas in a way that can be processed by both the C compiler and the BKI (Bootstrap Interface) generation scripts.

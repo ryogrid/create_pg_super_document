@@ -1,7 +1,7 @@
 # plpython3_call_handler
 
 ## Location
-src/pl/plpython/plpy_main.c: 191 - 262
+[src/pl/plpython/plpy_main.c:191-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L191-L262)
 
 ## Overview
 Main entry point for executing PL/Python functions and triggers, handling the complete execution lifecycle including context management, error handling, and SPI connection setup.

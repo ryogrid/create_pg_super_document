@@ -1,7 +1,7 @@
 # format_operator_qualified
 
 ## Location
-src/backend/utils/adt/regproc.c: 799 - 805
+[src/backend/utils/adt/regproc.c:799-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L799-L805)
 
 ## Overview
 Converts an operator OID to its fully schema-qualified textual representation, always including the schema name regardless of search_path visibility.

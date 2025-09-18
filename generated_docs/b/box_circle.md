@@ -1,7 +1,7 @@
 # box_circle
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5208 - 5224
+[src/backend/utils/adt/geo_ops.c:5208-5224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5208-L5224)
 
 ## Overview
 Converts a rectangular box to its circumscribed circle (the smallest circle that contains the entire box).

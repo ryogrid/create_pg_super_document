@@ -1,7 +1,7 @@
 # descriptor_variable
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 337 - 350
+[src/interfaces/ecpg/preproc/descriptor.c:337-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L337-L350)
 
 ## Overview
 Creates and returns a variable structure for SQL descriptors used in ECPG (Embedded SQL in C for PostgreSQL) preprocessing.

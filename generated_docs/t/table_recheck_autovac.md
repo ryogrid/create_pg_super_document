@@ -1,7 +1,7 @@
 # table_recheck_autovac
 
 ## Location
-src/backend/postmaster/autovacuum.c: 2732 - 2876
+[src/backend/postmaster/autovacuum.c:2732-2876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L2732-L2876)
 
 ## Overview
 table_recheck_autovac rechecks whether a table still needs vacuum or analyze operations and returns a configured autovac_table structure if maintenance is required.

@@ -1,7 +1,7 @@
 # prep_domain_constraints
 
 ## Location
-src/backend/utils/cache/typcache.c: 1275 - 1312
+[src/backend/utils/cache/typcache.c:1275-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1275-L1312)
 
 ## Overview
 Prepares domain constraints for execution by converting expression trees stored in the DomainConstraintCache into executable expression state trees.

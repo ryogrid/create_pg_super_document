@@ -1,7 +1,7 @@
 # resolve_aggregate_transtype
 
 ## Location
-src/backend/parser/parse_agg.c: 1932 - 1967
+[src/backend/parser/parse_agg.c:1932-1967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1932-L1967)
 
 ## Overview
 Resolves the transition state value's datatype for an aggregate function call, particularly handling polymorphic aggregate state datatypes.

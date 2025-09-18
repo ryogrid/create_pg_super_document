@@ -1,7 +1,7 @@
 # resolve_unique_index_expr
 
 ## Location
-src/backend/parser/parse_clause.c: 3201 - 3296
+[src/backend/parser/parse_clause.c:3201-3296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3201-L3296)
 
 ## Overview
 Analyzes and transforms expressions and column references appearing in ON CONFLICT clauses to create a list of inference elements that will be used during planning to identify which unique index to use for conflict resolution.

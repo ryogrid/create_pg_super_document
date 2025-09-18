@@ -1,7 +1,7 @@
 # SearchCatCache4
 
 ## Location
-src/backend/utils/cache/catcache.c: 1353 - 1362
+[src/backend/utils/cache/catcache.c:1353-1362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1353-L1362)
 
 ## Overview
 SearchCatCache4 is an optimized version of SearchCatCache specifically designed for catalog cache searches that require exactly four search keys, providing better performance through compiler optimizations.

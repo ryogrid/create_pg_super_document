@@ -1,7 +1,7 @@
 # bbstreamer_gzip_writer_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 159 - 176
+[src/bin/pg_basebackup/bbstreamer_gzip.c:159-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L159-L176)
 
 ## Overview
 Finalizes the gzip compression process by closing the compressed file and performing end-of-archive cleanup for the backup streamer.

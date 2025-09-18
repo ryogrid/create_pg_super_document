@@ -1,7 +1,7 @@
 # sendFile
 
 ## Location
-src/backend/backup/basebackup.c: 1572 - 1846
+[src/backend/backup/basebackup.c:1572-1846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L1572-L1846)
 
 ## Overview
 sendFile writes a TAR header and sends the contents of a specified file to the backup stream, with support for both full and incremental backups, checksum verification, and comprehensive error handling.

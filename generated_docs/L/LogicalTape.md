@@ -1,7 +1,7 @@
 # LogicalTape
 
 ## Location
-src/backend/utils/sort/logtape.c: 137 - 186
+[src/backend/utils/sort/logtape.c:137-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L137-L186)
 
 ## Overview
 LogicalTape represents a single logical tape within PostgreSQL's external sorting system, providing buffered I/O operations for reading and writing data blocks during disk-based merge operations.

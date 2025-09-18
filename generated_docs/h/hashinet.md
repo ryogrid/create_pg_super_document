@@ -1,7 +1,7 @@
 # hashinet
 
 ## Location
-src/backend/utils/adt/network.c: 880 - 889
+[src/backend/utils/adt/network.c:880-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L880-L889)
 
 ## Overview
 Provides hash function support for inet/cidr data types to enable hash indexing on network address columns.

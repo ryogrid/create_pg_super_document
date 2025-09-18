@@ -1,7 +1,7 @@
 # get_func_namespace
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1632 - 1654
+[src/backend/utils/cache/lsyscache.c:1632-1654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1632-L1654)
 
 ## Overview
 Returns the pg_namespace OID associated with a given function, providing namespace information for function identification.

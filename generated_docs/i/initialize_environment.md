@@ -1,7 +1,7 @@
 # initialize_environment
 
 ## Location
-src/test/regress/pg_regress.c: 718 - 922
+[src/test/regress/pg_regress.c:718-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L718-L922)
 
 ## Overview
 Prepares and configures environment variables necessary for running PostgreSQL regression tests in a controlled and consistent manner.

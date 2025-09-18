@@ -1,7 +1,7 @@
 # RangeTblEntry
 
 ## Location
-src/include/nodes/parsenodes.h: 1038 - 1251
+[src/include/nodes/parsenodes.h:1038-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1038-L1251)
 
 ## Overview
 RangeTblEntry is a fundamental data structure in PostgreSQL that represents an entry in a range table, which contains information about each table, subquery, function, or other data source referenced in a SQL query.

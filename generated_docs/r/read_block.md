@@ -1,7 +1,7 @@
 # read_block
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 775 - 789
+[src/bin/pg_combinebackup/reconstruct.c:775-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L775-L789)
 
 ## Overview
 A specialized function that reads exactly one PostgreSQL block (BLCKSZ bytes) from a specific offset in a reconstructed file into a buffer, with comprehensive error handling.

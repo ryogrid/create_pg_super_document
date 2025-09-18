@@ -1,7 +1,7 @@
 # check_log_destination
 
 ## Location
-src/backend/utils/error/elog.c: 2232 - 2293
+[src/backend/utils/error/elog.c:2232-2293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2232-L2293)
 
 ## Overview
 A GUC check hook function that validates and parses the log_destination configuration parameter, ensuring that specified logging destinations are valid and supported.

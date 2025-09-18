@@ -1,7 +1,7 @@
 # SetOpStatePerGroupData
 
 ## Location
-src/backend/executor/nodeSetOp.c: 64 - 68
+[src/backend/executor/nodeSetOp.c:64-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L64-L68)
 
 ## Overview
 SetOpStatePerGroupData is a per-group working state structure used in PostgreSQL's SetOp executor node to track duplicate counts for left and right inputs during set operation processing.

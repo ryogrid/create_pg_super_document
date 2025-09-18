@@ -1,7 +1,7 @@
 # GinTupleCollector
 
 ## Location
-src/include/access/gin_private.h: 453 - 459
+[src/include/access/gin_private.h:453-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L453-L459)
 
 ## Overview
 A structure used during GIN (Generalized Inverted Index) fast insertion to collect and manage temporary index tuples before writing them to the pending list.

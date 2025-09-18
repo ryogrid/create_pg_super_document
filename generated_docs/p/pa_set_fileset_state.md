@@ -1,7 +1,7 @@
 # pa_set_fileset_state
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1498 - 1517
+[src/backend/replication/logical/applyparallelworker.c:1498-1517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1498-L1517)
 
 ## Overview
 pa_set_fileset_state sets the fileset state for a parallel apply worker, managing the transition of serialized transaction data from leader worker to parallel workers in PostgreSQL logical replication.

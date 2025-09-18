@@ -1,7 +1,7 @@
 # AlterDomainValidateConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 3037 - 3135
+[src/backend/commands/typecmds.c:3037-3135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3037-L3135)
 
 ## Overview
 Implements the ALTER DOMAIN VALIDATE CONSTRAINT statement, validating an existing check constraint on a domain and marking it as validated in the catalog.

@@ -1,7 +1,7 @@
 # jsonb_build_object_worker
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1125 - 1176
+[src/backend/utils/adt/jsonb.c:1125-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1125-L1176)
 
 ## Overview
 A worker function that constructs a JSONB object from alternating key-value pairs, with support for null handling and key uniqueness validation.

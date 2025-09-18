@@ -1,7 +1,7 @@
 # selectDumpableTable
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1870 - 1908
+[src/bin/pg_dump/pg_dump.c:1870-1908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1870-L1908)
 
 ## Overview
 Policy-setting function that determines whether a table should be dumped based on extension membership, inclusion/exclusion lists, and parent namespace dump settings.

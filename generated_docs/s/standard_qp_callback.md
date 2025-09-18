@@ -1,7 +1,7 @@
 # standard_qp_callback
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3509 - 3697
+[src/backend/optimizer/plan/planner.c:3509-3697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3509-L3697)
 
 ## Overview
 Computes query_pathkeys and other pathkeys during plan generation, determining optimal sorting strategies for grouping, windowing, distinct operations, and ordering.

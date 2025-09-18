@@ -1,7 +1,7 @@
 # locate_windowfunc_context
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 42 - 48
+[src/backend/rewrite/rewriteManip.c:42-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L42-L48)
 
 ## Overview
 A context structure used to capture the parse location when searching for window functions in an expression tree.

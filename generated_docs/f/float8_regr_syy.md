@@ -1,7 +1,7 @@
 # float8_regr_syy
 
 ## Location
-src/backend/utils/adt/float.c: 3526 - 3546
+[src/backend/utils/adt/float.c:3526-3546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3526-L3546)
 
 ## Overview
 Extracts and returns the sum of squared deviations of Y values (Syy) from a regression transition state, implementing the SQL REGR_SYY aggregate function.

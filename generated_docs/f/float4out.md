@@ -1,7 +1,7 @@
 # float4out
 
 ## Location
-src/backend/utils/adt/float.c: 312 - 331
+[src/backend/utils/adt/float.c:312-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L312-L331)
 
 ## Overview
 PostgreSQL function that converts a single-precision floating-point number (float4) to its string representation using a standard output format.

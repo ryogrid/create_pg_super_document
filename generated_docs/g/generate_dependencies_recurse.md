@@ -1,7 +1,7 @@
 # generate_dependencies_recurse
 
 ## Location
-src/backend/statistics/dependencies.c: 91 - 156
+[src/backend/statistics/dependencies.c:91-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L91-L156)
 
 ## Overview
 A recursive helper function that generates all possible functional dependencies of size k from n attributes, where the first (k-1) elements are in ascending order and the last element can be any attribute not in the first (k-1) positions.

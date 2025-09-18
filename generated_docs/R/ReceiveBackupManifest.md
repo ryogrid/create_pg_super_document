@@ -1,7 +1,7 @@
 # ReceiveBackupManifest
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1698 - 1716
+[src/bin/pg_basebackup/pg_basebackup.c:1698-1716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1698-L1716)
 
 ## Overview
 Receives the backup manifest file from a PostgreSQL server connection and writes it to a temporary file during the base backup process.

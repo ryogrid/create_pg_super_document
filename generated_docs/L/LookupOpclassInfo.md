@@ -1,7 +1,7 @@
 # LookupOpclassInfo
 
 ## Location
-src/backend/utils/cache/relcache.c: 1648 - 1800
+[src/backend/utils/cache/relcache.c:1648-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1648-L1800)
 
 ## Overview
 LookupOpclassInfo maintains a per-operator-class cache of support procedure information needed for index operations, providing efficient access to operator class metadata without repeated catalog scans.

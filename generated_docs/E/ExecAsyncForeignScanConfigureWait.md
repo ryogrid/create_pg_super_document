@@ -1,7 +1,7 @@
 # ExecAsyncForeignScanConfigureWait
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 472 - 487
+[src/backend/executor/nodeForeignscan.c:472-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L472-L487)
 
 ## Overview
 Configures waiting mechanisms for asynchronous foreign scan operations, allowing the FDW to set up appropriate wait conditions for pending asynchronous requests.

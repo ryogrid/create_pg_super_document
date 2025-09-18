@@ -1,7 +1,7 @@
 # JsonbExtractScalar
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1968 - 2007
+[src/backend/utils/adt/jsonb.c:1968-2007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1968-L2007)
 
 ## Overview
 Extracts a scalar value from a raw-scalar pseudo-array JSONB container, handling the special case where root scalars are stored as single-element arrays.

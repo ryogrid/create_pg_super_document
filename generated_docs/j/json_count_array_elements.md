@@ -1,7 +1,7 @@
 # json_count_array_elements
 
 ## Location
-src/common/jsonapi.c: 588 - 649
+[src/common/jsonapi.c:588-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L588-L649)
 
 ## Overview
 A utility function that counts the number of elements in a JSON array by parsing through the array structure without processing the actual element values.

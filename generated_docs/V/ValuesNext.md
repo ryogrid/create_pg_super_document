@@ -1,7 +1,7 @@
 # ValuesNext
 
 ## Location
-src/backend/executor/nodeValuesscan.c: 47 - 179
+[src/backend/executor/nodeValuesscan.c:47-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeValuesscan.c#L47-L179)
 
 ## Overview
 ValuesNext is a static function that serves as the core workhorse for ExecValuesScan, responsible for iterating through VALUES clause rows and materializing the next tuple in a VALUES scan operation.

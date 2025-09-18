@@ -1,7 +1,7 @@
 # sqlfunction_shutdown
 
 ## Location
-src/backend/executor/functions.c: 2114 - 2122
+[src/backend/executor/functions.c:2114-2122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2114-L2122)
 
 ## Overview
 A no-operation shutdown function for SQL function destination receivers that performs no cleanup tasks during executor termination.

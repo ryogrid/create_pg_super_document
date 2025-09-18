@@ -1,7 +1,7 @@
 # CreateDataDirLockFile
 
 ## Location
-src/backend/utils/init/miscinit.c: 1510 - 1518
+[src/backend/utils/init/miscinit.c:1510-1518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1510-L1518)
 
 ## Overview
 Creates a lock file in the PostgreSQL data directory to prevent multiple server instances from accessing the same data directory simultaneously.

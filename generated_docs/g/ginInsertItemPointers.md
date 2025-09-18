@@ -1,7 +1,7 @@
 # ginInsertItemPointers
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1908 - 1935
+[src/backend/access/gin/gindatapage.c:1908-1935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1908-L1935)
 
 ## Overview
 ginInsertItemPointers inserts an array of item pointers (TIDs) into an existing GIN posting tree, performing multiple tree scans as needed to accommodate all items.

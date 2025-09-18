@@ -1,7 +1,7 @@
 # getTableData
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2806 - 2824
+[src/bin/pg_dump/pg_dump.c:2806-2824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2806-L2824)
 
 ## Overview
 Sets up dumpable objects representing the contents of tables by iterating through a table array and creating TableDataInfo structures for eligible tables.

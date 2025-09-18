@@ -1,7 +1,7 @@
 # lo_initialize
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 843 - 1022
+[src/interfaces/libpq/fe-lobj.c:843-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L843-L1022)
 
 ## Overview
 Static initialization function that discovers and caches function OIDs for all PostgreSQL large object operations, ensuring efficient subsequent large object function calls.

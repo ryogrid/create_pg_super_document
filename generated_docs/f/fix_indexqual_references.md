@@ -1,7 +1,7 @@
 # fix_indexqual_references
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5023 - 5063
+[src/backend/optimizer/plan/createplan.c:5023-5063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5023-L5063)
 
 ## Overview
 Adjusts indexqual clauses to the form required by PostgreSQL's executor's indexqual machinery, handling qual extraction, parameter replacement, and index key mapping.

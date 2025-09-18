@@ -1,7 +1,7 @@
 # t_isalnum
 
 ## Location
-src/backend/tsearch/ts_locale.c: 80 - 94
+[src/backend/tsearch/ts_locale.c:80-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L80-L94)
 
 ## Overview
 The t_isalnum function checks whether a character is alphanumeric (alphabetic or numeric), with proper support for multi-byte characters and locale-aware classification in text search contexts.

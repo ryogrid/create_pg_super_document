@@ -1,7 +1,7 @@
 # exprs_known_equal
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2449 - 2499
+[src/backend/optimizer/path/equivclass.c:2449-2499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2449-L2499)
 
 ## Overview
 Detects whether two expressions are known to be equal based on equivalence relationships established during query optimization, primarily used for selectivity estimation.

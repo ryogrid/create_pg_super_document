@@ -1,7 +1,7 @@
 # print_slot_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 826 - 843
+[src/bin/pg_upgrade/info.c:826-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L826-L843)
 
 ## Overview
 Prints detailed information about logical replication slots in a LogicalSlotInfoArr structure for debugging during pg_upgrade.

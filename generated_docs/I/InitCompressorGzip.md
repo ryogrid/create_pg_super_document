@@ -1,7 +1,7 @@
 # InitCompressorGzip
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 425 - 431
+[src/bin/pg_dump/compress_gzip.c:425-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L425-L431)
 
 ## Overview
 Initializes a CompressorState structure for gzip compression, setting up function pointers and internal state for compressing data streams using the zlib library.

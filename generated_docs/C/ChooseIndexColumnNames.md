@@ -1,7 +1,7 @@
 # ChooseIndexColumnNames
 
 ## Location
-src/backend/commands/indexcmds.c: 2632 - 2692
+[src/backend/commands/indexcmds.c:2632-2692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2632-L2692)
 
 ## Overview
 ChooseIndexColumnNames generates unique column names for an index by processing IndexElem nodes and resolving name conflicts by appending numeric suffixes when necessary.

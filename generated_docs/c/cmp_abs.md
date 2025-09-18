@@ -1,7 +1,7 @@
 # cmp_abs
 
 ## Location
-src/backend/utils/adt/numeric.c: 11522 - 11535
+[src/backend/utils/adt/numeric.c:11522-11535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11522-L11535)
 
 ## Overview
 Compares the absolute values of two NumericVar structures and returns an integer indicating their relative magnitude.

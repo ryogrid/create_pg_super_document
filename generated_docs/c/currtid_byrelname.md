@@ -1,7 +1,7 @@
 # currtid_byrelname
 
 ## Location
-src/backend/utils/adt/tid.c: 408 - 425
+[src/backend/utils/adt/tid.c:408-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L408-L425)
 
 ## Overview
 A PostgreSQL built-in function that retrieves the latest tuple version of a tuple identified by a CTID for a relation specified by name.

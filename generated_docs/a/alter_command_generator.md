@@ -1,7 +1,7 @@
 # alter_command_generator
 
 ## Location
-src/bin/psql/tab-complete.c: 5149 - 5159
+[src/bin/psql/tab-complete.c:5149-5159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5149-L5159)
 
 ## Overview
 A specialized tab completion generator function for PostgreSQL's psql that provides autocompletion suggestions specifically for commands that can follow the ALTER keyword.

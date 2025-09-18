@@ -1,7 +1,7 @@
 # AttrDefault
 
 ## Location
-src/include/access/tupdesc.h: 22 - 26
+[src/include/access/tupdesc.h:22-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupdesc.h#L22-L26)
 
 ## Overview
 AttrDefault represents a column default value constraint in PostgreSQL's tuple descriptor system, storing both the column number and the serialized expression for default values.

@@ -1,7 +1,7 @@
 # assignment
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 210 - 216
+[src/interfaces/ecpg/preproc/type.h:210-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L210-L216)
 
 ## Overview
 A linked list structure used in ECPG (Embedded C for PostgreSQL) preprocessor to track variable assignments and descriptor type associations during SQL preprocessing.

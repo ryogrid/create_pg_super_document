@@ -1,7 +1,7 @@
 # datumRestore
 
 ## Location
-src/backend/utils/adt/datum.c: 521 - 556
+[src/backend/utils/adt/datum.c:521-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L521-L556)
 
 ## Overview
 Restores a possibly-NULL PostgreSQL Datum that was previously serialized by datumSerialize, deserializing it from a binary format back into a usable Datum value.

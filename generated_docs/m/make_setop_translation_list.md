@@ -1,7 +1,7 @@
 # make_setop_translation_list
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1621 - 1658
+[src/backend/optimizer/prep/prepjointree.c:1621-1658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1621-L1658)
 
 ## Overview
 Builds translation lists that map parent query variables to child query variables for UNION ALL members, establishing the column correspondence needed for append relation optimization.

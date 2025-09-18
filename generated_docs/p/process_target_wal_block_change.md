@@ -1,7 +1,7 @@
 # process_target_wal_block_change
 
 ## Location
-src/bin/pg_rewind/filemap.c: 352 - 408
+[src/bin/pg_rewind/filemap.c:352-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L352-L408)
 
 ## Overview
 A callback function that processes WAL block changes in the target system during pg_rewind, determining which data blocks need to be overwritten from the source system and recording them in a bitmap.

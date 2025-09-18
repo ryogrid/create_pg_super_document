@@ -1,7 +1,7 @@
 # int4_avg_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 6729 - 6759
+[src/backend/utils/adt/numeric.c:6729-6759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6729-L6759)
 
 ## Overview
 PostgreSQL aggregate combine function that merges two int4 average transition states during parallel aggregation, combining their counts and sums.

@@ -1,7 +1,7 @@
 # do_object_end
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 205 - 215
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:205-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L205-L215)
 
 ## Overview
 A semantic action callback function used in JSON parsing tests that handles the end of JSON objects by outputting the closing brace and updating state flags.

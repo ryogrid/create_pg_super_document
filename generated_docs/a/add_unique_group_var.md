@@ -1,7 +1,7 @@
 # add_unique_group_var
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3300 - 3428
+[src/backend/utils/adt/selfuncs.c:3300-3428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3300-L3428)
 
 ## Overview
 Maintains a list of unique group variables by adding new variables while avoiding duplicates and handling known-equal variables from different relations for group estimation purposes.

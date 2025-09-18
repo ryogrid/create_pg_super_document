@@ -1,7 +1,7 @@
 # has_table_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 2022 - 2048
+[src/backend/utils/adt/acl.c:2022-2048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2022-L2048)
 
 ## Overview
 Checks user privileges on a table given a role ID, table OID, and privilege name text string.

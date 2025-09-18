@@ -1,7 +1,7 @@
 # is_func_definition
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 160 - 215
+[src/tools/pg_bsd_indent/lexi.c:160-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L160-L215)
 
 ## Overview
 A static function that distinguishes between C function definitions and function declarations by analyzing ahead in the input stream to determine the syntactic context.

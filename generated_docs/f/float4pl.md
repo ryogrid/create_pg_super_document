@@ -1,7 +1,7 @@
 # float4pl
 
 ## Location
-src/backend/utils/adt/float.c: 721 - 729
+[src/backend/utils/adt/float.c:721-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L721-L729)
 
 ## Overview
 PostgreSQL SQL-callable function that performs addition of two single-precision floating-point numbers (float4), implementing the '+' operator for the float4 data type.

@@ -1,7 +1,7 @@
 # InitCatCachePhase2
 
 ## Location
-src/backend/utils/cache/catcache.c: 1195 - 1246
+[src/backend/utils/cache/catcache.c:1195-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1195-L1246)
 
 ## Overview
 InitCatCachePhase2 provides an external interface for completing catalog cache initialization and optionally ensures that associated indexes are accessible through the relcache.

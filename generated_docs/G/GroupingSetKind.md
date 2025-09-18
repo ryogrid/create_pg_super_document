@@ -1,7 +1,7 @@
 # GroupingSetKind
 
 ## Location
-src/include/nodes/parsenodes.h: 1504 - 1505
+[src/include/nodes/parsenodes.h:1504-1505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1504-L1505)
 
 ## Overview
 GroupingSetKind is an enumeration that defines the different types of grouping sets used in PostgreSQL's GROUP BY clause, including CUBE, ROLLUP, and GROUPING SETS operations for advanced aggregation functionality.

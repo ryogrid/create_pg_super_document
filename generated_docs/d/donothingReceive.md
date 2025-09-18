@@ -1,7 +1,7 @@
 # donothingReceive
 
 ## Location
-src/backend/tcop/dest.c: 50 - 55
+[src/backend/tcop/dest.c:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L50-L55)
 
 ## Overview
 donothingReceive is a dummy DestReceiver function that serves as a no-operation tuple receiver, always returning true without processing the tuple data.

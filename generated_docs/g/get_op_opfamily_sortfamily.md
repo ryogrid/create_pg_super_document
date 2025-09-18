@@ -1,7 +1,7 @@
 # get_op_opfamily_sortfamily
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 108 - 135
+[src/backend/utils/cache/lsyscache.c:108-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L108-L135)
 
 ## Overview
 Retrieves the sort family OID associated with an ordering operator within a specified operator family, or returns InvalidOid if the operator is not an ordering operator in that family.

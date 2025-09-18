@@ -1,7 +1,7 @@
 # LookupFuncNameInternal
 
 ## Location
-src/backend/parser/parse_func.c: 2049 - 2143
+[src/backend/parser/parse_func.c:2049-2143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L2049-L2143)
 
 ## Overview
 LookupFuncNameInternal is the core workhorse function for function name lookup that handles the actual logic of finding functions, procedures, and aggregates by name and argument types, returning appropriate error codes when lookups fail.

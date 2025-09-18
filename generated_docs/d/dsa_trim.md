@@ -1,7 +1,7 @@
 # dsa_trim
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1043 - 1087
+[src/backend/utils/mmgr/dsa.c:1043-1087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1043-L1087)
 
 ## Overview
 Aggressively frees all spare memory in a dynamic shared memory area in an attempt to return DSM segments back to the operating system.

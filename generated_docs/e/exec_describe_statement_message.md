@@ -1,7 +1,7 @@
 # exec_describe_statement_message
 
 ## Location
-src/backend/tcop/postgres.c: 2625 - 2717
+[src/backend/tcop/postgres.c:2625-2717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2625-L2717)
 
 ## Overview
 Processes a "Describe" message for a prepared statement, sending parameter and result set descriptions back to the client in the PostgreSQL wire protocol.

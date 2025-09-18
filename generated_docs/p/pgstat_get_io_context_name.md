@@ -1,7 +1,7 @@
 # pgstat_get_io_context_name
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 221 - 239
+[src/backend/utils/activity/pgstat_io.c:221-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L221-L239)
 
 ## Overview
 Returns a human-readable string representation of PostgreSQL I/O context enumeration values.

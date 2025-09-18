@@ -1,7 +1,7 @@
 # s_lock_free_sema
 
 ## Location
-src/backend/storage/lmgr/spin.c: 162 - 169
+[src/backend/storage/lmgr/spin.c:162-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L162-L169)
 
 ## Overview
 A placeholder function for spinlock free checking that currently throws an error, indicating this functionality is not implemented in the semaphore-based spinlock system.

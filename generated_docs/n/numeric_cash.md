@@ -1,7 +1,7 @@
 # numeric_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 1102 - 1135
+[src/backend/utils/adt/cash.c:1102-1135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L1102-L1135)
 
 ## Overview
 Converts a PostgreSQL numeric data type to a cash (money) data type, handling decimal precision and locale-specific formatting.

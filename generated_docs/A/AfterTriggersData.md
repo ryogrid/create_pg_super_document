@@ -1,7 +1,7 @@
 # AfterTriggersData
 
 ## Location
-src/backend/commands/trigger.c: 3903 - 3918
+[src/backend/commands/trigger.c:3903-3918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3903-L3918)
 
 ## Overview
 AfterTriggersData is the top-level structure that manages all deferred trigger state for a database session, including event storage, constraint states, and hierarchical query/transaction contexts.

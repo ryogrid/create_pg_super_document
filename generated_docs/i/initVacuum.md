@@ -1,7 +1,7 @@
 # initVacuum
 
 ## Location
-src/bin/pgbench/pgbench.c: 5162 - 5174
+[src/bin/pgbench/pgbench.c:5162-5174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5162-L5174)
 
 ## Overview
 The  function performs vacuum and analyze operations on all pgbench tables to optimize database performance after data initialization.

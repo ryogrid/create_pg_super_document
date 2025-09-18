@@ -1,7 +1,7 @@
 # pg_atomic_write_membarrier_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 258 - 264
+[src/include/port/atomics/generic.h:258-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L258-L264)
 
 ## Overview
 This function performs an atomic write operation with memory barrier semantics on a 32-bit unsigned integer, ensuring that the write operation is synchronized and properly ordered with respect to other memory operations across all CPU cores.

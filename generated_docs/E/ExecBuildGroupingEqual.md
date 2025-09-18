@@ -1,7 +1,7 @@
 # ExecBuildGroupingEqual
 
 ## Location
-src/backend/executor/execExpr.c: 3957 - 4113
+[src/backend/executor/execExpr.c:3957-4113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3957-L4113)
 
 ## Overview
 Builds an equality expression that can be evaluated using ExecQual(), returning true if the expression context's inner/outer tuples are NOT DISTINCT (i.e., two nulls match, but a null and a non-null don't match).

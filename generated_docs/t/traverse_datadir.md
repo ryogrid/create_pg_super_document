@@ -1,7 +1,7 @@
 # traverse_datadir
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 362 - 373
+[src/bin/pg_rewind/file_ops.c:362-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L362-L373)
 
 ## Overview
 Initiates a recursive traversal of all files in a PostgreSQL data directory, invoking a callback function for each file encountered.

@@ -1,7 +1,7 @@
 # btree_xlog_cleanup
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 1081 - 1090
+[src/backend/access/nbtree/nbtxlog.c:1081-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L1081-L1090)
 
 ## Overview
 Performs cleanup operations for the B-tree WAL (Write-Ahead Log) resource manager by releasing the working memory context used during WAL recovery operations.

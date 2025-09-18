@@ -1,7 +1,7 @@
 # BTreeTupleGetPostingOffset
 
 ## Location
-src/include/access/nbtree.h: 529 - 536
+[src/include/access/nbtree.h:529-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L529-L536)
 
 ## Overview
 BTreeTupleGetPostingOffset is an inline function that extracts the byte offset to the posting list data from a posting list tuple.

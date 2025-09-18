@@ -1,7 +1,7 @@
 # pa_setup_dsm
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 327 - 403
+[src/backend/replication/logical/applyparallelworker.c:327-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L327-L403)
 
 ## Overview
 Sets up a dynamic shared memory segment for communication between leader and parallel apply workers in PostgreSQL logical replication.

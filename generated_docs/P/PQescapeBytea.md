@@ -1,7 +1,7 @@
 # PQescapeBytea
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4530 - 4537
+[src/interfaces/libpq/fe-exec.c:4530-4537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4530-L4537)
 
 ## Overview
 PQescapeBytea converts binary data to a format suitable for inclusion in SQL INSERT statements with bytea columns, using traditional octal escape encoding.

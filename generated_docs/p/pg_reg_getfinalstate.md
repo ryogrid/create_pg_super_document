@@ -1,7 +1,7 @@
 # pg_reg_getfinalstate
 
 ## Location
-src/backend/regex/regexport.c: 64 - 92
+[src/backend/regex/regexport.c:64-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L64-L92)
 
 ## Overview
 Returns the final state identifier of the NFA (Non-deterministic Finite Automaton) within a compiled regular expression.

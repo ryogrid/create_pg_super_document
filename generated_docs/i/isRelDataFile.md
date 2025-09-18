@@ -1,7 +1,7 @@
 # isRelDataFile
 
 ## Location
-src/bin/pg_rewind/filemap.c: 570 - 652
+[src/bin/pg_rewind/filemap.c:570-652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L570-L652)
 
 ## Overview
 Determines whether a given file path represents a PostgreSQL relation data file by parsing the path format and validating it against known tablespace and database directory structures.

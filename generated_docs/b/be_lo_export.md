@@ -1,7 +1,7 @@
 # be_lo_export
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 481 - 552
+[src/backend/libpq/be-fsstubs.c:481-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L481-L552)
 
 ## Overview
 Backend function that exports a PostgreSQL large object to a server-side file system file, implementing the lo_export() SQL function.

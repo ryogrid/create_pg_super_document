@@ -1,7 +1,7 @@
 # printQuery
 
 ## Location
-src/fe_utils/print.c: 3549 - 3613
+[src/fe_utils/print.c:3549-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3549-L3613)
 
 ## Overview
 The printQuery function processes PostgreSQL query results and formats them for display, converting PGresult data into a printable table format with proper column headers, cell values, and optional footers.

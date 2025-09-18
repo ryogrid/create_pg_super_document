@@ -1,7 +1,7 @@
 # tamil_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1877 - 1878
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1877-1878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1877-L1878)
 
 ## Overview
 Releases and deallocates resources associated with a Tamil UTF-8 Snowball stemmer environment, providing proper cleanup for memory management.

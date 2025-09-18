@@ -1,7 +1,7 @@
 # ReplaceVarsFromTargetList
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1774 - 1793
+[src/backend/rewrite/rewriteManip.c:1774-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1774-L1793)
 
 ## Overview
 This function replaces Var nodes in an expression tree by matching them against entries in a target list, primarily used during query rewriting operations.

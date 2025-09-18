@@ -1,7 +1,7 @@
 # skip_sql_comments
 
 ## Location
-src/bin/pgbench/pgbench.c: 5550 - 5584
+[src/bin/pgbench/pgbench.c:5550-5584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5550-L5584)
 
 ## Overview
 Skips over leading whitespace and SQL-style line comments (--) to find the start of actual SQL command content.

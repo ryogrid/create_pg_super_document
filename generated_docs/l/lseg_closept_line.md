@@ -1,7 +1,7 @@
 # lseg_closept_line
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2960 - 2987
+[src/backend/utils/adt/geo_ops.c:2960-2987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2960-L2987)
 
 ## Overview
 The `lseg_closept_line` function finds the closest point on a line segment to a line and returns the distance between them.

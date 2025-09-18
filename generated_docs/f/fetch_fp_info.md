@@ -1,7 +1,7 @@
 # fetch_fp_info
 
 ## Location
-src/backend/tcop/fastpath.c: 120 - 188
+[src/backend/tcop/fastpath.c:120-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/fastpath.c#L120-L188)
 
 ## Overview
 Performs catalog lookups to load function information into a fp_info structure for a given function OID, enabling safe invocation through the PostgreSQL fast-path interface.

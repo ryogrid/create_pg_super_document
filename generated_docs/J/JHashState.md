@@ -1,7 +1,7 @@
 # JHashState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 135 - 143
+[src/backend/utils/adt/jsonfuncs.c:135-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L135-L143)
 
 ## Overview
 JHashState is a structure that maintains state information for the get_json_object_as_hash functionality, which converts JSON objects into PostgreSQL hash table structures.

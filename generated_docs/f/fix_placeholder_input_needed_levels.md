@@ -1,7 +1,7 @@
 # fix_placeholder_input_needed_levels
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 300 - 328
+[src/backend/optimizer/util/placeholder.c:300-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L300-L328)
 
 ## Overview
 Adjusts the "needed at" levels for placeholder inputs to ensure all variables and placeholders required for placeholder evaluation are available at the appropriate scan or join level.

@@ -1,7 +1,7 @@
 # AggState
 
 ## Location
-src/include/nodes/execnodes.h: 2463 - 2537
+[src/include/nodes/execnodes.h:2463-2537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2463-L2537)
 
 ## Overview
 AggState is the primary execution state node for PostgreSQL's aggregation operations, managing the complete lifecycle of aggregate computations including hash tables, sorting, grouping sets, and spill-to-disk operations.

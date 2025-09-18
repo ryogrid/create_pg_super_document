@@ -1,7 +1,7 @@
 # _bt_preprocess_keys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 2552 - 3005
+[src/backend/access/nbtree/nbtutils.c:2552-3005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L2552-L3005)
 
 ## Overview
 Preprocesses scan keys by transforming, sorting, eliminating redundancies, detecting contradictions, and marking keys as required for continuing the scan.

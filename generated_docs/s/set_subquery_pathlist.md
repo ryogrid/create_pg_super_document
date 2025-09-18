@@ -1,7 +1,7 @@
 # set_subquery_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2482 - 2748
+[src/backend/optimizer/path/allpaths.c:2482-2748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2482-L2748)
 
 ## Overview
 Generates SubqueryScan access paths for a subquery RTE by planning the subquery and creating corresponding outer query paths.

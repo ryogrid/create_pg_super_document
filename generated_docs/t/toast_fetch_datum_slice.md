@@ -1,7 +1,7 @@
 # toast_fetch_datum_slice
 
 ## Location
-src/backend/access/common/detoast.c: 396 - 470
+[src/backend/access/common/detoast.c:396-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L396-L470)
 
 ## Overview
 Reconstructs a specific segment (slice) of a Datum from chunks stored in a TOAST relation, enabling efficient partial retrieval of large externally stored data without having to fetch the entire value.

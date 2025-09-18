@@ -1,7 +1,7 @@
 # parseCreateReplSlotOptions
 
 ## Location
-src/backend/replication/walsender.c: 1127 - 1203
+[src/backend/replication/walsender.c:1127-1203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1127-L1203)
 
 ## Overview
 Parses and validates the optional parameters provided to the CREATE_REPLICATION_SLOT command, setting appropriate flags for snapshot handling, WAL reservation, two-phase commit support, and failover capabilities.

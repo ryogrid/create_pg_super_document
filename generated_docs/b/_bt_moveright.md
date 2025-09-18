@@ -1,7 +1,7 @@
 # _bt_moveright
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 235 - 336
+[src/backend/access/nbtree/nbtsearch.c:235-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L235-L336)
 
 ## Overview
 This function moves right in the B-tree when necessary to handle page splits that may have occurred between reading a downlink and accessing the target page.

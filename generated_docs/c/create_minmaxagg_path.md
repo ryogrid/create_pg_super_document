@@ -1,7 +1,7 @@
 # create_minmaxagg_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3397 - 3484
+[src/backend/optimizer/util/pathnode.c:3397-3484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3397-L3484)
 
 ## Overview
 Creates a pathnode that represents computation of MIN/MAX aggregates using index scans to efficiently find minimum and maximum values without scanning the entire table.

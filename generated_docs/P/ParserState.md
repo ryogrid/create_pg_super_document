@@ -1,7 +1,7 @@
 # ParserState
 
 ## Location
-src/test/modules/test_parser/test_parser.c: 29 - 35
+[src/test/modules/test_parser/test_parser.c:29-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_parser/test_parser.c#L29-L35)
 
 ## Overview
 ParserState is a structure used in PostgreSQL's test parser module to maintain the state of text parsing operations, tracking the current position within a buffer of text being parsed.

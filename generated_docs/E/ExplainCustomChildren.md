@@ -1,7 +1,7 @@
 # ExplainCustomChildren
 
 ## Location
-src/backend/commands/explain.c: 4459 - 4480
+[src/backend/commands/explain.c:4459-4480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4459-L4480)
 
 ## Overview
 ExplainCustomChildren is a static function in PostgreSQL's explain module that handles the explanation of child plans belonging to a CustomScan node in the query execution plan.

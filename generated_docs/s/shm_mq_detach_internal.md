@@ -1,7 +1,7 @@
 # shm_mq_detach_internal
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 882 - 904
+[src/backend/storage/ipc/shm_mq.c:882-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L882-L904)
 
 ## Overview
 Notifies the counterpart process that detachment from a shared memory message queue is occurring, ensuring the other process doesn't block indefinitely waiting for communication.

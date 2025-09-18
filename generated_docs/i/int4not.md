@@ -1,7 +1,7 @@
 # int4not
 
 ## Location
-src/backend/utils/adt/int.c: 1438 - 1445
+[src/backend/utils/adt/int.c:1438-1445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1438-L1445)
 
 ## Overview
 Performs bitwise NOT (complement) operation on a 32-bit integer value and returns the result as a PostgreSQL function.

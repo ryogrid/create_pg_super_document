@@ -1,7 +1,7 @@
 # mask_page_content
 
 ## Location
-src/backend/access/common/bufmask.c: 119 - 130
+[src/backend/access/common/bufmask.c:119-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/bufmask.c#L119-L130)
 
 ## Overview
 Masks almost all content of a page, used for index access methods where the contents of deleted pages need to be completely ignored during consistency checks.

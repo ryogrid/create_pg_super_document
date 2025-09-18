@@ -1,7 +1,7 @@
 # match_kind
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 1059 - 1064
+[src/backend/utils/activity/pgstat_shmem.c:1059-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L1059-L1064)
 
 ## Overview
 This static helper function determines whether a statistics entry matches a specific statistics kind by comparing the entry's kind with a provided match criterion.

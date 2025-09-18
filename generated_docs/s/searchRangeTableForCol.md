@@ -1,7 +1,7 @@
 # searchRangeTableForCol
 
 ## Location
-src/backend/parser/parse_relation.c: 952 - 1034
+[src/backend/parser/parse_relation.c:952-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L952-L1034)
 
 ## Overview
 Searches all range table entries for a given column name to find the best match available, including approximate matches for error reporting purposes.

@@ -1,7 +1,7 @@
 # regcomp_auth_token
 
 ## Location
-src/backend/libpq/hba.c: 301 - 345
+[src/backend/libpq/hba.c:301-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L301-L345)
 
 ## Overview
 Compiles a regular expression string stored in an AuthToken and stores the compiled regex in the token's regex field for later use in authentication pattern matching.

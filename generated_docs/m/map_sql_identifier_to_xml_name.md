@@ -1,7 +1,7 @@
 # map_sql_identifier_to_xml_name
 
 ## Location
-src/backend/utils/adt/xml.c: 2380 - 2435
+[src/backend/utils/adt/xml.c:2380-2435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2380-L2435)
 
 ## Overview
 Maps SQL identifiers to XML names according to SQL/XML:2008 section 9.1, performing necessary character escaping to ensure valid XML naming conventions.

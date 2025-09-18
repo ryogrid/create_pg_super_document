@@ -1,7 +1,7 @@
 # pgsql_version
 
 ## Location
-src/backend/utils/adt/version.c: 21 - 24
+[src/backend/utils/adt/version.c:21-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/version.c#L21-L24)
 
 ## Overview
 The `pgsql_version` function is a PostgreSQL built-in function that returns the complete PostgreSQL version string as text, providing version information for the currently running PostgreSQL server instance.

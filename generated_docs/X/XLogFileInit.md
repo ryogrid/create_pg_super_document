@@ -1,7 +1,7 @@
 # XLogFileInit
 
 ## Location
-src/backend/access/transam/xlog.c: 3357 - 3394
+[src/backend/access/transam/xlog.c:3357-3394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3357-L3394)
 
 ## Overview
 Creates a new XLOG file segment or opens a pre-existing one, providing a file descriptor for WAL operations within the PostgreSQL transaction logging system.

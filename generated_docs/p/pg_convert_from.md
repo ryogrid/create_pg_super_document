@@ -1,7 +1,7 @@
 # pg_convert_from
 
 ## Location
-src/backend/utils/mb/mbutils.c: 526 - 552
+[src/backend/utils/mb/mbutils.c:526-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L526-L552)
 
 ## Overview
 A SQL function wrapper that converts a bytea string from a specified source encoding to the database encoding, returning the result as text.

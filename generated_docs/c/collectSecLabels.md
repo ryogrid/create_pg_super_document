@@ -1,7 +1,7 @@
 # collectSecLabels
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15631 - 15716
+[src/bin/pg_dump/pg_dump.c:15631-15716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15631-L15716)
 
 ## Overview
 Queries the database to collect all security labels from pg_seclabel catalog and constructs a sorted lookup table for efficient access during the dump process.

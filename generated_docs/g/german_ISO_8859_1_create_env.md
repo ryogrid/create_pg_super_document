@@ -1,7 +1,7 @@
 # german_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c: 487 - 488
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c:487-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c#L487-L488)
 
 ## Overview
 The german_ISO_8859_1_create_env function creates and initializes a new Snowball stemming environment specifically configured for German language stemming with ISO 8859-1 character encoding.

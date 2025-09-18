@@ -1,7 +1,7 @@
 # MultiXactIdCreate
 
 ## Location
-src/backend/access/transam/multixact.c: 433 - 485
+[src/backend/access/transam/multixact.c:433-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L433-L485)
 
 ## Overview
 Creates a new MultiXactId representing exactly two TransactionIds with their respective statuses, providing a fundamental building block for PostgreSQL's multi-transaction locking system.

@@ -1,7 +1,7 @@
 # datum_image_hash
 
 ## Location
-src/backend/utils/adt/datum.c: 338 - 396
+[src/backend/utils/adt/datum.c:338-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L338-L396)
 
 ## Overview
 Generates a hash value based on the binary representation of a PostgreSQL Datum, operating on the actual bits rather than the logical value of the data.

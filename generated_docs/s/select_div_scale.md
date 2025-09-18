@@ -1,7 +1,7 @@
 # select_div_scale
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 987 - 1052
+[src/interfaces/ecpg/pgtypeslib/numeric.c:987-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L987-L1052)
 
 ## Overview
 Determines the appropriate result scale (number of digits after decimal point) for division operations in PostgreSQL's numeric data type.

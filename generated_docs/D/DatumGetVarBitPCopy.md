@@ -1,7 +1,7 @@
 # DatumGetVarBitPCopy
 
 ## Location
-src/include/utils/varbit.h: 51 - 56
+[src/include/utils/varbit.h:51-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/varbit.h#L51-L56)
 
 ## Overview
 Converts a Datum value to a writable VarBit pointer, ensuring the result is a modifiable copy through TOAST decompression and copying.

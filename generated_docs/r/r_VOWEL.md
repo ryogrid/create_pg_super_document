@@ -1,7 +1,7 @@
 # r_VOWEL
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 183 - 187
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:183-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L183-L187)
 
 ## Overview
 Tests whether the current character in the Indonesian stemmer is a vowel according to the Indonesian vowel grouping definition.

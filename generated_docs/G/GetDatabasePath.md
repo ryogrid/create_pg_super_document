@@ -1,7 +1,7 @@
 # GetDatabasePath
 
 ## Location
-src/common/relpath.c: 110 - 140
+[src/common/relpath.c:110-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/relpath.c#L110-L140)
 
 ## Overview
 Constructs the filesystem path to a database directory based on database OID and tablespace OID, handling different storage locations including global tablespace, default tablespace, and custom tablespaces.

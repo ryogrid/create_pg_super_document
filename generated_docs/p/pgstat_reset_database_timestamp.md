@@ -1,7 +1,7 @@
 # pgstat_reset_database_timestamp
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 354 - 374
+[src/backend/utils/activity/pgstat_database.c:354-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L354-L374)
 
 ## Overview
 pgstat_reset_database_timestamp is a function that updates the reset timestamp of a database's statistics without clearing the actual statistical data.

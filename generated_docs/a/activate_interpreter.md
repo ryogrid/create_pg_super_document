@@ -1,7 +1,7 @@
 # activate_interpreter
 
 ## Location
-src/pl/plperl/plperl.c: 684 - 704
+[src/pl/plperl/plperl.c:684-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L684-L704)
 
 ## Overview
 Makes the specified Perl interpreter the active one for executing PL/Perl code, handling context switching between different interpreter instances.

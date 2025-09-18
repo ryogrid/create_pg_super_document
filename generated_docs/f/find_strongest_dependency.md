@@ -1,7 +1,7 @@
 # find_strongest_dependency
 
 ## Location
-src/backend/statistics/dependencies.c: 929 - 1013
+[src/backend/statistics/dependencies.c:929-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L929-L1013)
 
 ## Overview
 Finds the strongest functional dependency from a collection of dependencies that can be fully matched against a given set of attribute numbers, prioritizing dependencies with more attributes and higher degrees of validity.

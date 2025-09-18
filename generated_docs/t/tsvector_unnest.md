@@ -1,7 +1,7 @@
 # tsvector_unnest
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 632 - 719
+[src/backend/utils/adt/tsvector_op.c:632-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L632-L719)
 
 ## Overview
 Expands a TSVector into a table with separate columns for lexemes, positions, and weights, implementing a set-returning function for detailed TSVector analysis.

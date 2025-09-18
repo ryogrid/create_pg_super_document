@@ -1,7 +1,7 @@
 # countVariablesFromJsonb
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3203 - 3224
+[src/backend/utils/adt/jsonpath_exec.c:3203-3224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3203-L3224)
 
 ## Overview
 A callback function that counts and validates variables stored in a JSONB object for JSON path execution contexts.

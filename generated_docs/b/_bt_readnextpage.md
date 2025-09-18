@@ -1,7 +1,7 @@
 # _bt_readnextpage
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2181 - 2346
+[src/backend/access/nbtree/nbtsearch.c:2181-2346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2181-L2346)
 
 ## Overview
 Reads the next page containing valid data for a B-tree index scan, handling both forward and backward directions with parallel scan coordination.

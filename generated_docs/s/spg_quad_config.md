@@ -1,7 +1,7 @@
 # spg_quad_config
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 27 - 38
+[src/backend/access/spgist/spgquadtreeproc.c:27-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L27-L38)
 
 ## Overview
 Configuration function for SP-GiST quadtree index method that sets up the index configuration parameters for geometric point data.

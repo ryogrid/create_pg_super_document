@@ -1,7 +1,7 @@
 # apply_handle_prepare
 
 ## Location
-src/backend/replication/logical/worker.c: 1110 - 1170
+[src/backend/replication/logical/worker.c:1110-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1110-L1170)
 
 ## Overview
 apply_handle_prepare handles PREPARE messages in PostgreSQL logical replication, processing the prepare phase of two-phase commit transactions on the apply worker side.

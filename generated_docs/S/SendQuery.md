@@ -1,7 +1,7 @@
 # SendQuery
 
 ## Location
-src/bin/psql/common.c: 1082 - 1313
+[src/bin/psql/common.c:1082-1313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1082-L1313)
 
 ## Overview
 SendQuery is the main "front door" function in psql for sending user-entered queries to the PostgreSQL backend, handling transaction management, error rollback, and result processing.

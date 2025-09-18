@@ -1,7 +1,7 @@
 # get_proposed_default_constraint
 
 ## Location
-src/backend/catalog/partition.c: 370 - 392
+[src/backend/catalog/partition.c:370-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L370-L392)
 
 ## Overview
 Generates the constraint that would apply to a default partition after adding a new partition, by negating the new partition's constraints and putting the result in canonical form.

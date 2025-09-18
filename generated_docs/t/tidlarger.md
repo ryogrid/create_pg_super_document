@@ -1,7 +1,7 @@
 # tidlarger
 
 ## Location
-src/backend/utils/adt/tid.c: 239 - 247
+[src/backend/utils/adt/tid.c:239-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L239-L247)
 
 ## Overview
 A PostgreSQL function that returns the larger of two tuple identifiers (TIDs) by comparing their positions within the database.

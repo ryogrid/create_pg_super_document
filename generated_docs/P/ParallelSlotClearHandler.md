@@ -1,7 +1,7 @@
 # ParallelSlotClearHandler
 
 ## Location
-src/include/fe_utils/parallel_slot.h: 55 - 77
+[src/include/fe_utils/parallel_slot.h:55-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/parallel_slot.h#L55-L77)
 
 ## Overview  
 Clears the result handler callback function and context from a parallel slot, resetting it to have no custom result processing behavior.

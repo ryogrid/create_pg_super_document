@@ -1,7 +1,7 @@
 # evaluateSleep
 
 ## Location
-src/bin/pgbench/pgbench.c: 3383 - 3427
+[src/bin/pgbench/pgbench.c:3383-3427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3383-L3427)
 
 ## Overview
 Parses and evaluates sleep command arguments, converting time specifications with optional units to microseconds for pgbench timing operations.

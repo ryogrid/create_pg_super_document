@@ -1,7 +1,7 @@
 # selectDumpableExtension
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2069 - 2107
+[src/bin/pg_dump/pg_dump.c:2069-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2069-L2107)
 
 ## Overview
 This function determines whether an extension should be included in a PostgreSQL database dump based on built-in status, explicit inclusion/exclusion lists, and dump options.

@@ -1,7 +1,7 @@
 # get_old_cluster_logical_slot_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 640 - 731
+[src/bin/pg_upgrade/info.c:640-731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L640-L731)
 
 ## Overview
 The get_old_cluster_logical_slot_infos function retrieves metadata for all logical replication slots from a database in the old PostgreSQL cluster during the upgrade process.

@@ -1,7 +1,7 @@
 # network_smaller
 
 ## Location
-src/backend/utils/adt/network.c: 853 - 864
+[src/backend/utils/adt/network.c:853-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L853-L864)
 
 ## Overview
 A support function for MIN/MAX operations that returns the smaller of two network addresses (inet/cidr types) in PostgreSQL.

@@ -1,7 +1,7 @@
 # lock_twophase_postcommit
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4387 - 4412
+[src/backend/storage/lmgr/lock.c:4387-4412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4387-L4412)
 
 ## Overview
 Releases locks held by a prepared transaction during the COMMIT PREPARED phase of two-phase commit processing.

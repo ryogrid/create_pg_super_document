@@ -1,7 +1,7 @@
 # win32_transfer_all_new_dbs
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 263 - 277
+[src/bin/pg_upgrade/parallel.c:263-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L263-L277)
 
 ## Overview
 Windows-specific thread entry point function that transfers databases in parallel threads during PostgreSQL upgrade operations.

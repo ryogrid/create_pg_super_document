@@ -1,7 +1,7 @@
 # gistkillitems
 
 ## Location
-src/backend/access/gist/gistget.c: 38 - 124
+[src/backend/access/gist/gistget.c:38-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L38-L124)
 
 ## Overview
 gistkillitems is a static function that marks index tuples as dead (LP_DEAD state) for items that an index scan caller has indicated were killed, implementing tuple visibility optimization in GiST indexes.

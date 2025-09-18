@@ -1,7 +1,7 @@
 # printtup_shutdown
 
 ## Location
-src/backend/access/common/printtup.c: 389 - 412
+[src/backend/access/common/printtup.c:389-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L389-L412)
 
 ## Overview
 The printtup_shutdown function performs cleanup operations for a printtup DestReceiver, freeing allocated memory and resources.

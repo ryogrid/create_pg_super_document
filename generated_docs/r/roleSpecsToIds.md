@@ -1,7 +1,7 @@
 # roleSpecsToIds
 
 ## Location
-src/backend/commands/user.c: 1652 - 1680
+[src/backend/commands/user.c:1652-1680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1652-L1680)
 
 ## Overview
 Converts a list of RoleSpec structures to a corresponding list of role OIDs while maintaining the same order and validating role existence.

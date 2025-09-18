@@ -1,7 +1,7 @@
 # getPartitioningInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7373 - 7432
+[src/bin/pg_dump/pg_dump.c:7373-7432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7373-L7432)
 
 ## Overview
 Identifies partitioned tables with "unsafe" partitioning schemes that require load-via-partition-root mode during pg_dump operations, specifically focusing on hash partitioning on enum columns.

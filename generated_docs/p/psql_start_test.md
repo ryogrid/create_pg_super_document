@@ -1,7 +1,7 @@
 # psql_start_test
 
 ## Location
-src/test/regress/pg_regress_main.c: 29 - 103
+[src/test/regress/pg_regress_main.c:29-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress_main.c#L29-L103)
 
 ## Overview
 Starts a psql test process for a specified test file, handling input/output redirection and setting up the testing environment for PostgreSQL regression tests.

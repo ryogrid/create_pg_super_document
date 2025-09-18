@@ -1,7 +1,7 @@
 # exec_command_if
 
 ## Location
-src/bin/psql/command.c: 1743 - 1788
+[src/bin/psql/command.c:1743-1788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1743-L1788)
 
 ## Overview
 Implements the \if command in PostgreSQL's psql client for conditional execution of SQL commands based on boolean expressions.

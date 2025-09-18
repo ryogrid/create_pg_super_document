@@ -1,7 +1,7 @@
 # __ubsan_default_options
 
 ## Location
-src/backend/main/main.c: 438 - 445
+[src/backend/main/main.c:438-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/main/main.c#L438-L445)
 
 ## Overview
 A weak symbol function that provides default options for the Undefined Behavior Sanitizer (UBSan) runtime library, allowing PostgreSQL to work around sanitizer initialization issues caused by process title changes.

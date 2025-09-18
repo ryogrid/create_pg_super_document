@@ -1,7 +1,7 @@
 # libpqrcv_get_senderinfo
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 420 - 443
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:420-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L420-L443)
 
 ## Overview
 Retrieves the hostname and port information of the PostgreSQL server (sender) that the WAL receiver is currently connected to.

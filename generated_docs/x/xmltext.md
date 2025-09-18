@@ -1,7 +1,7 @@
 # xmltext
 
 ## Location
-src/backend/utils/adt/xml.c: 527 - 552
+[src/backend/utils/adt/xml.c:527-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L527-L552)
 
 ## Overview
 Converts text input into properly escaped XML text content by encoding special characters that have meaning in XML.

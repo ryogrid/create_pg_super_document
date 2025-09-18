@@ -1,7 +1,7 @@
 # bttextsortsupport
 
 ## Location
-src/backend/utils/adt/varlena.c: 1846 - 1872
+[src/backend/utils/adt/varlena.c:1846-1872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1846-L1872)
 
 ## Overview
 Provides B-tree sort support functionality specifically for text data types by setting up generic string sorting support.

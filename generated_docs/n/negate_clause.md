@@ -1,7 +1,7 @@
 # negate_clause
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 73 - 292
+[src/backend/optimizer/prep/prepqual.c:73-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L73-L292)
 
 ## Overview
 Negates a Boolean expression by logical simplification, attempting to eliminate the NOT node through DeMorgan's laws and other boolean transformations rather than simply wrapping the expression in a NOT clause.

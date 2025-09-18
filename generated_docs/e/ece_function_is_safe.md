@@ -1,7 +1,7 @@
 # ece_function_is_safe
 
 ## Location
-src/backend/optimizer/util/clauses.c: 3752 - 3789
+[src/backend/optimizer/util/clauses.c:3752-3789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L3752-L3789)
 
 ## Overview
 A safety check function that determines whether a PostgreSQL function can be safely evaluated during constant expression optimization based on its volatility characteristics.

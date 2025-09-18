@@ -1,7 +1,7 @@
 # prune_lexemes_hashtable
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 453 - 477
+[src/backend/tsearch/ts_typanalyze.c:453-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L453-L477)
 
 ## Overview
 Prunes low-frequency entries from the lexemes hash table as part of the Lossy Counting algorithm implementation in tsvector statistics collection.

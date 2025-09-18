@@ -1,7 +1,7 @@
 # ExecEndPlan
 
 ## Location
-src/backend/executor/execMain.c: 1477 - 1515
+[src/backend/executor/execMain.c:1477-1515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1477-L1515)
 
 ## Overview
 ExecEndPlan is a static function responsible for cleaning up the query plan by closing files and freeing up storage after query execution completes.

@@ -1,7 +1,7 @@
 # PartitionBoundInfo
 
 ## Location
-src/include/partitioning/partdefs.h: 16 - 17
+[src/include/partitioning/partdefs.h:16-17](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdefs.h#L16-L17)
 
 ## Overview
 A pointer to PartitionBoundInfoData structure that encapsulates a set of partition bounds, typically associated with partitioned tables or used to represent virtual partitioned tables within the planner.

@@ -1,7 +1,7 @@
 # check_index_only
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1730 - 1828
+[src/backend/optimizer/path/indxpath.c:1730-1828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1730-L1828)
 
 ## Overview
 Determines whether an index-only scan is possible for a given index by checking if all required attributes can be retrieved from the index itself.

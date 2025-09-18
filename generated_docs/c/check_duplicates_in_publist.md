@@ -1,7 +1,7 @@
 # check_duplicates_in_publist
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2292 - 2331
+[src/backend/commands/subscriptioncmds.c:2292-2331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2292-L2331)
 
 ## Overview
 Validates a list of publication names for duplicates and optionally converts them to text datums for array construction.

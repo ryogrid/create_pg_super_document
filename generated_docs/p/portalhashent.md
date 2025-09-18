@@ -1,7 +1,7 @@
 # portalhashent
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 48 - 51
+[src/backend/utils/mmgr/portalmem.c:48-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L48-L51)
 
 ## Overview
 A hash table entry structure used to store portal name-to-portal mappings in PostgreSQL's portal memory management system.

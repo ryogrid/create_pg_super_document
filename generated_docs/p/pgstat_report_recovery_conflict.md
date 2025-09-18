@@ -1,7 +1,7 @@
 # pgstat_report_recovery_conflict
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 81 - 124
+[src/backend/utils/activity/pgstat_database.c:81-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L81-L124)
 
 ## Overview
 Records and tracks different types of recovery conflicts that occur during Hot Standby operations in PostgreSQL.

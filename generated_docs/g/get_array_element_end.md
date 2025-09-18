@@ -1,7 +1,7 @@
 # get_array_element_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1399 - 1442
+[src/backend/utils/adt/jsonfuncs.c:1399-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1399-L1442)
 
 ## Overview
 A static callback function used during JSON parsing to handle the end of individual array elements, responsible for capturing element values and managing path state when target array elements are completed.

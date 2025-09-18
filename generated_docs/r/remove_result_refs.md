@@ -1,7 +1,7 @@
 # remove_result_refs
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3801 - 3836
+[src/backend/optimizer/prep/prepjointree.c:3801-3836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3801-L3836)
 
 ## Overview
 A helper routine that performs necessary cleanup when dropping an RTE_RESULT RTE, specifically adjusting PlaceHolderVars that reference the removed RTE to be evaluated at a new location.

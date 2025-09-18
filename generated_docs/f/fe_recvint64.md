@@ -1,7 +1,7 @@
 # fe_recvint64
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 934 - 941
+[src/bin/pg_basebackup/streamutil.c:934-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L934-L941)
 
 ## Overview
 Converts a 64-bit integer from network byte order to native byte order after receiving it from network protocols.

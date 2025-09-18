@@ -1,7 +1,7 @@
 # GetPgIndexDescriptor
 
 ## Location
-src/backend/utils/cache/relcache.c: 4468 - 4489
+[src/backend/utils/cache/relcache.c:4468-4489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4468-L4489)
 
 ## Overview
 Returns a cached tuple descriptor for the pg_index system catalog, using lazy initialization to build the descriptor from hardcoded attribute definitions.

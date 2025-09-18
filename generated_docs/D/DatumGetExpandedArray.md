@@ -1,7 +1,7 @@
 # DatumGetExpandedArray
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 352 - 371
+[src/backend/utils/adt/array_expanded.c:352-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L352-L371)
 
 ## Overview
 Retrieves a writable expanded array from an input Datum, creating one if necessary to enable efficient array modifications.

@@ -1,7 +1,7 @@
 # _bt_parallel_release
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 713 - 735
+[src/backend/access/nbtree/nbtree.c:713-735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L713-L735)
 
 ## Overview
 Releases control of a parallel btree scan after advancing it to a new page, allowing other worker processes to continue.

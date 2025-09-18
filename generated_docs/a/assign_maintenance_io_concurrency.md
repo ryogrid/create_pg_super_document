@@ -1,7 +1,7 @@
 # assign_maintenance_io_concurrency
 
 ## Location
-src/backend/commands/variable.c: 1134 - 1155
+[src/backend/commands/variable.c:1134-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1134-L1155)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that updates the maintenance I/O concurrency setting and reconfigures recovery prefetching when the `maintenance_io_concurrency` parameter is changed.

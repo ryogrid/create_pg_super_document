@@ -1,7 +1,7 @@
 # build_backup_content
 
 ## Location
-src/backend/access/transam/xlogbackup.c: 29 - 94
+[src/backend/access/transam/xlogbackup.c:29-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogbackup.c#L29-L94)
 
 ## Overview
 Builds the contents for backup_label or backup history files, formatting backup metadata into a string representation that can be written to these special files during PostgreSQL backup operations.

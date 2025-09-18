@@ -1,7 +1,7 @@
 # convert_column_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 2956 - 2989
+[src/backend/utils/adt/acl.c:2956-2989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2956-L2989)
 
 ## Overview
 Converts a text string representing column privileges into an AclMode bitmask value, specifically handling column-level access control permissions.

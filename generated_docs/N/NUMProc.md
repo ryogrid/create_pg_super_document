@@ -1,7 +1,7 @@
 # NUMProc
 
 ## Location
-src/backend/utils/adt/formatting.c: 996 - 1023
+[src/backend/utils/adt/formatting.c:996-1023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L996-L1023)
 
 ## Overview
 A comprehensive processor structure used by PostgreSQL's numeric formatting system to manage the state and context during number-to-character and character-to-number conversion operations.

@@ -1,7 +1,7 @@
 # int4in
 
 ## Location
-src/backend/utils/adt/int.c: 287 - 297
+[src/backend/utils/adt/int.c:287-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L287-L297)
 
 ## Overview
 Converts a string representation of an integer into PostgreSQL's internal int4 (32-bit signed integer) data type.

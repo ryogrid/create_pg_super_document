@@ -1,7 +1,7 @@
 # validateDomainNotNullConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 3136 - 3200
+[src/backend/commands/typecmds.c:3136-3200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3136-L3200)
 
 ## Overview
 Validates that all columns currently using a domain type contain no null values, ensuring compliance with a NOT NULL constraint being added to the domain.

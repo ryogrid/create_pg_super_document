@@ -1,7 +1,7 @@
 # check_functional_grouping
 
 ## Location
-src/backend/catalog/pg_constraint.c: 1367 - 1403
+[src/backend/catalog/pg_constraint.c:1367-1403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L1367-L1403)
 
 ## Overview
 Determines whether a relation can be proven functionally dependent on a set of grouping columns by checking if the relation's primary key is a subset of the grouping columns.

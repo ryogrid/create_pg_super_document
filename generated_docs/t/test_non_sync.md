@@ -1,7 +1,7 @@
 # test_non_sync
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 574 - 598
+[src/bin/pg_test_fsync/pg_test_fsync.c:574-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L574-L598)
 
 ## Overview
 A baseline benchmarking function that measures the performance of simple write operations without any synchronization, providing a reference point for comparing the overhead of various sync methods.

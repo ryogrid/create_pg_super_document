@@ -1,7 +1,7 @@
 # assign_locale_messages
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 450 - 466
+[src/backend/utils/adt/pg_locale.c:450-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L450-L466)
 
 ## Overview
 This function applies a validated LC_MESSAGES locale setting to the system, serving as a GUC assign hook that actually sets the locale after validation has passed.

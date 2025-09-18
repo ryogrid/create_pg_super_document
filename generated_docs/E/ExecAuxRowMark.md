@@ -1,7 +1,7 @@
 # ExecAuxRowMark
 
 ## Location
-src/include/nodes/execnodes.h: 774 - 780
+[src/include/nodes/execnodes.h:774-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L774-L780)
 
 ## Overview
 ExecAuxRowMark provides additional runtime representation for FOR [KEY] UPDATE/SHARE clauses, extending ExecRowMark with resjunk column information.

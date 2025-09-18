@@ -1,7 +1,7 @@
 # createDummyViewAsClause
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15906 - 15945
+[src/bin/pg_dump/pg_dump.c:15906-15945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15906-L15945)
 
 ## Overview
 Creates a dummy AS clause for a PostgreSQL view definition used when the real view definition must be postponed due to circular dependencies between database objects.

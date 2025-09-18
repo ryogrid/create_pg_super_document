@@ -1,7 +1,7 @@
 # Cover
 
 ## Location
-src/backend/utils/adt/tsrank.c: 646 - 726
+[src/backend/utils/adt/tsrank.c:646-726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L646-L726)
 
 ## Overview
 Finds the shortest text span (cover) that contains all query terms, implementing a recursive algorithm to identify optimal text coverage for ranking calculations.

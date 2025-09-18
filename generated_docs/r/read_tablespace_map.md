@@ -1,7 +1,7 @@
 # read_tablespace_map
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1354 - 1457
+[src/backend/access/transam/xlogrecovery.c:1354-1457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1354-L1457)
 
 ## Overview
 Reads and parses the tablespace_map file during backup recovery to extract tablespace OID-to-path mappings needed for creating proper symlinks in the restored database.

@@ -1,7 +1,7 @@
 # pg_pwritev
 
 ## Location
-src/include/port/pg_iovec.h: 89 - 123
+[src/include/port/pg_iovec.h:89-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_iovec.h#L89-L123)
 
 ## Overview
 A vectored write function that writes from multiple buffers in a single system call, with a reminder that on Windows this changes the current file position.

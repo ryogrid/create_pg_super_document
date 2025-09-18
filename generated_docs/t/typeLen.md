@@ -1,7 +1,7 @@
 # typeLen
 
 ## Location
-src/backend/parser/parse_type.c: 599 - 608
+[src/backend/parser/parse_type.c:599-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L599-L608)
 
 ## Overview
 typeLen extracts the length field from a Type structure, returning the storage length of the PostgreSQL data type.

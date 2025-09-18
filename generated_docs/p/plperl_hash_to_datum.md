@@ -1,7 +1,7 @@
 # plperl_hash_to_datum
 
 ## Location
-src/pl/plperl/plperl.c: 1126 - 1137
+[src/pl/plperl/plperl.c:1126-1137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1126-L1137)
 
 ## Overview
 Converts a Perl hash reference to a PostgreSQL Datum representing a composite type or record.

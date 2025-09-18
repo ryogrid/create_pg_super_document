@@ -1,7 +1,7 @@
 # recordExtensionInitPrivWorker
 
 ## Location
-src/backend/catalog/aclchk.c: 4685 - 4812
+[src/backend/catalog/aclchk.c:4685-4812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4685-L4812)
 
 ## Overview
 The worker function that performs the actual recording of initial ACL for extension objects in the pg_init_privs system catalog table.

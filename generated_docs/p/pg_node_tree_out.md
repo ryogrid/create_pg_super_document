@@ -1,7 +1,7 @@
 # pg_node_tree_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 338 - 343
+[src/backend/utils/adt/pseudotypes.c:338-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L338-L343)
 
 ## Overview
 The pg_node_tree_out function is an output function for the pg_node_tree pseudo-type that converts node tree representations to text format for display purposes.

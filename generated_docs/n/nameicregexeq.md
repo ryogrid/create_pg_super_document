@@ -1,7 +1,7 @@
 # nameicregexeq
 
 ## Location
-src/backend/utils/adt/regexp.c: 522 - 535
+[src/backend/utils/adt/regexp.c:522-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L522-L535)
 
 ## Overview
 The nameicregexeq function performs case-insensitive regular expression matching on PostgreSQL name data types, returning true if the name matches the provided regular expression pattern regardless of case.

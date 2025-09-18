@@ -1,7 +1,7 @@
 # logfile_rotate
 
 ## Location
-src/backend/postmaster/syslogger.c: 1362 - 1410
+[src/backend/postmaster/syslogger.c:1362-1410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1362-L1410)
 
 ## Overview
 Performs log file rotation for PostgreSQL's system logger, handling time-based and size-based rotation across multiple log destinations (stderr, CSV, and JSON logs).

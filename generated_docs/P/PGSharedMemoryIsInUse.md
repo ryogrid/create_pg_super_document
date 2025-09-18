@@ -1,7 +1,7 @@
 # PGSharedMemoryIsInUse
 
 ## Location
-src/backend/port/sysv_shmem.c: 317 - 346
+[src/backend/port/sysv_shmem.c:317-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L317-L346)
 
 ## Overview
 PGSharedMemoryIsInUse checks whether a previously-existing shared memory segment is still in use, primarily to detect crashed postmaster processes with surviving child backends.

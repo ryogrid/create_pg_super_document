@@ -1,7 +1,7 @@
 # pgstat_progress_start_command
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 28 - 48
+[src/backend/utils/activity/backend_progress.c:28-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L28-L48)
 
 ## Overview
 Initializes progress tracking for a PostgreSQL backend command by setting the command type and target relation, and zeroing the progress parameter array.

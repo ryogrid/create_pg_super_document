@@ -1,7 +1,7 @@
 # PgStat_PendingWalStats
 
 ## Location
-src/include/pgstat.h: 450 - 457
+[src/include/pgstat.h:450-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L450-L457)
 
 ## Overview
 PgStat_PendingWalStats is a structure designed for efficiently accumulating WAL-related statistics before they are flushed to the main statistics system, using specialized timing types to avoid expensive type conversions during data collection.

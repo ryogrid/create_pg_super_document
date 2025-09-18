@@ -1,7 +1,7 @@
 # check_icu_locale_encoding
 
 ## Location
-src/bin/initdb/initdb.c: 2282 - 2301
+[src/bin/initdb/initdb.c:2282-2301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2282-L2301)
 
 ## Overview
 Validates that a user-specified encoding is supported by the ICU (International Components for Unicode) provider.

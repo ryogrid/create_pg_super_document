@@ -1,7 +1,7 @@
 # json_get_first_token
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5948 - 5974
+[src/backend/utils/adt/jsonfuncs.c:5948-5974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5948-L5974)
 
 ## Overview
 Extracts and returns the type of the first JSON token from a text input, providing a quick way to determine the JSON value type without full parsing.

@@ -1,7 +1,7 @@
 # ExecEndBitmapHeapScan
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 640 - 684
+[src/backend/executor/nodeBitmapHeapscan.c:640-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L640-L684)
 
 ## Overview
 ExecEndBitmapHeapScan terminates a bitmap heap scan node by cleaning up all associated resources including closing table scans, freeing bitmaps and iterators, releasing buffers, and shutting down child plans.

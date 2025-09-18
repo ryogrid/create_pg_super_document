@@ -1,7 +1,7 @@
 # extract_strong_not_arg
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1414 - 1459
+[src/backend/optimizer/util/predtest.c:1414-1459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1414-L1459)
 
 ## Overview
 Extracts the argument from clauses that assert the definite falsity of a subclause, providing a stricter form of negation detection than extract_not_arg.

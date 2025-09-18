@@ -1,7 +1,7 @@
 # LibraryInfo
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 336 - 350
+[src/bin/pg_upgrade/pg_upgrade.h:336-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L336-L350)
 
 ## Overview
 LibraryInfo is a structure that stores information about loadable libraries in PostgreSQL clusters during the upgrade process.

@@ -1,7 +1,7 @@
 # CleanupProcSignalState
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 211 - 256
+[src/backend/storage/ipc/procsignal.c:211-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L211-L256)
 
 ## Overview
 Removes the current process from the ProcSignal mechanism during backend shutdown, cleaning up the process signal slot and ensuring proper synchronization state for barrier operations.

@@ -1,7 +1,7 @@
 # RangeVar
 
 ## Location
-src/include/nodes/primnodes.h: 71 - 95
+[src/include/nodes/primnodes.h:71-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L71-L95)
 
 ## Overview
 RangeVar represents a range variable used in FROM clauses and utility statements, providing a structured way to reference relations with optional catalog, schema, and alias information.

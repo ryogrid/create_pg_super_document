@@ -1,7 +1,7 @@
 # BTDeletedPageData
 
 ## Location
-src/include/access/nbtree.h: 233 - 236
+[src/include/access/nbtree.h:233-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L233-L236)
 
 ## Overview
 BTDeletedPageData is a simple structure that defines the contents of a deleted B-tree page, containing transaction information necessary for safe page recycling.

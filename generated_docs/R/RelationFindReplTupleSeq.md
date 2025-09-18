@@ -1,7 +1,7 @@
 # RelationFindReplTupleSeq
 
 ## Location
-src/backend/executor/execReplication.c: 378 - 489
+[src/backend/executor/execReplication.c:378-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L378-L489)
 
 ## Overview
 RelationFindReplTupleSeq performs a sequential scan search on a relation to find a tuple matching search criteria, locks it if found, and fills an output slot with the tuple contents.

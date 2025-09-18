@@ -1,7 +1,7 @@
 # r_check_category_2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 319 - 326
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:319-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L319-L326)
 
 ## Overview
 Checks for the presence of category 2 suffix patterns in Nepali words during the stemming process.

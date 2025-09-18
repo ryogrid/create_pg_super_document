@@ -1,7 +1,7 @@
 # generate_dependencies
 
 ## Location
-src/backend/statistics/dependencies.c: 157 - 172
+[src/backend/statistics/dependencies.c:157-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L157-L172)
 
 ## Overview
 A wrapper function that initiates the generation of all possible functional dependencies of size k from n attributes using a recursive algorithm.

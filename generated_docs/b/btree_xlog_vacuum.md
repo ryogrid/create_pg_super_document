@@ -1,7 +1,7 @@
 # btree_xlog_vacuum
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 598 - 650
+[src/backend/access/nbtree/nbtxlog.c:598-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L598-L650)
 
 ## Overview
 Replays WAL records for B-tree vacuum operations, handling both posting list updates and tuple deletions during recovery.

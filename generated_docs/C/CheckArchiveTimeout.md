@@ -1,7 +1,7 @@
 # CheckArchiveTimeout
 
 ## Location
-src/backend/postmaster/checkpointer.c: 626 - 686
+[src/backend/postmaster/checkpointer.c:626-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L626-L686)
 
 ## Overview
 Checks for archive timeout conditions and forces WAL file switches to ensure timely archiving of WAL files when the archive_timeout setting is configured.

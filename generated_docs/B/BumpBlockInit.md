@@ -1,7 +1,7 @@
 # BumpBlockInit
 
 ## Location
-src/backend/utils/mmgr/bump.c: 535 - 551
+[src/backend/utils/mmgr/bump.c:535-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L535-L551)
 
 ## Overview
 BumpBlockInit initializes a newly allocated bump memory block by setting up its internal pointers and marking unallocated memory for debugging tools.

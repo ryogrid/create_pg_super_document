@@ -1,7 +1,7 @@
 # pg_stat_get_io
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1357 - 1468
+[src/backend/utils/adt/pgstatfuncs.c:1357-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1357-L1468)
 
 ## Overview
 A PostgreSQL function that returns detailed I/O statistics for all backend types, I/O objects, and I/O contexts in a tabular format for the pg_stat_io system view.

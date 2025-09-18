@@ -1,7 +1,7 @@
 # TidStoreIter
 
 ## Location
-src/backend/access/common/tidstore.c: 135 - 164
+[src/backend/access/common/tidstore.c:135-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L135-L164)
 
 ## Overview
 TidStoreIter is an iterator structure that provides sequential access to tuple identifiers (TIDs) stored in a TidStore, supporting both local and shared memory iteration modes.

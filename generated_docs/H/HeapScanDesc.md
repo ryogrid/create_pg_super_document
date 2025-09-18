@@ -1,7 +1,7 @@
 # HeapScanDesc
 
 ## Location
-src/include/access/heapam.h: 109 - 113
+[src/include/access/heapam.h:109-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L109-L113)
 
 ## Overview
 HeapScanDesc is a typedef for a pointer to HeapScanDescData structure, serving as the standard handle for heap table scan operations throughout PostgreSQL.

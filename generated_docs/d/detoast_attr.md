@@ -1,7 +1,7 @@
 # detoast_attr
 
 ## Location
-src/backend/access/common/detoast.c: 116 - 204
+[src/backend/access/common/detoast.c:116-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L116-L204)
 
 ## Overview
 A public entry point function that retrieves a toasted value from compression or external storage, ensuring the result is always in non-extended varlena format.

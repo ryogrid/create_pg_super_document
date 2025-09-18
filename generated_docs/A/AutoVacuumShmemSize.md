@@ -1,7 +1,7 @@
 # AutoVacuumShmemSize
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3300 - 3318
+[src/backend/postmaster/autovacuum.c:3300-3318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3300-L3318)
 
 ## Overview
 AutoVacuumShmemSize calculates the amount of shared memory space required for autovacuum-related data structures, including the main control structure and worker information arrays.

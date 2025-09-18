@@ -1,7 +1,7 @@
 # int2lt
 
 ## Location
-src/backend/utils/adt/int.c: 468 - 476
+[src/backend/utils/adt/int.c:468-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L468-L476)
 
 ## Overview
 Compares two 16-bit signed integers and returns true if the first is less than the second.

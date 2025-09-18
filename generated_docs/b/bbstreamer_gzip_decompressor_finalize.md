@@ -1,7 +1,7 @@
 # bbstreamer_gzip_decompressor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 316 - 337
+[src/bin/pg_basebackup/bbstreamer_gzip.c:316-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L316-L337)
 
 ## Overview
 Handles end-of-stream processing for the gzip decompressor, ensuring any remaining buffered data is forwarded to the next streamer and finalizing the downstream pipeline.

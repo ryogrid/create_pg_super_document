@@ -1,7 +1,7 @@
 # match_rowcompare_to_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2691 - 2797
+[src/backend/optimizer/path/indxpath.c:2691-2797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2691-L2797)
 
 ## Overview
 Analyzes RowCompareExpr clauses (multi-column comparisons) to determine if they can be converted into B-tree index scan conditions for query optimization.

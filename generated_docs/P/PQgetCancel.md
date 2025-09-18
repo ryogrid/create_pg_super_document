@@ -1,7 +1,7 @@
 # PQgetCancel
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 350 - 417
+[src/interfaces/libpq/fe-cancel.c:350-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L350-L417)
 
 ## Overview
 Creates a thread-safe copy of cancellation information from a PostgreSQL connection, enabling query cancellation from different threads or processes.

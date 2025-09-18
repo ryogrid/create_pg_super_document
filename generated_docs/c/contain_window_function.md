@@ -1,7 +1,7 @@
 # contain_window_function
 
 ## Location
-src/backend/optimizer/util/clauses.c: 214 - 226
+[src/backend/optimizer/util/clauses.c:214-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L214-L226)
 
 ## Overview
 Recursively searches for window function nodes (WindowFunc) within a clause and returns true if any window functions are found.

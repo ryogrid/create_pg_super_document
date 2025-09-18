@@ -1,7 +1,7 @@
 # index_getprocid
 
 ## Location
-src/backend/access/index/indexam.c: 826 - 859
+[src/backend/access/index/indexam.c:826-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L826-L859)
 
 ## Overview
 Retrieves the procedure OID for a specified support function of an indexed attribute, providing access to index access method support routines.

@@ -1,7 +1,7 @@
 # formatPGVersionNumber
 
 ## Location
-src/fe_utils/string_utils.c: 313 - 350
+[src/fe_utils/string_utils.c:313-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L313-L350)
 
 ## Overview
 Formats a PostgreSQL version number from its internal integer representation into a human-readable string, handling both modern two-part and legacy three-part version numbering schemes.

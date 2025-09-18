@@ -1,7 +1,7 @@
 # set_using_names
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4145 - 4309
+[src/backend/utils/adt/ruleutils.c:4145-4309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4145-L4309)
 
 ## Overview
 Recursively assigns column aliases for merged USING columns during rule decompilation by traversing the query jointree and selecting appropriate unique column names.

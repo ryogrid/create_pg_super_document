@@ -1,7 +1,7 @@
 # ExecGetAllUpdatedCols
 
 ## Location
-src/backend/executor/execUtils.c: 1324 - 1343
+[src/backend/executor/execUtils.c:1324-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1324-L1343)
 
 ## Overview
 Returns a bitmap representing all columns being updated during an UPDATE operation, including both explicitly updated columns and generated columns that need recalculation.

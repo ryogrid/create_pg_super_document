@@ -1,7 +1,7 @@
 # ExecEvalFieldSelect
 
 ## Location
-src/backend/executor/execExprInterp.c: 3173 - 3297
+[src/backend/executor/execExprInterp.c:3173-3297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3173-L3297)
 
 ## Overview
 Evaluates a FieldSelect node by extracting a specific field from a composite/record type, handling both expanded records and standard heap tuples with type validation and error checking.

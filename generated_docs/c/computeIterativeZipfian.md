@@ -1,7 +1,7 @@
 # computeIterativeZipfian
 
 ## Location
-src/bin/pgbench/pgbench.c: 1201 - 1230
+[src/bin/pgbench/pgbench.c:1201-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1201-L1230)
 
 ## Overview
 Implements a Zipfian random number generator using the rejection method for generating non-uniform random variates with parameter s > 1.0.

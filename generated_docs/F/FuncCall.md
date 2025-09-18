@@ -1,7 +1,7 @@
 # FuncCall
 
 ## Location
-src/include/nodes/parsenodes.h: 423 - 437
+[src/include/nodes/parsenodes.h:423-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L423-L437)
 
 ## Overview
 FuncCall represents a function or aggregate invocation in PostgreSQL's parse tree, supporting various function call syntaxes including regular functions, aggregates, window functions, and special constructs like DISTINCT, ORDER BY, and FILTER clauses.

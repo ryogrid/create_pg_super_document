@@ -1,7 +1,7 @@
 # ginEntryInsert
 
 ## Location
-src/backend/access/gin/gininsert.c: 176 - 252
+[src/backend/access/gin/gininsert.c:176-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L176-L252)
 
 ## Overview
 Inserts one or more heap TIDs associated with a given key value into a GIN index, either creating a new entry or enlarging an existing one.

@@ -1,7 +1,7 @@
 # LimitState
 
 ## Location
-src/include/nodes/execnodes.h: 2836 - 2851
+[src/include/nodes/execnodes.h:2836-2851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2836-L2851)
 
 ## Overview
 LimitState is the execution state structure for Limit nodes in PostgreSQL's executor, implementing LIMIT and OFFSET clauses in SQL queries, including support for WITH TIES option.

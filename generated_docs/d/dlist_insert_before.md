@@ -1,7 +1,7 @@
 # dlist_insert_before
 
 ## Location
-src/include/lib/ilist.h: 393 - 404
+[src/include/lib/ilist.h:393-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L393-L404)
 
 ## Overview
 Inserts a new node before a specified node in a doubly-linked list, maintaining proper linkages in both directions.

@@ -1,7 +1,7 @@
 # FindAffixes
 
 ## Location
-src/backend/tsearch/spell.c: 2028 - 2070
+[src/backend/tsearch/spell.c:2028-2070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2028-L2070)
 
 ## Overview
 Traverses an affix tree (trie) to find matching affixes for a given word, using binary search to efficiently navigate through the tree structure.

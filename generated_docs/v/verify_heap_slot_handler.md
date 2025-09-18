@@ -1,7 +1,7 @@
 # verify_heap_slot_handler
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1037 - 1117
+[src/bin/pg_amcheck/pg_amcheck.c:1037-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1037-L1117)
 
 ## Overview
 A ParallelSlotHandler function that processes and displays results from heap table verification commands in the pg_amcheck utility.

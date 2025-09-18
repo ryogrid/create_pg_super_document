@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_numeric
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2021 - 2046
+[src/backend/access/brin/brin_minmax_multi.c:2021-2046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2021-L2046)
 
 ## Overview
 Computes the distance between two numeric values using plain subtraction for BRIN minmax multi indexes.

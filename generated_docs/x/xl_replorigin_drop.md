@@ -1,7 +1,7 @@
 # xl_replorigin_drop
 
 ## Location
-src/include/replication/origin.h: 25 - 28
+[src/include/replication/origin.h:25-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/origin.h#L25-L28)
 
 ## Overview
 WAL record structure that stores information for dropping a replication origin during recovery or replication operations.

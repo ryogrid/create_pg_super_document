@@ -1,7 +1,7 @@
 # getJsonbLength
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 159 - 190
+[src/backend/utils/adt/jsonb_util.c:159-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L159-L190)
 
 ## Overview
 Determines the byte length of the variable-length data portion for a specific JSONB node within its container.

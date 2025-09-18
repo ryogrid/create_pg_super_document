@@ -1,7 +1,7 @@
 # umulh
 
 ## Location
-src/common/d2s_intrinsics.h: 120 - 150
+[src/common/d2s_intrinsics.h:120-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s_intrinsics.h#L120-L150)
 
 ## Overview
 Returns the high 64 bits of the 128-bit product of two 64-bit unsigned integers, effectively performing unsigned multiplication with only the upper half of the result.

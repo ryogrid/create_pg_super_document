@@ -1,7 +1,7 @@
 # get_leftop
 
 ## Location
-src/include/nodes/nodeFuncs.h: 83 - 94
+[src/include/nodes/nodeFuncs.h:83-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L83-L94)
 
 ## Overview
 A static inline utility function that extracts the left operand from a binary operator expression, or the only operand from a unary operator expression in PostgreSQL's parse tree.

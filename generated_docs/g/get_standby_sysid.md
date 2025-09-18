@@ -1,7 +1,7 @@
 # get_standby_sysid
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 601 - 628
+[src/bin/pg_basebackup/pg_createsubscriber.c:601-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L601-L628)
 
 ## Overview
 Retrieves the system identifier directly from the PostgreSQL control file in a local data directory, used to verify that the standby/subscriber database is a clone of the publisher.

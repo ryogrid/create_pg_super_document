@@ -1,7 +1,7 @@
 # MergeAttributesIntoExisting
 
 ## Location
-src/backend/commands/tablecmds.c: 15896 - 16015
+[src/backend/commands/tablecmds.c:15896-16015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15896-L16015)
 
 ## Overview
 MergeAttributesIntoExisting is a static function that validates attribute compatibility between child and parent relations during inheritance creation, and increments the inheritance count for matching attributes.

@@ -1,7 +1,7 @@
 # get_func_support
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1858 - 1884
+[src/backend/utils/cache/lsyscache.c:1858-1884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1858-L1884)
 
 ## Overview
 Returns the support function OID associated with a given function, or InvalidOid if there is no support function defined.

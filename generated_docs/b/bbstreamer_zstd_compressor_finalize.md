@@ -1,7 +1,7 @@
 # bbstreamer_zstd_compressor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_zstd.c: 190 - 241
+[src/bin/pg_basebackup/bbstreamer_zstd.c:190-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_zstd.c#L190-L241)
 
 ## Overview
 Performs end-of-stream processing for the zstd compressor by flushing any remaining compressed data and finalizing the compression stream.

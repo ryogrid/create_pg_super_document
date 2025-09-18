@@ -1,7 +1,7 @@
 # ResourceOwnerRememberJIT
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 147 - 151
+[src/backend/jit/llvm/llvmjit.c:147-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L147-L151)
 
 ## Overview
 A convenience wrapper function that registers an LLVM JIT context with PostgreSQL's resource owner system for proper cleanup management.

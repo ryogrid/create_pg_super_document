@@ -1,7 +1,7 @@
 # ExecReScanNestLoop
 
 ## Location
-src/backend/executor/nodeNestloop.c: 381 - 400
+[src/backend/executor/nodeNestloop.c:381-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNestloop.c#L381-L400)
 
 ## Overview
 ExecReScanNestLoop resets a nested loop join node to restart execution from the beginning, handling outer plan rescanning while maintaining proper inner plan scan coordination.

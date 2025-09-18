@@ -1,7 +1,7 @@
 # CreatePartitionPruneState
 
 ## Location
-src/backend/executor/execPartition.c: 1867 - 2096
+[src/backend/executor/execPartition.c:1867-2096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1867-L2096)
 
 ## Overview
 Builds the data structure required for calling ExecFindMatchingSubPlans by creating a comprehensive PartitionPruneState with hierarchical pruning data structures.

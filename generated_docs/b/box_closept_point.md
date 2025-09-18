@@ -1,7 +1,7 @@
 # box_closept_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2878 - 2932
+[src/backend/utils/adt/geo_ops.c:2878-2932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2878-L2932)
 
 ## Overview
 Calculates the closest point on or within a box to a specified point and returns the distance between them.

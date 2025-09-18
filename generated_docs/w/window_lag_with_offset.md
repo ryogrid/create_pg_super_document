@@ -1,7 +1,7 @@
 # window_lag_with_offset
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 592 - 602
+[src/backend/utils/adt/windowfuncs.c:592-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L592-L602)
 
 ## Overview
 The window_lag_with_offset function implements the LAG window function with an offset parameter, returning the value of a column from a row that is a specified number of positions before the current row within a partition.

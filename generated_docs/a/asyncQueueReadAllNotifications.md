@@ -1,7 +1,7 @@
 # asyncQueueReadAllNotifications
 
 ## Location
-src/backend/commands/async.c: 1851 - 2015
+[src/backend/commands/async.c:1851-2015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1851-L2015)
 
 ## Overview
 Reads all pending notifications from the notification queue and delivers appropriate ones to the frontend, processing entries from the current backend's position up to the queue head or first uncommitted notification.

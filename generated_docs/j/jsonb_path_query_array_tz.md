@@ -1,7 +1,7 @@
 # jsonb_path_query_array_tz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 613 - 623
+[src/backend/utils/adt/jsonpath_exec.c:613-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L613-L623)
 
 ## Overview
 PostgreSQL function that executes a JSONPath query against a JSONB document and returns all matching values as a JSONB array with timezone-aware datetime operations.

@@ -1,7 +1,7 @@
 # MVDependencies
 
 ## Location
-src/include/statistics/statistics.h: 57 - 63
+[src/include/statistics/statistics.h:57-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/statistics.h#L57-L63)
 
 ## Overview
 MVDependencies is a structure that represents multivariate functional dependencies in PostgreSQL's extended statistics system, storing relationships where values in one set of columns determine values in another set.

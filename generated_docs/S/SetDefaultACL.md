@@ -1,7 +1,7 @@
 # SetDefaultACL
 
 ## Location
-src/backend/catalog/aclchk.c: 1203 - 1465
+[src/backend/catalog/aclchk.c:1203-1465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1203-L1465)
 
 ## Overview
 Creates or updates a pg_default_acl catalog entry to store default access control privileges for future objects of a specific type, role, and namespace combination.

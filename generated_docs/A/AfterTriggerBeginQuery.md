@@ -1,7 +1,7 @@
 # AfterTriggerBeginQuery
 
 ## Location
-src/backend/commands/trigger.c: 5105 - 5124
+[src/backend/commands/trigger.c:5105-5124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5105-L5124)
 
 ## Overview
 Initializes query-level trigger state by incrementing the query depth counter, preparing for trigger event queuing within a transaction.

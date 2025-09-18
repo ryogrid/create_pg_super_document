@@ -1,7 +1,7 @@
 # eclass_already_used
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 678 - 709
+[src/backend/optimizer/path/indxpath.c:678-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L678-L709)
 
 ## Overview
 Determines whether any join clause usable with a given set of relation IDs was derived from a specified EquivalenceClass, preventing redundant parameterizations.

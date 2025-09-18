@@ -1,7 +1,7 @@
 # Pg_finfo_record
 
 ## Location
-src/include/fmgr.h: 398 - 414
+[src/include/fmgr.h:398-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fmgr.h#L398-L414)
 
 ## Overview
 A structure that contains metadata about PostgreSQL extension functions, specifically version information for the function manager's calling convention.

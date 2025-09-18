@@ -1,7 +1,7 @@
 # BumpCheck
 
 ## Location
-src/backend/utils/mmgr/bump.c: 738 - 808
+[src/backend/utils/mmgr/bump.c:738-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L738-L808)
 
 ## Overview
 BumpCheck performs comprehensive consistency checking of a Bump memory context by walking through all blocks and chunks to verify memory structure integrity and detect corruption.

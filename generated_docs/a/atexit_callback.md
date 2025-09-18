@@ -1,7 +1,7 @@
 # atexit_callback
 
 ## Location
-src/backend/storage/ipc/ipc.c: 294 - 308
+[src/backend/storage/ipc/ipc.c:294-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L294-L308)
 
 ## Overview
 The atexit_callback function serves as an emergency backstop to ensure proper cleanup when PostgreSQL processes are terminated through direct calls to exit() rather than the preferred proc_exit() function.

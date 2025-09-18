@@ -1,7 +1,7 @@
 # ExecScan
 
 ## Location
-src/backend/executor/execScan.c: 156 - 269
+[src/backend/executor/execScan.c:156-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execScan.c#L156-L269)
 
 ## Overview
 ExecScan is the core tuple processing function in PostgreSQL's scan execution framework that coordinates tuple retrieval, qualification checking, and projection operations for all scan node types.

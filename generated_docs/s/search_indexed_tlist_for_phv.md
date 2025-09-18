@@ -1,7 +1,7 @@
 # search_indexed_tlist_for_phv
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2862 - 2914
+[src/backend/optimizer/plan/setrefs.c:2862-2914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2862-L2914)
 
 ## Overview
 Searches for a PlaceHolderVar in an indexed target list and returns a Var constructed to reference the matching target list item.

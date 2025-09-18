@@ -1,7 +1,7 @@
 # variable_coerce_param_hook
 
 ## Location
-src/backend/parser/parse_param.c: 186 - 267
+[src/backend/parser/parse_param.c:186-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L186-L267)
 
 ## Overview
 A callback function that handles type coercion for variable parameters by updating their type information when the actual type is determined during query analysis.

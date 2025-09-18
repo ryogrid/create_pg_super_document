@@ -1,7 +1,7 @@
 # PageIndexTupleDelete
 
 ## Location
-src/backend/storage/page/bufpage.c: 1052 - 1160
+[src/backend/storage/page/bufpage.c:1052-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1052-L1160)
 
 ## Overview
 Removes a tuple from an index page by compacting out the line pointer and adjusting all remaining data structures accordingly.

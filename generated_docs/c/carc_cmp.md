@@ -1,7 +1,7 @@
 # carc_cmp
 
 ## Location
-src/backend/regex/regc_nfa.c: 3612 - 3632
+[src/backend/regex/regc_nfa.c:3612-3632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3612-L3632)
 
 ## Overview
 A comparison function used by  to order compact NFA arcs first by color, then by destination state number.

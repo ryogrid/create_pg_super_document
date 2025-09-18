@@ -1,7 +1,7 @@
 # IpcMemoryDelete
 
 ## Location
-src/backend/port/sysv_shmem.c: 298 - 316
+[src/backend/port/sysv_shmem.c:298-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L298-L316)
 
 ## Overview
 IpcMemoryDelete is a static callback function that permanently removes a System V shared memory segment from the system.

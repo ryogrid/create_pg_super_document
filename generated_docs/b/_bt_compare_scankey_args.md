@@ -1,7 +1,7 @@
 # _bt_compare_scankey_args
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3122 - 3328
+[src/backend/access/nbtree/nbtutils.c:3122-3328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3122-L3328)
 
 ## Overview
 Compares two scankey values using a specified operator, handling cross-data-type situations and array scankeys with proper opfamily member lookup and redundancy elimination.

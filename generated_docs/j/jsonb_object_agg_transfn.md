@@ -1,7 +1,7 @@
 # jsonb_object_agg_transfn
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1896 - 1905
+[src/backend/utils/adt/jsonb.c:1896-1905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1896-L1905)
 
 ## Overview
 Transition function for standard JSONB object aggregation that collects key-value pairs into a JSONB object including NULL values.

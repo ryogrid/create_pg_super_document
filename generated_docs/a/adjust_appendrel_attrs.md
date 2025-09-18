@@ -1,7 +1,7 @@
 # adjust_appendrel_attrs
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 196 - 214
+[src/backend/optimizer/util/appendinfo.c:196-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L196-L214)
 
 ## Overview
 Transforms query tree nodes by translating variable references from parent relations to their corresponding child relations using provided AppendRelInfo mappings.

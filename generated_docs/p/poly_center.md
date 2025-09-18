@@ -1,7 +1,7 @@
 # poly_center
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4503 - 4518
+[src/backend/utils/adt/geo_ops.c:4503-4518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4503-L4518)
 
 ## Overview
 Computes and returns the center point of a polygon by converting the polygon to a circle and returning the circle's center.

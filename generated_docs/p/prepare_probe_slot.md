@@ -1,7 +1,7 @@
 # prepare_probe_slot
 
 ## Location
-src/backend/executor/nodeMemoize.c: 302 - 343
+[src/backend/executor/nodeMemoize.c:302-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L302-L343)
 
 ## Overview
 Populates the MemoizeState's probeslot with key values either from a cached MemoizeKey or by evaluating parameter expressions for cache lookups.

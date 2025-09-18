@@ -1,7 +1,7 @@
 # ExecAlterObjectDependsStmt
 
 ## Location
-src/backend/commands/alter.c: 457 - 520
+[src/backend/commands/alter.c:457-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L457-L520)
 
 ## Overview
 Executes ALTER OBJECT [NO] DEPENDS ON EXTENSION statements to create or remove automatic extension dependencies between database objects and extensions.

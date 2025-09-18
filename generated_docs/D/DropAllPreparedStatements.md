@@ -1,7 +1,7 @@
 # DropAllPreparedStatements
 
 ## Location
-src/backend/commands/prepare.c: 537 - 567
+[src/backend/commands/prepare.c:537-567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L537-L567)
 
 ## Overview
 Drops all cached prepared statements by iterating through the prepared statement hash table and releasing their associated plan cache entries.

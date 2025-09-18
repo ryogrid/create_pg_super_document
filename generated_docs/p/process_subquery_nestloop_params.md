@@ -1,7 +1,7 @@
 # process_subquery_nestloop_params
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 480 - 581
+[src/backend/optimizer/util/paramassign.c:480-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L480-L581)
 
 ## Overview
 Processes parameters required by a parameterized subquery-in-FROM, ensuring that LATERAL references are properly registered as nested loop parameters for execution.

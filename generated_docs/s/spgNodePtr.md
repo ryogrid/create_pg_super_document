@@ -1,7 +1,7 @@
 # spgNodePtr
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 87 - 92
+[src/backend/access/spgist/spgtextproc.c:87-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L87-L92)
 
 ## Overview
  is a struct used for sorting values during the picksplit operation in SP-GiST (Space-Partitioned Generalized Search Tree) text processing, specifically in the radix tree implementation for text indexing.

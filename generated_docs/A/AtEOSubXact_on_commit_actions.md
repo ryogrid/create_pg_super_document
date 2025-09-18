@@ -1,7 +1,7 @@
 # AtEOSubXact_on_commit_actions
 
 ## Location
-src/backend/commands/tablecmds.c: 17720 - 17754
+[src/backend/commands/tablecmds.c:17720-17754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17720-L17754)
 
 ## Overview
 AtEOSubXact_on_commit_actions performs post-subcommit or post-subabort cleanup for ON COMMIT management by handling OnCommitItem entries associated with the ending subtransaction.

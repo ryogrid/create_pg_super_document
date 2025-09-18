@@ -1,7 +1,7 @@
 # SetConstraintStateAddItem
 
 ## Location
-src/backend/commands/trigger.c: 5716 - 5745
+[src/backend/commands/trigger.c:5716-5745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5716-L5745)
 
 ## Overview
 SetConstraintStateAddItem adds a new per-trigger constraint state item to a SetConstraintState, expanding the storage capacity if needed.

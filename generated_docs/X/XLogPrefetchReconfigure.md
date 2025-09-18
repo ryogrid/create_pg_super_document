@@ -1,7 +1,7 @@
 # XLogPrefetchReconfigure
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 340 - 350
+[src/backend/access/transam/xlogprefetcher.c:340-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L340-L350)
 
 ## Overview
 Handles reconfiguration events for XLog prefetching by incrementing a global counter when GUC parameters affecting prefetching are changed.

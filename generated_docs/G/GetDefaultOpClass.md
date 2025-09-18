@@ -1,7 +1,7 @@
 # GetDefaultOpClass
 
 ## Location
-src/backend/commands/indexcmds.c: 2278 - 2386
+[src/backend/commands/indexcmds.c:2278-2386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2278-L2386)
 
 ## Overview
 Finds the default operator class for a given data type and access method combination, handling exact matches and binary-compatible alternatives with preference rules.

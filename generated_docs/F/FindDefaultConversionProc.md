@@ -1,7 +1,7 @@
 # FindDefaultConversionProc
 
 ## Location
-src/backend/catalog/namespace.c: 4080 - 4106
+[src/backend/catalog/namespace.c:4080-4106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4080-L4106)
 
 ## Overview
 Finds the default encoding conversion procedure for converting text between two specific encodings by searching through the namespace search path.

@@ -1,7 +1,7 @@
 # set_join_column_names
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4506 - 4765
+[src/backend/utils/adt/ruleutils.c:4506-4765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4506-L4765)
 
 ## Overview
 Selects and assigns column aliases for a join RTE by combining column information from both input relations and handling merged USING columns appropriately.

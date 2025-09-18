@@ -1,7 +1,7 @@
 # JsonTableResetNestedPlan
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4382 - 4410
+[src/backend/utils/adt/jsonpath_exec.c:4382-4410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4382-L4410)
 
 ## Overview
 JsonTableResetNestedPlan re-evaluates the row pattern of nested JSON table plans using updated parent row context, enabling hierarchical path evaluation in JSON table operations.

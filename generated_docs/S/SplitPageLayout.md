@@ -1,7 +1,7 @@
 # SplitPageLayout
 
 ## Location
-src/include/access/gist_private.h: 191 - 201
+[src/include/access/gist_private.h:191-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L191-L201)
 
 ## Overview
 SplitPageLayout is a structure that represents the result of the gistSplit function in PostgreSQL's GiST (Generalized Search Tree) index implementation, containing all necessary information for a page split operation.

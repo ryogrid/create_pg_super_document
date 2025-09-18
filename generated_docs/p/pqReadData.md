@@ -1,7 +1,7 @@
 # pqReadData
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 591 - 809
+[src/interfaces/libpq/fe-misc.c:591-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L591-L809)
 
 ## Overview
 Reads incoming data from the PostgreSQL server connection into the input buffer, implementing intelligent buffering and error handling strategies for optimal network performance.

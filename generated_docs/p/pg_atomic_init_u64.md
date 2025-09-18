@@ -1,7 +1,7 @@
 # pg_atomic_init_u64
 
 ## Location
-src/include/port/atomics.h: 448 - 461
+[src/include/port/atomics.h:448-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L448-L461)
 
 ## Overview
 Initializes a 64-bit atomic unsigned integer variable with a specified value, providing thread-safe initialization.

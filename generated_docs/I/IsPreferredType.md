@@ -1,7 +1,7 @@
 # IsPreferredType
 
 ## Location
-src/backend/parser/parse_coerce.c: 2997 - 3031
+[src/backend/parser/parse_coerce.c:2997-3031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L2997-L3031)
 
 ## Overview
 Checks if a given type is a preferred type within its category or within a specified category.

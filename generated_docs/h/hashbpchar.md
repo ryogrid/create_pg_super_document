@@ -1,7 +1,7 @@
 # hashbpchar
 
 ## Location
-src/backend/utils/adt/varchar.c: 996 - 1052
+[src/backend/utils/adt/varchar.c:996-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L996-L1052)
 
 ## Overview
 Computes a hash value for BPCHAR (blank-padded CHAR) data types, ignoring trailing blanks and respecting collation settings for consistent hash-based operations.

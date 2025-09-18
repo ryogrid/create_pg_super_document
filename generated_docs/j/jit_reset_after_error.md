@@ -1,7 +1,7 @@
 # jit_reset_after_error
 
 ## Location
-src/backend/jit/jit.c: 127 - 136
+[src/backend/jit/jit.c:127-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/jit.c#L127-L136)
 
 ## Overview
 A function that resets the JIT provider's error handling state after an error has been thrown and the main event loop has regained control.

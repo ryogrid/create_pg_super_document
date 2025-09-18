@@ -1,7 +1,7 @@
 # param_is_newly_set
 
 ## Location
-src/bin/psql/command.c: 3363 - 3385
+[src/bin/psql/command.c:3363-3385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3363-L3385)
 
 ## Overview
 Determines whether a parameter has been given a new value by comparing old and new string values.

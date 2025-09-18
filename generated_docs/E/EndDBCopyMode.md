@@ -1,7 +1,7 @@
 # EndDBCopyMode
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 500 - 528
+[src/bin/pg_dump/pg_backup_db.c:500-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L500-L528)
 
 ## Overview
 Terminates a COPY operation during direct-to-database restore by properly ending the COPY state and returning libpq to its normal operational mode.

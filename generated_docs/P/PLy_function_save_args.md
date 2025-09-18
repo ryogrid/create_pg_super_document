@@ -1,7 +1,7 @@
 # PLy_function_save_args
 
 ## Location
-src/pl/plpython/plpy_exec.c: 498 - 543
+[src/pl/plpython/plpy_exec.c:498-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L498-L543)
 
 ## Overview
 PLy_function_save_args creates a snapshot of the current argument values in a procedure's global namespace, enabling restoration of argument state for recursive calls and set-returning function iterations.

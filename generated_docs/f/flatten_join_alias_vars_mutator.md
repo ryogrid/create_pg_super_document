@@ -1,7 +1,7 @@
 # flatten_join_alias_vars_mutator
 
 ## Location
-src/backend/optimizer/util/var.c: 767 - 909
+[src/backend/optimizer/util/var.c:767-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L767-L909)
 
 ## Overview
 The core recursive function that performs the actual flattening of join alias variables by traversing and transforming expression trees.

@@ -1,7 +1,7 @@
 # raw_parser
 
 ## Location
-src/backend/parser/parser.c: 42 - 110
+[src/backend/parser/parser.c:42-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parser.c#L42-L110)
 
 ## Overview
 The primary entry point for PostgreSQL's SQL parser that performs lexical and grammatical analysis on query strings, returning a list of raw (unanalyzed) parse trees.

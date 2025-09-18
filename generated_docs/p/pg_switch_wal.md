@@ -1,7 +1,7 @@
 # pg_switch_wal
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 176 - 200
+[src/backend/access/transam/xlogfuncs.c:176-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L176-L200)
 
 ## Overview
 Forces PostgreSQL to switch to the next WAL (Write-Ahead Log) file and returns the LSN of the switch point.

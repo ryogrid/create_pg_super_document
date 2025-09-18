@@ -1,7 +1,7 @@
 # pg_wc_isword
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 396 - 404
+[src/backend/regex/regc_pg_locale.c:396-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L396-L404)
 
 ## Overview
 A static function that determines whether a wide character is a word character, defined as alphanumeric characters plus underscore.

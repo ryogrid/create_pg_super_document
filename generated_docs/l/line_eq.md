@@ -1,7 +1,7 @@
 # line_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1194 - 1232
+[src/backend/utils/adt/geo_ops.c:1194-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1194-L1232)
 
 ## Overview
 Compares two LINE objects for equality by checking if their parameters are proportional, representing the same geometric line.

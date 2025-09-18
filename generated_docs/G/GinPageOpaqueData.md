@@ -1,7 +1,7 @@
 # GinPageOpaqueData
 
 ## Location
-src/include/access/ginblock.h: 30 - 37
+[src/include/access/ginblock.h:30-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginblock.h#L30-L37)
 
 ## Overview
 GinPageOpaqueData is the page opaque data structure used in GIN (Generalized Inverted Index) pages, containing essential metadata for page navigation and content tracking.

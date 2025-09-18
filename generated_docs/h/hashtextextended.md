@@ -1,7 +1,7 @@
 # hashtextextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 323 - 382
+[src/backend/access/hash/hashfunc.c:323-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L323-L382)
 
 ## Overview
 An extended version of the hashtext function that supports seed-based hashing for text data types with collation awareness.

@@ -1,7 +1,7 @@
 # spg_box_quad_get_scankey_bbox
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 531 - 552
+[src/backend/utils/adt/geo_spgist.c:531-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L531-L552)
 
 ## Overview
 A static helper function that extracts a bounding box from a scan key for SP-GiST spatial queries, handling different geometric data types and setting recheck flags as needed.

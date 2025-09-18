@@ -1,7 +1,7 @@
 # index_parallelrescan
 
 ## Location
-src/backend/access/index/indexam.c: 523 - 540
+[src/backend/access/index/indexam.c:523-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L523-L540)
 
 ## Overview
 The  function (re)starts a parallel scan of an index, performing necessary cleanup and reinitialization to begin or restart parallel index scanning operations.

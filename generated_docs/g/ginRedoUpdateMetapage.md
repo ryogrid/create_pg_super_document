@@ -1,7 +1,7 @@
 # ginRedoUpdateMetapage
 
 ## Location
-src/backend/access/gin/ginxlog.c: 528 - 619
+[src/backend/access/gin/ginxlog.c:528-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L528-L619)
 
 ## Overview
 This function handles the redo operation for GIN (Generalized Inverted Index) metapage updates during WAL (Write-Ahead Logging) recovery, restoring the metapage state and optionally processing associated tuple insertions or tail page modifications.

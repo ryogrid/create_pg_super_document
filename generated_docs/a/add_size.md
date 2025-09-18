@@ -1,7 +1,7 @@
 # add_size
 
 ## Location
-src/backend/storage/ipc/shmem.c: 493 - 509
+[src/backend/storage/ipc/shmem.c:493-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L493-L509)
 
 ## Overview
 add_size safely adds two Size values while checking for overflow, preventing integer overflow vulnerabilities in shared memory size calculations.

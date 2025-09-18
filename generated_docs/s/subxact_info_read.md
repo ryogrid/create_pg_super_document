@@ -1,7 +1,7 @@
 # subxact_info_read
 
 ## Location
-src/backend/replication/logical/worker.c: 4068 - 4118
+[src/backend/replication/logical/worker.c:4068-4118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4068-L4118)
 
 ## Overview
 Restores subtransaction information from a file into memory for a streamed logical replication transaction.

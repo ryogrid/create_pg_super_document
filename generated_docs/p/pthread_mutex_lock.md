@@ -1,7 +1,7 @@
 # pthread_mutex_lock
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 435 - 452
+[src/interfaces/ecpg/ecpglib/misc.c:435-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L435-L452)
 
 ## Overview
 A Windows-specific implementation of POSIX pthread_mutex_lock that provides thread-safe mutex locking using Windows Critical Sections with lazy initialization for PostgreSQL's ECPG library.

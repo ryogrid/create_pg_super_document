@@ -1,7 +1,7 @@
 # pqInternalNotice
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 938 - 992
+[src/interfaces/libpq/fe-exec.c:938-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L938-L992)
 
 ## Overview
 pqInternalNotice is a utility function that produces internally-generated notice messages within libpq. It formats notice messages using a printf-style interface and delivers them through the configured notice hooks.

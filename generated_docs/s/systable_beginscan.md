@@ -1,7 +1,7 @@
 # systable_beginscan
 
 ## Location
-src/backend/access/index/genam.c: 386 - 481
+[src/backend/access/index/genam.c:386-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L386-L481)
 
 ## Overview
 Initiates a flexible catalog scan that can use either heap scan or index scan depending on system state and availability of indexes.

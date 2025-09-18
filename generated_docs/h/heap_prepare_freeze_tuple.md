@@ -1,7 +1,7 @@
 # heap_prepare_freeze_tuple
 
 ## Location
-src/backend/access/heap/heapam.c: 7009 - 7282
+[src/backend/access/heap/heapam.c:7009-7282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7009-L7282)
 
 ## Overview
 Analyzes a tuple's transaction ID fields (xmin, xmax, xvac) to determine if freezing is needed and prepares a freeze plan that can be executed to freeze the tuple while maintaining MVCC consistency.

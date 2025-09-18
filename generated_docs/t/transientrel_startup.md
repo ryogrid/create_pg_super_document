@@ -1,7 +1,7 @@
 # transientrel_startup
 
 ## Location
-src/backend/commands/matview.c: 466 - 491
+[src/backend/commands/matview.c:466-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L466-L491)
 
 ## Overview
 transientrel_startup is an executor startup function that initializes a DestReceiver for writing tuples to a transient relation, setting up the necessary state and configuration for bulk insert operations.

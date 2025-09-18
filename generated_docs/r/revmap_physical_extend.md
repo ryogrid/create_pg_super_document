@@ -1,7 +1,7 @@
 # revmap_physical_extend
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 522 - 645
+[src/backend/access/brin/brin_revmap.c:522-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L522-L645)
 
 ## Overview
 Attempts to extend the BRIN reverse mapping (revmap) by one physical page, handling complex concurrency scenarios and page management for BRIN indexes.

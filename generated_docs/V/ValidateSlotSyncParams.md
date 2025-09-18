@@ -1,7 +1,7 @@
 # ValidateSlotSyncParams
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1039 - 1105
+[src/backend/replication/logical/slotsync.c:1039-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1039-L1105)
 
 ## Overview
 Validates that all necessary PostgreSQL configuration parameters (GUCs) are properly set for replication slot synchronization to function correctly.

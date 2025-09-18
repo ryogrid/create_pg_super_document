@@ -1,7 +1,7 @@
 # slist_has_next
 
 ## Location
-src/include/lib/ilist.h: 1043 - 1053
+[src/include/lib/ilist.h:1043-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1043-L1053)
 
 ## Overview
 Checks whether a given node in a singly linked list has a following node in PostgreSQL's intrusive list implementation.

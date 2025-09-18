@@ -1,7 +1,7 @@
 # create_tidrangescan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1208 - 1243
+[src/backend/optimizer/util/pathnode.c:1208-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1208-L1243)
 
 ## Overview
 Creates a path node corresponding to a scan by a range of TIDs (Tuple Identifiers), which allows efficient access to tuples within specified TID ranges rather than individual TIDs.

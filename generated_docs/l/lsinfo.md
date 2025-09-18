@@ -1,7 +1,7 @@
 # lsinfo
 
 ## Location
-src/timezone/pgtz.h: 35 - 40
+[src/timezone/pgtz.h:35-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.h#L35-L40)
 
 ## Overview
 The lsinfo struct represents leap second information, storing the transition time and correction value for leap second adjustments in timezone calculations.

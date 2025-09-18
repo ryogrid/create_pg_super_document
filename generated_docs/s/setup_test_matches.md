@@ -1,7 +1,7 @@
 # setup_test_matches
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 435 - 617
+[src/test/modules/test_regex/test_regex.c:435-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L435-L617)
 
 ## Overview
 setup_test_matches is a static function that performs comprehensive regex matching on input text, executing the pattern potentially multiple times and storing all match results in a structured context for later retrieval.

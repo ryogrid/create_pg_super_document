@@ -1,7 +1,7 @@
 # ckpt_buforder_comparator
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5823 - 5853
+[src/backend/storage/buffer/bufmgr.c:5823-5853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5823-L5853)
 
 ## Overview
 A static inline comparison function that determines the writeout order of dirty buffers during checkpoint operations, ensuring optimal I/O performance by organizing writes by tablespace, relation, fork, and block number.

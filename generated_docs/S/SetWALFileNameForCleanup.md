@@ -1,7 +1,7 @@
 # SetWALFileNameForCleanup
 
 ## Location
-src/bin/pg_archivecleanup/pg_archivecleanup.c: 183 - 256
+[src/bin/pg_archivecleanup/pg_archivecleanup.c:183-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_archivecleanup/pg_archivecleanup.c#L183-L256)
 
 ## Overview
 Determines and sets the earliest WAL filename that should be kept in the archive by parsing and normalizing the restart WAL filename provided by the user.

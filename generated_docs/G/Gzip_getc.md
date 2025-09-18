@@ -1,7 +1,7 @@
 # Gzip_getc
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 300 - 318
+[src/bin/pg_dump/compress_gzip.c:300-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L300-L318)
 
 ## Overview
 Reads a single character from a gzip-compressed file handle with comprehensive EOF and error handling.

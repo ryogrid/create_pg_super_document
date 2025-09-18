@@ -1,7 +1,7 @@
 # CheckBSDAuth
 
 ## Location
-src/backend/libpq/auth.c: 2176 - 2218
+[src/backend/libpq/auth.c:2176-2218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2176-L2218)
 
 ## Overview
 The CheckBSDAuth function implements BSD Authentication system integration for PostgreSQL, providing password-based authentication through the BSD auth subsystem on supported platforms.

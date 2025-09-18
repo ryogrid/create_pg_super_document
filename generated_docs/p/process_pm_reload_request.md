@@ -1,7 +1,7 @@
 # process_pm_reload_request
 
 ## Location
-src/backend/postmaster/postmaster.c: 2096 - 2168
+[src/backend/postmaster/postmaster.c:2096-2168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2096-L2168)
 
 ## Overview
 Processes configuration reload requests by re-reading config files and signaling all child processes to reload their configurations.

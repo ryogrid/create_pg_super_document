@@ -1,7 +1,7 @@
 # interpret_func_support
 
 ## Location
-src/backend/commands/functioncmds.c: 670 - 713
+[src/backend/commands/functioncmds.c:670-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L670-L713)
 
 ## Overview
 Validates and resolves a support function specification for PostgreSQL functions, ensuring the support function meets required signature and privilege constraints.

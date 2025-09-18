@@ -1,7 +1,7 @@
 # CloneFkReferenced
 
 ## Location
-src/backend/commands/tablecmds.c: 10633 - 10829
+[src/backend/commands/tablecmds.c:10633-10829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10633-L10829)
 
 ## Overview
 CloneFkReferenced handles cloning foreign key constraints where the parent relation appears on the referenced side, used when creating or attaching partitions.

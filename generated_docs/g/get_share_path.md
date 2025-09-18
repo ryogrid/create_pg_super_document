@@ -1,7 +1,7 @@
 # get_share_path
 
 ## Location
-src/port/path.c: 901 - 909
+[src/port/path.c:901-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L901-L909)
 
 ## Overview
 Retrieves the path to PostgreSQL's shared data directory, with support for relocated installations.

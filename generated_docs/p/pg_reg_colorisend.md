@@ -1,7 +1,7 @@
 # pg_reg_colorisend
 
 ## Location
-src/backend/regex/regexport.c: 208 - 229
+[src/backend/regex/regexport.c:208-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L208-L229)
 
 ## Overview
 Checks whether a given color represents an end-of-line or end-of-string pseudo-character in a compiled regular expression.

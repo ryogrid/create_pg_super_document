@@ -1,7 +1,7 @@
 # repairDependencyLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1149 - 1473
+[src/bin/pg_dump/pg_dump_sort.c:1149-1473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1149-L1473)
 
 ## Overview
 The repairDependencyLoop function resolves circular dependencies in PostgreSQL dump objects by identifying specific dependency patterns and applying appropriate repair strategies, or breaking the loop arbitrarily if no principled solution exists.

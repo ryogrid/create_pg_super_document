@@ -1,7 +1,7 @@
 # fix_windowagg_cond_context
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 90 - 96
+[src/backend/optimizer/plan/setrefs.c:90-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L90-L96)
 
 ## Overview
 A specialized context structure used for fixing expressions in WindowAgg node run conditions, providing the minimal context needed for variable reference resolution.

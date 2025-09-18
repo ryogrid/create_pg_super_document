@@ -1,7 +1,7 @@
 # DataChecksumsEnabled
 
 ## Location
-src/backend/access/transam/xlog.c: 4543 - 4558
+[src/backend/access/transam/xlog.c:4543-4558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4543-L4558)
 
 ## Overview
 Determines whether data page checksums are enabled for the current PostgreSQL database cluster.

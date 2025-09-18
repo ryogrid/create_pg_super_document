@@ -1,7 +1,7 @@
 # xl_xact_abort
 
 ## Location
-src/include/access/xact.h: 330 - 343
+[src/include/access/xact.h:330-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L330-L343)
 
 ## Overview
 Structure representing the transaction abort record in PostgreSQL's Write-Ahead Log (WAL), containing abort timestamp and variable-length additional information for rollback operations.

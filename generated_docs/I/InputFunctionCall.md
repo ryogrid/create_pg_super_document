@@ -1,7 +1,7 @@
 # InputFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1530 - 1584
+[src/backend/utils/fmgr/fmgr.c:1530-1584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1530-L1584)
 
 ## Overview
 InputFunctionCall is a convenience wrapper that calls a previously-looked-up datatype input function to convert a string representation to its internal Datum format.

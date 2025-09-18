@@ -1,7 +1,7 @@
 # ScanKeyInit
 
 ## Location
-src/backend/access/common/scankey.c: 76 - 100
+[src/backend/access/common/scankey.c:76-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/scankey.c#L76-L100)
 
 ## Overview
 A simplified version of ScanKeyEntryInitialize that provides default values for common scan key initialization scenarios, particularly optimized for hardwired system catalog lookups.

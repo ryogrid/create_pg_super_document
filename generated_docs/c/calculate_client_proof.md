@@ -1,7 +1,7 @@
 # calculate_client_proof
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 761 - 829
+[src/interfaces/libpq/fe-auth-scram.c:761-829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L761-L829)
 
 ## Overview
 Computes the cryptographic client proof for SCRAM authentication, demonstrating client knowledge of the password without transmitting it directly.

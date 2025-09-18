@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_checkpointer
 
 ## Location
-src/backend/utils/activity/pgstat_checkpointer.c: 80 - 87
+[src/backend/utils/activity/pgstat_checkpointer.c:80-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_checkpointer.c#L80-L87)
 
 ## Overview
 Retrieves a pointer to the current checkpointer statistics for SQL-callable functions to access checkpointer performance metrics.

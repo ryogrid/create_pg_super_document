@@ -1,7 +1,7 @@
 # evaluate_expr
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4973 - 5064
+[src/backend/optimizer/util/clauses.c:4973-5064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4973-L5064)
 
 ## Overview
 Pre-evaluates a constant expression by using the executor's evaluation routines to ensure consistent results and avoid code duplication.

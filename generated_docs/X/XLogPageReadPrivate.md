@@ -1,7 +1,7 @@
 # XLogPageReadPrivate
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 47 - 51
+[src/bin/pg_rewind/parsexlog.c:47-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L47-L51)
 
 ## Overview
 XLogPageReadPrivate is a private data structure used to pass parameters from higher-level WAL record reading functions down to the XLogPageRead callback function during PostgreSQL's write-ahead logging (WAL) recovery operations.

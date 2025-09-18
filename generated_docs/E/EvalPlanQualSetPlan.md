@@ -1,7 +1,7 @@
 # EvalPlanQualSetPlan
 
 ## Location
-src/backend/executor/execMain.c: 2583 - 2599
+[src/backend/executor/execMain.c:2583-2599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2583-L2599)
 
 ## Overview
 EvalPlanQualSetPlan sets or changes the subplan of an EPQState structure, which is used in PostgreSQL's Eval Plan Qual (EPQ) mechanism for handling concurrent updates during query execution.

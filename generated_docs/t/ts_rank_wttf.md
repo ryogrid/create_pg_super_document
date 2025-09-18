@@ -1,7 +1,7 @@
 # ts_rank_wttf
 
 ## Location
-src/backend/utils/adt/tsrank.c: 438 - 454
+[src/backend/utils/adt/tsrank.c:438-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L438-L454)
 
 ## Overview
 PostgreSQL SQL function interface for text search ranking that accepts custom weights, TSVector, TSQuery, and normalization method parameters.

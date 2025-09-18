@@ -1,7 +1,7 @@
 # table_rescan
 
 ## Location
-src/include/access/tableam.h: 1029 - 1043
+[src/include/access/tableam.h:1029-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1029-L1043)
 
 ## Overview
 Restarts a table scan operation from the beginning, optionally applying new scan keys to filter the results during the rescan.

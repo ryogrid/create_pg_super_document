@@ -1,7 +1,7 @@
 # QueryMode
 
 ## Location
-src/bin/pgbench/pgbench.c: 711 - 739
+[src/bin/pgbench/pgbench.c:711-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L711-L739)
 
 ## Overview
 QueryMode is an enumeration that defines the different query execution modes available in pgbench, PostgreSQL's benchmarking tool.

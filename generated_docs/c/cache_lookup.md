@@ -1,7 +1,7 @@
 # cache_lookup
 
 ## Location
-src/backend/executor/nodeMemoize.c: 528 - 624
+[src/backend/executor/nodeMemoize.c:528-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L528-L624)
 
 ## Overview
 Searches for existing cache entries based on current scan parameters, creates new entries if not found, and manages LRU ordering and memory limits during the lookup process.

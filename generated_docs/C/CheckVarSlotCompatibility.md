@@ -1,7 +1,7 @@
 # CheckVarSlotCompatibility
 
 ## Location
-src/backend/executor/execExprInterp.c: 1986 - 2036
+[src/backend/executor/execExprInterp.c:1986-2036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L1986-L2036)
 
 ## Overview
 Validates that a specific attribute in a tuple slot is compatible with a variable reference from a compiled expression, checking for schema changes like dropped columns or type mismatches.

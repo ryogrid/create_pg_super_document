@@ -1,7 +1,7 @@
 # WinGetPartitionRowCount
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3200 - 3217
+[src/backend/executor/nodeWindowAgg.c:3200-3217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3200-L3217)
 
 ## Overview
 Returns the total number of rows in the current partition, forcing complete partition spooling into the tuplestore if not already done.

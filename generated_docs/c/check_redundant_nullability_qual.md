@@ -1,7 +1,7 @@
 # check_redundant_nullability_qual
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2584 - 2628
+[src/backend/optimizer/plan/initsplan.c:2584-2628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2584-L2628)
 
 ## Overview
 Checks whether an IS NULL qualification is redundant with a lower anti-join, allowing the optimizer to suppress unnecessary null checks.

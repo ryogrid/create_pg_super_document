@@ -1,7 +1,7 @@
 # unique_key_recheck
 
 ## Location
-src/backend/commands/constraint.c: 39 - 206
+[src/backend/commands/constraint.c:39-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/constraint.c#L39-L206)
 
 ## Overview
 A trigger function that performs deferred uniqueness and exclusion constraint checks for rows that may potentially violate deferrable unique or exclusion constraints.

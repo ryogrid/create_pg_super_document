@@ -1,7 +1,7 @@
 # index_getnext_tid
 
 ## Location
-src/backend/access/index/indexam.c: 574 - 631
+[src/backend/access/index/indexam.c:574-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L574-L631)
 
 ## Overview
 The `index_getnext_tid` function retrieves the next tuple identifier (TID) from an index scan that satisfies the scan keys, serving as a core primitive for index-based tuple retrieval.

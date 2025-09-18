@@ -1,7 +1,7 @@
 # toast_get_compression_id
 
 ## Location
-src/backend/access/common/toast_compression.c: 254 - 284
+[src/backend/access/common/toast_compression.c:254-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L254-L284)
 
 ## Overview
 Extracts the compression ID from a varlena (variable-length) data structure, returning the compression method used or an invalid ID if the data is not compressed.

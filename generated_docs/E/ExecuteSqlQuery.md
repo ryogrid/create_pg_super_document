@@ -1,7 +1,7 @@
 # ExecuteSqlQuery
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 290 - 304
+[src/bin/pg_dump/pg_backup_db.c:290-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L290-L304)
 
 ## Overview
 A utility function in pg_dump that executes SQL queries expected to return result sets, with automatic error handling and status verification.

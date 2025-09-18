@@ -1,7 +1,7 @@
 # xl_commit_ts_set
 
 ## Location
-src/include/access/commit_ts.h: 49 - 55
+[src/include/access/commit_ts.h:49-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/commit_ts.h#L49-L55)
 
 ## Overview
 The `xl_commit_ts_set` structure represents the WAL (Write-Ahead Log) record format for storing commit timestamp information that needs to be logged for recovery purposes.

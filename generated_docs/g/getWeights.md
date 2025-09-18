@@ -1,7 +1,7 @@
 # getWeights
 
 ## Location
-src/backend/utils/adt/tsrank.c: 400 - 437
+[src/backend/utils/adt/tsrank.c:400-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L400-L437)
 
 ## Overview
 Validates and processes weight arrays for text search ranking, returning either user-provided weights or default system weights with proper error handling.

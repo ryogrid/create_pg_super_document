@@ -1,7 +1,7 @@
 # gistProcessItup
 
 ## Location
-src/backend/access/gist/gistbuild.c: 923 - 1053
+[src/backend/access/gist/gistbuild.c:923-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L923-L1053)
 
 ## Overview
 Core function that processes an index tuple during buffered GiST index construction by traversing the tree to find the appropriate insertion location and handling both buffered and direct insertion scenarios.

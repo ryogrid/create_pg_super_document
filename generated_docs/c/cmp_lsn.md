@@ -1,7 +1,7 @@
 # cmp_lsn
 
 ## Location
-src/backend/replication/syncrep.c: 738 - 753
+[src/backend/replication/syncrep.c:738-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L738-L753)
 
 ## Overview
 A comparator function that sorts LSN (Log Sequence Number) values in descending order for use with qsort.

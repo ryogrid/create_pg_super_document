@@ -1,7 +1,7 @@
 # pg_lsn_recv
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 92 - 101
+[src/backend/utils/adt/pg_lsn.c:92-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L92-L101)
 
 ## Overview
 A PostgreSQL receive function that deserializes a pg_lsn value from binary format during network communication or binary data transfer.

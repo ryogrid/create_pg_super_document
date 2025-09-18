@@ -1,7 +1,7 @@
 # reconsider_outer_join_clause
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2114 - 2236
+[src/backend/optimizer/path/equivclass.c:2114-2236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2114-L2236)
 
 ## Overview
 Processes a single LEFT/RIGHT JOIN clause to determine if constant values can be safely propagated from the outer relation to the inner relation through equivalence classes.

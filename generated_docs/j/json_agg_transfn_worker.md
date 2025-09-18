@@ -1,7 +1,7 @@
 # json_agg_transfn_worker
 
 ## Location
-src/backend/utils/adt/json.c: 770 - 851
+[src/backend/utils/adt/json.c:770-851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L770-L851)
 
 ## Overview
 The json_agg_transfn_worker function implements the core transition logic for PostgreSQL's json_agg aggregate function, building a JSON array from input values.

@@ -1,7 +1,7 @@
 # SortItem
 
 ## Location
-src/include/statistics/extended_stats_internal.h: 53 - 58
+[src/include/statistics/extended_stats_internal.h:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/extended_stats_internal.h#L53-L58)
 
 ## Overview
 SortItem is a structure that represents a tuple of values with their corresponding frequency count, used as the fundamental unit for sorting and statistical operations in PostgreSQL's extended statistics framework.

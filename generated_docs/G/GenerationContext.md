@@ -1,7 +1,7 @@
 # GenerationContext
 
 ## Location
-src/backend/utils/mmgr/generation.c: 59 - 73
+[src/backend/utils/mmgr/generation.c:59-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L59-L73)
 
 ## Overview
 GenerationContext is a memory context implementation designed for scenarios where allocated chunks are not reused and entire blocks are freed once all chunks within them are freed.

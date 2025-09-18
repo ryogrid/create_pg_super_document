@@ -1,7 +1,7 @@
 # compatible_oper
 
 ## Location
-src/backend/parser/parse_oper.c: 450 - 486
+[src/backend/parser/parse_oper.c:450-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L450-L486)
 
 ## Overview
 A more restrictive operator resolution function that finds binary operators without requiring run-time type coercion, accepting only exact or binary-compatible operators.

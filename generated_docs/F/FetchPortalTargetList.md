@@ -1,7 +1,7 @@
 # FetchPortalTargetList
 
 ## Location
-src/backend/tcop/pquery.c: 326 - 347
+[src/backend/tcop/pquery.c:326-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L326-L347)
 
 ## Overview
 FetchPortalTargetList extracts the target list from a portal that returns tuples, providing information about the columns and expressions in the query result.

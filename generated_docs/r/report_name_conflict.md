@@ -1,7 +1,7 @@
 # report_name_conflict
 
 ## Location
-src/backend/commands/alter.c: 76 - 110
+[src/backend/commands/alter.c:76-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L76-L110)
 
 ## Overview
 A static helper function that raises an error indicating that an object with the given name already exists in the database namespace.

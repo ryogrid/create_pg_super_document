@@ -1,7 +1,7 @@
 # ATAddForeignKeyConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 9607 - 10047
+[src/backend/commands/tablecmds.c:9607-10047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L9607-L10047)
 
 ## Overview
 ATAddForeignKeyConstraint implements the complex logic for adding foreign key constraints to tables, including comprehensive validation, operator resolution, and handling of partitioned table hierarchies.

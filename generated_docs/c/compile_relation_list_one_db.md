@@ -1,7 +1,7 @@
 # compile_relation_list_one_db
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1883 - 2223
+[src/bin/pg_amcheck/pg_amcheck.c:1883-2223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1883-L2223)
 
 ## Overview
 Compiles a list of relations (tables and indexes) to check within the currently connected database based on user-supplied options, sorted by descending size, and appends them to the given list of relations.

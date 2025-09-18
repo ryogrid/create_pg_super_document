@@ -1,7 +1,7 @@
 # make_oper_cache_key
 
 ## Location
-src/backend/parser/parse_oper.c: 937 - 980
+[src/backend/parser/parse_oper.c:937-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L937-L980)
 
 ## Overview
 Creates a lookup key structure for operator caching based on operator name and argument types, handling schema resolution and search path management.

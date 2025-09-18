@@ -1,7 +1,7 @@
 # ProcessingMode
 
 ## Location
-src/include/miscadmin.h: 458 - 461
+[src/include/miscadmin.h:458-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/miscadmin.h#L458-L461)
 
 ## Overview
 An enumeration that defines the three distinct processing modes in PostgreSQL, controlling system behavior during bootstrap, initialization, and normal operations.

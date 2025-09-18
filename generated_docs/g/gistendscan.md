@@ -1,7 +1,7 @@
 # gistendscan
 
 ## Location
-src/backend/access/gist/gistscan.c: 349 - 358
+[src/backend/access/gist/gistscan.c:349-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistscan.c#L349-L358)
 
 ## Overview
 Terminates a GiST index scan and cleans up all associated resources, including memory contexts and state structures.

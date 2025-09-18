@@ -1,7 +1,7 @@
 # find_among
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 233 - 297
+[src/backend/snowball/libstemmer/utilities.c:233-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L233-L297)
 
 ## Overview
 A sophisticated pattern matching function that performs binary search through a sorted array of string patterns, with support for substring matching and callback functions.

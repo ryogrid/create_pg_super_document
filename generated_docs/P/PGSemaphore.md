@@ -1,7 +1,7 @@
 # PGSemaphore
 
 ## Location
-src/include/storage/pg_sema.h: 34 - 36
+[src/include/storage/pg_sema.h:34-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/pg_sema.h#L34-L36)
 
 ## Overview
 PGSemaphore is a platform-independent counting semaphore type that provides a unified API for semaphore operations across different operating systems in PostgreSQL.

@@ -1,7 +1,7 @@
 # BlockIdGetBlockNumber
 
 ## Location
-src/include/storage/block.h: 103 - 108
+[src/include/storage/block.h:103-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/block.h#L103-L108)
 
 ## Overview
 BlockIdGetBlockNumber is an inline function that retrieves the original 32-bit block number from a BlockIdData structure by reconstructing it from its high and low 16-bit components.

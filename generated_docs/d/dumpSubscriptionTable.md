@@ -3,7 +3,7 @@ Documentation for dumpSubscriptionTable function.
 # dumpSubscriptionTable
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5084 - 5152
+[src/bin/pg_dump/pg_dump.c:5084-5152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5084-L5152)
 
 ## Overview
 Generates SQL commands to restore subscription table relationships during binary upgrades, preserving the exact replication state of subscription-table mappings for PostgreSQL 17 and later.

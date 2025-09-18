@@ -1,7 +1,7 @@
 # AlterObjectOwner_internal
 
 ## Location
-src/backend/commands/alter.c: 917 - 1054
+[src/backend/commands/alter.c:917-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L917-L1054)
 
 ## Overview
 A generic internal function that changes the ownership of a database object by updating its catalog entry, handling permissions, ACL modifications, and dependency updates.

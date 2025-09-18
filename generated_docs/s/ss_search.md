@@ -1,7 +1,7 @@
 # ss_search
 
 ## Location
-src/backend/access/common/syncscan.c: 191 - 253
+[src/backend/access/common/syncscan.c:191-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L191-L253)
 
 ## Overview
 Searches the synchronized scan locations LRU cache for an entry matching a given relfilelocator and optionally updates its location.

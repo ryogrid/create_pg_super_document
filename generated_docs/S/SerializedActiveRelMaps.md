@@ -1,7 +1,7 @@
 # SerializedActiveRelMaps
 
 ## Location
-src/backend/utils/cache/relmapper.c: 101 - 105
+[src/backend/utils/cache/relmapper.c:101-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L101-L105)
 
 ## Overview
 SerializedActiveRelMaps is a structure used to serialize the current state of relation mappings for parallel workers, containing both shared and local active relation map updates.

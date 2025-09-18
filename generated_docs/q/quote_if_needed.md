@@ -1,7 +1,7 @@
 # quote_if_needed
 
 ## Location
-src/bin/psql/stringutils.c: 292 - 342
+[src/bin/psql/stringutils.c:292-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/stringutils.c#L292-L342)
 
 ## Overview
 A utility function that determines whether a string needs quoting for safe parsing and returns a properly quoted and escaped version if necessary, serving as the opposite operation to strip_quotes.

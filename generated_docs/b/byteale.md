@@ -1,7 +1,7 @@
 # byteale
 
 ## Location
-src/backend/utils/adt/varlena.c: 3878 - 3897
+[src/backend/utils/adt/varlena.c:3878-3897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3878-L3897)
 
 ## Overview
 A PostgreSQL function that implements the less-than-or-equal-to operator (<=) for bytea (binary string) values, performing lexicographic comparison.

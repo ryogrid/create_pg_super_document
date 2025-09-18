@@ -1,7 +1,7 @@
 # ReorderBufferAbort
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2968 - 3013
+[src/backend/replication/logical/reorderbuffer.c:2968-3013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2968-L3013)
 
 ## Overview
 Aborts a transaction that possibly has previous changes, purging the transaction and its contents from memory and disk.

@@ -1,7 +1,7 @@
 # cmpcmdflag
 
 ## Location
-src/backend/tsearch/spell.c: 210 - 228
+[src/backend/tsearch/spell.c:210-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L210-L228)
 
 ## Overview
 A static comparison function used for sorting and binary searching CompoundAffixFlag structures in PostgreSQL's Hunspell dictionary processing, handling different flag representation modes.

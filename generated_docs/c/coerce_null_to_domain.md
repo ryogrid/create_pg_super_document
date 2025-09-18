@@ -1,7 +1,7 @@
 # coerce_null_to_domain
 
 ## Location
-src/backend/parser/parse_coerce.c: 1273 - 1313
+[src/backend/parser/parse_coerce.c:1273-1313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1273-L1313)
 
 ## Overview
 Creates a NULL constant value for a domain type, properly handling domain constraints by wrapping it in a CoerceToDomain node when necessary to enforce NOT NULL constraints at runtime.

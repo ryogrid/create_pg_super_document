@@ -1,7 +1,7 @@
 # neqjoinsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2823 - 2900
+[src/backend/utils/adt/selfuncs.c:2823-2900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2823-L2900)
 
 ## Overview
 Estimates the selectivity of a "!=" (not equal) operator in join conditions, returning the fraction of row combinations that satisfy the inequality join predicate.

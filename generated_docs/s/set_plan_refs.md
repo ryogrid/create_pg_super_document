@@ -1,7 +1,7 @@
 # set_plan_refs
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 608 - 1320
+[src/backend/optimizer/plan/setrefs.c:608-1320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L608-L1320)
 
 ## Overview
 The core recursive function that adjusts variable references and expression nodes within a Plan tree to account for rangetable (RT) index offsets when integrating subqueries into larger query plans.

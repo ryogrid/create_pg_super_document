@@ -1,7 +1,7 @@
 # pq_setkeepalivesidle
 
 ## Location
-src/backend/libpq/pqcomm.c: 1664 - 1713
+[src/backend/libpq/pqcomm.c:1664-1713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1664-L1713)
 
 ## Overview
 Sets the TCP keepalive idle timeout value for a given port connection using platform-specific implementations.

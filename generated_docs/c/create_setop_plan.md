@@ -1,7 +1,7 @@
 # create_setop_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2720 - 2755
+[src/backend/optimizer/plan/createplan.c:2720-2755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2720-L2755)
 
 ## Overview
 Creates a SetOp plan node for set operations (UNION, INTERSECT, EXCEPT) based on the given SetOpPath and recursively creates plans for its subpaths.

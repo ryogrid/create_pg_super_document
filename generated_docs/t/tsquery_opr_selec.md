@@ -1,7 +1,7 @@
 # tsquery_opr_selec
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 278 - 433
+[src/backend/tsearch/ts_selfuncs.c:278-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L278-L433)
 
 ## Overview
 Recursively traverses TSQuery trees to compute selectivity estimates using statistics-based analysis for lexemes and probability theory for logical operators.

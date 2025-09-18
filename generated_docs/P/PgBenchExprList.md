@@ -1,7 +1,7 @@
 # PgBenchExprList
 
 ## Location
-src/bin/pgbench/pgbench.h: 108 - 109
+[src/bin/pgbench/pgbench.h:108-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.h#L108-L109)
 
 ## Overview
 PgBenchExprList is a list management structure that maintains head and tail pointers for efficiently managing linked lists of PgBenchExprLink nodes.

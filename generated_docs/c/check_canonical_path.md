@@ -1,7 +1,7 @@
 # check_canonical_path
 
 ## Location
-src/backend/commands/variable.c: 1047 - 1067
+[src/backend/commands/variable.c:1047-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1047-L1067)
 
 ## Overview
 The `check_canonical_path` function validates and normalizes file system path values for various PostgreSQL configuration parameters.

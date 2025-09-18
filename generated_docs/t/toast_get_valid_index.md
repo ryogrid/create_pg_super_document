@@ -1,7 +1,7 @@
 # toast_get_valid_index
 
 ## Location
-src/backend/access/common/toast_internals.c: 530 - 563
+[src/backend/access/common/toast_internals.c:530-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L530-L563)
 
 ## Overview
 Retrieves the OID of the valid index associated with a given TOAST relation, where TOAST (The Oversized-Attribute Storage Technique) relations can only have one valid index at a time.

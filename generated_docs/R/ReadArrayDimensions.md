@@ -1,7 +1,7 @@
 # ReadArrayDimensions
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 402 - 518
+[src/backend/utils/adt/arrayfuncs.c:402-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L402-L518)
 
 ## Overview
 Parses array dimension specifications from an input string and converts them to internal format, extracting bounds and dimension sizes for multi-dimensional arrays.

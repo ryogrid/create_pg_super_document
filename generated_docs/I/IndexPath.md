@@ -1,7 +1,7 @@
 # IndexPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1709 - 1719
+[src/include/nodes/pathnodes.h:1709-1719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1709-L1719)
 
 ## Overview
 IndexPath represents an index scan execution path over a single index, supporting both regular index scans and index-only scans with detailed index usage specifications and cost information.

@@ -1,7 +1,7 @@
 # lrq_complete_lsn
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 272 - 293
+[src/backend/access/transam/xlogprefetcher.c:272-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L272-L293)
 
 ## Overview
 Completes LSN processing in an LSN read queue by removing entries for LSNs that have been replayed and optionally triggering new prefetch operations.

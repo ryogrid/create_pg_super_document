@@ -1,7 +1,7 @@
 # OpenTableList
 
 ## Location
-src/backend/commands/publicationcmds.c: 1549 - 1698
+[src/backend/commands/publicationcmds.c:1549-1698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1549-L1698)
 
 ## Overview
 Opens and locks relations specified by a PublicationTable list, preparing them for addition to a publication with proper validation and inheritance handling.

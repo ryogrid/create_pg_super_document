@@ -1,7 +1,7 @@
 # geqo_copy
 
 ## Location
-src/backend/optimizer/geqo/geqo_copy.c: 45 - 54
+[src/backend/optimizer/geqo/geqo_copy.c:45-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_copy.c#L45-L54)
 
 ## Overview
 Copies the contents of one chromosome to another in the GEQO (Genetic Query Optimizer) algorithm implementation.

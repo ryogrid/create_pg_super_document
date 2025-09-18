@@ -1,7 +1,7 @@
 # push_to_sink
 
 ## Location
-src/backend/backup/basebackup.c: 1950 - 1990
+[src/backend/backup/basebackup.c:1950-1990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L1950-L1990)
 
 ## Overview
 push_to_sink copies data into a bbsink's buffer with automatic flushing and checksum updating when the buffer becomes full.

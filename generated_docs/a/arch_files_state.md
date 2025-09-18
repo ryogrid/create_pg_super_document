@@ -1,7 +1,7 @@
 # arch_files_state
 
 ## Location
-src/backend/postmaster/pgarch.c: 123 - 156
+[src/backend/postmaster/pgarch.c:123-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L123-L156)
 
 ## Overview
 arch_files_state is a structure used to efficiently track multiple WAL files ready for archiving, minimizing directory scans by using a max-heap and batch processing approach.

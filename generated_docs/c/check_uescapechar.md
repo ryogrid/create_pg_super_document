@@ -1,7 +1,7 @@
 # check_uescapechar
 
 ## Location
-src/interfaces/ecpg/preproc/parser.c: 228 - 243
+[src/interfaces/ecpg/preproc/parser.c:228-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/parser.c#L228-L243)
 
 ## Overview
 Validates whether a given character is acceptable as a Unicode escape character according to PostgreSQL UESCAPE syntax rules.

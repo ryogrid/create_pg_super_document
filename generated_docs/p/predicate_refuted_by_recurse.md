@@ -1,7 +1,7 @@
 # predicate_refuted_by_recurse
 
 ## Location
-src/backend/optimizer/util/predtest.c: 531 - 825
+[src/backend/optimizer/util/predtest.c:531-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L531-L825)
 
 ## Overview
 Recursively performs the core logical refutation testing between clauses and predicates using comprehensive case analysis of AND/OR expression structures and NOT-clause handling.

@@ -1,7 +1,7 @@
 # serialize_prepare_info
 
 ## Location
-src/backend/commands/explain.c: 5334 - 5386
+[src/backend/commands/explain.c:5334-5386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5334-L5386)
 
 ## Overview
 A helper function that prepares function lookup information needed for tuple serialization in different output formats (text or binary).

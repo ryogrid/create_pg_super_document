@@ -1,7 +1,7 @@
 # get_rewrite_oid
 
 ## Location
-src/backend/rewrite/rewriteSupport.c: 92 - 116
+[src/backend/rewrite/rewriteSupport.c:92-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSupport.c#L92-L116)
 
 ## Overview
 Retrieves the OID of a rewrite rule given the relation ID and rule name, with optional error handling for missing rules.

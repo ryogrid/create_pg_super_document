@@ -1,7 +1,7 @@
 # pg_atomic_exchange_u64
 
 ## Location
-src/include/port/atomics.h: 498 - 506
+[src/include/port/atomics.h:498-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L498-L506)
 
 ## Overview
 Atomically exchanges the value of a 64-bit unsigned integer variable with a new value, returning the previous value that was stored.

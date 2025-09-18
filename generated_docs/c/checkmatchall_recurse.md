@@ -1,7 +1,7 @@
 # checkmatchall_recurse
 
 ## Location
-src/backend/regex/regc_nfa.c: 3277 - 3414
+[src/backend/regex/regc_nfa.c:3277-3414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3277-L3414)
 
 ## Overview
 The checkmatchall_recurse function is a recursive helper function for checkmatchall that performs depth-first traversal of an NFA to compute all possible path lengths from each state to the post state.

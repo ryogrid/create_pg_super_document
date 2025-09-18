@@ -1,7 +1,7 @@
 # check_new_cluster_is_empty
 
 ## Location
-src/bin/pg_upgrade/check.c: 853 - 884
+[src/bin/pg_upgrade/check.c:853-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L853-L884)
 
 ## Overview
 This function validates that the new PostgreSQL cluster is empty before performing an upgrade, ensuring that user-created relations do not exist in non-system schemas.

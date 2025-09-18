@@ -1,7 +1,7 @@
 # parseWorkerResponse
 
 ## Location
-src/bin/pg_dump/parallel.c: 1171 - 1204
+[src/bin/pg_dump/parallel.c:1171-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1171-L1204)
 
 ## Overview
 Parses status messages returned by worker processes in pg_dump parallel operations and extracts status information including dump ID, status code, and error count.

@@ -1,7 +1,7 @@
 # add_outer_joins_to_relids
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 802 - 893
+[src/backend/optimizer/path/joinrels.c:802-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L802-L893)
 
 ## Overview
 Modifies input relation IDs to include relids of outer joins that will be calculated at the current join level, handling complex outer join ordering rules.

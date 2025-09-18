@@ -1,7 +1,7 @@
 # ExecBSInsertTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2396 - 2446
+[src/backend/commands/trigger.c:2396-2446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2396-L2446)
 
 ## Overview
 Executes all enabled BEFORE STATEMENT INSERT triggers for a given relation, ensuring they fire only once per statement and enforcing trigger protocol rules.

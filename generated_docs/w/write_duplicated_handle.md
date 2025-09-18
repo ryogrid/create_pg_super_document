@@ -1,7 +1,7 @@
 # write_duplicated_handle
 
 ## Location
-src/backend/postmaster/launch_backend.c: 795 - 824
+[src/backend/postmaster/launch_backend.c:795-824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L795-L824)
 
 ## Overview
 Duplicates a Windows handle for usage in a child process and stores the duplicated handle for writing to the backend parameter file.

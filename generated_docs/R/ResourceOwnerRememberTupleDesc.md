@@ -1,7 +1,7 @@
 # ResourceOwnerRememberTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 48 - 53
+[src/backend/access/common/tupdesc.c:48-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L48-L53)
 
 ## Overview
 A convenience wrapper function that registers a TupleDesc with a resource owner for automatic cleanup when the resource owner is released.

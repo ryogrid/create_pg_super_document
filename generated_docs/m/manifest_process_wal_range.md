@@ -1,7 +1,7 @@
 # manifest_process_wal_range
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 995 - 1012
+[src/backend/backup/basebackup_incremental.c:995-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L995-L1012)
 
 ## Overview
 A callback function invoked for each WAL range mentioned in the backup manifest to collect WAL timeline and LSN information for incremental backup processing.

@@ -1,7 +1,7 @@
 # list_member_xid
 
 ## Location
-src/backend/nodes/list.c: 742 - 766
+[src/backend/nodes/list.c:742-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L742-L766)
 
 ## Overview
 Tests whether a given TransactionId (XID) value is a member of a transaction ID list using direct XID comparison for equality determination.

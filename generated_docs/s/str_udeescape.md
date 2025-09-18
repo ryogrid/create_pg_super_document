@@ -1,7 +1,7 @@
 # str_udeescape
 
 ## Location
-src/backend/parser/parser.c: 372 - 527
+[src/backend/parser/parser.c:372-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parser.c#L372-L527)
 
 ## Overview
 Processes Unicode escapes in SQL string literals, converting escape sequences like \XXXX and \+XXXXXX to their corresponding Unicode characters in the server encoding.

@@ -1,7 +1,7 @@
 # bitmap_scan_cost_est
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1526 - 1559
+[src/backend/optimizer/path/indxpath.c:1526-1559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1526-L1559)
 
 ## Overview
 Estimates the cost of executing a bitmap scan with a single index path, which could be a BitmapAnd or BitmapOr node, by creating a dummy BitmapHeapPath and calculating its cost.

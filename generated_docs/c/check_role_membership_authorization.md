@@ -1,7 +1,7 @@
 # check_role_membership_authorization
 
 ## Location
-src/backend/commands/user.c: 2110 - 2202
+[src/backend/commands/user.c:2110-2202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2110-L2202)
 
 ## Overview
 check_role_membership_authorization validates that the current user has sufficient privileges to modify the membership list of a target role, enforcing superuser and admin option requirements.

@@ -1,7 +1,7 @@
 # range_cmp_bound_values
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2090 - 2128
+[src/backend/utils/adt/rangetypes.c:2090-2128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2090-L2128)
 
 ## Overview
 Compares the values of two range boundary points, ignoring inclusive/exclusive flags and focusing only on the actual values and infinity semantics.

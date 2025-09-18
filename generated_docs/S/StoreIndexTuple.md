@@ -1,7 +1,7 @@
 # StoreIndexTuple
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 268 - 324
+[src/backend/executor/nodeIndexonlyscan.c:268-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L268-L324)
 
 ## Overview
 Fills a TupleTableSlot with data extracted from an index tuple, handling datatype conversions and special cases for name columns stored as C strings.

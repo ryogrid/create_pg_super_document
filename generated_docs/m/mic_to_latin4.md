@@ -1,7 +1,7 @@
 # mic_to_latin4
 
 ## Location
-src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c: 123 - 136
+[src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c:123-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c#L123-L136)
 
 ## Overview
 This function converts text encoded in MULE Internal Code (MIC) to Latin-4 (ISO 8859-4) character encoding, providing a PostgreSQL-compatible conversion interface.

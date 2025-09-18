@@ -1,7 +1,7 @@
 # PQdescribePortal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2474 - 2490
+[src/interfaces/libpq/fe-exec.c:2474-2490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2474-L2490)
 
 ## Overview
 Obtains information about a previously created portal by sending a Describe message to the PostgreSQL server and waiting for the response.

@@ -1,7 +1,7 @@
 # mbinterval
 
 ## Location
-src/common/wchar.c: 573 - 580
+[src/common/wchar.c:573-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L573-L580)
 
 ## Overview
 A structure that defines a Unicode character range interval used for determining character display width properties in PostgreSQL's wide character handling.

@@ -1,7 +1,7 @@
 # GrantRole
 
 ## Location
-src/backend/commands/user.c: 1480 - 1582
+[src/backend/commands/user.c:1480-1582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1480-L1582)
 
 ## Overview
 Processes GRANT ROLE and REVOKE ROLE statements by managing role membership grants between roles with configurable options for admin, inherit, and set privileges.

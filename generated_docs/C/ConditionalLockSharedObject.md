@@ -1,7 +1,7 @@
 # ConditionalLockSharedObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1103 - 1137
+[src/backend/storage/lmgr/lmgr.c:1103-1137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1103-L1137)
 
 ## Overview
 ConditionalLockSharedObject attempts to acquire a lock on a shared database object without blocking, returning true if the lock was successfully acquired or false if it would block.

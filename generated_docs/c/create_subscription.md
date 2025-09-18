@@ -1,7 +1,7 @@
 # create_subscription
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1691 - 1748
+[src/bin/pg_basebackup/pg_createsubscriber.c:1691-1748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1691-L1748)
 
 ## Overview
 create_subscription is a function that creates a PostgreSQL logical replication subscription with predefined options, designed to work with existing replication slots and publications created in previous steps of the pg_createsubscriber process.

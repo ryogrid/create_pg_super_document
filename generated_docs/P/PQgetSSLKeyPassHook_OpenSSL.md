@@ -1,7 +1,7 @@
 # PQgetSSLKeyPassHook_OpenSSL
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 476 - 481
+[src/interfaces/libpq/fe-secure.c:476-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L476-L481)
 
 ## Overview
 Returns the currently installed SSL private key passphrase callback function for OpenSSL connections.

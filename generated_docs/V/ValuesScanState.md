@@ -1,7 +1,7 @@
 # ValuesScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1940 - 1948
+[src/include/nodes/execnodes.h:1940-1948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1940-L1948)
 
 ## Overview
 ValuesScanState is a runtime state structure for PostgreSQL's VALUES scan executor node, which processes VALUES clauses that provide explicit row data as a virtual table.

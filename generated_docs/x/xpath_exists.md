@@ -1,7 +1,7 @@
 # xpath_exists
 
 ## Location
-src/backend/utils/adt/xml.c: 4567 - 4590
+[src/backend/utils/adt/xml.c:4567-4590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4567-L4590)
 
 ## Overview
 Determines if the node specified by the supplied XPath exists in a given XML document, returning a boolean value with namespace support.

@@ -1,7 +1,7 @@
 # transformDeclareCursorStmt
 
 ## Location
-src/backend/parser/analyze.c: 2868 - 2960
+[src/backend/parser/analyze.c:2868-2960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2868-L2960)
 
 ## Overview
 Transforms a DECLARE CURSOR statement into a CMD_UTILITY Query node after validating cursor options and transforming the contained SELECT query.

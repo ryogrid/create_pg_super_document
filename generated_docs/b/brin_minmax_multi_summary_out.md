@@ -1,7 +1,7 @@
 # brin_minmax_multi_summary_out
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2998 - 3116
+[src/backend/access/brin/brin_minmax_multi.c:2998-3116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2998-L3116)
 
 ## Overview
 This function serves as the output routine for the BRIN minmax-multi summary type, converting the binary serialized summary data into a human-readable string format for display purposes.

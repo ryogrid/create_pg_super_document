@@ -1,7 +1,7 @@
 # pqReadReady
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1043 - 1052
+[src/interfaces/libpq/fe-misc.c:1043-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1043-L1052)
 
 ## Overview
 pqReadReady is a PostgreSQL libpq function that checks if the connection socket is immediately ready for reading without blocking.

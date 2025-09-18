@@ -1,7 +1,7 @@
 # get_ENR
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 96 - 124
+[src/backend/utils/misc/queryenvironment.c:96-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L96-L124)
 
 ## Overview
 Searches for and returns an ephemeral named relation (ENR) by name from a query environment's collection of named relations.

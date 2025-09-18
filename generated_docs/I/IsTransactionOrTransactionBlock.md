@@ -1,7 +1,7 @@
 # IsTransactionOrTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 4933 - 4946
+[src/backend/access/transam/xact.c:4933-4946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4933-L4946)
 
 ## Overview
 IsTransactionOrTransactionBlock determines whether the backend is within either an active transaction or a transaction block, serving as a broader check than IsTransactionBlock to identify when the backend is not truly "idle".

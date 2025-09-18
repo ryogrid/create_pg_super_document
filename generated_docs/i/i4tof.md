@@ -1,7 +1,7 @@
 # i4tof
 
 ## Location
-src/backend/utils/adt/float.c: 1331 - 1342
+[src/backend/utils/adt/float.c:1331-1342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1331-L1342)
 
 ## Overview
 Converts a 32-bit integer (int4) to a single-precision floating-point number (float4).

@@ -1,7 +1,7 @@
 # byleng
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 970 - 976
+[src/interfaces/ecpg/compatlib/informix.c:970-976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L970-L976)
 
 ## Overview
 The byleng function calculates the effective length of a string by trimming trailing spaces from a fixed-length string.

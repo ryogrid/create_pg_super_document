@@ -1,7 +1,7 @@
 # ExecEvalStepOp
 
 ## Location
-src/backend/executor/execExprInterp.c: 2422 - 2451
+[src/backend/executor/execExprInterp.c:2422-2451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2422-L2451)
 
 ## Overview
 Function that returns the appropriate ExprEvalOp enumeration value for an expression step, handling the complexity of direct-threaded dispatch where opcodes are stored as jump addresses.

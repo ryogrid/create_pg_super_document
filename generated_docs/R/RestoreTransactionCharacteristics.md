@@ -1,7 +1,7 @@
 # RestoreTransactionCharacteristics
 
 ## Location
-src/backend/access/transam/xact.c: 3080 - 3092
+[src/backend/access/transam/xact.c:3080-3092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3080-L3092)
 
 ## Overview
 RestoreTransactionCharacteristics restores previously saved transaction characteristics (isolation level, read-only status, deferrable property) to enable transaction chaining with consistent properties.

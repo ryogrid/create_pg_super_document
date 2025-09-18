@@ -1,7 +1,7 @@
 # init_enum_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 989 - 1017
+[src/backend/access/common/reloptions.c:989-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L989-L1017)
 
 ## Overview
 The init_enum_reloption function allocates and initializes a new enumeration-type reloption (relation option) with specified enum members and default value.

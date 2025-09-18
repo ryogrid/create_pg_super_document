@@ -1,7 +1,7 @@
 # inet_cidr_ntop_ipv4
 
 ## Location
-src/backend/utils/adt/inet_cidr_ntop.c: 85 - 164
+[src/backend/utils/adt/inet_cidr_ntop.c:85-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_cidr_ntop.c#L85-L164)
 
 ## Overview
 Converts IPv4 network addresses from binary format to CIDR presentation format, handling partial octet formatting based on network prefix length.

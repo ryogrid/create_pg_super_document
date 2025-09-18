@@ -1,7 +1,7 @@
 # get_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1195 - 1241
+[src/backend/utils/adt/jsonfuncs.c:1195-1241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1195-L1241)
 
 ## Overview
 A JSON semantic action callback function that handles the start of object field processing, determining whether a field matches the target path and should be extracted.

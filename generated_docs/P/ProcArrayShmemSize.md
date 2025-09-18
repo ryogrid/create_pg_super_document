@@ -1,7 +1,7 @@
 # ProcArrayShmemSize
 
 ## Location
-src/backend/storage/ipc/procarray.c: 376 - 380
+[src/backend/storage/ipc/procarray.c:376-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L376-L380)
 
 ## Overview
 ProcArrayShmemSize calculates and returns the amount of shared memory space needed for the shared process array structure and related Hot Standby data structures.

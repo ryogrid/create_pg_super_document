@@ -1,7 +1,7 @@
 # cash_div_flt4
 
 ## Location
-src/backend/utils/adt/cash.c: 800 - 812
+[src/backend/utils/adt/cash.c:800-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L800-L812)
 
 ## Overview
 A PostgreSQL function that performs division of a Cash value by a float4 value, returning the result as a Cash type.

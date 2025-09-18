@@ -1,7 +1,7 @@
 # GISTSTATE
 
 ## Location
-src/include/access/gist_private.h: 75 - 98
+[src/include/access/gist_private.h:75-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L75-L98)
 
 ## Overview
 GISTSTATE is a core data structure that maintains all the information needed for any GiST (Generalized Search Tree) index operation, including opclass-specific support functions and tuple descriptors.

@@ -1,7 +1,7 @@
 # ExecInitMerge
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3484 - 3761
+[src/backend/executor/nodeModifyTable.c:3484-3761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3484-L3761)
 
 ## Overview
 Initializes state and data structures required for executing MERGE statements, including action states, join conditions, projections, and tuple slots.

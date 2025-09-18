@@ -1,7 +1,7 @@
 # tsvector_delete_by_indices
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 464 - 553
+[src/backend/utils/adt/tsvector_op.c:464-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L464-L553)
 
 ## Overview
 An internal static function that creates a new TSVector by removing lexemes at specified indices from an existing TSVector.

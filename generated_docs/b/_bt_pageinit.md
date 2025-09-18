@@ -1,7 +1,7 @@
 # _bt_pageinit
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1129 - 1153
+[src/backend/access/nbtree/nbtpage.c:1129-1153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1129-L1153)
 
 ## Overview
 _bt_pageinit initializes a new B-tree page by setting up the page header and clearing the data and special space areas.

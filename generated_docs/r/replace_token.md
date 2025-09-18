@@ -1,7 +1,7 @@
 # replace_token
 
 ## Location
-src/bin/initdb/initdb.c: 470 - 524
+[src/bin/initdb/initdb.c:470-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L470-L524)
 
 ## Overview
 Modifies an array of strings by replacing the first occurrence of a specified token with a replacement string on each line.

@@ -1,7 +1,7 @@
 # load_resultmap
 
 ## Location
-src/test/regress/pg_regress.c: 615 - 688
+[src/test/regress/pg_regress.c:615-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L615-L688)
 
 ## Overview
 Scans the resultmap file to determine which platform-specific expected files to use during regression testing.

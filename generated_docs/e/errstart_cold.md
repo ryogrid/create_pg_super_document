@@ -1,7 +1,7 @@
 # errstart_cold
 
 ## Location
-src/backend/utils/error/elog.c: 330 - 345
+[src/backend/utils/error/elog.c:330-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L330-L345)
 
 ## Overview
 A cold-hinted wrapper around the errstart function designed to improve code locality and cache performance by encouraging compilers to move error handling code away from hot paths.

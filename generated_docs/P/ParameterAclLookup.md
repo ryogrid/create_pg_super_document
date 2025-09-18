@@ -1,7 +1,7 @@
 # ParameterAclLookup
 
 ## Location
-src/backend/catalog/pg_parameter_acl.c: 35 - 67
+[src/backend/catalog/pg_parameter_acl.c:35-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_parameter_acl.c#L35-L67)
 
 ## Overview
 ParameterAclLookup looks up the OID of a configuration parameter's Access Control List (ACL) entry in the PostgreSQL system catalog, providing a way to retrieve ACL information for database configuration parameters.

@@ -1,7 +1,7 @@
 # pg_GSS_continue
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 58 - 160
+[src/interfaces/libpq/fe-auth.c:58-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L58-L160)
 
 ## Overview
 Continues GSS authentication with the next token in a multi-step GSSAPI authentication handshake between the PostgreSQL client and server.

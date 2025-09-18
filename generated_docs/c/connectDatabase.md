@@ -1,7 +1,7 @@
 # connectDatabase
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1757 - 1945
+[src/bin/pg_dump/pg_dumpall.c:1757-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1757-L1945)
 
 ## Overview
 Establishes a PostgreSQL database connection with comprehensive parameter handling, password prompting, version compatibility checking, and connection string management.

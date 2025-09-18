@@ -1,7 +1,7 @@
 # RT_RADIX_TREE_CONTROL
 
 ## Location
-src/include/lib/radixtree.h: 686 - 704
+[src/include/lib/radixtree.h:686-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L686-L704)
 
 ## Overview
 RT_RADIX_TREE_CONTROL is a macro that generates a type name for the control structure containing the core metadata and state information for a PostgreSQL adaptive radix tree instance.

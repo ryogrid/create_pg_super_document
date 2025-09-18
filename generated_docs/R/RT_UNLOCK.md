@@ -1,7 +1,7 @@
 # RT_UNLOCK
 
 ## Location
-src/include/lib/radixtree.h: 1955 - 1964
+[src/include/lib/radixtree.h:1955-1964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1955-L1964)
 
 ## Overview
 RT_UNLOCK is a macro that generates a function name for releasing a lock on a shared memory radix tree structure in PostgreSQL.

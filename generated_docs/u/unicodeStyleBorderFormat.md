@@ -1,7 +1,7 @@
 # unicodeStyleBorderFormat
 
 ## Location
-src/fe_utils/print.c: 116 - 124
+[src/fe_utils/print.c:116-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L116-L124)
 
 ## Overview
 A structure that defines the formatting characters for table border elements in Unicode/UTF-8 style output for PostgreSQL frontend utilities.

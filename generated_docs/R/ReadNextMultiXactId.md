@@ -1,7 +1,7 @@
 # ReadNextMultiXactId
 
 ## Location
-src/backend/access/transam/multixact.c: 770 - 789
+[src/backend/access/transam/multixact.c:770-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L770-L789)
 
 ## Overview
 ReadNextMultiXactId returns the next MultiXactId that would be assigned without actually allocating or consuming it.

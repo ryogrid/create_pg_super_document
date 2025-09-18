@@ -1,7 +1,7 @@
 # ExecEvalRowNullInt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2759 - 2844
+[src/backend/executor/execExprInterp.c:2759-2844](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2759-L2844)
 
 ## Overview
 ExecEvalRowNullInt implements the core logic for evaluating IS NULL and IS NOT NULL tests on row expressions, checking whether all or any fields in a composite type are null.

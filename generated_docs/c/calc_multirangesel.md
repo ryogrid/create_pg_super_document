@@ -1,7 +1,7 @@
 # calc_multirangesel
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 291 - 455
+[src/backend/utils/adt/multirangetypes_selfuncs.c:291-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L291-L455)
 
 ## Overview
 Calculates selectivity estimates for multirange operators using statistics about NULL values, empty multiranges, and histogram data.

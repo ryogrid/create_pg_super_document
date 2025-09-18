@@ -1,7 +1,7 @@
 # pg_compress_specification
 
 ## Location
-src/include/common/compression.h: 32 - 40
+[src/include/common/compression.h:32-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/compression.h#L32-L40)
 
 ## Overview
 A structure that defines compression parameters and options for PostgreSQL's compression subsystem, encompassing algorithm selection, compression level, worker configuration, and parsing state.

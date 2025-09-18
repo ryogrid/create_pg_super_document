@@ -1,7 +1,7 @@
 # r_VI
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 403 - 409
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:403-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L403-L409)
 
 ## Overview
 The r_VI function is a predicate function in the Finnish stemmer that checks for vowel-i patterns by detecting if the current position has an i preceded by a vowel from the V2 vowel group.

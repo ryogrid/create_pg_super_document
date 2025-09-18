@@ -1,7 +1,7 @@
 # PQfreemem
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4032 - 4044
+[src/interfaces/libpq/fe-exec.c:4032-4044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4032-L4044)
 
 ## Overview
 PQfreemem is a libpq function that safely frees memory allocated by certain PostgreSQL library functions, particularly needed on Win32 platforms and multithreaded environments.

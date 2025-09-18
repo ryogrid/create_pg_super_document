@@ -1,7 +1,7 @@
 # array_map
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3201 - 3360
+[src/backend/utils/adt/arrayfuncs.c:3201-3360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3201-L3360)
 
 ## Overview
 Transforms each element of an array through an arbitrary expression, returning a new array with the same dimensions but potentially different element types.

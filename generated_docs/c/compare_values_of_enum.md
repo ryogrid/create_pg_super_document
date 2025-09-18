@@ -1,7 +1,7 @@
 # compare_values_of_enum
 
 ## Location
-src/backend/utils/cache/typcache.c: 2477 - 2549
+[src/backend/utils/cache/typcache.c:2477-2549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2477-L2549)
 
 ## Overview
 compare_values_of_enum compares two members of an enum type and returns their relative ordering, using cached enum data and optimizations for performance.

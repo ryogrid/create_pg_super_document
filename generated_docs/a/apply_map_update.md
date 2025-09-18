@@ -1,7 +1,7 @@
 # apply_map_update
 
 ## Location
-src/backend/utils/cache/relmapper.c: 383 - 415
+[src/backend/utils/cache/relmapper.c:383-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L383-L415)
 
 ## Overview
 A static helper function that inserts or updates a mapping between a relation OID and its file number in a given relation map, maintaining the internal mapping table used by PostgreSQL's relation mapping subsystem.

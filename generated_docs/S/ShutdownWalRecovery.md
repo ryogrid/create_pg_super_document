@@ -1,7 +1,7 @@
 # ShutdownWalRecovery
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1608 - 1651
+[src/backend/access/transam/xlogrecovery.c:1608-1651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1608-L1651)
 
 ## Overview
 Performs final cleanup of WAL recovery infrastructure by freeing resources, closing files, removing temporary recovery files, and disowning latches.

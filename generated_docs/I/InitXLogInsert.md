@@ -1,7 +1,7 @@
 # InitXLogInsert
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1348 - 1392
+[src/backend/access/transam/xloginsert.c:1348-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1348-L1392)
 
 ## Overview
 InitXLogInsert initializes the working buffers and memory contexts needed for WAL record construction in each backend process.

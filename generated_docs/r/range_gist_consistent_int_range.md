@@ -1,7 +1,7 @@
 # range_gist_consistent_int_range
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 915 - 976
+[src/backend/utils/adt/rangetypes_gist.c:915-976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L915-L976)
 
 ## Overview
 A static function that implements GiST consistency testing for range queries on internal index pages, determining whether to descend into child nodes based on range relationship strategies.

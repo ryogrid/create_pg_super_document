@@ -1,7 +1,7 @@
 # p_isspecial
 
 ## Location
-src/backend/tsearch/wparser_def.c: 692 - 1613
+[src/backend/tsearch/wparser_def.c:692-1613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L692-L1613)
 
 ## Overview
 Determines if the current character in a text parser has special properties in Unicode text processing - specifically, it returns true for characters with zero display length or special signs in several languages that aren't word-breakers but also aren't alphabetic.

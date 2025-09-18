@@ -1,7 +1,7 @@
 # elem_contained_by_range
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 557 - 572
+[src/backend/utils/adt/rangetypes.c:557-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L557-L572)
 
 ## Overview
 This PostgreSQL function determines whether an element is contained within a range type, implementing the "contained by" operator (<@) for element-to-range comparisons.

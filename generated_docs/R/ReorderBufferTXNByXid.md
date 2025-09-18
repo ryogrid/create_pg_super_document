@@ -1,7 +1,7 @@
 # ReorderBufferTXNByXid
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 649 - 736
+[src/backend/replication/logical/reorderbuffer.c:649-736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L649-L736)
 
 ## Overview
 Returns a ReorderBufferTXN from the reorder buffer by transaction ID (Xid), with optional creation and caching for efficient lookups during logical replication decoding.

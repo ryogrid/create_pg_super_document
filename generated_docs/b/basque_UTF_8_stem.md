@@ -1,7 +1,7 @@
 # basque_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_basque.c: 1142 - 1180
+[src/backend/snowball/libstemmer/stem_UTF_8_basque.c:1142-1180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_basque.c#L1142-L1180)
 
 ## Overview
 The main entry point for the Basque UTF-8 stemming algorithm that orchestrates the complete stemming process by sequentially applying morphological analysis for verbs, nouns, and adjectives.

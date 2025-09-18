@@ -1,7 +1,7 @@
 # transformGenericOptions
 
 ## Location
-src/backend/commands/foreigncmds.c: 121 - 215
+[src/backend/commands/foreigncmds.c:121-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L121-L215)
 
 ## Overview
 Transforms a list of DefElem structures into text array format while supporting SET/ADD/DROP actions for modifying existing options, with optional validation through a foreign data wrapper validator function.

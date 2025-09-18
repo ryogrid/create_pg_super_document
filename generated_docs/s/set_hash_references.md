@@ -1,7 +1,7 @@
 # set_hash_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1901 - 1933
+[src/backend/optimizer/plan/setrefs.c:1901-1933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1901-L1933)
 
 ## Overview
 Adjusts variable references in a Hash plan node, specifically handling the hashkeys expressions that reference the outer plan's output during hash table construction.

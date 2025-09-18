@@ -1,7 +1,7 @@
 # IncrementalSortGroupInfo
 
 ## Location
-src/include/nodes/execnodes.h: 2351 - 2359
+[src/include/nodes/execnodes.h:2351-2359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2351-L2359)
 
 ## Overview
 IncrementalSortGroupInfo is an instrumentation structure that collects performance and resource usage statistics for groups processed during incremental sort operations in PostgreSQL.

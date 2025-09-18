@@ -1,7 +1,7 @@
 # on_exit_close_archive
 
 ## Location
-src/bin/pg_dump/parallel.c: 328 - 338
+[src/bin/pg_dump/parallel.c:328-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L328-L338)
 
 ## Overview
 Registers a cleanup handler to ensure proper archive connection cleanup when pg_dump or pg_restore processes exit.

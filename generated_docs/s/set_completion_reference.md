@@ -1,7 +1,7 @@
 # set_completion_reference
 
 ## Location
-src/bin/psql/tab-complete.c: 5597 - 5611
+[src/bin/psql/tab-complete.c:5597-5611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5597-L5611)
 
 ## Overview
 Sets up global reference variables used by completion queries to provide context-aware tab completion in PostgreSQL.

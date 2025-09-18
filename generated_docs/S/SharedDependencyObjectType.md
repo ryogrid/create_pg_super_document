@@ -1,7 +1,7 @@
 # SharedDependencyObjectType
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 72 - 78
+[src/backend/catalog/pg_shdepend.c:72-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L72-L78)
 
 ## Overview
 An enum type that classifies the nature of database objects in PostgreSQL's shared dependency tracking system, distinguishing between local, shared, and remote objects.

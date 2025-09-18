@@ -1,7 +1,7 @@
 # generate_series_timestamptz_at_zone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6678 - 6691
+[src/backend/utils/adt/timestamp.c:6678-6691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6678-L6691)
 
 ## Overview
 A PostgreSQL built-in function that generates a series of timestamp with timezone values using a specified timezone for arithmetic operations.

@@ -1,7 +1,7 @@
 # changeDependencyFor
 
 ## Location
-src/backend/catalog/pg_depend.c: 458 - 565
+[src/backend/catalog/pg_depend.c:458-565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L458-L565)
 
 ## Overview
 Adjusts dependency records to point from a specific referencing object to a different referenced object of the same type, handling special cases for pinned objects.

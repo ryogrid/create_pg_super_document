@@ -1,7 +1,7 @@
 # r_Step_2
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 636 - 728
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:636-728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L636-L728)
 
 ## Overview
 The r_Step_2 function implements Step 2 of the English Porter stemming algorithm, handling the removal and transformation of various adjectival and noun suffixes within the R1 region.

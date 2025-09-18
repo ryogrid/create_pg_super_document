@@ -1,7 +1,7 @@
 # serialize_expr_stats
 
 ## Location
-src/backend/statistics/extended_stats.c: 2275 - 2404
+[src/backend/statistics/extended_stats.c:2275-2404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2275-L2404)
 
 ## Overview
 Serializes expression statistics into an array of pg_statistic rows, converting VacAttrStats data for expressions into a format suitable for storage in PostgreSQL's statistics system.

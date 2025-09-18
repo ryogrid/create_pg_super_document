@@ -1,7 +1,7 @@
 # ExecQueryAndProcessResults
 
 ## Location
-src/bin/psql/common.c: 1446 - 1832
+[src/bin/psql/common.c:1446-1832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1446-L1832)
 
 ## Overview
 ExecQueryAndProcessResults is a comprehensive utility function that sends queries to PostgreSQL and handles all result processing, including COPY operations, chunked results, and various output modes.

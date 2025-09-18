@@ -1,7 +1,7 @@
 # float8_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 6829 - 6924
+[src/backend/utils/adt/formatting.c:6829-6924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L6829-L6924)
 
 ## Overview
 Converts a double-precision floating-point number (float8) to its formatted text representation according to a specified format pattern.

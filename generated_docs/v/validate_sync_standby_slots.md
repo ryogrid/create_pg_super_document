@@ -1,7 +1,7 @@
 # validate_sync_standby_slots
 
 ## Location
-src/backend/replication/slot.c: 2433 - 2487
+[src/backend/replication/slot.c:2433-2487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2433-L2487)
 
 ## Overview
 A helper function that validates slots specified in the GUC synchronized_standby_slots configuration parameter by parsing the input string and verifying each slot exists and is physical.

@@ -1,7 +1,7 @@
 # CreateExprContextInternal
 
 ## Location
-src/backend/executor/execUtils.c: 234 - 303
+[src/backend/executor/execUtils.c:234-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L234-L303)
 
 ## Overview
 Internal implementation function that creates and initializes an ExprContext node with configurable AllocSet parameters for memory management.

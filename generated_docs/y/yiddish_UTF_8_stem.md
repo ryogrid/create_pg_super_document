@@ -1,7 +1,7 @@
 # yiddish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 1209 - 1229
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1209-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L1209-L1229)
 
 ## Overview
 The main entry point function for performing Yiddish language stemming on UTF-8 encoded text using the Snowball stemming algorithm.

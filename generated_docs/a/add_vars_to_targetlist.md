@@ -1,7 +1,7 @@
 # add_vars_to_targetlist
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 279 - 357
+[src/backend/optimizer/plan/initsplan.c:279-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L279-L357)
 
 ## Overview
 Adds variables from a given list to the appropriate relation targetlists and marks them as needed for specified joins or final output.

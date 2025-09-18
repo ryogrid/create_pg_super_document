@@ -1,7 +1,7 @@
 # ExecJustScanVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2181 - 2187
+[src/backend/executor/execExprInterp.c:2181-2187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2181-L2187)
 
 ## Overview
 ExecJustScanVar is a fast-path function for executing simple variable references from the scan tuple in PostgreSQL's expression evaluation system.

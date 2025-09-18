@@ -1,7 +1,7 @@
 # MetaCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 703 - 704
+[src/bin/pgbench/pgbench.c:703-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L703-L704)
 
 ## Overview
 The MetaCommand enumeration defines all supported meta-commands (backslash commands) that can be used within pgbench scripts for control flow, variable management, and pipeline operations.

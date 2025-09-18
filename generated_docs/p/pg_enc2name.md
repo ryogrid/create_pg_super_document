@@ -1,7 +1,7 @@
 # pg_enc2name
 
 ## Location
-src/include/mb/pg_wchar.h: 355 - 362
+[src/include/mb/pg_wchar.h:355-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L355-L362)
 
 ## Overview
 A structure that maps PostgreSQL encoding numbers to their official encoding names and platform-specific data, serving as the fundamental data structure for encoding identification and conversion within PostgreSQL's multi-byte character support system.

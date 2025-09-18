@@ -1,7 +1,7 @@
 # ECPGdo_descriptor
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 2292 - 2298
+[src/interfaces/ecpg/ecpglib/execute.c:2292-2298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L2292-L2298)
 
 ## Overview
 A legacy interface function for executing SQL statements using descriptor-based parameter handling in the ECPG library.

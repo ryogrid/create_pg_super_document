@@ -1,7 +1,7 @@
 # process_equivalence
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 117 - 470
+[src/backend/optimizer/path/equivclass.c:117-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L117-L470)
 
 ## Overview
 Processes equivalence clauses with mergejoinable operators to build or update EquivalenceClass structures that represent transitively equal expressions in the query optimizer.

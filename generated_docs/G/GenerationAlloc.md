@@ -1,7 +1,7 @@
 # GenerationAlloc
 
 ## Location
-src/backend/utils/mmgr/generation.c: 527 - 608
+[src/backend/utils/mmgr/generation.c:527-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L527-L608)
 
 ## Overview
 The main allocation function for the generation memory context that efficiently allocates memory chunks using a strategy optimized for FIFO (First-In-First-Out) workloads with block reuse and fragmentation avoidance.

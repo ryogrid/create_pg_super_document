@@ -1,7 +1,7 @@
 # array_to_text_null
 
 ## Location
-src/backend/utils/adt/varlena.c: 4782 - 4807
+[src/backend/utils/adt/varlena.c:4782-4807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4782-L4807)
 
 ## Overview
 PostgreSQL built-in function that concatenates array elements into a single text string using a specified field separator, with the ability to replace NULL array elements with a custom null representation string.

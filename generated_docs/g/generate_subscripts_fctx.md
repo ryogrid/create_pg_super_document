@@ -1,7 +1,7 @@
 # generate_subscripts_fctx
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5893 - 5898
+[src/backend/utils/adt/arrayfuncs.c:5893-5898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5893-L5898)
 
 ## Overview
 generate_subscripts_fctx is a simple state structure used by the generate_subscripts set-returning function to maintain iteration state when generating array subscript sequences for a specified dimension.

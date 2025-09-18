@@ -1,7 +1,7 @@
 # ATExecGenericOptions
 
 ## Location
-src/backend/commands/tablecmds.c: 16927 - 17007
+[src/backend/commands/tablecmds.c:16927-17007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16927-L17007)
 
 ## Overview
 ATExecGenericOptions modifies the options of a foreign table by updating the pg_foreign_table catalog entry with new or modified options provided via ALTER FOREIGN TABLE OPTIONS statement.

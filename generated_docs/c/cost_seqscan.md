@@ -1,7 +1,7 @@
 # cost_seqscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 284 - 360
+[src/backend/optimizer/path/costsize.c:284-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L284-L360)
 
 ## Overview
 Determines and calculates the cost of scanning a relation sequentially, including startup costs, CPU costs, and disk I/O costs.

@@ -1,7 +1,7 @@
 # plaintree
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 97 - 114
+[src/backend/utils/adt/tsquery_cleanup.c:97-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L97-L114)
 
 ## Overview
 The `plaintree` function serves as the main interface for converting a binary tree representation of a TSQuery back into a flat QueryItem array representation.

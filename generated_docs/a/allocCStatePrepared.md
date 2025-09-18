@@ -1,7 +1,7 @@
 # allocCStatePrepared
 
 ## Location
-src/bin/pgbench/pgbench.c: 3069 - 3088
+[src/bin/pgbench/pgbench.c:3069-3088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3069-L3088)
 
 ## Overview
 The allocCStatePrepared function allocates memory for tracking prepared statement status across all commands in all scripts for a connection state.

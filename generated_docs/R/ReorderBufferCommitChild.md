@@ -1,7 +1,7 @@
 # ReorderBufferCommitChild
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1215 - 1256
+[src/backend/replication/logical/reorderbuffer.c:1215-1256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1215-L1256)
 
 ## Overview
 Associates a subtransaction with its top-level transaction at commit time and finalizes the subtransaction metadata.

@@ -1,7 +1,7 @@
 # get_attavgwidth
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3158 - 3233
+[src/backend/utils/cache/lsyscache.c:3158-3233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3158-L3233)
 
 ## Overview
 Retrieves the average width (in bytes) of entries in a specific column from PostgreSQL statistics, which is crucial for query planning and cost estimation.

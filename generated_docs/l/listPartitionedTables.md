@@ -1,7 +1,7 @@
 # listPartitionedTables
 
 ## Location
-src/bin/psql/describe.c: 4107 - 4306
+[src/bin/psql/describe.c:4107-4306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4107-L4306)
 
 ## Overview
 A specialized psql command function that implements the \\dP metacommand to display partitioned tables and indexes with detailed partition hierarchy information and size statistics.

@@ -1,7 +1,7 @@
 # line_invsl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1247 - 1260
+[src/backend/utils/adt/geo_ops.c:1247-1260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1247-L1260)
 
 ## Overview
 Calculates and returns the inverse slope (reciprocal of slope) of a line from its standard equation coefficients Ax + By + C = 0.

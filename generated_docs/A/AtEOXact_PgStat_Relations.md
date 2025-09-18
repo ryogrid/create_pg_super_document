@@ -1,7 +1,7 @@
 # AtEOXact_PgStat_Relations
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 537 - 594
+[src/backend/utils/activity/pgstat_relation.c:537-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L537-L594)
 
 ## Overview
 Performs relation-specific statistics cleanup and consolidation at the end of a transaction, transferring transactional counters into base statistics entries.

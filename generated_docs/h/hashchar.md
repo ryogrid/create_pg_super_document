@@ -1,7 +1,7 @@
 # hashchar
 
 ## Location
-src/backend/access/hash/hashfunc.c: 47 - 52
+[src/backend/access/hash/hashfunc.c:47-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L47-L52)
 
 ## Overview
 hashchar is a hash function for the "char" and boolean data types in PostgreSQL, used to compute hash values for hash indexes and hash joins.

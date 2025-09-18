@@ -1,7 +1,7 @@
 # sigaction
 
 ## Location
-src/include/libpq/pqsignal.h: 25 - 36
+[src/include/libpq/pqsignal.h:25-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqsignal.h#L25-L36)
 
 ## Overview
 sigaction is a Windows-specific structure that emulates the POSIX sigaction structure for signal handling in PostgreSQL's Windows port.

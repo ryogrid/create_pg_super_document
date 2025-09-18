@@ -1,7 +1,7 @@
 # ExecInitUnique
 
 ## Location
-src/backend/executor/nodeUnique.c: 114 - 167
+[src/backend/executor/nodeUnique.c:114-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeUnique.c#L114-L167)
 
 ## Overview
 ExecInitUnique initializes the UniqueState execution state structure and sets up the UNIQUE plan node for execution, including initializing its outer subplan and preparing equality comparison functions.

@@ -1,7 +1,7 @@
 # ATExecForceNoForceRowSecurity
 
 ## Location
-src/backend/commands/tablecmds.c: 16898 - 16926
+[src/backend/commands/tablecmds.c:16898-16926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16898-L16926)
 
 ## Overview
 Controls whether row-level security policies are enforced for table owners and superusers by updating the relforcerowsecurity field in the pg_class catalog.

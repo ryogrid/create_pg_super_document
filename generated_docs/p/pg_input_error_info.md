@@ -1,7 +1,7 @@
 # pg_input_error_info
 
 ## Location
-src/backend/utils/adt/misc.c: 716 - 764
+[src/backend/utils/adt/misc.c:716-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L716-L764)
 
 ## Overview
 pg_input_error_info is a SQL-callable function that tests input validity for a data type and returns detailed error information if the input is invalid, or NULL if valid.

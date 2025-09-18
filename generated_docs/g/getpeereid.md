@@ -1,7 +1,7 @@
 # getpeereid
 
 ## Location
-src/port/getpeereid.c: 33 - 78
+[src/port/getpeereid.c:33-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/getpeereid.c#L33-L78)
 
 ## Overview
 A BSD-style compatibility function that retrieves the credentials (user ID and group ID) of the peer process connected to a Unix domain socket.

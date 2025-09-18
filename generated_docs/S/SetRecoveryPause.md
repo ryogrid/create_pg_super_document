@@ -1,7 +1,7 @@
 # SetRecoveryPause
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3090 - 3109
+[src/backend/access/transam/xlogrecovery.c:3090-3109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3090-L3109)
 
 ## Overview
 Sets the recovery pause state in shared memory, either requesting a pause or resuming recovery, with proper synchronization and notification mechanisms.

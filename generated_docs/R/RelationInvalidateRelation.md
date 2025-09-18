@@ -1,7 +1,7 @@
 # RelationInvalidateRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2522 - 2560
+[src/backend/utils/cache/relcache.c:2522-2560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2522-L2560)
 
 ## Overview
 RelationInvalidateRelation marks a relation cache entry as invalid, ensuring it will be reloaded on next access while cleaning up file handles and cached access method data.

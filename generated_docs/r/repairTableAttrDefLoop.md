@@ -1,7 +1,7 @@
 # repairTableAttrDefLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1090 - 1097
+[src/bin/pg_dump/pg_dump_sort.c:1090-1097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1090-L1097)
 
 ## Overview
 Repairs circular dependencies for table attribute default loops by removing the dependency from the attribute default object to its parent table.

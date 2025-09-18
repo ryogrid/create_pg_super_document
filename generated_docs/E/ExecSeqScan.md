@@ -1,7 +1,7 @@
 # ExecSeqScan
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 108 - 122
+[src/backend/executor/nodeSeqscan.c:108-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L108-L122)
 
 ## Overview
 ExecSeqScan is the main execution function for sequential scans that retrieves the next qualifying tuple by delegating to the generic ExecScan routine with sequential scan-specific access methods.

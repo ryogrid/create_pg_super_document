@@ -1,7 +1,7 @@
 # BumpBlockMarkEmpty
 
 ## Location
-src/backend/utils/mmgr/bump.c: 563 - 584
+[src/backend/utils/mmgr/bump.c:563-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L563-L584)
 
 ## Overview
 BumpBlockMarkEmpty resets a bump memory block to an empty state without deallocating the underlying memory, enabling block reuse.

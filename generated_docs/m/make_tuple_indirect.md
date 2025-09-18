@@ -1,7 +1,7 @@
 # make_tuple_indirect
 
 ## Location
-src/test/regress/regress.c: 552 - 650
+[src/test/regress/regress.c:552-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L552-L650)
 
 ## Overview
 A PostgreSQL test function that converts regular tuple attributes into indirect TOAST pointers for testing TOAST (The Oversized-Attribute Storage Technique) functionality with indirect references.

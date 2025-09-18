@@ -1,7 +1,7 @@
 # reconsider_full_join_clause
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2237 - 2419
+[src/backend/optimizer/path/equivclass.c:2237-2419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2237-L2419)
 
 ## Overview
 Processes a single FULL JOIN clause to determine if constant values can be propagated to both sides of the join through COALESCE expressions in equivalence classes.

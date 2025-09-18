@@ -1,7 +1,7 @@
 # replace_domain_constraint_value
 
 ## Location
-src/backend/commands/typecmds.c: 3637 - 3667
+[src/backend/commands/typecmds.c:3637-3667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3637-L3667)
 
 ## Overview
 A parser hook function that replaces references to "value" in domain check constraint expressions with appropriate CoerceToDomainValue nodes during expression parsing.

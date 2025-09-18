@@ -1,7 +1,7 @@
 # show_incremental_sort_info
 
 ## Location
-src/backend/commands/explain.c: 3150 - 3235
+[src/backend/commands/explain.c:3150-3235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3150-L3235)
 
 ## Overview
 Displays comprehensive tuplesort statistics for incremental sort nodes in EXPLAIN ANALYZE output, handling both leader and worker process statistics in parallel execution scenarios.

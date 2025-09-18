@@ -1,7 +1,7 @@
 # _becomeOwner
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3439 - 3454
+[src/bin/pg_dump/pg_backup_archiver.c:3439-3454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3439-L3454)
 
 ## Overview
 Changes the session authorization to the owner of a given TOC (Table of Contents) entry object during PostgreSQL database restore operations.

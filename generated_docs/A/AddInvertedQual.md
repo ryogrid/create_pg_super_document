@@ -1,7 +1,7 @@
 # AddInvertedQual
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1125 - 1148
+[src/backend/rewrite/rewriteManip.c:1125-1148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1125-L1148)
 
 ## Overview
 AddInvertedQual inverts a given qualification expression and adds it to the WHERE clause of a query tree, ensuring proper NULL handling by using "IS NOT TRUE" semantics rather than simple negation.

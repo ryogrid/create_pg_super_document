@@ -1,7 +1,7 @@
 # dlist_head_node
 
 ## Location
-src/include/lib/ilist.h: 565 - 571
+[src/include/lib/ilist.h:565-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L565-L571)
 
 ## Overview
 Returns the first node in a doubly-linked list, providing direct access to the head node element when the list is guaranteed to contain at least one element.

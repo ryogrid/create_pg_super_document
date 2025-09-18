@@ -1,7 +1,7 @@
 # list_concat_unique_oid
 
 ## Location
-src/backend/nodes/list.c: 1469 - 1494
+[src/backend/nodes/list.c:1469-1494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1469-L1494)
 
 ## Overview
 Concatenates two lists of OIDs, ensuring that duplicates from the second list are not added to the first list.

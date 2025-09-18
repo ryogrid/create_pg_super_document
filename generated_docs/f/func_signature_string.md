@@ -1,7 +1,7 @@
 # func_signature_string
 
 ## Location
-src/backend/parser/parse_func.c: 2030 - 2048
+[src/backend/parser/parse_func.c:2030-2048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L2030-L2048)
 
 ## Overview
 A convenience wrapper around  that accepts a qualified function name as a list rather than a string.

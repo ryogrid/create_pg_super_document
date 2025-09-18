@@ -1,7 +1,7 @@
 # ReplicationOriginExitCleanup
 
 ## Location
-src/backend/replication/logical/origin.c: 1055 - 1096
+[src/backend/replication/logical/origin.c:1055-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1055-L1096)
 
 ## Overview
 Cleans up a configured session replication origin during process exit, releasing any acquired replication origin and notifying waiting processes.

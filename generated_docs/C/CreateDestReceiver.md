@@ -1,7 +1,7 @@
 # CreateDestReceiver
 
 ## Location
-src/backend/tcop/dest.c: 113 - 168
+[src/backend/tcop/dest.c:113-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L113-L168)
 
 ## Overview
 CreateDestReceiver is a factory function that returns the appropriate DestReceiver function set based on the specified destination type for query output.

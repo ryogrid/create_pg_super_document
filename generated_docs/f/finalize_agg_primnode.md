@@ -1,7 +1,7 @@
 # finalize_agg_primnode
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2974 - 3000
+[src/backend/optimizer/plan/subselect.c:2974-3000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2974-L3000)
 
 ## Overview
 Specialized function that finds all Aggref nodes in an expression tree and collects PARAM_EXEC parameter IDs from their aggregated arguments and filters.

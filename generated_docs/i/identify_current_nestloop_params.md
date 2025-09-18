@@ -1,7 +1,7 @@
 # identify_current_nestloop_params
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 582 - 636
+[src/backend/optimizer/util/paramassign.c:582-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L582-L636)
 
 ## Overview
 Identifies NestLoopParams that should be supplied by a NestLoop plan node with specified lefthand relations and removes them from the active parameter list.

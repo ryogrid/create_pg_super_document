@@ -1,7 +1,7 @@
 # wrapItemsInArray
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3649 - 3665
+[src/backend/utils/adt/jsonpath_exec.c:3649-3665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3649-L3665)
 
 ## Overview
 wrapItemsInArray is a static function that constructs a JSONB array by iterating through a JsonValueList and wrapping all items into a single JSON array structure.

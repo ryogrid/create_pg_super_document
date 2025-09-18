@@ -1,7 +1,7 @@
 # BootStrapXLOG
 
 ## Location
-src/backend/access/transam/xlog.c: 4988 - 5153
+[src/backend/access/transam/xlog.c:4988-5153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4988-L5153)
 
 ## Overview
 Initializes the PostgreSQL Write-Ahead Logging (WAL) system during database installation by creating the initial pg_control file and the first XLOG segment with a bootstrap checkpoint record.

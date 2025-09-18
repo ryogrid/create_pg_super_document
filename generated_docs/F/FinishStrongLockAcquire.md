@@ -1,7 +1,7 @@
 # FinishStrongLockAcquire
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1750 - 1759
+[src/backend/storage/lmgr/lock.c:1750-1759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1750-L1759)
 
 ## Overview
 FinishStrongLockAcquire cancels pending cleanup for a strong lock acquisition once the lock has been successfully acquired and cleanup is no longer needed.

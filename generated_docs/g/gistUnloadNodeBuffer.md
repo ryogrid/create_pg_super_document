@@ -1,7 +1,7 @@
 # gistUnloadNodeBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 246 - 271
+[src/backend/access/gist/gistbuildbuffers.c:246-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L246-L271)
 
 ## Overview
 Writes the last page of a node buffer to disk during GiST index construction, flushing buffered data to temporary storage.

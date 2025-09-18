@@ -1,7 +1,7 @@
 # ri_HashCompareOp
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2908 - 3000
+[src/backend/utils/adt/ri_triggers.c:2908-3000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2908-L3000)
 
 ## Overview
 Retrieves or creates cached comparison operator information for efficient type-aware equality operations in referential integrity checking.

@@ -1,7 +1,7 @@
 # check_amproc_signature
 
 ## Location
-src/backend/access/index/amvalidate.c: 152 - 191
+[src/backend/access/index/amvalidate.c:152-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L152-L191)
 
 ## Overview
 Validates the signature (argument and result types) of an access method support function against expected type constraints.

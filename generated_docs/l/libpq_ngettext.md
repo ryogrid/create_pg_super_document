@@ -1,7 +1,7 @@
 # libpq_ngettext
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1336 - 1350
+[src/interfaces/libpq/fe-misc.c:1336-1350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1336-L1350)
 
 ## Overview
 Provides pluralized internationalized text lookup functionality for libpq by selecting appropriate singular or plural message forms based on a count value.

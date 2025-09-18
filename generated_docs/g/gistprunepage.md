@@ -1,7 +1,7 @@
 # gistprunepage
 
 ## Location
-src/backend/access/gist/gist.c: 1671 - 1743
+[src/backend/access/gist/gist.c:1671-1743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1671-L1743)
 
 ## Overview
 Removes LP_DEAD (logically deleted) items from a GiST index leaf page to reclaim space and maintain index efficiency.

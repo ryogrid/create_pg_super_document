@@ -1,7 +1,7 @@
 # StorePreparedStatement
 
 ## Location
-src/backend/commands/prepare.c: 389 - 430
+[src/backend/commands/prepare.c:389-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L389-L430)
 
 ## Overview
 Stores a prepared statement and its associated cached plan source in the global hash table, managing the transition from temporary to permanent storage and ensuring statement name uniqueness.

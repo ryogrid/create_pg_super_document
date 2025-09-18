@@ -1,7 +1,7 @@
 # _bt_end_vacuum
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4485 - 4512
+[src/backend/access/nbtree/nbtutils.c:4485-4512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4485-L4512)
 
 ## Overview
 Marks a B-tree VACUUM operation as completed and removes the corresponding entry from the shared vacuum tracking array.

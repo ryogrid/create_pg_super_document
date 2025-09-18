@@ -1,7 +1,7 @@
 # EventTriggerUndoInhibitCommandCollection
 
 ## Location
-src/backend/commands/event_trigger.c: 1566 - 1587
+[src/backend/commands/event_trigger.c:1566-1587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1566-L1587)
 
 ## Overview
 Re-establishes DDL command collection for event triggers by clearing the inhibition flag in the current event trigger state.

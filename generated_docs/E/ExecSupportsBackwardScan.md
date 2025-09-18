@@ -1,7 +1,7 @@
 # ExecSupportsBackwardScan
 
 ## Location
-src/backend/executor/execAmi.c: 510 - 601
+[src/backend/executor/execAmi.c:510-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L510-L601)
 
 ## Overview
 ExecSupportsBackwardScan determines whether a complete plan tree supports backward scanning, which is necessary for implementing scrollable cursors and certain query execution patterns.

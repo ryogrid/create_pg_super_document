@@ -1,7 +1,7 @@
 # GetForeignServerExtended
 
 ## Location
-src/backend/foreign/foreign.c: 123 - 181
+[src/backend/foreign/foreign.c:123-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L123-L181)
 
 ## Overview
 Retrieves a foreign server object by its Object ID (OID) with extended options for error handling, allowing callers to specify whether missing servers should raise an error or return NULL.

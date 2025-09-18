@@ -1,7 +1,7 @@
 # RangeVarCallbackForPolicy
 
 ## Location
-src/backend/commands/policy.c: 64 - 107
+[src/backend/commands/policy.c:64-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L64-L107)
 
 ## Overview
 A callback function used with RangeVarGetRelidExtended() to validate that a relation is suitable for row-level security policy operations by checking ownership, relation type, and system catalog restrictions.

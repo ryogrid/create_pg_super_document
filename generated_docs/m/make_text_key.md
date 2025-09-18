@@ -1,7 +1,7 @@
 # make_text_key
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1326 - 1363
+[src/backend/utils/adt/jsonb_gin.c:1326-1363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1326-L1363)
 
 ## Overview
 This static function constructs GIN index keys for JSONB text values by combining a flag byte with textual content, automatically hashing overlength strings to ensure key size limits.

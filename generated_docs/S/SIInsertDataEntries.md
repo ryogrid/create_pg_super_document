@@ -1,7 +1,7 @@
 # SIInsertDataEntries
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 370 - 472
+[src/backend/storage/ipc/sinvaladt.c:370-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L370-L472)
 
 ## Overview
 SIInsertDataEntries adds new invalidation messages to the shared invalidation buffer, managing buffer space and notifying all active backend processes about the new messages.

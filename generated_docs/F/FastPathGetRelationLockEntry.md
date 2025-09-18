@@ -1,7 +1,7 @@
 # FastPathGetRelationLockEntry
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2800 - 2903
+[src/backend/storage/lmgr/lock.c:2800-2903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2800-L2903)
 
 ## Overview
 FastPathGetRelationLockEntry retrieves a PROCLOCK for a lock originally acquired via the fast-path mechanism, transferring it to the primary lock table if necessary.

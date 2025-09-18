@@ -1,7 +1,7 @@
 # dequote_file_name
 
 ## Location
-src/bin/psql/tab-complete.c: 6477 - 6513
+[src/bin/psql/tab-complete.c:6477-6513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L6477-L6513)
 
 ## Overview
 Removes quotes from a filename string if it's quoted, handling proper unescaping for psql tab completion functionality.

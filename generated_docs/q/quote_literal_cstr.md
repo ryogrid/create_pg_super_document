@@ -1,7 +1,7 @@
 # quote_literal_cstr
 
 ## Location
-src/backend/utils/adt/quote.c: 103 - 124
+[src/backend/utils/adt/quote.c:103-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/quote.c#L103-L124)
 
 ## Overview
 A C-level utility function that takes a null-terminated C string and returns a properly quoted and escaped SQL string literal, suitable for use in dynamically constructed SQL statements.

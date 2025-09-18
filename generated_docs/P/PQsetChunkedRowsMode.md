@@ -1,7 +1,7 @@
 # PQsetChunkedRowsMode
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1965 - 1983
+[src/interfaces/libpq/fe-exec.c:1965-1983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1965-L1983)
 
 ## Overview
 PQsetChunkedRowsMode enables chunked results processing mode for a PostgreSQL connection, allowing results to be retrieved in configurable-sized chunks instead of waiting for the complete result set.

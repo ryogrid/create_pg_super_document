@@ -1,7 +1,7 @@
 # tsearch_readline_end
 
 ## Location
-src/backend/tsearch/ts_locale.c: 202 - 224
+[src/backend/tsearch/ts_locale.c:202-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L202-L224)
 
 ## Overview
 Cleans up resources and closes a file that was being read using the tsearch_readline facility.

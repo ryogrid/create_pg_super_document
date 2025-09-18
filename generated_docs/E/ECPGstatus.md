@@ -1,7 +1,7 @@
 # ECPGstatus
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 127 - 144
+[src/interfaces/ecpg/ecpglib/misc.c:127-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L127-L144)
 
 ## Overview
 Checks the status and validity of a named database connection in ECPG applications.

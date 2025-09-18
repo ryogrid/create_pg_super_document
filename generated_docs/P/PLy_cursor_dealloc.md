@@ -1,7 +1,7 @@
 # PLy_cursor_dealloc
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 277 - 303
+[src/pl/plpython/plpy_cursorobject.c:277-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L277-L303)
 
 ## Overview
 Deallocates a PL/Python cursor object, properly closing the associated PostgreSQL portal and cleaning up allocated memory contexts.

@@ -1,7 +1,7 @@
 # PLy_push_execution_context
 
 ## Location
-src/pl/plpython/plpy_main.c: 391 - 406
+[src/pl/plpython/plpy_main.c:391-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L391-L406)
 
 ## Overview
 Creates and pushes a new execution context onto the PL/Python execution context stack for managing procedure state and memory allocation.

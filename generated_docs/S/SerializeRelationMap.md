@@ -1,7 +1,7 @@
 # SerializeRelationMap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 724 - 740
+[src/backend/utils/cache/relmapper.c:724-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L724-L740)
 
 ## Overview
 SerializeRelationMap serializes the current active shared and local relation map states into a memory buffer for transmission to parallel worker processes.

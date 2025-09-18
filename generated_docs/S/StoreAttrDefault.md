@@ -1,7 +1,7 @@
 # StoreAttrDefault
 
 ## Location
-src/backend/catalog/pg_attrdef.c: 46 - 218
+[src/backend/catalog/pg_attrdef.c:46-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_attrdef.c#L46-L218)
 
 ## Overview
 StoreAttrDefault stores a default expression for a specified column in a PostgreSQL relation, creating entries in the pg_attrdef catalog and updating the corresponding pg_attribute entry to mark that a default exists.

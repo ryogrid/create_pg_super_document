@@ -1,7 +1,7 @@
 # sqlda_compat
 
 ## Location
-src/interfaces/ecpg/include/sqlda-compat.h: 37 - 47
+[src/interfaces/ecpg/include/sqlda-compat.h:37-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/sqlda-compat.h#L37-L47)
 
 ## Overview
 The  structure represents a SQL Descriptor Area (SQLDA) in the ECPG compatibility layer, serving as a container for multiple SQL variable descriptors and providing metadata about the descriptor collection itself.

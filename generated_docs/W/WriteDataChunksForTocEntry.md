@@ -1,7 +1,7 @@
 # WriteDataChunksForTocEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2556 - 2588
+[src/bin/pg_dump/pg_backup_archiver.c:2556-2588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2556-L2588)
 
 ## Overview
 Handles the data dumping process for a specific Table of Contents entry, coordinating the start/end callbacks and invoking the appropriate data dumper routine.

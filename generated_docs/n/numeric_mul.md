@@ -1,7 +1,7 @@
 # numeric_mul
 
 ## Location
-src/backend/utils/adt/numeric.c: 3019 - 3038
+[src/backend/utils/adt/numeric.c:3019-3038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3019-L3038)
 
 ## Overview
 PostgreSQL function that performs multiplication of two numeric values, implementing the SQL multiplication operator (*) for the NUMERIC data type.

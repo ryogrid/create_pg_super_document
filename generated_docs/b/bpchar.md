@@ -1,7 +1,7 @@
 # bpchar
 
 ## Location
-src/backend/utils/adt/varchar.c: 271 - 352
+[src/backend/utils/adt/varchar.c:271-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L271-L352)
 
 ## Overview
 Converts a CHARACTER type to a specified size with appropriate truncation and padding rules for both explicit and implicit casts.

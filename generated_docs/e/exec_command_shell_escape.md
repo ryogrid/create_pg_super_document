@@ -1,7 +1,7 @@
 # exec_command_shell_escape
 
 ## Location
-src/bin/psql/command.c: 3050 - 3071
+[src/bin/psql/command.c:3050-3071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3050-L3071)
 
 ## Overview
 Executes shell commands invoked through the `\!` psql meta-command, providing a way to run external commands from within the PostgreSQL interactive terminal.

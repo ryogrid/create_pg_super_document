@@ -1,7 +1,7 @@
 # list_truncate
 
 ## Location
-src/backend/nodes/list.c: 631 - 660
+[src/backend/nodes/list.c:631-660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L631-L660)
 
 ## Overview
 The  function modifies a list in-place to contain no more than a specified number of elements, effectively shortening the list by removing elements from the end.

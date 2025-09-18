@@ -1,7 +1,7 @@
 # merge_overlapping_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1231 - 1304
+[src/backend/access/brin/brin_minmax_multi.c:1231-1304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1231-L1304)
 
 ## Overview
 Merges overlapping ranges in a sorted array of ExpandedRange structures by detecting overlaps and combining them into single expanded ranges.

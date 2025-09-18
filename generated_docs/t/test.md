@@ -1,7 +1,7 @@
 # test
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-autoprep.c: 26 - 250
+[src/interfaces/ecpg/test/expected/preproc-autoprep.c:26-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-autoprep.c#L26-L250)
 
 ## Overview
 The  function is a static test function in the ECPG (Embedded SQL in C for PostgreSQL) test suite that demonstrates various SQL operations including auto-prepared statements, cursor handling, and database connectivity.

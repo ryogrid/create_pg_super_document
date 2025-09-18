@@ -1,7 +1,7 @@
 # MaxLivePostmasterChildren
 
 ## Location
-src/backend/postmaster/postmaster.c: 4147 - 4156
+[src/backend/postmaster/postmaster.c:4147-4156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4147-L4156)
 
 ## Overview
 Calculates the maximum number of live child processes that the postmaster can manage simultaneously, used for sizing per-child-process arrays.

@@ -1,7 +1,7 @@
 # btoidcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 259 - 272
+[src/backend/access/nbtree/nbtcompare.c:259-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L259-L272)
 
 ## Overview
 A B-tree comparison function for PostgreSQL's OID (Object Identifier) data type that compares two OID values and returns an integer indicating their relative order.

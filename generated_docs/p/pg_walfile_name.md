@@ -1,7 +1,7 @@
 # pg_walfile_name
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 437 - 461
+[src/backend/access/transam/xlogfuncs.c:437-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L437-L461)
 
 ## Overview
 Computes and returns the WAL (Write-Ahead Log) filename for a given WAL location, such as those returned by pg_backup_stop() or pg_switch_wal().

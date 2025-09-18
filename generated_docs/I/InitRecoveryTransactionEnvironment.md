@@ -1,7 +1,7 @@
 # InitRecoveryTransactionEnvironment
 
 ## Location
-src/backend/storage/ipc/standby.c: 94 - 159
+[src/backend/storage/ipc/standby.c:94-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L94-L159)
 
 ## Overview
 Initializes tracking of the primary server's in-progress transactions during recovery, setting up hash tables for lock tracking and creating a virtual transaction for the Startup process.

@@ -1,7 +1,7 @@
 # is_true_boolean_expression
 
 ## Location
-src/bin/psql/command.c: 3173 - 3189
+[src/bin/psql/command.c:3173-3189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3173-L3189)
 
 ## Overview
 Evaluates boolean expressions from psql conditional commands, returning true only if the expression is both valid and evaluates to true.

@@ -1,7 +1,7 @@
 # hashvacuumcleanup
 
 ## Location
-src/backend/access/hash/hash.c: 648 - 686
+[src/backend/access/hash/hash.c:648-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L648-L686)
 
 ## Overview
 Performs post-VACUUM cleanup operations for hash indexes, primarily updating statistical information for VACUUM displays.

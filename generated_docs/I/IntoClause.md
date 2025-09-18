@@ -1,7 +1,7 @@
 # IntoClause
 
 ## Location
-src/include/nodes/primnodes.h: 158 - 171
+[src/include/nodes/primnodes.h:158-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L158-L171)
 
 ## Overview
 IntoClause represents target information for SELECT INTO, CREATE TABLE AS, and CREATE MATERIALIZED VIEW operations, providing comprehensive table creation specifications.

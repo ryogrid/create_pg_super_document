@@ -1,7 +1,7 @@
 # createViewAsClause
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15857 - 15905
+[src/bin/pg_dump/pg_dump.c:15857-15905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15857-L15905)
 
 ## Overview
 Retrieves and formats the AS clause definition for a view or materialized view, stripping the trailing semicolon to allow additional clauses to be appended.

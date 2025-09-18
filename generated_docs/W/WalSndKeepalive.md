@@ -1,7 +1,7 @@
 # WalSndKeepalive
 
 ## Location
-src/backend/replication/walsender.c: 4076 - 4098
+[src/backend/replication/walsender.c:4076-4098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L4076-L4098)
 
 ## Overview
 Sends a keepalive message to the standby server to maintain the replication connection and optionally request a heartbeat response.

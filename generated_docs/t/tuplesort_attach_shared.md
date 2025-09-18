@@ -1,7 +1,7 @@
 # tuplesort_attach_shared
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2999 - 3018
+[src/backend/utils/sort/tuplesort.c:2999-3018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2999-L3018)
 
 ## Overview
 Attaches worker processes to the shared tuplesort state that was previously initialized by the leader process.

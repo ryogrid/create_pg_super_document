@@ -1,7 +1,7 @@
 # range_element_has_hashing
 
 ## Location
-src/backend/utils/cache/typcache.c: 1626 - 1633
+[src/backend/utils/cache/typcache.c:1626-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1626-L1633)
 
 ## Overview
 This function checks whether the element type of a range or multirange type supports hashing operations, enabling hash-based operations on range types.

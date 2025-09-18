@@ -1,7 +1,7 @@
 # XLogPrefetcherFilter
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 160 - 166
+[src/backend/access/transam/xlogprefetcher.c:160-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L160-L166)
 
 ## Overview
 XLogPrefetcherFilter is a temporary filtering mechanism used to track and suppress prefetching of block ranges and relations that haven't been created yet, have been dropped, or will be created by bulk WAL operations.

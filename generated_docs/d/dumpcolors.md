@@ -1,7 +1,7 @@
 # dumpcolors
 
 ## Location
-src/backend/regex/regc_color.c: 1127 - 1190
+[src/backend/regex/regc_color.c:1127-1190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L1127-L1190)
 
 ## Overview
 A debugging function that outputs a human-readable representation of a colormap structure, showing color assignments and character mappings for regex engine diagnostics.

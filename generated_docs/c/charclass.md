@@ -1,7 +1,7 @@
 # charclass
 
 ## Location
-src/backend/regex/regcomp.c: 1494 - 1517
+[src/backend/regex/regcomp.c:1494-1517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1494-L1517)
 
 ## Overview
 The charclass function generates NFA arcs for character class matching in regular expressions, supporting both predefined character classes and bracket expression elements.

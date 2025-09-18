@@ -1,7 +1,7 @@
 # r_steps3
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2588 - 2627
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2588-2627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2588-L2627)
 
 ## Overview
 The r_steps3 function is part of the Greek stemming algorithm in PostgreSQL's snowball stemmer library, responsible for performing specific suffix removal and transformation steps during the stemming process.

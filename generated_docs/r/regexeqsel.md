@@ -1,7 +1,7 @@
 # regexeqsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 793 - 801
+[src/backend/utils/adt/like_support.c:793-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L793-L801)
 
 ## Overview
 A PostgreSQL SQL-callable selectivity estimation function specifically for regular expression pattern matching operations using the ~ (regex match) operator.

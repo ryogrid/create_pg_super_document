@@ -1,7 +1,7 @@
 # StripnullState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 283 - 288
+[src/backend/utils/adt/jsonfuncs.c:283-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L283-L288)
 
 ## Overview
 A state structure used by PostgreSQL's json_strip_nulls function to maintain parsing state and output buffer during the process of removing null values from JSON data.

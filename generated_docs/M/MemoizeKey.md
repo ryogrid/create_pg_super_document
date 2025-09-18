@@ -1,7 +1,7 @@
 # MemoizeKey
 
 ## Location
-src/backend/executor/nodeMemoize.c: 105 - 109
+[src/backend/executor/nodeMemoize.c:105-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L105-L109)
 
 ## Overview
 MemoizeKey serves as the hash table key for cached entries in PostgreSQL's memoization system and includes LRU list management functionality.

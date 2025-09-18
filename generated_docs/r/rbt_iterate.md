@@ -1,7 +1,7 @@
 # rbt_iterate
 
 ## Location
-src/backend/lib/rbtree.c: 826 - 832
+[src/backend/lib/rbtree.c:826-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L826-L832)
 
 ## Overview
 Returns the next node in the tree traversal sequence, or NULL if the iteration is complete.

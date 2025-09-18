@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithDatabase
 
 ## Location
-src/backend/storage/ipc/standby.c: 568 - 621
+[src/backend/storage/ipc/standby.c:568-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L568-L621)
 
 ## Overview
 This function forcibly disconnects all backend processes connected to a specific database during recovery, typically when the database is being dropped.

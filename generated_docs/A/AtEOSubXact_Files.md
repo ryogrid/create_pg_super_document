@@ -1,7 +1,7 @@
 # AtEOSubXact_Files
 
 ## Location
-src/backend/storage/file/fd.c: 3129 - 3161
+[src/backend/storage/file/fd.c:3129-3161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3129-L3161)
 
 ## Overview
 Handles file descriptor management at the end of a subtransaction, either closing temporary files on abort or reassigning them to the parent subtransaction on commit.

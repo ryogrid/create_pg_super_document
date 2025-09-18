@@ -1,7 +1,7 @@
 # bytea_overlay
 
 ## Location
-src/backend/utils/adt/varlena.c: 3118 - 3150
+[src/backend/utils/adt/varlena.c:3118-3150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3118-L3150)
 
 ## Overview
 A static helper function that performs the core implementation of bytea overlay operations, replacing a specified substring with another bytea by using substring extraction and concatenation.

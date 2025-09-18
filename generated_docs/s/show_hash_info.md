@@ -1,7 +1,7 @@
 # show_hash_info
 
 ## Location
-src/backend/commands/explain.c: 3236 - 3326
+[src/backend/commands/explain.c:3236-3326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3236-L3326)
 
 ## Overview
 Displays hash join statistics for EXPLAIN ANALYZE output, including bucket counts, batch information, and memory usage, with support for aggregating data from parallel worker processes.

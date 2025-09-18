@@ -1,7 +1,7 @@
 # llvm_session_initialize
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 864 - 992
+[src/backend/jit/llvm/llvmjit.c:864-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L864-L992)
 
 ## Overview
 Performs one-time per-session initialization of the LLVM JIT compilation environment, setting up target machines, ORC JIT instances, and debug/profiling support.

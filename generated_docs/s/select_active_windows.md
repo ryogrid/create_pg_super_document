@@ -1,7 +1,7 @@
 # select_active_windows
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5924 - 6011
+[src/backend/optimizer/plan/planner.c:5924-6011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5924-L6011)
 
 ## Overview
 Creates a list of "active" window clauses (those referenced by non-deleted WindowFuncs) in the order they should be executed for optimal performance.

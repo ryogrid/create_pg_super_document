@@ -1,7 +1,7 @@
 # md5_bytea
 
 ## Location
-src/backend/utils/adt/cryptohashfuncs.c: 59 - 79
+[src/backend/utils/adt/cryptohashfuncs.c:59-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cryptohashfuncs.c#L59-L79)
 
 ## Overview
 Creates an MD5 hash of a bytea (binary data) value and returns it as a hexadecimal string representation.

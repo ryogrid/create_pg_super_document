@@ -1,7 +1,7 @@
 # LogLogicalMessage
 
 ## Location
-src/backend/replication/logical/message.c: 43 - 86
+[src/backend/replication/logical/message.c:43-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/message.c#L43-L86)
 
 ## Overview
 LogLogicalMessage writes logical decoding messages into the transaction log (XLog) and is used for emitting custom messages that can be consumed by logical replication subscribers.

@@ -1,7 +1,7 @@
 # IncrementVarSublevelsUp
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 850 - 872
+[src/backend/rewrite/rewriteManip.c:850-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L850-L872)
 
 ## Overview
 A public function that increments sublevel counters throughout a query or expression tree to adjust variable references when subquery nesting changes.

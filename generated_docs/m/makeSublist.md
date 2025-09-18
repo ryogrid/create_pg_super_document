@@ -1,7 +1,7 @@
 # makeSublist
 
 ## Location
-src/backend/access/gin/ginfast.c: 145 - 218
+[src/backend/access/gin/ginfast.c:145-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L145-L218)
 
 ## Overview
 A static function that splits an array of index tuples across multiple pages and creates a linked list structure of pending-list pages, updating metadata about the resulting sublist.

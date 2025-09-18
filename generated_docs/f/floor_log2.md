@@ -1,7 +1,7 @@
 # floor_log2
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 1089 - 1129
+[src/backend/utils/adt/array_selfuncs.c:1089-1129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L1089-L1129)
 
 ## Overview
 Fast calculation of the floor value of base-2 logarithm for 32-bit unsigned integers using bit manipulation.

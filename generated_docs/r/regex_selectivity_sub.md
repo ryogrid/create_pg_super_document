@@ -1,7 +1,7 @@
 # regex_selectivity_sub
 
 ## Location
-src/backend/utils/adt/like_support.c: 1360 - 1454
+[src/backend/utils/adt/like_support.c:1360-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1360-L1454)
 
 ## Overview
 A recursive function that estimates the selectivity of regular expression patterns by parsing and analyzing regex metacharacters and their associated selectivity factors.

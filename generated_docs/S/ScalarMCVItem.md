@@ -1,7 +1,7 @@
 # ScalarMCVItem
 
 ## Location
-src/backend/commands/analyze.c: 1810 - 1815
+[src/backend/commands/analyze.c:1810-1815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1810-L1815)
 
 ## Overview
 A structure used during PostgreSQL's ANALYZE command to track Most Common Value (MCV) items for scalar data types during statistical analysis of table columns.

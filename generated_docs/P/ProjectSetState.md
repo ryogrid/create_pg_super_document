@@ -1,7 +1,7 @@
 # ProjectSetState
 
 ## Location
-src/include/nodes/execnodes.h: 1335 - 1343
+[src/include/nodes/execnodes.h:1335-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1335-L1343)
 
 ## Overview
 ProjectSetState is an execution state structure for ProjectSet nodes in PostgreSQL's executor, which handle projection operations involving set-returning functions (SRFs) that can produce multiple output tuples from a single input tuple.

@@ -1,7 +1,7 @@
 # RmgrCleanup
 
 ## Location
-src/backend/access/transam/rmgr.c: 74 - 90
+[src/backend/access/transam/rmgr.c:74-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/rmgr.c#L74-L90)
 
 ## Overview
 Performs cleanup operations for all registered resource managers by calling their cleanup routines during shutdown or end of WAL recovery.

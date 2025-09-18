@@ -1,7 +1,7 @@
 # SlabIsEmpty
 
 ## Location
-src/backend/utils/mmgr/slab.c: 912 - 928
+[src/backend/utils/mmgr/slab.c:912-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L912-L928)
 
 ## Overview
 SlabIsEmpty determines whether a slab memory context has any currently allocated memory chunks.

@@ -1,7 +1,7 @@
 # ahprintf
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1736 - 1772
+[src/bin/pg_dump/pg_backup_archiver.c:1736-1772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1736-L1772)
 
 ## Overview
 A formatted print function that outputs text to the archive output stream, similar to printf but specifically designed for PostgreSQL archive operations.

@@ -1,7 +1,7 @@
 # exec_command_reset
 
 ## Location
-src/bin/psql/command.c: 2347 - 2364
+[src/bin/psql/command.c:2347-2364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2347-L2364)
 
 ## Overview
 Implements the psql \r backslash command that clears and resets the query buffer to its initial empty state.

@@ -1,7 +1,7 @@
 # danish_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_danish.c: 315 - 316
+[src/backend/snowball/libstemmer/stem_UTF_8_danish.c:315-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_danish.c#L315-L316)
 
 ## Overview
 Factory function that creates and initializes a Snowball environment structure specifically configured for Danish UTF-8 text stemming operations.

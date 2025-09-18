@@ -1,7 +1,7 @@
 # identify_system_timezone
 
 ## Location
-src/bin/initdb/findtimezone.c: 1565 - 1727
+[src/bin/initdb/findtimezone.c:1565-1727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L1565-L1727)
 
 ## Overview
 Identifies the system timezone on Windows by matching the current timezone name against a predefined mapping table, with fallback support for localized timezone names via Windows registry lookup.

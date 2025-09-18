@@ -1,7 +1,7 @@
 # pg_enc
 
 ## Location
-src/include/mb/pg_wchar.h: 289 - 290
+[src/include/mb/pg_wchar.h:289-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L289-L290)
 
 ## Overview
 pg_enc is an enumeration type that defines PostgreSQL's encoding identifiers for character set conversions and database encoding support.

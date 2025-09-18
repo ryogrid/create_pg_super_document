@@ -1,7 +1,7 @@
 # EquivalenceMember
 
 ## Location
-src/include/nodes/pathnodes.h: 1430 - 1444
+[src/include/nodes/pathnodes.h:1430-1444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1430-L1444)
 
 ## Overview
 EquivalenceMember represents one member expression of an EquivalenceClass in PostgreSQL's query optimizer, storing expressions that are known to be equal and can be substituted for each other during query planning.

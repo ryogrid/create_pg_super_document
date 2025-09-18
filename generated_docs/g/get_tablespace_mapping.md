@@ -1,7 +1,7 @@
 # get_tablespace_mapping
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1678 - 1697
+[src/bin/pg_basebackup/pg_basebackup.c:1678-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1678-L1697)
 
 ## Overview
 get_tablespace_mapping is a utility function in pg_basebackup that retrieves the appropriate tablespace path, returning either the original path or a user-specified relocated path based on tablespace mapping configuration.

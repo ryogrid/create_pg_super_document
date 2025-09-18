@@ -1,7 +1,7 @@
 # check_application_name
 
 ## Location
-src/backend/commands/variable.c: 1068 - 1095
+[src/backend/commands/variable.c:1068-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1068-L1095)
 
 ## Overview
 The `check_application_name` function validates and sanitizes the application_name configuration parameter, ensuring it contains only clean ASCII characters.

@@ -1,7 +1,7 @@
 # add_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 8447 - 8563
+[src/backend/utils/adt/numeric.c:8447-8563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8447-L8563)
 
 ## Overview
 Performs addition of two NumericVar values, handling signs and delegating to appropriate absolute value operations.

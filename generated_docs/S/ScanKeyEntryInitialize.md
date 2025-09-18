@@ -1,7 +1,7 @@
 # ScanKeyEntryInitialize
 
 ## Location
-src/backend/access/common/scankey.c: 32 - 75
+[src/backend/access/common/scankey.c:32-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/scankey.c#L32-L75)
 
 ## Overview
 Initializes a scan key entry with all field values, allowing for comprehensive configuration of scan parameters including flags, strategy, and operator procedures.

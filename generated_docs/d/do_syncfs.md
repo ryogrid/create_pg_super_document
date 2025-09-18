@@ -1,7 +1,7 @@
 # do_syncfs
 
 ## Location
-src/common/file_utils.c: 62 - 96
+[src/common/file_utils.c:62-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L62-L96)
 
 ## Overview
 Performs a file system synchronization operation using the syncfs() system call to ensure all data for a given file system is written to storage.

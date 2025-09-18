@@ -1,7 +1,7 @@
 # json_validate
 
 ## Location
-src/backend/utils/adt/json.c: 1664 - 1725
+[src/backend/utils/adt/json.c:1664-1725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1664-L1725)
 
 ## Overview
 A comprehensive JSON validation function that parses JSON text for syntactic correctness and optionally checks for unique object field names.

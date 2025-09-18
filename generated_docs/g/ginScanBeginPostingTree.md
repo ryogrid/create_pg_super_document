@@ -1,7 +1,7 @@
 # ginScanBeginPostingTree
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1936 - 1947
+[src/backend/access/gin/gindatapage.c:1936-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1936-L1947)
 
 ## Overview
 ginScanBeginPostingTree initiates a new scan operation on a GIN posting tree by setting up the B-tree structure and positioning at the leftmost leaf page for sequential access.

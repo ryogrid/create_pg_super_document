@@ -1,7 +1,7 @@
 # ReorderBufferSerializeChange
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3935 - 4149
+[src/backend/replication/logical/reorderbuffer.c:3935-4149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3935-L4149)
 
 ## Overview
 Serializes individual replication changes to disk, handling different change types with their specific data structures and ensuring proper storage format for later deserialization.

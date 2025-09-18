@@ -1,7 +1,7 @@
 # float4_max
 
 ## Location
-src/include/utils/float.h: 346 - 351
+[src/include/utils/float.h:346-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L346-L351)
 
 ## Overview
 Returns the larger of two single-precision floating-point numbers, with PostgreSQL's NaN handling semantics applied.

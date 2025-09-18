@@ -1,7 +1,7 @@
 # ri_KeysEqual
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2795 - 2865
+[src/backend/utils/adt/ri_triggers.c:2795-2865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2795-L2865)
 
 ## Overview
 Compares key values between old and new tuple slots to determine if they are equal, using different comparison strategies for primary key and foreign key attributes.

@@ -1,7 +1,7 @@
 # get_docrep
 
 ## Location
-src/backend/utils/adt/tsrank.c: 727 - 849
+[src/backend/utils/adt/tsrank.c:727-849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L727-L849)
 
 ## Overview
 Constructs a DocRepresentation array from a TSVector and QueryRepresentation, creating a structured representation of document terms that match query operands with their positional information.

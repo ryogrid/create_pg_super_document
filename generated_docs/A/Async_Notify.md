@@ -1,7 +1,7 @@
 # Async_Notify
 
 ## Location
-src/backend/commands/async.c: 591 - 689
+[src/backend/commands/async.c:591-689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L591-L689)
 
 ## Overview
 Executes the SQL NOTIFY command by adding notification messages to the list of pending notifications, with actual notification delivery occurring during transaction commit.

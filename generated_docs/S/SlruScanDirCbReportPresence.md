@@ -1,7 +1,7 @@
 # SlruScanDirCbReportPresence
 
 ## Location
-src/backend/access/transam/slru.c: 1709 - 1724
+[src/backend/access/transam/slru.c:1709-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1709-L1724)
 
 ## Overview
 A callback function used by SlruScanDirectory to report whether any SLRU segment exists that is wholly prior to a specified cutoff page.

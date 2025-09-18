@@ -1,7 +1,7 @@
 # path_inter
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1653 - 1729
+[src/backend/utils/adt/geo_ops.c:1653-1729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1653-L1729)
 
 ## Overview
 The `path_inter` function determines whether two paths intersect at any point using bounding box optimization followed by pairwise segment intersection checks.

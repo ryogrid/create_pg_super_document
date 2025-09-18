@@ -1,7 +1,7 @@
 # DefineRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 698 - 1290
+[src/backend/commands/tablecmds.c:698-1290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L698-L1290)
 
 ## Overview
 DefineRelation is the core function for creating new relations (tables, views, indexes, etc.) in PostgreSQL, handling the complete process from parsing CREATE statements to catalog registration.

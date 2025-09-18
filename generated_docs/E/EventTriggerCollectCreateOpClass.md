@@ -1,7 +1,7 @@
 # EventTriggerCollectCreateOpClass
 
 ## Location
-src/backend/commands/event_trigger.c: 1828 - 1861
+[src/backend/commands/event_trigger.c:1828-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1828-L1861)
 
 ## Overview
 Saves data about a CREATE OPERATOR CLASS command being executed for event trigger processing, collecting information about new operator class definitions.

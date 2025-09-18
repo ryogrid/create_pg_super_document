@@ -1,7 +1,7 @@
 # IterateJsonStringValuesState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 64 - 72
+[src/backend/utils/adt/jsonfuncs.c:64-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L64-L72)
 
 ## Overview
 IterateJsonStringValuesState is a structure that maintains state information for the iterate_json_values function, which applies actions to JSON values based on specified criteria and flags.

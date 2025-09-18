@@ -1,7 +1,7 @@
 # pg_control_system
 
 ## Location
-src/backend/utils/misc/pg_controldata.c: 32 - 69
+[src/backend/utils/misc/pg_controldata.c:32-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_controldata.c#L32-L69)
 
 ## Overview
 A PostgreSQL SQL function that retrieves and returns basic system information from the control file as a composite tuple.

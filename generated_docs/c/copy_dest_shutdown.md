@@ -1,7 +1,7 @@
 # copy_dest_shutdown
 
 ## Location
-src/backend/commands/copyto.c: 1254 - 1262
+[src/backend/commands/copyto.c:1254-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1254-L1262)
 
 ## Overview
 A no-operation shutdown function for the COPY destination receiver that implements the DestReceiver interface's shutdown callback.

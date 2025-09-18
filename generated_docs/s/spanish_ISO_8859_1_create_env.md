@@ -1,7 +1,7 @@
 # spanish_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c: 1038 - 1039
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1038-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c#L1038-L1039)
 
 ## Overview
 Creates and initializes a new Snowball environment structure specifically configured for Spanish stemming with ISO 8859-1 character encoding.

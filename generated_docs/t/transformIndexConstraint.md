@@ -1,7 +1,7 @@
 # transformIndexConstraint
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2161 - 2696
+[src/backend/parser/parse_utilcmd.c:2161-2696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2161-L2696)
 
 ## Overview
 Transforms a single UNIQUE, PRIMARY KEY, or EXCLUDE constraint into an IndexStmt, handling column validation, NOT NULL enforcement for primary keys, and existing index reuse scenarios.

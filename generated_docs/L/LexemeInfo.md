@@ -1,7 +1,7 @@
 # LexemeInfo
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 30 - 37
+[src/backend/tsearch/dict_thesaurus.c:30-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L30-L37)
 
 ## Overview
 LexemeInfo is a structure used in PostgreSQL's thesaurus dictionary implementation to store metadata about lexemes and their relationships within thesaurus entries and variants.

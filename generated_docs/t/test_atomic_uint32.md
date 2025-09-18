@@ -1,7 +1,7 @@
 # test_atomic_uint32
 
 ## Location
-src/test/regress/regress.c: 728 - 799
+[src/test/regress/regress.c:728-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L728-L799)
 
 ## Overview
 A comprehensive static test function that validates the complete functionality of PostgreSQL's 32-bit atomic unsigned integer operations, including arithmetic, comparison, exchange, and bitwise operations.

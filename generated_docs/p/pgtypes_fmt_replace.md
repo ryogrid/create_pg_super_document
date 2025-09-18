@@ -1,7 +1,7 @@
 # pgtypes_fmt_replace
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/common.c: 30 - 144
+[src/interfaces/ecpg/pgtypeslib/common.c:30-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/common.c#L30-L144)
 
 ## Overview
 A comprehensive format replacement function in the PostgreSQL ECPG pgtypeslib that handles the conversion and formatting of various data types into string representations for output formatting.

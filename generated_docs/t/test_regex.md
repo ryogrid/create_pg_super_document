@@ -1,7 +1,7 @@
 # test_regex
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 80 - 160
+[src/test/modules/test_regex/test_regex.c:80-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L80-L160)
 
 ## Overview
 test_regex is a PostgreSQL set-returning function (SRF) that provides comprehensive regex testing functionality, offering detailed information about pattern matching similar to Tcl's "regexp -about" output.

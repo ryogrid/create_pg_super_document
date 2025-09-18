@@ -1,7 +1,7 @@
 # inetor
 
 ## Location
-src/backend/utils/adt/network.c: 1914 - 1945
+[src/backend/utils/adt/network.c:1914-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1914-L1945)
 
 ## Overview
 Performs a bitwise OR operation between two inet addresses, returning the bitwise disjunction of corresponding address bits.

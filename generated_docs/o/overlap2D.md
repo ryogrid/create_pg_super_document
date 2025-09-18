@@ -1,7 +1,7 @@
 # overlap2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 236 - 243
+[src/backend/utils/adt/geo_spgist.c:236-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L236-L243)
 
 ## Overview
 The `overlap2D` function determines whether any range from a range box can overlap with a given query range in 2D space.

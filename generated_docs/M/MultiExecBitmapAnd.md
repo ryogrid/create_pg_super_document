@@ -1,7 +1,7 @@
 # MultiExecBitmapAnd
 
 ## Location
-src/backend/executor/nodeBitmapAnd.c: 110 - 177
+[src/backend/executor/nodeBitmapAnd.c:110-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapAnd.c#L110-L177)
 
 ## Overview
 MultiExecBitmapAnd executes a BitmapAnd node by combining bitmaps from multiple subplans using AND logic, producing a single merged bitmap of qualifying tuple identifiers.

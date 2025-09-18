@@ -1,7 +1,7 @@
 # DecodeTimezoneAbbrevPrefix
 
 ## Location
-src/backend/utils/adt/datetime.c: 3273 - 3339
+[src/backend/utils/adt/datetime.c:3273-3339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L3273-L3339)
 
 ## Overview
 Interprets a prefix of a string as a timezone abbreviation, matching the longest possible prefix and applying downcasing internally for formatting operations.

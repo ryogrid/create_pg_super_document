@@ -1,7 +1,7 @@
 # rename_policy
 
 ## Location
-src/backend/commands/policy.c: 1096 - 1203
+[src/backend/commands/policy.c:1096-1203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L1096-L1203)
 
 ## Overview
 Changes the name of a policy on a relation by updating the policy's name in the pg_policy system catalog while ensuring the new name doesn't conflict with existing policies on the same table.

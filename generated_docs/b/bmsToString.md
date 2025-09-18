@@ -1,7 +1,7 @@
 # bmsToString
 
 ## Location
-src/backend/nodes/outfuncs.c: 808 - 816
+[src/backend/nodes/outfuncs.c:808-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L808-L816)
 
 ## Overview
 A utility function that converts a PostgreSQL Bitmapset structure to its ASCII string representation for debugging and logging purposes.

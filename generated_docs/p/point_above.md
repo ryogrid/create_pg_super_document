@@ -1,7 +1,7 @@
 # point_above
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1919 - 1927
+[src/backend/utils/adt/geo_ops.c:1919-1927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1919-L1927)
 
 ## Overview
 A PostgreSQL function that determines if one point is above another point by comparing their y-coordinates.

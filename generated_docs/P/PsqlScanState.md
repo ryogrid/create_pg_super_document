@@ -1,7 +1,7 @@
 # PsqlScanState
 
 ## Location
-src/include/fe_utils/psqlscan.h: 27 - 31
+[src/include/fe_utils/psqlscan.h:27-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/psqlscan.h#L27-L31)
 
 ## Overview
 PsqlScanState is an abstract type that represents the lexer's internal state for PostgreSQL's SQL scanner in frontend utilities, providing an opaque handle to the complete scanning state.

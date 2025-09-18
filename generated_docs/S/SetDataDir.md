@@ -1,7 +1,7 @@
 # SetDataDir
 
 ## Location
-src/backend/utils/init/miscinit.c: 435 - 454
+[src/backend/utils/init/miscinit.c:435-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L435-L454)
 
 ## Overview
 Sets the PostgreSQL data directory path, ensuring it is converted to an absolute path for consistent file system operations.

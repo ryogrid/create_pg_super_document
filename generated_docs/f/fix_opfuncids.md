@@ -1,7 +1,7 @@
 # fix_opfuncids
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1831 - 1837
+[src/backend/nodes/nodeFuncs.c:1831-1837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1831-L1837)
 
 ## Overview
 Calculates and sets the  field for all OpExpr nodes in an expression tree by deriving function OIDs from operator OIDs.

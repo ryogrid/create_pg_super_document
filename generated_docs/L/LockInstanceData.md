@@ -1,7 +1,7 @@
 # LockInstanceData
 
 ## Location
-src/include/storage/lock.h: 452 - 463
+[src/include/storage/lock.h:452-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L452-L463)
 
 ## Overview
 LockInstanceData holds information about a specific lock instance for user-level lock listing functions, providing detailed lock status for monitoring and diagnostics.

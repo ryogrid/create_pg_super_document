@@ -1,7 +1,7 @@
 # get_fn_opclass_options
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 2097 - 2144
+[src/backend/utils/fmgr/fmgr.c:2097-2144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L2097-L2144)
 
 ## Overview
 Retrieves operator class options for a support function from PostgreSQL's function manager, returning the options as a bytea structure.

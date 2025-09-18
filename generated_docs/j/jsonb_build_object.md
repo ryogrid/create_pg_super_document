@@ -1,7 +1,7 @@
 # jsonb_build_object
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1177 - 1196
+[src/backend/utils/adt/jsonb.c:1177-1196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1177-L1196)
 
 ## Overview
 A PostgreSQL SQL function that constructs a JSONB object from a variadic list of alternating key-value pairs.

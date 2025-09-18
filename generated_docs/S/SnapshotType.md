@@ -1,7 +1,7 @@
 # SnapshotType
 
 ## Location
-src/include/utils/snapshot.h: 119 - 120
+[src/include/utils/snapshot.h:119-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/snapshot.h#L119-L120)
 
 ## Overview
 SnapshotType is an enumeration that defines the different types of snapshots used in PostgreSQL's transaction visibility and Multi-Version Concurrency Control (MVCC) system.

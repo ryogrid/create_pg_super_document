@@ -1,7 +1,7 @@
 # domain_check_input
 
 ## Location
-src/backend/utils/adt/domains.c: 138 - 226
+[src/backend/utils/adt/domains.c:138-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L138-L226)
 
 ## Overview
 Applies cached domain constraints to validate input values, executing NOT NULL and CHECK constraints separately.

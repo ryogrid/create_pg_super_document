@@ -1,7 +1,7 @@
 # ExecHashJoinInitializeWorker
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1647 - 1663
+[src/backend/executor/nodeHashjoin.c:1647-1663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1647-L1663)
 
 ## Overview
 Initializes a worker process for parallel hash join execution by attaching to shared memory structures and configuring the hash join state for parallel operation.

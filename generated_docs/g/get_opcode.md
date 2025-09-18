@@ -1,7 +1,7 @@
 # get_opcode
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1285 - 1309
+[src/backend/utils/cache/lsyscache.c:1285-1309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1285-L1309)
 
 ## Overview
 Retrieves the regproc ID of the function that implements a given operator, providing the link between operator OIDs and their underlying implementation functions.

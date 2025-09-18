@@ -1,7 +1,7 @@
 # WinSetMarkPosition
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3218 - 3252
+[src/backend/executor/nodeWindowAgg.c:3218-3252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3218-L3252)
 
 ## Overview
 Sets the "mark" position for a WindowObject, defining the oldest row that can be fetched during subsequent operations within the current partition.

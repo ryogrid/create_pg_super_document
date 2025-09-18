@@ -1,7 +1,7 @@
 # numeric_scale
 
 ## Location
-src/backend/utils/adt/numeric.c: 4138 - 4151
+[src/backend/utils/adt/numeric.c:4138-4151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4138-L4151)
 
 ## Overview
 Returns the scale of a numeric value, which is the count of decimal digits in the fractional part.

@@ -1,7 +1,7 @@
 # macaddr_ne
 
 ## Location
-src/backend/utils/adt/mac.c: 255 - 266
+[src/backend/utils/adt/mac.c:255-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L255-L266)
 
 ## Overview
 The  function compares two MAC addresses and returns true if they are not equal.

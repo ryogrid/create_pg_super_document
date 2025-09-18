@@ -1,7 +1,7 @@
 # get_rte_attribute_is_dropped
 
 ## Location
-src/backend/parser/parse_relation.c: 3291 - 3438
+[src/backend/parser/parse_relation.c:3291-3438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3291-L3438)
 
 ## Overview
 Checks whether an attempted attribute reference is to a dropped column within a range table entry (RTE).

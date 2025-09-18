@@ -1,7 +1,7 @@
 # in_range_float4_float8
 
 ## Location
-src/backend/utils/adt/float.c: 1096 - 1175
+[src/backend/utils/adt/float.c:1096-1175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1096-L1175)
 
 ## Overview
 A support function for window frame range calculations with float4 (single precision) values that determines if a given value falls within a specified range using a float8 offset for precision.

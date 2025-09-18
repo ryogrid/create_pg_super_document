@@ -1,7 +1,7 @@
 # index_update_stats
 
 ## Location
-src/backend/catalog/index.c: 2781 - 2939
+[src/backend/catalog/index.c:2781-2939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2781-L2939)
 
 ## Overview
 index_update_stats updates the pg_class catalog entry for a relation after CREATE INDEX or REINDEX operations, maintaining statistical metadata and triggering relcache invalidation.

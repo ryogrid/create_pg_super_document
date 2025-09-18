@@ -1,7 +1,7 @@
 # time_larger
 
 ## Location
-src/backend/utils/adt/date.c: 1759 - 1767
+[src/backend/utils/adt/date.c:1759-1767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1759-L1767)
 
 ## Overview
 The time_larger function returns the larger of two TimeADT values, implementing the maximum operation for PostgreSQL's time data type.

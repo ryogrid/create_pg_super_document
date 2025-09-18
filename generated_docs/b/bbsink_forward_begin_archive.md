@@ -1,7 +1,7 @@
 # bbsink_forward_begin_archive
 
 ## Location
-src/backend/backup/basebackup_sink.c: 37 - 53
+[src/backend/backup/basebackup_sink.c:37-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L37-L53)
 
 ## Overview
 Forwards the begin_archive callback to the next bbsink in a chain, enabling the initiation of archive processing in a cascaded bbsink architecture.

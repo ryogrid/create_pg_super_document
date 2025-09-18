@@ -1,7 +1,7 @@
 # assign_synchronous_standby_names
 
 ## Location
-src/backend/replication/syncrep.c: 1115 - 1120
+[src/backend/replication/syncrep.c:1115-1120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L1115-L1120)
 
 ## Overview
 A GUC assign hook function that applies the validated synchronous_standby_names configuration after it has been successfully checked and parsed.

@@ -1,7 +1,7 @@
 # pg_table_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 486 - 504
+[src/backend/utils/adt/dbsize.c:486-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L486-L504)
 
 ## Overview
 SQL-callable function that returns the disk space used by the specified table, excluding indexes but including TOAST data, FSM, and VM.

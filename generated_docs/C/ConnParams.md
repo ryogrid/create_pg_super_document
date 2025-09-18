@@ -1,7 +1,7 @@
 # ConnParams
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 92 - 93
+[src/bin/pg_dump/pg_backup.h:92-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L92-L93)
 
 ## Overview
 A structure that encapsulates database connection parameters used throughout PostgreSQL client utilities for establishing database connections.

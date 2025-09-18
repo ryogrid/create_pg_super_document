@@ -1,7 +1,7 @@
 # ObjectAddressStack
 
 ## Location
-src/backend/catalog/dependency.c: 124 - 129
+[src/backend/catalog/dependency.c:124-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L124-L129)
 
 ## Overview
 A threaded list structure used for recursion detection during dependency traversal in PostgreSQL's dependency system.

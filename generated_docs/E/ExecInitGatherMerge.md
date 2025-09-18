@@ -1,7 +1,7 @@
 # ExecInitGatherMerge
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 67 - 182
+[src/backend/executor/nodeGatherMerge.c:67-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L67-L182)
 
 ## Overview
 ExecInitGatherMerge initializes the execution state for a GatherMerge plan node, setting up the infrastructure needed to collect and merge-sort tuples from parallel worker processes.

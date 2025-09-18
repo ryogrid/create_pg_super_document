@@ -1,7 +1,7 @@
 # AlterForeignDataWrapperOwner_internal
 
 ## Location
-src/backend/commands/foreigncmds.c: 216 - 285
+[src/backend/commands/foreigncmds.c:216-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L216-L285)
 
 ## Overview
 Internal workhorse function that changes the ownership of a foreign data wrapper, enforcing superuser privileges for both current and new owners while updating the catalog and dependency records.

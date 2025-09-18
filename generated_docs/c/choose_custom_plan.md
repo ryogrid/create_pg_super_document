@@ -1,7 +1,7 @@
 # choose_custom_plan
 
 ## Location
-src/backend/utils/cache/plancache.c: 1046 - 1102
+[src/backend/utils/cache/plancache.c:1046-1102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1046-L1102)
 
 ## Overview
 choose_custom_plan implements the policy logic for deciding whether GetCachedPlan should use a custom parameter-specific plan or a generic parameter-independent plan based on cost analysis and configuration settings.

@@ -1,7 +1,7 @@
 # arrayconst_startup_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 959 - 1007
+[src/backend/optimizer/util/predtest.c:959-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L959-L1007)
 
 ## Overview
 A specialized startup function for iterating over ScalarArrayOpExpr nodes with constant array operands, deconstructing the array and setting up iteration state for predicate analysis.

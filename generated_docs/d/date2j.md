@@ -1,7 +1,7 @@
 # date2j
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 581 - 605
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:581-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L581-L605)
 
 ## Overview
 Converts calendar date (year, month, day) to Julian day number, providing a numerically accurate and computationally simple representation commonly used in astronomical applications.

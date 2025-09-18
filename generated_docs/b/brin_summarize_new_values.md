@@ -1,7 +1,7 @@
 # brin_summarize_new_values
 
 ## Location
-src/backend/access/brin/brin.c: 1356 - 1370
+[src/backend/access/brin/brin.c:1356-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1356-L1370)
 
 ## Overview
 A SQL-callable function that scans through a BRIN index and summarizes all block ranges that are not currently summarized.

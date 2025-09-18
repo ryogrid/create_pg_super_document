@@ -1,7 +1,7 @@
 # regcollationin
 
 ## Location
-src/backend/utils/adt/regproc.c: 1026 - 1067
+[src/backend/utils/adt/regproc.c:1026-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1026-L1067)
 
 ## Overview
 Converts a collation name string (or numeric OID) to its corresponding collation OID, with support for schema-qualified names and special values.

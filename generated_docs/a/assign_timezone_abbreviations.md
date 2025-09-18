@@ -1,7 +1,7 @@
 # assign_timezone_abbreviations
 
 ## Location
-src/backend/commands/variable.c: 517 - 543
+[src/backend/commands/variable.c:517-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L517-L543)
 
 ## Overview
 This is a GUC assign hook function that installs the validated timezone abbreviation table when the timezone_abbreviations configuration parameter is changed in PostgreSQL.

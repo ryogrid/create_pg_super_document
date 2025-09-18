@@ -1,7 +1,7 @@
 # xl_logical_message
 
 ## Location
-src/include/replication/message.h: 20 - 28
+[src/include/replication/message.h:20-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/message.h#L20-L28)
 
 ## Overview
 The  structure represents a generic logical decoding message WAL record used for storing custom application messages in the PostgreSQL Write-Ahead Log (WAL) for logical replication.

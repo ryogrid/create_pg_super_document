@@ -1,7 +1,7 @@
 # SetTriggerFlags
 
 ## Location
-src/backend/commands/trigger.c: 2008 - 2084
+[src/backend/commands/trigger.c:2008-2084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2008-L2084)
 
 ## Overview
 SetTriggerFlags updates the TriggerDesc's hint flags to include the specified trigger, setting boolean flags that indicate which types of triggers are present for efficient trigger execution planning.

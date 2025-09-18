@@ -1,7 +1,7 @@
 # timestamp_trunc
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4618 - 4751
+[src/backend/utils/adt/timestamp.c:4618-4751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4618-L4751)
 
 ## Overview
 Truncates a timestamp to a specified time unit, effectively rounding down to the beginning of the specified time period.

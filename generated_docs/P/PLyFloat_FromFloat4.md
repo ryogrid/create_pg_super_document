@@ -1,7 +1,7 @@
 # PLyFloat_FromFloat4
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 558 - 563
+[src/pl/plpython/plpy_typeio.c:558-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L558-L563)
 
 ## Overview
 PLyFloat_FromFloat4 converts PostgreSQL single-precision floating-point values (float4) to Python float objects, providing a specialized and efficient conversion path for FLOAT4OID types.

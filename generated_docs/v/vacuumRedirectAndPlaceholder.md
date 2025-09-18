@@ -1,7 +1,7 @@
 # vacuumRedirectAndPlaceholder
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 493 - 620
+[src/backend/access/spgist/spgvacuum.c:493-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L493-L620)
 
 ## Overview
 Cleans up redirect and placeholder tuples on SP-GiST pages by converting old redirections to placeholders and removing trailing placeholder tuples that don't affect offset numbering.

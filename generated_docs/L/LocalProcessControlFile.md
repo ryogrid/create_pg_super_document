@@ -1,7 +1,7 @@
 # LocalProcessControlFile
 
 ## Location
-src/backend/access/transam/xlog.c: 4801 - 4813
+[src/backend/access/transam/xlog.c:4801-4813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4801-L4813)
 
 ## Overview
 Reads the PostgreSQL control file during startup and stores its contents in local memory before shared memory is available.

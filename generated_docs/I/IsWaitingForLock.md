@@ -1,7 +1,7 @@
 # IsWaitingForLock
 
 ## Location
-src/backend/storage/lmgr/proc.c: 718 - 734
+[src/backend/storage/lmgr/proc.c:718-734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L718-L734)
 
 ## Overview
 Checks if the current process is currently awaiting a lock, providing a simple boolean indication of the process's lock wait state.

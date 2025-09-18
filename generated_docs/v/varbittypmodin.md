@@ -1,7 +1,7 @@
 # varbittypmodin
 
 ## Location
-src/backend/utils/adt/varbit.c: 774 - 781
+[src/backend/utils/adt/varbit.c:774-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L774-L781)
 
 ## Overview
 Type modifier input function for the variable-length bit string (VARBIT) data type that validates and processes length specifications.

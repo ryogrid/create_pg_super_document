@@ -1,7 +1,7 @@
 # RS_isRegis
 
 ## Location
-src/backend/tsearch/regis.c: 31 - 73
+[src/backend/tsearch/regis.c:31-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L31-L73)
 
 ## Overview
 Tests whether a regular expression string conforms to the limited subset of regex syntax supported by PostgreSQL's text search system.

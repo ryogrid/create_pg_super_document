@@ -1,7 +1,7 @@
 # JsonbDeepContains
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1068 - 1321
+[src/backend/utils/adt/jsonb_util.c:1068-1321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1068-L1321)
 
 ## Overview
 Implements the core containment logic for PostgreSQL's JSONB "@>" (contains) operator, determining if one JSONB structure is contained within another through recursive comparison.

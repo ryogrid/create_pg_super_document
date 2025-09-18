@@ -1,7 +1,7 @@
 # GinScanOpaqueData
 
 ## Location
-src/include/access/gin_private.h: 369 - 384
+[src/include/access/gin_private.h:369-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L369-L384)
 
 ## Overview
 GinScanOpaqueData serves as the top-level scan state structure for GIN index operations, coordinating multiple scan keys and entries with memory management and query state tracking.

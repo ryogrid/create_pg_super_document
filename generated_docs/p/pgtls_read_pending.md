@@ -1,7 +1,7 @@
 # pgtls_read_pending
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 256 - 261
+[src/interfaces/libpq/fe-secure-openssl.c:256-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L256-L261)
 
 ## Overview
 Checks whether there is pending encrypted data buffered in the SSL connection that can be read without blocking.

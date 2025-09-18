@@ -1,7 +1,7 @@
 # CreateReplicationSlot
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 655 - 762
+[src/bin/pg_basebackup/streamutil.c:655-762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L655-L762)
 
 ## Overview
 Creates a new replication slot (physical or logical) for PostgreSQL streaming replication, handling slot initialization, snapshot management, and returning slot information to the client.

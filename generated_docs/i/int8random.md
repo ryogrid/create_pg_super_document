@@ -1,7 +1,7 @@
 # int8random
 
 ## Location
-src/backend/utils/adt/pseudorandomfuncs.c: 150 - 173
+[src/backend/utils/adt/pseudorandomfuncs.c:150-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudorandomfuncs.c#L150-L173)
 
 ## Overview
 Generates a random 64-bit integer uniformly distributed within a specified range.

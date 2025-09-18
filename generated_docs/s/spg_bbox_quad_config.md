@@ -1,7 +1,7 @@
 # spg_bbox_quad_config
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 859 - 875
+[src/backend/utils/adt/geo_spgist.c:859-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L859-L875)
 
 ## Overview
 A configuration function for SP-GiST quadtree indexes on 2D geometric types that are represented lossily by their bounding boxes.

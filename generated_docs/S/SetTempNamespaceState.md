@@ -1,7 +1,7 @@
 # SetTempNamespaceState
 
 ## Location
-src/backend/catalog/namespace.c: 3821 - 3851
+[src/backend/catalog/namespace.c:3821-3851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3821-L3851)
 
 ## Overview
 Sets the status of a session's temporary namespace, specifically designed for conveying state from a leader process to parallel workers.

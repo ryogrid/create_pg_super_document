@@ -1,7 +1,7 @@
 # rt_box_union
 
 ## Location
-src/backend/access/gist/gistproc.c: 55 - 67
+[src/backend/access/gist/gistproc.c:55-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L55-L67)
 
 ## Overview
 Calculates the union of two BOX structures by determining the minimum bounding box that encompasses both input boxes.

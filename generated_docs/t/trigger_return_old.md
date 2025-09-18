@@ -1,7 +1,7 @@
 # trigger_return_old
 
 ## Location
-src/test/regress/regress.c: 254 - 266
+[src/test/regress/regress.c:254-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L254-L266)
 
 ## Overview
 This function is a PostgreSQL trigger function that returns the old tuple (row) that triggered the database operation, primarily used for testing trigger functionality.

@@ -1,7 +1,7 @@
 # inet_mcv_hist_sel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 705 - 741
+[src/backend/utils/adt/network_selfuncs.c:705-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L705-L741)
 
 ## Overview
 Estimates join selectivity between a Most Common Values (MCV) list and a histogram for inet network operations by computing how each MCV value matches against the histogram distribution.

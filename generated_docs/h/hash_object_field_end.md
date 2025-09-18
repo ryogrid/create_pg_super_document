@@ -1,7 +1,7 @@
 # hash_object_field_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3877 - 3927
+[src/backend/utils/adt/jsonfuncs.c:3877-3927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3877-L3927)
 
 ## Overview
 A static JSON parsing callback function that completes object field processing by storing the parsed field value in a hash table entry during JSON-to-hash conversion.

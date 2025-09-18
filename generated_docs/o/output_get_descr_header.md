@@ -1,7 +1,7 @@
 # output_get_descr_header
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 162 - 180
+[src/interfaces/ecpg/preproc/descriptor.c:162-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L162-L180)
 
 ## Overview
 Generates C code for retrieving header information from an SQL descriptor, specifically handling the count of items in the descriptor.

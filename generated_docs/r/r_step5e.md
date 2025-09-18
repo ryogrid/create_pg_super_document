@@ -1,7 +1,7 @@
 # r_step5e
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3176 - 3194
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3176-3194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3176-L3194)
 
 ## Overview
 A static function in the Greek stemmer that performs step 5e of the Greek stemming algorithm, handling specific long morphological patterns that require 4-to-10 character expansion in Greek words.

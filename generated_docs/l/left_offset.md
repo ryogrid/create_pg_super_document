@@ -1,7 +1,7 @@
 # left_offset
 
 ## Location
-src/common/binaryheap.c: 90 - 95
+[src/common/binaryheap.c:90-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L90-L95)
 
 ## Overview
 Calculates the array index of the left child node in a binary heap given the parent node's index.

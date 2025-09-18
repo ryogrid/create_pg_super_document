@@ -1,7 +1,7 @@
 # print_html_text
 
 ## Location
-src/fe_utils/print.c: 1993 - 2081
+[src/fe_utils/print.c:1993-2081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L1993-L2081)
 
 ## Overview
 Renders table data in HTML format, generating a complete HTML table with headers, data cells, and optional footers for PostgreSQL query results.

@@ -1,7 +1,7 @@
 # addCompoundAffixFlagValue
 
 ## Location
-src/backend/tsearch/spell.c: 1068 - 1124
+[src/backend/tsearch/spell.c:1068-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1068-L1124)
 
 ## Overview
 Adds a new compound affix flag and its associated value to the dictionary's compound affix flag array, managing dynamic memory allocation as needed.

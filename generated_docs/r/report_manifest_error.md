@@ -1,7 +1,7 @@
 # report_manifest_error
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 228 - 242
+[src/bin/pg_combinebackup/load_manifest.c:228-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L228-L242)
 
 ## Overview
 A fatal error handler function used during backup manifest parsing that logs an error message and terminates the program execution.

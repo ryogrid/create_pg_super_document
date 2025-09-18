@@ -1,7 +1,7 @@
 # DropRelationCallbackState
 
 ## Location
-src/backend/commands/tablecmds.c: 311 - 324
+[src/backend/commands/tablecmds.c:311-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L311-L324)
 
 ## Overview
 A communication structure used between `RemoveRelations` and `RangeVarCallbackForDropRelation` to coordinate relation dropping operations and track subsidiary locks during the DROP statement execution.

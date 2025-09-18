@@ -1,7 +1,7 @@
 # bool_anytrue
 
 ## Location
-src/backend/utils/adt/bool.c: 385 - 397
+[src/backend/utils/adt/bool.c:385-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L385-L397)
 
 ## Overview
 Final function for the SOME/ANY boolean aggregate, returning true if at least one non-null input value was true.

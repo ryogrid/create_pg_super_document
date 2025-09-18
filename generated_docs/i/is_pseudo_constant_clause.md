@@ -1,7 +1,7 @@
 # is_pseudo_constant_clause
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2088 - 2107
+[src/backend/optimizer/util/clauses.c:2088-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2088-L2107)
 
 ## Overview
 Determines whether an expression is "pseudo constant" for query optimization, meaning it contains no variables from the current query level and no volatile functions.

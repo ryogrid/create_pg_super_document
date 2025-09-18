@@ -1,7 +1,7 @@
 # get_call_expr_arg_stable
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1994 - 2043
+[src/backend/utils/fmgr/fmgr.c:1994-2043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1994-L2043)
 
 ## Overview
 Determines whether a specific function argument is constant for the duration of a query by analyzing the calling expression tree directly, identifying stable values for optimization purposes.

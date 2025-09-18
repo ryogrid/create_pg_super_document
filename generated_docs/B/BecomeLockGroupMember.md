@@ -1,7 +1,7 @@
 # BecomeLockGroupMember
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1928 - 1962
+[src/backend/storage/lmgr/proc.c:1928-1962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1928-L1962)
 
 ## Overview
 Designates the current process as a member of an existing lock group led by the specified leader process, with validation to handle potential leader process recycling.

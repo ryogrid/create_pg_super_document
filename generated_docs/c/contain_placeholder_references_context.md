@@ -1,7 +1,7 @@
 # contain_placeholder_references_context
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 27 - 31
+[src/backend/optimizer/util/placeholder.c:27-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L27-L31)
 
 ## Overview
 A context structure used during tree walking to detect whether PlaceHolderVars contain references to a specific relation ID in PostgreSQL's query optimizer.

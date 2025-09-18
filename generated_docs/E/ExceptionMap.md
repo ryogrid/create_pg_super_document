@@ -1,7 +1,7 @@
 # ExceptionMap
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 46 - 51
+[src/pl/plpython/plpy_plpymodule.c:46-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L46-L51)
 
 ## Overview
 A structure that maps PostgreSQL SQL state error codes to Python exception classes in the PL/Python language handler.

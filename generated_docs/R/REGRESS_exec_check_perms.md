@@ -1,7 +1,7 @@
 # REGRESS_exec_check_perms
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 348 - 379
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:348-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L348-L379)
 
 ## Overview
 A test hook function that intercepts executor permission checks for regression testing, providing auditing capabilities and enforcing execution restrictions on SQL statements.

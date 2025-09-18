@@ -1,7 +1,7 @@
 # log_heap_update
 
 ## Location
-src/backend/access/heap/heapam.c: 8816 - 9037
+[src/backend/access/heap/heapam.c:8816-9037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8816-L9037)
 
 ## Overview
 Performs XLogInsert for a heap-update operation, creating comprehensive WAL records for tuple updates with optimizations for space efficiency and logical decoding support.

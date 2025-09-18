@@ -1,7 +1,7 @@
 # cost_material
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2453 - 2508
+[src/backend/optimizer/path/costsize.c:2453-2508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2453-L2508)
 
 ## Overview
 Calculates the startup and total costs for materializing a relation, including the overhead of reading input data and potential disk spilling when data exceeds work_mem.

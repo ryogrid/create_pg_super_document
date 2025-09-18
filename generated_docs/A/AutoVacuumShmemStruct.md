@@ -1,7 +1,7 @@
 # AutoVacuumShmemStruct
 
 ## Location
-src/backend/postmaster/autovacuum.c: 297 - 315
+[src/backend/postmaster/autovacuum.c:297-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L297-L315)
 
 ## Overview
 AutoVacuumShmemStruct is the main shared memory structure for the PostgreSQL autovacuum system, containing all coordination data between the autovacuum launcher and worker processes.

@@ -1,7 +1,7 @@
 # expand_grouping_sets
 
 ## Location
-src/backend/parser/parse_agg.c: 1803 - 1905
+[src/backend/parser/parse_agg.c:1803-1905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1803-L1905)
 
 ## Overview
 The main orchestration function that expands a list of GroupingSet clauses into a complete, sorted list of grouping combinations through cartesian product calculation, deduplication, and optimization.

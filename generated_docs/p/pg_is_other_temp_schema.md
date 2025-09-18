@@ -1,7 +1,7 @@
 # pg_is_other_temp_schema
 
 ## Location
-src/backend/catalog/namespace.c: 5082 - 5087
+[src/backend/catalog/namespace.c:5082-5087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5082-L5087)
 
 ## Overview
 A PostgreSQL system function that determines whether a given namespace OID belongs to another backend's temporary schema (not the current session's temporary schema).

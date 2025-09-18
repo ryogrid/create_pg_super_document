@@ -1,7 +1,7 @@
 # allocacl
 
 ## Location
-src/backend/utils/adt/acl.c: 426 - 447
+[src/backend/utils/adt/acl.c:426-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L426-L447)
 
 ## Overview
 Allocates memory for a new Access Control List (ACL) with a specified number of entries, properly initializing the array structure metadata.

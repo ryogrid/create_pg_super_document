@@ -1,7 +1,7 @@
 # get_expectfile
 
 ## Location
-src/test/regress/pg_regress.c: 689 - 717
+[src/test/regress/pg_regress.c:689-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L689-L717)
 
 ## Overview
 Checks the resultmap to determine if a different expected output file should be used for a specific test and file type.

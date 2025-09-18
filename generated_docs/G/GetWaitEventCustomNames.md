@@ -1,7 +1,7 @@
 # GetWaitEventCustomNames
 
 ## Location
-src/backend/utils/activity/wait_event.c: 307 - 349
+[src/backend/utils/activity/wait_event.c:307-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L307-L349)
 
 ## Overview
 Returns a list of currently defined custom wait event names for a specified class, providing a way to enumerate all custom wait events.

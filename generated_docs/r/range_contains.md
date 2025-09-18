@@ -1,7 +1,7 @@
 # range_contains
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 638 - 650
+[src/backend/utils/adt/rangetypes.c:638-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L638-L650)
 
 ## Overview
 The  function determines whether one range completely contains another range, implementing the PostgreSQL range containment operator (@>).

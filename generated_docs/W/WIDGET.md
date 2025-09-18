@@ -1,7 +1,7 @@
 # WIDGET
 
 ## Location
-src/test/regress/regress.c: 163 - 167
+[src/test/regress/regress.c:163-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L163-L167)
 
 ## Overview
 WIDGET is a custom PostgreSQL data type used for regression testing, representing a geometric object with a center point and radius (similar to a circle).

@@ -1,7 +1,7 @@
 # ObjectAccessPostCreate
 
 ## Location
-src/include/catalog/objectaccess.h: 69 - 80
+[src/include/catalog/objectaccess.h:69-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/objectaccess.h#L69-L80)
 
 ## Overview
 ObjectAccessPostCreate is a struct that holds arguments for the OAT_POST_CREATE object access hook event, providing context information about object creation operations to security and logging extensions.

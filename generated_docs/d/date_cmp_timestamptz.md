@@ -1,7 +1,7 @@
 # date_cmp_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 898 - 906
+[src/backend/utils/adt/date.c:898-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L898-L906)
 
 ## Overview
 Performs a three-way comparison between a date value and a timestamptz value, returning an integer indicating their relative ordering.

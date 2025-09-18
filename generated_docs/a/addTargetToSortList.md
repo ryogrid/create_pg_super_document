@@ -1,7 +1,7 @@
 # addTargetToSortList
 
 ## Location
-src/backend/parser/parse_clause.c: 3393 - 3535
+[src/backend/parser/parse_clause.c:3393-3535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3393-L3535)
 
 ## Overview
 Adds a target list entry to a SortGroupClause list if it's not already present, with specified sort ordering information.

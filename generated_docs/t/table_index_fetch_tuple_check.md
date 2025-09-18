@@ -1,7 +1,7 @@
 # table_index_fetch_tuple_check
 
 ## Location
-src/backend/access/table/tableam.c: 209 - 235
+[src/backend/access/table/tableam.c:209-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L209-L235)
 
 ## Overview
 Checks whether a tuple referenced by an index entry exists and is visible according to the given snapshot, primarily used for uniqueness validation.

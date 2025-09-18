@@ -1,7 +1,7 @@
 # ind
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-array_of_struct.c: 43 - 48
+[src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:43-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-array_of_struct.c#L43-L48)
 
 ## Overview
 The  symbol is a struct typedef that serves as an indicator structure for NULL value handling in ECPG (Embedded SQL in C for PostgreSQL) applications.

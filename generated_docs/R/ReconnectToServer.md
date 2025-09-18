@@ -1,7 +1,7 @@
 # ReconnectToServer
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 74 - 109
+[src/bin/pg_dump/pg_backup_db.c:74-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L74-L109)
 
 ## Overview
 Safely reconnects to a PostgreSQL server during pg_dump/pg_restore operations, optionally switching to a different database.

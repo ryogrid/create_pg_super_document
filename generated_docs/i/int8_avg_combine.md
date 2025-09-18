@@ -1,7 +1,7 @@
 # int8_avg_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 5835 - 5894
+[src/backend/utils/adt/numeric.c:5835-5894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5835-L5894)
 
 ## Overview
 Combine function for PolyNumAggState that merges two aggregation states for aggregates that don't require sumX2 (sum of squares).

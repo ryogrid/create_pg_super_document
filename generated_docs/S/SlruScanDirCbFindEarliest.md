@@ -1,7 +1,7 @@
 # SlruScanDirCbFindEarliest
 
 ## Location
-src/backend/access/transam/multixact.c: 3017 - 3039
+[src/backend/access/transam/multixact.c:3017-3039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3017-L3039)
 
 ## Overview
 SlruScanDirCbFindEarliest is a callback function used with SlruScanDirectory to find the earliest existing page number in an SLRU (Simple Least Recently Used) directory structure.

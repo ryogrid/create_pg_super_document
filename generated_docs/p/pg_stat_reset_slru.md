@@ -1,7 +1,7 @@
 # pg_stat_reset_slru
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1772 - 1788
+[src/backend/utils/adt/pgstatfuncs.c:1772-1788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1772-L1788)
 
 ## Overview
 A PostgreSQL system function that resets Simple LRU (SLRU) cache statistics, allowing selective reset of a specific SLRU cache or all SLRU caches when no target is specified.

@@ -1,7 +1,7 @@
 # GistSplitVector
 
 ## Location
-src/include/access/gist_private.h: 235 - 249
+[src/include/access/gist_private.h:235-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L235-L249)
 
 ## Overview
 GistSplitVector is a working state structure used during GiST index page splitting operations to manage multi-column split logic and coordinate with user-defined PickSplit methods.

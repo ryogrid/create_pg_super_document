@@ -1,7 +1,7 @@
 # cash_mi
 
 ## Location
-src/backend/utils/adt/cash.c: 701 - 713
+[src/backend/utils/adt/cash.c:701-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L701-L713)
 
 ## Overview
 The cash_mi function implements subtraction for PostgreSQL's cash (money) data type, safely subtracting the second cash value from the first with overflow detection.

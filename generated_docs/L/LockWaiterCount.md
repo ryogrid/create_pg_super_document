@@ -1,7 +1,7 @@
 # LockWaiterCount
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4671 - 4700
+[src/backend/storage/lmgr/lock.c:4671-4700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4671-L4700)
 
 ## Overview
 LockWaiterCount is a function that determines the number of lock requesters waiting on a specific lock identified by a LOCKTAG, providing visibility into lock contention for monitoring and debugging purposes.

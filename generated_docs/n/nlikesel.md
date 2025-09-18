@@ -1,7 +1,7 @@
 # nlikesel
 
 ## Location
-src/backend/utils/adt/like_support.c: 857 - 865
+[src/backend/utils/adt/like_support.c:857-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L857-L865)
 
 ## Overview
 A selectivity estimation function for LIKE pattern non-match operations in PostgreSQL's query planner.

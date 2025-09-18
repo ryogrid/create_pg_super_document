@@ -1,7 +1,7 @@
 # parse_tli
 
 ## Location
-src/bin/pg_combinebackup/backup_label.c: 269 - 283
+[src/bin/pg_combinebackup/backup_label.c:269-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/backup_label.c#L269-L283)
 
 ## Overview
 Parses a Timeline ID (TLI) from a string within specified boundaries, validating the format and ensuring proper termination with a newline character.

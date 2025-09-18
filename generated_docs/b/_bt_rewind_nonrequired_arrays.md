@@ -1,7 +1,7 @@
 # _bt_rewind_nonrequired_arrays
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1467 - 1543
+[src/backend/access/nbtree/nbtutils.c:1467-1543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1467-L1543)
 
 ## Overview
 Resets non-required array scan keys to their first element in the current scan direction to ensure correct positioning for primitive index scans triggered by inequality operators.

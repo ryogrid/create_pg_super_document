@@ -1,7 +1,7 @@
 # PLyDict_FromComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 781 - 814
+[src/pl/plpython/plpy_typeio.c:781-814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L781-L814)
 
 ## Overview
 Converts a PostgreSQL composite (row) type value from its internal storage format to a Python dictionary representation.

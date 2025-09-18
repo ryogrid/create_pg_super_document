@@ -1,7 +1,7 @@
 # build_joinrel_partition_info
 
 ## Location
-src/backend/optimizer/util/relnode.c: 2017 - 2089
+[src/backend/optimizer/util/relnode.c:2017-2089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L2017-L2089)
 
 ## Overview
 Determines if two relations being joined can use partitionwise join and initializes the partitioning information for the resulting join relation if partitionwise join is applicable.

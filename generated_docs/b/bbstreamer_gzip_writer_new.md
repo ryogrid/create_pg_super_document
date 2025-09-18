@@ -1,7 +1,7 @@
 # bbstreamer_gzip_writer_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 79 - 125
+[src/bin/pg_basebackup/bbstreamer_gzip.c:79-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L79-L125)
 
 ## Overview
 Creates a new backup streamer that compresses data using gzip compression and writes it to a file, supporting both file path creation and existing file handle usage.

@@ -1,7 +1,7 @@
 # range_super_union
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 821 - 887
+[src/backend/utils/adt/rangetypes_gist.c:821-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L821-L887)
 
 ## Overview
 A specialized range union function for GiST indexes that computes the smallest range containing two input ranges while tracking empty range information for indexing optimization.

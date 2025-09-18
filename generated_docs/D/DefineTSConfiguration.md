@@ -1,7 +1,7 @@
 # DefineTSConfiguration
 
 ## Location
-src/backend/commands/tsearchcmds.c: 899 - 1107
+[src/backend/commands/tsearchcmds.c:899-1107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L899-L1107)
 
 ## Overview
 Creates a new text search configuration in the system catalog, optionally copying token-dictionary mappings from an existing configuration.

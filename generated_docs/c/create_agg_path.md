@@ -1,7 +1,7 @@
 # create_agg_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3155 - 3236
+[src/backend/optimizer/util/pathnode.c:3155-3236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3155-L3236)
 
 ## Overview
 Creates a pathnode that represents performing aggregation and/or grouping operations with various implementation strategies and aggregate splitting modes.

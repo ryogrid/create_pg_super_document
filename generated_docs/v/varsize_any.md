@@ -1,7 +1,7 @@
 # varsize_any
 
 ## Location
-src/backend/access/common/heaptuple.c: 1594 - 1597
+[src/backend/access/common/heaptuple.c:1594-1597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1594-L1597)
 
 ## Overview
 A wrapper function that returns the size of a variable-length data structure, primarily designed to enable JIT inlining of the VARSIZE_ANY macro.

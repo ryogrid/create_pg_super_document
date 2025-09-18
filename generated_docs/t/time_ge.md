@@ -1,7 +1,7 @@
 # time_ge
 
 ## Location
-src/backend/utils/adt/date.c: 1725 - 1733
+[src/backend/utils/adt/date.c:1725-1733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1725-L1733)
 
 ## Overview
 Compares two time values to determine if the first time is greater than or equal to the second time.

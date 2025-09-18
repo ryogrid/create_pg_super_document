@@ -1,7 +1,7 @@
 # f2d
 
 ## Location
-src/common/f2s.c: 222 - 439
+[src/common/f2s.c:222-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L222-L439)
 
 ## Overview
 Core function of the Ryu algorithm that converts IEEE 754 single-precision floating-point representation to an exact decimal representation.

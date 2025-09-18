@@ -1,7 +1,7 @@
 # buildDefaultACLCommands
 
 ## Location
-src/bin/pg_dump/dumputils.c: 364 - 420
+[src/bin/pg_dump/dumputils.c:364-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L364-L420)
 
 ## Overview
 The buildDefaultACLCommands function generates ALTER DEFAULT PRIVILEGES SQL commands for PostgreSQL pg_default_acl entries, which control default permissions for newly created objects.

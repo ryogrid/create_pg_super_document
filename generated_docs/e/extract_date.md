@@ -1,7 +1,7 @@
 # extract_date
 
 ## Location
-src/backend/utils/adt/date.c: 1066 - 1245
+[src/backend/utils/adt/date.c:1066-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1066-L1245)
 
 ## Overview
 Extracts specified fields (like year, month, day, etc.) from a PostgreSQL date value and returns the result as a numeric value.

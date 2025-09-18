@@ -1,7 +1,7 @@
 # pqTraceOutput_BackendKeyData
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 399 - 406
+[src/interfaces/libpq/fe-trace.c:399-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L399-L406)
 
 ## Overview
 Outputs formatted trace information for PostgreSQL BackendKeyData messages, displaying the process ID and secret key used for connection cancellation requests.

@@ -1,7 +1,7 @@
 # DropErrorMsgNonExistent
 
 ## Location
-src/backend/commands/tablecmds.c: 1393 - 1440
+[src/backend/commands/tablecmds.c:1393-1440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1393-L1440)
 
 ## Overview
 DropErrorMsgNonExistent generates appropriate error or warning messages when a DROP command is issued on a non-existent relation.

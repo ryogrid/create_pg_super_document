@@ -1,7 +1,7 @@
 # bbstreamer_tar_terminator_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 462 - 477
+[src/bin/pg_basebackup/bbstreamer_tar.c:462-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L462-L477)
 
 ## Overview
 Creates a bbstreamer that adds two blocks of NUL bytes to terminate incomplete tar archives from the server.

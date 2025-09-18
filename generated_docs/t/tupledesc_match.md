@@ -1,7 +1,7 @@
 # tupledesc_match
 
 ## Location
-src/backend/executor/execSRF.c: 943 - 980
+[src/backend/executor/execSRF.c:943-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L943-L980)
 
 ## Overview
 tupledesc_match validates that a function's returned tuple descriptor matches the expected tuple descriptor from the query context, ensuring type compatibility and proper error reporting for mismatches.

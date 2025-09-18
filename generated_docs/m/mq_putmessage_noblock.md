@@ -1,7 +1,7 @@
 # mq_putmessage_noblock
 
 ## Location
-src/backend/libpq/pqmq.c: 199 - 215
+[src/backend/libpq/pqmq.c:199-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L199-L215)
 
 ## Overview
 A non-blocking message transmission function that is currently not implemented and throws an error when called.

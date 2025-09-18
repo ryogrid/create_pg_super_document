@@ -1,7 +1,7 @@
 # pg_get_wal_replay_pause_state
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 592 - 626
+[src/backend/access/transam/xlogfuncs.c:592-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L592-L626)
 
 ## Overview
 Returns the current recovery pause state as a human-readable text value, providing detailed information about whether WAL replay is paused, requested to pause, or running normally.

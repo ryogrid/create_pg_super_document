@@ -1,7 +1,7 @@
 # readstoplist
 
 ## Location
-src/backend/tsearch/ts_utils.c: 68 - 139
+[src/backend/tsearch/ts_utils.c:68-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_utils.c#L68-L139)
 
 ## Overview
 Reads a stop-word file and populates a StopList structure with the words, optionally applying a word processing function to each word before storage.

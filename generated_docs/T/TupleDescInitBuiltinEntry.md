@@ -1,7 +1,7 @@
 # TupleDescInitBuiltinEntry
 
 ## Location
-src/backend/access/common/tupdesc.c: 726 - 832
+[src/backend/access/common/tupdesc.c:726-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L726-L832)
 
 ## Overview
 Initializes a tuple descriptor attribute entry without requiring catalog access by supporting only a limited range of builtin PostgreSQL data types.

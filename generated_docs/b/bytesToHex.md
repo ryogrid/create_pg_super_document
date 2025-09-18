@@ -1,7 +1,7 @@
 # bytesToHex
 
 ## Location
-src/common/md5_common.c: 28 - 73
+[src/common/md5_common.c:28-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5_common.c#L28-L73)
 
 ## Overview
 Converts a 16-byte array to its hexadecimal string representation for MD5 hash output formatting.

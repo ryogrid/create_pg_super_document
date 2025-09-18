@@ -1,7 +1,7 @@
 # SlruScanDirCbDeleteAll
 
 ## Location
-src/backend/access/transam/slru.c: 1741 - 1754
+[src/backend/access/transam/slru.c:1741-1754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1741-L1754)
 
 ## Overview
 A callback function used by SlruScanDirectory to delete all SLRU segments unconditionally.

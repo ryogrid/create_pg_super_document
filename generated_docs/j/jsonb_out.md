@@ -1,7 +1,7 @@
 # jsonb_out
 
 ## Location
-src/backend/utils/adt/jsonb.c: 108 - 123
+[src/backend/utils/adt/jsonb.c:108-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L108-L123)
 
 ## Overview
 The  function is the output function for the JSONB data type, responsible for converting internal JSONB values back to their string representation for display or transmission.

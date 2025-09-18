@@ -1,7 +1,7 @@
 # heap_log_freeze_new_plan
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1958 - 1977
+[src/backend/access/heap/pruneheap.c:1958-1977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1958-L1977)
 
 ## Overview
 Initializes a new freeze plan structure with freeze operation parameters from a HeapTupleFreeze request for WAL logging optimization.

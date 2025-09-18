@@ -1,7 +1,7 @@
 # timestamptz_pl_interval_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3192 - 3323
+[src/backend/utils/adt/timestamp.c:3192-3323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3192-L3323)
 
 ## Overview
 Internal function that adds an interval to a timestamp with timezone (timestamptz), handling timezone-aware calendar arithmetic properly.

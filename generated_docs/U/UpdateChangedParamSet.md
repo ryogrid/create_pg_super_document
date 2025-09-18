@@ -1,7 +1,7 @@
 # UpdateChangedParamSet
 
 ## Location
-src/backend/executor/execUtils.c: 844 - 869
+[src/backend/executor/execUtils.c:844-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L844-L869)
 
 ## Overview
 Updates a plan node's chgParam set with newly changed parameters that the node actually depends on, filtering out irrelevant parameter changes.

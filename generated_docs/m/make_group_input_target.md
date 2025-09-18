@@ -1,7 +1,7 @@
 # make_group_input_target
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5521 - 5608
+[src/backend/optimizer/plan/planner.c:5521-5608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5521-L5608)
 
 ## Overview
 Generates the appropriate PathTarget for initial input to grouping nodes by including all grouping columns as-is and extracting variables from non-grouping expressions including HAVING clauses.

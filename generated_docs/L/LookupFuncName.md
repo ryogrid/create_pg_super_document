@@ -1,7 +1,7 @@
 # LookupFuncName
 
 ## Location
-src/backend/parser/parse_func.c: 2144 - 2205
+[src/backend/parser/parse_func.c:2144-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L2144-L2205)
 
 ## Overview
 LookupFuncName provides a high-level interface for looking up functions by name and argument types, handling error reporting and supporting the missing_ok parameter for optional existence checking.

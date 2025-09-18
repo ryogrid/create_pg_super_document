@@ -1,7 +1,7 @@
 # pgstat_tracks_io_object
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 359 - 423
+[src/backend/utils/activity/pgstat_io.c:359-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L359-L423)
 
 ## Overview
 This function determines whether I/O statistics should be tracked for a specific combination of backend type, I/O object, and I/O context by validating compatibility and filtering out invalid or uninteresting combinations.

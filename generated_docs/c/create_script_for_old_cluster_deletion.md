@@ -1,7 +1,7 @@
 # create_script_for_old_cluster_deletion
 
 ## Location
-src/bin/pg_upgrade/check.c: 914 - 1036
+[src/bin/pg_upgrade/check.c:914-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L914-L1036)
 
 ## Overview
 This function generates a shell script that safely removes old PostgreSQL cluster directories and tablespaces after a successful upgrade, providing users with a convenient way to clean up obsolete data.

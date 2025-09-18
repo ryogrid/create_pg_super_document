@@ -1,7 +1,7 @@
 # AtEOXact_PgStat_Database
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 249 - 269
+[src/backend/utils/activity/pgstat_database.c:249-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L249-L269)
 
 ## Overview
 AtEOXact_PgStat_Database is a function that handles database-level statistics accounting at the end of a transaction (commit or abort).

@@ -1,7 +1,7 @@
 # gistrescan
 
 ## Location
-src/backend/access/gist/gistscan.c: 127 - 348
+[src/backend/access/gist/gistscan.c:127-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistscan.c#L127-L348)
 
 ## Overview
 Reinitializes or restarts a GiST index scan with potentially new scan keys and order-by conditions, managing memory contexts and preparing the search queue for traversal.

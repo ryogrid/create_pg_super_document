@@ -1,7 +1,7 @@
 # bbsink_forward_begin_backup
 
 ## Location
-src/backend/backup/basebackup_sink.c: 24 - 36
+[src/backend/backup/basebackup_sink.c:24-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L24-L36)
 
 ## Overview
 Forwards the begin_backup callback to the next bbsink in a chain, enabling buffer sharing between the current and successor bbsink implementations.

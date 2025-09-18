@@ -1,7 +1,7 @@
 # EventTriggerCollectAlterTableSubcmd
 
 ## Location
-src/backend/commands/event_trigger.c: 1678 - 1712
+[src/backend/commands/event_trigger.c:1678-1712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1678-L1712)
 
 ## Overview
 Saves data about a single part of an ALTER TABLE command for event trigger processing, collecting ALTER TABLE subcommands that can be later processed by event triggers.

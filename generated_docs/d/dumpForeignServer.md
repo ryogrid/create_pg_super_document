@@ -1,7 +1,7 @@
 # dumpForeignServer
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 14979 - 15078
+[src/bin/pg_dump/pg_dump.c:14979-15078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L14979-L15078)
 
 ## Overview
 Generates and outputs the SQL statements needed to recreate a foreign server definition during database dump operations in pg_dump.

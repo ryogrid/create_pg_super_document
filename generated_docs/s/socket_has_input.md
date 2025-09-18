@@ -1,7 +1,7 @@
 # socket_has_input
 
 ## Location
-src/bin/pgbench/pgbench.c: 7957 - 7962
+[src/bin/pgbench/pgbench.c:7957-7962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7957-L7962)
 
 ## Overview
 Checks if a specific socket file descriptor is ready for input after a select() operation by testing its status in the socket set.

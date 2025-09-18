@@ -1,7 +1,7 @@
 # pg_column_compression
 
 ## Location
-src/backend/utils/adt/varlena.c: 5061 - 5113
+[src/backend/utils/adt/varlena.c:5061-5113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5061-L5113)
 
 ## Overview
 Returns the name of the compression method used for a compressed varlena attribute, or NULL for uncompressed data or non-varlena types.

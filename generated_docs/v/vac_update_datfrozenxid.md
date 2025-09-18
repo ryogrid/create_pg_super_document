@@ -1,7 +1,7 @@
 # vac_update_datfrozenxid
 
 ## Location
-src/backend/commands/vacuum.c: 1585 - 1803
+[src/backend/commands/vacuum.c:1585-1803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1585-L1803)
 
 ## Overview
 Updates the database-wide frozen transaction ID and minimum MultiXactId values in pg_database by scanning all relations and finding the minimum values, then attempts to truncate transaction logs if advancement is possible.

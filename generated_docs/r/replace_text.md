@@ -1,7 +1,7 @@
 # replace_text
 
 ## Location
-src/backend/utils/adt/varlena.c: 3996 - 4072
+[src/backend/utils/adt/varlena.c:3996-4072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3996-L4072)
 
 ## Overview
 The replace_text function implements the SQL REPLACE() function, replacing all occurrences of a specified substring with a replacement string in a text value.

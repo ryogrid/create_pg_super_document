@@ -1,7 +1,7 @@
 # verifier_context
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 111 - 118
+[src/bin/pg_verifybackup/pg_verifybackup.c:111-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L111-L118)
 
 ## Overview
 A context structure that maintains all state and configuration information needed during backup verification operations, serving as the central coordination point for the pg_verifybackup tool.

@@ -1,7 +1,7 @@
 # pg_mcv_list_in
 
 ## Location
-src/backend/statistics/mcv.c: 1472 - 1497
+[src/backend/statistics/mcv.c:1472-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1472-L1497)
 
 ## Overview
 Input routine for the pg_mcv_list data type that explicitly disallows text input since MCV lists are stored in binary format only.

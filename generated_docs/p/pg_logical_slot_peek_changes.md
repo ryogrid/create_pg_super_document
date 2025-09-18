@@ -1,7 +1,7 @@
 # pg_logical_slot_peek_changes
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 340 - 348
+[src/backend/replication/logical/logicalfuncs.c:340-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L340-L348)
 
 ## Overview
 SQL-callable function that returns logical replication changes in textual format without consuming or advancing the replication slot position.

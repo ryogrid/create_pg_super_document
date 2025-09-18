@@ -1,7 +1,7 @@
 # PgStatShared_Database
 
 ## Location
-src/include/utils/pgstat_internal.h: 386 - 390
+[src/include/utils/pgstat_internal.h:386-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L386-L390)
 
 ## Overview
 A shared memory structure that holds comprehensive database-level statistics for PostgreSQL, implementing the common header pattern for variable-amount statistics.

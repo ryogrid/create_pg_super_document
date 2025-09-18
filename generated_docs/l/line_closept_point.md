@@ -1,7 +1,7 @@
 # line_closept_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2724 - 2749
+[src/backend/utils/adt/geo_ops.c:2724-2749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2724-L2749)
 
 ## Overview
 A static function that finds the closest point on an infinite line to a given point and returns the distance between them.

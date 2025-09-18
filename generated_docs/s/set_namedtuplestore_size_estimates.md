@@ -1,7 +1,7 @@
 # set_namedtuplestore_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6005 - 6037
+[src/backend/optimizer/path/costsize.c:6005-6037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6005-L6037)
 
 ## Overview
 Sets the size estimates for a base relation that represents a named tuplestore reference, using either provided estimates or a default fallback value.

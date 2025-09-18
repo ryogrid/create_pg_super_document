@@ -1,7 +1,7 @@
 # like_escape_bytea
 
 ## Location
-src/backend/utils/adt/like.c: 447 - 454
+[src/backend/utils/adt/like.c:447-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L447-L454)
 
 ## Overview
 The `like_escape_bytea` function is a PostgreSQL SQL function that processes BYTEA (binary data) patterns for LIKE operations by converting user-specified escape characters to PostgreSQL's standard backslash escape convention.

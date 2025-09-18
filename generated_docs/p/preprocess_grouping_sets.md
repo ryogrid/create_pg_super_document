@@ -1,7 +1,7 @@
 # preprocess_grouping_sets
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2077 - 2257
+[src/backend/optimizer/plan/planner.c:2077-2257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2077-L2257)
 
 ## Overview
 Performs preprocessing for GROUPING SETS clauses by expanding grouping sets, organizing them into rollup structures, and preparing annotations for cost estimation.

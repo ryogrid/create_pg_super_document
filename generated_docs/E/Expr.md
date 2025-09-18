@@ -1,7 +1,7 @@
 # Expr
 
 ## Location
-src/include/nodes/primnodes.h: 187 - 192
+[src/include/nodes/primnodes.h:187-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L187-L192)
 
 ## Overview
 Expr is the generic superclass for all executable expression nodes in PostgreSQL's expression tree system, serving as the base type for expression node inheritance.

@@ -1,7 +1,7 @@
 # parse_extension_control_file
 
 ## Location
-src/backend/commands/extension.c: 476 - 647
+[src/backend/commands/extension.c:476-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L476-L647)
 
 ## Overview
 Parses the contents of primary or auxiliary extension control files and populates an ExtensionControlFile structure with configuration parameters.

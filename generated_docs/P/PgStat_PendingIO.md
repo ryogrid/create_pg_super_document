@@ -1,7 +1,7 @@
 # PgStat_PendingIO
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 24 - 28
+[src/backend/utils/activity/pgstat_io.c:24-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L24-L28)
 
 ## Overview
 Structure that holds locally accumulated IO statistics before they are flushed to shared memory for PostgreSQL's IO statistics tracking system.

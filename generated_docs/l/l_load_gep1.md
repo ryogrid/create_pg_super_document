@@ -1,7 +1,7 @@
 # l_load_gep1
 
 ## Location
-src/include/jit/llvmjit_emit.h: 163 - 168
+[src/include/jit/llvmjit_emit.h:163-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L163-L168)
 
 ## Overview
 A convenience function that combines single-index pointer arithmetic (GEP) with loading, providing a high-level interface for accessing array elements or pointer offsets in LLVM IR.

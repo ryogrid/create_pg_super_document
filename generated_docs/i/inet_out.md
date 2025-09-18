@@ -1,7 +1,7 @@
 # inet_out
 
 ## Location
-src/backend/utils/adt/network.c: 165 - 172
+[src/backend/utils/adt/network.c:165-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L165-L172)
 
 ## Overview
 The output function for the INET data type that converts PostgreSQL's internal inet format into string representations.

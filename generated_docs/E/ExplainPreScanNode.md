@@ -1,7 +1,7 @@
 # ExplainPreScanNode
 
 ## Location
-src/backend/commands/explain.c: 1292 - 1366
+[src/backend/commands/explain.c:1292-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1292-L1366)
 
 ## Overview
 Prescans the plan state tree to identify which range table entries (RTEs) are referenced by the query execution plan.

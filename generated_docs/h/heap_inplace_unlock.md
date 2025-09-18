@@ -1,7 +1,7 @@
 # heap_inplace_unlock
 
 ## Location
-src/backend/access/heap/heapam.c: 6509 - 6522
+[src/backend/access/heap/heapam.c:6509-6522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6509-L6522)
 
 ## Overview
 Releases locks acquired by heap_inplace_lock, serving as the cleanup counterpart to the inplace locking mechanism.

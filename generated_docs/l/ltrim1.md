@@ -1,7 +1,7 @@
 # ltrim1
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 718 - 745
+[src/backend/utils/adt/oracle_compat.c:718-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L718-L745)
 
 ## Overview
 The  function removes whitespace characters (specifically spaces) from the beginning (left side) of a text string, providing a simplified version of  with a fixed trim set.

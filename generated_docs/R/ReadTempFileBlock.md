@@ -1,7 +1,7 @@
 # ReadTempFileBlock
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 750 - 757
+[src/backend/access/gist/gistbuildbuffers.c:750-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L750-L757)
 
 ## Overview
 ReadTempFileBlock is a static wrapper function that reads a block of data from a temporary file at a specified block number, providing error handling for file operations.

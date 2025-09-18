@@ -1,7 +1,7 @@
 # r_fix_ending
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 770 - 1003
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:770-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L770-L1003)
 
 ## Overview
 A comprehensive Tamil stemmer function that performs various character sequence normalizations and corrections at word endings, handling multiple Tamil orthographic variations.

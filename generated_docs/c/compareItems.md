@@ -1,7 +1,7 @@
 # compareItems
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3341 - 3436
+[src/backend/utils/adt/jsonpath_exec.c:3341-3436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3341-L3436)
 
 ## Overview
 The main comparison function for SQL/JSON items that handles type checking, value comparison, and operation evaluation for all supported JSON types.

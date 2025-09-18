@@ -1,7 +1,7 @@
 # cmpDateToTimestamp
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3690 - 3698
+[src/backend/utils/adt/jsonpath_exec.c:3690-3698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3690-L3698)
 
 ## Overview
 A static helper function that compares a date value to a timestamp value without timezone considerations during JSON path execution.

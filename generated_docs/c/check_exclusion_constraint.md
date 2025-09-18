@@ -1,7 +1,7 @@
 # check_exclusion_constraint
 
 ## Location
-src/backend/executor/execIndexing.c: 915 - 931
+[src/backend/executor/execIndexing.c:915-931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L915-L931)
 
 ## Overview
 A simplified wrapper function that checks for violations of exclusion constraints on table tuples, designed for external callers who don't need the full complexity of the internal constraint checking mechanism.

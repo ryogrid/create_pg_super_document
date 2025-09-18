@@ -1,7 +1,7 @@
 # l_call
 
 ## Location
-src/include/jit/llvmjit_emit.h: 138 - 150
+[src/include/jit/llvmjit_emit.h:138-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L138-L150)
 
 ## Overview
 A static inline function that provides a version-agnostic wrapper for LLVM's function call instruction, ensuring compatibility across different LLVM versions.

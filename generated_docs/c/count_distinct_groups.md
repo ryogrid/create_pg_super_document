@@ -1,7 +1,7 @@
 # count_distinct_groups
 
 ## Location
-src/backend/statistics/mcv.c: 379 - 402
+[src/backend/statistics/mcv.c:379-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L379-L402)
 
 ## Overview
 Counts the number of distinct value combinations in a sorted array of SortItems by comparing adjacent elements using multi-column comparison logic.

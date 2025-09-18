@@ -1,7 +1,7 @@
 # valid_variable_name
 
 ## Location
-src/bin/psql/variables.c: 22 - 50
+[src/bin/psql/variables.c:22-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L22-L50)
 
 ## Overview
 Validates whether a given variable name follows PostgreSQL's naming conventions for variables in pgbench.

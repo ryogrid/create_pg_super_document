@@ -1,7 +1,7 @@
 # Bitmapset
 
 ## Location
-src/include/nodes/bitmapset.h: 49 - 56
+[src/include/nodes/bitmapset.h:49-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/bitmapset.h#L49-L56)
 
 ## Overview
 Bitmapset is a PostgreSQL data structure that represents a set of nonnegative integers using a bitmap implementation, optimized for sets where the maximum value is relatively small.

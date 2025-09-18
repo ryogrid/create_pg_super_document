@@ -1,7 +1,7 @@
 # restore_toc_entries_prefork
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4154 - 4276
+[src/bin/pg_dump/pg_backup_archiver.c:4154-4276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4154-L4276)
 
 ## Overview
 Main engine for the first phase of parallel restore, processing PRE_DATA TOC entries that can be handled in the main restore pass.

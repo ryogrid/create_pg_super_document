@@ -1,7 +1,7 @@
 # TidStoreDetach
 
 ## Location
-src/backend/access/common/tidstore.c: 280 - 297
+[src/backend/access/common/tidstore.c:280-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L280-L297)
 
 ## Overview
 Detaches from a shared TidStore, cleaning up backend-local resources and disconnecting from the shared Dynamic Shared Area (DSA) while leaving the shared data intact for other processes.

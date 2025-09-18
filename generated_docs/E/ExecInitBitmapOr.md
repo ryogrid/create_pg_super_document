@@ -1,7 +1,7 @@
 # ExecInitBitmapOr
 
 ## Location
-src/backend/executor/nodeBitmapOr.c: 56 - 110
+[src/backend/executor/nodeBitmapOr.c:56-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapOr.c#L56-L110)
 
 ## Overview
 ExecInitBitmapOr initializes a BitmapOr executor node, setting up the state structure and initializing all child subplans for bitmap OR operations.

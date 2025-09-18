@@ -1,7 +1,7 @@
 # intervaltypmodin
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1056 - 1134
+[src/backend/utils/adt/timestamp.c:1056-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1056-L1134)
 
 ## Overview
 Validates and constructs type modifier values for the INTERVAL data type, processing precision and field range parameters to create a compressed typmod representation.

@@ -1,7 +1,7 @@
 # defGetNumeric
 
 ## Location
-src/backend/commands/define.c: 81 - 106
+[src/backend/commands/define.c:81-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L81-L106)
 
 ## Overview
 Extracts a numeric value (as a double) from a DefElem, converting integer and float nodes to double precision floating-point values.

@@ -1,7 +1,7 @@
 # CheckIndexCompatible
 
 ## Location
-src/backend/commands/indexcmds.c: 177 - 359
+[src/backend/commands/indexcmds.c:177-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L177-L359)
 
 ## Overview
 Determines whether an existing index definition is compatible with a prospective index definition, such that the existing index storage could become the storage of the new index, avoiding a rebuild.

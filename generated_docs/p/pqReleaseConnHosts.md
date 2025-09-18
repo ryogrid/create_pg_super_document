@@ -1,7 +1,7 @@
 # pqReleaseConnHosts
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4716 - 4744
+[src/interfaces/libpq/fe-connect.c:4716-4744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4716-L4744)
 
 ## Overview
 Frees the host list data structure in a PGconn, including all associated host connection information and securely clearing any stored passwords.

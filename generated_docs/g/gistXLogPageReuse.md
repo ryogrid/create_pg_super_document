@@ -1,7 +1,7 @@
 # gistXLogPageReuse
 
 ## Location
-src/backend/access/gist/gistxlog.c: 594 - 628
+[src/backend/access/gist/gistxlog.c:594-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L594-L628)
 
 ## Overview
 Writes a WAL record when a previously deleted GiST page is being reused, primarily to establish conflict points for Hot Standby servers.

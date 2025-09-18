@@ -1,7 +1,7 @@
 # wchareq
 
 ## Location
-src/backend/utils/adt/like.c: 58 - 93
+[src/backend/utils/adt/like.c:58-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L58-L93)
 
 ## Overview
 A support routine for MatchText that compares two multibyte character strings as wide characters, returning 1 if they match and 0 otherwise.

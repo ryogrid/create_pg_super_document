@@ -1,7 +1,7 @@
 # get_opfamily_member
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 166 - 206
+[src/backend/utils/cache/lsyscache.c:166-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L166-L206)
 
 ## Overview
 Retrieves the OID of the operator that implements a specified strategy with specified data types within an operator family.

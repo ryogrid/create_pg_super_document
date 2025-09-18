@@ -1,7 +1,7 @@
 # get_current_ts_config
 
 ## Location
-src/backend/tsearch/to_tsany.c: 48 - 56
+[src/backend/tsearch/to_tsany.c:48-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L48-L56)
 
 ## Overview
 This function is a PostgreSQL built-in function that returns the Object Identifier (OID) of the currently configured default text search configuration.

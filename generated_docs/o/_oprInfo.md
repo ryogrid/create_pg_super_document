@@ -1,7 +1,7 @@
 # _oprInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 251 - 258
+[src/bin/pg_dump/pg_dump.h:251-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L251-L258)
 
 ## Overview
 The _oprInfo structure represents operator metadata used by PostgreSQL's pg_dump utility to store information about database operators during the dump process.

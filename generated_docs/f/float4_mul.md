@@ -1,7 +1,7 @@
 # float4_mul
 
 ## Location
-src/include/utils/float.h: 194 - 207
+[src/include/utils/float.h:194-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L194-L207)
 
 ## Overview
 Performs multiplication of two single-precision floating-point numbers (float4) with overflow and underflow error checking.

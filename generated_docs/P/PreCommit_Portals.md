@@ -1,7 +1,7 @@
 # PreCommit_Portals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 677 - 780
+[src/backend/utils/mmgr/portalmem.c:677-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L677-L780)
 
 ## Overview
 PreCommit_Portals handles portal processing during transaction commit, converting holdable cursors to materialized form and cleaning up non-holdable portals.

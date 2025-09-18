@@ -1,7 +1,7 @@
 # r_main_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 158 - 186
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:158-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L158-L186)
 
 ## Overview
 This function removes primary suffixes from Danish words as part of the Snowball stemming algorithm, using pattern matching to identify and delete appropriate word endings.

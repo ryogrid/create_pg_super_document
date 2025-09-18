@@ -1,7 +1,7 @@
 # jsonpath_recv
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 115 - 133
+[src/backend/utils/adt/jsonpath.c:115-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L115-L133)
 
 ## Overview
 The  function is a PostgreSQL binary receive function for the jsonpath data type, responsible for deserializing jsonpath values from PostgreSQL's binary protocol format.

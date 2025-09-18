@@ -1,7 +1,7 @@
 # ldapServiceLookup
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5038 - 5491
+[src/interfaces/libpq/fe-connect.c:5038-5491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5038-L5491)
 
 ## Overview
 Performs an LDAP directory service lookup to retrieve PostgreSQL connection parameters from an LDAP server using a specified LDAP URL.

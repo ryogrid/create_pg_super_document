@@ -1,7 +1,7 @@
 # BTreeTupleSetTopParent
 
 ## Location
-src/include/access/nbtree.h: 626 - 637
+[src/include/access/nbtree.h:626-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L626-L637)
 
 ## Overview
 Sets the "top parent" block number in a leaf page's high key tuple and configures it as a pivot tuple, used during B-tree page deletion operations to establish parent page relationships.

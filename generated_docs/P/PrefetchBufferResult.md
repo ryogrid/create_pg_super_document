@@ -1,7 +1,7 @@
 # PrefetchBufferResult
 
 ## Location
-src/include/storage/bufmgr.h: 58 - 62
+[src/include/storage/bufmgr.h:58-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L58-L62)
 
 ## Overview
 PrefetchBufferResult is a structure that represents the result of a buffer prefetch operation, providing information about whether a buffer cache hit occurred or if asynchronous I/O was initiated.

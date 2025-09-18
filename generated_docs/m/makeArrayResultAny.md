@@ -1,7 +1,7 @@
 # makeArrayResultAny
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5845 - 5874
+[src/backend/utils/adt/arrayfuncs.c:5845-5874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5845-L5874)
 
 ## Overview
 makeArrayResultAny produces the final array result from an ArrayBuildStateAny structure after accumulating elements, handling both scalar and array input cases.

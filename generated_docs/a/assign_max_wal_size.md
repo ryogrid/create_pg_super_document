@@ -1,7 +1,7 @@
 # assign_max_wal_size
 
 ## Location
-src/backend/access/transam/xlog.c: 2193 - 2199
+[src/backend/access/transam/xlog.c:2193-2199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2193-L2199)
 
 ## Overview
 Assignment hook function that updates the maximum WAL size configuration and recalculates checkpoint segment parameters.

@@ -1,7 +1,7 @@
 # build_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1917 - 1953
+[src/backend/access/common/reloptions.c:1917-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1917-L1953)
 
 ## Overview
 A core function that parses relation options from a Datum and builds a structured options object, coordinating the complete parsing and allocation process.

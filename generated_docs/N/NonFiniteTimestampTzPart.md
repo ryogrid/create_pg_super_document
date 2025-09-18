@@ -1,7 +1,7 @@
 # NonFiniteTimestampTzPart
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5296 - 5352
+[src/backend/utils/adt/timestamp.c:5296-5352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5296-L5352)
 
 ## Overview
 Handles extraction of date/time parts from infinite timestamp values, returning appropriate infinity values or zero for different unit types.

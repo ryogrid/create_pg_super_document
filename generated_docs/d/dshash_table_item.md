@@ -1,7 +1,7 @@
 # dshash_table_item
 
 ## Location
-src/backend/lib/dshash.c: 44 - 58
+[src/backend/lib/dshash.c:44-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L44-L58)
 
 ## Overview
 The dshash_table_item struct represents an item in a dynamic shared hash table, wrapping the user's entry object in an envelope that maintains pointers for hash table management.

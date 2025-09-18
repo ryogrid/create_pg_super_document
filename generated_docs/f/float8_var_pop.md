@@ -1,7 +1,7 @@
 # float8_var_pop
 
 ## Location
-src/backend/utils/adt/float.c: 3138 - 3159
+[src/backend/utils/adt/float.c:3138-3159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3138-L3159)
 
 ## Overview
 Final function for the VAR_POP aggregate that computes the population variance from accumulated transition state values.

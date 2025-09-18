@@ -1,7 +1,7 @@
 # get_dirent_type
 
 ## Location
-src/common/file_utils.c: 525 - 591
+[src/common/file_utils.c:525-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L525-L591)
 
 ## Overview
 A cross-platform function that determines the file type of a directory entry, with fallback mechanisms for systems that don't provide type information directly.

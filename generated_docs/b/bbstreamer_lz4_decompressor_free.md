@@ -1,7 +1,7 @@
 # bbstreamer_lz4_decompressor_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 412 - 422
+[src/bin/pg_basebackup/bbstreamer_lz4.c:412-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L412-L422)
 
 ## Overview
 Releases all resources associated with an LZ4 decompressor streamer, including LZ4 decompression context, buffers, and the streamer chain.

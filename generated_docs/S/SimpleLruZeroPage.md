@@ -1,7 +1,7 @@
 # SimpleLruZeroPage
 
 ## Location
-src/backend/access/transam/slru.c: 375 - 427
+[src/backend/access/transam/slru.c:375-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L375-L427)
 
 ## Overview
 Initializes or reinitializes a SLRU page to zeroes in shared memory without writing it to disk, returning the slot number of the new page.

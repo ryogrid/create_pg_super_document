@@ -1,7 +1,7 @@
 # find_base_rel_noerr
 
 ## Location
-src/backend/optimizer/util/relnode.c: 436 - 453
+[src/backend/optimizer/util/relnode.c:436-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L436-L453)
 
 ## Overview
 Safely retrieves an existing RelOptInfo for a base or other relation from the planner's relation array, returning NULL if the relation doesn't exist instead of raising an error.

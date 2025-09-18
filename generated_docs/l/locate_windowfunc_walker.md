@@ -1,7 +1,7 @@
 # locate_windowfunc_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 273 - 295
+[src/backend/rewrite/rewriteManip.c:273-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L273-L295)
 
 ## Overview
 A static walker function that traverses expression trees to find the first window function with a known parse location, storing that location in the provided context.

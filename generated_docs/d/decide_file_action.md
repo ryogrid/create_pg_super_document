@@ -1,7 +1,7 @@
 # decide_file_action
 
 ## Location
-src/bin/pg_rewind/filemap.c: 700 - 860
+[src/bin/pg_rewind/filemap.c:700-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L700-L860)
 
 ## Overview
 Determines the appropriate action to perform on a file during pg_rewind operation by analyzing file existence, type, and content differences between source and target systems.

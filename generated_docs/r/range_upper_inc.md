@@ -1,7 +1,7 @@
 # range_upper_inc
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 511 - 520
+[src/backend/utils/adt/rangetypes.c:511-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L511-L520)
 
 ## Overview
 Checks whether the upper bound of a range type is inclusive, returning a boolean result indicating if the upper bound includes its boundary value.

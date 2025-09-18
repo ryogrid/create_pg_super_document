@@ -1,7 +1,7 @@
 # avlMergeValue
 
 ## Location
-src/bin/psql/crosstabview.c: 560 - 576
+[src/bin/psql/crosstabview.c:560-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L560-L576)
 
 ## Overview
 High-level wrapper function that creates a pivot field from provided values and inserts it into an AVL tree if it doesn't already exist.

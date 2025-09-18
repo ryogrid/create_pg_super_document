@@ -1,7 +1,7 @@
 # array_position_start
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1231 - 1243
+[src/backend/utils/adt/array_userfuncs.c:1231-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1231-L1243)
 
 ## Overview
 A PostgreSQL user function that finds the position of an element in an array, starting from the beginning of the array.

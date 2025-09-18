@@ -1,7 +1,7 @@
 # removeDontCares
 
 ## Location
-src/backend/access/gist/gistsplit.c: 167 - 199
+[src/backend/access/gist/gistsplit.c:167-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L167-L199)
 
 ## Overview
 Removes tuples marked as "don't care" from a tuple index array, compacting the array in-place.

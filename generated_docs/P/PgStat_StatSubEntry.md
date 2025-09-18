@@ -1,7 +1,7 @@
 # PgStat_StatSubEntry
 
 ## Location
-src/include/pgstat.h: 392 - 397
+[src/include/pgstat.h:392-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L392-L397)
 
 ## Overview
 PgStat_StatSubEntry is a structure that holds error statistics for PostgreSQL logical replication subscriptions, tracking apply and sync error counts along with the timestamp of the last statistics reset.

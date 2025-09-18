@@ -1,7 +1,7 @@
 # ginVacuumEntryPage
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 456 - 564
+[src/backend/access/gin/ginvacuum.c:456-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L456-L564)
 
 ## Overview
 A static function that processes entry pages during GIN index vacuum operations, removing dead tuples from posting lists and collecting posting tree roots for later processing.

@@ -1,7 +1,7 @@
 # is_dummy_partition
 
 ## Location
-src/backend/partitioning/partbounds.c: 1843 - 1861
+[src/backend/partitioning/partbounds.c:1843-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1843-L1861)
 
 ## Overview
 Determines whether a partition has been proven empty and should be treated as a dummy partition.

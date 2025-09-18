@@ -1,7 +1,7 @@
 # dsm_backend_shutdown
 
 ## Location
-src/backend/storage/ipc/dsm.c: 757 - 774
+[src/backend/storage/ipc/dsm.c:757-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L757-L774)
 
 ## Overview
 Detaches all remaining DSM segments during backend shutdown to ensure proper cleanup of dynamic shared memory resources.

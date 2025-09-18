@@ -1,7 +1,7 @@
 # pushval_morph
 
 ## Location
-src/backend/tsearch/to_tsany.c: 492 - 578
+[src/backend/tsearch/to_tsany.c:492-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L492-L578)
 
 ## Overview
 A static callback function used for morphological parsing that processes text values, lexizes them through dictionaries, and pushes appropriate query elements to the TSQuery parser stack.

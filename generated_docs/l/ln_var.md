@@ -1,7 +1,7 @@
 # ln_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 10769 - 10886
+[src/backend/utils/adt/numeric.c:10769-10886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10769-L10886)
 
 ## Overview
 Computes the natural logarithm of a numeric value using Taylor series expansion with input range reduction through repeated square root operations.

@@ -1,7 +1,7 @@
 # AllocSetDelete
 
 ## Location
-src/backend/utils/mmgr/aset.c: 607 - 695
+[src/backend/utils/mmgr/aset.c:607-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L607-L695)
 
 ## Overview
 Completely destroys an AllocSet memory context by freeing all allocated memory, with optimizations for context recycling through freelists to improve performance.

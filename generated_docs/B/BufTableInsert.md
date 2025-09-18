@@ -1,7 +1,7 @@
 # BufTableInsert
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 118 - 147
+[src/backend/storage/buffer/buf_table.c:118-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L118-L147)
 
 ## Overview
 Inserts a new hashtable entry mapping a BufferTag to a buffer ID, unless a conflicting entry already exists for that tag.

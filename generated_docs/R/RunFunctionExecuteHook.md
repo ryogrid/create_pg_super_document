@@ -1,7 +1,7 @@
 # RunFunctionExecuteHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 139 - 157
+[src/backend/catalog/objectaccess.c:139-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L139-L157)
 
 ## Overview
 RunFunctionExecuteHook is a function that triggers object access hook callbacks for function execution events, providing a centralized mechanism for extensions to monitor when functions are about to be executed.

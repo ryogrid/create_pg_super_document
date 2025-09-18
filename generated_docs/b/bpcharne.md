@@ -1,7 +1,7 @@
 # bpcharne
 
 ## Location
-src/backend/utils/adt/varchar.c: 788 - 832
+[src/backend/utils/adt/varchar.c:788-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L788-L832)
 
 ## Overview
 Implements inequality (not-equal) comparison between two BPCHAR (blank-padded character) values, with proper collation support and optimization for C locale.

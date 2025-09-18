@@ -1,7 +1,7 @@
 # compare4
 
 ## Location
-src/backend/utils/mb/conv.c: 339 - 352
+[src/backend/utils/mb/conv.c:339-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conv.c#L339-L352)
 
 ## Overview
 A static comparison function used by bsearch() for binary search operations when converting local encoding codes to combined UTF-8 character sequences.

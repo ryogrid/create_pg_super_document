@@ -1,7 +1,7 @@
 # adjust_data_dir
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 2113 - 2170
+[src/bin/pg_ctl/pg_ctl.c:2113-2170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L2113-L2170)
 
 ## Overview
 A static function in pg_ctl that detects configuration-only directories and resolves the actual PostgreSQL data directory path by querying the PostgreSQL backend.

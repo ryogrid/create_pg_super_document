@@ -1,7 +1,7 @@
 # PgBenchExprLink
 
 ## Location
-src/bin/pgbench/pgbench.h: 107 - 107
+[src/bin/pgbench/pgbench.h:107-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.h#L107-L107)
 
 ## Overview
 PgBenchExprLink is a linked list node structure that chains together PgBenchExpr nodes, primarily used for representing function argument lists in pgbench expressions.

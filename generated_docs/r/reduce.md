@@ -1,7 +1,7 @@
 # reduce
 
 ## Location
-src/tools/pg_bsd_indent/parse.c: 260 - 338
+[src/tools/pg_bsd_indent/parse.c:260-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/parse.c#L260-L338)
 
 ## Overview
 The reduce function implements the reduction phase of the parsing algorithm in PostgreSQL's pg_bsd_indent tool, performing grammar reductions on parsed C code structures to simplify the parse stack.

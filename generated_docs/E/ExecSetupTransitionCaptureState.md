@@ -1,7 +1,7 @@
 # ExecSetupTransitionCaptureState
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3864 - 3892
+[src/backend/executor/nodeModifyTable.c:3864-3892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3864-L3892)
 
 ## Overview
 Sets up the state needed for collecting transition tuples for AFTER triggers, creating transition capture states for both normal operations and ON CONFLICT UPDATE scenarios.

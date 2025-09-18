@@ -1,7 +1,7 @@
 # date2timestamptz_opt_overflow
 
 ## Location
-src/backend/utils/adt/date.c: 624 - 703
+[src/backend/utils/adt/date.c:624-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L624-L703)
 
 ## Overview
 Converts a DateADT value to a TimestampTz (timestamp with time zone) with optional overflow handling, incorporating timezone offset calculations.

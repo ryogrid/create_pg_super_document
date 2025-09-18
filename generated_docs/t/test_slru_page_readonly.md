@@ -1,7 +1,7 @@
 # test_slru_page_readonly
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 111 - 129
+[src/test/modules/test_slru/test_slru.c:111-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L111-L129)
 
 ## Overview
 A PostgreSQL function that reads data from a specific SLRU page in read-only mode, ensuring no write permissions are granted to the page during the operation.

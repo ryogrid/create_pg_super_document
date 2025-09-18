@@ -1,7 +1,7 @@
 # _hash_init
 
 ## Location
-src/backend/access/hash/hashpage.c: 327 - 497
+[src/backend/access/hash/hashpage.c:327-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L327-L497)
 
 ## Overview
 This function initializes a new hash index by creating and setting up the metadata page, initial bucket pages, and the first bitmap page, establishing the foundational structure for hash index operations.

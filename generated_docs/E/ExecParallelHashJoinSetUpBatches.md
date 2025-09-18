@@ -1,7 +1,7 @@
 # ExecParallelHashJoinSetUpBatches
 
 ## Location
-src/backend/executor/nodeHash.c: 3104 - 3183
+[src/backend/executor/nodeHash.c:3104-3183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3104-L3183)
 
 ## Overview
 Sets up shared batch state and tuplestores for parallel hash join operations, initializing batch barriers and creating shared tuplestores for inner and outer relations across all batches.

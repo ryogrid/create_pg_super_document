@@ -1,7 +1,7 @@
 # readtup_cluster
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1370 - 1398
+[src/backend/utils/sort/tuplesortvariants.c:1370-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1370-L1398)
 
 ## Overview
 Reads a heap tuple from a logical tape during CLUSTER sort operations, reconstructing the HeapTuple structure and extracting key values for sorting comparison.

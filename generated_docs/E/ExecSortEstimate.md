@@ -1,7 +1,7 @@
 # ExecSortEstimate
 
 ## Location
-src/backend/executor/nodeSort.c: 416 - 436
+[src/backend/executor/nodeSort.c:416-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L416-L436)
 
 ## Overview
 Estimates the shared memory space required to propagate tuplesort instrumentation statistics from worker processes to the leader process in parallel query execution.

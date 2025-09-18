@@ -1,7 +1,7 @@
 # PublicationAddSchemas
 
 ## Location
-src/backend/commands/publicationcmds.c: 1826 - 1853
+[src/backend/commands/publicationcmds.c:1826-1853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1826-L1853)
 
 ## Overview
 Adds a list of schemas to an existing PostgreSQL publication, establishing publication-namespace relationships for logical replication.

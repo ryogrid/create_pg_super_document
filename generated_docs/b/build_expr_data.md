@@ -1,7 +1,7 @@
 # build_expr_data
 
 ## Location
-src/backend/statistics/extended_stats.c: 2250 - 2274
+[src/backend/statistics/extended_stats.c:2250-2274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2250-L2274)
 
 ## Overview
 Constructs an array of AnlExprData structures for a list of expressions, preparing them for statistical analysis during extended statistics computation.

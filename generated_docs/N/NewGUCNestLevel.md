@@ -1,7 +1,7 @@
 # NewGUCNestLevel
 
 ## Location
-src/backend/utils/misc/guc.c: 2237 - 2247
+[src/backend/utils/misc/guc.c:2237-2247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2237-L2247)
 
 ## Overview
 NewGUCNestLevel increments and returns the current GUC nesting level, used when entering a new context that requires transactional GUC variable management.

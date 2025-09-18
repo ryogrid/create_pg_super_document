@@ -1,7 +1,7 @@
 # get_su_pwd
 
 ## Location
-src/bin/initdb/initdb.c: 1639 - 1697
+[src/bin/initdb/initdb.c:1639-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1639-L1697)
 
 ## Overview
 The  function obtains the superuser password for database initialization, either by prompting the user interactively or reading from a specified password file.

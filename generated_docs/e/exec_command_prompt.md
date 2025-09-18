@@ -1,7 +1,7 @@
 # exec_command_prompt
 
 ## Location
-src/bin/psql/command.c: 2201 - 2277
+[src/bin/psql/command.c:2201-2277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2201-L2277)
 
 ## Overview
 Implements the PostgreSQL psql `\prompt` command that interactively prompts the user for input and stores the result in a psql variable.

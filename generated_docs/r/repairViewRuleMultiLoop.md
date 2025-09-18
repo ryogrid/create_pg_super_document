@@ -1,7 +1,7 @@
 # repairViewRuleMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 978 - 1011
+[src/bin/pg_dump/pg_dump_sort.c:978-1011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L978-L1011)
 
 ## Overview
 Repairs circular dependencies in pg_dump by breaking view-rule dependency loops when other objects are involved in the cycle, ensuring proper dump ordering by making the ON SELECT rule a separately-dumped object.

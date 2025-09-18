@@ -1,7 +1,7 @@
 # processXactStats
 
 ## Location
-src/bin/pgbench/pgbench.c: 4681 - 4719
+[src/bin/pgbench/pgbench.c:4681-4719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4681-L4719)
 
 ## Overview
 Accumulates and reports statistics at the end of a transaction, handling both successful and failed/skipped transactions with latency and lag calculations.

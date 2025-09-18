@@ -1,7 +1,7 @@
 # read_controlfile
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 559 - 632
+[src/bin/pg_resetwal/pg_resetwal.c:559-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L559-L632)
 
 ## Overview
 read_controlfile attempts to read and validate the existing pg_control file, performing CRC checks and version validation to determine if the control file data can be trusted.

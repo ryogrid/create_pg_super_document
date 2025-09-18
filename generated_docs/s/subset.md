@@ -1,7 +1,7 @@
 # subset
 
 ## Location
-src/backend/regex/regexec.c: 702 - 755
+[src/backend/regex/regexec.c:702-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L702-L755)
 
 ## Overview
 Sets subexpression match data for a successful subre by recording the start and end positions of the matched text.

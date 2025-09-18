@@ -1,7 +1,7 @@
 # do_interval_accum
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3948 - 3970
+[src/backend/utils/adt/timestamp.c:3948-3970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3948-L3970)
 
 ## Overview
 Accumulates a new interval value into the aggregate state for interval aggregate functions, handling both finite and infinite interval values separately.

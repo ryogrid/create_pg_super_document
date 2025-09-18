@@ -1,7 +1,7 @@
 # examine_opclause_args
 
 ## Location
-src/backend/statistics/extended_stats.c: 2035 - 2089
+[src/backend/statistics/extended_stats.c:2035-2089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2035-L2089)
 
 ## Overview
 Parses and extracts the components of an operator expression by splitting the arguments into expression and constant parts, handling RelabelType wrapper nodes.

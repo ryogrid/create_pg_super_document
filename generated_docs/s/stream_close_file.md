@@ -1,7 +1,7 @@
 # stream_close_file
 
 ## Location
-src/backend/replication/logical/worker.c: 4287 - 4304
+[src/backend/replication/logical/worker.c:4287-4304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4287-L4304)
 
 ## Overview
 Closes the currently open file containing streamed changes and resets the global stream file descriptor to NULL.

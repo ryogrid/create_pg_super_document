@@ -1,7 +1,7 @@
 # makeObjectName
 
 ## Location
-src/backend/commands/indexcmds.c: 2387 - 2474
+[src/backend/commands/indexcmds.c:2387-2474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2387-L2474)
 
 ## Overview
 Creates appropriately sized and formatted names for implicitly created database objects like indexes, sequences, and constraints by combining base names with type labels.

@@ -1,7 +1,7 @@
 # ChoosePortalStrategy
 
 ## Location
-src/backend/tcop/pquery.c: 209 - 325
+[src/backend/tcop/pquery.c:209-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L209-L325)
 
 ## Overview
 ChoosePortalStrategy analyzes a list of statements and selects the optimal portal execution strategy based on statement characteristics and count.

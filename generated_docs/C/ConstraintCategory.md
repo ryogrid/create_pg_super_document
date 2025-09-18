@@ -1,7 +1,7 @@
 # ConstraintCategory
 
 ## Location
-src/include/catalog/pg_constraint.h: 208 - 278
+[src/include/catalog/pg_constraint.h:208-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_constraint.h#L208-L278)
 
 ## Overview
 ConstraintCategory is an enumeration type that categorizes different types of constraints in PostgreSQL for lookup and identification purposes.

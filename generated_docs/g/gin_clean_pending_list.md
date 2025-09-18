@@ -1,7 +1,7 @@
 # gin_clean_pending_list
 
 ## Location
-src/backend/access/gin/ginfast.c: 1031 - 1091
+[src/backend/access/gin/ginfast.c:1031-1091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L1031-L1091)
 
 ## Overview
 SQL-callable function that allows users to manually clean the insert pending list of a GIN index, transferring pending entries to the main index structure.

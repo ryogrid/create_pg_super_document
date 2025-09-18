@@ -1,7 +1,7 @@
 # dectoasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 381 - 431
+[src/interfaces/ecpg/compatlib/informix.c:381-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L381-L431)
 
 ## Overview
 Converts a decimal number to its ASCII string representation using ECPG Informix compatibility library.

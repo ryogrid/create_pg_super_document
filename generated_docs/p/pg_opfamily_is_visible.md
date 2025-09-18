@@ -1,7 +1,7 @@
 # pg_opfamily_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4964 - 4977
+[src/backend/catalog/namespace.c:4964-4977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4964-L4977)
 
 ## Overview
 Determines whether a given operator family is visible in the current search path, returning NULL if the operator family does not exist.

@@ -1,7 +1,7 @@
 # bpcharge
 
 ## Location
-src/backend/utils/adt/varchar.c: 896 - 916
+[src/backend/utils/adt/varchar.c:896-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L896-L916)
 
 ## Overview
 This function implements the "greater than or equal to" comparison operator (>=) for the BpChar data type (blank-padded character strings) in PostgreSQL.

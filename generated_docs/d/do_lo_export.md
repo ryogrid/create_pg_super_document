@@ -1,7 +1,7 @@
 # do_lo_export
 
 ## Location
-src/bin/psql/large_obj.c: 142 - 175
+[src/bin/psql/large_obj.c:142-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L142-L175)
 
 ## Overview
 Exports a PostgreSQL large object to a file on the local filesystem, handling the complete workflow including transaction management, error handling, and user feedback.

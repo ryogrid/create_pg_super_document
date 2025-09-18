@@ -1,7 +1,7 @@
 # make_jsp_entry_node_scalar
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 364 - 369
+[src/backend/utils/adt/jsonb_gin.c:364-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L364-L369)
 
 ## Overview
 Creates a JsonPathGinNode for scalar JSONB values by combining scalar key generation with entry node creation.

@@ -1,7 +1,7 @@
 # PLyProcedureEntry
 
 ## Location
-src/pl/plpython/plpy_procedure.h: 60 - 64
+[src/pl/plpython/plpy_procedure.h:60-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.h#L60-L64)
 
 ## Overview
 PLyProcedureEntry is a hash table entry structure that combines a PLyProcedureKey with a pointer to the corresponding PLyProcedure, serving as the fundamental unit stored in PostgreSQL's PL/Python procedure cache.

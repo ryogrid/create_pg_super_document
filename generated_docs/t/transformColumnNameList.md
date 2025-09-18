@@ -1,7 +1,7 @@
 # transformColumnNameList
 
 ## Location
-src/backend/commands/tablecmds.c: 11893 - 11944
+[src/backend/commands/tablecmds.c:11893-11944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11893-L11944)
 
 ## Overview
 transformColumnNameList transforms a list of column names into their corresponding attribute numbers and optionally their type OIDs, specifically designed for foreign key constraint processing.

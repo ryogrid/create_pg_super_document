@@ -1,7 +1,7 @@
 # GetFdwRoutineForRelation
 
 ## Location
-src/backend/foreign/foreign.c: 442 - 481
+[src/backend/foreign/foreign.c:442-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L442-L481)
 
 ## Overview
 Retrieves the FdwRoutine structure for a foreign table with caching optimization, storing the result in the relation cache for future reuse.

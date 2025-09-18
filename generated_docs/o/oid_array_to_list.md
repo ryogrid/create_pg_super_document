@@ -1,7 +1,7 @@
 # oid_array_to_list
 
 ## Location
-src/backend/catalog/pg_proc.c: 1184 - 1196
+[src/backend/catalog/pg_proc.c:1184-1196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L1184-L1196)
 
 ## Overview
 Converts a PostgreSQL array of OIDs (Object Identifiers) into a PostgreSQL List data structure containing the individual OID values.

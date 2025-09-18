@@ -1,7 +1,7 @@
 # prepare_new_cluster
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 484 - 513
+[src/bin/pg_upgrade/pg_upgrade.c:484-513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L484-L513)
 
 ## Overview
 Prepares the new cluster for data migration by analyzing and freezing all rows, ensuring optimal performance and transaction ID management after pg_upgrade completion.

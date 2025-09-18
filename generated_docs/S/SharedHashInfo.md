@@ -1,7 +1,7 @@
 # SharedHashInfo
 
 ## Location
-src/include/nodes/execnodes.h: 2734 - 2738
+[src/include/nodes/execnodes.h:2734-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2734-L2738)
 
 ## Overview
 SharedHashInfo is a structure that serves as a shared memory container for collecting hash instrumentation information from multiple parallel workers in PostgreSQL.

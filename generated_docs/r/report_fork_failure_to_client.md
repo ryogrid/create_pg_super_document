@@ -1,7 +1,7 @@
 # report_fork_failure_to_client
 
 ## Location
-src/backend/postmaster/postmaster.c: 3642 - 3668
+[src/backend/postmaster/postmaster.c:3642-3668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3642-L3668)
 
 ## Overview
 Attempts to send a fork failure error message to a client over their connection socket before the postmaster closes the connection, using non-blocking I/O to avoid hanging the postmaster.

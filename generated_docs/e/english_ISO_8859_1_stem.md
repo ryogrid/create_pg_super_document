@@ -1,7 +1,7 @@
 # english_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 966 - 1058
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:966-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L966-L1058)
 
 ## Overview
 The main entry point function for the English stemming algorithm using the ISO-8859-1 character encoding, implementing the complete Porter stemming process through a series of coordinated steps.

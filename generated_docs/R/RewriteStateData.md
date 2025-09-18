@@ -1,7 +1,7 @@
 # RewriteStateData
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 130 - 153
+[src/backend/access/heap/rewriteheap.c:130-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L130-L153)
 
 ## Overview
 RewriteStateData is a struct that encapsulates the complete state associated with a heap rewrite operation in PostgreSQL, providing an opaque interface to manage the transformation of data from a source heap to a destination heap.

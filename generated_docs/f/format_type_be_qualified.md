@@ -1,7 +1,7 @@
 # format_type_be_qualified
 
 ## Location
-src/backend/utils/adt/format_type.c: 353 - 361
+[src/backend/utils/adt/format_type.c:353-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L353-L361)
 
 ## Overview
 Backend function that formats PostgreSQL type names with mandatory schema qualification, ensuring unambiguous type identification in contexts where multiple schemas might contain types with the same name.

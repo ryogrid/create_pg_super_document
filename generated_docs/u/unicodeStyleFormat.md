@@ -1,7 +1,7 @@
 # unicodeStyleFormat
 
 ## Location
-src/fe_utils/print.c: 126 - 138
+[src/fe_utils/print.c:126-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L126-L138)
 
 ## Overview
 A comprehensive structure that combines all Unicode/UTF-8 table formatting elements and defines the complete styling scheme for table output in PostgreSQL frontend utilities.

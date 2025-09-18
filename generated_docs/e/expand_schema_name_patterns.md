@@ -1,7 +1,7 @@
 # expand_schema_name_patterns
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1449 - 1507
+[src/bin/pg_dump/pg_dump.c:1449-1507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1449-L1507)
 
 ## Overview
 Finds the OIDs of all schemas matching the given list of patterns and appends them to the provided OID list for use in pg_dump filtering operations.

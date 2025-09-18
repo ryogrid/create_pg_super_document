@@ -1,7 +1,7 @@
 # func_parallel
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1799 - 1817
+[src/backend/utils/cache/lsyscache.c:1799-1817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1799-L1817)
 
 ## Overview
 Retrieves the proparallel flag for a given function, indicating the function's parallel safety level for use in parallel query execution.

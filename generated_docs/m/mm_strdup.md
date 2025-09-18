@@ -1,7 +1,7 @@
 # mm_strdup
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 25 - 36
+[src/interfaces/ecpg/preproc/type.c:25-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L25-L36)
 
 ## Overview
 A string duplication wrapper function that provides error-checked strdup functionality for the ECPG preprocessor, ensuring program termination on allocation failure.

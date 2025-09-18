@@ -1,7 +1,7 @@
 # power_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 10947 - 11108
+[src/backend/utils/adt/numeric.c:10947-11108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10947-L11108)
 
 ## Overview
 Raises a base to the power of an exponent (base^exp) using logarithmic computation with intelligent optimization for integer exponents and comprehensive handling of edge cases.

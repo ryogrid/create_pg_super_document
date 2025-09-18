@@ -1,7 +1,7 @@
 # OutputPluginWrite
 
 ## Location
-src/backend/replication/logical/logical.c: 724 - 736
+[src/backend/replication/logical/logical.c:724-736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L724-L736)
 
 ## Overview
 Performs an actual write operation using the logical decoding context's output routine, following a previous prepare operation.

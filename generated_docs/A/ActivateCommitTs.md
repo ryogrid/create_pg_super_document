@@ -1,7 +1,7 @@
 # ActivateCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 705 - 784
+[src/backend/access/transam/commit_ts.c:705-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L705-L784)
 
 ## Overview
 ActivateCommitTs enables the commit timestamp subsystem by initializing shared memory state, creating necessary SLRU segments, and setting up transaction ID boundaries for commit timestamp tracking.

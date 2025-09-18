@@ -1,7 +1,7 @@
 # FilterByOrigin
 
 ## Location
-src/backend/replication/logical/decode.c: 586 - 597
+[src/backend/replication/logical/decode.c:586-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L586-L597)
 
 ## Overview
 The `FilterByOrigin` function determines whether changes from a specific replication origin should be filtered out during logical decoding based on the output plugin's origin filtering callback.

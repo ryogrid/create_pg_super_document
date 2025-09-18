@@ -1,7 +1,7 @@
 # pg_hmac_error
 
 ## Location
-src/common/hmac_openssl.c: 354 - 383
+[src/common/hmac_openssl.c:354-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L354-L383)
 
 ## Overview
 Returns a human-readable error message describing the last error that occurred in a HMAC context.

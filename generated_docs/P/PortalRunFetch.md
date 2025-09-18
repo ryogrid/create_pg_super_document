@@ -1,7 +1,7 @@
 # PortalRunFetch
 
 ## Location
-src/backend/tcop/pquery.c: 1380 - 1477
+[src/backend/tcop/pquery.c:1380-1477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1380-L1477)
 
 ## Overview
 A variant form of PortalRun that supports SQL FETCH directions, enabling cursor-like fetching of results with directional control and count limits.

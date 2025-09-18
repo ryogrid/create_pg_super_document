@@ -1,7 +1,7 @@
 # assign_recovery_target_time
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4950 - 4965
+[src/backend/access/transam/xlogrecovery.c:4950-4965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4950-L4965)
 
 ## Overview
 A GUC assign hook function that sets the recovery target to a specific timestamp, ensuring only one recovery target type is active at a time.

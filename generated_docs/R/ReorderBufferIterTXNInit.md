@@ -1,7 +1,7 @@
 # ReorderBufferIterTXNInit
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1280 - 1407
+[src/backend/replication/logical/reorderbuffer.c:1280-1407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1280-L1407)
 
 ## Overview
 Allocates and initializes an iterator for traversing changes from a transaction and its subtransactions in LSN order using a k-way merge algorithm.

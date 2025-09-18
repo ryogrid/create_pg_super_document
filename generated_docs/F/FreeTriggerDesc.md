@@ -1,7 +1,7 @@
 # FreeTriggerDesc
 
 ## Location
-src/backend/commands/trigger.c: 2140 - 2176
+[src/backend/commands/trigger.c:2140-2176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2140-L2176)
 
 ## Overview
 FreeTriggerDesc deallocates a TriggerDesc data structure and all its associated memory, including all variable-length fields within each trigger.

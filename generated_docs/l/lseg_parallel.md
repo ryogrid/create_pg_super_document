@@ -1,7 +1,7 @@
 # lseg_parallel
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2198 - 2209
+[src/backend/utils/adt/geo_ops.c:2198-2209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2198-L2209)
 
 ## Overview
 Determines whether two line segments are parallel by comparing their slopes as a PostgreSQL function.

@@ -1,7 +1,7 @@
 # RemoveStatistics
 
 ## Location
-src/backend/catalog/heap.c: 2974 - 3020
+[src/backend/catalog/heap.c:2974-3020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2974-L3020)
 
 ## Overview
 RemoveStatistics removes statistics entries from the pg_statistic system catalog table for either a specific column or all columns of a relation.

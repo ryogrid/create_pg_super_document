@@ -1,7 +1,7 @@
 # rbt_create
 
 ## Location
-src/backend/lib/rbtree.c: 102 - 126
+[src/backend/lib/rbtree.c:102-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L102-L126)
 
 ## Overview
 Creates and initializes a new empty Red-Black Tree data structure with customizable node manipulation functions.

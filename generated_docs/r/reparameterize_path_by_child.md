@@ -1,7 +1,7 @@
 # reparameterize_path_by_child
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 4115 - 4122
+[src/backend/optimizer/util/pathnode.c:4115-4122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L4115-L4122)
 
 ## Overview
 Translates a path parameterized by a parent relation to be parameterized by a given child relation, supporting partitionwise joins by adjusting expressions and subpaths to refer to the correct variable numbers.

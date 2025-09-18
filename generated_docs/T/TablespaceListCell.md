@@ -1,7 +1,7 @@
 # TablespaceListCell
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 43 - 48
+[src/bin/pg_basebackup/pg_basebackup.c:43-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L43-L48)
 
 ## Overview
 A linked list node structure used in pg_basebackup to store tablespace directory mapping information during base backup operations.

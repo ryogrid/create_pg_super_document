@@ -1,7 +1,7 @@
 # dlist_move_tail
 
 ## Location
-src/include/lib/ilist.h: 486 - 502
+[src/include/lib/ilist.h:486-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L486-L502)
 
 ## Overview
 Moves an existing node from its current position within a doubly-linked list to the tail (last) position of the same list, implementing an efficient repositioning operation.

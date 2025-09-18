@@ -1,7 +1,7 @@
 # transformIndirection
 
 ## Location
-src/backend/parser/parse_expr.c: 438 - 509
+[src/backend/parser/parse_expr.c:438-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L438-L509)
 
 ## Overview
  transforms PostgreSQL indirection expressions (field access and array subscripting operations like ) into appropriate semantic expression trees.

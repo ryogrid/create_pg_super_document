@@ -1,7 +1,7 @@
 # get_func_input_arg_names
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1522 - 1606
+[src/backend/utils/fmgr/funcapi.c:1522-1606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1522-L1606)
 
 ## Overview
 Extracts the names of only input arguments from a function's proargnames and proargmodes arrays, filtering out output and table parameters.

@@ -1,7 +1,7 @@
 # xlhp_prune_items
 
 ## Location
-src/include/access/heapam_xlog.h: 377 - 381
+[src/include/access/heapam_xlog.h:377-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L377-L381)
 
 ## Overview
 A generic sub-record type used in heap pruning WAL records to store information about redirect, dead, and unused items during heap page pruning operations.

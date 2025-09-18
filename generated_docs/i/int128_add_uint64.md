@@ -1,7 +1,7 @@
 # int128_add_uint64
 
 ## Location
-src/include/common/int128.h: 41 - 49
+[src/include/common/int128.h:41-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int128.h#L41-L49)
 
 ## Overview
 Adds an unsigned 64-bit integer value to a 128-bit integer variable in-place.

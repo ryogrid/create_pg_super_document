@@ -1,7 +1,7 @@
 # r_step2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 653 - 675
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:653-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L653-L675)
 
 ## Overview
 The r_step2 function performs the second step of Lithuanian word stemming by iteratively removing specific suffixes that match predefined patterns.

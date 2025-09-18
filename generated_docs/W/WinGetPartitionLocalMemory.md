@@ -1,7 +1,7 @@
 # WinGetPartitionLocalMemory
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3170 - 3184
+[src/backend/executor/nodeWindowAgg.c:3170-3184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3170-L3184)
 
 ## Overview
 Provides working memory that persists for the duration of partition processing in window functions, automatically allocated and zeroed on first call.

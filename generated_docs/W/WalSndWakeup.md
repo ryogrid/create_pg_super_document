@@ -1,7 +1,7 @@
 # WalSndWakeup
 
 ## Location
-src/backend/replication/walsender.c: 3708 - 3728
+[src/backend/replication/walsender.c:3708-3728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3708-L3728)
 
 ## Overview
 WalSndWakeup wakes up WAL sender processes waiting for new WAL data, with separate control for physical and logical replication types.

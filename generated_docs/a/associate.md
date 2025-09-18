@@ -1,7 +1,7 @@
 # associate
 
 ## Location
-src/timezone/zic.c: 1158 - 1242
+[src/timezone/zic.c:1158-1242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1158-L1242)
 
 ## Overview
 Associates timezone rules with timezone zones in the PostgreSQL timezone compilation system, establishing the relationships between rule sets and their corresponding zones.

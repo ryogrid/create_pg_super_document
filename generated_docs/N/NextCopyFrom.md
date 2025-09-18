@@ -1,7 +1,7 @@
 # NextCopyFrom
 
 ## Location
-src/backend/commands/copyfromparse.c: 854 - 1098
+[src/backend/commands/copyfromparse.c:854-1098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L854-L1098)
 
 ## Overview
 NextCopyFrom reads and processes the next complete tuple from a COPY FROM operation, handling both text/CSV and binary formats while applying type conversions, defaults, and error handling.

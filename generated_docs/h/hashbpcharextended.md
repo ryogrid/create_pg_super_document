@@ -1,7 +1,7 @@
 # hashbpcharextended
 
 ## Location
-src/backend/utils/adt/varchar.c: 1053 - 1118
+[src/backend/utils/adt/varchar.c:1053-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1053-L1118)
 
 ## Overview
 Computes an extended hash value for BPCHAR data types using a provided seed value, ignoring trailing blanks and respecting collation settings for advanced hash-based operations.

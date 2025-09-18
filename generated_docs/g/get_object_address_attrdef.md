@@ -1,7 +1,7 @@
 # get_object_address_attrdef
 
 ## Location
-src/backend/catalog/objectaddress.c: 1545 - 1602
+[src/backend/catalog/objectaddress.c:1545-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1545-L1602)
 
 ## Overview
 Finds the ObjectAddress for an attribute's default value, resolving column default expressions in PostgreSQL's object management system.

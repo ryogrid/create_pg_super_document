@@ -1,7 +1,7 @@
 # hashmacaddr8extended
 
 ## Location
-src/backend/utils/adt/mac8.c: 403 - 414
+[src/backend/utils/adt/mac8.c:403-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L403-L414)
 
 ## Overview
 The hashmacaddr8extended function is an extended hash support function for creating hash indexes on PostgreSQL's 8-byte MAC address (macaddr8) data type, supporting seed-based hashing.

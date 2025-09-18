@@ -1,7 +1,7 @@
 # TSQuerySignGetDatum
 
 ## Location
-src/include/tsearch/ts_utils.h: 254 - 259
+[src/include/tsearch/ts_utils.h:254-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_utils.h#L254-L259)
 
 ## Overview
 A static inline function that converts a TSQuerySign value into a PostgreSQL Datum for use in the database system's internal representation.

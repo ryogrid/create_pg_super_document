@@ -1,7 +1,7 @@
 # create_gather_merge_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1881 - 1945
+[src/backend/optimizer/util/pathnode.c:1881-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1881-L1945)
 
 ## Overview
 Creates a GatherMergePath node that represents collecting and merging sorted results from parallel workers, maintaining the sort order in the final output.

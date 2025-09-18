@@ -1,7 +1,7 @@
 # PG_TLS1_3_VERSION
 
 ## Location
-src/include/libpq/libpq.h: 132 - 143
+[src/include/libpq/libpq.h:132-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq.h#L132-L143)
 
 ## Overview
 PG_TLS1_3_VERSION is an enumeration constant that represents TLS version 1.3 in PostgreSQL's SSL/TLS protocol version configuration system.

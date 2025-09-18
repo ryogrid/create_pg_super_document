@@ -1,7 +1,7 @@
 # index_endscan
 
 ## Location
-src/backend/access/index/indexam.c: 378 - 407
+[src/backend/access/index/indexam.c:378-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L378-L407)
 
 ## Overview
 The index_endscan function terminates an index scan operation and properly cleans up all resources associated with the scan, including buffer pins, reference counts, and the scan data structure itself.

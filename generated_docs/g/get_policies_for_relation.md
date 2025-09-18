@@ -1,7 +1,7 @@
 # get_policies_for_relation
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 541 - 664
+[src/backend/rewrite/rowsecurity.c:541-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L541-L664)
 
 ## Overview
 This static function retrieves and categorizes row-level security policies (both permissive and restrictive) that apply to a specific relation based on the command type and user role.

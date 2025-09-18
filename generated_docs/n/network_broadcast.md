@@ -1,7 +1,7 @@
 # network_broadcast
 
 ## Location
-src/backend/utils/adt/network.c: 1285 - 1329
+[src/backend/utils/adt/network.c:1285-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1285-L1329)
 
 ## Overview
 Computes the broadcast address for a given network/subnet by setting all host bits to 1 within the network prefix length.

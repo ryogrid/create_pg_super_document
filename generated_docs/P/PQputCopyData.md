@@ -1,7 +1,7 @@
 # PQputCopyData
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2695 - 2748
+[src/interfaces/libpq/fe-exec.c:2695-2748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2695-L2748)
 
 ## Overview
 Sends data to the PostgreSQL backend during COPY IN or COPY BOTH operations, allowing clients to efficiently transfer bulk data to the server.

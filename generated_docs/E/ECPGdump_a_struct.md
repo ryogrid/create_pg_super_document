@@ -1,7 +1,7 @@
 # ECPGdump_a_struct
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 581 - 640
+[src/interfaces/ecpg/preproc/type.c:581-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L581-L640)
 
 ## Overview
 ECPGdump_a_struct is a static function that recursively processes struct types and generates ECPG runtime code for each member of the structure. It handles both the main struct and optional indicator struct, managing proper member access syntax and offset calculations.

@@ -1,7 +1,7 @@
 # textregexsubstr
 
 ## Location
-src/backend/utils/adt/regexp.c: 583 - 641
+[src/backend/utils/adt/regexp.c:583-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L583-L641)
 
 ## Overview
 A PostgreSQL function that extracts a substring from text based on a regular expression pattern match, returning either the first parenthesized subexpression or the entire match.

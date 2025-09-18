@@ -1,7 +1,7 @@
 # check_encoding_locale_matches
 
 ## Location
-src/backend/commands/dbcommands.c: 1557 - 1594
+[src/backend/commands/dbcommands.c:1557-1594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L1557-L1594)
 
 ## Overview
 check_encoding_locale_matches validates that the chosen character encoding is compatible with the specified locale settings to prevent data corruption from locale-encoding mismatches.

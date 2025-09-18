@@ -1,7 +1,7 @@
 # append_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 106 - 157
+[src/backend/optimizer/path/pathkeys.c:106-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L106-L157)
 
 ## Overview
 Appends all non-redundant PathKeys from a source list to a target list, ensuring no duplicate ordering specifications are added.

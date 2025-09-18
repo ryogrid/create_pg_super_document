@@ -1,7 +1,7 @@
 # OutputPluginUpdateProgress
 
 ## Location
-src/backend/replication/logical/logical.c: 737 - 751
+[src/backend/replication/logical/logical.c:737-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L737-L751)
 
 ## Overview
 Updates progress tracking for logical decoding operations, allowing output plugins to report processing progress to external monitoring systems.

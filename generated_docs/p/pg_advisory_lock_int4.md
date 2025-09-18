@@ -1,7 +1,7 @@
 # pg_advisory_lock_int4
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 808 - 825
+[src/backend/utils/adt/lockfuncs.c:808-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L808-L825)
 
 ## Overview
 This function acquires an exclusive advisory lock using two 32-bit integers as a composite key, blocking until the lock is available.

@@ -1,7 +1,7 @@
 # heapam_index_build_range_scan
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 1173 - 1747
+[src/backend/access/heap/heapam_handler.c:1173-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L1173-L1747)
 
 ## Overview
 Performs a range scan of a heap relation to build index entries, handling transaction visibility, HOT chains, and parallel scanning during index creation.

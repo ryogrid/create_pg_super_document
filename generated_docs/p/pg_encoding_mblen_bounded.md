@@ -1,7 +1,7 @@
 # pg_encoding_mblen_bounded
 
 ## Location
-src/common/wchar.c: 2167 - 2175
+[src/common/wchar.c:2167-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2167-L2175)
 
 ## Overview
 Returns the byte length of a multibyte character, bounded by the distance to the terminating zero byte to prevent reading beyond string boundaries.

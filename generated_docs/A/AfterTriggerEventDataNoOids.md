@@ -1,7 +1,7 @@
 # AfterTriggerEventDataNoOids
 
 ## Location
-src/backend/commands/trigger.c: 3746 - 3751
+[src/backend/commands/trigger.c:3746-3751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3746-L3751)
 
 ## Overview
 AfterTriggerEventDataNoOids is a space-optimized variant of AfterTriggerEventData that excludes partition OID fields, used for trigger events that don't involve cross-partition operations.

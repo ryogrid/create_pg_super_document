@@ -1,7 +1,7 @@
 # copy_file_copyfile
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 294 - 306
+[src/bin/pg_combinebackup/copy_file.c:294-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L294-L306)
 
 ## Overview
 A Windows-specific file copying implementation that uses the Windows CopyFile API for efficient file copying with checksum calculation support.

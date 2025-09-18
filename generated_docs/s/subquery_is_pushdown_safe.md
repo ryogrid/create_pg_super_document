@@ -1,7 +1,7 @@
 # subquery_is_pushdown_safe
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3582 - 3637
+[src/backend/optimizer/path/allpaths.c:3582-3637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3582-L3637)
 
 ## Overview
 Determines whether it is safe to push down WHERE clauses (quals) into a subquery by checking for various SQL constructs that could change query semantics if quals are pushed down.

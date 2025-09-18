@@ -1,7 +1,7 @@
 # conditional_stack_depth
 
 ## Location
-src/fe_utils/conditional.c: 84 - 105
+[src/fe_utils/conditional.c:84-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L84-L105)
 
 ## Overview
 Returns the current depth of a conditional stack, primarily used for debugging purposes to determine how many nested conditional blocks are currently active.

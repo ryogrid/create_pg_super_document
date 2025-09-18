@@ -1,7 +1,7 @@
 # circle_below
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4851 - 4862
+[src/backend/utils/adt/geo_ops.c:4851-4862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4851-L4862)
 
 ## Overview
 Tests whether the first circle is positioned strictly below the second circle, implementing the PostgreSQL "<<|" geometric operator for circles.

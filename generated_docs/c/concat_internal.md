@@ -1,7 +1,7 @@
 # concat_internal
 
 ## Location
-src/backend/utils/adt/varlena.c: 5422 - 5501
+[src/backend/utils/adt/varlena.c:5422-5501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5422-L5501)
 
 ## Overview
 Core implementation function for both concat() and concat_ws() operations, handling the concatenation of multiple arguments with an optional separator string.

@@ -1,7 +1,7 @@
 # validate_ddl_tags
 
 ## Location
-src/backend/commands/event_trigger.c: 212 - 238
+[src/backend/commands/event_trigger.c:212-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L212-L238)
 
 ## Overview
 Validates DDL command tags specified in event trigger filter conditions, ensuring they are recognized commands and supported by the event trigger system.

@@ -1,7 +1,7 @@
 # irish_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c: 432 - 466
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c:432-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c#L432-L466)
 
 ## Overview
 This is the main entry point function for Irish language stemming using ISO 8859-1 character encoding, orchestrating the complete stemming process through multiple morphological analysis stages.

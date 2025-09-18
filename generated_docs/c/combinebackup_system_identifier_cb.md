@@ -1,7 +1,7 @@
 # combinebackup_system_identifier_cb
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 255 - 267
+[src/bin/pg_combinebackup/load_manifest.c:255-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L255-L267)
 
 ## Overview
 A callback function that extracts and stores the system identifier from a backup manifest during parsing for pg_combinebackup operations.

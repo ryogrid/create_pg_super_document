@@ -1,7 +1,7 @@
 # tarOpen
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 302 - 397
+[src/bin/pg_dump/pg_backup_tar.c:302-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L302-L397)
 
 ## Overview
 Opens a file within a tar archive for reading or writing, creating a TAR_MEMBER structure to handle the file operations.

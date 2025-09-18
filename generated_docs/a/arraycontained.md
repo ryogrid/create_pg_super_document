@@ -1,7 +1,7 @@
 # arraycontained
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4548 - 4584
+[src/backend/utils/adt/arrayfuncs.c:4548-4584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4548-L4584)
 
 ## Overview
 This function determines whether one array is contained within (is a subset of) another array by checking if all elements of the first array exist in the second array.

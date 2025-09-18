@@ -1,7 +1,7 @@
 # jspGetString
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1219 - 1230
+[src/backend/utils/adt/jsonpath.c:1219-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1219-L1230)
 
 ## Overview
 Extracts string data from a JsonPathItem structure, returning a pointer to the string data and optionally its length.

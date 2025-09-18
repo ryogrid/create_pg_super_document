@@ -1,7 +1,7 @@
 # create_windowagg_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3485 - 3554
+[src/backend/optimizer/util/pathnode.c:3485-3554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3485-L3554)
 
 ## Overview
 Creates a pathnode that represents computation of window functions, where the input must be sorted according to the WindowClause's PARTITION keys plus ORDER BY keys.

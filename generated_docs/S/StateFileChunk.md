@@ -1,7 +1,7 @@
 # StateFileChunk
 
 ## Location
-src/backend/access/transam/twophase.c: 995 - 1000
+[src/backend/access/transam/twophase.c:995-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L995-L1000)
 
 ## Overview
 StateFileChunk is a linked list node structure used during the prepare phase to assemble two-phase commit state data in memory before writing it to WAL and the actual state file.

@@ -1,7 +1,7 @@
 # acquire_sample_rows
 
 ## Location
-src/backend/commands/analyze.c: 1158 - 1314
+[src/backend/commands/analyze.c:1158-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1158-L1314)
 
 ## Overview
 Acquires a random sample of rows from a table using a two-stage reservoir sampling algorithm, providing statistically unbiased estimates of live and dead row counts for table analysis.

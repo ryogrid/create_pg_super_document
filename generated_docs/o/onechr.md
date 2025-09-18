@@ -1,7 +1,7 @@
 # onechr
 
 ## Location
-src/backend/regex/regcomp.c: 1911 - 1936
+[src/backend/regex/regcomp.c:1911-1936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1911-L1936)
 
 ## Overview
 Fills in NFA arcs for a single plain character, handling case-insensitive matching when needed.

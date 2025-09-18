@@ -1,7 +1,7 @@
 # pg_analyze_and_rewrite_fixedparams
 
 ## Location
-src/backend/tcop/postgres.c: 675 - 713
+[src/backend/tcop/postgres.c:675-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L675-L713)
 
 ## Overview
 Performs parse analysis and rule rewriting on a raw parse tree with fixed parameter types, transforming it into a list of executable Query nodes.

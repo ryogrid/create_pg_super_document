@@ -1,7 +1,7 @@
 # vector32_is_highbit_set
 
 ## Location
-src/include/port/simd.h: 294 - 308
+[src/include/port/simd.h:294-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L294-L308)
 
 ## Overview
 A function that returns true if the high bit (most significant bit) of any element in a Vector32 is set, serving as a 32-bit version of vector8_is_highbit_set.

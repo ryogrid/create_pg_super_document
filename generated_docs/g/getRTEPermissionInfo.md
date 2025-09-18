@@ -1,7 +1,7 @@
 # getRTEPermissionInfo
 
 ## Location
-src/backend/parser/parse_relation.c: 3903 - 3918
+[src/backend/parser/parse_relation.c:3903-3918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3903-L3918)
 
 ## Overview
 This function retrieves the RTEPermissionInfo structure for a given RangeTblEntry from the provided permission info list, with comprehensive validation checks.

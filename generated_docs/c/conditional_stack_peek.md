@@ -1,7 +1,7 @@
 # conditional_stack_peek
 
 ## Location
-src/fe_utils/conditional.c: 106 - 117
+[src/fe_utils/conditional.c:106-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L106-L117)
 
 ## Overview
 Fetches and returns the current state of the top element on the conditional stack, allowing callers to examine the current conditional processing state.

@@ -1,7 +1,7 @@
 # json_unique_check_key
 
 ## Location
-src/backend/utils/adt/json.c: 949 - 968
+[src/backend/utils/adt/json.c:949-968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L949-L968)
 
 ## Overview
 This function checks whether a given key is unique within a JSON object being processed, maintaining uniqueness state for duplicate key detection.

@@ -1,7 +1,7 @@
 # regoperatorsend
 
 ## Location
-src/backend/utils/adt/regproc.c: 866 - 881
+[src/backend/utils/adt/regproc.c:866-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L866-L881)
 
 ## Overview
 Converts regoperator data type to binary format for transmission or storage, used for serializing regoperator values.

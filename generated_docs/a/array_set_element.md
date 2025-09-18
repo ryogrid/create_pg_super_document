@@ -1,7 +1,7 @@
 # array_set_element
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 2201 - 2500
+[src/backend/utils/adt/arrayfuncs.c:2201-2500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L2201-L2500)
 
 ## Overview
 Sets the value of a single array element at specified subscripts, creating a new array with the modified element while preserving the original array structure.

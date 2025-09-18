@@ -1,7 +1,7 @@
 # SpeculativeInsertionLockRelease
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 804 - 819
+[src/backend/storage/lmgr/lmgr.c:804-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L804-L819)
 
 ## Overview
 Releases a speculative insertion lock that was previously acquired, indicating that the speculative insertion operation has completed.

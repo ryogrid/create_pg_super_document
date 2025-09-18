@@ -1,7 +1,7 @@
 # jsonb_to_recordset
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3979 - 3985
+[src/backend/utils/adt/jsonfuncs.c:3979-3985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3979-L3985)
 
 ## Overview
 A PostgreSQL SQL function that converts a JSONB array of objects into a recordset, where each object becomes a row in the result set.

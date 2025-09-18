@@ -1,7 +1,7 @@
 # r_v_ending
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 517 - 541
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:517-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L517-L541)
 
 ## Overview
 The r_v_ending function handles specific vowel endings in Hungarian words, removing or transforming certain accented vowel suffixes as part of the Hungarian stemming algorithm.

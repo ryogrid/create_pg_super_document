@@ -1,7 +1,7 @@
 # defGetQualifiedName
 
 ## Location
-src/backend/commands/define.c: 252 - 283
+[src/backend/commands/define.c:252-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L252-L283)
 
 ## Overview
 Extracts a possibly-qualified name as a List of Strings from a DefElem structure, supporting multiple input formats for backward compatibility.

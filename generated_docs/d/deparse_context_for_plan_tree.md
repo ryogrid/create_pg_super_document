@@ -1,7 +1,7 @@
 # deparse_context_for_plan_tree
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3707 - 3775
+[src/backend/utils/adt/ruleutils.c:3707-3775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3707-L3775)
 
 ## Overview
 Builds a deparse context for a Plan tree, setting up the range table and append relation information for efficient expression deparsing across multiple plan nodes.

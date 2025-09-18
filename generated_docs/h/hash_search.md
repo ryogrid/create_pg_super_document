@@ -1,7 +1,7 @@
 # hash_search
 
 ## Location
-src/backend/utils/hash/dynahash.c: 956 - 968
+[src/backend/utils/hash/dynahash.c:956-968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L956-L968)
 
 ## Overview
 Performs hash table operations (lookup, insertion, or removal) by computing the hash value and delegating to hash_search_with_hash_value.

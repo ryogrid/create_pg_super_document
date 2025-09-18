@@ -1,7 +1,7 @@
 # GenerationIsEmpty
 
 ## Location
-src/backend/utils/mmgr/generation.c: 1002 - 1032
+[src/backend/utils/mmgr/generation.c:1002-1032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L1002-L1032)
 
 ## Overview
 Determines whether a GenerationContext memory context is empty of any allocated chunks, providing a way to check if the context has no active memory allocations.

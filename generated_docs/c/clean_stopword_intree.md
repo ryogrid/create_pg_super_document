@@ -1,7 +1,7 @@
 # clean_stopword_intree
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 238 - 362
+[src/backend/utils/adt/tsquery_cleanup.c:238-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L238-L362)
 
 ## Overview
 Recursively removes stopword nodes (QI_VALSTOP) from a TSQuery tree while properly adjusting phrase operator distances to maintain semantic correctness.

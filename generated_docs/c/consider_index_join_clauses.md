@@ -1,7 +1,7 @@
 # consider_index_join_clauses
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 431 - 496
+[src/backend/optimizer/path/indxpath.c:431-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L431-L496)
 
 ## Overview
 Decides which parameterized index paths to build given sets of join clauses for an index, by identifying useful combinations of outer relations that can provide indexable join clauses.

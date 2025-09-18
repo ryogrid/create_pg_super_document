@@ -1,7 +1,7 @@
 # DefineEnum
 
 ## Location
-src/backend/commands/typecmds.c: 1147 - 1270
+[src/backend/commands/typecmds.c:1147-1270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1147-L1270)
 
 ## Overview
 DefineEnum creates a new enumeration type in PostgreSQL, establishing both the enum type itself and its associated array type, along with all enum values in the pg_enum catalog.

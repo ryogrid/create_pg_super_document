@@ -1,7 +1,7 @@
 # GetReplicationApplyDelay
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 364 - 393
+[src/backend/replication/walreceiverfuncs.c:364-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L364-L393)
 
 ## Overview
 Calculates and returns the replication apply delay in milliseconds, representing the time lag between receiving WAL data and applying it during recovery.

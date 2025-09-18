@@ -1,7 +1,7 @@
 # SyncOps
 
 ## Location
-src/backend/storage/sync/sync.c: 84 - 90
+[src/backend/storage/sync/sync.c:84-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L84-L90)
 
 ## Overview
 SyncOps is a function pointer structure that defines the interface for handling synchronization and unlink operations on different types of storage files in PostgreSQL's storage subsystem.

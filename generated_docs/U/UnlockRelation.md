@@ -1,7 +1,7 @@
 # UnlockRelation
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 310 - 329
+[src/backend/storage/lmgr/lmgr.c:310-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L310-L329)
 
 ## Overview
 UnlockRelation is a convenience function for unlocking a relation without closing it, using the relation's built-in lock information.

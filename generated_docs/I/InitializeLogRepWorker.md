@@ -1,7 +1,7 @@
 # InitializeLogRepWorker
 
 ## Location
-src/backend/replication/logical/worker.c: 4590 - 4681
+[src/backend/replication/logical/worker.c:4590-4681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4590-L4681)
 
 ## Overview
 Common initialization function for all types of logical replication workers (leader apply worker, parallel apply worker, and tablesync worker) that sets up database connection, subscription context, and necessary configuration options.

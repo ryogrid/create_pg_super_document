@@ -1,7 +1,7 @@
 # range_gist_union
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 324 - 361
+[src/backend/utils/adt/rangetypes_gist.c:324-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L324-L361)
 
 ## Overview
 Implements the GiST union operation for range types, computing the bounding range that encompasses all input ranges from a set of index entries.

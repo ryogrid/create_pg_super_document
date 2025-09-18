@@ -1,7 +1,7 @@
 # AlterOpFamilyDrop
 
 ## Location
-src/backend/commands/opclasscmds.c: 1030 - 1107
+[src/backend/commands/opclasscmds.c:1030-1107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1030-L1107)
 
 ## Overview
 Implements the DROP portion of ALTER OPERATOR FAMILY commands by removing existing operators and support functions from an operator family.

@@ -1,7 +1,7 @@
 # binaryheap
 
 ## Location
-src/include/lib/binaryheap.h: 42 - 50
+[src/include/lib/binaryheap.h:42-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/binaryheap.h#L42-L50)
 
 ## Overview
 The binaryheap structure represents a binary heap data structure implementation in PostgreSQL, providing an efficient priority queue with O(log n) insertion and removal operations.

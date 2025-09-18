@@ -1,7 +1,7 @@
 # clauselist_selectivity_ext
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 117 - 358
+[src/backend/optimizer/path/clausesel.c:117-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L117-L358)
 
 ## Overview
 Extended version of clauselist_selectivity that provides fine-grained control over extended statistics usage and implements sophisticated selectivity estimation for ANDed clauses, including range query optimization and extended statistics correlation analysis.

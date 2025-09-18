@@ -1,7 +1,7 @@
 # GiSTOptions
 
 ## Location
-src/include/access/gist_private.h: 394 - 399
+[src/include/access/gist_private.h:394-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L394-L399)
 
 ## Overview
 GiSTOptions is a storage structure for GiST index configuration options, containing settings that control index behavior such as page fill factor and buffering mode during index operations.

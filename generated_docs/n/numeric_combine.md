@@ -1,7 +1,7 @@
 # numeric_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 5056 - 5127
+[src/backend/utils/adt/numeric.c:5056-5127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5056-L5127)
 
 ## Overview
 A PostgreSQL combine function for numeric aggregates that require both sum (sumX) and sum of squares (sumX2) calculations, used to merge partial aggregate states in parallel query execution and window functions.

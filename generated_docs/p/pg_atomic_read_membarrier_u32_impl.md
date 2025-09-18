@@ -1,7 +1,7 @@
 # pg_atomic_read_membarrier_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 249 - 255
+[src/include/port/atomics/generic.h:249-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L249-L255)
 
 ## Overview
 This function performs an atomic read operation with memory barrier semantics on a 32-bit unsigned integer, ensuring that the read operation is synchronized and visible across all CPU cores.

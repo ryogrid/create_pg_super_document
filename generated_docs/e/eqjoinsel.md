@@ -1,7 +1,7 @@
 # eqjoinsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2273 - 2437
+[src/backend/utils/adt/selfuncs.c:2273-2437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2273-L2437)
 
 ## Overview
 Calculates join selectivity for equality ("=") operators, serving as the core PostgreSQL function for estimating how many rows will result from equality-based joins between relations.

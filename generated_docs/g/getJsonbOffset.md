@@ -1,7 +1,7 @@
 # getJsonbOffset
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 134 - 158
+[src/backend/utils/adt/jsonb_util.c:134-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L134-L158)
 
 ## Overview
 Calculates the byte offset of a variable-length data portion for a specific JSONB node within its container's variable-length data section.

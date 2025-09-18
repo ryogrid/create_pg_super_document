@@ -1,7 +1,7 @@
 # TSDictInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 549 - 550
+[src/bin/pg_dump/pg_dump.h:549-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L549-L550)
 
 ## Overview
 TSDictInfo is a structure used in pg_dump to represent a PostgreSQL text search dictionary, storing metadata needed to dump and restore text search dictionaries.

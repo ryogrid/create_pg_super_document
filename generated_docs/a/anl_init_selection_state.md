@@ -1,7 +1,7 @@
 # anl_init_selection_state
 
 ## Location
-src/backend/utils/misc/sampling.c: 281 - 295
+[src/backend/utils/misc/sampling.c:281-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L281-L295)
 
 ## Overview
 Initializes the selection state for Algorithm Z (Vitter's reservoir sampling algorithm) by computing the initial W value used in ANALYZE operations.

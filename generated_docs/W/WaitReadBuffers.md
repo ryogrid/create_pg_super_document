@@ -1,7 +1,7 @@
 # WaitReadBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1395 - 1593
+[src/backend/storage/buffer/bufmgr.c:1395-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1395-L1593)
 
 ## Overview
 WaitReadBuffers performs asynchronous batch reading of multiple database pages from storage, implementing scatter-gather I/O optimization and handling both local and shared buffer validation.

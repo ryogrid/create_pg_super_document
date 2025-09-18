@@ -1,7 +1,7 @@
 # ForeignTable
 
 ## Location
-src/include/foreign/foreign.h: 53 - 58
+[src/include/foreign/foreign.h:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/foreign/foreign.h#L53-L58)
 
 ## Overview
 ForeignTable is a structure that represents a foreign table in PostgreSQL's FDW system, which defines a table that maps to data stored in an external data source through a foreign server.

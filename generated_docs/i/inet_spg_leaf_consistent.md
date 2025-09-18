@@ -1,7 +1,7 @@
 # inet_spg_leaf_consistent
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 323 - 349
+[src/backend/utils/adt/network_spgist.c:323-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L323-L349)
 
 ## Overview
 SP-GiST leaf consistency function for inet/cidr data types that determines whether a leaf tuple matches the search criteria in index queries.

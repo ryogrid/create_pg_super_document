@@ -1,7 +1,7 @@
 # json_agg_finalfn
 
 ## Location
-src/backend/utils/adt/json.c: 870 - 890
+[src/backend/utils/adt/json.c:870-890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L870-L890)
 
 ## Overview
 The  function serves as the final function for the  aggregate, responsible for completing the JSON array construction by adding the closing bracket and returning the final result.

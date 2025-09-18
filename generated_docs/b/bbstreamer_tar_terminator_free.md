@@ -1,7 +1,7 @@
 # bbstreamer_tar_terminator_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 510 - 514
+[src/bin/pg_basebackup/bbstreamer_tar.c:510-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L510-L514)
 
 ## Overview
 A static function that deallocates memory associated with a TAR terminator bbstreamer, properly cleaning up the bbstreamer chain and its associated resources.

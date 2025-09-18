@@ -1,7 +1,7 @@
 # circle_contain_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5082 - 5093
+[src/backend/utils/adt/geo_ops.c:5082-5093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5082-L5093)
 
 ## Overview
 Tests whether a given point is contained within or on the boundary of a circle.

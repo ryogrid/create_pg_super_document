@@ -1,7 +1,7 @@
 # ExecStoreAllNullTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1663 - 1692
+[src/backend/executor/execTuples.c:1663-1692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1663-L1692)
 
 ## Overview
 Creates a virtual tuple containing NULL values in every column, resulting in a full (non-empty) slot where all attributes are explicitly set to NULL.

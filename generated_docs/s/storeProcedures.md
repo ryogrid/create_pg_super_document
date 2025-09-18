@@ -1,7 +1,7 @@
 # storeProcedures
 
 ## Location
-src/backend/commands/opclasscmds.c: 1559 - 1674
+[src/backend/commands/opclasscmds.c:1559-1674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1559-L1674)
 
 ## Overview
 Stores operator family support procedures (support routines) into the pg_amproc system catalog and creates the necessary dependency entries in pg_depend.

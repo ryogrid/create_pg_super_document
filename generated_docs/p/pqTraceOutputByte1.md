@@ -1,7 +1,7 @@
 # pqTraceOutputByte1
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 106 - 124
+[src/interfaces/libpq/fe-trace.c:106-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L106-L124)
 
 ## Overview
 Outputs a single character from protocol message data to the trace log, formatting non-printable characters as hexadecimal values.

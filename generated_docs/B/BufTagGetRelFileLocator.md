@@ -1,7 +1,7 @@
 # BufTagGetRelFileLocator
 
 ## Location
-src/include/storage/buf_internals.h: 123 - 134
+[src/include/storage/buf_internals.h:123-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L123-L134)
 
 ## Overview
 Constructs and returns a RelFileLocator structure from the components stored in a BufferTag.

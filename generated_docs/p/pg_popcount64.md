@@ -1,7 +1,7 @@
 # pg_popcount64
 
 ## Location
-src/port/pg_bitutils.c: 505 - 514
+[src/port/pg_bitutils.c:505-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L505-L514)
 
 ## Overview
 Counts the number of 1 bits set in a 64-bit unsigned integer word, providing a high-level interface for population count operations.

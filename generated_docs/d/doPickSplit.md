@@ -1,7 +1,7 @@
 # doPickSplit
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 677 - 1458
+[src/backend/access/spgist/spgdoinsert.c:677-1458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L677-L1458)
 
 ## Overview
 Splits a leaf tuple chain when there's insufficient space to add a new leaf tuple, redistributing tuples across current and new pages according to picksplit algorithm rules.

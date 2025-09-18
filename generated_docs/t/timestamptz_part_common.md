@@ -1,7 +1,7 @@
 # timestamptz_part_common
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5626 - 5882
+[src/backend/utils/adt/timestamp.c:5626-5882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5626-L5882)
 
 ## Overview
 The core implementation function that extracts specified date/time fields from timestamp with time zone values, handling timezone conversion and supporting both floating-point and numeric return types.

@@ -1,7 +1,7 @@
 # ExecValuesScan
 
 ## Location
-src/backend/executor/nodeValuesscan.c: 196 - 209
+[src/backend/executor/nodeValuesscan.c:196-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeValuesscan.c#L196-L209)
 
 ## Overview
 ExecValuesScan is the main execution function for VALUES scan nodes, scanning through values lists sequentially and returning the next qualifying tuple.

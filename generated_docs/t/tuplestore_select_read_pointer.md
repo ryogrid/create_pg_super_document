@@ -1,7 +1,7 @@
 # tuplestore_select_read_pointer
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 473 - 545
+[src/backend/utils/sort/tuplestore.c:473-545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L473-L545)
 
 ## Overview
 Switches the active read pointer in a tuplestore to the specified pointer, handling file positioning and state management for different storage modes.

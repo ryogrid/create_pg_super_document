@@ -1,7 +1,7 @@
 # pg_get_catalog_foreign_keys
 
 ## Location
-src/backend/utils/adt/misc.c: 496 - 563
+[src/backend/utils/adt/misc.c:496-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L496-L563)
 
 ## Overview
 Returns information about foreign key relationships between PostgreSQL system catalog tables that are not explicitly defined as formal foreign key constraints.

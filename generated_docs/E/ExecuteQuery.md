@@ -1,7 +1,7 @@
 # ExecuteQuery
 
 ## Location
-src/backend/commands/prepare.c: 147 - 277
+[src/backend/commands/prepare.c:147-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L147-L277)
 
 ## Overview
 Implements the 'EXECUTE' utility statement and supports CREATE TABLE ... AS EXECUTE, executing a previously prepared statement with optional parameters and directing output to the specified destination.

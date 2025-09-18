@@ -1,7 +1,7 @@
 # FormExtraData_pg_attribute
 
 ## Location
-src/include/catalog/pg_attribute.h: 219 - 223
+[src/include/catalog/pg_attribute.h:219-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_attribute.h#L219-L223)
 
 ## Overview
 FormExtraData_pg_attribute is a supplementary structure that contains additional fields for pg_attribute that are excluded from the main FormData_pg_attribute structure due to CATALOG_VARLEN constraints.

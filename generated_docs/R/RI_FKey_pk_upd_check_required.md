@@ -1,7 +1,7 @@
 # RI_FKey_pk_upd_check_required
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1226 - 1257
+[src/backend/utils/adt/ri_triggers.c:1226-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1226-L1257)
 
 ## Overview
 Determines whether a referential integrity trigger needs to be fired for a primary key update or delete operation by checking if the constraint could be violated.

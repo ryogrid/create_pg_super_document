@@ -1,7 +1,7 @@
 # _WorkerJobDumpDirectory
 
 ## Location
-src/bin/pg_dump/pg_backup_directory.c: 832 - 848
+[src/bin/pg_dump/pg_backup_directory.c:832-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_directory.c#L832-L848)
 
 ## Overview
 A worker function executed in child processes during parallel backup operations for directory-format archives that handles the actual data dumping for a single TOC entry.

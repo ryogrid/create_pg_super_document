@@ -1,7 +1,7 @@
 # addLeafTuple
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 203 - 332
+[src/backend/access/spgist/spgdoinsert.c:203-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L203-L332)
 
 ## Overview
 This function adds a leaf tuple to a leaf page in an SPGiST (Space-Partitioned GiST) index where there is known to be room for it, handling both new chains and existing chains of tuples.

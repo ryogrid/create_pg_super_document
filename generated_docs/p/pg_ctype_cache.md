@@ -1,7 +1,7 @@
 # pg_ctype_cache
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 708 - 714
+[src/backend/regex/regc_pg_locale.c:708-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L708-L714)
 
 ## Overview
 A caching structure that stores character classification results for regular expression processing, optimizing repeated character class queries for specific collations and probe functions.

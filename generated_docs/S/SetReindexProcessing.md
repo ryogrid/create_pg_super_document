@@ -1,7 +1,7 @@
 # SetReindexProcessing
 
 ## Location
-src/backend/catalog/index.c: 4090 - 4108
+[src/backend/catalog/index.c:4090-4108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4090-L4108)
 
 ## Overview
 Sets the global state flags to indicate that a specified heap table and its index are currently being reindexed, preventing re-entrant reindex operations.

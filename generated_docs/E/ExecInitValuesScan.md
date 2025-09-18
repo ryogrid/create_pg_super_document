@@ -1,7 +1,7 @@
 # ExecInitValuesScan
 
 ## Location
-src/backend/executor/nodeValuesscan.c: 210 - 327
+[src/backend/executor/nodeValuesscan.c:210-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeValuesscan.c#L210-L327)
 
 ## Overview
 ExecInitValuesScan initializes a ValuesScanState node for executing VALUES clauses, setting up the necessary execution context, expression evaluation, and scan infrastructure.

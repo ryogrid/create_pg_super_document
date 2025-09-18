@@ -1,7 +1,7 @@
 # array_length
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1763 - 1789
+[src/backend/utils/adt/arrayfuncs.c:1763-1789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1763-L1789)
 
 ## Overview
 Returns the length (number of elements) of a specified dimension for a PostgreSQL array, providing essential size information for array processing.

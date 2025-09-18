@@ -1,7 +1,7 @@
 # RangeVarCallbackForRenameRule
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 756 - 792
+[src/backend/rewrite/rewriteDefine.c:756-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L756-L792)
 
 ## Overview
 A callback function that performs permissions and integrity checks before acquiring a relation lock during rule renaming operations.

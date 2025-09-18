@@ -1,7 +1,7 @@
 # HandleUploadManifestPacket
 
 ## Location
-src/backend/replication/walsender.c: 747 - 822
+[src/backend/replication/walsender.c:747-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L747-L822)
 
 ## Overview
 Processes individual packets received during an UPLOAD_MANIFEST operation, handling the COPY protocol messages and appending manifest data to the incremental backup information structure.

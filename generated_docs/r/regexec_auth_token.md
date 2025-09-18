@@ -1,7 +1,7 @@
 # regexec_auth_token
 
 ## Location
-src/backend/libpq/hba.c: 346 - 378
+[src/backend/libpq/hba.c:346-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L346-L378)
 
 ## Overview
 Executes a previously compiled regular expression from an AuthToken against a given string to check for pattern matches in PostgreSQL's authentication system.

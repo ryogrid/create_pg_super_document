@@ -1,7 +1,7 @@
 # relopt_bool
 
 ## Location
-src/include/access/reloptions.h: 91 - 95
+[src/include/access/reloptions.h:91-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L91-L95)
 
 ## Overview
 relopt_bool is a structure that defines a boolean-type relation option, extending the base relopt_gen structure with a default boolean value.

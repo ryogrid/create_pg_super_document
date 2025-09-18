@@ -1,7 +1,7 @@
 # LogicalRepInfo
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 49 - 110
+[src/bin/pg_basebackup/pg_createsubscriber.c:49-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L49-L110)
 
 ## Overview
 LogicalRepInfo is a struct that holds runtime information and configuration details for individual database logical replication setups within the pg_createsubscriber utility.

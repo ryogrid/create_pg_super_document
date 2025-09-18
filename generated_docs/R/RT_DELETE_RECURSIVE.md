@@ -1,7 +1,7 @@
 # RT_DELETE_RECURSIVE
 
 ## Location
-src/include/lib/radixtree.h: 2607 - 2651
+[src/include/lib/radixtree.h:2607-2651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2607-L2651)
 
 ## Overview
 RT_DELETE_RECURSIVE is a macro that generates the name for the recursive deletion function used internally by the radix tree implementation to delete keys from the tree structure.

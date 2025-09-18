@@ -1,7 +1,7 @@
 # FreeWaitEventSetAfterFork
 
 ## Location
-src/backend/storage/ipc/latch.c: 917 - 962
+[src/backend/storage/ipc/latch.c:917-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L917-L962)
 
 ## Overview
 Frees a previously created WaitEventSet in a child process after a fork(), properly cleaning up platform-specific resources that should not be inherited.

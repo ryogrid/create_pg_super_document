@@ -1,7 +1,7 @@
 # pltcl_CreateFileHandler
 
 ## Location
-src/pl/tcl/pltcl.c: 373 - 378
+[src/pl/tcl/pltcl.c:373-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L373-L378)
 
 ## Overview
 A stub implementation of Tcl's file handler creation function that intentionally does nothing to prevent multithreading issues in PostgreSQL's PL/Tcl environment.

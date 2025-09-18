@@ -1,7 +1,7 @@
 # get_rel_all_updated_cols
 
 ## Location
-src/backend/optimizer/util/inherit.c: 656 - 709
+[src/backend/optimizer/util/inherit.c:656-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L656-L709)
 
 ## Overview
 Returns the complete set of columns for a given relation that are updated by the current UPDATE query, including both directly updated columns and dependent generated columns.

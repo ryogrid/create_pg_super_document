@@ -1,7 +1,7 @@
 # PerformCursorOpen
 
 ## Location
-src/backend/commands/portalcmds.c: 43 - 166
+[src/backend/commands/portalcmds.c:43-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/portalcmds.c#L43-L166)
 
 ## Overview
 PerformCursorOpen executes the SQL DECLARE CURSOR command, creating a named portal that allows for sequential access to query results without loading the entire result set into memory.

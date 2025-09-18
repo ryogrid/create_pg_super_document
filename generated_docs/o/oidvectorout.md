@@ -1,7 +1,7 @@
 # oidvectorout
 
 ## Location
-src/backend/utils/adt/oid.c: 158 - 183
+[src/backend/utils/adt/oid.c:158-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L158-L183)
 
 ## Overview
 Output function that converts PostgreSQL's internal oidvector format into a string representation of space-separated OIDs.

@@ -1,7 +1,7 @@
 # pg_encoding_set_invalid
 
 ## Location
-src/common/wchar.c: 2051 - 2134
+[src/common/wchar.c:2051-2134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2051-L2134)
 
 ## Overview
 Creates a standardized 2-byte invalid character sequence for a given encoding that will be detected as invalid during verification.

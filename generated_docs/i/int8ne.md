@@ -1,7 +1,7 @@
 # int8ne
 
 ## Location
-src/backend/utils/adt/int8.c: 122 - 130
+[src/backend/utils/adt/int8.c:122-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L122-L130)
 
 ## Overview
 PostgreSQL function that compares two 64-bit integers and returns true if they are not equal.

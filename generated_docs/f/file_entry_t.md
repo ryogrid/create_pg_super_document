@@ -1,7 +1,7 @@
 # file_entry_t
 
 ## Location
-src/bin/pg_rewind/filemap.h: 49 - 82
+[src/bin/pg_rewind/filemap.h:49-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.h#L49-L82)
 
 ## Overview
 The file_entry_t structure represents information about files found in both local and remote PostgreSQL systems during pg_rewind operations, including their status, properties, and planned actions.

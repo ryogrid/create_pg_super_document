@@ -1,7 +1,7 @@
 # NestLoopState
 
 ## Location
-src/include/nodes/execnodes.h: 2103 - 2109
+[src/include/nodes/execnodes.h:2103-2109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2103-L2109)
 
 ## Overview
 NestLoopState represents the execution state for nested loop join operations, maintaining state information needed to perform nested loop joins between outer and inner relations.

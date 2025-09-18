@@ -1,7 +1,7 @@
 # TokenizedAuthLine
 
 ## Location
-src/include/libpq/hba.h: 158 - 165
+[src/include/libpq/hba.h:158-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L158-L165)
 
 ## Overview
 TokenizedAuthLine represents the lexically parsed form of a single line from an authentication configuration file, containing tokenized fields and metadata about the parsing process.

@@ -1,7 +1,7 @@
 # XLogFlush
 
 ## Location
-src/backend/access/transam/xlog.c: 2779 - 2966
+[src/backend/access/transam/xlog.c:2779-2966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2779-L2966)
 
 ## Overview
 Ensures that all WAL (Write-Ahead Log) data through a specified position is flushed to disk, implementing group commit optimization and handling both normal operation and recovery scenarios.

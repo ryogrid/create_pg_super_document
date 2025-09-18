@@ -1,7 +1,7 @@
 # qsort_tuple_unsigned_compare
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 498 - 520
+[src/backend/utils/sort/tuplesort.c:498-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L498-L520)
 
 ## Overview
 A specialized inline comparison function for sorting tuples when the first sort key uses unsigned integer comparison, designed to optimize sorting performance by avoiding indirect function calls.

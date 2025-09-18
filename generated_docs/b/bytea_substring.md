@@ -1,7 +1,7 @@
 # bytea_substring
 
 ## Location
-src/backend/utils/adt/varlena.c: 3028 - 3094
+[src/backend/utils/adt/varlena.c:3028-3094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3028-L3094)
 
 ## Overview
 bytea_substring is a static internal function that performs the core substring extraction logic for bytea values, handling various edge cases and SQL standard compliance.

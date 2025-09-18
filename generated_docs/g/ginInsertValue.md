@@ -1,7 +1,7 @@
 # ginInsertValue
 
 ## Location
-src/backend/access/gin/ginbtree.c: 816 - 835
+[src/backend/access/gin/ginbtree.c:816-835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L816-L835)
 
 ## Overview
 ginInsertValue provides the high-level interface for inserting values into GIN B-trees, coordinating the insertion process and handling any necessary page splits or incomplete split completions.

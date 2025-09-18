@@ -1,7 +1,7 @@
 # process_duplicate_ors
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 517 - 676
+[src/backend/optimizer/prep/prepqual.c:517-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L517-L676)
 
 ## Overview
 Applies the inverse OR distributive law to a list of OR-connected expressions by factoring out common sub-expressions that appear in all OR branches.

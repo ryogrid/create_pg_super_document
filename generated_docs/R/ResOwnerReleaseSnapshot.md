@@ -1,7 +1,7 @@
 # ResOwnerReleaseSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1955 - 1958
+[src/backend/utils/time/snapmgr.c:1955-1958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1955-L1958)
 
 ## Overview
 A resource owner callback function that automatically releases snapshot references when a resource owner is cleaned up.

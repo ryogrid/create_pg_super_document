@@ -1,7 +1,7 @@
 # test_sync
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 290 - 451
+[src/bin/pg_test_fsync/pg_test_fsync.c:290-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L290-L451)
 
 ## Overview
 A comprehensive benchmarking function that tests and compares different file synchronization methods to help determine the most efficient wal_sync_method for PostgreSQL's write-ahead log operations.

@@ -1,7 +1,7 @@
 # pqPutMsgEnd
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 517 - 590
+[src/interfaces/libpq/fe-misc.c:517-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L517-L590)
 
 ## Overview
 Finishes constructing a PostgreSQL protocol message by filling in the length field and optionally sending the accumulated data when the buffer reaches a threshold size.

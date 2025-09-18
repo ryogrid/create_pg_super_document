@@ -1,7 +1,7 @@
 # range_get_flags
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1923 - 1936
+[src/backend/utils/adt/rangetypes.c:1923-1936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1923-L1936)
 
 ## Overview
 A lightweight utility function that extracts only the flags byte from a serialized RangeType value without full deserialization.

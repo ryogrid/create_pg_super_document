@@ -1,7 +1,7 @@
 # DirectFunctionCall8Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 981 - 1016
+[src/backend/utils/fmgr/fmgr.c:981-1016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L981-L1016)
 
 ## Overview
 DirectFunctionCall8Coll is a utility function that directly calls a PostgreSQL function with 8 arguments and a specified collation, handling function call setup and result validation.

@@ -1,7 +1,7 @@
 # discard_query_text
 
 ## Location
-src/bin/psql/command.c: 3291 - 3316
+[src/bin/psql/command.c:3291-3316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3291-L3316)
 
 ## Overview
 Restores the query buffer and lexer state to a previously saved state, discarding any text accumulated during inactive conditional branches.

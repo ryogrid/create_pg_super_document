@@ -1,7 +1,7 @@
 # CreateOptsFile
 
 ## Location
-src/backend/postmaster/postmaster.c: 4103 - 4107
+[src/backend/postmaster/postmaster.c:4103-4107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4103-L4107)
 
 ## Overview
 CreateOptsFile is a static function that creates a "postmaster.opts" file containing the command-line arguments used to start the PostgreSQL postmaster process.

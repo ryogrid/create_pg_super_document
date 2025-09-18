@@ -1,7 +1,7 @@
 # has_partition_attrs
 
 ## Location
-src/backend/catalog/partition.c: 255 - 314
+[src/backend/catalog/partition.c:255-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L255-L314)
 
 ## Overview
 Checks if any attributes in a given set are used as partition key attributes for a partitioned table, either directly or within partition key expressions.

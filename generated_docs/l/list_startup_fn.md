@@ -1,7 +1,7 @@
 # list_startup_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 908 - 914
+[src/backend/optimizer/util/predtest.c:908-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L908-L914)
 
 ## Overview
 A specialized startup function for iterating over regular PostgreSQL Lists, used as part of the predicate iteration framework for query optimization.

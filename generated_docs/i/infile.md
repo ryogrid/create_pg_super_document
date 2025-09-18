@@ -1,7 +1,7 @@
 # infile
 
 ## Location
-src/timezone/zic.c: 1243 - 1364
+[src/timezone/zic.c:1243-1364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1243-L1364)
 
 ## Overview
 Parses and processes timezone definition files in the PostgreSQL timezone compilation system, handling various types of timezone data entries including rules, zones, links, and leap seconds.

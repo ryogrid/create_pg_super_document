@@ -1,7 +1,7 @@
 # jsonb_send
 
 ## Location
-src/backend/utils/adt/jsonb.c: 124 - 146
+[src/backend/utils/adt/jsonb.c:124-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L124-L146)
 
 ## Overview
 The  function is the binary send function for the JSONB data type, responsible for converting internal JSONB values to binary format for transmission over PostgreSQL's network protocol.

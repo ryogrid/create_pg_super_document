@@ -1,7 +1,7 @@
 # ReplicationSlotReserveWal
 
 ## Location
-src/backend/replication/slot.c: 1401 - 1476
+[src/backend/replication/slot.c:1401-1476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1401-L1476)
 
 ## Overview
 Reserves WAL (Write-Ahead Log) for the currently active replication slot by computing and setting an appropriate restart_lsn value.

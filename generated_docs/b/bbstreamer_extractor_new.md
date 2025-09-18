@@ -1,7 +1,7 @@
 # bbstreamer_extractor_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 183 - 202
+[src/bin/pg_basebackup/bbstreamer_file.c:183-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L183-L202)
 
 ## Overview
 This function creates a new bbstreamer that extracts files from an archive stream, writing them to the filesystem relative to a specified base path.

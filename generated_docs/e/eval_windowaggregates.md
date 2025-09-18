@@ -1,7 +1,7 @@
 # eval_windowaggregates
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 663 - 1032
+[src/backend/executor/nodeWindowAgg.c:663-1032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L663-L1032)
 
 ## Overview
 Evaluates plain aggregates being used as window functions, managing frame boundaries and optimizing computation through incremental updates and inverse transitions.

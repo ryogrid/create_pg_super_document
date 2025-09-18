@@ -1,7 +1,7 @@
 # transformInsertStmt
 
 ## Location
-src/backend/parser/analyze.c: 580 - 1007
+[src/backend/parser/analyze.c:580-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L580-L1007)
 
 ## Overview
 Transforms an INSERT statement from parse tree representation into a query tree structure that can be executed by the planner and executor.

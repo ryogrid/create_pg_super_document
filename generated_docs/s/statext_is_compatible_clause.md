@@ -1,7 +1,7 @@
 # statext_is_compatible_clause
 
 ## Location
-src/backend/statistics/extended_stats.c: 1558 - 1695
+[src/backend/statistics/extended_stats.c:1558-1695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1558-L1695)
 
 ## Overview
 Wrapper function that determines if a clause is compatible with MCV lists by handling RestrictInfo structures and performing security permission checks.

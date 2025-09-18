@@ -1,7 +1,7 @@
 # CreateCommandTag
 
 ## Location
-src/backend/tcop/utility.c: 2360 - 3246
+[src/backend/tcop/utility.c:2360-3246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L2360-L3246)
 
 ## Overview
 CreateCommandTag is a comprehensive utility function that determines the appropriate CommandTag for any PostgreSQL command operation, whether it's from a raw parse tree, analyzed Query, or PlannedStmt.

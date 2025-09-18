@@ -1,7 +1,7 @@
 # simplify_function
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4059 - 4174
+[src/backend/optimizer/util/clauses.c:4059-4174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4059-L4174)
 
 ## Overview
 Attempts to simplify a function call during constant expression evaluation by executing the function to deliver a constant result, using transform functions, or inlining SQL function bodies.

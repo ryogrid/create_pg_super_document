@@ -1,7 +1,7 @@
 # executeItemOptUnwrapResult
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1725 - 1759
+[src/backend/utils/adt/jsonpath_exec.c:1725-1759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1725-L1759)
 
 ## Overview
 This function executes a JSONPath item with optional automatic array unwrapping in lax mode, processing each array item individually when unwrapping is enabled.

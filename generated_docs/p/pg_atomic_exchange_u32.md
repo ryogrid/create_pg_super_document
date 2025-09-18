@@ -1,7 +1,7 @@
 # pg_atomic_exchange_u32
 
 ## Location
-src/include/port/atomics.h: 325 - 343
+[src/include/port/atomics.h:325-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L325-L343)
 
 ## Overview
 Atomically exchanges a 32-bit unsigned integer value with a new value and returns the previous value, providing full memory barrier semantics.

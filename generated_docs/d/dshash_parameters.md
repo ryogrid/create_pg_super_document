@@ -1,7 +1,7 @@
 # dshash_parameters
 
 ## Location
-src/include/lib/dshash.h: 54 - 62
+[src/include/lib/dshash.h:54-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/dshash.h#L54-L62)
 
 ## Overview
 The dshash_parameters struct defines the configuration parameters needed to create or attach to a dynamic shared hash table, specifying key and entry sizes, callback functions, and locking configuration.

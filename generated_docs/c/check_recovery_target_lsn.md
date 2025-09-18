@@ -1,7 +1,7 @@
 # check_recovery_target_lsn
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4812 - 4834
+[src/backend/access/transam/xlogrecovery.c:4812-4834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4812-L4834)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the  parameter, ensuring it contains a properly formatted LSN (Log Sequence Number) value before the configuration setting is accepted.

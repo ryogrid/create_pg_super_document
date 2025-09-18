@@ -1,7 +1,7 @@
 # type_is_range
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2688 - 2697
+[src/backend/utils/cache/lsyscache.c:2688-2697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2688-L2697)
 
 ## Overview
 A utility function that determines whether a given PostgreSQL type OID represents a range type.

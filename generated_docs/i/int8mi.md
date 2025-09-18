@@ -1,7 +1,7 @@
 # int8mi
 
 ## Location
-src/backend/utils/adt/int8.c: 476 - 489
+[src/backend/utils/adt/int8.c:476-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L476-L489)
 
 ## Overview
 The int8mi function implements subtraction operation for two 64-bit signed integers (bigint) in PostgreSQL, with overflow detection and error handling.

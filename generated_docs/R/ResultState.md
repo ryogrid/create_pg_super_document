@@ -1,7 +1,7 @@
 # ResultState
 
 ## Location
-src/include/nodes/execnodes.h: 1320 - 1326
+[src/include/nodes/execnodes.h:1320-1326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1320-L1326)
 
 ## Overview
 ResultState is an execution state structure for Result nodes in PostgreSQL's executor, which represent plans that return constant tuples or apply unconditional filters.

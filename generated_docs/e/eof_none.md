@@ -1,7 +1,7 @@
 # eof_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 163 - 168
+[src/bin/pg_dump/compress_none.c:163-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L163-L168)
 
 ## Overview
 A static function that checks if the end-of-file indicator is set for an uncompressed file handle in PostgreSQL's pg_dump utility.

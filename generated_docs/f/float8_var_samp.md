@@ -1,7 +1,7 @@
 # float8_var_samp
 
 ## Location
-src/backend/utils/adt/float.c: 3160 - 3181
+[src/backend/utils/adt/float.c:3160-3181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3160-L3181)
 
 ## Overview
 Final function for the VAR_SAMP aggregate that computes the sample variance from accumulated transition state values using Bessel's correction.

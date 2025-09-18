@@ -1,7 +1,7 @@
 # llvm_expand_funcname
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 360 - 380
+[src/backend/jit/llvm/llvmjit.c:360-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L360-L380)
 
 ## Overview
 Generates unique, non-conflicting function names for LLVM IR functions by appending generation and counter suffixes to a base name.

@@ -1,7 +1,7 @@
 # ExecBSUpdateTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2906 - 2963
+[src/backend/commands/trigger.c:2906-2963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2906-L2963)
 
 ## Overview
 ExecBSUpdateTriggers executes BEFORE STATEMENT UPDATE triggers, which fire once per UPDATE statement before any rows are modified.

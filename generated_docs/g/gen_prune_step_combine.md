@@ -1,7 +1,7 @@
 # gen_prune_step_combine
 
 ## Location
-src/backend/partitioning/partprune.c: 1346 - 1382
+[src/backend/partitioning/partprune.c:1346-1382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L1346-L1382)
 
 ## Overview
 Generates a combination pruning step that merges the results of multiple other pruning steps using either UNION or INTERSECT operations for complex boolean logic.

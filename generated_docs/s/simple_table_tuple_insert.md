@@ -1,7 +1,7 @@
 # simple_table_tuple_insert
 
 ## Location
-src/backend/access/table/tableam.c: 277 - 290
+[src/backend/access/table/tableam.c:277-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L277-L290)
 
 ## Overview
 A simplified wrapper function for inserting tuples that automatically provides default command ID and standard insertion options.

@@ -1,7 +1,7 @@
 # vector8_or
 
 ## Location
-src/include/port/simd.h: 338 - 350
+[src/include/port/simd.h:338-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L338-L350)
 
 ## Overview
 Performs bitwise OR operation on two 8-byte SIMD vectors using platform-optimized instructions.

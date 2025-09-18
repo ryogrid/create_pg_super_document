@@ -1,7 +1,7 @@
 # neqsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 558 - 580
+[src/backend/utils/adt/selfuncs.c:558-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L558-L580)
 
 ## Overview
 The neqsel function provides selectivity estimation for inequality operators ("!=") and other operators with comparable selectivity behavior across any PostgreSQL data types.

@@ -1,7 +1,7 @@
 # PQresultAlloc
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 543 - 562
+[src/interfaces/libpq/fe-exec.c:543-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L543-L562)
 
 ## Overview
 PQresultAlloc is an exported routine that allocates local storage within a PGresult object, ensuring memory alignment for potential binary data.

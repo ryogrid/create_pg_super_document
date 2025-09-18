@@ -1,7 +1,7 @@
 # get_rel_namespace
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1952 - 1978
+[src/backend/utils/cache/lsyscache.c:1952-1978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1952-L1978)
 
 ## Overview
 Returns the pg_namespace OID associated with a given relation, providing namespace information for database relations.

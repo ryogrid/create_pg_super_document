@@ -1,7 +1,7 @@
 # be_lo_import
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 398 - 409
+[src/backend/libpq/be-fsstubs.c:398-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L398-L409)
 
 ## Overview
 Imports a file from the filesystem into the database as a large object and returns the OID of the newly created large object.

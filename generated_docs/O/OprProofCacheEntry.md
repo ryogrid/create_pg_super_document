@@ -1,7 +1,7 @@
 # OprProofCacheEntry
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2080 - 2091
+[src/backend/optimizer/util/predtest.c:2080-2091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2080-L2091)
 
 ## Overview
 OprProofCacheEntry is a hash table entry structure that stores cached results of B-tree operator proof lookups in PostgreSQL's predicate testing system, containing both the lookup key and the computed logical relationship results for operator pairs.

@@ -1,7 +1,7 @@
 # heapgettup_initial_block
 
 ## Location
-src/backend/access/heap/heapam.c: 674 - 720
+[src/backend/access/heap/heapam.c:674-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L674-L720)
 
 ## Overview
 heapgettup_initial_block determines the starting block number for a heap scan based on scan direction, handling both forward and backward scans with proper consideration for scan limits and synchronization.

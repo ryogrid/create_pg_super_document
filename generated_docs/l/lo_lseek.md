@@ -1,7 +1,7 @@
 # lo_lseek
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 344 - 384
+[src/interfaces/libpq/fe-lobj.c:344-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L344-L384)
 
 ## Overview
 Changes the current read or write position within a large object using a 32-bit offset.

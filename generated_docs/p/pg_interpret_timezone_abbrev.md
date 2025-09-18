@@ -1,7 +1,7 @@
 # pg_interpret_timezone_abbrev
 
 ## Location
-src/timezone/localtime.c: 1757 - 1850
+[src/timezone/localtime.c:1757-1850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1757-L1850)
 
 ## Overview
 This function identifies a timezone abbreviation's meaning within a specific timezone, determining the GMT offset and DST flag associated with the abbreviation at or around a given time.

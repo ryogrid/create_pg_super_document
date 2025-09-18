@@ -1,7 +1,7 @@
 # TSConfigInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 563 - 564
+[src/bin/pg_dump/pg_dump.h:563-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L563-L564)
 
 ## Overview
 TSConfigInfo is a structure used in pg_dump to represent a PostgreSQL text search configuration, storing metadata needed to dump and restore text search configurations.

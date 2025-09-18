@@ -1,7 +1,7 @@
 # ATExecAddColumn
 
 ## Location
-src/backend/commands/tablecmds.c: 7012 - 7437
+[src/backend/commands/tablecmds.c:7012-7437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7012-L7437)
 
 ## Overview
 Executes the actual addition of a column to a table, handling inheritance, type validation, default values, and catalog updates while managing complex scenarios like column merging and recursion.

@@ -1,7 +1,7 @@
 # AfterTriggerExecute
 
 ## Location
-src/backend/commands/trigger.c: 4355 - 4629
+[src/backend/commands/trigger.c:4355-4629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4355-L4629)
 
 ## Overview
 Executes a single after-trigger function by fetching the required tuples and calling the trigger with proper context setup and memory management.

@@ -1,7 +1,7 @@
 # GetErrorContextStack
 
 ## Location
-src/backend/utils/error/elog.c: 2056 - 2107
+[src/backend/utils/error/elog.c:2056-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2056-L2107)
 
 ## Overview
 GetErrorContextStack retrieves and formats the current error context stack for display and diagnostic purposes by traversing registered error context callbacks.

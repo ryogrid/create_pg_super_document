@@ -1,7 +1,7 @@
 # ExecMaterialMarkPos
 
 ## Location
-src/backend/executor/nodeMaterial.c: 262 - 289
+[src/backend/executor/nodeMaterial.c:262-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMaterial.c#L262-L289)
 
 ## Overview
 ExecMaterialMarkPos saves the current position in the tuplestore as a mark that can be restored later, enabling mark/restore functionality for Material nodes.

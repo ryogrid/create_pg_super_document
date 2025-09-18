@@ -1,7 +1,7 @@
 # committssyncfiletag
 
 ## Location
-src/backend/access/transam/commit_ts.c: 1070 - 1073
+[src/backend/access/transam/commit_ts.c:1070-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L1070-L1073)
 
 ## Overview
 Entry point function for the sync.c subsystem to synchronize commit timestamp files by flushing them to stable storage.

@@ -1,7 +1,7 @@
 # CreateSharedComments
 
 ## Location
-src/backend/commands/comment.c: 238 - 325
+[src/backend/commands/comment.c:238-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/comment.c#L238-L325)
 
 ## Overview
 Creates, updates, or deletes comments for cluster-wide shared objects by manipulating the pg_shdescription system catalog table.

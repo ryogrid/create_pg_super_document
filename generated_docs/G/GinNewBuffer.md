@@ -1,7 +1,7 @@
 # GinNewBuffer
 
 ## Location
-src/backend/access/gin/ginutil.c: 300 - 337
+[src/backend/access/gin/ginutil.c:300-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L300-L337)
 
 ## Overview
 Allocates a new buffer page for a GIN index by either recycling a free page or extending the index file, returning a pinned and exclusive-locked buffer.

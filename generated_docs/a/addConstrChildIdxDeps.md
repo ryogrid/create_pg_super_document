@@ -1,7 +1,7 @@
 # addConstrChildIdxDeps
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7987 - 8009
+[src/bin/pg_dump/pg_dump.c:7987-8009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7987-L8009)
 
 ## Overview
 A recursive subroutine for getConstraints that establishes dependency relationships between foreign key constraints and partitioned index attachments to ensure proper restoration order during pg_dump operations.

@@ -1,7 +1,7 @@
 # timestamp_date
 
 ## Location
-src/backend/utils/adt/date.c: 1297 - 1326
+[src/backend/utils/adt/date.c:1297-1326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1297-L1326)
 
 ## Overview
 Converts a PostgreSQL timestamp value to a date data type, discarding the time component and keeping only the date portion.

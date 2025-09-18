@@ -1,7 +1,7 @@
 # AggStatePerHash
 
 ## Location
-src/include/nodes/execnodes.h: 2461 - 2462
+[src/include/nodes/execnodes.h:2461-2462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2461-L2462)
 
 ## Overview
 AggStatePerHash is a pointer type that represents per-hashtable state in PostgreSQL's hash aggregation implementation, managing hash tables for grouping operations.

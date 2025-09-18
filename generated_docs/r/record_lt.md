@@ -1,7 +1,7 @@
 # record_lt
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1289 - 1294
+[src/backend/utils/adt/rowtypes.c:1289-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1289-L1294)
 
 ## Overview
 Compares two records (row types) to determine if the first record is less than the second record.

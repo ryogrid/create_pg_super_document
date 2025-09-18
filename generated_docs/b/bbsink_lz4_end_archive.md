@@ -1,7 +1,7 @@
 # bbsink_lz4_end_archive
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 228 - 273
+[src/backend/backup/basebackup_lz4.c:228-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L228-L273)
 
 ## Overview
 Finalizes LZ4 compression for an archive by flushing internal buffers, writing the LZ4 footer, and cleaning up compression resources.

@@ -1,7 +1,7 @@
 # BufferUsageAccumDiff
 
 ## Location
-src/backend/executor/instrument.c: 248 - 277
+[src/backend/executor/instrument.c:248-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L248-L277)
 
 ## Overview
 A utility function that accumulates buffer usage statistics by computing the difference between two BufferUsage snapshots and adding that difference to a destination BufferUsage structure.

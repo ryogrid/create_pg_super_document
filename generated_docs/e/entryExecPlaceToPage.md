@@ -1,7 +1,7 @@
 # entryExecPlaceToPage
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 554 - 601
+[src/backend/access/gin/ginentrypage.c:554-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L554-L601)
 
 ## Overview
 Executes the actual tuple insertion into a GIN entry page within a critical section, including page preparation, item insertion, and WAL logging.

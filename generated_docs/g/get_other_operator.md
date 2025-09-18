@@ -1,7 +1,7 @@
 # get_other_operator
 
 ## Location
-src/backend/catalog/pg_operator.c: 622 - 683
+[src/backend/catalog/pg_operator.c:622-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_operator.c#L622-L683)
 
 ## Overview
 Looks up or creates a related operator (such as a commutator or negator) referenced during operator creation, handling cases where the operator exists, is the same as the operator being defined, or needs to be created as a shell.

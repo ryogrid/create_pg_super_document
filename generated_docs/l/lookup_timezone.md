@@ -1,7 +1,7 @@
 # lookup_timezone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 558 - 571
+[src/backend/utils/adt/timestamp.c:558-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L558-L571)
 
 ## Overview
 Looks up a timezone by name and returns a pg_tz structure, serving as a text-based wrapper around DecodeTimezoneNameToTz.

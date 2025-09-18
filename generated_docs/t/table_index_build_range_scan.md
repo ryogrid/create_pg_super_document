@@ -1,7 +1,7 @@
 # table_index_build_range_scan
 
 ## Location
-src/include/access/tableam.h: 1809 - 1839
+[src/include/access/tableam.h:1809-1839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1809-L1839)
 
 ## Overview
 Scans a specified range of blocks in a table during index construction, with options for visibility mode and synchronization control.

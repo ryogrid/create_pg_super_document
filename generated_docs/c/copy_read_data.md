@@ -1,7 +1,7 @@
 # copy_read_data
 
 ## Location
-src/backend/replication/logical/tablesync.c: 744 - 819
+[src/backend/replication/logical/tablesync.c:744-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L744-L819)
 
 ## Overview
 A data source callback function for PostgreSQL's COPY FROM operation that reads data from a remote logical replication connection and passes it to the local COPY process.

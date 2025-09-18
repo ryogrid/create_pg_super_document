@@ -1,7 +1,7 @@
 # PQfname
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3567 - 3588
+[src/interfaces/libpq/fe-exec.c:3567-3588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3567-L3588)
 
 ## Overview
 A public libpq function that retrieves the name of a specified field (column) from a query result set.

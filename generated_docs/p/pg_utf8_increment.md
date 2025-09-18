@@ -1,7 +1,7 @@
 # pg_utf8_increment
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1359 - 1436
+[src/backend/utils/mb/mbutils.c:1359-1436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1359-L1436)
 
 ## Overview
 A UTF-8 character incrementer function that safely increments UTF-8 encoded character bytes to generate the next valid character in lexicographic order.

@@ -1,7 +1,7 @@
 # lrq_completed
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 239 - 244
+[src/backend/access/transam/xlogprefetcher.c:239-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L239-L244)
 
 ## Overview
 Returns the current number of completed I/O operations in an LSN read queue that are ready for consumption.

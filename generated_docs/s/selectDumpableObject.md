@@ -1,7 +1,7 @@
 # selectDumpableObject
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2144 - 2165
+[src/bin/pg_dump/pg_dump.c:2144-2165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2144-L2165)
 
 ## Overview
 A generic policy-setting function that determines whether any dumpable object should be dumped based on namespace membership or global dump settings.

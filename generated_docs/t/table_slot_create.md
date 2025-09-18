@@ -1,7 +1,7 @@
 # table_slot_create
 
 ## Location
-src/backend/access/table/tableam.c: 92 - 112
+[src/backend/access/table/tableam.c:92-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L92-L112)
 
 ## Overview
 Creates a TupleTableSlot for a given relation using the appropriate slot operations, optionally registering it in a resource list for cleanup.

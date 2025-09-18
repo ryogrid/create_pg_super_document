@@ -1,7 +1,7 @@
 # mdexists
 
 ## Location
-src/backend/storage/smgr/md.c: 171 - 189
+[src/backend/storage/smgr/md.c:171-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L171-L189)
 
 ## Overview
 mdexists checks whether a physical file exists for a specific relation fork, ensuring accurate existence detection by closing the fork first to detect any pending deletions.

@@ -1,7 +1,7 @@
 # btarraycmp
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3961 - 3972
+[src/backend/utils/adt/arrayfuncs.c:3961-3972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3961-L3972)
 
 ## Overview
 btarraycmp is a PostgreSQL function that provides a three-way comparison result for arrays, specifically designed for B-tree index operations.

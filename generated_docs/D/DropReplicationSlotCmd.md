@@ -1,7 +1,7 @@
 # DropReplicationSlotCmd
 
 ## Location
-src/include/nodes/replnodes.h: 67 - 72
+[src/include/nodes/replnodes.h:67-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L67-L72)
 
 ## Overview
 DropReplicationSlotCmd represents the DROP_REPLICATION_SLOT replication protocol command, used to delete existing replication slots from the PostgreSQL server.

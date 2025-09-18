@@ -1,7 +1,7 @@
 # _bt_leafbuild
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 536 - 576
+[src/backend/access/nbtree/nbtsort.c:536-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L536-L576)
 
 ## Overview
 Completes B-tree index construction by sorting collected tuples and building the actual B-tree structure from the populated spools.

@@ -1,7 +1,7 @@
 # dlist_delete_thoroughly
 
 ## Location
-src/include/lib/ilist.h: 416 - 428
+[src/include/lib/ilist.h:416-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L416-L428)
 
 ## Overview
 Removes a node from its doubly-linked list and additionally sets the node's pointers to NULL to clearly indicate it is no longer part of any list.

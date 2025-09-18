@@ -1,7 +1,7 @@
 # LockRelationOid
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 108 - 150
+[src/backend/storage/lmgr/lmgr.c:108-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L108-L150)
 
 ## Overview
 LockRelationOid acquires a lock on a relation using only its OID, typically called before opening the relation's relcache entry to ensure consistency.

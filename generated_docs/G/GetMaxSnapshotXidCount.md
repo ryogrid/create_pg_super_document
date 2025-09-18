@@ -1,7 +1,7 @@
 # GetMaxSnapshotXidCount
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2069 - 2079
+[src/backend/storage/ipc/procarray.c:2069-2079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2069-L2079)
 
 ## Overview
 GetMaxSnapshotXidCount returns the maximum number of transaction IDs that can be stored in a snapshot's XID array, providing the upper bound for snapshot memory allocation.

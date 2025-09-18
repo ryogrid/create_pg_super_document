@@ -1,7 +1,7 @@
 # GlobalVisCheckRemovableXid
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4299 - 4319
+[src/backend/storage/ipc/procarray.c:4299-4319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4299-L4319)
 
 ## Overview
 A convenience wrapper function that checks whether a 32-bit transaction ID can be safely removed by combining relation-specific global visibility state setup with removability testing for regular transaction IDs.

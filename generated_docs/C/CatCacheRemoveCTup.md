@@ -1,7 +1,7 @@
 # CatCacheRemoveCTup
 
 ## Location
-src/backend/utils/cache/catcache.c: 528 - 569
+[src/backend/utils/cache/catcache.c:528-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L528-L569)
 
 ## Overview
 CatCacheRemoveCTup is a static function that removes and deallocates a catalog cache tuple entry, handling both individual entries and their associated lists.

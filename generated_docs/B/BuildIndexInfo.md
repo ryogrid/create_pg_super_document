@@ -1,7 +1,7 @@
 # BuildIndexInfo
 
 ## Location
-src/backend/catalog/index.c: 2404 - 2462
+[src/backend/catalog/index.c:2404-2462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2404-L2462)
 
 ## Overview
 Constructs an IndexInfo record for an open index relation, extracting and organizing all metadata needed for index operations and tuple insertion.

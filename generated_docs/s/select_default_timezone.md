@@ -1,7 +1,7 @@
 # select_default_timezone
 
 ## Location
-src/bin/initdb/findtimezone.c: 1757 - 1777
+[src/bin/initdb/findtimezone.c:1757-1777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L1757-L1777)
 
 ## Overview
 Identifies a suitable default timezone setting for PostgreSQL database initialization by checking environment variables and system timezone detection, with fallback to GMT.

@@ -1,7 +1,7 @@
 # extractRelOptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1388 - 1435
+[src/backend/access/common/reloptions.c:1388-1435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1388-L1435)
 
 ## Overview
 Extracts and parses relation options from a pg_class tuple, converting them into appropriate bytea format based on the relation kind.

@@ -1,7 +1,7 @@
 # type_is_enum
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2678 - 2687
+[src/backend/utils/cache/lsyscache.c:2678-2687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2678-L2687)
 
 ## Overview
 Determines whether a PostgreSQL type is an enumerated type (enum) by checking its type category.

@@ -1,7 +1,7 @@
 # relopt_enum_elt_def
 
 ## Location
-src/include/access/reloptions.h: 117 - 121
+[src/include/access/reloptions.h:117-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L117-L121)
 
 ## Overview
 A structure that defines one member of the array of acceptable values for an enum reloption in PostgreSQL's relation options system.

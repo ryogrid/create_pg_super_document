@@ -1,7 +1,7 @@
 # free_auth_token
 
 ## Location
-src/backend/libpq/hba.c: 278 - 287
+[src/backend/libpq/hba.c:278-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L278-L287)
 
 ## Overview
 A destructor function that properly cleans up an AuthToken structure, specifically handling the deallocation of any compiled regular expressions it may contain.

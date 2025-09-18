@@ -1,7 +1,7 @@
 # ExecAppendInitializeWorker
 
 ## Location
-src/backend/executor/nodeAppend.c: 540 - 553
+[src/backend/executor/nodeAppend.c:540-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L540-L553)
 
 ## Overview
 Initializes a worker process for parallel execution of an Append node by connecting to shared memory state and configuring the worker-specific subplan selection function.

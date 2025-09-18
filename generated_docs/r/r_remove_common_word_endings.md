@@ -1,7 +1,7 @@
 # r_remove_common_word_endings
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1148 - 1252
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1148-1252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1148-L1252)
 
 ## Overview
 Removes common word endings from Tamil words as part of the Tamil stemming algorithm in PostgreSQL's Snowball stemmer implementation.

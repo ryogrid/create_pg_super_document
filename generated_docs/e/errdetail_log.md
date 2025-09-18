@@ -1,7 +1,7 @@
 # errdetail_log
 
 ## Location
-src/backend/utils/error/elog.c: 1251 - 1271
+[src/backend/utils/error/elog.c:1251-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1251-L1271)
 
 ## Overview
 Adds a detail_log error message text to the current error, providing detailed information that will appear only in server logs and not be sent to clients.

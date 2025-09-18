@@ -1,7 +1,7 @@
 # transformJsonArrayAgg
 
 ## Location
-src/backend/parser/parse_expr.c: 3972 - 4009
+[src/backend/parser/parse_expr.c:3972-4009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3972-L4009)
 
 ## Overview
 Transforms JSON_ARRAYAGG() aggregate function expressions into JsonConstructorExpr nodes that aggregate values into JSON arrays.

@@ -1,7 +1,7 @@
 # check_transaction_read_only
 
 ## Location
-src/backend/commands/variable.c: 544 - 582
+[src/backend/commands/variable.c:544-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L544-L582)
 
 ## Overview
 This function validates changes to the transaction read-only mode setting, enforcing PostgreSQL's transaction isolation rules and preventing invalid mode transitions.

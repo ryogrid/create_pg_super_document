@@ -1,7 +1,7 @@
 # transformLimitClause
 
 ## Location
-src/backend/parser/parse_clause.c: 1881 - 1924
+[src/backend/parser/parse_clause.c:1881-1924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1881-L1924)
 
 ## Overview
 Transforms SQL LIMIT and OFFSET clause expressions into internal expression trees, ensuring they are of type bigint and meet semantic requirements.

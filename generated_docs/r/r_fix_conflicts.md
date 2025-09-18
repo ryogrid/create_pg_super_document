@@ -1,7 +1,7 @@
 # r_fix_conflicts
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 676 - 727
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:676-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L676-L727)
 
 ## Overview
 The r_fix_conflicts function resolves morphological conflicts in Lithuanian word stemming by applying specific character sequence corrections to handle phonetic variations and orthographic inconsistencies.

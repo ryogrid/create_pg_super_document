@@ -1,7 +1,7 @@
 # lo_truncate
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 131 - 194
+[src/interfaces/libpq/fe-lobj.c:131-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L131-L194)
 
 ## Overview
 Truncates an existing large object to the specified size, removing or adding null bytes as necessary to achieve the target length.

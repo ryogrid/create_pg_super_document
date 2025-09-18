@@ -1,7 +1,7 @@
 # get_ordering_op_properties
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 207 - 266
+[src/backend/utils/cache/lsyscache.c:207-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L207-L266)
 
 ## Overview
 Determines the properties of a btree ordering operator, including its opfamily, input datatype, and strategy number.

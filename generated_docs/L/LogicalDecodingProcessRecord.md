@@ -1,7 +1,7 @@
 # LogicalDecodingProcessRecord
 
 ## Location
-src/backend/replication/logical/decode.c: 88 - 128
+[src/backend/replication/logical/decode.c:88-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L88-L128)
 
 ## Overview
 Processes each WAL record read by XLogReadRecord() and performs the necessary actions to decode it using the configured output plugin in the logical decoding context.

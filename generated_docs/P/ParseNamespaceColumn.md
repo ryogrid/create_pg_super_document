@@ -1,7 +1,7 @@
 # ParseNamespaceColumn
 
 ## Location
-src/include/parser/parse_node.h: 319 - 331
+[src/include/parser/parse_node.h:319-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_node.h#L319-L331)
 
 ## Overview
 ParseNamespaceColumn represents metadata about a single column in a ParseNamespaceItem, containing the information needed to construct a Var node referencing that column during SQL parsing and semantic analysis.

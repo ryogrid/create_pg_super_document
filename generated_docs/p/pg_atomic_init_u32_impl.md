@@ -1,7 +1,7 @@
 # pg_atomic_init_u32_impl
 
 ## Location
-src/backend/port/atomics.c: 106 - 123
+[src/backend/port/atomics.c:106-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L106-L123)
 
 ## Overview
 Implementation function that initializes a 32-bit atomic unsigned integer variable with a specified value and sets up its synchronization mechanism.

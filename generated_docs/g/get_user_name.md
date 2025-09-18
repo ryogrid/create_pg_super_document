@@ -1,7 +1,7 @@
 # get_user_name
 
 ## Location
-src/common/username.c: 31 - 73
+[src/common/username.c:31-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/username.c#L31-L73)
 
 ## Overview
 Returns the current user name as a string, handling platform-specific differences between Unix-like systems and Windows.

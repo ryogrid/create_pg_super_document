@@ -1,7 +1,7 @@
 # point_slope
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2008 - 2022
+[src/backend/utils/adt/geo_ops.c:2008-2022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2008-L2022)
 
 ## Overview
 A PostgreSQL SQL function that calculates the slope of a line defined by two points in 2D space.

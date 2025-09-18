@@ -1,7 +1,7 @@
 # ExecAppendAsyncRequest
 
 ## Location
-src/backend/executor/nodeAppend.c: 963 - 1016
+[src/backend/executor/nodeAppend.c:963-1016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L963-L1016)
 
 ## Overview
 Processes asynchronous tuple requests for Append nodes, either returning already-available results from previous async operations or initiating new async requests for subplans that need them.

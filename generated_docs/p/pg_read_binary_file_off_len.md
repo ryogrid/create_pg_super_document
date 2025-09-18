@@ -1,7 +1,7 @@
 # pg_read_binary_file_off_len
 
 ## Location
-src/backend/utils/adt/genfile.c: 348 - 363
+[src/backend/utils/adt/genfile.c:348-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L348-L363)
 
 ## Overview
 Wrapper function for the SQL function pg_read_binary_file() that reads a specified portion of a binary file starting from a given offset with a specified length.

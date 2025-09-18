@@ -1,7 +1,7 @@
 # GetAuthenticatedUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 591 - 597
+[src/backend/utils/init/miscinit.c:591-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L591-L597)
 
 ## Overview
 Returns the authenticated user ID (OID) that was established during connection authentication and remains constant throughout the entire session lifetime.

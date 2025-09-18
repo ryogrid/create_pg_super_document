@@ -1,7 +1,7 @@
 # range_overlaps
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 874 - 886
+[src/backend/utils/adt/rangetypes.c:874-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L874-L886)
 
 ## Overview
 The range_overlaps function is a PostgreSQL built-in function that tests whether two range values overlap (have any elements in common).

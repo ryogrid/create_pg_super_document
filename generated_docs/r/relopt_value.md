@@ -1,7 +1,7 @@
 # relopt_value
 
 ## Location
-src/include/access/reloptions.h: 76 - 88
+[src/include/access/reloptions.h:76-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L76-L88)
 
 ## Overview
 relopt_value is a structure that holds a parsed relation option value, containing both the option metadata and the actual value in a type-safe union.

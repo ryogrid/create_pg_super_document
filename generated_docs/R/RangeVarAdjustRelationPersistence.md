@@ -1,7 +1,7 @@
 # RangeVarAdjustRelationPersistence
 
 ## Location
-src/backend/catalog/namespace.c: 846 - 884
+[src/backend/catalog/namespace.c:846-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L846-L884)
 
 ## Overview
 A utility function that validates and adjusts the persistence attribute of a RangeVar based on the target namespace, ensuring consistency between relation persistence and schema type.

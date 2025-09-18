@@ -1,7 +1,7 @@
 # ParallelTableScanDesc
 
 ## Location
-src/include/access/relscan.h: 70 - 74
+[src/include/access/relscan.h:70-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L70-L74)
 
 ## Overview
 ParallelTableScanDesc is a pointer type definition to ParallelTableScanDescData, providing a handle for accessing shared parallel table scan state.

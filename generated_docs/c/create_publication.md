@@ -1,7 +1,7 @@
 # create_publication
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1563 - 1636
+[src/bin/pg_basebackup/pg_createsubscriber.c:1563-1636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1563-L1636)
 
 ## Overview
 create_publication is a function that creates a PostgreSQL publication including all tables in a specified database, primarily used in the pg_createsubscriber utility for setting up logical replication.

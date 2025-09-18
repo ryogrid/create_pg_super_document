@@ -1,7 +1,7 @@
 # print_function_sqlbody
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3510 - 3563
+[src/backend/utils/adt/ruleutils.c:3510-3563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3510-L3563)
 
 ## Overview
 A static helper function that appends the formatted SQL body of a function to a string buffer, handling both single statements and atomic blocks.

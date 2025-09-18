@@ -1,7 +1,7 @@
 # tsvector_delete_str
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 554 - 577
+[src/backend/utils/adt/tsvector_op.c:554-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L554-L577)
 
 ## Overview
 Deletes a specified lexeme from a TSVector, implementing the user-level ts_delete(tsvector, text) function.

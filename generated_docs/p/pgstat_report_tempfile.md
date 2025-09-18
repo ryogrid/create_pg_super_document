@@ -1,7 +1,7 @@
 # pgstat_report_tempfile
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 175 - 190
+[src/backend/utils/activity/pgstat_database.c:175-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L175-L190)
 
 ## Overview
 Reports the creation of a temporary file by updating database-level statistics to track the number and total size of temporary files created.

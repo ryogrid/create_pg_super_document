@@ -1,7 +1,7 @@
 # init_tsvector_parser
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 57 - 80
+[src/backend/utils/adt/tsvector_parser.c:57-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L57-L80)
 
 ## Overview
 Initializes a parser state object for parsing tsvector or tsquery input strings with configurable flags and error handling context.

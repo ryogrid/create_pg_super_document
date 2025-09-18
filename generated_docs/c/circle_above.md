@@ -1,7 +1,7 @@
 # circle_above
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4863 - 4875
+[src/backend/utils/adt/geo_ops.c:4863-4875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4863-L4875)
 
 ## Overview
 Tests whether the first circle is positioned strictly above the second circle, implementing the PostgreSQL "|>>" geometric operator for circles.

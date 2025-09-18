@@ -1,7 +1,7 @@
 # generic_redo
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 478 - 538
+[src/backend/access/transam/generic_xlog.c:478-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L478-L538)
 
 ## Overview
 Implements the redo logic for generic WAL records during crash recovery, reconstructing modified pages by applying delta changes and managing buffer lifecycle.

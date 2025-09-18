@@ -1,7 +1,7 @@
 # XLogDropRelation
 
 ## Location
-src/backend/access/transam/xlogutils.c: 641 - 651
+[src/backend/access/transam/xlogutils.c:641-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L641-L651)
 
 ## Overview
 Cleans up invalid page records for a relation during XLOG replay when the relation is about to be deleted.

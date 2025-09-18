@@ -1,7 +1,7 @@
 # ExecCleanupTupleRouting
 
 ## Location
-src/backend/executor/execPartition.c: 1233 - 1293
+[src/backend/executor/execPartition.c:1233-1293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1233-L1293)
 
 ## Overview
 Cleans up objects allocated for partition tuple routing by closing all partitioned tables, leaf partitions, and their indices when tuple routing operations are complete.

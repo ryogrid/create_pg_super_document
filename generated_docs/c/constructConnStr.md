@@ -1,7 +1,7 @@
 # constructConnStr
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1946 - 1976
+[src/bin/pg_dump/pg_dumpall.c:1946-1976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1946-L1976)
 
 ## Overview
 Constructs a connection string from given keyword/value pairs, specifically designed to pass connection options to pg_dump subprocess while excluding sensitive or variable parameters.

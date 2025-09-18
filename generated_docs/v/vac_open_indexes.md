@@ -1,7 +1,7 @@
 # vac_open_indexes
 
 ## Location
-src/backend/commands/vacuum.c: 2319 - 2361
+[src/backend/commands/vacuum.c:2319-2361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2319-L2361)
 
 ## Overview
 Opens all vacuumable indexes of a given relation with the specified lock mode, filtering for insertable (indisready) indexes and returning an array of opened index relations.

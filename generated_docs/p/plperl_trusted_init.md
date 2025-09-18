@@ -1,7 +1,7 @@
 # plperl_trusted_init
 
 ## Location
-src/pl/plperl/plperl.c: 957 - 1037
+[src/pl/plperl/plperl.c:957-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L957-L1037)
 
 ## Overview
 Initializes the current Perl interpreter as a trusted interpreter by setting up security restrictions and loading required modules.

@@ -1,7 +1,7 @@
 # storeObjectDescription
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1276 - 1341
+[src/backend/catalog/pg_shdepend.c:1276-1341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1276-L1341)
 
 ## Overview
 Formats and appends descriptive text for dependent objects to a string buffer, creating human-readable dependency descriptions for error messages when shared objects cannot be dropped.

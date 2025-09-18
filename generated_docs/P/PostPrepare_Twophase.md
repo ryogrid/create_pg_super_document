@@ -1,7 +1,7 @@
 # PostPrepare_Twophase
 
 ## Location
-src/backend/access/transam/twophase.c: 344 - 358
+[src/backend/access/transam/twophase.c:344-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L344-L358)
 
 ## Overview
 Completes the two-phase commit preparation process by releasing the lock on the global transaction entry after successful state transfer.

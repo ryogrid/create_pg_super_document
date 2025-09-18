@@ -1,7 +1,7 @@
 # mkdirs
 
 ## Location
-src/timezone/zic.c: 3948 - 4005
+[src/timezone/zic.c:3948-4005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3948-L4005)
 
 ## Overview
 Creates necessary directory hierarchies for a given path, handling both ancestor-only and full path creation modes.

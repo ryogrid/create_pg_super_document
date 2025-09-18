@@ -1,7 +1,7 @@
 # jsonb_path_query_first
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 643 - 648
+[src/backend/utils/adt/jsonpath_exec.c:643-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L643-L648)
 
 ## Overview
 SQL function that executes a JSONPath expression against a JSONB document and returns the first matching result item, or NULL if no items match.

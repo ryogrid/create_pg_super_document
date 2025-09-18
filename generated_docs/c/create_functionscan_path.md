@@ -1,7 +1,7 @@
 # create_functionscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2046 - 2071
+[src/backend/optimizer/util/pathnode.c:2046-2071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2046-L2071)
 
 ## Overview
 Creates a Path node corresponding to a sequential scan of a function, which represents accessing the results returned by a table-valued function in PostgreSQL's query planner.

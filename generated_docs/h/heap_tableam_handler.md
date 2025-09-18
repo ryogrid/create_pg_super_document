@@ -1,7 +1,7 @@
 # heap_tableam_handler
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2659 - 2662
+[src/backend/access/heap/heapam_handler.c:2659-2662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2659-L2662)
 
 ## Overview
 heap_tableam_handler is a PostgreSQL function that serves as the access method handler for heap tables, returning the heap access method's TableAmRoutine structure.

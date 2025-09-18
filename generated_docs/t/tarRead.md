@@ -1,7 +1,7 @@
 # tarRead
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 511 - 528
+[src/bin/pg_dump/pg_backup_tar.c:511-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L511-L528)
 
 ## Overview
 Reads binary data from a tar archive member with automatic boundary checking and position tracking.

@@ -1,7 +1,7 @@
 # ExecHashJoinImpl
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 220 - 677
+[src/backend/executor/nodeHashjoin.c:220-677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L220-L677)
 
 ## Overview
 ExecHashJoinImpl implements the core Hybrid Hash Join algorithm for PostgreSQL, handling both parallel and non-parallel execution through an inline-optimized state machine that processes hash joins for all join types.

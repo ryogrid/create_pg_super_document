@@ -1,7 +1,7 @@
 # FigureColname
 
 ## Location
-src/backend/parser/parse_target.c: 1704 - 1722
+[src/backend/parser/parse_target.c:1704-1722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1704-L1722)
 
 ## Overview
 Determines a suitable column name for target list entries when no explicit name is specified, following SQL specification guidance and PostgreSQL conventions.

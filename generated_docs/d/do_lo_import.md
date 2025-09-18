@@ -1,7 +1,7 @@
 # do_lo_import
 
 ## Location
-src/bin/psql/large_obj.c: 176 - 238
+[src/bin/psql/large_obj.c:176-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L176-L238)
 
 ## Overview
 Imports a file from the filesystem into the PostgreSQL database as a large object, with optional comment support.

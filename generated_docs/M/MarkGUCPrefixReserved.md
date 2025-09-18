@@ -1,7 +1,7 @@
 # MarkGUCPrefixReserved
 
 ## Location
-src/backend/utils/misc/guc.c: 5287 - 5338
+[src/backend/utils/misc/guc.c:5287-5338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5287-L5338)
 
 ## Overview
 Marks a GUC prefix as reserved, preventing creation of new placeholder variables with that prefix and removing any existing placeholders, helping extensions validate their configuration namespace.

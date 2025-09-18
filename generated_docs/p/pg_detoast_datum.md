@@ -1,7 +1,7 @@
 # pg_detoast_datum
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1832 - 1840
+[src/backend/utils/fmgr/fmgr.c:1832-1840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1832-L1840)
 
 ## Overview
 pg_detoast_datum is a utility function that decompresses or reconstructs PostgreSQL TOAST (The Oversized-Attribute Storage Technique) data when needed, returning the original uncompressed data.

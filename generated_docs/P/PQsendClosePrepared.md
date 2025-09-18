@@ -1,7 +1,7 @@
 # PQsendClosePrepared
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2556 - 2568
+[src/interfaces/libpq/fe-exec.c:2556-2568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2556-L2568)
 
 ## Overview
 PQsendClosePrepared submits a Close Statement command to the PostgreSQL server asynchronously without waiting for completion, allowing for non-blocking closure of prepared statements.

@@ -1,7 +1,7 @@
 # PgStat_IO
 
 ## Location
-src/include/pgstat.h: 316 - 320
+[src/include/pgstat.h:316-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L316-L320)
 
 ## Overview
 PgStat_IO is a structure that maintains I/O statistics across different backend types in PostgreSQL, providing aggregated I/O operation counts and timing information for the statistics system.

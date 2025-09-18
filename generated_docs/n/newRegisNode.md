@@ -1,7 +1,7 @@
 # newRegisNode
 
 ## Location
-src/backend/tsearch/regis.c: 74 - 84
+[src/backend/tsearch/regis.c:74-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L74-L84)
 
 ## Overview
 Creates and initializes a new RegisNode structure for building linked lists of regex pattern nodes in PostgreSQL's text search system.

@@ -1,7 +1,7 @@
 # cmpspellaffix
 
 ## Location
-src/backend/tsearch/spell.c: 203 - 209
+[src/backend/tsearch/spell.c:203-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L203-L209)
 
 ## Overview
 A static comparison function used for sorting SPELL structures by their affix flag string during dictionary processing in PostgreSQL's text search functionality.

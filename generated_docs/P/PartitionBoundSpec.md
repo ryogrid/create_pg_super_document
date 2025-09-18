@@ -1,7 +1,7 @@
 # PartitionBoundSpec
 
 ## Location
-src/include/partitioning/partdefs.h: 20 - 21
+[src/include/partitioning/partdefs.h:20-21](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdefs.h#L20-L21)
 
 ## Overview
 A parse tree node that represents a partition bound specification, defining the portion of the partition key space assigned to a particular partition as specified in DDL commands.

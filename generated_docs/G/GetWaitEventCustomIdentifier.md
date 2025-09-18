@@ -1,7 +1,7 @@
 # GetWaitEventCustomIdentifier
 
 ## Location
-src/backend/utils/activity/wait_event.c: 277 - 306
+[src/backend/utils/activity/wait_event.c:277-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L277-L306)
 
 ## Overview
 Returns the name of a custom wait event based on the provided wait event information identifier.

@@ -1,7 +1,7 @@
 # CopyFrom
 
 ## Location
-src/backend/commands/copyfrom.c: 628 - 1367
+[src/backend/commands/copyfrom.c:628-1367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L628-L1367)
 
 ## Overview
 Executes the COPY FROM operation to transfer data from a file or data source into a PostgreSQL relation, handling parsing, validation, constraint checking, and tuple insertion with performance optimizations.

@@ -1,7 +1,7 @@
 # test_slru_page_write
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 57 - 84
+[src/test/modules/test_slru/test_slru.c:57-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L57-L84)
 
 ## Overview
 A PostgreSQL function that writes data to a specific SLRU page for testing purposes, handling page initialization, data copying, and persistence to disk.

@@ -1,7 +1,7 @@
 # WaitEventAdjustWin32
 
 ## Location
-src/backend/storage/ipc/latch.c: 1369 - 1423
+[src/backend/storage/ipc/latch.c:1369-1423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1369-L1423)
 
 ## Overview
 A static function that configures Windows event handles for a WaitEvent by setting up appropriate Windows synchronization objects for latch events, postmaster death monitoring, and socket I/O operations.

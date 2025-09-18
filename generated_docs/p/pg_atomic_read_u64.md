@@ -1,7 +1,7 @@
 # pg_atomic_read_u64
 
 ## Location
-src/include/port/atomics.h: 462 - 470
+[src/include/port/atomics.h:462-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L462-L470)
 
 ## Overview
 Atomically reads the current value of a 64-bit unsigned integer variable, providing thread-safe access without modifying the value.

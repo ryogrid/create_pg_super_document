@@ -1,7 +1,7 @@
 # dumpOpfamily
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13623 - 13841
+[src/bin/pg_dump/pg_dump.c:13623-13841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13623-L13841)
 
 ## Overview
 Writes out a single operator family definition along with any loose operator members that aren't bound to a specific opclass within the opfamily.

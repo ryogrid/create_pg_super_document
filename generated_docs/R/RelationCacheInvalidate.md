@@ -1,7 +1,7 @@
 # RelationCacheInvalidate
 
 ## Location
-src/backend/utils/cache/relcache.c: 3013 - 3114
+[src/backend/utils/cache/relcache.c:3013-3114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3013-L3114)
 
 ## Overview
 Performs a comprehensive invalidation of the relation cache, destroying unused cache entries and rebuilding active ones, typically used to recover from shared invalidation message buffer overflow.

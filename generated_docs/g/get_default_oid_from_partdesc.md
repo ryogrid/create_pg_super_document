@@ -1,7 +1,7 @@
 # get_default_oid_from_partdesc
 
 ## Location
-src/backend/partitioning/partdesc.c: 501 - 508
+[src/backend/partitioning/partdesc.c:501-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L501-L508)
 
 ## Overview
 Returns the OID of the default partition from a partition descriptor, if one exists.

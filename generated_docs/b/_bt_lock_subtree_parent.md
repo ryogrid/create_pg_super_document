@@ -1,7 +1,7 @@
 # _bt_lock_subtree_parent
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 2813 - 2953
+[src/backend/access/nbtree/nbtpage.c:2813-2953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L2813-L2953)
 
 ## Overview
 This recursive function determines the height of the subtree that can be safely deleted and locks the parent of the subtree root, establishing the boundaries for safe page deletion in B-tree indexes.

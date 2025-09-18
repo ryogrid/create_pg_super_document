@@ -1,7 +1,7 @@
 # jsonb_build_array_worker
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1210 - 1236
+[src/backend/utils/adt/jsonb.c:1210-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1210-L1236)
 
 ## Overview
 A core PostgreSQL function that constructs a JSONB array from an array of arguments, with support for optional null value omission.

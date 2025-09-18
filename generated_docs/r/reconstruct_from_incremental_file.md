@@ -1,7 +1,7 @@
 # reconstruct_from_incremental_file
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 88 - 382
+[src/bin/pg_combinebackup/reconstruct.c:88-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L88-L382)
 
 ## Overview
 Reconstructs a full file from an incremental backup file by traversing a chain of prior backups to gather all necessary blocks.

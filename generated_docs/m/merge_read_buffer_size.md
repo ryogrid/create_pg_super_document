@@ -1,7 +1,7 @@
 # merge_read_buffer_size
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1859 - 1890
+[src/backend/utils/sort/tuplesort.c:1859-1890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1859-L1890)
 
 ## Overview
 A static helper function that calculates the optimal amount of memory to allocate for the read buffer of each input tape during a merge pass, based on available memory and tape configuration.

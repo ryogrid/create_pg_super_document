@@ -1,7 +1,7 @@
 # RunObjectPostAlterHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 92 - 114
+[src/backend/catalog/objectaccess.c:92-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L92-L114)
 
 ## Overview
 Executes registered object access hooks for post-alter events, allowing extensions to perform actions after a PostgreSQL database object has been modified.

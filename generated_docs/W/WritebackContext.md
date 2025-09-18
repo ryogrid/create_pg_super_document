@@ -1,7 +1,7 @@
 # WritebackContext
 
 ## Location
-src/include/storage/buf_internals.h: 297 - 307
+[src/include/storage/buf_internals.h:297-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L297-L307)
 
 ## Overview
 The  structure manages the batching and coordination of pending writeback requests in PostgreSQL's buffer management system.

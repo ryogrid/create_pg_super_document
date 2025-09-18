@@ -1,7 +1,7 @@
 # get_etc_path
 
 ## Location
-src/port/path.c: 910 - 918
+[src/port/path.c:910-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L910-L918)
 
 ## Overview
 Constructs the path to the PostgreSQL configuration directory (etc) relative to the PostgreSQL executable path.

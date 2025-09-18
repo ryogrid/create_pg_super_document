@@ -1,7 +1,7 @@
 # WalRcvForceReply
 
 ## Location
-src/backend/replication/walreceiver.c: 1358 - 1375
+[src/backend/replication/walreceiver.c:1358-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1358-L1375)
 
 ## Overview
 Wakes up the WAL receiver process to trigger immediate sending of apply notifications to the primary server, particularly for synchronous replication scenarios.

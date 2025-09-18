@@ -1,7 +1,7 @@
 # GISTBuildState
 
 ## Location
-src/backend/access/gist/gistbuild.c: 111 - 112
+[src/backend/access/gist/gistbuild.c:111-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L111-L112)
 
 ## Overview
 A structure that maintains the working state and context information during GiST index construction, supporting multiple build strategies including buffering and sorting modes.

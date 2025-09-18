@@ -1,7 +1,7 @@
 # keepwal_entry
 
 ## Location
-src/bin/pg_rewind/filemap.c: 67 - 71
+[src/bin/pg_rewind/filemap.c:67-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L67-L71)
 
 ## Overview
 The `keepwal_entry` structure is used in PostgreSQL's pg_rewind utility to track Write-Ahead Log (WAL) files that must not be deleted during the rewind process.

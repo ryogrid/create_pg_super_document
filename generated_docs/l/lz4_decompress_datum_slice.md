@@ -1,7 +1,7 @@
 # lz4_decompress_datum_slice
 
 ## Location
-src/backend/access/common/toast_compression.c: 215 - 253
+[src/backend/access/common/toast_compression.c:215-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L215-L253)
 
 ## Overview
 Partially decompresses a varlena data structure that was previously compressed using the LZ4 compression algorithm, returning only a specified slice (prefix) of the original uncompressed data.

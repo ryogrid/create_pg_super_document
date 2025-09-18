@@ -1,7 +1,7 @@
 # create_seq_hashtable
 
 ## Location
-src/backend/commands/sequence.c: 1113 - 1128
+[src/backend/commands/sequence.c:1113-1128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1113-L1128)
 
 ## Overview
 Creates and initializes the hash table used for storing sequence data in the backend.

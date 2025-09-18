@@ -1,7 +1,7 @@
 # _bt_saveitem
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 1945 - 1974
+[src/backend/access/nbtree/nbtsearch.c:1945-1974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L1945-L1974)
 
 ## Overview
 Saves a non-pivot, non-posting index tuple into the current scan position's item array for B-tree scanning operations.

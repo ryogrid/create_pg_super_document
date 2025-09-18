@@ -1,7 +1,7 @@
 # int42ge
 
 ## Location
-src/backend/utils/adt/int.c: 603 - 622
+[src/backend/utils/adt/int.c:603-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L603-L622)
 
 ## Overview
 A PostgreSQL function that compares a 32-bit integer (int4) with a 16-bit integer (int2) and returns true if the int4 value is greater than or equal to the int2 value.

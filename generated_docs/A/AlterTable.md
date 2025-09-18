@@ -1,7 +1,7 @@
 # AlterTable
 
 ## Location
-src/backend/commands/tablecmds.c: 4399 - 4427
+[src/backend/commands/tablecmds.c:4399-4427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4399-L4427)
 
 ## Overview
 The main entry point for executing ALTER TABLE commands, coordinating a sophisticated three-phase process to safely modify table structures while minimizing data access overhead.

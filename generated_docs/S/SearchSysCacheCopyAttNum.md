@@ -1,7 +1,7 @@
 # SearchSysCacheCopyAttNum
 
 ## Location
-src/backend/utils/cache/syscache.c: 567 - 600
+[src/backend/utils/cache/syscache.c:567-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L567-L600)
 
 ## Overview
 Returns a copy of an attribute tuple from the system cache, excluding dropped attributes from the results.

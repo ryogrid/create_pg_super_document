@@ -1,7 +1,7 @@
 # create_seqscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 927 - 951
+[src/backend/optimizer/util/pathnode.c:927-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L927-L951)
 
 ## Overview
 Creates a Path node representing a sequential scan access method for a relation, initializing all necessary fields and calculating the associated costs.

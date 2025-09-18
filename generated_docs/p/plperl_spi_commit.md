@@ -1,7 +1,7 @@
 # plperl_spi_commit
 
 ## Location
-src/pl/plperl/plperl.c: 3991 - 4016
+[src/pl/plperl/plperl.c:3991-4016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3991-L4016)
 
 ## Overview
 Commits the current transaction from within a PL/Perl function, with proper error handling to propagate PostgreSQL commit failures to Perl.

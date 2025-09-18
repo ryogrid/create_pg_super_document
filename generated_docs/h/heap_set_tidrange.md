@@ -1,7 +1,7 @@
 # heap_set_tidrange
 
 ## Location
-src/backend/access/heap/heapam.c: 1375 - 1447
+[src/backend/access/heap/heapam.c:1375-1447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1375-L1447)
 
 ## Overview
 Configures a heap table scan to limit scanning to tuples within a specified TID (tuple identifier) range, optimizing scans that only need to examine specific portions of a table.

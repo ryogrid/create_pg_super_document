@@ -1,7 +1,7 @@
 # inet_server_addr
 
 ## Location
-src/backend/utils/adt/network.c: 1788 - 1824
+[src/backend/utils/adt/network.c:1788-1824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1788-L1824)
 
 ## Overview
 Returns the IP address that the PostgreSQL server accepted the current connection on, or NULL if the connection is through a Unix socket.

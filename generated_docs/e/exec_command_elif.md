@@ -1,7 +1,7 @@
 # exec_command_elif
 
 ## Location
-src/bin/psql/command.c: 1789 - 1864
+[src/bin/psql/command.c:1789-1864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1789-L1864)
 
 ## Overview
 Implements the \elif command in PostgreSQL's psql client for providing alternative conditional branches within \if..\endif blocks.

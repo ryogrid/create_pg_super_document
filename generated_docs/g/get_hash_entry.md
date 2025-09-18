@@ -1,7 +1,7 @@
 # get_hash_entry
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1259 - 1343
+[src/backend/utils/hash/dynahash.c:1259-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1259-L1343)
 
 ## Overview
 Allocates a new hashtable entry from the freelist, with support for both partitioned and non-partitioned hash tables, including cross-freelist borrowing in partitioned tables when memory is constrained.

@@ -1,7 +1,7 @@
 # WindowAggState
 
 ## Location
-src/include/nodes/execnodes.h: 2559 - 2643
+[src/include/nodes/execnodes.h:2559-2643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2559-L2643)
 
 ## Overview
 WindowAggState is the primary execution state node for PostgreSQL's window function operations, managing the complete lifecycle of window function computation including frame management, partitioning, buffering, and aggregate evaluation.

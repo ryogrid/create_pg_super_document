@@ -1,7 +1,7 @@
 # HashAggSpill
 
 ## Location
-src/backend/executor/nodeAgg.c: 331 - 339
+[src/backend/executor/nodeAgg.c:331-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L331-L339)
 
 ## Overview
 HashAggSpill represents partitioned spill data for a single hashtable in PostgreSQL's hash aggregation implementation, containing necessary information to route tuples to correct partitions and transform spilled data into new batches.

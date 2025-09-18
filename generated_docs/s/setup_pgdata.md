@@ -1,7 +1,7 @@
 # setup_pgdata
 
 ## Location
-src/bin/initdb/initdb.c: 2589 - 2625
+[src/bin/initdb/initdb.c:2589-2625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2589-L2625)
 
 ## Overview
 Establishes and validates the PostgreSQL data directory path during database initialization, either from command-line options or the PGDATA environment variable.

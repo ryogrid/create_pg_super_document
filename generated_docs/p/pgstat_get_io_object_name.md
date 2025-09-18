@@ -1,7 +1,7 @@
 # pgstat_get_io_object_name
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 240 - 254
+[src/backend/utils/activity/pgstat_io.c:240-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L240-L254)
 
 ## Overview
 Returns a human-readable string representation of PostgreSQL I/O object enumeration values.

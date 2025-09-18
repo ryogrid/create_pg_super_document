@@ -1,7 +1,7 @@
 # varatt_indirect
 
 ## Location
-src/include/varatt.h: 57 - 60
+[src/include/varatt.h:57-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/varatt.h#L57-L60)
 
 ## Overview
 A structure representing a "TOAST pointer" for out-of-line Datum stored in memory rather than in an external TOAST relation.

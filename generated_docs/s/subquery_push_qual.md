@@ -1,7 +1,7 @@
 # subquery_push_qual
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3956 - 4002
+[src/backend/optimizer/path/allpaths.c:3956-4002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3956-L4002)
 
 ## Overview
 This function performs the actual pushdown of a previously validated restriction clause into a subquery, handling variable substitution and proper placement within the subquery structure.

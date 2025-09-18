@@ -1,7 +1,7 @@
 # binaryheap_build
 
 ## Location
-src/common/binaryheap.c: 138 - 153
+[src/common/binaryheap.c:138-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L138-L153)
 
 ## Overview
 A function that transforms an array of unordered elements into a valid binary heap structure in O(n) time using the bottom-up heap construction algorithm.

@@ -1,7 +1,7 @@
 # assign_tcp_keepalives_idle
 
 ## Location
-src/backend/libpq/pqcomm.c: 1951 - 1970
+[src/backend/libpq/pqcomm.c:1951-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1951-L1970)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that applies changes to the tcp_keepalives_idle configuration parameter by setting the TCP keep-alive idle time for the current process's port connection.

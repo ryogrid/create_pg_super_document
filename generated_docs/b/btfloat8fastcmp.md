@@ -1,7 +1,7 @@
 # btfloat8fastcmp
 
 ## Location
-src/backend/utils/adt/float.c: 976 - 984
+[src/backend/utils/adt/float.c:976-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L976-L984)
 
 ## Overview
 Internal static function that provides optimized three-way comparison between two double-precision floating-point numbers for sort support operations in PostgreSQL.

@@ -1,7 +1,7 @@
 # set_cte_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5967 - 6004
+[src/backend/optimizer/path/costsize.c:5967-6004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5967-L6004)
 
 ## Overview
 Sets the size estimates for a base relation that represents a Common Table Expression (CTE) reference, handling both regular and recursive CTE cases.

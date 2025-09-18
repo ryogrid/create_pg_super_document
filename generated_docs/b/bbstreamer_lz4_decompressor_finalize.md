@@ -1,7 +1,7 @@
 # bbstreamer_lz4_decompressor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 390 - 411
+[src/bin/pg_basebackup/bbstreamer_lz4.c:390-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L390-L411)
 
 ## Overview
 Handles end-of-stream processing for LZ4 decompression by forwarding any remaining buffered data to the next streamer and finalizing the entire processing chain.

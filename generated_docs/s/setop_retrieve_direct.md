@@ -1,7 +1,7 @@
 # setop_retrieve_direct
 
 ## Location
-src/backend/executor/nodeSetOp.c: 227 - 338
+[src/backend/executor/nodeSetOp.c:227-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L227-L338)
 
 ## Overview
 setop_retrieve_direct implements the direct (non-hashed) strategy for set operations, processing sorted input tuples by grouping consecutive identical tuples and applying set operation logic.

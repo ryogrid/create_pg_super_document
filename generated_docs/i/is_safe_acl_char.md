@@ -1,7 +1,7 @@
 # is_safe_acl_char
 
 ## Location
-src/backend/utils/adt/acl.c: 142 - 164
+[src/backend/utils/adt/acl.c:142-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L142-L164)
 
 ## Overview
 Tests whether an identifier character can be left unquoted in Access Control Lists (ACLs), with special handling for high-bit-set characters to maintain compatibility with older PostgreSQL versions.

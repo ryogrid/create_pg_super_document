@@ -1,7 +1,7 @@
 # save_global_locale
 
 ## Location
-src/bin/initdb/initdb.c: 362 - 385
+[src/bin/initdb/initdb.c:362-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L362-L385)
 
 ## Overview
 Saves a copy of the current global locale's name for a given category, with proper handling for non-ASCII characters on Windows systems.

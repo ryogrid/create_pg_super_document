@@ -1,7 +1,7 @@
 # pg_get_object_address
 
 ## Location
-src/backend/catalog/objectaddress.c: 2100 - 2381
+[src/backend/catalog/objectaddress.c:2100-2381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2100-L2381)
 
 ## Overview
 SQL-callable function that converts text-based object identifiers into PostgreSQL's internal ObjectAddress structure, providing a standardized way to identify database objects from SQL commands.

@@ -1,7 +1,7 @@
 # pg_size_bytes
 
 ## Location
-src/backend/utils/adt/dbsize.c: 713 - 878
+[src/backend/utils/adt/dbsize.c:713-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L713-L878)
 
 ## Overview
 This PostgreSQL SQL function converts a human-readable size string (with units like 'MB', 'GB') back into a numeric byte value as an int64.

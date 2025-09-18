@@ -1,7 +1,7 @@
 # ExecInitSort
 
 ## Location
-src/backend/executor/nodeSort.c: 221 - 300
+[src/backend/executor/nodeSort.c:221-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L221-L300)
 
 ## Overview
 Initializes the runtime state for a Sort plan node, creating the SortState structure and setting up execution parameters for tuple sorting operations.

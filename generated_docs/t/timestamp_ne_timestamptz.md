@@ -1,7 +1,7 @@
 # timestamp_ne_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2355 - 2363
+[src/backend/utils/adt/timestamp.c:2355-2363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2355-L2363)
 
 ## Overview
 This function implements the not-equal comparison operator (<>) between a timestamp without timezone and a timestamptz (timestamp with timezone) value.

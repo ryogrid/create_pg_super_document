@@ -1,7 +1,7 @@
 # cb_tablespace_mapping
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 60 - 65
+[src/bin/pg_combinebackup/pg_combinebackup.c:60-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L60-L65)
 
 ## Overview
 A structure that stores tablespace directory mappings provided via the -T/--tablespace-mapping command line option in pg_combinebackup.

@@ -1,7 +1,7 @@
 # NumericData
 
 ## Location
-src/backend/utils/adt/numeric.c: 153 - 163
+[src/backend/utils/adt/numeric.c:153-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L153-L163)
 
 ## Overview
 NumericData is the top-level structure for PostgreSQL numeric values, providing the varlena header and containing the union of possible numeric storage formats.

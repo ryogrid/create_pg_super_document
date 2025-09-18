@@ -1,7 +1,7 @@
 # network_show
 
 ## Location
-src/backend/utils/adt/network.c: 1199 - 1221
+[src/backend/utils/adt/network.c:1199-1221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1199-L1221)
 
 ## Overview
 Implements the inet and cidr casts to text, providing a complete network representation including both the address and netmask components.

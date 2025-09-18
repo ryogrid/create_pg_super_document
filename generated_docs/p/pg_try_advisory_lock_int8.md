@@ -1,7 +1,7 @@
 # pg_try_advisory_lock_int8
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 694 - 713
+[src/backend/utils/adt/lockfuncs.c:694-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L694-L713)
 
 ## Overview
 Attempts to acquire a session-scoped exclusive advisory lock on a 64-bit integer key without blocking, returning a boolean indicating success or failure.

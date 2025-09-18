@@ -1,7 +1,7 @@
 # sts_estimate
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 104 - 125
+[src/backend/utils/sort/sharedtuplestore.c:104-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L104-L125)
 
 ## Overview
 Calculates the amount of shared memory required to allocate a SharedTuplestore for a given number of participants.

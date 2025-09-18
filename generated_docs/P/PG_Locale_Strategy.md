@@ -1,7 +1,7 @@
 # PG_Locale_Strategy
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 75 - 83
+[src/backend/regex/regc_pg_locale.c:75-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L75-L83)
 
 ## Overview
 An enumeration that defines different strategies for locale-dependent character type operations in PostgreSQL's regular expression engine.

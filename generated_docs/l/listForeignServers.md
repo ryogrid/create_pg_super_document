@@ -1,7 +1,7 @@
 # listForeignServers
 
 ## Location
-src/bin/psql/describe.c: 5799 - 5874
+[src/bin/psql/describe.c:5799-5874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5799-L5874)
 
 ## Overview
 Lists foreign servers in the PostgreSQL database, showing their names, owners, associated foreign data wrappers, and optionally detailed configuration information.

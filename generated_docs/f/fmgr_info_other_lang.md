@@ -1,7 +1,7 @@
 # fmgr_info_other_lang
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 418 - 454
+[src/backend/utils/fmgr/fmgr.c:418-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L418-L454)
 
 ## Overview
 This static function handles special processing for initializing FmgrInfo structures for functions written in procedural languages other than C (e.g., PL/pgSQL, PL/Python).

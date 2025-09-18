@@ -1,7 +1,7 @@
 # timerange_option
 
 ## Location
-src/timezone/zic.c: 602 - 643
+[src/timezone/zic.c:602-643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L602-L643)
 
 ## Overview
 Parses and sets the time range for timezone compilation output in the PostgreSQL timezone utility (zic). This function validates and configures the time boundaries for generated timezone data files.

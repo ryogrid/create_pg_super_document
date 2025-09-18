@@ -1,7 +1,7 @@
 # assign_special_exec_param
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 664 - 671
+[src/backend/optimizer/util/paramassign.c:664-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L664-L671)
 
 ## Overview
 Assigns a unique execution parameter ID for special runtime signaling purposes without creating an actual Param node.

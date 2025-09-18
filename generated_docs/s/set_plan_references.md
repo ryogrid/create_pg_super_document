@@ -1,7 +1,7 @@
 # set_plan_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 287 - 390
+[src/backend/optimizer/plan/setrefs.c:287-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L287-L390)
 
 ## Overview
 The final processing pass of the planner/optimizer that adjusts representational details in the plan tree for the convenience of the executor.

@@ -1,7 +1,7 @@
 # convert_int_from_base_unit
 
 ## Location
-src/backend/utils/misc/guc.c: 2731 - 2772
+[src/backend/utils/misc/guc.c:2731-2772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2731-L2772)
 
 ## Overview
 convert_int_from_base_unit converts PostgreSQL internal base unit values back to human-friendly units for display, selecting the largest unit that represents the value without loss.

@@ -1,7 +1,7 @@
 # SetHintBits
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 114 - 140
+[src/backend/access/heap/heapam_visibility.c:114-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L114-L140)
 
 ## Overview
 Sets commit/abort hint bits on a tuple header when it is safe to do so, optimizing future visibility checks by caching transaction status information directly in the tuple header.

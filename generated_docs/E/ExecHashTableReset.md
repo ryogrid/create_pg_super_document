@@ -1,7 +1,7 @@
 # ExecHashTableReset
 
 ## Location
-src/backend/executor/nodeHash.c: 2306 - 2333
+[src/backend/executor/nodeHash.c:2306-2333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2306-L2333)
 
 ## Overview
 Resets a hash table for processing a new batch in batched hash join operations, clearing all existing data and reinitializing the table structure.

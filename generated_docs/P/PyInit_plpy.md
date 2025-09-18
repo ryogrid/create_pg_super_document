@@ -1,7 +1,7 @@
 # PyInit_plpy
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 129 - 142
+[src/pl/plpython/plpy_plpymodule.c:129-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L129-L142)
 
 ## Overview
 PyInit_plpy is the Python module initialization function for the plpy module, which is the Python interface to PostgreSQL's PL/Python language extension.

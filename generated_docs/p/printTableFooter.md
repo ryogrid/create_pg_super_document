@@ -1,7 +1,7 @@
 # printTableFooter
 
 ## Location
-src/include/fe_utils/print.h: 153 - 157
+[src/include/fe_utils/print.h:153-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L153-L157)
 
 ## Overview
 A linked list node structure that represents table footer text elements, allowing dynamic addition of multiple footer lines to table output in PostgreSQL frontend utilities.

@@ -1,7 +1,7 @@
 # _avl_node
 
 ## Location
-src/bin/psql/crosstabview.c: 50 - 66
+[src/bin/psql/crosstabview.c:50-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L50-L66)
 
 ## Overview
 The _avl_node structure represents a node in an AVL (Adelson-Velsky and Landis) balanced binary search tree used for organizing pivot fields in psql's crosstabview functionality.

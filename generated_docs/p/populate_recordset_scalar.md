@@ -1,7 +1,7 @@
 # populate_recordset_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4288 - 4304
+[src/backend/utils/adt/jsonfuncs.c:4288-4304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4288-L4304)
 
 ## Overview
 A static function that handles scalar values during JSON recordset population, validating input structure and storing scalar values at the appropriate nesting level.

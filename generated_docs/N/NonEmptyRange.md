@@ -1,7 +1,7 @@
 # NonEmptyRange
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 98 - 109
+[src/backend/utils/adt/rangetypes_gist.c:98-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L98-L109)
 
 ## Overview
 A structure that holds the extracted lower and upper bounds from a non-empty range, used specifically in the range_gist_double_sorting_split algorithm.

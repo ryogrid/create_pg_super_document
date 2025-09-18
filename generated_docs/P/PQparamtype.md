@@ -1,7 +1,7 @@
 # PQparamtype
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3926 - 3943
+[src/interfaces/libpq/fe-exec.c:3926-3943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3926-L3943)
 
 ## Overview
 PQparamtype returns the PostgreSQL data type OID of a specified parameter in a prepared statement.

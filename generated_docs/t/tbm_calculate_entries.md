@@ -1,7 +1,7 @@
 # tbm_calculate_entries
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1542 - 1558
+[src/backend/nodes/tidbitmap.c:1542-1558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1542-L1558)
 
 ## Overview
 Estimates the number of hashtable entries that can fit within a specified memory budget for TID bitmap operations.

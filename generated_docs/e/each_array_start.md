@@ -1,7 +1,7 @@
 # each_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2166 - 2179
+[src/backend/utils/adt/jsonfuncs.c:2166-2179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2166-L2179)
 
 ## Overview
 A callback function used during JSON parsing that validates the structure when encountering the start of an array, ensuring arrays are not being deconstructed as objects.

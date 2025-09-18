@@ -1,7 +1,7 @@
 # CheckProcSignal
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 614 - 634
+[src/backend/storage/ipc/procsignal.c:614-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L614-L634)
 
 ## Overview
 CheckProcSignal is a static utility function that checks if a specific process signal reason has been signaled and clears the signal flag atomically.

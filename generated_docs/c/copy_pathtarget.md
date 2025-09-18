@@ -1,7 +1,7 @@
 # copy_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 657 - 680
+[src/backend/optimizer/util/tlist.c:657-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L657-L680)
 
 ## Overview
 Creates a shallow copy of a PathTarget structure, duplicating the container and sortgrouprefs array while sharing the underlying expression trees with the original.

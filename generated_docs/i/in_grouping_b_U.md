@@ -1,7 +1,7 @@
 # in_grouping_b_U
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 129 - 140
+[src/backend/snowball/libstemmer/utilities.c:129-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L129-L140)
 
 ## Overview
 Checks if the character preceding the current cursor position belongs to a specified character group, moving the cursor backward if a match is found.

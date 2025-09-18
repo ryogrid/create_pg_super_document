@@ -1,7 +1,7 @@
 # CleanQuerytext
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 66 - 104
+[src/backend/nodes/queryjumblefuncs.c:66-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L66-L104)
 
 ## Overview
 CleanQuerytext is a utility function that processes SQL query text by trimming it to the relevant portion and removing leading/trailing whitespace for query normalization purposes.

@@ -1,7 +1,7 @@
 # WalWriteMethodOps
 
 ## Location
-src/bin/pg_basebackup/walmethods.h: 41 - 93
+[src/bin/pg_basebackup/walmethods.h:41-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.h#L41-L93)
 
 ## Overview
 WalWriteMethodOps is a table of callback functions that defines the interface for WAL writing operations in PostgreSQL backup utilities.

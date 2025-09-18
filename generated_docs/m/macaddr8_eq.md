@@ -1,7 +1,7 @@
 # macaddr8_eq
 
 ## Location
-src/backend/utils/adt/mac8.c: 356 - 364
+[src/backend/utils/adt/mac8.c:356-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L356-L364)
 
 ## Overview
 PostgreSQL function that implements the equality (=) comparison operator for macaddr8 values, returning a boolean result.

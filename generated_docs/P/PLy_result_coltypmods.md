@@ -1,7 +1,7 @@
 # PLy_result_coltypmods
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 161 - 186
+[src/pl/plpython/plpy_resultobject.c:161-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L161-L186)
 
 ## Overview
 Returns a list of type modifier values for all columns in a PLython result object, providing information about column constraints like precision and scale.

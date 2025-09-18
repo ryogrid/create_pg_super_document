@@ -1,7 +1,7 @@
 # addFkConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 10123 - 10295
+[src/backend/commands/tablecmds.c:10123-10295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10123-L10295)
 
 ## Overview
 Creates and installs pg_constraint entries to implement a foreign key constraint, handling constraint naming, inheritance properties, and dependency relationships for both regular and partitioned tables.

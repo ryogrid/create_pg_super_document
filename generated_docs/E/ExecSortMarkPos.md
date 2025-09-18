@@ -1,7 +1,7 @@
 # ExecSortMarkPos
 
 ## Location
-src/backend/executor/nodeSort.c: 329 - 346
+[src/backend/executor/nodeSort.c:329-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L329-L346)
 
 ## Overview
 Marks the current position in a sorted result set, allowing for later restoration to this position via ExecSortRestrPos.

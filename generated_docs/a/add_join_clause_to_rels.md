@@ -1,7 +1,7 @@
 # add_join_clause_to_rels
 
 ## Location
-src/backend/optimizer/util/joininfo.c: 98 - 160
+[src/backend/optimizer/util/joininfo.c:98-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/joininfo.c#L98-L160)
 
 ## Overview
 Adds a join restriction clause to the joininfo list of each relation that participates in the join, enabling the query optimizer to track which relations can be joined together.

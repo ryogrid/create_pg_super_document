@@ -1,7 +1,7 @@
 # contain_context_dependent_node
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1179 - 1185
+[src/backend/optimizer/util/clauses.c:1179-1185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1179-L1185)
 
 ## Overview
 A function that searches for context-dependent nodes within a clause that could cause problems if moved or inlined improperly.

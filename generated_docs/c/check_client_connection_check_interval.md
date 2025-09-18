@@ -1,7 +1,7 @@
 # check_client_connection_check_interval
 
 ## Location
-src/backend/tcop/postgres.c: 3633 - 3653
+[src/backend/tcop/postgres.c:3633-3653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3633-L3653)
 
 ## Overview
 A GUC check hook function that validates the client_connection_check_interval configuration parameter, ensuring it's set to 0 on platforms that don't support connection state reporting.

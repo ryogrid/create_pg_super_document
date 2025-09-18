@@ -1,7 +1,7 @@
 # _hash_binsearch
 
 ## Location
-src/backend/access/hash/hashutil.c: 350 - 387
+[src/backend/access/hash/hashutil.c:350-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L350-L387)
 
 ## Overview
 Returns the offset number in a hash index page where a specified hash value should be sought or inserted using binary search.

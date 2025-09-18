@@ -1,7 +1,7 @@
 # show_grouping_set_keys
 
 ## Location
-src/backend/commands/explain.c: 2661 - 2738
+[src/backend/commands/explain.c:2661-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2661-L2738)
 
 ## Overview
 Displays the detailed key information for individual grouping sets within complex GROUP BY operations, handling both hashed and sorted aggregation strategies.

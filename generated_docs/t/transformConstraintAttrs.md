@@ -1,7 +1,7 @@
 # transformConstraintAttrs
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3637 - 3643
+[src/backend/parser/parse_utilcmd.c:3637-3643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3637-L3643)
 
 ## Overview
 Preprocesses a list of column constraint clauses to attach constraint attributes to their primary constraint nodes and detect inconsistent or misplaced constraint attributes.

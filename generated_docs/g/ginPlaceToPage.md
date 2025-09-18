@@ -1,7 +1,7 @@
 # ginPlaceToPage
 
 ## Location
-src/backend/access/gin/ginbtree.c: 337 - 671
+[src/backend/access/gin/ginbtree.c:337-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L337-L671)
 
 ## Overview
 ginPlaceToPage handles the insertion of new items to a GIN B-tree page, managing page splits when necessary and maintaining B-tree consistency through proper WAL logging and locking.

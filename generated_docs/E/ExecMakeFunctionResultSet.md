@@ -1,7 +1,7 @@
 # ExecMakeFunctionResultSet
 
 ## Location
-src/backend/executor/execSRF.c: 497 - 695
+[src/backend/executor/execSRF.c:497-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L497-L695)
 
 ## Overview
 Evaluates arguments and executes a set-returning function call for target list expressions, managing both ValuePerCall and Materialize protocols with proper state management across multiple result rows.

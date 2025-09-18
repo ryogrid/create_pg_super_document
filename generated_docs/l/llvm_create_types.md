@@ -1,7 +1,7 @@
 # llvm_create_types
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1091 - 1144
+[src/backend/jit/llvm/llvmjit.c:1091-1144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1091-L1144)
 
 ## Overview
 Loads and initializes PostgreSQL data structure type definitions and function templates from a precompiled LLVM bitcode module for use in JIT compilation.

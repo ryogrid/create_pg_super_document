@@ -1,7 +1,7 @@
 # random_init_pool
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 91 - 134
+[src/backend/optimizer/geqo/geqo_pool.c:91-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L91-L134)
 
 ## Overview
 Initializes a genetic algorithm pool with randomly generated valid chromosomes, each representing a potential query execution plan with an evaluated fitness score.

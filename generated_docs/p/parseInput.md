@@ -1,7 +1,7 @@
 # parseInput
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2020 - 2030
+[src/interfaces/libpq/fe-exec.c:2020-2030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2020-L2030)
 
 ## Overview
 Internal function that parses input data from the backend until input is exhausted or a stopping state is reached, without attempting to read more data from the backend.

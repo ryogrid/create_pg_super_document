@@ -1,7 +1,7 @@
 # setCompoundAffixFlagValue
 
 ## Location
-src/backend/tsearch/spell.c: 1032 - 1067
+[src/backend/tsearch/spell.c:1032-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1032-L1067)
 
 ## Overview
 Sets the flag and value properties of a CompoundAffixFlag entry based on the dictionary's flag mode configuration.

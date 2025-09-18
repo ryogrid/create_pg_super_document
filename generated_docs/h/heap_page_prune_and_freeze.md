@@ -1,7 +1,7 @@
 # heap_page_prune_and_freeze
 
 ## Location
-src/backend/access/heap/pruneheap.c: 350 - 916
+[src/backend/access/heap/pruneheap.c:350-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L350-L916)
 
 ## Overview
 heap_page_prune_and_freeze is the core function that performs heap page maintenance by pruning dead tuples, repairing fragmentation, and optionally freezing tuples to advance relation-level transaction ID horizons.

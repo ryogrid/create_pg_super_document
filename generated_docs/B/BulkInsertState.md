@@ -1,7 +1,7 @@
 # BulkInsertState
 
 ## Location
-src/include/access/heapam.h: 44 - 47
+[src/include/access/heapam.h:44-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L44-L47)
 
 ## Overview
 BulkInsertState is a typedef for BulkInsertStateData pointer that manages state information during bulk insertion operations, providing optimizations for buffer management and page extensions in heap relations.

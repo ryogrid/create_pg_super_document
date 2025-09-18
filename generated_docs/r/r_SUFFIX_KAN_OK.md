@@ -1,7 +1,7 @@
 # r_SUFFIX_KAN_OK
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 147 - 153
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:147-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L147-L153)
 
 ## Overview
 A static boolean function in the Indonesian stemmer that validates whether the '-kan' suffix removal is acceptable based on morphological rules.

@@ -1,7 +1,7 @@
 # tuplesort_begin_heap
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 168 - 242
+[src/backend/utils/sort/tuplesortvariants.c:168-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L168-L242)
 
 ## Overview
 Initializes a Tuplesortstate for sorting heap tuples with support for multiple sort keys, memory management, and various optimization strategies including abbreviation and parallel sorting.

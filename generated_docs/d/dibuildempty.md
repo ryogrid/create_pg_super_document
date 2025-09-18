@@ -1,7 +1,7 @@
 # dibuildempty
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 157 - 165
+[src/test/modules/dummy_index_am/dummy_index_am.c:157-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L157-L165)
 
 ## Overview
 A no-op function that handles building an empty index for the initialization fork in the dummy index access method.

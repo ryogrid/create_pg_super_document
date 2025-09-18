@@ -1,7 +1,7 @@
 # compare_scalars
 
 ## Location
-src/backend/commands/analyze.c: 2885 - 2915
+[src/backend/commands/analyze.c:2885-2915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2885-L2915)
 
 ## Overview
 A comparator function used for sorting ScalarItems during PostgreSQL's ANALYZE operation, which also maintains equality tracking information to optimize statistical computations.

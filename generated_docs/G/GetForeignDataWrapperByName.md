@@ -1,7 +1,7 @@
 # GetForeignDataWrapperByName
 
 ## Location
-src/backend/foreign/foreign.c: 96 - 110
+[src/backend/foreign/foreign.c:96-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L96-L110)
 
 ## Overview
 Retrieves a foreign-data wrapper object by its name, providing a name-based lookup interface with optional error handling for missing wrappers.

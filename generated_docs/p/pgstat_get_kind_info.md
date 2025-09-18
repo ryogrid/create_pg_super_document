@@ -1,7 +1,7 @@
 # pgstat_get_kind_info
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1265 - 1278
+[src/backend/utils/activity/pgstat.c:1265-1278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1265-L1278)
 
 ## Overview
 Returns a pointer to the kind information structure for the specified PostgreSQL statistics kind, providing access to metadata about how statistics are managed for that particular object type.

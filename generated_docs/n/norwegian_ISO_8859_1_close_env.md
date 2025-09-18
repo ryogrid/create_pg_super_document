@@ -1,7 +1,7 @@
 # norwegian_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c: 271 - 272
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c:271-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c#L271-L272)
 
 ## Overview
 A cleanup function that deallocates and closes a Norwegian stemmer environment for ISO-8859-1 encoded text processing in PostgreSQL's Snowball stemming library.

@@ -1,7 +1,7 @@
 # ExecLimit
 
 ## Location
-src/backend/executor/nodeLimit.c: 40 - 352
+[src/backend/executor/nodeLimit.c:40-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLimit.c#L40-L352)
 
 ## Overview
 ExecLimit implements the execution logic for LIMIT/OFFSET filtering, managing a state machine that controls tuple flow from a subplan to enforce row count limits and offset requirements.

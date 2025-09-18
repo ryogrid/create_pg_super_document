@@ -1,7 +1,7 @@
 # CheckSelectLocking
 
 ## Location
-src/backend/parser/analyze.c: 3238 - 3301
+[src/backend/parser/analyze.c:3238-3301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3238-L3301)
 
 ## Overview
 Validates that row locking clauses (FOR UPDATE/SHARE) are not used with incompatible SQL features in a query.

@@ -1,7 +1,7 @@
 # ParallelSlotsWaitCompletion
 
 ## Location
-src/fe_utils/parallel_slot.c: 501 - 539
+[src/fe_utils/parallel_slot.c:501-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L501-L539)
 
 ## Overview
 Waits for all active connections in a parallel slots array to complete their current operations, returning false if any errors are encountered during processing.

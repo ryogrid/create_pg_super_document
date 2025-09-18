@@ -1,7 +1,7 @@
 # CreateOpFamily
 
 ## Location
-src/backend/commands/opclasscmds.c: 243 - 332
+[src/backend/commands/opclasscmds.c:243-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L243-L332)
 
 ## Overview
 CreateOpFamily is a static function that creates a new operator family entry in the PostgreSQL system catalog, handling all necessary catalog updates and dependency management.

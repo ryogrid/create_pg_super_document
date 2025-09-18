@@ -1,7 +1,7 @@
 # aclexplode
 
 ## Location
-src/backend/utils/adt/acl.c: 1791 - 1894
+[src/backend/utils/adt/acl.c:1791-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1791-L1894)
 
 ## Overview
 Converts an ACL (Access Control List) array into a tabular format, with one row per individual privilege grant.

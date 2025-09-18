@@ -1,7 +1,7 @@
 # create_group_result_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1518 - 1565
+[src/backend/optimizer/util/pathnode.c:1518-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1518-L1565)
 
 ## Overview
 Creates a path representing a Result-and-nothing-else plan for degenerate grouping cases that need to produce exactly one result row.

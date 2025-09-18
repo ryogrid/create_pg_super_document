@@ -1,7 +1,7 @@
 # cluster_one_database
 
 ## Location
-src/bin/scripts/clusterdb.c: 190 - 227
+[src/bin/scripts/clusterdb.c:190-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/clusterdb.c#L190-L227)
 
 ## Overview
 Performs clustering operation on a single database or a specific table within that database using the PostgreSQL CLUSTER command.

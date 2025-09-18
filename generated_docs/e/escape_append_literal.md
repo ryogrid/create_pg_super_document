@@ -1,7 +1,7 @@
 # escape_append_literal
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 379 - 388
+[src/test/modules/test_escape/test_escape.c:379-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L379-L388)
 
 ## Overview
 A static helper function that appends a properly escaped string literal to a PQExpBuffer using PostgreSQL's string escaping rules.

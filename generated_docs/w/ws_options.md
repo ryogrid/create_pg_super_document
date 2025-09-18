@@ -1,7 +1,7 @@
 # ws_options
 
 ## Location
-src/bin/pg_walsummary/pg_walsummary.c: 25 - 29
+[src/bin/pg_walsummary/pg_walsummary.c:25-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_walsummary/pg_walsummary.c#L25-L29)
 
 ## Overview
 The `ws_options` structure defines configuration options for the `pg_walsummary` command-line utility, controlling output behavior when printing WAL summary file contents.

@@ -1,7 +1,7 @@
 # getNextNearest
 
 ## Location
-src/backend/access/gist/gistget.c: 560 - 611
+[src/backend/access/gist/gistget.c:560-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L560-L611)
 
 ## Overview
 getNextNearest fetches the next heap tuple in an ordered GiST index scan by processing search queue items in distance order until a heap tuple is found.

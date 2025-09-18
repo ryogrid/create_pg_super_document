@@ -1,7 +1,7 @@
 # pg_atomic_flag
 
 ## Location
-src/include/port/atomics/arch-x86.h: 57 - 60
+[src/include/port/atomics/arch-x86.h:57-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/arch-x86.h#L57-L60)
 
 ## Overview
 A lightweight atomic flag structure providing lock-free synchronization primitives in PostgreSQL for implementing test-and-set operations and basic spinlocks.

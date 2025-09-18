@@ -1,7 +1,7 @@
 # fix_path_separator
 
 ## Location
-src/bin/pg_upgrade/check.c: 538 - 558
+[src/bin/pg_upgrade/check.c:538-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L538-L558)
 
 ## Overview
 Normalizes file path separators for cross-platform compatibility, converting forward slashes to backslashes on Windows systems while leaving paths unchanged on other platforms.

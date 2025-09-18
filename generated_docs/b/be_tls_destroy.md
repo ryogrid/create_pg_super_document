@@ -1,7 +1,7 @@
 # be_tls_destroy
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 426 - 434
+[src/backend/libpq/be-secure-openssl.c:426-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L426-L434)
 
 ## Overview
 Cleans up and destroys the OpenSSL TLS/SSL context, freeing all associated resources and resetting SSL state variables.

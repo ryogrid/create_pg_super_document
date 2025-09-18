@@ -1,7 +1,7 @@
 # FakeRelCacheEntryData
 
 ## Location
-src/backend/access/transam/xlogutils.c: 563 - 564
+[src/backend/access/transam/xlogutils.c:563-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L563-L564)
 
 ## Overview
 FakeRelCacheEntryData is a struct used to create minimal fake relation cache entries during XLOG replay and WAL-skipped file synchronization when a full relation cache is not available.

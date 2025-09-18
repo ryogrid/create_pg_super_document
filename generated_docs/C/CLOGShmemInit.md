@@ -1,7 +1,7 @@
 # CLOGShmemInit
 
 ## Location
-src/backend/access/transam/clog.c: 787 - 820
+[src/backend/access/transam/clog.c:787-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L787-L820)
 
 ## Overview
 Initializes the shared memory structures for the Commit Log (CLOG) subsystem, including auto-tuning of transaction buffers and setting up the Simple LRU (SLRU) control structure.

@@ -1,7 +1,7 @@
 # check_and_dump_old_cluster
 
 ## Location
-src/bin/pg_upgrade/check.c: 577 - 685
+[src/bin/pg_upgrade/check.c:577-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L577-L685)
 
 ## Overview
 Performs comprehensive validation and analysis of the old PostgreSQL cluster during upgrade, running version-specific compatibility checks and optionally generating a schema dump for migration.

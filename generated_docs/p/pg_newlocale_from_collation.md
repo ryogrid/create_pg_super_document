@@ -1,7 +1,7 @@
 # pg_newlocale_from_collation
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1574 - 1751
+[src/backend/utils/adt/pg_locale.c:1574-1751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1574-L1751)
 
 ## Overview
 Creates and caches a PostgreSQL locale object from a collation OID, supporting multiple collation providers (builtin, libc, ICU) with lifetime caching and version validation.

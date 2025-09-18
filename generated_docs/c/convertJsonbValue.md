@@ -1,7 +1,7 @@
 # convertJsonbValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1596 - 1620
+[src/backend/utils/adt/jsonb_util.c:1596-1620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1596-L1620)
 
 ## Overview
 A recursive static function that serves as the main dispatcher for serializing individual JsonbValue structures into binary JSONB format, handling the conversion of scalars, arrays, and objects.

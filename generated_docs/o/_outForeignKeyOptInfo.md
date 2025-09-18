@@ -1,7 +1,7 @@
 # _outForeignKeyOptInfo
 
 ## Location
-src/backend/nodes/outfuncs.c: 429 - 454
+[src/backend/nodes/outfuncs.c:429-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L429-L454)
 
 ## Overview
 Serializes a ForeignKeyOptInfo node to its string representation, outputting foreign key constraint metadata and optimization statistics used by PostgreSQL's query planner for join optimization.

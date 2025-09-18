@@ -1,7 +1,7 @@
 # TBempl
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-binary.c: 32 - 52
+[src/interfaces/ecpg/test/expected/sql-binary.c:32-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-binary.c#L32-L52)
 
 ## Overview
 TBempl is a test structure used in the ECPG (Embedded SQL in C for PostgreSQL) preprocessor tests to demonstrate custom type definitions and employee data representation.

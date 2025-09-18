@@ -1,7 +1,7 @@
 # SyncRepCleanupAtProcExit
 
 ## Location
-src/backend/replication/syncrep.c: 416 - 444
+[src/backend/replication/syncrep.c:416-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L416-L444)
 
 ## Overview
 Performs cleanup of synchronous replication state when a process exits, ensuring that the process is properly removed from any synchronous replication wait queues.

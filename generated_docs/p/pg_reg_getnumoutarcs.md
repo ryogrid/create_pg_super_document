@@ -1,7 +1,7 @@
 # pg_reg_getnumoutarcs
 
 ## Location
-src/backend/regex/regexport.c: 134 - 154
+[src/backend/regex/regexport.c:134-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L134-L154)
 
 ## Overview
 Returns the count of outgoing regular arcs from a specified state in the NFA, automatically traversing and masking LACON arcs.

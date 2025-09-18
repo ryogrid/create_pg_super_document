@@ -1,7 +1,7 @@
 # is_safe_restriction_clause_for
 
 ## Location
-src/backend/optimizer/util/orclauses.c: 126 - 155
+[src/backend/optimizer/util/orclauses.c:126-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/orclauses.c#L126-L155)
 
 ## Overview
 Determines whether a primitive (non-OR) RestrictInfo clause is safe to move to a specific relation as a restriction clause.

@@ -1,7 +1,7 @@
 # _bt_first
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 876 - 1495
+[src/backend/access/nbtree/nbtsearch.c:876-1495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L876-L1495)
 
 ## Overview
 Finds the first item in a B-tree scan, positioning the scan at the appropriate starting point based on the scan keys and direction, handling complex scenarios like parallel scans and array keys.

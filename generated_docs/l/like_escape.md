@@ -1,7 +1,7 @@
 # like_escape
 
 ## Location
-src/backend/utils/adt/like.c: 428 - 446
+[src/backend/utils/adt/like.c:428-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L428-L446)
 
 ## Overview
 A PostgreSQL function that converts LIKE patterns with custom ESCAPE characters to PostgreSQL's standard backslash escape convention.

@@ -1,7 +1,7 @@
 # WaitForBackgroundWorkerStartup
 
 ## Location
-src/backend/postmaster/bgworker.c: 1137 - 1181
+[src/backend/postmaster/bgworker.c:1137-1181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1137-L1181)
 
 ## Overview
 Waits for a background worker to start up, blocking until the worker transitions from NOT_YET_STARTED to either STARTED or STOPPED status.

@@ -1,7 +1,7 @@
 # _indxInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 404 - 424
+[src/bin/pg_dump/pg_dump.h:404-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L404-L424)
 
 ## Overview
 The  structure stores comprehensive metadata about database indexes in pg_dump, including index definitions, storage options, and relationship information for proper index reconstruction.

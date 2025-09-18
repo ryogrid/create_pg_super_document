@@ -1,7 +1,7 @@
 # run_named_permutations
 
 ## Location
-src/test/isolation/isolationtester.c: 486 - 498
+[src/test/isolation/isolationtester.c:486-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/isolationtester.c#L486-L498)
 
 ## Overview
 Executes specific named permutations that are explicitly defined in the test specification rather than generating all possible permutations automatically.

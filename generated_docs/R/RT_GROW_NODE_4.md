@@ -1,7 +1,7 @@
 # RT_GROW_NODE_4
 
 ## Location
-src/include/lib/radixtree.h: 1479 - 1512
+[src/include/lib/radixtree.h:1479-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1479-L1512)
 
 ## Overview
 A macro that generates the function name for growing a radix tree node-4 to a larger node type when it reaches capacity, enabling dynamic node size expansion in radix trees.

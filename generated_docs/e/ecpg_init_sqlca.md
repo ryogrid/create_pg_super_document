@@ -1,7 +1,7 @@
 # ecpg_init_sqlca
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 67 - 72
+[src/interfaces/ecpg/ecpglib/misc.c:67-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L67-L72)
 
 ## Overview
 Initializes a SQLCA (SQL Communication Area) structure with default values by copying from a predefined template structure.

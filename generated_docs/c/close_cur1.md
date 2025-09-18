@@ -1,7 +1,7 @@
 # close_cur1
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 251 - 261
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:251-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L251-L261)
 
 ## Overview
 A static function that closes a database cursor in ECPG test code, properly releasing cursor resources after completion of cursor operations.

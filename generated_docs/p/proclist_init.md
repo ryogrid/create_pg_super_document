@@ -1,7 +1,7 @@
 # proclist_init
 
 ## Location
-src/include/storage/proclist.h: 29 - 37
+[src/include/storage/proclist.h:29-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L29-L37)
 
 ## Overview
 Initializes a proclist data structure by setting both head and tail pointers to indicate an empty list.

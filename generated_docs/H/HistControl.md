@@ -1,7 +1,7 @@
 # HistControl
 
 ## Location
-src/bin/psql/settings.h: 71 - 72
+[src/bin/psql/settings.h:71-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/settings.h#L71-L72)
 
 ## Overview
 HistControl is an enumeration type that defines command history filtering behavior in psql, controlling which commands are saved to or excluded from the command history.

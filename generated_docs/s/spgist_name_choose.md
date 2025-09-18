@@ -1,7 +1,7 @@
 # spgist_name_choose
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 124 - 265
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:124-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L124-L265)
 
 ## Overview
 The choose function for SP-GiST name operator class that determines how to navigate or modify the index tree when inserting a new name value.

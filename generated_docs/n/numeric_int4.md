@@ -1,7 +1,7 @@
 # numeric_int4
 
 ## Location
-src/backend/utils/adt/numeric.c: 4463 - 4475
+[src/backend/utils/adt/numeric.c:4463-4475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4463-L4475)
 
 ## Overview
 PostgreSQL SQL function that converts a Numeric value to a 32-bit signed integer (int4).

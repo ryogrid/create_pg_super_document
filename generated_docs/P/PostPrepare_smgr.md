@@ -1,7 +1,7 @@
 # PostPrepare_smgr
 
 ## Location
-src/backend/catalog/storage.c: 918 - 938
+[src/backend/catalog/storage.c:918-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L918-L938)
 
 ## Overview
 PostPrepare_smgr cleans up the in-memory state of pending relation deletes after a successful PREPARE statement in two-phase commit (2PC) protocol, transferring responsibility from the storage manager to the 2PC state file.

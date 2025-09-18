@@ -1,7 +1,7 @@
 # _bt_check_unique
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 408 - 814
+[src/backend/access/nbtree/nbtinsert.c:408-814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L408-L814)
 
 ## Overview
 Checks for violations of unique index constraints by scanning for conflicting tuples and handling transaction wait scenarios.

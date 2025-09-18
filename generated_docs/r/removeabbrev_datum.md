@@ -1,7 +1,7 @@
 # removeabbrev_datum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1785 - 1793
+[src/backend/utils/sort/tuplesortvariants.c:1785-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1785-L1793)
 
 ## Overview
 Removes abbreviated keys from datum sorting structures and restores the original datum values used for comparison.

@@ -1,7 +1,7 @@
 # list_make1_impl
 
 ## Location
-src/backend/nodes/list.c: 236 - 245
+[src/backend/nodes/list.c:236-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L236-L245)
 
 ## Overview
 A convenience function that creates a new List containing exactly one element, providing the implementation for the list_make1 family of macros.

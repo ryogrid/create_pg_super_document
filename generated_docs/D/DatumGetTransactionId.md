@@ -1,7 +1,7 @@
 # DatumGetTransactionId
 
 ## Location
-src/include/postgres.h: 262 - 271
+[src/include/postgres.h:262-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L262-L271)
 
 ## Overview
 DatumGetTransactionId is a static inline function that extracts a transaction identifier (TransactionId) value from a Datum, serving as a type conversion utility for PostgreSQL's transaction management system.

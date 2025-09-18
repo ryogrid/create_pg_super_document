@@ -1,7 +1,7 @@
 # gimme_tour
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 196 - 239
+[src/backend/optimizer/geqo/geqo_erx.c:196-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L196-L239)
 
 ## Overview
 Creates a new tour using edges from the edge table, prioritizing shared edges between parent tours in the ERX crossover operation.

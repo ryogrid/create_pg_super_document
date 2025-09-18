@@ -1,7 +1,7 @@
 # listTables
 
 ## Location
-src/bin/psql/describe.c: 3909 - 4106
+[src/bin/psql/describe.c:3909-4106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3909-L4106)
 
 ## Overview
 A comprehensive psql command function that implements multiple table-related metacommands (\\dt, \\di, \\dv, etc.) to display various types of database relations including tables, indexes, views, sequences, and foreign tables.

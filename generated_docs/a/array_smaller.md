@@ -1,7 +1,7 @@
 # array_smaller
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5884 - 5892
+[src/backend/utils/adt/arrayfuncs.c:5884-5892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5884-L5892)
 
 ## Overview
 array_smaller returns the lexicographically smaller of two arrays by comparing them using array comparison semantics.

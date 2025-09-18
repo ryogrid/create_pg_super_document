@@ -1,7 +1,7 @@
 # validate_table_rewrite_tags
 
 ## Location
-src/backend/commands/event_trigger.c: 239 - 260
+[src/backend/commands/event_trigger.c:239-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L239-L260)
 
 ## Overview
 Validates DDL command tags for table_rewrite event triggers, ensuring only commands that can cause table rewrites are allowed as filter conditions.

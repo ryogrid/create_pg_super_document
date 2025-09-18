@@ -1,7 +1,7 @@
 # wait_for_postmaster_promote
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 746 - 773
+[src/bin/pg_ctl/pg_ctl.c:746-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L746-L773)
 
 ## Overview
 Waits for a PostgreSQL standby server to complete promotion to become a primary server, monitoring the database state transition.

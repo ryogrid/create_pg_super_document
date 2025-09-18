@@ -1,7 +1,7 @@
 # SPI_register_relation
 
 ## Location
-src/backend/executor/spi.c: 3297 - 3330
+[src/backend/executor/spi.c:3297-3330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3297-L3330)
 
 ## Overview
 Registers an ephemeral named relation for use by the planner and executor on subsequent calls using the current SPI connection.

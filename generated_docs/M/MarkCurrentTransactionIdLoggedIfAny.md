@@ -1,7 +1,7 @@
 # MarkCurrentTransactionIdLoggedIfAny
 
 ## Location
-src/backend/access/transam/xact.c: 538 - 555
+[src/backend/access/transam/xact.c:538-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L538-L555)
 
 ## Overview
 Marks the current transaction ID as having been logged to the Write-Ahead Log (WAL) if a transaction ID has been assigned to the current transaction.

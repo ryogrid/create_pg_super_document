@@ -1,7 +1,7 @@
 # assign_tcp_keepalives_count
 
 ## Location
-src/backend/libpq/pqcomm.c: 2007 - 2016
+[src/backend/libpq/pqcomm.c:2007-2016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L2007-L2016)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that sets the TCP keepalive count value for the current connection when the parameter is changed.

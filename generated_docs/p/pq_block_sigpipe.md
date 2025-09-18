@@ -1,7 +1,7 @@
 # pq_block_sigpipe
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 519 - 568
+[src/interfaces/libpq/fe-secure.c:519-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L519-L568)
 
 ## Overview
 Blocks the SIGPIPE signal for the current thread and detects any pending SIGPIPE signals to prevent network write operations from terminating the application unexpectedly.

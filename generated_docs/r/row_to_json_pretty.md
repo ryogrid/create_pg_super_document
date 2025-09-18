@@ -1,7 +1,7 @@
 # row_to_json_pretty
 
 ## Location
-src/backend/utils/adt/json.c: 670 - 690
+[src/backend/utils/adt/json.c:670-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L670-L690)
 
 ## Overview
 SQL function that converts a PostgreSQL composite type (record/row) into its JSON object representation with optional pretty-printing (line feeds and indentation).

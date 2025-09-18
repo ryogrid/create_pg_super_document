@@ -1,7 +1,7 @@
 # ATExecAttachPartitionIdx
 
 ## Location
-src/backend/commands/tablecmds.c: 19849 - 20003
+[src/backend/commands/tablecmds.c:19849-20003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19849-L20003)
 
 ## Overview
 Implements the ALTER INDEX ATTACH PARTITION command to attach a partition index to a partitioned parent index, establishing the parent-child relationship in the partitioning hierarchy.

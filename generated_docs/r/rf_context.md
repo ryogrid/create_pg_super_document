@@ -1,7 +1,7 @@
 # rf_context
 
 ## Location
-src/backend/commands/publicationcmds.c: 55 - 62
+[src/backend/commands/publicationcmds.c:55-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L55-L62)
 
 ## Overview
 A context structure used to validate columns in row filter expressions for PostgreSQL logical replication publications, ensuring that filtered columns are part of the relation's replica identity.

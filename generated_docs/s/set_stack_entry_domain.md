@@ -1,7 +1,7 @@
 # set_stack_entry_domain
 
 ## Location
-src/backend/utils/error/elog.c: 782 - 798
+[src/backend/utils/error/elog.c:782-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L782-L798)
 
 ## Overview
 Sets the internationalization domain for an error data stack entry, configuring both the main domain and context domain for proper message localization.

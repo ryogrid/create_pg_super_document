@@ -1,7 +1,7 @@
 # logicalrep_write_stream_prepare
 
 ## Location
-src/backend/replication/logical/proto.c: 364 - 375
+[src/backend/replication/logical/proto.c:364-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L364-L375)
 
 ## Overview
 This function writes a STREAM PREPARE message to the logical replication output stream, used in PostgreSQL's two-phase commit protocol for streaming transactions.

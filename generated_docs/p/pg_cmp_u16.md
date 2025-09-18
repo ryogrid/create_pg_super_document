@@ -1,7 +1,7 @@
 # pg_cmp_u16
 
 ## Location
-src/include/common/int.h: 477 - 482
+[src/include/common/int.h:477-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L477-L482)
 
 ## Overview
 An unsigned 16-bit integer comparison function designed for use in qsort() comparator functions, returning values compatible with standard comparison semantics.

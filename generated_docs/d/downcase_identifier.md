@@ -1,7 +1,7 @@
 # downcase_identifier
 
 ## Location
-src/backend/parser/scansup.c: 46 - 92
+[src/backend/parser/scansup.c:46-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/scansup.c#L46-L92)
 
 ## Overview
 The core workhorse function that performs case conversion of SQL identifiers with optional truncation, implementing PostgreSQL's identifier normalization rules.

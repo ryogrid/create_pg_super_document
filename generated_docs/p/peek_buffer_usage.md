@@ -1,7 +1,7 @@
 # peek_buffer_usage
 
 ## Location
-src/backend/commands/explain.c: 3703 - 3742
+[src/backend/commands/explain.c:3703-3742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3703-L3742)
 
 ## Overview
 Determines whether buffer usage statistics contain any non-zero values that would be worth displaying in EXPLAIN output.

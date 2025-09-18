@@ -1,7 +1,7 @@
 # ChangeVarNodes_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 565 - 674
+[src/backend/rewrite/rewriteManip.c:565-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L565-L674)
 
 ## Overview
 A static walker function that recursively traverses expression trees to update range table references, changing all references from an old range table index to a new one at a specific sublevel.

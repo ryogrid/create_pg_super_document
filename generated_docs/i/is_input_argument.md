@@ -1,7 +1,7 @@
 # is_input_argument
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3400 - 3411
+[src/backend/utils/adt/ruleutils.c:3400-3411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3400-L3411)
 
 ## Overview
 A static helper function that determines whether a function argument at a given position is an input argument based on its mode.

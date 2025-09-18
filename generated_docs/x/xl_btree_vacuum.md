@@ -1,7 +1,7 @@
 # xl_btree_vacuum
 
 ## Location
-src/include/access/nbtxlog.h: 223 - 235
+[src/include/access/nbtxlog.h:223-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L223-L235)
 
 ## Overview
 The xl_btree_vacuum structure represents a WAL record for B-tree tuple deletion operations performed by VACUUM, supporting both complete deletion and partial updates of posting list tuples.

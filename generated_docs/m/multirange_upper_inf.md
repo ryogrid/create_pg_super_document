@@ -1,7 +1,7 @@
 # multirange_upper_inf
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1622 - 1644
+[src/backend/utils/adt/multirangetypes.c:1622-1644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1622-L1644)
 
 ## Overview
 Returns whether the upper bound of the last range in a multirange is infinite (unbounded).

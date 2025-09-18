@@ -1,7 +1,7 @@
 # xl_btree_split
 
 ## Location
-src/include/access/nbtxlog.h: 153 - 159
+[src/include/access/nbtxlog.h:153-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L153-L159)
 
 ## Overview
 The xl_btree_split structure represents a WAL record for B-tree page split operations, containing metadata necessary for recovery to reconstruct both left and right pages after a split.

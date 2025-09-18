@@ -1,7 +1,7 @@
 # ParallelVacuumState
 
 ## Location
-src/backend/commands/vacuumparallel.c: 161 - 241
+[src/backend/commands/vacuumparallel.c:161-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L161-L241)
 
 ## Overview
 ParallelVacuumState is the main coordination structure that maintains the complete state for a parallel vacuum operation across multiple worker processes in PostgreSQL.

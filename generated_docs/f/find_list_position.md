@@ -1,7 +1,7 @@
 # find_list_position
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1704 - 1729
+[src/backend/optimizer/path/indxpath.c:1704-1729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1704-L1729)
 
 ## Overview
 A utility function that finds the position of a node in a list of nodes, or adds it to the end if not found.

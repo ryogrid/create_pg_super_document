@@ -1,7 +1,7 @@
 # SlruScanDirectory
 
 ## Location
-src/backend/access/transam/slru.c: 1788 - 1827
+[src/backend/access/transam/slru.c:1788-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1788-L1827)
 
 ## Overview
 A core function that scans an SLRU directory and applies a callback function to each valid SLRU segment file found, providing the foundation for various SLRU maintenance operations.

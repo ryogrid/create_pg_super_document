@@ -1,7 +1,7 @@
 # ExecBitmapHeapInitializeWorker
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 894 - 903
+[src/backend/executor/nodeBitmapHeapscan.c:894-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L894-L903)
 
 ## Overview
 This function initializes a worker process for parallel bitmap heap scan by connecting it to the shared state created by the leader process.

@@ -1,7 +1,7 @@
 # px
 
 ## Location
-src/backend/optimizer/geqo/geqo_px.c: 49 - 109
+[src/backend/optimizer/geqo/geqo_px.c:49-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_px.c#L49-L109)
 
 ## Overview
 Implements Position Crossover (PX) genetic algorithm operator for GEQO (Genetic Query Optimization) to create offspring solutions by combining elements from two parent solutions.

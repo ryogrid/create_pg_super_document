@@ -1,7 +1,7 @@
 # pg_store_delegated_credential
 
 ## Location
-src/backend/libpq/be-gssapi-common.c: 104 - 147
+[src/backend/libpq/be-gssapi-common.c:104-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-gssapi-common.c#L104-L147)
 
 ## Overview
 This function stores delegated GSS-API credentials received during authentication into a memory-based credential cache, making them available for subsequent operations within the current PostgreSQL backend process.

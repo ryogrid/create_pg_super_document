@@ -1,7 +1,7 @@
 # compare_mcvs
 
 ## Location
-src/backend/commands/analyze.c: 2916 - 2933
+[src/backend/commands/analyze.c:2916-2933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2916-L2933)
 
 ## Overview
 A simple comparator function used for sorting ScalarMCVItem structures by their position during PostgreSQL's statistical analysis process.

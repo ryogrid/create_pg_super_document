@@ -1,7 +1,7 @@
 # smgrdestroyall
 
 ## Location
-src/backend/storage/smgr/smgr.c: 332 - 352
+[src/backend/storage/smgr/smgr.c:332-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L332-L352)
 
 ## Overview
 Destroys all unpinned SMgrRelation objects, releasing all their resources and removing them from storage manager data structures.

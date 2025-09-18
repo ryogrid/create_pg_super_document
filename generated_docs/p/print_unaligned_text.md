@@ -1,7 +1,7 @@
 # print_unaligned_text
 
 ## Location
-src/fe_utils/print.c: 422 - 512
+[src/fe_utils/print.c:422-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L422-L512)
 
 ## Overview
 Prints table data in unaligned text format where fields are separated by configurable delimiters without column alignment or borders.

@@ -1,7 +1,7 @@
 # arrayexpr_next_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1069 - 1080
+[src/backend/optimizer/util/predtest.c:1069-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1069-L1080)
 
 ## Overview
 A static iterator function that advances through elements of an array expression during predicate testing operations in PostgreSQL's query optimizer.

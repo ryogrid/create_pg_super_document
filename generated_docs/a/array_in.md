@@ -1,7 +1,7 @@
 # array_in
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 179 - 401
+[src/backend/utils/adt/arrayfuncs.c:179-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L179-L401)
 
 ## Overview
 Converts an array from its external string format to the internal PostgreSQL ArrayType representation, serving as the input conversion function for PostgreSQL array types.

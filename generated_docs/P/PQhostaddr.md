@@ -1,7 +1,7 @@
 # PQhostaddr
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7059 - 7071
+[src/interfaces/libpq/fe-connect.c:7059-7071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7059-L7071)
 
 ## Overview
 PQhostaddr returns the parsed IP address of the current PostgreSQL database connection, providing access to the resolved network address actually used for the connection.

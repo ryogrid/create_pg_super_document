@@ -1,7 +1,7 @@
 # add_abs
 
 ## Location
-src/backend/utils/adt/numeric.c: 11600 - 11684
+[src/backend/utils/adt/numeric.c:11600-11684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11600-L11684)
 
 ## Overview
 Performs addition of the absolute values of two NumericVar operands, storing the result in a destination NumericVar with proper carry handling and memory management.

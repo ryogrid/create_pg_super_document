@@ -1,7 +1,7 @@
 # FlushRelationBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4482 - 4579
+[src/backend/storage/buffer/bufmgr.c:4482-4579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4482-L4579)
 
 ## Overview
 Writes all dirty pages of a specific relation to disk, ensuring the kernel has an up-to-date view of the relation's data.

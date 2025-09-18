@@ -1,7 +1,7 @@
 # cashlarger
 
 ## Location
-src/backend/utils/adt/cash.c: 928 - 942
+[src/backend/utils/adt/cash.c:928-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L928-L942)
 
 ## Overview
 A PostgreSQL function that returns the larger of two Cash values, implementing the maximum comparison operation for the cash data type.

@@ -1,7 +1,7 @@
 # create_incremental_sort_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2951 - 2999
+[src/backend/optimizer/util/pathnode.c:2951-2999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2951-L2999)
 
 ## Overview
 Creates a pathnode that represents performing an incremental sort, which is an optimization for sorting data that is already partially sorted by a prefix of the sort keys.

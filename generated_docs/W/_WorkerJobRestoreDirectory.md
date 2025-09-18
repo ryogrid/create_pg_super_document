@@ -1,7 +1,7 @@
 # _WorkerJobRestoreDirectory
 
 ## Location
-src/bin/pg_dump/pg_backup_directory.c: 849 - 852
+[src/bin/pg_dump/pg_backup_directory.c:849-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_directory.c#L849-L852)
 
 ## Overview
 A worker function executed in child processes during parallel restore operations for directory-format archives that handles the actual data restoration for a single TOC entry.

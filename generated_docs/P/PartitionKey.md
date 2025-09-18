@@ -1,7 +1,7 @@
 # PartitionKey
 
 ## Location
-src/include/partitioning/partdefs.h: 18 - 19
+[src/include/partitioning/partdefs.h:18-19](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdefs.h#L18-L19)
 
 ## Overview
 A pointer to PartitionKeyData structure that contains comprehensive information about the partition key of a relation, including partitioning strategy, key attributes, operator information, and type details.

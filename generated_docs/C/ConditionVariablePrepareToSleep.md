@@ -1,7 +1,7 @@
 # ConditionVariablePrepareToSleep
 
 ## Location
-src/backend/storage/lmgr/condition_variable.c: 56 - 95
+[src/backend/storage/lmgr/condition_variable.c:56-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/condition_variable.c#L56-L95)
 
 ## Overview
 Prepares the current process to wait on a condition variable by adding it to the wait queue, optimizing efficiency for scenarios where the process will likely need to sleep.

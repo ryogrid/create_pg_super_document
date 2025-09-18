@@ -1,7 +1,7 @@
 # poly_right
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3579 - 3601
+[src/backend/utils/adt/geo_ops.c:3579-3601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3579-L3601)
 
 ## Overview  
 Determines if polygon A is strictly to the right of polygon B by comparing their bounding box coordinates.

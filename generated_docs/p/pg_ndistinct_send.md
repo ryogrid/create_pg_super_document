@@ -1,7 +1,7 @@
 # pg_ndistinct_send
 
 ## Location
-src/backend/statistics/mvdistinct.c: 408 - 424
+[src/backend/statistics/mvdistinct.c:408-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L408-L424)
 
 ## Overview
 A PostgreSQL binary output function for the pg_ndistinct data type that delegates binary serialization to the standard bytea send routine.

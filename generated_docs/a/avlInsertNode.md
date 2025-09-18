@@ -1,7 +1,7 @@
 # avlInsertNode
 
 ## Location
-src/bin/psql/crosstabview.c: 529 - 559
+[src/bin/psql/crosstabview.c:529-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L529-L559)
 
 ## Overview
 Recursively inserts a new pivot field into an AVL tree, creating a new node if the value doesn't exist, while maintaining tree balance and binary search tree properties.

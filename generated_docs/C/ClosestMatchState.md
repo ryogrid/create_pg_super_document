@@ -1,7 +1,7 @@
 # ClosestMatchState
 
 ## Location
-src/include/utils/varlena.h: 41 - 47
+[src/include/utils/varlena.h:41-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/varlena.h#L41-L47)
 
 ## Overview
 ClosestMatchState is a data structure used for finding the closest matching string from a set of candidates using Levenshtein distance calculation, primarily for providing helpful hints in error messages.

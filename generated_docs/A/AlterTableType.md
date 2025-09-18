@@ -1,7 +1,7 @@
 # AlterTableType
 
 ## Location
-src/include/nodes/parsenodes.h: 2417 - 2418
+[src/include/nodes/parsenodes.h:2417-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2417-L2418)
 
 ## Overview
 AlterTableType is an enumeration that defines the various types of operations that can be performed on a table through the ALTER TABLE command in PostgreSQL.

@@ -1,7 +1,7 @@
 # get_opname
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1310 - 1332
+[src/backend/utils/cache/lsyscache.c:1310-1332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1310-L1332)
 
 ## Overview
 Retrieves the name of an operator given its OID, returning a dynamically allocated string containing the operator's symbolic name.

@@ -1,7 +1,7 @@
 # LimitAdditionalPins
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2104 - 2134
+[src/backend/storage/buffer/bufmgr.c:2104-2134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2104-L2134)
 
 ## Overview
 LimitAdditionalPins constrains the number of additional buffer pins a batch operation can acquire to prevent buffer pool exhaustion and ensure system stability.

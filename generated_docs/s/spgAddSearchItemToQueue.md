@@ -1,7 +1,7 @@
 # spgAddSearchItemToQueue
 
 ## Location
-src/backend/access/spgist/spgscan.c: 108 - 113
+[src/backend/access/spgist/spgscan.c:108-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L108-L113)
 
 ## Overview
 A simple wrapper function that adds a SpGistSearchItem to the priority queue used in SP-GiST scan operations.

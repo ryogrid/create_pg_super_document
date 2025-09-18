@@ -1,7 +1,7 @@
 # parse_ident
 
 ## Location
-src/backend/utils/adt/misc.c: 861 - 999
+[src/backend/utils/adt/misc.c:861-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L861-L999)
 
 ## Overview
 A PostgreSQL function that parses a SQL qualified identifier string into separate identifier components, returning them as a text array.

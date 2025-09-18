@@ -1,7 +1,7 @@
 # guts
 
 ## Location
-src/include/regex/regguts.h: 530 - 532
+[src/include/regex/regguts.h:530-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L530-L532)
 
 ## Overview
 The guts struct contains the internal implementation details of a compiled regular expression in PostgreSQL, serving as the hidden implementation behind the public pg_regex_t interface.

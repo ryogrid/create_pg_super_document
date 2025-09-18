@@ -1,7 +1,7 @@
 # build_tlist_index
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2688 - 2738
+[src/backend/optimizer/plan/setrefs.c:2688-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2688-L2738)
 
 ## Overview
 Builds an index data structure for a child targetlist to optimize variable lookups during plan reference resolution.

@@ -1,7 +1,7 @@
 # try_mergejoin_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 920 - 1025
+[src/backend/optimizer/path/joinpath.c:920-1025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L920-L1025)
 
 ## Overview
 Evaluates and potentially adds a merge join path to the joinrel's pathlist, handling both regular and partial execution modes with comprehensive validation and cost estimation.

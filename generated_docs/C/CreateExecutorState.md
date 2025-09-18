@@ -1,7 +1,7 @@
 # CreateExecutorState
 
 ## Location
-src/backend/executor/execUtils.c: 88 - 188
+[src/backend/executor/execUtils.c:88-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L88-L188)
 
 ## Overview
 Creates and initializes an EState node, which serves as the root of working storage for an entire Executor invocation, including the per-query memory context.

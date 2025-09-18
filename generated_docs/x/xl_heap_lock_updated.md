@@ -1,7 +1,7 @@
 # xl_heap_lock_updated
 
 ## Location
-src/include/access/heapam_xlog.h: 406 - 412
+[src/include/access/heapam_xlog.h:406-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L406-L412)
 
 ## Overview
 A WAL record structure specifically used to log locking operations on updated versions of tuples in PostgreSQL heap tables, tracking lock information for tuple update chains.

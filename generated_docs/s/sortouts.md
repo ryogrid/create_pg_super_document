@@ -1,7 +1,7 @@
 # sortouts
 
 ## Location
-src/backend/regex/regc_nfa.c: 687 - 728
+[src/backend/regex/regc_nfa.c:687-728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L687-L728)
 
 ## Overview
 Sorts the outgoing arcs of a state in PostgreSQL's regex NFA by destination state, color, and type to maintain consistent ordering.

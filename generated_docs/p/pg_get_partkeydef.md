@@ -1,7 +1,7 @@
 # pg_get_partkeydef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1889 - 1903
+[src/backend/utils/adt/ruleutils.c:1889-1903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1889-L1903)
 
 ## Overview
 A PostgreSQL system function that returns the partition key specification for a partitioned table, including the partitioning method and column details.

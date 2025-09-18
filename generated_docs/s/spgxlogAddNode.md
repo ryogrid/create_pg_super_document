@@ -1,7 +1,7 @@
 # spgxlogAddNode
 
 ## Location
-src/include/access/spgxlog.h: 99 - 135
+[src/include/access/spgxlog.h:99-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L99-L135)
 
 ## Overview
 The spgxlogAddNode structure contains WAL record data for SP-GiST operations that add or update inner (non-leaf) nodes in the index tree structure.

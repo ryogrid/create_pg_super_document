@@ -1,7 +1,7 @@
 # SendNegotiateProtocolVersion
 
 ## Location
-src/backend/tcop/backend_startup.c: 855 - 884
+[src/backend/tcop/backend_startup.c:855-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L855-L884)
 
 ## Overview
 SendNegotiateProtocolVersion sends a protocol negotiation message to inform the client about supported protocol versions and unrecognized protocol options.

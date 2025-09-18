@@ -1,7 +1,7 @@
 # DecodeMultiInsert
 
 ## Location
-src/backend/replication/logical/decode.c: 1124 - 1229
+[src/backend/replication/logical/decode.c:1124-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L1124-L1229)
 
 ## Overview
 DecodeMultiInsert processes XLOG_HEAP2_MULTI_INSERT WAL records during logical replication, converting a single multi-insert operation into multiple individual insert change records in the reorder buffer.

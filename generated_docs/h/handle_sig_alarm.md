@@ -1,7 +1,7 @@
 # handle_sig_alarm
 
 ## Location
-src/bin/pgbench/pgbench.c: 7747 - 7752
+[src/bin/pgbench/pgbench.c:7747-7752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7747-L7752)
 
 ## Overview
 Signal handler for SIGALRM that processes active timeout events and reschedules future alarm interrupts in PostgreSQL's timeout management system.

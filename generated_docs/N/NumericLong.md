@@ -1,7 +1,7 @@
 # NumericLong
 
 ## Location
-src/backend/utils/adt/numeric.c: 139 - 145
+[src/backend/utils/adt/numeric.c:139-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L139-L145)
 
 ## Overview
 NumericLong represents the extended storage format for PostgreSQL numeric values that require more space for scale or weight values than can fit in the compact NumericShort format.

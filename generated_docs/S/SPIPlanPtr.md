@@ -1,7 +1,7 @@
 # SPIPlanPtr
 
 ## Location
-src/include/executor/spi.h: 66 - 67
+[src/include/executor/spi.h:66-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/spi.h#L66-L67)
 
 ## Overview
 SPIPlanPtr is an opaque pointer type that represents a prepared execution plan in PostgreSQL's Server Programming Interface, providing a handle for managing and executing prepared SQL statements.

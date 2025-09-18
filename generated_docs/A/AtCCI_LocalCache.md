@@ -1,7 +1,7 @@
 # AtCCI_LocalCache
 
 ## Location
-src/backend/access/transam/xact.c: 1558 - 1576
+[src/backend/access/transam/xact.c:1558-1576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1558-L1576)
 
 ## Overview
 AtCCI_LocalCache handles local cache invalidation during command counter increment operations, ensuring that catalog changes become visible within the current transaction for subsequent commands.

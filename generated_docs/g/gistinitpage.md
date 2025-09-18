@@ -1,7 +1,7 @@
 # gistinitpage
 
 ## Location
-src/backend/access/gist/gistutil.c: 756 - 771
+[src/backend/access/gist/gistutil.c:756-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L756-L771)
 
 ## Overview
 Initializes a new GiST index page by setting up the page structure and opaque data with the specified flags.

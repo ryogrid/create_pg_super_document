@@ -1,7 +1,7 @@
 # get_object_address_type
 
 ## Location
-src/backend/catalog/objectaddress.c: 1603 - 1641
+[src/backend/catalog/objectaddress.c:1603-1641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1603-L1641)
 
 ## Overview
 Finds the ObjectAddress for a type or domain by resolving a TypeName specification into the corresponding catalog entry.

@@ -1,7 +1,7 @@
 # tsvector_strip
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 168 - 200
+[src/backend/utils/adt/tsvector_op.c:168-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L168-L200)
 
 ## Overview
 PostgreSQL function that removes position and weight information from a TSVector, keeping only the lexemes and their lengths.

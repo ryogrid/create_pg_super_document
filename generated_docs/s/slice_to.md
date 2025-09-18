@@ -1,7 +1,7 @@
 # slice_to
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 448 - 465
+[src/backend/snowball/libstemmer/utilities.c:448-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L448-L465)
 
 ## Overview
 A function in the Snowball stemming library that copies the current slice (between bra and ket positions) from the working buffer to a destination buffer.

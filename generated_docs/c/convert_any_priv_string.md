@@ -1,7 +1,7 @@
 # convert_any_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 1687 - 1734
+[src/backend/utils/adt/acl.c:1687-1734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1687-L1734)
 
 ## Overview
 Parses a comma-separated string of privilege names and converts them to a bitmask using a provided privilege mapping table.

@@ -1,7 +1,7 @@
 # parse_bool
 
 ## Location
-src/backend/utils/adt/bool.c: 30 - 35
+[src/backend/utils/adt/bool.c:30-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L30-L35)
 
 ## Overview
 Parses a string value as a boolean, supporting common boolean representations including "true", "false", "yes", "no", "on", "off", "1", and "0".

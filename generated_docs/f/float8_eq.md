@@ -1,7 +1,7 @@
 # float8_eq
 
 ## Location
-src/include/utils/float.h: 268 - 273
+[src/include/utils/float.h:268-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L268-L273)
 
 ## Overview
 Compares two double-precision floating-point numbers for equality, handling NaN values correctly according to PostgreSQL semantics.

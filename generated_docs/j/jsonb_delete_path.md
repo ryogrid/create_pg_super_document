@@ -1,7 +1,7 @@
 # jsonb_delete_path
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4960 - 5002
+[src/backend/utils/adt/jsonfuncs.c:4960-5002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4960-L5002)
 
 ## Overview
 Deletes a value at a specified path in a JSONB structure, removing the key-value pair or array element at the given location.

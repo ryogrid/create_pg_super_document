@@ -1,7 +1,7 @@
 # ReleaseSemaphores
 
 ## Location
-src/backend/port/posix_sema.c: 240 - 261
+[src/backend/port/posix_sema.c:240-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L240-L261)
 
 ## Overview
 ReleaseSemaphores is a cleanup function that releases all acquired semaphores during PostgreSQL shutdown or shared memory reinitialization, ensuring proper cleanup of system resources.

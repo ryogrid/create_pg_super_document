@@ -1,7 +1,7 @@
 # parseVxidFromText
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1337 - 1366
+[src/backend/utils/time/snapmgr.c:1337-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1337-L1366)
 
 ## Overview
 parseVxidFromText is a static parsing utility function that extracts PostgreSQL virtual transaction ID (VXID) values from formatted text lines during snapshot import operations.

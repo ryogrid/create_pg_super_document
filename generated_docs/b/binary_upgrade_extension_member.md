@@ -1,7 +1,7 @@
 # binary_upgrade_extension_member
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5589 - 5635
+[src/bin/pg_dump/pg_dump.c:5589-5635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5589-L5635)
 
 ## Overview
 Generates ALTER EXTENSION ADD commands during binary upgrades to restore extension membership relationships for database objects.

@@ -1,7 +1,7 @@
 # pg_stat_have_stats
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 2026 - 2034
+[src/backend/utils/adt/pgstatfuncs.c:2026-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L2026-L2034)
 
 ## Overview
 This function checks for the presence of statistics for a specific database object identified by its kind, database OID, and object OID, primarily intended for testing purposes.

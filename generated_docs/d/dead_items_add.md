@@ -1,7 +1,7 @@
 # dead_items_add
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2888 - 2909
+[src/backend/access/heap/vacuumlazy.c:2888-2909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2888-L2909)
 
 ## Overview
  is a static utility function in PostgreSQL's VACUUM implementation that adds dead tuple identifiers (TIDs) to the dead items collection and updates vacuum progress statistics.

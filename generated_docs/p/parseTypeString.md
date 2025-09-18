@@ -1,7 +1,7 @@
 # parseTypeString
 
 ## Location
-src/backend/parser/parse_type.c: 785 - 821
+[src/backend/parser/parse_type.c:785-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L785-L821)
 
 ## Overview
 Parses a SQL-compatible type declaration string and converts it to a type OID and type modifier, providing a complete type resolution solution.

@@ -1,7 +1,7 @@
 # IndexOptInfo
 
 ## Location
-src/include/optimizer/optimizer.h: 40 - 40
+[src/include/optimizer/optimizer.h:40-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/optimizer.h#L40-L40)
 
 ## Overview
 IndexOptInfo represents all the information needed by the PostgreSQL query planner about a single index on a table. It contains metadata about the index structure, statistics, access method capabilities, and derived optimization information.

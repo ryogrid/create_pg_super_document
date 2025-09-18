@@ -1,7 +1,7 @@
 # calc_nestloop_required_outer
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2378 - 2404
+[src/backend/optimizer/util/pathnode.c:2378-2404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2378-L2404)
 
 ## Overview
 Computes the required outer relation set for a nested loop join path by determining which relations must be available as parameters from outside the join.

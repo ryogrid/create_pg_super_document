@@ -1,7 +1,7 @@
 # make_rels_by_clauseless_joins
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 314 - 349
+[src/backend/optimizer/path/joinrels.c:314-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L314-L349)
 
 ## Overview
 Creates Cartesian product join relations between a given relation and a list of other relations that don't share any common base relations, used as a fallback when no join clauses are available.

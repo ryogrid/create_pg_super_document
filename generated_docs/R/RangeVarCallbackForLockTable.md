@@ -1,7 +1,7 @@
 # RangeVarCallbackForLockTable
 
 ## Location
-src/backend/commands/lockcmds.c: 71 - 116
+[src/backend/commands/lockcmds.c:71-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L71-L116)
 
 ## Overview
 A callback function that validates permissions and relation types before acquiring a table lock, ensuring only appropriate relations can be locked with proper authorization.

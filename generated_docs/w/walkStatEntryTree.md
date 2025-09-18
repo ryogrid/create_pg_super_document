@@ -1,7 +1,7 @@
 # walkStatEntryTree
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2489 - 2534
+[src/backend/utils/adt/tsvector_op.c:2489-2534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2489-L2534)
 
 ## Overview
 Performs an in-order traversal of a binary tree containing TSVectorStat entries, returning one node at a time while maintaining traversal state using a stack-based approach.

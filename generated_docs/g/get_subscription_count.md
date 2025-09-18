@@ -1,7 +1,7 @@
 # get_subscription_count
 
 ## Location
-src/bin/pg_upgrade/info.c: 748 - 762
+[src/bin/pg_upgrade/info.c:748-762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L748-L762)
 
 ## Overview
 The get_subscription_count function retrieves the total number of logical replication subscriptions in a PostgreSQL cluster.

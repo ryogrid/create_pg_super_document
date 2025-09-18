@@ -1,7 +1,7 @@
 # BitmapShouldInitializeSharedState
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 784 - 816
+[src/backend/executor/nodeBitmapHeapscan.c:784-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L784-L816)
 
 ## Overview
 This function determines which process should become the leader in a parallel bitmap heap scan and initialize the shared TIDBitmap state.

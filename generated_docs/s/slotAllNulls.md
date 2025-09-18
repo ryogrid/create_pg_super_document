@@ -1,7 +1,7 @@
 # slotAllNulls
 
 ## Location
-src/backend/executor/nodeSubplan.c: 779 - 798
+[src/backend/executor/nodeSubplan.c:779-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L779-L798)
 
 ## Overview
 Determines whether a TupleTableSlot contains only NULL values in all of its columns, used in subplan execution for NULL tuple detection.

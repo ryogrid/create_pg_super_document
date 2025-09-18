@@ -1,7 +1,7 @@
 # pg_sync_replication_slots
 
 ## Location
-src/backend/replication/slotfuncs.c: 892 - 933
+[src/backend/replication/slotfuncs.c:892-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L892-L933)
 
 ## Overview
 A SQL-callable function that synchronizes failover-enabled replication slots from a primary server to a standby server.

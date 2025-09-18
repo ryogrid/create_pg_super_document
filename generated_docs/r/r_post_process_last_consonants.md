@@ -1,7 +1,7 @@
 # r_post_process_last_consonants
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 1864 - 1894
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:1864-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L1864-L1894)
 
 ## Overview
 Performs post-processing of last consonants in Turkish words by applying consonant transformations based on phonetic rules specific to Turkish language stemming.

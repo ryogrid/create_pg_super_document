@@ -1,7 +1,7 @@
 # append_database_pattern
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1356 - 1385
+[src/bin/pg_amcheck/pg_amcheck.c:1356-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1356-L1385)
 
 ## Overview
 Adds a database name pattern to a pattern information array for use in PostgreSQL's pg_amcheck utility.

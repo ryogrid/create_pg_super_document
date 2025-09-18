@@ -1,7 +1,7 @@
 # setRuleCheckAsUser_Query
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 651 - 690
+[src/backend/rewrite/rewriteDefine.c:651-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L651-L690)
 
 ## Overview
 A static function that sets the checkAsUser field to a specified user ID in all RTEPermissionInfo structures within a Query node and recursively processes all subqueries.

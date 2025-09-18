@@ -1,7 +1,7 @@
 # DirectFunctionCall3Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 834 - 858
+[src/backend/utils/fmgr/fmgr.c:834-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L834-L858)
 
 ## Overview
 DirectFunctionCall3Coll is a utility function that provides a simplified interface for calling PostgreSQL functions with 3 arguments while specifying a collation, without requiring explicit setup of function call information structures.

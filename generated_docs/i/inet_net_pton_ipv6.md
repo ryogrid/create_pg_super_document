@@ -1,7 +1,7 @@
 # inet_net_pton_ipv6
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 429 - 433
+[src/backend/utils/adt/inet_net_pton.c:429-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L429-L433)
 
 ## Overview
 A wrapper function that converts IPv6 network numbers from presentation format to network format, specifically designed for handling networks without size constraints.

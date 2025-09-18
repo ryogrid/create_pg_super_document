@@ -1,7 +1,7 @@
 # ClosePager
 
 ## Location
-src/fe_utils/print.c: 3141 - 3171
+[src/fe_utils/print.c:3141-3171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3141-L3171)
 
 ## Overview
 Closes a previously opened pager pipe and restores signal handling to its original state.

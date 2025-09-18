@@ -1,7 +1,7 @@
 # libpq_get_current_wal_insert_lsn
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 209 - 232
+[src/bin/pg_rewind/libpq_source.c:209-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L209-L232)
 
 ## Overview
 Retrieves the current WAL (Write-Ahead Log) insert LSN (Log Sequence Number) from a remote PostgreSQL server using the pg_current_wal_insert_lsn() function.

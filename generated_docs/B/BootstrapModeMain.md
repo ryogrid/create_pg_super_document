@@ -1,7 +1,7 @@
 # BootstrapModeMain
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 199 - 380
+[src/backend/bootstrap/bootstrap.c:199-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L199-L380)
 
 ## Overview
 BootstrapModeMain is the main entry point for running PostgreSQL in bootstrap mode, responsible for initializing the template database and processing bootstrap commands in a special bootstrap language rather than SQL.

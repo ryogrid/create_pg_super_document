@@ -1,7 +1,7 @@
 # xlog_outrec
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2318 - 2335
+[src/backend/access/transam/xlogrecovery.c:2318-2335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2318-L2335)
 
 ## Overview
 A utility function that appends basic structural information about an XLog record to a string buffer, including previous LSN, transaction ID, data length, and block information.

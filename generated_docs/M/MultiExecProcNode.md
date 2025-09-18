@@ -1,7 +1,7 @@
 # MultiExecProcNode
 
 ## Location
-src/backend/executor/execProcnode.c: 502 - 556
+[src/backend/executor/execProcnode.c:502-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L502-L556)
 
 ## Overview
 MultiExecProcNode executes plan nodes that return complex data structures (like hash tables or bitmaps) rather than individual tuples.

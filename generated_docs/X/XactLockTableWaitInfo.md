@@ -1,7 +1,7 @@
 # XactLockTableWaitInfo
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 55 - 60
+[src/backend/storage/lmgr/lmgr.c:55-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L55-L60)
 
 ## Overview
 XactLockTableWaitInfo is a struct that holds context information for transaction lock waits, providing details about the operation being performed and the tuple location being waited for.

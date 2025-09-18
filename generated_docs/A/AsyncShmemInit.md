@@ -1,7 +1,7 @@
 # AsyncShmemInit
 
 ## Location
-src/backend/commands/async.c: 502 - 556
+[src/backend/commands/async.c:502-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L502-L556)
 
 ## Overview
 Initializes the shared memory structures and SLRU (Simple Least Recently Used) management for PostgreSQL's asynchronous notification system.

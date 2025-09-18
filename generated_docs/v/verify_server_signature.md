@@ -1,7 +1,7 @@
 # verify_server_signature
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 830 - 891
+[src/interfaces/libpq/fe-auth-scram.c:830-891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L830-L891)
 
 ## Overview
 Validates the server signature received as part of the final exchange message from the server during SCRAM authentication to ensure server authenticity.

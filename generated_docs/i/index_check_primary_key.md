@@ -1,7 +1,7 @@
 # index_check_primary_key
 
 ## Location
-src/backend/catalog/index.c: 201 - 279
+[src/backend/catalog/index.c:201-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L201-L279)
 
 ## Overview
 Validates that a relation can have a primary key index created by checking for existing primary keys, ensuring columns are simple references (not expressions), and verifying all columns are marked NOT NULL.

@@ -1,7 +1,7 @@
 # pull_varattnos_context
 
 ## Location
-src/backend/optimizer/util/var.c: 43 - 48
+[src/backend/optimizer/util/var.c:43-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L43-L48)
 
 ## Overview
 A context structure used by the pull_varattnos functionality to collect attribute numbers from Var nodes of a specific relation during expression tree traversal.

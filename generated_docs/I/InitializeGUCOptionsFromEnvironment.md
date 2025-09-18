@@ -1,7 +1,7 @@
 # InitializeGUCOptionsFromEnvironment
 
 ## Location
-src/backend/utils/misc/guc.c: 1591 - 1645
+[src/backend/utils/misc/guc.c:1591-1645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1591-L1645)
 
 ## Overview
 Applies GUC parameter values from environment variables and system resource limits, providing historical compatibility and automatic tuning for stack depth limits.

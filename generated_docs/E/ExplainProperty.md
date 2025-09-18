@@ -1,7 +1,7 @@
 # ExplainProperty
 
 ## Location
-src/backend/commands/explain.c: 4749 - 4801
+[src/backend/commands/explain.c:4749-4801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4749-L4801)
 
 ## Overview
 Core internal function that formats and outputs simple properties in EXPLAIN output across all supported formats, handling both numeric and text values with optional unit specifications.

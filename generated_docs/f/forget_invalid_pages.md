@@ -1,7 +1,7 @@
 # forget_invalid_pages
 
 ## Location
-src/backend/access/transam/xlogutils.c: 166 - 201
+[src/backend/access/transam/xlogutils.c:166-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L166-L201)
 
 ## Overview
 Removes entries from the invalid page hash table for pages greater than or equal to a specified block number, typically used when pages have been dropped or truncated.

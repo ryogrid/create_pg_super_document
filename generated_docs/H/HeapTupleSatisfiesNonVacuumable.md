@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesNonVacuumable
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1429 - 1464
+[src/backend/access/heap/heapam_visibility.c:1429-1464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1429-L1464)
 
 ## Overview
 HeapTupleSatisfiesNonVacuumable determines whether a heap tuple might be visible to some transaction, returning false only if the tuple is surely dead to everyone and thus vacuumable.

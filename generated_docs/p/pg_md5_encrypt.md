@@ -1,7 +1,7 @@
 # pg_md5_encrypt
 
 ## Location
-src/common/md5_common.c: 145 - 173
+[src/common/md5_common.c:145-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5_common.c#L145-L173)
 
 ## Overview
 Creates a PostgreSQL-style MD5 encrypted password by concatenating password and salt, then computing MD5 hash with "md5" prefix.

@@ -1,7 +1,7 @@
 # logicalrep_read_truncate
 
 ## Location
-src/backend/replication/logical/proto.c: 618 - 642
+[src/backend/replication/logical/proto.c:618-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L618-L642)
 
 ## Overview
 Deserializes and reads a TRUNCATE message from the logical replication input stream, parsing the operation details for subscriber processing.

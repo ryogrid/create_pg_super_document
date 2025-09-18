@@ -1,7 +1,7 @@
 # spgGetCache
 
 ## Location
-src/backend/access/spgist/spgutils.c: 182 - 308
+[src/backend/access/spgist/spgutils.c:182-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L182-L308)
 
 ## Overview
 spgGetCache fetches and initializes the local cache of SP-GiST access method-specific information about an index, creating and configuring the cache if it doesn't already exist.

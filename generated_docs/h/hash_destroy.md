@@ -1,7 +1,7 @@
 # hash_destroy
 
 ## Location
-src/backend/utils/hash/dynahash.c: 866 - 884
+[src/backend/utils/hash/dynahash.c:866-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L866-L884)
 
 ## Overview
 Destroys a hash table by freeing all associated memory through destruction of its memory context.

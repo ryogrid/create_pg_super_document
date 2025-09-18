@@ -1,7 +1,7 @@
 # bbsink_progress_archive_contents
 
 ## Location
-src/backend/backup/basebackup_progress.c: 150 - 185
+[src/backend/backup/basebackup_progress.c:150-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_progress.c#L150-L185)
 
 ## Overview
 A progress tracking function that updates backup progress counters when new archive content data is processed during base backup operations.

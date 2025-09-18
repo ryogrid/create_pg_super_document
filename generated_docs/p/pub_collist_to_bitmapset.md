@@ -1,7 +1,7 @@
 # pub_collist_to_bitmapset
 
 ## Location
-src/backend/catalog/pg_publication.c: 570 - 605
+[src/backend/catalog/pg_publication.c:570-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L570-L605)
 
 ## Overview
 Transforms a column list represented as an array Datum (stored in catalog) into a Bitmapset for efficient column membership testing and operations.

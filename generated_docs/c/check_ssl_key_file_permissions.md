@@ -1,7 +1,7 @@
 # check_ssl_key_file_permissions
 
 ## Location
-src/backend/libpq/be-secure-common.c: 114 - 177
+[src/backend/libpq/be-secure-common.c:114-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-common.c#L114-L177)
 
 ## Overview
 Validates file permissions and ownership of SSL private key files to ensure security compliance before loading them.

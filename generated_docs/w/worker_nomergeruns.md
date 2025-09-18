@@ -1,7 +1,7 @@
 # worker_nomergeruns
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 3085 - 3106
+[src/backend/utils/sort/tuplesort.c:3085-3106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L3085-L3106)
 
 ## Overview
 Dumps memory tuples in a worker process without performing any merging operations when no merging is required.

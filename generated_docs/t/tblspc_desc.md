@@ -1,7 +1,7 @@
 # tblspc_desc
 
 ## Location
-src/backend/access/rmgrdesc/tblspcdesc.c: 21 - 40
+[src/backend/access/rmgrdesc/tblspcdesc.c:21-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/tblspcdesc.c#L21-L40)
 
 ## Overview
 Provides human-readable descriptions of tablespace-related WAL (Write-Ahead Logging) records for debugging and monitoring purposes.

@@ -1,7 +1,7 @@
 # tsquerytree
 
 ## Location
-src/backend/utils/adt/tsquery.c: 1363 - 1399
+[src/backend/utils/adt/tsquery.c:1363-1399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L1363-L1399)
 
 ## Overview
 A debug function that converts a TSQuery structure into a human-readable infix notation string representation for visualization purposes.

@@ -1,7 +1,7 @@
 # rbt_left_right_iterator
 
 ## Location
-src/backend/lib/rbtree.c: 705 - 746
+[src/backend/lib/rbtree.c:705-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L705-L746)
 
 ## Overview
 Implements in-order (left-to-right) traversal logic for Red-Black tree iteration, returning nodes in ascending key order.

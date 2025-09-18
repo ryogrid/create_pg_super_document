@@ -1,7 +1,7 @@
 # gistinserttuple
 
 ## Location
-src/backend/access/gist/gist.c: 1255 - 1288
+[src/backend/access/gist/gist.c:1255-1288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1255-L1288)
 
 ## Overview
 A convenience wrapper function that inserts or replaces a single tuple in a GiST index page by calling the more general gistinserttuples function.

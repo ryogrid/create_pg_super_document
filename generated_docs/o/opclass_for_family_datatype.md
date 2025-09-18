@@ -1,7 +1,7 @@
 # opclass_for_family_datatype
 
 ## Location
-src/backend/access/index/amvalidate.c: 236 - 270
+[src/backend/access/index/amvalidate.c:236-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L236-L270)
 
 ## Overview
 Finds the OID of an operator class that belongs to a specified operator family and accepts a given data type as input.

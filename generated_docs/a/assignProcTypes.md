@@ -1,7 +1,7 @@
 # assignProcTypes
 
 ## Location
-src/backend/commands/opclasscmds.c: 1203 - 1391
+[src/backend/commands/opclasscmds.c:1203-1391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1203-L1391)
 
 ## Overview
 Determines and assigns the lefttype/righttype for a support procedure in an operator family, performing extensive validation checks specific to different access methods and procedure types.

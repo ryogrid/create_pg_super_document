@@ -1,7 +1,7 @@
 # pq_is_reading_msg
 
 ## Location
-src/backend/libpq/pqcomm.c: 1180 - 1201
+[src/backend/libpq/pqcomm.c:1180-1201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1180-L1201)
 
 ## Overview
 Returns the current message reading state to enable protocol synchronization error detection and recovery in PostgreSQL's communication layer.

@@ -1,7 +1,7 @@
 # SPI_keepplan
 
 ## Location
-src/backend/executor/spi.c: 976 - 1002
+[src/backend/executor/spi.c:976-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L976-L1002)
 
 ## Overview
 Marks an SPI execution plan as saved to prevent it from being automatically freed at the end of the current SPI procedure, allowing it to persist across multiple SPI procedure calls.

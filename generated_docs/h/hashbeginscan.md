@@ -1,7 +1,7 @@
 # hashbeginscan
 
 ## Location
-src/backend/access/hash/hash.c: 367 - 396
+[src/backend/access/hash/hash.c:367-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L367-L396)
 
 ## Overview
 Initializes and starts a scan on a hash index, setting up the necessary scan state and opaque data structures.

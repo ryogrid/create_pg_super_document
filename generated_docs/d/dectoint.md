@@ -1,7 +1,7 @@
 # dectoint
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 453 - 479
+[src/interfaces/ecpg/compatlib/informix.c:453-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L453-L479)
 
 ## Overview
 Converts a decimal type to an integer, providing Informix compatibility functionality in PostgreSQL's ECPG interface.

@@ -1,7 +1,7 @@
 # brackpart
 
 ## Location
-src/backend/regex/regcomp.c: 1763 - 1885
+[src/backend/regex/regcomp.c:1763-1885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1763-L1885)
 
 ## Overview
 Handles one item or range within a bracket expression, parsing various bracket element types and creating appropriate NFA arcs.

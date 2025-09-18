@@ -1,7 +1,7 @@
 # fireRIRonSubLink_context
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 61 - 65
+[src/backend/rewrite/rewriteHandler.c:61-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L61-L65)
 
 ## Overview
 A context structure used during the firing of Row-level Insert/Update/Delete (RIR) rules on sublinks, maintaining state about active rules and row security settings.

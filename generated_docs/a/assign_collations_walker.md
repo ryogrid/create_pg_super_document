@@ -1,7 +1,7 @@
 # assign_collations_walker
 
 ## Location
-src/backend/parser/parse_collate.c: 255 - 779
+[src/backend/parser/parse_collate.c:255-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L255-L779)
 
 ## Overview
 The core recursive function that traverses an expression tree to assign collation information to all nodes based on their types and child expressions.

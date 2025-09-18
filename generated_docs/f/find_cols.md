@@ -1,7 +1,7 @@
 # find_cols
 
 ## Location
-src/backend/executor/nodeAgg.c: 1397 - 1419
+[src/backend/executor/nodeAgg.c:1397-1419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1397-L1419)
 
 ## Overview
 Finds input-tuple columns that are needed for aggregation processing, dividing them into aggregated and unaggregated sets.

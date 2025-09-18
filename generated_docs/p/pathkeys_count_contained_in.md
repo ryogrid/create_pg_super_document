@@ -1,7 +1,7 @@
 # pathkeys_count_contained_in
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 556 - 617
+[src/backend/optimizer/path/pathkeys.c:556-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L556-L617)
 
 ## Overview
 Extended version of pathkeys_contained_in that also determines the length of the longest common prefix between two pathkey lists, providing both containment information and prefix overlap count.

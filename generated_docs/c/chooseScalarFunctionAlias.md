@@ -1,7 +1,7 @@
 # chooseScalarFunctionAlias
 
 ## Location
-src/backend/parser/parse_relation.c: 1254 - 1293
+[src/backend/parser/parse_relation.c:1254-1293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1254-L1293)
 
 ## Overview
 Selects the appropriate column alias for a function in a function RTE when the function returns a scalar type (not composite or RECORD).

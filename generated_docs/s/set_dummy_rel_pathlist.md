@@ -1,7 +1,7 @@
 # set_dummy_rel_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2166 - 2213
+[src/backend/optimizer/path/allpaths.c:2166-2213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2166-L2213)
 
 ## Overview
 Creates a dummy path for a relation that has been excluded by constraints, representing it as an empty AppendPath with zero rows.

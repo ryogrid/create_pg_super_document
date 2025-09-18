@@ -1,7 +1,7 @@
 # AddWALInfoToBackupManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 212 - 315
+[src/backend/backup/backup_manifest.c:212-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L212-L315)
 
 ## Overview
 Adds Write-Ahead Log (WAL) range information to the backup manifest by determining which WAL segments and timeline ranges are necessary for backup recovery.

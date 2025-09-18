@@ -1,7 +1,7 @@
 # GetSQLCurrentTimestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1672 - 1685
+[src/backend/utils/adt/timestamp.c:1672-1685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1672-L1685)
 
 ## Overview
 Implements the SQL CURRENT_TIMESTAMP and CURRENT_TIMESTAMP(n) functions by returning the current transaction's start timestamp with optional precision adjustment.

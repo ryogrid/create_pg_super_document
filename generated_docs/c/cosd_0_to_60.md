@@ -1,7 +1,7 @@
 # cosd_0_to_60
 
 ## Location
-src/backend/utils/adt/float.c: 2259 - 2271
+[src/backend/utils/adt/float.c:2259-2271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2259-L2271)
 
 ## Overview
 The  function is a static helper function that computes the cosine of an angle in degrees, specifically optimized for angles between 0 and 60 degrees with exact results at key values.

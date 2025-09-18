@@ -1,7 +1,7 @@
 # circle_overleft
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4777 - 4788
+[src/backend/utils/adt/geo_ops.c:4777-4788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4777-L4788)
 
 ## Overview
 Tests whether the right edge of the first circle is at or to the left of the right edge of the second circle, implementing a positional relationship for spatial indexing and ordering.

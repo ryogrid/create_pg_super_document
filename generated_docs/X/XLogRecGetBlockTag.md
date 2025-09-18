@@ -1,7 +1,7 @@
 # XLogRecGetBlockTag
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1981 - 2006
+[src/backend/access/transam/xlogreader.c:1981-2006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1981-L2006)
 
 ## Overview
 XLogRecGetBlockTag extracts block identification information from a WAL record's block reference, providing a simplified interface that requires the block reference to exist.

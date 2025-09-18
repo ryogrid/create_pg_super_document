@@ -1,7 +1,7 @@
 # WALInsertLockUpdateInsertingAt
 
 ## Location
-src/backend/access/transam/xlog.c: 1473 - 1505
+[src/backend/access/transam/xlog.c:1473-1505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1473-L1505)
 
 ## Overview
 Updates the insertingAt position variable for WAL insertion locks to signal completion of WAL insertion up to a specific point.

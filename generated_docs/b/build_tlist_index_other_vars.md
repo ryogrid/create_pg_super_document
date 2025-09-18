@@ -1,7 +1,7 @@
 # build_tlist_index_other_vars
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2739 - 2796
+[src/backend/optimizer/plan/setrefs.c:2739-2796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2739-L2796)
 
 ## Overview  
 Builds a restricted targetlist index that only includes Vars belonging to relations other than a specified one, while allowing PlaceHolderVars to be matched.

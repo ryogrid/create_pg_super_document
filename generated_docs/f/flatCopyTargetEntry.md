@@ -1,7 +1,7 @@
 # flatCopyTargetEntry
 
 ## Location
-src/backend/nodes/makefuncs.c: 320 - 333
+[src/backend/nodes/makefuncs.c:320-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L320-L333)
 
 ## Overview
 Creates a shallow copy of an existing TargetEntry node, duplicating the top-level structure without copying any substructure (child nodes).

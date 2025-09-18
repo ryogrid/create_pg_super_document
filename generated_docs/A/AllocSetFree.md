@@ -1,7 +1,7 @@
 # AllocSetFree
 
 ## Location
-src/backend/utils/mmgr/aset.c: 1062 - 1168
+[src/backend/utils/mmgr/aset.c:1062-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L1062-L1168)
 
 ## Overview
 AllocSetFree frees allocated memory by removing it from the AllocSet and either returning the chunk to the appropriate freelist for reuse or releasing an entire block for large allocations.

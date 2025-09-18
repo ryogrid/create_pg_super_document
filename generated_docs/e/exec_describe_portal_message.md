@@ -1,7 +1,7 @@
 # exec_describe_portal_message
 
 ## Location
-src/backend/tcop/postgres.c: 2718 - 2769
+[src/backend/tcop/postgres.c:2718-2769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2718-L2769)
 
 ## Overview
 Processes a "Describe" message for a portal, sending the row description of the portal's result set back to the client in the PostgreSQL wire protocol.

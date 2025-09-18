@@ -1,7 +1,7 @@
 # ReadDataFromArchiveZstd
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 162 - 211
+[src/bin/pg_dump/compress_zstd.c:162-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L162-L211)
 
 ## Overview
 ReadDataFromArchiveZstd is a static function that reads and decompresses Zstd-compressed data from an archive, serving as the core decompression routine for pg_dump's Zstd compression support.

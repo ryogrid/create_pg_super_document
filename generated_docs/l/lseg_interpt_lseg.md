@@ -1,7 +1,7 @@
 # lseg_interpt_lseg
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2338 - 2360
+[src/backend/utils/adt/geo_ops.c:2338-2360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2338-L2360)
 
 ## Overview
 Determines whether two line segments intersect and optionally returns the intersection point.

@@ -1,7 +1,7 @@
 # CRSERR_TOO_MANY
 
 ## Location
-src/backend/parser/parse_target.c: 1163 - 1292
+[src/backend/parser/parse_target.c:1163-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1163-L1292)
 
 ## Overview
 An enumeration constant used in ExpandColumnRefStar() to indicate an error condition when a column reference contains too many dotted name components.

@@ -1,7 +1,7 @@
 # check_in_colors_match
 
 ## Location
-src/backend/regex/regc_nfa.c: 3469 - 3513
+[src/backend/regex/regc_nfa.c:3469-3513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3469-L3513)
 
 ## Overview
 A static helper function that compares whether two colors leading into a given state originate from equivalent sets of source states in a regular expression NFA.

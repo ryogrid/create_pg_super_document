@@ -1,7 +1,7 @@
 # parserOpenTable
 
 ## Location
-src/backend/parser/parse_relation.c: 1418 - 1469
+[src/backend/parser/parse_relation.c:1418-1469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1418-L1469)
 
 ## Overview
 Opens a table during parse analysis with enhanced error reporting that includes parse location information for better diagnostics.

@@ -1,7 +1,7 @@
 # alen_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1926 - 1947
+[src/backend/utils/adt/jsonfuncs.c:1926-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1926-L1947)
 
 ## Overview
 A JSON parser callback function that counts array elements at the top level when determining array length.

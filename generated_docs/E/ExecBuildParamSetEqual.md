@@ -1,7 +1,7 @@
 # ExecBuildParamSetEqual
 
 ## Location
-src/backend/executor/execExpr.c: 4114 - 4235
+[src/backend/executor/execExpr.c:4114-4235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L4114-L4235)
 
 ## Overview
 Builds an equality expression that can be evaluated using ExecQual(), returning true if the expression context's inner/outer tuples are equal, where datums are assumed to be in the same order and quantity as the equality functions parameter, and NULLs are treated as equal.

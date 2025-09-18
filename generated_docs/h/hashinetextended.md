@@ -1,7 +1,7 @@
 # hashinetextended
 
 ## Location
-src/backend/utils/adt/network.c: 890 - 902
+[src/backend/utils/adt/network.c:890-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L890-L902)
 
 ## Overview
 Provides extended hash function support for inet/cidr data types with a seed value, enabling more sophisticated hash indexing operations.

@@ -1,7 +1,7 @@
 # poly_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3415 - 3458
+[src/backend/utils/adt/geo_ops.c:3415-3458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3415-L3458)
 
 ## Overview
 The `poly_in` function parses a string representation of a polygon and converts it into PostgreSQLs internal POLYGON data structure.

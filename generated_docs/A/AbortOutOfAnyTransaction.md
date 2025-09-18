@@ -1,7 +1,7 @@
 # AbortOutOfAnyTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 4811 - 4914
+[src/backend/access/transam/xact.c:4811-4914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4811-L4914)
 
 ## Overview
 AbortOutOfAnyTransaction is a comprehensive error recovery function that forcibly aborts any active transaction or subtransaction, leaving the system in a clean idle state regardless of the current transaction state.

@@ -1,7 +1,7 @@
 # jsonb_string_to_tsvector_byid
 
 ## Location
-src/backend/tsearch/to_tsany.c: 301 - 313
+[src/backend/tsearch/to_tsany.c:301-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L301-L313)
 
 ## Overview
 Converts string values from JSONB data to a text search vector (TSVector) using a specified text search configuration.

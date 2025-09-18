@@ -1,7 +1,7 @@
 # appendReloptionsArray
 
 ## Location
-src/fe_utils/string_utils.c: 966 - 1052
+[src/fe_utils/string_utils.c:966-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L966-L1052)
 
 ## Overview
 Formats a PostgreSQL reloptions array and appends it to a buffer as properly formatted option name-value pairs.

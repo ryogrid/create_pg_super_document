@@ -1,7 +1,7 @@
 # SearchSysCacheCopyAttName
 
 ## Location
-src/backend/utils/cache/syscache.c: 504 - 522
+[src/backend/utils/cache/syscache.c:504-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L504-L522)
 
 ## Overview
 SearchSysCacheCopyAttName is a specialized function that searches for an attribute by relation OID and name, excludes dropped attributes, and returns a copy of the found tuple.

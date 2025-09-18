@@ -1,7 +1,7 @@
 # pg_GSS_recvauth
 
 ## Location
-src/backend/libpq/auth.c: 928 - 1080
+[src/backend/libpq/auth.c:928-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L928-L1080)
 
 ## Overview
 pg_GSS_recvauth implements the server-side GSS-API (Generic Security Services) authentication protocol for PostgreSQL, handling the complete GSSAPI token exchange with clients.

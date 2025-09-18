@@ -1,7 +1,7 @@
 # PGTYPESnumeric_add
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 637 - 764
+[src/interfaces/ecpg/pgtypeslib/numeric.c:637-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L637-L764)
 
 ## Overview
 The PGTYPESnumeric_add function performs addition of two numeric values with full sign handling, serving as the high-level interface for numeric addition in PostgreSQL's ECPG pgtypes library.

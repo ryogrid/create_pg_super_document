@@ -1,7 +1,7 @@
 # RemoveObjects
 
 ## Location
-src/backend/commands/dropcmds.c: 53 - 138
+[src/backend/commands/dropcmds.c:53-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dropcmds.c#L53-L138)
 
 ## Overview
 RemoveObjects is the main function that handles dropping multiple objects of various types in PostgreSQL, implementing the DROP command functionality for objects like functions, types, domains, etc.

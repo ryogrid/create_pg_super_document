@@ -1,7 +1,7 @@
 # LockTableAclCheck
 
 ## Location
-src/backend/commands/lockcmds.c: 280 - 299
+[src/backend/commands/lockcmds.c:280-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L280-L299)
 
 ## Overview
 Checks whether the current user is permitted to acquire a specific lock mode on a table relation, implementing PostgreSQL's access control policy for table locking operations.

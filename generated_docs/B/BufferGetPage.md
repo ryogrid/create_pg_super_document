@@ -1,7 +1,7 @@
 # BufferGetPage
 
 ## Location
-src/include/storage/bufmgr.h: 404 - 411
+[src/include/storage/bufmgr.h:404-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L404-L411)
 
 ## Overview
 BufferGetPage is a static inline function that returns the page associated with a buffer in PostgreSQLs buffer management system.

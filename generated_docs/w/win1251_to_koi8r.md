@@ -1,7 +1,7 @@
 # win1251_to_koi8r
 
 ## Location
-src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c: 451 - 466
+[src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c:451-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c#L451-L466)
 
 ## Overview
 Converts text directly from Windows Cyrillic encoding (WIN1251) to KOI8-R (Russian) encoding, providing direct character mapping between these two Cyrillic encoding systems.

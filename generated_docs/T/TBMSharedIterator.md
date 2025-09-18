@@ -1,7 +1,7 @@
 # TBMSharedIterator
 
 ## Location
-src/backend/nodes/tidbitmap.c: 219 - 242
+[src/backend/nodes/tidbitmap.c:219-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L219-L242)
 
 ## Overview
 TBMSharedIterator is a structure designed for joint iteration over TID (tuple identifier) bitmaps in shared memory contexts, extending the functionality of TBMIterator to support concurrent access across multiple processes in parallel bitmap heap scans.

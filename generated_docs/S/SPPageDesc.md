@@ -1,7 +1,7 @@
 # SPPageDesc
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 36 - 43
+[src/backend/access/spgist/spgdoinsert.c:36-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L36-L43)
 
 ## Overview
 SPPageDesc is a structure that tracks all information about a page during SP-GiST index insertion operations, providing a unified descriptor that can identify pages, tuples, or specific nodes within inner tuples.

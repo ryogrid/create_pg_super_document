@@ -1,7 +1,7 @@
 # pg_try_advisory_lock_shared_int4
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 921 - 941
+[src/backend/utils/adt/lockfuncs.c:921-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L921-L941)
 
 ## Overview
 Attempts to acquire a shared advisory lock on two int4 keys without waiting, returning immediately whether successful or not.

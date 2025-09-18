@@ -1,7 +1,7 @@
 # WalSummariesAreComplete
 
 ## Location
-src/backend/backup/walsummary.c: 138 - 204
+[src/backend/backup/walsummary.c:138-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L138-L204)
 
 ## Overview
 Verifies whether a list of WAL summary files provides complete coverage for a specified LSN range without gaps.

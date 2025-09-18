@@ -1,7 +1,7 @@
 # IndexSupportInitialize
 
 ## Location
-src/backend/utils/cache/relcache.c: 1597 - 1647
+[src/backend/utils/cache/relcache.c:1597-1647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1597-L1647)
 
 ## Overview
 IndexSupportInitialize initializes an index's cached operator class information by looking up support procedures, operator families, and input types for each index attribute.

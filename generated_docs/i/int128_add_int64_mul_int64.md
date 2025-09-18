@@ -1,7 +1,7 @@
 # int128_add_int64_mul_int64
 
 ## Location
-src/include/common/int128.h: 62 - 70
+[src/include/common/int128.h:62-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int128.h#L62-L70)
 
 ## Overview
 Adds the 128-bit product of two signed 64-bit integers to an existing 128-bit integer variable in-place.

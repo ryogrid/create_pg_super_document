@@ -1,7 +1,7 @@
 # SequenceChangePersistence
 
 ## Location
-src/backend/commands/sequence.c: 541 - 569
+[src/backend/commands/sequence.c:541-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L541-L569)
 
 ## Overview
 Handles persistence change operations for PostgreSQL sequences, ensuring that sequence state is properly preserved when altering a sequence's persistence characteristics (logged/unlogged).

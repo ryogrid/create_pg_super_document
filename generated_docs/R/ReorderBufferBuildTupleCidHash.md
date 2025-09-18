@@ -1,7 +1,7 @@
 # ReorderBufferBuildTupleCidHash
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1778 - 1850
+[src/backend/replication/logical/reorderbuffer.c:1778-1850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1778-L1850)
 
 ## Overview
 Builds a hash table mapping (relfilelocator, ctid) pairs to command ID information (cmin, cmax, combocid) for use by HeapTupleSatisfiesHistoricMVCC during catalog snapshot access.

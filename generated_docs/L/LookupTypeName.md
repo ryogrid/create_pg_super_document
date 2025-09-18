@@ -1,7 +1,7 @@
 # LookupTypeName
 
 ## Location
-src/backend/parser/parse_type.c: 38 - 72
+[src/backend/parser/parse_type.c:38-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L38-L72)
 
 ## Overview
 LookupTypeName is a wrapper function that provides a simplified interface for the typical case of looking up a PostgreSQL type by name.

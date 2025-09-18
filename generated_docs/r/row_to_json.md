@@ -1,7 +1,7 @@
 # row_to_json
 
 ## Location
-src/backend/utils/adt/json.c: 654 - 669
+[src/backend/utils/adt/json.c:654-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L654-L669)
 
 ## Overview
 SQL function that converts a PostgreSQL composite type (record/row) into its JSON object representation as a text string.

@@ -1,7 +1,7 @@
 # ExpandedRecordFieldInfo
 
 ## Location
-src/include/utils/expandedrecord.h: 168 - 174
+[src/include/utils/expandedrecord.h:168-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandedrecord.h#L168-L174)
 
 ## Overview
 ExpandedRecordFieldInfo is a structure that holds metadata information about a specific field in an expanded record, returned by the expanded_record_lookup_field() function to provide type and attribute details for record field access.

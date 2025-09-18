@@ -1,7 +1,7 @@
 # uchar_length
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2714 - 2730
+[src/backend/utils/adt/pg_locale.c:2714-2730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2714-L2730)
 
 ## Overview
 Calculates the length in UChar units that a given string would occupy when converted from the source encoding to ICU's Unicode representation.

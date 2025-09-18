@@ -1,7 +1,7 @@
 # extract_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5889 - 5905
+[src/backend/utils/adt/timestamp.c:5889-5905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5889-L5905)
 
 ## Overview
 A PostgreSQL function that extracts specified date/time fields from timestamp with time zone values, returning results as numeric types for higher precision.

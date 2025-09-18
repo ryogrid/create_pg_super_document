@@ -1,7 +1,7 @@
 # have_join_order_restriction
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1072 - 1184
+[src/backend/optimizer/path/joinrels.c:1072-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1072-L1184)
 
 ## Overview
 Detects whether two relations should be joined to satisfy join-order restrictions from special joins, lateral references, or PlaceHolderVar requirements.

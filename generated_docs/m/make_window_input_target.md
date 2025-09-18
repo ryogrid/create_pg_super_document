@@ -1,7 +1,7 @@
 # make_window_input_target
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6081 - 6200
+[src/backend/optimizer/plan/planner.c:6081-6200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6081-L6200)
 
 ## Overview
 Generates the appropriate PathTarget for initial input to WindowAgg nodes, containing all values needed to evaluate window functions, compute the final target list, and perform any required final sort step.

@@ -1,7 +1,7 @@
 # check_locale_time
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 405 - 410
+[src/backend/utils/adt/pg_locale.c:405-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L405-L410)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates whether a given locale string is valid for the LC_TIME locale category before assignment.

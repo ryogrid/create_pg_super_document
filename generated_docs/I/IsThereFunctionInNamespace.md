@@ -1,7 +1,7 @@
 # IsThereFunctionInNamespace
 
 ## Location
-src/backend/commands/functioncmds.c: 2043 - 2065
+[src/backend/commands/functioncmds.c:2043-2065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L2043-L2065)
 
 ## Overview
 Checks if a function with the given name and signature already exists in the specified namespace, raising an error if a duplicate is found.

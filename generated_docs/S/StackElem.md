@@ -1,7 +1,7 @@
 # StackElem
 
 ## Location
-src/include/fe_utils/psqlscan_int.h: 69 - 76
+[src/include/fe_utils/psqlscan_int.h:69-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/psqlscan_int.h#L69-L76)
 
 ## Overview
 StackElem is a struct that represents a single element in the variable expansion buffer stack used by PostgreSQL's lexical scanner to handle psql variable substitution.

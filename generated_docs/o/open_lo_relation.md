@@ -1,7 +1,7 @@
 # open_lo_relation
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 74 - 97
+[src/backend/storage/large_object/inv_api.c:74-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L74-L97)
 
 ## Overview
 Opens the PostgreSQL large object relation (pg_largeobject) and its associated index if they are not already open in the current transaction.

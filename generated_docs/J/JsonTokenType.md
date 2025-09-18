@@ -1,7 +1,7 @@
 # JsonTokenType
 
 ## Location
-src/include/common/jsonapi.h: 34 - 35
+[src/include/common/jsonapi.h:34-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/jsonapi.h#L34-L35)
 
 ## Overview
 JsonTokenType is an enumeration that defines the different types of tokens that can be encountered during JSON lexical analysis, providing type identification for each parsed element.

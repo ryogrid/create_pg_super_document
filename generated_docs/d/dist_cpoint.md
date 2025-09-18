@@ -1,7 +1,7 @@
 # dist_cpoint
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5127 - 5142
+[src/backend/utils/adt/geo_ops.c:5127-5142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5127-L5142)
 
 ## Overview
 Calculates the minimum distance from a circle to a point, returning 0 if the point is inside the circle.

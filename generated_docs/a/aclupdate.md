@@ -1,7 +1,7 @@
 # aclupdate
 
 ## Location
-src/backend/utils/adt/acl.c: 992 - 1118
+[src/backend/utils/adt/acl.c:992-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L992-L1118)
 
 ## Overview
 Updates an ACL (Access Control List) array to add, remove, or replace specified privileges for a given grantee-grantor pair.

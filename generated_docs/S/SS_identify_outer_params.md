@@ -1,7 +1,7 @@
 # SS_identify_outer_params
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2072 - 2133
+[src/backend/optimizer/plan/subselect.c:2072-2133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2072-L2133)
 
 ## Overview
 Identifies and records the set of parameters that will be available from outer query levels to the current query level and its descendants.

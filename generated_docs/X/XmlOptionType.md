@@ -1,7 +1,7 @@
 # XmlOptionType
 
 ## Location
-src/include/nodes/primnodes.h: 1594 - 1595
+[src/include/nodes/primnodes.h:1594-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1594-L1595)
 
 ## Overview
 XmlOptionType is an enumeration that defines the parsing modes for XML content, distinguishing between document and content parsing options in PostgreSQL's XML functionality.

@@ -1,7 +1,7 @@
 # addNode
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 80 - 111
+[src/backend/access/spgist/spgdoinsert.c:80-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L80-L111)
 
 ## Overview
 Creates a new SP-GiST inner tuple containing one additional node compared to the input tuple, with the specified label datum inserted at the given offset position.

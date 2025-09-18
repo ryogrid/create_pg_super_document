@@ -1,7 +1,7 @@
 # pg_sprintf
 
 ## Location
-src/port/snprintf.c: 230 - 241
+[src/port/snprintf.c:230-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L230-L241)
 
 ## Overview
 pg_sprintf is PostgreSQL's portable implementation of sprintf that formats a string into an unbounded buffer using variable arguments.

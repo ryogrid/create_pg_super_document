@@ -1,7 +1,7 @@
 # PartitionDirectoryLookup
 
 ## Location
-src/backend/partitioning/partdesc.c: 456 - 483
+[src/backend/partitioning/partdesc.c:456-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L456-L483)
 
 ## Overview
 Looks up and caches partition descriptors in a partition directory, ensuring consistent views of partition information across concurrent DDL operations.

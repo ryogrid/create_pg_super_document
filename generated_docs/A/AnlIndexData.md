@@ -1,7 +1,7 @@
 # AnlIndexData
 
 ## Location
-src/backend/commands/analyze.c: 63 - 69
+[src/backend/commands/analyze.c:63-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L63-L69)
 
 ## Overview
 AnlIndexData is a structure that holds per-index data used during the ANALYZE command execution in PostgreSQL, containing information needed for analyzing index statistics.

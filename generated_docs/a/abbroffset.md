@@ -1,7 +1,7 @@
 # abbroffset
 
 ## Location
-src/timezone/zic.c: 2586 - 2629
+[src/timezone/zic.c:2586-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2586-L2629)
 
 ## Overview
 The abbroffset function converts a timezone offset value into a human-readable string format suitable for use in timezone abbreviations and display.

@@ -1,7 +1,7 @@
 # timetztypmodin
 
 ## Location
-src/backend/utils/adt/date.c: 2383 - 2390
+[src/backend/utils/adt/date.c:2383-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2383-L2390)
 
 ## Overview
 Processes type modifier input for the TIMETZ (time with time zone) data type, validating and converting precision specifications from SQL DDL statements.

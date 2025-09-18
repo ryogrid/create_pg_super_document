@@ -1,7 +1,7 @@
 # timestamp_pl_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3049 - 3165
+[src/backend/utils/adt/timestamp.c:3049-3165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3049-L3165)
 
 ## Overview
 Adds an interval to a timestamp data type, handling both quantitative time and qualitative year/month/day units correctly.

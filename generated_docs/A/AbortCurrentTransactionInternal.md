@@ -1,7 +1,7 @@
 # AbortCurrentTransactionInternal
 
 ## Location
-src/backend/access/transam/xact.c: 3405 - 3583
+[src/backend/access/transam/xact.c:3405-3583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3405-L3583)
 
 ## Overview
 AbortCurrentTransactionInternal is a static function that performs one iteration of transaction abort handling, managing complex transaction state transitions across main transactions and subtransactions.

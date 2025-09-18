@@ -1,7 +1,7 @@
 # spgxlogPickSplit
 
 ## Location
-src/include/access/spgxlog.h: 165 - 197
+[src/include/access/spgxlog.h:165-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L165-L197)
 
 ## Overview
 The spgxlogPickSplit struct is a PostgreSQL WAL (Write-Ahead Logging) record structure used to log pick-split operations in SP-GiST (Space-Partitioned Generalized Search Tree) indexes, which occurs when a leaf page becomes full and needs to be split.

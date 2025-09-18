@@ -1,7 +1,7 @@
 # LogicalParallelApplyLoop
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 734 - 843
+[src/backend/replication/logical/applyparallelworker.c:734-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L734-L843)
 
 ## Overview
 LogicalParallelApplyLoop implements the main processing loop for PostgreSQL logical replication parallel apply workers, handling message reception and processing from the leader apply worker via shared memory queues.

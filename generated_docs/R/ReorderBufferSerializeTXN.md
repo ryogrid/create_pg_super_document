@@ -1,7 +1,7 @@
 # ReorderBufferSerializeTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3840 - 3934
+[src/backend/replication/logical/reorderbuffer.c:3840-3934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3840-L3934)
 
 ## Overview
 Spills data of a large transaction (and its subtransactions) to disk when memory limits are exceeded, organizing changes into WAL segment-based files for later retrieval.

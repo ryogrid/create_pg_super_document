@@ -1,7 +1,7 @@
 # r_postlude
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2039 - 2066
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2039-2066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2039-L2066)
 
 ## Overview
 Performs final post-processing operations on Turkish words after stemming, including reserved word checking, vowel harmony restoration, and consonant transformations.

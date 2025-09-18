@@ -1,7 +1,7 @@
 # append_heap_pattern
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1494 - 1509
+[src/bin/pg_amcheck/pg_amcheck.c:1494-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1494-L1509)
 
 ## Overview
 Adds a relation name pattern that will be matched exclusively against heap tables, excluding indexes and other relation types.

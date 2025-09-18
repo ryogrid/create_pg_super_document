@@ -1,7 +1,7 @@
 # hash_redo
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 1067 - 1120
+[src/backend/access/hash/hash_xlog.c:1067-1120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L1067-L1120)
 
 ## Overview
 This is the main WAL replay dispatcher function for hash index operations during PostgreSQL crash recovery, routing different hash-specific WAL record types to their corresponding replay handlers.

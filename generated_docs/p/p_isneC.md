@@ -1,7 +1,7 @@
 # p_isneC
 
 ## Location
-src/backend/tsearch/wparser_def.c: 487 - 492
+[src/backend/tsearch/wparser_def.c:487-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L487-L492)
 
 ## Overview
 A convenience wrapper function that checks if the current character in the parser does NOT match the stored current character (prs->c).

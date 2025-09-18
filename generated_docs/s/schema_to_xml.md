@@ -1,7 +1,7 @@
 # schema_to_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 3224 - 3245
+[src/backend/utils/adt/xml.c:3224-3245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3224-L3245)
 
 ## Overview
 PostgreSQL built-in function that converts a schema (namespace) to XML format without including XML schema definition.

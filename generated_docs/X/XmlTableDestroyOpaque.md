@@ -1,7 +1,7 @@
 # XmlTableDestroyOpaque
 
 ## Location
-src/backend/utils/adt/xml.c: 5079 - 5118
+[src/backend/utils/adt/xml.c:5079-5118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L5079-L5118)
 
 ## Overview
 Releases all libxml2 resources and cleans up the XML table processing context, ensuring proper resource deallocation and preventing memory leaks.

@@ -1,7 +1,7 @@
 # libpqrcv_PQgetResult
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 835 - 879
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:835-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L835-L879)
 
 ## Overview
 Performs the equivalent of PQgetResult() but includes interrupt handling and socket readiness waiting for WAL receiver operations.

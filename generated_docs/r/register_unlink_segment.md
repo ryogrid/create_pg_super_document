@@ -1,7 +1,7 @@
 # register_unlink_segment
 
 ## Location
-src/backend/storage/smgr/md.c: 1399 - 1415
+[src/backend/storage/smgr/md.c:1399-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1399-L1415)
 
 ## Overview
 Schedules a file segment to be deleted after the next checkpoint by registering an unlink request with the sync request system.

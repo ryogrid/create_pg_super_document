@@ -1,7 +1,7 @@
 # dropRoles
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 740 - 786
+[src/bin/pg_dump/pg_dumpall.c:740-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L740-L786)
 
 ## Overview
 The dropRoles function generates SQL DROP ROLE statements for all non-system roles in a PostgreSQL database, used by pg_dumpall to create scripts that clean up existing roles before restoration.

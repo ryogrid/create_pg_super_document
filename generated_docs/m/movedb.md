@@ -1,7 +1,7 @@
 # movedb
 
 ## Location
-src/backend/commands/dbcommands.c: 1964 - 2285
+[src/backend/commands/dbcommands.c:1964-2285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L1964-L2285)
 
 ## Overview
 movedb implements the core functionality of ALTER DATABASE SET TABLESPACE by physically moving database files from one tablespace to another while ensuring data consistency and proper transaction handling.

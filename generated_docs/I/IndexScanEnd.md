@@ -1,7 +1,7 @@
 # IndexScanEnd
 
 ## Location
-src/backend/access/index/genam.c: 144 - 175
+[src/backend/access/index/genam.c:144-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L144-L175)
 
 ## Overview
 Releases the storage and resources allocated by RelationGetIndexScan, completing the cleanup of an index scan operation.

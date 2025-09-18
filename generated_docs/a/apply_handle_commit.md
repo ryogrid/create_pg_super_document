@@ -1,7 +1,7 @@
 # apply_handle_commit
 
 ## Location
-src/backend/replication/logical/worker.c: 1018 - 1043
+[src/backend/replication/logical/worker.c:1018-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1018-L1043)
 
 ## Overview
 apply_handle_commit handles COMMIT messages in PostgreSQL logical replication, finalizing a remote transaction on the apply worker side and processing any parallel table synchronization.

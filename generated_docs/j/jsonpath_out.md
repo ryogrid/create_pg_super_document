@@ -1,7 +1,7 @@
 # jsonpath_out
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 134 - 146
+[src/backend/utils/adt/jsonpath.c:134-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L134-L146)
 
 ## Overview
 The  function is a PostgreSQL output function for the jsonpath data type, responsible for converting the internal jsonpath representation back to its textual string format.

@@ -1,7 +1,7 @@
 # PGTYPESdecimal_new
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 59 - 77
+[src/interfaces/ecpg/pgtypeslib/numeric.c:59-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L59-L77)
 
 ## Overview
 A constructor function that creates and initializes a new decimal value structure for use with PostgreSQL's ECPG (Embedded SQL in C) pgtypes library, specifically for Informix compatibility.

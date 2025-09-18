@@ -1,7 +1,7 @@
 # ExecEndBitmapAnd
 
 ## Location
-src/backend/executor/nodeBitmapAnd.c: 178 - 200
+[src/backend/executor/nodeBitmapAnd.c:178-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapAnd.c#L178-L200)
 
 ## Overview
 ExecEndBitmapAnd shuts down a BitmapAndState node by recursively ending all of its initialized subplan nodes during query cleanup.

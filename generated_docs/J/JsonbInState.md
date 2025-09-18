@@ -1,7 +1,7 @@
 # JsonbInState
 
 ## Location
-src/backend/utils/adt/jsonb.c: 28 - 34
+[src/backend/utils/adt/jsonb.c:28-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L28-L34)
 
 ## Overview
 JsonbInState is a state structure used during the parsing and construction of JSONB values from input strings or data.

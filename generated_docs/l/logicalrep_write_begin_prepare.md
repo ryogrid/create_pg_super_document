@@ -1,7 +1,7 @@
 # logicalrep_write_begin_prepare
 
 ## Location
-src/backend/replication/logical/proto.c: 127 - 144
+[src/backend/replication/logical/proto.c:127-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L127-L144)
 
 ## Overview
 Writes a BEGIN PREPARE message to the logical replication output stream to signal the start of a prepared transaction.

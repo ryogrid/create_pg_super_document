@@ -1,7 +1,7 @@
 # passwordFromFile
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7425 - 7564
+[src/interfaces/libpq/fe-connect.c:7425-7564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7425-L7564)
 
 ## Overview
 Reads and parses a PostgreSQL password file (.pgpass) to retrieve a matching password for the specified connection parameters.

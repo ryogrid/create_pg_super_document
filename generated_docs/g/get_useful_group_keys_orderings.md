@@ -1,7 +1,7 @@
 # get_useful_group_keys_orderings
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 465 - 555
+[src/backend/optimizer/path/pathkeys.c:465-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L465-L555)
 
 ## Overview
 Determines which orderings of GROUP BY keys are potentially interesting for optimization, considering both the original query ordering and path-based reorderings that can leverage existing sort orders.

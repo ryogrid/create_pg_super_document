@@ -1,7 +1,7 @@
 # table_block_parallelscan_initialize
 
 ## Location
-src/backend/access/table/tableam.c: 389 - 406
+[src/backend/access/table/tableam.c:389-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L389-L406)
 
 ## Overview
 Initializes the shared parallel scan descriptor for block-oriented access methods, setting up coordination state for multiple worker processes to scan a relation in parallel.

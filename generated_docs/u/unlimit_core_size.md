@@ -1,7 +1,7 @@
 # unlimit_core_size
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 774 - 793
+[src/bin/pg_ctl/pg_ctl.c:774-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L774-L793)
 
 ## Overview
 Increases the core file size limit to its maximum allowed value to enable full core dump generation for debugging purposes.

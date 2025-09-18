@@ -1,7 +1,7 @@
 # heap_log_freeze_eq
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1896 - 1911
+[src/backend/access/heap/pruneheap.c:1896-1911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1896-L1911)
 
 ## Overview
 Compares a freeze plan with a HeapTupleFreeze structure to determine if they represent equivalent freeze operations for tuple consolidation in WAL logging.

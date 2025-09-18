@@ -1,7 +1,7 @@
 # is_safe_append_member
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2143 - 2190
+[src/backend/optimizer/prep/prepjointree.c:2143-2190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2143-L2190)
 
 ## Overview
 This function checks whether a subquery that is a leaf of a UNION ALL appendrel is safe to pull up into the parent query.

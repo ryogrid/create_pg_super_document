@@ -1,7 +1,7 @@
 # ExecStoreVirtualTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1639 - 1662
+[src/backend/executor/execTuples.c:1639-1662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1639-L1662)
 
 ## Overview
 Marks a TupleTableSlot as containing a valid virtual tuple after the caller has populated the slot's Datum and isnull arrays with column data.

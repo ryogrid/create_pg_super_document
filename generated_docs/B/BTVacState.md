@@ -1,7 +1,7 @@
 # BTVacState
 
 ## Location
-src/include/access/nbtree.h: 330 - 346
+[src/include/access/nbtree.h:330-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L330-L346)
 
 ## Overview
 BTVacState is a comprehensive state structure that manages all aspects of B-tree VACUUM operations, including callback interfaces, cycle tracking, memory management, and pending page deletion coordination.

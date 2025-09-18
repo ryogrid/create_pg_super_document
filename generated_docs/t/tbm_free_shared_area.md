@@ -1,7 +1,7 @@
 # tbm_free_shared_area
 
 ## Location
-src/backend/nodes/tidbitmap.c: 341 - 376
+[src/backend/nodes/tidbitmap.c:341-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L341-L376)
 
 ## Overview
 Frees shared iterator state and associated shared memory structures for TID bitmaps in parallel query execution contexts, using reference counting to ensure safe cleanup.

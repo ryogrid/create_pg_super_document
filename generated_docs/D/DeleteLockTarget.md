@@ -1,7 +1,7 @@
 # DeleteLockTarget
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2659 - 2719
+[src/backend/storage/lmgr/predicate.c:2659-2719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2659-L2719)
 
 ## Overview
 Removes a predicate lock target along with all associated predicate locks, performing cleanup of the predicate locking data structures when targets are no longer needed.

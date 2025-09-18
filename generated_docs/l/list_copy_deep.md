@@ -1,7 +1,7 @@
 # list_copy_deep
 
 ## Location
-src/backend/nodes/list.c: 1639 - 1673
+[src/backend/nodes/list.c:1639-1673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1639-L1673)
 
 ## Overview
 Creates a deep copy of a PostgreSQL list structure, recursively copying both the list container and all data elements it contains.

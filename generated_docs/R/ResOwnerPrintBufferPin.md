@@ -1,7 +1,7 @@
 # ResOwnerPrintBufferPin
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 6048 - 6069
+[src/backend/storage/buffer/bufmgr.c:6048-6069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L6048-L6069)
 
 ## Overview
 A ResourceOwner callback function that generates detailed diagnostic messages for buffer pin resources that were not properly released during resource cleanup.

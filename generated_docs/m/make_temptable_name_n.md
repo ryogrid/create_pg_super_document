@@ -1,7 +1,7 @@
 # make_temptable_name_n
 
 ## Location
-src/backend/commands/matview.c: 554 - 596
+[src/backend/commands/matview.c:554-596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L554-L596)
 
 ## Overview
 make_temptable_name_n constructs a new temporary table name by appending an underscore and integer suffix to an existing temporary table name.

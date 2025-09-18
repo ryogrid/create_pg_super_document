@@ -1,7 +1,7 @@
 # bernoulli_nextsampletuple
 
 ## Location
-src/backend/access/tablesample/bernoulli.c: 181 - 229
+[src/backend/access/tablesample/bernoulli.c:181-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/bernoulli.c#L181-L229)
 
 ## Overview
 This function selects the next sampled tuple in the current block by performing probabilistic sampling decisions for each tuple offset using hash-based random number generation.

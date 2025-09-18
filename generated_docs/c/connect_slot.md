@@ -1,7 +1,7 @@
 # connect_slot
 
 ## Location
-src/fe_utils/parallel_slot.c: 287 - 370
+[src/fe_utils/parallel_slot.c:287-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L287-L370)
 
 ## Overview
 connect_slot is a static function that establishes a new database connection for a specified parallel slot, optionally connecting to a different database, and executes any initialization commands.

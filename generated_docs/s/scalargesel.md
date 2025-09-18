@@ -1,7 +1,7 @@
 # scalargesel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1499 - 1512
+[src/backend/utils/adt/selfuncs.c:1499-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1499-L1512)
 
 ## Overview
 Selectivity estimator function for the greater-than-or-equal (">=") operator on scalar data types in PostgreSQL query optimization.

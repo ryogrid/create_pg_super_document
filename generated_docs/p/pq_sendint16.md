@@ -1,7 +1,7 @@
 # pq_sendint16
 
 ## Location
-src/include/libpq/pqformat.h: 136 - 143
+[src/include/libpq/pqformat.h:136-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L136-L143)
 
 ## Overview
 Appends a binary 16-bit unsigned integer to a StringInfo buffer for network transmission in PostgreSQL protocol messages.

@@ -1,7 +1,7 @@
 # TruncateMultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 3094 - 3268
+[src/backend/access/transam/multixact.c:3094-3268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3094-L3268)
 
 ## Overview
 TruncateMultiXact removes obsolete MultiXact offset and member segments, coordinating the cleanup of both data structures while ensuring consistency and proper WAL logging.

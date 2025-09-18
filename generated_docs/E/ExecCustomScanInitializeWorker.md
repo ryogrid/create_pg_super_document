@@ -1,7 +1,7 @@
 # ExecCustomScanInitializeWorker
 
 ## Location
-src/backend/executor/nodeCustom.c: 205 - 220
+[src/backend/executor/nodeCustom.c:205-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L205-L220)
 
 ## Overview
 Initializes a custom scan node in a parallel worker process by setting up access to shared coordination data.

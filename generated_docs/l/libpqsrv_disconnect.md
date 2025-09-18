@@ -1,7 +1,7 @@
 # libpqsrv_disconnect
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 107 - 130
+[src/include/libpq/libpq-be-fe-helpers.h:107-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L107-L130)
 
 ## Overview
 A wrapper around PQfinish() that additionally releases the file descriptor reserved during connection establishment.

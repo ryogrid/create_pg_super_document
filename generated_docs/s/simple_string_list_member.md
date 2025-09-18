@@ -1,7 +1,7 @@
 # simple_string_list_member
 
 ## Location
-src/fe_utils/simple_list.c: 87 - 105
+[src/fe_utils/simple_list.c:87-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L87-L105)
 
 ## Overview
 Checks whether a specific string value exists in a simple linked list structure designed for frontend PostgreSQL utilities, and marks the found entry as "touched".

@@ -1,7 +1,7 @@
 # jsonb_int4
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2091 - 2108
+[src/backend/utils/adt/jsonb.c:2091-2108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2091-L2108)
 
 ## Overview
 Converts a JSONB numeric value to a PostgreSQL integer (int4) type, using numeric-to-integer conversion with range checking.

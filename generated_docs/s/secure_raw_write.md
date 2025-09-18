@@ -1,7 +1,7 @@
 # secure_raw_write
 
 ## Location
-src/backend/libpq/be-secure.c: 373 - 386
+[src/backend/libpq/be-secure.c:373-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L373-L386)
 
 ## Overview
 secure_raw_write performs low-level socket write operations for unencrypted connections, providing direct socket transmission with platform-specific non-blocking behavior optimization.

@@ -1,7 +1,7 @@
 # wellformed_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 4591 - 4608
+[src/backend/utils/adt/xml.c:4591-4608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4591-L4608)
 
 ## Overview
 Internal static function that checks whether given text data represents well-formed XML according to specified XML processing options.

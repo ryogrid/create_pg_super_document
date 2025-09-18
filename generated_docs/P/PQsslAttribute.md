@@ -1,7 +1,7 @@
 # PQsslAttribute
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1841 - 1907
+[src/interfaces/libpq/fe-secure-openssl.c:1841-1907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1841-L1907)
 
 ## Overview
 Returns the value of a specified SSL attribute for a PostgreSQL connection, providing detailed information about SSL connection properties.

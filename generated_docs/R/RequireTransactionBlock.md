@@ -1,7 +1,7 @@
 # RequireTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3662 - 3670
+[src/backend/access/transam/xact.c:3662-3670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3662-L3670)
 
 ## Overview
 RequireTransactionBlock enforces that certain commands must execute within transaction blocks by raising errors when they're executed outside of them, ensuring proper transaction semantics for commands that require transactional context.

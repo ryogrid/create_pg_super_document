@@ -1,7 +1,7 @@
 # datan2d
 
 ## Location
-src/backend/utils/adt/float.c: 2207 - 2244
+[src/backend/utils/adt/float.c:2207-2244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2207-L2244)
 
 ## Overview
 The  function computes the two-argument inverse tangent (atan2) of two floating-point values and returns the result in degrees rather than radians, providing the angle in the correct quadrant.

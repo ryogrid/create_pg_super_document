@@ -1,7 +1,7 @@
 # pgstat_end_function_usage
 
 ## Location
-src/backend/utils/activity/pgstat_function.c: 146 - 192
+[src/backend/utils/activity/pgstat_function.c:146-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_function.c#L146-L192)
 
 ## Overview
 Finalizes function call usage tracking after function execution, calculating timing statistics and updating counters while properly handling recursion and set-returning functions.

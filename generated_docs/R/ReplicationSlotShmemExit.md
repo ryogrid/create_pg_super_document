@@ -1,7 +1,7 @@
 # ReplicationSlotShmemExit
 
 ## Location
-src/backend/replication/slot.c: 233 - 251
+[src/backend/replication/slot.c:233-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L233-L251)
 
 ## Overview
 Cleanup function that releases active replication slots and cleans up temporary slots when a backend process exits.

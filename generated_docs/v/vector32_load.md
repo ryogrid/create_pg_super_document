@@ -1,7 +1,7 @@
 # vector32_load
 
 ## Location
-src/include/port/simd.h: 121 - 134
+[src/include/port/simd.h:121-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L121-L134)
 
 ## Overview
 Loads a chunk of memory (4 uint32 values) into a Vector32 SIMD register, providing platform-optimized memory loading operations for SIMD-enabled code paths that work with 32-bit integer data.

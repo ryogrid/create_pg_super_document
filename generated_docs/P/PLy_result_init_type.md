@@ -1,7 +1,7 @@
 # PLy_result_init_type
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 61 - 67
+[src/pl/plpython/plpy_resultobject.c:61-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L61-L67)
 
 ## Overview
 Initializes the PLy_ResultType Python type object for the PLyResult class, making it ready for use in the PL/Python extension.

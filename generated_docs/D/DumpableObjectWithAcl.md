@@ -1,7 +1,7 @@
 # DumpableObjectWithAcl
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 176 - 177
+[src/bin/pg_dump/pg_dump.h:176-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L176-L177)
 
 ## Overview
 DumpableObjectWithAcl is a generic struct that provides a unified interface for accessing any database object type that has Access Control Lists (ACLs) in pg_dump.

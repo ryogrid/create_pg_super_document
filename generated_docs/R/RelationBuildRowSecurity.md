@@ -1,7 +1,7 @@
 # RelationBuildRowSecurity
 
 ## Location
-src/backend/commands/policy.c: 193 - 331
+[src/backend/commands/policy.c:193-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L193-L331)
 
 ## Overview
 Loads row-level security policies from the system catalog (pg_policy) and builds the in-memory row security descriptor structure that gets cached in the relation's relcache entry.

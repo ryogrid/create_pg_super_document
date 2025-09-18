@@ -1,7 +1,7 @@
 # brin_copy_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 446 - 464
+[src/backend/access/brin/brin_tuple.c:446-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L446-L464)
 
 ## Overview
 Creates a copy of a BRIN tuple with intelligent memory management, supporting buffer reuse to avoid frequent allocation/deallocation cycles.

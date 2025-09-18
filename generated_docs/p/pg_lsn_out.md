@@ -1,7 +1,7 @@
 # pg_lsn_out
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 80 - 91
+[src/backend/utils/adt/pg_lsn.c:80-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L80-L91)
 
 ## Overview
 A PostgreSQL output function that converts the internal pg_lsn data type representation into a human-readable string format.

@@ -1,7 +1,7 @@
 # join_is_removable
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 160 - 328
+[src/backend/optimizer/plan/analyzejoins.c:160-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L160-L328)
 
 ## Overview
 Determines whether a special join (specifically a left join) can be eliminated from the query plan because it will not affect the result set.

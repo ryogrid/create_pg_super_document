@@ -1,7 +1,7 @@
 # TheSubstitute
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 50 - 67
+[src/backend/tsearch/dict_thesaurus.c:50-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L50-L67)
 
 ## Overview
 TheSubstitute is a structure used in PostgreSQL's thesaurus dictionary implementation to store substitution information for lexemes, including the number of lexemes to substitute and the prepared substituted result.

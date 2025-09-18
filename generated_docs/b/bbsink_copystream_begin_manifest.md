@@ -1,7 +1,7 @@
 # bbsink_copystream_begin_manifest
 
 ## Location
-src/backend/backup/basebackup_copy.c: 260 - 272
+[src/backend/backup/basebackup_copy.c:260-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L260-L272)
 
 ## Overview
 Sends a CopyData protocol message announcing the beginning of the backup manifest in a copystream-based backup sink.

@@ -1,7 +1,7 @@
 # elapsed_time
 
 ## Location
-src/backend/commands/explain.c: 1273 - 1291
+[src/backend/commands/explain.c:1273-1291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1273-L1291)
 
 ## Overview
 Computes the elapsed time in seconds between a given start timestamp and the current time.

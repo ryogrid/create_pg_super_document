@@ -1,7 +1,7 @@
 # CreateTableSpace
 
 ## Location
-src/backend/commands/tablespace.c: 208 - 394
+[src/backend/commands/tablespace.c:208-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L208-L394)
 
 ## Overview
 Creates a new tablespace by validating parameters, inserting catalog entries, creating filesystem directories, and logging the operation in WAL, with strict permission checks and validation.

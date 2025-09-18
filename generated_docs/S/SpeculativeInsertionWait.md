@@ -1,7 +1,7 @@
 # SpeculativeInsertionWait
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 820 - 837
+[src/backend/storage/lmgr/lmgr.c:820-837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L820-L837)
 
 ## Overview
 Waits for a specified transaction to complete or abort its speculative insertion operation before proceeding.

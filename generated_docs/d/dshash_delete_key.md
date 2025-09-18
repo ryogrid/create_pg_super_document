@@ -1,7 +1,7 @@
 # dshash_delete_key
 
 ## Location
-src/backend/lib/dshash.c: 503 - 540
+[src/backend/lib/dshash.c:503-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L503-L540)
 
 ## Overview
 The  function removes an entry from a dynamic shared hash table based on a provided key and returns whether the deletion was successful.

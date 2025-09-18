@@ -1,7 +1,7 @@
 # PageGetItem
 
 ## Location
-src/include/storage/bufpage.h: 352 - 369
+[src/include/storage/bufpage.h:352-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L352-L369)
 
 ## Overview
 Retrieves a specific item (tuple) from a PostgreSQL page using the item identifier, providing the fundamental mechanism for accessing stored data within pages.

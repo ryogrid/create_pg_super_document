@@ -1,7 +1,7 @@
 # PQExpBufferData
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.h: 44 - 49
+[src/interfaces/libpq/pqexpbuffer.h:44-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.h#L44-L49)
 
 ## Overview
 PQExpBufferData is a struct that holds information about an extensible string buffer used throughout PostgreSQL's libpq client library for dynamic string construction and manipulation.

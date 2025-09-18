@@ -1,7 +1,7 @@
 # path_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1488 - 1525
+[src/backend/utils/adt/geo_ops.c:1488-1525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1488-L1525)
 
 ## Overview
 Binary input function that converts external binary format to PostgreSQL's internal PATH data type representation.

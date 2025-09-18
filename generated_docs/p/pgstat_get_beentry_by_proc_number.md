@@ -1,7 +1,7 @@
 # pgstat_get_beentry_by_proc_number
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1072 - 1096
+[src/backend/utils/activity/backend_status.c:1072-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1072-L1096)
 
 ## Overview
 Retrieves the current activity entry for a specific backend process identified by its process number, providing access to the backend's status information for SQL-callable statistics functions.

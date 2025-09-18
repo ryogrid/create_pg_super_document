@@ -1,7 +1,7 @@
 # box_left
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 583 - 597
+[src/backend/utils/adt/geo_ops.c:583-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L583-L597)
 
 ## Overview
 The box_left function determines if one box is strictly to the left of another box by comparing their x-coordinates.

@@ -1,7 +1,7 @@
 # gistRedoPageDelete
 
 ## Location
-src/backend/access/gist/gistxlog.c: 342 - 375
+[src/backend/access/gist/gistxlog.c:342-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L342-L375)
 
 ## Overview
 Replays the deletion of a GiST index page during WAL recovery, marking the deleted page and removing the corresponding downlink from its parent page.

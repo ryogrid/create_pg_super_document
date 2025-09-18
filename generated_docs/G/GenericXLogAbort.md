@@ -1,7 +1,7 @@
 # GenericXLogAbort
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 444 - 452
+[src/backend/access/transam/generic_xlog.c:444-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L444-L452)
 
 ## Overview
 Aborts a generic transaction log operation by discarding all pending changes without applying them to buffers or generating WAL records.

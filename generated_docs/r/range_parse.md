@@ -1,7 +1,7 @@
 # range_parse
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2322 - 2437
+[src/backend/utils/adt/rangetypes.c:2322-2437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2322-L2437)
 
 ## Overview
 Static function that parses a textual representation of a range into its constituent components, extracting boundary flags, lower bound string, and upper bound string from the input.

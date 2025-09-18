@@ -1,7 +1,7 @@
 # ExecInitMergeTupleSlots
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3762 - 3781
+[src/backend/executor/nodeModifyTable.c:3762-3781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3762-L3781)
 
 ## Overview
 Initializes the tuple slots in a ResultRelInfo structure specifically for MERGE operations, creating both old and new tuple slots for the target relation.

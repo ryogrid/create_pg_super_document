@@ -1,7 +1,7 @@
 # OpfamilynameGetOpfid
 
 ## Location
-src/backend/catalog/namespace.c: 2223 - 2255
+[src/backend/catalog/namespace.c:2223-2255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2223-L2255)
 
 ## Overview
 Resolves an unqualified operator family name to its OID by searching through the current namespace search path for a given access method.

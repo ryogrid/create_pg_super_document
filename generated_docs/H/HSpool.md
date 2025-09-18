@@ -1,7 +1,7 @@
 # HSpool
 
 ## Location
-src/backend/access/hash/hashsort.c: 39 - 59
+[src/backend/access/hash/hashsort.c:39-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsort.c#L39-L59)
 
 ## Overview
 HSpool is a structure that maintains status information for the hash index spooling and sorting phase during hash index construction.

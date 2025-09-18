@@ -1,7 +1,7 @@
 # get_func_trftypes
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1475 - 1521
+[src/backend/utils/fmgr/funcapi.c:1475-1521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1475-L1521)
 
 ## Overview
 Retrieves the transformed types associated with a PostgreSQL function from its pg_proc catalog entry.

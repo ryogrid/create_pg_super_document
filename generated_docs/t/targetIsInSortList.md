@@ -1,7 +1,7 @@
 # targetIsInSortList
 
 ## Location
-src/backend/parser/parse_clause.c: 3632 - 3658
+[src/backend/parser/parse_clause.c:3632-3658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3632-L3658)
 
 ## Overview
 Checks whether a given target entry is already present in a SortGroupClause list, optionally matching a specific sort operator.

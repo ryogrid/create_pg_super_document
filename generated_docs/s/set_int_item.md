@@ -1,7 +1,7 @@
 # set_int_item
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 151 - 193
+[src/interfaces/ecpg/ecpglib/descriptor.c:151-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L151-L193)
 
 ## Overview
 Converts and extracts an integer value from a variable of various numeric data types with appropriate type casting for ECPG descriptor operations.

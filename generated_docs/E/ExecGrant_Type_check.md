@@ -1,7 +1,7 @@
 # ExecGrant_Type_check
 
 ## Location
-src/backend/catalog/aclchk.c: 2444 - 2471
+[src/backend/catalog/aclchk.c:2444-2471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2444-L2471)
 
 ## Overview
 ExecGrant_Type_check validates that GRANT and REVOKE operations are performed only on appropriate data types and prevents privilege operations on dependent types.

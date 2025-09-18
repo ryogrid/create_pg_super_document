@@ -1,7 +1,7 @@
 # make_pathkeys_for_window
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6201 - 6327
+[src/backend/optimizer/plan/planner.c:6201-6327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6201-L6327)
 
 ## Overview
 Creates a pathkeys list describing the required input ordering for a given WindowClause, combining PARTITION BY and ORDER BY requirements.

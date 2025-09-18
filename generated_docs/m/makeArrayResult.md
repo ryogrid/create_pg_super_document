@@ -1,7 +1,7 @@
 # makeArrayResult
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5408 - 5439
+[src/backend/utils/adt/arrayfuncs.c:5408-5439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5408-L5439)
 
 ## Overview
 Converts an ArrayBuildState into a final one-dimensional PostgreSQL array, handling both empty and non-empty cases while managing memory context cleanup.

@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesToast
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 362 - 457
+[src/backend/access/heap/heapam_visibility.c:362-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L362-L457)
 
 ## Overview
 Specialized visibility function for TOAST tuples that performs simplified checks focused on VACUUM moving conditions, designed for PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system.

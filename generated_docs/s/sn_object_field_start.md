@@ -1,7 +1,7 @@
 # sn_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4428 - 4457
+[src/backend/utils/adt/jsonfuncs.c:4428-4457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4428-L4457)
 
 ## Overview
 A callback function used during JSON parsing to handle the start of an object field, managing null value skipping and field name formatting.

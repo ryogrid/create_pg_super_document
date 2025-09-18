@@ -1,7 +1,7 @@
 # strbncmp
 
 ## Location
-src/backend/tsearch/spell.c: 280 - 310
+[src/backend/tsearch/spell.c:280-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L280-L310)
 
 ## Overview
 A static function that performs reverse string comparison for a specified number of characters, comparing strings from their end towards the beginning.

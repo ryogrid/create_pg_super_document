@@ -1,7 +1,7 @@
 # to_regtype
 
 ## Location
-src/backend/utils/adt/regproc.c: 1209 - 1228
+[src/backend/utils/adt/regproc.c:1209-1228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1209-L1228)
 
 ## Overview
 Converts a text string representation of a type name to its corresponding regtype value, returning NULL if the type name is not found instead of raising an error.

@@ -1,7 +1,7 @@
 # CreateWorkExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 319 - 354
+[src/backend/executor/execUtils.c:319-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L319-L354)
 
 ## Overview
 Creates an ExprContext with AllocSet sizes tuned to be reasonable in proportion to work_mem, preventing single allocations from exceeding memory limits.

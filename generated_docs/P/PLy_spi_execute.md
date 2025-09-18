@@ -1,7 +1,7 @@
 # PLy_spi_execute
 
 ## Location
-src/pl/plpython/plpy_spi.c: 154 - 174
+[src/pl/plpython/plpy_spi.c:154-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L154-L174)
 
 ## Overview
 PLy_spi_execute is a PL/Python dispatcher function that provides a unified interface for executing both direct SQL queries and prepared plans through the plpy.execute() method.

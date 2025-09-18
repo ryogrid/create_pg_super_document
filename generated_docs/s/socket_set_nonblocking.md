@@ -1,7 +1,7 @@
 # socket_set_nonblocking
 
 ## Location
-src/backend/libpq/pqcomm.c: 880 - 896
+[src/backend/libpq/pqcomm.c:880-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L880-L896)
 
 ## Overview
 Sets the socket blocking/non-blocking mode for the current client connection by updating the connection state flag.

@@ -1,7 +1,7 @@
 # gin_extract_tsvector
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 64 - 93
+[src/backend/utils/adt/tsginidx.c:64-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L64-L93)
 
 ## Overview
 Extracts individual lexemes from a TSVector (text search vector) for GIN index construction, converting each lexeme into a separate indexable entry.

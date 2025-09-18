@@ -1,7 +1,7 @@
 # XLogRecoveryShmemSize
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 447 - 457
+[src/backend/access/transam/xlogrecovery.c:447-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L447-L457)
 
 ## Overview
 Calculates the shared memory size required for WAL recovery data structures, specifically for the XLogRecoveryCtl control structure.

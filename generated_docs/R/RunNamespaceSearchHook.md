@@ -1,7 +1,7 @@
 # RunNamespaceSearchHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 115 - 138
+[src/backend/catalog/objectaccess.c:115-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L115-L138)
 
 ## Overview
 Executes registered object access hooks for namespace search events, allowing extensions to control access to schemas and return a boolean result indicating whether access should be granted.

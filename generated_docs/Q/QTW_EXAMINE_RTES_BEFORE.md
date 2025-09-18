@@ -1,7 +1,7 @@
 # QTW_EXAMINE_RTES_BEFORE
 
 ## Location
-src/include/nodes/nodeFuncs.h: 27 - 28
+[src/include/nodes/nodeFuncs.h:27-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L27-L28)
 
 ## Overview
 A flag bit constant used to control the behavior of query_tree_walker and query_tree_mutator functions, specifically instructing them to examine Range Table Entry (RTE) nodes before processing their contents.

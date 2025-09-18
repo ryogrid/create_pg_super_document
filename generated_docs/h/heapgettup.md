@@ -1,7 +1,7 @@
 # heapgettup
 
 ## Location
-src/backend/access/heap/heapam.c: 882 - 991
+[src/backend/access/heap/heapam.c:882-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L882-L991)
 
 ## Overview
 The core function for fetching the next heap tuple during sequential table scanning, handling scan initialization, tuple visibility checking, and key matching.

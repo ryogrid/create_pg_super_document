@@ -1,7 +1,7 @@
 # pglz_compress_datum
 
 ## Location
-src/backend/access/common/toast_compression.c: 40 - 81
+[src/backend/access/common/toast_compression.c:40-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L40-L81)
 
 ## Overview
 Compresses a varlena data structure using the PGLZ compression algorithm, which is PostgreSQL's default compression method for TOAST (The Oversized-Attribute Storage Technique).

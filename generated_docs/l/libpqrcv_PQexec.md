@@ -1,7 +1,7 @@
 # libpqrcv_PQexec
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 786 - 834
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:786-834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L786-L834)
 
 ## Overview
 Sends a query to the primary server and waits for results using asynchronous libpq functions, specifically designed for WAL receiver operations.

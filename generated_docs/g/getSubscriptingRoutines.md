@@ -1,7 +1,7 @@
 # getSubscriptingRoutines
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3130 - 3157
+[src/backend/utils/cache/lsyscache.c:3130-3157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3130-L3157)
 
 ## Overview
 Retrieves the complete subscripting methods structure for a given PostgreSQL data type, providing access to all the function pointers needed to implement subscripting operations.

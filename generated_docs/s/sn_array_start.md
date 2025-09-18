@@ -1,7 +1,7 @@
 # sn_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4408 - 4417
+[src/backend/utils/adt/jsonfuncs.c:4408-4417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4408-L4417)
 
 ## Overview
 This function handles the start of JSON arrays during null-stripping operations, appending an opening bracket to the output string buffer.

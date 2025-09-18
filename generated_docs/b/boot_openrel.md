@@ -1,7 +1,7 @@
 # boot_openrel
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 408 - 452
+[src/backend/bootstrap/bootstrap.c:408-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L408-L452)
 
 ## Overview
 boot_openrel executes the BKI (Backend Interface) OPEN command during PostgreSQL bootstrap, opening a relation and preparing its attribute information for subsequent bootstrap operations.

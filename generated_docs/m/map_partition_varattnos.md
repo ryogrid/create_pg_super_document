@@ -1,7 +1,7 @@
 # map_partition_varattnos
 
 ## Location
-src/backend/catalog/partition.c: 222 - 254
+[src/backend/catalog/partition.c:222-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L222-L254)
 
 ## Overview
 Maps variable attribute numbers (varattnos) in expressions from one relation to another within the same partitioning hierarchy, handling cases where column positions differ between partitioned tables and their partitions.

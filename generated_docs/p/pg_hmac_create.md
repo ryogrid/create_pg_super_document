@@ -1,7 +1,7 @@
 # pg_hmac_create
 
 ## Location
-src/common/hmac_openssl.c: 122 - 182
+[src/common/hmac_openssl.c:122-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L122-L182)
 
 ## Overview
 Allocates and initializes a new HMAC context structure for the specified cryptographic hash algorithm type.

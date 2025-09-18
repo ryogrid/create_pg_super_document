@@ -1,7 +1,7 @@
 # multirange_get_union_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 802 - 825
+[src/backend/utils/adt/multirangetypes.c:802-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L802-L825)
 
 ## Overview
 This function constructs a single range that represents the union (span) of all ranges within a multirange, extending from the lowest lower bound to the highest upper bound.

@@ -1,7 +1,7 @@
 # pgwin32_deadchild_callback
 
 ## Location
-src/backend/postmaster/postmaster.c: 4648 - 4676
+[src/backend/postmaster/postmaster.c:4648-4676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4648-L4676)
 
 ## Overview
 A Windows thread pool callback function that handles child process termination events by posting completion status and queuing SIGCHLD signals.

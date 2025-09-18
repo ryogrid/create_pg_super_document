@@ -1,7 +1,7 @@
 # PostmasterMain
 
 ## Location
-src/backend/postmaster/postmaster.c: 489 - 1388
+[src/backend/postmaster/postmaster.c:489-1388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L489-L1388)
 
 ## Overview
 PostmasterMain is the main entry point for the PostgreSQL postmaster process, responsible for initializing the database system, parsing command-line options, setting up listening sockets, and starting child processes including startup, checkpointer, and background writer.

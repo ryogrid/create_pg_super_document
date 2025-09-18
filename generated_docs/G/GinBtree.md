@@ -1,7 +1,7 @@
 # GinBtree
 
 ## Location
-src/include/access/gin_private.h: 140 - 144
+[src/include/access/gin_private.h:140-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L140-L144)
 
 ## Overview
 GinBtree is a typedef that creates a pointer type to GinBtreeData structure, serving as the primary interface for GIN B-tree operations and providing a handle to the B-tree's operational context.

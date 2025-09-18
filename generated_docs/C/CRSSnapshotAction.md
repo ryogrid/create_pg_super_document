@@ -1,7 +1,7 @@
 # CRSSnapshotAction
 
 ## Location
-src/include/replication/walsender.h: 25 - 58
+[src/include/replication/walsender.h:25-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walsender.h#L25-L58)
 
 ## Overview
 An enumeration that defines actions to be taken with snapshots when creating replication slots in PostgreSQL's logical replication system.

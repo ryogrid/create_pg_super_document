@@ -1,7 +1,7 @@
 # AtSubAbort_ResourceOwner
 
 ## Location
-src/backend/access/transam/xact.c: 1898 - 1910
+[src/backend/access/transam/xact.c:1898-1910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1898-L1910)
 
 ## Overview
 AtSubAbort_ResourceOwner is a static function that restores the current resource owner to the transaction's main resource owner during subtransaction abort processing.

@@ -1,7 +1,7 @@
 # spgPrepareScanKeys
 
 ## Location
-src/backend/access/spgist/spgscan.c: 208 - 303
+[src/backend/access/spgist/spgscan.c:208-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L208-L303)
 
 ## Overview
 Prepares scan keys from caller-given scan keys in the SpGistScanOpaque structure, processing null-related conditions and eliminating null considerations for opclass consistent functions.

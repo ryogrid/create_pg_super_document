@@ -1,7 +1,7 @@
 # GISTBuildBuffers
 
 ## Location
-src/include/access/gist_private.h: 338 - 381
+[src/include/access/gist_private.h:338-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L338-L381)
 
 ## Overview
 GISTBuildBuffers is a comprehensive data structure that manages the buffering system during GiST index construction, providing efficient organization of intermediate data and memory management for large index builds.

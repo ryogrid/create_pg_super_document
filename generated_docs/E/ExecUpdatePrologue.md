@@ -1,7 +1,7 @@
 # ExecUpdatePrologue
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1924 - 1966
+[src/backend/executor/nodeModifyTable.c:1924-1966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1924-L1966)
 
 ## Overview
 A subroutine for ExecUpdate that prepares the executor state for UPDATE operations, including materializing slots, opening indexes, and executing BEFORE ROW triggers.

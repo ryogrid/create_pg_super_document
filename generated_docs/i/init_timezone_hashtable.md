@@ -1,7 +1,7 @@
 # init_timezone_hashtable
 
 ## Location
-src/timezone/pgtz.c: 202 - 233
+[src/timezone/pgtz.c:202-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L202-L233)
 
 ## Overview
 Initializes the global hashtable used for caching timezone data structures to improve lookup performance.

@@ -1,7 +1,7 @@
 # brininsert
 
 ## Location
-src/backend/access/brin/brin.c: 335 - 502
+[src/backend/access/brin/brin.c:335-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L335-L502)
 
 ## Overview
 The `brininsert` function handles the insertion of a new tuple into a BRIN index by updating the summary information for the corresponding page range and optionally triggering auto-summarization of previous ranges.

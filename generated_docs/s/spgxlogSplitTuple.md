@@ -1,7 +1,7 @@
 # spgxlogSplitTuple
 
 ## Location
-src/include/access/spgxlog.h: 141 - 156
+[src/include/access/spgxlog.h:141-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L141-L156)
 
 ## Overview
 The spgxlogSplitTuple structure contains WAL record data for SP-GiST operations that split an inner tuple into prefix and postfix components.

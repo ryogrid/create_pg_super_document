@@ -1,7 +1,7 @@
 # IsReservedName
 
 ## Location
-src/backend/catalog/catalog.c: 247 - 272
+[src/backend/catalog/catalog.c:247-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L247-L272)
 
 ## Overview
 IsReservedName is a utility function that determines whether a given name starts with the reserved "pg_" prefix used for PostgreSQL system objects.

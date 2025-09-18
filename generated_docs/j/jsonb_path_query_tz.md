@@ -1,7 +1,7 @@
 # jsonb_path_query_tz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 580 - 590
+[src/backend/utils/adt/jsonpath_exec.c:580-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L580-L590)
 
 ## Overview
 PostgreSQL function that executes a JSONPath query against a JSONB document with timezone-aware operations enabled.

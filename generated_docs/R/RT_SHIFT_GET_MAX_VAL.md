@@ -1,7 +1,7 @@
 # RT_SHIFT_GET_MAX_VAL
 
 ## Location
-src/include/lib/radixtree.h: 822 - 833
+[src/include/lib/radixtree.h:822-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L822-L833)
 
 ## Overview
 A function that calculates the maximum key value that can be stored in a radix tree with a given shift configuration.

@@ -1,7 +1,7 @@
 # InitializeGUCOptions
 
 ## Location
-src/backend/utils/misc/guc.c: 1532 - 1590
+[src/backend/utils/misc/guc.c:1532-1590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1532-L1590)
 
 ## Overview
 Initializes the GUC (Grand Unified Configuration) system during PostgreSQL startup by building the parameter hash table, setting default values, and applying environment-based overrides.

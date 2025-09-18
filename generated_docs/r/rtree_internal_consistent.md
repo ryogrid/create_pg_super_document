@@ -1,7 +1,7 @@
 # rtree_internal_consistent
 
 ## Location
-src/backend/access/gist/gistproc.c: 957 - 1034
+[src/backend/access/gist/gistproc.c:957-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L957-L1034)
 
 ## Overview
 Performs internal-page consistency checking for R-tree data types (boxes, polygons, and circles) in GiST indexes by determining if a bounding box can potentially contain query results using appropriate spatial logic.

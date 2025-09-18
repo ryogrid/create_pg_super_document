@@ -1,7 +1,7 @@
 # SerializeTransactionState
 
 ## Location
-src/backend/access/transam/xact.c: 5478 - 5548
+[src/backend/access/transam/xact.c:5478-5548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5478-L5548)
 
 ## Overview
 SerializeTransactionState serializes the current transaction state hierarchy into a binary format that can be transmitted to parallel worker processes to maintain transaction consistency.

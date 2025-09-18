@@ -1,7 +1,7 @@
 # cost_samplescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 361 - 435
+[src/backend/optimizer/path/costsize.c:361-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L361-L435)
 
 ## Overview
 Determines and calculates the cost of scanning a relation using table sampling methods (TABLESAMPLE clause).

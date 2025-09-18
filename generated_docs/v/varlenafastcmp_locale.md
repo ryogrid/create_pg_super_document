@@ -1,7 +1,7 @@
 # varlenafastcmp_locale
 
 ## Location
-src/backend/utils/adt/varlena.c: 2094 - 2124
+[src/backend/utils/adt/varlena.c:2094-2124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2094-L2124)
 
 ## Overview
 A sort support comparison function for locale-aware string comparison of variable-length data types (varlena) in PostgreSQL.

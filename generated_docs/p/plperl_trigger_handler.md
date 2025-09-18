@@ -1,7 +1,7 @@
 # plperl_trigger_handler
 
 ## Location
-src/pl/plperl/plperl.c: 2521 - 2633
+[src/pl/plperl/plperl.c:2521-2633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2521-L2633)
 
 ## Overview
 This function serves as the main handler for PL/Perl trigger functions, managing trigger execution, result processing, and row modification based on trigger return values.

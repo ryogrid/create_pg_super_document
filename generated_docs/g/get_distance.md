@@ -1,7 +1,7 @@
 # get_distance
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 918 - 965
+[src/backend/utils/adt/multirangetypes_selfuncs.c:918-965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L918-L965)
 
 ## Overview
 Measures the distance between two range bounds using the range type's subdiff function, returning a float8 value representing the magnitude of separation between the bounds.

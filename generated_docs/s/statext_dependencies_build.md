@@ -1,7 +1,7 @@
 # statext_dependencies_build
 
 ## Location
-src/backend/statistics/dependencies.c: 348 - 443
+[src/backend/statistics/dependencies.c:348-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L348-L443)
 
 ## Overview
 Detects functional dependencies between groups of columns by generating all possible subsets and computing the degree of validity for each dependency relationship.

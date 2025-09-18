@@ -1,7 +1,7 @@
 # plperl_call_perl_func
 
 ## Location
-src/pl/plperl/plperl.c: 2180 - 2272
+[src/pl/plperl/plperl.c:2180-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2180-L2272)
 
 ## Overview
 This function is the core execution engine for calling Perl functions from PostgreSQL, converting PostgreSQL function arguments to Perl values and executing the Perl code.

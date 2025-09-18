@@ -1,7 +1,7 @@
 # regprocedurein
 
 ## Location
-src/backend/utils/adt/regproc.c: 224 - 277
+[src/backend/utils/adt/regproc.c:224-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L224-L277)
 
 ## Overview
 Converts a procedure name with arguments or numeric OID string to a regprocedure OID type, providing input conversion for the regprocedure data type.

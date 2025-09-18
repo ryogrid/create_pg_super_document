@@ -1,7 +1,7 @@
 # IndexInfoFindDataOffset
 
 ## Location
-src/include/access/itup.h: 99 - 117
+[src/include/access/itup.h:99-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/itup.h#L99-L117)
 
 ## Overview
 Calculates the offset to the actual data portion of an IndexTuple based on the tuple's information mask, determining whether space needs to be allocated for null value bitmaps.

@@ -1,7 +1,7 @@
 # convertToJsonb
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1554 - 1595
+[src/backend/utils/adt/jsonb_util.c:1554-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1554-L1595)
 
 ## Overview
 A static function that converts a JsonbValue structure into a complete Jsonb binary representation, creating a properly formatted and varlena-header-compliant JSONB data structure.

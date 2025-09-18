@@ -1,7 +1,7 @@
 # fetch_finfo_record
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 455 - 514
+[src/backend/utils/fmgr/fmgr.c:455-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L455-L514)
 
 ## Overview
 This function fetches and validates the information record for a given external C function by looking up its associated PG_FUNCTION_INFO_V1 info function.

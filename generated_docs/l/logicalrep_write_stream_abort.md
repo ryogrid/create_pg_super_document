@@ -1,7 +1,7 @@
 # logicalrep_write_stream_abort
 
 ## Location
-src/backend/replication/logical/proto.c: 1166 - 1191
+[src/backend/replication/logical/proto.c:1166-1191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1166-L1191)
 
 ## Overview
 Writes a stream abort message to the logical replication output stream to signal the abortion of a streaming transaction or subtransaction.

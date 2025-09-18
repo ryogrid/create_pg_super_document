@@ -1,7 +1,7 @@
 # float4_ge
 
 ## Location
-src/include/utils/float.h: 322 - 327
+[src/include/utils/float.h:322-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L322-L327)
 
 ## Overview
 Compares two single-precision floating-point values to determine if the first value is greater than or equal to the second, with proper NaN handling according to IEEE 754 standards.

@@ -1,7 +1,7 @@
 # timestamp_finite
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2147 - 2154
+[src/backend/utils/adt/timestamp.c:2147-2154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2147-L2154)
 
 ## Overview
 A PostgreSQL SQL function that checks whether a timestamp value is finite (not infinity or -infinity).

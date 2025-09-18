@@ -1,7 +1,7 @@
 # BogusGetChunkContext
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 301 - 308
+[src/backend/utils/mmgr/mcxt.c:301-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L301-L308)
 
 ## Overview
 BogusGetChunkContext is a static error-handling function that is called when GetMemoryChunkContext is invoked with an invalid memory pointer, providing diagnostic information before throwing an error.

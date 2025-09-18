@@ -1,7 +1,7 @@
 # cx
 
 ## Location
-src/backend/optimizer/geqo/geqo_cx.c: 50 - 125
+[src/backend/optimizer/geqo/geqo_cx.c:50-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_cx.c#L50-L125)
 
 ## Overview
 The  function implements cycle crossover, a genetic algorithm operator used in the GEQO (GEnetic Query Optimizer) to create offspring by combining genetic material from two parent tours.

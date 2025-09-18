@@ -1,7 +1,7 @@
 # pathlist_is_reparameterizable_by_child
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 4571 - 4584
+[src/backend/optimizer/util/pathnode.c:4571-4584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L4571-L4584)
 
 ## Overview
 A helper function that determines whether all paths in a given path list can be reparameterized by a specific child relation during query optimization.

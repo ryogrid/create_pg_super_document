@@ -1,7 +1,7 @@
 # pg_stat_get_backend_client_addr
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 879 - 923
+[src/backend/utils/adt/pgstatfuncs.c:879-923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L879-L923)
 
 ## Overview
 Returns the client IP address of a backend process identified by its process number, accessible through PostgreSQL's statistics views.

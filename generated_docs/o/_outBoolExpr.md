@@ -1,7 +1,7 @@
 # _outBoolExpr
 
 ## Location
-src/backend/nodes/outfuncs.c: 402 - 428
+[src/backend/nodes/outfuncs.c:402-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L402-L428)
 
 ## Overview
 Serializes a BoolExpr node to its string representation, converting boolean operator types to human-readable strings and outputting the operator type with its associated argument expressions.

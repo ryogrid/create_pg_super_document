@@ -1,7 +1,7 @@
 # copy_table
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1141 - 1292
+[src/backend/replication/logical/tablesync.c:1141-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1141-L1292)
 
 ## Overview
 Performs the initial data synchronization for a table in logical replication by copying all existing data from the publisher to the subscriber using PostgreSQL's COPY protocol.

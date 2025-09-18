@@ -1,7 +1,7 @@
 # print_addr
 
 ## Location
-src/tools/ifaddrs/test_ifaddrs.c: 18 - 45
+[src/tools/ifaddrs/test_ifaddrs.c:18-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/ifaddrs/test_ifaddrs.c#L18-L45)
 
 ## Overview
 A static utility function that converts a socket address structure to a human-readable string representation and prints it to stdout.

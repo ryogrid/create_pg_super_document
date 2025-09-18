@@ -1,7 +1,7 @@
 # points_box
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4217 - 4230
+[src/backend/utils/adt/geo_ops.c:4217-4230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4217-L4230)
 
 ## Overview
 The points_box function creates a bounding box (BOX) from two Point objects, constructing the smallest rectangle that contains both points.

@@ -1,7 +1,7 @@
 # _tarPositionTo
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 1066 - 1139
+[src/bin/pg_dump/pg_backup_tar.c:1066-1139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L1066-L1139)
 
 ## Overview
 A static function that locates a specific file within a TAR archive, reads its header, and positions the file pointer to the beginning of the file data.

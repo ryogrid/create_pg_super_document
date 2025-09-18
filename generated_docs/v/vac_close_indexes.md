@@ -1,7 +1,7 @@
 # vac_close_indexes
 
 ## Location
-src/backend/commands/vacuum.c: 2362 - 2382
+[src/backend/commands/vacuum.c:2362-2382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2362-L2382)
 
 ## Overview
 Releases the resources acquired by vac_open_indexes, specifically closing index relations and optionally releasing their locks.

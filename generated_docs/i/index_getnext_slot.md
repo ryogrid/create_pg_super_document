@@ -1,7 +1,7 @@
 # index_getnext_slot
 
 ## Location
-src/backend/access/index/indexam.c: 673 - 717
+[src/backend/access/index/indexam.c:673-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L673-L717)
 
 ## Overview
 The `index_getnext_slot` function provides a high-level interface for retrieving complete tuples from an index scan, combining TID retrieval and heap tuple fetching into a single operation.

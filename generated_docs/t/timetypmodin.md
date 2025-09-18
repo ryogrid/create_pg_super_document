@@ -1,7 +1,7 @@
 # timetypmodin
 
 ## Location
-src/backend/utils/adt/date.c: 1558 - 1565
+[src/backend/utils/adt/date.c:1558-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1558-L1565)
 
 ## Overview
 Parses and validates type modifier input for the TIME data type, converting precision specifications into internal typmod format.

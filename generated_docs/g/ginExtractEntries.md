@@ -1,7 +1,7 @@
 # ginExtractEntries
 
 ## Location
-src/backend/access/gin/ginutil.c: 483 - 601
+[src/backend/access/gin/ginutil.c:483-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L483-L601)
 
 ## Overview
 Extracts and processes index key values from an indexable item for GIN indexes, handling sorting, deduplication, and special cases for NULL and empty items.

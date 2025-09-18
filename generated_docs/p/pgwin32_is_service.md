@@ -1,7 +1,7 @@
 # pgwin32_is_service
 
 ## Location
-src/port/win32security.c: 120 - 190
+[src/port/win32security.c:120-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32security.c#L120-L190)
 
 ## Overview
 A Windows-specific function that determines whether PostgreSQL is running as a Windows service by checking multiple service-related indicators and caching the result for subsequent calls.

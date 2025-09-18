@@ -1,7 +1,7 @@
 # get_index_isreplident
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3555 - 3577
+[src/backend/utils/cache/lsyscache.c:3555-3577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3555-L3577)
 
 ## Overview
 Checks whether a given index is marked as a replica identity index, which is used for logical replication to uniquely identify rows in replicated tables.

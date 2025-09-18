@@ -1,7 +1,7 @@
 # MaybeRemoveOldWalSummaries
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1654 - 1731
+[src/backend/postmaster/walsummarizer.c:1654-1731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1654-L1731)
 
 ## Overview
 A cleanup function that removes old WAL summary files based on their modification time and the configured retention period, ensuring that disk space doesn't grow unbounded from accumulated summary files.

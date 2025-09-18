@@ -1,7 +1,7 @@
 # ExecInitModifyTable
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 4422 - 4822
+[src/backend/executor/nodeModifyTable.c:4422-4822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L4422-L4822)
 
 ## Overview
 Initializes the execution state for a ModifyTable plan node, setting up all necessary structures for DML operations (INSERT, UPDATE, DELETE, MERGE) including result relations, triggers, constraints, and partitioning.

@@ -1,7 +1,7 @@
 # AbortTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 2749 - 2944
+[src/backend/access/transam/xact.c:2749-2944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L2749-L2944)
 
 ## Overview
 AbortTransaction handles the complete rollback process for a PostgreSQL transaction, performing comprehensive cleanup of all transaction-related resources and state.

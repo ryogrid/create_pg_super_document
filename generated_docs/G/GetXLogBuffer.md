@@ -1,7 +1,7 @@
 # GetXLogBuffer
 
 ## Location
-src/backend/access/transam/xlog.c: 1634 - 1749
+[src/backend/access/transam/xlog.c:1634-1749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1634-L1749)
 
 ## Overview
 Returns a pointer to the appropriate location in the WAL buffer for a given XLogRecPtr, initializing the page if necessary.

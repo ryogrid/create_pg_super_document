@@ -1,7 +1,7 @@
 # ExecMarkPos
 
 ## Location
-src/backend/executor/execAmi.c: 326 - 374
+[src/backend/executor/execAmi.c:326-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L326-L374)
 
 ## Overview
 ExecMarkPos marks the current scan position in a plan node, enabling later restoration to this position, primarily used by MergeJoin operations that require repositioning within sorted input streams.

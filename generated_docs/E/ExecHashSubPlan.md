@@ -1,7 +1,7 @@
 # ExecHashSubPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 101 - 222
+[src/backend/executor/nodeSubplan.c:101-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L101-L222)
 
 ## Overview
 ExecHashSubPlan executes subselect queries by storing the result in an in-memory hash table and performing hash-based lookups for efficient IN/EXISTS/ANY/ALL subquery evaluation.

@@ -1,7 +1,7 @@
 # fmtlong
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c: 27 - 43
+[src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c:27-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c#L27-L43)
 
 ## Overview
 A static helper function that wraps the rfmtlong() function to format long integers according to a specified format string and handle return codes.

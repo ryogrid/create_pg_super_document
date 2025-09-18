@@ -1,7 +1,7 @@
 # pg_strnxfrm_prefix_icu_no_utf8
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2273 - 2320
+[src/backend/utils/adt/pg_locale.c:2273-2320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2273-L2320)
 
 ## Overview
 This static function generates partial ICU sort keys for non-UTF8 databases using ICU's incremental sort key generation capabilities.

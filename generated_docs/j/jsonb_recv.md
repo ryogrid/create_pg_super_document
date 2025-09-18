@@ -1,7 +1,7 @@
 # jsonb_recv
 
 ## Location
-src/backend/utils/adt/jsonb.c: 89 - 107
+[src/backend/utils/adt/jsonb.c:89-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L89-L107)
 
 ## Overview
 The  function is the binary receive function for the JSONB data type, responsible for converting binary-encoded JSON data received over PostgreSQL's network protocol into internal JSONB format.

@@ -1,7 +1,7 @@
 # scram_verify_plain_password
 
 ## Location
-src/backend/libpq/auth-scram.c: 512 - 588
+[src/backend/libpq/auth-scram.c:512-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L512-L588)
 
 ## Overview
 Verifies a plaintext password against a stored SCRAM secret, enabling plaintext password authentication for users with SCRAM secrets.

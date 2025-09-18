@@ -1,7 +1,7 @@
 # index_recheck_constraint
 
 ## Location
-src/backend/executor/execIndexing.c: 932 - 962
+[src/backend/executor/execIndexing.c:932-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L932-L962)
 
 ## Overview
 A static function that validates whether an existing tuple's indexed values truly conflict with new values according to exclusion constraint operators, returning true if a conflict exists.

@@ -1,7 +1,7 @@
 # DefElemAction
 
 ## Location
-src/include/nodes/parsenodes.h: 809 - 810
+[src/include/nodes/parsenodes.h:809-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L809-L810)
 
 ## Overview
 DefElemAction is an enumeration that specifies the action type for definition elements in PostgreSQL SQL commands, supporting SET, ADD, DROP operations on configuration options and parameters.

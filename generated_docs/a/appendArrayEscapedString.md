@@ -1,7 +1,7 @@
 # appendArrayEscapedString
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 614 - 634
+[src/bin/pg_rewind/libpq_source.c:614-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L614-L634)
 
 ## Overview
 Escapes a string to be safely used as an element in a PostgreSQL text array constant by handling special characters that need to be escaped.

@@ -1,7 +1,7 @@
 # show_in_hot_standby
 
 ## Location
-src/backend/access/transam/xlog.c: 4777 - 4800
+[src/backend/access/transam/xlog.c:4777-4800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4777-L4800)
 
 ## Overview
 A GUC show hook function that returns the current hot standby status as a string representation for display purposes.

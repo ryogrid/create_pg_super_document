@@ -1,7 +1,7 @@
 # check_authmethod_valid
 
 ## Location
-src/bin/initdb/initdb.c: 2560 - 2574
+[src/bin/initdb/initdb.c:2560-2574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2560-L2574)
 
 ## Overview
 Validates that a specified authentication method is supported for a particular connection type during PostgreSQL cluster initialization.

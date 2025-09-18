@@ -1,7 +1,7 @@
 # AssertTXNLsnOrder
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 938 - 1008
+[src/backend/replication/logical/reorderbuffer.c:938-1008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L938-L1008)
 
 ## Overview
 Verifies LSN ordering and other invariants of transaction lists in the reorder buffer during logical replication decoding (debug builds only).

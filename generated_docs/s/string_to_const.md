@@ -1,7 +1,7 @@
 # string_to_const
 
 ## Location
-src/backend/utils/adt/like_support.c: 1744 - 1786
+[src/backend/utils/adt/like_support.c:1744-1786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1744-L1786)
 
 ## Overview
 Creates a PostgreSQL Const node from a C string with appropriate type properties for pattern matching operations.

@@ -1,7 +1,7 @@
 # update_frameheadpos
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1485 - 1734
+[src/backend/executor/nodeWindowAgg.c:1485-1734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1485-L1734)
 
 ## Overview
 A static function that computes and sets the frame head position for the current row in window function processing, handling various frame boundary modes including UNBOUNDED PRECEDING, CURRENT ROW, and offset-based frames.

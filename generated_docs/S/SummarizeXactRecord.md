@@ -1,7 +1,7 @@
 # SummarizeXactRecord
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1364 - 1423
+[src/backend/postmaster/walsummarizer.c:1364-1423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1364-L1423)
 
 ## Overview
 Handles special processing of transaction WAL records (RM_XACT_ID) during WAL summarization to properly track relations that are removed during transaction commit or abort operations.

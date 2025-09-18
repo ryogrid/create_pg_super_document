@@ -1,7 +1,7 @@
 # PGSemaphoreReset
 
 ## Location
-src/backend/port/posix_sema.c: 295 - 319
+[src/backend/port/posix_sema.c:295-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L295-L319)
 
 ## Overview
 Resets a previously-initialized PostgreSQL semaphore to have a count of 0, effectively making it unavailable for locking until unlocked.

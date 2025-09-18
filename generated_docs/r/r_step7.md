@@ -1,7 +1,7 @@
 # r_step7
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3450 - 3460
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3450-3460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3450-L3460)
 
 ## Overview
 A static function in the Greek stemmer that performs step 7 of the Greek language stemming algorithm, specifically targeting comparative and superlative forms ending in -τερ and -τατ patterns.

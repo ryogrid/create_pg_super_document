@@ -1,7 +1,7 @@
 # show_tcp_keepalives_count
 
 ## Location
-src/backend/libpq/pqcomm.c: 2017 - 2029
+[src/backend/libpq/pqcomm.c:2017-2029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L2017-L2029)
 
 ## Overview
 A GUC (Grand Unified Configuration) show hook function that displays the current TCP keepalive count value for the current connection.

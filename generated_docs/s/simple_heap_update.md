@@ -1,7 +1,7 @@
 # simple_heap_update
 
 ## Location
-src/backend/access/heap/heapam.c: 4444 - 4484
+[src/backend/access/heap/heapam.c:4444-4484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4444-L4484)
 
 ## Overview
 simple_heap_update is a wrapper function that provides a simplified interface for updating heap tuples when concurrent updates are not expected, automatically handling errors through ereport().

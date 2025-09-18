@@ -1,7 +1,7 @@
 # sort_object_addresses
 
 ## Location
-src/backend/catalog/dependency.c: 2761 - 2772
+[src/backend/catalog/dependency.c:2761-2772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2761-L2772)
 
 ## Overview
 Sorts the items in an ObjectAddresses array using OID-descending order to ensure newer objects are listed first, primarily for stable regression test outputs.

@@ -1,7 +1,7 @@
 # index_close
 
 ## Location
-src/backend/access/index/indexam.c: 177 - 196
+[src/backend/access/index/indexam.c:177-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L177-L196)
 
 ## Overview
 Closes an index relation and optionally releases the specified lock held on that index.

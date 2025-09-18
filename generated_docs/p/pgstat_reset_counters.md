@@ -1,7 +1,7 @@
 # pgstat_reset_counters
 
 ## Location
-src/backend/utils/activity/pgstat.c: 714 - 732
+[src/backend/utils/activity/pgstat.c:714-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L714-L732)
 
 ## Overview
 Resets all statistics counters for the current database, providing a clean slate for statistics collection within the calling backend's database context.

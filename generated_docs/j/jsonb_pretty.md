@@ -1,7 +1,7 @@
 # jsonb_pretty
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4583 - 4598
+[src/backend/utils/adt/jsonfuncs.c:4583-4598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4583-L4598)
 
 ## Overview
 Converts a JSONB value into a pretty-printed, human-readable text representation with proper indentation and formatting.

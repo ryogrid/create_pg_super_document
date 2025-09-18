@@ -1,7 +1,7 @@
 # deconstruct_array_builtin
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3685 - 3754
+[src/backend/utils/adt/arrayfuncs.c:3685-3754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3685-L3754)
 
 ## Overview
 A specialized version of deconstruct_array that automatically determines element type properties for PostgreSQL built-in data types, eliminating the need for the caller to provide type information.

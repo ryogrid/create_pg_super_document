@@ -1,7 +1,7 @@
 # consumeQueryResult
 
 ## Location
-src/fe_utils/parallel_slot.c: 58 - 79
+[src/fe_utils/parallel_slot.c:58-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L58-L79)
 
 ## Overview
 A static function that consumes and processes all pending query results from a parallel slot connection until none remain, handling cancellation setup and tracking overall success.

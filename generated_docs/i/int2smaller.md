@@ -1,7 +1,7 @@
 # int2smaller
 
 ## Location
-src/backend/utils/adt/int.c: 1355 - 1363
+[src/backend/utils/adt/int.c:1355-1363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1355-L1363)
 
 ## Overview
 Returns the smaller of two 16-bit signed integers (int16).

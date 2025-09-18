@@ -1,7 +1,7 @@
 # pg_sockaddr_cidr_mask
 
 ## Location
-src/backend/libpq/ifaddr.c: 105 - 180
+[src/backend/libpq/ifaddr.c:105-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L105-L180)
 
 ## Overview
 Creates a network mask of the appropriate address family with a specified number of significant bits for CIDR subnet calculations.

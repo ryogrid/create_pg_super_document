@@ -1,7 +1,7 @@
 # SnapBuildExportSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 678 - 717
+[src/backend/replication/logical/snapbuild.c:678-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L678-L717)
 
 ## Overview
 Exports a logical decoding snapshot so it can be imported and used in another session via SET TRANSACTION SNAPSHOT, enabling consistent reads across different database connections.

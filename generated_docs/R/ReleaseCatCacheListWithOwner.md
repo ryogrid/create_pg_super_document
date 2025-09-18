@@ -1,7 +1,7 @@
 # ReleaseCatCacheListWithOwner
 
 ## Location
-src/backend/utils/cache/catcache.c: 2079 - 2112
+[src/backend/utils/cache/catcache.c:2079-2112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2079-L2112)
 
 ## Overview  
 Decrements the reference count of a catalog cache list with explicit resource owner tracking, potentially removing the list if no longer referenced.

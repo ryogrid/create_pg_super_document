@@ -1,7 +1,7 @@
 # populate_recordset_record
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4000 - 4038
+[src/backend/utils/adt/jsonfuncs.c:4000-4038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4000-L4038)
 
 ## Overview
 A static function that processes a single JSON object and converts it into a tuple record, storing it in the recordset state`s tuple store.

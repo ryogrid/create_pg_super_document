@@ -1,7 +1,7 @@
 # int48pl
 
 ## Location
-src/backend/utils/adt/int8.c: 971 - 984
+[src/backend/utils/adt/int8.c:971-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L971-L984)
 
 ## Overview
 The int48pl function performs addition of a 32-bit integer and a 64-bit integer, returning the result as a 64-bit integer with overflow detection.

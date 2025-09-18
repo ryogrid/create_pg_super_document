@@ -1,7 +1,7 @@
 # rbt_insert
 
 ## Location
-src/backend/lib/rbtree.c: 453 - 520
+[src/backend/lib/rbtree.c:453-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L453-L520)
 
 ## Overview
 Inserts a new value into the Red-Black Tree, handling both new insertions and merging with existing nodes.

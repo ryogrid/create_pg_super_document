@@ -1,7 +1,7 @@
 # DefineCollation
 
 ## Location
-src/backend/commands/collationcmds.c: 53 - 399
+[src/backend/commands/collationcmds.c:53-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L53-L399)
 
 ## Overview
 DefineCollation implements the CREATE COLLATION SQL command, creating a new collation object in the PostgreSQL system catalog with specified locale and provider settings.

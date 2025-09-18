@@ -1,7 +1,7 @@
 # bms_add_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 815 - 867
+[src/backend/nodes/bitmapset.c:815-867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L815-L867)
 
 ## Overview
 Adds a specified member to a bitmapset, automatically expanding the set's storage if necessary and recycling the input when possible.

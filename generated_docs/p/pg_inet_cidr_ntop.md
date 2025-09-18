@@ -1,7 +1,7 @@
 # pg_inet_cidr_ntop
 
 ## Location
-src/backend/utils/adt/inet_cidr_ntop.c: 56 - 84
+[src/backend/utils/adt/inet_cidr_ntop.c:56-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_cidr_ntop.c#L56-L84)
 
 ## Overview
 Converts a network number from binary format to presentation format with CIDR-style notation, supporting both IPv4 and IPv6 addresses.

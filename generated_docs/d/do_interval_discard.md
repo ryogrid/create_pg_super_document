@@ -1,7 +1,7 @@
 # do_interval_discard
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3971 - 4001
+[src/backend/utils/adt/timestamp.c:3971-4001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3971-L4001)
 
 ## Overview
 Removes a given interval value from the aggregated state used in interval average calculations, supporting PostgreSQL's inverse aggregate functions for sliding window operations.

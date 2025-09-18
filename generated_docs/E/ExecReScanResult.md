@@ -1,7 +1,7 @@
 # ExecReScanResult
 
 ## Location
-src/backend/executor/nodeResult.c: 249 - 262
+[src/backend/executor/nodeResult.c:249-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L249-L262)
 
 ## Overview
 Reinitializes a Result node to start scanning from the beginning, resetting internal state flags and conditionally rescanning the outer (child) plan node.

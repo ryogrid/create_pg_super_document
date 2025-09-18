@@ -1,7 +1,7 @@
 # text_starts_with_support
 
 ## Location
-src/backend/utils/adt/like_support.c: 147 - 155
+[src/backend/utils/adt/like_support.c:147-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L147-L155)
 
 ## Overview
 Provides planner support for prefix matching operations (starts_with function) by delegating to the common pattern matching support infrastructure.

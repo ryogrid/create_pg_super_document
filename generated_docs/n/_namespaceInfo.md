@@ -1,7 +1,7 @@
 # _namespaceInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 178 - 184
+[src/bin/pg_dump/pg_dump.h:178-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L178-L184)
 
 ## Overview
 The  structure represents PostgreSQL schemas (namespaces) in pg_dump, containing schema-specific metadata including ownership information and creation requirements along with the standard dumpable object properties.

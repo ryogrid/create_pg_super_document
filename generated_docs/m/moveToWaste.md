@@ -1,7 +1,7 @@
 # moveToWaste
 
 ## Location
-src/backend/tsearch/ts_parse.c: 142 - 157
+[src/backend/tsearch/ts_parse.c:142-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L142-L157)
 
 ## Overview
 Moves lexemes from the work queue to the waste list, stopping at a specified lexeme and updating the current processing position.

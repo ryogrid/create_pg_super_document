@@ -1,7 +1,7 @@
 # set_ps_display_suffix
 
 ## Location
-src/backend/utils/misc/ps_status.c: 369 - 420
+[src/backend/utils/misc/ps_status.c:369-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L369-L420)
 
 ## Overview
 Appends a suffix string to the current process title with a space separator, allowing PostgreSQL processes to show additional status information in their process names.

@@ -1,7 +1,7 @@
 # ExtensibleNodeMethods
 
 ## Location
-src/include/nodes/extensible.h: 62 - 73
+[src/include/nodes/extensible.h:62-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/extensible.h#L62-L73)
 
 ## Overview
 ExtensibleNodeMethods is a structure that defines the required callback functions and metadata for handling a specific type of extensible node in PostgreSQL's node system.

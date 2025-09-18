@@ -1,7 +1,7 @@
 # PLy_get_spi_error_data
 
 ## Location
-src/pl/plpython/plpy_elog.c: 381 - 416
+[src/pl/plpython/plpy_elog.c:381-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L381-L416)
 
 ## Overview
 PLy_get_spi_error_data extracts comprehensive error information from Python SPIError exception objects, including SQL error codes, messages, database object identifiers, and query position data.

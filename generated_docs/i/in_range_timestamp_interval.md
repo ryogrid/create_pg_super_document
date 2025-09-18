@@ -1,7 +1,7 @@
 # in_range_timestamp_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3835 - 3875
+[src/backend/utils/adt/timestamp.c:3835-3875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3835-L3875)
 
 ## Overview
 Implements SQL window function RANGE BETWEEN support for timestamp values with interval offsets, determining if a value falls within a specified range from a base timestamp without time zone.

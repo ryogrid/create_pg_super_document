@@ -1,7 +1,7 @@
 # crevcondissect
 
 ## Location
-src/backend/regex/regexec.c: 910 - 993
+[src/backend/regex/regexec.c:910-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L910-L993)
 
 ## Overview
 Implements the dissection algorithm for concatenation nodes in regular expression matching using a shortest-first strategy for the left operand.

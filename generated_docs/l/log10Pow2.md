@@ -1,7 +1,7 @@
 # log10Pow2
 
 ## Location
-src/common/ryu_common.h: 70 - 82
+[src/common/ryu_common.h:70-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L70-L82)
 
 ## Overview
 Returns the floor of the base-10 logarithm of 2^e, specifically computing floor(log_10(2^e)).

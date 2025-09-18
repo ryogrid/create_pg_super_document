@@ -1,7 +1,7 @@
 # DropRole
 
 ## Location
-src/backend/commands/user.c: 1090 - 1333
+[src/backend/commands/user.c:1090-1333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1090-L1333)
 
 ## Overview
 The main function that implements the DROP ROLE SQL statement, removing database roles and cleaning up all associated dependencies and metadata.

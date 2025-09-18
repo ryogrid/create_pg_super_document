@@ -1,7 +1,7 @@
 # WalSndLastCycleHandler
 
 ## Location
-src/backend/replication/walsender.c: 3624 - 3631
+[src/backend/replication/walsender.c:3624-3631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3624-L3631)
 
 ## Overview
 WalSndLastCycleHandler is a SIGUSR2 signal handler that triggers the final cycle of a WAL sender process before shutdown, setting a flag to indicate the last transmission cycle should begin.

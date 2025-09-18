@@ -1,7 +1,7 @@
 # pg_snapshot_xip
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 595 - 639
+[src/backend/utils/adt/xid8funcs.c:595-639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L595-L639)
 
 ## Overview
 Returns the set of in-progress transaction IDs from a PostgreSQL snapshot as a set-returning function, allowing SQL queries to iterate over all transactions that were active when the snapshot was taken.

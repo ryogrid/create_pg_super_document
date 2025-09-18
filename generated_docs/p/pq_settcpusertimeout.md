@@ -1,7 +1,7 @@
 # pq_settcpusertimeout
 
 ## Location
-src/backend/libpq/pqcomm.c: 1903 - 1950
+[src/backend/libpq/pqcomm.c:1903-1950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1903-L1950)
 
 ## Overview
 Sets the TCP user timeout for a PostgreSQL connection port, configuring the maximum time that transmitted data may remain unacknowledged before the connection is forcefully closed.

@@ -1,7 +1,7 @@
 # brin_can_do_samepage_update
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 323 - 341
+[src/backend/access/brin/brin_pageops.c:323-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L323-L341)
 
 ## Overview
 Determines whether a BRIN tuple update can be performed on the same page by checking if there is sufficient free space to accommodate the size difference between old and new tuples.

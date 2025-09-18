@@ -1,7 +1,7 @@
 # operator_predicate_proof
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1779 - 2031
+[src/backend/optimizer/util/predtest.c:1779-2031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1779-L2031)
 
 ## Overview
 Performs predicate implication or refutation tests for "simple clause" predicates and restrictions when both are operator clauses using related operators and identical input expressions.

@@ -1,7 +1,7 @@
 # ExecuteSqlCommand
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 328 - 379
+[src/bin/pg_dump/pg_backup_db.c:328-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L328-L379)
 
 ## Overview
 A convenience function that executes a single SQL command through PostgreSQL's libpq interface and monitors the result to detect COPY statements for pg_dump operations.

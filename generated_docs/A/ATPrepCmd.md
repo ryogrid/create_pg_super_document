@@ -1,7 +1,7 @@
 # ATPrepCmd
 
 ## Location
-src/backend/commands/tablecmds.c: 4779 - 5157
+[src/backend/commands/tablecmds.c:4779-5157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4779-L5157)
 
 ## Overview
 ATPrepCmd serves as the traffic controller for ALTER TABLE Phase 1 operations, handling permissions, recursion, and command-specific preparation for each ALTER TABLE subcommand type.

@@ -1,7 +1,7 @@
 # populate_array_element
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2616 - 2642
+[src/backend/utils/adt/jsonfuncs.c:2616-2642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2616-L2642)
 
 ## Overview
 Extracts and processes individual array elements from JSON values during array population, converting them to PostgreSQL Datum format.

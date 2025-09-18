@@ -1,7 +1,7 @@
 # find_forced_null_var
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1977 - 2025
+[src/backend/optimizer/util/clauses.c:1977-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1977-L2025)
 
 ## Overview
 Returns the specific variable that is forced to be NULL by a given clause, or NULL if the clause is not a simple IS NULL-type test.

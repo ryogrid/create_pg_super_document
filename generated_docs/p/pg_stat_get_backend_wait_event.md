@@ -1,7 +1,7 @@
 # pg_stat_get_backend_wait_event
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 787 - 808
+[src/backend/utils/adt/pgstatfuncs.c:787-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L787-L808)
 
 ## Overview
 Returns the specific wait event name for a backend process, providing detailed information about the exact resource or operation the backend is currently waiting for.

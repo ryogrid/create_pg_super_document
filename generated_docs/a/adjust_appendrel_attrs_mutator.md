@@ -1,7 +1,7 @@
 # adjust_appendrel_attrs_mutator
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 215 - 520
+[src/backend/optimizer/util/appendinfo.c:215-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L215-L520)
 
 ## Overview
 The core recursive function that performs the actual transformation of expression trees, translating parent relation references to child relation references using AppendRelInfo mappings.

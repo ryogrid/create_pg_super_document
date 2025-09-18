@@ -1,7 +1,7 @@
 # bitmap_hash
 
 ## Location
-src/backend/nodes/bitmapset.c: 1432 - 1441
+[src/backend/nodes/bitmapset.c:1432-1441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1432-L1441)
 
 ## Overview
 The `bitmap_hash` function serves as a hash table hash function for keys that are pointers to Bitmapsets, following PostgreSQL's standard hash function interface.

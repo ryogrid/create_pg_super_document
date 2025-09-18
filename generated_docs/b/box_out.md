@@ -1,7 +1,7 @@
 # box_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 455 - 465
+[src/backend/utils/adt/geo_ops.c:455-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L455-L465)
 
 ## Overview
 Converts the internal PostgreSQL BOX data type to its external string representation.

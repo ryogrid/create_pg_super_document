@@ -1,7 +1,7 @@
 # AlterSystemSetConfigFile
 
 ## Location
-src/backend/utils/misc/guc.c: 4610 - 4878
+[src/backend/utils/misc/guc.c:4610-4878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4610-L4878)
 
 ## Overview
 Executes the ALTER SYSTEM statement by updating PostgreSQL's automatic configuration file with new parameter values, handling validation, permissions, and atomic file operations.

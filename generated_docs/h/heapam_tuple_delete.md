@@ -1,7 +1,7 @@
 # heapam_tuple_delete
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 301 - 314
+[src/backend/access/heap/heapam_handler.c:301-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L301-L314)
 
 ## Overview
 Provides the heap table access method interface for deleting tuples, serving as a wrapper around the core `heap_delete` function with additional considerations for index tuple cleanup.

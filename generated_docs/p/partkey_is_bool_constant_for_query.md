@@ -1,7 +1,7 @@
 # partkey_is_bool_constant_for_query
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 842 - 881
+[src/backend/optimizer/path/pathkeys.c:842-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L842-L881)
 
 ## Overview
 Determines if a partition key column is constrained to have a constant boolean value by the query's WHERE conditions, making it irrelevant for sort-order considerations.

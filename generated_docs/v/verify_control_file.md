@@ -1,7 +1,7 @@
 # verify_control_file
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 758 - 790
+[src/bin/pg_verifybackup/pg_verifybackup.c:758-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L758-L790)
 
 ## Overview
 Performs specialized validation of the PostgreSQL control file by checking its CRC, version compatibility, and verifying that its system identifier matches the manifest's system identifier.

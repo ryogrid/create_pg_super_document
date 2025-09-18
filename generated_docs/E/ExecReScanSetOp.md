@@ -1,7 +1,7 @@
 # ExecReScanSetOp
 
 ## Location
-src/backend/executor/nodeSetOp.c: 594 - 649
+[src/backend/executor/nodeSetOp.c:594-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L594-L649)
 
 ## Overview
 ExecReScanSetOp resets a SetOp execution node to restart processing, handling both hashed and non-hashed set operation strategies while preserving optimization opportunities when parameters haven't changed.

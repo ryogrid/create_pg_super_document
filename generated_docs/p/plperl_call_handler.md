@@ -1,7 +1,7 @@
 # plperl_call_handler
 
 ## Location
-src/pl/plperl/plperl.c: 1852 - 1893
+[src/pl/plperl/plperl.c:1852-1893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1852-L1893)
 
 ## Overview
 Main entry point for PL/Perl function calls that dispatches to appropriate handlers based on the calling context (regular function, trigger, or event trigger).

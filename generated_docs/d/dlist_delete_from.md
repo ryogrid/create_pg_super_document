@@ -1,7 +1,7 @@
 # dlist_delete_from
 
 ## Location
-src/include/lib/ilist.h: 429 - 439
+[src/include/lib/ilist.h:429-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L429-L439)
 
 ## Overview
 Removes a node from a specific doubly-linked list with optional debug validation to ensure the node actually belongs to the specified list.

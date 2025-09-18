@@ -1,7 +1,7 @@
 # run_simple_command
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 192 - 208
+[src/bin/pg_rewind/libpq_source.c:192-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L192-L208)
 
 ## Overview
 Executes a SQL command on a PostgreSQL connection and expects successful completion without returning any result data.

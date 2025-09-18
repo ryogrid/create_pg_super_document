@@ -1,7 +1,7 @@
 # percentile_cont_multi_final_common
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 848 - 1003
+[src/backend/utils/adt/orderedsetaggs.c:848-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L848-L1003)
 
 ## Overview
 A static helper function that implements the common logic for computing continuous percentiles across multiple data types using linear interpolation between adjacent values.

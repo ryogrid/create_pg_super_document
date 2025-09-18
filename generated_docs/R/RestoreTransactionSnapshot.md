@@ -1,7 +1,7 @@
 # RestoreTransactionSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1840 - 1855
+[src/backend/utils/time/snapmgr.c:1840-1855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1840-L1855)
 
 ## Overview
 Installs a restored snapshot as the current transaction snapshot, typically used when setting up parallel worker processes.

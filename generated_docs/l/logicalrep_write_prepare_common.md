@@ -1,7 +1,7 @@
 # logicalrep_write_prepare_common
 
 ## Location
-src/backend/replication/logical/proto.c: 166 - 197
+[src/backend/replication/logical/proto.c:166-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L166-L197)
 
 ## Overview
 A static helper function that provides core functionality for writing PREPARE messages in logical replication, shared between regular and streaming prepare operations.

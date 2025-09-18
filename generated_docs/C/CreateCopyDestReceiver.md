@@ -1,7 +1,7 @@
 # CreateCopyDestReceiver
 
 ## Location
-src/backend/commands/copyto.c: 1272 - 1286
+[src/backend/commands/copyto.c:1272-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1272-L1286)
 
 ## Overview
 CreateCopyDestReceiver creates and initializes a DestReceiver object specifically designed for handling COPY TO operations in PostgreSQL, setting up the necessary function pointers and initial state for processing query results and sending them through the COPY protocol.

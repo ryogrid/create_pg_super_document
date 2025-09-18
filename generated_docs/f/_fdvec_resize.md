@@ -1,7 +1,7 @@
 # _fdvec_resize
 
 ## Location
-src/backend/storage/smgr/md.c: 1480 - 1527
+[src/backend/storage/smgr/md.c:1480-1527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1480-L1527)
 
 ## Overview
 A static helper function that resizes the array of file descriptors for open segments of a specific fork within a storage manager relation.

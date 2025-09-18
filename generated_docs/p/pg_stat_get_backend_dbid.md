@@ -1,7 +1,7 @@
 # pg_stat_get_backend_dbid
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 681 - 693
+[src/backend/utils/adt/pgstatfuncs.c:681-693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L681-L693)
 
 ## Overview
 Returns the database OID (object identifier) of the database that a specific PostgreSQL backend process is connected to.

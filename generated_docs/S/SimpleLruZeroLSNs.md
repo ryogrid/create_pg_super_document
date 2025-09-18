@@ -1,7 +1,7 @@
 # SimpleLruZeroLSNs
 
 ## Location
-src/backend/access/transam/slru.c: 428 - 444
+[src/backend/access/transam/slru.c:428-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L428-L444)
 
 ## Overview
 Zeros all LSN (Log Sequence Number) values stored for a specific SLRU page slot to ensure clean initialization.

@@ -1,7 +1,7 @@
 # CatalogTupleInsert
 
 ## Location
-src/backend/catalog/indexing.c: 233 - 255
+[src/backend/catalog/indexing.c:233-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L233-L255)
 
 ## Overview
 CatalogTupleInsert provides a complete solution for inserting a single tuple into a system catalog, handling heap insertion, constraint validation, and index maintenance in one convenient operation.

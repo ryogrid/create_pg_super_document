@@ -1,7 +1,7 @@
 # numeric_avg_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 5148 - 5219
+[src/backend/utils/adt/numeric.c:5148-5219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5148-L5219)
 
 ## Overview
 A PostgreSQL combine function for numeric aggregates that only require sum (sumX) calculations, used to merge partial aggregate states for simpler operations like AVG and SUM in parallel query execution.

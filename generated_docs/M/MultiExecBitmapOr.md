@@ -1,7 +1,7 @@
 # MultiExecBitmapOr
 
 ## Location
-src/backend/executor/nodeBitmapOr.c: 111 - 195
+[src/backend/executor/nodeBitmapOr.c:111-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapOr.c#L111-L195)
 
 ## Overview
 MultiExecBitmapOr executes a BitmapOr node by combining the bitmap results from all child subplans using logical OR operations to produce a unified TID bitmap.

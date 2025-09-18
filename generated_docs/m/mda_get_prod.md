@@ -1,7 +1,7 @@
 # mda_get_prod
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 167 - 182
+[src/backend/utils/adt/arrayutils.c:167-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L167-L182)
 
 ## Overview
 Computes the products of array dimensions to calculate scale factors for multidimensional array subscripts.

@@ -1,7 +1,7 @@
 # get_errno_symbol
 
 ## Location
-src/port/strerror.c: 113 - 274
+[src/port/strerror.c:113-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strerror.c#L113-L274)
 
 ## Overview
 Returns the symbolic name (e.g., "ENOENT") for a given errno code, providing a fallback when standard error message functions fail.

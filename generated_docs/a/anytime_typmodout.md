@@ -1,7 +1,7 @@
 # anytime_typmodout
 
 ## Location
-src/backend/utils/adt/date.c: 93 - 112
+[src/backend/utils/adt/date.c:93-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L93-L112)
 
 ## Overview
 Common code for generating string representations of type modifiers for TIME and TIMETZ data types, formatting precision information with appropriate time zone notation.

@@ -1,7 +1,7 @@
 # InvalMessageArray
 
 ## Location
-src/backend/utils/cache/inval.c: 166 - 170
+[src/backend/utils/cache/inval.c:166-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L166-L170)
 
 ## Overview
 InvalMessageArray is a data structure that manages a dynamically expandable array of shared invalidation messages used by PostgreSQL's cache invalidation system.

@@ -1,7 +1,7 @@
 # inv_seek
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 426 - 474
+[src/backend/storage/large_object/inv_api.c:426-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L426-L474)
 
 ## Overview
 Changes the current read/write position within a large object, similar to the POSIX lseek() function, with support for absolute, relative, and end-relative positioning.

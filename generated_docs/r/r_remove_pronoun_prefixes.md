@@ -1,7 +1,7 @@
 # r_remove_pronoun_prefixes
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1004 - 1024
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1004-1024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1004-L1024)
 
 ## Overview
 Removes Tamil pronoun prefixes from words as part of the Tamil language stemming algorithm in PostgreSQL's full-text search system.

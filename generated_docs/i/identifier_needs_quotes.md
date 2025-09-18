@@ -1,7 +1,7 @@
 # identifier_needs_quotes
 
 ## Location
-src/bin/psql/tab-complete.c: 6180 - 6212
+[src/bin/psql/tab-complete.c:6180-6212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L6180-L6212)
 
 ## Overview
 Detects whether a SQL identifier must be double-quoted by checking syntax rules and keyword conflicts in psql's tab completion system.

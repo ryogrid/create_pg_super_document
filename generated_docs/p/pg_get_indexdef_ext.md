@@ -1,7 +1,7 @@
 # pg_get_indexdef_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1178 - 1204
+[src/backend/utils/adt/ruleutils.c:1178-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1178-L1204)
 
 ## Overview
 An extended SQL-callable function that returns either the complete CREATE INDEX statement or a specific column expression for a given index OID with formatting options.

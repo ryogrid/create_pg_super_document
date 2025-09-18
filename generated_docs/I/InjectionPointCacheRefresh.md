@@ -1,7 +1,7 @@
 # InjectionPointCacheRefresh
 
 ## Location
-src/backend/utils/misc/injection_point.c: 420 - 525
+[src/backend/utils/misc/injection_point.c:420-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L420-L525)
 
 ## Overview
 A static function that serves as the core workhorse for injection point lookups, managing the local cache and ensuring thread-safe access to shared memory injection point data.

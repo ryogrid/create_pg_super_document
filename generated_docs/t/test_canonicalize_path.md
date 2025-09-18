@@ -1,7 +1,7 @@
 # test_canonicalize_path
 
 ## Location
-src/test/regress/regress.c: 542 - 551
+[src/test/regress/regress.c:542-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L542-L551)
 
 ## Overview
 A PostgreSQL test function that exposes the internal  function for testing purposes, allowing regression tests to verify path canonicalization behavior.

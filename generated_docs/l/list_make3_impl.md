@@ -1,7 +1,7 @@
 # list_make3_impl
 
 ## Location
-src/backend/nodes/list.c: 257 - 269
+[src/backend/nodes/list.c:257-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L257-L269)
 
 ## Overview
 Creates a new PostgreSQL list with exactly three elements, serving as the core implementation for the list_make3 family of macros.

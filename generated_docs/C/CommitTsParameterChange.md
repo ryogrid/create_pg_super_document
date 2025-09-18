@@ -1,7 +1,7 @@
 # CommitTsParameterChange
 
 ## Location
-src/backend/access/transam/commit_ts.c: 664 - 704
+[src/backend/access/transam/commit_ts.c:664-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L664-L704)
 
 ## Overview
 CommitTsParameterChange handles activation or deactivation of the commit timestamp subsystem during WAL recovery when processing XLOG_PARAMETER_CHANGE records from the primary server.

@@ -1,7 +1,7 @@
 # plpython_srf_cleanup_callback
 
 ## Location
-src/pl/plpython/plpy_exec.c: 681 - 694
+[src/pl/plpython/plpy_exec.c:681-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L681-L694)
 
 ## Overview
 Memory context deletion callback function that cleans up PLySRFState resources when a set-returning PLpython function is terminated early due to error or incomplete execution.

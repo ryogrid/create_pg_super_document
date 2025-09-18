@@ -1,7 +1,7 @@
 # hemdistsign
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 496 - 511
+[src/backend/utils/adt/tsgistidx.c:496-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L496-L511)
 
 ## Overview
 The hemdistsign function calculates the Hamming distance between two bit vector signatures, measuring the number of differing bits for TSVector GiST index operations.

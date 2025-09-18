@@ -1,7 +1,7 @@
 # bbstreamer_tar_parser_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 111 - 260
+[src/bin/pg_basebackup/bbstreamer_tar.c:111-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L111-L260)
 
 ## Overview
 Parses unknown content as tar data by implementing a state machine that processes tar headers, contents, and trailers sequentially.

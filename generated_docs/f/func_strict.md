@@ -1,7 +1,7 @@
 # func_strict
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1761 - 1779
+[src/backend/utils/cache/lsyscache.c:1761-1779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1761-L1779)
 
 ## Overview
 Retrieves the proisstrict flag for a given function, indicating whether the function is strict (returns NULL if any argument is NULL).

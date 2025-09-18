@@ -1,7 +1,7 @@
 # fetch_table_list
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2140 - 2247
+[src/backend/commands/subscriptioncmds.c:2140-2247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2140-L2247)
 
 ## Overview
 Retrieves the complete list of tables and their attributes from specified publications on the publisher database for logical replication setup.

@@ -1,7 +1,7 @@
 # row_security_policy_cmp
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 674 - 699
+[src/backend/rewrite/rowsecurity.c:674-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L674-L699)
 
 ## Overview
 This static comparison function enables sorting of RowSecurityPolicy structures by their policy names, with special handling for NULL policy names from extensions.

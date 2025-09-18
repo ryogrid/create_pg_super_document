@@ -1,7 +1,7 @@
 # ParseISO8601Number
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 56 - 80
+[src/interfaces/ecpg/pgtypeslib/interval.c:56-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L56-L80)
 
 ## Overview
 ParseISO8601Number is a helper function that parses a decimal value from a string and breaks it into integer and fractional parts, specifically designed for ISO 8601 interval parsing.

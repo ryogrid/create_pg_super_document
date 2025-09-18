@@ -1,7 +1,7 @@
 # range_sockaddr_AF_INET6
 
 ## Location
-src/backend/libpq/ifaddr.c: 78 - 104
+[src/backend/libpq/ifaddr.c:78-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L78-L104)
 
 ## Overview
 Performs IPv6-specific subnet range checking to determine if an IPv6 address falls within a specified subnet.

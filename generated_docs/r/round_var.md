@@ -1,7 +1,7 @@
 # round_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 11767 - 11872
+[src/backend/utils/adt/numeric.c:11767-11872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11767-L11872)
 
 ## Overview
 Rounds a NumericVar value to a specified number of decimal digits after the decimal point, supporting both positive and negative rscale values for comprehensive numeric precision control.

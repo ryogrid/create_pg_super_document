@@ -1,7 +1,7 @@
 # ReorderBufferToastReplace
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4921 - 5111
+[src/backend/replication/logical/reorderbuffer.c:4921-5111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4921-L5111)
 
 ## Overview
 Reconstructs TOAST values from collected chunks and replaces external TOAST pointers in tuple data with in-memory reconstructed values during logical replication processing.

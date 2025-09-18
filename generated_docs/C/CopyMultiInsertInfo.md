@@ -1,7 +1,7 @@
 # CopyMultiInsertInfo
 
 ## Location
-src/backend/commands/copyfrom.c: 91 - 100
+[src/backend/commands/copyfrom.c:91-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L91-L100)
 
 ## Overview
 CopyMultiInsertInfo is a structure that manages one or multiple CopyMultiInsertBuffer instances, tracking the overall state and statistics of buffered tuples across all buffers during COPY FROM operations, particularly useful for partitioned tables.

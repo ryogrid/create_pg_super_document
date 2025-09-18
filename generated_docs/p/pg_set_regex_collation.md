@@ -1,7 +1,7 @@
 # pg_set_regex_collation
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 234 - 293
+[src/backend/regex/regc_pg_locale.c:234-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L234-L293)
 
 ## Overview
 Sets the collation for regular expression operations to use throughout regex compilation and execution, configuring the appropriate locale strategy based on the collation provider and database encoding.

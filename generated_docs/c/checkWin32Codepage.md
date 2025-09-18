@@ -1,7 +1,7 @@
 # checkWin32Codepage
 
 ## Location
-src/bin/psql/command.c: 4015 - 4039
+[src/bin/psql/command.c:4015-4039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4015-L4039)
 
 ## Overview
 A Windows-specific utility function that checks for code page mismatches between the Windows system console and the active Windows code page, warning users about potential character encoding issues.

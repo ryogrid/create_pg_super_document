@@ -1,7 +1,7 @@
 # ExecuteRecoveryCommand
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 295 - 357
+[src/backend/access/transam/xlogarchive.c:295-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L295-L357)
 
 ## Overview
 Executes external shell commands during PostgreSQL recovery operations, providing a mechanism to run custom scripts like recovery_end_command and archive_cleanup_command.

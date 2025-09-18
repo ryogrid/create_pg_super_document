@@ -1,7 +1,7 @@
 # choose_dsm_implementation
 
 ## Location
-src/bin/initdb/initdb.c: 1071 - 1112
+[src/bin/initdb/initdb.c:1071-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1071-L1112)
 
 ## Overview
 A static function in initdb that determines the most appropriate dynamic shared memory implementation for the target platform by testing POSIX shared memory availability and falling back to platform-specific alternatives.

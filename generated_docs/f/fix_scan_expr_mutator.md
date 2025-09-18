@@ -1,7 +1,7 @@
 # fix_scan_expr_mutator
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2195 - 2260
+[src/backend/optimizer/plan/setrefs.c:2195-2260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2195-L2260)
 
 ## Overview
 A tree mutator function that recursively processes expression nodes to adjust variable references, replace parameters, and handle special node types during scan-level expression fixing.

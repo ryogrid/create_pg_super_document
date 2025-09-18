@@ -1,7 +1,7 @@
 # float8abs
 
 ## Location
-src/backend/utils/adt/float.c: 650 - 661
+[src/backend/utils/adt/float.c:650-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L650-L661)
 
 ## Overview
 Computes and returns the absolute value of a double-precision floating-point number in PostgreSQL's SQL function interface.

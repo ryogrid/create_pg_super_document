@@ -1,7 +1,7 @@
 # get_func_prokind
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1818 - 1836
+[src/backend/utils/cache/lsyscache.c:1818-1836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1818-L1836)
 
 ## Overview
 Retrieves the prokind flag for a given routine, indicating the type of routine (function, procedure, aggregate, or window function).

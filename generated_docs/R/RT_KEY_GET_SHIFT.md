@@ -1,7 +1,7 @@
 # RT_KEY_GET_SHIFT
 
 ## Location
-src/include/lib/radixtree.h: 810 - 821
+[src/include/lib/radixtree.h:810-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L810-L821)
 
 ## Overview
 A macro that expands to a function calculating the smallest shift value required to accommodate a given key in a radix tree structure.

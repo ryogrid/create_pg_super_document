@@ -1,7 +1,7 @@
 # prompt3_hook
 
 ## Location
-src/bin/psql/startup.c: 1112 - 1118
+[src/bin/psql/startup.c:1112-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1112-L1118)
 
 ## Overview
 A variable hook function that updates the PROMPT3 variable in psql, which controls the prompt displayed when the SQL statement is incomplete due to missing right parentheses, quotes, or other syntax elements.

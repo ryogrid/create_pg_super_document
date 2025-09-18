@@ -1,7 +1,7 @@
 # pg_strerror_r
 
 ## Location
-src/port/strerror.c: 46 - 84
+[src/port/strerror.c:46-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strerror.c#L46-L84)
 
 ## Overview
 A thread-safe, slightly cleaned-up version of strerror_r() that provides robust error message strings with platform-specific handling and fallback mechanisms.

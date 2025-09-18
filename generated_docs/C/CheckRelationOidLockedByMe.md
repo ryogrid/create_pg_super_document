@@ -1,7 +1,7 @@
 # CheckRelationOidLockedByMe
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 347 - 362
+[src/backend/storage/lmgr/lmgr.c:347-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L347-L362)
 
 ## Overview
 CheckRelationOidLockedByMe checks whether the current transaction holds a lock on a relation specified by its OID with the given lock mode or potentially stronger.

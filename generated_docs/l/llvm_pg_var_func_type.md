@@ -1,7 +1,7 @@
 # llvm_pg_var_func_type
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 475 - 496
+[src/backend/jit/llvm/llvmjit.c:475-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L475-L496)
 
 ## Overview
 Returns the LLVM function type of a variable defined in llvmjit_types.c, ensuring function type synchronization between C code and JIT compiled code.

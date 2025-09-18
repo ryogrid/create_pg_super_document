@@ -1,7 +1,7 @@
 # dumpPolicy
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4117 - 4234
+[src/bin/pg_dump/pg_dump.c:4117-4234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4117-L4234)
 
 ## Overview
 Generates the SQL statements to recreate a Row-Level Security policy or RLS enablement for a table during pg_dump restore operations.

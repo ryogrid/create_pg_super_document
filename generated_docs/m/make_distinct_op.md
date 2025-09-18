@@ -1,7 +1,7 @@
 # make_distinct_op
 
 ## Location
-src/backend/parser/parse_expr.c: 3062 - 3096
+[src/backend/parser/parse_expr.c:3062-3096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3062-L3096)
 
 ## Overview
 Creates a DistinctExpr node for IS DISTINCT FROM operators by leveraging the equality operator infrastructure and converting the result to proper DISTINCT semantics.

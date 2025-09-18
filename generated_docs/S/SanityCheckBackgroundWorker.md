@@ -1,7 +1,7 @@
 # SanityCheckBackgroundWorker
 
 ## Location
-src/backend/postmaster/bgworker.c: 637 - 708
+[src/backend/postmaster/bgworker.c:637-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L637-L708)
 
 ## Overview
 Validates the configuration of a BackgroundWorker structure and reports errors or warnings based on invalid parameters.

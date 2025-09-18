@@ -1,7 +1,7 @@
 # make_agg_arg
 
 ## Location
-src/backend/parser/parse_agg.c: 2183 - 2194
+[src/backend/parser/parse_agg.c:2183-2194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L2183-L2194)
 
 ## Overview
 Creates dummy parameter expressions for aggregate functions that allow support functions to discover their actual argument types at runtime.

@@ -1,7 +1,7 @@
 # parse_required_wal
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 952 - 982
+[src/bin/pg_verifybackup/pg_verifybackup.c:952-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L952-L982)
 
 ## Overview
 Validates the required WAL (Write-Ahead Log) files for backup restoration by using pg_waldump to parse WAL ranges specified in the backup manifest.

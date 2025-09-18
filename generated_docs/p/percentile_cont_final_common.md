@@ -1,7 +1,7 @@
 # percentile_cont_final_common
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 526 - 612
+[src/backend/utils/adt/orderedsetaggs.c:526-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L526-L612)
 
 ## Overview
 Core implementation function for the PERCENTILE_CONT ordered-set aggregate, providing common logic for continuous percentile calculation across different data types.

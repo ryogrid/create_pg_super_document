@@ -1,7 +1,7 @@
 # brin_tuples_equal
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 465 - 481
+[src/backend/access/brin/brin_tuple.c:465-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L465-L481)
 
 ## Overview
 Performs bitwise comparison between two BrinTuple structures to determine if they are identical, checking both content and length equality.

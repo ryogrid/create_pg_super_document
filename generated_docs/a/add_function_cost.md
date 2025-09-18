@@ -1,7 +1,7 @@
 # add_function_cost
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2089 - 2149
+[src/backend/optimizer/util/plancat.c:2089-2149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2089-L2149)
 
 ## Overview
 Estimates the execution cost of a function and adds it to an existing cost structure, supporting both one-time and per-tuple cost components.

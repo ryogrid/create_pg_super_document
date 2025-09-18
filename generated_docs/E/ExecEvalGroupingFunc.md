@@ -1,7 +1,7 @@
 # ExecEvalGroupingFunc
 
 ## Location
-src/backend/executor/execExprInterp.c: 4689 - 4715
+[src/backend/executor/execExprInterp.c:4689-4715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4689-L4715)
 
 ## Overview
 ExecEvalGroupingFunc implements the SQL GROUPING function by computing a bitmask that indicates which expressions are not part of the current grouping set in aggregate operations.

@@ -1,7 +1,7 @@
 # heap_get_root_tuples
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1785 - 1895
+[src/backend/access/heap/pruneheap.c:1785-1895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1785-L1895)
 
 ## Overview
 Maps each tuple on a heap page to its root line pointer in HOT (Heap Only Tuples) chains, providing essential information for index operations and tuple visibility.

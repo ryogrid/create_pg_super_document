@@ -1,7 +1,7 @@
 # execute_sql_string
 
 ## Location
-src/backend/commands/extension.c: 741 - 847
+[src/backend/commands/extension.c:741-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L741-L847)
 
 ## Overview
 Executes a multi-statement SQL string by parsing, analyzing, planning, and executing each statement sequentially to handle interdependencies between statements.

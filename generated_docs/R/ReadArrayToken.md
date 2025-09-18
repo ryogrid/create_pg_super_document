@@ -1,7 +1,7 @@
 # ReadArrayToken
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 796 - 960
+[src/backend/utils/adt/arrayfuncs.c:796-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L796-L960)
 
 ## Overview
 Tokenizes array string input by reading one token at a time, handling quoted/unquoted elements, delimiters, braces, and escape sequences during array parsing.

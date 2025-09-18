@@ -1,7 +1,7 @@
 # armenian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_armenian.c: 558 - 559
+[src/backend/snowball/libstemmer/stem_UTF_8_armenian.c:558-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_armenian.c#L558-L559)
 
 ## Overview
 A cleanup function that properly deallocates and frees a Snowball environment structure that was created for Armenian language stemming operations.

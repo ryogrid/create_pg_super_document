@@ -1,7 +1,7 @@
 # TopoSort
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 597 - 745
+[src/bin/pg_dump/pg_dump_sort.c:597-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L597-L745)
 
 ## Overview
 TopoSort performs a topological sort of a lock's wait queue to satisfy partial ordering constraints while minimizing disruption to the existing queue order.

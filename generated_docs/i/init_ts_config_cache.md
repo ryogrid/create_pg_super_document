@@ -1,7 +1,7 @@
 # init_ts_config_cache
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 362 - 384
+[src/backend/utils/cache/ts_cache.c:362-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L362-L384)
 
 ## Overview
 Initializes the text search configuration cache hash table and registers syscache callbacks to maintain cache consistency across multiple system catalogs.

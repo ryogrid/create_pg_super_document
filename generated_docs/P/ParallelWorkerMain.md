@@ -1,7 +1,7 @@
 # ParallelWorkerMain
 
 ## Location
-src/backend/access/transam/parallel.c: 1288 - 1572
+[src/backend/access/transam/parallel.c:1288-1572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1288-L1572)
 
 ## Overview
 ParallelWorkerMain is the main entrypoint function for parallel worker processes, responsible for initializing and setting up the entire execution environment for a parallel worker before executing the worker-specific code.

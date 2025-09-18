@@ -1,7 +1,7 @@
 # reserveSpaceForItemPointer
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 507 - 520
+[src/backend/utils/adt/jsonpath.c:507-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L507-L520)
 
 ## Overview
 Reserves space in a StringInfo buffer for an int32 JsonPath item pointer, writing a placeholder zero value that will be updated later with the actual pointer value.

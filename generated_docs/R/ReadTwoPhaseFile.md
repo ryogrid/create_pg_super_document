@@ -1,7 +1,7 @@
 # ReadTwoPhaseFile
 
 ## Location
-src/backend/access/transam/twophase.c: 1287 - 1403
+[src/backend/access/transam/twophase.c:1287-1403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1287-L1403)
 
 ## Overview
 ReadTwoPhaseFile reads and validates a two-phase commit state file from disk, performing integrity checks before returning the file contents.

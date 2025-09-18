@@ -1,7 +1,7 @@
 # transformColumnDefinition
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 562 - 902
+[src/backend/parser/parse_utilcmd.c:562-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L562-L902)
 
 ## Overview
 Transforms a single ColumnDef within CREATE TABLE or ALTER TABLE ADD COLUMN statements, processing column types, constraints, and special column types like SERIAL and IDENTITY.

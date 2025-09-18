@@ -1,7 +1,7 @@
 # merge_null_partitions
 
 ## Location
-src/backend/partitioning/partbounds.c: 2147 - 2256
+[src/backend/partitioning/partbounds.c:2147-2256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2147-L2256)
 
 ## Overview
 Merges the NULL partitions from the outer and inner sides of a partitioned join, handling the special semantics of NULL values in join operations.

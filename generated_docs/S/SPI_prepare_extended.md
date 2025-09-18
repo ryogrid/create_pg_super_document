@@ -1,7 +1,7 @@
 # SPI_prepare_extended
 
 ## Location
-src/backend/executor/spi.c: 902 - 937
+[src/backend/executor/spi.c:902-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L902-L937)
 
 ## Overview
 SPI_prepare_extended parses and plans a SQL query using an extended options structure that provides fine-grained control over parsing mode, cursor options, and parser setup functions.

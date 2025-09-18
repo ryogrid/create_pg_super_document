@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_pg_enum_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 164 - 174
+[src/backend/utils/adt/pg_upgrade_support.c:164-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L164-L174)
 
 ## Overview
 Sets the next OID to be assigned to an enum value in pg_enum during a binary upgrade process.

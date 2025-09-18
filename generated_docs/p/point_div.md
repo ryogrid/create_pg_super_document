@@ -1,7 +1,7 @@
 # point_div
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4196 - 4216
+[src/backend/utils/adt/geo_ops.c:4196-4216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4196-L4216)
 
 ## Overview
 The point_div function performs complex division of two Point geometric objects, serving as a PostgreSQL function interface for point division operations.

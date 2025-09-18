@@ -1,7 +1,7 @@
 # pg_lsn_mii
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 285 - 312
+[src/backend/utils/adt/pg_lsn.c:285-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L285-L312)
 
 ## Overview
 The pg_lsn_mii function subtracts a numeric byte offset from a PostgreSQL Log Sequence Number (LSN), returning a new LSN value, and handles both positive and negative byte offsets.

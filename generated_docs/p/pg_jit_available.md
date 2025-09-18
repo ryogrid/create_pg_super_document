@@ -1,7 +1,7 @@
 # pg_jit_available
 
 ## Location
-src/backend/jit/jit.c: 56 - 66
+[src/backend/jit/jit.c:56-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/jit.c#L56-L66)
 
 ## Overview
 A SQL-level function that determines whether JIT (Just-In-Time) compilation is available in the current PostgreSQL backend and attempts to load the JIT provider if necessary.

@@ -1,7 +1,7 @@
 # box_copy
 
 ## Location
-src/backend/access/spgist/spgproc.c: 82 - 88
+[src/backend/access/spgist/spgproc.c:82-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgproc.c#L82-L88)
 
 ## Overview
 Creates a deep copy of a BOX structure by allocating new memory and copying the original box's contents.

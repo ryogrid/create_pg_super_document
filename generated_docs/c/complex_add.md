@@ -1,7 +1,7 @@
 # complex_add
 
 ## Location
-src/tutorial/complex.c: 105 - 128
+[src/tutorial/complex.c:105-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L105-L128)
 
 ## Overview
 Mathematical operation function for the  data type that performs addition of two complex numbers.

@@ -1,7 +1,7 @@
 # transformCreateStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 163 - 360
+[src/backend/parser/parse_utilcmd.c:163-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L163-L360)
 
 ## Overview
 Performs parse analysis for CREATE TABLE statements, transforming the raw parser output into a list of utility commands to be executed in sequence to create the table and its associated objects.

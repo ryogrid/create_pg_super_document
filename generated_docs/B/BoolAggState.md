@@ -1,7 +1,7 @@
 # BoolAggState
 
 ## Location
-src/backend/utils/adt/bool.c: 304 - 308
+[src/backend/utils/adt/bool.c:304-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L304-L308)
 
 ## Overview
 BoolAggState is a PostgreSQL structure used for maintaining state during boolean aggregate operations, tracking both the total number of non-null boolean values processed and the count of true values.

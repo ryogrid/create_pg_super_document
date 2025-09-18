@@ -1,7 +1,7 @@
 # CustomPathMethods
 
 ## Location
-src/include/nodes/extensible.h: 92 - 106
+[src/include/nodes/extensible.h:92-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/extensible.h#L92-L106)
 
 ## Overview
 CustomPathMethods defines the interface for custom path implementations in PostgreSQL's query planner, allowing extensions to provide specialized path generation and planning logic.

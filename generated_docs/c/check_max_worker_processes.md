@@ -1,7 +1,7 @@
 # check_max_worker_processes
 
 ## Location
-src/backend/utils/init/postinit.c: 618 - 629
+[src/backend/utils/init/postinit.c:618-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L618-L629)
 
 ## Overview
 check_max_worker_processes is a GUC check hook function that validates proposed values for the max_worker_processes configuration parameter to ensure the total backend count stays within system limits.

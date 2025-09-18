@@ -1,7 +1,7 @@
 # PLy_output_setup_func
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 296 - 417
+[src/pl/plpython/plpy_typeio.c:296-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L296-L417)
 
 ## Overview
 PLy_output_setup_func recursively initializes PLyObToDatum structures needed to construct SQL values from Python values, handling all PostgreSQL data types including domains, arrays, transforms, composites, and scalars.

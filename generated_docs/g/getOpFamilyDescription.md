@@ -1,7 +1,7 @@
 # getOpFamilyDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4163 - 4204
+[src/backend/catalog/objectaddress.c:4163-4204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4163-L4204)
 
 ## Overview
 A specialized subroutine that generates human-readable descriptions of PostgreSQL operator families by looking up family and access method information and formatting descriptive text.

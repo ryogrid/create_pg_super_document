@@ -1,7 +1,7 @@
 # InitializeSearchPath
 
 ## Location
-src/backend/catalog/namespace.c: 4736 - 4795
+[src/backend/catalog/namespace.c:4736-4795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4736-L4795)
 
 ## Overview
 Initializes the search path module during PostgreSQL startup, setting up either bootstrap mode with a fixed pg_catalog path or normal mode with syscache invalidation callbacks.

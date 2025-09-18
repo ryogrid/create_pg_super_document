@@ -1,7 +1,7 @@
 # findNamespace
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5754 - 5771
+[src/bin/pg_dump/pg_dump.c:5754-5771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5754-L5771)
 
 ## Overview
 A utility function that looks up a NamespaceInfo structure by OID, providing error handling for missing namespaces.

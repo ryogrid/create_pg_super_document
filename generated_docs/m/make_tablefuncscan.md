@@ -1,7 +1,7 @@
 # make_tablefuncscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5725 - 5743
+[src/backend/optimizer/plan/createplan.c:5725-5743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5725-L5743)
 
 ## Overview
 Creates and initializes a TableFuncScan plan node, which represents a scan operation on the result set returned by table functions like XMLTABLE, JSON_TABLE, or other structured data extraction functions in PostgreSQL's query execution plan.

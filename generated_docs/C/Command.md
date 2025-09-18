@@ -1,7 +1,7 @@
 # Command
 
 ## Location
-src/bin/pgbench/pgbench.c: 740 - 754
+[src/bin/pgbench/pgbench.c:740-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L740-L754)
 
 ## Overview
 The Command structure represents a single command within a pgbench script, encapsulating both SQL and meta-commands along with their execution parameters, arguments, and performance statistics.

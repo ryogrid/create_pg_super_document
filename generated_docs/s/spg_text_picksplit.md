@@ -1,7 +1,7 @@
 # spg_text_picksplit
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 333 - 425
+[src/backend/access/spgist/spgtextproc.c:333-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L333-L425)
 
 ## Overview
 The picksplit function for SP-GiST text operator class that partitions a set of text values by finding their longest common prefix and creating child nodes based on the first differing character.

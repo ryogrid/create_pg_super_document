@@ -1,7 +1,7 @@
 # replorigin_identify
 
 ## Location
-src/backend/access/rmgrdesc/replorigindesc.c: 51 - 62
+[src/backend/access/rmgrdesc/replorigindesc.c:51-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/replorigindesc.c#L51-L62)
 
 ## Overview
 Returns a string identifier for replication origin WAL record types based on the info byte.

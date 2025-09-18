@@ -1,7 +1,7 @@
 # var_eq_non_const
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 467 - 557
+[src/backend/utils/adt/selfuncs.c:467-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L467-L557)
 
 ## Overview
 The var_eq_non_const function estimates selectivity for equality (and inequality) comparisons between a table column variable and a non-constant expression, such as another variable or computed value.

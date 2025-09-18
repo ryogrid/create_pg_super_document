@@ -1,7 +1,7 @@
 # ParseAbortRecord
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 141 - 238
+[src/backend/access/rmgrdesc/xactdesc.c:141-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L141-L238)
 
 ## Overview
 ParseAbortRecord parses the WAL format of a transaction abort record and converts it into an easier-to-understand structured format for use by both backend and frontend code.

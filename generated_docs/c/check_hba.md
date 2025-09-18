@@ -1,7 +1,7 @@
 # check_hba
 
 ## Location
-src/backend/libpq/hba.c: 2469 - 2582
+[src/backend/libpq/hba.c:2469-2582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2469-L2582)
 
 ## Overview
 Scans the pre-parsed HBA (Host-Based Authentication) configuration to find a matching rule for an incoming connection request and assigns the appropriate authentication method.

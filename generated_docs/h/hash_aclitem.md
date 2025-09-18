@@ -1,7 +1,7 @@
 # hash_aclitem
 
 ## Location
-src/backend/utils/adt/acl.c: 768 - 781
+[src/backend/utils/adt/acl.c:768-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L768-L781)
 
 ## Overview
 A PostgreSQL system function that computes a hash value for AclItem structures, primarily to enable array equality operations and support the type cache mechanism.

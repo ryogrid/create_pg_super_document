@@ -1,7 +1,7 @@
 # to_chars_f
 
 ## Location
-src/common/f2s.c: 440 - 562
+[src/common/f2s.c:440-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L440-L562)
 
 ## Overview
 Converts a floating-point decimal representation to its fixed-point string format, handling decimal point placement and formatting.

@@ -1,7 +1,7 @@
 # AtCommit_Memory
 
 ## Location
-src/backend/access/transam/xact.c: 1577 - 1603
+[src/backend/access/transam/xact.c:1577-1603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1577-L1603)
 
 ## Overview
 AtCommit_Memory handles the cleanup of transaction-specific memory contexts during transaction commit, switching back to the top-level memory context and freeing all memory allocated during the transaction.

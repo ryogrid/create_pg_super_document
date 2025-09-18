@@ -1,7 +1,7 @@
 # pg_disable_aslr
 
 ## Location
-src/common/exec.c: 498 - 537
+[src/common/exec.c:498-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L498-L537)
 
 ## Overview
 Disables Address Space Layout Randomization (ASLR) on supported platforms to facilitate PostgreSQL development testing, particularly for EXEC_BACKEND functionality on Unix systems.

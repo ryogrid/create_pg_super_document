@@ -1,7 +1,7 @@
 # tsrange_subdiff
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1664 - 1674
+[src/backend/utils/adt/rangetypes.c:1664-1674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1664-L1674)
 
 ## Overview
 Computes the difference between two timestamp values for use in timestamp range type operations, returning the result as a float8 value representing the number of seconds.

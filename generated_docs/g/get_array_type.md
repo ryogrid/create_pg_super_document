@@ -1,7 +1,7 @@
 # get_array_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2787 - 2810
+[src/backend/utils/cache/lsyscache.c:2787-2810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2787-L2810)
 
 ## Overview
 Retrieves the OID of the corresponding "true" array type for a given base type OID, providing the fundamental mechanism for PostgreSQL's type system to locate array counterparts of scalar types.

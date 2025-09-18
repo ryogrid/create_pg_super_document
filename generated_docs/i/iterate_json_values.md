@@ -1,7 +1,7 @@
 # iterate_json_values
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5708 - 5732
+[src/backend/utils/adt/jsonfuncs.c:5708-5732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5708-L5732)
 
 ## Overview
 Iterates over JSON values and elements according to specified flags and passes them to a callback function for processing using JSON parsing infrastructure.

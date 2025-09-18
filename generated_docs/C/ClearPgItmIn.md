@@ -1,7 +1,7 @@
 # ClearPgItmIn
 
 ## Location
-src/backend/utils/adt/datetime.c: 3340 - 3363
+[src/backend/utils/adt/datetime.c:3340-3363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L3340-L3363)
 
 ## Overview
 Initializes a pg_itm_in structure by zeroing out all its time component fields.

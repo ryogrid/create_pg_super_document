@@ -1,7 +1,7 @@
 # sslVerifyProtocolVersion
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7588 - 7613
+[src/interfaces/libpq/fe-connect.c:7588-7613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7588-L7613)
 
 ## Overview
 Validates SSL protocol version strings used in PostgreSQL connection parameters to ensure they specify supported TLS versions.

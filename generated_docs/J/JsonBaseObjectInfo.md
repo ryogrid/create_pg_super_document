@@ -1,7 +1,7 @@
 # JsonBaseObjectInfo
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 84 - 88
+[src/backend/utils/adt/jsonpath_exec.c:84-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L84-L88)
 
 ## Overview
 Represents a "base object" and its "id" for .keyvalue() evaluation in PostgreSQL's JSON path expression execution.

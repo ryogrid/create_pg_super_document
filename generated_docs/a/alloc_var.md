@@ -1,7 +1,7 @@
 # alloc_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 6969 - 6984
+[src/backend/utils/adt/numeric.c:6969-6984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6969-L6984)
 
 ## Overview
 Allocates a digit buffer for a NumericVar structure with specified number of digits plus one spare digit for rounding operations.

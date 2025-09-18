@@ -1,7 +1,7 @@
 # textregexne
 
 ## Location
-src/backend/utils/adt/regexp.c: 501 - 521
+[src/backend/utils/adt/regexp.c:501-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L501-L521)
 
 ## Overview
 The textregexne function performs negated regular expression matching on PostgreSQL text data types, returning true if the text does NOT match the provided regular expression pattern.

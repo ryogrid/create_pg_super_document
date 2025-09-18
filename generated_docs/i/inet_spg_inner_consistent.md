@@ -1,7 +1,7 @@
 # inet_spg_inner_consistent
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 239 - 322
+[src/backend/utils/adt/network_spgist.c:239-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L239-L322)
 
 ## Overview
 SP-GiST inner consistency function for inet/cidr data types that determines which child nodes need to be visited during index searches based on query predicates.

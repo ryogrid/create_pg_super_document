@@ -1,7 +1,7 @@
 # path_contains_parent_reference
 
 ## Location
-src/port/path.c: 576 - 602
+[src/port/path.c:576-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L576-L602)
 
 ## Overview
 Detects whether a canonicalized path contains any parent-directory references ('..' components).

@@ -1,7 +1,7 @@
 # CreateSlotOnDisk
 
 ## Location
-src/backend/replication/slot.c: 1953 - 2013
+[src/backend/replication/slot.c:1953-2013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1953-L2013)
 
 ## Overview
 Creates a replication slot's persistent directory structure on disk using atomic rename operations to ensure crash safety.

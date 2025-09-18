@@ -1,7 +1,7 @@
 # c_overpaid
 
 ## Location
-src/tutorial/funcs.c: 110 - 126
+[src/tutorial/funcs.c:110-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L110-L126)
 
 ## Overview
 A PostgreSQL C function that determines whether an employee's salary exceeds a specified limit, designed as a tutorial example for composite type handling.

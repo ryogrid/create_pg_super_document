@@ -1,7 +1,7 @@
 # GetACPEncoding
 
 ## Location
-src/backend/utils/error/elog.c: 2472 - 2485
+[src/backend/utils/error/elog.c:2472-2485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2472-L2485)
 
 ## Overview
 GetACPEncoding is a Windows-specific static function that retrieves the PostgreSQL encoding equivalent of the Windows ANSI Code Page (ACP) for use with Windows ANSI system interfaces.

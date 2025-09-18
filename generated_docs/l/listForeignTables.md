@@ -1,7 +1,7 @@
 # listForeignTables
 
 ## Location
-src/bin/psql/describe.c: 5930 - 6001
+[src/bin/psql/describe.c:5930-6001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5930-L6001)
 
 ## Overview
 Implements the  command in psql to list foreign tables with their associated schemas, servers, and optional FDW options and descriptions.

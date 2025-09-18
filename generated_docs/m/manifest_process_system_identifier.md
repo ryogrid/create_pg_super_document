@@ -1,7 +1,7 @@
 # manifest_process_system_identifier
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 946 - 967
+[src/backend/backup/basebackup_incremental.c:946-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L946-L967)
 
 ## Overview
 A callback function that validates the system identifier in a backup manifest against the current database server's system identifier to ensure backup compatibility.

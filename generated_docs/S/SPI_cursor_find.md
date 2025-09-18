@@ -1,7 +1,7 @@
 # SPI_cursor_find
 
 ## Location
-src/backend/executor/spi.c: 1794 - 1805
+[src/backend/executor/spi.c:1794-1805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1794-L1805)
 
 ## Overview
 SPI_cursor_find is a simple SPI function that locates and returns the Portal handle for an existing open cursor by its name.

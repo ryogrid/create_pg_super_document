@@ -1,7 +1,7 @@
 # SN_create_env
 
 ## Location
-src/backend/snowball/libstemmer/api.c: 3 - 33
+[src/backend/snowball/libstemmer/api.c:3-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/api.c#L3-L33)
 
 ## Overview
 Creates and initializes a new Snowball stemming environment with specified array sizes for symbols and integers.

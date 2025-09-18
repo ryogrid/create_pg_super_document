@@ -1,7 +1,7 @@
 # RelationCloseCleanup
 
 ## Location
-src/backend/utils/cache/relcache.c: 2203 - 2256
+[src/backend/utils/cache/relcache.c:2203-2256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2203-L2256)
 
 ## Overview
 Performs cleanup operations for relations whose reference count has reached zero, including partition descriptor cleanup and conditional cache clearing.

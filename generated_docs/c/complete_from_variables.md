@@ -1,7 +1,7 @@
 # complete_from_variables
 
 ## Location
-src/bin/psql/tab-complete.c: 5753 - 5797
+[src/bin/psql/tab-complete.c:5753-5797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5753-L5797)
 
 ## Overview
 Provides tab completion for PostgreSQL's psql variable names, with options for prefix/suffix formatting and filtering based on whether variables have values.

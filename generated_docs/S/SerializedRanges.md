@@ -1,7 +1,7 @@
 # SerializedRanges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 205 - 220
+[src/backend/access/brin/brin_minmax_multi.c:205-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L205-L220)
 
 ## Overview
 SerializedRanges is the on-disk storage representation of BRIN minmax-multi index summaries, stored as a bytea value with a varlena header for persistent storage in PostgreSQL.

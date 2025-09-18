@@ -1,7 +1,7 @@
 # int2recv
 
 ## Location
-src/backend/utils/adt/int.c: 87 - 97
+[src/backend/utils/adt/int.c:87-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L87-L97)
 
 ## Overview
 The int2recv function converts data from PostgreSQL's external binary format to an internal int2 (16-bit signed integer) value.

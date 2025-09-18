@@ -1,7 +1,7 @@
 # HandleCopyResult
 
 ## Location
-src/bin/psql/common.c: 902 - 956
+[src/bin/psql/common.c:902-956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L902-L956)
 
 ## Overview
 Handles PostgreSQL COPY command results by marshaling COPY data flow and managing the connection state transition out of COPY mode for both COPY IN and COPY OUT operations.

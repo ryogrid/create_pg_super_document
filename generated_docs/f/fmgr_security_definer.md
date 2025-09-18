@@ -1,7 +1,7 @@
 # fmgr_security_definer
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 632 - 791
+[src/backend/utils/fmgr/fmgr.c:632-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L632-L791)
 
 ## Overview
 A function handler that implements security-definer execution, configuration parameter management, and plugin hooks for PostgreSQL functions requiring elevated privileges or special execution contexts.

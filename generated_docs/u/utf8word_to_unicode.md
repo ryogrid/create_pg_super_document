@@ -1,7 +1,7 @@
 # utf8word_to_unicode
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 91 - 127
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:91-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L91-L127)
 
 ## Overview
 Converts word-formatted UTF-8 representation back to Unicode code points, serving as the inverse operation to unicode_to_utf8word.

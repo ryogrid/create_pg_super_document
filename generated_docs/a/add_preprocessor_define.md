@@ -1,7 +1,7 @@
 # add_preprocessor_define
 
 ## Location
-src/interfaces/ecpg/preproc/ecpg.c: 89 - 126
+[src/interfaces/ecpg/preproc/ecpg.c:89-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/ecpg.c#L89-L126)
 
 ## Overview
 Processes command-line -D switches to add preprocessor macro definitions to the ECPG preprocessor's global defines list.

@@ -1,7 +1,7 @@
 # ResourceOwnerGetParent
 
 ## Location
-src/backend/utils/resowner/resowner.c: 888 - 896
+[src/backend/utils/resowner/resowner.c:888-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L888-L896)
 
 ## Overview
 A simple accessor function that retrieves the parent resource owner of a given resource owner in the hierarchical ownership tree.

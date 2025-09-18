@@ -1,7 +1,7 @@
 # verifybackup_per_file_cb
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 548 - 576
+[src/bin/pg_verifybackup/pg_verifybackup.c:548-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L548-L576)
 
 ## Overview
 Records details extracted from the backup manifest for one file and stores them in a hash table for later verification during the backup verification process.

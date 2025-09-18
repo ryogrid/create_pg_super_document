@@ -1,7 +1,7 @@
 # table_to_xml_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 2868 - 2884
+[src/backend/utils/adt/xml.c:2868-2884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2868-L2884)
 
 ## Overview
 Internal function that converts the contents of a PostgreSQL table to XML format according to SQL/XML:2008 section 9.11 specifications.

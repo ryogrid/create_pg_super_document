@@ -1,7 +1,7 @@
 # AggStateIsShared
 
 ## Location
-src/backend/executor/nodeAgg.c: 4615 - 4653
+[src/backend/executor/nodeAgg.c:4615-4653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4615-L4653)
 
 ## Overview
 Determines whether an aggregate's transition state is shared across multiple aggregates, helping aggregate functions decide if they can safely modify their transition state.

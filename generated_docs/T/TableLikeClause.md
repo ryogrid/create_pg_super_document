@@ -1,7 +1,7 @@
 # TableLikeClause
 
 ## Location
-src/include/nodes/parsenodes.h: 751 - 757
+[src/include/nodes/parsenodes.h:751-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L751-L757)
 
 ## Overview
 TableLikeClause represents a LIKE clause in CREATE TABLE statements, allowing a new table to inherit structure and optionally other properties from an existing table.

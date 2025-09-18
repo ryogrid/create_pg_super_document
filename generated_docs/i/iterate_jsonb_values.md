@@ -1,7 +1,7 @@
 # iterate_jsonb_values
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5640 - 5707
+[src/backend/utils/adt/jsonfuncs.c:5640-5707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5640-L5707)
 
 ## Overview
 Iterates over jsonb values or elements according to specified flags and passes them to a callback function for processing.

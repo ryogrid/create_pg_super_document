@@ -1,7 +1,7 @@
 # ReadWalSummary
 
 ## Location
-src/backend/backup/walsummary.c: 273 - 293
+[src/backend/backup/walsummary.c:273-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L273-L293)
 
 ## Overview
 A data read callback function designed for use with CreateBlockRefTableReader to read WAL summary file data in chunks.

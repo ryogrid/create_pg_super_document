@@ -1,7 +1,7 @@
 # CreateTransientRelDestReceiver
 
 ## Location
-src/backend/commands/matview.c: 448 - 465
+[src/backend/commands/matview.c:448-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L448-L465)
 
 ## Overview
 CreateTransientRelDestReceiver creates a DestReceiver that redirects query output to a transient relation, used during materialized view refresh operations.

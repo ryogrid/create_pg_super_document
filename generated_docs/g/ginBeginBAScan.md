@@ -1,7 +1,7 @@
 # ginBeginBAScan
 
 ## Location
-src/backend/access/gin/ginbulk.c: 257 - 267
+[src/backend/access/gin/ginbulk.c:257-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L257-L267)
 
 ## Overview
 Initializes an iterator for reading entries from the BuildAccumulator's red-black tree in sorted order during GIN index construction.

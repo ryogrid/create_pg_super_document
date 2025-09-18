@@ -1,7 +1,7 @@
 # create_bitmap_subplan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3332 - 3539
+[src/backend/optimizer/plan/createplan.c:3332-3539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3332-L3539)
 
 ## Overview
 Recursively converts a bitmap qualification tree (BitmapAndPath, BitmapOrPath, or IndexPath) into executable Plan nodes while extracting qualification information for bitmap scan optimization.

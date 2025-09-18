@@ -1,7 +1,7 @@
 # poly_overlap_internal
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3744 - 3800
+[src/backend/utils/adt/geo_ops.c:3744-3800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3744-L3800)
 
 ## Overview
 Internal function that determines if two polygons overlap using bounding box checks and edge intersection algorithms.

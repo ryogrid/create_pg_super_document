@@ -1,7 +1,7 @@
 # bit_bit_count
 
 ## Location
-src/backend/utils/adt/varbit.c: 1211 - 1222
+[src/backend/utils/adt/varbit.c:1211-1222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1211-L1222)
 
 ## Overview
 Implements the SQL BIT_COUNT() function that returns the number of bits set to '1' in a bit string.

@@ -1,7 +1,7 @@
 # xact_desc_subxacts
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 301 - 313
+[src/backend/access/rmgrdesc/xactdesc.c:301-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L301-L313)
 
 ## Overview
 xact_desc_subxacts is a static helper function that formats subtransaction IDs into a human-readable string for WAL record descriptions.

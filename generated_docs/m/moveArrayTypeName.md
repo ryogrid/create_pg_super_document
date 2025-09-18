@@ -1,7 +1,7 @@
 # moveArrayTypeName
 
 ## Location
-src/backend/catalog/pg_type.c: 905 - 949
+[src/backend/catalog/pg_type.c:905-949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L905-L949)
 
 ## Overview
 moveArrayTypeName handles the renaming of existing array types to avoid naming conflicts when creating new PostgreSQL types, specifically designed to resolve situations where a user wants to create type "foo" followed by type "_foo".

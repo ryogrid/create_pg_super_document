@@ -1,7 +1,7 @@
 # StartupProcShutdownHandler
 
 ## Location
-src/backend/postmaster/startup.c: 109 - 124
+[src/backend/postmaster/startup.c:109-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L109-L124)
 
 ## Overview
 A SIGTERM signal handler that initiates shutdown of the startup process by either immediately exiting during restore commands or setting a shutdown flag for graceful termination.

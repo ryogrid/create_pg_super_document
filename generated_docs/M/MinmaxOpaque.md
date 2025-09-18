@@ -1,7 +1,7 @@
 # MinmaxOpaque
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 23 - 27
+[src/backend/access/brin/brin_minmax.c:23-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L23-L27)
 
 ## Overview
 MinmaxOpaque is a private data structure used by BRIN (Block Range INdex) min/max operator classes to cache operator procedure information and maintain performance optimization for repeated lookups.

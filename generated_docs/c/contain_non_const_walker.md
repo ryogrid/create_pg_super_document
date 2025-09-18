@@ -1,7 +1,7 @@
 # contain_non_const_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 3736 - 3751
+[src/backend/optimizer/util/clauses.c:3736-3751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L3736-L3751)
 
 ## Overview
 A tree walker function that checks for the presence of non-constant nodes in expression trees, used to optimize constant expression evaluation by enabling early termination.

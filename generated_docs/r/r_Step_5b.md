@@ -1,7 +1,7 @@
 # r_Step_5b
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 548 - 563
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:548-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L548-L563)
 
 ## Overview
 The r_Step_5b function implements Step 5b of the Porter stemming algorithm, which removes double 'l' characters at the end of words when they are in the R2 region.

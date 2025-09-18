@@ -1,7 +1,7 @@
 # log_newpages
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1175 - 1236
+[src/backend/access/transam/xloginsert.c:1175-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1175-L1236)
 
 ## Overview
 log_newpages efficiently writes WAL records for multiple page images in batches, optimizing performance compared to individual page logging.

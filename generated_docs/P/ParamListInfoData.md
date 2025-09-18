@@ -1,7 +1,7 @@
 # ParamListInfoData
 
 ## Location
-src/include/nodes/params.h: 110 - 126
+[src/include/nodes/params.h:110-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/params.h#L110-L126)
 
 ## Overview
 ParamListInfoData is the concrete struct definition that implements the parameter management framework in PostgreSQL, providing storage and hooks for both static and dynamic parameter handling in query execution.

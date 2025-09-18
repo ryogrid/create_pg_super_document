@@ -1,7 +1,7 @@
 # make_ordered_path
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6993 - 7043
+[src/backend/optimizer/plan/planner.c:6993-7043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6993-L7043)
 
 ## Overview
 Creates an ordered path from a given input path by adding sort operations when necessary to satisfy specified pathkey requirements.

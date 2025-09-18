@@ -1,7 +1,7 @@
 # ShutdownPostgres
 
 ## Location
-src/backend/utils/init/postinit.c: 1361 - 1377
+[src/backend/utils/init/postinit.c:1361-1377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1361-L1377)
 
 ## Overview
 ShutdownPostgres is a backend shutdown callback function that performs critical cleanup operations during backend process termination, ensuring proper transaction abort and user lock release.

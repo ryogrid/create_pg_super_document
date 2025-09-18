@@ -1,7 +1,7 @@
 # CheckpointerShmemStruct
 
 ## Location
-src/backend/postmaster/checkpointer.c: 126 - 130
+[src/backend/postmaster/checkpointer.c:126-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L126-L130)
 
 ## Overview
 CheckpointerShmemStruct is the main shared memory structure that coordinates checkpointer process operations and manages synchronization requests between PostgreSQL backends and the checkpointer background worker.

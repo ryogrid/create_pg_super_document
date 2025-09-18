@@ -1,7 +1,7 @@
 # PerformPortalClose
 
 ## Location
-src/backend/commands/portalcmds.c: 214 - 262
+[src/backend/commands/portalcmds.c:214-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/portalcmds.c#L214-L262)
 
 ## Overview
 PerformPortalClose implements the SQL CLOSE command to close a named cursor or all cursors when called with NULL name.

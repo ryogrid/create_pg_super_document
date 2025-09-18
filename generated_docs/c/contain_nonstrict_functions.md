@@ -1,7 +1,7 @@
 # contain_nonstrict_functions
 
 ## Location
-src/backend/optimizer/util/clauses.c: 993 - 998
+[src/backend/optimizer/util/clauses.c:993-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L993-L998)
 
 ## Overview
 Determines whether an expression contains any nonstrict functions that could produce non-NULL output even when given NULL input, used for NULL propagation analysis in query optimization.

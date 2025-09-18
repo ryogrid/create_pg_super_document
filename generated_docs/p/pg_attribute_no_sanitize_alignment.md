@@ -1,7 +1,7 @@
 # pg_attribute_no_sanitize_alignment
 
 ## Location
-src/port/pg_crc32c_sse42.c: 21 - 69
+[src/port/pg_crc32c_sse42.c:21-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_sse42.c#L21-L69)
 
 ## Overview
 A compiler attribute macro that disables alignment sanitization for functions that intentionally perform unaligned memory accesses.

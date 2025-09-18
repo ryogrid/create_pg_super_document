@@ -1,7 +1,7 @@
 # errdetail_plural
 
 ## Location
-src/backend/utils/error/elog.c: 1295 - 1316
+[src/backend/utils/error/elog.c:1295-1316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1295-L1316)
 
 ## Overview
 A function that adds a detail error message with pluralization support to the current error being processed.

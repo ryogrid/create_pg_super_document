@@ -1,7 +1,7 @@
 # heap_index_delete_tuples
 
 ## Location
-src/backend/access/heap/heapam.c: 8095 - 8403
+[src/backend/access/heap/heapam.c:8095-8403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8095-L8403)
 
 ## Overview
 Heapam implementation of tableam's index_delete_tuples interface that efficiently deletes multiple index tuples by examining their corresponding heap tuples and determining which are safe to delete.

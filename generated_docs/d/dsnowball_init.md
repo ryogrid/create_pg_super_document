@@ -1,7 +1,7 @@
 # dsnowball_init
 
 ## Location
-src/backend/snowball/dict_snowball.c: 220 - 269
+[src/backend/snowball/dict_snowball.c:220-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L220-L269)
 
 ## Overview
 This function initializes a Snowball dictionary instance by parsing configuration options and setting up the stemmer module and optional stopword list.

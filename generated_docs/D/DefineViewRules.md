@@ -1,7 +1,7 @@
 # DefineViewRules
 
 ## Location
-src/backend/commands/view.c: 332 - 355
+[src/backend/commands/view.c:332-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/view.c#L332-L355)
 
 ## Overview
 DefineViewRules creates the rewrite rules for a view, specifically the ON SELECT rule that defines how SELECT queries against the view should be rewritten to use the underlying query.

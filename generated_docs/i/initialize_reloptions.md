@@ -1,7 +1,7 @@
 # initialize_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 580 - 682
+[src/backend/access/common/reloptions.c:580-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L580-L682)
 
 ## Overview
 The initialize_reloptions function is a static initialization routine that must be called before parsing relation options, responsible for setting up the global relOpts array with all available relation option definitions.

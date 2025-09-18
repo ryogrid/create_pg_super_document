@@ -1,7 +1,7 @@
 # create_recursiveunion_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3617 - 3661
+[src/backend/optimizer/util/pathnode.c:3617-3661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3617-L3661)
 
 ## Overview
 Creates a pathnode that represents a recursive UNION node, which combines non-recursive and recursive terms to implement Common Table Expressions (CTEs) with recursive queries.

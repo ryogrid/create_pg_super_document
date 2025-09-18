@@ -1,7 +1,7 @@
 # touched_lseg_inside_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3830 - 3865
+[src/backend/utils/adt/geo_ops.c:3830-3865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3830-L3865)
 
 ## Overview
 touched_lseg_inside_poly is a specialized static function that tests whether a line segment with one endpoint touching a polygon edge is inside the polygon.

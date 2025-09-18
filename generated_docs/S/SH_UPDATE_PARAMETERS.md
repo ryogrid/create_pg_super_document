@@ -1,7 +1,7 @@
 # SH_UPDATE_PARAMETERS
 
 ## Location
-src/include/lib/simplehash.h: 337 - 356
+[src/include/lib/simplehash.h:337-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L337-L356)
 
 ## Overview
 Updates the sizing parameters for a PostgreSQL simple hash table when creating or growing the table, setting size, mask, and growth threshold values.

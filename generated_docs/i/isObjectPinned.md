@@ -1,7 +1,7 @@
 # isObjectPinned
 
 ## Location
-src/backend/catalog/pg_depend.c: 710 - 732
+[src/backend/catalog/pg_depend.c:710-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L710-L732)
 
 ## Overview
 Tests if a database object is required for basic database functionality and is therefore "pinned" against deletion.

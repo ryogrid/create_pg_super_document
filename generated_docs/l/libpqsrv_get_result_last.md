@@ -1,7 +1,7 @@
 # libpqsrv_get_result_last
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 290 - 333
+[src/include/libpq/libpq-be-fe-helpers.h:290-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L290-L333)
 
 ## Overview
 Loops over PQgetResult() calls until completion, returning the last non-NULL result while properly handling interrupts and managing memory.

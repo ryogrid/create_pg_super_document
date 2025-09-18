@@ -1,7 +1,7 @@
 # compareJsonbContainers
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 191 - 340
+[src/backend/utils/adt/jsonb_util.c:191-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L191-L340)
 
 ## Overview
 B-Tree comparator function that performs lexicographic comparison of two JSONB containers, returning an integer indicating their relative order for sorting and indexing operations.

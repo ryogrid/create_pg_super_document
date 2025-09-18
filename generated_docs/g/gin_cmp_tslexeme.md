@@ -1,7 +1,7 @@
 # gin_cmp_tslexeme
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 24 - 39
+[src/backend/utils/adt/tsginidx.c:24-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L24-L39)
 
 ## Overview
 A PostgreSQL function that compares two text search lexemes (tokens) for ordering purposes in GIN (Generalized Inverted Index) operations.

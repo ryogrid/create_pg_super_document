@@ -1,7 +1,7 @@
 # repalloc_extended
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1581 - 1617
+[src/backend/utils/mmgr/mcxt.c:1581-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1581-L1617)
 
 ## Overview
 repalloc_extended is a PostgreSQL memory management function that adjusts the size of a previously allocated memory chunk, with support for HUGE and NO_OOM allocation flags.

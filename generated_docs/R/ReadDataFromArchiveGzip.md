@@ -1,7 +1,7 @@
 # ReadDataFromArchiveGzip
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 163 - 229
+[src/bin/pg_dump/compress_gzip.c:163-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L163-L229)
 
 ## Overview
 Reads and decompresses gzip-compressed data from a PostgreSQL archive using zlib's inflate functionality.

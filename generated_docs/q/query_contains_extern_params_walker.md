@@ -1,7 +1,7 @@
 # query_contains_extern_params_walker
 
 ## Location
-src/backend/parser/parse_param.c: 338 - 359
+[src/backend/parser/parse_param.c:338-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L338-L359)
 
 ## Overview
 A tree-walking function that searches for PARAM_EXTERN parameters within a query tree, returning true immediately upon finding the first external parameter.

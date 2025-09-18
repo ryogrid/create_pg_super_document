@@ -1,7 +1,7 @@
 # pe_test_vector
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 76 - 81
+[src/test/modules/test_escape/test_escape.c:76-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L76-L81)
 
 ## Overview
 A structure that represents a single test case input for PostgreSQL escape function testing, containing the client encoding context and escape sequence data.

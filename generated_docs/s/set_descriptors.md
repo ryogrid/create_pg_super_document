@@ -1,7 +1,7 @@
 # set_descriptors
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 47 - 53
+[src/interfaces/ecpg/ecpglib/descriptor.c:47-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L47-L53)
 
 ## Overview
 A static function that sets the thread-local descriptor list for the current thread in the ECPG library.

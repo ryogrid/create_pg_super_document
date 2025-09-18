@@ -1,7 +1,7 @@
 # ri_GenerateQual
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1910 - 1938
+[src/backend/utils/adt/ri_triggers.c:1910-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1910-L1938)
 
 ## Overview
 A utility function that generates a WHERE clause equating two variables with proper operator qualification, type casting, and schema qualification for use in dynamically constructed SQL queries.

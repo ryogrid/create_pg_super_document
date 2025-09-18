@@ -1,7 +1,7 @@
 # PLy_function_restore_args
 
 ## Location
-src/pl/plpython/plpy_exec.c: 544 - 583
+[src/pl/plpython/plpy_exec.c:544-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L544-L583)
 
 ## Overview
 PLy_function_restore_args restores previously saved argument values to a procedure's global namespace and properly cleans up the saved argument structure.

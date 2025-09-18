@@ -1,7 +1,7 @@
 # float48lt
 
 ## Location
-src/backend/utils/adt/float.c: 3882 - 3890
+[src/backend/utils/adt/float.c:3882-3890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3882-L3890)
 
 ## Overview
 Compares a float4 (single precision) value with a float8 (double precision) value for less-than relationship, returning a boolean result.

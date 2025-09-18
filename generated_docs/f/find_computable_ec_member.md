@@ -1,7 +1,7 @@
 # find_computable_ec_member
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 833 - 916
+[src/backend/optimizer/path/equivclass.c:833-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L833-L916)
 
 ## Overview
 Locates an EquivalenceClass member that can be computed from a given list of expressions, returning NULL if no match is found.

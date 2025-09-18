@@ -1,7 +1,7 @@
 # buildTocEntryArrays
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1966 - 2006
+[src/bin/pg_dump/pg_backup_archiver.c:1966-2006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1966-L2006)
 
 ## Overview
 Builds index arrays for efficient lookup of TOC (Table of Contents) entries by dump ID after all TOC items have been created or read.

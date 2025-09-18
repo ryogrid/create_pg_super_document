@@ -1,7 +1,7 @@
 # logicalmsg_redo
 
 ## Location
-src/backend/replication/logical/message.c: 87 - 95
+[src/backend/replication/logical/message.c:87-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/message.c#L87-L95)
 
 ## Overview
 logicalmsg_redo is a WAL redo function that handles replay of logical message records during PostgreSQL recovery, though it performs minimal operations since logical messages are primarily processed during logical decoding.

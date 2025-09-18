@@ -1,7 +1,7 @@
 # parseAclItem
 
 ## Location
-src/bin/pg_dump/dumputils.c: 421 - 461
+[src/bin/pg_dump/dumputils.c:421-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L421-L461)
 
 ## Overview
 The parseAclItem function parses individual ACL (Access Control List) item strings in PostgreSQL's "username=privilegecodes/grantor" format and converts privilege codes to human-readable GRANT/REVOKE commands.

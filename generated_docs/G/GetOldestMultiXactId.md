@@ -1,7 +1,7 @@
 # GetOldestMultiXactId
 
 ## Location
-src/backend/access/transam/multixact.c: 2652 - 2704
+[src/backend/access/transam/multixact.c:2652-2704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2652-L2704)
 
 ## Overview
 Returns the oldest MultiXactId that could still be considered live by any running transaction, used for determining safe points for vacuum operations and SLRU management.

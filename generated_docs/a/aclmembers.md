@@ -1,7 +1,7 @@
 # aclmembers
 
 ## Location
-src/backend/utils/adt/acl.c: 1540 - 1591
+[src/backend/utils/adt/acl.c:1540-1591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1540-L1591)
 
 ## Overview
 Extracts all role IDs mentioned in an Access Control List, returning them as a sorted array of unique OIDs without distinguishing between grantors and grantees.

@@ -1,7 +1,7 @@
 # DecodeDate
 
 ## Location
-src/backend/utils/adt/datetime.c: 2398 - 2507
+[src/backend/utils/adt/datetime.c:2398-2507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L2398-L2507)
 
 ## Overview
 Decodes a date string with delimiters into date components, parsing both textual month names and numeric fields while handling various date formats and field arrangements.

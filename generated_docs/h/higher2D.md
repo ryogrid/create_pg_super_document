@@ -1,7 +1,7 @@
 # higher2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 302 - 309
+[src/backend/utils/adt/geo_spgist.c:302-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L302-L309)
 
 ## Overview
 The `higher2D` function determines whether any range from a `RangeBox` can be positioned higher than a given `Range` query in 2-dimensional space.

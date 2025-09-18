@@ -1,7 +1,7 @@
 # get_object_address_usermapping
 
 ## Location
-src/backend/catalog/objectaddress.c: 1792 - 1862
+[src/backend/catalog/objectaddress.c:1792-1862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1792-L1862)
 
 ## Overview
 Finds and returns the ObjectAddress for a user mapping by resolving the username and server name to locate the corresponding pg_user_mapping catalog entry.

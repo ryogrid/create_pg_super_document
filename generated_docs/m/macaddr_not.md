@@ -1,7 +1,7 @@
 # macaddr_not
 
 ## Location
-src/backend/utils/adt/mac.c: 287 - 302
+[src/backend/utils/adt/mac.c:287-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L287-L302)
 
 ## Overview
 The  function performs a bitwise NOT operation on a MAC address, returning a new MAC address with all bits inverted.

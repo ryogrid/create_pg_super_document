@@ -1,7 +1,7 @@
 # dsa_get_address
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 942 - 974
+[src/backend/utils/mmgr/dsa.c:942-974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L942-L974)
 
 ## Overview
 Converts a portable dsa_pointer to a backend-local memory address that can be directly accessed within the current process.

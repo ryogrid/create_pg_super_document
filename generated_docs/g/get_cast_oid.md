@@ -1,7 +1,7 @@
 # get_cast_oid
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1007 - 1034
+[src/backend/utils/cache/lsyscache.c:1007-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1007-L1034)
 
 ## Overview
 Looks up and returns the OID of a cast object that converts between two specified data types in the PostgreSQL type system.

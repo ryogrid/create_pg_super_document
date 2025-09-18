@@ -1,7 +1,7 @@
 # win32_exec_prog
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 153 - 171
+[src/bin/pg_upgrade/parallel.c:153-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L153-L171)
 
 ## Overview
 Windows-specific thread entry point function that executes commands in parallel threads as part of PostgreSQL's pg_upgrade utility.

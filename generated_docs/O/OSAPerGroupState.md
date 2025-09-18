@@ -1,7 +1,7 @@
 # OSAPerGroupState
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 92 - 104
+[src/backend/utils/adt/orderedsetaggs.c:92-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L92-L104)
 
 ## Overview
 OSAPerGroupState is a structure that holds per-group state data for ordered-set aggregates in PostgreSQL. It maintains group-specific information including the sorting state and accumulation progress for each aggregate group.

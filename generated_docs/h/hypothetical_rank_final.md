@@ -1,7 +1,7 @@
 # hypothetical_rank_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1244 - 1257
+[src/backend/utils/adt/orderedsetaggs.c:1244-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1244-L1257)
 
 ## Overview
 Implements the final phase of the PostgreSQL hypothetical-set aggregate function `rank()`, which computes the rank of a hypothetical row within an ordered dataset.

@@ -1,7 +1,7 @@
 # ExplainNode
 
 ## Location
-src/backend/commands/explain.c: 1367 - 2428
+[src/backend/commands/explain.c:1367-2428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1367-L2428)
 
 ## Overview
 The main function that generates detailed explanation output for a single plan node in PostgreSQL's EXPLAIN command.

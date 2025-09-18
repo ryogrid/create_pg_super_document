@@ -1,7 +1,7 @@
 # BackgroundWorkerShmemInit
 
 ## Location
-src/backend/postmaster/bgworker.c: 162 - 220
+[src/backend/postmaster/bgworker.c:162-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L162-L220)
 
 ## Overview
 Initializes the background worker shared memory structure and copies worker registration data from the postmaster's private list to shared memory.

@@ -1,7 +1,7 @@
 # getConstraints
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7822 - 7986
+[src/bin/pg_dump/pg_dump.c:7822-7986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7822-L7986)
 
 ## Overview
 Retrieves information about foreign key constraints on dumpable tables and creates corresponding ConstraintInfo entries for proper dependency handling during pg_dump operations.

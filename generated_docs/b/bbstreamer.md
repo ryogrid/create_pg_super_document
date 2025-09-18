@@ -1,7 +1,7 @@
 # bbstreamer
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 31 - 31
+[src/bin/pg_basebackup/bbstreamer.h:31-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L31-L31)
 
 ## Overview
 The bbstreamer structure is the core component of PostgreSQL's backup streaming architecture, used to process tar archive data received from the server through a pipeline of transformations such as compression, decompression, parsing, and file extraction.

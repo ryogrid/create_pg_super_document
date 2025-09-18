@@ -1,7 +1,7 @@
 # saop_element_hash
 
 ## Location
-src/backend/executor/execExprInterp.c: 3620 - 3638
+[src/backend/executor/execExprInterp.c:3620-3638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3620-L3638)
 
 ## Overview
 saop_element_hash is a hash function used for scalar array operation hash table elements, computing hash values for array elements using the element type's default hash opclass.

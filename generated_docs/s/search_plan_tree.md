@@ -1,7 +1,7 @@
 # search_plan_tree
 
 ## Location
-src/backend/executor/execCurrent.c: 314 - 426
+[src/backend/executor/execCurrent.c:314-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execCurrent.c#L314-L426)
 
 ## Overview
 Searches through a PlanState execution tree to find a scan node for a specified table, ensuring the found scan produced the current output row.

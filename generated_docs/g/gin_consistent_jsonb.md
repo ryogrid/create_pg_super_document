@@ -1,7 +1,7 @@
 # gin_consistent_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 929 - 1012
+[src/backend/utils/adt/jsonb_gin.c:929-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L929-L1012)
 
 ## Overview
 The consistency check function for the JSONB GIN index implementation that determines whether an indexed tuple could match a given query based on the index keys present.

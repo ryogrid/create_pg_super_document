@@ -1,7 +1,7 @@
 # order_qual_clauses
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5316 - 5322
+[src/backend/optimizer/plan/createplan.c:5316-5322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5316-L5322)
 
 ## Overview
 This function sorts a list of qualification clauses into the optimal order for runtime evaluation, prioritizing security levels and execution costs.

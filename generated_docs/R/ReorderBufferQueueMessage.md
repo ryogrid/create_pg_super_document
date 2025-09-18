@@ -1,7 +1,7 @@
 # ReorderBufferQueueMessage
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 869 - 937
+[src/backend/replication/logical/reorderbuffer.c:869-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L869-L937)
 
 ## Overview
 Queues transactional logical messages for later processing upon commit or processes non-transactional messages immediately during logical replication decoding.

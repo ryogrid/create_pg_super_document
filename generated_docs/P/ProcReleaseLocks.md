@@ -1,7 +1,7 @@
 # ProcReleaseLocks
 
 ## Location
-src/backend/storage/lmgr/proc.c: 811 - 827
+[src/backend/storage/lmgr/proc.c:811-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L811-L827)
 
 ## Overview
 Releases locks associated with the current transaction at main transaction commit or abort, handling different lock types and scopes based on the transaction outcome.

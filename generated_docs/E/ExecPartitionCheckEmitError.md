@@ -1,7 +1,7 @@
 # ExecPartitionCheckEmitError
 
 ## Location
-src/backend/executor/execMain.c: 1847 - 1917
+[src/backend/executor/execMain.c:1847-1917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1847-L1917)
 
 ## Overview
 Generates and emits a detailed error message when a tuple fails a partition constraint check, handling tuple format conversion for routed tuples.

@@ -1,7 +1,7 @@
 # pg_atomic_init_u64_impl
 
 ## Location
-src/backend/port/atomics.c: 182 - 199
+[src/backend/port/atomics.c:182-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L182-L199)
 
 ## Overview
 Initializes a 64-bit atomic unsigned integer variable with a specified value, setting up both the synchronization mechanism and the initial value.

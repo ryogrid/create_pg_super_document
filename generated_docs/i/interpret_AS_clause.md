@@ -1,7 +1,7 @@
 # interpret_AS_clause
 
 ## Location
-src/backend/commands/functioncmds.c: 851 - 1010
+[src/backend/commands/functioncmds.c:851-1010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L851-L1010)
 
 ## Overview
 Processes and validates the AS clause of CREATE FUNCTION/PROCEDURE statements, handling different function body formats based on the programming language.

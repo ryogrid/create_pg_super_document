@@ -1,7 +1,7 @@
 # my_strftime
 
 ## Location
-src/bin/initdb/initdb.c: 2116 - 2124
+[src/bin/initdb/initdb.c:2116-2124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2116-L2124)
 
 ## Overview
 A wrapper function around the standard `strftime` function that suppresses compiler warnings about format specifiers on certain versions of gcc.

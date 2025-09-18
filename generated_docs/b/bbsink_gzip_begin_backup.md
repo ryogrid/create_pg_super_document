@@ -1,7 +1,7 @@
 # bbsink_gzip_begin_backup
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 94 - 113
+[src/backend/backup/basebackup_gzip.c:94-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L94-L113)
 
 ## Overview
 Initializes the gzip compression sink for the beginning of a base backup operation by allocating its own buffer and configuring the next sink in the chain.

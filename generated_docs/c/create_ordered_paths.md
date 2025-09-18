@@ -1,7 +1,7 @@
 # create_ordered_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5306 - 5520
+[src/backend/optimizer/plan/planner.c:5306-5520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5306-L5520)
 
 ## Overview
 Builds a new upperrel containing paths for ORDER BY evaluation, ensuring all paths satisfy the required ordering through explicit sorting or incremental sorting optimizations.

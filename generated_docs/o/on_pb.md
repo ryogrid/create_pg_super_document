@@ -1,7 +1,7 @@
 # on_pb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3137 - 3145
+[src/backend/utils/adt/geo_ops.c:3137-3145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3137-L3145)
 
 ## Overview
 This function tests whether a point is contained within (or lies on the boundary of) a box, serving as a PostgreSQL geometric operator.

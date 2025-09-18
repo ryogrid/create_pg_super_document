@@ -1,7 +1,7 @@
 # makeRangeVar
 
 ## Location
-src/backend/nodes/makefuncs.c: 471 - 492
+[src/backend/nodes/makefuncs.c:471-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L471-L492)
 
 ## Overview
 Creates a RangeVar node representing a table/relation reference with schema and relation names.

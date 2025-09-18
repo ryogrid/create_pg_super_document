@@ -1,7 +1,7 @@
 # get_rel_sync_entry
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 2002 - 2293
+[src/backend/replication/pgoutput/pgoutput.c:2002-2293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L2002-L2293)
 
 ## Overview
 Finds or creates an entry in the relation schema cache for PostgreSQL logical replication, determining which publications a relation participates in and what operations should be replicated.

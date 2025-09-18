@@ -1,7 +1,7 @@
 # RemoveRoleFromObjectPolicy
 
 ## Location
-src/backend/commands/policy.c: 416 - 568
+[src/backend/commands/policy.c:416-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L416-L568)
 
 ## Overview
 Removes a specified role from a policy's applicable roles list, maintaining policy integrity by either updating the policy with remaining roles or indicating the policy should be dropped if no roles would remain.

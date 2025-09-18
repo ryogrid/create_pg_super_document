@@ -1,7 +1,7 @@
 # PLy_result_subscript
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 237 - 244
+[src/pl/plpython/plpy_resultobject.c:237-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L237-L244)
 
 ## Overview
 PLy_result_subscript is a static function that implements the subscript operation (indexing) for PLyResultObject instances in the PL/Python extension, allowing Python code to access individual rows using bracket notation.

@@ -1,7 +1,7 @@
 # make_tsvector
 
 ## Location
-src/backend/tsearch/to_tsany.c: 165 - 242
+[src/backend/tsearch/to_tsany.c:165-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L165-L242)
 
 ## Overview
 Constructs a TSVector data structure from parsed text, creating the final binary representation used for PostgreSQL's text search functionality.

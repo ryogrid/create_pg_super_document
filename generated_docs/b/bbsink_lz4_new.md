@@ -1,7 +1,7 @@
 # bbsink_lz4_new
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 62 - 92
+[src/backend/backup/basebackup_lz4.c:62-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L62-L92)
 
 ## Overview
 Creates a new base backup sink that performs LZ4 compression for PostgreSQL base backups.

@@ -1,7 +1,7 @@
 # fix_scan_expr_context
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 62 - 72
+[src/backend/optimizer/plan/setrefs.c:62-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L62-L72)
 
 ## Overview
 A context structure used during scan expression fixing to provide necessary information for resolving variable references in scan-level expressions.

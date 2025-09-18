@@ -1,7 +1,7 @@
 # xl_heap_multi_insert
 
 ## Location
-src/include/access/heapam_xlog.h: 180 - 185
+[src/include/access/heapam_xlog.h:180-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L180-L185)
 
 ## Overview
 The xl_heap_multi_insert struct represents the WAL record data for bulk heap tuple insertion operations, enabling efficient logging of multiple tuple insertions in a single WAL record.

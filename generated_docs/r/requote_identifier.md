@@ -1,7 +1,7 @@
 # requote_identifier
 
 ## Location
-src/bin/psql/tab-complete.c: 6098 - 6179
+[src/bin/psql/tab-complete.c:6098-6179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L6098-L6179)
 
 ## Overview
 Reconstructs a possibly schema-qualified SQL identifier with proper quoting applied as necessary, serving as the inverse of parse_identifier in psql's tab completion system.

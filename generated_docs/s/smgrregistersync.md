@@ -1,7 +1,7 @@
 # smgrregistersync
 
 ## Location
-src/backend/storage/smgr/smgr.c: 783 - 814
+[src/backend/storage/smgr/smgr.c:783-814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L783-L814)
 
 ## Overview
 Requests a relation to be synchronized at the next checkpoint, typically used after calling smgrwrite() or smgrextend() with skipFsync = true to register the fsyncs that were skipped earlier.

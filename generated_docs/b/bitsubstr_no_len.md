@@ -1,7 +1,7 @@
 # bitsubstr_no_len
 
 ## Location
-src/backend/utils/adt/varbit.c: 1047 - 1054
+[src/backend/utils/adt/varbit.c:1047-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1047-L1054)
 
 ## Overview
 The bitsubstr_no_len function provides substring extraction functionality for bit strings without specifying a length, extracting from a starting position to the end of the bit string.

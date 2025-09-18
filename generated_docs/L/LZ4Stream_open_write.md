@@ -1,7 +1,7 @@
 # LZ4Stream_open_write
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 753 - 772
+[src/bin/pg_dump/compress_lz4.c:753-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L753-L772)
 
 ## Overview
 This static function is responsible for opening an LZ4-compressed file for write operations by appending the ".lz4" extension to the given path and delegating to the appropriate open function.

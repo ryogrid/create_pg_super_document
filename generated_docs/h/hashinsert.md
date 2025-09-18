@@ -1,7 +1,7 @@
 # hashinsert
 
 ## Location
-src/backend/access/hash/hash.c: 251 - 282
+[src/backend/access/hash/hash.c:251-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L251-L282)
 
 ## Overview
 Inserts a single index tuple into an existing hash index by hashing the key values and placing the tuple in the appropriate bucket.

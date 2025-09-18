@@ -1,7 +1,7 @@
 # RI_FKey_trigger_type
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 3001 - 3023
+[src/backend/utils/adt/ri_triggers.c:3001-3023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L3001-L3023)
 
 ## Overview
 Determines the type of referential integrity (RI) trigger based on a trigger function OID, specifically whether it is attached to a primary key (PK) or foreign key (FK) relation.

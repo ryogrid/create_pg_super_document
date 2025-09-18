@@ -1,7 +1,7 @@
 # icu_to_uchar
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2758 - 2784
+[src/backend/utils/adt/pg_locale.c:2758-2784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2758-L2784)
 
 ## Overview
 Converts a string from the database encoding to ICU's Unicode (UChar) representation, handling memory allocation and returning both the converted string and its length.

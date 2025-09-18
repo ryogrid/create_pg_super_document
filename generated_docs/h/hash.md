@@ -1,7 +1,7 @@
 # hash
 
 ## Location
-src/backend/regex/rege_dfa.c: 715 - 730
+[src/backend/regex/rege_dfa.c:715-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L715-L730)
 
 ## Overview
 The hash: hash table empty function constructs a hash code for a bitvector array used in PostgreSQL's regular expression DFA (Deterministic Finite Automaton) implementation.

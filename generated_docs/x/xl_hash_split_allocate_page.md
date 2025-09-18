@@ -1,7 +1,7 @@
 # xl_hash_split_allocate_page
 
 ## Location
-src/include/access/hash_xlog.h: 98 - 104
+[src/include/access/hash_xlog.h:98-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L98-L104)
 
 ## Overview
 A PostgreSQL WAL record structure that captures the information needed to replay the page allocation phase of a hash index bucket split operation during recovery.

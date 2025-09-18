@@ -1,7 +1,7 @@
 # r_Prefix_Step3a_Noun
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1100 - 1123
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1100-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1100-L1123)
 
 ## Overview
 This function implements Step 3a of Arabic prefix processing for nouns in the Arabic stemming algorithm, removing specific prefixes from Arabic text when certain length conditions are met.

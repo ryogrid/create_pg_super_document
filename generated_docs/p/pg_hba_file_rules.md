@@ -1,7 +1,7 @@
 # pg_hba_file_rules
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 430 - 449
+[src/backend/utils/adt/hbafuncs.c:430-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L430-L449)
 
 ## Overview
 SQL-accessible set-returning function that returns all entries from the pg_hba.conf file as a result set for the pg_hba_file_rules system view.

@@ -1,7 +1,7 @@
 # StartPrepare
 
 ## Location
-src/backend/access/transam/twophase.c: 1049 - 1141
+[src/backend/access/transam/twophase.c:1049-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1049-L1141)
 
 ## Overview
 StartPrepare initializes the two-phase commit state file preparation process by creating data structures and inserting the 2PC file header record.

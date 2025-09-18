@@ -1,7 +1,7 @@
 # make_inner_pathkeys_for_merge
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1835 - 1937
+[src/backend/optimizer/path/pathkeys.c:1835-1937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1835-L1937)
 
 ## Overview
 This function builds a pathkey list representing the explicit sort order that must be applied to an inner path to make it usable with given mergeclauses.

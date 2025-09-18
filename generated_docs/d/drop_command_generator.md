@@ -1,7 +1,7 @@
 # drop_command_generator
 
 ## Location
-src/bin/psql/tab-complete.c: 5140 - 5148
+[src/bin/psql/tab-complete.c:5140-5148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5140-L5148)
 
 ## Overview
 A specialized tab completion generator function for PostgreSQL's psql that provides autocompletion suggestions specifically for commands that can follow the DROP keyword.

@@ -1,7 +1,7 @@
 # tts_virtual_is_current_xact_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 157 - 175
+[src/backend/executor/execTuples.c:157-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L157-L175)
 
 ## Overview
 A function that handles queries for transaction information on VirtualTupleTableSlots, which do not store transaction data, by raising an error to indicate this operation is not supported.

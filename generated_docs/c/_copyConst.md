@@ -1,7 +1,7 @@
 # _copyConst
 
 ## Location
-src/backend/nodes/copyfuncs.c: 73 - 107
+[src/backend/nodes/copyfuncs.c:73-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/copyfuncs.c#L73-L107)
 
 ## Overview
 Creates a deep copy of a Const node, handling both value and reference types appropriately based on the constant's properties.

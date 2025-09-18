@@ -1,7 +1,7 @@
 # text_to_array
 
 ## Location
-src/backend/utils/adt/varlena.c: 4514 - 4539
+[src/backend/utils/adt/varlena.c:4514-4539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4514-L4539)
 
 ## Overview
 Parses input string and returns a text array of elements based on a provided field separator.

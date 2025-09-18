@@ -1,7 +1,7 @@
 # r_instrum
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 562 - 581
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:562-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L562-L581)
 
 ## Overview
 The r_instrum function handles instrumental case endings in Hungarian words, specifically removing 'al' and 'el' suffixes when certain morphological conditions are met.

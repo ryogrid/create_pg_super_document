@@ -1,7 +1,7 @@
 # point_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2023 - 2038
+[src/backend/utils/adt/geo_ops.c:2023-2038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2023-L2038)
 
 ## Overview
 Calculates the slope of a line defined by two points, handling special cases for vertical and horizontal lines.

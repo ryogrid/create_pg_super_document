@@ -1,7 +1,7 @@
 # ClientCertMode
 
 ## Location
-src/include/libpq/hba.h: 72 - 73
+[src/include/libpq/hba.h:72-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L72-L73)
 
 ## Overview
 ClientCertMode is an enumeration that defines the different modes for client certificate authentication in PostgreSQL's SSL connections.

@@ -1,7 +1,7 @@
 # advance_windowaggregate_base
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 419 - 581
+[src/backend/executor/nodeWindowAgg.c:419-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L419-L581)
 
 ## Overview
 Removes the oldest tuple from a window aggregate by calling the aggregate's inverse transition function, supporting efficient sliding window computations.

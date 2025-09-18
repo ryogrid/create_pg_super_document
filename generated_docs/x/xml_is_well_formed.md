@@ -1,7 +1,7 @@
 # xml_is_well_formed
 
 ## Location
-src/backend/utils/adt/xml.c: 4609 - 4621
+[src/backend/utils/adt/xml.c:4609-4621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4609-L4621)
 
 ## Overview
 SQL-callable function that checks whether given text data represents well-formed XML using the current xmloption setting.

@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoIsFull
 
 ## Location
-src/backend/commands/copyfrom.c: 283 - 294
+[src/backend/commands/copyfrom.c:283-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L283-L294)
 
 ## Overview
 CopyMultiInsertInfoIsFull checks whether the multi-insert buffers have reached their capacity limits, returning true if either the tuple count or byte size thresholds have been exceeded.

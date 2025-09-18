@@ -1,7 +1,7 @@
 # createDumpId
 
 ## Location
-src/bin/pg_dump/common.c: 734 - 742
+[src/bin/pg_dump/common.c:734-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L734-L742)
 
 ## Overview
 Generates a unique DumpId that is not tied to any DumpableObject, primarily used for creating fixed ArchiveEntry objects in pg_dump.

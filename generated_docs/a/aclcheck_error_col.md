@@ -1,7 +1,7 @@
 # aclcheck_error_col
 
 ## Location
-src/backend/catalog/aclchk.c: 2994 - 3023
+[src/backend/catalog/aclchk.c:2994-3023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2994-L3023)
 
 ## Overview
 Specialized error reporting function for column-level access control check failures, providing detailed error messages that include both the column name and relation name.

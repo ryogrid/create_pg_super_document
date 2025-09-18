@@ -1,7 +1,7 @@
 # AsyncShmemSize
 
 ## Location
-src/backend/commands/async.c: 485 - 501
+[src/backend/commands/async.c:485-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L485-L501)
 
 ## Overview
 Calculates and returns the total shared memory size required for PostgreSQL's asynchronous notification system.

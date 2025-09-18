@@ -1,7 +1,7 @@
 # directory_is_empty
 
 ## Location
-src/backend/commands/tablespace.c: 853 - 882
+[src/backend/commands/tablespace.c:853-882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L853-L882)
 
 ## Overview
 Checks if a directory is empty by iterating through its contents and returning true if no files or subdirectories (other than "." and "..") are found.

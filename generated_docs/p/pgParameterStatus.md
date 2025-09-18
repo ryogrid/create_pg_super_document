@@ -1,7 +1,7 @@
 # pgParameterStatus
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 275 - 281
+[src/interfaces/libpq/libpq-int.h:275-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L275-L281)
 
 ## Overview
 pgParameterStatus is a linked list node structure that stores server parameter name-value pairs received from PostgreSQL during connection establishment and runtime parameter updates.

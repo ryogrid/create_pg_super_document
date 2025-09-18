@@ -1,7 +1,7 @@
 # form_and_insert_tuple
 
 ## Location
-src/backend/access/brin/brin.c: 1976 - 1996
+[src/backend/access/brin/brin.c:1976-1996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1976-L1996)
 
 ## Overview
 Converts a deformed tuple stored in the build state into the on-disk format and inserts it into the BRIN index, making the revmap point to the newly inserted tuple.

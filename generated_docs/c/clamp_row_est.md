@@ -1,7 +1,7 @@
 # clamp_row_est
 
 ## Location
-src/backend/optimizer/path/costsize.c: 202 - 230
+[src/backend/optimizer/path/costsize.c:202-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L202-L230)
 
 ## Overview
 Forces a row-count estimate to a sane value by clamping it to a reasonable range and ensuring it's a valid numeric value.

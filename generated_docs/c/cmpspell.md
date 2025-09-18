@@ -1,7 +1,7 @@
 # cmpspell
 
 ## Location
-src/backend/tsearch/spell.c: 197 - 202
+[src/backend/tsearch/spell.c:197-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L197-L202)
 
 ## Overview
 cmpspell is a comparison function used for sorting SPELL structures by their word field, compatible with qsort and other sorting functions that require a comparison callback.

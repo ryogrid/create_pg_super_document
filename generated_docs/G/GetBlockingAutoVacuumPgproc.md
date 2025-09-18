@@ -1,7 +1,7 @@
 # GetBlockingAutoVacuumPgproc
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 287 - 308
+[src/backend/storage/lmgr/deadlock.c:287-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L287-L308)
 
 ## Overview
 Returns the PGPROC of the autovacuum process that is blocking another process, resetting the saved pointer after retrieval.

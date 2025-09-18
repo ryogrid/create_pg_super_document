@@ -1,7 +1,7 @@
 # mark_async_capable_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1141 - 1216
+[src/backend/optimizer/plan/createplan.c:1141-1216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1141-L1216)
 
 ## Overview
 Determines and marks whether a Plan node is capable of asynchronous execution based on its corresponding Path node characteristics.

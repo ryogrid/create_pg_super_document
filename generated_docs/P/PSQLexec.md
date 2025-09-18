@@ -1,7 +1,7 @@
 # PSQLexec
 
 ## Location
-src/bin/psql/common.c: 620 - 674
+[src/bin/psql/common.c:620-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L620-L674)
 
 ## Overview
 PSQLexec is a core function in psql for executing "backdoor" queries - internal queries not directly entered by users, with built-in error handling and optional query echoing.

@@ -1,7 +1,7 @@
 # extractModify
 
 ## Location
-src/backend/commands/aggregatecmds.c: 478 - 493
+[src/backend/commands/aggregatecmds.c:478-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/aggregatecmds.c#L478-L493)
 
 ## Overview
 extractModify is a utility function that converts string representations of finalfunc_modify and mfinalfunc_modify parameters into their corresponding catalog enumeration values for aggregate function definitions.

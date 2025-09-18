@@ -1,7 +1,7 @@
 # parallel_transfer_all_new_dbs
 
 ## Location
-src/bin/pg_upgrade/parallel.c: 172 - 262
+[src/bin/pg_upgrade/parallel.c:172-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/parallel.c#L172-L262)
 
 ## Overview
 Performs parallel transfer of all new databases during PostgreSQL upgrade, enabling concurrent tablespace transfers for improved performance.

@@ -1,7 +1,7 @@
 # spgist_name_leaf_consistent
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 399 - 495
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:399-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L399-L495)
 
 ## Overview
 Implements the leaf consistent function for SP-GiST name operator class, determining if a leaf tuple matches search predicates by reconstructing the full name value and performing comparisons.

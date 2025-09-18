@@ -1,7 +1,7 @@
 # vector8_highbit_mask
 
 ## Location
-src/include/port/simd.h: 309 - 337
+[src/include/port/simd.h:309-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L309-L337)
 
 ## Overview
 A function that returns a bitmask representing which bytes in a Vector8 have their high bit (most significant bit) set.

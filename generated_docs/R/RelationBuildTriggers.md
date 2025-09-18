@@ -1,7 +1,7 @@
 # RelationBuildTriggers
 
 ## Location
-src/backend/commands/trigger.c: 1856 - 2007
+[src/backend/commands/trigger.c:1856-2007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1856-L2007)
 
 ## Overview
 RelationBuildTriggers builds trigger data to attach to the given relcache entry by scanning the pg_trigger system catalog and constructing a complete TriggerDesc structure for efficient trigger processing.

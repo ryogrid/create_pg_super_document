@@ -1,7 +1,7 @@
 # extract_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6149 - 6163
+[src/backend/utils/adt/timestamp.c:6149-6163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6149-L6163)
 
 ## Overview
 PostgreSQL built-in function wrapper that extracts specified time components from interval values, returning results as exact numeric values.

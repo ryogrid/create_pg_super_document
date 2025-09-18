@@ -1,7 +1,7 @@
 # pgstat_fetch_entry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 811 - 906
+[src/backend/utils/activity/pgstat.c:811-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L811-L906)
 
 ## Overview
 This function fetches statistics data for a specific database object identified by kind, database OID, and object OID, handling different consistency levels and caching strategies.

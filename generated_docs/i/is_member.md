@@ -1,7 +1,7 @@
 # is_member
 
 ## Location
-src/backend/libpq/hba.c: 919 - 947
+[src/backend/libpq/hba.c:919-947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L919-L947)
 
 ## Overview
 Determines whether a given user (by OID) belongs to a specified role, used in PostgreSQL's authentication and authorization system.

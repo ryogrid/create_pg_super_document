@@ -1,7 +1,7 @@
 # pq_getmsgint64
 
 ## Location
-src/backend/libpq/pqformat.c: 453 - 468
+[src/backend/libpq/pqformat.c:453-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L453-L468)
 
 ## Overview
 Extracts a 64-bit binary integer from a message buffer with network-to-host byte order conversion.

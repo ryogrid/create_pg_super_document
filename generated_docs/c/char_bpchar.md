@@ -1,7 +1,7 @@
 # char_bpchar
 
 ## Location
-src/backend/utils/adt/varchar.c: 353 - 370
+[src/backend/utils/adt/varchar.c:353-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L353-L370)
 
 ## Overview
 Converts a single character (char) to a bpchar(1) value, creating a blank-padded character type with length 1.

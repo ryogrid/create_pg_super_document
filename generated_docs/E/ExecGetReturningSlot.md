@@ -1,7 +1,7 @@
 # ExecGetReturningSlot
 
 ## Location
-src/backend/executor/execUtils.c: 1182 - 1205
+[src/backend/executor/execUtils.c:1182-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1182-L1205)
 
 ## Overview
 Returns a tuple slot for processing RETURNING clause results in INSERT, UPDATE, and DELETE statements, creating it lazily if it doesn't already exist.

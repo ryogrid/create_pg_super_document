@@ -1,7 +1,7 @@
 # years_of_observations
 
 ## Location
-src/timezone/zic.c: 3062 - 3347
+[src/timezone/zic.c:3062-3347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3062-L3347)
 
 ## Overview
 An enumerated constant that defines the number of years of timezone data to generate when extending beyond explicit rules, calculated as the POSIX repetition cycle plus a safety margin.

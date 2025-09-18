@@ -1,7 +1,7 @@
 # GetRunningTransactionData
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2693 - 2878
+[src/backend/storage/ipc/procarray.c:2693-2878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2693-L2878)
 
 ## Overview
 GetRunningTransactionData returns comprehensive information about all currently running transactions, including both main transactions and subtransactions, primarily used for checkpointing and standby server coordination.

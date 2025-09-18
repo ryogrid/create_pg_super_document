@@ -1,7 +1,7 @@
 # ExecReScanFunctionScan
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 556 - 613
+[src/backend/executor/nodeFunctionscan.c:556-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L556-L613)
 
 ## Overview
 Rescans a FunctionScan node by either recomputing function outputs or rewinding existing tuplestores, depending on whether parameters have changed.

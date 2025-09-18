@@ -1,7 +1,7 @@
 # ReorderBufferCopySnap
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1851 - 1909
+[src/backend/replication/logical/reorderbuffer.c:1851-1909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1851-L1909)
 
 ## Overview
 Creates a private copy of a snapshot that can be modified for catalog access, enabling logical decoding to examine intermediate catalog states during transaction processing.

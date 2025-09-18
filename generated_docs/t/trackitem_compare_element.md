@@ -1,7 +1,7 @@
 # trackitem_compare_element
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 768 - 779
+[src/backend/utils/adt/array_typanalyze.c:768-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L768-L779)
 
 ## Overview
 A static comparison function used to sort TrackItem pointers by their element values using the underlying data type's comparison function.

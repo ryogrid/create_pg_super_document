@@ -1,7 +1,7 @@
 # repairTableConstraintLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1056 - 1072
+[src/bin/pg_dump/pg_dump_sort.c:1056-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1056-L1072)
 
 ## Overview
 Repairs simple circular dependencies between tables and their CHECK constraints in pg_dump by removing the automatic constraint-to-table dependency while preserving the explicit table-to-constraint dependency.

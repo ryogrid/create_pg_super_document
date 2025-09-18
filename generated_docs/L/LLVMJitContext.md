@@ -1,7 +1,7 @@
 # LLVMJitContext
 
 ## Location
-src/include/jit/llvmjit.h: 43 - 71
+[src/include/jit/llvmjit.h:43-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit.h#L43-L71)
 
 ## Overview
 LLVMJitContext is a structure that extends the base JitContext to provide LLVM-specific just-in-time compilation functionality in PostgreSQL. It manages LLVM compilation state, module generation, and resource tracking for efficient code generation and execution.

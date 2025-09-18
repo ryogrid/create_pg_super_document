@@ -1,7 +1,7 @@
 # compileTheLexeme
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 391 - 501
+[src/backend/tsearch/dict_thesaurus.c:391-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L391-L501)
 
 ## Overview
 Processes and compiles raw lexeme entries in a thesaurus dictionary by normalizing them through a subdictionary, sorting them, and removing duplicates.

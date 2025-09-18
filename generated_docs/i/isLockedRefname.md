@@ -1,7 +1,7 @@
 # isLockedRefname
 
 ## Location
-src/backend/parser/parse_relation.c: 2575 - 2618
+[src/backend/parser/parse_relation.c:2575-2618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2575-L2618)
 
 ## Overview
 Determines whether a specified table reference name has been selected for locking with FOR UPDATE or FOR SHARE clauses before the locking clause transformation has been performed.

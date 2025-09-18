@@ -1,7 +1,7 @@
 # EndReplicationCommand
 
 ## Location
-src/backend/tcop/dest.c: 205 - 217
+[src/backend/tcop/dest.c:205-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L205-L217)
 
 ## Overview
 EndReplicationCommand is a simplified version of EndCommand specifically designed for replication commands, sending completion status messages to replication clients.

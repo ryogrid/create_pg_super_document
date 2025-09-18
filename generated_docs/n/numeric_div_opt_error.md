@@ -1,7 +1,7 @@
 # numeric_div_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 3160 - 3274
+[src/backend/utils/adt/numeric.c:3160-3274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3160-L3274)
 
 ## Overview
 Internal version of numeric division that provides optional error handling, allowing callers to handle division errors (like division by zero) without raising exceptions.

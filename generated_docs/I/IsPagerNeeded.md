@@ -1,7 +1,7 @@
 # IsPagerNeeded
 
 ## Location
-src/fe_utils/print.c: 3403 - 3442
+[src/fe_utils/print.c:3403-3442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3403-L3442)
 
 ## Overview
 Determines whether a pager is needed for output and configures paging based on table content size and output settings.

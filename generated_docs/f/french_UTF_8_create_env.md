@@ -1,7 +1,7 @@
 # french_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_french.c: 1259 - 1260
+[src/backend/snowball/libstemmer/stem_UTF_8_french.c:1259-1260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_french.c#L1259-L1260)
 
 ## Overview
 The french_UTF_8_create_env function creates and initializes a Snowball environment structure specifically configured for UTF-8 encoded French text processing.

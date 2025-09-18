@@ -1,7 +1,7 @@
 # skip_drive
 
 ## Location
-src/port/path.c: 68 - 84
+[src/port/path.c:68-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L68-L84)
 
 ## Overview
 A static utility function that skips over the drive portion of a file path, handling both Windows drive letters and UNC paths.

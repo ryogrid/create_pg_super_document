@@ -1,7 +1,7 @@
 # check_prepare_conn
 
 ## Location
-src/test/examples/testlibpq4.c: 25 - 48
+[src/test/examples/testlibpq4.c:25-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlibpq4.c#L25-L48)
 
 ## Overview
 A utility function that validates a PostgreSQL database connection and sets up a secure search path to prevent security vulnerabilities.

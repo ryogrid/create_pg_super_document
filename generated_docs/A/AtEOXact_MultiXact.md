@@ -1,7 +1,7 @@
 # AtEOXact_MultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 1800 - 1827
+[src/backend/access/transam/multixact.c:1800-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1800-L1827)
 
 ## Overview
 Handles cleanup of MultiXact-related state at the end of a transaction (both commit and abort).

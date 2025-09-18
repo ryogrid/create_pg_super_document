@@ -1,7 +1,7 @@
 # ecpg_sqlca_key_destructor
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 96 - 101
+[src/interfaces/ecpg/ecpglib/misc.c:96-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L96-L101)
 
 ## Overview
 A pthread cleanup function that frees the memory allocated for thread-local SQLCA structures when a thread terminates.

@@ -1,7 +1,7 @@
 # int2up
 
 ## Location
-src/backend/utils/adt/int.c: 898 - 905
+[src/backend/utils/adt/int.c:898-905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L898-L905)
 
 ## Overview
 A PostgreSQL system function that implements the unary plus operator for 16-bit signed integers (int2/smallint), returning the input value unchanged.

@@ -1,7 +1,7 @@
 # ProcessSlotSyncInterrupts
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1155 - 1176
+[src/backend/replication/logical/slotsync.c:1155-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1155-L1176)
 
 ## Overview
 ProcessSlotSyncInterrupts is an interrupt handler function for the main loop of the slot synchronization worker that processes shutdown requests and configuration reload signals.

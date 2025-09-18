@@ -1,7 +1,7 @@
 # check_log_duration
 
 ## Location
-src/backend/tcop/postgres.c: 2407 - 2469
+[src/backend/tcop/postgres.c:2407-2469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2407-L2469)
 
 ## Overview
 Determines whether the current command's execution duration should be logged based on various duration-related logging configuration parameters.

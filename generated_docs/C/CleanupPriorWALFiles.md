@@ -1,7 +1,7 @@
 # CleanupPriorWALFiles
 
 ## Location
-src/bin/pg_archivecleanup/pg_archivecleanup.c: 91 - 182
+[src/bin/pg_archivecleanup/pg_archivecleanup.c:91-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_archivecleanup/pg_archivecleanup.c#L91-L182)
 
 ## Overview
 Scans the archive directory and removes WAL files that are older than the specified cleanup threshold, supporting both dry-run mode and actual file deletion.

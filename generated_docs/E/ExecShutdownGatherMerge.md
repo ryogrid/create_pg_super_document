@@ -1,7 +1,7 @@
 # ExecShutdownGatherMerge
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 297 - 315
+[src/backend/executor/nodeGatherMerge.c:297-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L297-L315)
 
 ## Overview
 ExecShutdownGatherMerge destroys the parallel execution setup for GatherMerge nodes, including worker processes and the parallel context.

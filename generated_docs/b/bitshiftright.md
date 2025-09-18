@@ -1,7 +1,7 @@
 # bitshiftright
 
 ## Location
-src/backend/utils/adt/varbit.c: 1459 - 1530
+[src/backend/utils/adt/varbit.c:1459-1530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1459-L1530)
 
 ## Overview
 Performs a right bit shift operation on a variable-length bit string, shifting bits towards the end of the string.

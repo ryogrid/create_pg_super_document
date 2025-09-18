@@ -1,7 +1,7 @@
 # makeJsonTablePath
 
 ## Location
-src/backend/nodes/makefuncs.c: 998 - 1007
+[src/backend/nodes/makefuncs.c:998-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L998-L1007)
 
 ## Overview
 Creates and initializes a JsonTablePath node that represents a JSON path expression used in evaluating JSON_TABLE plan nodes.

@@ -1,7 +1,7 @@
 # brin_evacuate_page
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 564 - 623
+[src/backend/access/brin/brin_pageops.c:564-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L564-L623)
 
 ## Overview
 Moves all tuples out of a BRIN index page that has been marked for evacuation, relocating them to appropriate locations within the index.

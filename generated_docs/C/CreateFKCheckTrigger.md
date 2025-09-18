@@ -1,7 +1,7 @@
 # CreateFKCheckTrigger
 
 ## Location
-src/backend/commands/tablecmds.c: 12338 - 12400
+[src/backend/commands/tablecmds.c:12338-12400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12338-L12400)
 
 ## Overview
 Creates the INSERT or UPDATE check trigger that enforces a foreign key constraint by calling appropriate referential integrity checking functions.

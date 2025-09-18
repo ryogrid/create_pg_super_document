@@ -1,7 +1,7 @@
 # reapply_stacked_values
 
 ## Location
-src/backend/utils/misc/guc.c: 5048 - 5139
+[src/backend/utils/misc/guc.c:5048-5139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5048-L5139)
 
 ## Overview
 Recursive function that reapplies stacked GUC values in the correct order when replacing a placeholder with a real custom variable definition.

@@ -1,7 +1,7 @@
 # proc_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 104 - 164
+[src/backend/storage/ipc/ipc.c:104-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L104-L164)
 
 ## Overview
 The proc_exit function is the main process termination function in PostgreSQL that ensures proper cleanup of resources before exiting. It is designed to be the only function that should call exit() directly in the PostgreSQL system.

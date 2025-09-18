@@ -1,7 +1,7 @@
 # fail_lo_xact
 
 ## Location
-src/bin/psql/large_obj.c: 121 - 141
+[src/bin/psql/large_obj.c:121-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L121-L141)
 
 ## Overview
 Handles cleanup after failed large object operations by rolling back transactions that were started by the operation, ensuring database consistency when operations fail.

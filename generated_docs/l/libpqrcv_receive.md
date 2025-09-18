@@ -1,7 +1,7 @@
 # libpqrcv_receive
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 904 - 993
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:904-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L904-L993)
 
 ## Overview
 Receives WAL messages from the XLOG stream during replication, handling both data reception and end-of-stream conditions.

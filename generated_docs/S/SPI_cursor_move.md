@@ -1,7 +1,7 @@
 # SPI_cursor_move
 
 ## Location
-src/backend/executor/spi.c: 1821 - 1834
+[src/backend/executor/spi.c:1821-1834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1821-L1834)
 
 ## Overview
 SPI_cursor_move changes the position of a cursor without retrieving any rows, effectively implementing cursor positioning operations similar to SQL MOVE statements.

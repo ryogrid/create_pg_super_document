@@ -1,7 +1,7 @@
 # stringlist_to_identifierstr
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 1315 - 1344
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1315-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L1315-L1344)
 
 ## Overview
 A utility function that converts a PostgreSQL List of strings into a single comma-separated string with proper identifier quoting for SQL usage.

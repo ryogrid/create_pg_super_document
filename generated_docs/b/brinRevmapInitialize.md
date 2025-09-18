@@ -1,7 +1,7 @@
 # brinRevmapInitialize
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 70 - 99
+[src/backend/access/brin/brin_revmap.c:70-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L70-L99)
 
 ## Overview
 Initializes an access object for a BRIN (Block Range Index) range map, which provides the mapping from heap block ranges to index tuples.

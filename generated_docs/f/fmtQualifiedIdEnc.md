@@ -1,7 +1,7 @@
 # fmtQualifiedIdEnc
 
 ## Location
-src/fe_utils/string_utils.c: 263 - 295
+[src/fe_utils/string_utils.c:263-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L263-L295)
 
 ## Overview
 Constructs a schema-qualified identifier name with proper quoting based on encoding requirements, used in PostgreSQL frontend utilities for safe identifier formatting.

@@ -1,7 +1,7 @@
 # InstrEndLoop
 
 ## Location
-src/backend/executor/instrument.c: 140 - 168
+[src/backend/executor/instrument.c:140-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L140-L168)
 
 ## Overview
 Finalizes instrumentation data collection for a plan node execution cycle by accumulating per-cycle statistics into totals and resetting for the next cycle.

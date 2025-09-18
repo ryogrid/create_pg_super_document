@@ -1,7 +1,7 @@
 # ExecAlterExtensionContentsStmt
 
 ## Location
-src/backend/commands/extension.c: 3292 - 3377
+[src/backend/commands/extension.c:3292-3377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L3292-L3377)
 
 ## Overview
 Executes ALTER EXTENSION ADD/DROP commands to modify the contents of an extension by adding or removing database objects.

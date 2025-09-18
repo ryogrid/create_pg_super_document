@@ -1,7 +1,7 @@
 # CreateSubscription
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 579 - 858
+[src/backend/commands/subscriptioncmds.c:579-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L579-L858)
 
 ## Overview
 Creates a new logical replication subscription, establishing the necessary catalog entries, replication slot, and table synchronization states to replicate data from a publisher database.

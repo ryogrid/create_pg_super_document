@@ -1,7 +1,7 @@
 # _scriptOut
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 857 - 878
+[src/bin/pg_dump/pg_backup_tar.c:857-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L857-L878)
 
 ## Overview
 Outputs script data to the TAR archive format by writing buffer contents to the script TAR handle.

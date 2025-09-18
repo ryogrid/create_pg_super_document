@@ -1,7 +1,7 @@
 # TryReuseIndex
 
 ## Location
-src/backend/commands/tablecmds.c: 14291 - 14318
+[src/backend/commands/tablecmds.c:14291-14318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14291-L14318)
 
 ## Overview
 TryReuseIndex is a subroutine used during column type alteration to determine if an existing index can be reused with new column definitions, and if so, marks the IndexStmt with the storage information needed for reuse.

@@ -1,7 +1,7 @@
 # gtsquery_same
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 107 - 118
+[src/backend/utils/adt/tsquery_gist.c:107-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L107-L118)
 
 ## Overview
 gtsquery_same is a GiST comparison function that determines whether two TSQuerySign values are identical by performing an equality check.

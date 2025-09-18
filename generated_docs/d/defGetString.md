@@ -1,7 +1,7 @@
 # defGetString
 
 ## Location
-src/backend/commands/define.c: 48 - 80
+[src/backend/commands/define.c:48-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L48-L80)
 
 ## Overview
 Extracts a string value from a DefElem (definition element), converting various node types to their string representation.

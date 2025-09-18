@@ -1,7 +1,7 @@
 # pg_utf8_string_len
 
 ## Location
-src/common/saslprep.c: 1007 - 1048
+[src/common/saslprep.c:1007-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/saslprep.c#L1007-L1048)
 
 ## Overview
 A static utility function that calculates the length in Unicode characters of a null-terminated UTF-8 encoded string, with validation to ensure the input is valid UTF-8.

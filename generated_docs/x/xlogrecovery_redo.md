@@ -1,7 +1,7 @@
 # xlogrecovery_redo
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2072 - 2142
+[src/backend/access/transam/xlogrecovery.c:2072-2142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2072-L2142)
 
 ## Overview
 xlogrecovery_redo handles specific XLOG resource manager record types that are directly related to WAL recovery operations, including overwrite contrecord and backup end records.

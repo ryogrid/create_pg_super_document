@@ -1,7 +1,7 @@
 # multirange_range_overlaps_bsearch_comparison
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1976 - 1992
+[src/backend/utils/adt/multirangetypes.c:1976-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1976-L1992)
 
 ## Overview
 Static comparison function used for binary search to determine if any range within a multirange overlaps with a given key range.

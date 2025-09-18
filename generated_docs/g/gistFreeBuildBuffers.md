@@ -1,7 +1,7 @@
 # gistFreeBuildBuffers
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 507 - 524
+[src/backend/access/gist/gistbuildbuffers.c:507-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L507-L524)
 
 ## Overview
 Frees the GiST build buffer data structure and closes associated temporary files at the end of index construction.

@@ -1,7 +1,7 @@
 # pg_get_constraintdef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2173 - 2576
+[src/backend/utils/adt/ruleutils.c:2173-2576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2173-L2576)
 
 ## Overview
 This is the core worker function that generates SQL constraint definitions by parsing constraint metadata from the system catalogs and producing the appropriate constraint clause text.

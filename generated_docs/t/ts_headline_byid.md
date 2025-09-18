@@ -1,7 +1,7 @@
 # ts_headline_byid
 
 ## Location
-src/backend/tsearch/wparser.c: 339 - 347
+[src/backend/tsearch/wparser.c:339-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L339-L347)
 
 ## Overview
 A PostgreSQL wrapper function that generates highlighted headlines from text based on a text search query, using a specified text search configuration by OID with default formatting options.

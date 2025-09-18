@@ -1,7 +1,7 @@
 # spg_key_orderbys_distances
 
 ## Location
-src/backend/access/spgist/spgproc.c: 63 - 81
+[src/backend/access/spgist/spgproc.c:63-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgproc.c#L63-L81)
 
 ## Overview
 Calculates distances from a given key (point or box) to an array of ordering scan keys used in SP-GiST nearest-neighbor queries.

@@ -1,7 +1,7 @@
 # PLy_elog_impl
 
 ## Location
-src/pl/plpython/plpy_elog.c: 44 - 172
+[src/pl/plpython/plpy_elog.c:44-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L44-L172)
 
 ## Overview
 PLy_elog_impl is the core implementation function for propagating Python errors into PostgreSQL error reporting system, converting Python exceptions into PostgreSQL errors or notices with proper error fields and traceback context.

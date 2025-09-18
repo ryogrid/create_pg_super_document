@@ -1,7 +1,7 @@
 # multirange_get_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 695 - 743
+[src/backend/utils/adt/multirangetypes.c:695-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L695-L743)
 
 ## Overview
 This function extracts the i-th range from a multirange by constructing a complete RangeType structure with proper bounds data, flags, and memory layout.

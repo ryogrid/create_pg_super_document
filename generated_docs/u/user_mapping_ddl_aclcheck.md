@@ -1,7 +1,7 @@
 # user_mapping_ddl_aclcheck
 
 ## Location
-src/backend/commands/foreigncmds.c: 1086 - 1110
+[src/backend/commands/foreigncmds.c:1086-1110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1086-L1110)
 
 ## Overview
 A common utility function that performs access control checks for user-mapping-related DDL commands, ensuring that only server owners or users operating on their own mappings can perform the requested operations.

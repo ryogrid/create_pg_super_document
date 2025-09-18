@@ -1,7 +1,7 @@
 # DirectFunctionCall2Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 812 - 833
+[src/backend/utils/fmgr/fmgr.c:812-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L812-L833)
 
 ## Overview
 DirectFunctionCall2Coll is a utility function that provides a simplified interface for calling PostgreSQL functions with 2 arguments while specifying a collation, without requiring explicit setup of function call information structures.

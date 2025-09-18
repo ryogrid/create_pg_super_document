@@ -1,7 +1,7 @@
 # MJEvalInnerValues
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 341 - 390
+[src/backend/executor/nodeMergejoin.c:341-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L341-L390)
 
 ## Overview
 Computes the values of mergejoinable expressions for the current inner tuple and determines if matching is possible or if the join should terminate early.

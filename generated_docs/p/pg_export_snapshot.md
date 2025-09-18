@@ -1,7 +1,7 @@
 # pg_export_snapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1272 - 1286
+[src/backend/utils/time/snapmgr.c:1272-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1272-L1286)
 
 ## Overview
 pg_export_snapshot is a SQL-callable function that provides a user interface to export the current transaction snapshot, returning a snapshot identifier that can be used to import the snapshot in other sessions.

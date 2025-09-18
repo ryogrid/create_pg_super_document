@@ -1,7 +1,7 @@
 # ExecEndBitmapOr
 
 ## Location
-src/backend/executor/nodeBitmapOr.c: 196 - 218
+[src/backend/executor/nodeBitmapOr.c:196-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapOr.c#L196-L218)
 
 ## Overview
 ExecEndBitmapOr performs cleanup operations for a BitmapOr node by shutting down all initialized child subplans.

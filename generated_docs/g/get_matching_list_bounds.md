@@ -1,7 +1,7 @@
 # get_matching_list_bounds
 
 ## Location
-src/backend/partitioning/partprune.c: 2740 - 2950
+[src/backend/partitioning/partprune.c:2740-2950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L2740-L2950)
 
 ## Overview
 Determines which list partition bounds match the specified value according to the given operator strategy (equality, comparison operators).

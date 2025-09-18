@@ -1,7 +1,7 @@
 # SPI_rollback_and_chain
 
 ## Location
-src/backend/executor/spi.c: 419 - 427
+[src/backend/executor/spi.c:419-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L419-L427)
 
 ## Overview
 SPI_rollback_and_chain aborts the current transaction and starts a new one while preserving transaction characteristics, providing chained transaction rollback control for procedural languages and extensions.

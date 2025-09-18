@@ -1,7 +1,7 @@
 # get_btree_test_op
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2330 - 2345
+[src/backend/optimizer/util/predtest.c:2330-2345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2330-L2345)
 
 ## Overview
 Identifies the comparison operator needed for btree-based proofs involving constant comparisons by retrieving the appropriate test operator from the proof cache.

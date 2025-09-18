@@ -1,7 +1,7 @@
 # tts_minimal_init
 
 ## Location
-src/backend/executor/execTuples.c: 508 - 519
+[src/backend/executor/execTuples.c:508-519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L508-L519)
 
 ## Overview
 Initializes a MinimalTupleTableSlot by setting up the heap tuple pointer to enable attribute access on the minimal tuple as if it were a heap tuple.

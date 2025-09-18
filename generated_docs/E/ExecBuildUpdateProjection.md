@@ -1,7 +1,7 @@
 # ExecBuildUpdateProjection
 
 ## Location
-src/backend/executor/execExpr.c: 522 - 739
+[src/backend/executor/execExpr.c:522-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L522-L739)
 
 ## Overview
 Builds a specialized ProjectionInfo node for constructing new tuples during UPDATE operations, handling both pre-computed and dynamically-evaluated SET expressions while preserving unchanged columns from the original tuple.

@@ -1,7 +1,7 @@
 # cash_pl_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 91 - 103
+[src/backend/utils/adt/cash.c:91-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L91-L103)
 
 ## Overview
 A private inline function that performs safe addition of two Cash values with overflow detection and error reporting.

@@ -1,7 +1,7 @@
 # ts_ckpt_progress_comparator
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5854 - 5876
+[src/backend/storage/buffer/bufmgr.c:5854-5876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5854-L5876)
 
 ## Overview
 A comparison function designed for maintaining a min-heap data structure that tracks checkpoint completion progress across different tablespaces during buffer synchronization.

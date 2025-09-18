@@ -1,7 +1,7 @@
 # NUM_PREP_QUERIES
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 77 - 80
+[src/bin/pg_dump/pg_backup.h:77-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L77-L80)
 
 ## Overview
 A sentinel constant that defines the total count of prepared queries used by pg_dump, serving as the upper bound for the prepared query enumeration.

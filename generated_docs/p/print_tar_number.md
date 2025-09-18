@@ -1,7 +1,7 @@
 # print_tar_number
 
 ## Location
-src/port/tar.c: 22 - 57
+[src/port/tar.c:22-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/tar.c#L22-L57)
 
 ## Overview
 A utility function that formats numeric values into tar header fields, supporting both POSIX octal format and GNU binary format for values that don't fit in octal representation.

@@ -1,7 +1,7 @@
 # datapagemap_iterator
 
 ## Location
-src/bin/pg_rewind/datapagemap.c: 18 - 31
+[src/bin/pg_rewind/datapagemap.c:18-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.c#L18-L31)
 
 ## Overview
 The datapagemap_iterator struct provides an iterator mechanism for traversing a datapagemap bitmap to enumerate all blocks that have been marked as modified in pg_rewind operations.

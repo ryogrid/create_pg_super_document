@@ -1,7 +1,7 @@
 # maybe_send_schema
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 705 - 775
+[src/backend/replication/pgoutput/pgoutput.c:705-775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L705-L775)
 
 ## Overview
 Conditionally sends the schema of a relation and its ancestor (if any) to the logical replication stream, ensuring schema information is transmitted before data changes.

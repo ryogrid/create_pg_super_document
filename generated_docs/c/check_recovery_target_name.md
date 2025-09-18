@@ -1,7 +1,7 @@
 # check_recovery_target_name
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4854 - 4869
+[src/backend/access/transam/xlogrecovery.c:4854-4869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4854-L4869)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the `recovery_target_name` parameter, ensuring the restore point name doesn't exceed the maximum allowed filename length.

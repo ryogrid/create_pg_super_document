@@ -1,7 +1,7 @@
 # vector32_eq
 
 ## Location
-src/include/port/simd.h: 397 - 411
+[src/include/port/simd.h:397-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L397-L411)
 
 ## Overview
 Performs element-wise equality comparison between two 32-byte SIMD vectors, returning a mask vector indicating which 32-bit elements are equal.

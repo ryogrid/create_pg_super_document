@@ -1,7 +1,7 @@
 # MessageDLL
 
 ## Location
-src/interfaces/libpq/win32.c: 234 - 267
+[src/interfaces/libpq/win32.c:234-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/win32.c#L234-L267)
 
 ## Overview
 MessageDLL is a structure that represents a Windows Dynamic Link Library (DLL) entry used for loading system libraries to retrieve socket error messages in the PostgreSQL libpq Windows implementation.

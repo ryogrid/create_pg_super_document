@@ -1,7 +1,7 @@
 # text_pattern_lt
 
 ## Location
-src/backend/utils/adt/varlena.c: 2819 - 2834
+[src/backend/utils/adt/varlena.c:2819-2834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2819-L2834)
 
 ## Overview
 PostgreSQL function that performs character-by-character "less than" comparison of two text values, designed specifically for pattern matching and LIKE clause operations.

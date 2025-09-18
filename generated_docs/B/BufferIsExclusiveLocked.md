@@ -1,7 +1,7 @@
 # BufferIsExclusiveLocked
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2459 - 2487
+[src/backend/storage/buffer/bufmgr.c:2459-2487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2459-L2487)
 
 ## Overview
 BufferIsExclusiveLocked checks whether a buffer is currently exclusive-locked by the calling backend, supporting both shared and local buffers.

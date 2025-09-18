@@ -1,7 +1,7 @@
 # get_parallel_divisor
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6366 - 6405
+[src/backend/optimizer/path/costsize.c:6366-6405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6366-L6405)
 
 ## Overview
 Estimates the effective parallelism divisor by calculating the fraction of work each worker (including the leader) contributes to a parallel operation.

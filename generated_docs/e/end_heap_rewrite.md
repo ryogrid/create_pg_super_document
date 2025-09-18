@@ -1,7 +1,7 @@
 # end_heap_rewrite
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 297 - 340
+[src/backend/access/heap/rewriteheap.c:297-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L297-L340)
 
 ## Overview
 Finalizes and cleans up a heap rewrite operation by processing any remaining unresolved tuples, flushing buffers, and freeing all associated resources.

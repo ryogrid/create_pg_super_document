@@ -1,7 +1,7 @@
 # tsCompareString
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1152 - 1188
+[src/backend/utils/adt/tsvector_op.c:1152-1188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1152-L1188)
 
 ## Overview
 Compares two strings according to tsvector rules with support for both exact matching and prefix matching modes, serving as the fundamental string comparison function for text search operations.

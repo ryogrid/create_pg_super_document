@@ -1,7 +1,7 @@
 # CheckForSerializableConflictOutNeeded
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3981 - 4012
+[src/backend/storage/lmgr/predicate.c:3981-4012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3981-L4012)
 
 ## Overview
 Determines whether serializable conflict checking is needed for a read operation and aborts the current transaction if it has been marked as doomed.

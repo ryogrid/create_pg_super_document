@@ -1,7 +1,7 @@
 # ExecEndIndexOnlyScan
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 398 - 432
+[src/backend/executor/nodeIndexonlyscan.c:398-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L398-L432)
 
 ## Overview
 ExecEndIndexOnlyScan performs cleanup operations when an index-only scan node is terminated, releasing all resources associated with the scan including buffer pins, index scan descriptors, and index relations.

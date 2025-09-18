@@ -1,7 +1,7 @@
 # choose_nelem_alloc
 
 ## Location
-src/backend/utils/hash/dynahash.c: 657 - 689
+[src/backend/utils/hash/dynahash.c:657-689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L657-L689)
 
 ## Overview
 choose_nelem_alloc is a static function that determines the optimal number of elements to allocate when expanding a hash table, optimizing memory allocation efficiency.

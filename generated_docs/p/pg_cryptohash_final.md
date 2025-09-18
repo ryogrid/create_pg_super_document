@@ -1,7 +1,7 @@
 # pg_cryptohash_final
 
 ## Location
-src/common/cryptohash_openssl.c: 255 - 325
+[src/common/cryptohash_openssl.c:255-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L255-L325)
 
 ## Overview
 Finalizes a hash context and produces the final hash digest, with buffer length validation to ensure the destination buffer is large enough for the specific hash algorithm output.

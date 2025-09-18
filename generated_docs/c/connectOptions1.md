@@ -1,7 +1,7 @@
 # connectOptions1
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 997 - 1033
+[src/interfaces/libpq/fe-connect.c:997-1033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L997-L1033)
 
 ## Overview
 Internal subroutine that parses a connection string and populates a PGconn structure with the parsed connection parameters as the first stage of connection setup.

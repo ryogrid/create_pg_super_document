@@ -1,7 +1,7 @@
 # makesign
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 144 - 155
+[src/backend/utils/adt/tsgistidx.c:144-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L144-L155)
 
 ## Overview
 A static utility function that creates a bit signature from an array of integers by hashing each element into a bit vector.

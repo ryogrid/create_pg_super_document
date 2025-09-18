@@ -1,7 +1,7 @@
 # numeric_fac
 
 ## Location
-src/backend/utils/adt/numeric.c: 3640 - 3691
+[src/backend/utils/adt/numeric.c:3640-3691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3640-L3691)
 
 ## Overview
 Computes the factorial of a non-negative integer, with overflow protection and interrupt handling for large computations.

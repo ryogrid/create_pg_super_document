@@ -1,7 +1,7 @@
 # have_createdb_privilege
 
 ## Location
-src/backend/commands/dbcommands.c: 2939 - 2963
+[src/backend/commands/dbcommands.c:2939-2963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2939-L2963)
 
 ## Overview
 Checks if the current user has the privilege to create databases in PostgreSQL.

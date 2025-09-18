@@ -1,7 +1,7 @@
 # hash_uint32
 
 ## Location
-src/include/common/hashfn.h: 43 - 48
+[src/include/common/hashfn.h:43-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L43-L48)
 
 ## Overview
 The `hash_uint32` function provides optimized hashing specifically for 32-bit unsigned integer values, offering better performance than general-purpose byte array hashing for this common data type.

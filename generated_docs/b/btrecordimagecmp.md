@@ -1,7 +1,7 @@
 # btrecordimagecmp
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1783 - 1793
+[src/backend/utils/adt/rowtypes.c:1783-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1783-L1793)
 
 ## Overview
 A PostgreSQL B-tree comparison function for record (composite) types that performs byte-oriented comparison and returns a three-way comparison result for use in B-tree indexing operations.

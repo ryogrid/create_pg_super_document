@@ -1,7 +1,7 @@
 # ExecBitmapHeapInitializeDSM
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 831 - 864
+[src/backend/executor/nodeBitmapHeapscan.c:831-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L831-L864)
 
 ## Overview
 This function initializes a shared memory descriptor for parallel bitmap heap scan operations in PostgreSQL's dynamic shared memory (DSM) framework.

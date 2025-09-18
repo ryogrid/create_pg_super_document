@@ -1,7 +1,7 @@
 # conditional_stack_set_query_len
 
 ## Location
-src/fe_utils/conditional.c: 151 - 161
+[src/fe_utils/conditional.c:151-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L151-L161)
 
 ## Overview
 Sets the query buffer length in the topmost entry of a conditional stack, used for tracking SQL query processing state during conditional command execution.

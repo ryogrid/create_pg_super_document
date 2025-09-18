@@ -1,7 +1,7 @@
 # ReplicationOriginShmemSize
 
 ## Location
-src/backend/replication/logical/origin.c: 506 - 525
+[src/backend/replication/logical/origin.c:506-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L506-L525)
 
 ## Overview
 Calculates the amount of shared memory required for replication origin state tracking based on the configured maximum number of replication slots.

@@ -1,7 +1,7 @@
 # xact_desc_prepare
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 396 - 426
+[src/backend/access/rmgrdesc/xactdesc.c:396-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L396-L426)
 
 ## Overview
 A static function that formats WAL prepare record information into human-readable descriptions for two-phase commit operations in debugging and logging.

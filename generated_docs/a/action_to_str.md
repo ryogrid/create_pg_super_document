@@ -1,7 +1,7 @@
 # action_to_str
 
 ## Location
-src/bin/pg_rewind/filemap.c: 473 - 498
+[src/bin/pg_rewind/filemap.c:473-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L473-L498)
 
 ## Overview
 Converts a file_action_t enumeration value to its corresponding string representation for debugging and logging purposes in pg_rewind.

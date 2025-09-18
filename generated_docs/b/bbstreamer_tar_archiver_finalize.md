@@ -1,7 +1,7 @@
 # bbstreamer_tar_archiver_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 442 - 450
+[src/bin/pg_basebackup/bbstreamer_tar.c:442-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L442-L450)
 
 ## Overview
 Handles end-of-stream processing for a tar archiver by finalizing the next bbstreamer in the chain.

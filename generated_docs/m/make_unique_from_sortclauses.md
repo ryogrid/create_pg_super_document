@@ -1,7 +1,7 @@
 # make_unique_from_sortclauses
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6700 - 6748
+[src/backend/optimizer/plan/createplan.c:6700-6748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6700-L6748)
 
 ## Overview
 Creates a Unique plan node from a list of SortGroupClauses to eliminate duplicate rows based on specified columns from pre-sorted input.

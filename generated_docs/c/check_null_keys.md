@@ -1,7 +1,7 @@
 # check_null_keys
 
 ## Location
-src/backend/access/brin/brin.c: 2290 - 2353
+[src/backend/access/brin/brin.c:2290-2353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2290-L2353)
 
 ## Overview
 Checks whether a BRIN range value satisfies NULL-related scan keys (IS NULL/IS NOT NULL predicates) during index scanning.

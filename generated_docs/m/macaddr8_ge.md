@@ -1,7 +1,7 @@
 # macaddr8_ge
 
 ## Location
-src/backend/utils/adt/mac8.c: 365 - 373
+[src/backend/utils/adt/mac8.c:365-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L365-L373)
 
 ## Overview
 The macaddr8_ge function implements the greater-than-or-equal-to comparison operator (>=) for PostgreSQL's 8-byte MAC address (macaddr8) data type.

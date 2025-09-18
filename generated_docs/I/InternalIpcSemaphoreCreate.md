@@ -1,7 +1,7 @@
 # InternalIpcSemaphoreCreate
 
 ## Location
-src/backend/port/sysv_sema.c: 103 - 162
+[src/backend/port/sysv_sema.c:103-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_sema.c#L103-L162)
 
 ## Overview
 InternalIpcSemaphoreCreate is a static function that attempts to create a new System V IPC semaphore set with a specified key, designed to fail gracefully if the semaphore set already exists.

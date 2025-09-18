@@ -1,7 +1,7 @@
 # SimpleLruWritePage
 
 ## Location
-src/backend/access/transam/slru.c: 729 - 742
+[src/backend/access/transam/slru.c:729-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L729-L742)
 
 ## Overview
 Public wrapper function that provides external callers access to SLRU page writing functionality without exposing internal flush operations.

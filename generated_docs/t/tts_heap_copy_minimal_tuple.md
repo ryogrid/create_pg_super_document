@@ -1,7 +1,7 @@
 # tts_heap_copy_minimal_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 475 - 485
+[src/backend/executor/execTuples.c:475-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L475-L485)
 
 ## Overview
 Creates a minimal tuple copy from a heap tuple table slot, converting the slot's heap tuple into a more compact MinimalTuple representation.

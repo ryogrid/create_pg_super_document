@@ -1,7 +1,7 @@
 # InitDeadLockChecking
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 143 - 216
+[src/backend/storage/lmgr/deadlock.c:143-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L143-L216)
 
 ## Overview
 Initializes the deadlock checker during backend startup by allocating working memory for deadlock detection algorithms.

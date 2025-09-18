@@ -1,7 +1,7 @@
 # CopyIndexAttOptions
 
 ## Location
-src/backend/utils/cache/relcache.c: 5876 - 5895
+[src/backend/utils/cache/relcache.c:5876-5895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5876-L5895)
 
 ## Overview
 Creates a deep copy of an array of index attribute options, ensuring each bytea structure is properly duplicated in memory.

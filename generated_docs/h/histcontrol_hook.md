@@ -1,7 +1,7 @@
 # histcontrol_hook
 
 ## Location
-src/bin/psql/startup.c: 1077 - 1097
+[src/bin/psql/startup.c:1077-1097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1077-L1097)
 
 ## Overview
 A validation and assignment hook function for the HISTCONTROL psql variable that parses and validates user input to set the command history control behavior.

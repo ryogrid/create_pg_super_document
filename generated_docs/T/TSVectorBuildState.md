@@ -1,7 +1,7 @@
 # TSVectorBuildState
 
 ## Location
-src/backend/tsearch/to_tsany.c: 38 - 42
+[src/backend/tsearch/to_tsany.c:38-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L38-L42)
 
 ## Overview
 TSVectorBuildState is a state structure used for incrementally building tsvector values from JSON/JSONB data during text search operations.

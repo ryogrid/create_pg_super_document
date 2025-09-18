@@ -1,7 +1,7 @@
 # extract_jsp_bool_expr
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 583 - 718
+[src/backend/utils/adt/jsonb_gin.c:583-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L583-L718)
 
 ## Overview
 Recursively extracts and builds a GIN-compatible query tree from boolean jsonpath expressions, handling logical operations (AND, OR, NOT), existence checks, and equality comparisons with proper negation support.

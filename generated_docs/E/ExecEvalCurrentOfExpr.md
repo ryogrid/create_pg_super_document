@@ -1,7 +1,7 @@
 # ExecEvalCurrentOfExpr
 
 ## Location
-src/backend/executor/execExprInterp.c: 2706 - 2716
+[src/backend/executor/execExprInterp.c:2706-2716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2706-L2716)
 
 ## Overview
 ExecEvalCurrentOfExpr is an error-generating function that should never be executed during normal operation, as CURRENT OF expressions should be converted to other forms during planning.

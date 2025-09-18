@@ -1,7 +1,7 @@
 # pgtls_get_peer_certificate_hash
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 362 - 451
+[src/interfaces/libpq/fe-secure-openssl.c:362-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L362-L451)
 
 ## Overview
 Generates a cryptographic hash of the peer's certificate for TLS channel binding, implementing RFC 5929 requirements for certificate hash generation.

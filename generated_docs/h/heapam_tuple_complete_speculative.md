@@ -1,7 +1,7 @@
 # heapam_tuple_complete_speculative
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 284 - 300
+[src/backend/access/heap/heapam_handler.c:284-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L284-L300)
 
 ## Overview
 Completes a speculative tuple insertion by either confirming or aborting it based on the success status, serving as a high-level wrapper for the table access method's completion mechanism.

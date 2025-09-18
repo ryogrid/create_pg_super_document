@@ -1,7 +1,7 @@
 # euc_jis_2004_to_shift_jis_2004
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c: 40 - 55
+[src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c:40-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c#L40-L55)
 
 ## Overview
 PostgreSQL function that converts character encoding from EUC-JIS-2004 to Shift-JIS-2004 encoding.

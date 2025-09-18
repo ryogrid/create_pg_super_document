@@ -1,7 +1,7 @@
 # time_ne
 
 ## Location
-src/backend/utils/adt/date.c: 1689 - 1697
+[src/backend/utils/adt/date.c:1689-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1689-L1697)
 
 ## Overview
 A PostgreSQL function that performs inequality comparison between two TIME values, returning true if they are different.

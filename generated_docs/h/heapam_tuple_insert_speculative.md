@@ -1,7 +1,7 @@
 # heapam_tuple_insert_speculative
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 261 - 283
+[src/backend/access/heap/heapam_handler.c:261-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L261-L283)
 
 ## Overview
 This function performs a speculative tuple insertion into a heap relation, which allows for tentative insertions that can be later confirmed or rolled back, commonly used for implementing unique constraint checking and conflict resolution.

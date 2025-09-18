@@ -1,7 +1,7 @@
 # CacheInvalidateHeapTuple
 
 ## Location
-src/backend/utils/cache/inval.c: 1207 - 1338
+[src/backend/utils/cache/inval.c:1207-1338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1207-L1338)
 
 ## Overview
 Registers heap tuples for invalidation at command end, handling both catalog cache and relation cache invalidation for system catalog changes.

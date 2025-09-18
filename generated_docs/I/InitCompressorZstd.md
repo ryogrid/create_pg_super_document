@@ -1,7 +1,7 @@
 # InitCompressorZstd
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 212 - 261
+[src/bin/pg_dump/compress_zstd.c:212-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L212-L261)
 
 ## Overview
 InitCompressorZstd is the public interface function that initializes Zstd compression/decompression support for pg_dump archives, setting up the appropriate data structures and function pointers based on whether reading or writing is required.

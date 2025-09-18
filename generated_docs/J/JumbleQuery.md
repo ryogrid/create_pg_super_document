@@ -1,7 +1,7 @@
 # JumbleQuery
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 105 - 149
+[src/backend/nodes/queryjumblefuncs.c:105-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L105-L149)
 
 ## Overview
 JumbleQuery is the main function that generates a unique query identifier (queryId) by creating a normalized representation of a SQL query structure and computing its hash.

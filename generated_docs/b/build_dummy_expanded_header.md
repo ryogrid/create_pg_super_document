@@ -1,7 +1,7 @@
 # build_dummy_expanded_header
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1402 - 1493
+[src/backend/utils/adt/expandedrecord.c:1402-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1402-L1493)
 
 ## Overview
 Constructs a temporary "dummy" expanded record header used for domain constraint validation without modifying the state of the main expanded record.

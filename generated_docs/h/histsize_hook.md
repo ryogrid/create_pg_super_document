@@ -1,7 +1,7 @@
 # histsize_hook
 
 ## Location
-src/bin/psql/startup.c: 937 - 942
+[src/bin/psql/startup.c:937-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L937-L942)
 
 ## Overview
 A static hook function in psql that validates and processes the HISTSIZE variable when it's being set, ensuring the value is a valid number for controlling the command history size.

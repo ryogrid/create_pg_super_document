@@ -1,7 +1,7 @@
 # log_child_failure
 
 ## Location
-src/test/regress/pg_regress.c: 1615 - 1637
+[src/test/regress/pg_regress.c:1615-1637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1615-L1637)
 
 ## Overview
 Reports detailed diagnostic information about failed test processes, including exit codes, termination signals, and human-readable error descriptions.

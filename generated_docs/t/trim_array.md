@@ -1,7 +1,7 @@
 # trim_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6910 - 6949
+[src/backend/utils/adt/arrayfuncs.c:6910-6949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6910-L6949)
 
 ## Overview
 Trims the last N elements from a PostgreSQL array by creating an appropriate slice from the original array, operating only on the first dimension.

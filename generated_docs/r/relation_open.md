@@ -1,7 +1,7 @@
 # relation_open
 
 ## Location
-src/backend/access/common/relation.c: 47 - 87
+[src/backend/access/common/relation.c:47-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/relation.c#L47-L87)
 
 ## Overview
 Opens any relation by its object identifier (OID) and optionally acquires a lock on the relation. This is a fundamental function for accessing database relations in PostgreSQL.

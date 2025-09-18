@@ -1,7 +1,7 @@
 # poly_circle
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5307 - 5336
+[src/backend/utils/adt/geo_ops.c:5307-5336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5307-L5336)
 
 ## Overview
 PostgreSQL SQL-callable function that converts a polygon to its approximate equivalent circle representation.

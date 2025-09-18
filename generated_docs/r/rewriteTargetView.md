@@ -1,7 +1,7 @@
 # rewriteTargetView
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 3204 - 3864
+[src/backend/rewrite/rewriteHandler.c:3204-3864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L3204-L3864)
 
 ## Overview
 Attempts to rewrite a query where the target relation is a view, transforming it so that the view's base relation becomes the target relation.

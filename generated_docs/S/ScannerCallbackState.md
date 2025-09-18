@@ -1,7 +1,7 @@
 # ScannerCallbackState
 
 ## Location
-src/include/parser/scanner.h: 124 - 129
+[src/include/parser/scanner.h:124-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/scanner.h#L124-L129)
 
 ## Overview
 A support structure for the scanner_errposition_callback function that provides error context information during SQL parsing and lexical analysis.

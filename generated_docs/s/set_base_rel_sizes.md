@@ -1,7 +1,7 @@
 # set_base_rel_sizes
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 290 - 332
+[src/backend/optimizer/path/allpaths.c:290-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L290-L332)
 
 ## Overview
 Sets the size estimates (rows and widths) for each base-relation entry and determines whether to consider parallel paths for base relations.

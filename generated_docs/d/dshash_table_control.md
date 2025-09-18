@@ -1,7 +1,7 @@
 # dshash_table_control
 
 ## Location
-src/backend/lib/dshash.c: 83 - 98
+[src/backend/lib/dshash.c:83-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L83-L98)
 
 ## Overview
 The dshash_table_control struct serves as the main control structure for a dynamic shared hash table, stored in dynamic shared memory and containing all metadata necessary for hash table management.

@@ -1,7 +1,7 @@
 # ecpg_type_infocache_push
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 148 - 163
+[src/interfaces/ecpg/ecpglib/execute.c:148-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L148-L163)
 
 ## Overview
 A static utility function that adds a new type information entry to the front of an ECPG type information cache linked list.

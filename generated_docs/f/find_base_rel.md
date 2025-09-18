@@ -1,7 +1,7 @@
 # find_base_rel
 
 ## Location
-src/backend/optimizer/util/relnode.c: 414 - 435
+[src/backend/optimizer/util/relnode.c:414-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L414-L435)
 
 ## Overview
 Retrieves an existing RelOptInfo for a base or other relation from the planner's relation array, with error handling for missing relations.

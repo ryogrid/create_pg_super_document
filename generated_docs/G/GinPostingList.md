@@ -1,7 +1,7 @@
 # GinPostingList
 
 ## Location
-src/include/access/ginblock.h: 341 - 342
+[src/include/access/ginblock.h:341-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginblock.h#L341-L342)
 
 ## Overview
 GinPostingList is a compressed data structure in PostgreSQL's GIN index implementation that stores a list of item pointers in a space-efficient format using variable-byte encoding.

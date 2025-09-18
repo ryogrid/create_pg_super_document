@@ -1,7 +1,7 @@
 # exec_command_slash_command_help
 
 ## Location
-src/bin/psql/command.c: 3072 - 3102
+[src/bin/psql/command.c:3072-3102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3072-L3102)
 
 ## Overview
 Provides help functionality for psql meta-commands through the `\?` command, displaying usage information for commands, options, or variables based on the specified parameter.

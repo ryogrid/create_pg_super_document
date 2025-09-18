@@ -1,7 +1,7 @@
 # load_tzoffsets
 
 ## Location
-src/backend/utils/misc/tzparser.c: 447 - 485
+[src/backend/utils/misc/tzparser.c:447-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/tzparser.c#L447-L485)
 
 ## Overview
 Main entry point for loading and parsing timezone offset files, returning a complete TimeZoneAbbrevTable structure.

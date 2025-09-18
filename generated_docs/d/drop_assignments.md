@@ -1,7 +1,7 @@
 # drop_assignments
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 33 - 45
+[src/interfaces/ecpg/preproc/descriptor.c:33-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L33-L45)
 
 ## Overview
 Deallocates and removes all assignment entries from the global assignments linked list, cleaning up memory used by variable-descriptor assignments.

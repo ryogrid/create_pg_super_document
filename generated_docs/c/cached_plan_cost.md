@@ -1,7 +1,7 @@
 # cached_plan_cost
 
 ## Location
-src/backend/utils/cache/plancache.c: 1103 - 1167
+[src/backend/utils/cache/plancache.c:1103-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1103-L1167)
 
 ## Overview
 cached_plan_cost calculates the estimated execution cost of a cached plan, optionally including planning overhead costs for accurate comparison between generic and custom plans.

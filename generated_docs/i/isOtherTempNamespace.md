@@ -1,7 +1,7 @@
 # isOtherTempNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3710 - 3728
+[src/backend/catalog/namespace.c:3710-3728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3710-L3728)
 
 ## Overview
 This function determines whether a given namespace is another backend's temporary table namespace, excluding the current backend's own temporary namespaces.

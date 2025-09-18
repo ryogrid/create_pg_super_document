@@ -1,7 +1,7 @@
 # errfinish
 
 ## Location
-src/backend/utils/error/elog.c: 477 - 632
+[src/backend/utils/error/elog.c:477-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L477-L632)
 
 ## Overview
 Finalizes an error-reporting cycle by processing the error report, handling error level-specific actions, and managing control flow including process termination for severe errors.

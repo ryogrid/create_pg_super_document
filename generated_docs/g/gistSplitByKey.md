@@ -1,7 +1,7 @@
 # gistSplitByKey
 
 ## Location
-src/backend/access/gist/gistsplit.c: 623 - 779
+[src/backend/access/gist/gistsplit.c:623-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L623-L779)
 
 ## Overview
 Main entry point for the GiST page-splitting algorithm that recursively processes index columns to optimize splits and handle complex multi-column scenarios.

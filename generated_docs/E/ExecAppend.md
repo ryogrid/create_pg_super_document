@@ -1,7 +1,7 @@
 # ExecAppend
 
 ## Location
-src/backend/executor/nodeAppend.c: 288 - 385
+[src/backend/executor/nodeAppend.c:288-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L288-L385)
 
 ## Overview
 The main execution function for Append nodes that handles iteration over multiple subplans, supporting both synchronous and asynchronous execution modes.

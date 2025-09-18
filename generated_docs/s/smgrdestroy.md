@@ -1,7 +1,7 @@
 # smgrdestroy
 
 ## Location
-src/backend/storage/smgr/smgr.c: 277 - 299
+[src/backend/storage/smgr/smgr.c:277-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L277-L299)
 
 ## Overview
 Deletes an SMgrRelation object, cleaning up its resources and removing it from the storage manager's hash table.

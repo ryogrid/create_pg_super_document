@@ -1,7 +1,7 @@
 # SubqueryRecheck
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 67 - 82
+[src/backend/executor/nodeSubqueryscan.c:67-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L67-L82)
 
 ## Overview
 SubqueryRecheck is a static function that serves as an access method routine for tuple rechecking during EvalPlanQual operations in subquery scans.

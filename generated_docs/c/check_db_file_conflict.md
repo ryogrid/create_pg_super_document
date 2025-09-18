@@ -1,7 +1,7 @@
 # check_db_file_conflict
 
 ## Location
-src/backend/commands/dbcommands.c: 3054 - 3096
+[src/backend/commands/dbcommands.c:3054-3096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3054-L3096)
 
 ## Overview
 Checks whether a proposed database OID would conflict with existing filesystem objects in any tablespace, preventing accidental overwriting during database creation.

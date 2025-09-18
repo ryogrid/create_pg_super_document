@@ -1,7 +1,7 @@
 # NextCopyFromRawFields
 
 ## Location
-src/backend/commands/copyfromparse.c: 754 - 853
+[src/backend/commands/copyfromparse.c:754-853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L754-L853)
 
 ## Overview
 NextCopyFromRawFields reads raw field data from the next line in COPY FROM operations for text or CSV mode, returning all fields present in the input without applying force_not_null options.

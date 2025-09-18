@@ -1,7 +1,7 @@
 # coerce_record_to_complex
 
 ## Location
-src/backend/parser/parse_coerce.c: 1012 - 1160
+[src/backend/parser/parse_coerce.c:1012-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1012-L1160)
 
 ## Overview
 This function coerces a RECORD type to a specific composite type, handling both RowExpr and whole-row variable inputs.

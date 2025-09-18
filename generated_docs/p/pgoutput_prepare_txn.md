@@ -1,7 +1,7 @@
 # pgoutput_prepare_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 659 - 672
+[src/backend/replication/pgoutput/pgoutput.c:659-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L659-L672)
 
 ## Overview
 Handles the PREPARE callback for two-phase commit transactions in logical replication, sending prepare messages to subscribers.

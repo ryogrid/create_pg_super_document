@@ -1,7 +1,7 @@
 # plperl_hash_from_tuple
 
 ## Location
-src/pl/plperl/plperl.c: 3026 - 3105
+[src/pl/plperl/plperl.c:3026-3105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3026-L3105)
 
 ## Overview
 Converts a PostgreSQL tuple into a Perl hash reference, mapping column names to their corresponding values for use in PL/Perl functions.

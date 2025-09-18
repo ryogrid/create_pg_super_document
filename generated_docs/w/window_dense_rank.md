@@ -1,7 +1,7 @@
 # window_dense_rank
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 200 - 219
+[src/backend/utils/adt/windowfuncs.c:200-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L200-L219)
 
 ## Overview
 Implements the SQL DENSE_RANK() window function, which assigns a dense rank to each row within a partition based on the ORDER BY clause, incrementing by 1 when key columns change.

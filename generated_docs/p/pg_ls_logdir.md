@@ -1,7 +1,7 @@
 # pg_ls_logdir
 
 ## Location
-src/backend/utils/adt/genfile.c: 633 - 639
+[src/backend/utils/adt/genfile.c:633-639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L633-L639)
 
 ## Overview
 Returns a list of regular files in the PostgreSQL log directory with detailed information including filename, size, and modification time.

@@ -1,7 +1,7 @@
 # EndOfWalRecoveryInfo
 
 ## Location
-src/include/access/xlogrecovery.h: 132 - 158
+[src/include/access/xlogrecovery.h:132-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecovery.h#L132-L158)
 
 ## Overview
 A structure that contains comprehensive information about the end point of WAL (Write-Ahead Log) recovery, including the last valid record position, recovery termination reason, and signal file status.

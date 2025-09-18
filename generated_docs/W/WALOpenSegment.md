@@ -1,7 +1,7 @@
 # WALOpenSegment
 
 ## Location
-src/include/access/xlogreader.h: 45 - 50
+[src/include/access/xlogreader.h:45-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L45-L50)
 
 ## Overview
 WALOpenSegment represents a WAL (Write Ahead Log) segment currently being read, maintaining essential metadata about the open segment file.

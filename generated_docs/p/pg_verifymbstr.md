@@ -1,7 +1,7 @@
 # pg_verifymbstr
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1556 - 1565
+[src/backend/utils/mb/mbutils.c:1556-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1556-L1565)
 
 ## Overview
 A convenience wrapper function that verifies whether a multi-byte string is validly encoded according to the current database's character encoding.

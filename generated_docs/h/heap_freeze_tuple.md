@@ -1,7 +1,7 @@
 # heap_freeze_tuple
 
 ## Location
-src/backend/access/heap/heapam.c: 7381 - 7424
+[src/backend/access/heap/heapam.c:7381-7424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7381-L7424)
 
 ## Overview
 Freezes a heap tuple in place without WAL logging, useful for operations like CLUSTER that perform their own WAL logging.

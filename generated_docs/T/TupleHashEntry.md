@@ -1,7 +1,7 @@
 # TupleHashEntry
 
 ## Location
-src/include/nodes/execnodes.h: 799 - 799
+[src/include/nodes/execnodes.h:799-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L799-L799)
 
 ## Overview
 TupleHashEntry is a pointer typedef to TupleHashEntryData struct, representing entries in PostgreSQL's in-memory tuple hash tables used for grouping, aggregation, and other hash-based operations.

@@ -1,7 +1,7 @@
 # bbstreamer_recovery_injector_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 65 - 84
+[src/bin/pg_basebackup/bbstreamer_inject.c:65-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L65-L84)
 
 ## Overview
 Creates a bbstreamer that can edit recovery configuration data into an archive stream, enabling modification of recovery settings during base backup operations.

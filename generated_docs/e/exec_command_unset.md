@@ -1,7 +1,7 @@
 # exec_command_unset
 
 ## Location
-src/bin/psql/command.c: 2721 - 2750
+[src/bin/psql/command.c:2721-2750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2721-L2750)
 
 ## Overview
 Implements the psql \unset command, which removes a variable from the psql session's variable store.

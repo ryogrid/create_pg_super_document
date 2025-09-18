@@ -1,7 +1,7 @@
 # RelationBuildLocalRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 3526 - 3768
+[src/backend/utils/cache/relcache.c:3526-3768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3526-L3768)
 
 ## Overview
 RelationBuildLocalRelation builds a relcache entry for a relation that is about to be created and enters it into the relcache, providing in-memory representation before the relation physically exists on disk.

@@ -1,7 +1,7 @@
 # PLyObject_ToBool
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 879 - 896
+[src/pl/plpython/plpy_typeio.c:879-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L879-L896)
 
 ## Overview
 Converts a Python object to a PostgreSQL boolean datum, handling Python's broader concept of truthiness compared to PostgreSQL's strict boolean type.

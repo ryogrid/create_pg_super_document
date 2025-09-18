@@ -1,7 +1,7 @@
 # join_is_legal
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 350 - 669
+[src/backend/optimizer/path/joinrels.c:350-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L350-L669)
 
 ## Overview
 Determines whether a proposed join between two relations is legal given the query's join order constraints and special join requirements, and identifies the appropriate join type and parameters.

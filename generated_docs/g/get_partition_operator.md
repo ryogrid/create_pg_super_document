@@ -1,7 +1,7 @@
 # get_partition_operator
 
 ## Location
-src/backend/partitioning/partbounds.c: 3832 - 3867
+[src/backend/partitioning/partbounds.c:3832-3867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3832-L3867)
 
 ## Overview
 Returns the OID of the operator for a given strategy and partition key column, determining if type relabeling is needed for binary compatibility.

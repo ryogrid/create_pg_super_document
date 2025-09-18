@@ -1,7 +1,7 @@
 # ReleaseOneSerializableXact
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3825 - 3961
+[src/backend/storage/lmgr/predicate.c:3825-3961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3825-L3961)
 
 ## Overview
 Releases and cleans up resources associated with a serializable transaction, including predicate locks, conflicts, and transaction records, with options for partial cleanup or summarization.

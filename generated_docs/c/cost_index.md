@@ -1,7 +1,7 @@
 # cost_index
 
 ## Location
-src/backend/optimizer/path/costsize.c: 549 - 839
+[src/backend/optimizer/path/costsize.c:549-839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L549-L839)
 
 ## Overview
 Calculates the comprehensive cost estimate for scanning a relation using an index, including both index access costs and heap tuple retrieval costs.

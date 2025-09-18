@@ -1,7 +1,7 @@
 # ExecARUpdateTriggers
 
 ## Location
-src/backend/commands/trigger.c: 3171 - 3240
+[src/backend/commands/trigger.c:3171-3240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3171-L3240)
 
 ## Overview
 Executes AFTER ROW UPDATE triggers and captures transition table data for UPDATE operations, with special support for cross-partition updates and foreign table constraints.

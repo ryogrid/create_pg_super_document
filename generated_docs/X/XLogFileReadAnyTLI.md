@@ -1,7 +1,7 @@
 # XLogFileReadAnyTLI
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4274 - 4375
+[src/backend/access/transam/xlogrecovery.c:4274-4375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4274-L4375)
 
 ## Overview
 Opens a WAL segment file for reading during recovery, searching across any timeline ID listed in the expected timeline history.

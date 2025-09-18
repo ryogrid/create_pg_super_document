@@ -1,7 +1,7 @@
 # lithuanian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 761 - 833
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:761-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L761-L833)
 
 ## Overview
 The lithuanian_UTF_8_stem function is the main entry point for Lithuanian word stemming, implementing the complete stemming algorithm by orchestrating multiple processing steps and morphological transformations.

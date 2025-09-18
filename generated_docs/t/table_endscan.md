@@ -1,7 +1,7 @@
 # table_endscan
 
 ## Location
-src/include/access/tableam.h: 1020 - 1028
+[src/include/access/tableam.h:1020-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1020-L1028)
 
 ## Overview
 Terminates a table scan operation by calling the table access method's scan_end function to clean up scan resources and release any locks or state.

@@ -1,7 +1,7 @@
 # select_loop
 
 ## Location
-src/fe_utils/parallel_slot.c: 80 - 134
+[src/fe_utils/parallel_slot.c:80-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L80-L134)
 
 ## Overview
 A static function that waits for file descriptors in a given set to become readable, handling interrupts gracefully across different platforms.

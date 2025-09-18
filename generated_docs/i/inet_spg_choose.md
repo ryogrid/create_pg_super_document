@@ -1,7 +1,7 @@
 # inet_spg_choose
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 68 - 164
+[src/backend/utils/adt/network_spgist.c:68-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L68-L164)
 
 ## Overview
 SP-GiST choose function for inet/cidr data types that determines how to navigate or split the index tree when inserting new network address values.

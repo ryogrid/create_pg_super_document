@@ -1,7 +1,7 @@
 # JsObjectGetField
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3490 - 3517
+[src/backend/utils/adt/jsonfuncs.c:3490-3517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3490-L3517)
 
 ## Overview
 Retrieves a specific field value from a JsObject structure, handling both JSON text (via hash table) and binary JSONB (via container lookup) formats.

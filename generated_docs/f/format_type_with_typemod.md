@@ -1,7 +1,7 @@
 # format_type_with_typemod
 
 ## Location
-src/backend/utils/adt/format_type.c: 362 - 370
+[src/backend/utils/adt/format_type.c:362-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L362-L370)
 
 ## Overview
 Backend function that formats PostgreSQL type names while explicitly including type modifier information in the output.

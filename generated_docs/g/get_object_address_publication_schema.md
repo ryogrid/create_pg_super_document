@@ -1,7 +1,7 @@
 # get_object_address_publication_schema
 
 ## Location
-src/backend/catalog/objectaddress.c: 1916 - 1957
+[src/backend/catalog/objectaddress.c:1916-1957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1916-L1957)
 
 ## Overview
 Finds and returns the ObjectAddress for a publication schema mapping by resolving both the schema name and publication name to locate the corresponding pg_publication_namespace catalog entry.

@@ -1,7 +1,7 @@
 # hide_coercion_node
 
 ## Location
-src/backend/parser/parse_coerce.c: 811 - 838
+[src/backend/parser/parse_coerce.c:811-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L811-L838)
 
 ## Overview
 This function marks a coercion node as IMPLICIT to control its display behavior, ensuring it won't be shown by ruleutils.c when generating SQL output.

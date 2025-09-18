@@ -1,7 +1,7 @@
 # pushValue
 
 ## Location
-src/backend/utils/adt/tsquery.c: 580 - 615
+[src/backend/utils/adt/tsquery.c:580-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L580-L615)
 
 ## Overview
 Public function that processes and pushes a string operand onto the parser state's polish notation stack, handling CRC calculation and buffer management for the operand storage.

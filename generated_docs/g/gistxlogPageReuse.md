@@ -1,7 +1,7 @@
 # gistxlogPageReuse
 
 ## Location
-src/include/access/gistxlog.h: 99 - 106
+[src/include/access/gistxlog.h:99-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gistxlog.h#L99-L106)
 
 ## Overview
 The  structure represents a WAL record for GiST index page reuse operations, containing information necessary for hot standby servers to handle recovery conflicts when previously deleted pages are reused.

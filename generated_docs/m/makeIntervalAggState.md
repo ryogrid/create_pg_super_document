@@ -1,7 +1,7 @@
 # makeIntervalAggState
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3926 - 3947
+[src/backend/utils/adt/timestamp.c:3926-3947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3926-L3947)
 
 ## Overview
 Creates and initializes an IntervalAggState structure in the aggregate function's memory context for interval aggregate operations that need to track sum and count.

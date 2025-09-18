@@ -1,7 +1,7 @@
 # _bt_afternewitemoff
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 630 - 748
+[src/backend/access/nbtree/nbtsplitloc.c:630-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L630-L748)
 
 ## Overview
 Determines whether a non-rightmost leaf page should apply the "split after new item" optimization for patterns of localized monotonically increasing insertions in composite indexes.

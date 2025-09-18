@@ -1,7 +1,7 @@
 # GetCompressionMethodName
 
 ## Location
-src/backend/access/common/toast_compression.c: 304 - 316
+[src/backend/access/common/toast_compression.c:304-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L304-L316)
 
 ## Overview
 Converts a compression method identifier to its corresponding string name, providing the reverse mapping of CompressionNameToMethod.

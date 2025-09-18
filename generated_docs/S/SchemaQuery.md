@@ -1,7 +1,7 @@
 # SchemaQuery
 
 ## Location
-src/bin/psql/tab-complete.c: 122 - 204
+[src/bin/psql/tab-complete.c:122-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L122-L204)
 
 ## Overview
 SchemaQuery is a struct used in PostgreSQL's psql tab completion system to define custom-built queries for obtaining possibly-schema-qualified names of database objects, providing a reusable template for constructing complex completion queries.

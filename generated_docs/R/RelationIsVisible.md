@@ -1,7 +1,7 @@
 # RelationIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 913 - 924
+[src/backend/catalog/namespace.c:913-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L913-L924)
 
 ## Overview
 Determines whether a relation (identified by OID) is visible in the current search path, meaning it would be found by searching for the unqualified relation name.

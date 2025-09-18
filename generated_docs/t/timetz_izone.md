@@ -1,7 +1,7 @@
 # timetz_izone
 
 ## Location
-src/backend/utils/adt/date.c: 3122 - 3164
+[src/backend/utils/adt/date.c:3122-3164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L3122-L3164)
 
 ## Overview
 Converts a time with time zone to a different time zone specified by an interval offset, providing precise timezone adjustment using PostgreSQL interval types.

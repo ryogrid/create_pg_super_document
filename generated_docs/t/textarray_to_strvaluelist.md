@@ -1,7 +1,7 @@
 # textarray_to_strvaluelist
 
 ## Location
-src/backend/catalog/objectaddress.c: 2074 - 2099
+[src/backend/catalog/objectaddress.c:2074-2099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2074-L2099)
 
 ## Overview
 Converts a PostgreSQL TEXT array into a List of string Values, transforming SQL array input into the format expected by PostgreSQL's object address resolution system.

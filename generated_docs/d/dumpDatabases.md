@@ -1,7 +1,7 @@
 # dumpDatabases
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1581 - 1676
+[src/bin/pg_dump/pg_dumpall.c:1581-1676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1581-L1676)
 
 ## Overview
 Orchestrates the dumping of all databases by iterating through allowed databases and invoking pg_dump for each one with appropriate options.

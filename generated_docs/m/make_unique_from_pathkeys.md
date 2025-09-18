@@ -1,7 +1,7 @@
 # make_unique_from_pathkeys
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6749 - 6854
+[src/backend/optimizer/plan/createplan.c:6749-6854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6749-L6854)
 
 ## Overview
 Creates a Unique plan node from pathkeys to eliminate duplicate rows based on pathkey specifications, handling both volatile and non-volatile equivalence classes.

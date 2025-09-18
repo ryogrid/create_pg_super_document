@@ -1,7 +1,7 @@
 # init_partition_map
 
 ## Location
-src/backend/partitioning/partbounds.c: 1811 - 1831
+[src/backend/partitioning/partbounds.c:1811-1831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1811-L1831)
 
 ## Overview
 Initializes a PartitionMap structure for a given relation to track partition merging state during partitioned join operations.

@@ -1,7 +1,7 @@
 # pa_lock_transaction
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1573 - 1579
+[src/backend/replication/logical/applyparallelworker.c:1573-1579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1573-L1579)
 
 ## Overview
 Acquires a transaction-level lock for parallel apply operations in logical replication, ensuring proper coordination between parallel apply workers.

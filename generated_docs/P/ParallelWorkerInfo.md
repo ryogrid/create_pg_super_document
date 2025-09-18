@@ -1,7 +1,7 @@
 # ParallelWorkerInfo
 
 ## Location
-src/include/access/parallel.h: 25 - 29
+[src/include/access/parallel.h:25-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/parallel.h#L25-L29)
 
 ## Overview
 A structure that contains information about a parallel worker process, including its background worker handle and error message queue handle for communication.

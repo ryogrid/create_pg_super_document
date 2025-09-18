@@ -1,7 +1,7 @@
 # regnamespacein
 
 ## Location
-src/backend/utils/adt/regproc.c: 1658 - 1699
+[src/backend/utils/adt/regproc.c:1658-1699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1658-L1699)
 
 ## Overview
 The regnamespacein function converts string representations of namespace (schema) names to their corresponding OID values for the regnamespace data type.

@@ -1,7 +1,7 @@
 # TupleDesc
 
 ## Location
-src/include/access/tupdesc.h: 89 - 91
+[src/include/access/tupdesc.h:89-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupdesc.h#L89-L91)
 
 ## Overview
 TupleDesc is a typedef that defines a pointer to TupleDescData, serving as the standard interface for accessing tuple descriptor structures throughout PostgreSQL.

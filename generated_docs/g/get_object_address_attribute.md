@@ -1,7 +1,7 @@
 # get_object_address_attribute
 
 ## Location
-src/backend/catalog/objectaddress.c: 1494 - 1544
+[src/backend/catalog/objectaddress.c:1494-1544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1494-L1544)
 
 ## Overview
 Finds the ObjectAddress for a specific attribute (column) within a relation, serving as a helper function for object addressing in PostgreSQL's object management system.

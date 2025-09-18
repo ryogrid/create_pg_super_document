@@ -1,7 +1,7 @@
 # EnumTypeUncommitted
 
 ## Location
-src/backend/catalog/pg_enum.c: 690 - 707
+[src/backend/catalog/pg_enum.c:690-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L690-L707)
 
 ## Overview
 Tests whether a given enum type OID is present in the table of uncommitted enum types, which tracks enum types created within the current transaction that haven't been committed yet.

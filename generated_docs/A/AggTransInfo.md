@@ -1,7 +1,7 @@
 # AggTransInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 3399 - 3435
+[src/include/nodes/pathnodes.h:3399-3435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3399-L3435)
 
 ## Overview
 AggTransInfo holds information about transition state that is shared by one or more aggregate functions in a query, enabling optimization through transition state sharing when aggregates have identical inputs and transition functions.

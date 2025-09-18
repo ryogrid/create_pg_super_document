@@ -1,7 +1,7 @@
 # _print_horizontal_line
 
 ## Location
-src/fe_utils/print.c: 593 - 634
+[src/fe_utils/print.c:593-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L593-L634)
 
 ## Overview
 Draws horizontal lines (borders) for aligned text table formatting with support for different border styles and positioning rules.

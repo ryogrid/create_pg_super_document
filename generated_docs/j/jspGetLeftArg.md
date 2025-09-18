@@ -1,7 +1,7 @@
 # jspGetLeftArg
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1159 - 1180
+[src/backend/utils/adt/jsonpath.c:1159-1180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1159-L1180)
 
 ## Overview
 Extracts and initializes the left argument from a binary JSON path operation item.

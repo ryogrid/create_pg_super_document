@@ -1,7 +1,7 @@
 # report_invalid_record
 
 ## Location
-src/backend/access/transam/xlogreader.c: 71 - 89
+[src/backend/access/transam/xlogreader.c:71-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L71-L89)
 
 ## Overview
 This function constructs an error message string in the XLogReaderState error buffer to explain what is wrong with the current WAL record being read.

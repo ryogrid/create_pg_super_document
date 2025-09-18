@@ -1,7 +1,7 @@
 # test_rls_hooks_permissive
 
 ## Location
-src/test/modules/test_rls_hooks/test_rls_hooks.c: 45 - 112
+[src/test/modules/test_rls_hooks/test_rls_hooks.c:45-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rls_hooks/test_rls_hooks.c#L45-L112)
 
 ## Overview
 Test hook function that generates permissive Row Level Security (RLS) policies for specified test tables, implementing username-based access control for testing RLS hook functionality.

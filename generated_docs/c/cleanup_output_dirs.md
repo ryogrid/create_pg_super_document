@@ -1,7 +1,7 @@
 # cleanup_output_dirs
 
 ## Location
-src/bin/pg_upgrade/util.c: 63 - 128
+[src/bin/pg_upgrade/util.c:63-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L63-L128)
 
 ## Overview
 Removes internally generated log files and directories during pg_upgrade exit cleanup, with intelligent handling of directory states.

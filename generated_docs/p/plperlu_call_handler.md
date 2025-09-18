@@ -1,7 +1,7 @@
 # plperlu_call_handler
 
 ## Location
-src/pl/plperl/plperl.c: 2067 - 2074
+[src/pl/plperl/plperl.c:2067-2074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2067-L2074)
 
 ## Overview
 Entry point function for PL/PerlU (untrusted Perl) language handler that delegates to the main Perl call handler.

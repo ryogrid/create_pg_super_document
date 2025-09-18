@@ -1,7 +1,7 @@
 # getQuadrant
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 95 - 130
+[src/backend/utils/adt/rangetypes_spgist.c:95-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L95-L130)
 
 ## Overview
 Determines which quadrant a point falls into relative to a centroid point, used in SP-GiST quadtree indexing operations.

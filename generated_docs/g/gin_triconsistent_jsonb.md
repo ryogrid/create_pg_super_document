@@ -1,7 +1,7 @@
 # gin_triconsistent_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1013 - 1089
+[src/backend/utils/adt/jsonb_gin.c:1013-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1013-L1089)
 
 ## Overview
 The ternary consistency check function for the JSONB GIN index that provides more precise matching logic by returning three-valued results (TRUE/MAYBE/FALSE) instead of just boolean values.

@@ -1,7 +1,7 @@
 # ttdummy
 
 ## Location
-src/test/regress/regress.c: 275 - 463
+[src/test/regress/regress.c:275-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L275-L463)
 
 ## Overview
 This function implements a PostgreSQL trigger that manages temporal database functionality by automatically handling start and stop date columns to maintain historical record versioning.

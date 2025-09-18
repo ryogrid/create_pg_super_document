@@ -1,7 +1,7 @@
 # estimate_expression_value
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2395 - 2416
+[src/backend/optimizer/util/clauses.c:2395-2416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2395-L2416)
 
 ## Overview
 This function provides a more aggressive version of constant expression evaluation specifically for planning purposes, performing optimizations that are reasonable for estimation but may not be 100% safe for execution.

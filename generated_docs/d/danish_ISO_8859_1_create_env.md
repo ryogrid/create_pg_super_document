@@ -1,7 +1,7 @@
 # danish_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 311 - 312
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:311-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L311-L312)
 
 ## Overview
 A factory function that creates a new Snowball environment structure specifically configured for Danish stemming with ISO 8859-1 encoding.

@@ -1,7 +1,7 @@
 # binaryheap_allocate
 
 ## Location
-src/common/binaryheap.c: 39 - 62
+[src/common/binaryheap.c:39-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L39-L62)
 
 ## Overview
 Allocates and initializes a new binary heap data structure with the specified capacity and comparison function.

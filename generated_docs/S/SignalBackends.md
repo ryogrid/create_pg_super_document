@@ -1,7 +1,7 @@
 # SignalBackends
 
 ## Location
-src/backend/commands/async.c: 1581 - 1670
+[src/backend/commands/async.c:1581-1670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1581-L1670)
 
 ## Overview
 Internal function that sends signals to listening backend processes to notify them of new notifications in the queue, with intelligent prioritization based on database affinity and queue lag.

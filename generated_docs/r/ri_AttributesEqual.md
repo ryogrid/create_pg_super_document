@@ -1,7 +1,7 @@
 # ri_AttributesEqual
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2866 - 2907
+[src/backend/utils/adt/ri_triggers.c:2866-2907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2866-L2907)
 
 ## Overview
 Performs semantic equality comparison between two attribute values using the appropriate equality operator, with optional type casting.

@@ -1,7 +1,7 @@
 # string_compare
 
 ## Location
-src/backend/utils/hash/dynahash.c: 307 - 351
+[src/backend/utils/hash/dynahash.c:307-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L307-L351)
 
 ## Overview
 string_compare is a hash table comparison function that compares string keys for PostgreSQL's dynamic hash table implementation.

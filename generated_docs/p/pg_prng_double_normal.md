@@ -1,7 +1,7 @@
 # pg_prng_double_normal
 
 ## Location
-src/common/pg_prng.c: 290 - 312
+[src/common/pg_prng.c:290-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L290-L312)
 
 ## Overview
 Generates a random double precision floating-point number from the standard normal distribution (mean = 0.0, standard deviation = 1.0) using the Box-Muller transformation algorithm.

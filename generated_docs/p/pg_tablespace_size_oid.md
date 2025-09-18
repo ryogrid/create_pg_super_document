@@ -1,7 +1,7 @@
 # pg_tablespace_size_oid
 
 ## Location
-src/backend/utils/adt/dbsize.c: 272 - 285
+[src/backend/utils/adt/dbsize.c:272-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L272-L285)
 
 ## Overview
 A PostgreSQL system function that returns the total disk space used by the specified tablespace identified by its OID.

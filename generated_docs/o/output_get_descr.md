@@ -1,7 +1,7 @@
 # output_get_descr
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 181 - 213
+[src/interfaces/ecpg/preproc/descriptor.c:181-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L181-L213)
 
 ## Overview
 Generates C code for retrieving individual item values from an SQL descriptor at a specified index position.

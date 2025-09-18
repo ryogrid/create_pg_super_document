@@ -1,7 +1,7 @@
 # object_ownercheck
 
 ## Location
-src/backend/catalog/aclchk.c: 4147 - 4227
+[src/backend/catalog/aclchk.c:4147-4227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4147-L4227)
 
 ## Overview
 Performs a generic ownership check for any PostgreSQL database object, verifying whether a given role owns or has privileges equivalent to the owner of the specified object.

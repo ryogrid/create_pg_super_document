@@ -1,7 +1,7 @@
 # cash_gt
 
 ## Location
-src/backend/utils/adt/cash.c: 652 - 660
+[src/backend/utils/adt/cash.c:652-660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L652-L660)
 
 ## Overview
 The cash_gt function implements the greater-than comparison operator for PostgreSQL's cash (money) data type, returning true if the first cash value is greater than the second.

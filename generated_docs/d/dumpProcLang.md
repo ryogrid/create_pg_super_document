@@ -1,7 +1,7 @@
 # dumpProcLang
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12128 - 12259
+[src/bin/pg_dump/pg_dump.c:12128-12259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12128-L12259)
 
 ## Overview
 The dumpProcLang function generates SQL statements to recreate a user-defined procedural language during PostgreSQL database dumps.

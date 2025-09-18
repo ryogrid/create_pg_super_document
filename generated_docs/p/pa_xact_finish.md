@@ -1,7 +1,7 @@
 # pa_xact_finish
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1618 - 1639
+[src/backend/replication/logical/applyparallelworker.c:1618-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1618-L1639)
 
 ## Overview
 Completes the processing of a streaming transaction in the leader apply worker, including cleanup, synchronization, and resource management.

@@ -1,7 +1,7 @@
 # coerce_type_typmod
 
 ## Location
-src/backend/parser/parse_coerce.c: 753 - 810
+[src/backend/parser/parse_coerce.c:753-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L753-L810)
 
 ## Overview
 Forces a value to conform to a particular typmod (type modifier) constraint, handling length and precision coercion for fixed-length data types.

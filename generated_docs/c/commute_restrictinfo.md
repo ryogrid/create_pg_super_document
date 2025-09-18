@@ -1,7 +1,7 @@
 # commute_restrictinfo
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 359 - 415
+[src/backend/optimizer/util/restrictinfo.c:359-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L359-L415)
 
 ## Overview
 Creates a new RestrictInfo representing the commuted version of a binary operator clause, swapping left and right operands while preserving optimization metadata and cached information.

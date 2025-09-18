@@ -1,7 +1,7 @@
 # W_STOP
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 84 - 86
+[src/interfaces/ecpg/preproc/type.h:84-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L84-L86)
 
 ## Overview
 W_STOP is an enumeration value in the WHEN_TYPE enum that represents a stop action in ECPG (Embedded SQL in C) whenever statements, causing program termination.

@@ -1,7 +1,7 @@
 # BumpStats
 
 ## Location
-src/backend/utils/mmgr/bump.c: 688 - 737
+[src/backend/utils/mmgr/bump.c:688-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L688-L737)
 
 ## Overview
 BumpStats computes and reports memory consumption statistics for a Bump memory context, including total space, free space, and block count information.

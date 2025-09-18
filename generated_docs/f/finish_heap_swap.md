@@ -1,7 +1,7 @@
 # finish_heap_swap
 
 ## Location
-src/backend/commands/cluster.c: 1438 - 1635
+[src/backend/commands/cluster.c:1438-1635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L1438-L1635)
 
 ## Overview
 Completes the table reorganization process by swapping relation files, rebuilding indexes, cleaning up the transient table, and handling post-swap maintenance tasks.

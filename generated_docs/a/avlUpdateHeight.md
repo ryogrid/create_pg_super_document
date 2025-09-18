@@ -1,7 +1,7 @@
 # avlUpdateHeight
 
 ## Location
-src/bin/psql/crosstabview.c: 472 - 480
+[src/bin/psql/crosstabview.c:472-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L472-L480)
 
 ## Overview
 Updates the height value of an AVL tree node based on the heights of its children, maintaining the height property required for AVL tree balance operations.

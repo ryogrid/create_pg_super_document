@@ -1,7 +1,7 @@
 # SetNewSxactGlobalXmin
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3241 - 3301
+[src/backend/storage/lmgr/predicate.c:3241-3301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3241-L3301)
 
 ## Overview
 Updates the global minimum transaction ID (SxactGlobalXmin) by scanning all active serializable transactions to find the earliest xmin value.

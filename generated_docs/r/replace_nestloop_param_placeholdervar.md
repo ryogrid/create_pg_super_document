@@ -1,7 +1,7 @@
 # replace_nestloop_param_placeholdervar
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 416 - 479
+[src/backend/optimizer/util/paramassign.c:416-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L416-L479)
 
 ## Overview
 Generates a Param node to replace a PlaceHolderVar that references a value from an outer NestLoop plan node, providing parameter management for placeholder variables with de-duplication support.

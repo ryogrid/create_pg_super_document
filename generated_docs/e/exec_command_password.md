@@ -1,7 +1,7 @@
 # exec_command_password
 
 ## Location
-src/bin/psql/command.c: 2125 - 2200
+[src/bin/psql/command.c:2125-2200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2125-L2200)
 
 ## Overview
 Implements the PostgreSQL psql `\password` command that allows users to change their database password or another user's password interactively and securely.

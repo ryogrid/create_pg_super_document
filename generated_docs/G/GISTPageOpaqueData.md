@@ -1,7 +1,7 @@
 # GISTPageOpaqueData
 
 ## Location
-src/include/access/gist.h: 77 - 83
+[src/include/access/gist.h:77-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L77-L83)
 
 ## Overview
 GISTPageOpaqueData is a structure that defines the opaque data stored in each page of a GiST (Generalized Search Tree) index, containing metadata necessary for page management and navigation.

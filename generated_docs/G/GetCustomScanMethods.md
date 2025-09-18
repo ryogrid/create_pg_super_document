@@ -1,7 +1,7 @@
 # GetCustomScanMethods
 
 ## Location
-src/backend/nodes/extensible.c: 137 - 143
+[src/backend/nodes/extensible.c:137-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L137-L143)
 
 ## Overview
 Retrieves the CustomScanMethods structure for a custom scan provider by name, providing access to the callback functions needed to execute custom scans.

@@ -1,7 +1,7 @@
 # BootStrapMultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 2026 - 2065
+[src/backend/access/transam/multixact.c:2026-2065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2026-L2065)
 
 ## Overview
 BootStrapMultiXact initializes the MultiXact subsystem during PostgreSQL installation by creating and zeroing the initial segments for both offset and member logs.

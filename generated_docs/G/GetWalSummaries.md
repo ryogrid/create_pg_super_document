@@ -1,7 +1,7 @@
 # GetWalSummaries
 
 ## Location
-src/backend/backup/walsummary.c: 43 - 99
+[src/backend/backup/walsummary.c:43-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L43-L99)
 
 ## Overview
 Retrieves a list of WAL summary files from the filesystem that match specified filtering criteria based on timeline ID and LSN range.

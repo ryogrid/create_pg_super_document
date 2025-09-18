@@ -1,7 +1,7 @@
 # list_free
 
 ## Location
-src/backend/nodes/list.c: 1546 - 1559
+[src/backend/nodes/list.c:1546-1559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1546-L1559)
 
 ## Overview
 Frees all memory associated with a List structure while leaving the pointed-to elements intact.

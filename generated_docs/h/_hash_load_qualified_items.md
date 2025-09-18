@@ -1,7 +1,7 @@
 # _hash_load_qualified_items
 
 ## Location
-src/backend/access/hash/hashsearch.c: 602 - 707
+[src/backend/access/hash/hashsearch.c:602-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L602-L707)
 
 ## Overview
 Loads all the qualified index tuples from a current hash index page into the scan's current position buffer, serving as a helper function for _hash_readpage during hash index scanning operations.

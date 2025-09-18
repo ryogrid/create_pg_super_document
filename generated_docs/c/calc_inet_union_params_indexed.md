@@ -1,7 +1,7 @@
 # calc_inet_union_params_indexed
 
 ## Location
-src/backend/utils/adt/network_gist.c: 407 - 471
+[src/backend/utils/adt/network_gist.c:407-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L407-L471)
 
 ## Overview
 A static helper function that calculates union parameters for GistInetKey entries accessed through an indexed offset array, providing selective parameter calculation for non-contiguous key sets.

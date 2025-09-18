@@ -1,7 +1,7 @@
 # repairTypeFuncLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 927 - 957
+[src/bin/pg_dump/pg_dump_sort.c:927-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L927-L957)
 
 ## Overview
 repairTypeFuncLoop resolves circular dependency loops between user-defined datatypes and their associated I/O functions by redirecting function dependencies to shell types.

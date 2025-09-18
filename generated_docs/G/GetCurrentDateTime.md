@@ -1,7 +1,7 @@
 # GetCurrentDateTime
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1058 - 1065
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1058-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1058-L1065)
 
 ## Overview
 GetCurrentDateTime is a convenience wrapper function that retrieves the current transaction start time ("now()") broken down as a struct pg_tm, converted according to the session timezone setting.

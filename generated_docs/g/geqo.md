@@ -1,7 +1,7 @@
 # geqo
 
 ## Location
-src/backend/optimizer/geqo/geqo_main.c: 72 - 319
+[src/backend/optimizer/geqo/geqo_main.c:72-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_main.c#L72-L319)
 
 ## Overview
 The main entry point for PostgreSQL's Genetic Query Optimizer (GEQO) that solves the query optimization problem using genetic algorithms, treating it as a constrained Traveling Salesman Problem (TSP).

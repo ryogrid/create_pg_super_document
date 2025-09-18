@@ -1,7 +1,7 @@
 # common_prefix_cmp
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6012 - 6080
+[src/backend/optimizer/plan/planner.c:6012-6080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6012-L6080)
 
 ## Overview
 QSort comparison function for WindowClauseSortData that sorts window clauses by their sorting requirements, prioritizing higher tleSortGroupRefs and placing windows with more sort clauses first when one is a prefix of another.

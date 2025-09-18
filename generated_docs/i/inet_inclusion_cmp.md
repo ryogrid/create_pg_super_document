@@ -1,7 +1,7 @@
 # inet_inclusion_cmp
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 879 - 904
+[src/backend/utils/adt/network_selfuncs.c:879-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L879-L904)
 
 ## Overview
 A comparison function for subnet inclusion and overlap operators that determines the relative ordering of two inet values based on network inclusion semantics.

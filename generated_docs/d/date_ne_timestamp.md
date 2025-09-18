@@ -1,7 +1,7 @@
 # date_ne_timestamp
 
 ## Location
-src/backend/utils/adt/date.c: 769 - 777
+[src/backend/utils/adt/date.c:769-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L769-L777)
 
 ## Overview
 PostgreSQL built-in function that tests inequality between a date value and a timestamp value.

@@ -1,7 +1,7 @@
 # fireRIRonSubLink
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1945 - 1981
+[src/backend/rewrite/rewriteHandler.c:1945-1981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1945-L1981)
 
 ## Overview
 Applies fireRIRrules() to each SubLink (subselect in expression) found in the given parse tree, rewriting subqueries in-place and tracking row security information.

@@ -1,7 +1,7 @@
 # add_partial_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 747 - 864
+[src/backend/optimizer/util/pathnode.c:747-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L747-L864)
 
 ## Overview
 Manages partial paths for parallel query execution by maintaining an ordered list of viable partial execution paths for a relation, considering only pathkeys and total cost while ensuring parallel safety.

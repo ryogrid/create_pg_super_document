@@ -1,7 +1,7 @@
 # dclist_prev_node
 
 ## Location
-src/include/lib/ilist.h: 879 - 887
+[src/include/lib/ilist.h:879-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L879-L887)
 
 ## Overview
 Returns the previous node in a doubly-linked counted list, providing backward traversal capability with the assumption that a previous node exists.

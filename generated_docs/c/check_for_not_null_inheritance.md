@@ -1,7 +1,7 @@
 # check_for_not_null_inheritance
 
 ## Location
-src/bin/pg_upgrade/check.c: 1596 - 1672
+[src/bin/pg_upgrade/check.c:1596-1672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1596-L1672)
 
 ## Overview
 Validates that child tables do not lack NOT NULL constraints that are present in their parent tables during PostgreSQL cluster upgrades.

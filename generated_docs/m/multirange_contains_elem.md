@@ -1,7 +1,7 @@
 # multirange_contains_elem
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1645 - 1657
+[src/backend/utils/adt/multirangetypes.c:1645-1657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1645-L1657)
 
 ## Overview
 Tests whether a multirange contains a specific element value.

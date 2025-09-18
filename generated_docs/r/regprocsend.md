@@ -1,7 +1,7 @@
 # regprocsend
 
 ## Location
-src/backend/utils/adt/regproc.c: 208 - 223
+[src/backend/utils/adt/regproc.c:208-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L208-L223)
 
 ## Overview
 Converts a regproc value to external binary format, serving as the binary output function for the regproc data type.

@@ -1,7 +1,7 @@
 # pg_event_trigger_ddl_commands
 
 ## Location
-src/backend/commands/event_trigger.c: 1925 - 2120
+[src/backend/commands/event_trigger.c:1925-2120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1925-L2120)
 
 ## Overview
 A PostgreSQL system function that returns detailed information about DDL commands being executed, accessible only within event trigger functions during ddl_command_end events.

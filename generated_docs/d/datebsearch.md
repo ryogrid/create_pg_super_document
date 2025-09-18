@@ -1,7 +1,7 @@
 # datebsearch
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 502 - 535
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:502-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L502-L535)
 
 ## Overview
 A specialized binary search function optimized for searching date/time token arrays, providing faster performance than the generic bsearch() function for this specific use case.

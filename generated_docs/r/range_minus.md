@@ -1,7 +1,7 @@
 # range_minus
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 972 - 992
+[src/backend/utils/adt/rangetypes.c:972-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L972-L992)
 
 ## Overview
 The range_minus function computes the set difference between two range values, returning the portion of the first range that does not overlap with the second range.

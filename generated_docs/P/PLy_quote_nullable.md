@@ -1,7 +1,7 @@
 # PLy_quote_nullable
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 340 - 359
+[src/pl/plpython/plpy_plpymodule.c:340-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L340-L359)
 
 ## Overview
 PLy_quote_nullable is a Python C extension function that provides SQL literal quoting functionality with NULL handling to PL/Python stored procedures, allowing Python code to safely quote string values or handle None/NULL values for use in dynamically constructed SQL statements.

@@ -1,7 +1,7 @@
 # lookup_collation_cache
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1253 - 1339
+[src/backend/utils/adt/pg_locale.c:1253-1339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1253-L1339)
 
 ## Overview
 lookup_collation_cache is a static function that manages a hash table cache for collation information, storing flags about whether a collation's LC_COLLATE or LC_CTYPE is C/POSIX for performance optimization.

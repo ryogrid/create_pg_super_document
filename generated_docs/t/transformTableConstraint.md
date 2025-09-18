@@ -1,7 +1,7 @@
 # transformTableConstraint
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 903 - 979
+[src/backend/parser/parse_utilcmd.c:903-979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L903-L979)
 
 ## Overview
 Transforms table-level constraint nodes within CREATE TABLE or ALTER TABLE statements, categorizing constraints and validating their applicability to different table types.

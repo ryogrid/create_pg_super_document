@@ -1,7 +1,7 @@
 # _hash_ovflblkno_to_bitno
 
 ## Location
-src/backend/access/hash/hashovfl.c: 62 - 111
+[src/backend/access/hash/hashovfl.c:62-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L62-L111)
 
 ## Overview
 Converts an overflow page block number to its corresponding bit number in the free-page bitmap, performing the inverse operation of bitno_to_blkno.

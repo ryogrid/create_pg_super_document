@@ -1,7 +1,7 @@
 # LogAccessExclusiveLocks
 
 ## Location
-src/backend/storage/ipc/standby.c: 1405 - 1422
+[src/backend/storage/ipc/standby.c:1405-1422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1405-L1422)
 
 ## Overview
 Logs multiple AccessExclusive locks in bulk to the Write-Ahead Log (WAL) for standby server replication.

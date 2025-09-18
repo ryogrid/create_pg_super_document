@@ -1,7 +1,7 @@
 # identify_target_directory
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 292 - 337
+[src/bin/pg_waldump/pg_waldump.c:292-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L292-L337)
 
 ## Overview
 Identifies and returns the valid target directory containing WAL files by searching through a predefined hierarchy of potential locations.

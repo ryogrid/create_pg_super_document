@@ -1,7 +1,7 @@
 # slist_head_node
 
 ## Location
-src/include/lib/ilist.h: 1072 - 1083
+[src/include/lib/ilist.h:1072-1083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1072-L1083)
 
 ## Overview
 Returns a pointer to the first node in a singly-linked list, assuming the list contains at least one element.

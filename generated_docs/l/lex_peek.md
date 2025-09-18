@@ -1,7 +1,7 @@
 # lex_peek
 
 ## Location
-src/common/jsonapi.c: 238 - 249
+[src/common/jsonapi.c:238-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L238-L249)
 
 ## Overview
 A static inline function that returns the current lookahead token type from a JSON lexer context without advancing the lexer position.

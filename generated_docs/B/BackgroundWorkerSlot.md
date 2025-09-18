@@ -1,7 +1,7 @@
 # BackgroundWorkerSlot
 
 ## Location
-src/backend/postmaster/bgworker.c: 74 - 81
+[src/backend/postmaster/bgworker.c:74-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L74-L81)
 
 ## Overview
 BackgroundWorkerSlot is a shared memory structure that coordinates background worker processes between the postmaster and regular backend processes, implementing a lockless protocol for safe concurrent access.

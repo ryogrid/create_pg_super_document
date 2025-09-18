@@ -1,7 +1,7 @@
 # SnapshotResetXmin
 
 ## Location
-src/backend/utils/time/snapmgr.c: 914 - 937
+[src/backend/utils/time/snapmgr.c:914-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L914-L937)
 
 ## Overview
 Recomputes and potentially resets the current process's xmin value based on remaining registered snapshots, optimizing transaction visibility and enabling garbage collection when possible.

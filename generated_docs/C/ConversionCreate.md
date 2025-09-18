@@ -1,7 +1,7 @@
 # ConversionCreate
 
 ## Location
-src/backend/catalog/pg_conversion.c: 38 - 151
+[src/backend/catalog/pg_conversion.c:38-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_conversion.c#L38-L151)
 
 ## Overview
 Creates a new encoding conversion by adding a tuple to the pg_conversion system catalog, with validation to prevent duplicates and proper dependency tracking.

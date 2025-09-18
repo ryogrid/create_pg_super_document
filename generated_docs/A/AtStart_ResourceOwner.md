@@ -1,7 +1,7 @@
 # AtStart_ResourceOwner
 
 ## Location
-src/backend/access/transam/xact.c: 1220 - 1247
+[src/backend/access/transam/xact.c:1220-1247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1220-L1247)
 
 ## Overview
 AtStart_ResourceOwner is a static function that creates and initializes the resource owner for a new transaction, establishing the resource management infrastructure needed to track and clean up transaction resources.

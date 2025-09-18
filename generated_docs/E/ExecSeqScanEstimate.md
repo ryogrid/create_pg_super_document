@@ -1,7 +1,7 @@
 # ExecSeqScanEstimate
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 238 - 255
+[src/backend/executor/nodeSeqscan.c:238-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L238-L255)
 
 ## Overview
 ExecSeqScanEstimate computes the amount of shared memory space needed for parallel sequential scans in PostgreSQL's parallel query execution framework.

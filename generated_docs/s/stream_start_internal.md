@@ -1,7 +1,7 @@
 # stream_start_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 1431 - 1468
+[src/backend/replication/logical/worker.c:1431-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1431-L1468)
 
 ## Overview
 Initializes the file-based streaming infrastructure for large transactions in PostgreSQL logical replication, setting up persistent storage for transaction data that exceeds memory limits.

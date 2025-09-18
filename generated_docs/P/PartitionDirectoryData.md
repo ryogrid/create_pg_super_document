@@ -1,7 +1,7 @@
 # PartitionDirectoryData
 
 ## Location
-src/backend/partitioning/partdesc.c: 35 - 40
+[src/backend/partitioning/partdesc.c:35-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L35-L40)
 
 ## Overview
 PartitionDirectoryData is a structure that maintains a cache of partition descriptors for efficient lookup and management of partitioned table metadata in PostgreSQL.

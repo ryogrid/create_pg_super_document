@@ -1,7 +1,7 @@
 # pg_u_iscntrl
 
 ## Location
-src/common/unicode_category.c: 262 - 267
+[src/common/unicode_category.c:262-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L262-L267)
 
 ## Overview
 Determines whether a Unicode character is a control character according to Unicode category classification.

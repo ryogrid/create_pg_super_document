@@ -1,7 +1,7 @@
 # readtup_index_brin
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1755 - 1784
+[src/backend/utils/sort/tuplesortvariants.c:1755-1784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1755-L1784)
 
 ## Overview
 Reads and deserializes a BRIN index tuple from a logical tape during external sorting operations, reconstructing the tuple structure and setting up comparison keys.

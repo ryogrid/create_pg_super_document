@@ -1,7 +1,7 @@
 # HandleParallelApplyMessages
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1063 - 1145
+[src/backend/replication/logical/applyparallelworker.c:1063-1145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1063-L1145)
 
 ## Overview
 Processes queued protocol messages from all parallel apply workers in logical replication, handling message reception from shared memory queues and dispatching them for individual processing.

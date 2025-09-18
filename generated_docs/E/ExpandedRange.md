@@ -1,7 +1,7 @@
 # ExpandedRange
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 237 - 242
+[src/backend/access/brin/brin_minmax_multi.c:237-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L237-L242)
 
 ## Overview
 ExpandedRange is a helper structure used internally by BRIN minmax-multi operations to represent individual ranges in an expanded format that simplifies merging, sorting, and combining operations.

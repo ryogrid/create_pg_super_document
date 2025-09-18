@@ -1,7 +1,7 @@
 # transformJsonArrayConstructor
 
 ## Location
-src/backend/parser/parse_expr.c: 4010 - 4039
+[src/backend/parser/parse_expr.c:4010-4039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4010-L4039)
 
 ## Overview
 Transforms a JSON_ARRAY() constructor into a JsonConstructorExpr node for array creation during SQL parsing.

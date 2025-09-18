@@ -1,7 +1,7 @@
 # PQcancel
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 464 - 661
+[src/interfaces/libpq/fe-cancel.c:464-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L464-L661)
 
 ## Overview
 Sends a cancel request to the PostgreSQL backend to terminate a currently executing query, using an old, non-encrypted but signal-safe protocol.

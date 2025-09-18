@@ -1,7 +1,7 @@
 # CheckpointerShmemSize
 
 ## Location
-src/backend/postmaster/checkpointer.c: 882 - 903
+[src/backend/postmaster/checkpointer.c:882-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L882-L903)
 
 ## Overview
 Calculates the amount of shared memory space needed for checkpointer-related data structures, primarily for the checkpoint request ring buffer.

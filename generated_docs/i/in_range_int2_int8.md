@@ -1,7 +1,7 @@
 # in_range_int2_int8
 
 ## Location
-src/backend/utils/adt/int.c: 751 - 770
+[src/backend/utils/adt/int.c:751-770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L751-L770)
 
 ## Overview
 A PostgreSQL function that determines whether a given int2 value falls within a range defined by a base int2 value and an int8 offset.

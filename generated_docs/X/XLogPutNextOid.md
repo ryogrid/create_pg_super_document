@@ -1,7 +1,7 @@
 # XLogPutNextOid
 
 ## Location
-src/backend/access/transam/xlog.c: 8039 - 8075
+[src/backend/access/transam/xlog.c:8039-8075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8039-L8075)
 
 ## Overview
 XLogPutNextOid writes a NEXTOID WAL record to log the allocation of a new range of OIDs, ensuring crash recovery can properly restore OID counter state.

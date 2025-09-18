@@ -1,7 +1,7 @@
 # create_material_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1566 - 1597
+[src/backend/optimizer/util/pathnode.c:1566-1597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1566-L1597)
 
 ## Overview
 Creates a MaterialPath node that represents a Material plan operation, which materializes (stores) the output of a subpath to enable efficient re-reading of the data.

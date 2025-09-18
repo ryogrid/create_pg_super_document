@@ -1,7 +1,7 @@
 # MergeChildAttribute
 
 ## Location
-src/backend/commands/tablecmds.c: 3118 - 3278
+[src/backend/commands/tablecmds.c:3118-3278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3118-L3278)
 
 ## Overview
 A specialized function that merges a child table's explicit column definition with an inherited column definition from a parent table, validating compatibility and resolving conflicts.

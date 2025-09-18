@@ -1,7 +1,7 @@
 # ObjectsInPublicationToOids
 
 ## Location
-src/backend/commands/publicationcmds.c: 166 - 218
+[src/backend/commands/publicationcmds.c:166-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L166-L218)
 
 ## Overview
 Converts a list of PublicationObjSpec objects into separate lists of table OIDs and schema OIDs for publication processing.

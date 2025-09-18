@@ -1,7 +1,7 @@
 # mdclose
 
 ## Location
-src/backend/storage/smgr/md.c: 691 - 713
+[src/backend/storage/smgr/md.c:691-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L691-L713)
 
 ## Overview
 mdclose closes all open file segments for a specific fork of a relation, ensuring proper cleanup of file descriptors and memory resources.

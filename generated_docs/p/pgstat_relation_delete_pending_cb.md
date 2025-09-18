@@ -1,7 +1,7 @@
 # pgstat_relation_delete_pending_cb
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 885 - 897
+[src/backend/utils/activity/pgstat_relation.c:885-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L885-L897)
 
 ## Overview
 Callback function that performs cleanup when deleting a pending relation statistics entry, ensuring proper unlinking of relation references.

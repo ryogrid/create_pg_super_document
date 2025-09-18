@@ -1,7 +1,7 @@
 # pg_SSPI_error
 
 ## Location
-src/backend/libpq/auth.c: 1188 - 1205
+[src/backend/libpq/auth.c:1188-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1188-L1205)
 
 ## Overview
 A utility function that generates formatted error messages for SSPI (Security Support Provider Interface) authentication failures in PostgreSQL.

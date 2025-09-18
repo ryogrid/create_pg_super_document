@@ -1,7 +1,7 @@
 # lo_open
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 57 - 95
+[src/interfaces/libpq/fe-lobj.c:57-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L57-L95)
 
 ## Overview
 Opens an existing PostgreSQL large object and returns a file descriptor for subsequent large object operations.

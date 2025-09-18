@@ -1,7 +1,7 @@
 # spread_chromo
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 187 - 265
+[src/backend/optimizer/geqo/geqo_pool.c:187-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L187-L265)
 
 ## Overview
 The  function inserts a new chromosome into the gene pool by displacing the worst chromosome, maintaining the sorted order of chromosomes from best to worst fitness.

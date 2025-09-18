@@ -1,7 +1,7 @@
 # xl_brin_desummarize
 
 ## Location
-src/include/access/brin_xlog.h: 133 - 140
+[src/include/access/brin_xlog.h:133-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_xlog.h#L133-L140)
 
 ## Overview
 The  structure represents WAL (Write-Ahead Log) record data for BRIN index range de-summarization operations, storing the necessary information to replay the removal of a summarized range during recovery.

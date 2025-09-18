@@ -1,7 +1,7 @@
 # swedish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_swedish.c: 258 - 288
+[src/backend/snowball/libstemmer/stem_UTF_8_swedish.c:258-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_swedish.c#L258-L288)
 
 ## Overview
 This is the main entry point function for the Swedish UTF-8 Snowball stemming algorithm that reduces Swedish words to their root forms by applying a sequence of morphological transformations.

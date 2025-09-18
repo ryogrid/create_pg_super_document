@@ -1,7 +1,7 @@
 # assign_role
 
 ## Location
-src/backend/commands/variable.c: 1014 - 1021
+[src/backend/commands/variable.c:1014-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1014-L1021)
 
 ## Overview
 The `assign_role` function completes the SET ROLE operation by actually changing the current role identity in the PostgreSQL session.

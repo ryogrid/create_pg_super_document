@@ -1,7 +1,7 @@
 # cash_eq
 
 ## Location
-src/backend/utils/adt/cash.c: 616 - 624
+[src/backend/utils/adt/cash.c:616-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L616-L624)
 
 ## Overview
 Implements the equality comparison operator (=) for PostgreSQL's cash/money data type.

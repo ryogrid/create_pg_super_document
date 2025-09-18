@@ -1,7 +1,7 @@
 # init_libpq_source
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 82 - 110
+[src/bin/pg_rewind/libpq_source.c:82-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L82-L110)
 
 ## Overview
 Creates and initializes a libpq data source for the pg_rewind utility, establishing a connection-based source that can traverse files and fetch data from a remote PostgreSQL instance.

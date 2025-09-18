@@ -1,7 +1,7 @@
 # libpqsrv_connect_prepare
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 131 - 159
+[src/include/libpq/libpq-be-fe-helpers.h:131-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L131-L159)
 
 ## Overview
 Internal helper function that reserves a file descriptor before attempting PostgreSQL connection establishment.

@@ -1,7 +1,7 @@
 # command_no_begin
 
 ## Location
-src/bin/psql/common.c: 1897 - 2111
+[src/bin/psql/common.c:1897-2111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L1897-L2111)
 
 ## Overview
 command_no_begin determines whether a SQL command should NOT be preceded by an automatic BEGIN statement, identifying transaction control commands and statements prohibited within transaction blocks.

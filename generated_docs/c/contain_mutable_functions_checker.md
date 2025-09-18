@@ -1,7 +1,7 @@
 # contain_mutable_functions_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 376 - 381
+[src/backend/optimizer/util/clauses.c:376-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L376-L381)
 
 ## Overview
 A helper function that checks whether a specific function is mutable by examining its volatility classification.

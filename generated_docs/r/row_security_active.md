@@ -1,7 +1,7 @@
 # row_security_active
 
 ## Location
-src/backend/utils/misc/rls.c: 142 - 152
+[src/backend/utils/misc/rls.c:142-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/rls.c#L142-L152)
 
 ## Overview
 A SQL-callable function that checks whether Row Level Security is active for a given table OID.

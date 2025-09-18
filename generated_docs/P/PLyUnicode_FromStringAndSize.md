@@ -1,7 +1,7 @@
 # PLyUnicode_FromStringAndSize
 
 ## Location
-src/pl/plpython/plpy_util.c: 97 - 117
+[src/pl/plpython/plpy_util.c:97-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_util.c#L97-L117)
 
 ## Overview
 Converts a C string in PostgreSQL server encoding to a Python unicode object, handling encoding conversion to UTF-8 when necessary.

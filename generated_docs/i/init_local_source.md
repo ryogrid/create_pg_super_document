@@ -1,7 +1,7 @@
 # init_local_source
 
 ## Location
-src/bin/pg_rewind/local_source.c: 40 - 59
+[src/bin/pg_rewind/local_source.c:40-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L40-L59)
 
 ## Overview
 Initializes a local source for pg_rewind operations, setting up function pointers to local file operations and returning a rewind_source interface.

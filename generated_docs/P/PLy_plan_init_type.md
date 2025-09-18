@@ -1,7 +1,7 @@
 # PLy_plan_init_type
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 41 - 47
+[src/pl/plpython/plpy_planobject.c:41-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L41-L47)
 
 ## Overview
 Initializes the PLyPlan Python type object for use in the PL/Python extension, making it ready for instantiation and use within the Python interpreter.

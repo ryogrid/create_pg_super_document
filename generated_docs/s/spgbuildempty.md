@@ -1,7 +1,7 @@
 # spgbuildempty
 
 ## Location
-src/backend/access/spgist/spginsert.c: 154 - 182
+[src/backend/access/spgist/spginsert.c:154-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spginsert.c#L154-L182)
 
 ## Overview
 Creates an empty SP-GiST index structure in the initialization fork for use during database initialization or recovery.

@@ -1,7 +1,7 @@
 # ExplainRestoreGroup
 
 ## Location
-src/backend/commands/explain.c: 5046 - 5076
+[src/backend/commands/explain.c:5046-5076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5046-L5076)
 
 ## Overview
 ExplainRestoreGroup re-establishes the grouping state that was previously saved by ExplainSaveGroup, undoing the effects of the save operation.

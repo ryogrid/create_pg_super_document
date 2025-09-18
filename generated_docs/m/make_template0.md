@@ -1,7 +1,7 @@
 # make_template0
 
 ## Location
-src/bin/initdb/initdb.c: 1993 - 2046
+[src/bin/initdb/initdb.c:1993-2046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1993-L2046)
 
 ## Overview
 Creates the template0 database during PostgreSQL initialization by copying template1 and configuring it as an unmodifiable empty database template.

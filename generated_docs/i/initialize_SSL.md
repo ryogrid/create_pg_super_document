@@ -1,7 +1,7 @@
 # initialize_SSL
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 898 - 1479
+[src/interfaces/libpq/fe-secure-openssl.c:898-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L898-L1479)
 
 ## Overview
 Creates and configures a per-connection SSL object with client certificates, private keys, and trusted CA certificates for establishing secure TLS/SSL connections in libpq.

@@ -1,7 +1,7 @@
 # UpdateContext
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 115 - 125
+[src/backend/executor/nodeModifyTable.c:115-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L115-L125)
 
 ## Overview
 UpdateContext is a specialized context structure that contains output data specific to UPDATE operations, providing information about the results and requirements of update actions to calling functions.

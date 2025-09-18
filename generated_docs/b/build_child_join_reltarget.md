@@ -1,7 +1,7 @@
 # build_child_join_reltarget
 
 ## Location
-src/backend/optimizer/util/relnode.c: 2429 - 2445
+[src/backend/optimizer/util/relnode.c:2429-2445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L2429-L2445)
 
 ## Overview
 Sets up the target list (output columns) for a child join relation by adapting the parent join relation's target list using append relation mappings.

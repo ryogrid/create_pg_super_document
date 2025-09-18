@@ -1,7 +1,7 @@
 # interval_time
 
 ## Location
-src/backend/utils/adt/date.c: 2012 - 2032
+[src/backend/utils/adt/date.c:2012-2032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2012-L2032)
 
 ## Overview
 Converts an interval value to a time data type by extracting the fractional-day portion of the interval, effectively getting the time-of-day component.

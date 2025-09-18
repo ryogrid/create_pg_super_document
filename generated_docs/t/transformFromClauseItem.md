@@ -1,7 +1,7 @@
 # transformFromClauseItem
 
 ## Location
-src/backend/parser/parse_clause.c: 1056 - 1639
+[src/backend/parser/parse_clause.c:1056-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1056-L1639)
 
 ## Overview
 Transforms a FROM-clause item into a processed node for the join tree, handling various relation types including tables, subselects, functions, and joins.

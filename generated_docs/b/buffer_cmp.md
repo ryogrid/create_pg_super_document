@@ -1,7 +1,7 @@
 # buffer_cmp
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 226 - 242
+[src/backend/storage/smgr/bulk_write.c:226-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L226-L242)
 
 ## Overview
 A static comparison function used to sort PendingWrite structures by block number in ascending order for efficient bulk write operations.

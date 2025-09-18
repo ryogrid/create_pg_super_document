@@ -1,7 +1,7 @@
 # ConfigurePostmasterWaitSet
 
 ## Location
-src/backend/postmaster/postmaster.c: 1603 - 1625
+[src/backend/postmaster/postmaster.c:1603-1625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1603-L1625)
 
 ## Overview
 Configures the postmaster's wait event set to control whether the server accepts new connections, rebuilding the event set based on the current operational state.

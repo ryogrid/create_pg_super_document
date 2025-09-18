@@ -1,7 +1,7 @@
 # bpcharin
 
 ## Location
-src/backend/utils/adt/varchar.c: 198 - 218
+[src/backend/utils/adt/varchar.c:198-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L198-L218)
 
 ## Overview
 A PostgreSQL input function that converts C string representation to internal BPCHAR (fixed-length character) type, serving as the entry point for text input processing.

@@ -1,7 +1,7 @@
 # inet_set_masklen
 
 ## Location
-src/backend/utils/adt/network.c: 324 - 347
+[src/backend/utils/adt/network.c:324-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L324-L347)
 
 ## Overview
 Sets the netmask length of an INET address to a specified value, creating a new INET with the updated netmask.

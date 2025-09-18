@@ -1,7 +1,7 @@
 # bytea
 
 ## Location
-src/include/c.h: 699 - 699
+[src/include/c.h:699-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L699-L699)
 
 ## Overview
 The  type is PostgreSQL's binary data type, implemented as a typedef of the  structure, designed to store arbitrary binary data without interpretation or null-termination.

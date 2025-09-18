@@ -1,7 +1,7 @@
 # SPI_plan_is_valid
 
 ## Location
-src/backend/executor/spi.c: 1948 - 1971
+[src/backend/executor/spi.c:1948-1971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1948-L1971)
 
 ## Overview
 Tests whether a SPI plan is currently valid and not marked as being in need of revalidation.

@@ -1,7 +1,7 @@
 # GetCurrentTimestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1654 - 1671
+[src/backend/utils/adt/timestamp.c:1654-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1654-L1671)
 
 ## Overview
 Retrieves the current operating system time with full precision from the gettimeofday() system call, converting it to PostgreSQL's internal TimestampTz format.

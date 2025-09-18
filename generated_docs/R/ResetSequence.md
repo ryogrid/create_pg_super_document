@@ -1,7 +1,7 @@
 # ResetSequence
 
 ## Location
-src/backend/commands/sequence.c: 262 - 337
+[src/backend/commands/sequence.c:262-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L262-L337)
 
 ## Overview
 ResetSequence resets a sequence to its initial value by creating a new storage file and reinitializing the sequence data transactionally.

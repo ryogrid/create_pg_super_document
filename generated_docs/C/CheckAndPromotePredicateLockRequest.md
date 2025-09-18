@@ -1,7 +1,7 @@
 # CheckAndPromotePredicateLockRequest
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2316 - 2380
+[src/backend/storage/lmgr/predicate.c:2316-2380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2316-L2380)
 
 ## Overview
 Checks all ancestors of a newly-acquired predicate lock, increments their child counts, and promotes to a coarser lock if any ancestor exceeds its promotion threshold.

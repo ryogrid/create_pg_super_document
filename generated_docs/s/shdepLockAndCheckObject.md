@@ -1,7 +1,7 @@
 # shdepLockAndCheckObject
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1211 - 1275
+[src/backend/catalog/pg_shdepend.c:1211-1275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1211-L1275)
 
 ## Overview
 Locks a shared object and verifies it still exists before recording a dependency on it, preventing race conditions with concurrent DROP operations.

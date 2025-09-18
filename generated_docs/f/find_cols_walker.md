@@ -1,7 +1,7 @@
 # find_cols_walker
 
 ## Location
-src/backend/executor/nodeAgg.c: 1420 - 1467
+[src/backend/executor/nodeAgg.c:1420-1467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1420-L1467)
 
 ## Overview
 A tree walker function that recursively traverses expression nodes to identify column references and categorize them as aggregated or unaggregated based on their context within aggregate functions.

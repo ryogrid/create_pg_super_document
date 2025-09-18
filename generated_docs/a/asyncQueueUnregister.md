@@ -1,7 +1,7 @@
 # asyncQueueUnregister
 
 ## Location
-src/backend/commands/async.c: 1231 - 1271
+[src/backend/commands/async.c:1231-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1231-L1271)
 
 ## Overview
 Removes the current backend's entry from the notification listeners array when it is no longer listening on any channel.

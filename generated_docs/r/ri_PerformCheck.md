@@ -1,7 +1,7 @@
 # ri_PerformCheck
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2312 - 2448
+[src/backend/utils/adt/ri_triggers.c:2312-2448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2312-L2448)
 
 ## Overview
 Performs a query to enforce a referential integrity restriction by executing a pre-planned SPI query with appropriate snapshots and security contexts.

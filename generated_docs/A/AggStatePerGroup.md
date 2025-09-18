@@ -1,7 +1,7 @@
 # AggStatePerGroup
 
 ## Location
-src/include/nodes/execnodes.h: 2459 - 2459
+[src/include/nodes/execnodes.h:2459-2459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2459-L2459)
 
 ## Overview
 AggStatePerGroup is a typedef pointer to AggStatePerGroupData structure that maintains the working state values for each aggregate function within a specific input group during aggregate computation.

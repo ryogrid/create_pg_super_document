@@ -1,7 +1,7 @@
 # BufferIsValid
 
 ## Location
-src/include/storage/bufmgr.h: 355 - 370
+[src/include/storage/bufmgr.h:355-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L355-L370)
 
 ## Overview
 BufferIsValid is a static inline function that validates whether a given buffer number is valid as either a shared or local buffer in PostgreSQLs buffer management system.

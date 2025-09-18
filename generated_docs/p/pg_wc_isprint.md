@@ -1,7 +1,7 @@
 # pg_wc_isprint
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 507 - 540
+[src/backend/regex/regc_pg_locale.c:507-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L507-L540)
 
 ## Overview
 Determines whether a given wide character is a printable character (including spaces), handling multiple locale and encoding strategies for PostgreSQL's regex engine.

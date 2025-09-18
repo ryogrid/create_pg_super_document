@@ -1,7 +1,7 @@
 # ATExecDropNotNull
 
 ## Location
-src/backend/commands/tablecmds.c: 7556 - 7690
+[src/backend/commands/tablecmds.c:7556-7690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7556-L7690)
 
 ## Overview
 Executes the ALTER TABLE ALTER COLUMN DROP NOT NULL command, performing validation checks and updating the system catalog to remove the NOT NULL constraint from a column.

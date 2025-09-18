@@ -1,7 +1,7 @@
 # PQnotifies
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2667 - 2694
+[src/interfaces/libpq/fe-exec.c:2667-2694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2667-L2694)
 
 ## Overview
 PQnotifies retrieves and returns the next unhandled asynchronous notification from the PostgreSQL server, removing it from the connection's internal notification queue.

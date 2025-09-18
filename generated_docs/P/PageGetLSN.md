@@ -1,7 +1,7 @@
 # PageGetLSN
 
 ## Location
-src/include/storage/bufpage.h: 384 - 388
+[src/include/storage/bufpage.h:384-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L384-L388)
 
 ## Overview
 Retrieves the Log Sequence Number (LSN) from a page header, providing access to the last WAL record position that modified the page for recovery and consistency purposes.

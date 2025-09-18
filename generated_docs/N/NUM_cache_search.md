@@ -1,7 +1,7 @@
 # NUM_cache_search
 
 ## Location
-src/backend/utils/adt/formatting.c: 5131 - 5151
+[src/backend/utils/adt/formatting.c:5131-5151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5131-L5151)
 
 ## Overview
 Searches the numeric formatting cache for an existing valid entry matching the given format picture string.

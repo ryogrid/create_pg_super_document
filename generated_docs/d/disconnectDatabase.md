@@ -1,7 +1,7 @@
 # disconnectDatabase
 
 ## Location
-src/fe_utils/connect_utils.c: 158 - 171
+[src/fe_utils/connect_utils.c:158-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/connect_utils.c#L158-L171)
 
 ## Overview
 Safely disconnects a PostgreSQL database connection, ensuring any active transactions are properly canceled before termination.

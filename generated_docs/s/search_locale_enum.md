@@ -1,7 +1,7 @@
 # search_locale_enum
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1060 - 1125
+[src/backend/utils/adt/pg_locale.c:1060-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1060-L1125)
 
 ## Overview
 A Windows-specific callback function used by EnumSystemLocalesEx() to search for system locales that match a given language/country specification in English format.

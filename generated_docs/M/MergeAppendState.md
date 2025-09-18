@@ -1,7 +1,7 @@
 # MergeAppendState
 
 ## Location
-src/include/nodes/execnodes.h: 1483 - 1495
+[src/include/nodes/execnodes.h:1483-1495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1483-L1495)
 
 ## Overview
 MergeAppendState is the runtime state structure for the MergeAppend executor node, which merges sorted output from multiple subplans in sorted order.

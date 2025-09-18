@@ -1,7 +1,7 @@
 # pg_index_has_property
 
 ## Location
-src/backend/utils/adt/amutils.c: 421 - 432
+[src/backend/utils/adt/amutils.c:421-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L421-L432)
 
 ## Overview
 SQL-callable function that tests whether a specific index supports a given property.

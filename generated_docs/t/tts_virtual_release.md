@@ -1,7 +1,7 @@
 # tts_virtual_release
 
 ## Location
-src/backend/executor/execTuples.c: 103 - 107
+[src/backend/executor/execTuples.c:103-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L103-L107)
 
 ## Overview
 Releases resources associated with a virtual tuple table slot, serving as the release callback for the TTSOpsVirtual operations structure.

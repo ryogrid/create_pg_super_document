@@ -1,7 +1,7 @@
 # TSParserIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2786 - 2860
+[src/backend/catalog/namespace.c:2786-2860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2786-L2860)
 
 ## Overview
 Extended version of TSParserIsVisible that determines parser visibility in the search path with optional missing object handling.

@@ -1,7 +1,7 @@
 # process_pm_shutdown_request
 
 ## Location
-src/backend/postmaster/postmaster.c: 2193 - 2343
+[src/backend/postmaster/postmaster.c:2193-2343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2193-L2343)
 
 ## Overview
 Processes shutdown requests received by the postmaster, determining the shutdown mode and transitioning the postmaster state to initiate the appropriate shutdown sequence.

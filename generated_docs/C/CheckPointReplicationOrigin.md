@@ -1,7 +1,7 @@
 # CheckPointReplicationOrigin
 
 ## Location
-src/backend/replication/logical/origin.c: 573 - 698
+[src/backend/replication/logical/origin.c:573-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L573-L698)
 
 ## Overview
 Performs a checkpoint of all replication origins' progress, persisting the current replication state to disk in a crash-safe manner as part of PostgreSQL's checkpoint process.

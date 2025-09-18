@@ -1,7 +1,7 @@
 # check_data_dir
 
 ## Location
-src/bin/pg_upgrade/exec.c: 341 - 382
+[src/bin/pg_upgrade/exec.c:341-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L341-L382)
 
 ## Overview
 Validates a PostgreSQL cluster data directory by verifying the presence of essential subdirectories required for a valid $PGDATA directory.

@@ -1,7 +1,7 @@
 # populate_recordset_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4213 - 4242
+[src/backend/utils/adt/jsonfuncs.c:4213-4242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4213-L4242)
 
 ## Overview
 A static function that handles the start of a JSON object during JSON recordset population, setting up a hash table for object key-value pairs at the appropriate nesting level.

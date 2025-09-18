@@ -1,7 +1,7 @@
 # lstat_error_was_status_delete_pending
 
 ## Location
-src/port/dirmod.c: 104 - 118
+[src/port/dirmod.c:104-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirmod.c#L104-L118)
 
 ## Overview
 A Windows-specific helper function that determines if an lstat operation failed due to a STATUS_DELETE_PENDING condition, indicating a file is marked for deletion but still exists.

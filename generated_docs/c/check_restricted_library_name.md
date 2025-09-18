@@ -1,7 +1,7 @@
 # check_restricted_library_name
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 469 - 483
+[src/backend/utils/fmgr/dfmgr.c:469-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L469-L483)
 
 ## Overview
 Validates that a library name follows the security restrictions for accessing shared libraries in PostgreSQL.

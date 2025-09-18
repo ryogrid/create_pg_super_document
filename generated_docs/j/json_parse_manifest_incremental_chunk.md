@@ -1,7 +1,7 @@
 # json_parse_manifest_incremental_chunk
 
 ## Location
-src/common/parse_manifest.c: 185 - 226
+[src/common/parse_manifest.c:185-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L185-L226)
 
 ## Overview
 Processes a chunk of JSON manifest data incrementally, updating the hash and parsing state for streaming manifest processing.

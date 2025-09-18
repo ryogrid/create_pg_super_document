@@ -1,7 +1,7 @@
 # check_variable_parameters
 
 ## Location
-src/backend/parser/parse_param.c: 268 - 285
+[src/backend/parser/parse_param.c:268-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L268-L285)
 
 ## Overview
 Validates consistent assignment of variable parameters after completion of parsing, ensuring parameter resolution is complete and coherent.

@@ -1,7 +1,7 @@
 # make_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 674 - 694
+[src/backend/utils/adt/timestamp.c:674-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L674-L694)
 
 ## Overview
 PostgreSQL SQL function constructor that creates a timestamp with timezone from individual date and time components using the session timezone.

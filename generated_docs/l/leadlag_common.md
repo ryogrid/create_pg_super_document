@@ -1,7 +1,7 @@
 # leadlag_common
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 528 - 579
+[src/backend/utils/adt/windowfuncs.c:528-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L528-L579)
 
 ## Overview
 This static function provides the common implementation for both LAG() and LEAD() window functions, handling offset and default value parameters with directional logic.

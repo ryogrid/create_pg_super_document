@@ -1,7 +1,7 @@
 # CatCacheFreeKeys
 
 ## Location
-src/backend/utils/cache/catcache.c: 2261 - 2285
+[src/backend/utils/cache/catcache.c:2261-2285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2261-L2285)
 
 ## Overview
 Helper function that frees dynamically allocated memory for cache keys stored in the keys array, handling by-reference data types properly.

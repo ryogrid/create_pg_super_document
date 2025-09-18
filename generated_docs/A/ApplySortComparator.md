@@ -1,7 +1,7 @@
 # ApplySortComparator
 
 ## Location
-src/include/utils/sortsupport.h: 200 - 232
+[src/include/utils/sortsupport.h:200-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L200-L232)
 
 ## Overview
 ApplySortComparator is an inline function that applies a sort comparator function and returns a 3-way comparison result, handling reverse-sort and NULL ordering semantics properly.

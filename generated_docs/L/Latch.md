@@ -1,7 +1,7 @@
 # Latch
 
 ## Location
-src/include/storage/latch.h: 112 - 121
+[src/include/storage/latch.h:112-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/latch.h#L112-L121)
 
 ## Overview
 Latch is a lightweight synchronization primitive in PostgreSQL that provides efficient inter-process signaling and waiting mechanisms, designed for minimal overhead and safe use in signal handlers and critical sections.

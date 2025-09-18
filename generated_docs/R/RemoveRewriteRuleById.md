@@ -1,7 +1,7 @@
 # RemoveRewriteRuleById
 
 ## Location
-src/backend/rewrite/rewriteRemove.c: 33 - 94
+[src/backend/rewrite/rewriteRemove.c:33-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteRemove.c#L33-L94)
 
 ## Overview
 Removes a rewrite rule from the PostgreSQL system catalogs by its OID, handling all necessary cleanup and cache invalidation.

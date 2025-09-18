@@ -1,7 +1,7 @@
 # checkFkeyPermissions
 
 ## Location
-src/backend/commands/tablecmds.c: 12212 - 12240
+[src/backend/commands/tablecmds.c:12212-12240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12212-L12240)
 
 ## Overview
 Validates that the current user has sufficient REFERENCES privileges on the referenced table and columns for creating a foreign key constraint.

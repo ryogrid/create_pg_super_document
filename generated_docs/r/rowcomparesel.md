@@ -1,7 +1,7 @@
 # rowcomparesel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2206 - 2272
+[src/backend/utils/adt/selfuncs.c:2206-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2206-L2272)
 
 ## Overview
 Estimates the selectivity of RowCompareExpr nodes by focusing on the first (highest order) column, effectively treating complex row comparisons as simple operator expressions for planning purposes.

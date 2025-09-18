@@ -1,7 +1,7 @@
 # array_ndims
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1652 - 1667
+[src/backend/utils/adt/arrayfuncs.c:1652-1667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1652-L1667)
 
 ## Overview
 Returns the number of dimensions of a PostgreSQL array, providing essential metadata about the array's structure.

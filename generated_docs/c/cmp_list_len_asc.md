@@ -1,7 +1,7 @@
 # cmp_list_len_asc
 
 ## Location
-src/backend/parser/parse_agg.c: 1759 - 1768
+[src/backend/parser/parse_agg.c:1759-1768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1759-L1768)
 
 ## Overview
 A comparator function for sorting lists by their length in ascending order, used with PostgreSQL's list_sort function.

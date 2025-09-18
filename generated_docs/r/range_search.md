@@ -1,7 +1,7 @@
 # range_search
 
 ## Location
-src/common/unicode_category.c: 481 - 501
+[src/common/unicode_category.c:481-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L481-L501)
 
 ## Overview
 Performs a binary search to determine if a given Unicode code point exists within any of the ranges defined in a Unicode range table.

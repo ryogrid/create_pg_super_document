@@ -1,7 +1,7 @@
 # SyncRepGetStandbyPriority
 
 ## Location
-src/backend/replication/syncrep.c: 860 - 906
+[src/backend/replication/syncrep.c:860-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L860-L906)
 
 ## Overview
 Determines the synchronous standby priority for the current walsender by checking if its application_name matches any entry in the configured list of synchronous standbys.

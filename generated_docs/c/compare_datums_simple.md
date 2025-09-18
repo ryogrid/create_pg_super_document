@@ -1,7 +1,7 @@
 # compare_datums_simple
 
 ## Location
-src/backend/statistics/extended_stats.c: 927 - 940
+[src/backend/statistics/extended_stats.c:927-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L927-L940)
 
 ## Overview
 A simple comparison function for datums that applies sort comparison logic without null handling.

@@ -1,7 +1,7 @@
 # int24eq
 
 ## Location
-src/backend/utils/adt/int.c: 504 - 512
+[src/backend/utils/adt/int.c:504-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L504-L512)
 
 ## Overview
 Compares a 16-bit signed integer with a 32-bit signed integer and returns true if they are equal.

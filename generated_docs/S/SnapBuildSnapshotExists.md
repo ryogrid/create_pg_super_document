@@ -1,7 +1,7 @@
 # SnapBuildSnapshotExists
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 2206 - 2223
+[src/backend/replication/logical/snapbuild.c:2206-2223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L2206-L2223)
 
 ## Overview
 SnapBuildSnapshotExists checks whether a serialized logical snapshot exists at a specified Write-Ahead Log (WAL) position, used in PostgreSQL's logical replication infrastructure.

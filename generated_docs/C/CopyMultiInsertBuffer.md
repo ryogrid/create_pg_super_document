@@ -1,7 +1,7 @@
 # CopyMultiInsertBuffer
 
 ## Location
-src/backend/commands/copyfrom.c: 75 - 84
+[src/backend/commands/copyfrom.c:75-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L75-L84)
 
 ## Overview
 CopyMultiInsertBuffer is a structure that stores multi-insert data related to a single relation during COPY FROM operations, providing buffering capabilities to optimize bulk insertions by batching multiple tuples before performing the actual insertion.

@@ -1,7 +1,7 @@
 # dibulkdelete
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 180 - 193
+[src/test/modules/dummy_index_am/dummy_index_am.c:180-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L180-L193)
 
 ## Overview
 A stub implementation of bulk deletion for the dummy index access method used in PostgreSQL testing. This function is part of the test framework and returns NULL to indicate no operations are performed.

@@ -1,7 +1,7 @@
 # scanPostingTree
 
 ## Location
-src/backend/access/gin/ginget.c: 69 - 120
+[src/backend/access/gin/ginget.c:69-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L69-L120)
 
 ## Overview
 This is a static function that scans all pages of a GIN posting tree and extracts all heap ItemPointers, storing them in the scan entry's match bitmap for efficient query processing.

@@ -1,7 +1,7 @@
 # get_delete_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7071 - 7121
+[src/backend/utils/adt/ruleutils.c:7071-7121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7071-L7121)
 
 ## Overview
 Generates the text representation of a DELETE SQL statement from a parsed Query structure, reconstructing the complete DELETE command with all its clauses.

@@ -1,7 +1,7 @@
 # plan_cluster_use_sort
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6738 - 6858
+[src/backend/optimizer/plan/planner.c:6738-6858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6738-L6858)
 
 ## Overview
 Uses the planner to determine the optimal execution strategy for CLUSTER command by comparing costs of index scan versus sequential scan plus sort.

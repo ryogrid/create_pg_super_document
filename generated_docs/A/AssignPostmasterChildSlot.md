@@ -1,7 +1,7 @@
 # AssignPostmasterChildSlot
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 247 - 283
+[src/backend/storage/ipc/pmsignal.c:247-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L247-L283)
 
 ## Overview
 Selects an unused slot for a new postmaster child process and marks it as assigned, returning the allocated slot number.

@@ -1,7 +1,7 @@
 # store_coded_char
 
 ## Location
-src/backend/utils/mb/conv.c: 353 - 372
+[src/backend/utils/mb/conv.c:353-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conv.c#L353-L372)
 
 ## Overview
 A static inline utility function that converts a 32-bit character code into a multibyte character sequence by storing only the significant bytes.

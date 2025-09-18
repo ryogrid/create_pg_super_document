@@ -1,7 +1,7 @@
 # calc_rank_cd
 
 ## Location
-src/backend/utils/adt/tsrank.c: 850 - 952
+[src/backend/utils/adt/tsrank.c:850-952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L850-L952)
 
 ## Overview
 Calculates text search ranking using cover density algorithm, evaluating how tightly query terms cluster together in the document with various normalization options.

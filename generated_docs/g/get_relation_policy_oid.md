@@ -1,7 +1,7 @@
 # get_relation_policy_oid
 
 ## Location
-src/backend/commands/policy.c: 1204 - 1255
+[src/backend/commands/policy.c:1204-1255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L1204-L1255)
 
 ## Overview
 Looks up a policy by name on a specified relation to find its OID, with configurable error handling for missing policies.

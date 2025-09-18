@@ -1,7 +1,7 @@
 # jsonb_exists
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 21 - 45
+[src/backend/utils/adt/jsonb_op.c:21-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L21-L45)
 
 ## Overview
 Tests whether a top-level key exists in a JSONB object or a string value exists as an array element.

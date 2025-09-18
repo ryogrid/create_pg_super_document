@@ -1,7 +1,7 @@
 # hindi_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hindi.c: 302 - 318
+[src/backend/snowball/libstemmer/stem_UTF_8_hindi.c:302-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hindi.c#L302-L318)
 
 ## Overview
 The main stemming function for Hindi text that removes suffixes from Hindi words to find their root forms, implementing the Hindi stemming algorithm using Snowball.

@@ -1,7 +1,7 @@
 # pgwin32_send
 
 ## Location
-src/backend/port/win32/socket.c: 459 - 516
+[src/backend/port/win32/socket.c:459-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L459-L516)
 
 ## Overview
 Windows-specific socket send function that provides PostgreSQL-compatible socket sending functionality with signal handling support on Windows platforms.

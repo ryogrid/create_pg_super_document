@@ -1,7 +1,7 @@
 # ExecReScanSubqueryScan
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 183 - 201
+[src/backend/executor/nodeSubqueryscan.c:183-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L183-L201)
 
 ## Overview
 Rescans a SubqueryScan node during query execution, handling parameter changes and coordinating the rescan operation with the underlying subplan.

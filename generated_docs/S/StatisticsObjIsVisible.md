@@ -1,7 +1,7 @@
 # StatisticsObjIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2632 - 2643
+[src/backend/catalog/namespace.c:2632-2643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2632-L2643)
 
 ## Overview
 Determines whether a statistics object (identified by OID) is visible in the current search path, meaning it would be found when searching for the unqualified statistics object name.

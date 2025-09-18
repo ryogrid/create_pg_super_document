@@ -1,7 +1,7 @@
 # float_to_bits
 
 ## Location
-src/common/ryu_common.h: 116 - 124
+[src/common/ryu_common.h:116-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L116-L124)
 
 ## Overview
 Safely extracts the raw IEEE 754 bit representation of a single-precision (32-bit) floating-point value as an unsigned integer.

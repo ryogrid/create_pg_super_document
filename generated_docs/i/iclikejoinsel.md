@@ -1,7 +1,7 @@
 # iclikejoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 921 - 929
+[src/backend/utils/adt/like_support.c:921-929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L921-L929)
 
 ## Overview
 A selectivity estimation function for case-insensitive LIKE pattern matching join operations in PostgreSQL's query planner.

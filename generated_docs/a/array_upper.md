@@ -1,7 +1,7 @@
 # array_upper
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1733 - 1762
+[src/backend/utils/adt/arrayfuncs.c:1733-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1733-L1762)
 
 ## Overview
 Returns the upper bound of a specified dimension for a PostgreSQL array, providing access to the ending index of that dimension.

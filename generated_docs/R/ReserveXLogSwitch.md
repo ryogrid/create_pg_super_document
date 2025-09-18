@@ -1,7 +1,7 @@
 # ReserveXLogSwitch
 
 ## Location
-src/backend/access/transam/xlog.c: 1166 - 1226
+[src/backend/access/transam/xlog.c:1166-1226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1166-L1226)
 
 ## Overview
 ReserveXLogSwitch is a specialized space reservation function for XLOG_SWITCH records that reserves the remainder of the current WAL segment, or returns false if already at a segment boundary.

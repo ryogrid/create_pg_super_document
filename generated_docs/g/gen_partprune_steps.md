@@ -1,7 +1,7 @@
 # gen_partprune_steps
 
 ## Location
-src/backend/partitioning/partprune.c: 714 - 749
+[src/backend/partitioning/partprune.c:714-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L714-L749)
 
 ## Overview
 Processes restriction clauses to generate a list of partition pruning steps that can be used for different phases of query execution.

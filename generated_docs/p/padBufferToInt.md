@@ -1,7 +1,7 @@
 # padBufferToInt
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1533 - 1553
+[src/backend/utils/adt/jsonb_util.c:1533-1553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1533-L1553)
 
 ## Overview
 A static utility function that appends null-byte padding to a StringInfo buffer to ensure its length is aligned to integer boundaries, returning the number of padding bytes added.

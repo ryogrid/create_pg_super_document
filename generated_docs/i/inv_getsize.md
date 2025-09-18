@@ -1,7 +1,7 @@
 # inv_getsize
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 378 - 425
+[src/backend/storage/large_object/inv_api.c:378-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L378-L425)
 
 ## Overview
 Determines the size of a large object by finding the offset of the last byte plus one, accounting for potential gaps in the data.

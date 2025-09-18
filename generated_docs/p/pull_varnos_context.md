@@ -1,7 +1,7 @@
 # pull_varnos_context
 
 ## Location
-src/backend/optimizer/util/var.c: 37 - 42
+[src/backend/optimizer/util/var.c:37-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L37-L42)
 
 ## Overview
 A context structure used by the pull_varnos functionality to collect relation IDs (varnos) from Var nodes in an expression tree during query planning optimization.

@@ -1,7 +1,7 @@
 # finalize_grouping_exprs_walker
 
 ## Location
-src/backend/parser/parse_agg.c: 1502 - 1656
+[src/backend/parser/parse_agg.c:1502-1656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1502-L1656)
 
 ## Overview
 A tree walker function that finalizes GROUPING expressions by validating their arguments and resolving references to grouping columns, ensuring GROUPING functions only reference valid grouping expressions.

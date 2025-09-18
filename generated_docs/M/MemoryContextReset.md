@@ -1,7 +1,7 @@
 # MemoryContextReset
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 383 - 401
+[src/backend/utils/mmgr/mcxt.c:383-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L383-L401)
 
 ## Overview
 MemoryContextReset releases all allocated space within a memory context and deletes all its descendant contexts while preserving the context itself for future use.

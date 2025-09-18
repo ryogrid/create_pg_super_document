@@ -1,7 +1,7 @@
 # ExecRestrPos
 
 ## Location
-src/backend/executor/execAmi.c: 375 - 416
+[src/backend/executor/execAmi.c:375-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L375-L416)
 
 ## Overview
 ExecRestrPos restores the scan position that was previously saved with ExecMarkPos, ensuring that subsequent tuple retrieval continues from the marked position.

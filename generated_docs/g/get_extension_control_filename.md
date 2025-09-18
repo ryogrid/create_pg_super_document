@@ -1,7 +1,7 @@
 # get_extension_control_filename
 
 ## Location
-src/backend/commands/extension.c: 389 - 402
+[src/backend/commands/extension.c:389-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L389-L402)
 
 ## Overview
 Constructs and returns the complete filesystem path to a specific extension's control file given the extension name.

@@ -1,7 +1,7 @@
 # tuplestore_copy_read_pointer
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1268 - 1359
+[src/backend/utils/sort/tuplestore.c:1268-1359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1268-L1359)
 
 ## Overview
 Copies the state of one read pointer to another read pointer within a tuplestore, handling different storage states and maintaining file position consistency.

@@ -1,7 +1,7 @@
 # hash_xlog_insert
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 125 - 172
+[src/backend/access/hash/hash_xlog.c:125-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L125-L172)
 
 ## Overview
 Replays a hash index tuple insertion operation during WAL recovery, including updating both the data page and the metapage tuple count.

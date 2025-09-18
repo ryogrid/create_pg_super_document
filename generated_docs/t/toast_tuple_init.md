@@ -1,7 +1,7 @@
 # toast_tuple_init
 
 ## Location
-src/backend/access/table/toast_helper.c: 41 - 180
+[src/backend/access/table/toast_helper.c:41-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/toast_helper.c#L41-L180)
 
 ## Overview
 Initializes a TOAST tuple context structure to prepare for toasting operations on a tuple, setting up attribute flags and handling external values from existing tuples during updates.

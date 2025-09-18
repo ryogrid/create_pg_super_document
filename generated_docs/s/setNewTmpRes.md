@@ -1,7 +1,7 @@
 # setNewTmpRes
 
 ## Location
-src/backend/tsearch/ts_parse.c: 158 - 172
+[src/backend/tsearch/ts_parse.c:158-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L158-L172)
 
 ## Overview
 Sets new temporary results in the LexizeData structure while properly cleaning up any previously stored temporary results to prevent memory leaks.

@@ -1,7 +1,7 @@
 # insert_into_bucket
 
 ## Location
-src/backend/lib/dshash.c: 986 - 1005
+[src/backend/lib/dshash.c:986-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L986-L1005)
 
 ## Overview
 Allocates space for a new hash table entry with the given key and inserts it into the specified bucket.

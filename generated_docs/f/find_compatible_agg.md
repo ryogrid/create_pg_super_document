@@ -1,7 +1,7 @@
 # find_compatible_agg
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 380 - 457
+[src/backend/optimizer/prep/prepagg.c:380-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L380-L457)
 
 ## Overview
 Searches for a previously processed aggregate that is identical to the current one, enabling reuse of both transition state and final result for optimization.

@@ -1,7 +1,7 @@
 # findoprnd_recurse
 
 ## Location
-src/backend/utils/adt/tsquery.c: 726 - 783
+[src/backend/utils/adt/tsquery.c:726-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L726-L783)
 
 ## Overview
 A recursive function that traverses a tsquery in polish notation to fill in left-offset fields for operators and detect stop words that need cleanup.

@@ -1,7 +1,7 @@
 # pg_generic_charinc
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1325 - 1358
+[src/backend/utils/mb/mbutils.c:1325-1358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1325-L1358)
 
 ## Overview
 A generic character incrementer function that finds the next valid character in an encoding by incrementing bytes and verifying validity, used as a fallback when no encoding-specific incrementer is available.

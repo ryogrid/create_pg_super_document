@@ -1,7 +1,7 @@
 # on_exit_reset
 
 ## Location
-src/backend/storage/ipc/ipc.c: 416 - 431
+[src/backend/storage/ipc/ipc.c:416-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L416-L431)
 
 ## Overview
 Clears all registered exit callbacks (before_shmem_exit, on_shmem_exit, and on_proc_exit) to prevent child processes from executing parent process cleanup routines.

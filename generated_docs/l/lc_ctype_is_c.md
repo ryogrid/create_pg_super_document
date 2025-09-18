@@ -1,7 +1,7 @@
 # lc_ctype_is_c
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1407 - 1471
+[src/backend/utils/adt/pg_locale.c:1407-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1407-L1471)
 
 ## Overview
 lc_ctype_is_c is a function that determines whether a given collation's LC_CTYPE property is equivalent to the C or POSIX locale, enabling optimizations in character classification and case conversion operations.

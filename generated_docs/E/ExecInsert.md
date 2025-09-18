@@ -1,7 +1,7 @@
 # ExecInsert
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 779 - 1243
+[src/backend/executor/nodeModifyTable.c:779-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L779-L1243)
 
 ## Overview
 Handles the insertion of a single tuple into a table (or partition thereof) and its associated indexes, supporting complex scenarios like foreign tables, batch inserts, ON CONFLICT handling, and RETURNING clauses.

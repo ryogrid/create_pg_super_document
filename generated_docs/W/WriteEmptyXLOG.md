@@ -1,7 +1,7 @@
 # WriteEmptyXLOG
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 1079 - 1165
+[src/bin/pg_resetwal/pg_resetwal.c:1079-1165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L1079-L1165)
 
 ## Overview
 WriteEmptyXLOG creates a new, properly formatted WAL segment file containing only an initial checkpoint record to bootstrap the transaction log after a reset operation.

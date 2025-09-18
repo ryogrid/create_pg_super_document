@@ -1,7 +1,7 @@
 # ExplainJSONLineEnding
 
 ## Location
-src/backend/commands/explain.c: 5254 - 5273
+[src/backend/commands/explain.c:5254-5273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5254-L5273)
 
 ## Overview
 A utility function that properly formats JSON line endings in EXPLAIN output, ensuring correct comma placement between JSON properties.

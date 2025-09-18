@@ -1,7 +1,7 @@
 # BTPendingFSM
 
 ## Location
-src/include/access/nbtree.h: 324 - 328
+[src/include/access/nbtree.h:324-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L324-L328)
 
 ## Overview
 BTPendingFSM is a structure used during VACUUM operations to track deleted B-tree pages that are pending addition to the Free Space Map (FSM) for future recycling.

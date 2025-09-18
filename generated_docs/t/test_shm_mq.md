@@ -1,7 +1,7 @@
 # test_shm_mq
 
 ## Location
-src/test/modules/test_shm_mq/test.c: 43 - 131
+[src/test/modules/test_shm_mq/test.c:43-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/test.c#L43-L131)
 
 ## Overview
 A test function that validates PostgreSQL's shared memory message queue infrastructure by creating a ring of message queues through background processes and verifying message transmission integrity.

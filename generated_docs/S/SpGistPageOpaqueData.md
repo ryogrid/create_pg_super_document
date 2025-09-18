@@ -1,7 +1,7 @@
 # SpGistPageOpaqueData
 
 ## Location
-src/include/access/spgist_private.h: 60 - 67
+[src/include/access/spgist_private.h:60-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L60-L67)
 
 ## Overview
 SpGistPageOpaqueData is a structure that defines the contents of the page special space on SP-GiST index pages, containing metadata about the page's contents and state.

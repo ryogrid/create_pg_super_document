@@ -1,7 +1,7 @@
 # GetForeignServerByName
 
 ## Location
-src/backend/foreign/foreign.c: 182 - 199
+[src/backend/foreign/foreign.c:182-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L182-L199)
 
 ## Overview
 Looks up a foreign server definition by name and returns the corresponding ForeignServer structure.

@@ -1,7 +1,7 @@
 # pg_namespace_aclmask_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3665 - 3766
+[src/backend/catalog/aclchk.c:3665-3766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3665-L3766)
 
 ## Overview
 This is an internal function that examines a user's privileges for a namespace (schema), with support for handling missing objects gracefully through an optional is_missing parameter.

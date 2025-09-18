@@ -1,7 +1,7 @@
 # tuplesort_gettupleslot
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 890 - 927
+[src/backend/utils/sort/tuplesortvariants.c:890-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L890-L927)
 
 ## Overview
 Fetches the next tuple from a sorted tuplesort operation in either forward or backward direction and stores it in a provided TupleTableSlot.

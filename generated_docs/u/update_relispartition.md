@@ -1,7 +1,7 @@
 # update_relispartition
 
 ## Location
-src/backend/commands/indexcmds.c: 4436 - 4473
+[src/backend/commands/indexcmds.c:4436-4473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L4436-L4473)
 
 ## Overview
 update_relispartition updates the relispartition flag in the pg_class system catalog to indicate whether a relation is a partition or not.

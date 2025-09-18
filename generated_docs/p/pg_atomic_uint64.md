@@ -1,7 +1,7 @@
 # pg_atomic_uint64
 
 ## Location
-src/include/port/atomics/arch-x86.h: 74 - 78
+[src/include/port/atomics/arch-x86.h:74-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/arch-x86.h#L74-L78)
 
 ## Overview
 An atomic 64-bit unsigned integer structure that provides lock-free operations for concurrent access to large integer values, particularly used for LSNs, counters, and pointers in PostgreSQL's high-performance subsystems.

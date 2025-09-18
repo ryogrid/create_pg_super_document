@@ -1,7 +1,7 @@
 # btint4sortsupport
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 123 - 131
+[src/backend/access/nbtree/nbtcompare.c:123-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L123-L131)
 
 ## Overview
 A PostgreSQL function that sets up sort support for 32-bit integer (int4) data types in B-tree indexes.

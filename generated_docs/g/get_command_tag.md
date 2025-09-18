@@ -1,7 +1,7 @@
 # get_command_tag
 
 ## Location
-src/test/modules/test_ddl_deparse/test_ddl_deparse.c: 72 - 86
+[src/test/modules/test_ddl_deparse/test_ddl_deparse.c:72-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_ddl_deparse/test_ddl_deparse.c#L72-L86)
 
 ## Overview
 Returns the command tag corresponding to a parse node contained in a CollectedCommand structure, used for DDL command identification in tests.

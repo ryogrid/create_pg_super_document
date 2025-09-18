@@ -1,7 +1,7 @@
 # list_insert_nth_int
 
 ## Location
-src/backend/nodes/list.c: 453 - 466
+[src/backend/nodes/list.c:453-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L453-L466)
 
 ## Overview
 Inserts an integer value at a specified position in a PostgreSQL List that specifically contains integer elements, maintaining type safety and list structure.

@@ -1,7 +1,7 @@
 # ExecEvalPreOrderedDistinctMulti
 
 ## Location
-src/backend/executor/execExprInterp.c: 5162 - 5208
+[src/backend/executor/execExprInterp.c:5162-5208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5162-L5208)
 
 ## Overview
 ExecEvalPreOrderedDistinctMulti determines whether the current multi-argument aggregate input values are distinct from the previous input values for DISTINCT aggregates.

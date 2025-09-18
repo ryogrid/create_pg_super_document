@@ -1,7 +1,7 @@
 # RemoveRelations
 
 ## Location
-src/backend/commands/tablecmds.c: 1468 - 1631
+[src/backend/commands/tablecmds.c:1468-1631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1468-L1631)
 
 ## Overview
 RemoveRelations implements the core functionality for DROP TABLE, DROP INDEX, DROP SEQUENCE, DROP VIEW, DROP MATERIALIZED VIEW, and DROP FOREIGN TABLE commands.

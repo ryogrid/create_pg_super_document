@@ -1,7 +1,7 @@
 # ReinitializeParallelDSM
 
 ## Location
-src/backend/access/transam/parallel.c: 504 - 553
+[src/backend/access/transam/parallel.c:504-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L504-L553)
 
 ## Overview
 Reinitializes the dynamic shared memory segment for a parallel context to prepare it for launching a new set of parallel workers after previous workers have completed.

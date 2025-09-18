@@ -1,7 +1,7 @@
 # AlterTypeNamespace_oid
 
 ## Location
-src/backend/commands/typecmds.c: 4104 - 4155
+[src/backend/commands/typecmds.c:4104-4155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L4104-L4155)
 
 ## Overview
 A lower-level function that performs ALTER TYPE SET SCHEMA operations when the type and target schema OIDs are already resolved, with options for handling dependent types.

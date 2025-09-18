@@ -1,7 +1,7 @@
 # hashadjustmembers
 
 ## Location
-src/backend/access/hash/hashvalidate.c: 352 - 439
+[src/backend/access/hash/hashvalidate.c:352-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashvalidate.c#L352-L439)
 
 ## Overview
 The hashadjustmembers function is a prechecking function that determines appropriate dependency relationships (hard vs soft, opclass vs opfamily) when adding operators and functions to a hash operator family.

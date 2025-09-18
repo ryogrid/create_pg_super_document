@@ -1,7 +1,7 @@
 # add_guc_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 1049 - 1077
+[src/backend/utils/misc/guc.c:1049-1077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1049-L1077)
 
 ## Overview
 Adds a new GUC variable to the global hash table of known configuration variables, with automatic hash table expansion as needed.

@@ -1,7 +1,7 @@
 # EventTriggerDDLCommandEnd
 
 ## Location
-src/backend/commands/event_trigger.c: 772 - 819
+[src/backend/commands/event_trigger.c:772-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L772-L819)
 
 ## Overview
 EventTriggerDDLCommandEnd fires ddl_command_end event triggers after a DDL command completes execution, providing a hook for post-processing and cleanup operations.

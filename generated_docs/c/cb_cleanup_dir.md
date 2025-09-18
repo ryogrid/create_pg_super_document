@@ -1,7 +1,7 @@
 # cb_cleanup_dir
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 50 - 55
+[src/bin/pg_combinebackup/pg_combinebackup.c:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L50-L55)
 
 ## Overview
 A structure used to track directories that need cleanup (removal or content removal) if the pg_combinebackup operation fails.

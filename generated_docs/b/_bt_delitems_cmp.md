@@ -1,7 +1,7 @@
 # _bt_delitems_cmp
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1464 - 1512
+[src/backend/access/nbtree/nbtpage.c:1464-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1464-L1512)
 
 ## Overview
 A comparator function used to restore the deltids array back to its original leaf-page-wise sort order by comparing TM_IndexDelete structure IDs.

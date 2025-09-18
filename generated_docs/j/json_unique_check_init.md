@@ -1,7 +1,7 @@
 # json_unique_check_init
 
 ## Location
-src/backend/utils/adt/json.c: 923 - 940
+[src/backend/utils/adt/json.c:923-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L923-L940)
 
 ## Overview
 The  function initializes a hash table for detecting duplicate keys during JSON object construction and parsing operations.

@@ -1,7 +1,7 @@
 # build_attrmap_by_name
 
 ## Location
-src/backend/access/common/attmap.c: 177 - 262
+[src/backend/access/common/attmap.c:177-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L177-L262)
 
 ## Overview
 Builds an attribute map for tuple conversion by matching input and output columns by their names rather than positions, with optimized searching and optional tolerance for missing columns.

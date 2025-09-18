@@ -1,7 +1,7 @@
 # make_numeric_typmod
 
 ## Location
-src/backend/utils/adt/numeric.c: 905 - 913
+[src/backend/utils/adt/numeric.c:905-913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L905-L913)
 
 ## Overview
 A static inline function that packs numeric precision and scale values into a single typmod value for PostgreSQL's NUMERIC data type.

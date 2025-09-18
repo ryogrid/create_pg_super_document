@@ -1,7 +1,7 @@
 # french_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_french.c: 1164 - 1258
+[src/backend/snowball/libstemmer/stem_UTF_8_french.c:1164-1258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_french.c#L1164-L1258)
 
 ## Overview
 The french_UTF_8_stem function is the main entry point for French morphological stemming using the Snowball algorithm, processing UTF-8 encoded French text through a complete stemming pipeline.

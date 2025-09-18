@@ -1,7 +1,7 @@
 # defGetInt32
 
 ## Location
-src/backend/commands/define.c: 162 - 185
+[src/backend/commands/define.c:162-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L162-L185)
 
 ## Overview
 Extracts a 32-bit signed integer value from a DefElem, accepting only T_Integer node types.

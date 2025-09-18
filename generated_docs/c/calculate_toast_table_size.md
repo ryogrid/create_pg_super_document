@@ -1,7 +1,7 @@
 # calculate_toast_table_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 378 - 423
+[src/backend/utils/adt/dbsize.c:378-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L378-L423)
 
 ## Overview
 A static utility function that calculates the total disk space consumed by a TOAST relation, including both the TOAST table itself and all its associated indexes.

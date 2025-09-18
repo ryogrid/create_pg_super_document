@@ -1,7 +1,7 @@
 # BumpAllocLarge
 
 ## Location
-src/backend/utils/mmgr/bump.c: 293 - 370
+[src/backend/utils/mmgr/bump.c:293-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L293-L370)
 
 ## Overview
 Handles large memory allocations in Bump contexts by creating dedicated blocks that contain only a single large chunk.

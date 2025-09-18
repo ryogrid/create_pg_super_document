@@ -1,7 +1,7 @@
 # AddEventToPendingNotifies
 
 ## Location
-src/backend/commands/async.c: 2298 - 2356
+[src/backend/commands/async.c:2298-2356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2298-L2356)
 
 ## Overview
 Adds a notification event to an existing pendingNotifies list and maintains an optional hash table for efficient duplicate detection when the list grows large enough.

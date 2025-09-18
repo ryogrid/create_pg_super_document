@@ -1,7 +1,7 @@
 # close_sb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3063 - 3086
+[src/backend/utils/adt/geo_ops.c:3063-3086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3063-L3086)
 
 ## Overview
 The `close_sb` function calculates the closest point on or inside a box to a line segment, returning the coordinates of that closest point.

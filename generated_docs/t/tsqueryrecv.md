@@ -1,7 +1,7 @@
 # tsqueryrecv
 
 ## Location
-src/backend/utils/adt/tsquery.c: 1227 - 1362
+[src/backend/utils/adt/tsquery.c:1227-1362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L1227-L1362)
 
 ## Overview
 Deserializes binary data into a TSQuery structure for PostgreSQL's full-text search functionality.

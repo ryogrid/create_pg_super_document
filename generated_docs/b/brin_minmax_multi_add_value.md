@@ -1,7 +1,7 @@
 # brin_minmax_multi_add_value
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2412 - 2548
+[src/backend/access/brin/brin_minmax_multi.c:2412-2548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2412-L2548)
 
 ## Overview
 Adds a new value to BRIN minmax multi-column index summaries, expanding the range coverage and updating index tuples when necessary.

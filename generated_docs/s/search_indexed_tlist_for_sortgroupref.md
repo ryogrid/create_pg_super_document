@@ -1,7 +1,7 @@
 # search_indexed_tlist_for_sortgroupref
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2955 - 3032
+[src/backend/optimizer/plan/setrefs.c:2955-3032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2955-L3032)
 
 ## Overview
 Searches for a sort/group expression in an indexed target list by matching both the expression and its sortgroupref, returning a Var constructed to reference the matching target list item.

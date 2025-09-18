@@ -1,7 +1,7 @@
 # makeDependencyGraph
 
 ## Location
-src/backend/parser/parse_cte.c: 648 - 669
+[src/backend/parser/parse_cte.c:648-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L648-L669)
 
 ## Overview
 Identifies cross-references between WITH RECURSIVE items and sorts them into an order that eliminates forward references using topological sorting.

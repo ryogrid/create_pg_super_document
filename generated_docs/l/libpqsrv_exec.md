@@ -1,7 +1,7 @@
 # libpqsrv_exec
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 256 - 268
+[src/include/libpq/libpq-be-fe-helpers.h:256-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L256-L268)
 
 ## Overview
 A PQexec() wrapper function that processes interrupts while executing SQL queries, providing a safer alternative for server-side execution.

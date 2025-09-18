@@ -1,7 +1,7 @@
 # BTPageSetDeleted
 
 ## Location
-src/include/access/nbtree.h: 239 - 259
+[src/include/access/nbtree.h:239-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L239-L259)
 
 ## Overview
 BTPageSetDeleted is a static inline function that marks a B-tree page as deleted and sets the safe transaction ID for when the page can be recycled.

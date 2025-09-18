@@ -1,7 +1,7 @@
 # fetch_desc
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 222 - 227
+[src/interfaces/ecpg/preproc/type.h:222-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L222-L227)
 
 ## Overview
 A simple structure used in ECPG (Embedded C for PostgreSQL) preprocessor to store fetch descriptor information during SQL preprocessing operations.

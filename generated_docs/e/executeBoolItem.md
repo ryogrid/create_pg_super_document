@@ -1,7 +1,7 @@
 # executeBoolItem
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1777 - 1912
+[src/backend/utils/adt/jsonpath_exec.c:1777-1912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1777-L1912)
 
 ## Overview
 This function executes boolean-valued JSONPath expressions, handling logical operations, comparisons, and existence checks with proper three-valued logic support.

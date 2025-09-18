@@ -1,7 +1,7 @@
 # KillExistingXLOG
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 973 - 1005
+[src/bin/pg_resetwal/pg_resetwal.c:973-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L973-L1005)
 
 ## Overview
 KillExistingXLOG removes all existing WAL (Write-Ahead Log) files from the pg_wal directory as part of the database reset operation.

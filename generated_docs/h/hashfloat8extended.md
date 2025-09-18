@@ -1,7 +1,7 @@
 # hashfloat8extended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 217 - 231
+[src/backend/access/hash/hashfunc.c:217-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L217-L231)
 
 ## Overview
 Computes a 64-bit extended hash value for a float8 (double precision floating-point) value using a provided seed.

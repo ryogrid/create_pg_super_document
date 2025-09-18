@@ -1,7 +1,7 @@
 # array_exec_setup
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 473 - 538
+[src/backend/utils/adt/arraysubs.c:473-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L473-L538)
 
 ## Overview
 Initializes and configures the execution state for array subscript operations, setting up workspace and selecting appropriate execution methods based on whether the operation involves slices or individual elements.

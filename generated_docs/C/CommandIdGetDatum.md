@@ -1,7 +1,7 @@
 # CommandIdGetDatum
 
 ## Location
-src/include/postgres.h: 302 - 311
+[src/include/postgres.h:302-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L302-L311)
 
 ## Overview
 Converts a CommandId value to a Datum type, providing the inverse operation of DatumGetCommandId for storing command identifiers in PostgreSQL's generic Datum representation.

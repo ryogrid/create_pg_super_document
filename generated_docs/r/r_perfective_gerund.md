@@ -1,7 +1,7 @@
 # r_perfective_gerund
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_russian.c: 392 - 420
+[src/backend/snowball/libstemmer/stem_UTF_8_russian.c:392-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_russian.c#L392-L420)
 
 ## Overview
 A specialized function in PostgreSQL's Russian Snowball stemmer that identifies and removes perfective gerund endings from Russian words, which are verbal forms indicating completed actions.

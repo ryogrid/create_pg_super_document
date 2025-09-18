@@ -1,7 +1,7 @@
 # shmem_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 228 - 293
+[src/backend/storage/ipc/ipc.c:228-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L228-L293)
 
 ## Overview
 The shmem_exit function orchestrates shared memory cleanup during PostgreSQL process termination, executing callbacks in a carefully ordered sequence to ensure proper resource deallocation.

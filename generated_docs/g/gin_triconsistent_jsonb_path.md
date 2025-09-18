@@ -1,7 +1,7 @@
 # gin_triconsistent_jsonb_path
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1272 - 1325
+[src/backend/utils/adt/jsonb_gin.c:1272-1325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1272-L1325)
 
 ## Overview
 This function implements the GIN triconsistent support function for JSONB path operations, providing ternary logic for index scans to determine whether specific keys might match query conditions before full tuple examination.

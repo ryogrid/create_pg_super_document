@@ -1,7 +1,7 @@
 # _extensionInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 187 - 194
+[src/bin/pg_dump/pg_dump.h:187-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L187-L194)
 
 ## Overview
 The  structure represents PostgreSQL extensions in pg_dump, containing extension-specific metadata such as version information, configuration tables, and relocatability attributes needed for proper extension dumping and restoration.

@@ -1,7 +1,7 @@
 # win32_check_directory_write_permissions
 
 ## Location
-src/bin/pg_upgrade/exec.c: 288 - 311
+[src/bin/pg_upgrade/exec.c:288-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L288-L311)
 
 ## Overview
 This Windows-specific function checks directory write permissions by creating and then deleting a test file, as Windows access() function cannot reliably check directory permissions.

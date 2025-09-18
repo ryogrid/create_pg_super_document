@@ -1,7 +1,7 @@
 # PGTYPESnumeric_from_double
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1411 - 1431
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1411-1431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1411-L1431)
 
 ## Overview
 Converts a double-precision floating-point value into PostgreSQL's numeric type representation by formatting to string and parsing back to numeric.

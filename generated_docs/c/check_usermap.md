@@ -1,7 +1,7 @@
 # check_usermap
 
 ## Location
-src/backend/libpq/hba.c: 2904 - 2958
+[src/backend/libpq/hba.c:2904-2958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2904-L2958)
 
 ## Overview
 Validates whether a system user is authorized to connect as a specified PostgreSQL user according to a usermap configuration, supporting both implicit sameuser mapping and explicit usermap file lookups.

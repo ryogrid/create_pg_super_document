@@ -1,7 +1,7 @@
 # ShmemBackendArrayAdd
 
 ## Location
-src/backend/postmaster/postmaster.c: 4566 - 4575
+[src/backend/postmaster/postmaster.c:4566-4575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4566-L4575)
 
 ## Overview
 Adds a backend process entry to the shared memory backend array at the designated slot position.

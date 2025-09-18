@@ -1,7 +1,7 @@
 # create_groupingsets_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2393 - 2550
+[src/backend/optimizer/plan/createplan.c:2393-2550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2393-L2550)
 
 ## Overview
 Creates a plan for GroupingSetsPath operations, implementing SQL GROUPING SETS, ROLLUP, and CUBE functionality by generating a main Agg plan with subsidiary Agg and Sort nodes.

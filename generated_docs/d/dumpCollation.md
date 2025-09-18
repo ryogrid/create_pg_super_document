@@ -1,7 +1,7 @@
 # dumpCollation
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13842 - 14098
+[src/bin/pg_dump/pg_dump.c:13842-14098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13842-L14098)
 
 ## Overview
 Writes out a single collation definition, generating CREATE COLLATION SQL statements with proper provider-specific locale and rules configuration.

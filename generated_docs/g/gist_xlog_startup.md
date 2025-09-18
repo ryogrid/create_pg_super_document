@@ -1,7 +1,7 @@
 # gist_xlog_startup
 
 ## Location
-src/backend/access/gist/gistxlog.c: 438 - 443
+[src/backend/access/gist/gistxlog.c:438-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L438-L443)
 
 ## Overview
 Initializes the GiST WAL recovery subsystem by creating a dedicated memory context for redo operations.

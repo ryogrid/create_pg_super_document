@@ -1,7 +1,7 @@
 # ReorderBufferRestoreChanges
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4387 - 4529
+[src/backend/replication/logical/reorderbuffer.c:4387-4529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4387-L4529)
 
 ## Overview
 ReorderBufferRestoreChanges restores a number of changes that were previously spilled to disk back into memory, managing the file I/O operations and memory allocation during the deserialization process.

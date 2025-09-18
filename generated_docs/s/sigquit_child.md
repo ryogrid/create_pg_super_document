@@ -1,7 +1,7 @@
 # sigquit_child
 
 ## Location
-src/backend/postmaster/postmaster.c: 3452 - 3465
+[src/backend/postmaster/postmaster.c:3452-3465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3452-L3465)
 
 ## Overview
 A convenience function that sends either SIGQUIT or SIGABRT to a child process after detecting a crash of another child process in the PostgreSQL postmaster.

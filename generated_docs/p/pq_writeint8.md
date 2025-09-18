@@ -1,7 +1,7 @@
 # pq_writeint8
 
 ## Location
-src/include/libpq/pqformat.h: 46 - 59
+[src/include/libpq/pqformat.h:46-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L46-L59)
 
 ## Overview
 A static inline function that appends an 8-bit unsigned integer to a StringInfo buffer in PostgreSQL's libpq protocol format handling.

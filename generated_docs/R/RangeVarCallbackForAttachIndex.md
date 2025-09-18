@@ -1,7 +1,7 @@
 # RangeVarCallbackForAttachIndex
 
 ## Location
-src/backend/commands/tablecmds.c: 19795 - 19848
+[src/backend/commands/tablecmds.c:19795-19848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19795-L19848)
 
 ## Overview
 A callback function used during index attachment operations to validate and lock the target index relation when resolving a RangeVar (table/index name) to an OID.

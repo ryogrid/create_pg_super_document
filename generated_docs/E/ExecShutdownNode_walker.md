@@ -1,7 +1,7 @@
 # ExecShutdownNode_walker
 
 ## Location
-src/backend/executor/execProcnode.c: 773 - 842
+[src/backend/executor/execProcnode.c:773-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L773-L842)
 
 ## Overview
 ExecShutdownNode_walker is the internal tree-walking implementation that recursively traverses a PostgreSQL query plan tree and performs node-specific shutdown operations for nodes that manage asynchronous resources.

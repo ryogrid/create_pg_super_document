@@ -1,7 +1,7 @@
 # unicode_linestyle
 
 ## Location
-src/include/fe_utils/print.h: 103 - 104
+[src/include/fe_utils/print.h:103-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L103-L104)
 
 ## Overview
 unicode_linestyle is an enumeration type that defines different Unicode line drawing styles used for table borders and separators in PostgreSQL's frontend printing utilities.

@@ -1,7 +1,7 @@
 # date2timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 704 - 719
+[src/backend/utils/adt/date.c:704-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L704-L719)
 
 ## Overview
 A wrapper function that converts a DateADT value to a TimestampTz (timestamp with time zone), throwing an error if the conversion would result in overflow.

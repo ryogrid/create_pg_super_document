@@ -1,7 +1,7 @@
 # make_absolute_path
 
 ## Location
-src/port/path.c: 806 - 900
+[src/port/path.c:806-900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L806-L900)
 
 ## Overview
 Converts a relative path to an absolute path by resolving it against the current working directory and canonicalizing the result.

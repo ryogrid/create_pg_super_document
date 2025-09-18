@@ -1,7 +1,7 @@
 # PreventCommandDuringRecovery
 
 ## Location
-src/backend/tcop/utility.c: 441 - 458
+[src/backend/tcop/utility.c:441-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L441-L458)
 
 ## Overview
 PreventCommandDuringRecovery throws an error if the database is in recovery mode, specifically targeting commands that are allowed in read-only transactions but incompatible with Hot Standby operation.

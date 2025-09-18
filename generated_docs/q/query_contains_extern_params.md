@@ -1,7 +1,7 @@
 # query_contains_extern_params
 
 ## Location
-src/backend/parser/parse_param.c: 330 - 337
+[src/backend/parser/parse_param.c:330-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L330-L337)
 
 ## Overview
 Determines whether a fully-parsed query tree contains any external parameters (PARAM_EXTERN).

@@ -1,7 +1,7 @@
 # process_syncing_tables
 
 ## Location
-src/backend/replication/logical/tablesync.c: 693 - 723
+[src/backend/replication/logical/tablesync.c:693-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L693-L723)
 
 ## Overview
 Handles logical replication table synchronization state changes by dispatching to appropriate worker type-specific functions based on the current worker type.

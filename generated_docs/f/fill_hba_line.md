@@ -1,7 +1,7 @@
 # fill_hba_line
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 183 - 373
+[src/backend/utils/adt/hbafuncs.c:183-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L183-L373)
 
 ## Overview
 Builds one row of the pg_hba_file_rules system view and adds it to a tuplestore, representing a single HBA configuration rule with all its parsed components.

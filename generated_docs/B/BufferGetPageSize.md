@@ -1,7 +1,7 @@
 # BufferGetPageSize
 
 ## Location
-src/include/storage/bufmgr.h: 393 - 403
+[src/include/storage/bufmgr.h:393-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufmgr.h#L393-L403)
 
 ## Overview
 BufferGetPageSize is a static inline function that returns the page size within a buffer in PostgreSQLs buffer management system.

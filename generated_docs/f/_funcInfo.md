@@ -1,7 +1,7 @@
 # _funcInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 232 - 241
+[src/bin/pg_dump/pg_dump.h:232-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L232-L241)
 
 ## Overview
 The _funcInfo structure represents function metadata used by PostgreSQL's pg_dump utility to store information about database functions during the dump process.

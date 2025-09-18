@@ -1,7 +1,7 @@
 # uuid_abbrev_abort
 
 ## Location
-src/backend/utils/adt/uuid.c: 292 - 357
+[src/backend/utils/adt/uuid.c:292-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L292-L357)
 
 ## Overview
 A callback function used to estimate the effectiveness of abbreviated key optimization in UUID sorting operations and decide whether to abort the abbreviation strategy.

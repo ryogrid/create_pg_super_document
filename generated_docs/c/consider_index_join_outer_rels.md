@@ -1,7 +1,7 @@
 # consider_index_join_outer_rels
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 497 - 599
+[src/backend/optimizer/path/indxpath.c:497-599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L497-L599)
 
 ## Overview
 Generates parameterized index paths by systematically examining combinations of outer relation sets from join clauses, implementing the core logic for parameterized path enumeration with heuristic limits to prevent exponential explosion.

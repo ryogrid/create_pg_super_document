@@ -1,7 +1,7 @@
 # RT_FREE_NODE
 
 ## Location
-src/include/lib/radixtree.h: 927 - 958
+[src/include/lib/radixtree.h:927-958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L927-L958)
 
 ## Overview
 RT_FREE_NODE is a macro that resolves to a function for deallocating radix tree internal nodes and updating debug statistics.

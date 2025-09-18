@@ -1,7 +1,7 @@
 # max_parallel_hazard
 
 ## Location
-src/backend/optimizer/util/clauses.c: 734 - 752
+[src/backend/optimizer/util/clauses.c:734-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L734-L752)
 
 ## Overview
 Analyzes a query tree to determine the worst parallel-hazard level, which indicates whether the query can be safely parallelized.

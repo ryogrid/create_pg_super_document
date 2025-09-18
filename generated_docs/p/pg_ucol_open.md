@@ -1,7 +1,7 @@
 # pg_ucol_open
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2602 - 2683
+[src/backend/utils/adt/pg_locale.c:2602-2683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2602-L2683)
 
 ## Overview
 A wrapper around ICU's ucol_open() function that handles API differences and compatibility issues across different ICU versions.

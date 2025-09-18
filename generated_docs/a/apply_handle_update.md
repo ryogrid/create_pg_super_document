@@ -1,7 +1,7 @@
 # apply_handle_update
 
 ## Location
-src/backend/replication/logical/worker.c: 2526 - 2642
+[src/backend/replication/logical/worker.c:2526-2642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2526-L2642)
 
 ## Overview
 Handles UPDATE messages in PostgreSQL logical replication by applying the update operation to the appropriate local table or partition, ensuring proper security context switching and tuple routing.

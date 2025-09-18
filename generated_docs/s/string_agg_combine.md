@@ -1,7 +1,7 @@
 # string_agg_combine
 
 ## Location
-src/backend/utils/adt/varlena.c: 5241 - 5290
+[src/backend/utils/adt/varlena.c:5241-5290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5241-L5290)
 
 ## Overview
 The combine function for PostgreSQL's string_agg() aggregate that merges two partial aggregation states in parallel query execution.

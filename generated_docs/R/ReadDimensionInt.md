@@ -1,7 +1,7 @@
 # ReadDimensionInt
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 519 - 578
+[src/backend/utils/adt/arrayfuncs.c:519-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L519-L578)
 
 ## Overview
 Parses an integer from a string for array dimension specifications, handling range validation and error conditions during dimension parsing.

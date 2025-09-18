@@ -1,7 +1,7 @@
 # WinGetCurrentPosition
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3185 - 3199
+[src/backend/executor/nodeWindowAgg.c:3185-3199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3185-L3199)
 
 ## Overview
 Returns the current row's zero-based position within the current partition during window function evaluation.

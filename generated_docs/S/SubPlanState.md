@@ -1,7 +1,7 @@
 # SubPlanState
 
 ## Location
-src/include/nodes/execnodes.h: 960 - 992
+[src/include/nodes/execnodes.h:960-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L960-L992)
 
 ## Overview
 SubPlanState represents the execution state for subquery expressions during PostgreSQL query execution, managing both scalar and array subplans with optional hash table optimization for efficient evaluation.

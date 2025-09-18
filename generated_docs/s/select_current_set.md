@@ -1,7 +1,7 @@
 # select_current_set
 
 ## Location
-src/backend/executor/nodeAgg.c: 455 - 476
+[src/backend/executor/nodeAgg.c:455-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L455-L476)
 
 ## Overview
 Selects the current grouping set in PostgreSQL's aggregate execution engine, affecting the current_set index and curaggcontext memory context.

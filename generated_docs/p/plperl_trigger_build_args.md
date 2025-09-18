@@ -1,7 +1,7 @@
 # plperl_trigger_build_args
 
 ## Location
-src/pl/plperl/plperl.c: 1631 - 1743
+[src/pl/plperl/plperl.c:1631-1743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1631-L1743)
 
 ## Overview
 Constructs a comprehensive Perl hash reference containing all trigger-related information and arguments for PL/Perl trigger functions.

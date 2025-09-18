@@ -1,7 +1,7 @@
 # LCS_asString
 
 ## Location
-src/backend/parser/analyze.c: 3213 - 3237
+[src/backend/parser/analyze.c:3213-3237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3213-L3237)
 
 ## Overview
 Converts a LockClauseStrength enumeration value to its corresponding SQL string representation for PostgreSQL row-level locking clauses.

@@ -1,7 +1,7 @@
 # ginbeginscan
 
 ## Location
-src/backend/access/gin/ginscan.c: 25 - 56
+[src/backend/access/gin/ginscan.c:25-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L25-L56)
 
 ## Overview
 Initializes and begins a new GIN (Generalized Inverted Index) index scan, setting up the necessary data structures and memory contexts for scanning operations.

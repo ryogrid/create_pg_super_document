@@ -1,7 +1,7 @@
 # table_block_parallelscan_nextpage
 
 ## Location
-src/backend/access/table/tableam.c: 492 - 616
+[src/backend/access/table/tableam.c:492-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L492-L616)
 
 ## Overview
 Returns the next block number for a parallel table scan worker to process, implementing an optimized chunking strategy to improve sequential I/O performance across multiple parallel workers.

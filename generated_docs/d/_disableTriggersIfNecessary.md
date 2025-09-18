@@ -1,7 +1,7 @@
 # _disableTriggersIfNecessary
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1107 - 1132
+[src/bin/pg_dump/pg_backup_archiver.c:1107-1132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1107-L1132)
 
 ## Overview
 _disableTriggersIfNecessary is a utility function that conditionally disables all triggers on a table during data-only restore operations to improve performance and avoid constraint violations.

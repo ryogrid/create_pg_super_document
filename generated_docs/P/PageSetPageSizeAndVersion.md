@@ -1,7 +1,7 @@
 # PageSetPageSizeAndVersion
 
 ## Location
-src/include/storage/bufpage.h: 297 - 313
+[src/include/storage/bufpage.h:297-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L297-L313)
 
 ## Overview
 Sets both the page size and page layout version in a page header by combining them into the pd_pagesize_version field.

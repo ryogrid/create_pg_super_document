@@ -1,7 +1,7 @@
 # RmgrStartup
 
 ## Location
-src/backend/access/transam/rmgr.c: 58 - 73
+[src/backend/access/transam/rmgr.c:58-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/rmgr.c#L58-L73)
 
 ## Overview
 Initializes all registered resource managers by calling their startup routines during WAL recovery or startup.

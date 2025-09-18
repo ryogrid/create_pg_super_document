@@ -1,7 +1,7 @@
 # EndCopyTo
 
 ## Location
-src/backend/commands/copyto.c: 726 - 746
+[src/backend/commands/copyto.c:726-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L726-L746)
 
 ## Overview
 EndCopyTo performs cleanup and resource deallocation for a COPY TO operation, properly releasing all resources associated with the CopyToState structure.

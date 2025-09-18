@@ -1,7 +1,7 @@
 # RenameDatabase
 
 ## Location
-src/backend/commands/dbcommands.c: 1863 - 1963
+[src/backend/commands/dbcommands.c:1863-1963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L1863-L1963)
 
 ## Overview
 RenameDatabase renames an existing PostgreSQL database by updating the database name in the system catalog while ensuring proper locking and validation checks.

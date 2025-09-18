@@ -1,7 +1,7 @@
 # do_help
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1961 - 2034
+[src/bin/pg_ctl/pg_ctl.c:1961-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1961-L2034)
 
 ## Overview
 A static utility function in pg_ctl that displays comprehensive help information for all pg_ctl commands and options, providing users with usage instructions and documentation.

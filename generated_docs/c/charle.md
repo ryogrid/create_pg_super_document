@@ -1,7 +1,7 @@
 # charle
 
 ## Location
-src/backend/utils/adt/char.c: 154 - 162
+[src/backend/utils/adt/char.c:154-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L154-L162)
 
 ## Overview
 The `charle` function implements the "less than or equal" comparison operation for PostgreSQL's single-byte character (`char`) data type.

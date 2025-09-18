@@ -1,7 +1,7 @@
 # pg_strtoint32
 
 ## Location
-src/backend/utils/adt/numutils.c: 383 - 388
+[src/backend/utils/adt/numutils.c:383-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L383-L388)
 
 ## Overview
 Converts a string representation of a number to a signed 32-bit integer, supporting multiple number bases and formatting options.

@@ -1,7 +1,7 @@
 # run_apply_worker
 
 ## Location
-src/backend/replication/logical/worker.c: 4478 - 4589
+[src/backend/replication/logical/worker.c:4478-4589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4478-L4589)
 
 ## Overview
 Runs the leader apply worker by setting up replication origin tracking, establishing connection to the publisher, and starting the streaming process for logical replication.

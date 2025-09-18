@@ -1,7 +1,7 @@
 # findSubscriptionByOid
 
 ## Location
-src/bin/pg_dump/common.c: 1033 - 1051
+[src/bin/pg_dump/common.c:1033-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L1033-L1051)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL logical replication subscription with the specified OID during the pg_dump process.

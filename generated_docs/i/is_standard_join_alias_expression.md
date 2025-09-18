@@ -1,7 +1,7 @@
 # is_standard_join_alias_expression
 
 ## Location
-src/backend/optimizer/util/var.c: 962 - 1035
+[src/backend/optimizer/util/var.c:962-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L962-L1035)
 
 ## Overview
 Determines whether a join alias expression can accommodate direct nullingrels integration without requiring a PlaceHolderVar wrapper.

@@ -1,7 +1,7 @@
 # be_tls_get_cipher_bits
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1484 - 1497
+[src/backend/libpq/be-secure-openssl.c:1484-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1484-L1497)
 
 ## Overview
 Returns the effective key length in bits for the cipher being used in a TLS connection.

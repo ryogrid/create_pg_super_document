@@ -1,7 +1,7 @@
 # ExecHashJoinSaveTuple
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1315 - 1355
+[src/backend/executor/nodeHashjoin.c:1315-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1315-L1355)
 
 ## Overview
 Saves a tuple to a batch file during hash join operations, storing both the hash value and tuple data for later processing when the tuple doesn't fit in the current batch.

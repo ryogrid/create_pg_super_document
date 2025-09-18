@@ -1,7 +1,7 @@
 # dump_line
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 61 - 222
+[src/tools/pg_bsd_indent/io.c:61-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L61-L222)
 
 ## Overview
 Outputs a formatted line of source code including label, code, and comment sections with proper indentation and spacing.

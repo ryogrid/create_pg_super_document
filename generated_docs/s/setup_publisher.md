@@ -1,7 +1,7 @@
 # setup_publisher
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 734 - 812
+[src/bin/pg_basebackup/pg_createsubscriber.c:734-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L734-L812)
 
 ## Overview
 Creates publications and replication slots in preparation for logical replication, returning the LSN from the latest replication slot which serves as the replication start point.

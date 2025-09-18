@@ -1,7 +1,7 @@
 # GenerateTypeDependencies
 
 ## Location
-src/backend/catalog/pg_type.c: 557 - 764
+[src/backend/catalog/pg_type.c:557-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L557-L764)
 
 ## Overview
 GenerateTypeDependencies creates and manages the complete set of dependency relationships for a PostgreSQL type, handling dependencies on functions, namespaces, owners, base types, and other related objects.

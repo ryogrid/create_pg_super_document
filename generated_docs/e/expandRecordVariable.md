@@ -1,7 +1,7 @@
 # expandRecordVariable
 
 ## Location
-src/backend/parser/parse_target.c: 1519 - 1703
+[src/backend/parser/parse_target.c:1519-1703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1519-L1703)
 
 ## Overview
 Determines the tuple descriptor for a Var of type RECORD by drilling down to find the ultimate defining expression and inferring the tuple structure from it.

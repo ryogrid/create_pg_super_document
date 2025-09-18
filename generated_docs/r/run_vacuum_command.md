@@ -1,7 +1,7 @@
 # run_vacuum_command
 
 ## Location
-src/bin/scripts/vacuumdb.c: 1146 - 1167
+[src/bin/scripts/vacuumdb.c:1146-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L1146-L1167)
 
 ## Overview
 This function sends a vacuum or analyze SQL command to the PostgreSQL server asynchronously and handles any execution errors by logging them appropriately.

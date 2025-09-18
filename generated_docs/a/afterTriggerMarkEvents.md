@@ -1,7 +1,7 @@
 # afterTriggerMarkEvents
 
 ## Location
-src/backend/commands/trigger.c: 4630 - 4713
+[src/backend/commands/trigger.c:4630-4713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4630-L4713)
 
 ## Overview
 Scans a given event list for trigger events that haven't been invoked yet and marks those that can be invoked now with the current firing ID, with optional transfer of non-invokable events to a separate list.

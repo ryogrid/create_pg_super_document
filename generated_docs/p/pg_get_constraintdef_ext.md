@@ -1,7 +1,7 @@
 # pg_get_constraintdef_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2143 - 2163
+[src/backend/utils/adt/ruleutils.c:2143-2163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2143-L2163)
 
 ## Overview
 This function provides an extended interface for retrieving the SQL definition of a database constraint, with control over pretty-printing format.

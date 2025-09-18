@@ -1,7 +1,7 @@
 # NumRelids
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2130 - 2146
+[src/backend/optimizer/util/clauses.c:2130-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2130-L2146)
 
 ## Overview
 Counts the number of different base relations referenced in a given clause, excluding outer join relations from the count.

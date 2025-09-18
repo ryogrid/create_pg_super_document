@@ -1,7 +1,7 @@
 # TypeShellMake
 
 ## Location
-src/backend/catalog/pg_type.c: 57 - 194
+[src/backend/catalog/pg_type.c:57-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L57-L194)
 
 ## Overview
 TypeShellMake creates a "shell" type tuple in the pg_type system catalog with placeholder values, allowing I/O functions to reference the type before its full definition is completed during type creation.

@@ -1,7 +1,7 @@
 # file_exists
 
 ## Location
-src/test/regress/pg_regress.c: 1302 - 1312
+[src/test/regress/pg_regress.c:1302-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1302-L1312)
 
 ## Overview
 A utility function that checks whether a specified file exists and can be opened for reading.

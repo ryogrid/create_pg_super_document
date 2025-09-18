@@ -1,7 +1,7 @@
 # PublicationObjSpecType
 
 ## Location
-src/include/nodes/parsenodes.h: 4149 - 4150
+[src/include/nodes/parsenodes.h:4149-4150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4149-L4150)
 
 ## Overview
 PublicationObjSpecType is an enumeration that specifies the type of database object to be included in a PostgreSQL logical replication publication.

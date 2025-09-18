@@ -1,7 +1,7 @@
 # heap_tuple_needs_eventual_freeze
 
 ## Location
-src/backend/access/heap/heapam.c: 7787 - 7841
+[src/backend/access/heap/heapam.c:7787-7841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7787-L7841)
 
 ## Overview
 heap_tuple_needs_eventual_freeze determines whether a tuple contains transaction IDs that will eventually require freezing to prevent wraparound issues.

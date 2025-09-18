@@ -1,7 +1,7 @@
 # visibilitymap_pin
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 191 - 214
+[src/backend/access/heap/visibilitymap.c:191-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L191-L214)
 
 ## Overview
 Pins a visibility map page in memory to prepare for setting bits, handling I/O operations and buffer management required to access the correct map page.

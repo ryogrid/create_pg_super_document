@@ -1,7 +1,7 @@
 # getRightMostDot
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 750 - 767
+[src/interfaces/ecpg/compatlib/informix.c:750-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L750-L767)
 
 ## Overview
 A static utility function that finds and returns the position of the rightmost dot (decimal point) in a string, used for numeric formatting operations.

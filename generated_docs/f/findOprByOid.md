@@ -1,7 +1,7 @@
 # findOprByOid
 
 ## Location
-src/bin/pg_dump/common.c: 925 - 942
+[src/bin/pg_dump/common.c:925-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L925-L942)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL operator with the given OID, used in pg_dump operations for operator lookup during database dumping.

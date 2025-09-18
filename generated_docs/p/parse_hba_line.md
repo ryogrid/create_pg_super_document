@@ -1,7 +1,7 @@
 # parse_hba_line
 
 ## Location
-src/backend/libpq/hba.c: 1322 - 2048
+[src/backend/libpq/hba.c:1322-2048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1322-L2048)
 
 ## Overview
 Parses a tokenized line from the PostgreSQL host-based authentication (HBA) configuration file and converts it into a structured HbaLine representation.

@@ -1,7 +1,7 @@
 # element_match
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 725 - 739
+[src/backend/utils/adt/array_typanalyze.c:725-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L725-L739)
 
 ## Overview
 The element_match function serves as a matching function for hash table lookups, determining whether two array element keys are equal.

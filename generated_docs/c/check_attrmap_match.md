@@ -1,7 +1,7 @@
 # check_attrmap_match
 
 ## Location
-src/backend/access/common/attmap.c: 290 - 329
+[src/backend/access/common/attmap.c:290-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L290-L329)
 
 ## Overview
 Determines whether an attribute map represents a one-to-one match between input and output tuple descriptors, enabling optimization by skipping tuple conversion when possible.

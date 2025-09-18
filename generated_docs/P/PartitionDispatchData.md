@@ -1,7 +1,7 @@
 # PartitionDispatchData
 
 ## Location
-src/backend/executor/execPartition.c: 143 - 152
+[src/backend/executor/execPartition.c:143-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L143-L152)
 
 ## Overview
 PartitionDispatchData contains information about one partitioned table in a partition hierarchy required to route a tuple to any of its partitions, encapsulated within a PartitionTupleRouting structure.

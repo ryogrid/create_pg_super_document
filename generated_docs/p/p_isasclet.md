@@ -1,7 +1,7 @@
 # p_isasclet
 
 ## Location
-src/backend/tsearch/wparser_def.c: 499 - 504
+[src/backend/tsearch/wparser_def.c:499-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L499-L504)
 
 ## Overview
 A composite function that determines whether the current character in the parser is both a valid ASCII character and an alphabetic letter.

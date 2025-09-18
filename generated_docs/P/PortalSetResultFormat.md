@@ -1,7 +1,7 @@
 # PortalSetResultFormat
 
 ## Location
-src/backend/tcop/pquery.c: 623 - 685
+[src/backend/tcop/pquery.c:623-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L623-L685)
 
 ## Overview
 Selects and configures the output format codes for a portal's result columns based on client format requests from Bind message conventions.

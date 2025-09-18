@@ -1,7 +1,7 @@
 # LockHeldByMe
 
 ## Location
-src/backend/storage/lmgr/lock.c: 590 - 631
+[src/backend/storage/lmgr/lock.c:590-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L590-L631)
 
 ## Overview
 A function that tests whether the current transaction holds a specific lock, with optional checking for stronger lock modes.

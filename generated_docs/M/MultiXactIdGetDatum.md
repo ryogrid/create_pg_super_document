@@ -1,7 +1,7 @@
 # MultiXactIdGetDatum
 
 ## Location
-src/include/postgres.h: 282 - 291
+[src/include/postgres.h:282-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L282-L291)
 
 ## Overview
 MultiXactIdGetDatum is a static inline function that converts a multixact identifier (MultiXactId) value to its Datum representation, serving as a type conversion utility for PostgreSQL's multitransaction system.

@@ -1,7 +1,7 @@
 # to_chars
 
 ## Location
-src/common/f2s.c: 563 - 688
+[src/common/f2s.c:563-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L563-L688)
 
 ## Overview
 High-level function that converts a floating-point decimal representation to its complete string format, handling both fixed-point and scientific notation based on the exponent range.

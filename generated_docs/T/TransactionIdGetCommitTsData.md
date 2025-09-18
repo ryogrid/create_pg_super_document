@@ -1,7 +1,7 @@
 # TransactionIdGetCommitTsData
 
 ## Location
-src/backend/access/transam/commit_ts.c: 274 - 359
+[src/backend/access/transam/commit_ts.c:274-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L274-L359)
 
 ## Overview
 Retrieves the commit timestamp and replication origin information for a given transaction ID, with optimizations for cached values and comprehensive validation.

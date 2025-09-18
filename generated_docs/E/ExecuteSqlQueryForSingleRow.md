@@ -1,7 +1,7 @@
 # ExecuteSqlQueryForSingleRow
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 305 - 327
+[src/bin/pg_dump/pg_backup_db.c:305-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L305-L327)
 
 ## Overview
 A specialized utility function in pg_dump that executes SQL queries expected to return exactly one row, with automatic validation and error reporting.

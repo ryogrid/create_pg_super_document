@@ -1,7 +1,7 @@
 # timestamp_part
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5611 - 5616
+[src/backend/utils/adt/timestamp.c:5611-5616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5611-L5616)
 
 ## Overview
 A PostgreSQL function that extracts specified date/time fields from timestamp values, serving as a wrapper around the internal  function.

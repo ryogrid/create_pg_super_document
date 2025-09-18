@@ -1,7 +1,7 @@
 # poly_to_circle
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5285 - 5306
+[src/backend/utils/adt/geo_ops.c:5285-5306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5285-L5306)
 
 ## Overview
 Converts a polygon to its approximate equivalent circle by calculating the centroid as the center and the average distance from vertices to center as the radius.

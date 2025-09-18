@@ -1,7 +1,7 @@
 # FreePageManagerGetInternal
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1319 - 1475
+[src/backend/utils/mmgr/freepage.c:1319-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1319-L1475)
 
 ## Overview
 The core allocation function that finds and allocates a contiguous run of pages from the Free Page Manager using a best-fit strategy across multiple freelists.

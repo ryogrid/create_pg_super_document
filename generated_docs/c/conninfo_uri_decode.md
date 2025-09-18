@@ -1,7 +1,7 @@
 # conninfo_uri_decode
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6749 - 6816
+[src/interfaces/libpq/fe-connect.c:6749-6816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6749-L6816)
 
 ## Overview
 Decodes percent-encoded URI strings by converting %xy hexadecimal sequences to their corresponding characters while preserving non-encoded characters.

@@ -1,7 +1,7 @@
 # tuplesort_begin_index_hash
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 437 - 489
+[src/backend/utils/sort/tuplesortvariants.c:437-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L437-L489)
 
 ## Overview
 Initializes a Tuplesortstate for sorting hash index tuples during hash index creation, organizing tuples by hash codes for efficient bucket distribution.

@@ -1,7 +1,7 @@
 # contain_mutable_functions_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 382 - 489
+[src/backend/optimizer/util/clauses.c:382-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L382-L489)
 
 ## Overview
 A recursive walker function that traverses expression trees to detect mutable (non-immutable) functions, supporting PostgreSQL's query optimization by identifying expressions that cannot be treated as constants.

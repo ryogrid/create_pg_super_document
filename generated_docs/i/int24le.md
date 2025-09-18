@@ -1,7 +1,7 @@
 # int24le
 
 ## Location
-src/backend/utils/adt/int.c: 531 - 539
+[src/backend/utils/adt/int.c:531-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L531-L539)
 
 ## Overview
 Compares a 16-bit signed integer (int2) with a 32-bit signed integer (int4) for less-than-or-equal relationship, returning true if the first value is less than or equal to the second.

@@ -1,7 +1,7 @@
 # timetypmodout
 
 ## Location
-src/backend/utils/adt/date.c: 1566 - 1576
+[src/backend/utils/adt/date.c:1566-1576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1566-L1576)
 
 ## Overview
 Converts internal typmod representation back to human-readable string format for the TIME data type.

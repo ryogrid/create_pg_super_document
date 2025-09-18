@@ -1,7 +1,7 @@
 # ReorderBufferIterTXNEntry
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 158 - 165
+[src/backend/replication/logical/reorderbuffer.c:158-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L158-L165)
 
 ## Overview
 ReorderBufferIterTXNEntry is a structure that supports k-way in-order iteration of transaction changes, containing all necessary information to track and iterate through changes from a specific transaction.

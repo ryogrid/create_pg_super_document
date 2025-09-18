@@ -1,7 +1,7 @@
 # validate_compress_specification
 
 ## Location
-src/common/compression.c: 344 - 425
+[src/common/compression.c:344-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L344-L425)
 
 ## Overview
 Validates a parsed compression specification to ensure it is semantically correct and uses appropriate parameters for the specified compression algorithm.

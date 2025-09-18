@@ -1,7 +1,7 @@
 # pglz_decompress_datum
 
 ## Location
-src/backend/access/common/toast_compression.c: 82 - 108
+[src/backend/access/common/toast_compression.c:82-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L82-L108)
 
 ## Overview
 Decompresses a varlena data structure that was previously compressed using the PGLZ compression algorithm, restoring the original uncompressed data.

@@ -1,7 +1,7 @@
 # fixed_paramref_hook
 
 ## Location
-src/backend/parser/parse_param.c: 99 - 130
+[src/backend/parser/parse_param.c:99-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L99-L130)
 
 ## Overview
 A callback function that transforms ParamRef nodes into Param nodes during query parsing when working with fixed parameters of predetermined types.

@@ -1,7 +1,7 @@
 # GenerationContextCreate
 
 ## Location
-src/backend/utils/mmgr/generation.c: 160 - 282
+[src/backend/utils/mmgr/generation.c:160-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L160-L282)
 
 ## Overview
 Creates a new Generation memory context, which is a specialized memory management context that organizes memory into contiguous blocks for efficient allocation and deallocation patterns.

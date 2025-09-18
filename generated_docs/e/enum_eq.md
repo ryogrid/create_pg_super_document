@@ -1,7 +1,7 @@
 # enum_eq
 
 ## Location
-src/backend/utils/adt/enum.c: 324 - 332
+[src/backend/utils/adt/enum.c:324-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L324-L332)
 
 ## Overview
 PostgreSQL built-in function that implements the equality comparison operator (=) for enum data types using direct OID comparison.

@@ -1,7 +1,7 @@
 # RelationDropStorage
 
 ## Location
-src/backend/catalog/storage.c: 206 - 250
+[src/backend/catalog/storage.c:206-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L206-L250)
 
 ## Overview
 RelationDropStorage schedules the physical deletion of relation storage files at transaction commit time, ensuring proper cleanup while maintaining transaction safety.

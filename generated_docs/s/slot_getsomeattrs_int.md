@@ -1,7 +1,7 @@
 # slot_getsomeattrs_int
 
 ## Location
-src/backend/executor/execTuples.c: 1989 - 2024
+[src/backend/executor/execTuples.c:1989-2024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1989-L2024)
 
 ## Overview
 Internal workhorse function that ensures a TupleTableSlot has valid values for all attributes up to a specified attribute number, filling in missing attributes as needed.

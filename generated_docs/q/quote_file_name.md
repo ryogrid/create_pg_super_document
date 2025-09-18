@@ -1,7 +1,7 @@
 # quote_file_name
 
 ## Location
-src/bin/psql/tab-complete.c: 6416 - 6476
+[src/bin/psql/tab-complete.c:6416-6476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L6416-L6476)
 
 ## Overview
 Quotes a filename according to SQL rules for tab completion in psql, returning a malloc'd string that handles proper escaping and quote management.

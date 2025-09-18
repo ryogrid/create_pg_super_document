@@ -1,7 +1,7 @@
 # mdsyncfiletag
 
 ## Location
-src/backend/storage/smgr/md.c: 1748 - 1800
+[src/backend/storage/smgr/md.c:1748-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1748-L1800)
 
 ## Overview
 Sync a file to disk using a file tag, providing the file path for error reporting purposes.

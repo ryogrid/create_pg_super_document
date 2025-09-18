@@ -1,7 +1,7 @@
 # MultiSortSupportData
 
 ## Location
-src/include/statistics/extended_stats_internal.h: 44 - 49
+[src/include/statistics/extended_stats_internal.h:44-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/extended_stats_internal.h#L44-L49)
 
 ## Overview
 MultiSortSupportData is a structure that provides multi-dimensional sorting support for PostgreSQL's extended statistics, containing sort support data for multiple dimensions simultaneously.

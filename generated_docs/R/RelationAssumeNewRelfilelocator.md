@@ -1,7 +1,7 @@
 # RelationAssumeNewRelfilelocator
 
 ## Location
-src/backend/utils/cache/relcache.c: 3971 - 3993
+[src/backend/utils/cache/relcache.c:3971-3993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3971-L3993)
 
 ## Overview
 RelationAssumeNewRelfilelocator notifies the relation cache that a relation has received a new RelFileLocator, ensuring proper WAL ordering and transaction cleanup tracking.

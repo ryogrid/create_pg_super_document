@@ -1,7 +1,7 @@
 # check_of_type
 
 ## Location
-src/backend/commands/tablecmds.c: 6945 - 6987
+[src/backend/commands/tablecmds.c:6945-6987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6945-L6987)
 
 ## Overview
 Validates that a type is suitable for use with CREATE TABLE OF or ALTER TABLE OF by ensuring it's a composite type created with CREATE TYPE AS.

@@ -1,7 +1,7 @@
 # spgInnerTest
 
 ## Location
-src/backend/access/spgist/spgscan.c: 667 - 745
+[src/backend/access/spgist/spgscan.c:667-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L667-L745)
 
 ## Overview
 Tests an inner tuple using the opclass-specific inner_consistent method and creates search items for child nodes that should be visited during SP-GiST index traversal.

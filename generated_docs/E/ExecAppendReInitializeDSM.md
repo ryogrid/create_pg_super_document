@@ -1,7 +1,7 @@
 # ExecAppendReInitializeDSM
 
 ## Location
-src/backend/executor/nodeAppend.c: 524 - 539
+[src/backend/executor/nodeAppend.c:524-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L524-L539)
 
 ## Overview
 Resets the shared memory state of a parallel Append node to prepare for a fresh scan, clearing execution progress indicators.

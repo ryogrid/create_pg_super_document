@@ -1,7 +1,7 @@
 # deconstruct_expanded_record
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 952 - 1016
+[src/backend/utils/adt/expandedrecord.c:952-1016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L952-L1016)
 
 ## Overview
 Creates or validates the Datum/isnull array representation of an expanded record object, enabling direct access to individual field values without using accessor functions.

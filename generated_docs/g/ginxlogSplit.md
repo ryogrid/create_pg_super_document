@@ -1,7 +1,7 @@
 # ginxlogSplit
 
 ## Location
-src/include/access/ginxlog.h: 111 - 119
+[src/include/access/ginxlog.h:111-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L111-L119)
 
 ## Overview
 Structure used for WAL (Write-Ahead Logging) record when splitting pages in a GIN index B-tree structure.

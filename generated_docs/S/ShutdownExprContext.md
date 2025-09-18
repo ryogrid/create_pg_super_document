@@ -1,7 +1,7 @@
 # ShutdownExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 954 - 994
+[src/backend/executor/execUtils.c:954-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L954-L994)
 
 ## Overview
 ShutdownExprContext executes all registered shutdown callback functions in an ExprContext and cleans up the callback list, providing controlled cleanup of resources associated with expression evaluation.

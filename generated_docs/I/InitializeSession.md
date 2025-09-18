@@ -1,7 +1,7 @@
 # InitializeSession
 
 ## Location
-src/backend/access/common/session.c: 54 - 69
+[src/backend/access/common/session.c:54-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/session.c#L54-L69)
 
 ## Overview
 Initializes the current backend's session by allocating memory for an empty Session object and setting up the global CurrentSession pointer.

@@ -1,7 +1,7 @@
 # jit_compile_expr
 
 ## Location
-src/backend/jit/jit.c: 151 - 181
+[src/backend/jit/jit.c:151-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/jit.c#L151-L181)
 
 ## Overview
 A function that attempts to JIT compile a PostgreSQL expression, checking various prerequisites and delegating the actual compilation to the JIT provider.

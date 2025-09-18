@@ -1,7 +1,7 @@
 # CheckPWChallengeAuth
 
 ## Location
-src/backend/libpq/auth.c: 830 - 889
+[src/backend/libpq/auth.c:830-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L830-L889)
 
 ## Overview
 CheckPWChallengeAuth implements challenge-response authentication mechanisms for PostgreSQL, supporting both MD5 and SCRAM-SHA-256 authentication methods based on the user's stored password type.

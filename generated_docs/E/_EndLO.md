@@ -1,7 +1,7 @@
 # _EndLO
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 391 - 405
+[src/bin/pg_dump/pg_backup_custom.c:391-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L391-L405)
 
 ## Overview
 This function is called by the PostgreSQL archiver when the dumper calls EndLO, marking the completion of a large object dump operation in the custom archive format.

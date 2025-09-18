@@ -1,7 +1,7 @@
 # ClearOldPredicateLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3687 - 3824
+[src/backend/storage/lmgr/predicate.c:3687-3824](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3687-L3824)
 
 ## Overview
 Cleans up old predicate locks belonging to committed transactions that are no longer relevant to any in-progress transactions, managing the lifecycle of serializable transaction state.

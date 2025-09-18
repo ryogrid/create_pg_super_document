@@ -1,7 +1,7 @@
 # macaddr_cmp_internal
 
 ## Location
-src/backend/utils/adt/mac.c: 182 - 196
+[src/backend/utils/adt/mac.c:182-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L182-L196)
 
 ## Overview
 This static function provides the core comparison logic for MAC addresses, comparing them lexicographically by treating them as two 24-bit integers (high and low portions).

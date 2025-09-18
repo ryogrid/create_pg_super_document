@@ -1,7 +1,7 @@
 # complex_recv
 
 ## Location
-src/tutorial/complex.c: 71 - 84
+[src/tutorial/complex.c:71-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L71-L84)
 
 ## Overview
 Binary input function for the  data type that deserializes a complex number from PostgreSQL's binary message format.

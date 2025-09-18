@@ -1,7 +1,7 @@
 # reindex_one_database
 
 ## Location
-src/bin/scripts/reindexdb.c: 275 - 505
+[src/bin/scripts/reindexdb.c:275-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/reindexdb.c#L275-L505)
 
 ## Overview
 Performs reindex operations on a single database, handling both serial and parallel execution modes for different object types (database, schema, table, index, system).

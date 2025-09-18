@@ -1,7 +1,7 @@
 # SerialIOData
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 30 - 33
+[src/backend/utils/adt/array_userfuncs.c:30-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L30-L33)
 
 ## Overview
 SerialIOData is a structure used for caching element-type data during array aggregation serialization to optimize performance by avoiding repeated catalog lookups.

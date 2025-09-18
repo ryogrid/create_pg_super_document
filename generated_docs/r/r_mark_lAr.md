@@ -1,7 +1,7 @@
 # r_mark_lAr
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 828 - 836
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:828-836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L828-L836)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the suffix "lAr" (meaning "they" or plural marker) and its variations, used in Turkish morphological analysis for both nominal and verbal conjugations.

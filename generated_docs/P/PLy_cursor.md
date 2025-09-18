@@ -1,7 +1,7 @@
 # PLy_cursor
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 58 - 77
+[src/pl/plpython/plpy_cursorobject.c:58-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L58-L77)
 
 ## Overview
 Main entry point function for creating PL/Python cursor objects from either SQL query strings or prepared plan objects.

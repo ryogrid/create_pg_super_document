@@ -1,7 +1,7 @@
 # findOwningExtension
 
 ## Location
-src/bin/pg_dump/common.c: 1076 - 1099
+[src/bin/pg_dump/common.c:1076-1099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L1076-L1099)
 
 ## Overview
 Finds the owning extension for a specified catalog object ID in pg_dump, returning NULL if the object is not owned by any extension.

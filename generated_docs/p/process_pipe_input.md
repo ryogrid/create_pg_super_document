@@ -1,7 +1,7 @@
 # process_pipe_input
 
 ## Location
-src/backend/postmaster/syslogger.c: 880 - 1042
+[src/backend/postmaster/syslogger.c:880-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L880-L1042)
 
 ## Overview
 process_pipe_input processes data received through the syslogger pipe, implementing a chunked protocol to reassemble log messages from multiple backends while avoiding partial writes and message interleaving.

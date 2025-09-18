@@ -1,7 +1,7 @@
 # transformAssignmentSubscripts
 
 ## Location
-src/backend/parser/parse_target.c: 903 - 1014
+[src/backend/parser/parse_target.c:903-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L903-L1014)
 
 ## Overview
 Helper function for transformAssignmentIndirection that specifically processes container assignment operations involving array subscripts and container element assignments.

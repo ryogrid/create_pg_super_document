@@ -1,7 +1,7 @@
 # write_eventlog
 
 ## Location
-src/backend/utils/error/elog.c: 2486 - 2575
+[src/backend/utils/error/elog.c:2486-2575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2486-L2575)
 
 ## Overview
 The write_eventlog function writes PostgreSQL log messages to the Windows Event Log, handling character encoding conversion and mapping PostgreSQL log levels to Windows event types.

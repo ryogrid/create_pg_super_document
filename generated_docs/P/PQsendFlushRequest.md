@@ -1,7 +1,7 @@
 # PQsendFlushRequest
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3371 - 3410
+[src/interfaces/libpq/fe-exec.c:3371-3410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3371-L3410)
 
 ## Overview
 PQsendFlushRequest sends a flush request to the PostgreSQL server to force it to flush its output buffer, particularly useful in pipeline mode when a sync point is not desired.

@@ -1,7 +1,7 @@
 # keyGetItem
 
 ## Location
-src/backend/access/gin/ginget.c: 992 - 1286
+[src/backend/access/gin/ginget.c:992-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L992-L1286)
 
 ## Overview
 Identifies the current minimum item among entry streams for a GIN scan key, advances all streams past a specified position, and evaluates whether the current item satisfies the scan key's consistency conditions.

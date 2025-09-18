@@ -1,7 +1,7 @@
 # spgGetNextQueueItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 746 - 754
+[src/backend/access/spgist/spgscan.c:746-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L746-L754)
 
 ## Overview
 Retrieves the next item from an ordered scan queue during SP-GiST index scanning, returning NULL when the index is exhausted.

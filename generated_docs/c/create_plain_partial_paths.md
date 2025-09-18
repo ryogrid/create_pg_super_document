@@ -1,7 +1,7 @@
 # create_plain_partial_paths
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 794 - 813
+[src/backend/optimizer/path/allpaths.c:794-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L794-L813)
 
 ## Overview
 Creates parallel sequential scan paths for plain base relations by determining the optimal number of parallel workers and generating corresponding partial paths.

@@ -1,7 +1,7 @@
 # fmAggrefPtr
 
 ## Location
-src/include/fmgr.h: 23 - 28
+[src/include/fmgr.h:23-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fmgr.h#L23-L28)
 
 ## Overview
 fmAggrefPtr is a typedef that represents a pointer to an Aggref structure, used as a stub reference in the function manager system to avoid including primnodes.h.

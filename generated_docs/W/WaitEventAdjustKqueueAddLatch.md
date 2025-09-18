@@ -1,7 +1,7 @@
 # WaitEventAdjustKqueueAddLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 1248 - 1262
+[src/backend/storage/ipc/latch.c:1248-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1248-L1262)
 
 ## Overview
 A static inline function that configures a kevent structure to monitor latch signaling events using the SIGURG signal through the kqueue EVFILT_SIGNAL filter.

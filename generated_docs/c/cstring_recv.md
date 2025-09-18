@@ -1,7 +1,7 @@
 # cstring_recv
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 123 - 133
+[src/backend/utils/adt/pseudotypes.c:123-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L123-L133)
 
 ## Overview
 The `cstring_recv` function is a binary input (receive) conversion function for the `cstring` pseudo-type in PostgreSQL, deserializing cstring data from PostgreSQL's binary protocol format.

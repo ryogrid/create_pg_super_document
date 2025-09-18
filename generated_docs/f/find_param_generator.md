@@ -1,7 +1,7 @@
 # find_param_generator
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8276 - 8372
+[src/backend/utils/adt/ruleutils.c:8276-8372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8276-L8372)
 
 ## Overview
 Searches for a subplan or initplan that generates the value for a PARAM_EXEC parameter in PostgreSQL's query execution tree.

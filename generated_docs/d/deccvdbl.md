@@ -1,7 +1,7 @@
 # deccvdbl
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 246 - 267
+[src/interfaces/ecpg/compatlib/informix.c:246-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L246-L267)
 
 ## Overview
 Converts a double-precision floating-point value to a decimal data type, providing Informix-compatible decimal conversion functionality in PostgreSQL ECPG.

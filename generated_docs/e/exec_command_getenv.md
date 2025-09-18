@@ -1,7 +1,7 @@
 # exec_command_getenv
 
 ## Location
-src/bin/psql/command.c: 1580 - 1616
+[src/bin/psql/command.c:1580-1616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1580-L1616)
 
 ## Overview
 Implements the \getenv command in psql, which retrieves a value from an environment variable and stores it in a psql variable.

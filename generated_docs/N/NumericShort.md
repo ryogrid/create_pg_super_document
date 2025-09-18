@@ -1,7 +1,7 @@
 # NumericShort
 
 ## Location
-src/backend/utils/adt/numeric.c: 133 - 138
+[src/backend/utils/adt/numeric.c:133-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L133-L138)
 
 ## Overview
 NumericShort represents the compact storage format for PostgreSQL numeric values that can be represented with fewer bytes by embedding the sign, display scale, and weight directly in the header.

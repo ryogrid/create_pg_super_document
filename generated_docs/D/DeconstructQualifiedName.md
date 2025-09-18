@@ -1,7 +1,7 @@
 # DeconstructQualifiedName
 
 ## Location
-src/backend/catalog/namespace.c: 3301 - 3354
+[src/backend/catalog/namespace.c:3301-3354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3301-L3354)
 
 ## Overview
 Parses a possibly-qualified name expressed as a list of String nodes and extracts the schema name and object name components.

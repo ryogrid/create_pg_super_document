@@ -1,7 +1,7 @@
 # pq_puttextmessage
 
 ## Location
-src/backend/libpq/pqformat.c: 367 - 387
+[src/backend/libpq/pqformat.c:367-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L367-L387)
 
 ## Overview
 Generates and sends a character set-converted message to the client in a single step, handling encoding conversion automatically.

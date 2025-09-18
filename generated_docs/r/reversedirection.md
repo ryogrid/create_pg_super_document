@@ -1,7 +1,7 @@
 # reversedirection
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2876 - 2893
+[src/backend/utils/sort/tuplesort.c:2876-2893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2876-L2893)
 
 ## Overview
 Reverses the sort direction for all sort keys in a Tuplesortstate, switching between ascending and descending order as well as null ordering preferences.

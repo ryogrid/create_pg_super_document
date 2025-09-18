@@ -1,7 +1,7 @@
 # bbsink_gzip_end_archive
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 225 - 277
+[src/backend/backup/basebackup_gzip.c:225-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L225-L277)
 
 ## Overview
 Finalizes the gzip compression process by flushing any remaining data from zlib's internal buffers and signaling the end of the current archive to the next sink in the chain.

@@ -1,7 +1,7 @@
 # DetachSession
 
 ## Location
-src/backend/access/common/session.c: 201 - 208
+[src/backend/access/common/session.c:201-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/session.c#L201-L208)
 
 ## Overview
 Detaches the current backend from the session DSM segment, cleaning up shared memory resources and running detach hooks.

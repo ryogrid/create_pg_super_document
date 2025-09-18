@@ -1,7 +1,7 @@
 # overpaid
 
 ## Location
-src/test/regress/regress.c: 142 - 162
+[src/test/regress/regress.c:142-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L142-L162)
 
 ## Overview
 The overpaid function is a user-defined PostgreSQL function that determines whether an employee is overpaid by checking if their salary exceeds 699.

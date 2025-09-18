@@ -1,7 +1,7 @@
 # table_tuple_get_latest_tid
 
 ## Location
-src/backend/access/table/tableam.c: 236 - 276
+[src/backend/access/table/tableam.c:236-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L236-L276)
 
 ## Overview
 Retrieves the latest tuple identifier (TID) for a given TID, following any tuple update chains or redirections to find the current version.

@@ -1,7 +1,7 @@
 # date2timestamp
 
 ## Location
-src/backend/utils/adt/date.c: 608 - 623
+[src/backend/utils/adt/date.c:608-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L608-L623)
 
 ## Overview
 A wrapper function that converts a DateADT value to a Timestamp, throwing an error if the conversion would result in overflow.

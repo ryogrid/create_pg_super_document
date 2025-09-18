@@ -1,7 +1,7 @@
 # getOidListDiff
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 421 - 490
+[src/backend/catalog/pg_shdepend.c:421-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L421-L490)
 
 ## Overview
 A helper function that computes the difference between two sorted OID arrays, removing common elements and leaving only those unique to each array.

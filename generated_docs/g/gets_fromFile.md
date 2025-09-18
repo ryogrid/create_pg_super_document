@@ -1,7 +1,7 @@
 # gets_fromFile
 
 ## Location
-src/bin/psql/input.c: 186 - 276
+[src/bin/psql/input.c:186-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L186-L276)
 
 ## Overview
 Reads a complete line of non-interactive input from a file (including stdin), handling multi-chunk reads and proper memory management with SIGINT safety.

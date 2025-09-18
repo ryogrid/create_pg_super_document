@@ -1,7 +1,7 @@
 # shdepReassignOwned_Owner
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1647 - 1733
+[src/backend/catalog/pg_shdepend.c:1647-1733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1647-L1733)
 
 ## Overview
 A static helper function that handles ownership reassignment for SHARED_DEPENDENCY_OWNER entries by dispatching to appropriate ALTER OWNER functions based on object class.

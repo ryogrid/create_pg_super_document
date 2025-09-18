@@ -1,7 +1,7 @@
 # _bt_bottomupdel_pass
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 307 - 432
+[src/backend/access/nbtree/nbtdedup.c:307-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L307-L432)
 
 ## Overview
 Performs bottom-up index deletion to remove duplicate index tuples and nearby tuples that correspond to deleted heap tuples, aiming to prevent unnecessary page splits caused by MVCC version churn.

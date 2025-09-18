@@ -1,7 +1,7 @@
 # pg_get_keywords
 
 ## Location
-src/backend/utils/adt/misc.c: 418 - 495
+[src/backend/utils/adt/misc.c:418-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L418-L495)
 
 ## Overview
 Returns information about all SQL grammar keywords recognized by PostgreSQL, including their reservation status and label usage rules.

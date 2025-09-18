@@ -1,7 +1,7 @@
 # PLy_procedure_delete
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 403 - 414
+[src/pl/plpython/plpy_procedure.c:403-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L403-L414)
 
 ## Overview
 PLy_procedure_delete is a cleanup function that deallocates memory and resources associated with a PLyProcedure object in PostgreSQL's PL/Python procedural language.

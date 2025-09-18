@@ -1,7 +1,7 @@
 # pg_GSS_startup
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 161 - 198
+[src/interfaces/libpq/fe-auth.c:161-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L161-L198)
 
 ## Overview
 Initiates GSS authentication by setting up the initial context and delegating to the continuation function for the first authentication exchange.

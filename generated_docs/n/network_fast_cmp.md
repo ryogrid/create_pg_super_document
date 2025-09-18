@@ -1,7 +1,7 @@
 # network_fast_cmp
 
 ## Location
-src/backend/utils/adt/network.c: 473 - 487
+[src/backend/utils/adt/network.c:473-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L473-L487)
 
 ## Overview
 Optimized comparison function specifically designed for PostgreSQL's SortSupport system to provide fast network address comparisons during sorting operations.

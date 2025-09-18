@@ -1,7 +1,7 @@
 # get_range_key_properties
 
 ## Location
-src/backend/partitioning/partbounds.c: 4632 - 4675
+[src/backend/partitioning/partbounds.c:4632-4675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L4632-L4675)
 
 ## Overview
 Extracts and constructs partition key expressions and bound values for a specific column in range partition constraint generation.

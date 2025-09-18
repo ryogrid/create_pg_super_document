@@ -1,7 +1,7 @@
 # getLOs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3676 - 3813
+[src/bin/pg_dump/pg_dump.c:3676-3813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3676-L3813)
 
 ## Overview
 The  function collects schema-level metadata about large objects (BLOBs) from the database and creates DumpableObject structures for efficient dumping and restoration.

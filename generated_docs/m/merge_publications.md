@@ -1,7 +1,7 @@
 # merge_publications
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2332 - 2390
+[src/backend/commands/subscriptioncmds.c:2332-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2332-L2390)
 
 ## Overview
 Merges current subscription's publications with user-specified publications for ADD/DROP PUBLICATIONS operations, ensuring proper validation and consistency.

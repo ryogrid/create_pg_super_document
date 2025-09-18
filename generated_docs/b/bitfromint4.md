@@ -1,7 +1,7 @@
 # bitfromint4
 
 ## Location
-src/backend/utils/adt/varbit.c: 1531 - 1585
+[src/backend/utils/adt/varbit.c:1531-1585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1531-L1585)
 
 ## Overview
 Converts a 32-bit integer to a variable-length bit string representation, preserving the natural bit ordering.

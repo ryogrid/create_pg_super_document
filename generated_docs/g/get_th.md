@@ -1,7 +1,7 @@
 # get_th
 
 ## Location
-src/backend/utils/adt/formatting.c: 1516 - 1560
+[src/backend/utils/adt/formatting.c:1516-1560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1516-L1560)
 
 ## Overview
 A utility function that returns the appropriate ordinal suffix (ST/ND/RD/TH) for numbers, supporting both uppercase and lowercase variants based on English ordinal number rules.

@@ -1,7 +1,7 @@
 # Int64GetDatum
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1807 - 1815
+[src/backend/utils/fmgr/fmgr.c:1807-1815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1807-L1815)
 
 ## Overview
 Int64GetDatum converts a 64-bit integer value to a PostgreSQL Datum representation, handling the memory allocation required when 64-bit integers are passed by reference.

@@ -1,7 +1,7 @@
 # AddInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 291 - 330
+[src/backend/utils/cache/inval.c:291-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L291-L330)
 
 ## Overview
 AddInvalidationMessage is a static function that adds an invalidation message to a specified subgroup within an invalidation message group, managing dynamic memory allocation for message storage arrays.

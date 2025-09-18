@@ -1,7 +1,7 @@
 # toast_close_indexes
 
 ## Location
-src/backend/access/common/toast_internals.c: 623 - 640
+[src/backend/access/common/toast_internals.c:623-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L623-L640)
 
 ## Overview
 Closes an array of TOAST indexes and frees the associated memory, designed to be used as the cleanup companion to toast_open_indexes.

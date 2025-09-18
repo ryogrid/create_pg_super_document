@@ -1,7 +1,7 @@
 # macaddr_send
 
 ## Location
-src/backend/utils/adt/mac.c: 161 - 181
+[src/backend/utils/adt/mac.c:161-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L161-L181)
 
 ## Overview
 This function converts PostgreSQL's internal macaddr data type to external binary format for transmission over the network protocol.

@@ -1,7 +1,7 @@
 # hashfloat4
 
 ## Location
-src/backend/access/hash/hashfunc.c: 140 - 175
+[src/backend/access/hash/hashfunc.c:140-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L140-L175)
 
 ## Overview
 A PostgreSQL hash function for 4-byte floating-point values that handles special cases like zero, negative zero, and NaN values while ensuring cross-type compatibility with float8 hashing.

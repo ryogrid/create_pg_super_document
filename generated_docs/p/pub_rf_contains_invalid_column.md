@@ -1,7 +1,7 @@
 # pub_rf_contains_invalid_column
 
 ## Location
-src/backend/commands/publicationcmds.c: 258 - 333
+[src/backend/commands/publicationcmds.c:258-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L258-L333)
 
 ## Overview
 Validates whether a publication's row filter expression references only columns that are part of the table's REPLICA IDENTITY.

@@ -1,7 +1,7 @@
 # file_line_count
 
 ## Location
-src/test/regress/pg_regress.c: 1281 - 1301
+[src/test/regress/pg_regress.c:1281-1301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1281-L1301)
 
 ## Overview
 A utility function that counts the number of lines in a specified file by reading through it character by character.

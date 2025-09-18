@@ -1,7 +1,7 @@
 # convert_and_check_filename
 
 ## Location
-src/backend/utils/adt/genfile.c: 54 - 102
+[src/backend/utils/adt/genfile.c:54-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L54-L102)
 
 ## Overview
 Converts a text filename argument to a C string and validates it's allowable for file access based on security policies and user privileges.

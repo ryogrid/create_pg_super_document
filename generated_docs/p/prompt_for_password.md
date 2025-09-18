@@ -1,7 +1,7 @@
 # prompt_for_password
 
 ## Location
-src/bin/psql/command.c: 3335 - 3362
+[src/bin/psql/command.c:3335-3362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3335-L3362)
 
 ## Overview
 Prompts the user for a password with proper signal handling and optional username context, returning a malloc'd string.

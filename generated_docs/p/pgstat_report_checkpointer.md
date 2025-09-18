@@ -1,7 +1,7 @@
 # pgstat_report_checkpointer
 
 ## Location
-src/backend/utils/activity/pgstat_checkpointer.c: 30 - 48
+[src/backend/utils/activity/pgstat_checkpointer.c:30-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_checkpointer.c#L30-L48)
 
 ## Overview
 Reports checkpointer and IO statistics by transferring accumulated statistics from local buffers to shared memory for system-wide visibility.

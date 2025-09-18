@@ -1,7 +1,7 @@
 # ClearOrSaveResult
 
 ## Location
-src/bin/psql/common.c: 523 - 546
+[src/bin/psql/common.c:523-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L523-L546)
 
 ## Overview
 ClearOrSaveResult manages PGresult memory by either saving error results for later display via \errverbose or immediately clearing successful results.

@@ -1,7 +1,7 @@
 # IsSharedRelation
 
 ## Location
-src/backend/catalog/catalog.c: 273 - 342
+[src/backend/catalog/catalog.c:273-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L273-L342)
 
 ## Overview
 IsSharedRelation determines whether a given relation (identified by OID) is supposed to be shared across an entire PostgreSQL database cluster.

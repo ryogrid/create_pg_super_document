@@ -1,7 +1,7 @@
 # JsonPathString
 
 ## Location
-src/backend/utils/adt/jsonpath_internal.h: 18 - 23
+[src/backend/utils/adt/jsonpath_internal.h:18-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_internal.h#L18-L23)
 
 ## Overview
 A utility structure used by the PostgreSQL jsonpath lexical scanner and parser to efficiently manage dynamic string buffers during tokenization.

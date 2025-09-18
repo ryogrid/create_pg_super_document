@@ -1,7 +1,7 @@
 # RelationPutHeapTuple
 
 ## Location
-src/backend/access/heap/hio.c: 35 - 87
+[src/backend/access/heap/hio.c:35-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/hio.c#L35-L87)
 
 ## Overview
 RelationPutHeapTuple places a heap tuple at a specified page in a PostgreSQL buffer, handling the physical insertion of tuple data into heap pages with proper offset tracking and CTID management.

@@ -1,7 +1,7 @@
 # window_first_value
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 649 - 669
+[src/backend/utils/adt/windowfuncs.c:649-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L649-L669)
 
 ## Overview
 Implements the SQL window function FIRST_VALUE(), which returns the value of the specified expression evaluated at the first row of the window frame.

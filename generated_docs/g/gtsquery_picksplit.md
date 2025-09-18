@@ -1,7 +1,7 @@
 # gtsquery_picksplit
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 167 - 272
+[src/backend/utils/adt/tsquery_gist.c:167-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L167-L272)
 
 ## Overview
 A GiST picksplit function for TSQuery indexes that implements the node splitting algorithm by finding optimal seeds and distributing entries based on Hamming distance calculations to maintain index efficiency.

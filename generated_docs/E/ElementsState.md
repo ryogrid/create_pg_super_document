@@ -1,7 +1,7 @@
 # ElementsState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 121 - 132
+[src/backend/utils/adt/jsonfuncs.c:121-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L121-L132)
 
 ## Overview
 ElementsState is a structure that maintains state information for the json_array_elements functionality, which is used to extract individual elements from JSON arrays.

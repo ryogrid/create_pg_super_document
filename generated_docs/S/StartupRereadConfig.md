@@ -1,7 +1,7 @@
 # StartupRereadConfig
 
 ## Location
-src/backend/postmaster/startup.c: 125 - 153
+[src/backend/postmaster/startup.c:125-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L125-L153)
 
 ## Overview
 Reloads the PostgreSQL configuration file and restarts the WAL receiver if critical walreceiver options have changed during recovery operations.

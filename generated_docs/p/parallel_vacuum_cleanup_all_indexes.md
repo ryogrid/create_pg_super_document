@@ -1,7 +1,7 @@
 # parallel_vacuum_cleanup_all_indexes
 
 ## Location
-src/backend/commands/vacuumparallel.c: 517 - 546
+[src/backend/commands/vacuumparallel.c:517-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L517-L546)
 
 ## Overview
 This function performs parallel index cleanup using parallel workers during the cleanup phase of vacuum operations.

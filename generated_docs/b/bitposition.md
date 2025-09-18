@@ -1,7 +1,7 @@
 # bitposition
 
 ## Location
-src/backend/utils/adt/varbit.c: 1698 - 1806
+[src/backend/utils/adt/varbit.c:1698-1806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1698-L1806)
 
 ## Overview
 Finds the position of a substring within a PostgreSQL bit string, returning a 1-based index or 0 if not found.

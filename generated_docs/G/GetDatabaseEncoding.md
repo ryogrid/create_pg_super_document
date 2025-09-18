@@ -1,7 +1,7 @@
 # GetDatabaseEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1261 - 1266
+[src/backend/utils/mb/mbutils.c:1261-1266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1261-L1266)
 
 ## Overview
 Returns the encoding identifier for the current database, representing the encoding used for storing text-like data types in the database.

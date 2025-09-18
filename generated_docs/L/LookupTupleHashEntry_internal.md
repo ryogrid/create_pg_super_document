@@ -1,7 +1,7 @@
 # LookupTupleHashEntry_internal
 
 ## Location
-src/backend/executor/execGrouping.c: 494 - 534
+[src/backend/executor/execGrouping.c:494-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L494-L534)
 
 ## Overview
 Internal helper function that performs the core work of tuple hash table lookup and insertion operations, designed to minimize memory context switching overhead.

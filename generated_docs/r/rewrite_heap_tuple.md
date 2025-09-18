@@ -1,7 +1,7 @@
 # rewrite_heap_tuple
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 341 - 542
+[src/backend/access/heap/rewriteheap.c:341-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L341-L542)
 
 ## Overview
 Rewrites and inserts a tuple into the new heap during a table rewrite operation, handling tuple visibility information, update chains, and cross-references between old and new tuple locations.

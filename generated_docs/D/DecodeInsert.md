@@ -1,7 +1,7 @@
 # DecodeInsert
 
 ## Location
-src/backend/replication/logical/decode.c: 906 - 964
+[src/backend/replication/logical/decode.c:906-964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L906-L964)
 
 ## Overview
 DecodeInsert processes HEAP_INSERT WAL records in PostgreSQL's logical replication, extracting insert operations and converting them into reorder buffer changes for logical decoding output.

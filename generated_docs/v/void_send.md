@@ -1,7 +1,7 @@
 # void_send
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 285 - 302
+[src/backend/utils/adt/pseudotypes.c:285-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L285-L302)
 
 ## Overview
 The void_send function is an output function for the void pseudo-type that handles serializing void values to binary format during PostgreSQL's binary protocol communication.

@@ -1,7 +1,7 @@
 # SlruSelectLRUPage
 
 ## Location
-src/backend/access/transam/slru.c: 1166 - 1318
+[src/backend/access/transam/slru.c:1166-1318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1166-L1318)
 
 ## Overview
 Selects the optimal slot to reuse when a free slot is needed for a given page, implementing the LRU (Least Recently Used) eviction policy with sophisticated tie-breaking and I/O optimization.

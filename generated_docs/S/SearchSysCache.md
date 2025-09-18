@@ -1,7 +1,7 @@
 # SearchSysCache
 
 ## Location
-src/backend/utils/cache/syscache.c: 208 - 220
+[src/backend/utils/cache/syscache.c:208-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L208-L220)
 
 ## Overview
 A convenience wrapper around SearchCatCache that provides a simplified interface for searching PostgreSQL's system catalog caches with up to 4 search keys.

@@ -1,7 +1,7 @@
 # initialize_aggregates
 
 ## Location
-src/backend/executor/nodeAgg.c: 665 - 705
+[src/backend/executor/nodeAgg.c:665-705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L665-L705)
 
 ## Overview
 Initializes all aggregate transition states for a new group of input values, supporting multiple grouping sets with selective reset capabilities.

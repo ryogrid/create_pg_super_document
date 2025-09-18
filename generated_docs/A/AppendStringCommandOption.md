@@ -1,7 +1,7 @@
 # AppendStringCommandOption
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 833 - 855
+[src/bin/pg_basebackup/streamutil.c:833-855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L833-L855)
 
 ## Overview
 A utility function that appends a command option with an associated string value to a PostgreSQL server command buffer, with proper SQL string escaping for safety.

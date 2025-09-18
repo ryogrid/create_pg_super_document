@@ -1,7 +1,7 @@
 # pg_fprintf
 
 ## Location
-src/port/snprintf.c: 264 - 275
+[src/port/snprintf.c:264-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L264-L275)
 
 ## Overview
 A PostgreSQL-specific wrapper around the standard fprintf function that provides portable formatted output to a file stream using PostgreSQL's internal printf implementation.

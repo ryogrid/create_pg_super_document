@@ -1,7 +1,7 @@
 # wait_on_slots
 
 ## Location
-src/fe_utils/parallel_slot.c: 196 - 286
+[src/fe_utils/parallel_slot.c:196-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L196-L286)
 
 ## Overview
 wait_on_slots is a static function that waits for any parallel slot connection to receive query results, processes those results, and updates slot status accordingly.

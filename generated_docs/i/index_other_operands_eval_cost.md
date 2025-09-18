@@ -1,7 +1,7 @@
 # index_other_operands_eval_cost
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6556 - 6609
+[src/backend/utils/adt/selfuncs.c:6556-6609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6556-L6609)
 
 ## Overview
 Computes the total evaluation cost of the comparison operands (non-index-key side) in a list of index qualification expressions, used for index cost estimation during query planning.

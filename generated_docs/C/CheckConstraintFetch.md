@@ -1,7 +1,7 @@
 # CheckConstraintFetch
 
 ## Location
-src/backend/utils/cache/relcache.c: 4585 - 4673
+[src/backend/utils/cache/relcache.c:4585-4673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4585-L4673)
 
 ## Overview
 CheckConstraintFetch loads check constraints for a relation from the pg_constraint system catalog and stores them in the relation's cache structure.

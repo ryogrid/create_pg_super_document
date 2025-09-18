@@ -1,7 +1,7 @@
 # is_redundant_derived_clause
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 3265 - 3291
+[src/backend/optimizer/path/equivclass.c:3265-3291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L3265-L3291)
 
 ## Overview
 Tests whether a RestrictInfo clause is derived from the same equivalence class as any clause in a given list, indicating potential redundancy.

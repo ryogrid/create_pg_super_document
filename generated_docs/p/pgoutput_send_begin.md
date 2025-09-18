@@ -1,7 +1,7 @@
 # pgoutput_send_begin
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 588 - 609
+[src/backend/replication/pgoutput/pgoutput.c:588-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L588-L609)
 
 ## Overview
 Sends a BEGIN message for a logical replication transaction, initiating the transaction stream to the subscriber.

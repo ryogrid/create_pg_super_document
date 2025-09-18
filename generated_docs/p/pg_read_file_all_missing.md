@@ -1,7 +1,7 @@
 # pg_read_file_all_missing
 
 ## Location
-src/backend/utils/adt/genfile.c: 333 - 347
+[src/backend/utils/adt/genfile.c:333-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L333-L347)
 
 ## Overview
 Wrapper function for the SQL function pg_read_file() that reads an entire text file from beginning to end with an option to handle missing files gracefully.

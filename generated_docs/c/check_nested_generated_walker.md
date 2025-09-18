@@ -1,7 +1,7 @@
 # check_nested_generated_walker
 
 ## Location
-src/backend/catalog/heap.c: 2746 - 2787
+[src/backend/catalog/heap.c:2746-2787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2746-L2787)
 
 ## Overview
 A static walker function that recursively traverses expression nodes to detect and prevent references to generated columns within column generation expressions, ensuring that generated columns do not depend on other generated columns.

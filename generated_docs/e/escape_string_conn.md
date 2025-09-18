@@ -1,7 +1,7 @@
 # escape_string_conn
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 299 - 329
+[src/test/modules/test_escape/test_escape.c:299-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L299-L329)
 
 ## Overview
 A static helper function in PostgreSQL's test_escape module that wraps the PQescapeStringConn function to escape string values for SQL queries, manually adding surrounding single quotes and handling buffer management.

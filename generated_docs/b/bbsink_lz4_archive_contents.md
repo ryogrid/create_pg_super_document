@@ -1,7 +1,7 @@
 # bbsink_lz4_archive_contents
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 180 - 227
+[src/backend/backup/basebackup_lz4.c:180-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L180-L227)
 
 ## Overview
 Compresses input data using LZ4 compression and manages buffer space by forwarding compressed data to the next sink when output buffer space becomes insufficient.

@@ -1,7 +1,7 @@
 # get_collation
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 1992 - 2025
+[src/backend/parser/parse_utilcmd.c:1992-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L1992-L2025)
 
 ## Overview
 Fetches the qualified name of a collation for use in SQL statement generation, returning NULL if the collation is invalid or matches the data type's default collation.

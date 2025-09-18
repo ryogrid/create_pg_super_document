@@ -1,7 +1,7 @@
 # get_setop_query
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6171 - 6318
+[src/backend/utils/adt/ruleutils.c:6171-6318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6171-L6318)
 
 ## Overview
 Recursively generates SQL text for set operation queries (UNION, INTERSECT, EXCEPT) by processing SetOperationStmt nodes and their operands.

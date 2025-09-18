@@ -1,7 +1,7 @@
 # anycompatiblerange_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 223 - 235
+[src/backend/utils/adt/pseudotypes.c:223-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L223-L235)
 
 ## Overview
 A pseudotype output function that provides string representation for anycompatiblerange pseudotype values by delegating to the concrete range type's output function.

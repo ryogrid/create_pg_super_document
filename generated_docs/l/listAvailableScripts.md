@@ -1,7 +1,7 @@
 # listAvailableScripts
 
 ## Location
-src/bin/pgbench/pgbench.c: 6144 - 6155
+[src/bin/pgbench/pgbench.c:6144-6155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6144-L6155)
 
 ## Overview
 Displays a list of all available built-in benchmark scripts to stderr for user reference.

@@ -1,7 +1,7 @@
 # substitute_actual_parameters_context
 
 ## Location
-src/backend/optimizer/util/clauses.c: 73 - 79
+[src/backend/optimizer/util/clauses.c:73-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L73-L79)
 
 ## Overview
 A context structure used during parameter substitution in PostgreSQL to track arguments and their usage counts when replacing Param nodes with actual parameter values in expression trees.

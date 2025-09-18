@@ -1,7 +1,7 @@
 # substitute_actual_srf_parameters
 
 ## Location
-src/backend/optimizer/util/clauses.c: 5358 - 5372
+[src/backend/optimizer/util/clauses.c:5358-5372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L5358-L5372)
 
 ## Overview
 Replaces Param nodes in a Query tree with appropriate actual parameters during set-returning function inlining, using a specialized tree mutation approach.

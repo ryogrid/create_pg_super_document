@@ -1,7 +1,7 @@
 # internalerrquery
 
 ## Location
-src/backend/utils/error/elog.c: 1482 - 1511
+[src/backend/utils/error/elog.c:1482-1511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1482-L1511)
 
 ## Overview
 A function that adds internal query text to the current error context, or removes it if NULL is passed, primarily used in error callback subroutines for customizing error report layout.

@@ -1,7 +1,7 @@
 # multirange_union_range_equal
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 888 - 914
+[src/backend/utils/adt/rangetypes_gist.c:888-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L888-L914)
 
 ## Overview
 A static helper function that determines whether the union of a multirange equals a given single range by comparing their overall bounds.

@@ -1,7 +1,7 @@
 # RemoveTempXlogFiles
 
 ## Location
-src/backend/access/transam/xlog.c: 3809 - 3841
+[src/backend/access/transam/xlog.c:3809-3841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3809-L3841)
 
 ## Overview
 Removes all temporary WAL (Write-Ahead Log) files from the pg_wal directory during recovery after a crash, ensuring clean startup by eliminating leftover temporary segments.

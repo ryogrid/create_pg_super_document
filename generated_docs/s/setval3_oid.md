@@ -1,7 +1,7 @@
 # setval3_oid
 
 ## Location
-src/backend/commands/sequence.c: 1064 - 1084
+[src/backend/commands/sequence.c:1064-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1064-L1084)
 
 ## Overview
 Implements the 3-argument form of setval(), allowing explicit control over both the sequence value and its 'called' state.

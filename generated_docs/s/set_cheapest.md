@@ -1,7 +1,7 @@
 # set_cheapest
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 242 - 419
+[src/backend/optimizer/util/pathnode.c:242-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L242-L419)
 
 ## Overview
 Analyzes all paths for a relation and identifies the minimum-cost paths for startup cost and total cost, storing them in the relation's cheapest-path fields.

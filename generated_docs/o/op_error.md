@@ -1,7 +1,7 @@
 # op_error
 
 ## Location
-src/backend/parser/parse_oper.c: 622 - 659
+[src/backend/parser/parse_oper.c:622-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L622-L659)
 
 ## Overview
 The  function is a utility routine that generates appropriate error messages when an operator cannot be resolved during parsing.

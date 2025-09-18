@@ -1,7 +1,7 @@
 # RT_RADIX_TREE
 
 ## Location
-src/include/lib/radixtree.h: 707 - 732
+[src/include/lib/radixtree.h:707-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L707-L732)
 
 ## Overview
 RT_RADIX_TREE is a macro that generates a type name for the main adaptive radix tree structure in PostgreSQL's templated radix tree implementation, serving as the primary API entry point.

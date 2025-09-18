@@ -1,7 +1,7 @@
 # ExecParallelFinish
 
 ## Location
-src/backend/executor/execParallel.c: 1131 - 1183
+[src/backend/executor/execParallel.c:1131-1183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1131-L1183)
 
 ## Overview
 Initiates the graceful termination of parallel query execution by waiting for workers to complete and accumulating their resource usage statistics.

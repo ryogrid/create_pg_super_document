@@ -1,7 +1,7 @@
 # fix_indexorderby_references
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5064 - 5092
+[src/backend/optimizer/plan/createplan.c:5064-5092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5064-L5092)
 
 ## Overview
 Adjusts indexorderby clauses to the form required by PostgreSQL's executor's index machinery, serving as a simplified version of fix_indexqual_references for ORDER BY expressions.

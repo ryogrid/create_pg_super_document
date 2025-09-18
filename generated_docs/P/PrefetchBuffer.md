@@ -1,7 +1,7 @@
 # PrefetchBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 638 - 668
+[src/backend/storage/buffer/bufmgr.c:638-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L638-L668)
 
 ## Overview
 High-level interface for prefetching relation blocks that routes to appropriate buffer pool implementation based on relation type.

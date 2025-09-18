@@ -1,7 +1,7 @@
 # numeric_is_less
 
 ## Location
-src/backend/utils/adt/dbsize.c: 619 - 627
+[src/backend/utils/adt/dbsize.c:619-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L619-L627)
 
 ## Overview
 This static helper function compares two PostgreSQL Numeric values and returns true if the first value is less than the second.

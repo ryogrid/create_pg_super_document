@@ -1,7 +1,7 @@
 # ExportSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1095 - 1271
+[src/backend/utils/time/snapmgr.c:1095-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1095-L1271)
 
 ## Overview
 ExportSnapshot exports a transaction snapshot to a file so that other backends can import and use it, enabling snapshot sharing across different database sessions.

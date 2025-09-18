@@ -1,7 +1,7 @@
 # make_one_partition_rbound
 
 ## Location
-src/backend/partitioning/partbounds.c: 3428 - 3487
+[src/backend/partitioning/partbounds.c:3428-3487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3428-L3487)
 
 ## Overview
 Creates a PartitionRangeBound structure from a list of PartitionRangeDatum elements, serving as a factory function for range partition bounds.

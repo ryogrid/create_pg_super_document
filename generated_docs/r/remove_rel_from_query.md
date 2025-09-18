@@ -1,7 +1,7 @@
 # remove_rel_from_query
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 329 - 561
+[src/backend/optimizer/plan/analyzejoins.c:329-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L329-L561)
 
 ## Overview
 Completely removes a target relation and its associated outer join from all of the planner's data structures after determining the join is unnecessary.

@@ -1,7 +1,7 @@
 # ExecUpdate
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2292 - 2543
+[src/backend/executor/nodeModifyTable.c:2292-2543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2292-L2543)
 
 ## Overview
 ExecUpdate is the main function responsible for executing UPDATE operations in PostgreSQL, handling various update scenarios including regular table updates, foreign table updates, view updates, and cross-partition updates.

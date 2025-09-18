@@ -1,7 +1,7 @@
 # r_Normalize_pre
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 675 - 960
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:675-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L675-L960)
 
 ## Overview
 This function performs pre-normalization processing for Arabic text in the PostgreSQL Snowball stemmer, standardizing Arabic character representations before stemming operations.

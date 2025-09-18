@@ -1,7 +1,7 @@
 # pg_popcount64_choose
 
 ## Location
-src/port/pg_bitutils.c: 190 - 196
+[src/port/pg_bitutils.c:190-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L190-L196)
 
 ## Overview
 Initial chooser function for 64-bit popcount operations that triggers runtime CPU feature detection and then delegates to the selected optimal implementation.

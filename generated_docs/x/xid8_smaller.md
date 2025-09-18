@@ -1,7 +1,7 @@
 # xid8_smaller
 
 ## Location
-src/backend/utils/adt/xid.c: 303 - 321
+[src/backend/utils/adt/xid.c:303-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L303-L321)
 
 ## Overview
 Returns the smaller of two full transaction IDs (xid8), implementing the smaller() function for PostgreSQL's xid8 data type.

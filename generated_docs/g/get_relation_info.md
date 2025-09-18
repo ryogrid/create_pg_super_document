@@ -1,7 +1,7 @@
 # get_relation_info
 
 ## Location
-src/backend/optimizer/util/plancat.c: 116 - 589
+[src/backend/optimizer/util/plancat.c:116-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L116-L589)
 
 ## Overview
 Retrieves comprehensive catalog information for a given relation and populates the RelOptInfo structure with metadata needed for query planning and optimization.

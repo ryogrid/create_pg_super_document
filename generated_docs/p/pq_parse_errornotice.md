@@ -1,7 +1,7 @@
 # pq_parse_errornotice
 
 ## Location
-src/backend/libpq/pqmq.c: 216 - 330
+[src/backend/libpq/pqmq.c:216-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L216-L330)
 
 ## Overview
 Parses an ErrorResponse or NoticeResponse protocol message and populates an ErrorData structure with the extracted error information.

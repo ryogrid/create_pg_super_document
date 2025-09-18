@@ -1,7 +1,7 @@
 # GetCurrentCommandId
 
 ## Location
-src/backend/access/transam/xact.c: 826 - 855
+[src/backend/access/transam/xact.c:826-855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L826-L855)
 
 ## Overview
 Returns the current command ID within the active transaction, with special handling for parallel workers and usage tracking.

@@ -1,7 +1,7 @@
 # apply_handle_truncate
 
 ## Location
-src/backend/replication/logical/worker.c: 3157 - 3284
+[src/backend/replication/logical/worker.c:3157-3284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3157-L3284)
 
 ## Overview
 Handles TRUNCATE message processing in PostgreSQL's logical replication worker, implementing table truncation for subscribed relations including partitioned tables.

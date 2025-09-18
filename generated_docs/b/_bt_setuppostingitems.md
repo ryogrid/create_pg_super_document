@@ -1,7 +1,7 @@
 # _bt_setuppostingitems
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 1975 - 2012
+[src/backend/access/nbtree/nbtsearch.c:1975-2012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L1975-L2012)
 
 ## Overview
 Sets up the scan state to handle TIDs from a posting list tuple, saving the first TID and preparing for subsequent TID processing.

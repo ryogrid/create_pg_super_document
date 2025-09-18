@@ -1,7 +1,7 @@
 # inet_cidr_pton_ipv6
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 439 - 564
+[src/backend/utils/adt/inet_net_pton.c:439-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L439-L564)
 
 ## Overview
 Converts IPv6 network addresses from presentation format to network format, handling CIDR notation, IPv4-mapped addresses, and size constraints.

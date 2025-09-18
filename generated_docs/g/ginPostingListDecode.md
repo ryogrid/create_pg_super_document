@@ -1,7 +1,7 @@
 # ginPostingListDecode
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 284 - 296
+[src/backend/access/gin/ginpostinglist.c:284-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L284-L296)
 
 ## Overview
 A convenience wrapper function that decodes a complete compressed GIN posting list into an array of item pointers.

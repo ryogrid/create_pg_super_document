@@ -1,7 +1,7 @@
 # _internalPQconninfoOption
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 168 - 187
+[src/interfaces/libpq/fe-connect.c:168-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L168-L187)
 
 ## Overview
 An internal structure that extends PQconninfoOption with additional private fields for managing PostgreSQL connection parameters within libpq.

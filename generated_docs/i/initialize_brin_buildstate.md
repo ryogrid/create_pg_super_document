@@ -1,7 +1,7 @@
 # initialize_brin_buildstate
 
 ## Location
-src/backend/access/brin/brin.c: 1660 - 1706
+[src/backend/access/brin/brin.c:1660-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1660-L1706)
 
 ## Overview
 Initializes and allocates a BrinBuildState structure that contains all necessary state information for building BRIN index tuples.

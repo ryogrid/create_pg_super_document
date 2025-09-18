@@ -1,7 +1,7 @@
 # multirange_canonicalize
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 477 - 547
+[src/backend/utils/adt/multirangetypes.c:477-547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L477-L547)
 
 ## Overview
 Converts a list of arbitrary ranges into a sorted and merged list, processing an array of ranges to eliminate overlaps and adjacent ranges by merging them into a canonical form.

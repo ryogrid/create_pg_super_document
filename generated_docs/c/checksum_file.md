@@ -1,7 +1,7 @@
 # checksum_file
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 127 - 159
+[src/bin/pg_combinebackup/copy_file.c:127-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L127-L159)
 
 ## Overview
 Calculates a checksum for a source file by reading it in chunks and updating a provided checksum context.

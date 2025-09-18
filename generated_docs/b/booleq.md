@@ -1,7 +1,7 @@
 # booleq
 
 ## Location
-src/backend/utils/adt/bool.c: 223 - 231
+[src/backend/utils/adt/bool.c:223-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L223-L231)
 
 ## Overview
 Implements the equality operator for PostgreSQL boolean data type, comparing two boolean values for equality.

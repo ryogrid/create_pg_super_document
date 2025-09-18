@@ -1,7 +1,7 @@
 # dense_alloc
 
 ## Location
-src/backend/executor/nodeHash.c: 2876 - 2955
+[src/backend/executor/nodeHash.c:2876-2955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2876-L2955)
 
 ## Overview
 Allocates memory for hash table tuples from memory chunks, managing allocation of both normal-sized and oversized tuples within the HashJoinTable's memory context.

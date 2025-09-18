@@ -1,7 +1,7 @@
 # allow_star_schema_join
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 363 - 389
+[src/backend/optimizer/path/joinpath.c:363-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L363-L389)
 
 ## Overview
 Determines whether to override the param_source_rels heuristic to enable parameterized nested loop joins in star-schema scenarios where parameters come from multiple unjoined small tables.

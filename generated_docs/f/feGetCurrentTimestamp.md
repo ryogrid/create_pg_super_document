@@ -1,7 +1,7 @@
 # feGetCurrentTimestamp
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 869 - 887
+[src/bin/pg_basebackup/streamutil.c:869-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L869-L887)
 
 ## Overview
 A frontend version of PostgreSQL's GetCurrentTimestamp() function that returns the current timestamp in PostgreSQL's internal TimestampTz format.

@@ -1,7 +1,7 @@
 # is_load_via_partition_root
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1170 - 1200
+[src/bin/pg_dump/pg_backup_archiver.c:1170-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1170-L1200)
 
 ## Overview
 is_load_via_partition_root is a detection function that determines whether a TABLE DATA TOC item is performing "load via partition root", where data is being loaded into an ancestor partition table rather than the nominally specified table.

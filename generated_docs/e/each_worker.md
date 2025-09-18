@@ -1,7 +1,7 @@
 # each_worker
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2056 - 2095
+[src/backend/utils/adt/jsonfuncs.c:2056-2095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2056-L2095)
 
 ## Overview
 The each_worker function is the core implementation for expanding JSON (text-based) objects into key-value pairs using PostgreSQL's JSON parsing infrastructure.

@@ -1,7 +1,7 @@
 # pg_ceil_log2_64
 
 ## Location
-src/include/port/pg_bitutils.h: 271 - 285
+[src/include/port/pg_bitutils.h:271-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L271-L285)
 
 ## Overview
 Returns the equivalent of ceil(log2(num)), providing the ceiling of the base-2 logarithm for 64-bit unsigned integers.

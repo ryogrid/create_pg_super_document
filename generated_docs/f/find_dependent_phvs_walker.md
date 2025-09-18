@@ -1,7 +1,7 @@
 # find_dependent_phvs_walker
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3840 - 3875
+[src/backend/optimizer/prep/prepjointree.c:3840-3875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3840-L3875)
 
 ## Overview
 A tree walker function that searches for PlaceHolderVars (PHVs) that depend on a specific set of relations, used to determine if RTE_RESULT removal would leave PHVs without a valid evaluation location.

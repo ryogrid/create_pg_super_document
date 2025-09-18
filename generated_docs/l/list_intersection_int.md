@@ -1,7 +1,7 @@
 # list_intersection_int
 
 ## Location
-src/backend/nodes/list.c: 1200 - 1236
+[src/backend/nodes/list.c:1200-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1200-L1236)
 
 ## Overview
 Creates a new list containing the intersection of two integer lists, preserving elements that exist in both input lists.

@@ -1,7 +1,7 @@
 # extract_jsp_query
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 748 - 798
+[src/backend/utils/adt/jsonb_gin.c:748-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L748-L798)
 
 ## Overview
 Serves as the main entry point for extracting GIN index entries from jsonpath queries, coordinating the entire process from jsonpath parsing to entry collection and returning the final query data for index operations.

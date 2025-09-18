@@ -1,7 +1,7 @@
 # pg_atomic_write_membarrier_u64
 
 ## Location
-src/include/port/atomics.h: 489 - 497
+[src/include/port/atomics.h:489-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L489-L497)
 
 ## Overview
 Performs an atomic write of a 64-bit unsigned integer with memory barrier semantics, ensuring that all preceding memory operations are completed before the write and preventing reordering of subsequent operations.

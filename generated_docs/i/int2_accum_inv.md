@@ -1,7 +1,7 @@
 # int2_accum_inv
 
 ## Location
-src/backend/utils/adt/numeric.c: 5990 - 6014
+[src/backend/utils/adt/numeric.c:5990-6014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5990-L6014)
 
 ## Overview
 Inverse transition function for int2 (smallint) input that removes values from the aggregate state, enabling sliding window aggregations.

@@ -1,7 +1,7 @@
 # make_fn_arguments
 
 ## Location
-src/backend/parser/parse_func.c: 1825 - 1880
+[src/backend/parser/parse_func.c:1825-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1825-L1880)
 
 ## Overview
 Adds necessary type casting to function argument expressions when actual argument types don't match the declared function parameter types.

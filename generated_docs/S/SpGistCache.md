@@ -1,7 +1,7 @@
 # SpGistCache
 
 ## Location
-src/include/access/spgist_private.h: 251 - 261
+[src/include/access/spgist_private.h:251-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L251-L261)
 
 ## Overview
 SpGistCache is a structure that represents the cached metadata and configuration information for a SP-GiST (Space-Partitioned Generalized Search Tree) index, stored in the index's rd_amcache field.

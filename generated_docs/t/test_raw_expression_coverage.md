@@ -1,7 +1,7 @@
 # test_raw_expression_coverage
 
 ## Location
-src/backend/parser/analyze.c: 3589 - 3598
+[src/backend/parser/analyze.c:3589-3598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3589-L3598)
 
 ## Overview
 A debugging/testing function that walks through raw parse tree nodes to ensure complete coverage by the raw_expression_tree_walker function.

@@ -1,7 +1,7 @@
 # _bt_relandgetbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1003 - 1022
+[src/backend/access/nbtree/nbtpage.c:1003-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1003-L1022)
 
 ## Overview
 _bt_relandgetbuf releases a currently held buffer and acquires a new buffer in a single operation, serving as a convenient combination of _bt_relbuf followed by _bt_getbuf.

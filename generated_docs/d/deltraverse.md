@@ -1,7 +1,7 @@
 # deltraverse
 
 ## Location
-src/backend/regex/regc_nfa.c: 1304 - 1354
+[src/backend/regex/regc_nfa.c:1304-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1304-L1354)
 
 ## Overview
 Recursively destroys all outgoing arcs of a state and unreachable states in a depth-first manner.

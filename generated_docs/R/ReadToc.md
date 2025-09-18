@@ -1,7 +1,7 @@
 # ReadToc
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2649 - 2820
+[src/bin/pg_dump/pg_backup_archiver.c:2649-2820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2649-L2820)
 
 ## Overview
 Reads and reconstructs the Table of Contents from an archive file, creating the in-memory TOC structure needed for restore operations.

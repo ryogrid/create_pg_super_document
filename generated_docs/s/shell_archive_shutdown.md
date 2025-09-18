@@ -1,7 +1,7 @@
 # shell_archive_shutdown
 
 ## Location
-src/backend/archive/shell_archive.c: 139 - 142
+[src/backend/archive/shell_archive.c:139-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/archive/shell_archive.c#L139-L142)
 
 ## Overview
 This function serves as the shutdown callback for the shell-based WAL archiving module, providing cleanup and logging functionality when the archiver process terminates.

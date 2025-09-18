@@ -1,7 +1,7 @@
 # PLyDatumToOb
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 57 - 86
+[src/pl/plpython/plpy_typeio.h:57-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L57-L86)
 
 ## Overview
 PLyDatumToOb is a conversion structure used in PostgreSQL's PLpython extension to handle conversion of PostgreSQL Datum values to Python objects.

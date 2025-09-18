@@ -1,7 +1,7 @@
 # make_agg
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6594 - 6627
+[src/backend/optimizer/plan/createplan.c:6594-6627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6594-L6627)
 
 ## Overview
 Creates and initializes an Agg (Aggregate) plan node for executing aggregation operations in PostgreSQL query plans.

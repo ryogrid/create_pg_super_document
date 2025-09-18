@@ -1,7 +1,7 @@
 # ATExecDropCluster
 
 ## Location
-src/backend/commands/tablecmds.c: 14883 - 14894
+[src/backend/commands/tablecmds.c:14883-14894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14883-L14894)
 
 ## Overview
 Implements the ALTER TABLE SET WITHOUT CLUSTER command by removing the clustering designation from any index on the table.

@@ -1,7 +1,7 @@
 # itsdir
 
 ## Location
-src/timezone/zic.c: 1106 - 1130
+[src/timezone/zic.c:1106-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1106-L1130)
 
 ## Overview
 Determines whether a given path refers to a directory, using a robust approach that handles edge cases and systems without S_ISDIR macro support.

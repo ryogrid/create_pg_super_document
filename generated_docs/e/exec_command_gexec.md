@@ -1,7 +1,7 @@
 # exec_command_gexec
 
 ## Location
-src/bin/psql/command.c: 1617 - 1633
+[src/bin/psql/command.c:1617-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1617-L1633)
 
 ## Overview
 Implements the \gexec command in psql, which enables execution mode where each field of the query result is treated as a SQL command to be executed.

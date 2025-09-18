@@ -1,7 +1,7 @@
 # GetLatestLSN
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 800 - 857
+[src/backend/postmaster/walsummarizer.c:800-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L800-L857)
 
 ## Overview
 Determines the latest LSN that is eligible to be summarized by the WAL summarizer, handling both normal operation and recovery scenarios.

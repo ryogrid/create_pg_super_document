@@ -1,7 +1,7 @@
 # dead_items_reset
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2910 - 2929
+[src/backend/access/heap/vacuumlazy.c:2910-2929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2910-L2929)
 
 ## Overview
 `dead_items_reset` is a static utility function that clears all collected dead tuple identifiers from the vacuum state, preparing the dead items collection for reuse during VACUUM operations.

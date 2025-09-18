@@ -1,7 +1,7 @@
 # xl_btree_newroot
 
 ## Location
-src/include/access/nbtxlog.h: 344 - 348
+[src/include/access/nbtxlog.h:344-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L344-L348)
 
 ## Overview
 WAL record structure for creating a new root page in a B-tree, either establishing an empty root for a new index or creating a new root level after splitting the previous root.

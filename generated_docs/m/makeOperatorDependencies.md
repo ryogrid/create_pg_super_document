@@ -1,7 +1,7 @@
 # makeOperatorDependencies
 
 ## Location
-src/backend/catalog/pg_operator.c: 853 - 945
+[src/backend/catalog/pg_operator.c:853-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_operator.c#L853-L945)
 
 ## Overview
 Establishes and manages dependency relationships for operators by recording dependencies on all related database objects including types, functions, namespaces, and owners.

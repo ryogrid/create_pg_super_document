@@ -1,7 +1,7 @@
 # exec_command_f
 
 ## Location
-src/bin/psql/command.c: 1407 - 1434
+[src/bin/psql/command.c:1407-1434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1407-L1434)
 
 ## Overview
 Implements the \f command in psql, which sets the field separator used in output formatting.

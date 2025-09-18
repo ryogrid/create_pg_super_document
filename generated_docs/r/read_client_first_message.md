@@ -1,7 +1,7 @@
 # read_client_first_message
 
 ## Location
-src/backend/libpq/auth-scram.c: 899 - 1112
+[src/backend/libpq/auth-scram.c:899-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L899-L1112)
 
 ## Overview
 A comprehensive parser for the initial client message in the SCRAM-SHA-256 authentication protocol, validating the message format and extracting essential authentication parameters.

@@ -1,7 +1,7 @@
 # regtypein
 
 ## Location
-src/backend/utils/adt/regproc.c: 1176 - 1208
+[src/backend/utils/adt/regproc.c:1176-1208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1176-L1208)
 
 ## Overview
 Converts a string representation of a type name to its corresponding type OID, serving as the input function for the regtype data type.

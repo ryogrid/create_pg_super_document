@@ -1,7 +1,7 @@
 # restore_global_locale
 
 ## Location
-src/bin/initdb/initdb.c: 386 - 402
+[src/bin/initdb/initdb.c:386-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L386-L402)
 
 ## Overview
 Restores a previously saved global locale setting and frees the associated memory allocated by save_global_locale().

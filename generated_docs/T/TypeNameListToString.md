@@ -1,7 +1,7 @@
 # TypeNameListToString
 
 ## Location
-src/backend/parser/parse_type.c: 492 - 514
+[src/backend/parser/parse_type.c:492-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L492-L514)
 
 ## Overview
 A public function that converts a list of TypeName structures into a comma-separated string representation, primarily used for error reporting when dealing with multiple types in operations like DROP statements.

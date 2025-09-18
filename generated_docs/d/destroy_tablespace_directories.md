@@ -1,7 +1,7 @@
 # destroy_tablespace_directories
 
 ## Location
-src/backend/commands/tablespace.c: 686 - 852
+[src/backend/commands/tablespace.c:686-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L686-L852)
 
 ## Overview
 Removes the filesystem infrastructure of a tablespace by deleting database subdirectories, version directory, and symlink with different error handling for normal and WAL replay operations.

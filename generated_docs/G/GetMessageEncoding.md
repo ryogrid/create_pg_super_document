@@ -1,7 +1,7 @@
 # GetMessageEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1308 - 1324
+[src/backend/utils/mb/mbutils.c:1308-1324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1308-L1324)
 
 ## Overview
 Returns the encoding ID used by gettext() for localized error messages and system messages, which may differ from the database client encoding.

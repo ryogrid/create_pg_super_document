@@ -1,7 +1,7 @@
 # booltext
 
 ## Location
-src/backend/utils/adt/bool.c: 204 - 222
+[src/backend/utils/adt/bool.c:204-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L204-L222)
 
 ## Overview
 A cast function that converts PostgreSQL boolean values to text format, following SQL specification behavior.

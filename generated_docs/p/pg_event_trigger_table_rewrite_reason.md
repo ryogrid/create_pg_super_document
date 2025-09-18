@@ -1,7 +1,7 @@
 # pg_event_trigger_table_rewrite_reason
 
 ## Location
-src/backend/commands/event_trigger.c: 1514 - 1553
+[src/backend/commands/event_trigger.c:1514-1553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1514-L1553)
 
 ## Overview
 A PostgreSQL built-in function that returns the reason code for a table rewrite operation, available only within table_rewrite event trigger functions.

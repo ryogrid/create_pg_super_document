@@ -1,7 +1,7 @@
 # PostmasterStateMachine
 
 ## Location
-src/backend/postmaster/postmaster.c: 3128 - 3421
+[src/backend/postmaster/postmaster.c:3128-3421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3128-L3421)
 
 ## Overview
 PostmasterStateMachine manages PostgreSQL's master state machine for coordinated shutdown, recovery, and restart operations based on the current process state and shutdown conditions.

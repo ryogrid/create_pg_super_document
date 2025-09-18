@@ -1,7 +1,7 @@
 # DropAllPredicateLocksFromTable
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2927 - 3112
+[src/backend/storage/lmgr/predicate.c:2927-3112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2927-L3112)
 
 ## Overview
 Removes all predicate locks of any granularity from a specified relation (heap or index), optionally transferring them to the corresponding heap relation for DDL operations.

@@ -1,7 +1,7 @@
 # bbsink_zstd_end_archive
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 235 - 281
+[src/backend/backup/basebackup_zstd.c:235-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L235-L281)
 
 ## Overview
 Finalizes zstd compression by flushing internal buffers, ending the compression frame, and forwarding any remaining compressed data to the next sink in the chain.

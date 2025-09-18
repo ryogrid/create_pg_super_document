@@ -1,7 +1,7 @@
 # heap_inplace_update_and_unlock
 
 ## Location
-src/backend/access/heap/heapam.c: 6432 - 6508
+[src/backend/access/heap/heapam.c:6432-6508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6432-L6508)
 
 ## Overview
 Performs the core inplace update operation by copying new data into the existing tuple and releasing locks.

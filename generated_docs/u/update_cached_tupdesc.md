@@ -1,7 +1,7 @@
 # update_cached_tupdesc
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3027 - 3055
+[src/backend/utils/adt/jsonfuncs.c:3027-3055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3027-L3055)
 
 ## Overview
 Acquires or updates the cached tuple descriptor for a composite type, ensuring the cache contains the correct type information for data population operations.

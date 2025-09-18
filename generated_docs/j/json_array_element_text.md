@@ -1,7 +1,7 @@
 # json_array_element_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 963 - 977
+[src/backend/utils/adt/jsonfuncs.c:963-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L963-L977)
 
 ## Overview
 Extracts the specified array element from a JSON array and returns it as text, with JSON string values unescaped and non-string values converted to their text representation.

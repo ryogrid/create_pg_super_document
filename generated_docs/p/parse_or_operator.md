@@ -1,7 +1,7 @@
 # parse_or_operator
 
 ## Location
-src/backend/utils/adt/tsquery.c: 244 - 285
+[src/backend/utils/adt/tsquery.c:244-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L244-L285)
 
 ## Overview
 A static function that determines whether an "OR" literal in a websearch-style tsquery should be treated as a logical OR operator.

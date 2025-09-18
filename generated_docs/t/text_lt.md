@@ -1,7 +1,7 @@
 # text_lt
 
 ## Location
-src/backend/utils/adt/varlena.c: 1731 - 1745
+[src/backend/utils/adt/varlena.c:1731-1745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1731-L1745)
 
 ## Overview
 PostgreSQL function implementing the less-than comparison operator (`<`) for text data types by delegating to text_cmp and testing for negative result.

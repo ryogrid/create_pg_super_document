@@ -1,7 +1,7 @@
 # bbstreamer_tar_parser_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 341 - 355
+[src/bin/pg_basebackup/bbstreamer_tar.c:341-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L341-L355)
 
 ## Overview
 Frees memory associated with a tar parser, including its internal buffer and the next bbstreamer in the processing chain.

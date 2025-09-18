@@ -1,7 +1,7 @@
 # UploadManifestCmd
 
 ## Location
-src/include/nodes/replnodes.h: 127 - 130
+[src/include/nodes/replnodes.h:127-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L127-L130)
 
 ## Overview
 UploadManifestCmd is a command structure used for uploading manifest files in PostgreSQL's replication system, likely related to backup and recovery operations.

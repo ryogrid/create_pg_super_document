@@ -1,7 +1,7 @@
 # show_memory_counters
 
 ## Location
-src/backend/commands/explain.c: 3950 - 3975
+[src/backend/commands/explain.c:3950-3975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3950-L3975)
 
 ## Overview
 Displays memory usage statistics in EXPLAIN output, showing both used and allocated memory in kilobytes for memory context analysis.

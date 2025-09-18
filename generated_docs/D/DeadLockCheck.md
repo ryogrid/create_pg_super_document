@@ -1,7 +1,7 @@
 # DeadLockCheck
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 217 - 286
+[src/backend/storage/lmgr/deadlock.c:217-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L217-L286)
 
 ## Overview
 Checks for deadlocks involving a given process and attempts to resolve them by rearranging lock wait queues, returning the deadlock state result.

@@ -1,7 +1,7 @@
 # ArchiveMode
 
 ## Location
-src/bin/pg_dump/pg_backup.h: 53 - 54
+[src/bin/pg_dump/pg_backup.h:53-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup.h#L53-L54)
 
 ## Overview
 An enumeration that defines the access modes for PostgreSQL archive operations, specifying whether an archive is being created, read from, or appended to.

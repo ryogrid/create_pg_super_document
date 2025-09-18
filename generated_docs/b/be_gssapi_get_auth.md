@@ -1,7 +1,7 @@
 # be_gssapi_get_auth
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 741 - 752
+[src/backend/libpq/be-secure-gssapi.c:741-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L741-L752)
 
 ## Overview
 Returns whether GSSAPI authentication was successfully used on the given connection.

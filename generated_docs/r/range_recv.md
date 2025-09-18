@@ -1,7 +1,7 @@
 # range_recv
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 177 - 260
+[src/backend/utils/adt/rangetypes.c:177-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L177-L260)
 
 ## Overview
 The range_recv function is the binary receive function for PostgreSQL range types, responsible for deserializing range values from their binary wire format into internal RangeType structures.

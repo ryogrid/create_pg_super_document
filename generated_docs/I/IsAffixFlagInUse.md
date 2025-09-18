@@ -1,7 +1,7 @@
 # IsAffixFlagInUse
 
 ## Location
-src/backend/tsearch/spell.c: 455 - 486
+[src/backend/tsearch/spell.c:455-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L455-L486)
 
 ## Overview
 A static function that checks whether a specific affix flag is present in the affix flag set of a given affix entry.

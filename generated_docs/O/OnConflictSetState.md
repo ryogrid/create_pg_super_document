@@ -1,7 +1,7 @@
 # OnConflictSetState
 
 ## Location
-src/include/nodes/execnodes.h: 407 - 415
+[src/include/nodes/execnodes.h:407-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L407-L415)
 
 ## Overview
 OnConflictSetState holds the executor state for an ON CONFLICT DO UPDATE operation, managing tuple storage and projection during conflict resolution.

@@ -1,7 +1,7 @@
 # PgBenchValueType
 
 ## Location
-src/bin/pgbench/pgbench.h: 42 - 53
+[src/bin/pgbench/pgbench.h:42-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.h#L42-L53)
 
 ## Overview
 PgBenchValueType is an enumeration that defines the possible data types for values used in pgbench expressions and variables. It serves as a type discriminator in the PostgreSQL benchmark tool to distinguish between different kinds of values that can be stored and manipulated during benchmark execution.

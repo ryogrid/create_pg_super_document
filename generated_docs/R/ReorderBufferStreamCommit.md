@@ -1,7 +1,7 @@
 # ReorderBufferStreamCommit
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1925 - 1988
+[src/backend/replication/logical/reorderbuffer.c:1925-1988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1925-L1988)
 
 ## Overview
 ReorderBufferStreamCommit handles the commit processing for transactions that have been partially or fully streamed during logical replication, supporting both regular commits and two-phase commit scenarios.

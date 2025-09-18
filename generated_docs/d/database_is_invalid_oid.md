@@ -1,7 +1,7 @@
 # database_is_invalid_oid
 
 ## Location
-src/backend/commands/dbcommands.c: 3208 - 3240
+[src/backend/commands/dbcommands.c:3208-3240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3208-L3240)
 
 ## Overview
 A convenience wrapper function that checks whether a database is invalid by looking up its OID and examining its catalog form.

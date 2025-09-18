@@ -1,7 +1,7 @@
 # pg_sjis_mblen
 
 ## Location
-src/port/path.c: 201 - 234
+[src/port/path.c:201-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L201-L234)
 
 ## Overview
 Determines the byte length of a multi-byte character in Shift-JIS (SJIS) encoding, returning the number of bytes that comprise the character starting at the given position.

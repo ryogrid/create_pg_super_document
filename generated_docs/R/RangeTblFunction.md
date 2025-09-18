@@ -1,7 +1,7 @@
 # RangeTblFunction
 
 ## Location
-src/include/nodes/parsenodes.h: 1317 - 1337
+[src/include/nodes/parsenodes.h:1317-1337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1317-L1337)
 
 ## Overview
 RangeTblFunction is subsidiary data for individual functions within a FUNCTION range table entry, storing function expressions and column definition information.

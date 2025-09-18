@@ -1,7 +1,7 @@
 # spggetbitmap
 
 ## Location
-src/backend/access/spgist/spgscan.c: 942 - 958
+[src/backend/access/spgist/spgscan.c:942-958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L942-L958)
 
 ## Overview
 Main entry point for SP-GiST bitmap index scans that collects all matching heap tuple identifiers into a TID bitmap.

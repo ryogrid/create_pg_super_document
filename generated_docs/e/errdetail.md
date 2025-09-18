@@ -1,7 +1,7 @@
 # errdetail
 
 ## Location
-src/backend/utils/error/elog.c: 1203 - 1229
+[src/backend/utils/error/elog.c:1203-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1203-L1229)
 
 ## Overview
 Adds a detail error message text to the current error, providing additional context and information to complement the primary error message.

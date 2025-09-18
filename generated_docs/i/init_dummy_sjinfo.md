@@ -1,7 +1,7 @@
 # init_dummy_sjinfo
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 670 - 704
+[src/backend/optimizer/path/joinrels.c:670-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L670-L704)
 
 ## Overview
 Initializes a SpecialJoinInfo structure for a plain inner join between two specified sets of relations, providing minimal required information for join planning functions.

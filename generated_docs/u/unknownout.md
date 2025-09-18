@@ -1,7 +1,7 @@
 # unknownout
 
 ## Location
-src/backend/utils/adt/varlena.c: 646 - 657
+[src/backend/utils/adt/varlena.c:646-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L646-L657)
 
 ## Overview
 Converts the internal representation of an unknown data type to a C string format for output purposes.

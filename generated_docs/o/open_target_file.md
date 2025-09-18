@@ -1,7 +1,7 @@
 # open_target_file
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 47 - 74
+[src/bin/pg_rewind/file_ops.c:47-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L47-L74)
 
 ## Overview
 Opens a target file for writing in pg_rewind's file operations, with optional truncation and dry-run support.

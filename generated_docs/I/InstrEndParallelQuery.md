@@ -1,7 +1,7 @@
 # InstrEndParallelQuery
 
 ## Location
-src/backend/executor/instrument.c: 208 - 217
+[src/backend/executor/instrument.c:208-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L208-L217)
 
 ## Overview
 Calculates and reports the incremental buffer usage and WAL usage consumed during parallel query execution by computing the difference from baseline measurements.

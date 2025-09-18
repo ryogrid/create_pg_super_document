@@ -1,7 +1,7 @@
 # SyncVariables
 
 ## Location
-src/bin/psql/command.c: 4040 - 4082
+[src/bin/psql/command.c:4040-4082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4040-L4082)
 
 ## Overview
 Synchronizes psql's internal variables with the current database connection state, ensuring consistency between the client configuration and the established connection parameters.

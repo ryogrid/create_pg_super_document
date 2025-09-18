@@ -1,7 +1,7 @@
 # check_transform_function
 
 ## Location
-src/backend/commands/functioncmds.c: 1784 - 1813
+[src/backend/commands/functioncmds.c:1784-1813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L1784-L1813)
 
 ## Overview
 Validates that a function meets the requirements to serve as a transform function for procedural languages.

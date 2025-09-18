@@ -1,7 +1,7 @@
 # mark_hl_words
 
 ## Location
-src/backend/tsearch/wparser_def.c: 2454 - 2615
+[src/backend/tsearch/wparser_def.c:2454-2615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L2454-L2615)
 
 ## Overview
 A headline selector function used when MaxFragments == 0, responsible for selecting and marking the single best text fragment for highlighting in PostgreSQL's text search functionality.

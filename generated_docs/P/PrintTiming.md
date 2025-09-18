@@ -1,7 +1,7 @@
 # PrintTiming
 
 ## Location
-src/bin/psql/common.c: 561 - 619
+[src/bin/psql/common.c:561-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L561-L619)
 
 ## Overview
 PrintTiming is a static helper function in psql that formats and displays elapsed time measurements in a human-readable format, with special handling for different time scales.

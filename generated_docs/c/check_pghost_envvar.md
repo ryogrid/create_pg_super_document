@@ -1,7 +1,7 @@
 # check_pghost_envvar
 
 ## Location
-src/bin/pg_upgrade/server.c: 358 - 388
+[src/bin/pg_upgrade/server.c:358-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L358-L388)
 
 ## Overview
 Validates that PGHOST and PGHOSTADDR environment variables do not point to non-local servers during pg_upgrade operations.

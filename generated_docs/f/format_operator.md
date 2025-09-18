@@ -1,7 +1,7 @@
 # format_operator
 
 ## Location
-src/backend/utils/adt/regproc.c: 793 - 798
+[src/backend/utils/adt/regproc.c:793-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L793-L798)
 
 ## Overview
 A simple wrapper function that converts an operator OID to its standard textual representation using default formatting options.

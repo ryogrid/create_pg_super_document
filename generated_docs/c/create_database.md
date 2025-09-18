@@ -1,7 +1,7 @@
 # create_database
 
 ## Location
-src/test/regress/pg_regress.c: 1955 - 1988
+[src/test/regress/pg_regress.c:1955-1988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1955-L1988)
 
 ## Overview
 Creates a new PostgreSQL database with standardized settings optimized for regression testing, including locale configuration and extension installation.

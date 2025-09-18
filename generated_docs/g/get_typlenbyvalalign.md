@@ -1,7 +1,7 @@
 # get_typlenbyvalalign
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2271 - 2302
+[src/backend/utils/cache/lsyscache.c:2271-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2271-L2302)
 
 ## Overview
 Retrieves three essential type attributes (length, pass-by-value status, and alignment) for a PostgreSQL data type in a single efficient system cache lookup, providing complete information needed for proper data layout and manipulation.

@@ -1,7 +1,7 @@
 # ExecForeignScan
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 118 - 141
+[src/backend/executor/nodeForeignscan.c:118-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L118-L141)
 
 ## Overview
 ExecForeignScan is the main execution function for foreign scan nodes that fetches tuples from Foreign Data Wrappers, checks local qualifications, and returns the next qualifying tuple.

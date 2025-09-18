@@ -1,7 +1,7 @@
 # pchomp
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1723 - 1731
+[src/backend/utils/mmgr/mcxt.c:1723-1731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1723-L1731)
 
 ## Overview
 A utility function that creates a copy of a string with all trailing newline characters removed, similar to Perl's chomp function.

@@ -1,7 +1,7 @@
 # assign_locale_numeric
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 399 - 404
+[src/backend/utils/adt/pg_locale.c:399-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L399-L404)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that invalidates cached locale conversion information when the LC_NUMERIC locale setting is changed.

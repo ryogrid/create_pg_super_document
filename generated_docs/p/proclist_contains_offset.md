@@ -1,7 +1,7 @@
 # proclist_contains_offset
 
 ## Location
-src/include/storage/proclist.h: 146 - 172
+[src/include/storage/proclist.h:146-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L146-L172)
 
 ## Overview
 A static inline function that checks whether a specific process is currently contained in a process list at a specified node offset.

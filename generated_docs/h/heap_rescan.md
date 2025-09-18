@@ -1,7 +1,7 @@
 # heap_rescan
 
 ## Location
-src/backend/access/heap/heapam.c: 1196 - 1253
+[src/backend/access/heap/heapam.c:1196-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1196-L1253)
 
 ## Overview
 Restarts a heap table scan from the beginning, optionally updating scan parameters and reinitializing the scan state while preserving the scan descriptor.

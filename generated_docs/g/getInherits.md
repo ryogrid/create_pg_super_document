@@ -1,7 +1,7 @@
 # getInherits
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7317 - 7372
+[src/bin/pg_dump/pg_dump.c:7317-7372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7317-L7372)
 
 ## Overview
 Reads all inheritance information from the PostgreSQL system catalogs and returns it in an array of InhInfo structures for use in pg_dump operations.

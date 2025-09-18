@@ -1,7 +1,7 @@
 # PGTYPESnumeric_from_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 321 - 342
+[src/interfaces/ecpg/pgtypeslib/numeric.c:321-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L321-L342)
 
 ## Overview
 Converts a string representation of a numeric value into a PostgreSQL numeric type structure for use in ECPG applications.

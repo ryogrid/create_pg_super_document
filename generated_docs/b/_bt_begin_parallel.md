@@ -1,7 +1,7 @@
 # _bt_begin_parallel
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1396 - 1606
+[src/backend/access/nbtree/nbtsort.c:1396-1606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1396-L1606)
 
 ## Overview
 Initializes and launches parallel workers for B-tree index construction, setting up shared memory structures and coordinating the parallel build process.

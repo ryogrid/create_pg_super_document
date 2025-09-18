@@ -1,7 +1,7 @@
 # SignalSomeChildren
 
 ## Location
-src/backend/postmaster/postmaster.c: 3466 - 3509
+[src/backend/postmaster/postmaster.c:3466-3509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3466-L3509)
 
 ## Overview
 Sends a specified signal to targeted child processes in the PostgreSQL postmaster, with filtering capabilities to target specific types of backend processes.

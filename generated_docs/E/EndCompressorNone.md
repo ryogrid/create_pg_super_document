@@ -1,7 +1,7 @@
 # EndCompressorNone
 
 ## Location
-src/bin/pg_dump/compress_none.c: 56 - 65
+[src/bin/pg_dump/compress_none.c:56-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L56-L65)
 
 ## Overview
 Finalizes the compression process when no compression is used, implementing the compressor API for uncompressed data streams in pg_dump.

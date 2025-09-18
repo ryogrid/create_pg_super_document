@@ -1,7 +1,7 @@
 # ExecProcessReturning
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 277 - 308
+[src/backend/executor/nodeModifyTable.c:277-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L277-L308)
 
 ## Overview
 Evaluates a RETURNING clause expression list and returns the computed result tuple for INSERT, UPDATE, DELETE, and MERGE operations.

@@ -1,7 +1,7 @@
 # timetz_zone
 
 ## Location
-src/backend/utils/adt/date.c: 3060 - 3121
+[src/backend/utils/adt/date.c:3060-3121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L3060-L3121)
 
 ## Overview
 Converts a time with time zone to a different time zone, applying appropriate DST rules as of the transaction start time.

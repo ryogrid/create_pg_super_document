@@ -1,7 +1,7 @@
 # cash_cmp
 
 ## Location
-src/backend/utils/adt/cash.c: 670 - 687
+[src/backend/utils/adt/cash.c:670-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L670-L687)
 
 ## Overview
 The cash_cmp function implements a three-way comparison for PostgreSQL's cash (money) data type, returning -1, 0, or 1 to indicate whether the first value is less than, equal to, or greater than the second value.

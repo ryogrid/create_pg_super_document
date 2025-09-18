@@ -1,7 +1,7 @@
 # date_finite
 
 ## Location
-src/backend/utils/adt/date.c: 459 - 466
+[src/backend/utils/adt/date.c:459-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L459-L466)
 
 ## Overview
 Tests whether a date value is finite (not infinity or negative infinity).

@@ -1,7 +1,7 @@
 # float8_combine
 
 ## Location
-src/backend/utils/adt/float.c: 2856 - 2949
+[src/backend/utils/adt/float.c:2856-2949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2856-L2949)
 
 ## Overview
 PostgreSQL aggregate combine function that merges two sets of statistical transition data for parallel execution of floating-point statistical aggregates.

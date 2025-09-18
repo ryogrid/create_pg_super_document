@@ -1,7 +1,7 @@
 # create_tidrangescan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3637 - 3701
+[src/backend/optimizer/plan/createplan.c:3637-3701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3637-L3701)
 
 ## Overview
 Creates a TID range scan plan for a base relation that scans a range of tuple identifiers (TIDs) rather than individual TIDs, optimized for range-based TID queries.

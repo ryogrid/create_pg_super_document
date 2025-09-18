@@ -1,7 +1,7 @@
 # RetrieveDataDirCreatePerm
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 426 - 479
+[src/bin/pg_basebackup/streamutil.c:426-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L426-L479)
 
 ## Overview
 Retrieves the data directory permissions from the PostgreSQL server and configures local file/directory creation permissions accordingly.

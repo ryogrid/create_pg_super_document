@@ -1,7 +1,7 @@
 # collectRoleNames
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 9982 - 10016
+[src/bin/pg_dump/pg_dump.c:9982-10016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L9982-L10016)
 
 ## Overview
 Constructs and populates a sorted table of all PostgreSQL roles for efficient lookup during pg_dump operations.

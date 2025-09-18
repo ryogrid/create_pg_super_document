@@ -1,7 +1,7 @@
 # libpqrcv_disconnect
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 880 - 903
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:880-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L880-L903)
 
 ## Overview
 Cleanly disconnects and frees resources associated with a WAL receiver connection to the primary server.

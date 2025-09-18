@@ -1,7 +1,7 @@
 # debackslash
 
 ## Location
-src/backend/nodes/read.c: 214 - 229
+[src/backend/nodes/read.c:214-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L214-L229)
 
 ## Overview
 A utility function that removes protective backslash escape sequences from tokens extracted by pg_strtok, creating a clean palloc'd string.

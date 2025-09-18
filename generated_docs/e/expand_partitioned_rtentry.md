@@ -1,7 +1,7 @@
 # expand_partitioned_rtentry
 
 ## Location
-src/backend/optimizer/util/inherit.c: 318 - 460
+[src/backend/optimizer/util/inherit.c:318-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L318-L460)
 
 ## Overview
 Recursively expands a range table entry for a partitioned table by creating child RTEs for live partitions and building necessary planner data structures.

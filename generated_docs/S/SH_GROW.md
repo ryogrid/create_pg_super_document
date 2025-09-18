@@ -1,7 +1,7 @@
 # SH_GROW
 
 ## Location
-src/include/lib/simplehash.h: 494 - 608
+[src/include/lib/simplehash.h:494-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L494-L608)
 
 ## Overview
 SH_GROW is a macro that defines a function name for growing a simple hash table to accommodate more elements, implementing an efficient resizing operation.

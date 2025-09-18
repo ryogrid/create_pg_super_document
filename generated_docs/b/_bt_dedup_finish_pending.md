@@ -1,7 +1,7 @@
 # _bt_dedup_finish_pending
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 555 - 647
+[src/backend/access/nbtree/nbtdedup.c:555-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L555-L647)
 
 ## Overview
 Finalizes a pending posting list tuple and adds it to the page, either as the original base tuple or as a new posting list tuple with merged heap TIDs.

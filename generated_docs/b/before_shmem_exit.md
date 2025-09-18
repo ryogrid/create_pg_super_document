@@ -1,7 +1,7 @@
 # before_shmem_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 337 - 364
+[src/backend/storage/ipc/ipc.c:337-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L337-L364)
 
 ## Overview
 Registers early cleanup callbacks to perform user-level cleanup operations (such as transaction abort) before PostgreSQL begins shutting down low-level subsystems.

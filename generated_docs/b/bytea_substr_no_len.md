@@ -1,7 +1,7 @@
 # bytea_substr_no_len
 
 ## Location
-src/backend/utils/adt/varlena.c: 3019 - 3027
+[src/backend/utils/adt/varlena.c:3019-3027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3019-L3027)
 
 ## Overview
 bytea_substr_no_len is a PostgreSQL internal function that extracts a substring from a bytea value starting at a specified position without requiring a length parameter.

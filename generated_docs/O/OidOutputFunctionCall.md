@@ -1,7 +1,7 @@
 # OidOutputFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1763 - 1771
+[src/backend/utils/fmgr/fmgr.c:1763-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1763-L1771)
 
 ## Overview
 OidOutputFunctionCall is a convenience function that calls a datatype output function identified by its OID to convert internal Datum values to their string representation.

@@ -1,7 +1,7 @@
 # op_strict
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1477 - 1492
+[src/backend/utils/cache/lsyscache.c:1477-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1477-L1492)
 
 ## Overview
 Retrieves the strictness property of an operator by checking the proisstrict flag of its underlying function.

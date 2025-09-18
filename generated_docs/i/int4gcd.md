@@ -1,7 +1,7 @@
 # int4gcd
 
 ## Location
-src/backend/utils/adt/int.c: 1294 - 1308
+[src/backend/utils/adt/int.c:1294-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1294-L1308)
 
 ## Overview
 PostgreSQL SQL-callable function that computes the greatest common divisor (GCD) of two 32-bit integers.

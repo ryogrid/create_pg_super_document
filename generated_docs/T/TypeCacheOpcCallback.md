@@ -1,7 +1,7 @@
 # TypeCacheOpcCallback
 
 ## Location
-src/backend/utils/cache/typcache.c: 2395 - 2423
+[src/backend/utils/cache/typcache.c:2395-2423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2395-L2423)
 
 ## Overview
 TypeCacheOpcCallback is a syscache invalidation callback function that handles updates to the pg_opclass system catalog by invalidating all cached operator class-related data in the type cache.

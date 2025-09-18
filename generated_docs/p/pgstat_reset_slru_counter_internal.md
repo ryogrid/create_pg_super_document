@@ -1,7 +1,7 @@
 # pgstat_reset_slru_counter_internal
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 238 - 248
+[src/backend/utils/activity/pgstat_slru.c:238-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L238-L248)
 
 ## Overview
 An internal static function that resets the statistics counters for a specific SLRU type in shared memory, clearing all accumulated statistics and recording the reset timestamp.

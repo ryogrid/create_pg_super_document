@@ -1,7 +1,7 @@
 # locate_var_of_level_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 525 - 606
+[src/backend/optimizer/util/var.c:525-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L525-L606)
 
 ## Overview
 A static tree walker function that traverses an expression tree to find the parse location of any Var node at a specified query nesting level, used internally by `locate_var_of_level()`.

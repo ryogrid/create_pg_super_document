@@ -1,7 +1,7 @@
 # dump_index
 
 ## Location
-src/backend/utils/adt/formatting.c: 2290 - 2320
+[src/backend/utils/adt/formatting.c:2290-2320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2290-L2320)
 
 ## Overview
 A debugging utility function that displays the contents of a KeyWord index array, showing ASCII characters and their corresponding keyword mappings.

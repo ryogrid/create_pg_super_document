@@ -1,7 +1,7 @@
 # dumpBaseType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11313 - 11561
+[src/bin/pg_dump/pg_dump.c:11313-11561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11313-L11561)
 
 ## Overview
 Generates SQL commands to recreate a user-defined base type with all its implementation details during PostgreSQL database dump operations.

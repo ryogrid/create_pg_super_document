@@ -1,7 +1,7 @@
 # okcolors
 
 ## Location
-src/backend/regex/regc_color.c: 916 - 983
+[src/backend/regex/regc_color.c:916-983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L916-L983)
 
 ## Overview
 The  function promotes subcolors to full colors during regular expression compilation, consolidating the color mapping structure by resolving parent-subcolor relationships.

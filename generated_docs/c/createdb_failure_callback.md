@@ -1,7 +1,7 @@
 # createdb_failure_callback
 
 ## Location
-src/backend/commands/dbcommands.c: 1595 - 1633
+[src/backend/commands/dbcommands.c:1595-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L1595-L1633)
 
 ## Overview
 createdb_failure_callback is an error cleanup callback function that handles rollback operations when database creation fails, ensuring proper resource cleanup and lock release.

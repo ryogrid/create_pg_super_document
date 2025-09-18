@@ -1,7 +1,7 @@
 # HashAggBatch
 
 ## Location
-src/backend/executor/nodeAgg.c: 350 - 357
+[src/backend/executor/nodeAgg.c:350-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L350-L357)
 
 ## Overview
 HashAggBatch represents work to be done for one pass of hash aggregation with a single grouping set, tracking hash bits already used for partition selection to enable multi-level partitioning.

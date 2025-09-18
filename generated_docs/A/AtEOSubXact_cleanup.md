@@ -1,7 +1,7 @@
 # AtEOSubXact_cleanup
 
 ## Location
-src/backend/utils/cache/relcache.c: 3444 - 3525
+[src/backend/utils/cache/relcache.c:3444-3525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3444-L3525)
 
 ## Overview
 Handles cleanup of a single relation at subtransaction commit or abort, managing subtransaction ID transitions and determining whether relcache entries should be transferred to parent subtransactions or removed entirely.

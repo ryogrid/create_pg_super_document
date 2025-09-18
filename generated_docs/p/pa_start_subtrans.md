@@ -1,7 +1,7 @@
 # pa_start_subtrans
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1362 - 1401
+[src/backend/replication/logical/applyparallelworker.c:1362-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1362-L1401)
 
 ## Overview
 pa_start_subtrans manages subtransaction initialization in parallel apply workers by defining savepoints for new subtransactions in PostgreSQL's logical replication system.

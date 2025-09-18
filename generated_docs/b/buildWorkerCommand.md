@@ -1,7 +1,7 @@
 # buildWorkerCommand
 
 ## Location
-src/bin/pg_dump/parallel.c: 1108 - 1122
+[src/bin/pg_dump/parallel.c:1108-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1108-L1122)
 
 ## Overview
 Formats command strings to send to parallel worker processes, specifying which table of contents entry to dump or restore.

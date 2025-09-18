@@ -1,7 +1,7 @@
 # texticregexeq
 
 ## Location
-src/backend/utils/adt/regexp.c: 550 - 563
+[src/backend/utils/adt/regexp.c:550-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L550-L563)
 
 ## Overview
 A PostgreSQL function that performs case-insensitive regular expression matching for text values, returning true if the pattern matches the text.

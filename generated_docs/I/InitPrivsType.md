@@ -1,7 +1,7 @@
 # InitPrivsType
 
 ## Location
-src/include/catalog/pg_init_privs.h: 81 - 83
+[src/include/catalog/pg_init_privs.h:81-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_init_privs.h#L81-L83)
 
 ## Overview
 InitPrivsType is an enumeration that differentiates the source of initial privileges in PostgreSQL's privilege system, distinguishing between privileges set during database initialization (initdb) and those created by extensions.

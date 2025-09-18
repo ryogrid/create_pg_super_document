@@ -1,7 +1,7 @@
 # clean_ipv6_addr
 
 ## Location
-src/backend/utils/adt/network.c: 2095 - 2104
+[src/backend/utils/adt/network.c:2095-2104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L2095-L2104)
 
 ## Overview
 A utility function that removes IPv6 zone identifier suffixes (the '%zone' part) from IPv6 address strings to ensure compatibility with PostgreSQL's inet storage format.

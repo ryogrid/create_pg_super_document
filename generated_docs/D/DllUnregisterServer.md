@@ -1,7 +1,7 @@
 # DllUnregisterServer
 
 ## Location
-src/bin/pgevent/pgevent.c: 127 - 151
+[src/bin/pgevent/pgevent.c:127-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgevent/pgevent.c#L127-L151)
 
 ## Overview
 DllUnregisterServer is a standard Windows COM DLL export function that removes the PostgreSQL event logging DLL registration from the Windows Event Log system by deleting the associated registry entries.

@@ -1,7 +1,7 @@
 # pg_utf8_islegal
 
 ## Location
-src/common/wchar.c: 1989 - 2050
+[src/common/wchar.c:1989-2050](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1989-L2050)
 
 ## Overview
 Validates whether a UTF-8 encoded character sequence is legal according to RFC 3629, ensuring proper encoding without security vulnerabilities.

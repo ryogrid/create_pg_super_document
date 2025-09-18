@@ -1,7 +1,7 @@
 # IsSystemClass
 
 ## Location
-src/backend/catalog/catalog.c: 85 - 102
+[src/backend/catalog/catalog.c:85-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L85-L102)
 
 ## Overview
 IsSystemClass determines whether a relation is a system relation by checking if it's either a catalog relation or a toast table, using the relation's OID and Form_pg_class tuple directly.

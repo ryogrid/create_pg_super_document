@@ -1,7 +1,7 @@
 # rename_constraint_internal
 
 ## Location
-src/backend/commands/tablecmds.c: 3915 - 4020
+[src/backend/commands/tablecmds.c:3915-4020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3915-L4020)
 
 ## Overview
 rename_constraint_internal is the core internal function that performs constraint renaming operations for both table and domain constraints, handling inheritance hierarchies and constraint type-specific logic.

@@ -1,7 +1,7 @@
 # numeric_avg_serialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5220 - 5271
+[src/backend/utils/adt/numeric.c:5220-5271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5220-L5271)
 
 ## Overview
 Serializes NumericAggState for numeric aggregates that don't require sumX2, converting the aggregate state into a bytea format for storage or transmission.

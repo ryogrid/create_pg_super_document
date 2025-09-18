@@ -1,7 +1,7 @@
 # ginTraverseLock
 
 ## Location
-src/backend/access/gin/ginbtree.c: 39 - 82
+[src/backend/access/gin/ginbtree.c:39-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L39-L82)
 
 ## Overview
 ginTraverseLock locks a buffer using the appropriate method for GIN B-tree search operations, handling dynamic lock upgrades when necessary.

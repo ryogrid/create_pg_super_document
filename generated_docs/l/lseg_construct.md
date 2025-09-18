@@ -1,7 +1,7 @@
 # lseg_construct
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2129 - 2141
+[src/backend/utils/adt/geo_ops.c:2129-2141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2129-L2141)
 
 ## Overview
 Creates a line segment (LSEG) from two Point arguments, serving as a constructor function for the LSEG geometric data type.

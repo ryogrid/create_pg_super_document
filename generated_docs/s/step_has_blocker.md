@@ -1,7 +1,7 @@
 # step_has_blocker
 
 ## Location
-src/test/isolation/isolationtester.c: 1080 - 1112
+[src/test/isolation/isolationtester.c:1080-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/isolationtester.c#L1080-L1112)
 
 ## Overview
 Determines whether a permutation step has any unsatisfied blocker conditions that would prevent it from completing.

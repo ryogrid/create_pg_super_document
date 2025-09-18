@@ -1,7 +1,7 @@
 # _bt_binsrch_array_skey
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1201 - 1342
+[src/backend/access/nbtree/nbtutils.c:1201-1342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1201-L1342)
 
 ## Overview
 Performs binary search within SK_SEARCHARRAY arrays to find the first array element greater than or equal to a given tuple datum, with optimizations for required arrays that advance in lockstep with index scans.

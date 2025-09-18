@@ -1,7 +1,7 @@
 # bbsink_copystream_end_archive
 
 ## Location
-src/backend/backup/basebackup_copy.c: 241 - 259
+[src/backend/backup/basebackup_copy.c:241-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L241-L259)
 
 ## Overview
 Forces a final progress report to the client at the end of an archive transmission, ensuring accurate progress reporting.

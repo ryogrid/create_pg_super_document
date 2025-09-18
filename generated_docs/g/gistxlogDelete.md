@@ -1,7 +1,7 @@
 # gistxlogDelete
 
 ## Location
-src/include/access/gistxlog.h: 50 - 59
+[src/include/access/gistxlog.h:50-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gistxlog.h#L50-L59)
 
 ## Overview
 The  structure represents a WAL (Write-Ahead Logging) record for GiST index tuple deletion operations, capturing information needed to replay deletion operations during recovery.

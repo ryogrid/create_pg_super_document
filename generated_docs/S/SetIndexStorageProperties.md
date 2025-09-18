@@ -1,7 +1,7 @@
 # SetIndexStorageProperties
 
 ## Location
-src/backend/commands/tablecmds.c: 8824 - 8886
+[src/backend/commands/tablecmds.c:8824-8886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8824-L8886)
 
 ## Overview
 SetIndexStorageProperties is a helper function that propagates storage and compression property changes from a table column to corresponding index columns that reference that table column.

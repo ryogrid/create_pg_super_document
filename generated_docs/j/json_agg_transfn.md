@@ -1,7 +1,7 @@
 # json_agg_transfn
 
 ## Location
-src/backend/utils/adt/json.c: 852 - 860
+[src/backend/utils/adt/json.c:852-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L852-L860)
 
 ## Overview
 The json_agg_transfn function serves as the standard transition function for PostgreSQL's json_agg aggregate, preserving null values in the output JSON array.

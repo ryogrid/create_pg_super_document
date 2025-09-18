@@ -1,7 +1,7 @@
 # tidout
 
 ## Location
-src/backend/utils/adt/tid.c: 119 - 138
+[src/backend/utils/adt/tid.c:119-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L119-L138)
 
 ## Overview
 The `tidout` function is the output conversion function for PostgreSQL's TID (tuple identifier) data type, converting an internal ItemPointer structure to its string representation.

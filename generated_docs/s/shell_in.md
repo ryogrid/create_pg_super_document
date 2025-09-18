@@ -1,7 +1,7 @@
 # shell_in
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 303 - 312
+[src/backend/utils/adt/pseudotypes.c:303-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L303-L312)
 
 ## Overview
 The shell_in function is an input function for PostgreSQL shell types that serves as a placeholder and error handler for incomplete type definitions.

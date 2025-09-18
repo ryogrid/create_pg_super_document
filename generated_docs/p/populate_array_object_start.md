@@ -1,7 +1,7 @@
 # populate_array_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2643 - 2665
+[src/backend/utils/adt/jsonfuncs.c:2643-2665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2643-L2665)
 
 ## Overview
 JSON parse handler that processes the start of JSON objects during array population, validating dimensional constraints and structure.

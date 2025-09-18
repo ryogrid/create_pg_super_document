@@ -1,7 +1,7 @@
 # ExecMergeTupleDumpInner
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 558 - 569
+[src/backend/executor/nodeMergejoin.c:558-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L558-L569)
 
 ## Overview
 ExecMergeTupleDumpInner is a debug utility function that prints the current inner tuple in a merge join operation to stdout for debugging purposes.

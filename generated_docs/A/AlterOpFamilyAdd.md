@@ -1,7 +1,7 @@
 # AlterOpFamilyAdd
 
 ## Location
-src/backend/commands/opclasscmds.c: 881 - 1029
+[src/backend/commands/opclasscmds.c:881-1029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L881-L1029)
 
 ## Overview
 Implements the ADD portion of ALTER OPERATOR FAMILY commands by adding new operators and support functions to an existing operator family.

@@ -1,7 +1,7 @@
 # dummy_ssl_passwd_cb
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1136 - 1152
+[src/backend/libpq/be-secure-openssl.c:1136-1152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1136-L1152)
 
 ## Overview
 A dummy passphrase callback that returns an empty passphrase to prevent interactive prompting during automated SSL context operations.

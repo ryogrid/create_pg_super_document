@@ -1,7 +1,7 @@
 # EventTriggerCollectAlterOpFam
 
 ## Location
-src/backend/commands/event_trigger.c: 1795 - 1827
+[src/backend/commands/event_trigger.c:1795-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1795-L1827)
 
 ## Overview
 Saves data about an ALTER OPERATOR FAMILY ADD/DROP command being executed for event trigger processing, collecting information about operator family modifications.

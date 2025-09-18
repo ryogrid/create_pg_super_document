@@ -1,7 +1,7 @@
 # pg_atomic_unlocked_write_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 64 - 74
+[src/include/port/atomics/generic.h:64-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L64-L74)
 
 ## Overview
 Provides a generic implementation for writing a 32-bit unsigned integer to an atomic variable without locking or memory synchronization guarantees.

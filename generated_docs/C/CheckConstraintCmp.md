@@ -1,7 +1,7 @@
 # CheckConstraintCmp
 
 ## Location
-src/backend/utils/cache/relcache.c: 4674 - 4696
+[src/backend/utils/cache/relcache.c:4674-4696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4674-L4696)
 
 ## Overview
 CheckConstraintCmp is a comparison function used by qsort to sort ConstrCheck entries by their constraint names in alphabetical order.

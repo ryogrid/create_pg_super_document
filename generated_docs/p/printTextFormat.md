@@ -1,7 +1,7 @@
 # printTextFormat
 
 ## Location
-src/include/fe_utils/print.h: 81 - 97
+[src/include/fe_utils/print.h:81-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L81-L97)
 
 ## Overview
 A comprehensive structure that defines a complete text table formatting style, including line drawing characters, continuation markers, and wrapping indicators for PostgreSQL frontend table output.

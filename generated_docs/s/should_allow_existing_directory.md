@@ -1,7 +1,7 @@
 # should_allow_existing_directory
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 292 - 316
+[src/bin/pg_basebackup/bbstreamer_file.c:292-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L292-L316)
 
 ## Overview
 This function determines whether an existing directory should be tolerated during archive extraction, specifically handling cases where PostgreSQL system directories may legitimately exist before extraction.

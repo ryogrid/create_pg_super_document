@@ -1,7 +1,7 @@
 # tsvector_to_array
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 720 - 746
+[src/backend/utils/adt/tsvector_op.c:720-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L720-L746)
 
 ## Overview
 Converts a TSVector into a simple array of lexeme strings, extracting only the lexeme text without position or weight information.

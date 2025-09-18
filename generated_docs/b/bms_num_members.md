@@ -1,7 +1,7 @@
 # bms_num_members
 
 ## Location
-src/backend/nodes/bitmapset.c: 751 - 780
+[src/backend/nodes/bitmapset.c:751-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L751-L780)
 
 ## Overview
 Counts and returns the total number of members (set bits) in a bitmapset.

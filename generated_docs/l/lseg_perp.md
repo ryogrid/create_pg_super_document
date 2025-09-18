@@ -1,7 +1,7 @@
 # lseg_perp
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2210 - 2218
+[src/backend/utils/adt/geo_ops.c:2210-2218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2210-L2218)
 
 ## Overview
 Determines if two line segments are perpendicular by comparing their slopes.

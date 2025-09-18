@@ -1,7 +1,7 @@
 # _copyExtensibleNode
 
 ## Location
-src/backend/nodes/copyfuncs.c: 147 - 163
+[src/backend/nodes/copyfuncs.c:147-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/copyfuncs.c#L147-L163)
 
 ## Overview
 Creates a deep copy of an ExtensibleNode by delegating the node-specific copying logic to the registered copy method for that extensible node type.

@@ -1,7 +1,7 @@
 # InitArchiveFmt_Directory
 
 ## Location
-src/bin/pg_dump/pg_backup_directory.c: 109 - 229
+[src/bin/pg_dump/pg_backup_directory.c:109-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_directory.c#L109-L229)
 
 ## Overview
 This function initializes the directory format archive handler for PostgreSQL's pg_dump utility, setting up all necessary function pointers and context for reading or writing directory-format database dumps.

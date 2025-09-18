@@ -1,7 +1,7 @@
 # dsnowball_lexize
 
 ## Location
-src/backend/snowball/dict_snowball.c: 270 - 347
+[src/backend/snowball/dict_snowball.c:270-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L270-L347)
 
 ## Overview
 This function performs lexical analysis on input text using Snowball stemming algorithms, converting words to their stem forms while handling stopwords, encoding conversions, and length restrictions.

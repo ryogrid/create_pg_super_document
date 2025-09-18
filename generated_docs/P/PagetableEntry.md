@@ -1,7 +1,7 @@
 # PagetableEntry
 
 ## Location
-src/backend/nodes/tidbitmap.c: 100 - 107
+[src/backend/nodes/tidbitmap.c:100-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L100-L107)
 
 ## Overview
 PagetableEntry is a data structure that represents hashtable entries in PostgreSQL's Tuple ID Bitmap (TIDBitmap) system, supporting both exact page storage and lossy chunk storage for memory-efficient bitmap operations.

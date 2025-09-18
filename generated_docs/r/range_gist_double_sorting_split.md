@@ -1,7 +1,7 @@
 # range_gist_double_sorting_split
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1318 - 1620
+[src/backend/utils/adt/rangetypes_gist.c:1318-1620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1318-L1620)
 
 ## Overview
 An advanced GiST splitting algorithm that uses double sorting to minimize overlap between left and right groups by analyzing both lower and upper bounds of ranges.

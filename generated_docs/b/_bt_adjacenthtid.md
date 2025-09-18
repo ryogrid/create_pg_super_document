@@ -1,7 +1,7 @@
 # _bt_adjacenthtid
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 749 - 787
+[src/backend/access/nbtree/nbtsplitloc.c:749-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L749-L787)
 
 ## Overview
 A utility function that determines if two heap tuple identifiers (TIDs) are "adjacent", meaning they were likely inserted consecutively into the heap relation, probably during the current transaction.

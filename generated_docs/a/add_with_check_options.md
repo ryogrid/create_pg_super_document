@@ -1,7 +1,7 @@
 # add_with_check_options
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 796 - 807
+[src/backend/rewrite/rowsecurity.c:796-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L796-L807)
 
 ## Overview
 Adds WithCheckOptions of a specified kind to ensure that new records from INSERT or UPDATE operations comply with Row Level Security (RLS) policies.

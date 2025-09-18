@@ -1,7 +1,7 @@
 # pqsecure_open_client
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 153 - 166
+[src/interfaces/libpq/fe-secure.c:153-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L153-L166)
 
 ## Overview
 Initiates or continues the SSL/TLS handshake negotiation process for establishing a secure client connection.

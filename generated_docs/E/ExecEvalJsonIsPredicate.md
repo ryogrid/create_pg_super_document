@@ -1,7 +1,7 @@
 # ExecEvalJsonIsPredicate
 
 ## Location
-src/backend/executor/execExprInterp.c: 4179 - 4278
+[src/backend/executor/execExprInterp.c:4179-4278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4179-L4278)
 
 ## Overview
 Evaluates a JSON IS predicate to determine if a given JSON value matches a specific JSON type constraint (object, array, scalar, or any type).

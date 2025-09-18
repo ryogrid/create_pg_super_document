@@ -1,7 +1,7 @@
 # IndexElem
 
 ## Location
-src/include/nodes/parsenodes.h: 780 - 791
+[src/include/nodes/parsenodes.h:780-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L780-L791)
 
 ## Overview
 IndexElem represents an index parameter used in CREATE INDEX statements and ON CONFLICT clauses, defining either a table column or expression to be indexed along with its indexing options.

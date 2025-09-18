@@ -1,7 +1,7 @@
 # heap_getsysattr
 
 ## Location
-src/backend/access/common/heaptuple.c: 723 - 775
+[src/backend/access/common/heaptuple.c:723-775](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L723-L775)
 
 ## Overview
 heap_getsysattr fetches the value of a system attribute for a heap tuple, providing access to PostgreSQL's built-in tuple metadata such as transaction IDs, command IDs, table OID, and tuple identifier.

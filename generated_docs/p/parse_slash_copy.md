@@ -1,7 +1,7 @@
 # parse_slash_copy
 
 ## Location
-src/bin/psql/copy.c: 89 - 267
+[src/bin/psql/copy.c:89-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L89-L267)
 
 ## Overview
 Parses the arguments of a psql \copy command line and returns a structured representation of the parsed options.

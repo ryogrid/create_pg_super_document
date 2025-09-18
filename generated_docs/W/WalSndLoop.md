@@ -1,7 +1,7 @@
 # WalSndLoop
 
 ## Location
-src/backend/replication/walsender.c: 2786 - 2926
+[src/backend/replication/walsender.c:2786-2926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2786-L2926)
 
 ## Overview
 Main control loop for WAL sender processes that manages streaming WAL data to replicas via Copy protocol messages.

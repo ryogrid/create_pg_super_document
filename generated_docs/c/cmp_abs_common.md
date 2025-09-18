@@ -1,7 +1,7 @@
 # cmp_abs_common
 
 ## Location
-src/backend/utils/adt/numeric.c: 11536 - 11599
+[src/backend/utils/adt/numeric.c:11536-11599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11536-L11599)
 
 ## Overview
 Core comparison function that compares the absolute values of two numeric values represented as digit arrays, implementing the low-level comparison logic for PostgreSQL's numeric type.

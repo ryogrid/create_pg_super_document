@@ -1,7 +1,7 @@
 # tbm_free
 
 ## Location
-src/backend/nodes/tidbitmap.c: 322 - 340
+[src/backend/nodes/tidbitmap.c:322-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L322-L340)
 
 ## Overview
 Deallocates all memory associated with a TIDBitmap structure and frees the bitmap itself.

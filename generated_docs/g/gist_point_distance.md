@@ -1,7 +1,7 @@
 # gist_point_distance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1455 - 1478
+[src/backend/access/gist/gistproc.c:1455-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1455-L1478)
 
 ## Overview
 Implements the GiST distance method for point data types, calculating the minimum distance between a query point and points stored in GiST index entries for nearest-neighbor search operations.

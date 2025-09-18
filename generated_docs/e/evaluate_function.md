@@ -1,7 +1,7 @@
 # evaluate_function
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4425 - 4550
+[src/backend/optimizer/util/clauses.c:4425-4550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4425-L4550)
 
 ## Overview
 Attempts to pre-evaluate a function call during query optimization by checking if the function can be simplified to a constant value based on its inputs and volatility properties.

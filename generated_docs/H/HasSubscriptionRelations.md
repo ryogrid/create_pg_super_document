@@ -1,7 +1,7 @@
 # HasSubscriptionRelations
 
 ## Location
-src/backend/catalog/pg_subscription.c: 491 - 525
+[src/backend/catalog/pg_subscription.c:491-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L491-L525)
 
 ## Overview
 Determines whether a subscription has any associated relation subscriptions by checking for the existence of records in the pg_subscription_rel system catalog.

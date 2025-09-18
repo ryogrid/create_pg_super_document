@@ -1,7 +1,7 @@
 # CheckAndSetLockHeld
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1364 - 1375
+[src/backend/storage/lmgr/lock.c:1364-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1364-L1375)
 
 ## Overview
 CheckAndSetLockHeld is a debug utility function that tracks whether the current process holds a relation extension lock, used for assertion checking to prevent improper lock nesting.

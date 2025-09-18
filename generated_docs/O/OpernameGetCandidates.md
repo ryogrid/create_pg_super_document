@@ -1,7 +1,7 @@
 # OpernameGetCandidates
 
 ## Location
-src/backend/catalog/namespace.c: 1888 - 1927
+[src/backend/catalog/namespace.c:1888-1927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1888-L1927)
 
 ## Overview
 OpernameGetCandidates retrieves a list of all possible operator matches for a given possibly-qualified operator name and operator kind.

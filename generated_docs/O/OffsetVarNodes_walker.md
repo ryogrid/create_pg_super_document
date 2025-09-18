@@ -1,7 +1,7 @@
 # OffsetVarNodes_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 392 - 480
+[src/backend/rewrite/rewriteManip.c:392-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L392-L480)
 
 ## Overview
 A static tree walker function that adjusts variable node numbers and relation identifiers by a specified offset, handling various node types in expression trees and query structures.

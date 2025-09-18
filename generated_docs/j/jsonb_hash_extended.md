@@ -1,7 +1,7 @@
 # jsonb_hash_extended
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 295 - 335
+[src/backend/utils/adt/jsonb_op.c:295-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L295-L335)
 
 ## Overview
 Computes an extended 64-bit hash value for a JSONB value using a seed value, providing enhanced hash distribution for advanced hashing applications.

@@ -1,7 +1,7 @@
 # create_gather_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1972 - 2015
+[src/backend/optimizer/util/pathnode.c:1972-2015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1972-L2015)
 
 ## Overview
 Creates a GatherPath node corresponding to a gather scan operation, which is used in PostgreSQL's parallel query execution to combine results from parallel worker processes into a single stream.

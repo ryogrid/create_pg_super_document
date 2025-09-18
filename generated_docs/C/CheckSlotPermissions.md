@@ -1,7 +1,7 @@
 # CheckSlotPermissions
 
 ## Location
-src/backend/replication/slot.c: 1384 - 1400
+[src/backend/replication/slot.c:1384-1400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1384-L1400)
 
 ## Overview
 Verifies that the current user has the necessary REPLICATION privilege to use replication slots.

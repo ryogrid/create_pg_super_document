@@ -1,7 +1,7 @@
 # store_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1558 - 1600
+[src/backend/access/brin/brin_minmax_multi.c:1558-1600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1558-L1600)
 
 ## Overview
 Converts processed expanded ranges back into the compact Ranges storage format, separating regular ranges from collapsed (single-point) ranges for efficient storage in BRIN minmax-multi indexes.

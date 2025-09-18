@@ -1,7 +1,7 @@
 # CheckLogrotateSignal
 
 ## Location
-src/backend/postmaster/syslogger.c: 1573 - 1586
+[src/backend/postmaster/syslogger.c:1573-1586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1573-L1586)
 
 ## Overview
 Checks for the presence of a log rotation signal file to determine if a manual log rotation has been requested.

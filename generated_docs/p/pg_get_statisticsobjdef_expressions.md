@@ -1,7 +1,7 @@
 # pg_get_statisticsobjdef_expressions
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1818 - 1888
+[src/backend/utils/adt/ruleutils.c:1818-1888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1818-L1888)
 
 ## Overview
 A PostgreSQL system function that extracts and returns the expressions from an extended statistics object as a text array, formatted for human readability.

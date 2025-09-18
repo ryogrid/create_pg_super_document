@@ -1,7 +1,7 @@
 # get_utility_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7285 - 7329
+[src/backend/utils/adt/ruleutils.c:7285-7329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7285-L7329)
 
 ## Overview
 Generates the text representation of utility SQL statements from a parsed Query structure, currently supporting only NOTIFY commands within rule contexts.

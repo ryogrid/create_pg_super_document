@@ -1,7 +1,7 @@
 # AllocPointer
 
 ## Location
-src/backend/utils/mmgr/aset.c: 113 - 121
+[src/backend/utils/mmgr/aset.c:113-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L113-L121)
 
 ## Overview
 AllocPointer is a typedef that represents an aligned void pointer used for memory allocation within PostgreSQL's allocation set memory management system.

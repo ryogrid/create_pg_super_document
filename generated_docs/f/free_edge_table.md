@@ -1,7 +1,7 @@
 # free_edge_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 76 - 94
+[src/backend/optimizer/geqo/geqo_erx.c:76-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L76-L94)
 
 ## Overview
 Deallocates memory for an edge table used in the GEQO ERX algorithm, providing proper cleanup of allocated resources.

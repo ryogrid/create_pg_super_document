@@ -1,7 +1,7 @@
 # entryLocateEntry
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 270 - 345
+[src/backend/access/gin/ginentrypage.c:270-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L270-L345)
 
 ## Overview
 Finds the correct tuple in a non-leaf GIN index page using binary search to locate the appropriate child page to descend to during index traversal.

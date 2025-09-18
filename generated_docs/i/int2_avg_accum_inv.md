@@ -1,7 +1,7 @@
 # int2_avg_accum_inv
 
 ## Location
-src/backend/utils/adt/numeric.c: 6760 - 6787
+[src/backend/utils/adt/numeric.c:6760-6787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6760-L6787)
 
 ## Overview
 PostgreSQL aggregate inverse transition function that removes int2 (smallint) values from the average transition state, supporting sliding window aggregates.

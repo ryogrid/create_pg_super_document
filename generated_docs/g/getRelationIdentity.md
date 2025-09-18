@@ -1,7 +1,7 @@
 # getRelationIdentity
 
 ## Location
-src/backend/catalog/objectaddress.c: 6009 - 6042
+[src/backend/catalog/objectaddress.c:6009-6042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L6009-L6042)
 
 ## Overview
 A static helper function that appends a quoted, schema-qualified relation name to a StringInfo buffer, providing a standardized way to identify database relations (tables, views, indexes, etc.) in PostgreSQL.

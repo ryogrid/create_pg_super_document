@@ -1,7 +1,7 @@
 # PartitionwiseAggregateType
 
 ## Location
-src/include/nodes/pathnodes.h: 3275 - 3302
+[src/include/nodes/pathnodes.h:3275-3302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3275-L3302)
 
 ## Overview
 PartitionwiseAggregateType is an enumeration that specifies the strategy for performing aggregation operations across partitioned tables in PostgreSQL's query optimizer.

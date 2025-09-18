@@ -1,7 +1,7 @@
 # cidr_in
 
 ## Location
-src/backend/utils/adt/network.c: 129 - 140
+[src/backend/utils/adt/network.c:129-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L129-L140)
 
 ## Overview
 The input function for the CIDR data type that converts string representations of network addresses into PostgreSQL's internal inet format with strict CIDR validation.

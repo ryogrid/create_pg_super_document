@@ -1,7 +1,7 @@
 # show_item
 
 ## Location
-src/bin/pg_config/pg_config.c: 116 - 129
+[src/bin/pg_config/pg_config.c:116-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_config/pg_config.c#L116-L129)
 
 ## Overview
 Searches through configuration data array and displays the value of a specified configuration parameter.

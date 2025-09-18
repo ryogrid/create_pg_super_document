@@ -1,7 +1,7 @@
 # fetch_count_substitute_hook
 
 ## Location
-src/bin/psql/startup.c: 905 - 912
+[src/bin/psql/startup.c:905-912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L905-L912)
 
 ## Overview
 A hook function used in PostgreSQL's psql client to provide a default value for the FETCH_COUNT variable when it is unset or null, ensuring the variable always has a valid numeric value.

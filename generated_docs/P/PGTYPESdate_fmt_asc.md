@@ -1,7 +1,7 @@
 # PGTYPESdate_fmt_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 168 - 327
+[src/interfaces/ecpg/pgtypeslib/datetime.c:168-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L168-L327)
 
 ## Overview
 Formats a Julian date according to a specified format string, producing a human-readable date representation.

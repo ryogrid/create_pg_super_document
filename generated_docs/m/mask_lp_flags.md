@@ -1,7 +1,7 @@
 # mask_lp_flags
 
 ## Location
-src/backend/access/common/bufmask.c: 95 - 118
+[src/backend/access/common/bufmask.c:95-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/bufmask.c#L95-L118)
 
 ## Overview
 Masks line pointer flags that can be modified on the primary server without generating WAL records, ensuring consistent page comparisons for index access methods.

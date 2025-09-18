@@ -1,7 +1,7 @@
 # restoreTimeLineHistoryFiles
 
 ## Location
-src/backend/access/transam/timeline.c: 50 - 75
+[src/backend/access/transam/timeline.c:50-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L50-L75)
 
 ## Overview
 Restores timeline history files from the archive to pg_wal for a range of timeline IDs during recovery operations.

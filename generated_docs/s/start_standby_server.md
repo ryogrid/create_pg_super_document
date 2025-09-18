@@ -1,7 +1,7 @@
 # start_standby_server
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1443 - 1486
+[src/bin/pg_basebackup/pg_createsubscriber.c:1443-1486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1443-L1486)
 
 ## Overview
 A function that constructs and executes a pg_ctl command to start a PostgreSQL standby server with specific configuration options for the pg_createsubscriber tool.

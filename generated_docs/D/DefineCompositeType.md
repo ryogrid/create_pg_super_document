@@ -1,7 +1,7 @@
 # DefineCompositeType
 
 ## Location
-src/backend/commands/typecmds.c: 2518 - 2575
+[src/backend/commands/typecmds.c:2518-2575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2518-L2575)
 
 ## Overview
 DefineCompositeType is a function that creates a composite type (record/row type) in PostgreSQL by leveraging the relation creation infrastructure, since composite types are internally implemented as special relations.

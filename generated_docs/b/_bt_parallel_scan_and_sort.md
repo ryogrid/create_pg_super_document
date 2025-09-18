@@ -1,7 +1,7 @@
 # _bt_parallel_scan_and_sort
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1862 - 1963
+[src/backend/access/nbtree/nbtsort.c:1862-1963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1862-L1963)
 
 ## Overview
 Core function that performs the actual table scanning and tuple sorting work for a parallel worker during B-tree index construction.

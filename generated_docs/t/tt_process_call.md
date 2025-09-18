@@ -1,7 +1,7 @@
 # tt_process_call
 
 ## Location
-src/backend/tsearch/wparser.c: 77 - 105
+[src/backend/tsearch/wparser.c:77-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L77-L105)
 
 ## Overview
 Processes individual calls in a multi-call function context to return token type information as tuples for PostgreSQL text search parsers.

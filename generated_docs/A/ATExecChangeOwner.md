@@ -1,7 +1,7 @@
 # ATExecChangeOwner
 
 ## Location
-src/backend/commands/tablecmds.c: 14476 - 14716
+[src/backend/commands/tablecmds.c:14476-14716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14476-L14716)
 
 ## Overview
 ATExecChangeOwner implements the ALTER TABLE OWNER command, changing the ownership of tables, views, indexes, sequences, and related objects while handling permission checks, ACL updates, and recursive ownership changes for dependent objects.

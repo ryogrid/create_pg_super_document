@@ -1,7 +1,7 @@
 # CreateStatistics
 
 ## Location
-src/backend/commands/statscmds.c: 62 - 598
+[src/backend/commands/statscmds.c:62-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L62-L598)
 
 ## Overview
 Creates a new PostgreSQL extended statistics object that tracks column correlations, functional dependencies, and other multivariate statistics to improve query planner estimates.

@@ -1,7 +1,7 @@
 # generic_identify
 
 ## Location
-src/backend/access/rmgrdesc/genericdesc.c: 52 - 55
+[src/backend/access/rmgrdesc/genericdesc.c:52-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/genericdesc.c#L52-L55)
 
 ## Overview
 Provides identification strings for generic WAL record types, returning a constant identifier for all generic xlog records without distinguishing subtypes.

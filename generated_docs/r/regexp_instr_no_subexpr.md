@@ -1,7 +1,7 @@
 # regexp_instr_no_subexpr
 
 ## Location
-src/backend/utils/adt/regexp.c: 1273 - 1282
+[src/backend/utils/adt/regexp.c:1273-1282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1273-L1282)
 
 ## Overview
 A PostgreSQL wrapper function that provides the regexp_instr functionality without requiring subexpression parameter to maintain compatibility with the opr_sanity regression test.

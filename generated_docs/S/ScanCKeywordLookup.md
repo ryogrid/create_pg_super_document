@@ -1,7 +1,7 @@
 # ScanCKeywordLookup
 
 ## Location
-src/interfaces/ecpg/preproc/c_keywords.c: 36 - 66
+[src/interfaces/ecpg/preproc/c_keywords.c:36-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/c_keywords.c#L36-L66)
 
 ## Overview
 ScanCKeywordLookup is a case-sensitive keyword lookup function used in PostgreSQL's ECPG (Embedded C in PostgreSQL) preprocessor to identify C language keywords during lexical analysis.

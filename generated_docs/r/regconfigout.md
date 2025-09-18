@@ -1,7 +1,7 @@
 # regconfigout
 
 ## Location
-src/backend/utils/adt/regproc.c: 1359 - 1404
+[src/backend/utils/adt/regproc.c:1359-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1359-L1404)
 
 ## Overview
 Converts a text search configuration OID to its corresponding configuration name string for output display.

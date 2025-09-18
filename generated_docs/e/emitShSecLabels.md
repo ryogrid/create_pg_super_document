@@ -1,7 +1,7 @@
 # emitShSecLabels
 
 ## Location
-src/bin/pg_dump/dumputils.c: 693 - 726
+[src/bin/pg_dump/dumputils.c:693-726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L693-L726)
 
 ## Overview
 Constructs SECURITY LABEL commands using query results and appends them to a buffer for shared database objects.

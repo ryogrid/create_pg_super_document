@@ -1,7 +1,7 @@
 # appendStringInfoText
 
 ## Location
-src/backend/utils/adt/xml.c: 459 - 466
+[src/backend/utils/adt/xml.c:459-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L459-L466)
 
 ## Overview
 Efficiently appends a PostgreSQL text value to a StringInfo buffer without converting to C string format.

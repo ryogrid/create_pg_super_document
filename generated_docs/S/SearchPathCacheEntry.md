@@ -1,7 +1,7 @@
 # SearchPathCacheEntry
 
 ## Location
-src/backend/catalog/namespace.c: 173 - 184
+[src/backend/catalog/namespace.c:173-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L173-L184)
 
 ## Overview
 SearchPathCacheEntry is a struct that represents a cached entry in PostgreSQL's search path cache, storing computed namespace information and metadata for efficient namespace resolution.

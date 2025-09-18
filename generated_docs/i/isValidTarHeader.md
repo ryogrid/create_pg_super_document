@@ -1,7 +1,7 @@
 # isValidTarHeader
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 988 - 1013
+[src/bin/pg_dump/pg_backup_tar.c:988-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L988-L1013)
 
 ## Overview
 A function that validates TAR archive headers by checking the checksum and magic number to determine if a given header block represents a valid TAR format.

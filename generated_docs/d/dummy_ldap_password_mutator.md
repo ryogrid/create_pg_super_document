@@ -1,7 +1,7 @@
 # dummy_ldap_password_mutator
 
 ## Location
-src/backend/libpq/auth.c: 2405 - 2414
+[src/backend/libpq/auth.c:2405-2414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2405-L2414)
 
 ## Overview
 A default implementation of the LDAP password mutator hook that performs no transformation on the input password.

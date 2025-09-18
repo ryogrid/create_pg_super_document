@@ -1,7 +1,7 @@
 # IndexVacuumInfo
 
 ## Location
-src/include/access/genam.h: 44 - 54
+[src/include/access/genam.h:44-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L44-L54)
 
 ## Overview
 IndexVacuumInfo is a structure that contains input arguments passed to ambulkdelete and amvacuumcleanup functions during index vacuum and cleanup operations.

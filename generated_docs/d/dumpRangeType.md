@@ -1,7 +1,7 @@
 # dumpRangeType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11091 - 11248
+[src/bin/pg_dump/pg_dump.c:11091-11248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11091-L11248)
 
 ## Overview
 Generates SQL commands to recreate a user-defined range type during PostgreSQL database dump operations.

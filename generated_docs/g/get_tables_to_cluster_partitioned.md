@@ -1,7 +1,7 @@
 # get_tables_to_cluster_partitioned
 
 ## Location
-src/backend/commands/cluster.c: 1690 - 1737
+[src/backend/commands/cluster.c:1690-1737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L1690-L1737)
 
 ## Overview
 Returns a list of RelToCluster structures for all leaf table/index pairs that should be clustered, given an index on a partitioned table.

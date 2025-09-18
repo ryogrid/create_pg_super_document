@@ -1,7 +1,7 @@
 # build_indices
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 951 - 967
+[src/backend/bootstrap/bootstrap.c:951-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L951-L967)
 
 ## Overview
 Builds all the indexes that have been registered during the bootstrap process by iterating through the index list and constructing each index on its corresponding heap table.

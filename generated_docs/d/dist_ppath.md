@@ -1,7 +1,7 @@
 # dist_ppath
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2478 - 2489
+[src/backend/utils/adt/geo_ops.c:2478-2489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2478-L2489)
 
 ## Overview
 PostgreSQL SQL function that calculates the distance from a Point to a PATH (open or closed path/polygon).

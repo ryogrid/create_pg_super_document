@@ -1,7 +1,7 @@
 # oidvectorsend
 
 ## Location
-src/backend/utils/adt/oid.c: 226 - 234
+[src/backend/utils/adt/oid.c:226-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L226-L234)
 
 ## Overview
 Binary send function that converts PostgreSQL's internal oidvector format to external binary format for network transmission.

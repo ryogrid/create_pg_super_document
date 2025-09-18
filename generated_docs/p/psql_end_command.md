@@ -1,7 +1,7 @@
 # psql_end_command
 
 ## Location
-src/test/regress/pg_regress.c: 1164 - 1185
+[src/test/regress/pg_regress.c:1164-1185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1164-L1185)
 
 ## Overview
 Completes and executes a psql command by adding the target database name and invoking the command via system(), then cleaning up allocated resources.

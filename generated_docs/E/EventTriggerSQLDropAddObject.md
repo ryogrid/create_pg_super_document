@@ -1,7 +1,7 @@
 # EventTriggerSQLDropAddObject
 
 ## Location
-src/backend/commands/event_trigger.c: 1278 - 1396
+[src/backend/commands/event_trigger.c:1278-1396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1278-L1396)
 
 ## Overview
 Registers an object as being dropped by the current command, maintaining a list of dropped objects for event trigger processing.

@@ -1,7 +1,7 @@
 # BitmapAdjustPrefetchIterator
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 358 - 422
+[src/backend/executor/nodeBitmapHeapscan.c:358-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L358-L422)
 
 ## Overview
 Adjusts the prefetch iterator position to maintain proper synchronization with the main bitmap iterator and manages prefetch distance tracking.

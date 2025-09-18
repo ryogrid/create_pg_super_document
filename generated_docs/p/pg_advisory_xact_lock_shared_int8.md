@@ -1,7 +1,7 @@
 # pg_advisory_xact_lock_shared_int8
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 676 - 693
+[src/backend/utils/adt/lockfuncs.c:676-693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L676-L693)
 
 ## Overview
 Acquires a transaction-scoped shared advisory lock on a 64-bit integer key, allowing multiple processes to hold the same lock simultaneously while being automatically released at transaction end.

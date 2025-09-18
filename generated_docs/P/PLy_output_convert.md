@@ -1,7 +1,7 @@
 # PLy_output_convert
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 120 - 133
+[src/pl/plpython/plpy_typeio.c:120-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L120-L133)
 
 ## Overview
 Entry point function for converting Python objects to PostgreSQL Datum values in the PL/Python procedural language.

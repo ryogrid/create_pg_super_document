@@ -1,7 +1,7 @@
 # rangeTableEntry_used
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 967 - 998
+[src/backend/rewrite/rewriteManip.c:967-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L967-L998)
 
 ## Overview
 A high-level interface function that determines whether a specific range table entry is referenced anywhere within a query tree or expression tree.

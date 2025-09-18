@@ -1,7 +1,7 @@
 # AtPrepare_Notify
 
 ## Location
-src/backend/commands/async.c: 836 - 860
+[src/backend/commands/async.c:836-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L836-L860)
 
 ## Overview
 A transaction preparation phase hook that prevents two-phase transactions from being prepared if they contain any pending LISTEN, UNLISTEN, or NOTIFY operations.

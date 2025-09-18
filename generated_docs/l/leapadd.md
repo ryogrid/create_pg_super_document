@@ -1,7 +1,7 @@
 # leapadd
 
 ## Location
-src/timezone/zic.c: 3403 - 3424
+[src/timezone/zic.c:3403-3424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3403-L3424)
 
 ## Overview
 The leapadd function inserts a new leap second entry into the global leap second tables, maintaining chronological order and tracking leap second corrections for accurate timekeeping.

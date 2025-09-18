@@ -1,7 +1,7 @@
 # errorMissingColumn
 
 ## Location
-src/backend/parser/parse_relation.c: 3665 - 3757
+[src/backend/parser/parse_relation.c:3665-3757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3665-L3757)
 
 ## Overview
 Generates detailed error messages when a referenced column cannot be found, providing intelligent suggestions and hints to help users identify and correct column reference issues.

@@ -1,7 +1,7 @@
 # has_server_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4138 - 4166
+[src/backend/utils/adt/acl.c:4138-4166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4138-L4166)
 
 ## Overview
 This function checks user privileges on a foreign server, taking a role ID (OID), server ID (OID), and privilege name (text) as input parameters, with support for handling missing objects.

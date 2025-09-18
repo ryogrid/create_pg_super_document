@@ -1,7 +1,7 @@
 # brin_desc
 
 ## Location
-src/backend/access/rmgrdesc/brindesc.c: 20 - 73
+[src/backend/access/rmgrdesc/brindesc.c:20-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/brindesc.c#L20-L73)
 
 ## Overview
 The brin_desc function provides human-readable descriptions of BRIN (Block Range Index) WAL (Write-Ahead Logging) records for debugging and monitoring purposes.

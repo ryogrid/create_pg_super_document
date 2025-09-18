@@ -1,7 +1,7 @@
 # record_fields_have_equality
 
 ## Location
-src/backend/utils/cache/typcache.c: 1489 - 1496
+[src/backend/utils/cache/typcache.c:1489-1496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1489-L1496)
 
 ## Overview
 Determines whether all fields in a composite/record type have equality operators available.

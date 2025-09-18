@@ -1,7 +1,7 @@
 # set_values_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2816 - 2835
+[src/backend/optimizer/path/allpaths.c:2816-2835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2816-L2835)
 
 ## Overview
 Builds the single access path for a VALUES RTE (Range Table Entry), handling pathlist generation for VALUES clauses in PostgreSQL's query planner.

@@ -1,7 +1,7 @@
 # timestamptz_in
 
 ## Location
-src/backend/utils/adt/timestamp.c: 416 - 488
+[src/backend/utils/adt/timestamp.c:416-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L416-L488)
 
 ## Overview
 Converts a string representation to internal form of a timestamp with time zone (timestamptz) type in PostgreSQL.

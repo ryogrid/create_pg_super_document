@@ -1,7 +1,7 @@
 # ginvacuumcleanup
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 688 - 801
+[src/backend/access/gin/ginvacuum.c:688-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L688-L801)
 
 ## Overview
 The vacuum cleanup function for GIN indexes that performs post-vacuum maintenance including statistics updates, free space management, and cleanup of pending insertions.

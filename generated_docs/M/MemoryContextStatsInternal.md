@@ -1,7 +1,7 @@
 # MemoryContextStatsInternal
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 876 - 972
+[src/backend/utils/mmgr/mcxt.c:876-972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L876-L972)
 
 ## Overview
 MemoryContextStatsInternal is the core recursive function that implements memory context statistics collection and reporting with intelligent depth control and stack overflow protection.

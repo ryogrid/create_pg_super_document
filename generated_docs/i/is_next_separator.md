@@ -1,7 +1,7 @@
 # is_next_separator
 
 ## Location
-src/backend/utils/adt/formatting.c: 2321 - 2353
+[src/backend/utils/adt/formatting.c:2321-2353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2321-L2353)
 
 ## Overview
 Determines whether the next format node in a formatting pattern represents a non-digit separator rather than a numeric value.

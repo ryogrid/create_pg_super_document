@@ -1,7 +1,7 @@
 # anymultirange_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 236 - 248
+[src/backend/utils/adt/pseudotypes.c:236-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L236-L248)
 
 ## Overview
 A pseudotype output function that provides string representation for anymultirange pseudotype values by delegating to the concrete multirange type's output function.

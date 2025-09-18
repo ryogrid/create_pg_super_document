@@ -1,7 +1,7 @@
 # scram_get_mechanisms
 
 ## Location
-src/backend/libpq/auth-scram.c: 202 - 235
+[src/backend/libpq/auth-scram.c:202-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L202-L235)
 
 ## Overview
 Returns a list of SASL mechanisms supported by the SCRAM authentication module for PostgreSQL backend authentication.

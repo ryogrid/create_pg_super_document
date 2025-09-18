@@ -1,7 +1,7 @@
 # FloatExceptionHandler
 
 ## Location
-src/backend/tcop/postgres.c: 3046 - 3061
+[src/backend/tcop/postgres.c:3046-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3046-L3061)
 
 ## Overview
 FloatExceptionHandler is a signal handler function that catches floating-point exceptions (SIGFPE) and converts them into PostgreSQL ERROR conditions with detailed error messages.

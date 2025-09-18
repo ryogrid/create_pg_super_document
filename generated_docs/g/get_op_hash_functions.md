@@ -1,7 +1,7 @@
 # get_op_hash_functions
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 510 - 600
+[src/backend/utils/cache/lsyscache.c:510-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L510-L600)
 
 ## Overview
 Retrieves the OID(s) of standard hash support functions compatible with a given operator, operating on its left-hand side (LHS) and/or right-hand side (RHS) datatypes as required.

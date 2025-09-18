@@ -1,7 +1,7 @@
 # IsEveryWorkerIdle
 
 ## Location
-src/bin/pg_dump/parallel.c: 1268 - 1300
+[src/bin/pg_dump/parallel.c:1268-1300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1268-L1300)
 
 ## Overview
 Determines whether all worker processes in the parallel operation are currently in the idle state and available for new work assignments.

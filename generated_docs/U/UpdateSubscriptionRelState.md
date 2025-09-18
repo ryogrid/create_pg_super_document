@@ -1,7 +1,7 @@
 # UpdateSubscriptionRelState
 
 ## Location
-src/backend/catalog/pg_subscription.c: 354 - 365
+[src/backend/catalog/pg_subscription.c:354-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L354-L365)
 
 ## Overview
 A simplified wrapper function that updates the replication state of a subscription table by calling the extended version with default locking behavior.

@@ -1,7 +1,7 @@
 # RemoveReindexPending
 
 ## Location
-src/backend/catalog/index.c: 4139 - 4151
+[src/backend/catalog/index.c:4139-4151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4139-L4151)
 
 ## Overview
 Removes a specified index OID from the global list of indexes pending reindex, with safety checks to prevent modification during parallel operations.

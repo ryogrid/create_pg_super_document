@@ -1,7 +1,7 @@
 # ExecGetTriggerOldSlot
 
 ## Location
-src/backend/executor/execUtils.c: 1138 - 1159
+[src/backend/executor/execUtils.c:1138-1159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1138-L1159)
 
 ## Overview
 Returns a tuple slot for storing the OLD tuple values in trigger processing, creating it lazily if it doesn't already exist.

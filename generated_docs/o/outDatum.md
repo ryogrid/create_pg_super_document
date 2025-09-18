@@ -1,7 +1,7 @@
 # outDatum
 
 ## Location
-src/backend/nodes/outfuncs.c: 341 - 381
+[src/backend/nodes/outfuncs.c:341-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L341-L381)
 
 ## Overview
 Serializes a Datum value to a string representation by printing its raw byte content as an array of integers, handling both pass-by-value and pass-by-reference data types.

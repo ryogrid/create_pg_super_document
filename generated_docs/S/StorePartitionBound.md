@@ -1,7 +1,7 @@
 # StorePartitionBound
 
 ## Location
-src/backend/catalog/heap.c: 3532 - 3609
+[src/backend/catalog/heap.c:3532-3609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3532-L3609)
 
 ## Overview
 Updates the pg_class tuple of a relation to store its partition bound specification and marks it as a partition, handling both regular and default partition cases.

@@ -1,7 +1,7 @@
 # numeric_ln
 
 ## Location
-src/backend/utils/adt/numeric.c: 3831 - 3879
+[src/backend/utils/adt/numeric.c:3831-3879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3831-L3879)
 
 ## Overview
 Computes the natural logarithm (ln) of a numeric value with optimized scale determination and mathematical error handling.

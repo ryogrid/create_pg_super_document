@@ -1,7 +1,7 @@
 # get_create_object_cmd
 
 ## Location
-src/bin/psql/command.c: 5666 - 5825
+[src/bin/psql/command.c:5666-5825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5666-L5825)
 
 ## Overview
 Constructs complete "CREATE OR REPLACE" SQL commands for PostgreSQL database objects by retrieving their definitions from the system catalogs.

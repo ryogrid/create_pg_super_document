@@ -1,7 +1,7 @@
 # RS_execute
 
 ## Location
-src/backend/tsearch/regis.c: 213 - 257
+[src/backend/tsearch/regis.c:213-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L213-L257)
 
 ## Overview
 Executes a compiled regular expression pattern (Regis) against a given string to determine if the string matches the pattern.

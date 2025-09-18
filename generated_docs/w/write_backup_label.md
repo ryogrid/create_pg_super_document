@@ -1,7 +1,7 @@
 # write_backup_label
 
 ## Location
-src/bin/pg_combinebackup/backup_label.c: 127 - 200
+[src/bin/pg_combinebackup/backup_label.c:127-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/backup_label.c#L127-L200)
 
 ## Overview
 Creates a new backup label file in the output directory based on an input backup label, filtering out incremental backup-specific lines and computing checksums.

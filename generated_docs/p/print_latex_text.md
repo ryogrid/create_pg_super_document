@@ -1,7 +1,7 @@
 # print_latex_text
 
 ## Location
-src/fe_utils/print.c: 2454 - 2560
+[src/fe_utils/print.c:2454-2560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2454-L2560)
 
 ## Overview
 Formats and prints table data in standard LaTeX tabular environment format with support for borders, alignment, titles, headers, and footers.

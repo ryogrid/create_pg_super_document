@@ -1,7 +1,7 @@
 # PGTYPESinterval_new
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 987 - 996
+[src/interfaces/ecpg/pgtypeslib/interval.c:987-996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L987-L996)
 
 ## Overview
 PGTYPESinterval_new is a public API function that allocates and returns a new interval structure for use in ECPG client applications.

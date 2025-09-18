@@ -1,7 +1,7 @@
 # VacuumUpdateCosts
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1637 - 1705
+[src/backend/postmaster/autovacuum.c:1637-1705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1637-L1705)
 
 ## Overview
 VacuumUpdateCosts updates vacuum cost-based delay parameters for autovacuum workers and explicit VACUUM/ANALYZE operations, ensuring current GUC values are applied and cost-based throttling is properly configured.

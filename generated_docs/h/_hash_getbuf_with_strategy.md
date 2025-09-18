@@ -1,7 +1,7 @@
 # _hash_getbuf_with_strategy
 
 ## Location
-src/backend/access/hash/hashpage.c: 239 - 265
+[src/backend/access/hash/hashpage.c:239-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L239-L265)
 
 ## Overview
 This function retrieves a buffer for a hash index page with a specified buffer access strategy, providing a variant of the standard buffer acquisition function that allows customization of memory management during operations like VACUUM.

@@ -1,7 +1,7 @@
 # remove_useless_results_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3500 - 3770
+[src/backend/optimizer/prep/prepjointree.c:3500-3770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3500-L3770)
 
 ## Overview
 The recursive implementation function that processes the join tree to remove useless RTE_RESULT RTEs and optimize single-child FromExprs, handling different join types with specific optimization rules.

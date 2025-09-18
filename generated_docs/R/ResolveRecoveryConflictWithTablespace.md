@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithTablespace
 
 ## Location
-src/backend/storage/ipc/standby.c: 538 - 567
+[src/backend/storage/ipc/standby.c:538-567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L538-L567)
 
 ## Overview
 This function resolves recovery conflicts with backends that are currently using temporary files in a tablespace that is being dropped during WAL replay.

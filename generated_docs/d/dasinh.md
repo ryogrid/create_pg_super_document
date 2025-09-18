@@ -1,7 +1,7 @@
 # dasinh
 
 ## Location
-src/backend/utils/adt/float.c: 2665 - 2681
+[src/backend/utils/adt/float.c:2665-2681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2665-L2681)
 
 ## Overview
 The dasinh function computes the inverse hyperbolic sine of a floating-point number, providing PostgreSQL integration for mathematical operations.

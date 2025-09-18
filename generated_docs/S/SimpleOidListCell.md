@@ -1,7 +1,7 @@
 # SimpleOidListCell
 
 ## Location
-src/include/fe_utils/simple_list.h: 20 - 24
+[src/include/fe_utils/simple_list.h:20-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L20-L24)
 
 ## Overview
 SimpleOidListCell is a fundamental building block for singly-linked lists that store PostgreSQL Object Identifier (Oid) values, providing a lightweight data structure for frontend utilities.

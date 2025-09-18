@@ -1,7 +1,7 @@
 # FilterPrepare
 
 ## Location
-src/backend/replication/logical/decode.c: 563 - 585
+[src/backend/replication/logical/decode.c:563-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L563-L585)
 
 ## Overview
 The `FilterPrepare` function determines whether a PREPARE transaction should be skipped and sent as a regular commit later, based on two-phase transaction configuration and output plugin callbacks.

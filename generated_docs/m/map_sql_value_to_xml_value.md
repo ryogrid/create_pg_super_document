@@ -1,7 +1,7 @@
 # map_sql_value_to_xml_value
 
 ## Location
-src/backend/utils/adt/xml.c: 2478 - 2696
+[src/backend/utils/adt/xml.c:2478-2696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2478-L2696)
 
 ## Overview
 Converts SQL values to XML-compliant string representations according to SQL/XML:2008 section 9.8, with special formatting for various data types and optional character escaping.

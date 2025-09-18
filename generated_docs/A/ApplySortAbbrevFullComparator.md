@@ -1,7 +1,7 @@
 # ApplySortAbbrevFullComparator
 
 ## Location
-src/include/utils/sortsupport.h: 341 - 391
+[src/include/utils/sortsupport.h:341-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L341-L391)
 
 ## Overview
 ApplySortAbbrevFullComparator is an inline function that applies a sort comparator using the full, authoritative comparator function, handling reverse-sort and NULL ordering properly.

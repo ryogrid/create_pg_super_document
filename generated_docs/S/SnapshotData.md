@@ -1,7 +1,7 @@
 # SnapshotData
 
 ## Location
-src/include/utils/snapshot.h: 142 - 217
+[src/include/utils/snapshot.h:142-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/snapshot.h#L142-L217)
 
 ## Overview
 SnapshotData is the core structure representing all kinds of snapshots in PostgreSQL's MVCC system, containing transaction visibility information and metadata for different snapshot types.

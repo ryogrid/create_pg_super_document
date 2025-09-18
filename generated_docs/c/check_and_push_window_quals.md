@@ -1,7 +1,7 @@
 # check_and_push_window_quals
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2407 - 2481
+[src/backend/optimizer/path/allpaths.c:2407-2481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2407-L2481)
 
 ## Overview
 Analyzes a WHERE clause condition to determine if it can be pushed down as a run condition into WindowFunc nodes for early termination optimization.

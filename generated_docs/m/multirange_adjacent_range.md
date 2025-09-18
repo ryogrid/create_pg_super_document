@@ -1,7 +1,7 @@
 # multirange_adjacent_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2519 - 2533
+[src/backend/utils/adt/multirangetypes.c:2519-2533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2519-L2533)
 
 ## Overview
 Determines if a multirange is adjacent to a range by checking if any part of the multirange is adjacent to the range.

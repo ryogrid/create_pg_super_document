@@ -1,7 +1,7 @@
 # pqClearAsyncResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 779 - 802
+[src/interfaces/libpq/fe-exec.c:779-802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L779-L802)
 
 ## Overview
 pqClearAsyncResult is an internal libpq utility function that deallocates any partially constructed asynchronous result and clears both current and saved result structures in a connection.

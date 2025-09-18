@@ -1,7 +1,7 @@
 # int2xor
 
 ## Location
-src/backend/utils/adt/int.c: 1464 - 1472
+[src/backend/utils/adt/int.c:1464-1472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1464-L1472)
 
 ## Overview
 Performs bitwise XOR (exclusive OR) operation between two 16-bit signed integers (smallint type in PostgreSQL).

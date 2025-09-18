@@ -1,7 +1,7 @@
 # make_outputdirs
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 249 - 333
+[src/bin/pg_upgrade/pg_upgrade.c:249-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L249-L333)
 
 ## Overview
 Creates and assigns proper permissions to the set of output directories used to store data generated internally by pg_upgrade, filling in log_opts structure with directory paths.

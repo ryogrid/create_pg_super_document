@@ -1,7 +1,7 @@
 # InitSharedLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 430 - 462
+[src/backend/storage/ipc/latch.c:430-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L430-L462)
 
 ## Overview
 Initializes a shared latch that can be accessed and set from multiple processes, designed for inter-process communication and synchronization.

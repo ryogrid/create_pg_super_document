@@ -1,7 +1,7 @@
 # xlog_redo
 
 ## Location
-src/backend/access/transam/xlog.c: 8251 - 8608
+[src/backend/access/transam/xlog.c:8251-8608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8251-L8608)
 
 ## Overview
 xlog_redo is the main WAL resource manager redo function that handles replay of various XLOG record types during recovery, including checkpoints, parameter changes, and full-page image records.

@@ -1,7 +1,7 @@
 # vacuum_all_databases
 
 ## Location
-src/bin/scripts/vacuumdb.c: 909 - 975
+[src/bin/scripts/vacuumdb.c:909-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L909-L975)
 
 ## Overview
 Orchestrates vacuum and analyze operations across all connectable databases in a PostgreSQL cluster, with support for staged analyze operations to ensure minimal statistics are available quickly across all databases.

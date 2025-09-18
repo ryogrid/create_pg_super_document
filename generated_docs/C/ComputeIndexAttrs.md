@@ -1,7 +1,7 @@
 # ComputeIndexAttrs
 
 ## Location
-src/backend/commands/indexcmds.c: 1819 - 2192
+[src/backend/commands/indexcmds.c:1819-2192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L1819-L2192)
 
 ## Overview
 Computes per-index-column information including indexed column numbers, expressions, operator classes, and their options for all columns in an index definition.

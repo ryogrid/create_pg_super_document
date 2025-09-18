@@ -1,7 +1,7 @@
 # time2t
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2128 - 2133
+[src/backend/utils/adt/timestamp.c:2128-2133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2128-L2133)
 
 ## Overview
 A static helper function that converts individual time components (hour, minute, second, fractional second) into a single TimeOffset value representing microseconds since midnight.

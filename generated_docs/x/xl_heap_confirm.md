@@ -1,7 +1,7 @@
 # xl_heap_confirm
 
 ## Location
-src/include/access/heapam_xlog.h: 417 - 420
+[src/include/access/heapam_xlog.h:417-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L417-L420)
 
 ## Overview
 A WAL record structure used to log the confirmation of speculative tuple insertions in PostgreSQL heap tables, marking speculative tuples as committed.

@@ -1,7 +1,7 @@
 # process_builtin
 
 ## Location
-src/bin/pgbench/pgbench.c: 6137 - 6143
+[src/bin/pgbench/pgbench.c:6137-6143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6137-L6143)
 
 ## Overview
 Parses a built-in benchmark script and adds it to the list of scripts available for pgbench execution.

@@ -1,7 +1,7 @@
 # PQclientEncoding
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7247 - 7254
+[src/interfaces/libpq/fe-connect.c:7247-7254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7247-L7254)
 
 ## Overview
 Returns the client-side character encoding identifier for a PostgreSQL connection.

@@ -1,7 +1,7 @@
 # float8_regr_combine
 
 ## Location
-src/backend/utils/adt/float.c: 3371 - 3504
+[src/backend/utils/adt/float.c:3371-3504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3371-L3504)
 
 ## Overview
 Combines two 6-element regression transition state arrays using a generalized Youngs-Cramer algorithm for parallel and two-stage aggregate computation in PostgreSQL.

@@ -1,7 +1,7 @@
 # check_agglevels_and_constraints
 
 ## Location
-src/backend/parser/parse_agg.c: 299 - 635
+[src/backend/parser/parse_agg.c:299-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L299-L635)
 
 ## Overview
 Validates that aggregate functions and grouping operations are used in appropriate SQL contexts and determines their proper nesting levels within query structures.

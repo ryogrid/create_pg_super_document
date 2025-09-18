@@ -1,7 +1,7 @@
 # PQmblenBounded
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1242 - 1251
+[src/interfaces/libpq/fe-misc.c:1242-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1242-L1251)
 
 ## Overview
 PQmblenBounded provides a safe multibyte character length calculation that respects string boundaries, using libpq's dynamic encoding determination for consistent behavior.

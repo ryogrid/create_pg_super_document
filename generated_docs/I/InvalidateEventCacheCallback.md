@@ -1,7 +1,7 @@
 # InvalidateEventCacheCallback
 
 ## Location
-src/backend/utils/cache/evtcache.c: 255 - 270
+[src/backend/utils/cache/evtcache.c:255-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/evtcache.c#L255-L270)
 
 ## Overview
 A system cache invalidation callback function that marks the event trigger cache for rebuild when the pg_event_trigger system catalog is modified.

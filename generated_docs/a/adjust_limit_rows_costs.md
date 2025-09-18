@@ -1,7 +1,7 @@
 # adjust_limit_rows_costs
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3881 - 3948
+[src/backend/optimizer/util/pathnode.c:3881-3948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3881-L3948)
 
 ## Overview
 Adjusts row count and cost estimates for a LimitPath node according to OFFSET and LIMIT clauses, providing accurate cost estimation for query planning when result sets are truncated.

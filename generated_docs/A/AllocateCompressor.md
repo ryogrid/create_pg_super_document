@@ -1,7 +1,7 @@
 # AllocateCompressor
 
 ## Location
-src/bin/pg_dump/compress_io.c: 124 - 148
+[src/bin/pg_dump/compress_io.c:124-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L124-L148)
 
 ## Overview
 This function allocates and initializes a new CompressorState structure for handling compression operations based on the specified compression algorithm.

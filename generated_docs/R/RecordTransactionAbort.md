@@ -1,7 +1,7 @@
 # RecordTransactionAbort
 
 ## Location
-src/backend/access/transam/xact.c: 1723 - 1852
+[src/backend/access/transam/xact.c:1723-1852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1723-L1852)
 
 ## Overview
 RecordTransactionAbort handles the recording of transaction abort operations by writing abort records to WAL, marking transactions as aborted in the commit log, and cleaning up associated resources.

@@ -1,7 +1,7 @@
 # quote_literal
 
 ## Location
-src/backend/utils/adt/quote.c: 78 - 102
+[src/backend/utils/adt/quote.c:78-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/quote.c#L78-L102)
 
 ## Overview
 A PostgreSQL built-in function that takes a text input and returns a properly quoted string literal, suitable for safe inclusion in dynamically constructed SQL statements.

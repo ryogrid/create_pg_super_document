@@ -1,7 +1,7 @@
 # ginScanKeyAddHiddenEntry
 
 ## Location
-src/backend/access/gin/ginscan.c: 142 - 157
+[src/backend/access/gin/ginscan.c:142-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L142-L157)
 
 ## Overview
 Appends a hidden scan entry of a specified category to a GIN scan key, used for handling special search conditions like NULL values.

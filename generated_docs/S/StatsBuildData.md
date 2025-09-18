@@ -1,7 +1,7 @@
 # StatsBuildData
 
 ## Location
-src/include/statistics/extended_stats_internal.h: 61 - 69
+[src/include/statistics/extended_stats_internal.h:61-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/extended_stats_internal.h#L61-L69)
 
 ## Overview
 StatsBuildData is a unified structure that encapsulates all the essential data needed for building PostgreSQL extended statistics, providing a standardized interface for various statistical computation algorithms.

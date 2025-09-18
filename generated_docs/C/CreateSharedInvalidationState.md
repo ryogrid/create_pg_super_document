@@ -1,7 +1,7 @@
 # CreateSharedInvalidationState
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 234 - 271
+[src/backend/storage/ipc/sinvaladt.c:234-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L234-L271)
 
 ## Overview
 CreateSharedInvalidationState creates and initializes the shared invalidation message buffer in shared memory, setting up the data structures needed for inter-process cache invalidation.

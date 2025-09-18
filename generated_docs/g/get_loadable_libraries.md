@@ -1,7 +1,7 @@
 # get_loadable_libraries
 
 ## Location
-src/bin/pg_upgrade/function.c: 55 - 145
+[src/bin/pg_upgrade/function.c:55-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/function.c#L55-L145)
 
 ## Overview
 Fetches the names of all libraries containing C-language functions and logical replication output plugins from the old PostgreSQL cluster during pg_upgrade operations.

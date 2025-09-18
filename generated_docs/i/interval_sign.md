@@ -1,7 +1,7 @@
 # interval_sign
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2514 - 2522
+[src/backend/utils/adt/timestamp.c:2514-2522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2514-L2522)
 
 ## Overview
 Determines the sign of an interval value, returning -1 for negative intervals, 0 for zero intervals, and 1 for positive intervals.

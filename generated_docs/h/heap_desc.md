@@ -1,7 +1,7 @@
 # heap_desc
 
 ## Location
-src/backend/access/rmgrdesc/heapdesc.c: 183 - 259
+[src/backend/access/rmgrdesc/heapdesc.c:183-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/heapdesc.c#L183-L259)
 
 ## Overview
 The primary WAL record description function for heap access method operations, translating binary WAL records into human-readable text for debugging and analysis tools.

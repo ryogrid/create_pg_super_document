@@ -1,7 +1,7 @@
 # SPI_cursor_open
 
 ## Location
-src/backend/executor/spi.c: 1445 - 1471
+[src/backend/executor/spi.c:1445-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1445-L1471)
 
 ## Overview
 SPI_cursor_open opens a prepared SPI plan as a portal (cursor) that allows for incremental fetching of query results, providing memory-efficient access to large result sets.

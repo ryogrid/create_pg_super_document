@@ -1,7 +1,7 @@
 # pg_mul_s32_overflow
 
 ## Location
-src/include/common/int.h: 140 - 160
+[src/include/common/int.h:140-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L140-L160)
 
 ## Overview
 Performs multiplication of two 32-bit signed integers with overflow detection, returning true if overflow occurs and false otherwise.

@@ -1,7 +1,7 @@
 # check_return
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c: 63 - 84
+[src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c:63-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c#L63-L84)
 
 ## Overview
 A static utility function that interprets and displays human-readable error messages for ECPG Informix compatibility error codes.

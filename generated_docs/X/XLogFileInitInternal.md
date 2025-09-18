@@ -1,7 +1,7 @@
 # XLogFileInitInternal
 
 ## Location
-src/backend/access/transam/xlog.c: 3187 - 3356
+[src/backend/access/transam/xlog.c:3187-3356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3187-L3356)
 
 ## Overview
 Creates and initializes a new WAL file segment by either reusing an existing file or creating a zero-filled temporary file that gets atomically moved into place.

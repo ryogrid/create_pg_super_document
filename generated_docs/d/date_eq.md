@@ -1,7 +1,7 @@
 # date_eq
 
 ## Location
-src/backend/utils/adt/date.c: 383 - 391
+[src/backend/utils/adt/date.c:383-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L383-L391)
 
 ## Overview
 date_eq is a comparison function that tests whether two date values are equal, implementing the equality operator (=) for the DATE data type.

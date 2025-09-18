@@ -1,7 +1,7 @@
 # StartReadBuffersImpl
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1257 - 1351
+[src/backend/storage/buffer/bufmgr.c:1257-1351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1257-L1351)
 
 ## Overview
 StartReadBuffersImpl is the core implementation function for PostgreSQL's asynchronous buffer reading system that prepares multiple buffers for I/O operations and optimizes read patterns by combining contiguous blocks.

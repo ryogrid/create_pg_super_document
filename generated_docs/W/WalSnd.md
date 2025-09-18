@@ -1,7 +1,7 @@
 # WalSnd
 
 ## Location
-src/include/replication/walsender_private.h: 42 - 86
+[src/include/replication/walsender_private.h:42-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walsender_private.h#L42-L86)
 
 ## Overview
 WalSnd is a shared memory structure that represents the state and control information for each WAL sender process in PostgreSQL's replication system. Each walsender process has its own WalSnd struct in shared memory to track replication progress and coordinate with standby servers.

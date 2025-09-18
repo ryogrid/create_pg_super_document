@@ -1,7 +1,7 @@
 # element
 
 ## Location
-src/backend/regex/regc_locale.c: 376 - 411
+[src/backend/regex/regc_locale.c:376-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_locale.c#L376-L411)
 
 ## Overview
 The element function maps collating-element names to character codes in PostgreSQL's regular expression engine, serving as a character name resolution mechanism for bracket expressions.

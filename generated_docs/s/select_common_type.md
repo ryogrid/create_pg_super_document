@@ -1,7 +1,7 @@
 # select_common_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 1344 - 1479
+[src/backend/parser/parse_coerce.c:1344-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1344-L1479)
 
 ## Overview
 Determines the common supertype from a list of expressions, used for resolving output types in CASE expressions, UNION operations, and similar SQL constructs that require type unification.

@@ -1,7 +1,7 @@
 # ExecBRUpdateTriggers
 
 ## Location
-src/backend/commands/trigger.c: 3147 - 3170
+[src/backend/commands/trigger.c:3147-3170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3147-L3170)
 
 ## Overview
 An ABI-compatible wrapper function that provides backward compatibility for the old interface to BEFORE ROW UPDATE trigger execution by delegating to ExecBRUpdateTriggersNew.

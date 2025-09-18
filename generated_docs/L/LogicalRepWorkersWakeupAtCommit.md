@@ -1,7 +1,7 @@
 # LogicalRepWorkersWakeupAtCommit
 
 ## Location
-src/backend/replication/logical/worker.c: 5065 - 5078
+[src/backend/replication/logical/worker.c:5065-5078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5065-L5078)
 
 ## Overview
 Schedules logical replication workers for a given subscription to be woken up at the commit of the current transaction, ensuring prompt processing of subscription changes.

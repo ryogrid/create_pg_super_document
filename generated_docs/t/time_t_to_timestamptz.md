@@ -1,7 +1,7 @@
 # time_t_to_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1811 - 1832
+[src/backend/utils/adt/timestamp.c:1811-1832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1811-L1832)
 
 ## Overview
 time_t_to_timestamptz is a conversion function that transforms a Unix time_t value into PostgreSQL's internal TimestampTz representation.

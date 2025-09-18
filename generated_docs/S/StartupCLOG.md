@@ -1,7 +1,7 @@
 # StartupCLOG
 
 ## Location
-src/backend/access/transam/clog.c: 877 - 891
+[src/backend/access/transam/clog.c:877-891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L877-L891)
 
 ## Overview
 Initializes the CLOG subsystem's latest page number tracking during PostgreSQL server startup, based on the next transaction ID.

@@ -1,7 +1,7 @@
 # AlterRole
 
 ## Location
-src/backend/commands/user.c: 619 - 999
+[src/backend/commands/user.c:619-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L619-L999)
 
 ## Overview
 The main function that implements the ALTER ROLE SQL statement, modifying existing database role attributes and membership.

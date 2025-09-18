@@ -1,7 +1,7 @@
 # index_form_tuple_context
 
 ## Location
-src/backend/access/common/indextuple.c: 65 - 240
+[src/backend/access/common/indextuple.c:65-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L65-L240)
 
 ## Overview
 The `index_form_tuple_context` function creates an IndexTuple from arrays of attribute values and null indicators, with explicit memory context specification and comprehensive handling of variable-length attributes.

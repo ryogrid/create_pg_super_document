@@ -1,7 +1,7 @@
 # bbstreamer_tar_archiver_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 390 - 441
+[src/bin/pg_basebackup/bbstreamer_tar.c:390-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L390-L441)
 
 ## Overview
 Processes input chunks to create a valid tar archive by fixing up headers, trailers, and content as needed.

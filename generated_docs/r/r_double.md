@@ -1,7 +1,7 @@
 # r_double
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 542 - 550
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:542-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L542-L550)
 
 ## Overview
 The r_double function detects doubled consonants in Hungarian words by testing for specific consonant patterns that appear in doubled form according to Hungarian morphological rules.

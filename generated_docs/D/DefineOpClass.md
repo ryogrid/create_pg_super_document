@@ -1,7 +1,7 @@
 # DefineOpClass
 
 ## Location
-src/backend/commands/opclasscmds.c: 333 - 771
+[src/backend/commands/opclasscmds.c:333-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L333-L771)
 
 ## Overview
 Creates a new index operator class, which defines how a particular data type can be used with a specific access method by grouping together operators and support functions.

@@ -1,7 +1,7 @@
 # _SPI_execmem
 
 ## Location
-src/backend/executor/spi.c: 3058 - 3063
+[src/backend/executor/spi.c:3058-3063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3058-L3063)
 
 ## Overview
  is a utility function that switches to the execution memory context of the current SPI connection.

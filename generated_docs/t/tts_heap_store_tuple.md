@@ -1,7 +1,7 @@
 # tts_heap_store_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 486 - 507
+[src/backend/executor/execTuples.c:486-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L486-L507)
 
 ## Overview
 Stores a HeapTuple into a heap tuple table slot, initializing the slot's state and managing memory ownership flags.

@@ -1,7 +1,7 @@
 # GetAttrDefaultOid
 
 ## Location
-src/backend/catalog/pg_attrdef.c: 345 - 386
+[src/backend/catalog/pg_attrdef.c:345-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_attrdef.c#L345-L386)
 
 ## Overview
 GetAttrDefaultOid retrieves the OID of the pg_attrdef entry for a specified column's default expression, returning InvalidOid if no default exists.

@@ -1,7 +1,7 @@
 # WaitLatchOrSocket
 
 ## Location
-src/backend/storage/ipc/latch.c: 565 - 631
+[src/backend/storage/ipc/latch.c:565-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L565-L631)
 
 ## Overview
 WaitLatchOrSocket waits for one or more specified events to occur on a latch and optionally a socket, providing a unified interface for waiting on multiple types of events with a timeout.

@@ -1,7 +1,7 @@
 # CollationCreate
 
 ## Location
-src/backend/catalog/pg_collation.c: 42 - 236
+[src/backend/catalog/pg_collation.c:42-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_collation.c#L42-L236)
 
 ## Overview
 Creates a new collation object and adds it to the pg_collation system catalog, handling duplicate checks and dependency management.

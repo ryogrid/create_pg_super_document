@@ -1,7 +1,7 @@
 # int44out
 
 ## Location
-src/test/regress/regress.c: 526 - 541
+[src/test/regress/regress.c:526-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L526-L541)
 
 ## Overview
 A PostgreSQL test function that converts an internal array of four 32-bit integers into a comma-separated string representation for output.

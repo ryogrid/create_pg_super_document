@@ -1,7 +1,7 @@
 # pg_wcswidth
 
 ## Location
-src/fe_utils/mbprint.c: 177 - 210
+[src/fe_utils/mbprint.c:177-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L177-L210)
 
 ## Overview
 A public function that calculates the display width of a multibyte character string, assuming all characters will appear on a single line.

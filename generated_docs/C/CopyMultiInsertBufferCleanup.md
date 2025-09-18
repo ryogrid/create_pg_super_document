@@ -1,7 +1,7 @@
 # CopyMultiInsertBufferCleanup
 
 ## Location
-src/backend/commands/copyfrom.c: 478 - 519
+[src/backend/commands/copyfrom.c:478-519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L478-L519)
 
 ## Overview
 Cleans up and deallocates a CopyMultiInsertBuffer after flushing, releasing all associated resources including tuple slots, bulk insert state, and the buffer structure itself.

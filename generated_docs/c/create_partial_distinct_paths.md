@@ -1,7 +1,7 @@
 # create_partial_distinct_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4900 - 5098
+[src/backend/optimizer/plan/planner.c:4900-5098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4900-L5098)
 
 ## Overview
 Creates partial distinct paths for parallel execution by processing input relation's partial paths and adding unique/aggregate paths to the UPPERREL_PARTIAL_DISTINCT relation, with Gather/GatherMerge paths on top to remove duplicates from parallel workers.

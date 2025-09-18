@@ -1,7 +1,7 @@
 # ExecShutdownGather
 
 ## Location
-src/backend/executor/nodeGather.c: 411 - 434
+[src/backend/executor/nodeGather.c:411-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L411-L434)
 
 ## Overview
 Completely shuts down a Gather node by stopping all parallel workers and destroying the parallel execution context.

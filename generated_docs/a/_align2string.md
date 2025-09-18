@@ -1,7 +1,7 @@
 # _align2string
 
 ## Location
-src/bin/psql/command.c: 4447 - 4489
+[src/bin/psql/command.c:4447-4489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4447-L4489)
 
 ## Overview
 A utility function in psql that converts enumerated print format values to their corresponding string representations for display and configuration purposes.

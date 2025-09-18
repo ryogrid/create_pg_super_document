@@ -1,7 +1,7 @@
 # findJsonbValueFromContainer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 341 - 394
+[src/backend/utils/adt/jsonb_util.c:341-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L341-L394)
 
 ## Overview
 Searches for a value within a JSONB container (object or array) based on equality matching with a provided key/element value, supporting containment operations.

@@ -1,7 +1,7 @@
 # CreateSubscriberOptions
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 35 - 48
+[src/bin/pg_basebackup/pg_createsubscriber.c:35-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L35-L48)
 
 ## Overview
 CreateSubscriberOptions is a struct that holds command-line options and configuration parameters for the pg_createsubscriber utility, which converts a PostgreSQL standby server into a logical replication subscriber.

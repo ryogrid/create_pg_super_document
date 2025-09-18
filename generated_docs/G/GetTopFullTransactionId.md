@@ -1,7 +1,7 @@
 # GetTopFullTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 480 - 495
+[src/backend/access/transam/xact.c:480-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L480-L495)
 
 ## Overview
 Returns the full transaction ID of the main (top-level) transaction, assigning one if it hasn't been set yet.

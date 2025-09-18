@@ -1,7 +1,7 @@
 # issue_xlog_fsync
 
 ## Location
-src/backend/access/transam/xlog.c: 8699 - 8807
+[src/backend/access/transam/xlog.c:8699-8807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8699-L8807)
 
 ## Overview
 Issues the appropriate type of fsync operation for a WAL file based on the configured synchronization method, with timing instrumentation and comprehensive error handling.

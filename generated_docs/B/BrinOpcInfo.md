@@ -1,7 +1,7 @@
 # BrinOpcInfo
 
 ## Location
-src/include/access/brin_internal.h: 25 - 38
+[src/include/access/brin_internal.h:25-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_internal.h#L25-L38)
 
 ## Overview
 BrinOpcInfo is a structure returned by the "OpcInfo" access method procedure that provides metadata and configuration information for a BRIN (Block Range Index) operator class.

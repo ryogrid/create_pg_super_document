@@ -1,7 +1,7 @@
 # ExecSetParamPlanMulti
 
 ## Location
-src/backend/executor/nodeSubplan.c: 1268 - 1290
+[src/backend/executor/nodeSubplan.c:1268-1290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L1268-L1290)
 
 ## Overview
 ExecSetParamPlanMulti is a function that evaluates multiple not-yet-evaluated initplan output parameters in a batch operation, applying ExecSetParamPlan to each parameter whose ID is listed in the provided bitmapset.

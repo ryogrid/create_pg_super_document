@@ -1,7 +1,7 @@
 # injection_points_run
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 310 - 323
+[src/test/modules/injection_points/injection_points.c:310-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L310-L323)
 
 ## Overview
 A SQL-callable function that manually triggers execution of a named injection point, allowing tests to programmatically activate injection points on demand.

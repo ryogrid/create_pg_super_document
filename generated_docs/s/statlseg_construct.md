@@ -1,7 +1,7 @@
 # statlseg_construct
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2142 - 2154
+[src/backend/utils/adt/geo_ops.c:2142-2154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2142-L2154)
 
 ## Overview
 A static inline helper function that constructs a line segment by copying coordinate values from two Point structures into a pre-allocated LSEG structure.

@@ -1,7 +1,7 @@
 # bbsink_server_archive_contents
 
 ## Location
-src/backend/backup/basebackup_server.c: 160 - 193
+[src/backend/backup/basebackup_server.c:160-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L160-L193)
 
 ## Overview
 Writes backup archive data content to the currently opened server-side output file with comprehensive error handling.

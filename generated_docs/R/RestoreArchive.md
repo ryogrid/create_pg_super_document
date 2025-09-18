@@ -1,7 +1,7 @@
 # RestoreArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 334 - 833
+[src/bin/pg_dump/pg_backup_archiver.c:334-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L334-L833)
 
 ## Overview
 Performs the complete restoration process of a PostgreSQL dump archive, handling both serial and parallel restore modes with comprehensive transaction management and error handling.

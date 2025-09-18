@@ -1,7 +1,7 @@
 # CoercionPathType
 
 ## Location
-src/include/parser/parse_coerce.h: 31 - 105
+[src/include/parser/parse_coerce.h:31-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_coerce.h#L31-L105)
 
 ## Overview
 CoercionPathType is an enumeration that defines result codes returned by the find_coercion_pathway function to indicate different types of type coercion pathways available in PostgreSQL's type system.

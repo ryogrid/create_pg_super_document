@@ -1,7 +1,7 @@
 # setop_fill_hash_table
 
 ## Location
-src/backend/executor/nodeSetOp.c: 339 - 424
+[src/backend/executor/nodeSetOp.c:339-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L339-L424)
 
 ## Overview
 setop_fill_hash_table implements the first phase of the hashed strategy for set operations, reading all input tuples and building a hash table with group counts for subsequent retrieval.

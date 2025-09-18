@@ -1,7 +1,7 @@
 # tbm_end_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1146 - 1157
+[src/backend/nodes/tidbitmap.c:1146-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1146-L1157)
 
 ## Overview
 Finishes an iteration over a TIDBitmap by cleaning up the private iterator resources.

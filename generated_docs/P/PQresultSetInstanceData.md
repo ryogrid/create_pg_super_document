@@ -1,7 +1,7 @@
 # PQresultSetInstanceData
 
 ## Location
-src/interfaces/libpq/libpq-events.c: 142 - 164
+[src/interfaces/libpq/libpq-events.c:142-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.c#L142-L164)
 
 ## Overview
 Sets instance-specific data for a registered event procedure within a PostgreSQL result object.

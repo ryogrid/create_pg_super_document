@@ -1,7 +1,7 @@
 # p_isignore
 
 ## Location
-src/backend/tsearch/wparser_def.c: 623 - 628
+[src/backend/tsearch/wparser_def.c:623-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L623-L628)
 
 ## Overview
 A static function in PostgreSQL's text search parser that checks whether the parser is currently in ignore mode.

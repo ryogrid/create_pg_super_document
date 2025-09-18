@@ -1,7 +1,7 @@
 # addRTEPermissionInfo
 
 ## Location
-src/backend/parser/parse_relation.c: 3874 - 3902
+[src/backend/parser/parse_relation.c:3874-3902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3874-L3902)
 
 ## Overview
 This function creates an RTEPermissionInfo structure for a given RangeTblEntry and adds it to the provided list, establishing the connection between range table entries and their permission information.

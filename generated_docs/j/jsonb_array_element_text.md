@@ -1,7 +1,7 @@
 # jsonb_array_element_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 978 - 1006
+[src/backend/utils/adt/jsonfuncs.c:978-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L978-L1006)
 
 ## Overview
 Extracts the specified array element from a JSONB array and returns it as text, with proper conversion of JSONB values to their text representation.

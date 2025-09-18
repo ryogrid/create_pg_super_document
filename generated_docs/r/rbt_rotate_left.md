@@ -1,7 +1,7 @@
 # rbt_rotate_left
 
 ## Location
-src/backend/lib/rbtree.c: 263 - 299
+[src/backend/lib/rbtree.c:263-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L263-L299)
 
 ## Overview
 Performs a left rotation operation on a Red-Black Tree node, restructuring the tree to maintain balance while preserving the binary search tree property.

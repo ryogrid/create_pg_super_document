@@ -1,7 +1,7 @@
 # standard_strings
 
 ## Location
-src/bin/psql/common.c: 2132 - 2151
+[src/bin/psql/common.c:2132-2151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2132-L2151)
 
 ## Overview
 This function checks whether the current PostgreSQL session is using standard-conforming string literals by querying the server's parameter status.

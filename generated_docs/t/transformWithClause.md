@@ -1,7 +1,7 @@
 # transformWithClause
 
 ## Location
-src/backend/parser/parse_cte.c: 110 - 242
+[src/backend/parser/parse_cte.c:110-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L110-L242)
 
 ## Overview
 Transforms the list of WITH clause "common table expressions" (CTEs) into Query nodes, handling both recursive and non-recursive WITH clauses with proper dependency management.

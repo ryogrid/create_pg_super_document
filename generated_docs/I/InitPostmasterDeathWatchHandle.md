@@ -1,7 +1,7 @@
 # InitPostmasterDeathWatchHandle
 
 ## Location
-src/backend/postmaster/postmaster.c: 4705 - 4752
+[src/backend/postmaster/postmaster.c:4705-4752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4705-L4752)
 
 ## Overview
 Initializes a cross-platform mechanism for child processes to monitor whether the postmaster process is still alive, using pipes on Unix-like systems and process handles on Windows.

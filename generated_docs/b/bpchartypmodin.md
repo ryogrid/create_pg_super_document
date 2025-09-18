@@ -1,7 +1,7 @@
 # bpchartypmodin
 
 ## Location
-src/backend/utils/adt/varchar.c: 417 - 424
+[src/backend/utils/adt/varchar.c:417-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L417-L424)
 
 ## Overview
 Processes type modifier input for the bpchar (blank-padded character) data type, converting array-based type modifier specifications into internal format.

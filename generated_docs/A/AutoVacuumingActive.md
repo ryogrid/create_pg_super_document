@@ -1,7 +1,7 @@
 # AutoVacuumingActive
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3233 - 3244
+[src/backend/postmaster/autovacuum.c:3233-3244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3233-L3244)
 
 ## Overview
 Determines whether the autovacuum system should be active by checking essential GUC configuration parameters.

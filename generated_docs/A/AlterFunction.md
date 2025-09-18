@@ -1,7 +1,7 @@
 # AlterFunction
 
 ## Location
-src/backend/commands/functioncmds.c: 1343 - 1520
+[src/backend/commands/functioncmds.c:1343-1520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L1343-L1520)
 
 ## Overview
 Implements the ALTER FUNCTION utility command, allowing modification of function properties such as volatility, strictness, security, cost, and parallel execution settings.

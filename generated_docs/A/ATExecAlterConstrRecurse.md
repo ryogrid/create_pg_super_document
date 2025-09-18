@@ -1,7 +1,7 @@
 # ATExecAlterConstrRecurse
 
 ## Location
-src/backend/commands/tablecmds.c: 11553 - 11703
+[src/backend/commands/tablecmds.c:11553-11703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11553-L11703)
 
 ## Overview
 ATExecAlterConstrRecurse is a recursive subroutine of ATExecAlterConstraint that performs the actual constraint modification work, including updating constraint and trigger catalog entries and recursively processing child constraints in partitioned tables.

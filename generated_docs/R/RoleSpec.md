@@ -1,7 +1,7 @@
 # RoleSpec
 
 ## Location
-src/include/nodes/parsenodes.h: 401 - 407
+[src/include/nodes/parsenodes.h:401-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L401-L407)
 
 ## Overview
 RoleSpec represents a role specification in PostgreSQL's parse tree, used to identify database roles (users/groups) in various SQL statements involving permissions, ownership, and role management.

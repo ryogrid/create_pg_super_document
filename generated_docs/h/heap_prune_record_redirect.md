@@ -1,7 +1,7 @@
 # heap_prune_record_redirect
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1215 - 1245
+[src/backend/access/heap/pruneheap.c:1215-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1215-L1245)
 
 ## Overview
 Records a line pointer that should be converted to a redirect pointer during heap pruning, tracking the source and target offsets for the redirect operation.

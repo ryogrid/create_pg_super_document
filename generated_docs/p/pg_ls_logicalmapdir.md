@@ -1,7 +1,7 @@
 # pg_ls_logicalmapdir
 
 ## Location
-src/backend/utils/adt/genfile.c: 705 - 714
+[src/backend/utils/adt/genfile.c:705-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L705-L714)
 
 ## Overview
 Lists the files in the PostgreSQL logical replication mappings directory (pg_logical/mappings).

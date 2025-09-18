@@ -1,7 +1,7 @@
 # pa_allocate_worker
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 470 - 517
+[src/backend/replication/logical/applyparallelworker.c:470-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L470-L517)
 
 ## Overview
 Allocates a parallel apply worker for a specific transaction ID and tracks it in a hash table for later use.

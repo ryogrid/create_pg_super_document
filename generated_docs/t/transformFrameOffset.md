@@ -1,7 +1,7 @@
 # transformFrameOffset
 
 ## Location
-src/backend/parser/parse_clause.c: 3686 - 3822
+[src/backend/parser/parse_clause.c:3686-3822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3686-L3822)
 
 ## Overview
 Processes a window frame offset expression for SQL window functions, handling type coercion and validation for ROWS, RANGE, and GROUPS frame modes.

@@ -1,7 +1,7 @@
 # set_locale_and_encoding
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 405 - 483
+[src/bin/pg_upgrade/pg_upgrade.c:405-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L405-L483)
 
 ## Overview
 Copies locale and encoding information from the old cluster's template0 database to the new cluster's template0, ensuring consistent locale settings during pg_upgrade.

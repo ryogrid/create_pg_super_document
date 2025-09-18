@@ -1,7 +1,7 @@
 # tblspc_redo
 
 ## Location
-src/backend/commands/tablespace.c: 1511 - 1569
+[src/backend/commands/tablespace.c:1511-1569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1511-L1569)
 
 ## Overview
 This function handles Write-Ahead Logging (WAL) redo operations for tablespace-related changes during PostgreSQL recovery, processing both tablespace creation and deletion operations.

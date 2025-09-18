@@ -1,7 +1,7 @@
 # xml_is_document
 
 ## Location
-src/backend/utils/adt/xml.c: 1129 - 1164
+[src/backend/utils/adt/xml.c:1129-1164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1129-L1164)
 
 ## Overview
 The xml_is_document function checks whether a given XML value represents a well-formed XML document as opposed to just an XML content fragment.

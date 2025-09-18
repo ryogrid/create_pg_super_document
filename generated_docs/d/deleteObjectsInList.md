@@ -1,7 +1,7 @@
 # deleteObjectsInList
 
 ## Location
-src/backend/catalog/dependency.c: 185 - 272
+[src/backend/catalog/dependency.c:185-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L185-L272)
 
 ## Overview
 Executes the final deletion of objects in a dependency list, handling event triggers and performing actual object deletion in proper order.

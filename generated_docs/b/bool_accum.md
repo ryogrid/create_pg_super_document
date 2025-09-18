@@ -1,7 +1,7 @@
 # bool_accum
 
 ## Location
-src/backend/utils/adt/bool.c: 328 - 348
+[src/backend/utils/adt/bool.c:328-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L328-L348)
 
 ## Overview  
 Accumulates boolean values for aggregate functions, maintaining counts of total non-null values and true values.

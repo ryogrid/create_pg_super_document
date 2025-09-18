@@ -1,7 +1,7 @@
 # SinglePartitionSpec
 
 ## Location
-src/include/nodes/parsenodes.h: 945 - 948
+[src/include/nodes/parsenodes.h:945-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L945-L948)
 
 ## Overview
 SinglePartitionSpec is a legacy stub structure maintained for NodeTag ABI compatibility, previously used in reverted ALTER TABLE SPLIT PARTITION commands.

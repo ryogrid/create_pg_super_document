@@ -1,7 +1,7 @@
 # pq_sendint64
 
 ## Location
-src/include/libpq/pqformat.h: 152 - 159
+[src/include/libpq/pqformat.h:152-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L152-L159)
 
 ## Overview
 Appends a binary 64-bit unsigned integer to a StringInfo buffer for network transmission in PostgreSQL protocol messages.

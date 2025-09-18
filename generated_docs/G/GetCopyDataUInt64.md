@@ -1,7 +1,7 @@
 # GetCopyDataUInt64
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1554 - 1568
+[src/bin/pg_basebackup/pg_basebackup.c:1554-1568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1554-L1568)
 
 ## Overview
 Extracts an unsigned 64-bit integer from a COPY data message buffer and advances the cursor past the integer value.

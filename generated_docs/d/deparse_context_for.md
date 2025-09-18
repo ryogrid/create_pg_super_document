@@ -1,7 +1,7 @@
 # deparse_context_for
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3662 - 3706
+[src/backend/utils/adt/ruleutils.c:3662-3706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3662-L3706)
 
 ## Overview
 Builds a deparse context for a single relation, creating the necessary namespace structure for deparsing expressions that reference only one table.

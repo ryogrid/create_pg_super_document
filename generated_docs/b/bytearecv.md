@@ -1,7 +1,7 @@
 # bytearecv
 
 ## Location
-src/backend/utils/adt/varlena.c: 471 - 489
+[src/backend/utils/adt/varlena.c:471-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L471-L489)
 
 ## Overview
 Converts binary data received from the PostgreSQL wire protocol (external binary format) into an internal bytea data structure.

@@ -1,7 +1,7 @@
 # smgr_bulk_get_buf
 
 ## Location
-src/backend/storage/smgr/bulk_write.c: 348 - 351
+[src/backend/storage/smgr/bulk_write.c:348-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/bulk_write.c#L348-L351)
 
 ## Overview
 Allocates a new buffer that can be used with the bulk write system, providing properly aligned memory for efficient I/O operations.

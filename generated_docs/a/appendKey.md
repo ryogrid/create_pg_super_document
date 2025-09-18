@@ -1,7 +1,7 @@
 # appendKey
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 743 - 771
+[src/backend/utils/adt/jsonb_util.c:743-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L743-L771)
 
 ## Overview
 Appends a key to a JSONB object during construction, managing memory allocation and enforcing limits on the number of key-value pairs.

@@ -1,7 +1,7 @@
 # pg_attribute_aclcheck_all
 
 ## Location
-src/backend/catalog/aclchk.c: 3967 - 3977
+[src/backend/catalog/aclchk.c:3967-3977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3967-L3977)
 
 ## Overview
 This function checks a user's access privileges to any or all columns in a table, depending on the specified checking mode.

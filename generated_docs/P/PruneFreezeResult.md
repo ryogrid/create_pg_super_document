@@ -1,7 +1,7 @@
 # PruneFreezeResult
 
 ## Location
-src/include/access/heapam.h: 226 - 264
+[src/include/access/heapam.h:226-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L226-L264)
 
 ## Overview
 PruneFreezeResult is a structure that contains per-page state information returned by heap_page_prune_and_freeze(), providing comprehensive statistics and status about tuple pruning and freezing operations performed on a heap page.

@@ -1,7 +1,7 @@
 # encode_to_ascii
 
 ## Location
-src/backend/utils/adt/ascii.c: 104 - 118
+[src/backend/utils/adt/ascii.c:104-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ascii.c#L104-L118)
 
 ## Overview
 A static function that performs in-place ASCII encoding conversion on text data by calling the underlying pg_to_ascii function.

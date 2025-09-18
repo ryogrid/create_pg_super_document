@@ -1,7 +1,7 @@
 # PQgetCurrentTimeUSec
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1211 - 1230
+[src/interfaces/libpq/fe-misc.c:1211-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1211-L1230)
 
 ## Overview
 PQgetCurrentTimeUSec provides a platform-independent way to get the current time with microsecond precision, primarily used for timeout calculations in socket operations.

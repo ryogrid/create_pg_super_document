@@ -1,7 +1,7 @@
 # initial_cost_nestloop
 
 ## Location
-src/backend/optimizer/path/costsize.c: 3233 - 3307
+[src/backend/optimizer/path/costsize.c:3233-3307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L3233-L3307)
 
 ## Overview
 Provides a preliminary estimate of the cost of a nestloop join path, producing lower-bound estimates to quickly evaluate path viability before detailed costing.

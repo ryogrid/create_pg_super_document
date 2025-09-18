@@ -1,7 +1,7 @@
 # ExecIncrementalSortInitializeWorker
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 1219 - 1232
+[src/backend/executor/nodeIncrementalSort.c:1219-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L1219-L1232)
 
 ## Overview
 Initializes a parallel worker process for incremental sort operations by attaching it to shared memory space containing sort statistics.

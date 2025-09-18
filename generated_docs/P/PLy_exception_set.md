@@ -1,7 +1,7 @@
 # PLy_exception_set
 
 ## Location
-src/pl/plpython/plpy_elog.c: 477 - 490
+[src/pl/plpython/plpy_elog.c:477-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L477-L490)
 
 ## Overview
 A utility function that sets Python exception strings with printf-style formatting and internationalization support for PL/Python error handling.

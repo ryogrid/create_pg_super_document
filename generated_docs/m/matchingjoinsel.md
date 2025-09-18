@@ -1,7 +1,7 @@
 # matchingjoinsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3279 - 3296
+[src/backend/utils/adt/selfuncs.c:3279-3296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3279-L3296)
 
 ## Overview
 A placeholder join selectivity estimation function for matching-type operators that currently returns a constant default estimate without performing detailed analysis.

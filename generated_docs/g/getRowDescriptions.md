@@ -1,7 +1,7 @@
 # getRowDescriptions
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 503 - 673
+[src/interfaces/libpq/fe-protocol3.c:503-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L503-L673)
 
 ## Overview
 getRowDescriptions processes PostgreSQL protocol 'T' (RowDescription) messages to build result set metadata, including column names, types, and format information for subsequent data rows.

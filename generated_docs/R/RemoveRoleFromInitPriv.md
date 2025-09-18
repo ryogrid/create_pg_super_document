@@ -1,7 +1,7 @@
 # RemoveRoleFromInitPriv
 
 ## Location
-src/backend/catalog/aclchk.c: 4922 - 5049
+[src/backend/catalog/aclchk.c:4922-5049](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4922-L5049)
 
 ## Overview
 A function used by shdepDropOwned to remove mentions of a role from pg_init_privs entries when a role is being dropped.

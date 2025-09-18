@@ -1,7 +1,7 @@
 # utf_charcheck
 
 ## Location
-src/fe_utils/mbprint.c: 82 - 135
+[src/fe_utils/mbprint.c:82-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L82-L135)
 
 ## Overview
 A static function that validates UTF-8 character sequences according to Unicode 3.1 standards and returns the byte length of valid sequences or -1 for invalid ones.

@@ -1,7 +1,7 @@
 # bbsink_copystream_begin_backup
 
 ## Location
-src/backend/backup/basebackup_copy.c: 126 - 164
+[src/backend/backup/basebackup_copy.c:126-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L126-L164)
 
 ## Overview
 Initializes a copystream basebackup sink by setting up protocol buffers and sending initial backup wire protocol messages to the client.

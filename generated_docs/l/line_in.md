@@ -1,7 +1,7 @@
 # line_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 979 - 1022
+[src/backend/utils/adt/geo_ops.c:979-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L979-L1022)
 
 ## Overview
 Parses a string representation of a line and converts it to the internal LINE data structure. This function serves as the input function for the PostgreSQL line data type.

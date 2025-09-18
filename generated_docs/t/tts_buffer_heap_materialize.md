@@ -1,7 +1,7 @@
 # tts_buffer_heap_materialize
 
 ## Location
-src/backend/executor/execTuples.c: 802 - 860
+[src/backend/executor/execTuples.c:802-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L802-L860)
 
 ## Overview
 Materializes a BufferHeapTupleTableSlot by creating a persistent copy of its tuple data that can outlive the original buffer reference.

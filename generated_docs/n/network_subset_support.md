@@ -1,7 +1,7 @@
 # network_subset_support
 
 ## Location
-src/backend/utils/adt/network.c: 981 - 1027
+[src/backend/utils/adt/network.c:981-1027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L981-L1027)
 
 ## Overview
 Provides planner support for network subset/superset operators by converting operator and function calls to index conditions for query optimization.

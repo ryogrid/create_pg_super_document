@@ -1,7 +1,7 @@
 # exec_command_copy
 
 ## Location
-src/bin/psql/command.c: 715 - 736
+[src/bin/psql/command.c:715-736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L715-L736)
 
 ## Overview
 Implements the psql  command for executing COPY operations that transfer data between PostgreSQL tables and files.

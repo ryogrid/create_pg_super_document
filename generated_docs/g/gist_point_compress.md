@@ -1,7 +1,7 @@
 # gist_point_compress
 
 ## Location
-src/backend/access/gist/gistproc.c: 1168 - 1195
+[src/backend/access/gist/gistproc.c:1168-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1168-L1195)
 
 ## Overview
 Implements the GiST compress method for points, converting leaf-level point data into bounding box format for consistent internal representation in the GiST index tree.

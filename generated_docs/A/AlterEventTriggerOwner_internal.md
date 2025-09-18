@@ -1,7 +1,7 @@
 # AlterEventTriggerOwner_internal
 
 ## Location
-src/backend/commands/event_trigger.c: 535 - 574
+[src/backend/commands/event_trigger.c:535-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L535-L574)
 
 ## Overview
 Internal workhorse function that handles the core logic for changing an event trigger's owner, including permission checks and catalog updates.

@@ -1,7 +1,7 @@
 # process_command_g_options
 
 ## Location
-src/bin/psql/command.c: 1488 - 1562
+[src/bin/psql/command.c:1488-1562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1488-L1562)
 
 ## Overview
 Processes parenthesized pset options for the \g command in psql, parsing and applying display formatting options specified within parentheses.

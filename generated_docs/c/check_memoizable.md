@@ -1,7 +1,7 @@
 # check_memoizable
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3439 - 3473
+[src/backend/optimizer/plan/initsplan.c:3439-3473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3439-L3473)
 
 ## Overview
 Determines if a restriction clause is suitable for use with a Memoize node and sets the hash equality operators needed for caching operations.

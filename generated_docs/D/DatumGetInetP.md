@@ -1,7 +1,7 @@
 # DatumGetInetP
 
 ## Location
-src/include/utils/inet.h: 139 - 142
+[src/include/utils/inet.h:139-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L139-L142)
 
 ## Overview
 An obsolescent function that converts a Datum value to a modifiable inet pointer, performing full detoasting of packed data.

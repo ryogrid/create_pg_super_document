@@ -1,7 +1,7 @@
 # _bt_pendingfsm_init
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 2954 - 2994
+[src/backend/access/nbtree/nbtpage.c:2954-2994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L2954-L2994)
 
 ## Overview
 _bt_pendingfsm_init initializes local memory state used by VACUUM for the _bt_pendingfsm_finalize optimization, preparing a buffer to track pages deleted during a btree vacuum operation.

@@ -1,7 +1,7 @@
 # BrinRevmap
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 46 - 69
+[src/backend/access/brin/brin_revmap.c:46-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L46-L69)
 
 ## Overview
 BrinRevmap is a data structure that manages access to the BRIN (Block Range INdex) reverse mapping, providing an interface to locate and manage the mapping between heap blocks and their corresponding index entries.

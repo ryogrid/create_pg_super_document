@@ -1,7 +1,7 @@
 # list_delete_ptr
 
 ## Location
-src/backend/nodes/list.c: 872 - 890
+[src/backend/nodes/list.c:872-890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L872-L890)
 
 ## Overview
 Deletes the first cell in a list that contains a pointer exactly matching the specified pointer value, using simple pointer equality comparison.

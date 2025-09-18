@@ -1,7 +1,7 @@
 # tuplestore_trim
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1360 - 1454
+[src/backend/utils/sort/tuplestore.c:1360-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1360-L1454)
 
 ## Overview
 Removes no-longer-needed tuples from the tuplestore by freeing memory for tuples that are before the oldest active read pointer, optimizing memory usage while respecting read pointer capabilities.

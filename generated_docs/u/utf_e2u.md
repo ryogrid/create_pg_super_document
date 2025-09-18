@@ -1,7 +1,7 @@
 # utf_e2u
 
 ## Location
-src/pl/tcl/pltcl.c: 85 - 89
+[src/pl/tcl/pltcl.c:85-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L85-L89)
 
 ## Overview
 A utility function in PL/Tcl that converts strings from the database's current encoding to UTF-8 encoding.

@@ -1,7 +1,7 @@
 # AggStatePerPhase
 
 ## Location
-src/include/nodes/execnodes.h: 2460 - 2460
+[src/include/nodes/execnodes.h:2460-2460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2460-L2460)
 
 ## Overview
 AggStatePerPhase is a typedef pointer to AggStatePerPhaseData structure that represents per-grouping-set-phase state information, managing the execution strategy and configuration for each distinct phase of grouping set processing.

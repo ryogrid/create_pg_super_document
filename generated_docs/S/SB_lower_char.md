@@ -1,7 +1,7 @@
 # SB_lower_char
 
 ## Location
-src/backend/utils/adt/like.c: 94 - 104
+[src/backend/utils/adt/like.c:94-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L94-L104)
 
 ## Overview
 A locale-aware character lowercasing function for single-byte encodings used in case-insensitive LIKE pattern matching operations.

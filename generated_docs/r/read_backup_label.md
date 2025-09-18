@@ -1,7 +1,7 @@
 # read_backup_label
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1208 - 1353
+[src/backend/access/transam/xlogrecovery.c:1208-1353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1208-L1353)
 
 ## Overview
 Reads and parses the backup_label file during recovery to determine the correct checkpoint location and timeline for restoring from a backup, ensuring database consistency over pg_control settings.

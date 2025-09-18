@@ -1,7 +1,7 @@
 # PublicationAddTables
 
 ## Location
-src/backend/commands/publicationcmds.c: 1747 - 1780
+[src/backend/commands/publicationcmds.c:1747-1780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1747-L1780)
 
 ## Overview
 Adds a list of tables to an existing publication with proper permission checks and event trigger support.

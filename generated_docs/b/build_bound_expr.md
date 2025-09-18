@@ -1,7 +1,7 @@
 # build_bound_expr
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2908 - 2953
+[src/backend/utils/adt/rangetypes.c:2908-2953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2908-L2953)
 
 ## Overview
 A static helper function that constructs comparison expressions between an element and a range boundary value using appropriate comparison operators.

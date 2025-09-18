@@ -1,7 +1,7 @@
 # GistSortedBuildLevelState
 
 ## Location
-src/backend/access/gist/gistbuild.c: 123 - 129
+[src/backend/access/gist/gistbuild.c:123-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L123-L129)
 
 ## Overview
 GistSortedBuildLevelState is a structure used in PostgreSQL's GiST (Generalized Search Tree) index sorted build process to maintain an in-memory buffer of pages at each level of the index hierarchy.

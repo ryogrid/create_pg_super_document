@@ -1,7 +1,7 @@
 # selectDumpableType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1909 - 1953
+[src/bin/pg_dump/pg_dump.c:1909-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1909-L1953)
 
 ## Overview
 Policy-setting function that determines whether a data type should be dumped, with special handling for table rowtypes, auto-generated array types, and multirange types to maintain proper dump ordering.

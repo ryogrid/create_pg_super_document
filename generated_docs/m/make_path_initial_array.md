@@ -1,7 +1,7 @@
 # make_path_initial_array
 
 ## Location
-src/backend/rewrite/rewriteSearchCycle.c: 159 - 179
+[src/backend/rewrite/rewriteSearchCycle.c:159-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSearchCycle.c#L159-L179)
 
 ## Overview
 Wraps a RowExpr in an ArrayExpr to create the initial array structure for CTE SEARCH depth-first or CYCLE path tracking.

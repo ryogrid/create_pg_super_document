@@ -1,7 +1,7 @@
 # spgInnerConsistentOut
 
 ## Location
-src/include/access/spgist.h: 154 - 162
+[src/include/access/spgist.h:154-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L154-L162)
 
 ## Overview
 spgInnerConsistentOut is a structure that defines the output results from SP-GiST inner node consistency checking operations, specifying which child nodes should be visited and providing associated traversal information.

@@ -1,7 +1,7 @@
 # in_range_float8_float8
 
 ## Location
-src/backend/utils/adt/float.c: 1020 - 1095
+[src/backend/utils/adt/float.c:1020-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1020-L1095)
 
 ## Overview
 A support function for window frame range calculations with float8 (double precision) values that determines if a given value falls within a specified range relative to a base value.

@@ -1,7 +1,7 @@
 # SimpleActionListCell
 
 ## Location
-src/bin/psql/startup.c: 53 - 58
+[src/bin/psql/startup.c:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L53-L58)
 
 ## Overview
 A structure representing a single cell in a linked list that stores command-line actions to be executed by psql.

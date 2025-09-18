@@ -1,7 +1,7 @@
 # GuessControlValues
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 633 - 715
+[src/bin/pg_resetwal/pg_resetwal.c:633-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L633-L715)
 
 ## Overview
 GuessControlValues creates a completely default set of pg_control values when the original control file cannot be read or is corrupted beyond repair.

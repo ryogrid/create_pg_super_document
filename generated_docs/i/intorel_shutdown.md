@@ -1,7 +1,7 @@
 # intorel_shutdown
 
 ## Location
-src/backend/commands/createas.c: 607 - 626
+[src/backend/commands/createas.c:607-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L607-L626)
 
 ## Overview
 intorel_shutdown performs cleanup and finalization tasks when tuple processing completes for CREATE TABLE AS and CREATE MATERIALIZED VIEW operations.

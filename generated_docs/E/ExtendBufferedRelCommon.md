@@ -1,7 +1,7 @@
 # ExtendBufferedRelCommon
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2135 - 2178
+[src/backend/storage/buffer/bufmgr.c:2135-2178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2135-L2178)
 
 ## Overview
 ExtendBufferedRelCommon provides shared logic for relation extension operations, routing between temporary and shared buffer handling while managing tracing and relation persistence.

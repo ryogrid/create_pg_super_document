@@ -1,7 +1,7 @@
 # r_remove_command_suffixes
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1105 - 1123
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1105-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1105-L1123)
 
 ## Overview
 Removes Tamil imperative/command suffixes from words after validating minimum length and specific character patterns.

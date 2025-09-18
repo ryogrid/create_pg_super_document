@@ -1,7 +1,7 @@
 # permissionsList
 
 ## Location
-src/bin/psql/describe.c: 1011 - 1174
+[src/bin/psql/describe.c:1011-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L1011-L1174)
 
 ## Overview
 Implements the \z and \dp psql commands to display access privileges (grants and revokes) for database tables, views, materialized views, sequences, foreign tables, and partitioned tables.

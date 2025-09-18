@@ -1,7 +1,7 @@
 # disable_old_cluster
 
 ## Location
-src/bin/pg_upgrade/controldata.c: 711 - 732
+[src/bin/pg_upgrade/controldata.c:711-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/controldata.c#L711-L732)
 
 ## Overview
 Prevents accidental startup of the old PostgreSQL cluster after a successful upgrade by renaming its control file.

@@ -1,7 +1,7 @@
 # pg_stat_get_backend_userid
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 694 - 705
+[src/backend/utils/adt/pgstatfuncs.c:694-705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L694-L705)
 
 ## Overview
 Returns the user OID (object identifier) of the database user that a specific PostgreSQL backend process is running as.

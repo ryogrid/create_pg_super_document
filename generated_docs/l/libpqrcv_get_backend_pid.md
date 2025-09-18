@@ -1,7 +1,7 @@
 # libpqrcv_get_backend_pid
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 1150 - 1158
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1150-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L1150-L1158)
 
 ## Overview
 libpqrcv_get_backend_pid retrieves the process ID (PID) of the backend process on the primary server that is handling the current WAL receiver streaming connection.

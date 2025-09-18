@@ -1,7 +1,7 @@
 # GetLockConflicts
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2904 - 3111
+[src/backend/storage/lmgr/lock.c:2904-3111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2904-L3111)
 
 ## Overview
 GetLockConflicts returns an array of VirtualTransactionIds of transactions currently holding locks that would conflict with a specified lock mode, checking both the shared lock table and fast-path locks.

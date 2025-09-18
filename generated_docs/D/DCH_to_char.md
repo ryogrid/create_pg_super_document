@@ -1,7 +1,7 @@
 # DCH_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 2765 - 2847
+[src/backend/utils/adt/formatting.c:2765-2847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2765-L2847)
 
 ## Overview
 A static function that processes a list of format nodes to convert date/time data from a TmToChar structure into a formatted output string according to PostgreSQL's date/time formatting rules.

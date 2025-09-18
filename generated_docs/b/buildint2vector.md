@@ -1,7 +1,7 @@
 # buildint2vector
 
 ## Location
-src/backend/utils/adt/int.c: 114 - 140
+[src/backend/utils/adt/int.c:114-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L114-L140)
 
 ## Overview
 The buildint2vector function constructs an int2vector data structure from a raw array of int16 values, setting up the proper PostgreSQL array metadata.

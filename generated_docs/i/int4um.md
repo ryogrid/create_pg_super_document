@@ -1,7 +1,7 @@
 # int4um
 
 ## Location
-src/backend/utils/adt/int.c: 771 - 782
+[src/backend/utils/adt/int.c:771-782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L771-L782)
 
 ## Overview
 A PostgreSQL function that implements unary minus (negation) operation for int4 (integer) values with overflow protection.

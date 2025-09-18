@@ -1,7 +1,7 @@
 # ReplicationSlotInvalidationCause
 
 ## Location
-src/include/replication/slot.h: 56 - 62
+[src/include/replication/slot.h:56-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/slot.h#L56-L62)
 
 ## Overview
 An enumeration type that defines the possible causes for replication slot invalidation in PostgreSQL's logical and physical replication system.

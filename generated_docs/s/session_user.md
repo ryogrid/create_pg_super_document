@@ -1,7 +1,7 @@
 # session_user
 
 ## Location
-src/backend/utils/adt/name.c: 269 - 278
+[src/backend/utils/adt/name.c:269-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L269-L278)
 
 ## Overview
 The session_user function is a SQL function that returns the name of the user who initiated the current database session.

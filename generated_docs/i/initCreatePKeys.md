@@ -1,7 +1,7 @@
 # initCreatePKeys
 
 ## Location
-src/bin/pgbench/pgbench.c: 5175 - 5212
+[src/bin/pgbench/pgbench.c:5175-5212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5175-L5212)
 
 ## Overview
 Creates primary keys on the standard pgbench tables (pgbench_branches, pgbench_tellers, and pgbench_accounts) during database initialization.

@@ -1,7 +1,7 @@
 # create_new_objects
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 536 - 659
+[src/bin/pg_upgrade/pg_upgrade.c:536-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L536-L659)
 
 ## Overview
 Restores database schemas in the new PostgreSQL cluster during pg_upgrade by executing pg_restore on database dump files, handling template1 separately and supporting parallel restoration for better performance.

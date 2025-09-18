@@ -1,7 +1,7 @@
 # bloom_add_element
 
 ## Location
-src/backend/lib/bloomfilter.c: 135 - 156
+[src/backend/lib/bloomfilter.c:135-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L135-L156)
 
 ## Overview
 Adds an element to a Bloom filter by computing multiple hash values and setting the corresponding bits in the filter's bitset.

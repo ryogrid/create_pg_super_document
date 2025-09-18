@@ -1,7 +1,7 @@
 # FigureColnameInternal
 
 ## Location
-src/backend/parser/parse_target.c: 1743 - 2033
+[src/backend/parser/parse_target.c:1743-2033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1743-L2033)
 
 ## Overview
 FigureColnameInternal is the internal workhorse function for FigureColname that determines appropriate column names for SQL expressions by analyzing parse tree nodes and returning a confidence level for the chosen name.

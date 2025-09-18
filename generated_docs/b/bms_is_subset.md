@@ -1,7 +1,7 @@
 # bms_is_subset
 
 ## Location
-src/backend/nodes/bitmapset.c: 412 - 444
+[src/backend/nodes/bitmapset.c:412-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L412-L444)
 
 ## Overview
 Tests whether one bitmap set is a subset of another, returning true if all bits set in the first set are also set in the second set.

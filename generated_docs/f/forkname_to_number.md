@@ -1,7 +1,7 @@
 # forkname_to_number
 
 ## Location
-src/common/relpath.c: 50 - 80
+[src/common/relpath.c:50-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/relpath.c#L50-L80)
 
 ## Overview
 Converts a fork name string to its corresponding numeric fork identifier (ForkNumber), providing a lookup mechanism for PostgreSQL's relation fork naming system.

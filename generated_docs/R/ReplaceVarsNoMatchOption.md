@@ -1,7 +1,7 @@
 # ReplaceVarsNoMatchOption
 
 ## Location
-src/include/rewrite/rewriteManip.h: 41 - 96
+[src/include/rewrite/rewriteManip.h:41-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/rewriteManip.h#L41-L96)
 
 ## Overview
 An enumeration that defines the behavior when a variable replacement operation cannot find a matching target entry.

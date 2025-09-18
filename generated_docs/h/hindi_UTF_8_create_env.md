@@ -1,7 +1,7 @@
 # hindi_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hindi.c: 319 - 320
+[src/backend/snowball/libstemmer/stem_UTF_8_hindi.c:319-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hindi.c#L319-L320)
 
 ## Overview
 Creates and initializes a new Snowball environment structure for Hindi text stemming operations.

@@ -1,7 +1,7 @@
 # pg_u_isalpha
 
 ## Location
-src/common/unicode_category.c: 220 - 225
+[src/common/unicode_category.c:220-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L220-L225)
 
 ## Overview
 Tests whether a Unicode character is an alphabetic character according to Unicode character properties.

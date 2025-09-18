@@ -1,7 +1,7 @@
 # remove_rel_from_eclass
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 622 - 675
+[src/backend/optimizer/plan/analyzejoins.c:622-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L622-L675)
 
 ## Overview
 Removes any references to a specified relation ID or outer join relation ID from an EquivalenceClass data structure, maintaining consistency in the equivalence class membership and relid sets.

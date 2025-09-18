@@ -1,7 +1,7 @@
 # StartLogicalReplication
 
 ## Location
-src/backend/replication/walsender.c: 1456 - 1548
+[src/backend/replication/walsender.c:1456-1548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1456-L1548)
 
 ## Overview
 Initiates logical replication streaming by acquiring a replication slot, setting up the decoding context, and entering the main WAL sending loop.

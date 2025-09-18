@@ -1,7 +1,7 @@
 # hash_range_extended
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1396 - 1463
+[src/backend/utils/adt/rangetypes.c:1396-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1396-L1463)
 
 ## Overview
 Computes a 64-bit hash value for a range type with an extended hashing algorithm that includes a seed value, providing better hash distribution for range types in hash-based operations.

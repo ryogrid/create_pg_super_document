@@ -1,7 +1,7 @@
 # circle_radius
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5054 - 5065
+[src/backend/utils/adt/geo_ops.c:5054-5065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5054-L5065)
 
 ## Overview
 Returns the radius value of a circle geometric object directly without any calculation.

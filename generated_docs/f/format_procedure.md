@@ -1,7 +1,7 @@
 # format_procedure
 
 ## Location
-src/backend/utils/adt/regproc.c: 299 - 304
+[src/backend/utils/adt/regproc.c:299-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L299-L304)
 
 ## Overview
 Converts a procedure OID to its string representation in "procedure_name(arguments)" format for use by backend modules.

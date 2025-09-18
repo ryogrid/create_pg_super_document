@@ -1,7 +1,7 @@
 # openit
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-test_informix.c: 249 - 259
+[src/interfaces/ecpg/test/expected/compat_informix-test_informix.c:249-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-test_informix.c#L249-L259)
 
 ## Overview
 A static function that declares and opens a database cursor for selecting records from a test table, used in ECPG Informix compatibility testing.

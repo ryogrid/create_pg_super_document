@@ -1,7 +1,7 @@
 # get_relation_foreign_keys
 
 ## Location
-src/backend/optimizer/util/plancat.c: 590 - 704
+[src/backend/optimizer/util/plancat.c:590-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L590-L704)
 
 ## Overview
 Retrieves foreign key information for a given relation and creates ForeignKeyOptInfo structures for foreign keys that reference other relations in the current query.

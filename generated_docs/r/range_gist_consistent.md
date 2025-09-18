@@ -1,7 +1,7 @@
 # range_gist_consistent
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 191 - 244
+[src/backend/utils/adt/rangetypes_gist.c:191-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L191-L244)
 
 ## Overview
 Implements the GiST consistency check operation for range types, determining whether a query matches an index entry during index searches.

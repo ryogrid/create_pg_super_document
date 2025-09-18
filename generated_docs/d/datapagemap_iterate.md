@@ -1,7 +1,7 @@
 # datapagemap_iterate
 
 ## Location
-src/bin/pg_rewind/datapagemap.c: 75 - 86
+[src/bin/pg_rewind/datapagemap.c:75-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.c#L75-L86)
 
 ## Overview
 Creates and initializes an iterator for traversing all set bits in a datapagemap bitmap structure.

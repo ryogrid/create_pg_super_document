@@ -1,7 +1,7 @@
 # ExecJustAssignOuterVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2221 - 2227
+[src/backend/executor/execExprInterp.c:2221-2227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2221-L2227)
 
 ## Overview
 ExecJustAssignOuterVar is a fast-path function for assigning values from outer tuple variables to result tuple slots in PostgreSQL's expression evaluation system.

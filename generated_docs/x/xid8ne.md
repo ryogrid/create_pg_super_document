@@ -1,7 +1,7 @@
 # xid8ne
 
 ## Location
-src/backend/utils/adt/xid.c: 232 - 240
+[src/backend/utils/adt/xid.c:232-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L232-L240)
 
 ## Overview
 The xid8ne function is a PostgreSQL built-in function that compares two 8-byte transaction IDs (xid8) for inequality.

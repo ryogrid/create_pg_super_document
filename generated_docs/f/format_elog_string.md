@@ -1,7 +1,7 @@
 # format_elog_string
 
 ## Location
-src/backend/utils/error/elog.c: 1654 - 1686
+[src/backend/utils/error/elog.c:1654-1686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1654-L1686)
 
 ## Overview
 Formats an error message string using printf-style formatting with PostgreSQL's error handling infrastructure and returns the formatted message.

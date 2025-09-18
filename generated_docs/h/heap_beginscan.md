@@ -1,7 +1,7 @@
 # heap_beginscan
 
 ## Location
-src/backend/access/heap/heapam.c: 1082 - 1195
+[src/backend/access/heap/heapam.c:1082-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1082-L1195)
 
 ## Overview
 Initializes and returns a new heap table scan descriptor for sequential scanning of a relation with support for parallel scanning, snapshots, scan keys, and various optimization flags.

@@ -1,7 +1,7 @@
 # JsonTableGetValue
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4454 - 4494
+[src/backend/utils/adt/jsonpath_exec.c:4454-4494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4454-L4494)
 
 ## Overview
 JsonTableGetValue is a static function that retrieves the value for a specific column in the current row during JSON_TABLE() function execution, handling different column types including JsonExpr evaluations and ORDINAL columns.

@@ -1,7 +1,7 @@
 # ginNewScanKey
 
 ## Location
-src/backend/access/gin/ginscan.c: 268 - 489
+[src/backend/access/gin/ginscan.c:268-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L268-L489)
 
 ## Overview
 Initializes scan key structures for a GIN (Generalized Inverted Index) index scan by processing query values and setting up internal data structures for efficient scanning.

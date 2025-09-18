@@ -1,7 +1,7 @@
 # _outInteger
 
 ## Location
-src/backend/nodes/outfuncs.c: 648 - 653
+[src/backend/nodes/outfuncs.c:648-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L648-L653)
 
 ## Overview
 Serializes an Integer node to string format by outputting its integer value directly without any additional formatting or type information.

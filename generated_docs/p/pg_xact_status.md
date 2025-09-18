@@ -1,7 +1,7 @@
 # pg_xact_status
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 640 - 683
+[src/backend/utils/adt/xid8funcs.c:640-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L640-L683)
 
 ## Overview
 Returns the current status of a transaction ID as a text string, indicating whether the transaction is in progress, committed, aborted, or too old to determine.

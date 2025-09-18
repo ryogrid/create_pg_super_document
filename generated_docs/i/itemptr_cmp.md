@@ -1,7 +1,7 @@
 # itemptr_cmp
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 53 - 85
+[src/test/modules/test_tidstore/test_tidstore.c:53-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L53-L85)
 
 ## Overview
 A static comparison function used for sorting ItemPointer structures (TIDs) in ascending order based on block number first, then offset number within the block.

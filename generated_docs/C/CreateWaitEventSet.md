@@ -1,7 +1,7 @@
 # CreateWaitEventSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 751 - 873
+[src/backend/storage/ipc/latch.c:751-873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L751-L873)
 
 ## Overview
 CreateWaitEventSet allocates and initializes a WaitEventSet structure that can efficiently wait for multiple types of events simultaneously using platform-specific event notification mechanisms.

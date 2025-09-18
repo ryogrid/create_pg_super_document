@@ -1,7 +1,7 @@
 # SubTransPagePrecedes
 
 ## Location
-src/backend/access/transam/subtrans.c: 435 - 447
+[src/backend/access/transam/subtrans.c:435-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L435-L447)
 
 ## Overview
 Determines whether one SUBTRANS page logically precedes another for truncation purposes, handling PostgreSQL's modular transaction ID arithmetic correctly.

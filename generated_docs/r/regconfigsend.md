@@ -1,7 +1,7 @@
 # regconfigsend
 
 ## Location
-src/backend/utils/adt/regproc.c: 1415 - 1430
+[src/backend/utils/adt/regproc.c:1415-1430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1415-L1430)
 
 ## Overview
 Converts a regconfig (text search configuration OID) value to external binary format for transmission or storage.

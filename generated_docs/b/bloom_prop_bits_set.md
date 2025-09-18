@@ -1,7 +1,7 @@
 # bloom_prop_bits_set
 
 ## Location
-src/backend/lib/bloomfilter.c: 187 - 209
+[src/backend/lib/bloomfilter.c:187-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L187-L209)
 
 ## Overview  
 Calculates and returns the proportion of bits currently set in the Bloom filter's bitset, used for performance analysis and debugging.

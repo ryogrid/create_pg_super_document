@@ -1,7 +1,7 @@
 # should_processing_continue
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 962 - 1005
+[src/bin/pg_amcheck/pg_amcheck.c:962-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L962-L1005)
 
 ## Overview
 This function analyzes PostgreSQL query result status to determine whether parallel slot processing should continue or be aborted based on the severity of errors encountered.

@@ -1,7 +1,7 @@
 # RemoveTSConfigurationById
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1108 - 1155
+[src/backend/commands/tsearchcmds.c:1108-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1108-L1155)
 
 ## Overview
 Removes a text search configuration and all its associated token-dictionary mappings from the system catalogs by OID.

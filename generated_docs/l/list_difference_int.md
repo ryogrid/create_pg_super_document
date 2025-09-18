@@ -1,7 +1,7 @@
 # list_difference_int
 
 ## Location
-src/backend/nodes/list.c: 1288 - 1312
+[src/backend/nodes/list.c:1288-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1288-L1312)
 
 ## Overview
 Returns a new list containing integer elements from the first list that are not present in the second list, using integer value equality for membership comparison.

@@ -1,7 +1,7 @@
 # ParallelApplyWorkerInfo
 
 ## Location
-src/include/replication/worker_internal.h: 188 - 218
+[src/include/replication/worker_internal.h:188-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L188-L218)
 
 ## Overview
 ParallelApplyWorkerInfo is a management structure that coordinates communication and resource allocation between leader apply workers and parallel apply workers in PostgreSQL's logical replication system.

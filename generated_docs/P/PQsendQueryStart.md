@@ -1,7 +1,7 @@
 # PQsendQueryStart
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1673 - 1756
+[src/interfaces/libpq/fe-exec.c:1673-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1673-L1756)
 
 ## Overview
 PQsendQueryStart is a static function that provides common startup validation and state preparation for all PostgreSQL query sending functions.

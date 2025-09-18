@@ -1,7 +1,7 @@
 # r_particle_etc
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 304 - 331
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:304-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L304-L331)
 
 ## Overview
 The r_particle_etc function removes Finnish particle suffixes and other small morphological elements from word endings during the stemming process.

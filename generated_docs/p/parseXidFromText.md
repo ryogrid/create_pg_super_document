@@ -1,7 +1,7 @@
 # parseXidFromText
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1312 - 1336
+[src/backend/utils/time/snapmgr.c:1312-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1312-L1336)
 
 ## Overview
 parseXidFromText is a static parsing utility function that extracts PostgreSQL transaction ID (XID) values from formatted text lines during snapshot import operations.

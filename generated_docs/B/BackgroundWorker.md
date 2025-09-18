@@ -1,7 +1,7 @@
 # BackgroundWorker
 
 ## Location
-src/include/postmaster/bgworker.h: 89 - 101
+[src/include/postmaster/bgworker.h:89-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postmaster/bgworker.h#L89-L101)
 
 ## Overview
 BackgroundWorker is a structure that defines the configuration and properties of a background worker process in PostgreSQL, containing all necessary information for the postmaster to launch and manage the worker.

@@ -1,7 +1,7 @@
 # spg_box_quad_leaf_consistent
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 741 - 858
+[src/backend/utils/adt/geo_spgist.c:741-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L741-L858)
 
 ## Overview
 A leaf consistency function for SP-GiST quadtree indexes on geometric box and polygon data types that determines whether a leaf node matches the search criteria.

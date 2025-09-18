@@ -1,7 +1,7 @@
 # macaddr_lt
 
 ## Location
-src/backend/utils/adt/mac.c: 210 - 218
+[src/backend/utils/adt/mac.c:210-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L210-L218)
 
 ## Overview
 PostgreSQL function that determines if the first MAC address is less than the second MAC address, returning a boolean result.

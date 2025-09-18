@@ -1,7 +1,7 @@
 # getIndexes
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7433 - 7742
+[src/bin/pg_dump/pg_dump.c:7433-7742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7433-L7742)
 
 ## Overview
 Retrieves comprehensive information about all indexes on dumpable tables and creates corresponding DumpableObject entries for use during pg_dump operations.

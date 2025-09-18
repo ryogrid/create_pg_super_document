@@ -1,7 +1,7 @@
 # parse_hba_auth_opt
 
 ## Location
-src/backend/libpq/hba.c: 2049 - 2468
+[src/backend/libpq/hba.c:2049-2468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2049-L2468)
 
 ## Overview
 Parses individual authentication options from pg_hba.conf configuration lines into HbaLine structures, validating option syntax and compatibility with the specified authentication method.

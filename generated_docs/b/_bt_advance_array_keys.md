@@ -1,7 +1,7 @@
 # _bt_advance_array_keys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1789 - 2551
+[src/backend/access/nbtree/nbtutils.c:1789-2551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1789-L2551)
 
 ## Overview
 Advances array elements using a tuple to determine new array positions, and serves as a wrapper around _bt_check_compare for requalification checks.

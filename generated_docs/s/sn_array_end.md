@@ -1,7 +1,7 @@
 # sn_array_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4418 - 4427
+[src/backend/utils/adt/jsonfuncs.c:4418-4427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4418-L4427)
 
 ## Overview
 A callback function used during JSON parsing to handle the end of a JSON array, appending the closing bracket to the output string.

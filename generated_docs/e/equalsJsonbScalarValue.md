@@ -1,7 +1,7 @@
 # equalsJsonbScalarValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1407 - 1438
+[src/backend/utils/adt/jsonb_util.c:1407-1438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1407-L1438)
 
 ## Overview
 equalsJsonbScalarValue determines whether two JsonbValue scalar values of the same type are equal, implementing type-specific equality comparison logic.

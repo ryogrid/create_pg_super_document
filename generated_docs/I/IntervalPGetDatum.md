@@ -1,7 +1,7 @@
 # IntervalPGetDatum
 
 ## Location
-src/include/utils/timestamp.h: 58 - 62
+[src/include/utils/timestamp.h:58-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/timestamp.h#L58-L62)
 
 ## Overview
 IntervalPGetDatum is an inline utility function that converts an Interval pointer to a PostgreSQL Datum for use in the internal function call interface.

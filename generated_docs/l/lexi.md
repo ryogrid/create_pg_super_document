@@ -1,7 +1,7 @@
 # lexi
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 216 - 676
+[src/tools/pg_bsd_indent/lexi.c:216-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L216-L676)
 
 ## Overview
 The main lexical analyzer function for pg_bsd_indent that tokenizes C source code and returns appropriate token codes for the parser.

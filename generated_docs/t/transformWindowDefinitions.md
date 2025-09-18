@@ -1,7 +1,7 @@
 # transformWindowDefinitions
 
 ## Location
-src/backend/parser/parse_clause.c: 2765 - 2984
+[src/backend/parser/parse_clause.c:2765-2984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2765-L2984)
 
 ## Overview
 Transforms window definitions (WindowDef nodes) into WindowClause nodes, handling window references, partition/order clauses, and frame specifications according to SQL standard rules.

@@ -1,7 +1,7 @@
 # create_mergejoin_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4440 - 4746
+[src/backend/optimizer/plan/createplan.c:4440-4746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4440-L4746)
 
 ## Overview
 Creates a MergeJoin plan node from a MergePath, implementing merge joins where two pre-sorted input relations are merged together based on equality conditions.

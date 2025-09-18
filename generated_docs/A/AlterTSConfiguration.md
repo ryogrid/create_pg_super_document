@@ -1,7 +1,7 @@
 # AlterTSConfiguration
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1156 - 1203
+[src/backend/commands/tsearchcmds.c:1156-1203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1156-L1203)
 
 ## Overview
 Main entry point for ALTER TEXT SEARCH CONFIGURATION commands, handling token-dictionary mapping changes and dependency updates.

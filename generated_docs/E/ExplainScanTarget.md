@@ -1,7 +1,7 @@
 # ExplainScanTarget
 
 ## Location
-src/backend/commands/explain.c: 4012 - 4024
+[src/backend/commands/explain.c:4012-4024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4012-L4024)
 
 ## Overview
 Shows the target relation (table) of a scan node in EXPLAIN output by delegating to the ExplainTargetRel function.

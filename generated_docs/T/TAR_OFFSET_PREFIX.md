@@ -1,7 +1,7 @@
 # TAR_OFFSET_PREFIX
 
 ## Location
-src/include/pgtar.h: 54 - 57
+[src/include/pgtar.h:54-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgtar.h#L54-L57)
 
 ## Overview
 An enumeration constant that defines the byte offset for the prefix field within a 512-byte tar header structure.

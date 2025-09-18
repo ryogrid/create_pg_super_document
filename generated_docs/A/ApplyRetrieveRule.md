@@ -1,7 +1,7 @@
 # ApplyRetrieveRule
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1701 - 1880
+[src/backend/rewrite/rewriteHandler.c:1701-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1701-L1880)
 
 ## Overview
 Expands an ON SELECT rule (view definition) by converting the view's RTE to a subquery RTE containing the view's underlying query.

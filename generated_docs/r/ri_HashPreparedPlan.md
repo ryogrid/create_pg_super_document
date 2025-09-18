@@ -1,7 +1,7 @@
 # ri_HashPreparedPlan
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2761 - 2794
+[src/backend/utils/adt/ri_triggers.c:2761-2794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2761-L2794)
 
 ## Overview
 Adds a newly prepared SPI execution plan to the private hash table cache for future retrieval and reuse.

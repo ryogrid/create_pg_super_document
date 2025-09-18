@@ -1,7 +1,7 @@
 # int4gt
 
 ## Location
-src/backend/utils/adt/int.c: 432 - 440
+[src/backend/utils/adt/int.c:432-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L432-L440)
 
 ## Overview
 A PostgreSQL built-in function that compares two 32-bit integers and returns true if the first integer is greater than the second.

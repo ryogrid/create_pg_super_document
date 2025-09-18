@@ -1,7 +1,7 @@
 # pg_walfile_name_offset
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 373 - 436
+[src/backend/access/transam/xlogfuncs.c:373-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L373-L436)
 
 ## Overview
 Computes the WAL file name and decimal byte offset for a given WAL location, returning both values as a tuple.

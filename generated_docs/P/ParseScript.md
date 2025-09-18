@@ -1,7 +1,7 @@
 # ParseScript
 
 ## Location
-src/bin/pgbench/pgbench.c: 5941 - 5950
+[src/bin/pgbench/pgbench.c:5941-5950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5941-L5950)
 
 ## Overview
 ParseScript is a function that parses pgbench script content and converts it into executable commands for performance testing.

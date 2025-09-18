@@ -1,7 +1,7 @@
 # executeCommand
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 2000 - 2023
+[src/bin/pg_dump/pg_dumpall.c:2000-2023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L2000-L2023)
 
 ## Overview
 Executes a SQL command on a PostgreSQL connection that returns no data, providing error handling and logging for modification operations.

@@ -1,7 +1,7 @@
 # bpchar_sortsupport
 
 ## Location
-src/backend/utils/adt/varchar.c: 938 - 954
+[src/backend/utils/adt/varchar.c:938-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L938-L954)
 
 ## Overview
 This function initializes sort support for the BpChar data type (blank-padded character strings) in PostgreSQL, enabling optimized sorting operations for queries involving BpChar columns.

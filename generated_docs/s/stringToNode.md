@@ -1,7 +1,7 @@
 # stringToNode
 
 ## Location
-src/backend/nodes/read.c: 90 - 97
+[src/backend/nodes/read.c:90-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L90-L97)
 
 ## Overview
 A public API function that converts string representations of PostgreSQL Node trees back into actual Node data structures without restoring location fields.

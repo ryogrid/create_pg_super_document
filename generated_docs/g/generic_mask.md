@@ -1,7 +1,7 @@
 # generic_mask
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 539 - 544
+[src/backend/access/transam/generic_xlog.c:539-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L539-L544)
 
 ## Overview
 Masks variable portions of a database page before consistency checks to ensure reliable page comparison during WAL replay verification.

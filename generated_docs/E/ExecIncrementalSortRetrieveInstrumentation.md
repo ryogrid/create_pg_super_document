@@ -1,7 +1,7 @@
 # ExecIncrementalSortRetrieveInstrumentation
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 1233 - 1246
+[src/backend/executor/nodeIncrementalSort.c:1233-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L1233-L1246)
 
 ## Overview
 Transfers incremental sort instrumentation statistics from shared memory to private process memory for later analysis and reporting.

@@ -1,7 +1,7 @@
 # InitPostgres
 
 ## Location
-src/backend/utils/init/postinit.c: 738 - 1261
+[src/backend/utils/init/postinit.c:738-1261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L738-L1261)
 
 ## Overview
 InitPostgres performs comprehensive initialization of a PostgreSQL backend process, setting up database connections, user authentication, system catalogs, and all necessary infrastructure for normal database operations.

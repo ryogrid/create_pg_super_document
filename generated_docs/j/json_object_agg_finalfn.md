@@ -1,7 +1,7 @@
 # json_object_agg_finalfn
 
 ## Location
-src/backend/utils/adt/json.c: 1177 - 1199
+[src/backend/utils/adt/json.c:1177-1199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1177-L1199)
 
 ## Overview
 A PostgreSQL aggregate finalization function that completes the construction of a JSON object by closing the object bracket and returning the final result.

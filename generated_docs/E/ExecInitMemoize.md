@@ -1,7 +1,7 @@
 # ExecInitMemoize
 
 ## Location
-src/backend/executor/nodeMemoize.c: 952 - 1079
+[src/backend/executor/nodeMemoize.c:952-1079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L952-L1079)
 
 ## Overview
 ExecInitMemoize initializes a MemoizeState node for the Memoize executor, setting up hash functions, expression contexts, memory management, and all necessary data structures for parameter-based result caching.

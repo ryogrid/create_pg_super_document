@@ -1,7 +1,7 @@
 # catalan_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_catalan.c: 1399 - 1445
+[src/backend/snowball/libstemmer/stem_UTF_8_catalan.c:1399-1445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_catalan.c#L1399-L1445)
 
 ## Overview
 catalan_UTF_8_stem is the main external entry point function that implements the complete Catalan Snowball stemming algorithm for UTF-8 encoded text, orchestrating all stemming phases in the proper sequence.

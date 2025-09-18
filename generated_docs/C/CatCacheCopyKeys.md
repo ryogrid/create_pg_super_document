@@ -1,7 +1,7 @@
 # CatCacheCopyKeys
 
 ## Location
-src/backend/utils/cache/catcache.c: 2286 - 2355
+[src/backend/utils/cache/catcache.c:2286-2355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2286-L2355)
 
 ## Overview
 CatCacheCopyKeys is a static helper function that safely copies catalog cache keys from a source array to a destination array, ensuring all datums are properly allocated in the current memory context.

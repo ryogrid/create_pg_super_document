@@ -1,7 +1,7 @@
 # _bt_pagestate
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 646 - 682
+[src/backend/access/nbtree/nbtsort.c:646-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L646-L682)
 
 ## Overview
 Allocates and initializes a new BTPageState structure that represents the working state for a B-tree page during index construction.

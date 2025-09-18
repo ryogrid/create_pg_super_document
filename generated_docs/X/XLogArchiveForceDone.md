@@ -1,7 +1,7 @@
 # XLogArchiveForceDone
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 510 - 564
+[src/backend/access/transam/xlogarchive.c:510-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L510-L564)
 
 ## Overview
 Forces the creation of an archive completion notification file (.done) to indicate that a WAL segment has been successfully archived, bypassing the normal archival process.

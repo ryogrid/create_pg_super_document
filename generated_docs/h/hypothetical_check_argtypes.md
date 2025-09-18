@@ -1,7 +1,7 @@
 # hypothetical_check_argtypes
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1142 - 1170
+[src/backend/utils/adt/orderedsetaggs.c:1142-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1142-L1170)
 
 ## Overview
 A security validation function that verifies argument type consistency for hypothetical-set aggregate functions in PostgreSQL.

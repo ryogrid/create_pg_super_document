@@ -1,7 +1,7 @@
 # lseg_closept_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2772 - 2790
+[src/backend/utils/adt/geo_ops.c:2772-2790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2772-L2790)
 
 ## Overview
 Calculates the closest point on a line segment to a specified point and returns the distance between them.

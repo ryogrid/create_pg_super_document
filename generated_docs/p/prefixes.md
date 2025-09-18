@@ -1,7 +1,7 @@
 # prefixes
 
 ## Location
-src/backend/regex/regc_lex.c: 99 - 199
+[src/backend/regex/regc_lex.c:99-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L99-L199)
 
 ## Overview
 Processes special prefix patterns and embedded options in regular expressions, setting appropriate compilation flags based on the recognized syntax patterns.

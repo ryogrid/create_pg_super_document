@@ -1,7 +1,7 @@
 # command_tag_table_rewrite_ok
 
 ## Location
-src/backend/tcop/cmdtag.c: 72 - 82
+[src/backend/tcop/cmdtag.c:72-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L72-L82)
 
 ## Overview
 Returns whether a given command tag allows table rewrite operations, determining if commands associated with the tag can trigger table rewrite event triggers.

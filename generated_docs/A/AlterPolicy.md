@@ -1,7 +1,7 @@
 # AlterPolicy
 
 ## Location
-src/backend/commands/policy.c: 768 - 1095
+[src/backend/commands/policy.c:768-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L768-L1095)
 
 ## Overview
 Handles the execution of the ALTER POLICY command by modifying an existing row-level security policy's attributes including roles, USING clause, and WITH CHECK clause while maintaining proper dependency relationships.

@@ -1,7 +1,7 @@
 # gin_extract_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 229 - 277
+[src/backend/utils/adt/jsonb_gin.c:229-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L229-L277)
 
 ## Overview
 A GIN opclass support function that extracts indexable entries from a JSONB value by iterating through all keys, values, and array elements to create individual index entries.

@@ -1,7 +1,7 @@
 # ExecConstraints
 
 ## Location
-src/backend/executor/execMain.c: 1918 - 2052
+[src/backend/executor/execMain.c:1918-2052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1918-L2052)
 
 ## Overview
 Validates traditional NOT NULL and check constraints for a tuple, handling tuple format conversion for partitioned tables but excluding partition constraints.

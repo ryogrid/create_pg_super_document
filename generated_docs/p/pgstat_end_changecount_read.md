@@ -1,7 +1,7 @@
 # pgstat_end_changecount_read
 
 ## Location
-src/include/utils/pgstat_internal.h: 749 - 772
+[src/include/utils/pgstat_internal.h:749-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L749-L772)
 
 ## Overview
 This inline function completes a read operation from change-counted statistics by comparing the initial and final change counter values to determine if the read was consistent (no concurrent writes occurred).

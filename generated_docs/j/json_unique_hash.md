@@ -1,7 +1,7 @@
 # json_unique_hash
 
 ## Location
-src/backend/utils/adt/json.c: 891 - 901
+[src/backend/utils/adt/json.c:891-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L891-L901)
 
 ## Overview
 The  function computes hash values for JSON object keys to enable fast duplicate key detection in JSON aggregation operations through hash table lookups.

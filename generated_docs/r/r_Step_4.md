@@ -1,7 +1,7 @@
 # r_Step_4
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 480 - 514
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:480-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L480-L514)
 
 ## Overview
 The r_Step_4 function implements Step 4 of the Porter stemming algorithm, which removes common suffixes when the resulting stem would be within the R2 morphological region, ensuring conservative suffix removal.

@@ -1,7 +1,7 @@
 # remove_target_symlink
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 271 - 293
+[src/bin/pg_rewind/file_ops.c:271-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L271-L293)
 
 ## Overview
 Removes a symbolic link file from the target data directory during PostgreSQL rewind operations.

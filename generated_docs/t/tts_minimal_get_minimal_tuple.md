@@ -1,7 +1,7 @@
 # tts_minimal_get_minimal_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 647 - 657
+[src/backend/executor/execTuples.c:647-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L647-L657)
 
 ## Overview
 Retrieves the MinimalTuple from a MinimalTupleTableSlot, materializing it if necessary.

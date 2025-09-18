@@ -1,7 +1,7 @@
 # send_relation_and_attrs
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 776 - 819
+[src/backend/replication/pgoutput/pgoutput.c:776-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L776-L819)
 
 ## Overview
 Sends relation schema information and associated data type definitions to the logical replication stream, including only user-created types and specified columns.

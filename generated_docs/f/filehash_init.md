@@ -1,7 +1,7 @@
 # filehash_init
 
 ## Location
-src/bin/pg_rewind/filemap.c: 196 - 202
+[src/bin/pg_rewind/filemap.c:196-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L196-L202)
 
 ## Overview
 Initializes the hash table used for tracking file map entries in pg_rewind operations.

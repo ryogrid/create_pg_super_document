@@ -1,7 +1,7 @@
 # set_windowagg_runcondition_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3412 - 3438
+[src/backend/optimizer/plan/setrefs.c:3412-3438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3412-L3438)
 
 ## Overview
 Converts WindowFunc references in window aggregate run conditions to Var references that point to the matching WindowFunc entries in a plan's target list.

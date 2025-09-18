@@ -1,7 +1,7 @@
 # get_partition_qual_relid
 
 ## Location
-src/backend/utils/cache/partcache.c: 299 - 336
+[src/backend/utils/cache/partcache.c:299-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/partcache.c#L299-L336)
 
 ## Overview
 Retrieves the partition constraint qualification for a relation specified by OID, returning it as a single boolean expression tree suitable for SQL display functions.

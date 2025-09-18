@@ -1,7 +1,7 @@
 # fmtCopyColumnList
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18993 - 19026
+[src/bin/pg_dump/pg_dump.c:18993-19026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18993-L19026)
 
 ## Overview
 Generates a parenthesized column list clause for COPY commands, excluding dropped and generated columns from the specified table.

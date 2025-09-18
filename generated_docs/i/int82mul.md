@@ -1,7 +1,7 @@
 # int82mul
 
 ## Location
-src/backend/utils/adt/int8.c: 1060 - 1073
+[src/backend/utils/adt/int8.c:1060-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1060-L1073)
 
 ## Overview
 Multiplies a 64-bit integer (int8) with a 16-bit integer (int2) and returns a 64-bit integer result with overflow checking.

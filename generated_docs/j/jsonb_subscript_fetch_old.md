@@ -1,7 +1,7 @@
 # jsonb_subscript_fetch_old
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 323 - 352
+[src/backend/utils/adt/jsonbsubs.c:323-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L323-L352)
 
 ## Overview
 Computes the old JSONB element value for SubscriptingRef assignment expressions that contain nested SubscriptingRef or FieldStore operations.

@@ -1,7 +1,7 @@
 # parse_unicode_version
 
 ## Location
-src/common/unicode/category_test.c: 35 - 55
+[src/common/unicode/category_test.c:35-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/category_test.c#L35-L55)
 
 ## Overview
 Parses a Unicode version string into an integer format for easy numerical comparison during testing.

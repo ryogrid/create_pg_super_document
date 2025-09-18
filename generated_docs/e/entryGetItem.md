@@ -1,7 +1,7 @@
 # entryGetItem
 
 ## Location
-src/backend/access/gin/ginget.c: 810 - 991
+[src/backend/access/gin/ginget.c:810-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L810-L991)
 
 ## Overview
 Advances a GIN scan entry to the next heap item pointer greater than a specified position, handling three different data sources: bitmap results, posting lists, and posting trees.

@@ -1,7 +1,7 @@
 # bernoulli_samplescangetsamplesize
 
 ## Location
-src/backend/access/tablesample/bernoulli.c: 86 - 126
+[src/backend/access/tablesample/bernoulli.c:86-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/bernoulli.c#L86-L126)
 
 ## Overview
 This function estimates the sample size (number of pages and tuples) that will be processed during a Bernoulli tablesample scan, used by PostgreSQL's query planner for cost estimation.

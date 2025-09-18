@@ -1,7 +1,7 @@
 # add_variable_to_head
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 377 - 388
+[src/interfaces/ecpg/preproc/variable.c:377-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L377-L388)
 
 ## Overview
 Inserts a new variable and its optional indicator variable at the beginning of an argument list, implementing a LIFO (Last In, First Out) insertion strategy.

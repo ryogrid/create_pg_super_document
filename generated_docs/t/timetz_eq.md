@@ -1,7 +1,7 @@
 # timetz_eq
 
 ## Location
-src/backend/utils/adt/date.c: 2470 - 2478
+[src/backend/utils/adt/date.c:2470-2478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2470-L2478)
 
 ## Overview
 A PostgreSQL function that tests for equality between two time with timezone values, serving as the implementation for the = operator for the timetz data type.

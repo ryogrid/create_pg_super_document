@@ -1,7 +1,7 @@
 # PHRASE_FINISH
 
 ## Location
-src/backend/utils/adt/tsquery.c: 172 - 243
+[src/backend/utils/adt/tsquery.c:172-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L172-L243)
 
 ## Overview
 An enumeration constant representing the final state in the phrase operator parsing state machine within PostgreSQL's tsquery parser.

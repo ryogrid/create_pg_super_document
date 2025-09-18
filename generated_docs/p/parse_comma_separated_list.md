@@ -1,7 +1,7 @@
 # parse_comma_separated_list
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 1058 - 1092
+[src/interfaces/libpq/fe-connect.c:1058-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L1058-L1092)
 
 ## Overview
 Parses a comma-separated list string iteratively, returning one malloc'd copy of each element per call and updating position tracking.

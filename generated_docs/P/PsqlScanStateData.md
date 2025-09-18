@@ -1,7 +1,7 @@
 # PsqlScanStateData
 
 ## Location
-src/include/fe_utils/psqlscan_int.h: 84 - 132
+[src/include/fe_utils/psqlscan_int.h:84-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/psqlscan_int.h#L84-L132)
 
 ## Overview
 PsqlScanStateData is the central state structure that contains all working state of PostgreSQL's lexical scanner, enabling re-entrant and multi-instance lexer operations for psql and related utilities.

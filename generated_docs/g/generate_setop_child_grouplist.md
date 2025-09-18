@@ -1,7 +1,7 @@
 # generate_setop_child_grouplist
 
 ## Location
-src/backend/optimizer/plan/planner.c: 8171 - 8214
+[src/backend/optimizer/plan/planner.c:8171-8214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L8171-L8214)
 
 ## Overview
 Builds a SortGroupClause list defining the sort/grouping properties for a child of a set operation, adapting existing target entry references to match the set operation's requirements.

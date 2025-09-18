@@ -1,7 +1,7 @@
 # plperl_hash_from_datum
 
 ## Location
-src/pl/plperl/plperl.c: 2998 - 3025
+[src/pl/plperl/plperl.c:2998-3025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2998-L3025)
 
 ## Overview
 Converts a PostgreSQL composite/row datum into a Perl hash reference by extracting tuple information and delegating to the tuple-to-hash conversion function.

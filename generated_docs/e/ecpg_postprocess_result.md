@@ -1,7 +1,7 @@
 # ecpg_postprocess_result
 
 ## Location
-src/interfaces/ecpg/test/pg_regress_ecpg.c: 239 - 253
+[src/interfaces/ecpg/test/pg_regress_ecpg.c:239-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/pg_regress_ecpg.c#L239-L253)
 
 ## Overview
 Post-processes ECPG test result files by applying appropriate filtering based on file type, currently focusing on stderr file normalization.

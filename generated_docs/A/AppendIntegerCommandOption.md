@@ -1,7 +1,7 @@
 # AppendIntegerCommandOption
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 856 - 868
+[src/bin/pg_basebackup/streamutil.c:856-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L856-L868)
 
 ## Overview
 A utility function that appends a command option with an associated integer value to a PostgreSQL server command buffer.

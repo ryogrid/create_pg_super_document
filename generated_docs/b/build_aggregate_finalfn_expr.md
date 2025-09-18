@@ -1,7 +1,7 @@
 # build_aggregate_finalfn_expr
 
 ## Location
-src/backend/parser/parse_agg.c: 2143 - 2182
+[src/backend/parser/parse_agg.c:2143-2182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L2143-L2182)
 
 ## Overview
 Constructs an expression tree for the final function of an aggregate, creating the necessary function call structure to produce the final aggregate result from the accumulated state.

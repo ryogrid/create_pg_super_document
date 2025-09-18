@@ -1,7 +1,7 @@
 # OperatorIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2049 - 2060
+[src/backend/catalog/namespace.c:2049-2060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2049-L2060)
 
 ## Overview
 OperatorIsVisible determines whether an operator identified by its OID is visible in the current search path.

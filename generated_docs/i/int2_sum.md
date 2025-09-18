@@ -1,7 +1,7 @@
 # int2_sum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6524 - 6572
+[src/backend/utils/adt/numeric.c:6524-6572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6524-L6572)
 
 ## Overview
 A SQL aggregate transition function that computes the sum of smallint (int2) values, using int8 accumulator to prevent overflow.

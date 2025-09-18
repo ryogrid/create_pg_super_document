@@ -1,7 +1,7 @@
 # bpcharcmp
 
 ## Location
-src/backend/utils/adt/varchar.c: 917 - 937
+[src/backend/utils/adt/varchar.c:917-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L917-L937)
 
 ## Overview
 This function implements the three-way comparison operation for the BpChar data type (blank-padded character strings) in PostgreSQL, returning an integer indicating the relative ordering of two values.

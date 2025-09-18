@@ -1,7 +1,7 @@
 # numeric_sqrt
 
 ## Location
-src/backend/utils/adt/numeric.c: 3692 - 3763
+[src/backend/utils/adt/numeric.c:3692-3763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3692-L3763)
 
 ## Overview
 Computes the square root of a numeric value with appropriate scale handling and special value processing.

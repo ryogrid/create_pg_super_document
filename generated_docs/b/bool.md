@@ -1,7 +1,7 @@
 # bool
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 28 - 48
+[src/backend/utils/fmgr/dfmgr.c:28-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L28-L48)
 
 ## Overview
 The `bool` type is PostgreSQL's fundamental boolean data type that can hold either true or false values, providing a standardized way to represent boolean logic throughout the codebase.

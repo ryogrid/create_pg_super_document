@@ -1,7 +1,7 @@
 # SpecialTags
 
 ## Location
-src/backend/tsearch/wparser_def.c: 564 - 587
+[src/backend/tsearch/wparser_def.c:564-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L564-L587)
 
 ## Overview
 A static function that handles special HTML tags (script and style) by setting the parser's ignore flag to control text processing within these tags.

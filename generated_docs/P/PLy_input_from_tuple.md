@@ -1,7 +1,7 @@
 # PLy_input_from_tuple
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 134 - 164
+[src/pl/plpython/plpy_typeio.c:134-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L134-L164)
 
 ## Overview
 Converts a PostgreSQL tuple (row) into a Python dictionary object in the PL/Python procedural language.

@@ -1,7 +1,7 @@
 # WalSummarizerShutdown
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 788 - 799
+[src/backend/postmaster/walsummarizer.c:788-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L788-L799)
 
 ## Overview
 A cleanup function that marks the WAL summarizer process as no longer running in shared memory during process termination.

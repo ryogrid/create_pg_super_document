@@ -1,7 +1,7 @@
 # compile_database_list
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1583 - 1774
+[src/bin/pg_amcheck/pg_amcheck.c:1583-1774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1583-L1774)
 
 ## Overview
 Compiles a distinct list of PostgreSQL databases to check based on user-specified patterns and command-line options in the pg_amcheck utility.

@@ -1,7 +1,7 @@
 # compute_parallel_delay
 
 ## Location
-src/backend/commands/vacuum.c: 2482 - 2525
+[src/backend/commands/vacuum.c:2482-2525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2482-L2525)
 
 ## Overview
 Calculates vacuum delay time for parallel workers based on their proportional share of work, ensuring fair throttling across multiple vacuum workers.

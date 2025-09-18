@@ -1,7 +1,7 @@
 # FlushBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3773 - 3911
+[src/backend/storage/buffer/bufmgr.c:3773-3911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3773-L3911)
 
 ## Overview
 FlushBuffer physically writes a shared buffer's contents to disk, implementing PostgreSQL's WAL-before-data rule and handling checksums, I/O tracking, and proper buffer state management.

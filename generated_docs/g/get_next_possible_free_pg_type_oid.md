@@ -1,7 +1,7 @@
 # get_next_possible_free_pg_type_oid
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5345 - 5375
+[src/bin/pg_dump/pg_dump.c:5345-5375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5345-L5375)
 
 ## Overview
 Finds and returns the next available OID in the pg_type system catalog that can be safely assigned to a new type during binary upgrades.

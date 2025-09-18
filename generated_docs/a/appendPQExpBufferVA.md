@@ -1,7 +1,7 @@
 # appendPQExpBufferVA
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 294 - 366
+[src/interfaces/libpq/pqexpbuffer.c:294-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L294-L366)
 
 ## Overview
 The core implementation function for printf-style formatted text appending to PQExpBuffer, used by both printfPQExpBuffer and appendPQExpBuffer.

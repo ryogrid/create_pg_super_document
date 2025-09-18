@@ -1,7 +1,7 @@
 # pgwin32_ServiceHandler
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1581 - 1612
+[src/bin/pg_ctl/pg_ctl.c:1581-1612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1581-L1612)
 
 ## Overview
 Handles Windows service control requests from the Service Control Manager, processing commands like stop, shutdown, and configuration reload for the PostgreSQL service.

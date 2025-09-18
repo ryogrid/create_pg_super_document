@@ -1,7 +1,7 @@
 # random_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4244 - 4298
+[src/backend/utils/adt/numeric.c:4244-4298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4244-L4298)
 
 ## Overview
 Generates a random numeric value within a specified range [rmin, rmax] using a provided pseudo-random number generator state.

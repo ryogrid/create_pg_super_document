@@ -1,7 +1,7 @@
 # process_ordered_aggregate_multi
 
 ## Location
-src/backend/executor/nodeAgg.c: 949 - 1045
+[src/backend/executor/nodeAgg.c:949-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L949-L1045)
 
 ## Overview
 Processes ordered aggregates with multiple input columns by completing the sort, reading tuples in sorted order, and applying the transition function while handling DISTINCT logic across multiple columns.

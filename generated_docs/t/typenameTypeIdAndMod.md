@@ -1,7 +1,7 @@
 # typenameTypeIdAndMod
 
 ## Location
-src/backend/parser/parse_type.c: 310 - 331
+[src/backend/parser/parse_type.c:310-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L310-L331)
 
 ## Overview
 A utility function that extracts the type OID and type modifier from a TypeName structure, providing a lightweight alternative to typenameType that returns only the essential identifiers without the full syscache entry.

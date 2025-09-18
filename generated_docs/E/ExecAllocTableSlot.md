@@ -1,7 +1,7 @@
 # ExecAllocTableSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1258 - 1277
+[src/backend/executor/execTuples.c:1258-1277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1258-L1277)
 
 ## Overview
 Creates a new TupleTableSlot and adds it to a tuple table (managed as a List), providing a convenient way to allocate and track slots within the executor framework.

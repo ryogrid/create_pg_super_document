@@ -1,7 +1,7 @@
 # test_enc_conversion
 
 ## Location
-src/test/regress/regress.c: 1174 - 1290
+[src/test/regress/regress.c:1174-1290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1174-L1290)
 
 ## Overview
 A PostgreSQL regression test function that performs character encoding conversion between different encodings and returns both the number of successfully converted bytes and the converted result.

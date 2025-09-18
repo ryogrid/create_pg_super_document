@@ -1,7 +1,7 @@
 # gettoken_query_standard
 
 ## Location
-src/backend/utils/adt/tsquery.c: 286 - 397
+[src/backend/utils/adt/tsquery.c:286-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L286-L397)
 
 ## Overview
 A static function that tokenizes and parses standard PostgreSQL tsquery expressions, implementing a finite state machine to recognize operators, operands, and syntactic elements.

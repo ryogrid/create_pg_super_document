@@ -1,7 +1,7 @@
 # dtcvasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 618 - 643
+[src/interfaces/ecpg/compatlib/informix.c:618-643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L618-L643)
 
 ## Overview
 The dtcvasc function converts an ASCII string representation of a date/time into a timestamp value, providing Informix ESQL/C compatibility for PostgreSQL ECPG applications.

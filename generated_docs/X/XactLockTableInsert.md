@@ -1,7 +1,7 @@
 # XactLockTableInsert
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 616 - 632
+[src/backend/storage/lmgr/lmgr.c:616-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L616-L632)
 
 ## Overview
 XactLockTableInsert acquires an exclusive lock on a transaction ID to indicate that the transaction is currently running, allowing other transactions to wait for its completion.

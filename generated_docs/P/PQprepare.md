@@ -1,7 +1,7 @@
 # PQprepare
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2306 - 2322
+[src/interfaces/libpq/fe-exec.c:2306-2322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2306-L2322)
 
 ## Overview
 Creates a prepared statement by sending a Parse message to the PostgreSQL server, allowing for efficient execution of the same query with different parameters.

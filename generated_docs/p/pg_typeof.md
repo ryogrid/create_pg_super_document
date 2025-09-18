@@ -1,7 +1,7 @@
 # pg_typeof
 
 ## Location
-src/backend/utils/adt/misc.c: 564 - 582
+[src/backend/utils/adt/misc.c:564-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L564-L582)
 
 ## Overview
 Returns the OID of the data type of its argument, providing runtime type information for any PostgreSQL expression.

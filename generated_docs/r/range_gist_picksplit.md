@@ -1,7 +1,7 @@
 # range_gist_picksplit
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 619 - 777
+[src/backend/utils/adt/rangetypes_gist.c:619-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L619-L777)
 
 ## Overview
 The GiST PickSplit method for range types that implements node splitting logic in GiST indexes for range data types by segregating ranges of different classes and applying appropriate split methods.

@@ -1,7 +1,7 @@
 # dsa_pin
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 975 - 993
+[src/backend/utils/mmgr/dsa.c:975-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L975-L993)
 
 ## Overview
 Pins a dynamic shared memory area to prevent it from being destroyed when all backends detach from it.

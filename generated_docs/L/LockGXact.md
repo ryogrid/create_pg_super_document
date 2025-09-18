@@ -1,7 +1,7 @@
 # LockGXact
 
 ## Location
-src/backend/access/transam/twophase.c: 552 - 627
+[src/backend/access/transam/twophase.c:552-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L552-L627)
 
 ## Overview
 Locates a prepared transaction by its Global Identifier (GID) and locks it for exclusive access during COMMIT PREPARED or ROLLBACK PREPARED operations.

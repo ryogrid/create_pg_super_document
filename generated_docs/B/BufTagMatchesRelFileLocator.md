@@ -1,7 +1,7 @@
 # BufTagMatchesRelFileLocator
 
 ## Location
-src/include/storage/buf_internals.h: 164 - 179
+[src/include/storage/buf_internals.h:164-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L164-L179)
 
 ## Overview
 BufTagMatchesRelFileLocator is an inline function that determines whether a BufferTag corresponds to the same relation as specified by a RelFileLocator by comparing their tablespace, database, and relation identifiers.

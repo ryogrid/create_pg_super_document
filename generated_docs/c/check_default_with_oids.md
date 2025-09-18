@@ -1,7 +1,7 @@
 # check_default_with_oids
 
 ## Location
-src/backend/commands/variable.c: 1208 - 1222
+[src/backend/commands/variable.c:1208-1222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1208-L1222)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates attempts to enable the default_with_oids parameter, unconditionally rejecting it since WITH OIDS tables are no longer supported in PostgreSQL.

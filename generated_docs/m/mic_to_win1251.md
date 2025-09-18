@@ -1,7 +1,7 @@
 # mic_to_win1251
 
 ## Location
-src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c: 387 - 402
+[src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c:387-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c#L387-L402)
 
 ## Overview
 Converts text from PostgreSQL internal MULE encoding (MIC) to Windows Cyrillic encoding (WIN1251), handling Cyrillic character conversion through an intermediate KOI8-R encoding.

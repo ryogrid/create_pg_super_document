@@ -1,7 +1,7 @@
 # in_range_time_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2098 - 2139
+[src/backend/utils/adt/date.c:2098-2139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2098-L2139)
 
 ## Overview
 The  function provides window function support for determining if a time value falls within a specified range relative to a base time and an interval offset.

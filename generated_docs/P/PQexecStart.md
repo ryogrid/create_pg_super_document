@@ -1,7 +1,7 @@
 # PQexecStart
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2344 - 2409
+[src/interfaces/libpq/fe-exec.c:2344-2409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2344-L2409)
 
 ## Overview
 Internal preparation function that validates connection state and clears any pending results before executing synchronous commands in libpq.

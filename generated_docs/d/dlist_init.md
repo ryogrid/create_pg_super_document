@@ -1,7 +1,7 @@
 # dlist_init
 
 ## Location
-src/include/lib/ilist.h: 314 - 324
+[src/include/lib/ilist.h:314-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L314-L324)
 
 ## Overview
 Initializes a doubly-linked list head structure to establish an empty list state with proper circular references.

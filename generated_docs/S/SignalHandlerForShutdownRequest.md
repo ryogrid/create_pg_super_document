@@ -1,7 +1,7 @@
 # SignalHandlerForShutdownRequest
 
 ## Location
-src/backend/postmaster/interrupt.c: 105 - 109
+[src/backend/postmaster/interrupt.c:105-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/interrupt.c#L105-L109)
 
 ## Overview
 SignalHandlerForShutdownRequest is a signal handler designed to trigger graceful shutdown of long-running background processes in PostgreSQL, typically in response to SIGTERM or other termination signals.

@@ -1,7 +1,7 @@
 # addFamilyMember
 
 ## Location
-src/backend/commands/opclasscmds.c: 1392 - 1428
+[src/backend/commands/opclasscmds.c:1392-1428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1392-L1428)
 
 ## Overview
 Adds a new operator or function member to an operator family list while checking for duplicate strategy or procedure numbers.

@@ -1,7 +1,7 @@
 # parse_sub_analyze
 
 ## Location
-src/backend/parser/analyze.c: 221 - 247
+[src/backend/parser/analyze.c:221-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L221-L247)
 
 ## Overview
 Entry point for recursively analyzing sub-statements within a larger query context, inheriting parse state from a parent statement.

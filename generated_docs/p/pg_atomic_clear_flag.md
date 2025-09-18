@@ -1,7 +1,7 @@
 # pg_atomic_clear_flag
 
 ## Location
-src/include/port/atomics.h: 202 - 215
+[src/include/port/atomics.h:202-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L202-L215)
 
 ## Overview
 Atomically clears (releases) an atomic flag with release memory barrier semantics, typically used to release locks acquired by Test-And-Set operations.

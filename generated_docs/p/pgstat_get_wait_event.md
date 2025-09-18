@@ -1,7 +1,7 @@
 # pgstat_get_wait_event
 
 ## Location
-src/backend/utils/activity/wait_event.c: 432 - 507
+[src/backend/utils/activity/wait_event.c:432-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L432-L507)
 
 ## Overview
 Returns a string representation of the current wait event that a PostgreSQL backend process is waiting on, based on the wait event information encoded in a 32-bit integer.

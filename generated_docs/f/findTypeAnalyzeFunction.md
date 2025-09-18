@@ -1,7 +1,7 @@
 # findTypeAnalyzeFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2208 - 2234
+[src/backend/commands/typecmds.c:2208-2234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2208-L2234)
 
 ## Overview
 This function validates and retrieves the OID of a user-specified analyze function for a PostgreSQL data type, ensuring it meets the required signature constraints for type analysis operations.

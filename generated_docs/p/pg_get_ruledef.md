@@ -1,7 +1,7 @@
 # pg_get_ruledef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 538 - 555
+[src/backend/utils/adt/ruleutils.c:538-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L538-L555)
 
 ## Overview
 PostgreSQL SQL function that returns a text representation of a rewrite rule definition that could be used as a statement to recreate the rule.

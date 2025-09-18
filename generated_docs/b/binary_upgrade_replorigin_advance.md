@@ -1,7 +1,7 @@
 # binary_upgrade_replorigin_advance
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 369 - 413
+[src/backend/utils/adt/pg_upgrade_support.c:369-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L369-L413)
 
 ## Overview
 Updates the remote LSN position for a subscription's replication origin during binary upgrade operations.

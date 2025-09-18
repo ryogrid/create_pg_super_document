@@ -1,7 +1,7 @@
 # PublicationDropTables
 
 ## Location
-src/backend/commands/publicationcmds.c: 1781 - 1825
+[src/backend/commands/publicationcmds.c:1781-1825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1781-L1825)
 
 ## Overview
 Removes a list of tables from an existing publication with validation to ensure proper syntax and existence checks.

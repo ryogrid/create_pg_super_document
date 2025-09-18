@@ -1,7 +1,7 @@
 # verify_directories
 
 ## Location
-src/bin/pg_upgrade/exec.c: 263 - 287
+[src/bin/pg_upgrade/exec.c:263-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L263-L287)
 
 ## Overview
 This function performs comprehensive verification of directories and executables for both old and new PostgreSQL server clusters during the upgrade process.

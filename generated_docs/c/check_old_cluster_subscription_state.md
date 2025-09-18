@@ -1,7 +1,7 @@
 # check_old_cluster_subscription_state
 
 ## Location
-src/bin/pg_upgrade/check.c: 2003 - 2117
+[src/bin/pg_upgrade/check.c:2003-2117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L2003-L2117)
 
 ## Overview
 Verifies that all logical replication subscriptions in the old PostgreSQL cluster have valid replication origins and that subscribed tables are in safe states for upgrade.

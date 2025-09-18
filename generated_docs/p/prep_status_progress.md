@@ -1,7 +1,7 @@
 # prep_status_progress
 
 ## Location
-src/bin/pg_upgrade/util.c: 156 - 175
+[src/bin/pg_upgrade/util.c:156-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L156-L175)
 
 ## Overview
 Displays formatted status messages for potentially long-running operations in pg_upgrade, with intelligent newline handling based on output mode.

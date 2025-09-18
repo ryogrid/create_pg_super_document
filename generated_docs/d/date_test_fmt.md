@@ -1,7 +1,7 @@
 # date_test_fmt
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c: 77 - 92
+[src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c:77-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c#L77-L92)
 
 ## Overview
 Tests date formatting functionality by converting a date structure to a formatted string representation using a specified format template.

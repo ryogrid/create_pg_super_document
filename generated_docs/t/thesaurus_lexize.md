@@ -1,7 +1,7 @@
 # thesaurus_lexize
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 788 - 879
+[src/backend/tsearch/dict_thesaurus.c:788-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L788-L879)
 
 ## Overview
 Main PostgreSQL function that implements thesaurus dictionary lexeme processing, transforming input words through pattern matching and substitution rules.

@@ -1,7 +1,7 @@
 # XLogRecStoreStats
 
 ## Location
-src/backend/access/transam/xlogstats.c: 54 - 96
+[src/backend/access/transam/xlogstats.c:54-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogstats.c#L54-L96)
 
 ## Overview
 Stores per-resource manager and per-record type statistics for a given WAL record into an XLogStats structure.

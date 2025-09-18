@@ -1,7 +1,7 @@
 # get_hex
 
 ## Location
-src/backend/utils/adt/encode.c: 176 - 189
+[src/backend/utils/adt/encode.c:176-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L176-L189)
 
 ## Overview
 Internal static inline utility function that converts a single hexadecimal character to its corresponding 4-bit binary value using a lookup table.

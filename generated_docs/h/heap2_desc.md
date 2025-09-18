@@ -1,7 +1,7 @@
 # heap2_desc
 
 ## Location
-src/backend/access/rmgrdesc/heapdesc.c: 260 - 384
+[src/backend/access/rmgrdesc/heapdesc.c:260-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/heapdesc.c#L260-L384)
 
 ## Overview
 This function provides human-readable descriptions of heap2 WAL (Write-Ahead Logging) record types for PostgreSQL debugging and analysis purposes.

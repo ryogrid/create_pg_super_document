@@ -1,7 +1,7 @@
 # printResultSet
 
 ## Location
-src/test/isolation/isolationtester.c: 1113 - 1125
+[src/test/isolation/isolationtester.c:1113-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/isolationtester.c#L1113-L1125)
 
 ## Overview
 Formats and prints a PostgreSQL query result set to stdout with headers and aligned columns for isolation test output.

@@ -1,7 +1,7 @@
 # comparetup_heap_tiebreak
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1104 - 1157
+[src/backend/utils/sort/tuplesortvariants.c:1104-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1104-L1157)
 
 ## Overview
 A specialized static function that performs comprehensive multi-column comparison for heap tuples when the primary sort key comparison results in equality.

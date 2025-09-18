@@ -1,7 +1,7 @@
 # sts_reinitialize
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 234 - 252
+[src/backend/utils/sort/sharedtuplestore.c:234-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L234-L252)
 
 ## Overview
 Prepares a shared tuplestore for rescanning by resetting read positions for all participants to the beginning.

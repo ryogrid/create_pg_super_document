@@ -1,7 +1,7 @@
 # reparameterize_pathlist_by_child
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 4542 - 4570
+[src/backend/optimizer/util/pathnode.c:4542-4570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L4542-L4570)
 
 ## Overview
 Helper function that reparameterizes a list of paths by a given child relation, used during query planning to translate parameterized paths from parent to child context.

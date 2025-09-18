@@ -1,7 +1,7 @@
 # ginendscan
 
 ## Location
-src/backend/access/gin/ginscan.c: 506 - 516
+[src/backend/access/gin/ginscan.c:506-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L506-L516)
 
 ## Overview
 Terminates a GIN index scan and performs complete cleanup of all associated memory contexts and data structures.

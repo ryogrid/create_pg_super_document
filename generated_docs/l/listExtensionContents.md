@@ -1,7 +1,7 @@
 # listExtensionContents
 
 ## Location
-src/bin/psql/describe.c: 6053 - 6119
+[src/bin/psql/describe.c:6053-6119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6053-L6119)
 
 ## Overview
 Implements the  command in psql to list the detailed contents of installed PostgreSQL extensions by iterating through matching extensions and displaying their contents.

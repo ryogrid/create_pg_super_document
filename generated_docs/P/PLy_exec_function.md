@@ -1,7 +1,7 @@
 # PLy_exec_function
 
 ## Location
-src/pl/plpython/plpy_exec.c: 55 - 320
+[src/pl/plpython/plpy_exec.c:55-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L55-L320)
 
 ## Overview
 PLy_exec_function is the main entry point for executing PL/Python functions and procedures, handling both regular functions and set-returning functions (SRFs) with comprehensive error handling and memory management.

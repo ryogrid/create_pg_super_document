@@ -1,7 +1,7 @@
 # compareWalFileNames
 
 ## Location
-src/backend/backup/basebackup.c: 684 - 695
+[src/backend/backup/basebackup.c:684-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L684-L695)
 
 ## Overview
  is a comparison function used for sorting WAL file names by their log/segment portion while ignoring the timeline portion.

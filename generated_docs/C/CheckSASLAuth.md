@@ -1,7 +1,7 @@
 # CheckSASLAuth
 
 ## Location
-src/backend/libpq/auth-sasl.c: 52 - 202
+[src/backend/libpq/auth-sasl.c:52-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-sasl.c#L52-L202)
 
 ## Overview
 CheckSASLAuth performs a complete SASL (Simple Authentication and Security Layer) authentication exchange with a libpq client using a specific SASL mechanism implementation. It manages the multi-message negotiation process between client and server for secure authentication.

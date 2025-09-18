@@ -1,7 +1,7 @@
 # typinfo
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 74 - 142
+[src/backend/bootstrap/bootstrap.c:74-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L74-L142)
 
 ## Overview
 The  struct contains basic information for PostgreSQL data types used during the bootstrap phase before the pg_type catalog is available.

@@ -1,7 +1,7 @@
 # ResourceOwnerForgetCryptoHash
 
 ## Location
-src/common/cryptohash_openssl.c: 96 - 102
+[src/common/cryptohash_openssl.c:96-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L96-L102)
 
 ## Overview
 A convenience wrapper function that unregisters a cryptographic hash context from PostgreSQL's resource owner system, indicating that the resource is being explicitly managed and cleaned up.

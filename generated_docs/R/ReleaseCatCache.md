@@ -1,7 +1,7 @@
 # ReleaseCatCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 1624 - 1629
+[src/backend/utils/cache/catcache.c:1624-1629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1624-L1629)
 
 ## Overview
 Decrements the reference count of a catalog cache entry, releasing the hold acquired by a successful SearchCatCache operation.

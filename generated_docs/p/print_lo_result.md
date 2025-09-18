@@ -1,7 +1,7 @@
 # print_lo_result
 
 ## Location
-src/bin/psql/large_obj.c: 16 - 55
+[src/bin/psql/large_obj.c:16-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L16-L55)
 
 ## Overview
 A utility function in psql's large object module that handles formatted output of large object operation results, supporting both console output and logging with HTML format awareness.

@@ -1,7 +1,7 @@
 # in_range_int4_int4
 
 ## Location
-src/backend/utils/adt/int.c: 623 - 656
+[src/backend/utils/adt/int.c:623-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L623-L656)
 
 ## Overview
 A PostgreSQL function that determines whether a given int4 value falls within a range defined by a base value and an offset, supporting window function range frame calculations.

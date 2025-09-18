@@ -1,7 +1,7 @@
 # scalarlesel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1481 - 1489
+[src/backend/utils/adt/selfuncs.c:1481-1489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1481-L1489)
 
 ## Overview
 Selectivity estimator function for the less-than-or-equal ("<=") operator on scalar data types in PostgreSQL query optimization.

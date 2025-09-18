@@ -1,7 +1,7 @@
 # visibilitymap_clear
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 138 - 190
+[src/backend/access/heap/visibilitymap.c:138-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L138-L190)
 
 ## Overview
 Clears specified visibility map bits for a single heap page, marking the page as no longer having certain visibility properties like all-visible or all-frozen status.

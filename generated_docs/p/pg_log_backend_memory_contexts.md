@@ -1,7 +1,7 @@
 # pg_log_backend_memory_contexts
 
 ## Location
-src/backend/utils/adt/mcxtfuncs.c: 144 - 187
+[src/backend/utils/adt/mcxtfuncs.c:144-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mcxtfuncs.c#L144-L187)
 
 ## Overview
 SQL-callable function that signals a backend or auxiliary process to log its memory contexts to the server log.

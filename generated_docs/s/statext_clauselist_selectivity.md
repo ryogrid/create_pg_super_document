@@ -1,7 +1,7 @@
 # statext_clauselist_selectivity
 
 ## Location
-src/backend/statistics/extended_stats.c: 1984 - 2034
+[src/backend/statistics/extended_stats.c:1984-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1984-L2034)
 
 ## Overview
 Estimates the selectivity of a list of clauses using the best available multi-column statistics, combining MCV (Most Common Values) lists and functional dependencies for accurate selectivity estimation.

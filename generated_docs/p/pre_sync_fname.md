@@ -1,7 +1,7 @@
 # pre_sync_fname
 
 ## Location
-src/common/file_utils.c: 337 - 377
+[src/common/file_utils.c:337-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L337-L377)
 
 ## Overview
 Provides hint to the operating system to prepare a file for an upcoming fsync operation by flushing dirty pages from memory to storage device buffers, optimizing subsequent synchronization performance.

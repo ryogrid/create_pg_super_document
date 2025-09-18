@@ -1,7 +1,7 @@
 # extractPageMap
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 66 - 123
+[src/bin/pg_rewind/parsexlog.c:66-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L66-L123)
 
 ## Overview
 Reads WAL records from a PostgreSQL datadir starting from a specified point until an endpoint, extracting page information from the WAL records to build a page map for pg_rewind operations.

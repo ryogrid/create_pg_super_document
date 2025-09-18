@@ -1,7 +1,7 @@
 # tidgt
 
 ## Location
-src/backend/utils/adt/tid.c: 212 - 220
+[src/backend/utils/adt/tid.c:212-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L212-L220)
 
 ## Overview
 tidgt is a PostgreSQL function that performs greater-than comparison between two tuple identifiers (ItemPointer), returning true if the first is greater than the second.

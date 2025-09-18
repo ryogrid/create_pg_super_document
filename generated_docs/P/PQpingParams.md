@@ -1,7 +1,7 @@
 # PQpingParams
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 707 - 743
+[src/interfaces/libpq/fe-connect.c:707-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L707-L743)
 
 ## Overview
 Checks PostgreSQL server status and connectivity using connection parameters provided in keyword-value arrays, without establishing a persistent connection.

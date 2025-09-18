@@ -1,7 +1,7 @@
 # path_length
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1792 - 1830
+[src/backend/utils/adt/geo_ops.c:1792-1830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1792-L1830)
 
 ## Overview
 The `path_length` function calculates the total length of a path by summing the distances of all line segments that compose the path.

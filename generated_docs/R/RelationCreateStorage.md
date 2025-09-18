@@ -1,7 +1,7 @@
 # RelationCreateStorage
 
 ## Location
-src/backend/catalog/storage.c: 121 - 185
+[src/backend/catalog/storage.c:121-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L121-L185)
 
 ## Overview
 RelationCreateStorage creates the physical disk storage for a relation, handling WAL logging and transaction-aware cleanup based on relation persistence characteristics.

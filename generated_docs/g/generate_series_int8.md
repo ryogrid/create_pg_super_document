@@ -1,7 +1,7 @@
 # generate_series_int8
 
 ## Location
-src/backend/utils/adt/int8.c: 1377 - 1382
+[src/backend/utils/adt/int8.c:1377-1382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1377-L1382)
 
 ## Overview
 A wrapper function that generates a non-persistent numeric series of 64-bit integers by delegating to the step-based series generator.

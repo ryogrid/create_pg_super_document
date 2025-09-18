@@ -1,7 +1,7 @@
 # contain_volatile_functions_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 550 - 658
+[src/backend/optimizer/util/clauses.c:550-658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L550-L658)
 
 ## Overview
 A recursive tree walker that traverses expression trees to detect volatile functions, implementing sophisticated caching mechanisms for performance optimization in PostgreSQL's query planner.

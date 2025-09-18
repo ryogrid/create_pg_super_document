@@ -1,7 +1,7 @@
 # get_worker
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1101 - 1157
+[src/backend/utils/adt/jsonfuncs.c:1101-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1101-L1157)
 
 ## Overview
 A common worker function that extracts specific fields or array elements from JSON objects by parsing the JSON text and navigating through specified paths.

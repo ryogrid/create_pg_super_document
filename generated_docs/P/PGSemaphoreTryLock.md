@@ -1,7 +1,7 @@
 # PGSemaphoreTryLock
 
 ## Location
-src/backend/port/posix_sema.c: 365 - 388
+[src/backend/port/posix_sema.c:365-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L365-L388)
 
 ## Overview
 Attempts to lock a PostgreSQL semaphore without blocking, returning immediately with success or failure status.

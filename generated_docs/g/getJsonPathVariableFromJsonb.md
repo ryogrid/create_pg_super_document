@@ -1,7 +1,7 @@
 # getJsonPathVariableFromJsonb
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3173 - 3202
+[src/backend/utils/adt/jsonpath_exec.c:3173-3202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3173-L3202)
 
 ## Overview
 A callback function implementation that retrieves JSON path variables from a JSONB object by treating the JSONB as a variable store.

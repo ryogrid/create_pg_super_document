@@ -1,7 +1,7 @@
 # get_join_domain_min_rels
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3169 - 3208
+[src/backend/optimizer/plan/initsplan.c:3169-3208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3169-L3208)
 
 ## Overview
 Identifies the appropriate join level for derived quals belonging to a join domain by removing lower outer joins that could potentially commute out of the domain.

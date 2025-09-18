@@ -1,7 +1,7 @@
 # range_split_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1182 - 1218
+[src/backend/utils/adt/rangetypes.c:1182-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1182-L1218)
 
 ## Overview
 Splits a range by removing an intersecting range from its middle, returning two output ranges if the split creates non-empty ranges on both sides.

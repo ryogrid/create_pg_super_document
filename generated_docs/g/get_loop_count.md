@@ -1,7 +1,7 @@
 # get_loop_count
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1829 - 1881
+[src/backend/optimizer/path/indxpath.c:1829-1881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1829-L1881)
 
 ## Overview
 Estimates the loop iteration count for costing parameterized index paths by finding the smallest row count among outer relations.

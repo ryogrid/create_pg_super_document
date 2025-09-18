@@ -1,7 +1,7 @@
 # GlobalTransactionData
 
 ## Location
-src/backend/access/transam/twophase.c: 147 - 170
+[src/backend/access/transam/twophase.c:147-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L147-L170)
 
 ## Overview
 GlobalTransactionData is a structure that describes one global transaction that is in prepared state or attempting to become prepared in PostgreSQL's two-phase commit protocol.

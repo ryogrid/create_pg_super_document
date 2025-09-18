@@ -1,7 +1,7 @@
 # GetFlushRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 6478 - 6498
+[src/backend/access/transam/xlog.c:6478-6498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6478-L6498)
 
 ## Overview
 Returns the current WAL flush position, representing the last WAL position known to be fsync'd to disk and guaranteed to be durably stored.

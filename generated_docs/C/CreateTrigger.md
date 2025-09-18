@@ -1,7 +1,7 @@
 # CreateTrigger
 
 ## Location
-src/backend/commands/trigger.c: 159 - 175
+[src/backend/commands/trigger.c:159-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L159-L175)
 
 ## Overview
 CreateTrigger is a PostgreSQL function that creates a new trigger on a specified relation, serving as a wrapper around CreateTriggerFiringOn with default firing behavior.

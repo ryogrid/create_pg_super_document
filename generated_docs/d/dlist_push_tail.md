@@ -1,7 +1,7 @@
 # dlist_push_tail
 
 ## Location
-src/include/lib/ilist.h: 364 - 380
+[src/include/lib/ilist.h:364-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L364-L380)
 
 ## Overview
 Inserts a new node at the end of a doubly-linked list, automatically handling both initialized and uninitialized list states.

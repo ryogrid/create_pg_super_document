@@ -1,7 +1,7 @@
 # resetPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 146 - 171
+[src/interfaces/libpq/pqexpbuffer.c:146-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L146-L171)
 
 ## Overview
 Resets a PQExpBuffer to an empty state, clearing its contents and restoring it to a usable condition even if it was previously in a "broken" state.

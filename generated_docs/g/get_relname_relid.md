@@ -1,7 +1,7 @@
 # get_relname_relid
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1885 - 1898
+[src/backend/utils/cache/lsyscache.c:1885-1898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1885-L1898)
 
 ## Overview
 Given the name and namespace of a relation, looks up and returns the corresponding OID, or InvalidOid if no such relation exists.

@@ -1,7 +1,7 @@
 # dlist_node_is_detached
 
 ## Location
-src/include/lib/ilist.h: 525 - 536
+[src/include/lib/ilist.h:525-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L525-L536)
 
 ## Overview
 Checks whether a doubly-linked list node is currently detached (not part of any list).

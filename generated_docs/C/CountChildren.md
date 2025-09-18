@@ -1,7 +1,7 @@
 # CountChildren
 
 ## Location
-src/backend/postmaster/postmaster.c: 3880 - 3925
+[src/backend/postmaster/postmaster.c:3880-3925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3880-L3925)
 
 ## Overview
 CountChildren counts the number of child processes of specified types in the PostgreSQL postmaster, excluding dead_end children from the count.

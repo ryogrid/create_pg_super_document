@@ -1,7 +1,7 @@
 # _SubscriptionInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 671 - 688
+[src/bin/pg_dump/pg_dump.h:671-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L671-L688)
 
 ## Overview
 The `_SubscriptionInfo` struct represents a logical replication subscription, used by pg_dump to store comprehensive configuration and metadata about subscriptions.

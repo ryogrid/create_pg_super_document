@@ -1,7 +1,7 @@
 # sort_inner_and_outer
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1266 - 1468
+[src/backend/optimizer/path/joinpath.c:1266-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1266-L1468)
 
 ## Overview
 Creates mergejoin join paths by explicitly sorting both the outer and inner join relations on each available merge ordering.

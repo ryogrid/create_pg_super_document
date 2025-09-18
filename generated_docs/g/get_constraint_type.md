@@ -1,7 +1,7 @@
 # get_constraint_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1143 - 1160
+[src/backend/utils/cache/lsyscache.c:1143-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1143-L1160)
 
 ## Overview
 Returns the constraint type character (contype) for a given constraint OID from the pg_constraint system catalog.

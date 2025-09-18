@@ -1,7 +1,7 @@
 # get_parameterized_joinrel_size
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5353 - 5393
+[src/backend/optimizer/path/costsize.c:5353-5393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5353-L5393)
 
 ## Overview
 Estimates the size (number of rows) for a parameterized scan of a join relation, accounting for parameter-dependent selectivity.

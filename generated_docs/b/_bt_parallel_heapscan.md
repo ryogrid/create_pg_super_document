@@ -1,7 +1,7 @@
 # _bt_parallel_heapscan
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1653 - 1686
+[src/backend/access/nbtree/nbtsort.c:1653-1686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1653-L1686)
 
 ## Overview
 Coordinates the completion of parallel heap scanning by waiting for all worker processes to finish and collecting aggregated statistics from the parallel build operation.

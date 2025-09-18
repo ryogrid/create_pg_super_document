@@ -1,7 +1,7 @@
 # sanity_check_array
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 136 - 149
+[src/test/modules/test_tidstore/test_tidstore.c:136-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L136-L149)
 
 ## Overview
 A static validation function that performs sanity checks on PostgreSQL ArrayType structures to ensure they meet specific requirements for tidstore testing operations.

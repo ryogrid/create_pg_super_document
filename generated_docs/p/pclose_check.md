@@ -1,7 +1,7 @@
 # pclose_check
 
 ## Location
-src/common/exec.c: 410 - 447
+[src/common/exec.c:410-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L410-L447)
 
 ## Overview
 A wrapper around the standard  function that provides enhanced error reporting and logging for pipe operations.

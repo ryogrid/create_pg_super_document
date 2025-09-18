@@ -1,7 +1,7 @@
 # XLogReaderAllocate
 
 ## Location
-src/backend/access/transam/xlogreader.c: 106 - 160
+[src/backend/access/transam/xlogreader.c:106-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L106-L160)
 
 ## Overview
 This function allocates and initializes a new XLogReaderState structure for reading WAL (Write-Ahead Log) records from PostgreSQL transaction log files.

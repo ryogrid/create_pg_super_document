@@ -1,7 +1,7 @@
 # mock_scram_secret
 
 ## Location
-src/backend/libpq/auth-scram.c: 683 - 728
+[src/backend/libpq/auth-scram.c:683-728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L683-L728)
 
 ## Overview
 Generates plausible SCRAM secret parameters for mock authentication when there is no stored secret available in the server.

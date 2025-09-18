@@ -1,7 +1,7 @@
 # to_ascii_default
 
 ## Location
-src/backend/utils/adt/ascii.c: 156 - 173
+[src/backend/utils/adt/ascii.c:156-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ascii.c#L156-L173)
 
 ## Overview
 A PostgreSQL function that converts text to ASCII encoding using the current database encoding as the source encoding.

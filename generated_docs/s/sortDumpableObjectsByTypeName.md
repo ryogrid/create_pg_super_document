@@ -1,7 +1,7 @@
 # sortDumpableObjectsByTypeName
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 191 - 198
+[src/bin/pg_dump/pg_dump_sort.c:191-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L191-L198)
 
 ## Overview
 Sorts an array of DumpableObject pointers into a type/name-based ordering, serving as the initial sorting step before dependency-based ordering in PostgreSQL's pg_dump utility.

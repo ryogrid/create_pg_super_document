@@ -1,7 +1,7 @@
 # contain_nonstrict_functions_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 999 - 1004
+[src/backend/optimizer/util/clauses.c:999-1004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L999-L1004)
 
 ## Overview
 A helper function that checks whether a given function is non-strict (i.e., can return non-NULL values even when given NULL inputs).

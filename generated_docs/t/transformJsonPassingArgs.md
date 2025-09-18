@@ -1,7 +1,7 @@
 # transformJsonPassingArgs
 
 ## Location
-src/backend/parser/parse_expr.c: 4637 - 4662
+[src/backend/parser/parse_expr.c:4637-4662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4637-L4662)
 
 ## Overview
 Transforms SQL/JSON PASSING clause arguments into lists of expressions and parameter names for JSON function processing.

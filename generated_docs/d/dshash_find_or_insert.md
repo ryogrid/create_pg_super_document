@@ -1,7 +1,7 @@
 # dshash_find_or_insert
 
 ## Location
-src/backend/lib/dshash.c: 433 - 502
+[src/backend/lib/dshash.c:433-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L433-L502)
 
 ## Overview
 The  function searches for an entry in a dynamic shared hash table and either returns the existing entry or creates and returns a new one if not found.

@@ -1,7 +1,7 @@
 # ExecAssignScanProjectionInfoWithVarno
 
 ## Location
-src/backend/executor/execScan.c: 283 - 296
+[src/backend/executor/execScan.c:283-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execScan.c#L283-L296)
 
 ## Overview
 ExecAssignScanProjectionInfoWithVarno is a variant of ExecAssignScanProjectionInfo that allows the caller to explicitly specify the varno (variable number) expected in Vars within the target list.

@@ -1,7 +1,7 @@
 # gistunion
 
 ## Location
-src/backend/access/gist/gistutil.c: 218 - 231
+[src/backend/access/gist/gistutil.c:218-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L218-L231)
 
 ## Overview
 Creates an IndexTuple containing union keys by applying GiST union operations to a vector of IndexTuples and formatting the results into a new tuple.

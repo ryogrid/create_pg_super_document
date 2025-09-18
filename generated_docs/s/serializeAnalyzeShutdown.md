@@ -1,7 +1,7 @@
 # serializeAnalyzeShutdown
 
 ## Location
-src/backend/commands/explain.c: 5526 - 5546
+[src/backend/commands/explain.c:5526-5546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5526-L5546)
 
 ## Overview
 Cleanly shuts down a SerializeDestReceiver by freeing allocated memory resources including format info arrays, output buffers, and the temporary memory context.

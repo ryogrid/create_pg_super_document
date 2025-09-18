@@ -1,7 +1,7 @@
 # err_generic_string
 
 ## Location
-src/backend/utils/error/elog.c: 1512 - 1547
+[src/backend/utils/error/elog.c:1512-1547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1512-L1547)
 
 ## Overview
 A function that sets individual ErrorData string fields identified by PG_DIAG_xxx codes, specifically designed for non-localized string fields to avoid translation considerations.

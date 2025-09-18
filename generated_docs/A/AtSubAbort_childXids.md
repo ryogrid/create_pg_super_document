@@ -1,7 +1,7 @@
 # AtSubAbort_childXids
 
 ## Location
-src/backend/access/transam/xact.c: 1911 - 1942
+[src/backend/access/transam/xact.c:1911-1942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1911-L1942)
 
 ## Overview
 AtSubAbort_childXids is a static function that cleans up child transaction ID arrays when a subtransaction is aborted, freeing allocated memory and resetting related counters.

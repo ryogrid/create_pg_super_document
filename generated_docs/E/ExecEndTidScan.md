@@ -1,7 +1,7 @@
 # ExecEndTidScan
 
 ## Location
-src/backend/executor/nodeTidscan.c: 470 - 487
+[src/backend/executor/nodeTidscan.c:470-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L470-L487)
 
 ## Overview
 ExecEndTidScan performs cleanup operations for a TID scan node, releasing any storage allocated during the scan operation.

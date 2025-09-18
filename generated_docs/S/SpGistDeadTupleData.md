@@ -1,7 +1,7 @@
 # SpGistDeadTupleData
 
 ## Location
-src/include/access/spgist_private.h: 427 - 434
+[src/include/access/spgist_private.h:427-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L427-L434)
 
 ## Overview
 SpGistDeadTupleData represents the structure for examining non-live tuples in SP-GiST indexes, including dead and redirect tuples that maintain referential integrity during index operations.

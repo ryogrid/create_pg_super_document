@@ -1,7 +1,7 @@
 # get_view_query
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2472 - 2510
+[src/backend/rewrite/rewriteHandler.c:2472-2510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2472-L2510)
 
 ## Overview
 Retrieves the Query structure from a view's _RETURN rule, providing access to the view's underlying SELECT query definition.

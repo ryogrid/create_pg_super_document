@@ -1,7 +1,7 @@
 # sqlda_t
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_oracle-char_array.c: 31 - 50
+[src/interfaces/ecpg/test/expected/compat_oracle-char_array.c:31-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_oracle-char_array.c#L31-L50)
 
 ## Overview
 sqlda_t is a typedef representing a SQL Descriptor Area structure used in PostgreSQL's Embedded SQL (ECPG) interface for managing collections of database variables and their metadata.

@@ -1,7 +1,7 @@
 # libpqrcv_get_conninfo
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 371 - 419
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:371-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L371-L419)
 
 ## Overview
 Returns a user-displayable connection string from an active WAL receiver connection with security-sensitive information obfuscated.

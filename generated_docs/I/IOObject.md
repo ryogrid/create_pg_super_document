@@ -1,7 +1,7 @@
 # IOObject
 
 ## Location
-src/include/pgstat.h: 282 - 283
+[src/include/pgstat.h:282-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L282-L283)
 
 ## Overview
 IOObject is an enumeration that categorizes different types of database objects for I/O statistics tracking in PostgreSQL's buffer management system.

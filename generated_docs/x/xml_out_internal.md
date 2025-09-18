@@ -1,7 +1,7 @@
 # xml_out_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 312 - 355
+[src/backend/utils/adt/xml.c:312-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L312-L355)
 
 ## Overview
 Internal function that converts PostgreSQL's xml data type to a C string representation, handling XML declaration processing and encoding conversion.

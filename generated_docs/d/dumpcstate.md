@@ -1,7 +1,7 @@
 # dumpcstate
 
 ## Location
-src/backend/regex/regc_nfa.c: 3860 - 3890
+[src/backend/regex/regc_nfa.c:3860-3890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3860-L3890)
 
 ## Overview
 A debugging function that prints a human-readable representation of a single state within a compiled NFA (Non-deterministic Finite Automaton) structure.

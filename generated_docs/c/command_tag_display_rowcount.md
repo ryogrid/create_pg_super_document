@@ -1,7 +1,7 @@
 # command_tag_display_rowcount
 
 ## Location
-src/backend/tcop/cmdtag.c: 60 - 65
+[src/backend/tcop/cmdtag.c:60-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L60-L65)
 
 ## Overview
 Determines whether a given CommandTag should include the number of affected rows in its completion message.

@@ -1,7 +1,7 @@
 # _bt_gettrueroot
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 580 - 674
+[src/backend/access/nbtree/nbtpage.c:580-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L580-L674)
 
 ## Overview
 _bt_gettrueroot retrieves the actual root page of a B-tree index by following the true-root link rather than the fast-root link, bypassing performance optimizations for cases requiring the genuine root.

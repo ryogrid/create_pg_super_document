@@ -1,7 +1,7 @@
 # print_csv_text
 
 ## Location
-src/fe_utils/print.c: 1880 - 1919
+[src/fe_utils/print.c:1880-1919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L1880-L1919)
 
 ## Overview
 Renders tabular data in standard CSV (Comma-Separated Values) format with proper field escaping and configurable separators, excluding titles and footers.

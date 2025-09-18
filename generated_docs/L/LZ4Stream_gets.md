@@ -1,7 +1,7 @@
 # LZ4Stream_gets
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 645 - 673
+[src/bin/pg_dump/compress_lz4.c:645-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L645-L673)
 
 ## Overview
 Provides a fgets() equivalent interface for reading line-oriented data from LZ4 compressed files in PostgreSQL's pg_dump utility.

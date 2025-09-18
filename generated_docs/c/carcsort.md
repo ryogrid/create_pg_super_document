@@ -1,7 +1,7 @@
 # carcsort
 
 ## Location
-src/backend/regex/regc_nfa.c: 3605 - 3611
+[src/backend/regex/regc_nfa.c:3605-3611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3605-L3611)
 
 ## Overview
 A utility function that sorts an array of compact NFA arcs by their color values to enable efficient searching during pattern matching.

@@ -1,7 +1,7 @@
 # apply_dispatch
 
 ## Location
-src/backend/replication/logical/worker.c: 3285 - 3404
+[src/backend/replication/logical/worker.c:3285-3404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3285-L3404)
 
 ## Overview
 Central message dispatcher for logical replication protocol messages, routing incoming messages to appropriate handler functions based on message type.

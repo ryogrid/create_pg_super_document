@@ -1,7 +1,7 @@
 # process_implied_equality
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2961 - 3099
+[src/backend/optimizer/plan/initsplan.c:2961-3099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2961-L3099)
 
 ## Overview
 Creates a RestrictInfo clause representing an implied equality "item1 op item2" and integrates it into the query planner's constraint system, typically for equivalence class processing.

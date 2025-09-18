@@ -1,7 +1,7 @@
 # rtrim1
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 766 - 796
+[src/backend/utils/adt/oracle_compat.c:766-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L766-L796)
 
 ## Overview
 A simplified right-trim function that removes trailing whitespace characters (spaces only) from the right side of a text string.

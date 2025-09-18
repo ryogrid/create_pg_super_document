@@ -1,7 +1,7 @@
 # datum_write
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2709 - 2785
+[src/backend/utils/adt/rangetypes.c:2709-2785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2709-L2785)
 
 ## Overview
 A static function that writes a datum to a specified memory location with proper alignment and returns the updated pointer position.

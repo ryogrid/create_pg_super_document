@@ -1,7 +1,7 @@
 # pqTraceOutput_FunctionCall
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 347 - 372
+[src/interfaces/libpq/fe-trace.c:347-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L347-L372)
 
 ## Overview
 Outputs formatted trace information for PostgreSQL FunctionCall messages, parsing and displaying the function parameters and their values in a human-readable format.

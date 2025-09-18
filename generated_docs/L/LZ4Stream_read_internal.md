@@ -1,7 +1,7 @@
 # LZ4Stream_read_internal
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 451 - 572
+[src/bin/pg_dump/compress_lz4.c:451-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L451-L572)
 
 ## Overview
 The core function for reading decompressed content from an LZ4 compressed stream, handling buffering, overflow management, and both binary and line-oriented read operations.

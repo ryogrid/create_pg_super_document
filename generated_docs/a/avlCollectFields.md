@@ -1,7 +1,7 @@
 # avlCollectFields
 
 ## Location
-src/bin/psql/crosstabview.c: 577 - 587
+[src/bin/psql/crosstabview.c:577-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L577-L587)
 
 ## Overview
 Recursively extracts node values from an AVL tree into a fields array in sorted order using an in-order tree traversal.

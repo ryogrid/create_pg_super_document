@@ -1,7 +1,7 @@
 # oidvectorne
 
 ## Location
-src/backend/utils/adt/oid.c: 352 - 359
+[src/backend/utils/adt/oid.c:352-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L352-L359)
 
 ## Overview
 PostgreSQL comparison function that determines if two oidvector values are not equal, returning true if they differ and false if they are identical.

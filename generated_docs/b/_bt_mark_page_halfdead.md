@@ -1,7 +1,7 @@
 # _bt_mark_page_halfdead
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 2088 - 2313
+[src/backend/access/nbtree/nbtpage.c:2088-2313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L2088-L2313)
 
 ## Overview
 This function performs the first stage of B-tree page deletion by determining the subtree to be deleted, removing downlinks from the parent page, and marking the leaf page as half-dead.

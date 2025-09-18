@@ -1,7 +1,7 @@
 # ecpg_result_by_descriptor
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 54 - 63
+[src/interfaces/ecpg/ecpglib/descriptor.c:54-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L54-L63)
 
 ## Overview
 A legacy internal convenience function that retrieves the PGresult associated with a named descriptor in the ECPG library.

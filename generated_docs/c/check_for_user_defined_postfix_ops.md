@@ -1,7 +1,7 @@
 # check_for_user_defined_postfix_ops
 
 ## Location
-src/bin/pg_upgrade/check.c: 1295 - 1392
+[src/bin/pg_upgrade/check.c:1295-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1295-L1392)
 
 ## Overview
 Detects and blocks PostgreSQL upgrades when user-defined postfix operators are present, as these operators are no longer supported in newer PostgreSQL versions.

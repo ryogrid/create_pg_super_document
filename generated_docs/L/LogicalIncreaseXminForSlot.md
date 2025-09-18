@@ -1,7 +1,7 @@
 # LogicalIncreaseXminForSlot
 
 ## Location
-src/backend/replication/logical/logical.c: 1695 - 1762
+[src/backend/replication/logical/logical.c:1695-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1695-L1762)
 
 ## Overview
 Sets the required catalog xmin horizon for historic snapshots in the current replication slot, managing the xmin advancement process with proper confirmation handling.

@@ -1,7 +1,7 @@
 # SharedTypmodTableEntry
 
 ## Location
-src/backend/utils/cache/typcache.c: 205 - 209
+[src/backend/utils/cache/typcache.c:205-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L205-L209)
 
 ## Overview
 SharedTypmodTableEntry is a structure used in PostgreSQL's SharedRecordTypmodRegistry to enable reverse lookup of TupleDesc structures in shared memory using typmod values.

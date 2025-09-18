@@ -1,7 +1,7 @@
 # regress_lseg_construct
 
 ## Location
-src/test/regress/regress.c: 131 - 141
+[src/test/regress/regress.c:131-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L131-L141)
 
 ## Overview
 The regress_lseg_construct function constructs a line segment (LSEG) from two given points, similar to lseg_construct but assumes the memory space is already allocated.

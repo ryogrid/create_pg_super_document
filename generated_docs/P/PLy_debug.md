@@ -1,7 +1,7 @@
 # PLy_debug
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 281 - 286
+[src/pl/plpython/plpy_plpymodule.c:281-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L281-L286)
 
 ## Overview
 PLy_debug is a Python-callable function that provides debug-level logging capabilities for PL/Python stored procedures and functions in PostgreSQL.

@@ -1,7 +1,7 @@
 # table_block_parallelscan_startblock_init
 
 ## Location
-src/backend/access/table/tableam.c: 422 - 491
+[src/backend/access/table/tableam.c:422-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L422-L491)
 
 ## Overview
 Determines and sets the starting block for parallel sequential scans, computing optimal chunk sizes for work distribution among parallel workers.

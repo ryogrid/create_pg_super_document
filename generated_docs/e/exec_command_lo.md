@@ -1,7 +1,7 @@
 # exec_command_lo
 
 ## Location
-src/bin/psql/command.c: 1998 - 2075
+[src/bin/psql/command.c:1998-2075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1998-L2075)
 
 ## Overview
 Handles various large object (LO) operations in psql, including import, export, list, and unlink commands for PostgreSQL large objects.

@@ -1,7 +1,7 @@
 # RE_execute
 
 ## Location
-src/backend/utils/adt/regexp.c: 324 - 357
+[src/backend/utils/adt/regexp.c:324-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L324-L357)
 
 ## Overview
 Executes a compiled regular expression against data in database encoding, providing character encoding conversion and delegating to the core wide-character matching engine.

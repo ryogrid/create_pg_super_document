@@ -1,7 +1,7 @@
 # interval_mi
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3518 - 3566
+[src/backend/utils/adt/timestamp.c:3518-3566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3518-L3566)
 
 ## Overview
 A PostgreSQL function that implements interval subtraction operation (span1 - span2) with support for infinite intervals.

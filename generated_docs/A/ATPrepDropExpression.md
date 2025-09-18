@@ -1,7 +1,7 @@
 # ATPrepDropExpression
 
 ## Location
-src/backend/commands/tablecmds.c: 8473 - 8518
+[src/backend/commands/tablecmds.c:8473-8518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8473-L8518)
 
 ## Overview
 ATPrepDropExpression prepares and validates the DROP EXPRESSION command for ALTER TABLE operations, ensuring that dropping a generated column expression is valid and properly handles inheritance scenarios.

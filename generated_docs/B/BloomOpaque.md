@@ -1,7 +1,7 @@
 # BloomOpaque
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 434 - 442
+[src/backend/access/brin/brin_bloom.c:434-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L434-L442)
 
 ## Overview
 BloomOpaque is a structure that stores cached function manager information for BRIN bloom filter operator class procedures, maintaining consistency with other BRIN operator classes.

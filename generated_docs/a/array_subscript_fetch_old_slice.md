@@ -1,7 +1,7 @@
 # array_subscript_fetch_old_slice
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 439 - 472
+[src/backend/utils/adt/arraysubs.c:439-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L439-L472)
 
 ## Overview
 Retrieves the old array slice value during assignment expression evaluation, designed for cases where the new-value subexpression contains SubscriptingRef or FieldStore operations, though currently unreachable in practice.

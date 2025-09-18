@@ -1,7 +1,7 @@
 # RevalidateCachedQuery
 
 ## Location
-src/backend/utils/cache/plancache.c: 583 - 821
+[src/backend/utils/cache/plancache.c:583-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L583-L821)
 
 ## Overview
 RevalidateCachedQuery ensures the validity of cached analyzed-and-rewritten query trees by re-acquiring locks and redoing parse analysis when necessary due to schema changes or other invalidation events.

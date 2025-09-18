@@ -1,7 +1,7 @@
 # lexeme_compare
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 500 - 517
+[src/backend/tsearch/ts_typanalyze.c:500-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L500-L517)
 
 ## Overview
 A static comparison function for lexemes used in text search analysis that compares LexemeHashKey structures based on length and lexeme content.

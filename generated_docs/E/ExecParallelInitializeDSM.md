@@ -1,7 +1,7 @@
 # ExecParallelInitializeDSM
 
 ## Location
-src/backend/executor/execParallel.c: 438 - 534
+[src/backend/executor/execParallel.c:438-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L438-L534)
 
 ## Overview
 ExecParallelInitializeDSM recursively traverses a plan tree and initializes the dynamic shared memory (DSM) segment for each plan node that requires shared memory coordination in parallel query execution.

@@ -1,7 +1,7 @@
 # do_text_output_multiline
 
 ## Location
-src/backend/executor/execTuples.c: 2390 - 2419
+[src/backend/executor/execTuples.c:2390-2419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2390-L2419)
 
 ## Overview
 Writes a chunk of text as multiple tuple rows, breaking the text at newline characters and outputting each line as a separate tuple with a single TEXT attribute.

@@ -1,7 +1,7 @@
 # BoolGetDatum
 
 ## Location
-src/include/postgres.h: 102 - 111
+[src/include/postgres.h:102-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L102-L111)
 
 ## Overview
 BoolGetDatum is an inline function that converts a boolean value to a PostgreSQL Datum representation.

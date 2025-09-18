@@ -1,7 +1,7 @@
 # ShutdownWorkersHard
 
 ## Location
-src/bin/pg_dump/parallel.c: 395 - 445
+[src/bin/pg_dump/parallel.c:395-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L395-L445)
 
 ## Overview
 Forcibly shuts down any remaining workers in a parallel dump operation, waiting for them to terminate. This function is called during error situations to ensure proper cleanup of worker processes.

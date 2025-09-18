@@ -1,7 +1,7 @@
 # DecodeAbort
 
 ## Location
-src/backend/replication/logical/decode.c: 850 - 905
+[src/backend/replication/logical/decode.c:850-905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L850-L905)
 
 ## Overview
 DecodeAbort processes ABORT records in PostgreSQL's logical replication, handling transaction rollbacks for both regular transactions and two-phase prepared transactions.

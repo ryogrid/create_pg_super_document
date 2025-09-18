@@ -1,7 +1,7 @@
 # seq_mask
 
 ## Location
-src/backend/commands/sequence.c: 1902 - 1907
+[src/backend/commands/sequence.c:1902-1907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1902-L1907)
 
 ## Overview
 seq_mask masks a sequence page before performing consistency checks by removing variable data that should not be compared during page verification.

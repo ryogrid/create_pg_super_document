@@ -1,7 +1,7 @@
 # IndxInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 425 - 426
+[src/bin/pg_dump/pg_dump.h:425-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L425-L426)
 
 ## Overview
 IndxInfo is a structure used by pg_dump to represent database indexes during the schema dumping process, containing comprehensive metadata about index properties and relationships.

@@ -1,7 +1,7 @@
 # btinitparallelscan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 547 - 560
+[src/backend/access/nbtree/nbtree.c:547-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L547-L560)
 
 ## Overview
 Initializes a BTParallelScanDesc structure for coordinating parallel btree index scans across multiple worker processes.

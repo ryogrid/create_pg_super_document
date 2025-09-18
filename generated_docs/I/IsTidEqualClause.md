@@ -1,7 +1,7 @@
 # IsTidEqualClause
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 130 - 149
+[src/backend/optimizer/path/tidpath.c:130-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L130-L149)
 
 ## Overview
 IsTidEqualClause is a static function that checks whether a RestrictInfo represents a CTID equality clause suitable for TID-based access paths.

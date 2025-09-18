@@ -1,7 +1,7 @@
 # pg_wcssize
 
 ## Location
-src/fe_utils/mbprint.c: 211 - 293
+[src/fe_utils/mbprint.c:211-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L211-L293)
 
 ## Overview
 Calculates the display dimensions and formatting size requirements for a multibyte string, providing essential metrics for text formatting and display in PostgreSQL frontend utilities.

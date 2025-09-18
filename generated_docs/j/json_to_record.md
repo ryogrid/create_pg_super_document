@@ -1,7 +1,7 @@
 # json_to_record
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2500 - 2507
+[src/backend/utils/adt/jsonfuncs.c:2500-2507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2500-L2507)
 
 ## Overview
 Converts a JSON object into a PostgreSQL record/row type, extracting fields that match the columns of the expected output record type.

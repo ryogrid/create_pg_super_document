@@ -1,7 +1,7 @@
 # ACT_FILE
 
 ## Location
-src/bin/psql/startup.c: 50 - 52
+[src/bin/psql/startup.c:50-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L50-L52)
 
 ## Overview
 ACT_FILE is an enumeration value that represents a file execution action in psql's command-line option processing system.

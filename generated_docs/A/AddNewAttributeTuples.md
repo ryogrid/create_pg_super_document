@@ -1,7 +1,7 @@
 # AddNewAttributeTuples
 
 ## Location
-src/backend/catalog/heap.c: 821 - 895
+[src/backend/catalog/heap.c:821-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L821-L895)
 
 ## Overview
 Registers a new relation's schema by adding attribute tuples to pg_attribute and establishing necessary dependencies on data types and collations.

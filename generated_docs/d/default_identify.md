@@ -1,7 +1,7 @@
 # default_identify
 
 ## Location
-src/bin/pg_waldump/rmgrdesc.c: 62 - 72
+[src/bin/pg_waldump/rmgrdesc.c:62-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/rmgrdesc.c#L62-L72)
 
 ## Overview
 Provides a default identification function for custom resource manager records that returns NULL to indicate no specific identification is available.

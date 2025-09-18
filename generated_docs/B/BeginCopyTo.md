@@ -1,7 +1,7 @@
 # BeginCopyTo
 
 ## Location
-src/backend/commands/copyto.c: 350 - 725
+[src/backend/commands/copyto.c:350-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L350-L725)
 
 ## Overview
 BeginCopyTo initializes and sets up a CopyToState structure to read tuples from a table or query for COPY TO operations, handling all necessary validations and configuration for the copy process.

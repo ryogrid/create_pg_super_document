@@ -1,7 +1,7 @@
 # r_append_U_to_stems_ending_with_d_or_g
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 1895 - 2004
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:1895-2004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L1895-L2004)
 
 ## Overview
 Appends appropriate vowel sounds ('ı', 'i', 'u', 'ü') to Turkish word stems ending with 'd' or 'g' consonants based on vowel harmony rules.

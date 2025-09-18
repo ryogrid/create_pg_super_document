@@ -1,7 +1,7 @@
 # TupleDescInitEntry
 
 ## Location
-src/backend/access/common/tupdesc.c: 651 - 725
+[src/backend/access/common/tupdesc.c:651-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L651-L725)
 
 ## Overview
 TupleDescInitEntry initializes a single attribute structure within a previously allocated TupleDesc, setting up all necessary field values by looking up type information from the system catalog.

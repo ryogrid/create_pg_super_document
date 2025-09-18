@@ -1,7 +1,7 @@
 # hashvarlenaextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 398 - 410
+[src/backend/access/hash/hashfunc.c:398-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L398-L410)
 
 ## Overview
 An extended version of hashvarlena that supports seed-based hashing for variable-length data types.

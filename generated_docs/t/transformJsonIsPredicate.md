@@ -1,7 +1,7 @@
 # transformJsonIsPredicate
 
 ## Location
-src/backend/parser/parse_expr.c: 4090 - 4112
+[src/backend/parser/parse_expr.c:4090-4112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4090-L4112)
 
 ## Overview
 Transforms an IS JSON predicate expression into a JsonIsPredicate node for validating JSON document structure.

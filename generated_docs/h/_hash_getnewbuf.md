@@ -1,7 +1,7 @@
 # _hash_getnewbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 198 - 238
+[src/backend/access/hash/hashpage.c:198-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L198-L238)
 
 ## Overview
 Gets a new buffer at the end of the index by extending the relation, handling both filesystem extension and recovery from incomplete prior extensions.

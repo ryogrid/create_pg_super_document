@@ -1,7 +1,7 @@
 # PQnparams
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3915 - 3925
+[src/interfaces/libpq/fe-exec.c:3915-3925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3915-L3925)
 
 ## Overview
 PQnparams returns the number of input parameters that a prepared statement expects.

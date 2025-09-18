@@ -1,7 +1,7 @@
 # server_is_in_recovery
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 813 - 840
+[src/bin/pg_basebackup/pg_createsubscriber.c:813-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L813-L840)
 
 ## Overview
 Checks whether the PostgreSQL server is currently in recovery mode by querying the pg_is_in_recovery() system function.

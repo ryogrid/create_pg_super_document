@@ -1,7 +1,7 @@
 # text_position_get_match_pos
 
 ## Location
-src/backend/utils/adt/varlena.c: 1479 - 1494
+[src/backend/utils/adt/varlena.c:1479-1494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1479-L1494)
 
 ## Overview
 Returns the character-based position (1-based offset) of the current match found in a text search operation.

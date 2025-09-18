@@ -1,7 +1,7 @@
 # testexpr_is_hashable
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 761 - 791
+[src/backend/optimizer/plan/subselect.c:761-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L761-L791)
 
 ## Overview
 Determines whether an ANY SubLink's test expression can be implemented using hash-based execution by validating the expression structure and operator hashability.

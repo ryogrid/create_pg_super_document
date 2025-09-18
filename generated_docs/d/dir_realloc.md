@@ -1,7 +1,7 @@
 # dir_realloc
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1608 - 1646
+[src/backend/utils/hash/dynahash.c:1608-1646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1608-L1646)
 
 ## Overview
 Reallocates and doubles the size of a hash table's directory when more segments are needed during table expansion.

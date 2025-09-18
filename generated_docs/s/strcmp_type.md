@@ -1,7 +1,7 @@
 # strcmp_type
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 142 - 159
+[src/tools/pg_bsd_indent/lexi.c:142-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L142-L159)
 
 ## Overview
 A static comparison function used by bsearch() to locate type names in a sorted array during lexical analysis in the pg_bsd_indent tool.

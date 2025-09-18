@@ -1,7 +1,7 @@
 # CheckTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3671 - 3714
+[src/backend/access/transam/xact.c:3671-3714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3671-L3714)
 
 ## Overview
 CheckTransactionBlock is the core implementation function that validates whether commands are executing within appropriate transaction contexts, providing either warnings or errors based on configuration.

@@ -1,7 +1,7 @@
 # cursor_to_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3094 - 3123
+[src/backend/utils/adt/xml.c:3094-3123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3094-L3123)
 
 ## Overview
 SQL-callable function that generates an XML Schema Definition (XSD) based on the result structure of an existing named cursor.

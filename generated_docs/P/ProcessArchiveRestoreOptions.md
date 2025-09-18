@@ -1,7 +1,7 @@
 # ProcessArchiveRestoreOptions
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 279 - 333
+[src/bin/pg_dump/pg_backup_archiver.c:279-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L279-L333)
 
 ## Overview
 Processes and validates archive restore options, determining which TOC entries should be processed and ensuring archive section ordering integrity.

@@ -1,7 +1,7 @@
 # heapam_tuple_insert
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 242 - 260
+[src/backend/access/heap/heapam_handler.c:242-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L242-L260)
 
 ## Overview
 This function inserts a tuple from a table slot into a heap relation, serving as the heap access method's callback for tuple insertion operations with proper tuple preparation and result handling.

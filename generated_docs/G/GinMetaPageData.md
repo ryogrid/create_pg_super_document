@@ -1,7 +1,7 @@
 # GinMetaPageData
 
 ## Location
-src/include/access/ginblock.h: 55 - 101
+[src/include/access/ginblock.h:55-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginblock.h#L55-L101)
 
 ## Overview
 GinMetaPageData is the metadata structure stored on GIN index metapages, containing comprehensive information about the index state, pending list management, and statistics for query planning.

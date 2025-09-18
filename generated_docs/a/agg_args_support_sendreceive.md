@@ -1,7 +1,7 @@
 # agg_args_support_sendreceive
 
 ## Location
-src/backend/parser/parse_agg.c: 1968 - 2034
+[src/backend/parser/parse_agg.c:1968-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1968-L2034)
 
 ## Overview
 Determines whether all non-byval (pass-by-reference) argument types of an aggregate function have the required send and receive functions for serialization.

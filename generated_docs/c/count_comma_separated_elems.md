@@ -1,7 +1,7 @@
 # count_comma_separated_elems
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 1034 - 1057
+[src/interfaces/libpq/fe-connect.c:1034-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L1034-L1057)
 
 ## Overview
 Counts the number of elements in a simple comma-separated string by counting the comma delimiters plus one.

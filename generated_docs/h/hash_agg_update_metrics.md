@@ -1,7 +1,7 @@
 # hash_agg_update_metrics
 
 ## Location
-src/backend/executor/nodeAgg.c: 1917 - 1965
+[src/backend/executor/nodeAgg.c:1917-1965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1917-L1965)
 
 ## Overview
 Updates memory usage metrics and performance statistics for hash aggregation operations, tracking peak memory consumption, disk usage, and hash entry size estimates.

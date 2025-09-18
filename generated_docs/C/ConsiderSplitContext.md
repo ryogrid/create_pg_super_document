@@ -1,7 +1,7 @@
 # ConsiderSplitContext
 
 ## Location
-src/backend/access/gist/gistproc.c: 300 - 308
+[src/backend/access/gist/gistproc.c:300-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L300-L308)
 
 ## Overview
 ConsiderSplitContext is a structure used in PostgreSQL's GiST (Generalized Search Tree) index implementation to maintain context information during the process of selecting optimal page splitting strategies for geometric data types like boxes.

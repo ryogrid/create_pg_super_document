@@ -1,7 +1,7 @@
 # pq_set_parallel_leader
 
 ## Location
-src/backend/libpq/pqmq.c: 78 - 85
+[src/backend/libpq/pqmq.c:78-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L78-L85)
 
 ## Overview
 Configures the parallel leader process information that will be signaled each time message data is transmitted via the shared memory message queue.

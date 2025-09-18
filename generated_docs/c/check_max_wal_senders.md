@@ -1,7 +1,7 @@
 # check_max_wal_senders
 
 ## Location
-src/backend/utils/init/postinit.c: 630 - 646
+[src/backend/utils/init/postinit.c:630-646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L630-L646)
 
 ## Overview
 check_max_wal_senders is a GUC check hook function that validates proposed values for the max_wal_senders configuration parameter to ensure the total backend count doesn't exceed system limits.

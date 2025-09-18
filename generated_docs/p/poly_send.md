@@ -1,7 +1,7 @@
 # poly_send
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3510 - 3532
+[src/backend/utils/adt/geo_ops.c:3510-3532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3510-L3532)
 
 ## Overview
 The `poly_send` function serializes a POLYGON into PostgreSQLs binary external format for efficient network transmission and storage.

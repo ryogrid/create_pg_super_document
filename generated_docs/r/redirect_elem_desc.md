@@ -1,7 +1,7 @@
 # redirect_elem_desc
 
 ## Location
-src/backend/access/rmgrdesc/rmgrdesc_utils.c: 50 - 57
+[src/backend/access/rmgrdesc/rmgrdesc_utils.c:50-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/rmgrdesc_utils.c#L50-L57)
 
 ## Overview
 A callback function that formats redirect mappings between offset numbers, displaying them in "source->target" format for WAL record descriptions.

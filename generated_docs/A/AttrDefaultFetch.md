@@ -1,7 +1,7 @@
 # AttrDefaultFetch
 
 ## Location
-src/backend/utils/cache/relcache.c: 4490 - 4569
+[src/backend/utils/cache/relcache.c:4490-4569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4490-L4569)
 
 ## Overview
 Loads attribute default value definitions from the pg_attrdef catalog for a relation, building an array of AttrDefault entries sorted by attribute number.

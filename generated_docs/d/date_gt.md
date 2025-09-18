@@ -1,7 +1,7 @@
 # date_gt
 
 ## Location
-src/backend/utils/adt/date.c: 419 - 427
+[src/backend/utils/adt/date.c:419-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L419-L427)
 
 ## Overview
 Implements the greater-than comparison operator for PostgreSQL DATE values, returning true if the first date is greater than the second date.

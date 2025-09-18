@@ -1,7 +1,7 @@
 # markrunend
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2907 - 2920
+[src/backend/utils/sort/tuplesort.c:2907-2920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2907-L2920)
 
 ## Overview
 Writes a zero-length marker to a logical tape to indicate the end of a run during tuple sorting operations.

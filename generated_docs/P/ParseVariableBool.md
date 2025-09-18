@@ -1,7 +1,7 @@
 # ParseVariableBool
 
 ## Location
-src/bin/psql/variables.c: 107 - 155
+[src/bin/psql/variables.c:107-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L107-L155)
 
 ## Overview
 Parses a string value as a boolean and stores the result, supporting various common boolean representations with case-insensitive partial matching.

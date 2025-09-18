@@ -1,7 +1,7 @@
 # appendReloptionsArrayAH
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 19039 - 19057
+[src/bin/pg_dump/pg_dump.c:19039-19057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L19039-L19057)
 
 ## Overview
 A PostgreSQL pg_dump utility wrapper function that formats reloptions array data and appends it to a buffer, providing error logging for parsing failures.

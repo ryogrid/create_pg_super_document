@@ -1,7 +1,7 @@
 # DatumGetBoxP
 
 ## Location
-src/include/utils/geo_decls.h: 234 - 238
+[src/include/utils/geo_decls.h:234-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L234-L238)
 
 ## Overview
 DatumGetBoxP is a static inline function that extracts a BOX pointer from a PostgreSQL Datum value, providing type-safe access to geometric box data stored within the database's internal format.

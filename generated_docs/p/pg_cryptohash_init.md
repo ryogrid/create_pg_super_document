@@ -1,7 +1,7 @@
 # pg_cryptohash_init
 
 ## Location
-src/common/cryptohash_openssl.c: 178 - 229
+[src/common/cryptohash_openssl.c:178-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L178-L229)
 
 ## Overview
 Initializes a cryptographic hash context for the specified hash algorithm, preparing it for data input through update operations.

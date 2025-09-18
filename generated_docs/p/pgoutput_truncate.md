@@ -1,7 +1,7 @@
 # pgoutput_truncate
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1598 - 1665
+[src/backend/replication/pgoutput/pgoutput.c:1598-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1598-L1665)
 
 ## Overview
 Processes and sends TRUNCATE operations over the wire during logical replication, handling multiple relations in a single truncate command.

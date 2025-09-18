@@ -1,7 +1,7 @@
 # PgStatShared_Function
 
 ## Location
-src/include/utils/pgstat_internal.h: 398 - 402
+[src/include/utils/pgstat_internal.h:398-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L398-L402)
 
 ## Overview
 A shared memory structure that holds function execution statistics for PostgreSQL user-defined functions, implementing the common header pattern for variable-amount statistics.

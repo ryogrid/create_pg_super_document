@@ -1,7 +1,7 @@
 # ReindexTable
 
 ## Location
-src/backend/commands/indexcmds.c: 2918 - 2976
+[src/backend/commands/indexcmds.c:2918-2976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2918-L2976)
 
 ## Overview
 ReindexTable recreates all indexes of a table (including its toast table indexes if any) with appropriate handling for partitioned tables, concurrent operations, and temporary tables.

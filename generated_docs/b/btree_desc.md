@@ -1,7 +1,7 @@
 # btree_desc
 
 ## Location
-src/backend/access/rmgrdesc/nbtdesc.c: 24 - 138
+[src/backend/access/rmgrdesc/nbtdesc.c:24-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/nbtdesc.c#L24-L138)
 
 ## Overview
 The  function provides human-readable descriptions of B-tree WAL (Write-Ahead Logging) records for PostgreSQL's debugging and analysis tools.

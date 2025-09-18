@@ -1,7 +1,7 @@
 # _hash_getinitbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 135 - 156
+[src/backend/access/hash/hashpage.c:135-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L135-L156)
 
 ## Overview
 Gets a buffer for an existing block and initializes it from scratch, automatically applying page initialization for pages that need to be completely rewritten.

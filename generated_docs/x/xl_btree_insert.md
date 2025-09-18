@@ -1,7 +1,7 @@
 # xl_btree_insert
 
 ## Location
-src/include/access/nbtxlog.h: 79 - 85
+[src/include/access/nbtxlog.h:79-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L79-L85)
 
 ## Overview
 The xl_btree_insert structure represents a WAL record for simple B-tree insert operations that do not involve page splits.

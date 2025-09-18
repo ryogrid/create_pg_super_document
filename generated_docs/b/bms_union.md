@@ -1,7 +1,7 @@
 # bms_union
 
 ## Location
-src/backend/nodes/bitmapset.c: 251 - 291
+[src/backend/nodes/bitmapset.c:251-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L251-L291)
 
 ## Overview
 Creates a new Bitmapset containing all members from both input bitmapsets (set union operation).

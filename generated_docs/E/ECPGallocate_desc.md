@@ -1,7 +1,7 @@
 # ECPGallocate_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 792 - 831
+[src/interfaces/ecpg/ecpglib/descriptor.c:792-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L792-L831)
 
 ## Overview
 Allocates and initializes a new SQL descriptor with the specified name, adding it to the global descriptor list.

@@ -1,7 +1,7 @@
 # CheckPointRelationMap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 611 - 624
+[src/backend/utils/cache/relmapper.c:611-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L611-L624)
 
 ## Overview
 Ensures that any relation map updates logged before a checkpoint are securely flushed to disk during checkpoint processing.

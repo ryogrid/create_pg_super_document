@@ -1,7 +1,7 @@
 # is_branching_command
 
 ## Location
-src/bin/psql/command.c: 3255 - 3270
+[src/bin/psql/command.c:3255-3270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3255-L3270)
 
 ## Overview
 This function determines whether a given psql command string represents a conditional branching command used in psql's if-elif-else-endif control flow.

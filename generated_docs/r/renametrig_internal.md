@@ -1,7 +1,7 @@
 # renametrig_internal
 
 ## Location
-src/backend/commands/trigger.c: 1577 - 1647
+[src/backend/commands/trigger.c:1577-1647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1577-L1647)
 
 ## Overview
 A subroutine that performs the actual work of renaming a single trigger on one table, including name conflict checking and catalog updates.

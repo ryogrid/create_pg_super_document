@@ -1,7 +1,7 @@
 # heapam_relation_nontransactional_truncate
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 627 - 632
+[src/backend/access/heap/heapam_handler.c:627-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L627-L632)
 
 ## Overview
 This function provides a nontransactional truncation mechanism for heap relations, removing all data from the specified relation immediately without transaction logging.

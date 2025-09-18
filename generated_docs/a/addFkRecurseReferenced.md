@@ -1,7 +1,7 @@
 # addFkRecurseReferenced
 
 ## Location
-src/backend/commands/tablecmds.c: 10296 - 10427
+[src/backend/commands/tablecmds.c:10296-10427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10296-L10427)
 
 ## Overview
 Recursively handles the referenced side of foreign key creation by creating action triggers for regular tables and recursing through partitions for partitioned tables, establishing constraint entries at each level.

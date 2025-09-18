@@ -1,7 +1,7 @@
 # populate_array_report_expected_array
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2508 - 2557
+[src/backend/utils/adt/jsonfuncs.c:2508-2557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2508-L2557)
 
 ## Overview
 A helper function that generates detailed error messages when JSON array processing encounters unexpected non-array values during array population operations.

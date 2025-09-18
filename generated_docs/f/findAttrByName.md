@@ -1,7 +1,7 @@
 # findAttrByName
 
 ## Location
-src/backend/commands/tablecmds.c: 3478 - 3514
+[src/backend/commands/tablecmds.c:3478-3514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3478-L3514)
 
 ## Overview
 findAttrByName searches for an existing column entry with a specified name in a list of ColumnDef structures and returns its position index.

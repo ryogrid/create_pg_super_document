@@ -1,7 +1,7 @@
 # help
 
 ## Location
-src/bin/scripts/vacuumdb.c: 1168 - 1212
+[src/bin/scripts/vacuumdb.c:1168-1212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L1168-L1212)
 
 ## Overview
 This function displays comprehensive command-line help information for the PostgreSQL server, including all available options for different operational modes and usage scenarios.

@@ -1,7 +1,7 @@
 # JsonbInitBinary
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3601 - 3613
+[src/backend/utils/adt/jsonpath_exec.c:3601-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3601-L3613)
 
 ## Overview
 JsonbInitBinary is a static utility function that initializes a JsonbValue structure to represent binary JSONB data by setting up references to an existing Jsonb container.

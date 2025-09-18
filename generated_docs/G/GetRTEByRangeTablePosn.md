@@ -1,7 +1,7 @@
 # GetRTEByRangeTablePosn
 
 ## Location
-src/backend/parser/parse_relation.c: 537 - 556
+[src/backend/parser/parse_relation.c:537-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L537-L556)
 
 ## Overview
 Retrieves a Range Table Entry (RTE) from the parser state by its position in the range table, accounting for nested query contexts.

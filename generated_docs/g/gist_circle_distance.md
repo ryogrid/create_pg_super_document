@@ -1,7 +1,7 @@
 # gist_circle_distance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1526 - 1542
+[src/backend/access/gist/gistproc.c:1526-1542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1526-L1542)
 
 ## Overview
 Implements the GiST distance method for circle data types, providing inexact distance calculations from query points to circles by computing distances to their bounding boxes for efficient nearest-neighbor searches.

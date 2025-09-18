@@ -1,7 +1,7 @@
 # pg_log_v
 
 ## Location
-src/bin/pg_upgrade/util.c: 176 - 258
+[src/bin/pg_upgrade/util.c:176-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L176-L258)
 
 ## Overview
 Core internal logging function that handles all log message formatting and output routing for pg_upgrade, with sophisticated terminal and verbosity-aware behavior.

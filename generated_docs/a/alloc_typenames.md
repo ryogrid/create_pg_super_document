@@ -1,7 +1,7 @@
 # alloc_typenames
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 677 - 686
+[src/tools/pg_bsd_indent/lexi.c:677-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L677-L686)
 
 ## Overview
 Initializes dynamic memory allocation for the typenames array used to store user-defined type names during code formatting.

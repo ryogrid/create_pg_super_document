@@ -1,7 +1,7 @@
 # timestamptz_age
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4393 - 4546
+[src/backend/utils/adt/timestamp.c:4393-4546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4393-L4546)
 
 ## Overview
 Calculates the time difference between two timestamp with timezone values while retaining year/month fields, producing an interval that preserves calendar semantics rather than absolute time spans.

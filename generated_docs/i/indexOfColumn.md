@@ -1,7 +1,7 @@
 # indexOfColumn
 
 ## Location
-src/bin/psql/crosstabview.c: 636 - 694
+[src/bin/psql/crosstabview.c:636-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L636-L694)
 
 ## Overview
 Resolves a column reference (either a numeric index or column name) to a zero-based column index in a PostgreSQL result set.

@@ -1,7 +1,7 @@
 # PLy_global_args_pop
 
 ## Location
-src/pl/plpython/plpy_exec.c: 643 - 680
+[src/pl/plpython/plpy_exec.c:643-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L643-L680)
 
 ## Overview
 Restores the previous argument values when exiting a recursive PLpython function call by popping saved arguments from the procedure's argument stack.

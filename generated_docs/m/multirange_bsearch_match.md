@@ -1,7 +1,7 @@
 # multirange_bsearch_match
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 898 - 940
+[src/backend/utils/adt/multirangetypes.c:898-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L898-L940)
 
 ## Overview
 Performs binary search within a multirange to find if any range matches a given key using a custom comparison function.

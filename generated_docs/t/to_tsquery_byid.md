@@ -1,7 +1,7 @@
 # to_tsquery_byid
 
 ## Location
-src/backend/tsearch/to_tsany.c: 579 - 604
+[src/backend/tsearch/to_tsany.c:579-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L579-L604)
 
 ## Overview
 A PostgreSQL function that converts text input to a TSQuery using a specified text search configuration, with morphological parsing and phrase-based word position matching.

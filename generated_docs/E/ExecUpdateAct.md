@@ -1,7 +1,7 @@
 # ExecUpdateAct
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2002 - 2152
+[src/backend/executor/nodeModifyTable.c:2002-2152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2002-L2152)
 
 ## Overview
 ExecUpdateAct is a subroutine for ExecUpdate that performs the actual tuple update operation on a plain table, handling partition constraint checks and cross-partition tuple migration when necessary.

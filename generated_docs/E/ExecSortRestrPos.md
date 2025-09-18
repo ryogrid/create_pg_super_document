@@ -1,7 +1,7 @@
 # ExecSortRestrPos
 
 ## Location
-src/backend/executor/nodeSort.c: 347 - 361
+[src/backend/executor/nodeSort.c:347-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L347-L361)
 
 ## Overview
 Restores the reading position in a sorted result set to a previously marked location set by ExecSortMarkPos.

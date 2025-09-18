@@ -1,7 +1,7 @@
 # InitBufferTag
 
 ## Location
-src/include/storage/buf_internals.h: 144 - 153
+[src/include/storage/buf_internals.h:144-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L144-L153)
 
 ## Overview
 InitBufferTag is an inline function that initializes a BufferTag structure with the essential information needed to uniquely identify a specific block within PostgreSQL's buffer management system.

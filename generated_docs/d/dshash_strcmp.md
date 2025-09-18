@@ -1,7 +1,7 @@
 # dshash_strcmp
 
 ## Location
-src/backend/lib/dshash.c: 599 - 610
+[src/backend/lib/dshash.c:599-610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L599-L610)
 
 ## Overview
 A utility function that provides a standardized interface for string comparison in the dshash (dynamic shared hash) system by forwarding calls to the standard strcmp function with additional safety checks.

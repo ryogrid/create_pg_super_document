@@ -1,7 +1,7 @@
 # gist_mask
 
 ## Location
-src/backend/access/gist/gistxlog.c: 453 - 494
+[src/backend/access/gist/gistxlog.c:453-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L453-L494)
 
 ## Overview
 Masks a GiST (Generalized Search Tree) page before running consistency checks by setting various page elements to standardized values to ignore differences that don't affect logical consistency.

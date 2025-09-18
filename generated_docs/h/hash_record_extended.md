@@ -1,7 +1,7 @@
 # hash_record_extended
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1914 - 2034
+[src/backend/utils/adt/rowtypes.c:1914-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1914-L2034)
 
 ## Overview
 The hash_record_extended function computes a seeded hash value for a composite type (record) using extended hash functions that accept a seed parameter for enhanced hash distribution.

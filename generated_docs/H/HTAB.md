@@ -1,7 +1,7 @@
 # HTAB
 
 ## Location
-src/backend/utils/hash/dynahash.c: 219 - 243
+[src/backend/utils/hash/dynahash.c:219-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L219-L243)
 
 ## Overview
 HTAB is the top-level control structure for PostgreSQL's hash tables, containing function pointers, memory management information, and local copies of frequently accessed values.

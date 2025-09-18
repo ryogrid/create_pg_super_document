@@ -1,7 +1,7 @@
 # cleanOpStack
 
 ## Location
-src/backend/utils/adt/tsquery.c: 648 - 671
+[src/backend/utils/adt/tsquery.c:648-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L648-L671)
 
 ## Overview
 A function that processes and cleans the operator stack by popping operators with higher or equal precedence and converting them to postfix notation during tsquery parsing.

@@ -1,7 +1,7 @@
 # ExplainSerializeOption
 
 ## Location
-src/include/commands/explain.h: 25 - 26
+[src/include/commands/explain.h:25-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/explain.h#L25-L26)
 
 ## Overview
 ExplainSerializeOption is an enumeration that controls how query output data is serialized when using the EXPLAIN command with data output options.

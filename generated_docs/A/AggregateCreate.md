@@ -1,7 +1,7 @@
 # AggregateCreate
 
 ## Location
-src/backend/catalog/pg_aggregate.c: 46 - 825
+[src/backend/catalog/pg_aggregate.c:46-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_aggregate.c#L46-L825)
 
 ## Overview
 AggregateCreate is the core function responsible for creating new aggregate functions in PostgreSQL, validating their definitions, and inserting them into the system catalogs.

@@ -1,7 +1,7 @@
 # parallel_vacuum_process_one_index
 
 ## Location
-src/backend/commands/vacuumparallel.c: 863 - 948
+[src/backend/commands/vacuumparallel.c:863-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L863-L948)
 
 ## Overview
 Processes a single index during parallel vacuum operation, performing either bulk deletion or cleanup depending on the index status, and updates shared statistics in DSM segment.

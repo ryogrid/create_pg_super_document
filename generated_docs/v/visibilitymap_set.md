@@ -1,7 +1,7 @@
 # visibilitymap_set
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 244 - 335
+[src/backend/access/heap/visibilitymap.c:244-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L244-L335)
 
 ## Overview
 Sets visibility map bits for a previously pinned page, handling WAL logging and maintaining consistency between heap pages and their visibility metadata.

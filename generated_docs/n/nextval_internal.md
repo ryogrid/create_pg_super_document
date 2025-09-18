@@ -1,7 +1,7 @@
 # nextval_internal
 
 ## Location
-src/backend/commands/sequence.c: 623 - 865
+[src/backend/commands/sequence.c:623-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L623-L865)
 
 ## Overview
 The core implementation function that generates the next value from a PostgreSQL sequence, handling caching, WAL logging, and all sequence state management.

@@ -1,7 +1,7 @@
 # ConstraintNameIsUsed
 
 ## Location
-src/backend/catalog/pg_constraint.c: 399 - 443
+[src/backend/catalog/pg_constraint.c:399-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L399-L443)
 
 ## Overview
 Tests whether a given constraint name is currently in use for a specific object (relation or domain) to determine if a user-specified constraint name is acceptable.

@@ -1,7 +1,7 @@
 # JsonTablePlanJoinNextRow
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4411 - 4437
+[src/backend/utils/adt/jsonpath_exec.c:4411-4437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4411-L4437)
 
 ## Overview
 JsonTablePlanJoinNextRow implements a UNION-style iteration over two sibling JSON table plans, fetching rows sequentially from left and right child plans.

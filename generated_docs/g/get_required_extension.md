@@ -1,7 +1,7 @@
 # get_required_extension
 
 ## Location
-src/backend/commands/extension.c: 1697 - 1767
+[src/backend/commands/extension.c:1697-1767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1697-L1767)
 
 ## Overview
 get_required_extension retrieves the OID of a required extension, optionally installing it automatically if CASCADE mode is enabled and the extension is not yet installed.

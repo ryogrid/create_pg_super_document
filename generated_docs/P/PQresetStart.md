@@ -1,7 +1,7 @@
 # PQresetStart
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4925 - 4943
+[src/interfaces/libpq/fe-connect.c:4925-4943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4925-L4943)
 
 ## Overview
 Initiates an asynchronous reset of a PostgreSQL database connection, closing the existing connection and starting the process to establish a new one.

@@ -1,7 +1,7 @@
 # ECPGset_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 605 - 727
+[src/interfaces/ecpg/ecpglib/descriptor.c:605-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L605-L727)
 
 ## Overview
 ECPGset_desc sets descriptor item attributes by processing variable arguments containing descriptor type and data pairs, managing the creation and modification of descriptor items.

@@ -1,7 +1,7 @@
 # xmltype
 
 ## Location
-src/include/utils/xml.h: 23 - 26
+[src/include/utils/xml.h:23-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/xml.h#L23-L26)
 
 ## Overview
 xmltype is a typedef that defines the PostgreSQL data type structure for storing XML values, based on the variable-length varlena structure.

@@ -1,7 +1,7 @@
 # copy_special_str
 
 ## Location
-src/common/ryu_common.h: 95 - 115
+[src/common/ryu_common.h:95-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L95-L115)
 
 ## Overview
 Copies special floating-point value strings (NaN, Infinity, -Infinity, 0, -0) to a result buffer based on IEEE 754 floating-point bit patterns.

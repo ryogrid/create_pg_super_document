@@ -1,7 +1,7 @@
 # gets_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 120 - 125
+[src/bin/pg_dump/compress_none.c:120-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L120-L125)
 
 ## Overview
 The `gets_none` function provides line-based reading functionality for uncompressed files in PostgreSQL's pg_dump utility compression framework.

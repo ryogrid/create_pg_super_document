@@ -1,7 +1,7 @@
 # PLyProcedure
 
 ## Location
-src/pl/plpython/plpy_procedure.h: 25 - 50
+[src/pl/plpython/plpy_procedure.h:25-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.h#L25-L50)
 
 ## Overview
 PLyProcedure is the central structure in PostgreSQL's PL/Python extension that caches compiled procedure data, managing all aspects of a Python function including its source code, argument handling, execution context, and state management across calls.

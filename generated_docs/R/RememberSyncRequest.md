@@ -1,7 +1,7 @@
 # RememberSyncRequest
 
 ## Location
-src/backend/storage/sync/sync.c: 487 - 579
+[src/backend/storage/sync/sync.c:487-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L487-L579)
 
 ## Overview
 Processes synchronization requests from backends by adding them to appropriate data structures (hash table for fsync requests, linked list for unlink requests) or canceling existing requests.

@@ -1,7 +1,7 @@
 # pg_hypot
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5519 - 5562
+[src/backend/utils/adt/geo_ops.c:5519-5562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5519-L5562)
 
 ## Overview
 A numerically stable implementation of the hypotenuse function that computes sqrt(x² + y²) with enhanced precision and overflow protection for PostgreSQL's geometric operations.

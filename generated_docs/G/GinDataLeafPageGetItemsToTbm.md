@@ -1,7 +1,7 @@
 # GinDataLeafPageGetItemsToTbm
 
 ## Location
-src/backend/access/gin/gindatapage.c: 182 - 210
+[src/backend/access/gin/gindatapage.c:182-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L182-L210)
 
 ## Overview
 Extracts all TIDs from a GIN data leaf page and adds them directly to a TID bitmap for efficient bulk operations.

@@ -1,7 +1,7 @@
 # merge_default_partitions
 
 ## Location
-src/backend/partitioning/partbounds.c: 2257 - 2366
+[src/backend/partitioning/partbounds.c:2257-2366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2257-L2366)
 
 ## Overview
 Merges the default partitions from the outer and inner sides of a partitioned join, ensuring proper handling of the default partition in the resulting join relation.

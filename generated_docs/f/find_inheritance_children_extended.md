@@ -1,7 +1,7 @@
 # find_inheritance_children_extended
 
 ## Location
-src/backend/catalog/pg_inherits.c: 82 - 254
+[src/backend/catalog/pg_inherits.c:82-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L82-L254)
 
 ## Overview
 An extended version of find_inheritance_children that provides fine-grained control over handling detached partitions and returns additional information about detachment status.

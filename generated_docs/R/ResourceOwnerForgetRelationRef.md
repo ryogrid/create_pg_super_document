@@ -1,7 +1,7 @@
 # ResourceOwnerForgetRelationRef
 
 ## Location
-src/backend/utils/cache/relcache.c: 2147 - 2160
+[src/backend/utils/cache/relcache.c:2147-2160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2147-L2160)
 
 ## Overview
 A convenience wrapper function that unregisters a relation reference from a resource owner, removing it from automatic cleanup tracking.

@@ -1,7 +1,7 @@
 # aclitem_eq
 
 ## Location
-src/backend/utils/adt/acl.c: 748 - 767
+[src/backend/utils/adt/acl.c:748-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L748-L767)
 
 ## Overview
 A PostgreSQL system function that implements the equality operator for AclItem structures, comparing two access control list entries for exact equality.

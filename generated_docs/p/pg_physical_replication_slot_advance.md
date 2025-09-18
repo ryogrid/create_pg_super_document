@@ -1,7 +1,7 @@
 # pg_physical_replication_slot_advance
 
 ## Location
-src/backend/replication/slotfuncs.c: 463 - 498
+[src/backend/replication/slotfuncs.c:463-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L463-L498)
 
 ## Overview
 A helper function that advances a physical replication slot's restart LSN forward to a specified WAL position.

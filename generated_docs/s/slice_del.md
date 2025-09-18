@@ -1,7 +1,7 @@
 # slice_del
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 431 - 434
+[src/backend/snowball/libstemmer/utilities.c:431-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L431-L434)
 
 ## Overview
 A convenience function in the Snowball stemming library that deletes the currently selected slice from the working string by replacing it with an empty string.

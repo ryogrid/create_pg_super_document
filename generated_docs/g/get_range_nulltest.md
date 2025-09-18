@@ -1,7 +1,7 @@
 # get_range_nulltest
 
 ## Location
-src/backend/partitioning/partbounds.c: 4676 - 4721
+[src/backend/partitioning/partbounds.c:4676-4721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L4676-L4721)
 
 ## Overview
 Generates IS NOT NULL expressions for all partition key columns in range partitions, since range partitions do not allow NULL values in partition keys.

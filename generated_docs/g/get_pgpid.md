@@ -1,7 +1,7 @@
 # get_pgpid
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 245 - 312
+[src/bin/pg_ctl/pg_ctl.c:245-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L245-L312)
 
 ## Overview
 Reads and validates the PostgreSQL server's process ID from the PID file, with comprehensive error checking for various failure scenarios.

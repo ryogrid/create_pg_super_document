@@ -1,7 +1,7 @@
 # width_bucket_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6678 - 6740
+[src/backend/utils/adt/arrayfuncs.c:6678-6740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6678-L6740)
 
 ## Overview
 Implements the width_bucket(anyelement, anyarray) function that assigns a bucket number to an operand value based on an array of threshold values.

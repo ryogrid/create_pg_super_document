@@ -1,7 +1,7 @@
 # processTypesSpec
 
 ## Location
-src/backend/commands/opclasscmds.c: 1108 - 1136
+[src/backend/commands/opclasscmds.c:1108-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1108-L1136)
 
 ## Overview
 Processes explicit argument types used in ALTER ADD/DROP operator family commands, extracting and validating type specifications from a list of arguments.

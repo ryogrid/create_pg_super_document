@@ -1,7 +1,7 @@
 # inet_to_cidr
 
 ## Location
-src/backend/utils/adt/network.c: 309 - 323
+[src/backend/utils/adt/network.c:309-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L309-L323)
 
 ## Overview
 Converts an INET data type to a CIDR data type, creating a network specification from a host address.

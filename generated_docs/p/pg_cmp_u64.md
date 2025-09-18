@@ -1,7 +1,7 @@
 # pg_cmp_u64
 
 ## Location
-src/include/common/int.h: 501 - 506
+[src/include/common/int.h:501-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L501-L506)
 
 ## Overview
 A fast inline comparison function for 64-bit unsigned integers that returns a standardized comparison result (-1, 0, or 1) without using conditional branches.

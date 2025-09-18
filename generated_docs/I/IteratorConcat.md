@@ -1,7 +1,7 @@
 # IteratorConcat
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5052 - 5179
+[src/backend/utils/adt/jsonfuncs.c:5052-5179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5052-L5179)
 
 ## Overview
 IteratorConcat is a static function that merges two JSON objects or arrays into one, handling all combinations of object-object, array-array, object-array, and array-object concatenations.

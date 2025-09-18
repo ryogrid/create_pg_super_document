@@ -1,7 +1,7 @@
 # stat_find_expression
 
 ## Location
-src/backend/statistics/extended_stats.c: 1141 - 1167
+[src/backend/statistics/extended_stats.c:1141-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1141-L1167)
 
 ## Overview
 Searches for a specific expression within a statistics object's list of expressions and returns its index position.

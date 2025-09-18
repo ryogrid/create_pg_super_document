@@ -1,7 +1,7 @@
 # lseg_invsl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2165 - 2171
+[src/backend/utils/adt/geo_ops.c:2165-2171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2165-L2171)
 
 ## Overview
 Calculates the inverse slope of a line segment by computing the inverse slope between its two endpoints.

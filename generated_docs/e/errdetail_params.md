@@ -1,7 +1,7 @@
 # errdetail_params
 
 ## Location
-src/backend/tcop/postgres.c: 2503 - 2522
+[src/backend/tcop/postgres.c:2503-2522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2503-L2522)
 
 ## Overview
 Adds parameter binding information to error messages when bind parameters are available, specifically used for statement logging.

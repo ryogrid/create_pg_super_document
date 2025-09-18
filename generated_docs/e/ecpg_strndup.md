@@ -1,7 +1,7 @@
 # ecpg_strndup
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 179 - 197
+[src/interfaces/ecpg/compatlib/informix.c:179-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L179-L197)
 
 ## Overview
 A static utility function that creates a null-terminated duplicate of a string with a maximum length limit, providing safe string duplication with length constraints.

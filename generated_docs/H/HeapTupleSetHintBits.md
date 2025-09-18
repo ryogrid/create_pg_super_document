@@ -1,7 +1,7 @@
 # HeapTupleSetHintBits
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 141 - 169
+[src/backend/access/heap/heapam_visibility.c:141-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L141-L169)
 
 ## Overview
 Public wrapper function for SetHintBits that provides an exported interface for setting commit/abort hint bits on tuple headers from external modules.

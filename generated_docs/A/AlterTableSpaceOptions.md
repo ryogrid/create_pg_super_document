@@ -1,7 +1,7 @@
 # AlterTableSpaceOptions
 
 ## Location
-src/backend/commands/tablespace.c: 1015 - 1090
+[src/backend/commands/tablespace.c:1015-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1015-L1090)
 
 ## Overview
 Modifies the configuration options of an existing tablespace by updating the spcoptions field in the pg_tablespace system catalog.

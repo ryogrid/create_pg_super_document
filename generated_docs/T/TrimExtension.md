@@ -1,7 +1,7 @@
 # TrimExtension
 
 ## Location
-src/bin/pg_archivecleanup/pg_archivecleanup.c: 75 - 90
+[src/bin/pg_archivecleanup/pg_archivecleanup.c:75-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_archivecleanup/pg_archivecleanup.c#L75-L90)
 
 ## Overview
 Removes a specified extension from the end of a filename string by truncating the filename in-place.

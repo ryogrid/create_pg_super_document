@@ -1,7 +1,7 @@
 # italian_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c: 1021 - 1022
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:1021-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c#L1021-L1022)
 
 ## Overview
 Properly deallocates and cleans up a Snowball environment structure that was created for Italian stemming operations.

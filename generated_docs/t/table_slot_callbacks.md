@@ -1,7 +1,7 @@
 # table_slot_callbacks
 
 ## Location
-src/backend/access/table/tableam.c: 59 - 91
+[src/backend/access/table/tableam.c:59-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L59-L91)
 
 ## Overview
 Returns the appropriate TupleTableSlotOps callback structure for a given relation, determining the correct slot operations based on the relation's table access method and relation kind.

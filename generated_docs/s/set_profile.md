@@ -1,7 +1,7 @@
 # set_profile
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 176 - 197
+[src/tools/pg_bsd_indent/args.c:176-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L176-L197)
 
 ## Overview
 The set_profile function reads configuration files (.indent.pro) from the user's home directory and current directory to load indentation settings for the PostgreSQL BSD indent tool.

@@ -1,7 +1,7 @@
 # r_Step_1a
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 481 - 536
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:481-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L481-L536)
 
 ## Overview
 The r_Step_1a function implements Step 1a of the English Porter stemming algorithm in the Snowball stemmer, handling the removal of certain possessive and plural suffixes.

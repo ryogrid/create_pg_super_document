@@ -1,7 +1,7 @@
 # create_minmaxagg_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2551 - 2616
+[src/backend/optimizer/plan/createplan.c:2551-2616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2551-L2616)
 
 ## Overview
 Creates a Result plan for MinMaxAggPath operations that optimize MIN/MAX aggregates by converting them into InitPlan subqueries for more efficient execution.

@@ -1,7 +1,7 @@
 # multirange_eq
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1901 - 1913
+[src/backend/utils/adt/multirangetypes.c:1901-1913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1901-L1913)
 
 ## Overview
 Implements the equality operator (=) for multirange types, comparing two multirange values to determine if they contain exactly the same set of ranges in the same order.

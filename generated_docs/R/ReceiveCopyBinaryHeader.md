@@ -1,7 +1,7 @@
 # ReceiveCopyBinaryHeader
 
 ## Location
-src/backend/commands/copyfromparse.c: 190 - 244
+[src/backend/commands/copyfromparse.c:190-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L190-L244)
 
 ## Overview
 Validates and processes the binary file header for COPY FROM operations in binary format, ensuring the input conforms to PostgreSQL's binary COPY format specification.

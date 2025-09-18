@@ -1,7 +1,7 @@
 # macaddr_or
 
 ## Location
-src/backend/utils/adt/mac.c: 320 - 340
+[src/backend/utils/adt/mac.c:320-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L320-L340)
 
 ## Overview
 Performs bitwise OR operation between two MAC addresses, returning a new MAC address with each byte being the result of the OR operation on corresponding bytes.

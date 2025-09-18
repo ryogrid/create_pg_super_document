@@ -1,7 +1,7 @@
 # check_set_block_offsets
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 220 - 313
+[src/test/modules/test_tidstore/test_tidstore.c:220-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L220-L313)
 
 ## Overview
 A comprehensive verification function that validates the correctness of TID (tuple identifier) storage operations by comparing stored TIDs against verification arrays using multiple access methods.

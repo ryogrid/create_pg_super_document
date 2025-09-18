@@ -1,7 +1,7 @@
 # DecodeSpecConfirm
 
 ## Location
-src/backend/replication/logical/decode.c: 1230 - 1265
+[src/backend/replication/logical/decode.c:1230-1265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L1230-L1265)
 
 ## Overview
 DecodeSpecConfirm processes XLOG_HEAP_CONFIRM WAL records during logical replication, creating confirmation changes for previously speculative tuple insertions.

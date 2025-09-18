@@ -1,7 +1,7 @@
 # ATRewriteCatalogs
 
 ## Location
-src/backend/commands/tablecmds.c: 5158 - 5231
+[src/backend/commands/tablecmds.c:5158-5231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L5158-L5231)
 
 ## Overview
 ATRewriteCatalogs serves as the traffic controller for ALTER TABLE Phase 2 operations, executing subcommands in a carefully designed order to avoid conflicts and handle cross-table dependencies.

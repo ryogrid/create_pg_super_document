@@ -1,7 +1,7 @@
 # get_op_rettype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1333 - 1357
+[src/backend/utils/cache/lsyscache.c:1333-1357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1333-L1357)
 
 ## Overview
 Retrieves the result data type OID of a given operator, providing information about what type of value the operator returns when executed.

@@ -1,7 +1,7 @@
 # clause_is_strict_for
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1460 - 1661
+[src/backend/optimizer/util/predtest.c:1460-1661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1460-L1661)
 
 ## Overview
 Determines if a clause returns NULL (or FALSE) when a specific subexpression yields NULL, implementing strictness analysis for PostgreSQL's predicate testing system.

@@ -1,7 +1,7 @@
 # regnamespaceout
 
 ## Location
-src/backend/utils/adt/regproc.c: 1718 - 1749
+[src/backend/utils/adt/regproc.c:1718-1749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1718-L1749)
 
 ## Overview
 The regnamespaceout function converts regnamespace OID values to their corresponding namespace (schema) names in text format for display and output purposes.

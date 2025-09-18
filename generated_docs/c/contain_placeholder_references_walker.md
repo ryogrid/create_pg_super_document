@@ -1,7 +1,7 @@
 # contain_placeholder_references_walker
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 479 - 520
+[src/backend/optimizer/util/placeholder.c:479-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L479-L520)
 
 ## Overview
 A recursive walker function that traverses expression trees to detect PlaceHolderVar references to a specific relation ID, implementing the core logic for contain_placeholder_references_to.

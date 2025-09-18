@@ -1,7 +1,7 @@
 # LogChildExit
 
 ## Location
-src/backend/postmaster/postmaster.c: 3062 - 3127
+[src/backend/postmaster/postmaster.c:3062-3127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3062-L3127)
 
 ## Overview
 LogChildExit provides detailed logging of child process termination events in PostgreSQL, including exit codes, signals, and the last known activity of crashed processes.

@@ -1,7 +1,7 @@
 # get_html_path
 
 ## Location
-src/port/path.c: 982 - 990
+[src/port/path.c:982-990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L982-L990)
 
 ## Overview
 Constructs the full path to PostgreSQL's HTML documentation directory by calculating a relative path from the executable location.

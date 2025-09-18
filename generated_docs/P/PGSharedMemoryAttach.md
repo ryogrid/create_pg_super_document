@@ -1,7 +1,7 @@
 # PGSharedMemoryAttach
 
 ## Location
-src/backend/port/sysv_shmem.c: 347 - 478
+[src/backend/port/sysv_shmem.c:347-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L347-L478)
 
 ## Overview
 PGSharedMemoryAttach attempts to attach to an existing System V shared memory segment and analyzes its state to determine if it belongs to the current PostgreSQL data directory.

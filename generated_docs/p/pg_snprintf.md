@@ -1,7 +1,7 @@
 # pg_snprintf
 
 ## Location
-src/port/snprintf.c: 202 - 213
+[src/port/snprintf.c:202-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L202-L213)
 
 ## Overview
 pg_snprintf is PostgreSQL's portable implementation of the snprintf function that formats and stores a string in a buffer using variable arguments.

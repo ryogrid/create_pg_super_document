@@ -1,7 +1,7 @@
 # ExplainMissingMembers
 
 ## Location
-src/backend/commands/explain.c: 4402 - 4415
+[src/backend/commands/explain.c:4402-4415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4402-L4415)
 
 ## Overview
 ExplainMissingMembers is a static function that reports information about pruned subnodes in Append or MergeAppend nodes during PostgreSQL's EXPLAIN output.

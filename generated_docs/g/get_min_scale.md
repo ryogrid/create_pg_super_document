@@ -1,7 +1,7 @@
 # get_min_scale
 
 ## Location
-src/backend/utils/adt/numeric.c: 4152 - 4202
+[src/backend/utils/adt/numeric.c:4152-4202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4152-L4202)
 
 ## Overview
 A static helper function that calculates the minimum scale (number of decimal places) required to represent a numeric value without trailing zeros.

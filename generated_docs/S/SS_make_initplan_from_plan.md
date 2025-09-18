@@ -1,7 +1,7 @@
 # SS_make_initplan_from_plan
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 3017 - 3057
+[src/backend/optimizer/plan/subselect.c:3017-3057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L3017-L3057)
 
 ## Overview
 Converts a given plan tree into an InitPlan by creating a SubPlan node and adding it to the outer query's initplan list.

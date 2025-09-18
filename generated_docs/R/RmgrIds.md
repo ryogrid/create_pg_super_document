@@ -1,7 +1,7 @@
 # RmgrIds
 
 ## Location
-src/include/access/rmgr.h: 29 - 30
+[src/include/access/rmgr.h:29-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/rmgr.h#L29-L30)
 
 ## Overview
 An enumeration that defines all resource manager identifiers used in PostgreSQL's Write-Ahead Logging (WAL) system.

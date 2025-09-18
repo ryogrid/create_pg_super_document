@@ -1,7 +1,7 @@
 # btproperty
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4586 - 4608
+[src/backend/access/nbtree/nbtutils.c:4586-4608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4586-L4608)
 
 ## Overview
 The btproperty function checks boolean properties of B-tree indexes, providing efficient property queries without requiring the index relation to be opened.

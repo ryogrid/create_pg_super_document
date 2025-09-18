@@ -1,7 +1,7 @@
 # recurse_push_qual
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 4003 - 4054
+[src/backend/optimizer/path/allpaths.c:4003-4054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L4003-L4054)
 
 ## Overview
 This helper function recursively traverses a set operations tree (UNION, INTERSECT, EXCEPT) to push a restriction clause down into each component subquery within the tree structure.

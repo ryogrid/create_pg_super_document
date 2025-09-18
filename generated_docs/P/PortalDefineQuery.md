@@ -1,7 +1,7 @@
 # PortalDefineQuery
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 282 - 309
+[src/backend/utils/mmgr/portalmem.c:282-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L282-L309)
 
 ## Overview
 Establishes a portal's query by storing the query definition, source text, command tag, statement list, and optional cached plan. This function initializes a newly created portal with its query information and transitions it to the PORTAL_DEFINED status.

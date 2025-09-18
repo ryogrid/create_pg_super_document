@@ -1,7 +1,7 @@
 # initialize_mergeclause_eclasses
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1443 - 1489
+[src/backend/optimizer/path/pathkeys.c:1443-1489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1443-L1489)
 
 ## Overview
 Sets up EquivalenceClass links in a mergeclause RestrictInfo by finding or creating appropriate EquivalenceClasses for the left and right operands of the merge operation.

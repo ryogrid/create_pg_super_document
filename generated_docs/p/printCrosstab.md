@@ -1,7 +1,7 @@
 # printCrosstab
 
 ## Location
-src/bin/psql/crosstabview.c: 286 - 437
+[src/bin/psql/crosstabview.c:286-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L286-L437)
 
 ## Overview
 Internal function that renders the actual cross-tabulated output by formatting and displaying the pivoted data using PostgreSQL's printTable* functions.

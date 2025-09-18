@@ -1,7 +1,7 @@
 # create_hash_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 347 - 435
+[src/backend/partitioning/partbounds.c:347-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L347-L435)
 
 ## Overview
 Creates a PartitionBoundInfo structure specifically for hash partitioned tables, converting hash partition bound specifications into the internal representation.

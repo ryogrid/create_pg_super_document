@@ -1,7 +1,7 @@
 # buildShSecLabels
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1731 - 1756
+[src/bin/pg_dump/pg_dumpall.c:1731-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1731-L1756)
 
 ## Overview
 Builds SECURITY LABEL command(s) for shared database objects by querying the system catalog and formatting the results for SQL output.

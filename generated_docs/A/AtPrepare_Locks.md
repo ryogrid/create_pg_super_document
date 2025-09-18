@@ -1,7 +1,7 @@
 # AtPrepare_Locks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3304 - 3399
+[src/backend/storage/lmgr/lock.c:3304-3399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3304-L3399)
 
 ## Overview
 AtPrepare_Locks performs preparatory work for PREPARE TRANSACTION by creating 2PC state file records for all transaction-level locks currently held.

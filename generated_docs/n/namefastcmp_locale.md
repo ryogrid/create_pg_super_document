@@ -1,7 +1,7 @@
 # namefastcmp_locale
 
 ## Location
-src/backend/utils/adt/varlena.c: 2125 - 2138
+[src/backend/utils/adt/varlena.c:2125-2138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2125-L2138)
 
 ## Overview
 A sort support comparison function for locale-aware comparison of PostgreSQL NAME type data during sorting operations.

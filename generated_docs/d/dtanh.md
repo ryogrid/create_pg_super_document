@@ -1,7 +1,7 @@
 # dtanh
 
 ## Location
-src/backend/utils/adt/float.c: 2645 - 2664
+[src/backend/utils/adt/float.c:2645-2664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2645-L2664)
 
 ## Overview
 The dtanh function computes the hyperbolic tangent of a floating-point number, providing PostgreSQL-specific error handling for mathematical operations.

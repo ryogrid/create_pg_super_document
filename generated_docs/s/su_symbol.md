@@ -1,7 +1,7 @@
 # su_symbol
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 101 - 106
+[src/interfaces/ecpg/preproc/type.h:101-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L101-L106)
 
 ## Overview
 The  structure is a simple data container used in the ECPG preprocessor to store paired string values, representing a mapping between a 'su' identifier and its corresponding 'symbol' value.

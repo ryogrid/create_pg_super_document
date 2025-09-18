@@ -1,7 +1,7 @@
 # movedb_failure_callback
 
 ## Location
-src/backend/commands/dbcommands.c: 2286 - 2302
+[src/backend/commands/dbcommands.c:2286-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2286-L2302)
 
 ## Overview
 movedb_failure_callback is an error cleanup function that removes partially copied database files when a movedb operation fails, ensuring the target directory is cleaned up.

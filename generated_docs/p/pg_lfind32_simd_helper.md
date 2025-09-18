@@ -1,7 +1,7 @@
 # pg_lfind32_simd_helper
 
 ## Location
-src/include/port/pg_lfind.h: 109 - 152
+[src/include/port/pg_lfind.h:109-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_lfind.h#L109-L152)
 
 ## Overview
 A highly optimized SIMD implementation that searches for a key across four vector registers simultaneously, processing multiple 32-bit integers in parallel for maximum performance.

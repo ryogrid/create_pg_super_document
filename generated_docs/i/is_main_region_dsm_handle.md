@@ -1,7 +1,7 @@
 # is_main_region_dsm_handle
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1281 - 1288
+[src/backend/storage/ipc/dsm.c:1281-1288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1281-L1288)
 
 ## Overview
 A static inline helper function that determines if a given DSM (Dynamic Shared Memory) handle corresponds to the main region by checking the least significant bit.

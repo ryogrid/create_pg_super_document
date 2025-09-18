@@ -1,7 +1,7 @@
 # get_utf8
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 71 - 92
+[src/backend/snowball/libstemmer/utilities.c:71-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L71-L92)
 
 ## Overview
 Extracts a single UTF-8 character from a symbol buffer and converts it to its Unicode codepoint value.

@@ -1,7 +1,7 @@
 # findDependencyLoops
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 746 - 841
+[src/bin/pg_dump/pg_dump_sort.c:746-841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L746-L841)
 
 ## Overview
 findDependencyLoops identifies dependency loops in pg_dump's topological sort failure output and orchestrates their repair to enable successful object sorting.

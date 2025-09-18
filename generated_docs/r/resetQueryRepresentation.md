@@ -1,7 +1,7 @@
 # resetQueryRepresentation
 
 ## Location
-src/backend/utils/adt/tsrank.c: 593 - 605
+[src/backend/utils/adt/tsrank.c:593-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L593-L605)
 
 ## Overview
 Resets a QueryRepresentation structure to its initial state, clearing operand existence flags and resetting position counters for all query operands.

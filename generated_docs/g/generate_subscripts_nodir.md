@@ -1,7 +1,7 @@
 # generate_subscripts_nodir
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5969 - 5979
+[src/backend/utils/adt/arrayfuncs.c:5969-5979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5969-L5979)
 
 ## Overview
 A wrapper function that implements the 2-argument version of the generate_subscripts PostgreSQL function, which returns all subscripts of an array for a specified dimension.

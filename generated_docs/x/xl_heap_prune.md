@@ -1,7 +1,7 @@
 # xl_heap_prune
 
 ## Location
-src/include/access/heapam_xlog.h: 284 - 293
+[src/include/access/heapam_xlog.h:284-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L284-L293)
 
 ## Overview
 A WAL record structure that captures heap page pruning and freezing operations performed by VACUUM or on-access pruning, supporting complex variable-length sub-records for different pruning activities.

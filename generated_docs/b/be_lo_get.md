@@ -1,7 +1,7 @@
 # be_lo_get
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 792 - 805
+[src/backend/libpq/be-fsstubs.c:792-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L792-L805)
 
 ## Overview
 A PostgreSQL backend function that reads and returns the entire content of a large object (LO) as bytea data.

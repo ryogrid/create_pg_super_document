@@ -1,7 +1,7 @@
 # btfloat8sortsupport
 
 ## Location
-src/backend/utils/adt/float.c: 985 - 993
+[src/backend/utils/adt/float.c:985-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L985-L993)
 
 ## Overview
 PostgreSQL function that configures sort support for double-precision floating-point B-tree operations by setting up an optimized comparison function.

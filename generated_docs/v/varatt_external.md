@@ -1,7 +1,7 @@
 # varatt_external
 
 ## Location
-src/include/varatt.h: 32 - 39
+[src/include/varatt.h:32-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/varatt.h#L32-L39)
 
 ## Overview
 A structure representing a traditional "TOAST pointer" that contains the information needed to fetch a Datum stored out-of-line in a TOAST table.

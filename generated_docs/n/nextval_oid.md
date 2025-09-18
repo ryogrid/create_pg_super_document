@@ -1,7 +1,7 @@
 # nextval_oid
 
 ## Location
-src/backend/commands/sequence.c: 615 - 622
+[src/backend/commands/sequence.c:615-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L615-L622)
 
 ## Overview
 Provides the PostgreSQL SQL function interface for obtaining the next value from a sequence using the sequence's OID as the identifier.

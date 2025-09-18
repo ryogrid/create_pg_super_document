@@ -1,7 +1,7 @@
 # ExecEvalJsonExprPath
 
 ## Location
-src/backend/executor/execExprInterp.c: 4279 - 4480
+[src/backend/executor/execExprInterp.c:4279-4480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4279-L4480)
 
 ## Overview
 Evaluates a JSONPath expression against a JSON document to extract, query, or check existence of values, handling different SQL/JSON operations with comprehensive error and empty result management.

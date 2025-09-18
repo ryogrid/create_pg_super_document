@@ -1,7 +1,7 @@
 # mark_rels_nulled_by_join
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1322 - 1359
+[src/backend/optimizer/plan/initsplan.c:1322-1359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1322-L1359)
 
 ## Overview
 Marks base relations that are nulled by an outer join by updating their nulling_relids field in the RelOptInfo structure.

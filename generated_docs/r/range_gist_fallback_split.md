@@ -1,7 +1,7 @@
 # range_gist_fallback_split
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1148 - 1185
+[src/backend/utils/adt/rangetypes_gist.c:1148-1185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1148-L1185)
 
 ## Overview
 A trivial split function used by GiST (Generalized Search Tree) for range types that splits index entries evenly by placing half on the left page and half on the right page.

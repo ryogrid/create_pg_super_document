@@ -1,7 +1,7 @@
 # InvalidateOprProofCacheCallBack
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2346 - 2361
+[src/backend/optimizer/util/predtest.c:2346-2361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2346-L2361)
 
 ## Overview
 This is a callback function that invalidates the operator proof cache entries when the pg_amop catalog is changed, ensuring cache consistency with the underlying system catalogs.

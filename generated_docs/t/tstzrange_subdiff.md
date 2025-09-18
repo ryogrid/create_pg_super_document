@@ -1,7 +1,7 @@
 # tstzrange_subdiff
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1675 - 1702
+[src/backend/utils/adt/rangetypes.c:1675-1702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1675-L1702)
 
 ## Overview
 Computes the difference between two timestamp with time zone values for use in timestamptz range type operations, returning the result as a float8 value representing the number of seconds.

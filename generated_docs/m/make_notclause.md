@@ -1,7 +1,7 @@
 # make_notclause
 
 ## Location
-src/backend/nodes/makefuncs.c: 733 - 753
+[src/backend/nodes/makefuncs.c:733-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L733-L753)
 
 ## Overview
 Creates a NOT boolean expression node to negate a given expression, used in PostgreSQL's query planning and execution system.

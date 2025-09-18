@@ -1,7 +1,7 @@
 # ListParsedLex
 
 ## Location
-src/backend/tsearch/ts_parse.c: 35 - 39
+[src/backend/tsearch/ts_parse.c:35-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L35-L39)
 
 ## Overview
 ListParsedLex is a structure that manages a doubly-ended linked list of ParsedLex nodes, providing efficient head and tail access for lexeme processing in PostgreSQL's text search system.

@@ -1,7 +1,7 @@
 # instr_time
 
 ## Location
-src/include/portability/instr_time.h: 69 - 72
+[src/include/portability/instr_time.h:69-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/portability/instr_time.h#L69-L72)
 
 ## Overview
 The  struct is PostgreSQL's portable high-precision timing data type used for measuring intervals and storing absolute timestamps across different platforms.

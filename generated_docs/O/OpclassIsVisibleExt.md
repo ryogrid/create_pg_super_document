@@ -1,7 +1,7 @@
 # OpclassIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2166 - 2222
+[src/backend/catalog/namespace.c:2166-2222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2166-L2222)
 
 ## Overview
 Extended version of OpclassIsVisible that provides optional error handling for missing operator classes while determining visibility in the current search path.

@@ -1,7 +1,7 @@
 # StartupProcTriggerHandler
 
 ## Location
-src/backend/postmaster/startup.c: 93 - 100
+[src/backend/postmaster/startup.c:93-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L93-L100)
 
 ## Overview
 A SIGUSR2 signal handler that triggers the promotion of a standby server to primary by setting a flag to finish recovery operations.

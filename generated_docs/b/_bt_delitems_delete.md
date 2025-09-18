@@ -1,7 +1,7 @@
 # _bt_delitems_delete
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1284 - 1404
+[src/backend/access/nbtree/nbtpage.c:1284-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1284-L1404)
 
 ## Overview
 Deletes and updates items on a btree leaf page during single-page cleanup operations, handling both complete item deletions and partial updates to posting list tuples by removing specific TIDs.

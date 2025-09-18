@@ -1,7 +1,7 @@
 # sqlca_t
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c: 36 - 75
+[src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c:36-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c#L36-L75)
 
 ## Overview
 A structure type that defines the SQL Communication Area (SQLCA) used by PostgreSQL's ECPG (Embedded SQL in C) for reporting SQL operation status, error information, and warning conditions.

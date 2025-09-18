@@ -1,7 +1,7 @@
 # buildSubPlanHash
 
 ## Location
-src/backend/executor/nodeSubplan.c: 504 - 674
+[src/backend/executor/nodeSubplan.c:504-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L504-L674)
 
 ## Overview
 buildSubPlanHash builds hash tables from subplan output for efficient subquery evaluation, creating separate hash tables for non-null and partially-null rows to support proper SQL NULL semantics.

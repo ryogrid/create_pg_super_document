@@ -1,7 +1,7 @@
 # sqlfunction_receive
 
 ## Location
-src/backend/executor/functions.c: 2097 - 2113
+[src/backend/executor/functions.c:2097-2113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2097-L2113)
 
 ## Overview
 Receives and processes individual tuples for SQL function destination receivers, filtering out junk attributes and storing the cleaned tuples in a tuplestore.

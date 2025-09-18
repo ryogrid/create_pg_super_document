@@ -1,7 +1,7 @@
 # _typeInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 197 - 222
+[src/bin/pg_dump/pg_dump.h:197-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L197-L222)
 
 ## Overview
 The _typeInfo structure represents type information used by the PostgreSQL pg_dump utility to store metadata about database types during the dump process.

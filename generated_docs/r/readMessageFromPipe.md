@@ -1,7 +1,7 @@
 # readMessageFromPipe
 
 ## Location
-src/bin/pg_dump/parallel.c: 1662 - 1718
+[src/bin/pg_dump/parallel.c:1662-1718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1662-L1718)
 
 ## Overview
 Reads a complete null-terminated message from a pipe file descriptor, blocking until the full message is available and returning it as a dynamically allocated string.

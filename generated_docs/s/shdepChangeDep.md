@@ -1,7 +1,7 @@
 # shdepChangeDep
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 206 - 315
+[src/backend/catalog/pg_shdepend.c:206-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L206-L315)
 
 ## Overview
 Internal function that updates shared dependency records when the referenced object changes, handling ownership and tablespace dependency modifications.

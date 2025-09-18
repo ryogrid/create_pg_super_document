@@ -1,7 +1,7 @@
 # dbase_desc
 
 ## Location
-src/backend/access/rmgrdesc/dbasedesc.c: 22 - 56
+[src/backend/access/rmgrdesc/dbasedesc.c:22-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/dbasedesc.c#L22-L56)
 
 ## Overview
 Generates human-readable descriptions of database-related WAL (Write-Ahead Log) records for debugging and monitoring purposes.

@@ -1,7 +1,7 @@
 # btoptions
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4563 - 4585
+[src/backend/access/nbtree/nbtutils.c:4563-4585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4563-L4585)
 
 ## Overview
 The btoptions function processes and validates storage parameters (reloptions) specific to B-tree indexes, returning a parsed and validated options structure.

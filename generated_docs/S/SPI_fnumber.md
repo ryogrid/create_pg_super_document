@@ -1,7 +1,7 @@
 # SPI_fnumber
 
 ## Location
-src/backend/executor/spi.c: 1175 - 1197
+[src/backend/executor/spi.c:1175-1197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1175-L1197)
 
 ## Overview
 Looks up the attribute number (column number) of a named attribute in a tuple descriptor, supporting both regular attributes and system attributes.

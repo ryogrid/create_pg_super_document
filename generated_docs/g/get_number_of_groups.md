@@ -1,7 +1,7 @@
 # get_number_of_groups
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3698 - 3819
+[src/backend/optimizer/plan/planner.c:3698-3819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3698-L3819)
 
 ## Overview
 Estimates the number of groups produced by grouping clauses in a query, returning 1 if not grouping.

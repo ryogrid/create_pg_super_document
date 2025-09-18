@@ -1,7 +1,7 @@
 # get_cheapest_path_for_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 618 - 663
+[src/backend/optimizer/path/pathkeys.c:618-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L618-L663)
 
 ## Overview
 Finds the cheapest path (according to specified cost criterion) that satisfies given pathkeys and parameterization requirements, with optional parallel-safety constraints.

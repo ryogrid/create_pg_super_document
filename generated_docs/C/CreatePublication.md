@@ -1,7 +1,7 @@
 # CreatePublication
 
 ## Location
-src/backend/commands/publicationcmds.c: 728 - 870
+[src/backend/commands/publicationcmds.c:728-870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L728-L870)
 
 ## Overview
 CreatePublication creates a new logical replication publication in PostgreSQL, which defines a set of tables or schemas whose changes can be replicated to subscribers.

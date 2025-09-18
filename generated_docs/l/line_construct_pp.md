@@ -1,7 +1,7 @@
 # line_construct_pp
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1115 - 1136
+[src/backend/utils/adt/geo_ops.c:1115-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1115-L1136)
 
 ## Overview
 Constructs a LINE object from two distinct Point objects in PostgreSQL's geometric data type system.

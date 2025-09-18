@@ -1,7 +1,7 @@
 # lithuanian_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 834 - 835
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:834-835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L834-L835)
 
 ## Overview
 The lithuanian_UTF_8_create_env function creates and initializes a Snowball environment structure specifically configured for Lithuanian UTF-8 text stemming operations.

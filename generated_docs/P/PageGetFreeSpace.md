@@ -1,7 +1,7 @@
 # PageGetFreeSpace
 
 ## Location
-src/backend/storage/page/bufpage.c: 907 - 933
+[src/backend/storage/page/bufpage.c:907-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L907-L933)
 
 ## Overview
 Returns the size of the free (allocatable) space on a page, reduced by the space needed for a new line pointer.

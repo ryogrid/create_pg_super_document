@@ -1,7 +1,7 @@
 # XlogReadTwoPhaseData
 
 ## Location
-src/backend/access/transam/twophase.c: 1404 - 1458
+[src/backend/access/transam/twophase.c:1404-1458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1404-L1458)
 
 ## Overview
 XlogReadTwoPhaseData reads two-phase commit state data directly from the Write-Ahead Log (WAL) at a specified LSN position.

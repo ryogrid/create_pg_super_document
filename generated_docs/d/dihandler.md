@@ -1,7 +1,7 @@
 # dihandler
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 279 - 329
+[src/test/modules/dummy_index_am/dummy_index_am.c:279-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L279-L329)
 
 ## Overview
 The main handler function for the dummy index access method that returns an IndexAmRoutine structure containing all the callback functions and parameters that define the access method's capabilities and behavior.

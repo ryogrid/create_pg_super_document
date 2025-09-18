@@ -1,7 +1,7 @@
 # ExecEvalArrayCoerce
 
 ## Location
-src/backend/executor/execExprInterp.c: 3059 - 3099
+[src/backend/executor/execExprInterp.c:3059-3099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3059-L3099)
 
 ## Overview
 Evaluates an ArrayCoerceExpr expression by converting an array from one type to another, either through binary-compatible type changes or by applying element-wise coercion.

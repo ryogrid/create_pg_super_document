@@ -1,7 +1,7 @@
 # pg_pthread_barrier
 
 ## Location
-src/include/port/pg_pthread.h: 24 - 30
+[src/include/port/pg_pthread.h:24-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_pthread.h#L24-L30)
 
 ## Overview
 The pg_pthread_barrier struct is PostgreSQL's custom implementation of a thread barrier mechanism for platforms that lack the POSIX pthread_barrier_t type, particularly macOS.

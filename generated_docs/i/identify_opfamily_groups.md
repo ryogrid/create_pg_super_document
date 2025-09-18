@@ -1,7 +1,7 @@
 # identify_opfamily_groups
 
 ## Location
-src/backend/access/index/amvalidate.c: 43 - 151
+[src/backend/access/index/amvalidate.c:43-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L43-L151)
 
 ## Overview
 Groups operators and support functions by datatype combinations within an operator family, creating a structured representation for validation purposes.

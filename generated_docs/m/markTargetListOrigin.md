@@ -1,7 +1,7 @@
 # markTargetListOrigin
 
 ## Location
-src/backend/parser/parse_target.c: 343 - 451
+[src/backend/parser/parse_target.c:343-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L343-L451)
 
 ## Overview
 Marks a TargetEntry with the origin table and column information if the referenced variable is from a plain relation, enabling column provenance tracking in PostgreSQL query processing.

@@ -1,7 +1,7 @@
 # keepwal_entry_exists
 
 ## Location
-src/bin/pg_rewind/filemap.c: 266 - 278
+[src/bin/pg_rewind/filemap.c:266-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L266-L278)
 
 ## Overview
 A utility function that checks whether a given file path exists in the keepwal hash table, which tracks WAL files that must not be deleted during pg_rewind operations.

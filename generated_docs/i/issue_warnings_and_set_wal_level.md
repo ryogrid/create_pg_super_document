@@ -1,7 +1,7 @@
 # issue_warnings_and_set_wal_level
 
 ## Location
-src/bin/pg_upgrade/check.c: 741 - 761
+[src/bin/pg_upgrade/check.c:741-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L741-L761)
 
 ## Overview
 Performs final setup tasks after upgrade compatibility is confirmed, including setting WAL level, handling legacy hash indexes, and reporting extension updates.

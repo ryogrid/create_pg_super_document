@@ -1,7 +1,7 @@
 # _bt_sort_array_elements
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 849 - 892
+[src/backend/access/nbtree/nbtutils.c:849-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L849-L892)
 
 ## Overview
 Sorts array elements in-place and removes duplicates, returning the new count of unique elements after deduplication.

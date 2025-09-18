@@ -1,7 +1,7 @@
 # r_R1
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c: 996 - 1000
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c:996-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c#L996-L1000)
 
 ## Overview
 This function tests whether the current cursor position is within the R1 (Region 1) boundary, which is an intermediate morphological region for Snowball stemming algorithms.

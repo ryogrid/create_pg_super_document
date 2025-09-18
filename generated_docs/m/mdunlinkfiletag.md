@@ -1,7 +1,7 @@
 # mdunlinkfiletag
 
 ## Location
-src/backend/storage/smgr/md.c: 1801 - 1819
+[src/backend/storage/smgr/md.c:1801-1819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1801-L1819)
 
 ## Overview
 Unlink (delete) a file identified by a file tag, providing the file path for error reporting purposes.

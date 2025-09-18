@@ -1,7 +1,7 @@
 # deregister_seq_scan
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1837 - 1857
+[src/backend/utils/hash/dynahash.c:1837-1857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1837-L1857)
 
 ## Overview
 Removes a hash table from the active sequential scan tracking system when a sequential scan operation completes.

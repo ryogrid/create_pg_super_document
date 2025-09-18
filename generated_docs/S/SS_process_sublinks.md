@@ -1,7 +1,7 @@
 # SS_process_sublinks
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1919 - 1928
+[src/backend/optimizer/plan/subselect.c:1919-1928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1919-L1928)
 
 ## Overview
 The main entry point function that transforms SubLink nodes into SubPlan nodes within a given expression tree during query planning.

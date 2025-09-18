@@ -1,7 +1,7 @@
 # dsa_get_handle
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 498 - 509
+[src/backend/utils/mmgr/dsa.c:498-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L498-L509)
 
 ## Overview
 Retrieves a handle that can be passed to other processes to allow them to attach to the given Dynamic Shared Area (DSA).

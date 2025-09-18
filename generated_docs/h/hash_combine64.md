@@ -1,7 +1,7 @@
 # hash_combine64
 
 ## Location
-src/include/common/hashfn.h: 80 - 91
+[src/include/common/hashfn.h:80-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L80-L91)
 
 ## Overview
 The `hash_combine64` function efficiently combines two 64-bit hash values into a single 64-bit hash value, providing good bit mixing for applications requiring composite hash values.

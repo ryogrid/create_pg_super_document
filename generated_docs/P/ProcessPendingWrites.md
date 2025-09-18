@@ -1,7 +1,7 @@
 # ProcessPendingWrites
 
 ## Location
-src/backend/replication/walsender.c: 1618 - 1671
+[src/backend/replication/walsender.c:1618-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1618-L1671)
 
 ## Overview
 ProcessPendingWrites is a blocking function that waits until all pending network writes are completed while actively processing client replies, checking timeouts, and handling configuration changes.

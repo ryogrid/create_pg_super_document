@@ -1,7 +1,7 @@
 # AlterEventTriggerOwner_oid
 
 ## Location
-src/backend/commands/event_trigger.c: 510 - 534
+[src/backend/commands/event_trigger.c:510-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L510-L534)
 
 ## Overview
 Changes the owner of an event trigger identified by its OID, providing an alternative interface to AlterEventTriggerOwner for cases where the trigger's OID is already known.

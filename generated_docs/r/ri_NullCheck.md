@@ -1,7 +1,7 @@
 # ri_NullCheck
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2636 - 2672
+[src/backend/utils/adt/ri_triggers.c:2636-2672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2636-L2672)
 
 ## Overview
 Analyzes the NULL state of all key values in a tuple to determine if foreign key constraint checking should be performed.

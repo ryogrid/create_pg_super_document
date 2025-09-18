@@ -1,7 +1,7 @@
 # aclremove
 
 ## Location
-src/backend/utils/adt/acl.c: 1602 - 1611
+[src/backend/utils/adt/acl.c:1602-1611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1602-L1611)
 
 ## Overview
 A deprecated PostgreSQL function that previously supported ACL manipulation but now raises an error indicating it is no longer supported.

@@ -1,7 +1,7 @@
 # WriteTarState
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 67 - 71
+[src/bin/pg_basebackup/pg_basebackup.c:67-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L67-L71)
 
 ## Overview
 A lightweight state management structure for handling TAR file generation during base backup operations, tracking tablespace information and stream processing.

@@ -1,7 +1,7 @@
 # stringify_adefprivs_objtype
 
 ## Location
-src/backend/commands/event_trigger.c: 2206 - 2282
+[src/backend/commands/event_trigger.c:2206-2282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L2206-L2282)
 
 ## Overview
 Converts PostgreSQL ObjectType enumeration values to their plural string representations as they appear in ALTER DEFAULT PRIVILEGES commands.

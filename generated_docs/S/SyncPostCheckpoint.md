@@ -1,7 +1,7 @@
 # SyncPostCheckpoint
 
 ## Location
-src/backend/storage/sync/sync.c: 202 - 285
+[src/backend/storage/sync/sync.c:202-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L202-L285)
 
 ## Overview
 Performs post-checkpoint cleanup by safely removing files that were marked for deletion in previous checkpoint cycles, ensuring they can be unlinked without compromising database consistency.

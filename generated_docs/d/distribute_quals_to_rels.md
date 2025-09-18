@@ -1,7 +1,7 @@
 # distribute_quals_to_rels
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2119 - 2196
+[src/backend/optimizer/plan/initsplan.c:2119-2196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2119-L2196)
 
 ## Overview
 A convenience routine that applies distribute_qual_to_rels to each element of an AND'ed list of clauses during query planning.

@@ -1,7 +1,7 @@
 # register_on_commit_action
 
 ## Location
-src/backend/commands/tablecmds.c: 17522 - 17557
+[src/backend/commands/tablecmds.c:17522-17557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17522-L17557)
 
 ## Overview
 Registers an ON COMMIT action for a newly-created temporary table, storing the action in a backend-local data structure for execution at transaction commit.

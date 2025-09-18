@@ -1,7 +1,7 @@
 # inet_hist_match_divider
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 939 - 972
+[src/backend/utils/adt/network_selfuncs.c:939-972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L939-L972)
 
 ## Overview
 Calculates a partial match divider value for inet histogram selectivity estimation, determining how many network bits distinguish a histogram boundary from a query value.

@@ -1,7 +1,7 @@
 # dclist_move_tail
 
 ## Location
-src/include/lib/ilist.h: 824 - 838
+[src/include/lib/ilist.h:824-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L824-L838)
 
 ## Overview
 Moves a node from its current position within a doubly-linked counted list to the tail (last) position of the same list.

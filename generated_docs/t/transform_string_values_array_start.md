@@ -1,7 +1,7 @@
 # transform_string_values_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5882 - 5891
+[src/backend/utils/adt/jsonfuncs.c:5882-5891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5882-L5891)
 
 ## Overview
 This auxiliary function handles the start of JSON arrays during JSON string value transformation by appending the opening bracket character to the output.

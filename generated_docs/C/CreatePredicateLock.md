@@ -1,7 +1,7 @@
 # CreatePredicateLock
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2443 - 2506
+[src/backend/storage/lmgr/predicate.c:2443-2506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2443-L2506)
 
 ## Overview
 Creates a predicate lock on a specified target for a given transaction, updating both the lock table and transaction's lock list.

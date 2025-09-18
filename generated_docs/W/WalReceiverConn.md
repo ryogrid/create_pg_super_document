@@ -1,7 +1,7 @@
 # WalReceiverConn
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 40 - 119
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:40-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L40-L119)
 
 ## Overview
 WalReceiverConn is a structure that encapsulates the connection information and state for WAL (Write-Ahead Log) receiver functionality in PostgreSQL's logical and physical replication system.

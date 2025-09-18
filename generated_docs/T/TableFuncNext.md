@@ -1,7 +1,7 @@
 # TableFuncNext
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 54 - 80
+[src/backend/executor/nodeTableFuncscan.c:54-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L54-L80)
 
 ## Overview
 TableFuncNext is a static helper function that serves as the core tuple retrieval mechanism for table function scans, fetching tuples from a tuplestore for subsequent processing.

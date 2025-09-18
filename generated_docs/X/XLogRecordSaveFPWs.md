@@ -1,7 +1,7 @@
 # XLogRecordSaveFPWs
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 490 - 545
+[src/bin/pg_waldump/pg_waldump.c:490-545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L490-L545)
 
 ## Overview
 XLogRecordSaveFPWs extracts and saves all full page writes (FPWs) from a WAL record to disk as individual files.

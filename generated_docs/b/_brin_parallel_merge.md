@@ -1,7 +1,7 @@
 # _brin_parallel_merge
 
 ## Location
-src/backend/access/brin/brin.c: 2610 - 2756
+[src/backend/access/brin/brin.c:2610-2756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2610-L2756)
 
 ## Overview
 Coordinates the final merge phase of parallel BRIN index building by collecting and merging sorted results from all worker processes into the complete index.

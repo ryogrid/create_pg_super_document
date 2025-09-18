@@ -1,7 +1,7 @@
 # ResourceOwnerNewParent
 
 ## Location
-src/backend/utils/resowner/resowner.c: 897 - 943
+[src/backend/utils/resowner/resowner.c:897-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L897-L943)
 
 ## Overview
 Reassigns a resource owner to have a new parent, properly maintaining the hierarchical linked list structure of the resource owner tree.

@@ -1,7 +1,7 @@
 # CustomScanState
 
 ## Location
-src/include/nodes/execnodes.h: 2064 - 2073
+[src/include/nodes/execnodes.h:2064-2073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2064-L2073)
 
 ## Overview
 CustomScanState is the execution state node for custom scan implementations in PostgreSQL. It provides an extensible framework allowing extensions and third-party developers to implement custom scan methods with full integration into the PostgreSQL executor.

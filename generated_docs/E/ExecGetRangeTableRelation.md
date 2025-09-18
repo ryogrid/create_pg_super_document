@@ -1,7 +1,7 @@
 # ExecGetRangeTableRelation
 
 ## Location
-src/backend/executor/execUtils.c: 762 - 813
+[src/backend/executor/execUtils.c:762-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L762-L813)
 
 ## Overview
 Opens a Relation for a range table entry if not already opened, providing lazy initialization of table access during query execution.

@@ -1,7 +1,7 @@
 # numeric_send
 
 ## Location
-src/backend/utils/adt/numeric.c: 1161 - 1193
+[src/backend/utils/adt/numeric.c:1161-1193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1161-L1193)
 
 ## Overview
 This function serializes a PostgreSQL Numeric value into its external binary representation for network transmission or storage, converting the internal format to a standardized binary protocol format.

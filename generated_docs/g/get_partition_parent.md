@@ -1,7 +1,7 @@
 # get_partition_parent
 
 ## Location
-src/backend/catalog/partition.c: 53 - 84
+[src/backend/catalog/partition.c:53-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L53-L84)
 
 ## Overview
 Obtains the direct parent of a given partition relation by scanning the pg_inherits catalog table.

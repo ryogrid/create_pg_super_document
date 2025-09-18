@@ -1,7 +1,7 @@
 # create_customscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4277 - 4347
+[src/backend/optimizer/plan/createplan.c:4277-4347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4277-L4347)
 
 ## Overview
 Transforms a CustomPath into a CustomScan plan node by delegating to custom scan providers while handling child plan creation and parameter substitution.

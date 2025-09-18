@@ -1,7 +1,7 @@
 # RangeVarGetCreationNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 654 - 738
+[src/backend/catalog/namespace.c:654-738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L654-L738)
 
 ## Overview
 A function that determines the appropriate namespace (schema) for creating a new relation based on a RangeVar specification, handling temporary tables, schema resolution, and default namespace selection.

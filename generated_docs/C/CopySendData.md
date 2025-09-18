@@ -1,7 +1,7 @@
 # CopySendData
 
 ## Location
-src/backend/commands/copyto.c: 169 - 174
+[src/backend/commands/copyto.c:169-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L169-L174)
 
 ## Overview
 CopySendData is a static function that appends raw binary data to the frontend message buffer during COPY TO operations, serving as the fundamental data transmission primitive for copy operations.

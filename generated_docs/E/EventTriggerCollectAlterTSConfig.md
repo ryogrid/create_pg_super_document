@@ -1,7 +1,7 @@
 # EventTriggerCollectAlterTSConfig
 
 ## Location
-src/backend/commands/event_trigger.c: 1862 - 1896
+[src/backend/commands/event_trigger.c:1862-1896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1862-L1896)
 
 ## Overview
 Collects metadata about an ALTER TEXT SEARCH CONFIGURATION command being executed for event trigger processing.

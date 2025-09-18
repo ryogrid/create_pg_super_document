@@ -1,7 +1,7 @@
 # get_slru_entry
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 220 - 237
+[src/backend/utils/activity/pgstat_slru.c:220-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L220-L237)
 
 ## Overview
 Returns a pointer to the pending statistics entry for a given SLRU index, providing access to the counters that track various SLRU operations before they are flushed to shared memory.

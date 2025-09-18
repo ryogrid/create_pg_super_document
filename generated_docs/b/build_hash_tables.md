@@ -1,7 +1,7 @@
 # build_hash_tables
 
 ## Location
-src/backend/executor/nodeAgg.c: 1468 - 1502
+[src/backend/executor/nodeAgg.c:1468-1502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1468-L1502)
 
 ## Overview
 Initializes or resets hash tables used for hashed aggregation, creating one hash table for each grouping set that requires hashing.

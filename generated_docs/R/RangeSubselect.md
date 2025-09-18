@@ -1,7 +1,7 @@
 # RangeSubselect
 
 ## Location
-src/include/nodes/parsenodes.h: 615 - 621
+[src/include/nodes/parsenodes.h:615-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L615-L621)
 
 ## Overview
 RangeSubselect is a parse tree node that represents a subquery appearing in a FROM clause, allowing subqueries to be used as table sources in SQL queries with optional LATERAL correlation and aliasing.

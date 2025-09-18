@@ -1,7 +1,7 @@
 # executeStatement
 
 ## Location
-src/bin/pgbench/pgbench.c: 1500 - 1515
+[src/bin/pgbench/pgbench.c:1500-1515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1500-L1515)
 
 ## Overview
 Executes a SQL statement using PQexec() and terminates the program with exit(1) if the statement fails, providing a simple wrapper for critical SQL operations in pgbench.

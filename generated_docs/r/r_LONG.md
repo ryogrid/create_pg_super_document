@@ -1,7 +1,7 @@
 # r_LONG
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 398 - 402
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:398-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L398-L402)
 
 ## Overview
 The r_LONG function is a predicate function that detects specific long vowel or vowel sequence patterns in Finnish words during stemming operations.

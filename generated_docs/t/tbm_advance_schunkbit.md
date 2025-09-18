@@ -1,7 +1,7 @@
 # tbm_advance_schunkbit
 
 ## Location
-src/backend/nodes/tidbitmap.c: 941 - 970
+[src/backend/nodes/tidbitmap.c:941-970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L941-L970)
 
 ## Overview
 Advances the schunkbit pointer to the next set bit within a chunk entry during bitmap iteration.

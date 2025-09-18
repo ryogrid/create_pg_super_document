@@ -1,7 +1,7 @@
 # check_notify_buffers
 
 ## Location
-src/backend/commands/async.c: 2403 - 2406
+[src/backend/commands/async.c:2403-2406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2403-L2406)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the notify_buffers configuration parameter by delegating to the standard SLRU buffer validation function.

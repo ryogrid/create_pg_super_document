@@ -1,7 +1,7 @@
 # pg_compress_algorithm
 
 ## Location
-src/include/common/compression.h: 27 - 28
+[src/include/common/compression.h:27-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/compression.h#L27-L28)
 
 ## Overview
 An enumeration that defines the available compression algorithms supported by PostgreSQL's compression subsystem for backup, dump, and streaming operations.

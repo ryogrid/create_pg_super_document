@@ -1,7 +1,7 @@
 # array_agg_combine
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 525 - 621
+[src/backend/utils/adt/array_userfuncs.c:525-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L525-L621)
 
 ## Overview
 Combines two ArrayBuildState structures during parallel aggregate processing for array_agg(), merging their accumulated elements into a single state.

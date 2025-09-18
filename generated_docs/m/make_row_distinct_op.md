@@ -1,7 +1,7 @@
 # make_row_distinct_op
 
 ## Location
-src/backend/parser/parse_expr.c: 3018 - 3061
+[src/backend/parser/parse_expr.c:3018-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3018-L3061)
 
 ## Overview
 Transforms a "row IS DISTINCT FROM row" construct by creating pairwise DISTINCT comparisons between corresponding elements and combining them with OR logic.

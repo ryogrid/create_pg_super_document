@@ -1,7 +1,7 @@
 # headline_json_value
 
 ## Location
-src/backend/tsearch/wparser.c: 523 - 542
+[src/backend/tsearch/wparser.c:523-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L523-L542)
 
 ## Overview
 A static helper function that generates text search headlines from JSON/JSONB element values by parsing the text and highlighting query matches.

@@ -1,7 +1,7 @@
 # getv4
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 382 - 428
+[src/backend/utils/adt/inet_net_pton.c:382-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L382-L428)
 
 ## Overview
 Parses IPv4 address components from a string in dotted decimal notation, supporting both partial addresses and CIDR prefix specifications.

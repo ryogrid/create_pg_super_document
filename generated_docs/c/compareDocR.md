@@ -1,7 +1,7 @@
 # compareDocR
 
 ## Location
-src/backend/utils/adt/tsrank.c: 519 - 539
+[src/backend/utils/adt/tsrank.c:519-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L519-L539)
 
 ## Overview
 A static comparison function used for sorting DocRepresentation structures in ascending order by position, weight, and entry for text search ranking calculations.

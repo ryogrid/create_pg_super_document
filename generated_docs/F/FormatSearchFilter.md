@@ -1,7 +1,7 @@
 # FormatSearchFilter
 
 ## Location
-src/backend/libpq/auth.c: 2415 - 2437
+[src/backend/libpq/auth.c:2415-2437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2415-L2437)
 
 ## Overview
 Formats an LDAP search filter template by substituting username placeholders with the actual username for authentication.

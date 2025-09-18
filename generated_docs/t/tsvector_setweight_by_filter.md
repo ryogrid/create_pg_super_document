@@ -1,7 +1,7 @@
 # tsvector_setweight_by_filter
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 273 - 353
+[src/backend/utils/adt/tsvector_op.c:273-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L273-L353)
 
 ## Overview
 PostgreSQL function that selectively sets the weight for specific lexemes in a TSVector based on a filter array of target lexeme names.

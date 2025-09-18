@@ -1,7 +1,7 @@
 # pg_has_role_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4779 - 4800
+[src/backend/utils/adt/acl.c:4779-4800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4779-L4800)
 
 ## Overview
 Checks if the current user has specific privileges on a role specified by OID, using the current user as the default subject.

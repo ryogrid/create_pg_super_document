@@ -1,7 +1,7 @@
 # getObjectIdentityParts
 
 ## Location
-src/backend/catalog/objectaddress.c: 4755 - 5964
+[src/backend/catalog/objectaddress.c:4755-5964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4755-L5964)
 
 ## Overview
 A comprehensive function that generates detailed identity information for database objects, returning both a complete identity string and optionally decomposed object name and argument lists suitable for reconstructing the ObjectAddress.

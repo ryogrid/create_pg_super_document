@@ -1,7 +1,7 @@
 # PQresultErrorMessage
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3427 - 3434
+[src/interfaces/libpq/fe-exec.c:3427-3434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3427-L3434)
 
 ## Overview
 PQresultErrorMessage retrieves the error message associated with a PostgreSQL query result, providing detailed information about what went wrong during command execution.

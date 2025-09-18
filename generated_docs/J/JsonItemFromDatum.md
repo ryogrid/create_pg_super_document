@@ -1,7 +1,7 @@
 # JsonItemFromDatum
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3049 - 3130
+[src/backend/utils/adt/jsonpath_exec.c:3049-3130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3049-L3130)
 
 ## Overview
 Initializes a JsonbValue structure from a PostgreSQL Datum value of a specified type, converting various PostgreSQL data types into their JSON equivalents.

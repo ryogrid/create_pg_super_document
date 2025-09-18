@@ -1,7 +1,7 @@
 # _EndLOs
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 406 - 415
+[src/bin/pg_dump/pg_backup_custom.c:406-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L406-L415)
 
 ## Overview
 This function is called by the PostgreSQL archiver when finishing the saving of all BLOB (large object) data, marking the end of the large objects section in the archive.

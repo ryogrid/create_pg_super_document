@@ -1,7 +1,7 @@
 # CreateBlockRefTableWriter
 
 ## Location
-src/common/blkreftable.c: 790 - 816
+[src/common/blkreftable.c:790-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L790-L816)
 
 ## Overview
 CreateBlockRefTableWriter initializes a new BlockRefTableWriter for writing block reference table data incrementally to disk, setting up the necessary I/O callbacks and writing the magic number header.

@@ -1,7 +1,7 @@
 # _readBoolExpr
 
 ## Location
-src/backend/nodes/readfuncs.c: 281 - 303
+[src/backend/nodes/readfuncs.c:281-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L281-L303)
 
 ## Overview
 A static function that deserializes BoolExpr nodes from their textual representation, handling boolean expression operations (AND, OR, NOT) used in PostgreSQL query processing and expression evaluation.

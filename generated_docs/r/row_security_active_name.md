@@ -1,7 +1,7 @@
 # row_security_active_name
 
 ## Location
-src/backend/utils/misc/rls.c: 153 - 167
+[src/backend/utils/misc/rls.c:153-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/rls.c#L153-L167)
 
 ## Overview
 A SQL-callable function that checks whether Row Level Security is active for a table specified by its qualified name.

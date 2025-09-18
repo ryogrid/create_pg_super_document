@@ -1,7 +1,7 @@
 # SharedJitInstrumentation
 
 ## Location
-src/include/jit/jit.h: 51 - 55
+[src/include/jit/jit.h:51-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/jit.h#L51-L55)
 
 ## Overview
 SharedJitInstrumentation is a Dynamic Shared Memory (DSM) structure designed to accumulate JIT instrumentation data from all parallel worker processes.

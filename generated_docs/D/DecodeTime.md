@@ -1,7 +1,7 @@
 # DecodeTime
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1435 - 1499
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1435-1499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1435-L1499)
 
 ## Overview
 DecodeTime is a function that parses time strings with delimiters and converts them into structured time components for timestamp processing.

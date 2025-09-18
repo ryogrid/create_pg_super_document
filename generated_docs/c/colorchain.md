@@ -1,7 +1,7 @@
 # colorchain
 
 ## Location
-src/backend/regex/regc_color.c: 984 - 1000
+[src/backend/regex/regc_color.c:984-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L984-L1000)
 
 ## Overview
 The  function adds an arc to the color chain of its associated color, maintaining a doubly-linked list of arcs for efficient color-based arc management.

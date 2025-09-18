@@ -1,7 +1,7 @@
 # ts_process_call
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2535 - 2574
+[src/backend/utils/adt/tsvector_op.c:2535-2574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2535-L2574)
 
 ## Overview
 Processes subsequent calls in a set-returning function that iterates over TSVectorStat entries, formatting and returning one row of statistics data per call.

@@ -1,7 +1,7 @@
 # binaryheap_replace_first
 
 ## Location
-src/common/binaryheap.c: 255 - 269
+[src/common/binaryheap.c:255-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L255-L269)
 
 ## Overview
 Replaces the topmost (root) element of a non-empty heap with a new value while preserving the heap property.

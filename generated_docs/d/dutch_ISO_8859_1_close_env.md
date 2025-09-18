@@ -1,7 +1,7 @@
 # dutch_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c: 602 - 603
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c:602-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c#L602-L603)
 
 ## Overview
 Cleanup function that deallocates memory and resources for a Dutch language stemmer environment configured for ISO 8859-1 character encoding.

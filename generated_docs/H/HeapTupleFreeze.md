@@ -1,7 +1,7 @@
 # HeapTupleFreeze
 
 ## Location
-src/include/access/heapam.h: 140 - 152
+[src/include/access/heapam.h:140-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L140-L152)
 
 ## Overview
 HeapTupleFreeze is a structure that describes how to freeze a specific heap tuple, containing the necessary state and flags for transaction ID freezing operations during VACUUM.

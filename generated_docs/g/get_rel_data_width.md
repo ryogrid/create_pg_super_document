@@ -1,7 +1,7 @@
 # get_rel_data_width
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1185 - 1226
+[src/backend/optimizer/util/plancat.c:1185-1226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1185-L1226)
 
 ## Overview
 Estimates the average width of the data part of a relation's tuples, providing essential information for query optimization and cost estimation.

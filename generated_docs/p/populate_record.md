@@ -1,7 +1,7 @@
 # populate_record
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3518 - 3633
+[src/backend/utils/adt/jsonfuncs.c:3518-3633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3518-L3633)
 
 ## Overview
 A static function that converts JSON/JSONB values into PostgreSQL record (composite type) tuples by populating field values according to the provided tuple descriptor.

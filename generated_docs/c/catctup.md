@@ -1,7 +1,7 @@
 # catctup
 
 ## Location
-src/include/utils/catcache.h: 88 - 135
+[src/include/utils/catcache.h:88-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/catcache.h#L88-L135)
 
 ## Overview
 The catctup struct represents an individual cached tuple in PostgreSQL's catalog cache system, containing both the tuple data and metadata needed for cache management.

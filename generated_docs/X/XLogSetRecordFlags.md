@@ -1,7 +1,7 @@
 # XLogSetRecordFlags
 
 ## Location
-src/backend/access/transam/xloginsert.c: 456 - 473
+[src/backend/access/transam/xloginsert.c:456-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L456-L473)
 
 ## Overview
 XLogSetRecordFlags sets special flags for the WAL record currently being constructed to control record behavior during insertion and processing.

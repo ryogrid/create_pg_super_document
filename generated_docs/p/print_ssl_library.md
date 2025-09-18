@@ -1,7 +1,7 @@
 # print_ssl_library
 
 ## Location
-src/interfaces/libpq/test/libpq_testclient.c: 16 - 26
+[src/interfaces/libpq/test/libpq_testclient.c:16-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/test/libpq_testclient.c#L16-L26)
 
 ## Overview
 A utility function that prints the SSL library name used by libpq, serving as a diagnostic tool to verify SSL support and identify the underlying SSL implementation.

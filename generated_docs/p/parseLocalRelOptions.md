@@ -1,7 +1,7 @@
 # parseLocalRelOptions
 
 ## Location
-src/backend/access/common/reloptions.c: 1550 - 1577
+[src/backend/access/common/reloptions.c:1550-1577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1550-L1577)
 
 ## Overview
 Static function that parses local unregistered relation options from a local_relopts structure, creating a relopt_value array for locally-defined options.

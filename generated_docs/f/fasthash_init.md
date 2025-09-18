@@ -1,7 +1,7 @@
 # fasthash_init
 
 ## Location
-src/include/common/hashfn_unstable.h: 110 - 117
+[src/include/common/hashfn_unstable.h:110-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L110-L117)
 
 ## Overview
 Initializes a fasthash state structure for incremental hashing operations, setting up the initial hash value with an optional seed.

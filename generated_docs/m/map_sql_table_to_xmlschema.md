@@ -1,7 +1,7 @@
 # map_sql_table_to_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3516 - 3620
+[src/backend/utils/adt/xml.c:3516-3620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3516-L3620)
 
 ## Overview
 Maps an SQL table structure to a complete XML Schema document definition according to SQL/XML:2008 sections 9.11 and 9.9.

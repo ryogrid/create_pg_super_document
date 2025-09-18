@@ -1,7 +1,7 @@
 # tuplestore_skiptuples
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1135 - 1205
+[src/backend/utils/sort/tuplestore.c:1135-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1135-L1205)
 
 ## Overview
 Advances over N tuples in either forward or backward direction without returning any data, providing an optimized way to skip multiple tuples at once.

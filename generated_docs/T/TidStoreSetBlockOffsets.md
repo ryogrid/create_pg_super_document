@@ -1,7 +1,7 @@
 # TidStoreSetBlockOffsets
 
 ## Location
-src/backend/access/common/tidstore.c: 356 - 431
+[src/backend/access/common/tidstore.c:356-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L356-L431)
 
 ## Overview
 Creates or replaces an entry in the TidStore for a given block number and array of offset numbers, optimized for vacuum operations.

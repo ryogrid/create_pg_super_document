@@ -1,7 +1,7 @@
 # xl_hash_delete
 
 ## Location
-src/include/access/hash_xlog.h: 184 - 190
+[src/include/access/hash_xlog.h:184-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L184-L190)
 
 ## Overview
 The xl_hash_delete struct represents the WAL record data for hash index tuple deletion operations, used to log the removal of index tuples from hash index pages.

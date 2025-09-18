@@ -1,7 +1,7 @@
 # date2isoyearday
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5279 - 5295
+[src/backend/utils/adt/timestamp.c:5279-5295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5279-L5295)
 
 ## Overview
 Returns the ISO 8601 day-of-year for a given Gregorian date, representing the ordinal day within the ISO year.

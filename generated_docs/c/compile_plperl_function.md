@@ -1,7 +1,7 @@
 # compile_plperl_function
 
 ## Location
-src/pl/plperl/plperl.c: 2718 - 2997
+[src/pl/plperl/plperl.c:2718-2997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2718-L2997)
 
 ## Overview
 Compiles or retrieves a cached PL/Perl function descriptor, handling the complete process from cache lookup to Perl code compilation and storage.

@@ -1,7 +1,7 @@
 # ExecInitResult
 
 ## Location
-src/backend/executor/nodeResult.c: 180 - 239
+[src/backend/executor/nodeResult.c:180-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L180-L239)
 
 ## Overview
 ExecInitResult creates and initializes the execution state for a Result plan node, setting up all necessary data structures, child nodes, and expression evaluation contexts.

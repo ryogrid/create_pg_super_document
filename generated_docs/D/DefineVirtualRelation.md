@@ -1,7 +1,7 @@
 # DefineVirtualRelation
 
 ## Location
-src/backend/commands/view.c: 45 - 266
+[src/backend/commands/view.c:45-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/view.c#L45-L266)
 
 ## Overview
 DefineVirtualRelation creates a view relation and uses the rules system to store the query for the view, handling both new view creation and view replacement scenarios.

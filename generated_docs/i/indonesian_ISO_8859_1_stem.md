@@ -1,7 +1,7 @@
 # indonesian_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c: 313 - 403
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:313-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c#L313-L403)
 
 ## Overview
 This function implements the complete Indonesian word stemming algorithm for ISO-8859-1 encoded text, applying a sequence of morphological transformations to reduce words to their base forms.

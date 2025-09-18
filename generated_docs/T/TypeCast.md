@@ -1,7 +1,7 @@
 # TypeCast
 
 ## Location
-src/include/nodes/parsenodes.h: 370 - 376
+[src/include/nodes/parsenodes.h:370-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L370-L376)
 
 ## Overview
 TypeCast represents a CAST expression in PostgreSQL's parse tree, used to explicitly convert one data type to another in SQL statements.

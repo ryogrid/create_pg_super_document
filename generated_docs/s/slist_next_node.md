@@ -1,7 +1,7 @@
 # slist_next_node
 
 ## Location
-src/include/lib/ilist.h: 1054 - 1061
+[src/include/lib/ilist.h:1054-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1054-L1061)
 
 ## Overview
 Returns the next node in a singly linked list, with safety validation to ensure the node exists in PostgreSQL's intrusive list implementation.

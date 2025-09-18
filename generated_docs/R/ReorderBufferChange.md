@@ -1,7 +1,7 @@
 # ReorderBufferChange
 
 ## Location
-src/include/replication/reorderbuffer.h: 71 - 159
+[src/include/replication/reorderbuffer.h:71-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/reorderbuffer.h#L71-L159)
 
 ## Overview
 ReorderBufferChange represents a single modification operation (insert, update, delete, truncate, or internal operation) in PostgreSQL's logical replication system, encapsulating all necessary data to describe and replay the change.

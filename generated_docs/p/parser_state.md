@@ -1,7 +1,7 @@
 # parser_state
 
 ## Location
-src/tools/pg_bsd_indent/indent_globs.h: 234 - 339
+[src/tools/pg_bsd_indent/indent_globs.h:234-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/indent_globs.h#L234-L339)
 
 ## Overview
 A comprehensive structure that maintains the complete parsing and formatting state for the pg_bsd_indent tool, tracking indentation levels, brace nesting, comment handling, and all formatting context.

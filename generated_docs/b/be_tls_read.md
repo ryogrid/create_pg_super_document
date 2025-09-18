@@ -1,7 +1,7 @@
 # be_tls_read
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 761 - 819
+[src/backend/libpq/be-secure-openssl.c:761-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L761-L819)
 
 ## Overview
 Reads encrypted data from an SSL/TLS connection, handling various SSL error conditions and providing appropriate wait indicators for non-blocking I/O operations.

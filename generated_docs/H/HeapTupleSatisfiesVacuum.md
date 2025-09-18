@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesVacuum
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1162 - 1195
+[src/backend/access/heap/heapam_visibility.c:1162-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1162-L1195)
 
 ## Overview
 HeapTupleSatisfiesVacuum determines the vacuum status of heap tuples by checking if they can be safely removed by VACUUM operations, serving as a wrapper around HeapTupleSatisfiesVacuumHorizon with additional oldest transaction boundary checking.

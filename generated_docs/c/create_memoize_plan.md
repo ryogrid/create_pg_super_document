@@ -1,7 +1,7 @@
 # create_memoize_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1667 - 1720
+[src/backend/optimizer/plan/createplan.c:1667-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1667-L1720)
 
 ## Overview
 Creates a Memoize plan node that caches results based on parameter values, providing an efficient caching mechanism for parameterized subplans that are likely to be called repeatedly with the same parameter values.

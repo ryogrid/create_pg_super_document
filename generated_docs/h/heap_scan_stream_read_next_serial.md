@@ -1,7 +1,7 @@
 # heap_scan_stream_read_next_serial
 
 ## Location
-src/backend/access/heap/heapam.c: 314 - 337
+[src/backend/access/heap/heapam.c:314-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L314-L337)
 
 ## Overview
 A streaming read API callback function that provides the next block number for serial sequential scans and TID range scans of heap tables.

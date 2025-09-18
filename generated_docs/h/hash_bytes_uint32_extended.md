@@ -1,7 +1,7 @@
 # hash_bytes_uint32_extended
 
 ## Location
-src/common/hashfn.c: 631 - 659
+[src/common/hashfn.c:631-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L631-L659)
 
 ## Overview
 The `hash_bytes_uint32_extended` function combines the performance optimization of `hash_bytes_uint32` with the seeding capability and 64-bit output of `hash_bytes_extended` for efficient hashing of single 32-bit values.

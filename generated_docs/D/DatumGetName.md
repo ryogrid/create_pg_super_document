@@ -1,7 +1,7 @@
 # DatumGetName
 
 ## Location
-src/include/postgres.h: 360 - 372
+[src/include/postgres.h:360-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L360-L372)
 
 ## Overview
 DatumGetName extracts a Name value from a Datum, converting PostgreSQL's internal data representation back to the Name type for system catalog and identifier operations.

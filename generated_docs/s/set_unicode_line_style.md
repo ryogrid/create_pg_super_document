@@ -1,7 +1,7 @@
 # set_unicode_line_style
 
 ## Location
-src/bin/psql/command.c: 4490 - 4502
+[src/bin/psql/command.c:4490-4502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4490-L4502)
 
 ## Overview
 A utility function in psql that parses and validates Unicode line style strings, converting them to the appropriate enumerated values for table border formatting.

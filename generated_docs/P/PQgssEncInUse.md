@@ -1,7 +1,7 @@
 # PQgssEncInUse
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 504 - 518
+[src/interfaces/libpq/fe-secure.c:504-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L504-L518)
 
 ## Overview
 Determines whether GSSAPI encryption is currently active and usable for a PostgreSQL client connection.

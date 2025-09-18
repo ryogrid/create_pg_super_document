@@ -1,7 +1,7 @@
 # FreeWorkerInfo
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1589 - 1636
+[src/backend/postmaster/autovacuum.c:1589-1636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1589-L1636)
 
 ## Overview
 FreeWorkerInfo is a static function that returns an autovacuum worker's WorkerInfo structure to the free list when the worker process terminates, ensuring proper cleanup and resource rebalancing.

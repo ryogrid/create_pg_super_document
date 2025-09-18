@@ -1,7 +1,7 @@
 # swedish_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_swedish.c: 289 - 290
+[src/backend/snowball/libstemmer/stem_UTF_8_swedish.c:289-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_swedish.c#L289-L290)
 
 ## Overview
 Creates a new Snowball stemming environment specifically configured for Swedish UTF-8 text processing.

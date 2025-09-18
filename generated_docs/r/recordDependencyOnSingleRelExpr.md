@@ -1,7 +1,7 @@
 # recordDependencyOnSingleRelExpr
 
 ## Location
-src/backend/catalog/dependency.c: 1596 - 1697
+[src/backend/catalog/dependency.c:1596-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1596-L1697)
 
 ## Overview
 Records dependencies between a database object and all objects referenced within an expression tree, with special handling for dependencies on a single specified relation and its columns.

@@ -1,7 +1,7 @@
 # LookupCollation
 
 ## Location
-src/backend/parser/parse_type.c: 515 - 539
+[src/backend/parser/parse_type.c:515-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L515-L539)
 
 ## Overview
 LookupCollation is a function that looks up a collation by name and returns its OID, with support for error location reporting during parsing.

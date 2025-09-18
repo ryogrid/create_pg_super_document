@@ -1,7 +1,7 @@
 # truncate_identifier
 
 ## Location
-src/backend/parser/scansup.c: 93 - 116
+[src/backend/parser/scansup.c:93-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/scansup.c#L93-L116)
 
 ## Overview
 A utility function that truncates SQL identifiers to PostgreSQL's maximum allowed length while properly handling multi-byte character boundaries and optionally issuing warnings.

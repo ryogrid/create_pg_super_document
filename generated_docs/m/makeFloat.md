@@ -1,7 +1,7 @@
 # makeFloat
 
 ## Location
-src/backend/nodes/value.c: 37 - 48
+[src/backend/nodes/value.c:37-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/value.c#L37-L48)
 
 ## Overview
 The makeFloat function creates a new Float node containing a string representation of a numeric value, used for representing floating-point and large integer literals in PostgreSQL's parse tree structure.

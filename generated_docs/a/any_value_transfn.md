@@ -1,7 +1,7 @@
 # any_value_transfn
 
 ## Location
-src/backend/utils/adt/misc.c: 1121 - 1124
+[src/backend/utils/adt/misc.c:1121-1124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L1121-L1124)
 
 ## Overview
 The transition function for PostgreSQL's ANY_VALUE aggregate that simply returns the first non-null input value encountered.

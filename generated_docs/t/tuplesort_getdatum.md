@@ -1,7 +1,7 @@
 # tuplesort_getdatum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1018 - 1063
+[src/backend/utils/sort/tuplesortvariants.c:1018-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1018-L1063)
 
 ## Overview
 Fetches the next Datum from a tuplesort state in either forward or backward direction, providing flexible memory management options for both pass-by-value and pass-by-reference data types.

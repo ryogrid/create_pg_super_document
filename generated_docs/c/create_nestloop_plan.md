@@ -1,7 +1,7 @@
 # create_nestloop_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4348 - 4439
+[src/backend/optimizer/plan/createplan.c:4348-4439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4348-L4439)
 
 ## Overview
 Creates a NestLoop join plan node from a NestPath, implementing nested loop joins where the inner relation is scanned once for each row of the outer relation.

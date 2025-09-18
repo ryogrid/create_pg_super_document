@@ -1,7 +1,7 @@
 # query_to_xml_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 3001 - 3045
+[src/backend/utils/adt/xml.c:3001-3045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3001-L3045)
 
 ## Overview
 Internal function that converts SQL query results into XML format, providing the core functionality for PostgreSQL's XML generation functions.

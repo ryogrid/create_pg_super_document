@@ -1,7 +1,7 @@
 # brin_bloom_summary_out
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 799 - 822
+[src/backend/access/brin/brin_bloom.c:799-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L799-L822)
 
 ## Overview
 Output function for the brin_bloom_summary PostgreSQL data type that converts internal binary bloom filter data into a human-readable text representation showing the filter's key characteristics.

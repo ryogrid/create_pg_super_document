@@ -1,7 +1,7 @@
 # MakeSingleTupleTableSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1325 - 1340
+[src/backend/executor/execTuples.c:1325-1340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1325-L1340)
 
 ## Overview
 Creates and initializes a standalone TupleTableSlot for operations that need a single slot not gotten from the main executor tuple table.

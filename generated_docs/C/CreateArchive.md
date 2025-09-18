@@ -1,7 +1,7 @@
 # CreateArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 221 - 236
+[src/bin/pg_dump/pg_backup_archiver.c:221-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L221-L236)
 
 ## Overview
 Creates a new archive handle for PostgreSQL dump operations with the specified format, compression, and configuration parameters.

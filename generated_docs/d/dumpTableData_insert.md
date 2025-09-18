@@ -1,7 +1,7 @@
 # dumpTableData_insert
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2334 - 2602
+[src/bin/pg_dump/pg_dump.c:2334-2602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2334-L2602)
 
 ## Overview
 Dumps table data using INSERT statements, providing an alternative to COPY that is more portable and suitable for cross-database exports and smaller data sets.

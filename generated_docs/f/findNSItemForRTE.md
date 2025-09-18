@@ -1,7 +1,7 @@
 # findNSItemForRTE
 
 ## Location
-src/backend/parser/parse_relation.c: 3758 - 3785
+[src/backend/parser/parse_relation.c:3758-3785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3758-L3785)
 
 ## Overview
 Searches through the parse state namespace hierarchy to find the ParseNamespaceItem corresponding to a given RangeTblEntry, if it exists and is visible.

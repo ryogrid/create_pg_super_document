@@ -1,7 +1,7 @@
 # get_recovery_conflict_desc
 
 ## Location
-src/backend/storage/ipc/standby.c: 1484 - 1516
+[src/backend/storage/ipc/standby.c:1484-1516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1484-L1516)
 
 ## Overview
 Returns a human-readable description string for different types of PostgreSQL recovery conflicts used in standby servers during hot standby operations.

@@ -1,7 +1,7 @@
 # fetch_function_defaults
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4350 - 4379
+[src/backend/optimizer/util/clauses.c:4350-4379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4350-L4379)
 
 ## Overview
 Retrieves and parses a function's default argument expressions from its pg_proc tuple.

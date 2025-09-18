@@ -1,7 +1,7 @@
 # ParallelSlotsSetup
 
 ## Location
-src/fe_utils/parallel_slot.c: 428 - 459
+[src/fe_utils/parallel_slot.c:428-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L428-L459)
 
 ## Overview
 ParallelSlotsSetup is a public function that creates and initializes a parallel slot array for managing multiple database connections, but defers actual database connections until slots are requested.

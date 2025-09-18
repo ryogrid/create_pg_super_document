@@ -1,7 +1,7 @@
 # repairIndexLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1135 - 1148
+[src/bin/pg_dump/pg_dump_sort.c:1135-1148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1135-L1148)
 
 ## Overview
 Repairs circular dependencies for index loops by removing the dependency from the partitioned index to its partition index.

@@ -1,7 +1,7 @@
 # expandRelation
 
 ## Location
-src/backend/parser/parse_relation.c: 3017 - 3041
+[src/backend/parser/parse_relation.c:3017-3041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3017-L3041)
 
 ## Overview
 A helper function for expandRTE that handles the expansion of ordinary table relations by opening the relation, extracting its tuple descriptor, and delegating to expandTupleDesc for column processing.

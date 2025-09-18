@@ -1,7 +1,7 @@
 # strip_trailing_ws
 
 ## Location
-src/pl/plperl/plperl.c: 1061 - 1074
+[src/pl/plperl/plperl.c:1061-1074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1061-L1074)
 
 ## Overview
 Removes trailing whitespace characters from a string, specifically designed to clean up Perl error messages that often end with newlines.

@@ -1,7 +1,7 @@
 # spgoptions
 
 ## Location
-src/backend/access/spgist/spgutils.c: 751 - 770
+[src/backend/access/spgist/spgutils.c:751-770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L751-L770)
 
 ## Overview
 Processes reloptions (relation options) for SP-GiST indexes, specifically handling the fillfactor parameter to control page utilization.

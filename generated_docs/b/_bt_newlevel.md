@@ -1,7 +1,7 @@
 # _bt_newlevel
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2444 - 2629
+[src/backend/access/nbtree/nbtinsert.c:2444-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2444-L2629)
 
 ## Overview
 Creates a new root level above the existing root page when a B-tree root split occurs, establishing a new tree level with downlink pointers to the split pages.

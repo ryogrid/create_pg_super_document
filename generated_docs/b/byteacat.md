@@ -1,7 +1,7 @@
 # byteacat
 
 ## Location
-src/backend/utils/adt/varlena.c: 2938 - 2952
+[src/backend/utils/adt/varlena.c:2938-2952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2938-L2952)
 
 ## Overview
 byteacat is a PostgreSQL internal function that concatenates two bytea values and returns the result as a new bytea value.

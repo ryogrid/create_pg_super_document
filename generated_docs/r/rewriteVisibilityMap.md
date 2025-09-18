@@ -1,7 +1,7 @@
 # rewriteVisibilityMap
 
 ## Location
-src/bin/pg_upgrade/file.c: 216 - 359
+[src/bin/pg_upgrade/file.c:216-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L216-L359)
 
 ## Overview
 Converts old-format visibility map files to the new format during PostgreSQL upgrades, transforming single-bit-per-page visibility maps to two-bit-per-page format while preserving existing visibility information.

@@ -1,7 +1,7 @@
 # DatumGetVarBitP
 
 ## Location
-src/include/utils/varbit.h: 45 - 50
+[src/include/utils/varbit.h:45-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/varbit.h#L45-L50)
 
 ## Overview
 Converts a Datum value to a VarBit pointer, handling potential TOAST decompression for variable-length bit string data.

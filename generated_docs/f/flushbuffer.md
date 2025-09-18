@@ -1,7 +1,7 @@
 # flushbuffer
 
 ## Location
-src/port/snprintf.c: 298 - 355
+[src/port/snprintf.c:298-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L298-L355)
 
 ## Overview
 A static utility function that writes the entire contents of a formatting buffer to the target stream and resets the buffer pointer for continued use.

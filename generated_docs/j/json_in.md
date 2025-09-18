@@ -1,7 +1,7 @@
 # json_in
 
 ## Location
-src/backend/utils/adt/json.c: 105 - 123
+[src/backend/utils/adt/json.c:105-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L105-L123)
 
 ## Overview
 Converts a JSON string input into PostgreSQL's internal JSON text representation, performing validation during the conversion process.

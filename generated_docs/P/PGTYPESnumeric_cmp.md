@@ -1,7 +1,7 @@
 # PGTYPESnumeric_cmp
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1281 - 1308
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1281-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1281-L1308)
 
 ## Overview
 Compares two numeric values and returns their relative ordering (-1, 0, or 1) in PostgreSQL's ECPG pgtypes library.

@@ -1,7 +1,7 @@
 # cash_recv
 
 ## Location
-src/backend/utils/adt/cash.c: 590 - 600
+[src/backend/utils/adt/cash.c:590-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L590-L600)
 
 ## Overview
 A PostgreSQL binary input function that converts external binary format data to a Cash data type value.

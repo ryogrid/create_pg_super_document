@@ -1,7 +1,7 @@
 # ExecCheckPermissionsModified
 
 ## Location
-src/backend/executor/execMain.c: 745 - 791
+[src/backend/executor/execMain.c:745-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L745-L791)
 
 ## Overview
 Checks INSERT or UPDATE access permissions for a single relation at the column level, processing both operation types uniformly.

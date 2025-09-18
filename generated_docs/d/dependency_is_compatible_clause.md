@@ -1,7 +1,7 @@
 # dependency_is_compatible_clause
 
 ## Location
-src/backend/statistics/dependencies.c: 741 - 928
+[src/backend/statistics/dependencies.c:741-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L741-L928)
 
 ## Overview
 Determines if a clause is compatible with functional dependencies by analyzing whether it represents an equality condition with a pseudoconstant that can be used for dependency-based selectivity estimation.

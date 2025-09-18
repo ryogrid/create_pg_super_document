@@ -1,7 +1,7 @@
 # int28gt
 
 ## Location
-src/backend/utils/adt/int8.c: 368 - 376
+[src/backend/utils/adt/int8.c:368-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L368-L376)
 
 ## Overview
 Compares a 16-bit integer (int2) with a 64-bit integer (int8) and returns true if the int2 value is greater than the int8 value.

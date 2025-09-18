@@ -1,7 +1,7 @@
 # write_jsonlog
 
 ## Location
-src/backend/utils/error/jsonlog.c: 109 - 301
+[src/backend/utils/error/jsonlog.c:109-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/jsonlog.c#L109-L301)
 
 ## Overview
 The main function responsible for formatting and writing PostgreSQL log messages in JSON format, converting ErrorData structures into structured JSON log entries.

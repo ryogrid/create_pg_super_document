@@ -1,7 +1,7 @@
 # RestoreUncommittedEnums
 
 ## Location
-src/backend/catalog/pg_enum.c: 873 - 906
+[src/backend/catalog/pg_enum.c:873-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L873-L906)
 
 ## Overview
 Deserializes uncommitted enum types and values from a serialized buffer in parallel query worker processes.

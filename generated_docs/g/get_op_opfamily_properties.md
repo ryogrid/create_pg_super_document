@@ -1,7 +1,7 @@
 # get_op_opfamily_properties
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 136 - 165
+[src/backend/utils/cache/lsyscache.c:136-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L136-L165)
 
 ## Overview
 Retrieves comprehensive properties of an operator within a specified operator family, including strategy number and input data types for both operands.

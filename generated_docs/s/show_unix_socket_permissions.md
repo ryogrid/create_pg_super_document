@@ -1,7 +1,7 @@
 # show_unix_socket_permissions
 
 ## Location
-src/backend/commands/variable.c: 1180 - 1194
+[src/backend/commands/variable.c:1180-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1180-L1194)
 
 ## Overview
 A GUC (Grand Unified Configuration) show hook function that formats and returns the current value of the unix_socket_permissions configuration parameter as an octal string.

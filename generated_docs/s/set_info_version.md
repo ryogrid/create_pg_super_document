@@ -1,7 +1,7 @@
 # set_info_version
 
 ## Location
-src/bin/initdb/initdb.c: 1927 - 1953
+[src/bin/initdb/initdb.c:1927-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1927-L1953)
 
 ## Overview
 Extracts and formats PostgreSQL version information into a specific format required for the information schema.

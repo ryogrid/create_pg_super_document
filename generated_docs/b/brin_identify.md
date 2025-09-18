@@ -1,7 +1,7 @@
 # brin_identify
 
 ## Location
-src/backend/access/rmgrdesc/brindesc.c: 74 - 107
+[src/backend/access/rmgrdesc/brindesc.c:74-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/brindesc.c#L74-L107)
 
 ## Overview
 The brin_identify function returns a human-readable string identifier for BRIN (Block Range Index) WAL operation types based on the operation's info field.

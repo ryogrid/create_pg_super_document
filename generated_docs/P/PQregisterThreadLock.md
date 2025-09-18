@@ -1,7 +1,7 @@
 # PQregisterThreadLock
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7762 - 7772
+[src/interfaces/libpq/fe-connect.c:7762-7772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7762-L7772)
 
 ## Overview
 Registers a custom thread locking callback function for libpq and returns the previously registered handler.

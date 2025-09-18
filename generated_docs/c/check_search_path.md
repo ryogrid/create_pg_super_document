@@ -1,7 +1,7 @@
 # check_search_path
 
 ## Location
-src/backend/catalog/namespace.c: 4657 - 4712
+[src/backend/catalog/namespace.c:4657-4712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4657-L4712)
 
 ## Overview
 check_search_path is a GUC (Grand Unified Configuration) validation hook that validates the syntactic correctness of new search_path values before they are accepted by PostgreSQL.

@@ -1,7 +1,7 @@
 # MorphOpaque
 
 ## Location
-src/backend/tsearch/to_tsany.c: 25 - 36
+[src/backend/tsearch/to_tsany.c:25-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L25-L36)
 
 ## Overview
 MorphOpaque is an opaque data structure used as a communication mechanism between parse_tsquery() and pushval_morph() functions in PostgreSQL's full-text search morphological parsing system.

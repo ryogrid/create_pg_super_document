@@ -1,7 +1,7 @@
 # binary_upgrade_add_sub_rel_state
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 325 - 368
+[src/backend/utils/adt/pg_upgrade_support.c:325-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L325-L368)
 
 ## Overview
 Adds a relation with specified replication state to the pg_subscription_rel catalog during binary upgrade operations.

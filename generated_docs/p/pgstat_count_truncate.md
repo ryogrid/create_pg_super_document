@@ -1,7 +1,7 @@
 # pgstat_count_truncate
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 416 - 438
+[src/backend/utils/activity/pgstat_relation.c:416-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L416-L438)
 
 ## Overview
 Updates PostgreSQL statistics to record a table truncation operation, preserving existing counters and resetting tuple operation counters.

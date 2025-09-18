@@ -1,7 +1,7 @@
 # gistInitBuffering
 
 ## Location
-src/backend/access/gist/gistbuild.c: 626 - 786
+[src/backend/access/gist/gistbuild.c:626-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L626-L786)
 
 ## Overview
 Attempts to switch PostgreSQL's GiST (Generalized Search Tree) index build process to buffering mode, which can significantly improve performance for large index builds by reducing random I/O operations.

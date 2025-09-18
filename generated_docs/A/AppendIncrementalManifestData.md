@@ -1,7 +1,7 @@
 # AppendIncrementalManifestData
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 196 - 228
+[src/backend/backup/basebackup_incremental.c:196-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L196-L228)
 
 ## Overview
 Appends received backup manifest data chunks to an incremental backup buffer, managing memory and performing incremental JSON parsing when buffer limits are reached.

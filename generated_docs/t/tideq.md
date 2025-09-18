@@ -1,7 +1,7 @@
 # tideq
 
 ## Location
-src/backend/utils/adt/tid.c: 176 - 184
+[src/backend/utils/adt/tid.c:176-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L176-L184)
 
 ## Overview
 The `tideq` function implements the equality comparison operator for PostgreSQL's TID (tuple identifier) data type, determining if two TID values are equal.

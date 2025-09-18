@@ -1,7 +1,7 @@
 # initialize_readline
 
 ## Location
-src/bin/psql/tab-complete.c: 1404 - 1463
+[src/bin/psql/tab-complete.c:1404-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1404-L1463)
 
 ## Overview
 Initializes the readline library for PostgreSQL's psql command-line client, configuring tab completion, word breaks, quoting characters, and other readline-specific settings.

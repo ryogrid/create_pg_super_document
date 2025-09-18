@@ -1,7 +1,7 @@
 # pg_timezone_names
 
 ## Location
-src/backend/utils/adt/datetime.c: 5122 - 5182
+[src/backend/utils/adt/datetime.c:5122-5182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L5122-L5182)
 
 ## Overview
 A set-returning function that reads all available full time zones and returns a set of (name, abbrev, utc_offset, is_dst) for each timezone.

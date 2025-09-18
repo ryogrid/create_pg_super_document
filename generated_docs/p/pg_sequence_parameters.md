@@ -1,7 +1,7 @@
 # pg_sequence_parameters
 
 ## Location
-src/backend/commands/sequence.c: 1741 - 1784
+[src/backend/commands/sequence.c:1741-1784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1741-L1784)
 
 ## Overview
 A SQL-callable function that returns sequence parameters as a composite tuple, primarily used by system views and information schema to expose sequence metadata to users.

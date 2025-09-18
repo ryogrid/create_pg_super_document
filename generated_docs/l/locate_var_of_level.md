@@ -1,7 +1,7 @@
 # locate_var_of_level
 
 ## Location
-src/backend/optimizer/util/var.c: 509 - 524
+[src/backend/optimizer/util/var.c:509-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L509-L524)
 
 ## Overview
 Finds the parse location (source position) of any Var node at a specified query nesting level within an expression tree, primarily used for error reporting.

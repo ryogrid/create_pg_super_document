@@ -1,7 +1,7 @@
 # cclass_column_index
 
 ## Location
-src/backend/regex/regc_locale.c: 671 - 716
+[src/backend/regex/regc_locale.c:671-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_locale.c#L671-L716)
 
 ## Overview
 The cclass_column_index function computes a column index for the high colormap based on which character classes a given character belongs to, used in PostgreSQL's regex color mapping system.

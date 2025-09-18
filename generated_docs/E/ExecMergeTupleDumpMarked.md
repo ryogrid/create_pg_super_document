@@ -1,7 +1,7 @@
 # ExecMergeTupleDumpMarked
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 570 - 581
+[src/backend/executor/nodeMergejoin.c:570-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L570-L581)
 
 ## Overview
 ExecMergeTupleDumpMarked is a debug utility function that prints the current marked tuple in a merge join operation to stdout for debugging purposes.

@@ -1,7 +1,7 @@
 # CleanUpLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1638 - 1691
+[src/backend/storage/lmgr/lock.c:1638-1691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1638-L1691)
 
 ## Overview
 CleanUpLock performs cleanup operations after a lock is released, including garbage collection of unused proclock and lock objects and awakening waiting processes when appropriate.

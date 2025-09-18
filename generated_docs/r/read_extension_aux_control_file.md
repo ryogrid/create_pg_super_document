@@ -1,7 +1,7 @@
 # read_extension_aux_control_file
 
 ## Location
-src/backend/commands/extension.c: 677 - 699
+[src/backend/commands/extension.c:677-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L677-L699)
 
 ## Overview
 Reads an auxiliary control file for a specific extension version and returns a new ExtensionControlFile structure with version-specific parameter overrides applied to the primary configuration.

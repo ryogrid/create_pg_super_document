@@ -1,7 +1,7 @@
 # CopyGetInt32
 
 ## Location
-src/backend/commands/copyfromparse.c: 362 - 378
+[src/backend/commands/copyfromparse.c:362-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L362-L378)
 
 ## Overview
 Reads a 32-bit integer from binary COPY data with automatic conversion from network byte order to host byte order.

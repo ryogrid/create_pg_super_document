@@ -1,7 +1,7 @@
 # apply_child_basequals
 
 ## Location
-src/backend/optimizer/util/inherit.c: 842 - 968
+[src/backend/optimizer/util/inherit.c:842-968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L842-L968)
 
 ## Overview
 Translates and applies base restriction qualifiers from a parent relation to a child relation, optimizing constant expressions and handling security qualifiers.

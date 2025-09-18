@@ -1,7 +1,7 @@
 # CheckServerVersionForStreaming
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 375 - 452
+[src/bin/pg_basebackup/receivelog.c:375-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L375-L452)
 
 ## Overview
 Validates that the PostgreSQL server version is compatible with the streaming replication functionality before attempting to receive transaction log streams.

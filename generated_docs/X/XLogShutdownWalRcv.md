@@ -1,7 +1,7 @@
 # XLogShutdownWalRcv
 
 ## Location
-src/backend/access/transam/xlog.c: 9489 - 9499
+[src/backend/access/transam/xlog.c:9489-9499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9489-L9499)
 
 ## Overview
 A thin wrapper function that shuts down the WAL receiver process and resets the InstallXLogFileSegmentActive flag to ensure clean WAL receiver shutdown.

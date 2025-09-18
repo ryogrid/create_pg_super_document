@@ -1,7 +1,7 @@
 # CompressorState
 
 ## Location
-src/bin/pg_dump/compress_io.h: 49 - 50
+[src/bin/pg_dump/compress_io.h:49-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.h#L49-L50)
 
 ## Overview
 CompressorState is a structure that provides an abstraction layer for compression operations in pg_dump, encapsulating function pointers and data needed for reading, writing, and managing compressed data streams.

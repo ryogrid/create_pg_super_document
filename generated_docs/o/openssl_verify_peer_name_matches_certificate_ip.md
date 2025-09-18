@@ -1,7 +1,7 @@
 # openssl_verify_peer_name_matches_certificate_ip
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 525 - 553
+[src/interfaces/libpq/fe-secure-openssl.c:525-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L525-L553)
 
 ## Overview
 OpenSSL-specific wrapper function that extracts IP addresses from ASN1_OCTET_STRING structures for peer IP address verification in TLS connections.

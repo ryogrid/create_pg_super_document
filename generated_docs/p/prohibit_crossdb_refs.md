@@ -1,7 +1,7 @@
 # prohibit_crossdb_refs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1709 - 1733
+[src/bin/pg_dump/pg_dump.c:1709-1733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1709-L1733)
 
 ## Overview
 Verifies that the connected database name matches a given database name and terminates the program with an error if they don't match, preventing cross-database references in pg_dump operations.

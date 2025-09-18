@@ -1,7 +1,7 @@
 # ExecStoreHeapTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1439 - 1478
+[src/backend/executor/execTuples.c:1439-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1439-L1478)
 
 ## Overview
 Stores a physical HeapTuple into a specified TTSOpsHeapTuple type slot in the tuple table, with configurable memory ownership.

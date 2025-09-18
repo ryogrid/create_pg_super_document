@@ -1,7 +1,7 @@
 # grouping_planner
 
 ## Location
-src/backend/optimizer/plan/planner.c: 1335 - 2076
+[src/backend/optimizer/plan/planner.c:1335-2076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L1335-L2076)
 
 ## Overview
 Performs comprehensive planning steps related to grouping, aggregation, window functions, and other high-level query operations on top of the basic scan/join paths produced by query_planner.

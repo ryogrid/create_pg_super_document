@@ -1,7 +1,7 @@
 # backup_file_entry
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 62 - 64
+[src/backend/backup/basebackup_incremental.c:62-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L62-L64)
 
 ## Overview
 A structure that holds file information extracted from the file list present in a backup manifest, used for tracking files during incremental backup operations.

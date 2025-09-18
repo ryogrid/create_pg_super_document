@@ -1,7 +1,7 @@
 # interval_le
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2559 - 2567
+[src/backend/utils/adt/timestamp.c:2559-2567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2559-L2567)
 
 ## Overview
 The interval_le function implements the "less than or equal to" comparison operator (<=) for PostgreSQL Interval data types.

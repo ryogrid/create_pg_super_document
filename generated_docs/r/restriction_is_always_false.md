@@ -1,7 +1,7 @@
 # restriction_is_always_false
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2805 - 2875
+[src/backend/optimizer/plan/initsplan.c:2805-2875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2805-L2875)
 
 ## Overview
 Checks whether a RestrictInfo condition is always false, enabling the query planner to detect contradictory conditions that would result in empty result sets.

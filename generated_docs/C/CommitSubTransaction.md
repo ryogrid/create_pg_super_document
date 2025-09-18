@@ -1,7 +1,7 @@
 # CommitSubTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 5048 - 5161
+[src/backend/access/transam/xact.c:5048-5161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5048-L5161)
 
 ## Overview
 CommitSubTransaction commits a subtransaction by performing cleanup operations and transferring resources to its parent transaction, ensuring that all subtransaction changes are made permanent while maintaining transaction hierarchy integrity.

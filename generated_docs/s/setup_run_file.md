@@ -1,7 +1,7 @@
 # setup_run_file
 
 ## Location
-src/bin/initdb/initdb.c: 1711 - 1731
+[src/bin/initdb/initdb.c:1711-1731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1711-L1731)
 
 ## Overview
 The  function reads an external SQL file and writes its contents to the command file descriptor for execution during database initialization.

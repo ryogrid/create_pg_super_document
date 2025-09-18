@@ -1,7 +1,7 @@
 # fetch_cursor_param_value
 
 ## Location
-src/backend/executor/execCurrent.c: 258 - 313
+[src/backend/executor/execCurrent.c:258-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execCurrent.c#L258-L313)
 
 ## Overview
 Fetches the string value of a parameter from the execution context, specifically verifying that it is of REFCURSOR type for use in cursor operations.

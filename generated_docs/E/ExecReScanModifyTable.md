@@ -1,7 +1,7 @@
 # ExecReScanModifyTable
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 4961 - 4968
+[src/backend/executor/nodeModifyTable.c:4961-4968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L4961-L4968)
 
 ## Overview
 A placeholder function that explicitly prevents rescanning of ModifyTable nodes by raising an error, as rescan semantics are not defined for DML operations.

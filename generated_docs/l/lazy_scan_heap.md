@@ -1,7 +1,7 @@
 # lazy_scan_heap
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 816 - 1087
+[src/backend/access/heap/vacuumlazy.c:816-1087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L816-L1087)
 
 ## Overview
 lazy_scan_heap is the workhorse function for VACUUM operations, performing the main heap scanning, pruning, index vacuuming coordination, and heap vacuuming in multiple passes.

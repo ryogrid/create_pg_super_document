@@ -1,7 +1,7 @@
 # parallel_vacuum_process_unsafe_indexes
 
 ## Location
-src/backend/commands/vacuumparallel.c: 826 - 862
+[src/backend/commands/vacuumparallel.c:826-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L826-L862)
 
 ## Overview
 This static function handles vacuum processing of indexes that cannot be safely processed in parallel, executed exclusively by the leader process.

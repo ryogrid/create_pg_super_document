@@ -1,7 +1,7 @@
 # point_mul_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4157 - 4166
+[src/backend/utils/adt/geo_ops.c:4157-4166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4157-L4166)
 
 ## Overview
 A static inline function that performs complex number multiplication of two geometric points, treating them as complex numbers where x represents the real part and y represents the imaginary part.

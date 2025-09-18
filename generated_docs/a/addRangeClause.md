@@ -1,7 +1,7 @@
 # addRangeClause
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 427 - 522
+[src/backend/optimizer/path/clausesel.c:427-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L427-L522)
 
 ## Overview
 Manages and optimizes range query clauses by pairing inequality operators on the same variable and maintaining the most restrictive bounds for accurate selectivity estimation.

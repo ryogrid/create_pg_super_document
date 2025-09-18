@@ -1,7 +1,7 @@
 # ExecBSDeleteTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2623 - 2673
+[src/backend/commands/trigger.c:2623-2673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2623-L2673)
 
 ## Overview
 Executes BEFORE STATEMENT DELETE triggers for a relation, providing a hook for statement-level validation or logging before any rows are deleted.

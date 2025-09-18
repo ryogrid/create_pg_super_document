@@ -1,7 +1,7 @@
 # CreateInheritance
 
 ## Location
-src/backend/commands/tablecmds.c: 15773 - 15841
+[src/backend/commands/tablecmds.c:15773-15841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15773-L15841)
 
 ## Overview
 CreateInheritance is a static function that handles the catalog manipulation portion of creating inheritance relationships between a child table and a parent table in PostgreSQL.

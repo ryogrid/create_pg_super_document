@@ -1,7 +1,7 @@
 # init_real_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 934 - 953
+[src/backend/access/common/reloptions.c:934-953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L934-L953)
 
 ## Overview
 A static function that allocates and initializes a new real (floating-point) reloption structure with specified configuration parameters and validation constraints.

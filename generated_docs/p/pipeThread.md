@@ -1,7 +1,7 @@
 # pipeThread
 
 ## Location
-src/backend/postmaster/syslogger.c: 1141 - 1217
+[src/backend/postmaster/syslogger.c:1141-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1141-L1217)
 
 ## Overview
 A Windows-specific worker thread that transfers data from the syslog pipe to the current logfile, working around Windows pipe handling limitations.

@@ -1,7 +1,7 @@
 # RWConflictData
 
 ## Location
-src/include/storage/predicate_internals.h: 193 - 199
+[src/include/storage/predicate_internals.h:193-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L193-L199)
 
 ## Overview
 RWConflictData represents a read-write conflict relationship between two serializable transactions, serving as a fundamental building block for detecting serialization anomalies in PostgreSQL's SSI implementation.

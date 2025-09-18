@@ -1,7 +1,7 @@
 # directTriConsistentFn
 
 ## Location
-src/backend/access/gin/ginlogic.c: 89 - 107
+[src/backend/access/gin/ginlogic.c:89-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L89-L107)
 
 ## Overview
 A helper function that calls a native ternary logic consistent function for GIN index scans, providing direct access to user-defined ternary consistent functions.

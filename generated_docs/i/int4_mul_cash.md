@@ -1,7 +1,7 @@
 # int4_mul_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 864 - 877
+[src/backend/utils/adt/cash.c:864-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L864-L877)
 
 ## Overview
 A PostgreSQL function that multiplies a 32-bit signed integer by a Cash value, providing commutative multiplication support for monetary calculations.

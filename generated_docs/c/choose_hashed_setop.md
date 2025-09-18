@@ -1,7 +1,7 @@
 # choose_hashed_setop
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1290 - 1396
+[src/backend/optimizer/prep/prepunion.c:1290-1396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1290-L1396)
 
 ## Overview
 Determines whether to use hash-based or sort-based execution strategy for set operations (INTERSECT/EXCEPT) by comparing estimated costs and resource requirements.

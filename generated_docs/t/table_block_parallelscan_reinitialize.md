@@ -1,7 +1,7 @@
 # table_block_parallelscan_reinitialize
 
 ## Location
-src/backend/access/table/tableam.c: 407 - 421
+[src/backend/access/table/tableam.c:407-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L407-L421)
 
 ## Overview
 Resets the parallel scan descriptor to allow restarting a parallel scan of a relation from the beginning.

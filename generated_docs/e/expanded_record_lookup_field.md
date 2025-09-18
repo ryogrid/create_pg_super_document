@@ -1,7 +1,7 @@
 # expanded_record_lookup_field
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1017 - 1062
+[src/backend/utils/adt/expandedrecord.c:1017-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1017-L1062)
 
 ## Overview
 Searches for a field by name within an expanded record and returns metadata information about the field if found.

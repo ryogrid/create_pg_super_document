@@ -1,7 +1,7 @@
 # pqTraceOutput_CopyInResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 373 - 385
+[src/interfaces/libpq/fe-trace.c:373-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L373-L385)
 
 ## Overview
 Outputs formatted trace information for PostgreSQL CopyInResponse messages, displaying the copy format and column format specifications for COPY operations from client to server.

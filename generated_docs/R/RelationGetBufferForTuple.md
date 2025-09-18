@@ -1,7 +1,7 @@
 # RelationGetBufferForTuple
 
 ## Location
-src/backend/access/heap/hio.c: 502 - 885
+[src/backend/access/heap/hio.c:502-885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/hio.c#L502-L885)
 
 ## Overview
 RelationGetBufferForTuple finds and returns a pinned, exclusive-locked buffer containing a page with sufficient free space for tuple insertion, handling complex buffer coordination, visibility map management, and relation extension.

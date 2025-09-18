@@ -1,7 +1,7 @@
 # _dumpableAcl
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 162 - 168
+[src/bin/pg_dump/pg_dump.h:162-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L162-L168)
 
 ## Overview
 The  structure stores Access Control List (ACL) information for database objects, including current permissions, default permissions, and initial privileges for objects that support ACL-based security.

@@ -1,7 +1,7 @@
 # ExecParallelScanHashTableForUnmatched
 
 ## Location
-src/backend/executor/nodeHash.c: 2243 - 2305
+[src/backend/executor/nodeHash.c:2243-2305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2243-L2305)
 
 ## Overview
 Scans the hash table for unmatched inner tuples during parallel hash join operations, providing thread-safe access for concurrent workers in parallel hash joins.

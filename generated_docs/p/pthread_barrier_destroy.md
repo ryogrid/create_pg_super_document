@@ -1,7 +1,7 @@
 # pthread_barrier_destroy
 
 ## Location
-src/port/pthread_barrier_wait.c: 72 - 77
+[src/port/pthread_barrier_wait.c:72-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pthread_barrier_wait.c#L72-L77)
 
 ## Overview
 Destroys a pthread barrier object and releases its associated resources.

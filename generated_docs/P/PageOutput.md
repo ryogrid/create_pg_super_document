@@ -1,7 +1,7 @@
 # PageOutput
 
 ## Location
-src/fe_utils/print.c: 3089 - 3140
+[src/fe_utils/print.c:3089-3140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3089-L3140)
 
 ## Overview
 Determines if a pager is needed for output and returns the appropriate FILE pointer, either for a pager process or stdout.

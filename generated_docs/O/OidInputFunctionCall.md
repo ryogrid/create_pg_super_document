@@ -1,7 +1,7 @@
 # OidInputFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1754 - 1762
+[src/backend/utils/fmgr/fmgr.c:1754-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1754-L1762)
 
 ## Overview
 OidInputFunctionCall is a convenience function that calls a datatype input function identified by its OID, intended for seldom-executed code paths due to performance and memory considerations.

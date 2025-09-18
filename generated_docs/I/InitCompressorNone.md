@@ -1,7 +1,7 @@
 # InitCompressorNone
 
 ## Location
-src/bin/pg_dump/compress_none.c: 66 - 86
+[src/bin/pg_dump/compress_none.c:66-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L66-L86)
 
 ## Overview
 Initializes the compressor state for the "none" compression method, setting up function pointers for uncompressed data handling in pg_dump.

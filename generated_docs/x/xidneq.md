@@ -1,7 +1,7 @@
 # xidneq
 
 ## Location
-src/backend/utils/adt/xid.c: 92 - 103
+[src/backend/utils/adt/xid.c:92-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L92-L103)
 
 ## Overview
 The  function is a PostgreSQL built-in function that compares two transaction IDs (XIDs) and returns true if they are different.

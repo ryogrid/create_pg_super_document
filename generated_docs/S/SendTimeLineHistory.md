@@ -1,7 +1,7 @@
 # SendTimeLineHistory
 
 ## Location
-src/backend/replication/walsender.c: 593 - 682
+[src/backend/replication/walsender.c:593-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L593-L682)
 
 ## Overview
 SendTimeLineHistory handles the TIMELINE_HISTORY replication command by reading and transmitting the complete timeline history file for a specified timeline to replication clients.

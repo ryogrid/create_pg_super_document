@@ -1,7 +1,7 @@
 # PLy_procedure_compile
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 352 - 402
+[src/pl/plpython/plpy_procedure.c:352-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L352-L402)
 
 ## Overview
 Compiles PL/Python source code into executable Python bytecode, setting up the runtime environment with global and static dictionaries for function execution.

@@ -1,7 +1,7 @@
 # point_mul
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4167 - 4181
+[src/backend/utils/adt/geo_ops.c:4167-4181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4167-L4181)
 
 ## Overview
 The point_mul function performs complex multiplication of two Point geometric objects, treating them as complex numbers in a 2D coordinate system.

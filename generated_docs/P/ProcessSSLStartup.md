@@ -1,7 +1,7 @@
 # ProcessSSLStartup
 
 ## Location
-src/backend/tcop/backend_startup.c: 362 - 452
+[src/backend/tcop/backend_startup.c:362-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/backend_startup.c#L362-L452)
 
 ## Overview
 ProcessSSLStartup checks for and handles direct SSL connection requests before the standard startup packet is processed.

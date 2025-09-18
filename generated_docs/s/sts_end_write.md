@@ -1,7 +1,7 @@
 # sts_end_write
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 213 - 233
+[src/backend/utils/sort/sharedtuplestore.c:213-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L213-L233)
 
 ## Overview
 Finalizes the writing phase for a participant by flushing any remaining data and cleaning up write-related resources.

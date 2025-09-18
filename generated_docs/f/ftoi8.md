@@ -1,7 +1,7 @@
 # ftoi8
 
 ## Location
-src/backend/utils/adt/int8.c: 1332 - 1352
+[src/backend/utils/adt/int8.c:1332-1352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1332-L1352)
 
 ## Overview
 Converts a PostgreSQL float4 (single-precision floating-point) value to an int8 (64-bit integer) with range checking and error handling.

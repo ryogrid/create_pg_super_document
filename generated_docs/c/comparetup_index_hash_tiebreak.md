@@ -1,7 +1,7 @@
 # comparetup_index_hash_tiebreak
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1664 - 1672
+[src/backend/utils/sort/tuplesortvariants.c:1664-1672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1664-L1672)
 
 ## Overview
 A placeholder tiebreaker comparison function for hash indexes that should never be called due to the single-key nature of hash index sorting.

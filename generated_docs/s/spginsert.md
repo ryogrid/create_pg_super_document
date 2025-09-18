@@ -1,7 +1,7 @@
 # spginsert
 
 ## Location
-src/backend/access/spgist/spginsert.c: 183 - 219
+[src/backend/access/spgist/spginsert.c:183-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spginsert.c#L183-L219)
 
 ## Overview
 Inserts a single new tuple into an existing SP-GiST index, handling potential conflicts and memory management.

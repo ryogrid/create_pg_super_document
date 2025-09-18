@@ -1,7 +1,7 @@
 # bbsink_throttle_begin_backup
 
 ## Location
-src/backend/backup/basebackup_throttle.c: 96 - 109
+[src/backend/backup/basebackup_throttle.c:96-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_throttle.c#L96-L109)
 
 ## Overview
 Initializes the throttling sink for backup operations by recording the current timestamp as the starting point for throttling calculations.

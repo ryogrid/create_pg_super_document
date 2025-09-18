@@ -1,7 +1,7 @@
 # _outEquivalenceClass
 
 ## Location
-src/backend/nodes/outfuncs.c: 455 - 480
+[src/backend/nodes/outfuncs.c:455-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L455-L480)
 
 ## Overview
 Serializes an EquivalenceClass node to its string representation, following merge chains to output the topmost merged equivalence class with all its optimization metadata and member information.

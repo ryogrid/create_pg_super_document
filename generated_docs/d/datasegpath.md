@@ -1,7 +1,7 @@
 # datasegpath
 
 ## Location
-src/bin/pg_rewind/filemap.c: 653 - 679
+[src/bin/pg_rewind/filemap.c:653-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L653-L679)
 
 ## Overview
 Creates the file path for a PostgreSQL relation data file segment by combining the base relation path with an optional segment number.

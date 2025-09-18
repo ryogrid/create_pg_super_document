@@ -1,7 +1,7 @@
 # storeOperators
 
 ## Location
-src/backend/commands/opclasscmds.c: 1429 - 1558
+[src/backend/commands/opclasscmds.c:1429-1558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1429-L1558)
 
 ## Overview
 Stores operator family members into the pg_amop system catalog and creates all necessary dependency relationships for proper database object management.

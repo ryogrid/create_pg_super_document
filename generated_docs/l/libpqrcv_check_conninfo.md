@@ -1,7 +1,7 @@
 # libpqrcv_check_conninfo
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 316 - 370
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:316-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L316-L370)
 
 ## Overview
 Validates PostgreSQL connection string syntax and enforces password requirements for security compliance in replication connections.

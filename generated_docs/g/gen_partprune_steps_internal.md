@@ -1,7 +1,7 @@
 # gen_partprune_steps_internal
 
 ## Location
-src/backend/partitioning/partprune.c: 961 - 1312
+[src/backend/partitioning/partprune.c:961-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L961-L1312)
 
 ## Overview
 Processes a list of WHERE clauses to generate partition pruning steps that can be used to eliminate partitions during query execution, returning NIL when no pruning steps can be generated.

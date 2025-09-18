@@ -1,7 +1,7 @@
 # XLogPrefetchStats
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 171 - 185
+[src/backend/access/transam/xlogprefetcher.c:171-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L171-L185)
 
 ## Overview
 XLogPrefetchStats is a shared memory structure that maintains performance counters and metrics for the WAL prefetching system, exposed through the pg_stat_recovery_prefetch view.

@@ -1,7 +1,7 @@
 # bms_replace_members
 
 ## Location
-src/backend/nodes/bitmapset.c: 972 - 1018
+[src/backend/nodes/bitmapset.c:972-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L972-L1018)
 
 ## Overview
 Completely replaces the contents of one bitmapset with the contents of another, recycling the target bitmapset's memory when possible.

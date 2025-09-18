@@ -1,7 +1,7 @@
 # GetOldestNonRemovableTransactionId
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2005 - 2033
+[src/backend/storage/ipc/procarray.c:2005-2033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2005-L2033)
 
 ## Overview
 GetOldestNonRemovableTransactionId returns the oldest transaction ID for which deleted tuples must be preserved in a given table, providing the cleanup horizon for VACUUM operations.

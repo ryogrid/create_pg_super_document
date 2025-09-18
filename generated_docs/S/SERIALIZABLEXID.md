@@ -1,7 +1,7 @@
 # SERIALIZABLEXID
 
 ## Location
-src/include/storage/predicate_internals.h: 240 - 247
+[src/include/storage/predicate_internals.h:240-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L240-L247)
 
 ## Overview
 A hash table entry structure that provides a mapping from a TransactionId to the corresponding SERIALIZABLEXACT record for serializable transactions in PostgreSQL's predicate locking system.

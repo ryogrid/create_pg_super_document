@@ -1,7 +1,7 @@
 # timestamptz_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 4285 - 4325
+[src/backend/utils/adt/formatting.c:4285-4325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4285-L4325)
 
 ## Overview
 SQL callable function that formats a TIMESTAMPTZ (timestamp with time zone) value into a string according to a specified format template, implementing the `to_char(timestamptz, format)` SQL function.

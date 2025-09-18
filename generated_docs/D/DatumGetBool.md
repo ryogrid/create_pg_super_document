@@ -1,7 +1,7 @@
 # DatumGetBool
 
 ## Location
-src/include/postgres.h: 90 - 101
+[src/include/postgres.h:90-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L90-L101)
 
 ## Overview
 DatumGetBool is an inline function that extracts a boolean value from a PostgreSQL Datum, treating any nonzero value as true.

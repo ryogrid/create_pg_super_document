@@ -1,7 +1,7 @@
 # numeric_sign_internal
 
 ## Location
-src/backend/utils/adt/numeric.c: 1476 - 1507
+[src/backend/utils/adt/numeric.c:1476-1507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1476-L1507)
 
 ## Overview
 The numeric_sign_internal function determines the sign of a PostgreSQL NUMERIC value, returning -1 for negative numbers, 0 for zero, and 1 for positive numbers.

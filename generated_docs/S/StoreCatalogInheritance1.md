@@ -1,7 +1,7 @@
 # StoreCatalogInheritance1
 
 ## Location
-src/backend/commands/tablecmds.c: 3433 - 3477
+[src/backend/commands/tablecmds.c:3433-3477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3433-L3477)
 
 ## Overview  
 StoreCatalogInheritance1 creates a single inheritance relationship entry in the system catalogs, establishing the parent-child relationship between two relations along with proper dependencies and metadata updates.

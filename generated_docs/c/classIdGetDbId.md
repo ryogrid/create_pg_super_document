@@ -1,7 +1,7 @@
 # classIdGetDbId
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1190 - 1210
+[src/backend/catalog/pg_shdepend.c:1190-1210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1190-L1210)
 
 ## Overview
 Utility function that determines the appropriate database ID to use in pg_shdepend records based on whether the catalog table contains shared or database-specific objects.

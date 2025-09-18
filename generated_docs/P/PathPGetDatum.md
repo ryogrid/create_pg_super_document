@@ -1,7 +1,7 @@
 # PathPGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 212 - 215
+[src/include/utils/geo_decls.h:212-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L212-L215)
 
 ## Overview
 PathPGetDatum is an inline function that converts a PATH pointer to a PostgreSQL Datum value for returning from functions or storing in the database.

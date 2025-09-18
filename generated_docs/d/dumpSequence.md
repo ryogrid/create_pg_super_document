@@ -1,7 +1,7 @@
 # dumpSequence
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17576 - 17842
+[src/bin/pg_dump/pg_dump.c:17576-17842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17576-L17842)
 
 ## Overview
 Writes the SQL declaration (not data) of one user-defined sequence to the dump output, handling both regular sequences and identity sequences.

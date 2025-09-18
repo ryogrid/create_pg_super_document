@@ -1,7 +1,7 @@
 # MultiExecHash
 
 ## Location
-src/backend/executor/nodeHash.c: 105 - 137
+[src/backend/executor/nodeHash.c:105-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L105-L137)
 
 ## Overview
 MultiExecHash is the main execution function for Hash nodes that builds hash tables for hash joins, supporting both single-backend and parallel execution modes with optional partitioning for multiple batches.

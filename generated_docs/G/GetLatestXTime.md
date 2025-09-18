@@ -1,7 +1,7 @@
 # GetLatestXTime
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4597 - 4614
+[src/backend/access/transam/xlogrecovery.c:4597-4614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4597-L4614)
 
 ## Overview
 GetLatestXTime retrieves the timestamp of the latest processed commit/abort record during PostgreSQL recovery operations.

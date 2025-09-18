@@ -1,7 +1,7 @@
 # ExecInitGather
 
 ## Location
-src/backend/executor/nodeGather.c: 53 - 136
+[src/backend/executor/nodeGather.c:53-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L53-L136)
 
 ## Overview
 Initializes the execution state for a Gather plan node, which is responsible for coordinating parallel query execution by collecting results from multiple worker processes.

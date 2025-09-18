@@ -1,7 +1,7 @@
 # pq_setkeepaliveswin32
 
 ## Location
-src/backend/libpq/pqcomm.c: 1590 - 1628
+[src/backend/libpq/pqcomm.c:1590-1628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1590-L1628)
 
 ## Overview
 Windows-specific function that configures TCP keepalive parameters on a socket using the WSAIoctl system call.

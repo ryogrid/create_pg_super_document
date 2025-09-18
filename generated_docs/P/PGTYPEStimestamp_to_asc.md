@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_to_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 272 - 293
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:272-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L272-L293)
 
 ## Overview
 Converts a PostgreSQL internal timestamp value to its ASCII string representation for use in ECPG applications.

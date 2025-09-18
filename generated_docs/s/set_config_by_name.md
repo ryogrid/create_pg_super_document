@@ -1,7 +1,7 @@
 # set_config_by_name
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 332 - 381
+[src/backend/utils/misc/guc_funcs.c:332-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L332-L381)
 
 ## Overview
 SQL-callable function that provides access to PostgreSQL's SET command functionality, allowing configuration variables to be set from within SQL queries and returning the new value.

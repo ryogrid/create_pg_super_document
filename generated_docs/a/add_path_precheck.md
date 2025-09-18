@@ -1,7 +1,7 @@
 # add_path_precheck
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 642 - 746
+[src/backend/optimizer/util/pathnode.c:642-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L642-L746)
 
 ## Overview
 Performs a lightweight check to determine whether a proposed path could potentially be accepted before creating the full Path structure.

@@ -1,7 +1,7 @@
 # err
 
 ## Location
-src/tools/pg_bsd_indent/err.c: 43 - 57
+[src/tools/pg_bsd_indent/err.c:43-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/err.c#L43-L57)
 
 ## Overview
 The `err` function is a BSD-style error reporting function that prints an error message along with the system error description and terminates the program.

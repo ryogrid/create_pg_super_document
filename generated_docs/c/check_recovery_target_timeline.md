@@ -1,7 +1,7 @@
 # check_recovery_target_timeline
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4966 - 4998
+[src/backend/access/transam/xlogrecovery.c:4966-4998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4966-L4998)
 
 ## Overview
 A GUC check hook function that validates and processes recovery_target_timeline parameter values, supporting both special keywords and numeric timeline IDs.

@@ -1,7 +1,7 @@
 # dir_open_for_write
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 117 - 303
+[src/bin/pg_basebackup/walmethods.c:117-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L117-L303)
 
 ## Overview
 Opens a WAL file for writing in directory-based WAL method, supporting multiple compression algorithms and proper file initialization with padding and synchronization.

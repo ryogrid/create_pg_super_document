@@ -1,7 +1,7 @@
 # pg_atomic_write_u32
 
 ## Location
-src/include/port/atomics.h: 271 - 289
+[src/include/port/atomics.h:271-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L271-L289)
 
 ## Overview
 An atomic write function that guarantees a complete write to a 32-bit atomic variable, ensuring no partial writes can be observed by any reader.

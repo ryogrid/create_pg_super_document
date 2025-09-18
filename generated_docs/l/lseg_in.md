@@ -1,7 +1,7 @@
 # lseg_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2065 - 2080
+[src/backend/utils/adt/geo_ops.c:2065-2080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2065-L2080)
 
 ## Overview
 PostgreSQL input function that parses string representations of line segments and converts them into internal LSEG data structures.

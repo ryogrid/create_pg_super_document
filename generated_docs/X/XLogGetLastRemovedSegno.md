@@ -1,7 +1,7 @@
 # XLogGetLastRemovedSegno
 
 ## Location
-src/backend/access/transam/xlog.c: 3735 - 3750
+[src/backend/access/transam/xlog.c:3735-3750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3735-L3750)
 
 ## Overview
 XLogGetLastRemovedSegno retrieves the segment number of the most recently removed WAL segment, or returns 0 if no segments have been removed since startup.

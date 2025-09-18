@@ -1,7 +1,7 @@
 # ECPGdescribe
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 847 - 991
+[src/interfaces/ecpg/ecpglib/descriptor.c:847-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L847-L991)
 
 ## Overview
 Retrieves metadata information about a prepared statement and stores it in the specified descriptor or SQLDA structure.

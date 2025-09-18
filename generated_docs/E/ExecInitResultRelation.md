@@ -1,7 +1,7 @@
 # ExecInitResultRelation
 
 ## Location
-src/backend/executor/execUtils.c: 814 - 843
+[src/backend/executor/execUtils.c:814-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L814-L843)
 
 ## Overview
 Initializes a ResultRelInfo structure for a target relation in DML operations, opening the relation and setting up metadata needed for data modification.

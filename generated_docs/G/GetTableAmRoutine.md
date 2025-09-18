@@ -1,7 +1,7 @@
 # GetTableAmRoutine
 
 ## Location
-src/backend/access/table/tableamapi.c: 28 - 104
+[src/backend/access/table/tableamapi.c:28-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableamapi.c#L28-L104)
 
 ## Overview
 GetTableAmRoutine is a PostgreSQL function that retrieves and validates the TableAmRoutine struct from a table access method handler, ensuring all required callback functions are properly defined.

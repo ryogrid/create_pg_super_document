@@ -1,7 +1,7 @@
 # RT_EXTEND_DOWN
 
 ## Location
-src/include/lib/radixtree.h: 1616 - 1662
+[src/include/lib/radixtree.h:1616-1662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1616-L1662)
 
 ## Overview
 RT_EXTEND_DOWN is a static inline function that inserts a chain of nodes downward in the radix tree until reaching the lowest level, returning the address of a slot to be filled by the caller.

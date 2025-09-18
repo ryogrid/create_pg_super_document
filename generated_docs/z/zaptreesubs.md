@@ -1,7 +1,7 @@
 # zaptreesubs
 
 ## Location
-src/backend/regex/regexec.c: 679 - 701
+[src/backend/regex/regexec.c:679-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L679-L701)
 
 ## Overview
 Recursively initializes all subexpression matches within a regular expression subtree to "no match" state.

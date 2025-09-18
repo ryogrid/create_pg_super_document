@@ -1,7 +1,7 @@
 # ParallelSlot
 
 ## Location
-src/bin/pg_dump/parallel.c: 93 - 126
+[src/bin/pg_dump/parallel.c:93-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L93-L126)
 
 ## Overview
 ParallelSlot is a struct that represents the private per-parallel-worker state in PostgreSQL's pg_dump utility, managing the status and communication channels for parallel dump operations.

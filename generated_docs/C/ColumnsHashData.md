@@ -1,7 +1,7 @@
 # ColumnsHashData
 
 ## Location
-src/backend/partitioning/partbounds.c: 4773 - 4783
+[src/backend/partitioning/partbounds.c:4773-4783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L4773-L4783)
 
 ## Overview
 ColumnsHashData is a structure that stores metadata and function information needed for computing hash values of partition key columns in hash partitioning.

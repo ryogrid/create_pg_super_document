@@ -1,7 +1,7 @@
 # PLy_cursor_query
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 78 - 140
+[src/pl/plpython/plpy_cursorobject.c:78-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L78-L140)
 
 ## Overview
 Creates a PL/Python cursor object from a SQL query string by preparing the query and opening a PostgreSQL portal.

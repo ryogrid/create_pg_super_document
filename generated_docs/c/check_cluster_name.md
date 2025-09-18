@@ -1,7 +1,7 @@
 # check_cluster_name
 
 ## Location
-src/backend/commands/variable.c: 1106 - 1133
+[src/backend/commands/variable.c:1106-1133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1106-L1133)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates and sanitizes the `cluster_name` configuration parameter by ensuring it contains only clean ASCII characters.

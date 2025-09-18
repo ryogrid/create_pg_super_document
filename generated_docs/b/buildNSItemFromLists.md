@@ -1,7 +1,7 @@
 # buildNSItemFromLists
 
 ## Location
-src/backend/parser/parse_relation.c: 1354 - 1417
+[src/backend/parser/parse_relation.c:1354-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1354-L1417)
 
 ## Overview
 Builds a ParseNamespaceItem structure from lists of column type information, used for non-physical relations like subqueries and CTEs.

@@ -1,7 +1,7 @@
 # gistplacetopage
 
 ## Location
-src/backend/access/gist/gist.c: 225 - 633
+[src/backend/access/gist/gist.c:225-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L225-L633)
 
 ## Overview
 A complex core function that places tuples on a GiST page, handling page splits when necessary and managing all the intricate details of GiST page structure and concurrency control.

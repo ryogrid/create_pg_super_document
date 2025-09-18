@@ -1,7 +1,7 @@
 # cliplen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1150 - 1160
+[src/backend/utils/mb/mbutils.c:1150-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1150-L1160)
 
 ## Overview
 A simple string clipping function optimized for single-byte encodings that returns the effective length of a string up to a specified limit.

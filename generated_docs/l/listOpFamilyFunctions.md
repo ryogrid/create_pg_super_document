@@ -1,7 +1,7 @@
 # listOpFamilyFunctions
 
 ## Location
-src/bin/psql/describe.c: 6965 - 7053
+[src/bin/psql/describe.c:6965-7053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6965-L7053)
 
 ## Overview
 The  function implements the  psql command to display a formatted list of support functions belonging to operator families, with optional filtering by index access method and operator family name.

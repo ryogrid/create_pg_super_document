@@ -1,7 +1,7 @@
 # lookup_type_cache
 
 ## Location
-src/backend/utils/cache/typcache.c: 346 - 879
+[src/backend/utils/cache/typcache.c:346-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L346-L879)
 
 ## Overview
 The central function for accessing PostgreSQL's type cache, retrieving or creating TypeCacheEntry structures with the requested type information populated according to specified flags.

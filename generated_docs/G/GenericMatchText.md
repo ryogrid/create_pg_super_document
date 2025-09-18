@@ -1,7 +1,7 @@
 # GenericMatchText
 
 ## Location
-src/backend/utils/adt/like.c: 150 - 170
+[src/backend/utils/adt/like.c:150-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L150-L170)
 
 ## Overview
 A dispatcher function that selects the appropriate character encoding-specific LIKE pattern matching implementation based on database encoding and collation settings.

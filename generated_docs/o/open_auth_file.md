@@ -1,7 +1,7 @@
 # open_auth_file
 
 ## Location
-src/backend/libpq/hba.c: 595 - 656
+[src/backend/libpq/hba.c:595-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L595-L656)
 
 ## Overview
 Opens authentication configuration files with proper error handling, recursion depth checking, and memory context management for tokenization.

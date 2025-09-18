@@ -1,7 +1,7 @@
 # expandRTE
 
 ## Location
-src/backend/parser/parse_relation.c: 2659 - 3016
+[src/backend/parser/parse_relation.c:2659-3016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2659-L3016)
 
 ## Overview
 Expands the columns of a Range Table Entry (RTE) by creating lists of column names and corresponding Var nodes for each accessible column, handling different RTE types with specific expansion logic.

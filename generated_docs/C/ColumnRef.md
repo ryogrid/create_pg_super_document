@@ -1,7 +1,7 @@
 # ColumnRef
 
 ## Location
-src/include/nodes/parsenodes.h: 291 - 296
+[src/include/nodes/parsenodes.h:291-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L291-L296)
 
 ## Overview
 ColumnRef is a parse tree node that represents references to columns or entire tuples in SQL expressions, supporting qualified column names and wildcard selections.

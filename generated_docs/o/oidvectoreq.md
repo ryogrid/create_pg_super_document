@@ -1,7 +1,7 @@
 # oidvectoreq
 
 ## Location
-src/backend/utils/adt/oid.c: 344 - 351
+[src/backend/utils/adt/oid.c:344-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L344-L351)
 
 ## Overview
 The  function implements the equality comparison operator for PostgreSQL's oidvector data type, determining if two oidvector values are equal.

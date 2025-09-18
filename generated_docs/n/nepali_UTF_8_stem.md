@@ -1,7 +1,7 @@
 # nepali_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 376 - 417
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:376-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L376-L417)
 
 ## Overview
 The main stemming function for Nepali text encoded in UTF-8, implementing the complete Snowball stemming algorithm for the Nepali language.

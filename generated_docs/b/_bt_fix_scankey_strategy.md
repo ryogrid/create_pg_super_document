@@ -1,7 +1,7 @@
 # _bt_fix_scankey_strategy
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3329 - 3437
+[src/backend/access/nbtree/nbtutils.c:3329-3437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3329-L3437)
 
 ## Overview
 Adjusts a scankey's strategy and flags to account for index options like DESC ordering and handles IS NULL/NOT NULL conditions while validating comparison values.

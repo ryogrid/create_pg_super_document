@@ -1,7 +1,7 @@
 # MultiXactIdPrecedes
 
 ## Location
-src/backend/access/transam/multixact.c: 3309 - 3322
+[src/backend/access/transam/multixact.c:3309-3322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3309-L3322)
 
 ## Overview
 MultiXactIdPrecedes determines which of two MultiXactId values is earlier, accounting for wrap-around behavior in the MultiXact ID space.

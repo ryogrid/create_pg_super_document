@@ -1,7 +1,7 @@
 # JsonTablePlanRowSource
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 169 - 173
+[src/backend/utils/adt/jsonpath_exec.c:169-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L169-L173)
 
 ## Overview
 JsonTablePlanRowSource is a structure that holds the result of jsonpath evaluation, serving as a source row for JsonTableGetValue() which computes the values of individual JSON_TABLE columns.

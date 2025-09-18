@@ -1,7 +1,7 @@
 # numeric_is_integral
 
 ## Location
-src/backend/utils/adt/numeric.c: 871 - 904
+[src/backend/utils/adt/numeric.c:871-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L871-L904)
 
 ## Overview
 A static utility function that determines whether a Numeric value represents an integral (whole) number without fractional parts.

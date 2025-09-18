@@ -1,7 +1,7 @@
 # format_function_signature
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12283 - 12311
+[src/bin/pg_dump/pg_dump.c:12283-12311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12283-L12311)
 
 ## Overview
 Generates a formatted function signature consisting of the function name and argument list, primarily used for referencing functions in pg_dump output.

@@ -1,7 +1,7 @@
 # transform_string_values_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5920 - 5930
+[src/backend/utils/adt/jsonfuncs.c:5920-5930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5920-L5930)
 
 ## Overview
 Handles the start of an array element during JSON string value transformation, adding necessary comma separators between array elements.

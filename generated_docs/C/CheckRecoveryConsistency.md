@@ -1,7 +1,7 @@
 # CheckRecoveryConsistency
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2175 - 2274
+[src/backend/access/transam/xlogrecovery.c:2175-2274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2175-L2274)
 
 ## Overview
 CheckRecoveryConsistency determines if WAL recovery has reached a consistent state and enables Hot Standby connections when appropriate consistency and snapshot conditions are met.

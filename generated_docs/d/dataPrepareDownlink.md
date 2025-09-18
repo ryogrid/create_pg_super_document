@@ -1,7 +1,7 @@
 # dataPrepareDownlink
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1333 - 1348
+[src/backend/access/gin/gindatapage.c:1333-1348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1333-L1348)
 
 ## Overview
 dataPrepareDownlink constructs an insertion payload containing a downlink for a given buffer in PostgreSQL's GIN (Generalized Inverted Index) data page management system.

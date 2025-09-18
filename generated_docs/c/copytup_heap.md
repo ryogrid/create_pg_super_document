@@ -1,7 +1,7 @@
 # copytup_heap
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1490 - 1499
+[src/backend/utils/sort/tuplestore.c:1490-1499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1490-L1499)
 
 ## Overview
 A specialized routine for copying HeapTuple data into tuplestore storage by converting it to the more compact MinimalTuple format and tracking memory usage.

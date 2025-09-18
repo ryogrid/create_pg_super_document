@@ -1,7 +1,7 @@
 # readtup_index
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1687 - 1710
+[src/backend/utils/sort/tuplesortvariants.c:1687-1710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1687-L1710)
 
 ## Overview
 A specialized function for reading and deserializing index tuples from logical tapes during external sorting, reconstructing SortTuple structures with proper key extraction.

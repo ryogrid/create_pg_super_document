@@ -1,7 +1,7 @@
 # float8_cmp_internal
 
 ## Location
-src/backend/utils/adt/float.c: 903 - 912
+[src/backend/utils/adt/float.c:903-912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L903-L912)
 
 ## Overview
 Internal comparison function that performs three-way comparison between two double-precision floating-point numbers (float8).

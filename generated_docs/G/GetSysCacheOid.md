@@ -1,7 +1,7 @@
 # GetSysCacheOid
 
 ## Location
-src/backend/utils/cache/syscache.c: 449 - 480
+[src/backend/utils/cache/syscache.c:449-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L449-L480)
 
 ## Overview
 GetSysCacheOid is a convenience function that searches the system cache for a tuple and extracts an OID value from a specified column of the found tuple.

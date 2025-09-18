@@ -1,7 +1,7 @@
 # PostgresMain
 
 ## Location
-src/backend/tcop/postgres.c: 4239 - 5025
+[src/backend/tcop/postgres.c:4239-5025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L4239-L5025)
 
 ## Overview
 The central main loop function for all PostgreSQL backend processes that handles client communication, command processing, and transaction management for both interactive and WAL sender backends.

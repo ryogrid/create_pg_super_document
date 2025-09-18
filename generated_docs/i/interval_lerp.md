@@ -1,7 +1,7 @@
 # interval_lerp
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 512 - 525
+[src/backend/utils/adt/orderedsetaggs.c:512-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L512-L525)
 
 ## Overview
 Performs linear interpolation between two interval values, used in percentile calculations for ordered-set aggregate functions that operate on interval data types.

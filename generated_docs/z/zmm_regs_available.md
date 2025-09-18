@@ -1,7 +1,7 @@
 # zmm_regs_available
 
 ## Location
-src/port/pg_popcount_avx512_choose.c: 61 - 74
+[src/port/pg_popcount_avx512_choose.c:61-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512_choose.c#L61-L74)
 
 ## Overview
 A static inline function that checks if the ZMM registers (512-bit SIMD registers used by AVX-512) are enabled by the operating system using the XGETBV instruction.

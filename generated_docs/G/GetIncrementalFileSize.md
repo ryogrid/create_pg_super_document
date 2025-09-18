@@ -1,7 +1,7 @@
 # GetIncrementalFileSize
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 899 - 920
+[src/backend/backup/basebackup_incremental.c:899-920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L899-L920)
 
 ## Overview
 Computes the total size for a complete incremental backup file containing a specified number of blocks, including both header and data sections.

@@ -1,7 +1,7 @@
 # IsSystemRelation
 
 ## Location
-src/backend/catalog/catalog.c: 73 - 84
+[src/backend/catalog/catalog.c:73-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L73-L84)
 
 ## Overview
 IsSystemRelation determines whether a given relation (table) is either a system catalog or a toast table that should be treated as a system relation for protection purposes.

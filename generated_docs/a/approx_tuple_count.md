@@ -1,7 +1,7 @@
 # approx_tuple_count
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5197 - 5241
+[src/backend/optimizer/path/costsize.c:5197-5241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5197-L5241)
 
 ## Overview
 Provides a quick-and-dirty estimation of the number of join rows passing a set of qualification conditions by multiplying independent clause selectivities.

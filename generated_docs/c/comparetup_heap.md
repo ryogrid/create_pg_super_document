@@ -1,7 +1,7 @@
 # comparetup_heap
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1085 - 1103
+[src/backend/utils/sort/tuplesortvariants.c:1085-1103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1085-L1103)
 
 ## Overview
 A specialized static comparison function for heap tuples that implements the primary comparison logic for sorting HeapTuple/MinimalTuple data structures.

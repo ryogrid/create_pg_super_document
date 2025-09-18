@@ -1,7 +1,7 @@
 # append_rel_pattern_filtered_cte
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1844 - 1882
+[src/bin/pg_amcheck/pg_amcheck.c:1844-1882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1844-L1882)
 
 ## Overview
 Creates a filtered Common Table Expression that selects only database-relevant patterns from a raw pattern CTE for pg_amcheck relation processing.

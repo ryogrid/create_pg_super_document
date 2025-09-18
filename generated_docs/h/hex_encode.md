@@ -1,7 +1,7 @@
 # hex_encode
 
 ## Location
-src/backend/utils/adt/encode.c: 162 - 175
+[src/backend/utils/adt/encode.c:162-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L162-L175)
 
 ## Overview
 Internal utility function that converts binary data to hexadecimal string representation, used as a building block for PostgreSQL's hex encoding functionality.

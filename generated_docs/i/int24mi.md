@@ -1,7 +1,7 @@
 # int24mi
 
 ## Location
-src/backend/utils/adt/int.c: 1002 - 1015
+[src/backend/utils/adt/int.c:1002-1015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1002-L1015)
 
 ## Overview
  is a PostgreSQL function that performs subtraction between a 16-bit integer (int2/smallint) and a 32-bit integer (int4/integer), returning a 32-bit integer result with overflow checking.

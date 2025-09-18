@@ -1,7 +1,7 @@
 # remove_variable_from_list
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 407 - 435
+[src/interfaces/ecpg/preproc/variable.c:407-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L407-L435)
 
 ## Overview
 Removes a specific variable from an argument list by searching for the variable pointer and unlinking the corresponding node from the linked list.

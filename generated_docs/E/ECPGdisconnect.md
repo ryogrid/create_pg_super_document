@@ -1,7 +1,7 @@
 # ECPGdisconnect
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 678 - 721
+[src/interfaces/ecpg/ecpglib/connect.c:678-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L678-L721)
 
 ## Overview
 ECPGdisconnect closes database connections in ECPG, supporting both individual named connections and bulk disconnection of all connections simultaneously.

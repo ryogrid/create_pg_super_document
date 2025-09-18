@@ -1,7 +1,7 @@
 # get_rel_name
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1928 - 1951
+[src/backend/utils/cache/lsyscache.c:1928-1951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1928-L1951)
 
 ## Overview
 Returns the name of a given relation as a palloc'd string copy, or NULL if no such relation exists.

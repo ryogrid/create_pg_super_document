@@ -1,7 +1,7 @@
 # range_contains_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1829 - 1863
+[src/backend/utils/adt/multirangetypes.c:1829-1863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1829-L1863)
 
 ## Overview
 An internal function that tests whether a single range completely contains an entire multirange by checking if the range contains the multirange's union.

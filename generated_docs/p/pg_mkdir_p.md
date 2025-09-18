@@ -1,7 +1,7 @@
 # pg_mkdir_p
 
 ## Location
-src/port/pgmkdirp.c: 57 - 148
+[src/port/pgmkdirp.c:57-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgmkdirp.c#L57-L148)
 
 ## Overview
 A platform-independent function that creates a directory and any necessary parent directories, equivalent to the Unix "mkdir -p" command but without complaining if the target directory already exists.

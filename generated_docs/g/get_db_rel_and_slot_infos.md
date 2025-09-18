@@ -1,7 +1,7 @@
 # get_db_rel_and_slot_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 279 - 313
+[src/bin/pg_upgrade/info.c:279-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L279-L313)
 
 ## Overview
 High-level routine that retrieves comprehensive database, relation, and logical replication slot information for a PostgreSQL cluster during upgrade operations.

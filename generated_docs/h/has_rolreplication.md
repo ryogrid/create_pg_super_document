@@ -1,7 +1,7 @@
 # has_rolreplication
 
 ## Location
-src/backend/utils/init/miscinit.c: 734 - 755
+[src/backend/utils/init/miscinit.c:734-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L734-L755)
 
 ## Overview
 Checks whether a specified role has explicit REPLICATION privilege by examining the pg_authid system catalog.

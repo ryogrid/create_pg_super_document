@@ -1,7 +1,7 @@
 # set_base_rel_pathlists
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 333 - 359
+[src/backend/optimizer/path/allpaths.c:333-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L333-L359)
 
 ## Overview
 Finds all available paths for scanning each base-relation entry, including sequential scan and available indices, attaching useful paths to each relation's pathlist field.

@@ -1,7 +1,7 @@
 # float48mi
 
 ## Location
-src/backend/utils/adt/float.c: 3786 - 3794
+[src/backend/utils/adt/float.c:3786-3794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3786-L3794)
 
 ## Overview
 The float48mi function performs subtraction between a float4 (single precision) and a float8 (double precision) number, returning the result as a float8.

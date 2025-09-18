@@ -1,7 +1,7 @@
 # GetActiveWalLevelOnStandby
 
 ## Location
-src/backend/access/transam/xlog.c: 4814 - 4822
+[src/backend/access/transam/xlog.c:4814-4822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4814-L4822)
 
 ## Overview
 Retrieves the active WAL level from the control file, particularly useful for standby servers where the effective WAL level may differ from the originally configured value.

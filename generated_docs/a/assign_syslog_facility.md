@@ -1,7 +1,7 @@
 # assign_syslog_facility
 
 ## Location
-src/backend/utils/error/elog.c: 2335 - 2359
+[src/backend/utils/error/elog.c:2335-2359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2335-L2359)
 
 ## Overview
 A GUC assign hook function that updates the syslog facility value and manages syslog connection state when the syslog_facility parameter changes.

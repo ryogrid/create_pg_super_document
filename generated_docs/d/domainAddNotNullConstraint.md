@@ -1,7 +1,7 @@
 # domainAddNotNullConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 3668 - 3740
+[src/backend/commands/typecmds.c:3668-3740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3668-L3740)
 
 ## Overview
 Internal function that handles the creation and validation of NOT NULL constraints for domain types, shared between CREATE DOMAIN and ALTER DOMAIN operations.

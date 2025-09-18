@@ -1,7 +1,7 @@
 # brin_desummarize_range
 
 ## Location
-src/backend/access/brin/brin.c: 1482 - 1571
+[src/backend/access/brin/brin.c:1482-1571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1482-L1571)
 
 ## Overview
 A SQL-callable function that removes summary information for a specific block range in a BRIN index, effectively marking that range as no longer summarized.

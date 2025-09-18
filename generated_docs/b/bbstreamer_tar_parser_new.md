@@ -1,7 +1,7 @@
 # bbstreamer_tar_parser_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 93 - 110
+[src/bin/pg_basebackup/bbstreamer_tar.c:93-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L93-L110)
 
 ## Overview
 Creates a new bbstreamer that parses a stream of content as tar data, converting untyped chunks into typed chunks according to tar format conventions.

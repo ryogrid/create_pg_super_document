@@ -1,7 +1,7 @@
 # pow5bits
 
 ## Location
-src/common/ryu_common.h: 54 - 69
+[src/common/ryu_common.h:54-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L54-L69)
 
 ## Overview
 Returns the number of bits required to store 5^e, specifically computing e == 0 ? 1 : ceil(log_2(5^e)).

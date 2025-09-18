@@ -1,7 +1,7 @@
 # rowtype_field_matches
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2186 - 2253
+[src/backend/optimizer/util/clauses.c:2186-2253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2186-L2253)
 
 ## Overview
 Validates that a field in a row type still matches its expected data type characteristics, protecting against invalid optimizations after ALTER COLUMN TYPE operations.

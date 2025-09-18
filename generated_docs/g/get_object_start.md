@@ -1,7 +1,7 @@
 # get_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1158 - 1176
+[src/backend/utils/adt/jsonfuncs.c:1158-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1158-L1176)
 
 ## Overview
 A JSON semantic action callback function that handles the start of JSON object parsing, specifically managing the case where the entire root object should be matched.

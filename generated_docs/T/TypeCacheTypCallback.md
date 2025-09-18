@@ -1,7 +1,7 @@
 # TypeCacheTypCallback
 
 ## Location
-src/backend/utils/cache/typcache.c: 2355 - 2394
+[src/backend/utils/cache/typcache.c:2355-2394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2355-L2394)
 
 ## Overview
 Syscache invalidation callback function that marks cached type information as invalid when pg_type rows are modified, ensuring type cache consistency with system catalog changes.

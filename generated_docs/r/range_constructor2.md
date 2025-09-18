@@ -1,7 +1,7 @@
 # range_constructor2
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 377 - 405
+[src/backend/utils/adt/rangetypes.c:377-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L377-L405)
 
 ## Overview
 Creates a standard-form range value from two boundary arguments, constructing a range with an inclusive lower bound and exclusive upper bound.

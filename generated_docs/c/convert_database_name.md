@@ -1,7 +1,7 @@
 # convert_database_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3150 - 3161
+[src/backend/utils/adt/acl.c:3150-3161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3150-L3161)
 
 ## Overview
 Converts a database name (text) to its corresponding database OID for use in privilege checking operations.

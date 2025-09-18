@@ -1,7 +1,7 @@
 # hyperLogLogState
 
 ## Location
-src/include/lib/hyperloglog.h: 53 - 60
+[src/include/lib/hyperloglog.h:53-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/hyperloglog.h#L53-L60)
 
 ## Overview
 The  struct represents the state of a HyperLogLog cardinality estimator, which provides an approximate technique for computing the number of distinct entries in a set using a fixed amount of memory.

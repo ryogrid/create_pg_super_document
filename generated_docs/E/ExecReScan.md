@@ -1,7 +1,7 @@
 # ExecReScan
 
 ## Location
-src/backend/executor/execAmi.c: 76 - 325
+[src/backend/executor/execAmi.c:76-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L76-L325)
 
 ## Overview
 ExecReScan is the central function that resets a plan node so that its output can be re-scanned, handling parameter changes and dispatching to node-type-specific rescan functions.

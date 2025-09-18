@@ -1,7 +1,7 @@
 # get_replslot_index
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 224 - 236
+[src/backend/utils/activity/pgstat_replslot.c:224-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L224-L236)
 
 ## Overview
 A static helper function that retrieves the array index of a replication slot given its name, used internally by the replication slot statistics subsystem.

@@ -1,7 +1,7 @@
 # _prsInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 533 - 540
+[src/bin/pg_dump/pg_dump.h:533-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L533-L540)
 
 ## Overview
 The  structure represents text search parser information in the PostgreSQL dump utility, storing metadata about text search parsers for database export operations.

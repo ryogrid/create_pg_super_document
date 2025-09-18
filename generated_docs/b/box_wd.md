@@ -1,7 +1,7 @@
 # box_wd
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 883 - 892
+[src/backend/utils/adt/geo_ops.c:883-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L883-L892)
 
 ## Overview
 Returns the width (horizontal magnitude) of a BOX geometric type by calculating the difference between the high and low x-coordinates.

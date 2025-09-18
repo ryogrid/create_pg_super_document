@@ -1,7 +1,7 @@
 # echo_hidden_command
 
 ## Location
-src/bin/psql/command.c: 5574 - 5605
+[src/bin/psql/command.c:5574-5605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5574-L5605)
 
 ## Overview
 Manages the display of hidden SQL queries according to psql's ECHO_HIDDEN setting, optionally preventing execution when set to NOEXEC mode.

@@ -1,7 +1,7 @@
 # reduce_outer_joins_pass1
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3006 - 3083
+[src/backend/optimizer/prep/prepjointree.c:3006-3083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3006-L3083)
 
 ## Overview
 Phase 1 data collection function that recursively traverses the jointree to gather information about base relations and outer joins for the outer join reduction optimization.

@@ -1,7 +1,7 @@
 # NamedTuplestoreScanState
 
 ## Location
-src/include/nodes/execnodes.h: 2010 - 2016
+[src/include/nodes/execnodes.h:2010-2016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2010-L2016)
 
 ## Overview
 NamedTuplestoreScanState is the execution state node for scanning pre-existing named tuplestores in PostgreSQL. It is commonly used for accessing transition tables in AFTER triggers and other scenarios where data is stored in a named tuplestore prior to query execution.

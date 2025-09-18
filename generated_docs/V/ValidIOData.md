@@ -1,7 +1,7 @@
 # ValidIOData
 
 ## Location
-src/backend/utils/adt/misc.c: 54 - 62
+[src/backend/utils/adt/misc.c:54-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L54-L62)
 
 ## Overview
 ValidIOData is a structure used to cache metadata needed for input validation operations in PostgreSQL's type conversion functions.

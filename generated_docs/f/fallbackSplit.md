@@ -1,7 +1,7 @@
 # fallbackSplit
 
 ## Location
-src/backend/access/gist/gistproc.c: 216 - 276
+[src/backend/access/gist/gistproc.c:216-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L216-L276)
 
 ## Overview
 A simple fallback splitting algorithm for GiST indexes that divides entries into two roughly equal groups when more sophisticated splitting methods fail.

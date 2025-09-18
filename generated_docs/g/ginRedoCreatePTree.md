@@ -1,7 +1,7 @@
 # ginRedoCreatePTree
 
 ## Location
-src/backend/access/gin/ginxlog.c: 44 - 70
+[src/backend/access/gin/ginxlog.c:44-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L44-L70)
 
 ## Overview
 Creates and initializes a new posting tree (data leaf page) in a GIN index during WAL replay, setting up the page structure and copying the posting list data.

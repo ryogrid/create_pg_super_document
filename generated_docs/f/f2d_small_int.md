@@ -1,7 +1,7 @@
 # f2d_small_int
 
 ## Location
-src/common/f2s.c: 689 - 741
+[src/common/f2s.c:689-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L689-L741)
 
 ## Overview
 A static inline function that handles the conversion of IEEE 754 single-precision floating-point numbers to decimal representation when the number represents a small integer value.

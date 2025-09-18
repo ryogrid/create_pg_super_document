@@ -1,7 +1,7 @@
 # record_image_cmp
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1331 - 1576
+[src/backend/utils/adt/rowtypes.c:1331-1576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1331-L1576)
 
 ## Overview
 The `record_image_cmp` function performs internal byte-oriented comparison of PostgreSQL record types, comparing the physical representation of values rather than their logical equality.

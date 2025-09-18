@@ -1,7 +1,7 @@
 # PageIndexMultiDelete
 
 ## Location
-src/backend/storage/page/bufpage.c: 1161 - 1294
+[src/backend/storage/page/bufpage.c:1161-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1161-L1294)
 
 ## Overview
 Efficiently deletes multiple tuples from an index page simultaneously, significantly faster than multiple individual deletions when processing more than 2 items.

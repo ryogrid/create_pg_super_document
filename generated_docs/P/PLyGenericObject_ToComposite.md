@@ -1,7 +1,7 @@
 # PLyGenericObject_ToComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1484 - 1557
+[src/pl/plpython/plpy_typeio.c:1484-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1484-L1557)
 
 ## Overview
 Converts a Python generic object to a PostgreSQL composite type (tuple) by extracting attributes from the Python object and mapping them to the corresponding columns of the target composite type.

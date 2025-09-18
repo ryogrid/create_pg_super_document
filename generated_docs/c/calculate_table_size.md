@@ -1,7 +1,7 @@
 # calculate_table_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 424 - 450
+[src/backend/utils/adt/dbsize.c:424-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L424-L450)
 
 ## Overview
 Calculates the total on-disk size of a given table, including all forks (FSM, VM) and the associated TOAST table if any, but excluding indexes other than the TOAST table's index.

@@ -1,7 +1,7 @@
 # inclusion_get_procinfo
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 544 - 607
+[src/backend/access/brin/brin_inclusion.c:544-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L544-L607)
 
 ## Overview  
 Static helper function that retrieves and caches BRIN inclusion operator class support procedure information with optional error handling.

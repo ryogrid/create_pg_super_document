@@ -1,7 +1,7 @@
 # compactify_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1788 - 1858
+[src/backend/access/brin/brin_minmax_multi.c:1788-1858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1788-L1858)
 
 ## Overview
 This function generates a compact range representation from data collected during "batch mode" operations, handling unsorted values and performing range combination when necessary.

@@ -1,7 +1,7 @@
 # describeOneTSConfig
 
 ## Location
-src/bin/psql/describe.c: 5657 - 5727
+[src/bin/psql/describe.c:5657-5727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5657-L5727)
 
 ## Overview
 Displays detailed information about a single text search configuration, including its token types and associated dictionaries.

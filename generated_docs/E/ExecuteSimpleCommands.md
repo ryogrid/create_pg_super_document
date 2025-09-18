@@ -1,7 +1,7 @@
 # ExecuteSimpleCommands
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 380 - 444
+[src/bin/pg_dump/pg_backup_db.c:380-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L380-L444)
 
 ## Overview
 Processes non-COPY table data consisting of multiple INSERT commands by parsing arbitrary buffer boundaries and executing complete SQL statements as they are identified.

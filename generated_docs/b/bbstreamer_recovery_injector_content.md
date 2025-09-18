@@ -1,7 +1,7 @@
 # bbstreamer_recovery_injector_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 85 - 199
+[src/bin/pg_basebackup/bbstreamer_inject.c:85-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L85-L199)
 
 ## Overview
 Handles each chunk of tar content while injecting recovery configuration, managing file filtering and content modification based on the archive context.

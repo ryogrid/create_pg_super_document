@@ -1,7 +1,7 @@
 # transformJsonFuncExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 4271 - 4636
+[src/backend/parser/parse_expr.c:4271-4636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4271-L4636)
 
 ## Overview
 Transforms JSON_VALUE, JSON_QUERY, JSON_EXISTS, and JSON_TABLE function expressions into JsonExpr nodes with comprehensive validation and behavior handling.

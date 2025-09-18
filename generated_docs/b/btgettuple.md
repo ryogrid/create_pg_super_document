@@ -1,7 +1,7 @@
 # btgettuple
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 206 - 265
+[src/backend/access/nbtree/nbtree.c:206-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L206-L265)
 
 ## Overview
 The btgettuple function retrieves the next tuple in a B-tree index scan, handling scan initialization, direction changes, and tuple killing optimization.

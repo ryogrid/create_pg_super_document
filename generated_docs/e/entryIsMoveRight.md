@@ -1,7 +1,7 @@
 # entryIsMoveRight
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 243 - 269
+[src/backend/access/gin/ginentrypage.c:243-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L243-L269)
 
 ## Overview
 Determines whether a GIN B-tree scan should move right to the next page by comparing the search key with the rightmost key on the current page.

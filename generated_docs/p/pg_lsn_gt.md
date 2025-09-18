@@ -1,7 +1,7 @@
 # pg_lsn_gt
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 145 - 153
+[src/backend/utils/adt/pg_lsn.c:145-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L145-L153)
 
 ## Overview
 Compares two PostgreSQL Log Sequence Number (LSN) values to determine if the first is greater than the second, enabling identification of later WAL positions.

@@ -1,7 +1,7 @@
 # ExecShutdownForeignScan
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 441 - 455
+[src/backend/executor/nodeForeignscan.c:441-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L441-L455)
 
 ## Overview
 Provides a mechanism for Foreign Data Wrappers (FDWs) to perform cleanup operations, stop asynchronous resource consumption, and release any resources still held when shutting down a foreign scan operation.

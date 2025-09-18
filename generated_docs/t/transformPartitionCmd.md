@@ -1,7 +1,7 @@
 # transformPartitionCmd
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3932 - 3984
+[src/backend/parser/parse_utilcmd.c:3932-3984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3932-L3984)
 
 ## Overview
 Analyzes and validates ATTACH/DETACH PARTITION commands, ensuring the parent relation is appropriately partitioned and transforming partition bounds when specified.

@@ -1,7 +1,7 @@
 # tuplesort_merge_order
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1804 - 1858
+[src/backend/utils/sort/tuplesort.c:1804-1858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1804-L1858)
 
 ## Overview
 Calculates the optimal merge order (number of input tapes) for the merge phase of external sorting based on available memory, balancing memory usage efficiency with CPU cache performance.

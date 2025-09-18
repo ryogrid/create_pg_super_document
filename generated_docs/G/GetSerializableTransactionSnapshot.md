@@ -1,7 +1,7 @@
 # GetSerializableTransactionSnapshot
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1672 - 1711
+[src/backend/storage/lmgr/predicate.c:1672-1711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1672-L1711)
 
 ## Overview
 Acquires a snapshot that can be used for the current serializable transaction, ensuring proper setup of serializable transaction context and handling special optimizations for read-only deferrable transactions.

@@ -1,7 +1,7 @@
 # TransactionBlockStatusCode
 
 ## Location
-src/backend/access/transam/xact.c: 4947 - 4987
+[src/backend/access/transam/xact.c:4947-4987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4947-L4987)
 
 ## Overview
 TransactionBlockStatusCode returns a single-character status code that indicates the current transaction state to be sent in PostgreSQL's ReadyForQuery message to clients.

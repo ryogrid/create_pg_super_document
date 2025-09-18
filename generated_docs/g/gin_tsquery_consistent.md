@@ -1,7 +1,7 @@
 # gin_tsquery_consistent
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 214 - 262
+[src/backend/utils/adt/tsginidx.c:214-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L214-L262)
 
 ## Overview
 The gin_tsquery_consistent function implements the consistent function for GIN (Generalized Inverted Index) text search, determining whether a given TSQuery can be satisfied by the indexed terms.

@@ -1,7 +1,7 @@
 # join_clause_is_movable_to
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 584 - 669
+[src/backend/optimizer/util/restrictinfo.c:584-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L584-L669)
 
 ## Overview
 Tests whether a join clause is a safe candidate for parameterization of a scan on a specified base relation by evaluating various safety conditions for clause movement.

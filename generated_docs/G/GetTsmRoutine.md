@@ -1,7 +1,7 @@
 # GetTsmRoutine
 
 ## Location
-src/backend/access/tablesample/tablesample.c: 27 - 40
+[src/backend/access/tablesample/tablesample.c:27-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/tablesample.c#L27-L40)
 
 ## Overview
 GetTsmRoutine is a convenience function that retrieves a TsmRoutine struct by invoking a tablesample handler function and validates the returned structure.

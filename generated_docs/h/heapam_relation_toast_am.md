@@ -1,7 +1,7 @@
 # heapam_relation_toast_am
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2088 - 2098
+[src/backend/access/heap/heapam_handler.c:2088-2098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2088-L2098)
 
 ## Overview
 Returns the access method OID to use for a relations TOAST table, which for heap relations is the same as the parent relations access method.

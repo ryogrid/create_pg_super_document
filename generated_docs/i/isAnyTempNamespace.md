@@ -1,7 +1,7 @@
 # isAnyTempNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3687 - 3709
+[src/backend/catalog/namespace.c:3687-3709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3687-L3709)
 
 ## Overview
 This function determines whether a given namespace is a temporary table namespace, including both the current backend's temporary namespace and those of other backends, as well as temporary toast table namespaces.

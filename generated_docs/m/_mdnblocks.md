@@ -1,7 +1,7 @@
 # _mdnblocks
 
 ## Location
-src/backend/storage/smgr/md.c: 1727 - 1747
+[src/backend/storage/smgr/md.c:1727-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1727-L1747)
 
 ## Overview
 Get the number of blocks present in a single disk file segment for a PostgreSQL relation.

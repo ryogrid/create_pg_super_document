@@ -1,7 +1,7 @@
 # WalUsageAdd
 
 ## Location
-src/backend/executor/instrument.c: 278 - 285
+[src/backend/executor/instrument.c:278-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L278-L285)
 
 ## Overview
 A static helper function that accumulates Write-Ahead Log (WAL) usage statistics by adding all fields from a source WalUsage structure to a destination WalUsage structure.

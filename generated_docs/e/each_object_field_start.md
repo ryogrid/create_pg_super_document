@@ -1,7 +1,7 @@
 # each_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2096 - 2117
+[src/backend/utils/adt/jsonfuncs.c:2096-2117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2096-L2117)
 
 ## Overview
 The each_object_field_start function is a JSON parsing callback that handles the start of object field processing during JSON expansion operations.

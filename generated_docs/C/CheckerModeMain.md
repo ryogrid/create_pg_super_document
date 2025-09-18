@@ -1,7 +1,7 @@
 # CheckerModeMain
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 181 - 198
+[src/backend/bootstrap/bootstrap.c:181-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L181-L198)
 
 ## Overview
 CheckerModeMain is a minimal function that validates shared memory and semaphore creation in PostgreSQL's shared memory checker mode, immediately exiting after successful validation.

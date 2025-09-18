@@ -1,7 +1,7 @@
 # MemoizeTuple
 
 ## Location
-src/backend/executor/nodeMemoize.c: 94 - 99
+[src/backend/executor/nodeMemoize.c:94-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L94-L99)
 
 ## Overview
 MemoizeTuple is a data structure that stores an individually cached tuple in PostgreSQL's memoization system, forming a linked list for entries with the same parameter values.

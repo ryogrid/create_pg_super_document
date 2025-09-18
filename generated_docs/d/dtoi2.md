@@ -1,7 +1,7 @@
 # dtoi2
 
 ## Location
-src/backend/utils/adt/float.c: 1232 - 1256
+[src/backend/utils/adt/float.c:1232-1256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1232-L1256)
 
 ## Overview
 The dtoi2 function converts a float8 (double precision floating-point) number to an int2 (smallint) value, performing range checking and error handling for out-of-range values.

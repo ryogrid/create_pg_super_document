@@ -1,7 +1,7 @@
 # DefineRange
 
 ## Location
-src/backend/commands/typecmds.c: 1346 - 1736
+[src/backend/commands/typecmds.c:1346-1736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1346-L1736)
 
 ## Overview
 DefineRange is the comprehensive function that creates a new range type in PostgreSQL, including its associated multirange type and array types, along with all necessary constructor functions and type relationships.

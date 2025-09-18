@@ -1,7 +1,7 @@
 # vector8_has_zero
 
 ## Location
-src/include/port/simd.h: 195 - 212
+[src/include/port/simd.h:195-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L195-L212)
 
 ## Overview
 A convenience function that checks whether a Vector8 contains any zero bytes, equivalent to calling vector8_has(v, 0).

@@ -1,7 +1,7 @@
 # lookup_collation
 
 ## Location
-src/backend/catalog/namespace.c: 2322 - 2372
+[src/backend/catalog/namespace.c:2322-2372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2322-L2372)
 
 ## Overview
 A static utility function that searches for a collation by name within a specific namespace, ensuring the collation is compatible with the given character encoding.

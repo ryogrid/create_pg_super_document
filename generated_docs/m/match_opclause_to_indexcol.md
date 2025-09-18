@@ -1,7 +1,7 @@
 # match_opclause_to_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2392 - 2510
+[src/backend/optimizer/path/indxpath.c:2392-2510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2392-L2510)
 
 ## Overview
 Handles OpExpr (operator expression) cases for index clause matching, determining if binary operator clauses can be used with a specific index column.

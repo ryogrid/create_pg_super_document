@@ -1,7 +1,7 @@
 # describeOneTableDetails
 
 ## Location
-src/bin/psql/describe.c: 1528 - 3548
+[src/bin/psql/describe.c:1528-3548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L1528-L3548)
 
 ## Overview
 The core function that displays detailed information about a single database relation (table, view, index, etc.) for the psql \d command.

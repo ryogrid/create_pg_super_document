@@ -1,7 +1,7 @@
 # CreateReplicationSlotCmd
 
 ## Location
-src/include/nodes/replnodes.h: 52 - 60
+[src/include/nodes/replnodes.h:52-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L52-L60)
 
 ## Overview
 CreateReplicationSlotCmd represents the CREATE_REPLICATION_SLOT replication protocol command, used to create new replication slots for both physical and logical replication.

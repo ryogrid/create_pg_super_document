@@ -1,7 +1,7 @@
 # SimpleLruWaitIO
 
 ## Location
-src/backend/access/transam/slru.c: 445 - 501
+[src/backend/access/transam/slru.c:445-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L445-L501)
 
 ## Overview
 Waits for any active I/O operations on a specific SLRU page slot to complete and handles recovery from failed I/O operations.

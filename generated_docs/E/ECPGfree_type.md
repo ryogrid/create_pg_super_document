@@ -1,7 +1,7 @@
 # ECPGfree_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 655 - 692
+[src/interfaces/ecpg/preproc/type.c:655-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L655-L692)
 
 ## Overview
 ECPGfree_type is a function that recursively frees ECPGtype structures and their associated memory, handling different type categories including arrays, structs, unions, and simple types.

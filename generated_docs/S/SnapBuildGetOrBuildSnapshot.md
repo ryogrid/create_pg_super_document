@@ -1,7 +1,7 @@
 # SnapBuildGetOrBuildSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 718 - 738
+[src/backend/replication/logical/snapbuild.c:718-738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L718-L738)
 
 ## Overview
 Ensures a snapshot exists for the current transaction by either returning an existing cached snapshot or building a new one if none exists.

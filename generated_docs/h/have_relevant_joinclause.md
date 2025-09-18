@@ -1,7 +1,7 @@
 # have_relevant_joinclause
 
 ## Location
-src/backend/optimizer/util/joininfo.c: 39 - 97
+[src/backend/optimizer/util/joininfo.c:39-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/joininfo.c#L39-L97)
 
 ## Overview
 Detects whether there is a joinclause that involves two given relations, used by the PostgreSQL query optimizer to determine if two relations can be meaningfully joined.

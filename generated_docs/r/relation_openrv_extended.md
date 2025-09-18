@@ -1,7 +1,7 @@
 # relation_openrv_extended
 
 ## Location
-src/backend/access/common/relation.c: 172 - 204
+[src/backend/access/common/relation.c:172-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/relation.c#L172-L204)
 
 ## Overview
 Extended version of relation_openrv that allows graceful handling of missing relations by returning NULL instead of raising an error when a relation is not found.

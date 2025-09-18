@@ -1,7 +1,7 @@
 # pa_find_worker
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 518 - 555
+[src/backend/replication/logical/applyparallelworker.c:518-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L518-L555)
 
 ## Overview
 Locates and returns the parallel apply worker assigned to a specific transaction ID.

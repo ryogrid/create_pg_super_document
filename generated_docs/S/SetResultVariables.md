@@ -1,7 +1,7 @@
 # SetResultVariables
 
 ## Location
-src/bin/psql/common.c: 461 - 500
+[src/bin/psql/common.c:461-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L461-L500)
 
 ## Overview
 SetResultVariables updates psql's special variables based on query execution results, providing status information and error details for user queries.

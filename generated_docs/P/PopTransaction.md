@@ -1,7 +1,7 @@
 # PopTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 5416 - 5449
+[src/backend/access/transam/xact.c:5416-5449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5416-L5449)
 
 ## Overview
 PopTransaction removes the current subtransaction from the transaction state stack and restores the parent transaction as the current transaction state.

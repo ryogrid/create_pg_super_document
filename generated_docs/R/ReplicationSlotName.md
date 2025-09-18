@@ -1,7 +1,7 @@
 # ReplicationSlotName
 
 ## Location
-src/backend/replication/slot.c: 513 - 539
+[src/backend/replication/slot.c:513-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L513-L539)
 
 ## Overview
 Safely retrieves the name of a replication slot at a given index, returning whether the slot is in use.

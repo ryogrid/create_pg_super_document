@@ -1,7 +1,7 @@
 # timestamp_fastcmp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2281 - 2290
+[src/backend/utils/adt/timestamp.c:2281-2290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2281-L2290)
 
 ## Overview
 A fast comparison function for timestamp values optimized for sorting operations, used by PostgreSQL's sort support infrastructure.

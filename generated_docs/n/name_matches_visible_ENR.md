@@ -1,7 +1,7 @@
 # name_matches_visible_ENR
 
 ## Location
-src/backend/parser/parse_enr.c: 20 - 25
+[src/backend/parser/parse_enr.c:20-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_enr.c#L20-L25)
 
 ## Overview
 Checks whether a given reference name matches a visible Ephemeral Named Relation (ENR) in the current parse state context.

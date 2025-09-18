@@ -1,7 +1,7 @@
 # interpret_func_parallel
 
 ## Location
-src/backend/commands/functioncmds.c: 620 - 644
+[src/backend/commands/functioncmds.c:620-644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L620-L644)
 
 ## Overview
 Converts string-based parallel safety specifications from CREATE FUNCTION or ALTER FUNCTION statements into the corresponding internal character constants used by PostgreSQL's catalog system for parallel query execution.

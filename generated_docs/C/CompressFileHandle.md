@@ -1,7 +1,7 @@
 # CompressFileHandle
 
 ## Location
-src/bin/pg_dump/compress_io.h: 98 - 100
+[src/bin/pg_dump/compress_io.h:98-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.h#L98-L100)
 
 ## Overview
 CompressFileHandle is a structure that provides a file-oriented interface for compressed I/O operations in pg_dump, encapsulating function pointers and data needed for opening, reading, writing, and managing compressed files across different compression algorithms.

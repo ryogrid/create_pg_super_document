@@ -1,7 +1,7 @@
 # _convInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 289 - 292
+[src/bin/pg_dump/pg_dump.h:289-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L289-L292)
 
 ## Overview
 A structure definition used in PostgreSQL's pg_dump utility to represent character encoding conversion information for database dumping and restoration operations.

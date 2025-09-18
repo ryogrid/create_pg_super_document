@@ -1,7 +1,7 @@
 # parseDashOrOid
 
 ## Location
-src/backend/utils/adt/regproc.c: 1868 - 1894
+[src/backend/utils/adt/regproc.c:1868-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1868-L1894)
 
 ## Overview
 A utility function that parses a string as either a dash ("-") representing InvalidOid or a numeric OID, providing a convenient way to handle both null/invalid OID representations and valid numeric OIDs in PostgreSQL's regtype system.

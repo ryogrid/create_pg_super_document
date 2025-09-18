@@ -1,7 +1,7 @@
 # initialize_prng
 
 ## Location
-src/backend/utils/adt/pseudorandomfuncs.c: 34 - 61
+[src/backend/utils/adt/pseudorandomfuncs.c:34-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudorandomfuncs.c#L34-L61)
 
 ## Overview
 Initializes (seeds) the pseudo-random number generator (PRNG) if it has not been seeded yet in the current process.

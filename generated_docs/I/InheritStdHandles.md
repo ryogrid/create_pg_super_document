@@ -1,7 +1,7 @@
 # InheritStdHandles
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1732 - 1755
+[src/bin/pg_ctl/pg_ctl.c:1732-1755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1732-L1755)
 
 ## Overview
 Sets up standard handle inheritance for a new Windows process to ensure it runs in a similar environment as the parent process when started as a service.

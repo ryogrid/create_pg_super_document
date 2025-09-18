@@ -1,7 +1,7 @@
 # xact_redo_abort
 
 ## Location
-src/backend/access/transam/xact.c: 6222 - 6300
+[src/backend/access/transam/xact.c:6222-6300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L6222-L6300)
 
 ## Overview
 Replays transaction abort records during WAL recovery, handling both regular transaction aborts and prepared transaction aborts while properly managing subtransactions.

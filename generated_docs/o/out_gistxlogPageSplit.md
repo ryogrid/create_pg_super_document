@@ -1,7 +1,7 @@
 # out_gistxlogPageSplit
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 45 - 51
+[src/backend/access/rmgrdesc/gistdesc.c:45-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L45-L51)
 
 ## Overview
 A static function that formats and outputs information about GiST page split WAL records, specifically showing how many pages the original page was split into.

@@ -1,7 +1,7 @@
 # brin_xlog_update
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 135 - 169
+[src/backend/access/brin/brin_xlog.c:135-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L135-L169)
 
 ## Overview
 A static function that handles WAL replay for BRIN index update operations during crash recovery by removing old tuples and inserting new ones.

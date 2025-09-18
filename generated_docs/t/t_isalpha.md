@@ -1,7 +1,7 @@
 # t_isalpha
 
 ## Location
-src/backend/tsearch/ts_locale.c: 65 - 79
+[src/backend/tsearch/ts_locale.c:65-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_locale.c#L65-L79)
 
 ## Overview
 The t_isalpha function checks whether a character is alphabetic, with proper support for multi-byte characters and locale-aware alphabetic classification in text search contexts.

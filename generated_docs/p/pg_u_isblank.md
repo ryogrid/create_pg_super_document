@@ -1,7 +1,7 @@
 # pg_u_isblank
 
 ## Location
-src/common/unicode_category.c: 255 - 261
+[src/common/unicode_category.c:255-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L255-L261)
 
 ## Overview
 Determines whether a Unicode character is a blank character, specifically checking for tab characters and Unicode space separator characters.

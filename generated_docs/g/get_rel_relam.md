@@ -1,7 +1,7 @@
 # get_rel_relam
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2100 - 2119
+[src/backend/utils/cache/lsyscache.c:2100-2119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2100-L2119)
 
 ## Overview
 Returns the access method OID (relam) associated with a given relation, identifying which access method is used to store and access the relation's data.

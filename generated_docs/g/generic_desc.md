@@ -1,7 +1,7 @@
 # generic_desc
 
 ## Location
-src/backend/access/rmgrdesc/genericdesc.c: 24 - 51
+[src/backend/access/rmgrdesc/genericdesc.c:24-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/genericdesc.c#L24-L51)
 
 ## Overview
 Generates a human-readable description of generic WAL (Write-Ahead Log) records by parsing and displaying the page regions that the record overrides.

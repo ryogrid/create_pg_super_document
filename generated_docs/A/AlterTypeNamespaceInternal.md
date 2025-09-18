@@ -1,7 +1,7 @@
 # AlterTypeNamespaceInternal
 
 ## Location
-src/backend/commands/typecmds.c: 4156 - 4311
+[src/backend/commands/typecmds.c:4156-4311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L4156-L4311)
 
 ## Overview
 The core internal function that performs the actual namespace migration for PostgreSQL types, handling all type variants including composite types, domains, and arrays with comprehensive dependency management.

@@ -1,7 +1,7 @@
 # ClientSocket
 
 ## Location
-src/include/libpq/libpq-be.h: 239 - 243
+[src/include/libpq/libpq-be.h:239-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be.h#L239-L243)
 
 ## Overview
 ClientSocket is a lightweight structure that holds an accepted socket connection and remote endpoint information, used for passing connection data from the postmaster to backend processes.

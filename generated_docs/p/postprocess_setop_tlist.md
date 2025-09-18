@@ -1,7 +1,7 @@
 # postprocess_setop_tlist
 
 ## Location
-src/backend/optimizer/plan/planner.c: 5747 - 5783
+[src/backend/optimizer/plan/planner.c:5747-5783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L5747-L5783)
 
 ## Overview
 Post-processes the target list returned by plan_set_operations() by transposing sort key information from the original target list to the new target list.

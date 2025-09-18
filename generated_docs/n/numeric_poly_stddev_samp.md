@@ -1,7 +1,7 @@
 # numeric_poly_stddev_samp
 
 ## Location
-src/backend/utils/adt/numeric.c: 6441 - 6461
+[src/backend/utils/adt/numeric.c:6441-6461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6441-L6461)
 
 ## Overview
 Computes the sample standard deviation using polymorphic aggregation with 128-bit integer optimization, providing the final result for the STDDEV_SAMP() aggregate function.

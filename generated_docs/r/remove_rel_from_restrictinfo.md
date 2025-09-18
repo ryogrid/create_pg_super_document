@@ -1,7 +1,7 @@
 # remove_rel_from_restrictinfo
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 562 - 621
+[src/backend/optimizer/plan/analyzejoins.c:562-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L562-L621)
 
 ## Overview
 Removes references to specific relation IDs from a RestrictInfo structure's relid sets, handling both simple and complex OR clause scenarios.

@@ -1,7 +1,7 @@
 # add_one_float8
 
 ## Location
-src/tutorial/funcs.c: 36 - 46
+[src/tutorial/funcs.c:36-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L36-L46)
 
 ## Overview
 A PostgreSQL C function that increments a double-precision floating-point number by 1.0, demonstrating how to handle floating-point arguments in PostgreSQL user-defined functions.

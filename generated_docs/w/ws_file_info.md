@@ -1,7 +1,7 @@
 # ws_file_info
 
 ## Location
-src/bin/pg_walsummary/pg_walsummary.c: 31 - 35
+[src/bin/pg_walsummary/pg_walsummary.c:31-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_walsummary/pg_walsummary.c#L31-L35)
 
 ## Overview
 The `ws_file_info` structure encapsulates file information for WAL summary file operations, storing both the file descriptor and filename for file I/O operations in the `pg_walsummary` utility.

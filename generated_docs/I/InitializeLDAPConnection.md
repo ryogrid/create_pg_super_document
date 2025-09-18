@@ -1,7 +1,7 @@
 # InitializeLDAPConnection
 
 ## Location
-src/backend/libpq/auth.c: 2219 - 2390
+[src/backend/libpq/auth.c:2219-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2219-L2390)
 
 ## Overview
 The InitializeLDAPConnection function establishes and configures an LDAP connection for PostgreSQL authentication, including support for TLS encryption and automatic LDAP server discovery via DNS SRV records.

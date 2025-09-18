@@ -1,7 +1,7 @@
 # ATGetQueueEntry
 
 ## Location
-src/backend/commands/tablecmds.c: 6364 - 6397
+[src/backend/commands/tablecmds.c:6364-6397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6364-L6397)
 
 ## Overview
 ATGetQueueEntry finds an existing or creates a new AlteredTableInfo entry in the ALTER TABLE work queue for a specified relation.

@@ -1,7 +1,7 @@
 # to_regnamespace
 
 ## Location
-src/backend/utils/adt/regproc.c: 1700 - 1717
+[src/backend/utils/adt/regproc.c:1700-1717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1700-L1717)
 
 ## Overview
 The to_regnamespace function converts namespace (schema) names to regnamespace OID values, returning NULL if the name is not found rather than raising an error.

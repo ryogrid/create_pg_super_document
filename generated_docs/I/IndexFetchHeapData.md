@@ -1,7 +1,7 @@
 # IndexFetchHeapData
 
 ## Location
-src/include/access/heapam.h: 114 - 120
+[src/include/access/heapam.h:114-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L114-L120)
 
 ## Overview
 IndexFetchHeapData is a structure that manages state information for fetching heap tuples via index lookups, extending the generic IndexFetchTableData with heap-specific buffer management.

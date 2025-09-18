@@ -1,7 +1,7 @@
 # llvm_copy_attributes
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 549 - 572
+[src/backend/jit/llvm/llvmjit.c:549-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L549-L572)
 
 ## Overview
 Copies all LLVM function attributes (function, return value, and parameter attributes) from one function to another.

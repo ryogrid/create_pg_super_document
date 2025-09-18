@@ -1,7 +1,7 @@
 # hash_agg_entry_size
 
 ## Location
-src/backend/executor/nodeAgg.c: 1694 - 1740
+[src/backend/executor/nodeAgg.c:1694-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1694-L1740)
 
 ## Overview
 Estimates the per-hash-table-entry memory overhead for hash aggregation operations by calculating the total size needed for a single hash table entry including tuple data, per-group state, and transition space.

@@ -1,7 +1,7 @@
 # init_locale
 
 ## Location
-src/backend/main/main.c: 303 - 321
+[src/backend/main/main.c:303-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/main/main.c#L303-L321)
 
 ## Overview
 A utility function that safely sets a locale category to a specified value with fallback to the "C" locale if the initial setting fails.

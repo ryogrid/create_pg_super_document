@@ -1,7 +1,7 @@
 # ExecGrant_common
 
 ## Location
-src/backend/catalog/aclchk.c: 2156 - 2291
+[src/backend/catalog/aclchk.c:2156-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2156-L2291)
 
 ## Overview
 ExecGrant_common is the core implementation function for processing GRANT and REVOKE statements on database objects, handling the common ACL modification logic across different object types.

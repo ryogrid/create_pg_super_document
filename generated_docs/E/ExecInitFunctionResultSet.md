@@ -1,7 +1,7 @@
 # ExecInitFunctionResultSet
 
 ## Location
-src/backend/executor/execSRF.c: 444 - 496
+[src/backend/executor/execSRF.c:444-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L444-L496)
 
 ## Overview
 Prepares a set-returning function (SRF) call in the target list for execution, specifically designed for nodeProjectSet.c to handle functions that return multiple rows.

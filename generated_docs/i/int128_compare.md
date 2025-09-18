@@ -1,7 +1,7 @@
 # int128_compare
 
 ## Location
-src/include/common/int128.h: 71 - 83
+[src/include/common/int128.h:71-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int128.h#L71-L83)
 
 ## Overview
 Compares two 128-bit integer values and returns a standard comparison result (-1, 0, or +1).

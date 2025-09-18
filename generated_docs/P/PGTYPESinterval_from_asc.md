@@ -1,7 +1,7 @@
 # PGTYPESinterval_from_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 1003 - 1061
+[src/interfaces/ecpg/pgtypeslib/interval.c:1003-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L1003-L1061)
 
 ## Overview
 Parses a string representation of an interval and converts it into an interval data structure in the PostgreSQL ECPG pgtypes library.

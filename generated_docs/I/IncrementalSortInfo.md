@@ -1,7 +1,7 @@
 # IncrementalSortInfo
 
 ## Location
-src/include/nodes/execnodes.h: 2361 - 2365
+[src/include/nodes/execnodes.h:2361-2365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2361-L2365)
 
 ## Overview
 IncrementalSortInfo is a structure that holds instrumentation data for incremental sort operations, containing performance metrics for both full sort and prefix sort phases.

@@ -1,7 +1,7 @@
 # l_load_struct_gep
 
 ## Location
-src/include/jit/llvmjit_emit.h: 151 - 162
+[src/include/jit/llvmjit_emit.h:151-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L151-L162)
 
 ## Overview
 A convenience function that combines struct member access (GEP) with loading the value, providing a high-level interface for reading struct fields in LLVM IR.

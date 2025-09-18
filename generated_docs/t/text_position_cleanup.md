@@ -1,7 +1,7 @@
 # text_position_cleanup
 
 ## Location
-src/backend/utils/adt/varlena.c: 1503 - 1509
+[src/backend/utils/adt/varlena.c:1503-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1503-L1509)
 
 ## Overview
 Performs cleanup operations on a TextPositionState structure when text position searching is complete.

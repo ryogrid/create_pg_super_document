@@ -1,7 +1,7 @@
 # build_aggregate_transfn_expr
 
 ## Location
-src/backend/parser/parse_agg.c: 2035 - 2095
+[src/backend/parser/parse_agg.c:2035-2095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L2035-L2095)
 
 ## Overview
 Constructs expression trees for transition and inverse transition functions of aggregate operations, enabling polymorphic functions to determine their required datatypes.

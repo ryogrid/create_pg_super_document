@@ -1,7 +1,7 @@
 # numeric_random
 
 ## Location
-src/backend/utils/adt/pseudorandomfuncs.c: 174 - 185
+[src/backend/utils/adt/pseudorandomfuncs.c:174-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudorandomfuncs.c#L174-L185)
 
 ## Overview
 Generates a random numeric value uniformly distributed within a specified range.

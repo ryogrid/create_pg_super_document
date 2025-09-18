@@ -1,7 +1,7 @@
 # multirange_union
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1082 - 1113
+[src/backend/utils/adt/multirangetypes.c:1082-1113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1082-L1113)
 
 ## Overview
 Computes the union of two multirange values, combining all ranges from both inputs into a single multirange result.

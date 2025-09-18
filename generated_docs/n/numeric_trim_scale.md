@@ -1,7 +1,7 @@
 # numeric_trim_scale
 
 ## Location
-src/backend/utils/adt/numeric.c: 4223 - 4243
+[src/backend/utils/adt/numeric.c:4223-4243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4223-L4243)
 
 ## Overview
 Reduces the scale of a numeric value to its minimum required representation without loss of precision by removing trailing zeros.

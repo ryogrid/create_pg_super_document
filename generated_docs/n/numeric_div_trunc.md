@@ -1,7 +1,7 @@
 # numeric_div_trunc
 
 ## Location
-src/backend/utils/adt/numeric.c: 3275 - 3363
+[src/backend/utils/adt/numeric.c:3275-3363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3275-L3363)
 
 ## Overview
 PostgreSQL function that performs division of two numeric values and truncates the result to an integer, effectively implementing floor division.

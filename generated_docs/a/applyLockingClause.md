@@ -1,7 +1,7 @@
 # applyLockingClause
 
 ## Location
-src/backend/parser/analyze.c: 3529 - 3588
+[src/backend/parser/analyze.c:3529-3588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3529-L3588)
 
 ## Overview
 Records locking information for a single range table entry by creating or updating a RowMarkClause in the query structure.

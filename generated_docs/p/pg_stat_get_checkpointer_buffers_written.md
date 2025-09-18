@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_buffers_written
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1213 - 1218
+[src/backend/utils/adt/pgstatfuncs.c:1213-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1213-L1218)
 
 ## Overview
 Returns the total number of buffers written to disk by the checkpointer process since server startup.

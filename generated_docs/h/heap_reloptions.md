@@ -1,7 +1,7 @@
 # heap_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 2028 - 2062
+[src/backend/access/common/reloptions.c:2028-2062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2028-L2062)
 
 ## Overview
 Parses and validates relation options for heap tables, materialized views, and TOAST tables, providing relkind-specific option handling with specialized defaults for TOAST relations.

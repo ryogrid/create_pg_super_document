@@ -1,7 +1,7 @@
 # SampleRecheck
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 60 - 78
+[src/backend/executor/nodeSamplescan.c:60-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L60-L78)
 
 ## Overview
 SampleRecheck is a recheck function used during EvalPlanQual processing for sample scans that always returns true since sample scans don't use checkable scan keys.

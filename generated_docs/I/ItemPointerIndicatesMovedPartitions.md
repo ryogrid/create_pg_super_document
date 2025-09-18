@@ -1,7 +1,7 @@
 # ItemPointerIndicatesMovedPartitions
 
 ## Location
-src/include/storage/itemptr.h: 197 - 209
+[src/include/storage/itemptr.h:197-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L197-L209)
 
 ## Overview
 Determines whether an ItemPointer indicates that a tuple has been moved to another partition during an UPDATE operation.

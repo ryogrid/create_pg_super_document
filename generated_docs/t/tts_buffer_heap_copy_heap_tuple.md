@@ -1,7 +1,7 @@
 # tts_buffer_heap_copy_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 916 - 928
+[src/backend/executor/execTuples.c:916-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L916-L928)
 
 ## Overview
 Creates an independent copy of the HeapTuple contained in a BufferHeapTupleTableSlot, ensuring the caller owns the returned tuple and can use it beyond the lifetime of the original slot.

@@ -1,7 +1,7 @@
 # sighup_handler
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 684 - 691
+[src/bin/pg_basebackup/pg_recvlogical.c:684-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L684-L691)
 
 ## Overview
 A SIGHUP signal handler that triggers the reopening of output files in the PostgreSQL logical replication receiver utility.

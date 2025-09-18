@@ -1,7 +1,7 @@
 # avlFree
 
 ## Location
-src/bin/psql/crosstabview.c: 448 - 471
+[src/bin/psql/crosstabview.c:448-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L448-L471)
 
 ## Overview
 Recursively deallocates memory for an AVL tree structure, freeing all nodes and the sentinel end node.

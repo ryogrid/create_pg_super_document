@@ -1,7 +1,7 @@
 # CleanupTempFiles
 
 ## Location
-src/backend/storage/file/fd.c: 3199 - 3270
+[src/backend/storage/file/fd.c:3199-3270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3199-L3270)
 
 ## Overview
 The core function responsible for closing temporary files and deleting their underlying files, with different behavior depending on whether it's called during transaction end or process exit.

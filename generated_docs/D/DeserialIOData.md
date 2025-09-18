@@ -1,7 +1,7 @@
 # DeserialIOData
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 39 - 43
+[src/backend/utils/adt/array_userfuncs.c:39-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L39-L43)
 
 ## Overview
 DeserialIOData is a structure used for caching element-type data during array aggregation deserialization to optimize performance by avoiding repeated catalog lookups.

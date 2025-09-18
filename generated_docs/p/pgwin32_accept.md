@@ -1,7 +1,7 @@
 # pgwin32_accept
 
 ## Location
-src/backend/port/win32/socket.c: 337 - 358
+[src/backend/port/win32/socket.c:337-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L337-L358)
 
 ## Overview
 PostgreSQL's Windows-specific wrapper function for accepting socket connections that integrates signal handling and provides proper error handling for Windows platforms.

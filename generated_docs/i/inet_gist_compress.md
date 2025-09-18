@@ -1,7 +1,7 @@
 # inet_gist_compress
 
 ## Location
-src/backend/utils/adt/network_gist.c: 542 - 589
+[src/backend/utils/adt/network_gist.c:542-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L542-L589)
 
 ## Overview
 The GiST compress function for the inet data type that converts inet values to the internal GistInetKey representation used in GiST indexing.

@@ -1,7 +1,7 @@
 # vacuum_db
 
 ## Location
-src/bin/initdb/initdb.c: 1983 - 1992
+[src/bin/initdb/initdb.c:1983-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1983-L1992)
 
 ## Overview
 Performs final cleanup operations on the template1 database by running ANALYZE and VACUUM FREEZE during database initialization.

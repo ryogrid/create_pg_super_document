@@ -1,7 +1,7 @@
 # dumpACL
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15262 - 15389
+[src/bin/pg_dump/pg_dump.c:15262-15389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15262-L15389)
 
 ## Overview
 Generates GRANT and REVOKE statements necessary to recreate access control lists (ACLs) for database objects during database restoration.

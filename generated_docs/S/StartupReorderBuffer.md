@@ -1,7 +1,7 @@
 # StartupReorderBuffer
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4784 - 4817
+[src/backend/replication/logical/reorderbuffer.c:4784-4817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4784-L4817)
 
 ## Overview
 Cleans up all serialized (spilled) transaction data from replication slots after a PostgreSQL server restart or crash to ensure a clean state for logical replication.

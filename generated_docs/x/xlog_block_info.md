@@ -1,7 +1,7 @@
 # xlog_block_info
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2336 - 2376
+[src/backend/access/transam/xlogrecovery.c:2336-2376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2336-L2376)
 
 ## Overview
 A utility function that appends detailed information about all block references contained within an XLog record to a string buffer, including relation identifiers, fork numbers, block numbers, and full page write indicators.

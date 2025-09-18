@@ -1,7 +1,7 @@
 # table_beginscan_catalog
 
 ## Location
-src/backend/access/table/tableam.c: 113 - 130
+[src/backend/access/table/tableam.c:113-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L113-L130)
 
 ## Overview
 Initiates a sequential scan on a catalog (system) table using a catalog-appropriate snapshot with specific scan options optimized for system catalog access.

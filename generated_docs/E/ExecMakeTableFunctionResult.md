@@ -1,7 +1,7 @@
 # ExecMakeTableFunctionResult
 
 ## Location
-src/backend/executor/execSRF.c: 101 - 443
+[src/backend/executor/execSRF.c:101-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L101-L443)
 
 ## Overview
 Evaluates a table function and materializes its results in a Tuplestore object, handling both set-returning and scalar functions with proper memory management and protocol validation.

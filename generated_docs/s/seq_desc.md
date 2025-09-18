@@ -1,7 +1,7 @@
 # seq_desc
 
 ## Location
-src/backend/access/rmgrdesc/seqdesc.c: 21 - 33
+[src/backend/access/rmgrdesc/seqdesc.c:21-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/seqdesc.c#L21-L33)
 
 ## Overview
 Generates human-readable description text for PostgreSQL sequence-related WAL (Write-Ahead Log) records for debugging and logging purposes.

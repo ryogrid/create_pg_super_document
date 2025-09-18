@@ -1,7 +1,7 @@
 # make_rel_from_joinlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3306 - 3410
+[src/backend/optimizer/path/allpaths.c:3306-3410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3306-L3410)
 
 ## Overview
 Builds access paths using a "joinlist" to guide the join path search, serving as the core recursive function for constructing optimal join relations from a structured joinlist.

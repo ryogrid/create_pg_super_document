@@ -1,7 +1,7 @@
 # pg_cursor
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 1131 - 1170
+[src/backend/utils/mmgr/portalmem.c:1131-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L1131-L1170)
 
 ## Overview
 SQL-callable function that returns information about all available cursors (portals) in the current session.

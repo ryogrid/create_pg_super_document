@@ -1,7 +1,7 @@
 # simplify_or_arguments
 
 ## Location
-src/backend/optimizer/util/clauses.c: 3790 - 3895
+[src/backend/optimizer/util/clauses.c:3790-3895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L3790-L3895)
 
 ## Overview
 A specialized function that processes and optimizes the arguments of OR boolean expressions during constant expression evaluation, handling nested OR flattening and constant folding.

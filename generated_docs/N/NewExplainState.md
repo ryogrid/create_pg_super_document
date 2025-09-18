@@ -1,7 +1,7 @@
 # NewExplainState
 
 ## Location
-src/backend/commands/explain.c: 372 - 388
+[src/backend/commands/explain.c:372-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L372-L388)
 
 ## Overview
 NewExplainState creates and initializes a new ExplainState structure with default options for EXPLAIN command processing.

@@ -1,7 +1,7 @@
 # shm_mq_wait_for_attach
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 820 - 842
+[src/backend/storage/ipc/shm_mq.c:820-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L820-L842)
 
 ## Overview
 Waits for the other process that is supposed to use a shared memory message queue to attach to it, providing synchronization between sender and receiver processes.

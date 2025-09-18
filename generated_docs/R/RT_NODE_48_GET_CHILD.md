@@ -1,7 +1,7 @@
 # RT_NODE_48_GET_CHILD
 
 ## Location
-src/include/lib/radixtree.h: 784 - 790
+[src/include/lib/radixtree.h:784-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L784-L790)
 
 ## Overview
 A macro that expands to a function name for retrieving a pointer to the child pointer slot associated with a specific chunk (key byte) in a node48 structure of the radix tree.

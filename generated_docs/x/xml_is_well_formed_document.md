@@ -1,7 +1,7 @@
 # xml_is_well_formed_document
 
 ## Location
-src/backend/utils/adt/xml.c: 4622 - 4634
+[src/backend/utils/adt/xml.c:4622-4634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4622-L4634)
 
 ## Overview
 SQL-callable function that checks whether given text data represents a well-formed XML document (not just XML content fragment).

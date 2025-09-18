@@ -1,7 +1,7 @@
 # SyncRepInitConfig
 
 ## Location
-src/backend/replication/syncrep.c: 445 - 473
+[src/backend/replication/syncrep.c:445-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L445-L473)
 
 ## Overview
 Initializes synchronous replication configuration for WAL sender processes by determining the standby priority and updating the WAL sender's state accordingly.

@@ -1,7 +1,7 @@
 # bakcopy
 
 ## Location
-src/tools/pg_bsd_indent/indent.c: 1203 - 1242
+[src/tools/pg_bsd_indent/indent.c:1203-1242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/indent.c#L1203-L1242)
 
 ## Overview
 The bakcopy function creates a backup copy of the input file and swaps the input/output file handles so that the original file becomes the output target.

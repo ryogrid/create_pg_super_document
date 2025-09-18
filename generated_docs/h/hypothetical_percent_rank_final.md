@@ -1,7 +1,7 @@
 # hypothetical_percent_rank_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1258 - 1277
+[src/backend/utils/adt/orderedsetaggs.c:1258-1277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1258-L1277)
 
 ## Overview
 Implements the SQL percentile rank function for hypothetical rows in ordered-set aggregates, calculating where a hypothetical row would rank percentile-wise within a dataset.

@@ -1,7 +1,7 @@
 # pg_GSS_checkauth
 
 ## Location
-src/backend/libpq/auth.c: 1081 - 1187
+[src/backend/libpq/auth.c:1081-1187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1081-L1187)
 
 ## Overview
 pg_GSS_checkauth validates that a GSSAPI-authenticated user is authorized to connect as the requested database user, performing principal name extraction, realm verification, and user mapping.

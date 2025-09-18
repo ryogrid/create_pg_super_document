@@ -1,7 +1,7 @@
 # consume_xids_until
 
 ## Location
-src/test/modules/xid_wraparound/xid_wraparound.c: 53 - 70
+[src/test/modules/xid_wraparound/xid_wraparound.c:53-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/xid_wraparound/xid_wraparound.c#L53-L70)
 
 ## Overview
 A PostgreSQL test function that consumes transaction IDs until reaching a specified target transaction ID, used for testing XID wraparound scenarios.

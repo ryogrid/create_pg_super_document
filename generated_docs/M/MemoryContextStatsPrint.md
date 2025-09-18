@@ -1,7 +1,7 @@
 # MemoryContextStatsPrint
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 973 - 1051
+[src/backend/utils/mmgr/mcxt.c:973-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L973-L1051)
 
 ## Overview
 MemoryContextStatsPrint is a callback function used by MemoryContextStatsInternal to format and output individual memory context statistics with proper indentation and identifier handling.

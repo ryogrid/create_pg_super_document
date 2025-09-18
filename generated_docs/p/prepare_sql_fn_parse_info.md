@@ -1,7 +1,7 @@
 # prepare_sql_fn_parse_info
 
 ## Location
-src/backend/executor/functions.c: 176 - 264
+[src/backend/executor/functions.c:176-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L176-L264)
 
 ## Overview
 Prepares a SQLFunctionParseInfo structure for parsing a SQL function body, including resolution of actual types for polymorphic arguments.

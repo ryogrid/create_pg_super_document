@@ -1,7 +1,7 @@
 # pa_savepoint_name
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1348 - 1361
+[src/backend/replication/logical/applyparallelworker.c:1348-1361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1348-L1361)
 
 ## Overview
 pa_savepoint_name is a utility function that generates unique savepoint names for streaming transactions in PostgreSQL's parallel logical replication system.

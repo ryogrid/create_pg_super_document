@@ -1,7 +1,7 @@
 # initTeller
 
 ## Location
-src/bin/pgbench/pgbench.c: 4937 - 4945
+[src/bin/pgbench/pgbench.c:4937-4945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4937-L4945)
 
 ## Overview
 Generates a single row of data for the pgbench_tellers table in tab-separated format for COPY operations, establishing the relationship between tellers and branches.

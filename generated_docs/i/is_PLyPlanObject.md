@@ -1,7 +1,7 @@
 # is_PLyPlanObject
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 66 - 71
+[src/pl/plpython/plpy_planobject.c:66-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L66-L71)
 
 ## Overview
 A type-checking function that determines whether a given Python object is an instance of PLyPlan type.

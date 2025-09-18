@@ -1,7 +1,7 @@
 # cstring_to_xmltype
 
 ## Location
-src/backend/utils/adt/xml.c: 474 - 481
+[src/backend/utils/adt/xml.c:474-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L474-L481)
 
 ## Overview
 Converts a null-terminated C string containing XML data into a PostgreSQL xmltype value.

@@ -1,7 +1,7 @@
 # pg_collation_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4978 - 4991
+[src/backend/catalog/namespace.c:4978-4991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4978-L4991)
 
 ## Overview
 Determines whether a given collation is visible in the current search path, returning NULL if the collation does not exist.

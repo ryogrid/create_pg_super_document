@@ -1,7 +1,7 @@
 # regclassout
 
 ## Location
-src/backend/utils/adt/regproc.c: 943 - 999
+[src/backend/utils/adt/regproc.c:943-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L943-L999)
 
 ## Overview
 Converts a relation OID to its human-readable class name string representation, with proper namespace qualification when necessary.

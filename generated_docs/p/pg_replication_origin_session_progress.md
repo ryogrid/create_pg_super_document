@@ -1,7 +1,7 @@
 # pg_replication_origin_session_progress
 
 ## Location
-src/backend/replication/logical/origin.c: 1405 - 1425
+[src/backend/replication/logical/origin.c:1405-1425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1405-L1425)
 
 ## Overview
 Returns the replication progress for the origin setup in the current session, representing the remote LSN (Log Sequence Number) position of the last replicated transaction.

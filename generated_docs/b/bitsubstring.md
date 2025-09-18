@@ -1,7 +1,7 @@
 # bitsubstring
 
 ## Location
-src/backend/utils/adt/varbit.c: 1055 - 1152
+[src/backend/utils/adt/varbit.c:1055-1152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1055-L1152)
 
 ## Overview
 The bitsubstring function implements the core bit string substring extraction logic in PostgreSQL, handling boundary conditions, memory allocation, and bit-level operations for both fixed-length and variable-length substring operations.

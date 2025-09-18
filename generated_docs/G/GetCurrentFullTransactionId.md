@@ -1,7 +1,7 @@
 # GetCurrentFullTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 509 - 526
+[src/backend/access/transam/xact.c:509-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L509-L526)
 
 ## Overview
 Returns the full transaction ID of the current transaction (main or sub-transaction), assigning one if it hasn't been set yet.

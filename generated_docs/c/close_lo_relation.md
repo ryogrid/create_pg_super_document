@@ -1,7 +1,7 @@
 # close_lo_relation
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 98 - 130
+[src/backend/storage/large_object/inv_api.c:98-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L98-L130)
 
 ## Overview
 Cleans up the PostgreSQL large object relation and index references at the end of a main transaction, optionally closing them if the transaction is being committed.

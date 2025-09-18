@@ -1,7 +1,7 @@
 # JsonbToCStringIndent
 
 ## Location
-src/backend/utils/adt/jsonb.c: 482 - 490
+[src/backend/utils/adt/jsonb.c:482-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L482-L490)
 
 ## Overview
 A public function that converts a JSONB container to its C-string representation with pretty-printing indentation, serving as a convenience wrapper for JsonbToCStringWorker.

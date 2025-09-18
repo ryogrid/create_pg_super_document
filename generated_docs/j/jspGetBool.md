@@ -1,7 +1,7 @@
 # jspGetBool
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1203 - 1210
+[src/backend/utils/adt/jsonpath.c:1203-1210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1203-L1210)
 
 ## Overview
 Extracts and returns the boolean value from a JSON path boolean item.

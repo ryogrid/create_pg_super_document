@@ -1,7 +1,7 @@
 # AtSubAbort_Snapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 959 - 994
+[src/backend/utils/time/snapmgr.c:959-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L959-L994)
 
 ## Overview
 Cleans up active snapshots and releases associated resources when a subtransaction is aborted, ensuring proper memory management and snapshot reference counting.

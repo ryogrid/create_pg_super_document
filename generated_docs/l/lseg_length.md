@@ -1,7 +1,7 @@
 # lseg_length
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2172 - 2187
+[src/backend/utils/adt/geo_ops.c:2172-2187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2172-L2187)
 
 ## Overview
 Calculates and returns the length (distance) of a line segment as a PostgreSQL function.

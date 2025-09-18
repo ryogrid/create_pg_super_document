@@ -1,7 +1,7 @@
 # CheckDeadLockAlert
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1845 - 1870
+[src/backend/storage/lmgr/proc.c:1845-1870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1845-L1870)
 
 ## Overview
 Handles the expiry of deadlock_timeout by setting a global flag and triggering the process latch, designed to run safely within a signal handler context.

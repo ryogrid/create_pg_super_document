@@ -1,7 +1,7 @@
 # IsCTIDVar
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 55 - 75
+[src/backend/optimizer/path/tidpath.c:55-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L55-L75)
 
 ## Overview
 IsCTIDVar is a macro that checks whether a given node represents a CTID (Current Tuple Identifier) variable in PostgreSQL's executor.

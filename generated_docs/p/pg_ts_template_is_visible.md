@@ -1,7 +1,7 @@
 # pg_ts_template_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 5048 - 5061
+[src/backend/catalog/namespace.c:5048-5061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5048-L5061)
 
 ## Overview
 A PostgreSQL system function that determines whether a text search template is visible in the current search path, returning NULL if the template does not exist.

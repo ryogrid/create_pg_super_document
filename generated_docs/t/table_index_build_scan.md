@@ -1,7 +1,7 @@
 # table_index_build_scan
 
 ## Location
-src/include/access/tableam.h: 1776 - 1808
+[src/include/access/tableam.h:1776-1808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1776-L1808)
 
 ## Overview
 Scans a table to find tuples that should be indexed, calling a callback function for each suitable tuple during index construction.

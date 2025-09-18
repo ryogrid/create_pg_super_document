@@ -1,7 +1,7 @@
 # heap_xlog_visible
 
 ## Location
-src/backend/access/heap/heapam.c: 9363 - 9497
+[src/backend/access/heap/heapam.c:9363-9497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9363-L9497)
 
 ## Overview
 Replays XLOG_HEAP2_VISIBLE WAL records to restore visibility map state and page-level visibility bits during PostgreSQL recovery, ensuring integrity between visibility map and page visibility flags.

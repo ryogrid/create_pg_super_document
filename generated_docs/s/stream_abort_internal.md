@@ -1,7 +1,7 @@
 # stream_abort_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 1731 - 1813
+[src/backend/replication/logical/worker.c:1731-1813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1731-L1813)
 
 ## Overview
 Handles the internal abort processing for serialized streaming transactions, either cleaning up files for top-level transaction aborts or truncating serialized data for subtransaction rollbacks.

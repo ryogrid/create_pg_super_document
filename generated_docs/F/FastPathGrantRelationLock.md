@@ -1,7 +1,7 @@
 # FastPathGrantRelationLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2645 - 2681
+[src/backend/storage/lmgr/lock.c:2645-2681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2645-L2681)
 
 ## Overview
 FastPathGrantRelationLock attempts to grant a lock on a relation using PostgreSQL's per-backend fast-path array, providing an optimized mechanism for acquiring relation locks without accessing the shared lock table.

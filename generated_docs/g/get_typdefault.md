@@ -1,7 +1,7 @@
 # get_typdefault
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2448 - 2520
+[src/backend/utils/cache/lsyscache.c:2448-2520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2448-L2520)
 
 ## Overview
 Retrieves the default value expression for a specified PostgreSQL data type, returning it as a parsed expression node tree that can be used in query planning and execution.

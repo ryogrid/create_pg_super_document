@@ -1,7 +1,7 @@
 # CheckForSerializableConflictIn
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4326 - 4408
+[src/backend/storage/lmgr/predicate.c:4326-4408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4326-L4408)
 
 ## Overview
 CheckForSerializableConflictIn detects serializable conflicts when performing write operations by checking for predicate locks that would create read-write dependencies.

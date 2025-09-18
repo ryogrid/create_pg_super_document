@@ -1,7 +1,7 @@
 # RehashCatCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 985 - 1022
+[src/backend/utils/cache/catcache.c:985-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L985-L1022)
 
 ## Overview
 RehashCatCache enlarges a catalog cache by doubling the number of hash buckets to improve cache performance when the cache becomes heavily loaded.

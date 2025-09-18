@@ -1,7 +1,7 @@
 # ReorderBufferGetTupleBuf
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 588 - 605
+[src/backend/replication/logical/reorderbuffer.c:588-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L588-L605)
 
 ## Overview
 Allocates and returns a fresh HeapTuple structure with sufficient memory to hold tuple data of a specified size.

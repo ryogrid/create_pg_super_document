@@ -1,7 +1,7 @@
 # tuples_equal
 
 ## Location
-src/backend/executor/execReplication.c: 305 - 377
+[src/backend/executor/execReplication.c:305-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L305-L377)
 
 ## Overview
 Compares two tuples stored in TupleTableSlots for equality by checking all non-dropped, non-generated attributes using appropriate data type equality operators.

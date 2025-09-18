@@ -1,7 +1,7 @@
 # gist_box_distance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1500 - 1525
+[src/backend/access/gist/gistproc.c:1500-1525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1500-L1525)
 
 ## Overview
 Implements the GiST distance method for box data types, calculating the minimum distance between a query point and boxes stored in GiST index entries for nearest-neighbor search operations.

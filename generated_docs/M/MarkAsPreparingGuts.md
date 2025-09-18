@@ -1,7 +1,7 @@
 # MarkAsPreparingGuts
 
 ## Location
-src/backend/access/transam/twophase.c: 433 - 503
+[src/backend/access/transam/twophase.c:433-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L433-L503)
 
 ## Overview
 Initializes a GlobalTransaction structure and its associated PGPROC entry, setting up the internal state required for a two-phase commit transaction in the preparing phase.

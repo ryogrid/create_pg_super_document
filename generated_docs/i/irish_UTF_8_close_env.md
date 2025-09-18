@@ -1,7 +1,7 @@
 # irish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 469 - 470
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:469-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L469-L470)
 
 ## Overview
 Cleanup function that deallocates memory and resources associated with an Irish language Snowball stemming environment.

@@ -1,7 +1,7 @@
 # build_client_final_message
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 450 - 601
+[src/interfaces/libpq/fe-auth-scram.c:450-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L450-L601)
 
 ## Overview
 Constructs the final SCRAM authentication message sent by the client, including channel binding data and the cryptographic client proof to verify client knowledge of the password.

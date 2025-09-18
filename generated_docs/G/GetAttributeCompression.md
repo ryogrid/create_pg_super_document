@@ -1,7 +1,7 @@
 # GetAttributeCompression
 
 ## Location
-src/backend/commands/tablecmds.c: 20230 - 20267
+[src/backend/commands/tablecmds.c:20230-20267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L20230-L20267)
 
 ## Overview
 Resolves a column compression specification string to a compression method identifier, validating that the data type supports compression.

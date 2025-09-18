@@ -1,7 +1,7 @@
 # pg_stat_reset_subscription_stats
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1806 - 1829
+[src/backend/utils/adt/pgstatfuncs.c:1806-1829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1806-L1829)
 
 ## Overview
 This function resets subscription statistics in PostgreSQL, allowing for either clearing statistics for a specific subscription or all subscription statistics at once.

@@ -1,7 +1,7 @@
 # check_ident_usermap
 
 ## Location
-src/backend/libpq/hba.c: 2757 - 2903
+[src/backend/libpq/hba.c:2757-2903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2757-L2903)
 
 ## Overview
 Evaluates a single identity mapping rule from pg_ident.conf to determine if a system user can be mapped to a PostgreSQL role, supporting both literal matching and regular expression patterns with substitution.

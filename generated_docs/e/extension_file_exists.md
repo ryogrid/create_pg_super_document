@@ -1,7 +1,7 @@
 # extension_file_exists
 
 ## Location
-src/backend/commands/extension.c: 2260 - 2312
+[src/backend/commands/extension.c:2260-2312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2260-L2312)
 
 ## Overview
 This function tests whether a given extension exists by checking for the presence of its primary control file in the extension control directory.

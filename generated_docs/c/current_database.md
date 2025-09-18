@@ -1,7 +1,7 @@
 # current_database
 
 ## Location
-src/backend/utils/adt/misc.c: 195 - 211
+[src/backend/utils/adt/misc.c:195-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L195-L211)
 
 ## Overview
 A PostgreSQL built-in function that returns the name of the current database that the session is connected to.

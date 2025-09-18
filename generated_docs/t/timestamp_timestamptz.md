@@ -1,7 +1,7 @@
 # timestamp_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6286 - 6303
+[src/backend/utils/adt/timestamp.c:6286-6303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6286-L6303)
 
 ## Overview
 Converts a local timestamp to a timestamptz (timestamp with timezone) by interpreting the timestamp as being in the current session timezone.

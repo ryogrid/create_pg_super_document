@@ -1,7 +1,7 @@
 # generateSerialExtraStmts
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 361 - 561
+[src/backend/parser/parse_utilcmd.c:361-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L361-L561)
 
 ## Overview
 Generates CREATE SEQUENCE and ALTER SEQUENCE ... OWNED BY statements to create and configure the sequence for a serial or identity column.

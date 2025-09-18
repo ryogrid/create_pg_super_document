@@ -1,7 +1,7 @@
 # pg_get_ruledef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 575 - 656
+[src/backend/utils/adt/ruleutils.c:575-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L575-L656)
 
 ## Overview
 Core worker function that performs the actual retrieval and formatting of PostgreSQL rewrite rule definitions from the system catalog.

@@ -1,7 +1,7 @@
 # DeconstructFkConstraintRow
 
 ## Location
-src/backend/catalog/pg_constraint.c: 1235 - 1366
+[src/backend/catalog/pg_constraint.c:1235-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L1235-L1366)
 
 ## Overview
 Extracts foreign key constraint data from a pg_constraint tuple into separate arrays for constraint columns, referenced columns, and operator information.

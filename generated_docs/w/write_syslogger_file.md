@@ -1,7 +1,7 @@
 # write_syslogger_file
 
 ## Location
-src/backend/postmaster/syslogger.c: 1094 - 1140
+[src/backend/postmaster/syslogger.c:1094-1140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1094-L1140)
 
 ## Overview
 Writes text data to the currently open log file, supporting multiple log destinations including CSV and JSON structured logs.

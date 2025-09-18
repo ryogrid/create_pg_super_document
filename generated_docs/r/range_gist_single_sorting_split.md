@@ -1,7 +1,7 @@
 # range_gist_single_sorting_split
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1229 - 1317
+[src/backend/utils/adt/rangetypes_gist.c:1229-1317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1229-L1317)
 
 ## Overview
 A GiST splitting function that sorts range entries by either their lower or upper bounds and splits them into two equal halves to optimize spatial ordering.

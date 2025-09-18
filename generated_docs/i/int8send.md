@@ -1,7 +1,7 @@
 # int8send
 
 ## Location
-src/backend/utils/adt/int8.c: 94 - 112
+[src/backend/utils/adt/int8.c:94-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L94-L112)
 
 ## Overview
 Converts PostgreSQL's internal int8 (bigint) value to external binary format for transmission.

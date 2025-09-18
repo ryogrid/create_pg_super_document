@@ -1,7 +1,7 @@
 # ResetCatalogCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 736 - 797
+[src/backend/utils/cache/catcache.c:736-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L736-L797)
 
 ## Overview
 Resets a single catalog cache to empty state by removing or marking dead all tuples and lists in the cache.

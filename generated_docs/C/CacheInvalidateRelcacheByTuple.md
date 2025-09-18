@@ -1,7 +1,7 @@
 # CacheInvalidateRelcacheByTuple
 
 ## Location
-src/backend/utils/cache/inval.c: 1399 - 1421
+[src/backend/utils/cache/inval.c:1399-1421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1399-L1421)
 
 ## Overview
 Registers invalidation of a relation's relcache entry by identifying the relation through its pg_class tuple rather than a Relation structure.

@@ -1,7 +1,7 @@
 # ConditionalLockDatabaseObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1024 - 1058
+[src/backend/storage/lmgr/lmgr.c:1024-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1024-L1058)
 
 ## Overview
 ConditionalLockDatabaseObject attempts to obtain a lock on a database object without blocking, returning immediately with a boolean indicating whether the lock was successfully acquired.

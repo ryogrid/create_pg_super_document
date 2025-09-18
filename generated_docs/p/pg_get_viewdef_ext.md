@@ -1,7 +1,7 @@
 # pg_get_viewdef_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 676 - 694
+[src/backend/utils/adt/ruleutils.c:676-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L676-L694)
 
 ## Overview
 Extended version of pg_get_viewdef that provides user control over pretty-printing options for view definition output formatting.

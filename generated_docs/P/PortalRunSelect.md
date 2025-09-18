@@ -1,7 +1,7 @@
 # PortalRunSelect
 
 ## Location
-src/backend/tcop/pquery.c: 865 - 997
+[src/backend/tcop/pquery.c:865-997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L865-L997)
 
 ## Overview
 Executes a portal's query in SELECT mode, handling both forward and backward sequential access to fetch tuples from either the executor or a held store.

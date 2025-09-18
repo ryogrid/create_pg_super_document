@@ -1,7 +1,7 @@
 # make_temp_sockdir
 
 ## Location
-src/test/regress/pg_regress.c: 500 - 540
+[src/test/regress/pg_regress.c:500-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L500-L540)
 
 ## Overview
 Creates a secure temporary directory for PostgreSQL's Unix-domain socket during regression testing, with proper permissions and signal-based cleanup handling.

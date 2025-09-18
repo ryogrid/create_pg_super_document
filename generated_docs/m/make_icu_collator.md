@@ -1,7 +1,7 @@
 # make_icu_collator
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1472 - 1524
+[src/backend/utils/adt/pg_locale.c:1472-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1472-L1524)
 
 ## Overview
 make_icu_collator creates an ICU-based collator object for a PostgreSQL locale structure, with optional custom collation rules that extend the standard ICU collation behavior.

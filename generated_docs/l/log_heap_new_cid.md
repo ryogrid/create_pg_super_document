@@ -1,7 +1,7 @@
 # log_heap_new_cid
 
 ## Location
-src/backend/access/heap/heapam.c: 9038 - 9118
+[src/backend/access/heap/heapam.c:9038-9118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9038-L9118)
 
 ## Overview
 Performs XLogInsert of an XLOG_HEAP2_NEW_CID record for tracking command IDs (CIDs) of catalog tuples in logical decoding contexts.

@@ -1,7 +1,7 @@
 # brin_bloom_summary_send
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 840 - 843
+[src/backend/access/brin/brin_bloom.c:840-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L840-L843)
 
 ## Overview
 Binary output function for the brin_bloom_summary PostgreSQL data type that serializes the internal bloom filter data to binary format by delegating to the standard bytea send function.

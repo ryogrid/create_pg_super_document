@@ -1,7 +1,7 @@
 # ReorderBufferPrepare
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2846 - 2882
+[src/backend/replication/logical/reorderbuffer.c:2846-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2846-L2882)
 
 ## Overview
 Processes a two-phase transaction prepare operation by setting prepare flags and replaying the transaction changes.

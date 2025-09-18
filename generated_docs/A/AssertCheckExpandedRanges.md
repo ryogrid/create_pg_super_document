@@ -1,7 +1,7 @@
 # AssertCheckExpandedRanges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 426 - 485
+[src/backend/access/brin/brin_minmax_multi.c:426-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L426-L485)
 
 ## Overview
 AssertCheckExpandedRanges is a debugging function that validates the correctness and ordering of ExpandedRange arrays used during range reduction operations in BRIN minmax-multi indexes.

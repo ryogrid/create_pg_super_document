@@ -1,7 +1,7 @@
 # oidtoi8
 
 ## Location
-src/backend/utils/adt/int8.c: 1366 - 1376
+[src/backend/utils/adt/int8.c:1366-1376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1366-L1376)
 
 ## Overview
 Converts an Oid (object identifier) value to a 64-bit signed integer (int8/bigint).

@@ -1,7 +1,7 @@
 # pq_sendint
 
 ## Location
-src/include/libpq/pqformat.h: 171 - 209
+[src/include/libpq/pqformat.h:171-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L171-L209)
 
 ## Overview
 A deprecated inline function that appends a binary integer to a StringInfo buffer with variable byte width support.

@@ -1,7 +1,7 @@
 # GetForeignServerIdByRelId
 
 ## Location
-src/backend/foreign/foreign.c: 355 - 376
+[src/backend/foreign/foreign.c:355-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L355-L376)
 
 ## Overview
 Retrieves the foreign server OID for a given foreign table relation ID by looking up the foreign table in the system catalog.

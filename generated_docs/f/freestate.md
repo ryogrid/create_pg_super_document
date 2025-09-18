@@ -1,7 +1,7 @@
 # freestate
 
 ## Location
-src/backend/regex/regc_nfa.c: 242 - 280
+[src/backend/regex/regc_nfa.c:242-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L242-L280)
 
 ## Overview
 Deallocates a state that has no incoming or outgoing arcs by removing it from the NFA's state list and adding it to the free list for reuse.

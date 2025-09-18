@@ -1,7 +1,7 @@
 # bernoulli_beginsamplescan
 
 ## Location
-src/backend/access/tablesample/bernoulli.c: 136 - 180
+[src/backend/access/tablesample/bernoulli.c:136-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/bernoulli.c#L136-L180)
 
 ## Overview
 This function examines the sampling parameters and prepares the Bernoulli sampler for execution by setting up the probability cutoff and scan optimization flags.

@@ -1,7 +1,7 @@
 # hash_seq_term
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1474 - 1493
+[src/backend/utils/hash/dynahash.c:1474-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1474-L1493)
 
 ## Overview
 Terminates a hash table sequential scan by deregistering it from the hash table's scan tracking system.

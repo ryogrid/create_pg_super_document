@@ -1,7 +1,7 @@
 # FinishWalRecovery
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1458 - 1607
+[src/backend/access/transam/xlogrecovery.c:1458-1607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1458-L1607)
 
 ## Overview
 Completes WAL recovery by shutting down recovery components, determining the end of valid WAL, and preparing recovery result information for transitioning to normal database operation.

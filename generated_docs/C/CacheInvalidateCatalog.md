@@ -1,7 +1,7 @@
 # CacheInvalidateCatalog
 
 ## Location
-src/backend/utils/cache/inval.c: 1339 - 1362
+[src/backend/utils/cache/inval.c:1339-1362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1339-L1362)
 
 ## Overview
 Registers invalidation of the whole content of a system catalog, typically used during VACUUM FULL/CLUSTER operations when tuples have been moved around.

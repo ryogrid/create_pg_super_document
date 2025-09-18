@@ -1,7 +1,7 @@
 # ResOwnerPrintTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 934 - 940
+[src/backend/access/common/tupdesc.c:934-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L934-L940)
 
 ## Overview
 A resource owner debug callback function that generates a human-readable string representation of a TupleDesc resource for debugging and logging purposes.

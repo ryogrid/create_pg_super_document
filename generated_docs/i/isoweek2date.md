@@ -1,7 +1,7 @@
 # isoweek2date
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5136 - 5148
+[src/backend/utils/adt/timestamp.c:5136-5148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5136-L5148)
 
 ## Overview
 Converts an ISO week number and year to the corresponding Gregorian calendar date (year, month, day) for the first day (Monday) of that week.

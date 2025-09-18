@@ -1,7 +1,7 @@
 # CheckRequiredParameterValues
 
 ## Location
-src/backend/access/transam/xlog.c: 5340 - 5383
+[src/backend/access/transam/xlog.c:5340-5383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L5340-L5383)
 
 ## Overview
 Validates that server configuration parameters are set to appropriate values for archive recovery and hot standby operations to prevent recovery failures.

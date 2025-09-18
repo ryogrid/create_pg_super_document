@@ -1,7 +1,7 @@
 # tar_write_compressed_data
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 713 - 764
+[src/bin/pg_basebackup/walmethods.c:713-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L713-L764)
 
 ## Overview
 Compresses data using zlib compression and writes it to a TAR archive file during PostgreSQL WAL streaming or base backup operations.

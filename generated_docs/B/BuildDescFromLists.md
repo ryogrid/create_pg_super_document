@@ -1,7 +1,7 @@
 # BuildDescFromLists
 
 ## Location
-src/backend/access/common/tupdesc.c: 858 - 898
+[src/backend/access/common/tupdesc.c:858-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L858-L898)
 
 ## Overview
 Builds a TupleDesc from separate lists of column names, data types, type modifiers, and collations, primarily for functions returning RECORD type.

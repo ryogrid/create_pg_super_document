@@ -1,7 +1,7 @@
 # WaitForWalSummarization
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 660 - 787
+[src/backend/postmaster/walsummarizer.c:660-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L660-L787)
 
 ## Overview
 Waits until WAL summarization reaches a specified LSN with timeout and error handling, providing a mechanism for processes to ensure WAL summarization has progressed to a required point.

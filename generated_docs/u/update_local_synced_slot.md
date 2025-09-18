@@ -1,7 +1,7 @@
 # update_local_synced_slot
 
 ## Location
-src/backend/replication/logical/slotsync.c: 168 - 332
+[src/backend/replication/logical/slotsync.c:168-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L168-L332)
 
 ## Overview
 Updates the local synced slot's metadata based on data from the remote slot, ensuring consistency and preventing data loss during slot synchronization.

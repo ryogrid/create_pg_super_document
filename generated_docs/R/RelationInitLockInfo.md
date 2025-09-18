@@ -1,7 +1,7 @@
 # RelationInitLockInfo
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 71 - 88
+[src/backend/storage/lmgr/lmgr.c:71-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L71-L88)
 
 ## Overview
 RelationInitLockInfo initializes the lock information in a relation descriptor, setting up the lock identification data required for locking operations on the relation.

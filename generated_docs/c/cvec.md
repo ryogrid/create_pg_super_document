@@ -1,7 +1,7 @@
 # cvec
 
 ## Location
-src/include/regex/regguts.h: 278 - 294
+[src/include/regex/regguts.h:278-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L278-L294)
 
 ## Overview
 A structure representing a set of characters in PostgreSQL's regex implementation, efficiently storing both individual characters and character ranges, with special support for locale-specific character classes.

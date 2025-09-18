@@ -1,7 +1,7 @@
 # timestamptz_trunc
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4970 - 4987
+[src/backend/utils/adt/timestamp.c:4970-4987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4970-L4987)
 
 ## Overview
 Truncates a timestamp with time zone to a specified time unit using the session timezone for timezone-aware calculations.

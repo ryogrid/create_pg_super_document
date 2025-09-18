@@ -1,7 +1,7 @@
 # ExecGetResultRelCheckAsUser
 
 ## Location
-src/backend/executor/execUtils.c: 1395 - 1405
+[src/backend/executor/execUtils.c:1395-1405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1395-L1405)
 
 ## Overview
 ExecGetResultRelCheckAsUser returns the user ID to use when performing permission checks for modifications to a passed-in result relation, handling both regular relations and inheritance child relations.

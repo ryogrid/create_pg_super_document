@@ -1,7 +1,7 @@
 # verify_backup_directory
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 610 - 674
+[src/bin/pg_verifybackup/pg_verifybackup.c:610-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L610-L674)
 
 ## Overview
 Recursively verifies a directory within a PostgreSQL backup by scanning its contents and delegating file/subdirectory verification to appropriate functions.

@@ -1,7 +1,7 @@
 # record_plan_function_dependency
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3472 - 3511
+[src/backend/optimizer/plan/setrefs.c:3472-3511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3472-L3511)
 
 ## Overview
 Records a dependency of the current query plan on a specific function to enable proper plan invalidation when the function is modified.

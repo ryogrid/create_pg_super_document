@@ -1,7 +1,7 @@
 # PLyTransformToOb
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 52 - 55
+[src/pl/plpython/plpy_typeio.h:52-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L52-L55)
 
 ## Overview
 PLyTransformToOb is a struct that contains conversion information for transforming PostgreSQL data types using custom transform functions to Python objects.

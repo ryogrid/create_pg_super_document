@@ -1,7 +1,7 @@
 # pg_comp_crc32c_choose
 
 ## Location
-src/port/pg_crc32c_sse42_choose.c: 54 - 64
+[src/port/pg_crc32c_sse42_choose.c:54-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_sse42_choose.c#L54-L64)
 
 ## Overview
 A runtime function pointer initialization function that selects the optimal CRC-32C computation implementation based on available CPU features, then redirects future calls to the chosen implementation.

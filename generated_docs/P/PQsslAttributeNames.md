@@ -1,7 +1,7 @@
 # PQsslAttributeNames
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1814 - 1840
+[src/interfaces/libpq/fe-secure-openssl.c:1814-1840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1814-L1840)
 
 ## Overview
 Returns an array of supported SSL attribute names that can be queried for a PostgreSQL connection, providing metadata about available SSL connection properties.

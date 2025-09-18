@@ -1,7 +1,7 @@
 # pg_xact_commit_timestamp
 
 ## Location
-src/backend/access/transam/commit_ts.c: 397 - 419
+[src/backend/access/transam/commit_ts.c:397-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L397-L419)
 
 ## Overview
 A PostgreSQL SQL function that returns the commit timestamp for a given transaction ID.

@@ -1,7 +1,7 @@
 # pg_rightmost_one_pos64
 
 ## Location
-src/include/port/pg_bitutils.h: 145 - 188
+[src/include/port/pg_bitutils.h:145-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L145-L188)
 
 ## Overview
 Returns the position of the least significant set bit in a 64-bit word, providing efficient trailing zero counting for 64-bit PostgreSQL operations.

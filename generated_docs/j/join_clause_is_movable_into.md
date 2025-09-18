@@ -1,7 +1,7 @@
 # join_clause_is_movable_into
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 670 - 687
+[src/backend/optimizer/util/restrictinfo.c:670-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L670-L687)
 
 ## Overview  
 Tests whether a join clause is movable and can be evaluated within the current join context, considering the available relations and parameterization context.

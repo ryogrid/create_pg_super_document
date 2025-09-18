@@ -1,7 +1,7 @@
 # ExecShutdownNode
 
 ## Location
-src/backend/executor/execProcnode.c: 767 - 772
+[src/backend/executor/execProcnode.c:767-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L767-L772)
 
 ## Overview
 ExecShutdownNode provides a controlled shutdown mechanism for query plan execution trees, allowing nodes to stop asynchronous operations and release resources before complete termination.

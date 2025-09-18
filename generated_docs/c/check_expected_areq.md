@@ -1,7 +1,7 @@
 # check_expected_areq
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 802 - 960
+[src/interfaces/libpq/fe-auth.c:802-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L802-L960)
 
 ## Overview
 Verifies that the authentication request from the server matches the client's security requirements and connection parameters.

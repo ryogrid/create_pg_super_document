@@ -1,7 +1,7 @@
 # bytealike
 
 ## Location
-src/backend/utils/adt/like.c: 324 - 344
+[src/backend/utils/adt/like.c:324-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L324-L344)
 
 ## Overview
 Implements the LIKE operator for PostgreSQL's bytea data type, returning true when binary data matches a given binary pattern.

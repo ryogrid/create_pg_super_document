@@ -1,7 +1,7 @@
 # PQsendPrepare
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1536 - 1632
+[src/interfaces/libpq/fe-exec.c:1536-1632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1536-L1632)
 
 ## Overview
 PQsendPrepare is a public API function that sends a Parse message to prepare a SQL statement on the PostgreSQL server for later execution, operating asynchronously without waiting for completion.

@@ -1,7 +1,7 @@
 # prepare_btree_command
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 881 - 929
+[src/bin/pg_amcheck/pg_amcheck.c:881-929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L881-L929)
 
 ## Overview
 This function constructs a SQL command for running amcheck verification on a btree index relation using PostgreSQL's bt_index_check() or bt_index_parent_check() functions.

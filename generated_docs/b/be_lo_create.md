@@ -1,7 +1,7 @@
 # be_lo_create
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 262 - 274
+[src/backend/libpq/be-fsstubs.c:262-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L262-L274)
 
 ## Overview
 A PostgreSQL backend function that creates a new large object with a specific OID or assigns a new OID if the provided one is invalid.

@@ -1,7 +1,7 @@
 # numeric_trunc
 
 ## Location
-src/backend/utils/adt/numeric.c: 1595 - 1644
+[src/backend/utils/adt/numeric.c:1595-1644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1595-L1644)
 
 ## Overview
 The numeric_trunc function implements PostgreSQL's TRUNC() SQL function for NUMERIC data types, truncating a value to a specified number of digits after the decimal point without rounding.

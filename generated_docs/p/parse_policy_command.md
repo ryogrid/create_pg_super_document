@@ -1,7 +1,7 @@
 # parse_policy_command
 
 ## Location
-src/backend/commands/policy.c: 108 - 136
+[src/backend/commands/policy.c:108-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L108-L136)
 
 ## Overview
 A helper function that converts full policy command strings ('all', 'select', 'insert', 'update', 'delete') to their corresponding single-character representations used internally by PostgreSQL's row-level security system.

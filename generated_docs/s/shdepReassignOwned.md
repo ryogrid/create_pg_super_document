@@ -1,7 +1,7 @@
 # shdepReassignOwned
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1530 - 1646
+[src/backend/catalog/pg_shdepend.c:1530-1646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1530-L1646)
 
 ## Overview
 Reassigns ownership of all objects owned by the specified role(s) to a new role. Unlike shdepDropOwned, this function transfers ownership rather than deleting objects and does not modify grants.

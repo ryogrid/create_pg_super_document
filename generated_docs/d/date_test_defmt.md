@@ -1,7 +1,7 @@
 # date_test_defmt
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c: 52 - 76
+[src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c:52-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c#L52-L76)
 
 ## Overview
 Tests formatted date parsing functionality by converting a string input using a specified format to a date structure and then back to a standardized string format.

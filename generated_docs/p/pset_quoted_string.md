@@ -1,7 +1,7 @@
 # pset_quoted_string
 
 ## Location
-src/bin/psql/command.c: 5155 - 5192
+[src/bin/psql/command.c:5155-5192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5155-L5192)
 
 ## Overview
 Creates a properly quoted and escaped string suitable for display in psql output, handling special characters like newlines and single quotes.

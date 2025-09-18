@@ -1,7 +1,7 @@
 # displayStruct
 
 ## Location
-src/backend/utils/misc/help_config.c: 74 - 86
+[src/backend/utils/misc/help_config.c:74-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/help_config.c#L74-L86)
 
 ## Overview
 A filtering function that determines whether a PostgreSQL GUC configuration structure should be displayed to the user based on its visibility flags.

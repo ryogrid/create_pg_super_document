@@ -1,7 +1,7 @@
 # SSLerrfree
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1782 - 1795
+[src/interfaces/libpq/fe-secure-openssl.c:1782-1795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1782-L1795)
 
 ## Overview
 A static helper function that safely frees memory allocated for SSL error message buffers, avoiding freeing the static fallback error message buffer.

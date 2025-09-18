@@ -1,7 +1,7 @@
 # has_parameter_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4628 - 4643
+[src/backend/utils/adt/acl.c:4628-4643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4628-L4643)
 
 ## Overview
 A PostgreSQL function that checks if a named user has specific privileges on a parameter, taking all arguments as text values.

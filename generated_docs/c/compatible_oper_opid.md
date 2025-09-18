@@ -1,7 +1,7 @@
 # compatible_oper_opid
 
 ## Location
-src/backend/parser/parse_oper.c: 487 - 517
+[src/backend/parser/parse_oper.c:487-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L487-L517)
 
 ## Overview
 A convenience wrapper function that returns only the operator OID from compatible operator resolution, without requiring the caller to manage syscache entries.

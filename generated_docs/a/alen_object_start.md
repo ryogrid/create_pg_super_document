@@ -1,7 +1,7 @@
 # alen_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1898 - 1911
+[src/backend/utils/adt/jsonfuncs.c:1898-1911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1898-L1911)
 
 ## Overview
 A JSON parser callback function that validates that the JSON input is not an object when determining array length.

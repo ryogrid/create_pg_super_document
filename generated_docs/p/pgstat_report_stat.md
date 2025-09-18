@@ -1,7 +1,7 @@
 # pgstat_report_stat
 
 ## Location
-src/backend/utils/activity/pgstat.c: 579 - 692
+[src/backend/utils/activity/pgstat.c:579-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L579-L692)
 
 ## Overview
 The primary function responsible for flushing pending statistics updates from backend processes to shared memory, controlling the timing and frequency of statistics reporting in PostgreSQL.

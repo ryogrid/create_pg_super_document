@@ -1,7 +1,7 @@
 # addRangeTableEntryForJoin
 
 ## Location
-src/backend/parser/parse_relation.c: 2216 - 2313
+[src/backend/parser/parse_relation.c:2216-2313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2216-L2313)
 
 ## Overview
 Creates a range table entry (RTE) for a join operation and adds it to the parser state's range table, returning a ParseNamespaceItem for the new join entry.

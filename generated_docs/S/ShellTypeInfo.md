@@ -1,7 +1,7 @@
 # ShellTypeInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 230 - 231
+[src/bin/pg_dump/pg_dump.h:230-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L230-L231)
 
 ## Overview
 ShellTypeInfo represents a shell (placeholder) type definition in pg_dump, used to create forward declarations for base and range types before their full I/O functions are defined.

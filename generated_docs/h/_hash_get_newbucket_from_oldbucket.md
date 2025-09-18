@@ -1,7 +1,7 @@
 # _hash_get_newbucket_from_oldbucket
 
 ## Location
-src/backend/access/hash/hashutil.c: 494 - 535
+[src/backend/access/hash/hashutil.c:494-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L494-L535)
 
 ## Overview
 Calculates the new bucket number that will be generated after splitting from a given old bucket during hash table expansion.

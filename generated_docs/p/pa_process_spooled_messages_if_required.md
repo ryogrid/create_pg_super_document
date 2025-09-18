@@ -1,7 +1,7 @@
 # pa_process_spooled_messages_if_required
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 658 - 711
+[src/backend/replication/logical/applyparallelworker.c:658-711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L658-L711)
 
 ## Overview
 Processes spooled messages when required, handling the coordination between leader and parallel apply workers during message serialization and replay phases.

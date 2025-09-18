@@ -1,7 +1,7 @@
 # errorConflictingDefElem
 
 ## Location
-src/backend/commands/define.c: 384 - 390
+[src/backend/commands/define.c:384-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L384-L390)
 
 ## Overview
 A utility function that raises a standardized error when conflicting or redundant options are detected in DefElem lists during SQL command processing.

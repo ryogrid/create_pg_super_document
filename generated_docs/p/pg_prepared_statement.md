@@ -1,7 +1,7 @@
 # pg_prepared_statement
 
 ## Location
-src/backend/commands/prepare.c: 684 - 745
+[src/backend/commands/prepare.c:684-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L684-L745)
 
 ## Overview
 A set-returning function that reads all prepared statements and returns detailed metadata about each statement including name, query text, preparation time, parameter types, and plan statistics.

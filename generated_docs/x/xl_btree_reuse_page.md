@@ -1,7 +1,7 @@
 # xl_btree_reuse_page
 
 ## Location
-src/include/access/nbtxlog.h: 186 - 193
+[src/include/access/nbtxlog.h:186-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L186-L193)
 
 ## Overview
 The xl_btree_reuse_page structure represents a WAL record for B-tree page reuse operations, primarily used to generate conflict points for Hot Standby scenarios.

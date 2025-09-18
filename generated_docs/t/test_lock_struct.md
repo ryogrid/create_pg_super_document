@@ -1,7 +1,7 @@
 # test_lock_struct
 
 ## Location
-src/test/regress/regress.c: 862 - 963
+[src/test/regress/regress.c:862-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L862-L963)
 
 ## Overview
 A test structure used in PostgreSQL's spinlock testing program to verify correct spinlock implementation and data type sizing on different platforms.

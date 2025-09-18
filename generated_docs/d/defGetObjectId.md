@@ -1,7 +1,7 @@
 # defGetObjectId
 
 ## Location
-src/backend/commands/define.c: 219 - 251
+[src/backend/commands/define.c:219-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L219-L251)
 
 ## Overview
 Extracts an OID (Object Identifier) value from a DefElem structure, handling both integer and float representations while providing appropriate error handling.

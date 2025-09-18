@@ -1,7 +1,7 @@
 # ExecInitHashJoin
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 710 - 858
+[src/backend/executor/nodeHashjoin.c:710-858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L710-L858)
 
 ## Overview
 ExecInitHashJoin initializes a HashJoin node during query plan startup, setting up all necessary state structures, child nodes, expression contexts, and tuple slots required for hash join execution.

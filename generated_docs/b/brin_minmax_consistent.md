@@ -1,7 +1,7 @@
 # brin_minmax_consistent
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 137 - 207
+[src/backend/access/brin/brin_minmax.c:137-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L137-L207)
 
 ## Overview
 Determines whether a scan key is consistent with the min/max range stored in a BRIN index tuple, enabling the query planner to decide if a page range should be scanned.

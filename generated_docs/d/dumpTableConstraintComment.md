@@ -1,7 +1,7 @@
 # dumpTableConstraintComment
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17549 - 17575
+[src/bin/pg_dump/pg_dump.c:17549-17575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17549-L17575)
 
 ## Overview
 Dumps comments associated with table constraints, handling the proper formatting and dependency management for constraint comment restoration.

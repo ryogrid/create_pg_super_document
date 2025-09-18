@@ -1,7 +1,7 @@
 # brinvalidate
 
 ## Location
-src/backend/access/brin/brin_validate.c: 37 - 281
+[src/backend/access/brin/brin_validate.c:37-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_validate.c#L37-L281)
 
 ## Overview
 Validates a BRIN (Block Range Index) operator class by performing comprehensive checks on its operator family, ensuring all required support functions and operators are present with correct signatures.

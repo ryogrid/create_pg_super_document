@@ -1,7 +1,7 @@
 # next_insert
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 111 - 147
+[src/interfaces/ecpg/ecpglib/execute.c:111-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L111-L147)
 
 ## Overview
 A static parsing function that locates the next parameter placeholder position in an SQL statement text, handling both PostgreSQL-style ($n) and question mark (?) placeholders.

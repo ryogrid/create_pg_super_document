@@ -1,7 +1,7 @@
 # HaveNFreeProcs
 
 ## Location
-src/backend/storage/lmgr/proc.c: 692 - 717
+[src/backend/storage/lmgr/proc.c:692-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L692-L717)
 
 ## Overview
 Checks whether there are at least N free PGPROC objects available in the system, providing both a boolean result and the actual count of free processes.

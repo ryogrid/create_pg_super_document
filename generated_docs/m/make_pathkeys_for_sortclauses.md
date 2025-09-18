@@ -1,7 +1,7 @@
 # make_pathkeys_for_sortclauses
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1330 - 1370
+[src/backend/optimizer/path/pathkeys.c:1330-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1330-L1370)
 
 ## Overview
 Generates a pathkeys list that represents the sort order specified by a list of SortGroupClauses, serving as a wrapper for the extended version with default parameters.

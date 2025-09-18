@@ -1,7 +1,7 @@
 # spcachekey_hash
 
 ## Location
-src/backend/catalog/namespace.c: 254 - 273
+[src/backend/catalog/namespace.c:254-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L254-L273)
 
 ## Overview
 Hash function that computes a hash value for a SearchPathCacheKey, used as part of PostgreSQL's search path caching mechanism to optimize namespace path computations.

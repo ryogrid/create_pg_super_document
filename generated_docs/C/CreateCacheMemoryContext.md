@@ -1,7 +1,7 @@
 # CreateCacheMemoryContext
 
 ## Location
-src/backend/utils/cache/catcache.c: 708 - 735
+[src/backend/utils/cache/catcache.c:708-735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L708-L735)
 
 ## Overview
 CreateCacheMemoryContext is a public utility function that creates the global CacheMemoryContext if it doesn't already exist, centralizing the context creation logic.

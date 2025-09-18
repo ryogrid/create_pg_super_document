@@ -1,7 +1,7 @@
 # plan_union_children
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1208 - 1271
+[src/backend/optimizer/prep/prepunion.c:1208-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1208-L1271)
 
 ## Overview
 Recursively flattens nested UNION operations with identical properties into a single N-way UNION and plans the constituent child queries.

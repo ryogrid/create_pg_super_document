@@ -1,7 +1,7 @@
 # integer_digits
 
 ## Location
-src/fe_utils/print.c: 278 - 288
+[src/fe_utils/print.c:278-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L278-L288)
 
 ## Overview
 Counts the number of digits in the integral part of a numeric string, used for formatting numeric values with locale-specific separators.

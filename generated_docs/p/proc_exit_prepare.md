@@ -1,7 +1,7 @@
 # proc_exit_prepare
 
 ## Location
-src/backend/storage/ipc/ipc.c: 165 - 227
+[src/backend/storage/ipc/ipc.c:165-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L165-L227)
 
 ## Overview
 The proc_exit_prepare function performs the core cleanup operations during PostgreSQL process termination, serving as the shared implementation between normal process exit and emergency atexit handling.

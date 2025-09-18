@@ -1,7 +1,7 @@
 # pull_up_simple_union_all
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1469 - 1550
+[src/backend/optimizer/prep/prepjointree.c:1469-1550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1469-L1550)
 
 ## Overview
 Transforms a simple UNION ALL subquery into an append relation by pulling up its leaf subqueries and creating AppendRelInfo nodes for efficient execution.

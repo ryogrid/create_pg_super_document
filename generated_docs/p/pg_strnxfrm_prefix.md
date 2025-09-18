@@ -1,7 +1,7 @@
 # pg_strnxfrm_prefix
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2525 - 2546
+[src/backend/utils/adt/pg_locale.c:2525-2546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2525-L2546)
 
 ## Overview
 Transforms a string of specified length to a byte sequence that can be compared using memcmp() to achieve the same ordering as pg_strcoll() on the original strings.

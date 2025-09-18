@@ -1,7 +1,7 @@
 # PLy_plan_dealloc
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 72 - 90
+[src/pl/plpython/plpy_planobject.c:72-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L72-L90)
 
 ## Overview
 The destructor function for PLyPlan Python objects that performs proper cleanup of PostgreSQL resources when the object is garbage collected.

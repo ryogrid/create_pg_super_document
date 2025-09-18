@@ -1,7 +1,7 @@
 # check_parameter_resolution_walker
 
 ## Location
-src/backend/parser/parse_param.c: 286 - 329
+[src/backend/parser/parse_param.c:286-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L286-L329)
 
 ## Overview
 A tree-walking function that validates parameter symbols match their assigned types throughout a fully-analyzed query tree, ensuring consistent parameter type resolution.

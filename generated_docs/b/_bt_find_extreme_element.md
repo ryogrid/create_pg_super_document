@@ -1,7 +1,7 @@
 # _bt_find_extreme_element
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 789 - 848
+[src/backend/access/nbtree/nbtutils.c:789-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L789-L848)
 
 ## Overview
 Finds the least or greatest element in an array of values for a specific B-tree index column using the column's opfamily comparison semantics.

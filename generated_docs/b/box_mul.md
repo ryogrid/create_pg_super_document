@@ -1,7 +1,7 @@
 # box_mul
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4261 - 4279
+[src/backend/utils/adt/geo_ops.c:4261-4279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4261-L4279)
 
 ## Overview
 Multiplies a box by a point, scaling the box dimensions by multiplying each corner coordinate with the corresponding point coordinate.

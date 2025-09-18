@@ -1,7 +1,7 @@
 # ExecReScanMemoize
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1140 - 1171
+[src/backend/executor/nodeMemoize.c:1140-1171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1140-L1171)
 
 ## Overview
 ExecReScanMemoize resets the Memoize node for a new scan, managing cache validity when parameters change and coordinating rescanning with the outer plan node.

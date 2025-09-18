@@ -1,7 +1,7 @@
 # regprocin
 
 ## Location
-src/backend/utils/adt/regproc.c: 66 - 117
+[src/backend/utils/adt/regproc.c:66-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L66-L117)
 
 ## Overview
 Converts a procedure name (or numeric OID) string representation to a RegProcedure OID, serving as the input function for the regproc data type.

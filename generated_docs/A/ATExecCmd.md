@@ -1,7 +1,7 @@
 # ATExecCmd
 
 ## Location
-src/backend/commands/tablecmds.c: 5232 - 5566
+[src/backend/commands/tablecmds.c:5232-5566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L5232-L5566)
 
 ## Overview
 ATExecCmd is the central dispatcher function that executes individual ALTER TABLE subcommands by routing each command to its appropriate execution routine based on the command subtype.

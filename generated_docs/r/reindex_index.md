@@ -1,7 +1,7 @@
 # reindex_index
 
 ## Location
-src/backend/catalog/index.c: 3547 - 3886
+[src/backend/catalog/index.c:3547-3886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3547-L3886)
 
 ## Overview
 The  function recreates a single index from scratch, handling all aspects of index reconstruction including validation, locking, storage management, and constraint checking.

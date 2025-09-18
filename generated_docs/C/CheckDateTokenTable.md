@@ -1,7 +1,7 @@
 # CheckDateTokenTable
 
 ## Location
-src/backend/utils/adt/datetime.c: 4779 - 4810
+[src/backend/utils/adt/datetime.c:4779-4810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4779-L4810)
 
 ## Overview
 A static validation function that checks the integrity and ordering of PostgreSQL's date/time token tables during system initialization.

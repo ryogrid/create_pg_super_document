@@ -1,7 +1,7 @@
 # pqsigprocmask
 
 ## Location
-src/backend/port/win32/signal.c: 171 - 209
+[src/backend/port/win32/signal.c:171-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L171-L209)
 
 ## Overview
 pqsigprocmask is the Windows-specific implementation of the POSIX sigprocmask function for examining and changing the signal mask.

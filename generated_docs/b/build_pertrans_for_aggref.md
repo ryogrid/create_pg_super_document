@@ -1,7 +1,7 @@
 # build_pertrans_for_aggref
 
 ## Location
-src/backend/executor/nodeAgg.c: 4038 - 4287
+[src/backend/executor/nodeAgg.c:4038-4287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4038-L4287)
 
 ## Overview
 Builds and initializes the per-transition state structure for a specific aggregate function, setting up function call infrastructure, sorting requirements, and DISTINCT handling.

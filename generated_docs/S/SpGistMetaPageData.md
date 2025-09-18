@@ -1,7 +1,7 @@
 # SpGistMetaPageData
 
 ## Location
-src/include/access/spgist_private.h: 116 - 120
+[src/include/access/spgist_private.h:116-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L116-L120)
 
 ## Overview
 SpGistMetaPageData is the structure that defines the contents of the metapage for SP-GiST indexes, containing global metadata and shared cache information.

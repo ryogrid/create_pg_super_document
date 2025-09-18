@@ -1,7 +1,7 @@
 # hash_xlog_update_meta_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 964 - 990
+[src/backend/access/hash/hash_xlog.c:964-990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L964-L990)
 
 ## Overview
 This function replays updates to the hash index meta page during PostgreSQL WAL recovery, specifically updating the tuple count stored in the meta page.

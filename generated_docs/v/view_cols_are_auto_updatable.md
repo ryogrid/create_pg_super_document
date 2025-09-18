@@ -1,7 +1,7 @@
 # view_cols_are_auto_updatable
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2771 - 2853
+[src/backend/rewrite/rewriteHandler.c:2771-2853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2771-L2853)
 
 ## Overview
 Tests whether all required columns of an auto-updatable view are actually updatable, returning NULL if all required columns can be updated or an error message for the first non-updatable required column.

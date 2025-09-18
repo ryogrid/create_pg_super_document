@@ -1,7 +1,7 @@
 # tidne
 
 ## Location
-src/backend/utils/adt/tid.c: 185 - 193
+[src/backend/utils/adt/tid.c:185-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L185-L193)
 
 ## Overview
 tidne is a PostgreSQL function that performs inequality comparison between two tuple identifiers (ItemPointer), returning true if they are not equal.

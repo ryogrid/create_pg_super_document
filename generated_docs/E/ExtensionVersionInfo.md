@@ -1,7 +1,7 @@
 # ExtensionVersionInfo
 
 ## Location
-src/backend/commands/extension.c: 98 - 107
+[src/backend/commands/extension.c:98-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L98-L107)
 
 ## Overview
 ExtensionVersionInfo is an internal data structure that represents version information and update path relationships for PostgreSQL extensions, used primarily in extension update path calculations and Dijkstra's shortest path algorithm.

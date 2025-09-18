@@ -1,7 +1,7 @@
 # OSAPerQueryState
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 49 - 90
+[src/backend/utils/adt/orderedsetaggs.c:49-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L49-L90)
 
 ## Overview
 OSAPerQueryState is a structure that holds per-query state data for ordered-set aggregates in PostgreSQL. It contains data and sub-objects that can be created once per query and shared across multiple groups, since they do not change between groups.

@@ -1,7 +1,7 @@
 # record_send
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 687 - 822
+[src/backend/utils/adt/rowtypes.c:687-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L687-L822)
 
 ## Overview
 Converts PostgreSQL's internal binary representation of a composite type (record) into binary format for network transmission or storage.

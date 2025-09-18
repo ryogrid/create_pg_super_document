@@ -1,7 +1,7 @@
 # brinGetTupleForHeapBlock
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 194 - 322
+[src/backend/access/brin/brin_revmap.c:194-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L194-L322)
 
 ## Overview
 Fetches the BrinTuple for a given heap block from a BRIN (Block Range Index) reverse map, returning the tuple that summarizes the range containing the specified heap block.

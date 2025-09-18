@@ -1,7 +1,7 @@
 # generate_series_timestamptz_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6590 - 6671
+[src/backend/utils/adt/timestamp.c:6590-6671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6590-L6671)
 
 ## Overview
 An internal function that implements the core logic for generating a series of timestamp values with time zone, performing arithmetic operations in a specified timezone.

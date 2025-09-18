@@ -1,7 +1,7 @@
 # sqlvar_struct
 
 ## Location
-src/interfaces/ecpg/include/sqlda-native.h: 24 - 32
+[src/interfaces/ecpg/include/sqlda-native.h:24-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/sqlda-native.h#L24-L32)
 
 ## Overview
 The  represents a single variable descriptor in PostgreSQL's ECPG native SQLDA, containing type information, data pointer, and metadata for database columns or parameters.

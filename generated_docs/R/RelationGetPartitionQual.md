@@ -1,7 +1,7 @@
 # RelationGetPartitionQual
 
 ## Location
-src/backend/utils/cache/partcache.c: 277 - 298
+[src/backend/utils/cache/partcache.c:277-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/partcache.c#L277-L298)
 
 ## Overview
 Retrieves the partition constraint qualification (WHERE clause) for a partition relation, returning the conditions that define which rows belong to this specific partition.

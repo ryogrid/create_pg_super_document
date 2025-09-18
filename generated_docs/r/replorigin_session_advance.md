@@ -1,7 +1,7 @@
 # replorigin_session_advance
 
 ## Location
-src/backend/replication/logical/origin.c: 1219 - 1236
+[src/backend/replication/logical/origin.c:1219-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1219-L1236)
 
 ## Overview
 Advances the replication progress tracking for the current session's configured replication origin by updating both local and remote LSN positions in a more efficient manner than the general replorigin_advance() function.

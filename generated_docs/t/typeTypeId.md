@@ -1,7 +1,7 @@
 # typeTypeId
 
 ## Location
-src/backend/parser/parse_type.c: 590 - 598
+[src/backend/parser/parse_type.c:590-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L590-L598)
 
 ## Overview
 typeTypeId extracts the OID from a Type structure (pg_type system catalog tuple), providing the reverse operation of typeidType.

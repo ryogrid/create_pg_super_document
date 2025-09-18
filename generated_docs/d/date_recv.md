@@ -1,7 +1,7 @@
 # date_recv
 
 ## Location
-src/backend/utils/adt/date.c: 209 - 230
+[src/backend/utils/adt/date.c:209-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L209-L230)
 
 ## Overview
 Converts PostgreSQL date values from external binary format to the internal DateADT representation used by PostgreSQL.

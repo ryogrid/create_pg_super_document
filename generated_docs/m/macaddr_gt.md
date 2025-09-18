@@ -1,7 +1,7 @@
 # macaddr_gt
 
 ## Location
-src/backend/utils/adt/mac.c: 246 - 254
+[src/backend/utils/adt/mac.c:246-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L246-L254)
 
 ## Overview
 The  function compares two MAC addresses and returns true if the first address is greater than the second address in lexicographical order.

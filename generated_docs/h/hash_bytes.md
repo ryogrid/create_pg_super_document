@@ -1,7 +1,7 @@
 # hash_bytes
 
 ## Location
-src/common/hashfn.c: 146 - 371
+[src/common/hashfn.c:146-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L146-L371)
 
 ## Overview
 The `hash_bytes` function is a core hash function that transforms variable-length byte arrays into 32-bit hash values, designed for high-performance hash table operations in PostgreSQL.

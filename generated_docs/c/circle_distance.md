@@ -1,7 +1,7 @@
 # circle_distance
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5066 - 5081
+[src/backend/utils/adt/geo_ops.c:5066-5081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5066-L5081)
 
 ## Overview
 Computes the minimum distance between two circles, returning 0 if the circles overlap or touch.

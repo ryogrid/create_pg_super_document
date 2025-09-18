@@ -1,7 +1,7 @@
 # show_upper_qual
 
 ## Location
-src/backend/commands/explain.c: 2545 - 2558
+[src/backend/commands/explain.c:2545-2558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2545-L2558)
 
 ## Overview
 A specialized wrapper function for displaying qualifier expressions in upper-level plan nodes, determining prefix usage based on the complexity of the query's range table and verbosity settings.

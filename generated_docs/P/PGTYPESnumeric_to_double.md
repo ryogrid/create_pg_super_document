@@ -1,7 +1,7 @@
 # PGTYPESnumeric_to_double
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1483 - 1493
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1483-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1483-L1493)
 
 ## Overview
 Public API function that converts a PostgreSQL numeric value to a double-precision floating-point number, serving as a wrapper around the internal conversion logic.

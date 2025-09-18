@@ -1,7 +1,7 @@
 # prune_element_hashtable
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 681 - 709
+[src/backend/utils/adt/array_typanalyze.c:681-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L681-L709)
 
 ## Overview
 The prune_element_hashtable function removes low-frequency elements from the hash table as part of the Lossy Counting algorithm implementation.

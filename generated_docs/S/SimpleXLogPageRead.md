@@ -1,7 +1,7 @@
 # SimpleXLogPageRead
 
 ## Location
-src/bin/pg_rewind/parsexlog.c: 275 - 388
+[src/bin/pg_rewind/parsexlog.c:275-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/parsexlog.c#L275-L388)
 
 ## Overview
 A callback function for XLogReader that handles reading WAL pages from disk, including timeline switching and archive recovery functionality for pg_rewind operations.

@@ -1,7 +1,7 @@
 # has_createrole_privilege
 
 ## Location
-src/backend/catalog/aclchk.c: 4228 - 4246
+[src/backend/catalog/aclchk.c:4228-4246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4228-L4246)
 
 ## Overview
 Checks whether a specified role has CREATEROLE privilege or is a superuser, providing an ownership-like permissions test for role-related operations.

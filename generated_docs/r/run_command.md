@@ -1,7 +1,7 @@
 # run_command
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 930 - 961
+[src/bin/pg_amcheck/pg_amcheck.c:930-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L930-L961)
 
 ## Overview
 This function sends a SQL command to the PostgreSQL server asynchronously without waiting for completion, with error handling for command transmission failures.

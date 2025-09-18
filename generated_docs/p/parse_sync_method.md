@@ -1,7 +1,7 @@
 # parse_sync_method
 
 ## Location
-src/fe_utils/option_utils.c: 90 - 111
+[src/fe_utils/option_utils.c:90-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/option_utils.c#L90-L111)
 
 ## Overview
 Provides standardized parsing of the --sync-method command-line option across PostgreSQL utilities.

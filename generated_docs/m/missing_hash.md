@@ -1,7 +1,7 @@
 # missing_hash
 
 ## Location
-src/backend/access/common/heaptuple.c: 100 - 107
+[src/backend/access/common/heaptuple.c:100-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L100-L107)
 
 ## Overview
 The `missing_hash` function is a hash function specifically designed for missing attribute cache keys, computing hash values for cache lookup operations in PostgreSQL heap tuple processing.

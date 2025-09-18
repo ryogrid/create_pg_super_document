@@ -1,7 +1,7 @@
 # make_mergejoin
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6028 - 6068
+[src/backend/optimizer/plan/createplan.c:6028-6068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6028-L6068)
 
 ## Overview
 Creates a MergeJoin plan node that represents a merge join operation in PostgreSQL's query execution plan tree.

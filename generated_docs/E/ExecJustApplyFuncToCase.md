@@ -1,7 +1,7 @@
 # ExecJustApplyFuncToCase
 
 ## Location
-src/backend/executor/execExprInterp.c: 2235 - 2272
+[src/backend/executor/execExprInterp.c:2235-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2235-L2272)
 
 ## Overview
 ExecJustApplyFuncToCase is a specialized function that evaluates a CASE_TESTVAL expression and applies a strict function to the result, optimized for expression interpretation in PostgreSQL.

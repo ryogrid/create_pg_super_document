@@ -1,7 +1,7 @@
 # GetOldestSafeDecodingTransactionId
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2944 - 3041
+[src/backend/storage/ipc/procarray.c:2944-3041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2944-L3041)
 
 ## Overview
 GetOldestSafeDecodingTransactionId returns the oldest transaction ID that is guaranteed not to have been affected by vacuum, used primarily for logical replication slot initialization and change data capture.

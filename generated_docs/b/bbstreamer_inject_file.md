@@ -1,7 +1,7 @@
 # bbstreamer_inject_file
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_inject.c: 219 - 249
+[src/bin/pg_basebackup/bbstreamer_inject.c:219-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_inject.c#L219-L249)
 
 ## Overview
 Injects a complete file into the archive stream with specified contents, creating a new archive member with appropriate metadata.

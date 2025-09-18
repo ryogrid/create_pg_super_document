@@ -1,7 +1,7 @@
 # set_foreignscan_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1578 - 1664
+[src/backend/optimizer/plan/setrefs.c:1578-1664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1578-L1664)
 
 ## Overview
 Adjusts variable references in a ForeignScan plan node during the plan finalization phase to account for range table entry offsets and proper variable referencing.

@@ -1,7 +1,7 @@
 # IndexScanDesc
 
 ## Location
-src/include/access/genam.h: 90 - 90
+[src/include/access/genam.h:90-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L90-L90)
 
 ## Overview
 IndexScanDesc is a pointer type to IndexScanDescData structure that represents an index scan descriptor, serving as the primary interface for managing index scan operations in PostgreSQL.

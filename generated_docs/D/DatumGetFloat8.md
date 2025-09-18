@@ -1,7 +1,7 @@
 # DatumGetFloat8
 
 ## Location
-src/include/postgres.h: 494 - 518
+[src/include/postgres.h:494-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L494-L518)
 
 ## Overview
 Extracts an 8-byte floating point value from a PostgreSQL Datum, handling platform-specific differences in how 64-bit floating point values are stored and passed.

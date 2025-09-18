@@ -1,7 +1,7 @@
 # copy_generic_path_info
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5410 - 5424
+[src/backend/optimizer/plan/createplan.c:5410-5424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5410-L5424)
 
 ## Overview
 Copies cost, size, and parallel-related information from a Path node to the Plan node created from it, providing essential execution statistics for EXPLAIN and parallel execution.

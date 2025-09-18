@@ -1,7 +1,7 @@
 # pthread_barrier_init
 
 ## Location
-src/port/pthread_barrier_wait.c: 19 - 37
+[src/port/pthread_barrier_wait.c:19-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pthread_barrier_wait.c#L19-L37)
 
 ## Overview
 Initializes a pthread barrier object that can be used to synchronize a specific number of threads at a synchronization point.

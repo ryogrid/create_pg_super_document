@@ -1,7 +1,7 @@
 # create_scan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 560 - 825
+[src/backend/optimizer/plan/createplan.c:560-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L560-L825)
 
 ## Overview
 Creates scan plans for relation access by extracting restriction clauses, building target lists, and delegating to specialized scan plan creation functions based on the path type.

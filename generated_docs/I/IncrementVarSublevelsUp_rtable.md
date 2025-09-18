@@ -1,7 +1,7 @@
 # IncrementVarSublevelsUp_rtable
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 873 - 896
+[src/backend/rewrite/rewriteManip.c:873-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L873-L896)
 
 ## Overview
 Increments the varlevelsup fields of Var nodes within a range table by a specified delta, used during query rewriting to adjust variable level references when nesting queries.

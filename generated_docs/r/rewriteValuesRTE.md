@@ -1,7 +1,7 @@
 # rewriteValuesRTE
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1403 - 1587
+[src/backend/rewrite/rewriteHandler.c:1403-1587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1403-L1587)
 
 ## Overview
 Handles DEFAULT value replacement in VALUES RTEs during INSERT statement rewriting, replacing DEFAULT items with appropriate default expressions or NULL values.

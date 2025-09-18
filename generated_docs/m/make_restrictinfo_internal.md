@@ -1,7 +1,7 @@
 # make_restrictinfo_internal
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 112 - 270
+[src/backend/optimizer/util/restrictinfo.c:112-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L112-L270)
 
 ## Overview
 Internal common implementation for creating RestrictInfo nodes, handling the detailed initialization of all RestrictInfo fields including relation dependencies, join capabilities, and performance optimization caches.

@@ -1,7 +1,7 @@
 # CheckRelationTableSpaceMove
 
 ## Location
-src/backend/commands/tablecmds.c: 3561 - 3617
+[src/backend/commands/tablecmds.c:3561-3617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3561-L3617)
 
 ## Overview
 CheckRelationTableSpaceMove validates whether a relation can be moved to a new tablespace, performing various safety checks to ensure the operation is valid and permitted.

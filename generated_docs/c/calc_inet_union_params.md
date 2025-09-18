@@ -1,7 +1,7 @@
 # calc_inet_union_params
 
 ## Location
-src/backend/utils/adt/network_gist.c: 345 - 406
+[src/backend/utils/adt/network_gist.c:345-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L345-L406)
 
 ## Overview
 A static helper function that calculates parameters for the union of multiple GistInetKey entries, determining the combined characteristics of a set of inet index keys.

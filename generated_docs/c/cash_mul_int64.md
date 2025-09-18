@@ -1,7 +1,7 @@
 # cash_mul_int64
 
 ## Location
-src/backend/utils/adt/cash.c: 143 - 155
+[src/backend/utils/adt/cash.c:143-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L143-L155)
 
 ## Overview
 An inline static helper function that performs safe multiplication of a Cash value with a 64-bit integer, providing overflow detection and error reporting.

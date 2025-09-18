@@ -1,7 +1,7 @@
 # verify_directory
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 113 - 127
+[src/bin/pg_waldump/pg_waldump.c:113-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L113-L127)
 
 ## Overview
 A utility function that checks whether a given directory exists and can be opened for reading.

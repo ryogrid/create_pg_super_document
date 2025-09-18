@@ -1,7 +1,7 @@
 # AllocSetAllocChunkFromBlock
 
 ## Location
-src/backend/utils/mmgr/aset.c: 774 - 818
+[src/backend/utils/mmgr/aset.c:774-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L774-L818)
 
 ## Overview
 AllocSetAllocChunkFromBlock is a small helper function that allocates a new memory chunk from an existing block, avoiding code duplication between AllocSetAlloc() and AllocSetAllocFromNewBlock().

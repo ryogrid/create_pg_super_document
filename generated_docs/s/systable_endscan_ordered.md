@@ -1,7 +1,7 @@
 # systable_endscan_ordered
 
 ## Location
-src/backend/access/index/genam.c: 745 - 794
+[src/backend/access/index/genam.c:745-794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L745-L794)
 
 ## Overview
 Terminates an ordered system catalog scan and properly releases all associated resources including tuple slots, index scans, and snapshots.

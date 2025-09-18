@@ -1,7 +1,7 @@
 # relation_mark_replica_identity
 
 ## Location
-src/backend/commands/tablecmds.c: 16672 - 16759
+[src/backend/commands/tablecmds.c:16672-16759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16672-L16759)
 
 ## Overview
 Updates a table's replica identity configuration by modifying the relreplident field and managing per-index indisreplident flags to control logical replication behavior.

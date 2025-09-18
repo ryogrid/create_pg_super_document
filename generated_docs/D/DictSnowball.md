@@ -1,7 +1,7 @@
 # DictSnowball
 
 ## Location
-src/backend/snowball/dict_snowball.c: 162 - 175
+[src/backend/snowball/dict_snowball.c:162-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L162-L175)
 
 ## Overview
 A structure representing the runtime state and configuration of a Snowball stemmer dictionary instance, managing stemmer environments, stop word lists, and memory contexts for text processing operations.

@@ -1,7 +1,7 @@
 # dsa_set_size_limit
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1018 - 1026
+[src/backend/utils/mmgr/dsa.c:1018-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1018-L1026)
 
 ## Overview
 Sets the total size limit for a dynamic shared memory area, controlling the maximum amount of memory that can be allocated from the operating system for new segments.

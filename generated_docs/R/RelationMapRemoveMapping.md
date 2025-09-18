@@ -1,7 +1,7 @@
 # RelationMapRemoveMapping
 
 ## Location
-src/backend/utils/cache/relmapper.c: 438 - 467
+[src/backend/utils/cache/relmapper.c:438-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L438-L467)
 
 ## Overview
 A public function that removes a relation's mapping entry from the active local updates map, specifically designed for backing out transient mappings during operations like VACUUM FULL and CLUSTER.

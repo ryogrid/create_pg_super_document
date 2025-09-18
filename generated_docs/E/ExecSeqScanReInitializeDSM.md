@@ -1,7 +1,7 @@
 # ExecSeqScanReInitializeDSM
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 278 - 293
+[src/backend/executor/nodeSeqscan.c:278-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L278-L293)
 
 ## Overview
 ExecSeqScanReInitializeDSM resets the shared memory state for parallel sequential scans before beginning a fresh scan operation.

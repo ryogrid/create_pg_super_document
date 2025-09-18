@@ -1,7 +1,7 @@
 # numeric_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5036 - 5055
+[src/backend/utils/adt/numeric.c:5036-5055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5036-L5055)
 
 ## Overview
 A PostgreSQL aggregate transition function for numeric aggregates that require both sum (sumX) and sum of squares (sumX2) calculations, such as variance and standard deviation functions.

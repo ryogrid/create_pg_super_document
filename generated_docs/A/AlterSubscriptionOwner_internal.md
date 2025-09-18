@@ -1,7 +1,7 @@
 # AlterSubscriptionOwner_internal
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1899 - 1958
+[src/backend/commands/subscriptioncmds.c:1899-1958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1899-L1958)
 
 ## Overview
 AlterSubscriptionOwner_internal is the internal workhorse function for changing a subscription's owner, handling all permission checks and catalog updates.

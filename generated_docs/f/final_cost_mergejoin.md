@@ -1,7 +1,7 @@
 # final_cost_mergejoin
 
 ## Location
-src/backend/optimizer/path/costsize.c: 3745 - 3993
+[src/backend/optimizer/path/costsize.c:3745-3993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L3745-L3993)
 
 ## Overview
 Computes the final cost estimate and result size of a mergejoin path, making critical decisions about mark/restore optimization and inner relation materialization based on cost analysis.

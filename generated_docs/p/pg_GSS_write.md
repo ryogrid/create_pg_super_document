@@ -1,7 +1,7 @@
 # pg_GSS_write
 
 ## Location
-src/interfaces/libpq/fe-secure-gssapi.c: 93 - 265
+[src/interfaces/libpq/fe-secure-gssapi.c:93-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-gssapi.c#L93-L265)
 
 ## Overview
 Writes data to a GSSAPI-encrypted PostgreSQL connection, handling encryption, packetization, and partial transmission retry logic.

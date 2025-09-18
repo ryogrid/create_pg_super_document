@@ -1,7 +1,7 @@
 # updateTargetListEntry
 
 ## Location
-src/backend/parser/parse_target.c: 619 - 682
+[src/backend/parser/parse_target.c:619-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L619-L682)
 
 ## Overview
 Prepares an UPDATE TargetEntry for assignment to a column in UPDATE statements and ON CONFLICT DO UPDATE clauses, handling type coercion and column identification.

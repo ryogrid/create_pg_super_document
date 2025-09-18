@@ -1,7 +1,7 @@
 # SplitLR
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 66 - 87
+[src/backend/utils/adt/rangetypes_gist.c:66-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L66-L87)
 
 ## Overview
 An enumeration type that indicates whether a GiST index entry should be placed on the left or right side during a range split operation.

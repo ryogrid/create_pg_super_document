@@ -1,7 +1,7 @@
 # dsm_op
 
 ## Location
-src/include/storage/dsm_impl.h: 67 - 79
+[src/include/storage/dsm_impl.h:67-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/dsm_impl.h#L67-L79)
 
 ## Overview
 An enumeration type that defines the four basic operations that can be performed on dynamic shared memory segments: create, attach, detach, and destroy.

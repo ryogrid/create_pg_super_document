@@ -1,7 +1,7 @@
 # DecodeTruncate
 
 ## Location
-src/backend/replication/logical/decode.c: 1086 - 1123
+[src/backend/replication/logical/decode.c:1086-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L1086-L1123)
 
 ## Overview
 DecodeTruncate is a function that parses XLOG_HEAP_TRUNCATE records from the write-ahead log (WAL) during logical replication, converting them into reorder buffer changes for output plugins.

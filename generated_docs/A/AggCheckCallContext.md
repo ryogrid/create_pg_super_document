@@ -1,7 +1,7 @@
 # AggCheckCallContext
 
 ## Location
-src/backend/executor/nodeAgg.c: 4511 - 4554
+[src/backend/executor/nodeAgg.c:4511-4554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4511-L4554)
 
 ## Overview
 AggCheckCallContext tests whether a SQL function is being called in an aggregate context and optionally returns the memory context for transition values.

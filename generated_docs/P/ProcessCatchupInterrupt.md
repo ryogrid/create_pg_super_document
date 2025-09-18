@@ -1,7 +1,7 @@
 # ProcessCatchupInterrupt
 
 ## Location
-src/backend/storage/ipc/sinval.c: 175 - 210
+[src/backend/storage/ipc/sinval.c:175-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinval.c#L175-L210)
 
 ## Overview
 ProcessCatchupInterrupt handles the actual processing of shared invalidation catchup events that were deferred from the signal handler context.

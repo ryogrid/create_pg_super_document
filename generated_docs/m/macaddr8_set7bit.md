@@ -1,7 +1,7 @@
 # macaddr8_set7bit
 
 ## Location
-src/backend/utils/adt/mac8.c: 500 - 523
+[src/backend/utils/adt/mac8.c:500-523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L500-L523)
 
 ## Overview
 Sets the 7th bit (Universal/Local bit) in a MAC-8 (EUI-64) address for creating modified EUI-64 identifiers as used in IPv6 interface identifiers.

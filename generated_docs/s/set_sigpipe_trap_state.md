@@ -1,7 +1,7 @@
 # set_sigpipe_trap_state
 
 ## Location
-src/fe_utils/print.c: 3075 - 3088
+[src/fe_utils/print.c:3075-3088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3075-L3088)
 
 ## Overview
 Sets the trap state for SIGPIPE signal handling to determine whether SIGPIPE should be ignored or not.

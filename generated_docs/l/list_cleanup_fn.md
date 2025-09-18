@@ -1,7 +1,7 @@
 # list_cleanup_fn
 
 ## Location
-src/backend/optimizer/util/predtest.c: 928 - 937
+[src/backend/optimizer/util/predtest.c:928-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L928-L937)
 
 ## Overview
 A no-op cleanup function for List iteration that completes the predicate iteration interface for regular PostgreSQL Lists.

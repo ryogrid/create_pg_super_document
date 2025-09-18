@@ -1,7 +1,7 @@
 # eval_windowfunction
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1033 - 1080
+[src/backend/executor/nodeWindowAgg.c:1033-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1033-L1080)
 
 ## Overview
 This is a static function that executes a window function call, handling the special context and memory management required for window function evaluation.

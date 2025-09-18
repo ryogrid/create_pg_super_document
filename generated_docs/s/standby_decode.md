@@ -1,7 +1,7 @@
 # standby_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 358 - 403
+[src/backend/replication/logical/decode.c:358-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L358-L403)
 
 ## Overview
 Handles standby-related WAL records (RM_STANDBY_ID) during logical decoding, primarily processing running transaction snapshots and managing transaction cleanup for consistent logical replication.

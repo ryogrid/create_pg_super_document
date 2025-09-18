@@ -1,7 +1,7 @@
 # dclist_count
 
 ## Location
-src/include/lib/ilist.h: 932 - 946
+[src/include/lib/ilist.h:932-946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L932-L946)
 
 ## Overview
 Returns the stored number of entries in a doubly-linked circular list with constant-time complexity.

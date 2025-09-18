@@ -1,7 +1,7 @@
 # anytimestamp_typmodin
 
 ## Location
-src/backend/utils/adt/timestamp.c: 102 - 122
+[src/backend/utils/adt/timestamp.c:102-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L102-L122)
 
 ## Overview
 A static helper function that processes type modifier input for both TIMESTAMP and TIMESTAMP WITH TIME ZONE data types, extracting and validating precision specifications.

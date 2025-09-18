@@ -1,7 +1,7 @@
 # XLogDropDatabase
 
 ## Location
-src/backend/access/transam/xlogutils.c: 652 - 670
+[src/backend/access/transam/xlogutils.c:652-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L652-L670)
 
 ## Overview
 Performs cleanup operations during XLOG replay when an entire database is being dropped, removing storage manager references and invalid page records.

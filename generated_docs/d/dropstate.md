@@ -1,7 +1,7 @@
 # dropstate
 
 ## Location
-src/backend/regex/regc_nfa.c: 226 - 241
+[src/backend/regex/regc_nfa.c:226-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L226-L241)
 
 ## Overview
 Completely removes a state from an NFA by freeing all its incoming and outgoing arcs, then deallocating the state itself.

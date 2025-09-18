@@ -1,7 +1,7 @@
 # findTypeByOid
 
 ## Location
-src/bin/pg_dump/common.c: 888 - 906
+[src/bin/pg_dump/common.c:888-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L888-L906)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL type with the given OID, used in pg_dump operations for type lookup during database dumping.

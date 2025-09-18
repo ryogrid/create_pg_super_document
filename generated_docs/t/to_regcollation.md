@@ -1,7 +1,7 @@
 # to_regcollation
 
 ## Location
-src/backend/utils/adt/regproc.c: 1068 - 1085
+[src/backend/utils/adt/regproc.c:1068-1085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1068-L1085)
 
 ## Overview
 Safely converts a collation name text input to regcollation OID, returning NULL instead of raising an error when the collation is not found.

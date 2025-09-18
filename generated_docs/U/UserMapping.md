@@ -1,7 +1,7 @@
 # UserMapping
 
 ## Location
-src/include/foreign/foreign.h: 45 - 51
+[src/include/foreign/foreign.h:45-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/foreign/foreign.h#L45-L51)
 
 ## Overview
 UserMapping is a structure that represents a user mapping in PostgreSQL's FDW system, which defines the authentication and connection credentials for a specific local user when accessing a particular foreign server.

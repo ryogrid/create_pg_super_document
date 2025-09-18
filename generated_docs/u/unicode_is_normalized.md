@@ -1,7 +1,7 @@
 # unicode_is_normalized
 
 ## Location
-src/backend/utils/adt/varlena.c: 6410 - 6461
+[src/backend/utils/adt/varlena.c:6410-6461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6410-L6461)
 
 ## Overview
 Checks whether a UTF-8 text string is already in a specified Unicode normalization form, using optimized quick-check algorithms when possible.

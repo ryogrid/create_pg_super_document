@@ -1,7 +1,7 @@
 # extra_field_used
 
 ## Location
-src/backend/utils/misc/guc.c: 749 - 793
+[src/backend/utils/misc/guc.c:749-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L749-L793)
 
 ## Overview
 A static utility function in PostgreSQL's GUC system that checks whether a specific 'extra' data structure is referenced anywhere within a GUC configuration item, including current values, reset values, and stacked states.

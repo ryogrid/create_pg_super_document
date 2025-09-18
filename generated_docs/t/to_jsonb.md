@@ -1,7 +1,7 @@
 # to_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1088 - 1111
+[src/backend/utils/adt/jsonb.c:1088-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1088-L1111)
 
 ## Overview
 A SQL-callable function that converts any PostgreSQL value to its JSONB representation, serving as the main entry point for the to_jsonb() SQL function.

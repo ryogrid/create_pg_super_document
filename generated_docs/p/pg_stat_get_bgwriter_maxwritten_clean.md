@@ -1,7 +1,7 @@
 # pg_stat_get_bgwriter_maxwritten_clean
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1225 - 1230
+[src/backend/utils/adt/pgstatfuncs.c:1225-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1225-L1230)
 
 ## Overview
 Returns the number of times the background writer stopped cleaning scans early due to writing too many buffers since server startup.

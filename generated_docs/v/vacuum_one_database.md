@@ -1,7 +1,7 @@
 # vacuum_one_database
 
 ## Location
-src/bin/scripts/vacuumdb.c: 475 - 908
+[src/bin/scripts/vacuumdb.c:475-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L475-L908)
 
 ## Overview
 Processes vacuum and analyze operations on tables within a single database, supporting both sequential and parallel execution modes with comprehensive version compatibility checking and table filtering capabilities.

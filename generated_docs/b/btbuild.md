@@ -1,7 +1,7 @@
 # btbuild
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 293 - 362
+[src/backend/access/nbtree/nbtsort.c:293-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L293-L362)
 
 ## Overview
 The main entry point function for building a new B-tree index from scratch, coordinating the entire index construction process including heap scanning, sorting, and tree structure creation.

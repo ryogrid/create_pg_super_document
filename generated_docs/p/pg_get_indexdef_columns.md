@@ -1,7 +1,7 @@
 # pg_get_indexdef_columns
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1215 - 1228
+[src/backend/utils/adt/ruleutils.c:1215-1228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1215-L1228)
 
 ## Overview
 Returns the key-column definitions of a PostgreSQL index as a formatted string, providing an internal interface for extracting just the column specification portion of an index definition.

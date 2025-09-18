@@ -1,7 +1,7 @@
 # pg_current_wal_flush_lsn
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 315 - 336
+[src/backend/access/transam/xlogfuncs.c:315-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L315-L336)
 
 ## Overview
 Returns the current WAL flush location, which represents the position up to which WAL records have been flushed to disk storage.

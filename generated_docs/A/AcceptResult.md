@@ -1,7 +1,7 @@
 # AcceptResult
 
 ## Location
-src/bin/psql/common.c: 403 - 460
+[src/bin/psql/common.c:403-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L403-L460)
 
 ## Overview
 AcceptResult validates a PostgreSQL query result and ensures the database connection remains active, providing error handling for various result states.

@@ -1,7 +1,7 @@
 # set_string_attr
 
 ## Location
-src/pl/plpython/plpy_elog.c: 583 - 604
+[src/pl/plpython/plpy_elog.c:583-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L583-L604)
 
 ## Overview
 A utility function that safely sets a string attribute on a Python object, handling NULL values gracefully by setting the attribute to Python's None.

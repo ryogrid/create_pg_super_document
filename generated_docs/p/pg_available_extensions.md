@@ -1,7 +1,7 @@
 # pg_available_extensions
 
 ## Location
-src/backend/commands/extension.c: 2008 - 2087
+[src/backend/commands/extension.c:2008-2087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2008-L2087)
 
 ## Overview
 This function provides a set-returning function (SRF) that lists all available PostgreSQL extensions by reading and parsing control files from the extension control directory.

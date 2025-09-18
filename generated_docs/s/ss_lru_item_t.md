@@ -1,7 +1,7 @@
 # ss_lru_item_t
 
 ## Location
-src/backend/access/common/syncscan.c: 97 - 102
+[src/backend/access/common/syncscan.c:97-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L97-L102)
 
 ## Overview
 A doubly-linked list node structure that wraps scan location data in an LRU (Least Recently Used) cache for PostgreSQL's synchronized scan optimization system.

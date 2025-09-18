@@ -1,7 +1,7 @@
 # prssyntaxerror
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 142 - 175
+[src/backend/utils/adt/tsvector_parser.c:142-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L142-L175)
 
 ## Overview
 Handles syntax errors during tsvector or tsquery parsing by reporting appropriate error messages through the error context system.

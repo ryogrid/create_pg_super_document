@@ -1,7 +1,7 @@
 # log_newpage_range
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1270 - 1347
+[src/backend/access/transam/xloginsert.c:1270-1347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1270-L1347)
 
 ## Overview
 log_newpage_range writes WAL records containing full images of a range of blocks in a relation, processing large ranges in batches to handle multiple pages efficiently.

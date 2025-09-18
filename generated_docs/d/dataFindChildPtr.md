@@ -1,7 +1,7 @@
 # dataFindChildPtr
 
 ## Location
-src/backend/access/gin/gindatapage.c: 319 - 363
+[src/backend/access/gin/gindatapage.c:319-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L319-L363)
 
 ## Overview
 dataFindChildPtr locates a specific child pointer on a non-leaf GIN data page by searching for the PostingItem that points to a given block number.

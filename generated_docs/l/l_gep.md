@@ -1,7 +1,7 @@
 # l_gep
 
 ## Location
-src/include/jit/llvmjit_emit.h: 118 - 127
+[src/include/jit/llvmjit_emit.h:118-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L118-L127)
 
 ## Overview
 A static inline function that provides a version-agnostic wrapper for LLVM's GetElementPtr (GEP) instruction, ensuring compatibility across different LLVM versions.

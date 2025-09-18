@@ -1,7 +1,7 @@
 # inet_cidr_pton_ipv4
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 97 - 259
+[src/backend/utils/adt/inet_net_pton.c:97-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L97-L259)
 
 ## Overview
 Converts IPv4 network numbers from presentation format to network format, supporting hexadecimal, decimal octets, and CIDR notation with automatic classful network inference.

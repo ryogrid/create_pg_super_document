@@ -1,7 +1,7 @@
 # pg_SASL_continue
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 628 - 699
+[src/interfaces/libpq/fe-auth.c:628-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L628-L699)
 
 ## Overview
 Exchanges messages during the SASL authentication protocol with the backend server, continuing the authentication handshake after initialization.

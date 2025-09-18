@@ -1,7 +1,7 @@
 # postmaster_child_launch
 
 ## Location
-src/backend/postmaster/launch_backend.c: 231 - 293
+[src/backend/postmaster/launch_backend.c:231-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L231-L293)
 
 ## Overview
 Launches a new PostgreSQL child process from the postmaster, handling both EXEC_BACKEND and traditional fork() modes to create properly initialized child processes.

@@ -1,7 +1,7 @@
 # circle_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4703 - 4726
+[src/backend/utils/adt/geo_ops.c:4703-4726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4703-L4726)
 
 ## Overview
 Deserializes a CIRCLE from PostgreSQL's external binary format, converting network byte order data into the internal CIRCLE structure.

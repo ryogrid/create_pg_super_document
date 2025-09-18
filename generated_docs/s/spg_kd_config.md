@@ -1,7 +1,7 @@
 # spg_kd_config
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 28 - 40
+[src/backend/access/spgist/spgkdtreeproc.c:28-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L28-L40)
 
 ## Overview
 Configuration function for SP-GiST k-dimensional tree (k-d tree) opclass that sets up the basic operational parameters for k-d tree indexing in PostgreSQL.

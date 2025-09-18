@@ -1,7 +1,7 @@
 # ExecAggPlainTransByRef
 
 ## Location
-src/backend/executor/execExprInterp.c: 5269 - 5317
+[src/backend/executor/execExprInterp.c:5269-5317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5269-L5317)
 
 ## Overview
 This function implements the transition function invocation for aggregate operations on pass-by-reference data types, handling memory management and data copying for variable-length and complex data types.

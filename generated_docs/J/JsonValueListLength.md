@@ -1,7 +1,7 @@
 # JsonValueListLength
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3527 - 3532
+[src/backend/utils/adt/jsonpath_exec.c:3527-3532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3527-L3532)
 
 ## Overview
 Returns the number of JSON values stored in a JsonValueList structure, providing an efficient count operation that handles both singleton and list representations.

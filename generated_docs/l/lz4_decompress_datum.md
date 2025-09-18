@@ -1,7 +1,7 @@
 # lz4_decompress_datum
 
 ## Location
-src/backend/access/common/toast_compression.c: 182 - 214
+[src/backend/access/common/toast_compression.c:182-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L182-L214)
 
 ## Overview
 Decompresses a varlena data structure that was previously compressed using the LZ4 compression algorithm, restoring the original uncompressed data with fast decompression performance.

@@ -1,7 +1,7 @@
 # get_range_partition_internal
 
 ## Location
-src/backend/partitioning/partbounds.c: 2602 - 2661
+[src/backend/partitioning/partbounds.c:2602-2661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2602-L2661)
 
 ## Overview
 Core internal function that extracts the next range partition from partition boundary information, setting up the lower and upper bounds and advancing the position pointer.

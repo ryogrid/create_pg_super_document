@@ -1,7 +1,7 @@
 # InvalidateObsoleteReplicationSlots
 
 ## Location
-src/backend/replication/slot.c: 1775 - 1834
+[src/backend/replication/slot.c:1775-1834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1775-L1834)
 
 ## Overview
 Main entry point for invalidating replication slots that require resources about to be removed, iterating through all slots and applying invalidation criteria.

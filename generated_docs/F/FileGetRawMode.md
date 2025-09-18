@@ -1,7 +1,7 @@
 # FileGetRawMode
 
 ## Location
-src/backend/storage/file/fd.c: 2494 - 2504
+[src/backend/storage/file/fd.c:2494-2504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2494-L2504)
 
 ## Overview
 FileGetRawMode returns the file mode (permission bits) that were used when creating a PostgreSQL File, providing access to the original mode parameter from the open(2) system call.

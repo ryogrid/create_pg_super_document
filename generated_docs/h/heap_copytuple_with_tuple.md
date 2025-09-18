@@ -1,7 +1,7 @@
 # heap_copytuple_with_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 802 - 827
+[src/backend/access/common/heaptuple.c:802-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L802-L827)
 
 ## Overview
 Copies a tuple into a caller-supplied HeapTuple management struct, allowing for more controlled memory management compared to heap_copytuple.

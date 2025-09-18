@@ -1,7 +1,7 @@
 # selectDumpableAccessMethod
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2034 - 2068
+[src/bin/pg_dump/pg_dump.c:2034-2068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2034-L2068)
 
 ## Overview
 This function determines whether an access method should be included in a PostgreSQL database dump, with special handling for version compatibility and built-in vs user-defined access methods.

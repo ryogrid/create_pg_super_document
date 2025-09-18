@@ -1,7 +1,7 @@
 # r_step5b
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3044 - 3093
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3044-3093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3044-L3093)
 
 ## Overview
 A static function in the Greek stemmer that performs step 5b of the Greek stemming algorithm, handling specific morphological patterns and vowel transformations in Greek words.

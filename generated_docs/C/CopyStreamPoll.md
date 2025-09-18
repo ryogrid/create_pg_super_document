@@ -1,7 +1,7 @@
 # CopyStreamPoll
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 870 - 931
+[src/bin/pg_basebackup/receivelog.c:870-931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L870-L931)
 
 ## Overview
 CopyStreamPoll is a utility function that waits until data becomes available for reading on a PostgreSQL connection socket, with optional timeout and signal handling for graceful termination.

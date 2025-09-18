@@ -1,7 +1,7 @@
 # PartitionHasPendingDetach
 
 ## Location
-src/backend/catalog/pg_inherits.c: 620 - 656
+[src/backend/catalog/pg_inherits.c:620-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L620-L656)
 
 ## Overview
 Checks whether a partition has a pending detach operation by examining the inhdetachpending flag in the pg_inherits catalog.

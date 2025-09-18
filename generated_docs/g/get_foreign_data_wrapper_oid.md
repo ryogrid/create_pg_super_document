@@ -1,7 +1,7 @@
 # get_foreign_data_wrapper_oid
 
 ## Location
-src/backend/foreign/foreign.c: 681 - 703
+[src/backend/foreign/foreign.c:681-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L681-L703)
 
 ## Overview
 Looks up the OID (Object Identifier) of a foreign data wrapper given its name, with optional error handling control.

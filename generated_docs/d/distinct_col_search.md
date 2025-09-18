@@ -1,7 +1,7 @@
 # distinct_col_search
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 1144 - 1183
+[src/backend/optimizer/plan/analyzejoins.c:1144-1183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L1144-L1183)
 
 ## Overview
 A helper function that searches for a specific column number in a list of columns and returns the corresponding equality operator OID if found.

@@ -1,7 +1,7 @@
 # arc
 
 ## Location
-src/include/regex/regguts.h: 295 - 302
+[src/include/regex/regguts.h:295-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L295-L302)
 
 ## Overview
 A structure representing a labeled transition (edge) in PostgreSQL's regex Nondeterministic Finite Automaton (NFA), connecting two states and specifying what characters/colors trigger the transition.

@@ -1,7 +1,7 @@
 # cash_mul_flt4
 
 ## Location
-src/backend/utils/adt/cash.c: 773 - 785
+[src/backend/utils/adt/cash.c:773-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L773-L785)
 
 ## Overview
 Multiplies a PostgreSQL Cash value by a single precision floating-point number (float4), returning the result as a Cash value.

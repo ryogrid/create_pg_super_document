@@ -1,7 +1,7 @@
 # init_params
 
 ## Location
-src/backend/commands/sequence.c: 1257 - 1592
+[src/backend/commands/sequence.c:1257-1592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1257-L1592)
 
 ## Overview
 Processes CREATE or ALTER SEQUENCE option lists and validates/stores sequence parameters in catalog and data structures.

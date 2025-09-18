@@ -1,7 +1,7 @@
 # gistfillitupvec
 
 ## Location
-src/backend/access/gist/gistutil.c: 126 - 153
+[src/backend/access/gist/gistutil.c:126-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L126-L153)
 
 ## Overview
 Creates a contiguous memory block containing a serialized array of IndexTuples from a vector of IndexTuple pointers, used for efficient storage and processing in GiST index operations.

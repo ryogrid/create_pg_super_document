@@ -1,7 +1,7 @@
 # scanNameSpaceForRelid
 
 ## Location
-src/backend/parser/parse_relation.c: 240 - 281
+[src/backend/parser/parse_relation.c:240-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L240-L281)
 
 ## Overview
 Searches the current parsing state's namespace for a relation item matching a specific relation OID, used for qualified name resolution.

@@ -1,7 +1,7 @@
 # oidvectorgt
 
 ## Location
-src/backend/utils/adt/oid.c: 384 - 389
+[src/backend/utils/adt/oid.c:384-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L384-L389)
 
 ## Overview
 PostgreSQL comparison function that determines if the first oidvector is greater than the second oidvector, implementing the ">" operator for oidvector data types.

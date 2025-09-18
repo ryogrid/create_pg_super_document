@@ -1,7 +1,7 @@
 # autovacuum_do_vac_analyze
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3118 - 3157
+[src/backend/postmaster/autovacuum.c:3118-3157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3118-L3157)
 
 ## Overview
 Executes vacuum and/or analyze operations on a specified table within the autovacuum framework, handling memory context management and reporting.

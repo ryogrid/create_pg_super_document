@@ -1,7 +1,7 @@
 # text_format
 
 ## Location
-src/backend/utils/adt/varlena.c: 5638 - 5914
+[src/backend/utils/adt/varlena.c:5638-5914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5638-L5914)
 
 ## Overview
 The  function implements PostgreSQL's  SQL function, providing sprintf-like string formatting with type-safe conversions and support for positional arguments.

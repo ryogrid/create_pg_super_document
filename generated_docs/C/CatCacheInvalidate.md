@@ -1,7 +1,7 @@
 # CatCacheInvalidate
 
 ## Location
-src/backend/utils/cache/catcache.c: 625 - 707
+[src/backend/utils/cache/catcache.c:625-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L625-L707)
 
 ## Overview
 CatCacheInvalidate is a public function that invalidates cache entries in a specified catalog cache based on a hash value, handling both active and in-progress cache entries.

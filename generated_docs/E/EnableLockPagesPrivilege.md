@@ -1,7 +1,7 @@
 # EnableLockPagesPrivilege
 
 ## Location
-src/backend/port/win32_shmem.c: 137 - 206
+[src/backend/port/win32_shmem.c:137-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32_shmem.c#L137-L206)
 
 ## Overview
 Attempts to acquire the SeLockMemoryPrivilege Windows user right so that PostgreSQL can use large pages for improved memory management performance.

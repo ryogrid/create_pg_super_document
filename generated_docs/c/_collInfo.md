@@ -1,7 +1,7 @@
 # _collInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 282 - 286
+[src/bin/pg_dump/pg_dump.h:282-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L282-L286)
 
 ## Overview
 A structure definition used in PostgreSQL's pg_dump utility to represent collation information for database dumping and restoration operations.

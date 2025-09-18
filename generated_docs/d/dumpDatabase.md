@@ -1,7 +1,7 @@
 # dumpDatabase
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3055 - 3520
+[src/bin/pg_dump/pg_dump.c:3055-3520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3055-L3520)
 
 ## Overview
 Dumps the complete database definition including creation statement, properties, comments, security labels, and ACLs to the archive output.

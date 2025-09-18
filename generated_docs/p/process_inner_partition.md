@@ -1,7 +1,7 @@
 # process_inner_partition
 
 ## Location
-src/backend/partitioning/partbounds.c: 2062 - 2146
+[src/backend/partitioning/partbounds.c:2062-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2062-L2146)
 
 ## Overview
 Attempts to assign a given inner partition a merged partition during partitionwise join planning, handling cases where the outer side has or lacks a default partition.

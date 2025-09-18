@@ -1,7 +1,7 @@
 # Exec_ListenCommit
 
 ## Location
-src/backend/commands/async.c: 1136 - 1162
+[src/backend/commands/async.c:1136-1162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1136-L1162)
 
 ## Overview
 Adds a channel name to the list of channels the backend process is actively listening on during the commit phase of LISTEN command processing.

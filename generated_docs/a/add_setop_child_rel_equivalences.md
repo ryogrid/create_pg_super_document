@@ -1,7 +1,7 @@
 # add_setop_child_rel_equivalences
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2883 - 2954
+[src/backend/optimizer/path/equivclass.c:2883-2954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2883-L2954)
 
 ## Overview
 Adds equivalence members for each non-resjunk target in a setop child relation's target list to the corresponding equivalence class from the setop pathkeys.

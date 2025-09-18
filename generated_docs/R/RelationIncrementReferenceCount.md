@@ -1,7 +1,7 @@
 # RelationIncrementReferenceCount
 
 ## Location
-src/backend/utils/cache/relcache.c: 2161 - 2173
+[src/backend/utils/cache/relcache.c:2161-2173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2161-L2173)
 
 ## Overview
 Increments the reference count for a given relation and tracks the reference in the current resource owner for proper cleanup.

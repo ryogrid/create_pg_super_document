@@ -1,7 +1,7 @@
 # ExecInitIncrementalSort
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 976 - 1076
+[src/backend/executor/nodeIncrementalSort.c:976-1076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L976-L1076)
 
 ## Overview
 Initializes the runtime state for an incremental sort node, creating the necessary data structures and setting up the outer child node for execution.

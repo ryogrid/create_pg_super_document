@@ -1,7 +1,7 @@
 # spghandler
 
 ## Location
-src/backend/access/spgist/spgutils.c: 44 - 114
+[src/backend/access/spgist/spgutils.c:44-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L44-L114)
 
 ## Overview
 The spghandler function is the main handler function for the SP-GiST (Space-Partitioned Generalized Search Tree) access method in PostgreSQL, returning an IndexAmRoutine structure with access method parameters and callback functions.

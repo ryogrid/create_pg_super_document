@@ -1,7 +1,7 @@
 # pgtls_init_library
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 104 - 117
+[src/interfaces/libpq/fe-secure-openssl.c:104-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L104-L117)
 
 ## Overview
 Initializes the PostgreSQL TLS library configuration by setting flags for SSL and crypto library initialization, with protection against changes while connections are active.

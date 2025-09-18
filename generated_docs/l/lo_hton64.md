@@ -1,7 +1,7 @@
 # lo_hton64
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 1023 - 1047
+[src/interfaces/libpq/fe-lobj.c:1023-1047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L1023-L1047)
 
 ## Overview
 Static utility function that converts a 64-bit integer from host byte order to network byte order for large object network protocol communications.

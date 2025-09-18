@@ -1,7 +1,7 @@
 # acquireLocksOnSubLinks
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 308 - 348
+[src/backend/rewrite/rewriteHandler.c:308-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L308-L348)
 
 ## Overview
 A walker function that finds sublink subqueries and recursively acquires rewrite locks on them as part of the AcquireRewriteLocks process.

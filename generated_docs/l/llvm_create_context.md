@@ -1,7 +1,7 @@
 # llvm_create_context
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 236 - 264
+[src/backend/jit/llvm/llvmjit.c:236-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L236-L264)
 
 ## Overview
 Creates and initializes a new LLVM JIT compilation context with proper resource management and cleanup registration.

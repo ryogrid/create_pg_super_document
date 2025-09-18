@@ -1,7 +1,7 @@
 # castNodeImpl
 
 ## Location
-src/include/nodes/nodes.h: 169 - 173
+[src/include/nodes/nodes.h:169-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodes.h#L169-L173)
 
 ## Overview
 The `castNodeImpl` function provides type-safe casting for PostgreSQL node structures with runtime type verification.

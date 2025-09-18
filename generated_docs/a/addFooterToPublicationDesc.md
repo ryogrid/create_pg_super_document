@@ -1,7 +1,7 @@
 # addFooterToPublicationDesc
 
 ## Location
-src/bin/psql/describe.c: 6293 - 6338
+[src/bin/psql/describe.c:6293-6338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6293-L6338)
 
 ## Overview
 A static helper function that adds footer information to publication descriptions by executing a query and formatting the results for display.

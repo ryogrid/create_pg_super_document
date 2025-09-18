@@ -1,7 +1,7 @@
 # bernoulli_initsamplescan
 
 ## Location
-src/backend/access/tablesample/bernoulli.c: 127 - 135
+[src/backend/access/tablesample/bernoulli.c:127-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/bernoulli.c#L127-L135)
 
 ## Overview
 This function initializes the sample scan state during executor setup by allocating memory for the Bernoulli sampler's private data structure.

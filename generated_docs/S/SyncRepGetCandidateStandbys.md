@@ -1,7 +1,7 @@
 # SyncRepGetCandidateStandbys
 
 ## Location
-src/backend/replication/syncrep.c: 754 - 832
+[src/backend/replication/syncrep.c:754-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L754-L832)
 
 ## Overview
 Returns data about walsenders that are candidates to be synchronous standbys, collecting and filtering active walsenders based on their state and synchronous priority.

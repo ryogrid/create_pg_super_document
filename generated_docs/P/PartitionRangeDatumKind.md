@@ -1,7 +1,7 @@
 # PartitionRangeDatumKind
 
 ## Location
-src/include/nodes/parsenodes.h: 927 - 928
+[src/include/nodes/parsenodes.h:927-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L927-L928)
 
 ## Overview
 PartitionRangeDatumKind is an enumeration that specifies the type of range partition boundary datum, distinguishing between explicit values, minimum bounds, and maximum bounds in PostgreSQL's range partitioning system.

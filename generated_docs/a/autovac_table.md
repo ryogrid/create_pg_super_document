@@ -1,7 +1,7 @@
 # autovac_table
 
 ## Location
-src/backend/postmaster/autovacuum.c: 196 - 207
+[src/backend/postmaster/autovacuum.c:196-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L196-L207)
 
 ## Overview
 The  structure represents a table that has been determined to need vacuuming or analyzing, containing all the necessary parameters and metadata for executing the autovacuum operation.

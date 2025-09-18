@@ -1,7 +1,7 @@
 # brin_range_serialize
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 576 - 720
+[src/backend/access/brin/brin_minmax_multi.c:576-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L576-L720)
 
 ## Overview
 Serializes the in-memory representation of BRIN range data into a compact varlena value for storage or transmission.

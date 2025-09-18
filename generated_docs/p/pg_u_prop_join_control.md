@@ -1,7 +1,7 @@
 # pg_u_prop_join_control
 
 ## Location
-src/common/unicode_category.c: 192 - 210
+[src/common/unicode_category.c:192-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L192-L210)
 
 ## Overview
 Determines whether a Unicode code point has the Join_Control property, identifying characters that control cursive joining behavior in scripts like Arabic.

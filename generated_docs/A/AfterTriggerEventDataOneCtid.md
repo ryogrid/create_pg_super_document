@@ -1,7 +1,7 @@
 # AfterTriggerEventDataOneCtid
 
 ## Location
-src/backend/commands/trigger.c: 3754 - 3758
+[src/backend/commands/trigger.c:3754-3758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3754-L3758)
 
 ## Overview
 AfterTriggerEventDataOneCtid is a space-optimized variant of AfterTriggerEventData that contains only one CTID field, used for INSERT and DELETE trigger events that don't require cross-partition information.

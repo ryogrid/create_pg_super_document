@@ -1,7 +1,7 @@
 # AllocSetRealloc
 
 ## Location
-src/backend/utils/mmgr/aset.c: 1169 - 1432
+[src/backend/utils/mmgr/aset.c:1169-1432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L1169-L1432)
 
 ## Overview
 AllocSetRealloc changes the size of a previously allocated memory chunk, returning a new pointer to memory of the specified size while preserving the existing data and freeing the old memory.

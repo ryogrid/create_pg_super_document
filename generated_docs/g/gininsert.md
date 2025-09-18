@@ -1,7 +1,7 @@
 # gininsert
 
 ## Location
-src/backend/access/gin/gininsert.c: 483 - 536
+[src/backend/access/gin/gininsert.c:483-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L483-L536)
 
 ## Overview
 The gininsert function is the main entry point for inserting a single heap tuple into a GIN index, supporting both normal insertion and fast-update modes.

@@ -1,7 +1,7 @@
 # infix
 
 ## Location
-src/backend/utils/adt/tsquery.c: 991 - 1145
+[src/backend/utils/adt/tsquery.c:991-1145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L991-L1145)
 
 ## Overview
 The  function recursively traverses a TSQuery tree structure and converts it into human-readable infix notation string representation, handling operator precedence and parentheses.

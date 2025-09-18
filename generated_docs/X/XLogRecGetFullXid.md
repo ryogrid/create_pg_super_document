@@ -1,7 +1,7 @@
 # XLogRecGetFullXid
 
 ## Location
-src/backend/access/transam/xlogreader.c: 2177 - 2189
+[src/backend/access/transam/xlogreader.c:2177-2189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L2177-L2189)
 
 ## Overview
 Extracts the full 64-bit transaction ID from a WAL record, extending the 32-bit XID stored in the record to its complete form.

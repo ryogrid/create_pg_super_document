@@ -1,7 +1,7 @@
 # charsend
 
 ## Location
-src/backend/utils/adt/char.c: 105 - 126
+[src/backend/utils/adt/char.c:105-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L105-L126)
 
 ## Overview
 Converts a character value to PostgreSQL's external binary format for transmission, encoding it as a single byte in a bytea structure.

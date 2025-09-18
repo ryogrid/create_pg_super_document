@@ -1,7 +1,7 @@
 # pg_conf_load_time
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1642 - 1653
+[src/backend/utils/adt/timestamp.c:1642-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1642-L1653)
 
 ## Overview
 Returns the timestamp when the PostgreSQL configuration was last loaded or reloaded, providing information about when configuration changes were last applied.

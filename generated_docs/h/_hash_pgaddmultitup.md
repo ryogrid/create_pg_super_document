@@ -1,7 +1,7 @@
 # _hash_pgaddmultitup
 
 ## Location
-src/backend/access/hash/hashinsert.c: 331 - 369
+[src/backend/access/hash/hashinsert.c:331-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashinsert.c#L331-L369)
 
 ## Overview
 The  function adds multiple index tuples to a specific page in a hash index while maintaining hashkey ordering, used primarily during bulk operations like bucket splits and page reorganization.

@@ -1,7 +1,7 @@
 # getCopyResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2224 - 2261
+[src/interfaces/libpq/fe-exec.c:2224-2261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2224-L2261)
 
 ## Overview
 Internal helper function for PQgetResult that generates appropriate PGresult objects for COPY operations (COPY IN, COPY OUT, COPY BOTH).

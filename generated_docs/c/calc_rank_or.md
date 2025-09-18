@@ -1,7 +1,7 @@
 # calc_rank_or
 
 ## Location
-src/backend/utils/adt/tsrank.c: 283 - 356
+[src/backend/utils/adt/tsrank.c:283-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L283-L356)
 
 ## Overview
 Calculates text search ranking for OR operations between query terms, computing relevance scores based on individual term weights and occurrence positions.

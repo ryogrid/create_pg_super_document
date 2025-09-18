@@ -1,7 +1,7 @@
 # ri_set
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1031 - 1225
+[src/backend/utils/adt/ri_triggers.c:1031-1225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1031-L1225)
 
 ## Overview
 This is the core implementation function that handles SET NULL and SET DEFAULT actions for foreign key constraints on both DELETE and UPDATE operations.

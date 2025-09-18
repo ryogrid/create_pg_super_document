@@ -1,7 +1,7 @@
 # get_object_catcache_oid
 
 ## Location
-src/backend/catalog/objectaddress.c: 2636 - 2643
+[src/backend/catalog/objectaddress.c:2636-2643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2636-L2643)
 
 ## Overview
 Retrieves the catalog cache identifier for objects of a given class, used for efficient caching of catalog lookups.

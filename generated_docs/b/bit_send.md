@@ -1,7 +1,7 @@
 # bit_send
 
 ## Location
-src/backend/utils/adt/varbit.c: 376 - 390
+[src/backend/utils/adt/varbit.c:376-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L376-L390)
 
 ## Overview
 Converts a bit string to binary format for network transmission or storage, used in PostgreSQL's binary protocol.

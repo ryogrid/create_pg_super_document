@@ -1,7 +1,7 @@
 # session_username
 
 ## Location
-src/bin/psql/common.c: 2152 - 2172
+[src/bin/psql/common.c:2152-2172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2152-L2172)
 
 ## Overview
 This function retrieves the session username for the current PostgreSQL connection, returning either the session authorization user or the connection user.

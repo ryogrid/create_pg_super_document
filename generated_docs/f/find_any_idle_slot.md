@@ -1,7 +1,7 @@
 # find_any_idle_slot
 
 ## Location
-src/fe_utils/parallel_slot.c: 179 - 195
+[src/fe_utils/parallel_slot.c:179-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L179-L195)
 
 ## Overview
 find_any_idle_slot is a static utility function that searches through a parallel slot array to find the first available (idle) slot for use in parallel operations.

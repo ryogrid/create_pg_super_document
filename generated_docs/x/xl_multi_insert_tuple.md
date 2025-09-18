@@ -1,7 +1,7 @@
 # xl_multi_insert_tuple
 
 ## Location
-src/include/access/heapam_xlog.h: 189 - 196
+[src/include/access/heapam_xlog.h:189-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L189-L196)
 
 ## Overview
 A structure that represents the metadata and header information for a single tuple within a multi-insert WAL (Write-Ahead Log) record, containing essential tuple formatting information for WAL replay.

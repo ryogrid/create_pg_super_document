@@ -1,7 +1,7 @@
 # interval_avg_serialize
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4068 - 4105
+[src/backend/utils/adt/timestamp.c:4068-4105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4068-L4105)
 
 ## Overview
 Serializes IntervalAggState for interval aggregates into a bytea format for transmission across PostgreSQL processes in parallel aggregation.

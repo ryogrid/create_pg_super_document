@@ -1,7 +1,7 @@
 # ExtendCLOG
 
 ## Location
-src/backend/access/transam/clog.c: 959 - 999
+[src/backend/access/transam/clog.c:959-999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L959-L999)
 
 ## Overview
 ExtendCLOG ensures that the CLOG has sufficient space for newly allocated transaction IDs by creating and zeroing new CLOG pages when needed.

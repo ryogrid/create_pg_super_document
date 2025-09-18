@@ -1,7 +1,7 @@
 # editFile
 
 ## Location
-src/bin/psql/command.c: 4103 - 4184
+[src/bin/psql/command.c:4103-4184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4103-L4184)
 
 ## Overview
 A helper function that invokes an external text editor to edit a specified file, with optional line number positioning support.

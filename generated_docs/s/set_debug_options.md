@@ -1,7 +1,7 @@
 # set_debug_options
 
 ## Location
-src/backend/tcop/postgres.c: 3766 - 3794
+[src/backend/tcop/postgres.c:3766-3794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3766-L3794)
 
 ## Overview
 A utility function that applies debug-level configurations based on the "-d N" command line option, progressively enabling more verbose logging and debugging output as the debug level increases.

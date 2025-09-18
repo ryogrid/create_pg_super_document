@@ -1,7 +1,7 @@
 # SlruSyncFileTag
 
 ## Location
-src/backend/access/transam/slru.c: 1828 - 1849
+[src/backend/access/transam/slru.c:1828-1849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1828-L1849)
 
 ## Overview
 A common implementation function that performs file synchronization (fsync) operations for SLRU (Simple Least Recently Used) segments in PostgreSQL's transaction log system.

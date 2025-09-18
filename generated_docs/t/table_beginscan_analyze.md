@@ -1,7 +1,7 @@
 # table_beginscan_analyze
 
 ## Location
-src/include/access/tableam.h: 1009 - 1019
+[src/include/access/tableam.h:1009-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1009-L1019)
 
 ## Overview
 Initializes a table scan descriptor specifically designed for ANALYZE operations, providing an alternative entry point that sets up scanning parameters optimized for statistical analysis.

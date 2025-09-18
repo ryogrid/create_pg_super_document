@@ -1,7 +1,7 @@
 # point_box_distance
 
 ## Location
-src/backend/access/spgist/spgproc.c: 31 - 62
+[src/backend/access/spgist/spgproc.c:31-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgproc.c#L31-L62)
 
 ## Overview
 Calculates the minimum distance between a point and an axis-aligned bounding box (BOX) in 2D space.

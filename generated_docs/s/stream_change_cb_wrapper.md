@@ -1,7 +1,7 @@
 # stream_change_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1511 - 1559
+[src/backend/replication/logical/logical.c:1511-1559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1511-L1559)
 
 ## Overview
 A wrapper function that safely invokes the output plugin's stream_change_cb callback during logical replication streaming, providing error context and state management.

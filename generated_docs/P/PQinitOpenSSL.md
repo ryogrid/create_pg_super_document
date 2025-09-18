@@ -1,7 +1,7 @@
 # PQinitOpenSSL
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 127 - 137
+[src/interfaces/libpq/fe-secure.c:127-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L127-L137)
 
 ## Overview
 Provides fine-grained control over OpenSSL and libcrypto library initialization for client applications.

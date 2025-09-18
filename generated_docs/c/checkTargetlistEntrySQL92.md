@@ -1,7 +1,7 @@
 # checkTargetlistEntrySQL92
 
 ## Location
-src/backend/parser/parse_clause.c: 1950 - 2005
+[src/backend/parser/parse_clause.c:1950-2005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1950-L2005)
 
 ## Overview
 Validates a targetlist entry found by findTargetlistEntrySQL92 to ensure it is acceptable for use in specific SQL clause types like GROUP BY, ORDER BY, or DISTINCT ON.

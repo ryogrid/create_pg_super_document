@@ -1,7 +1,7 @@
 # hashtid
 
 ## Location
-src/backend/utils/adt/tid.c: 257 - 271
+[src/backend/utils/adt/tid.c:257-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L257-L271)
 
 ## Overview
 A PostgreSQL function that computes a hash value for a tuple identifier (TID), enabling TID values to be used in hash-based operations like hash joins and hash indexes.

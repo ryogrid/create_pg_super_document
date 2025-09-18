@@ -1,7 +1,7 @@
 # select_common_typmod
 
 ## Location
-src/backend/parser/parse_coerce.c: 1646 - 1738
+[src/backend/parser/parse_coerce.c:1646-1738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1646-L1738)
 
 ## Overview
 Determines the common type modifier (typmod) of a list of input expressions that share the same data type.

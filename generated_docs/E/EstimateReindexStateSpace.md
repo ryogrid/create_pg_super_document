@@ -1,7 +1,7 @@
 # EstimateReindexStateSpace
 
 ## Location
-src/backend/catalog/index.c: 4181 - 4191
+[src/backend/catalog/index.c:4181-4191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4181-L4191)
 
 ## Overview
 Estimates the memory space needed to serialize reindex state information for passing to parallel worker processes during parallel reindex operations.

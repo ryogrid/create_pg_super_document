@@ -1,7 +1,7 @@
 # lookup_var_attr_stats
 
 ## Location
-src/backend/statistics/extended_stats.c: 693 - 761
+[src/backend/statistics/extended_stats.c:693-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L693-L761)
 
 ## Overview
 Constructs a VacAttrStats array for extended statistics by matching requested attributes and expressions with available column statistics, ensuring all required data is present before building extended statistics.

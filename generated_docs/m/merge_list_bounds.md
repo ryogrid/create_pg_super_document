@@ -1,7 +1,7 @@
 # merge_list_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 1198 - 1505
+[src/backend/partitioning/partbounds.c:1198-1505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1198-L1505)
 
 ## Overview
 Creates partition bounds for a join relation between list partitioned tables by finding matching partitions using a merge-join-like algorithm on sorted list values.

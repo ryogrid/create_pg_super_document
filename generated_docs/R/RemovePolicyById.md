@@ -1,7 +1,7 @@
 # RemovePolicyById
 
 ## Location
-src/backend/commands/policy.c: 332 - 415
+[src/backend/commands/policy.c:332-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L332-L415)
 
 ## Overview
 Removes a row-level security policy from the system by its OID, performing validation checks and cache invalidation to maintain system consistency.

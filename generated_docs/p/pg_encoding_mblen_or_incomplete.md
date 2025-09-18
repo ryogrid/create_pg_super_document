@@ -1,7 +1,7 @@
 # pg_encoding_mblen_or_incomplete
 
 ## Location
-src/common/wchar.c: 2147 - 2166
+[src/common/wchar.c:2147-2166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2147-L2166)
 
 ## Overview
 Safely returns the byte length of a multibyte character with buffer boundary checking, or INT_MAX if insufficient bytes remain to determine the length.

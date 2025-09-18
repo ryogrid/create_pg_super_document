@@ -1,7 +1,7 @@
 # create_index_paths
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 234 - 430
+[src/backend/optimizer/path/indxpath.c:234-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L234-L430)
 
 ## Overview
 Generates all interesting index paths for a given relation, including both plain (non-parameterized) and parameterized index scans, as well as bitmap heap paths for optimal query execution.

@@ -1,7 +1,7 @@
 # ListenToWorkers
 
 ## Location
-src/bin/pg_dump/parallel.c: 1398 - 1450
+[src/bin/pg_dump/parallel.c:1398-1450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1398-L1450)
 
 ## Overview
 Collects status messages from worker processes in pg_dump's parallel processing system and processes completion callbacks to manage worker state transitions.

@@ -1,7 +1,7 @@
 # PrintLockQueue
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 1050 - 1071
+[src/backend/storage/lmgr/deadlock.c:1050-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L1050-L1071)
 
 ## Overview
 PrintLockQueue is a debugging utility function that prints the current state of a lock's wait queue to standard output, showing the process IDs of all waiting processes.

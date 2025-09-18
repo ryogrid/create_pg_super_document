@@ -1,7 +1,7 @@
 # first_dir_separator
 
 ## Location
-src/port/path.c: 109 - 125
+[src/port/path.c:109-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L109-L125)
 
 ## Overview
 A utility function that locates the first directory separator in a pathname, skipping any drive prefix on Windows systems.

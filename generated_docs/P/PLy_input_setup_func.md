@@ -1,7 +1,7 @@
 # PLy_input_setup_func
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 418 - 549
+[src/pl/plpython/plpy_typeio.c:418-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L418-L549)
 
 ## Overview
 PLy_input_setup_func recursively initializes PLyDatumToOb structures needed to construct Python values from SQL values, providing comprehensive type-specific conversion setup for all PostgreSQL data types.

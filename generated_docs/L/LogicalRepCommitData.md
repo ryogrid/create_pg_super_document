@@ -1,7 +1,7 @@
 # LogicalRepCommitData
 
 ## Location
-src/include/replication/logicalproto.h: 134 - 139
+[src/include/replication/logicalproto.h:134-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L134-L139)
 
 ## Overview
 LogicalRepCommitData is a structure that contains transaction commit information for logical replication, providing essential metadata needed to complete transaction processing.

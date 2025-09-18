@@ -1,7 +1,7 @@
 # calc_distr
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 1010 - 1088
+[src/backend/utils/adt/array_selfuncs.c:1010-1088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L1010-L1088)
 
 ## Overview
 Calculates probability distribution for exact k occurrences of n independent events with given probabilities, including rare events modeled with Poisson distribution.

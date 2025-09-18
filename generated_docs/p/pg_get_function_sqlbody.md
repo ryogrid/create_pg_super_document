@@ -1,7 +1,7 @@
 # pg_get_function_sqlbody
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3564 - 3598
+[src/backend/utils/adt/ruleutils.c:3564-3598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3564-L3598)
 
 ## Overview
 A PostgreSQL SQL function that returns the formatted SQL body of a function as text, given the function's OID.

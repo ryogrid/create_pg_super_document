@@ -1,7 +1,7 @@
 # spgRedoAddNode
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 284 - 450
+[src/backend/access/spgist/spgxlog.c:284-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L284-L450)
 
 ## Overview
 Replays the addition of an inner node to an SP-GiST index during WAL recovery, handling both in-place updates and cross-page moves with proper redirection and parent link maintenance.

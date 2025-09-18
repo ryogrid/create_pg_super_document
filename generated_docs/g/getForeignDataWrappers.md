@@ -1,7 +1,7 @@
 # getForeignDataWrappers
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 9662 - 9751
+[src/bin/pg_dump/pg_dump.c:9662-9751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L9662-L9751)
 
 ## Overview
 Reads all foreign data wrappers from the system catalogs and returns them in a structured format for pg_dump processing.

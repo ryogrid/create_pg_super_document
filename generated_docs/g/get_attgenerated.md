@@ -1,7 +1,7 @@
 # get_attgenerated
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 888 - 912
+[src/backend/utils/cache/lsyscache.c:888-912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L888-L912)
 
 ## Overview
 Retrieves the generation status of an attribute from the PostgreSQL system catalog, indicating whether a column is a generated column and its type.

@@ -1,7 +1,7 @@
 # AtEOXact_Snapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 995 - 1094
+[src/backend/utils/time/snapmgr.c:995-1094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L995-L1094)
 
 ## Overview
 Comprehensive cleanup function that manages all snapshot-related state at the end of a transaction, handling transaction snapshots, exported snapshots, active snapshots, and global state reset.

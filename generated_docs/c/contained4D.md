@@ -1,7 +1,7 @@
 # contained4D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 278 - 285
+[src/backend/utils/adt/geo_spgist.c:278-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L278-L285)
 
 ## Overview
 The `contained4D` function determines whether any rectangle from a `RectBox` can be contained by a given `RangeBox` query in 4-dimensional space (representing 2D box coordinates with x and y ranges).

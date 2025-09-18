@@ -1,7 +1,7 @@
 # heapam_scan_bitmap_next_tuple
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2255 - 2305
+[src/backend/access/heap/heapam_handler.c:2255-2305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2255-L2305)
 
 ## Overview
 Retrieves the next visible tuple during a bitmap heap scan, populating a tuple slot with the tuple data from the current block.

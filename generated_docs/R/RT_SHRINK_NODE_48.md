@@ -1,7 +1,7 @@
 # RT_SHRINK_NODE_48
 
 ## Location
-src/include/lib/radixtree.h: 2404 - 2439
+[src/include/lib/radixtree.h:2404-2439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2404-L2439)
 
 ## Overview
 A macro that defines a function name for shrinking a node48 to a node16 in the radix tree when the node becomes sufficiently sparse.

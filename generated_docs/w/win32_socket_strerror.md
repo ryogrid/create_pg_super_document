@@ -1,7 +1,7 @@
 # win32_socket_strerror
 
 ## Location
-src/port/strerror.c: 275 - 310
+[src/port/strerror.c:275-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strerror.c#L275-L310)
 
 ## Overview
 Windows-specific function that handles Winsock error codes, providing human-readable error messages for network-related errors on Windows platforms.

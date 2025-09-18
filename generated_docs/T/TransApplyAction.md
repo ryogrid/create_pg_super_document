@@ -1,7 +1,7 @@
 # TransApplyAction
 
 ## Location
-src/backend/replication/logical/worker.c: 275 - 335
+[src/backend/replication/logical/worker.c:275-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L275-L335)
 
 ## Overview
 TransApplyAction is an enumeration that defines different actions for processing transaction changes in PostgreSQL's logical replication system, determining how changes are handled by leader workers, parallel workers, and during streaming transactions.

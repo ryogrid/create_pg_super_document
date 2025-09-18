@@ -1,7 +1,7 @@
 # check_datestyle
 
 ## Location
-src/backend/commands/variable.c: 52 - 243
+[src/backend/commands/variable.c:52-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L52-L243)
 
 ## Overview
 A GUC (Grand Unified Configuration) validation hook function that parses and validates datestyle configuration strings, ensuring they contain valid date style and order specifications.

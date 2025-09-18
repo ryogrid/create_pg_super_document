@@ -1,7 +1,7 @@
 # pg_sub_s32_overflow
 
 ## Location
-src/include/common/int.h: 122 - 139
+[src/include/common/int.h:122-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L122-L139)
 
 ## Overview
 A safe integer subtraction function that performs overflow checking for 32-bit signed integers, returning true if overflow occurs and storing the result if no overflow is detected.

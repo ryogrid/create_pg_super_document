@@ -1,7 +1,7 @@
 # query_to_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3065 - 3093
+[src/backend/utils/adt/xml.c:3065-3093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3065-L3093)
 
 ## Overview
 SQL-callable function that generates an XML Schema Definition (XSD) based on the result structure of a given SQL query.

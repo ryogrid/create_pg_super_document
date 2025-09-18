@@ -1,7 +1,7 @@
 # query_tree_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 2686 - 2788
+[src/backend/nodes/nodeFuncs.c:2686-2788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L2686-L2788)
 
 ## Overview
 This function initiates a comprehensive walk of a Query's expression subtrees, serving as the central implementation for traversing all expression nodes within a PostgreSQL Query structure.

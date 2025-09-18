@@ -1,7 +1,7 @@
 # dir_existsfile
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 584 - 607
+[src/bin/pg_basebackup/walmethods.c:584-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L584-L607)
 
 ## Overview
 Checks whether a file exists within a directory-based WAL writing method implementation.

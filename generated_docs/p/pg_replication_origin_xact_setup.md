@@ -1,7 +1,7 @@
 # pg_replication_origin_xact_setup
 
 ## Location
-src/backend/replication/logical/origin.c: 1426 - 1443
+[src/backend/replication/logical/origin.c:1426-1443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1426-L1443)
 
 ## Overview
 Sets up transaction-specific replication origin information by recording the remote LSN and timestamp for the current transaction being replicated.

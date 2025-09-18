@@ -1,7 +1,7 @@
 # ginMergeItemPointers
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 378 - 434
+[src/backend/access/gin/ginpostinglist.c:378-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L378-L434)
 
 ## Overview
 Merges two sorted arrays of ItemPointers into a single sorted array while eliminating duplicates, providing efficient set union functionality for GIN index operations.

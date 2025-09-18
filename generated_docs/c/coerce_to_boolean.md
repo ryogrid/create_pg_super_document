@@ -1,7 +1,7 @@
 # coerce_to_boolean
 
 ## Location
-src/backend/parser/parse_coerce.c: 1161 - 1207
+[src/backend/parser/parse_coerce.c:1161-1207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1161-L1207)
 
 ## Overview
 This function coerces an expression to boolean type and validates that it doesn't return a set, used for constructs that require boolean input.

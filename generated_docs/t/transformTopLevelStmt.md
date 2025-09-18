@@ -1,7 +1,7 @@
 # transformTopLevelStmt
 
 ## Location
-src/backend/parser/analyze.c: 248 - 271
+[src/backend/parser/analyze.c:248-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L248-L271)
 
 ## Overview
 Transforms a raw parse tree into a Query tree, handling top-level statement processing including SELECT INTO operations and statement location tracking.

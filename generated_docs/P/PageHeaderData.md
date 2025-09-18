@@ -1,7 +1,7 @@
 # PageHeaderData
 
 ## Location
-src/include/storage/bufpage.h: 155 - 168
+[src/include/storage/bufpage.h:155-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L155-L168)
 
 ## Overview
 PageHeaderData is the fundamental structure that defines the header layout for all PostgreSQL database pages, containing metadata for space management, logging, and tuple organization within a page.

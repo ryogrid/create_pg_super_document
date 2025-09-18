@@ -1,7 +1,7 @@
 # link
 
 ## Location
-src/timezone/zic.c: 4006 - 4015
+[src/timezone/zic.c:4006-4015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L4006-L4015)
 
 ## Overview
 Provides a Windows-compatible implementation of the Unix link() system call for creating hard links between files.

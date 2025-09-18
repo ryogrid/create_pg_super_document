@@ -1,7 +1,7 @@
 # pg_dependencies_send
 
 ## Location
-src/backend/statistics/dependencies.c: 726 - 740
+[src/backend/statistics/dependencies.c:726-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L726-L740)
 
 ## Overview
 This function serves as the binary output routine for the pg_dependencies data type, enabling transmission of dependency statistics over PostgreSQL's binary protocol by delegating to the bytea send function.

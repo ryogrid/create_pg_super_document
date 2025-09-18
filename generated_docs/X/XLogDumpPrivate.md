@@ -1,7 +1,7 @@
 # XLogDumpPrivate
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 47 - 53
+[src/bin/pg_waldump/pg_waldump.c:47-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L47-L53)
 
 ## Overview
 XLogDumpPrivate is a structure that holds private state information for WAL (Write-Ahead Log) dump operations, specifically used to track the current position and boundaries during WAL record processing.

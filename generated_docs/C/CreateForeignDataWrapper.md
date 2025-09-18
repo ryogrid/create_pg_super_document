@@ -1,7 +1,7 @@
 # CreateForeignDataWrapper
 
 ## Location
-src/backend/commands/foreigncmds.c: 569 - 684
+[src/backend/commands/foreigncmds.c:569-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L569-L684)
 
 ## Overview
 Creates a new foreign-data wrapper (FDW) in the PostgreSQL system, inserting the FDW definition into the catalog and establishing all necessary dependencies and security constraints.

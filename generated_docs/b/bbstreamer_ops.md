@@ -1,7 +1,7 @@
 # bbstreamer_ops
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 32 - 54
+[src/bin/pg_basebackup/bbstreamer.h:32-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L32-L54)
 
 ## Overview
 The bbstreamer_ops structure defines the operation interface for bbstreamer objects, containing function pointers that implement the specific behavior for each type of backup stream processor.

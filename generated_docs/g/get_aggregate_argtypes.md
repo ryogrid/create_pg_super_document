@@ -1,7 +1,7 @@
 # get_aggregate_argtypes
 
 ## Location
-src/backend/parser/parse_agg.c: 1906 - 1931
+[src/backend/parser/parse_agg.c:1906-1931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1906-L1931)
 
 ## Overview
 Extracts the actual datatypes of input arguments passed to an aggregate function call from an Aggref node.

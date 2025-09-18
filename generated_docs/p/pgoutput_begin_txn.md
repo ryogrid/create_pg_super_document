@@ -1,7 +1,7 @@
 # pgoutput_begin_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 574 - 587
+[src/backend/replication/pgoutput/pgoutput.c:574-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L574-L587)
 
 ## Overview
 The transaction begin callback for the pgoutput plugin that prepares transaction-specific data structures but delays sending the BEGIN message until the first actual change.

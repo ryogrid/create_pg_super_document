@@ -1,7 +1,7 @@
 # RelnameGetRelid
 
 ## Location
-src/backend/catalog/namespace.c: 885 - 912
+[src/backend/catalog/namespace.c:885-912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L885-L912)
 
 ## Overview
 A simple utility function that resolves an unqualified relation name by searching through the active namespace search path to find the corresponding relation OID.

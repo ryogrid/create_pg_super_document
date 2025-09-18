@@ -1,7 +1,7 @@
 # namelt
 
 ## Location
-src/backend/utils/adt/name.c: 166 - 174
+[src/backend/utils/adt/name.c:166-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L166-L174)
 
 ## Overview
 The `namelt` function compares two PostgreSQL Name values to determine if the first is less than the second according to the specified collation.

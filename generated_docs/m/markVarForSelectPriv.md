@@ -1,7 +1,7 @@
 # markVarForSelectPriv
 
 ## Location
-src/backend/parser/parse_relation.c: 1150 - 1176
+[src/backend/parser/parse_relation.c:1150-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1150-L1176)
 
 ## Overview
 Marks the range table entry referenced by a Var node as requiring SELECT privilege for the Var's column.

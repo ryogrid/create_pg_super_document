@@ -1,7 +1,7 @@
 # stemmer_module
 
 ## Location
-src/backend/snowball/dict_snowball.c: 85 - 92
+[src/backend/snowball/dict_snowball.c:85-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L85-L92)
 
 ## Overview
 A structure that defines the interface for Snowball stemmer modules, containing function pointers and metadata needed to create, operate, and destroy stemmer environments for specific languages and encodings.

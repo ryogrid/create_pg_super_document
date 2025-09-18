@@ -1,7 +1,7 @@
 # _bt_bestsplitloc
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 788 - 848
+[src/backend/access/nbtree/nbtsplitloc.c:788-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L788-L848)
 
 ## Overview
 Finds the optimal split point among candidate split points by selecting the one with the lowest penalty score within the current split interval.

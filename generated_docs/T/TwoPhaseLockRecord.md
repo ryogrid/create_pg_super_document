@@ -1,7 +1,7 @@
 # TwoPhaseLockRecord
 
 ## Location
-src/backend/storage/lmgr/lock.c: 157 - 161
+[src/backend/storage/lmgr/lock.c:157-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L157-L161)
 
 ## Overview
 A structure that records lock information when a lock is persisted to the 2PC state file during two-phase commit processing.

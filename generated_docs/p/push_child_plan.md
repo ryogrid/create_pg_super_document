@@ -1,7 +1,7 @@
 # push_child_plan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5076 - 5092
+[src/backend/utils/adt/ruleutils.c:5076-5092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5076-L5092)
 
 ## Overview
 A static function that temporarily transfers deparsing attention to a child plan node during expression deparsing operations.

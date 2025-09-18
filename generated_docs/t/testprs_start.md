@@ -1,7 +1,7 @@
 # testprs_start
 
 ## Location
-src/test/modules/test_parser/test_parser.c: 47 - 58
+[src/test/modules/test_parser/test_parser.c:47-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_parser/test_parser.c#L47-L58)
 
 ## Overview
 Initialize a parser state for parsing text input in PostgreSQL test parser module.

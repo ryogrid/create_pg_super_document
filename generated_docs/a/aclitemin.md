@@ -1,7 +1,7 @@
 # aclitemin
 
 ## Location
-src/backend/utils/adt/acl.c: 615 - 645
+[src/backend/utils/adt/acl.c:615-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L615-L645)
 
 ## Overview
 Parses a string representation of an ACL specification and creates a new AclItem structure from it.

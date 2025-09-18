@@ -1,7 +1,7 @@
 # set_relation_column_names
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4310 - 4505
+[src/backend/utils/adt/ruleutils.c:4310-4505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4310-L4505)
 
 ## Overview
 Selects and assigns unique column aliases for a non-join RTE (Range Table Entry) by examining the actual column names and creating appropriate aliases for rule decompilation.

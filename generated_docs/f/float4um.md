@@ -1,7 +1,7 @@
 # float4um
 
 ## Location
-src/backend/utils/adt/float.c: 595 - 604
+[src/backend/utils/adt/float.c:595-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L595-L604)
 
 ## Overview
 Implements the unary minus operation for single-precision floating-point numbers (float4) in PostgreSQL.

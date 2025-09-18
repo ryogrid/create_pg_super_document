@@ -1,7 +1,7 @@
 # XLogDumpDisplayStats
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 626 - 755
+[src/bin/pg_waldump/pg_waldump.c:626-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L626-L755)
 
 ## Overview
 A comprehensive statistics display function in pg_waldump that formats and prints detailed WAL record analysis statistics, showing counts and sizes by resource manager and optionally by individual record types.

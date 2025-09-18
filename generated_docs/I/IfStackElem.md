@@ -1,7 +1,7 @@
 # IfStackElem
 
 ## Location
-src/include/fe_utils/conditional.h: 58 - 64
+[src/include/fe_utils/conditional.h:58-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/conditional.h#L58-L64)
 
 ## Overview
 IfStackElem is a struct that represents a single element in the conditional stack used to manage nested \if...\endif blocks in PostgreSQL frontend utilities like psql and pgbench.

@@ -1,7 +1,7 @@
 # new_tail_cell
 
 ## Location
-src/backend/nodes/list.c: 323 - 338
+[src/backend/nodes/list.c:323-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L323-L338)
 
 ## Overview
 Creates space for a new tail cell at the end of an existing PostgreSQL list by extending the list length and capacity if necessary.

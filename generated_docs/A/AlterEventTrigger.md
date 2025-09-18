@@ -1,7 +1,7 @@
 # AlterEventTrigger
 
 ## Location
-src/backend/commands/event_trigger.c: 423 - 474
+[src/backend/commands/event_trigger.c:423-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L423-L474)
 
 ## Overview
 Implements the ALTER EVENT TRIGGER command to enable, disable, or modify the firing mode of an existing event trigger in PostgreSQL.

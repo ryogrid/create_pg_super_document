@@ -1,7 +1,7 @@
 # exec_simple_query
 
 ## Location
-src/backend/tcop/postgres.c: 1017 - 1394
+[src/backend/tcop/postgres.c:1017-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L1017-L1394)
 
 ## Overview
 Executes a "simple Query" protocol message, handling the complete SQL query processing pipeline from parsing through execution for PostgreSQL's simple query protocol.

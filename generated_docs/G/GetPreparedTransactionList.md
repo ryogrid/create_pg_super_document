@@ -1,7 +1,7 @@
 # GetPreparedTransactionList
 
 ## Location
-src/backend/access/transam/twophase.c: 666 - 700
+[src/backend/access/transam/twophase.c:666-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L666-L700)
 
 ## Overview
 GetPreparedTransactionList creates a copy of all prepared transactions from shared memory for use by the pg_prepared_xact system view.

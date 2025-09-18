@@ -1,7 +1,7 @@
 # AddNewRelationType
 
 ## Location
-src/backend/catalog/heap.c: 1027 - 1104
+[src/backend/catalog/heap.c:1027-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1027-L1104)
 
 ## Overview
 Defines a composite type corresponding to a new relation by creating an appropriate type entry in the pg_type system catalog.

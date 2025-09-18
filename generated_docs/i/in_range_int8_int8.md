@@ -1,7 +1,7 @@
 # in_range_int8_int8
 
 ## Location
-src/backend/utils/adt/int8.c: 401 - 439
+[src/backend/utils/adt/int8.c:401-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L401-L439)
 
 ## Overview
 A support function for int8 data type that determines whether a value falls within a range defined by a base value and an offset, used in SQL window functions with RANGE frames.

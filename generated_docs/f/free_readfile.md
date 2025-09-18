@@ -1,7 +1,7 @@
 # free_readfile
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 409 - 438
+[src/bin/pg_ctl/pg_ctl.c:409-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L409-L438)
 
 ## Overview
 Deallocates memory for an array of strings that was allocated by readfile(), properly freeing both individual string elements and the array itself.

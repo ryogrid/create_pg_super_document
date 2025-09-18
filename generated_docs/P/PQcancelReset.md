@@ -1,7 +1,7 @@
 # PQcancelReset
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 319 - 334
+[src/interfaces/libpq/fe-cancel.c:319-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L319-L334)
 
 ## Overview
 Resets a PostgreSQL cancel connection to its initial state, allowing it to be reused for sending new cancellation requests.

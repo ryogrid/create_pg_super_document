@@ -1,7 +1,7 @@
 # hash_string
 
 ## Location
-src/include/common/hashfn_unstable.h: 391 - 407
+[src/include/common/hashfn_unstable.h:391-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L391-L407)
 
 ## Overview
 A convenience function for hashing NUL-terminated C strings, providing a simple interface to PostgreSQL's fasthash algorithm specifically optimized for string data.

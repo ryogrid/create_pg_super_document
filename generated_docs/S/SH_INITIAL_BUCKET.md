@@ -1,7 +1,7 @@
 # SH_INITIAL_BUCKET
 
 ## Location
-src/include/lib/simplehash.h: 357 - 363
+[src/include/lib/simplehash.h:357-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L357-L363)
 
 ## Overview
 Computes the optimal starting bucket for a hash value in a PostgreSQL simple hash table using efficient bitwise AND masking.

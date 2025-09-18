@@ -1,7 +1,7 @@
 # timestamp_time
 
 ## Location
-src/backend/utils/adt/date.c: 1905 - 1934
+[src/backend/utils/adt/date.c:1905-1934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1905-L1934)
 
 ## Overview
 The timestamp_time function extracts the time-of-day portion from a PostgreSQL timestamp, converting a full timestamp to a TimeADT value representing only the time component.

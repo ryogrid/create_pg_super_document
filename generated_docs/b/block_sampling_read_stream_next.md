@@ -1,7 +1,7 @@
 # block_sampling_read_stream_next
 
 ## Location
-src/backend/commands/analyze.c: 1115 - 1157
+[src/backend/commands/analyze.c:1115-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1115-L1157)
 
 ## Overview
 Read stream callback function that returns the next block number selected by the BlockSampling algorithm for table analysis.

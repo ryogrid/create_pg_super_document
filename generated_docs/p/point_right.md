@@ -1,7 +1,7 @@
 # point_right
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1910 - 1918
+[src/backend/utils/adt/geo_ops.c:1910-1918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1910-L1918)
 
 ## Overview
 A PostgreSQL function that determines if one point is to the right of another point by comparing their x-coordinates.

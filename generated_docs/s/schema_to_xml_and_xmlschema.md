@@ -1,7 +1,7 @@
 # schema_to_xml_and_xmlschema
 
 ## Location
-src/backend/utils/adt/xml.c: 3328 - 3355
+[src/backend/utils/adt/xml.c:3328-3355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3328-L3355)
 
 ## Overview
 PostgreSQL SQL function that generates both XML data and its corresponding XML Schema (XSD) definition for all visible tables in a specified database schema, combining schema structure and data in a single XML document.

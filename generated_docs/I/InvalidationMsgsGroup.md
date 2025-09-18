@@ -1,7 +1,7 @@
 # InvalidationMsgsGroup
 
 ## Location
-src/backend/utils/cache/inval.c: 175 - 179
+[src/backend/utils/cache/inval.c:175-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L175-L179)
 
 ## Overview
 InvalidationMsgsGroup is a control structure that manages logical groups of cache invalidation messages, providing index boundaries for both catalog cache and relation cache message subgroups.

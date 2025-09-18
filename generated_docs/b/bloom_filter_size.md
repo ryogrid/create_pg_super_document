@@ -1,7 +1,7 @@
 # bloom_filter_size
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 271 - 309
+[src/backend/access/brin/brin_bloom.c:271-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L271-L309)
 
 ## Overview
 Calculates optimal Bloom filter parameters (number of bits, bytes, and hash functions) given the expected number of distinct values and desired false positive rate.

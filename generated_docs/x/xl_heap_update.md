@@ -1,7 +1,7 @@
 # xl_heap_update
 
 ## Location
-src/include/access/heapam_xlog.h: 217 - 230
+[src/include/access/heapam_xlog.h:217-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L217-L230)
 
 ## Overview
 A WAL record structure that captures the essential information needed to replay heap tuple update operations during crash recovery and replication.

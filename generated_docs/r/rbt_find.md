@@ -1,7 +1,7 @@
 # rbt_find
 
 ## Location
-src/backend/lib/rbtree.c: 145 - 171
+[src/backend/lib/rbtree.c:145-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L145-L171)
 
 ## Overview
 Searches for a value in a Red-Black Tree and returns the matching node if found.

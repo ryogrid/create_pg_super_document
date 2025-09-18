@@ -1,7 +1,7 @@
 # MakeTransitionCaptureState
 
 ## Location
-src/backend/commands/trigger.c: 4969 - 5072
+[src/backend/commands/trigger.c:4969-5072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4969-L5072)
 
 ## Overview
 Creates a TransitionCaptureState object that holds all state needed to decide whether to capture tuples in transition tables for trigger processing, based on trigger requirements and operation type.

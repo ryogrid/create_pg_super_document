@@ -1,7 +1,7 @@
 # WAL_SYNC_METHOD_OPEN_DSYNC
 
 ## Location
-src/include/access/xlog.h: 28 - 60
+[src/include/access/xlog.h:28-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog.h#L28-L60)
 
 ## Overview
 An enum constant that represents the O_DSYNC synchronization method for WAL (Write-Ahead Log) file operations in PostgreSQL.

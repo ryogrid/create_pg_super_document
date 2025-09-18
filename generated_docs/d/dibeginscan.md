@@ -1,7 +1,7 @@
 # dibeginscan
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 246 - 258
+[src/test/modules/dummy_index_am/dummy_index_am.c:246-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L246-L258)
 
 ## Overview
 Begins an index scan operation for the dummy index access method, a test module that provides a minimal implementation of PostgreSQL's index access method interface.

@@ -1,7 +1,7 @@
 # PlannedStmt
 
 ## Location
-src/include/nodes/plannodes.h: 46 - 100
+[src/include/nodes/plannodes.h:46-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L46-L100)
 
 ## Overview
 PlannedStmt represents the output of PostgreSQL's planner, containing a Plan tree and all "one time" information needed by the executor to execute a query or utility statement.

@@ -1,7 +1,7 @@
 # timestamp2timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6356 - 6364
+[src/backend/utils/adt/timestamp.c:6356-6364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6356-L6364)
 
 ## Overview
 A convenience wrapper function that converts timestamp to timestamptz, throwing an error if the conversion would result in overflow.

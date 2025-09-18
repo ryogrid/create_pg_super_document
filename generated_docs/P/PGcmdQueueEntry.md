@@ -1,7 +1,7 @@
 # PGcmdQueueEntry
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 337 - 342
+[src/interfaces/libpq/libpq-int.h:337-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L337-L342)
 
 ## Overview
 PGcmdQueueEntry represents a single entry in libpq's pending command queue, used to manage pipelined queries and commands in PostgreSQL connections.

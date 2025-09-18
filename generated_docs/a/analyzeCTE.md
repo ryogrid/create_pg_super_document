@@ -1,7 +1,7 @@
 # analyzeCTE
 
 ## Location
-src/backend/parser/parse_cte.c: 243 - 570
+[src/backend/parser/parse_cte.c:243-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L243-L570)
 
 ## Overview
 Performs the actual parse analysis transformation of one Common Table Expression (CTE), handling column type validation, SEARCH/CYCLE clause processing, and recursive CTE verification.

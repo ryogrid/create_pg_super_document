@@ -1,7 +1,7 @@
 # ShutdownWalRcv
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 178 - 244
+[src/backend/replication/walreceiverfuncs.c:178-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L178-L244)
 
 ## Overview
 Gracefully stops the WAL receiver process and waits for it to completely shut down, handling various WAL receiver states appropriately.

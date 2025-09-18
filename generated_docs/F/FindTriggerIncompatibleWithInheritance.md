@@ -1,7 +1,7 @@
 # FindTriggerIncompatibleWithInheritance
 
 ## Location
-src/backend/commands/trigger.c: 2272 - 2303
+[src/backend/commands/trigger.c:2272-2303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2272-L2303)
 
 ## Overview
 Checks if there is a row-level trigger with transition tables that prevents a table from becoming an inheritance child or partition, returning the name of the first incompatible trigger found.

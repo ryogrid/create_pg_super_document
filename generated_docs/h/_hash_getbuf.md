@@ -1,7 +1,7 @@
 # _hash_getbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 70 - 95
+[src/backend/access/hash/hashpage.c:70-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L70-L95)
 
 ## Overview
 Gets a buffer for a specific block number in a hash index for read or write operations, ensuring the page is valid and properly locked.

@@ -1,7 +1,7 @@
 # check_GUC_init
 
 ## Location
-src/backend/utils/misc/guc.c: 1438 - 1531
+[src/backend/utils/misc/guc.c:1438-1531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1438-L1531)
 
 ## Overview
 Validates the initialization state of a GUC parameter by checking that C variables match their boot values and that flag combinations are consistent.

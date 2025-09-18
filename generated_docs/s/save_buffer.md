@@ -1,7 +1,7 @@
 # save_buffer
 
 ## Location
-src/backend/postmaster/syslogger.c: 109 - 110
+[src/backend/postmaster/syslogger.c:109-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L109-L110)
 
 ## Overview
 A structure used by PostgreSQL's system logger to temporarily buffer log messages from multiple processes before writing them to log files.

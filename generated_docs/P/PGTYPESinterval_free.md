@@ -1,7 +1,7 @@
 # PGTYPESinterval_free
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 997 - 1002
+[src/interfaces/ecpg/pgtypeslib/interval.c:997-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L997-L1002)
 
 ## Overview
 Frees memory allocated for an interval data structure in the PostgreSQL ECPG pgtypes library.

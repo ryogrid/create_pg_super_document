@@ -1,7 +1,7 @@
 # create_merge_append_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1415 - 1517
+[src/backend/optimizer/util/pathnode.c:1415-1517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1415-L1517)
 
 ## Overview
 Creates a path node corresponding to a MergeAppend plan, which merges multiple pre-sorted input streams to produce a single sorted output stream.

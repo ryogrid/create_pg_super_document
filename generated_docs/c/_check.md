@@ -1,7 +1,7 @@
 # _check
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 349 - 358
+[src/interfaces/ecpg/ecpglib/misc.c:349-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L349-L358)
 
 ## Overview
 A private static utility function that checks if all bytes in a given memory buffer are set to 0xff (255), used for detecting null indicators in ECPG (Embedded SQL in C for PostgreSQL).

@@ -1,7 +1,7 @@
 # fillTypeDesc
 
 ## Location
-src/backend/access/spgist/spgutils.c: 160 - 181
+[src/backend/access/spgist/spgutils.c:160-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L160-L181)
 
 ## Overview
 fillTypeDesc fills in a SpGistTypeDesc struct with type information retrieved from the PostgreSQL system catalog for a specified data type.

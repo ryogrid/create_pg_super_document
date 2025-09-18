@@ -1,7 +1,7 @@
 # AnlExprData
 
 ## Location
-src/backend/statistics/extended_stats.c: 86 - 90
+[src/backend/statistics/extended_stats.c:86-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L86-L90)
 
 ## Overview
 AnlExprData is a lightweight structure that holds the essential information needed to analyze a single expression during extended statistics collection.

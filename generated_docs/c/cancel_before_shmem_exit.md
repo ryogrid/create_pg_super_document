@@ -1,7 +1,7 @@
 # cancel_before_shmem_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 394 - 415
+[src/backend/storage/ipc/ipc.c:394-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L394-L415)
 
 ## Overview
 Removes a previously-registered before_shmem_exit callback, specifically targeting the most recently added entry in strict LIFO order.

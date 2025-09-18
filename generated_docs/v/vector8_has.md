@@ -1,7 +1,7 @@
 # vector8_has
 
 ## Location
-src/include/port/simd.h: 162 - 194
+[src/include/port/simd.h:162-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L162-L194)
 
 ## Overview
 Tests whether any elements in a Vector8 SIMD register are equal to a given scalar uint8 value, providing efficient vectorized equality testing for byte data.

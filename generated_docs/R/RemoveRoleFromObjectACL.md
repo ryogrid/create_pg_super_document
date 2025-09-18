@@ -1,7 +1,7 @@
 # RemoveRoleFromObjectACL
 
 ## Location
-src/backend/catalog/aclchk.c: 1466 - 1600
+[src/backend/catalog/aclchk.c:1466-1600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1466-L1600)
 
 ## Overview
 Removes all mentions of a role from an object's Access Control List (ACL), used when dropping a role to clean up all associated permissions.

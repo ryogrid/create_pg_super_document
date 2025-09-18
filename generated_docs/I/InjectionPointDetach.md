@@ -1,7 +1,7 @@
 # InjectionPointDetach
 
 ## Location
-src/backend/utils/misc/injection_point.c: 360 - 419
+[src/backend/utils/misc/injection_point.c:360-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L360-L419)
 
 ## Overview
 Removes an existing injection point from the shared memory hash table by name, marking its slot as available for reuse and optionally compacting the active entry range.

@@ -1,7 +1,7 @@
 # create_set_projection_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2882 - 2950
+[src/backend/optimizer/util/pathnode.c:2882-2950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2882-L2950)
 
 ## Overview
 Creates a pathnode that represents performing a projection containing set-returning functions (SRFs), which can produce multiple output rows per input row.

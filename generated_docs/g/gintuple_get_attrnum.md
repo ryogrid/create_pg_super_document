@@ -1,7 +1,7 @@
 # gintuple_get_attrnum
 
 ## Location
-src/backend/access/gin/ginutil.c: 226 - 258
+[src/backend/access/gin/ginutil.c:226-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L226-L258)
 
 ## Overview
 Extracts the attribute (column) number from a stored GIN index tuple, handling both single-column and multi-column index cases.

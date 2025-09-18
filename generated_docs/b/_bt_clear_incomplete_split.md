@@ -1,7 +1,7 @@
 # _bt_clear_incomplete_split
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 139 - 159
+[src/backend/access/nbtree/nbtxlog.c:139-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L139-L159)
 
 ## Overview
 Clears the INCOMPLETE_SPLIT flag from a B-tree page during WAL recovery operations.

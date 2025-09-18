@@ -1,7 +1,7 @@
 # pg_verify_mbstr
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1566 - 1596
+[src/backend/utils/mb/mbutils.c:1566-1596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1566-L1596)
 
 ## Overview
 Verifies that a multibyte string is validly encoded in the specified character encoding.

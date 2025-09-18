@@ -1,7 +1,7 @@
 # CheckPointReplicationSlots
 
 ## Location
-src/backend/replication/slot.c: 1835 - 1891
+[src/backend/replication/slot.c:1835-1891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1835-L1891)
 
 ## Overview
 Flushes all replication slots to disk during checkpoint operations, with special handling for logical slots during shutdown to preserve confirmed_flush LSN progress.

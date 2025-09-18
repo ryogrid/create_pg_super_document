@@ -1,7 +1,7 @@
 # english_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_english.c: 976 - 1070
+[src/backend/snowball/libstemmer/stem_UTF_8_english.c:976-1070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_english.c#L976-L1070)
 
 ## Overview
 The main entry point function for the English Snowball stemming algorithm that transforms a word to its stem form by applying a sequential series of morphological reduction rules.

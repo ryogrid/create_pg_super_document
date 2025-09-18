@@ -1,7 +1,7 @@
 # find_next_mcelem
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 1130 - 1164
+[src/backend/utils/adt/array_selfuncs.c:1130-1164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L1130-L1164)
 
 ## Overview
 Binary-searches a most common elements array for the first element greater than or equal to a given value, starting from a specified index position.

@@ -1,7 +1,7 @@
 # discardUntilSync
 
 ## Location
-src/bin/pgbench/pgbench.c: 3474 - 3526
+[src/bin/pgbench/pgbench.c:3474-3526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3474-L3526)
 
 ## Overview
 Handles pipeline synchronization and cleanup in pgbench by discarding query results until reaching a sync point, then exiting pipeline mode.

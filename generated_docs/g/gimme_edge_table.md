@@ -1,7 +1,7 @@
 # gimme_edge_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 95 - 153
+[src/backend/optimizer/geqo/geqo_erx.c:95-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L95-L153)
 
 ## Overview
 Constructs an edge table representing the set of explicit edges between points in two input genetic algorithm tours, supporting the ERX crossover operation.

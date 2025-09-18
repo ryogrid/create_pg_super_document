@@ -1,7 +1,7 @@
 # BumpBlockFree
 
 ## Location
-src/backend/utils/mmgr/bump.c: 595 - 616
+[src/backend/utils/mmgr/bump.c:595-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L595-L616)
 
 ## Overview
 Removes a BumpBlock from a BumpContext and releases all memory consumed by the block, ensuring proper cleanup and memory accounting.

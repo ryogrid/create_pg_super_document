@@ -1,7 +1,7 @@
 # RangeVarCallbackForDropRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 1632 - 1790
+[src/backend/commands/tablecmds.c:1632-1790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1632-L1790)
 
 ## Overview
 RangeVarCallbackForDropRelation is a callback function that performs permission checks and acquires necessary locks before dropping a relation, ensuring proper authorization and preventing deadlocks through careful lock ordering.

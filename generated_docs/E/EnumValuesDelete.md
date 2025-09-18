@@ -1,7 +1,7 @@
 # EnumValuesDelete
 
 ## Location
-src/backend/catalog/pg_enum.c: 224 - 254
+[src/backend/catalog/pg_enum.c:224-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L224-L254)
 
 ## Overview
 Removes all pg_enum entries for a specified enum type during enum type deletion operations.

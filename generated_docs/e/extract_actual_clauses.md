@@ -1,7 +1,7 @@
 # extract_actual_clauses
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 494 - 521
+[src/backend/optimizer/util/restrictinfo.c:494-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L494-L521)
 
 ## Overview
 Extracts bare clause expressions from a list of RestrictInfo structures, with selective filtering based on pseudoconstant status and automatic elimination of constant-TRUE clauses.

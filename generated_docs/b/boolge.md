@@ -1,7 +1,7 @@
 # boolge
 
 ## Location
-src/backend/utils/adt/bool.c: 268 - 286
+[src/backend/utils/adt/bool.c:268-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L268-L286)
 
 ## Overview
 The boolge function implements the greater-than-or-equal-to comparison operator (>=) for Boolean values in PostgreSQL, returning true if the first Boolean argument is greater than or equal to the second.

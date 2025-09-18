@@ -1,7 +1,7 @@
 # plperl_event_trigger_build_args
 
 ## Location
-src/pl/plperl/plperl.c: 1744 - 1761
+[src/pl/plperl/plperl.c:1744-1761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1744-L1761)
 
 ## Overview
 Builds Perl hash arguments for event trigger functions by extracting event information from the PostgreSQL function call context.

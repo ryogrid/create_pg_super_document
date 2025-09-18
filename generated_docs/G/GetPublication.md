@@ -1,7 +1,7 @@
 # GetPublication
 
 ## Location
-src/backend/catalog/pg_publication.c: 1006 - 1036
+[src/backend/catalog/pg_publication.c:1006-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L1006-L1036)
 
 ## Overview
 Retrieves and constructs a Publication structure by looking up publication information from the system catalog using a publication OID.

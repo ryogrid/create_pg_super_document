@@ -1,7 +1,7 @@
 # remember_to_cleanup_directory
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 1205 - 1225
+[src/bin/pg_combinebackup/pg_combinebackup.c:1205-1225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L1205-L1225)
 
 ## Overview
 Adds a directory to the cleanup list for automatic removal when the program exits or encounters an error, providing cleanup management for temporary directories created during backup operations.

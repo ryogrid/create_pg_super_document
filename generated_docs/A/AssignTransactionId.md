@@ -1,7 +1,7 @@
 # AssignTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 632 - 787
+[src/backend/access/transam/xact.c:632-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L632-L787)
 
 ## Overview
 Assigns a new permanent transaction ID to a given transaction state, ensuring parent transactions have XIDs assigned first and handling WAL logging requirements for subtransaction management.

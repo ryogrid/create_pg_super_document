@@ -1,7 +1,7 @@
 # ParallelWorkerShutdown
 
 ## Location
-src/backend/access/transam/parallel.c: 1601 - 1628
+[src/backend/access/transam/parallel.c:1601-1628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1601-L1628)
 
 ## Overview
 ParallelWorkerShutdown is a cleanup function registered as a before_shmem_exit hook that ensures proper communication with the parallel leader and detachment from shared memory segments when a parallel worker exits.

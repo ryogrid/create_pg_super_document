@@ -1,7 +1,7 @@
 # validateDomainCheckConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 3201 - 3320
+[src/backend/commands/typecmds.c:3201-3320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3201-L3320)
 
 ## Overview
 Validates that all existing data in columns of a specific domain type satisfy a new check constraint before it is officially added to the domain.

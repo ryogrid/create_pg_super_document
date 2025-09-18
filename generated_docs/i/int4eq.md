@@ -1,7 +1,7 @@
 # int4eq
 
 ## Location
-src/backend/utils/adt/int.c: 396 - 404
+[src/backend/utils/adt/int.c:396-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L396-L404)
 
 ## Overview
 Implements the equality comparison operator for 32-bit integers (int4), returning true if both arguments are equal.

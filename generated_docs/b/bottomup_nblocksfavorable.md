@@ -1,7 +1,7 @@
 # bottomup_nblocksfavorable
 
 ## Location
-src/backend/access/heap/heapam.c: 8537 - 8579
+[src/backend/access/heap/heapam.c:8537-8579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8537-L8579)
 
 ## Overview
 Determines how many blocks should be considered favorable/contiguous for a bottom-up index deletion pass, optimizing heap block access patterns for spatial and temporal locality.

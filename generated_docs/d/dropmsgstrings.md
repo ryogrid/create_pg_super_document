@@ -1,7 +1,7 @@
 # dropmsgstrings
 
 ## Location
-src/backend/commands/tablecmds.c: 242 - 310
+[src/backend/commands/tablecmds.c:242-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L242-L310)
 
 ## Overview
 dropmsgstrings is a structure that provides standardized error messages for different types of database objects during DROP operations in PostgreSQL. It contains templates for various error conditions that can occur when attempting to drop relations.

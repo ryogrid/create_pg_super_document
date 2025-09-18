@@ -1,7 +1,7 @@
 # currtid_for_view
 
 ## Location
-src/backend/utils/adt/tid.c: 336 - 407
+[src/backend/utils/adt/tid.c:336-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L336-L407)
 
 ## Overview
 A specialized function that handles current tuple identifier (CTID) operations for views by analyzing their rule definitions and delegating to the underlying base relations.

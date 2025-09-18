@@ -1,7 +1,7 @@
 # pqPacketSend
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4986 - 5009
+[src/interfaces/libpq/fe-connect.c:4986-5009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4986-L5009)
 
 ## Overview
 A convenience function in libpq that sends a complete message packet to the PostgreSQL server, handling message framing, type specification, and ensuring delivery.

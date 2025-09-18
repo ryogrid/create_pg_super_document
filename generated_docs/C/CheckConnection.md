@@ -1,7 +1,7 @@
 # CheckConnection
 
 ## Location
-src/bin/psql/common.c: 342 - 402
+[src/bin/psql/common.c:342-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L342-L402)
 
 ## Overview
 CheckConnection verifies the database connection status and attempts automatic reconnection if the connection has been lost, handling both interactive and non-interactive scenarios.

@@ -1,7 +1,7 @@
 # make_group
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6670 - 6699
+[src/backend/optimizer/plan/createplan.c:6670-6699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6670-L6699)
 
 ## Overview
 Creates and initializes a Group plan node for eliminating consecutive duplicate groups in sorted input data.

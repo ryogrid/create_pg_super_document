@@ -1,7 +1,7 @@
 # errhidecontext
 
 ## Location
-src/backend/utils/error/elog.c: 1430 - 1445
+[src/backend/utils/error/elog.c:1430-1445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1430-L1445)
 
 ## Overview
 Controls whether the CONTEXT field should be suppressed in log entries for the current error message.

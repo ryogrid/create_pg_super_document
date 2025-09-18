@@ -1,7 +1,7 @@
 # create_worktablescan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2202 - 2234
+[src/backend/optimizer/util/pathnode.c:2202-2234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2202-L2234)
 
 ## Overview
 Creates a path node for scanning a self-reference CTE (Common Table Expression), specifically designed for recursive CTE operations where the CTE references itself.

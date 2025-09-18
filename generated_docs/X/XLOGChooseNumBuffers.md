@@ -1,7 +1,7 @@
 # XLOGChooseNumBuffers
 
 ## Location
-src/backend/access/transam/xlog.c: 4576 - 4591
+[src/backend/access/transam/xlog.c:4576-4591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4576-L4591)
 
 ## Overview
 Auto-tunes the number of WAL (Write-Ahead Log) buffers based on shared buffer configuration and system constraints.

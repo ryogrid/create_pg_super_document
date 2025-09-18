@@ -1,7 +1,7 @@
 # filter_object_type_name
 
 ## Location
-src/bin/pg_dump/filter.c: 83 - 122
+[src/bin/pg_dump/filter.c:83-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/filter.c#L83-L122)
 
 ## Overview
 Converts FilterObjectType enum values to their corresponding human-readable string representations, primarily for error message formatting.

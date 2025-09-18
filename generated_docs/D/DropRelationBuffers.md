@@ -1,7 +1,7 @@
 # DropRelationBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4021 - 4143
+[src/backend/storage/buffer/bufmgr.c:4021-4143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4021-L4143)
 
 ## Overview
 DropRelationBuffers removes all pages of specified relation forks from the buffer pool that have block numbers greater than or equal to a given threshold, used primarily during file deletion or truncation operations.

@@ -1,7 +1,7 @@
 # setKeepalivesCount
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2256 - 2293
+[src/interfaces/libpq/fe-connect.c:2256-2293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2256-L2293)
 
 ## Overview
 Sets the count of lost keepalive packets that will trigger a connection break for a PostgreSQL connection socket.

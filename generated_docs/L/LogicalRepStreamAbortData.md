@@ -1,7 +1,7 @@
 # LogicalRepStreamAbortData
 
 ## Location
-src/include/replication/logicalproto.h: 186 - 192
+[src/include/replication/logicalproto.h:186-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L186-L192)
 
 ## Overview
 LogicalRepStreamAbortData is a structure that holds transaction protocol information for stream abort operations in PostgreSQL logical replication.

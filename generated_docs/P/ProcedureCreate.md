@@ -1,7 +1,7 @@
 # ProcedureCreate
 
 ## Location
-src/backend/catalog/pg_proc.c: 70 - 724
+[src/backend/catalog/pg_proc.c:70-724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L70-L724)
 
 ## Overview
 Creates a new function/procedure in the PostgreSQL catalog (pg_proc table) or replaces an existing one, handling all validation, dependency tracking, and ACL setup.

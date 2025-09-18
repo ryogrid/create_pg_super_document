@@ -1,7 +1,7 @@
 # readDatum
 
 ## Location
-src/backend/nodes/readfuncs.c: 589 - 649
+[src/backend/nodes/readfuncs.c:589-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L589-L649)
 
 ## Overview
 A function that reconstructs a Datum value from its string representation during PostgreSQL node deserialization, handling both by-value and by-reference data types.

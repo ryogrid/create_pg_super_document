@@ -1,7 +1,7 @@
 # aclitemout
 
 ## Location
-src/backend/utils/adt/acl.c: 646 - 712
+[src/backend/utils/adt/acl.c:646-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L646-L712)
 
 ## Overview
 Converts an AclItem structure into its external string representation for display and storage purposes.

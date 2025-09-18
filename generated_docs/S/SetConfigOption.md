@@ -1,7 +1,7 @@
 # SetConfigOption
 
 ## Location
-src/backend/utils/misc/guc.c: 4335 - 4357
+[src/backend/utils/misc/guc.c:4335-4357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4335-L4357)
 
 ## Overview
 Public wrapper function to set a configuration option to a given value with a stable API interface.

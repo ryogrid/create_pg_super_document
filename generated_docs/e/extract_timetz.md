@@ -1,7 +1,7 @@
 # extract_timetz
 
 ## Location
-src/backend/utils/adt/date.c: 3050 - 3059
+[src/backend/utils/adt/date.c:3050-3059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L3050-L3059)
 
 ## Overview
 Extracts specified field from a time with time zone (TIMETZ) data type, returning the result as a numeric value with precise decimal representation.

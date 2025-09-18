@@ -1,7 +1,7 @@
 # descriptor
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 203 - 209
+[src/interfaces/ecpg/preproc/type.h:203-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L203-L209)
 
 ## Overview
 A structure used in ECPG (Embedded C for PostgreSQL) to store SQL descriptor information, managing result sets and their associated metadata in embedded C applications.

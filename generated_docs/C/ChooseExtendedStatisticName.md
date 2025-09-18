@@ -1,7 +1,7 @@
 # ChooseExtendedStatisticName
 
 ## Location
-src/backend/commands/statscmds.c: 809 - 850
+[src/backend/commands/statscmds.c:809-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L809-L850)
 
 ## Overview
 Selects a nonconflicting name for a new PostgreSQL extended statistics object by appending digits to a label if necessary to ensure uniqueness within the specified namespace.

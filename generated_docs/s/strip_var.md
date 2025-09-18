@@ -1,7 +1,7 @@
 # strip_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 11935 - 11975
+[src/backend/utils/adt/numeric.c:11935-11975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11935-L11975)
 
 ## Overview
 Removes leading and trailing zero digits from a NumericVar to maintain canonical representation and optimize storage efficiency.

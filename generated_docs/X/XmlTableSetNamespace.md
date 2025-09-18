@@ -1,7 +1,7 @@
 # XmlTableSetNamespace
 
 ## Location
-src/backend/utils/adt/xml.c: 4789 - 4814
+[src/backend/utils/adt/xml.c:4789-4814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4789-L4814)
 
 ## Overview
 Registers XML namespace declarations in the XPath context for use in XmlTable column expressions and row filters.

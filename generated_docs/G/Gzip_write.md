@@ -1,7 +1,7 @@
 # Gzip_write
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 285 - 299
+[src/bin/pg_dump/compress_gzip.c:285-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L285-L299)
 
 ## Overview
 Writes data to a gzip-compressed file handle with error checking and reporting.

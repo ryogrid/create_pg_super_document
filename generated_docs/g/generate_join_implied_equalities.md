@@ -1,7 +1,7 @@
 # generate_join_implied_equalities
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1376 - 1475
+[src/backend/optimizer/path/equivclass.c:1376-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1376-L1475)
 
 ## Overview
 Generates join clauses that can be deduced from equivalence classes to enforce equality among all equivalence-class members computable at a join node.

@@ -1,7 +1,7 @@
 # ginxlogVacuumDataLeafPage
 
 ## Location
-src/include/access/ginxlog.h: 143 - 146
+[src/include/access/ginxlog.h:143-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L143-L146)
 
 ## Overview
 Structure used for WAL (Write-Ahead Logging) record when vacuuming GIN index data leaf pages through recompression operations.

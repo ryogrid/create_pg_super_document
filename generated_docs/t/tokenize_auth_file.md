@@ -1,7 +1,7 @@
 # tokenize_auth_file
 
 ## Location
-src/backend/libpq/hba.c: 686 - 918
+[src/backend/libpq/hba.c:686-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L686-L918)
 
 ## Overview
 The central tokenization function that parses authentication configuration files into structured TokenizedAuthLine objects for further processing.

@@ -1,7 +1,7 @@
 # SnapBuildXactNeedsSkip
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 443 - 454
+[src/backend/replication/logical/snapbuild.c:443-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L443-L454)
 
 ## Overview
 Determines whether the contents of a transaction ending at a specified LSN should be skipped during logical decoding based on the snapshot builder's decoding threshold.

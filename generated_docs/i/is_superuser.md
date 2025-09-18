@@ -1,7 +1,7 @@
 # is_superuser
 
 ## Location
-src/bin/psql/common.c: 2112 - 2131
+[src/bin/psql/common.c:2112-2131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2112-L2131)
 
 ## Overview
 This function checks whether the currently connected user in a pg_dump session has superuser privileges by querying the server's parameter status.

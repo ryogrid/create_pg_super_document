@@ -1,7 +1,7 @@
 # UnlockDatabaseObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1059 - 1078
+[src/backend/storage/lmgr/lmgr.c:1059-1078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1059-L1078)
 
 ## Overview
 UnlockDatabaseObject releases a previously acquired lock on a database object, providing the counterpart to LockDatabaseObject.

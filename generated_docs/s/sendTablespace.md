@@ -1,7 +1,7 @@
 # sendTablespace
 
 ## Location
-src/backend/backup/basebackup.c: 1134 - 1186
+[src/backend/backup/basebackup.c:1134-1186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L1134-L1186)
 
 ## Overview
 sendTablespace includes a tablespace directory in the output tar stream during base backup operations, handling auxiliary tablespaces (not PGDATA).

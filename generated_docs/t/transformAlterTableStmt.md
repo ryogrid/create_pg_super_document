@@ -1,7 +1,7 @@
 # transformAlterTableStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3273 - 3636
+[src/backend/parser/parse_utilcmd.c:3273-3636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3273-L3636)
 
 ## Overview
 Performs comprehensive parse analysis for ALTER TABLE statements, transforming various subcommands and generating additional statements needed before and after the main alteration.

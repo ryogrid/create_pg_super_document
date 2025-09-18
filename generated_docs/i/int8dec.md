@@ -1,7 +1,7 @@
 # int8dec
 
 ## Location
-src/backend/utils/adt/int8.c: 757 - 803
+[src/backend/utils/adt/int8.c:757-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L757-L803)
 
 ## Overview
 Decrements a 64-bit signed integer by 1, with specialized optimization for aggregate contexts and overflow detection.

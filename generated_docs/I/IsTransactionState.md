@@ -1,7 +1,7 @@
 # IsTransactionState
 
 ## Location
-src/backend/access/transam/xact.c: 384 - 403
+[src/backend/access/transam/xact.c:384-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L384-L403)
 
 ## Overview
 Returns true if we are inside a valid transaction state where it is safe to initiate database access and take heavyweight locks.

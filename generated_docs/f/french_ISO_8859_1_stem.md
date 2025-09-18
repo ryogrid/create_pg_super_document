@@ -1,7 +1,7 @@
 # french_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c: 1153 - 1248
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1153-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c#L1153-L1248)
 
 ## Overview  
 The french_ISO_8859_1_stem function is the main entry point for French word stemming using the Snowball algorithm for ISO-8859-1 encoded text.

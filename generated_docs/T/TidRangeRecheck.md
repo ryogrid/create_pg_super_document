@@ -1,7 +1,7 @@
 # TidRangeRecheck
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 273 - 293
+[src/backend/executor/nodeTidrangescan.c:273-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L273-L293)
 
 ## Overview
 TidRangeRecheck is an access method routine used to recheck a tuple during EvalPlanQual processing in TID range scans.

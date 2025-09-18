@@ -1,7 +1,7 @@
 # registered_buffer
 
 ## Location
-src/backend/access/transam/xloginsert.c: 87 - 115
+[src/backend/access/transam/xloginsert.c:87-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L87-L115)
 
 ## Overview
 The  struct represents a registered buffer in PostgreSQL's WAL (Write-Ahead Log) insertion system, containing metadata and data for database pages that need to be included in WAL records.

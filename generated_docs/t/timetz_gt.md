@@ -1,7 +1,7 @@
 # timetz_gt
 
 ## Location
-src/backend/utils/adt/date.c: 2506 - 2514
+[src/backend/utils/adt/date.c:2506-2514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2506-L2514)
 
 ## Overview
 The timetz_gt function compares two time with time zone values and returns true if the first time is greater than (later than) the second time.

@@ -1,7 +1,7 @@
 # sizebitvec
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 490 - 495
+[src/backend/utils/adt/tsgistidx.c:490-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L490-L495)
 
 ## Overview
 The sizebitvec function counts the number of set bits (1s) in a bit vector signature, used for calculating Hamming distances and other bit vector operations in PostgreSQL's TSVector GiST index implementation.

@@ -1,7 +1,7 @@
 # hash_create
 
 ## Location
-src/backend/utils/hash/dynahash.c: 352 - 629
+[src/backend/utils/hash/dynahash.c:352-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L352-L629)
 
 ## Overview
 hash_create is the primary function for creating new dynamic hash tables in PostgreSQL, providing a comprehensive interface for configuring hash table parameters and behavior.

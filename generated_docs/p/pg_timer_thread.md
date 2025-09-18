@@ -1,7 +1,7 @@
 # pg_timer_thread
 
 ## Location
-src/backend/port/win32/timer.c: 36 - 85
+[src/backend/port/win32/timer.c:36-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/timer.c#L36-L85)
 
 ## Overview
 A Windows-specific timer management thread function that handles timer events and signals SIGALRM when timeouts expire.

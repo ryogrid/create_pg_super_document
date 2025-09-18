@@ -1,7 +1,7 @@
 # tts_buffer_heap_store_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 942 - 1007
+[src/backend/executor/execTuples.c:942-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L942-L1007)
 
 ## Overview
 Stores a HeapTuple in a BufferHeapTupleTableSlot, managing buffer references and memory allocation to optimize performance during sequential scans.

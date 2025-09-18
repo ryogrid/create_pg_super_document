@@ -1,7 +1,7 @@
 # domainAddCheckConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 3510 - 3636
+[src/backend/commands/typecmds.c:3510-3636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3510-L3636)
 
 ## Overview
 Creates and stores a check constraint for a domain type, handling constraint name generation, expression transformation, validation, and catalog entry creation.

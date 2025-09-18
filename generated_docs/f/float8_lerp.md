@@ -1,7 +1,7 @@
 # float8_lerp
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 503 - 511
+[src/backend/utils/adt/orderedsetaggs.c:503-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L503-L511)
 
 ## Overview
 Performs linear interpolation between two float8 (double precision) values, used in percentile calculations for ordered-set aggregate functions.

@@ -1,7 +1,7 @@
 # find_hash_columns
 
 ## Location
-src/backend/executor/nodeAgg.c: 1563 - 1693
+[src/backend/executor/nodeAgg.c:1563-1693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1563-L1693)
 
 ## Overview
 Computes and configures which columns need to be stored in hash table entries for aggregation, optimizing storage by eliminating unnecessary columns while preserving all required data for grouping and aggregation operations.

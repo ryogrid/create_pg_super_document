@@ -1,7 +1,7 @@
 # record_ge
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1307 - 1312
+[src/backend/utils/adt/rowtypes.c:1307-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1307-L1312)
 
 ## Overview
 The `record_ge` function implements the "greater than or equal to" comparison operator for PostgreSQL record (composite) types.

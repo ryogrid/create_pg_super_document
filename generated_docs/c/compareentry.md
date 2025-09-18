@@ -1,7 +1,7 @@
 # compareentry
 
 ## Location
-src/backend/utils/adt/tsvector.c: 87 - 102
+[src/backend/utils/adt/tsvector.c:87-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L87-L102)
 
 ## Overview
 A comparison function for sorting WordEntry structures based on their string content in PostgreSQL's text search functionality.

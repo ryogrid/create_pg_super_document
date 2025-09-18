@@ -1,7 +1,7 @@
 # _ArchiveEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 199 - 221
+[src/bin/pg_dump/pg_backup_custom.c:199-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L199-L221)
 
 ## Overview
 _ArchiveEntry is a callback function invoked by the PostgreSQL archiver when the dumper creates a new Table of Contents (TOC) entry, responsible for setting up format-specific TOC data for the custom archive format.

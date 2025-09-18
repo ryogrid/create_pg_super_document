@@ -1,7 +1,7 @@
 # _bt_vacuum_cycleid
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4394 - 4427
+[src/backend/access/nbtree/nbtutils.c:4394-4427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4394-L4427)
 
 ## Overview
 Retrieves the active vacuum cycle ID for a B-tree index, returning zero if no vacuum operation is currently active on the index.

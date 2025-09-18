@@ -1,7 +1,7 @@
 # copy_file_by_range
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 259 - 293
+[src/bin/pg_combinebackup/copy_file.c:259-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L259-L293)
 
 ## Overview
 Copies a file from source to destination using the copy_file_range system call for efficient data transfer, with optional checksum calculation.

@@ -1,7 +1,7 @@
 # gistfillbuffer
 
 ## Location
-src/backend/access/gist/gistutil.c: 33 - 57
+[src/backend/access/gist/gistutil.c:33-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L33-L57)
 
 ## Overview
 Writes an array of index tuples to a GiST page with no control over free space management, used for efficient bulk insertion of tuples.

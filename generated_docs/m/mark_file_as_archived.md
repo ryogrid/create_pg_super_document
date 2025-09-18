@@ -1,7 +1,7 @@
 # mark_file_as_archived
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 54 - 89
+[src/bin/pg_basebackup/receivelog.c:54-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L54-L89)
 
 ## Overview
 Creates an archive status file marking a WAL file as successfully archived during PostgreSQL base backup operations.

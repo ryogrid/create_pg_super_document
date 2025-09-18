@@ -1,7 +1,7 @@
 # pg_wchar_strlen
 
 ## Location
-src/backend/utils/mb/wstrncmp.c: 70 - 77
+[src/backend/utils/mb/wstrncmp.c:70-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/wstrncmp.c#L70-L77)
 
 ## Overview
 Calculates the length of a wide character string by counting characters until a null terminator is encountered.

@@ -1,7 +1,7 @@
 # preprocess_expression
 
 ## Location
-src/backend/optimizer/plan/planner.c: 1156 - 1257
+[src/backend/optimizer/plan/planner.c:1156-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L1156-L1257)
 
 ## Overview
 The preprocess_expression function performs comprehensive preprocessing of SQL expressions, including join alias flattening, constant simplification, qualification canonicalization, SubLink expansion, and correlation variable replacement.

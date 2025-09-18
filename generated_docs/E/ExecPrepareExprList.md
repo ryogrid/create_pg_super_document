@@ -1,7 +1,7 @@
 # ExecPrepareExprList
 
 ## Location
-src/backend/executor/execExpr.c: 814 - 846
+[src/backend/executor/execExpr.c:814-846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L814-L846)
 
 ## Overview
 ExecPrepareExprList prepares a list of expression nodes for execution by converting each Expr into an ExprState, providing a batch processing utility for multiple expressions.

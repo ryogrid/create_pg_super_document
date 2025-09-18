@@ -1,7 +1,7 @@
 # _selectOutputSchema
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3455 - 3505
+[src/bin/pg_dump/pg_backup_archiver.c:3455-3505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3455-L3505)
 
 ## Overview
 Sets the search_path in the target database to select a specific schema as the current schema during PostgreSQL database restore operations.

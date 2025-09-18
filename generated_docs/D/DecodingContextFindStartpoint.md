@@ -1,7 +1,7 @@
 # DecodingContextFindStartpoint
 
 ## Location
-src/backend/replication/logical/logical.c: 652 - 695
+[src/backend/replication/logical/logical.c:652-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L652-L695)
 
 ## Overview
 Reads from a logical decoding slot until it finds a consistent starting point for extracting changes from the WAL.

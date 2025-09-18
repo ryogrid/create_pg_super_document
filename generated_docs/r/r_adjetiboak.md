@@ -1,7 +1,7 @@
 # r_adjetiboak
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_basque.c: 1117 - 1141
+[src/backend/snowball/libstemmer/stem_UTF_8_basque.c:1117-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_basque.c#L1117-L1141)
 
 ## Overview
 A Basque-specific stemming function that handles adjective suffix processing ("adjetiboak" means "adjectives" in Basque), implementing rule-based suffix removal and transformation for adjective forms during text normalization.

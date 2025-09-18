@@ -1,7 +1,7 @@
 # report_result
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 119 - 155
+[src/test/modules/test_escape/test_escape.c:119-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L119-L155)
 
 ## Overview
 A test reporting function that outputs test results in a structured format, managing test counters and controlling output verbosity based on configuration settings.

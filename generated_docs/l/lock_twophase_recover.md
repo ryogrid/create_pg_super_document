@@ -1,7 +1,7 @@
 # lock_twophase_recover
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4174 - 4354
+[src/backend/storage/lmgr/lock.c:4174-4354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4174-L4354)
 
 ## Overview
 Re-acquires locks belonging to a prepared transaction during database startup or hot standby recovery as part of the two-phase commit (2PC) recovery process.

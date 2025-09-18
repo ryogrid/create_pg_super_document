@@ -1,7 +1,7 @@
 # FreePageManagerDumpSpans
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1296 - 1318
+[src/backend/utils/mmgr/freepage.c:1296-1318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1296-L1318)
 
 ## Overview
 A debugging function that generates a formatted dump of linked free page spans, showing page numbers and span sizes for diagnostic purposes.

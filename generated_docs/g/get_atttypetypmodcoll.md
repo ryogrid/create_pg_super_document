@@ -1,7 +1,7 @@
 # get_atttypetypmodcoll
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 943 - 969
+[src/backend/utils/cache/lsyscache.c:943-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L943-L969)
 
 ## Overview
 Retrieves the complete type information (type OID, type modifier, and collation OID) for an attribute in a single efficient cache lookup operation.

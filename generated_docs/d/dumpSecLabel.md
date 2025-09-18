@@ -1,7 +1,7 @@
 # dumpSecLabel
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15390 - 15469
+[src/bin/pg_dump/pg_dump.c:15390-15469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15390-L15469)
 
 ## Overview
 Generates SECURITY LABEL statements for database objects that have security labels applied through external security label providers.

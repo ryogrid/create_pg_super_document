@@ -1,7 +1,7 @@
 # selectDumpableStatisticsObject
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2126 - 2143
+[src/bin/pg_dump/pg_dump.c:2126-2143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2126-L2143)
 
 ## Overview
 Determines whether an extended statistics object should be dumped based on the dumpability of its associated schema and table.

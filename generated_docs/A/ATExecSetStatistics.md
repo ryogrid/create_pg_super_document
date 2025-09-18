@@ -1,7 +1,7 @@
 # ATExecSetStatistics
 
 ## Location
-src/backend/commands/tablecmds.c: 8610 - 8744
+[src/backend/commands/tablecmds.c:8610-8744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8610-L8744)
 
 ## Overview
 ATExecSetStatistics executes the SET STATISTICS command for ALTER TABLE operations, modifying the statistics target for a specified column to control the level of statistics collection during ANALYZE operations.

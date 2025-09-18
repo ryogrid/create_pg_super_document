@@ -1,7 +1,7 @@
 # ExecParallelHashTuplePrealloc
 
 ## Location
-src/backend/executor/nodeHash.c: 3541 - 3601
+[src/backend/executor/nodeHash.c:3541-3601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3541-L3601)
 
 ## Overview
 Manages memory preallocation for hash join batches in parallel execution, tracking space usage and triggering repartitioning when memory limits are exceeded.

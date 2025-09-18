@@ -1,7 +1,7 @@
 # ReportSlotInvalidation
 
 ## Location
-src/backend/replication/slot.c: 1477 - 1542
+[src/backend/replication/slot.c:1477-1542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1477-L1542)
 
 ## Overview
 Reports replication slot invalidation events by logging detailed error messages based on the specific invalidation cause.

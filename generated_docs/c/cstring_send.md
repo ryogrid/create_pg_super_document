@@ -1,7 +1,7 @@
 # cstring_send
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 134 - 157
+[src/backend/utils/adt/pseudotypes.c:134-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L134-L157)
 
 ## Overview
 The `cstring_send` function is a binary output (send) conversion function for the `cstring` pseudo-type in PostgreSQL, serializing cstring data into PostgreSQL's binary protocol format.

@@ -1,7 +1,7 @@
 # describeRoles
 
 ## Location
-src/bin/psql/describe.c: 3614 - 3748
+[src/bin/psql/describe.c:3614-3748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3614-L3748)
 
 ## Overview
 Implements the \du and \dg commands in psql to display information about database roles (users and groups).

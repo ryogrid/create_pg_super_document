@@ -1,7 +1,7 @@
 # pg_type_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4908 - 4921
+[src/backend/catalog/namespace.c:4908-4921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4908-L4921)
 
 ## Overview
 SQL-callable function that determines whether a data type is visible in the current search path without explicit schema qualification.

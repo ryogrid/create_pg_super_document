@@ -1,7 +1,7 @@
 # get_object_address_opf_member
 
 ## Location
-src/backend/catalog/objectaddress.c: 1680 - 1791
+[src/backend/catalog/objectaddress.c:1680-1791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1680-L1791)
 
 ## Overview
 Finds the ObjectAddress for an operator family member (operator or support procedure), resolving complex specifications into pg_amop or pg_amproc catalog entries.

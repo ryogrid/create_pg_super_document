@@ -1,7 +1,7 @@
 # SwitchBackToLocalLatch
 
 ## Location
-src/backend/utils/init/miscinit.c: 249 - 263
+[src/backend/utils/init/miscinit.c:249-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L249-L263)
 
 ## Overview
 Switches the current process from using a shared latch back to using a process-local latch, typically during process cleanup or when leaving shared memory participation.

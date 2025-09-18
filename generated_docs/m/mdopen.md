@@ -1,7 +1,7 @@
 # mdopen
 
 ## Location
-src/backend/storage/smgr/md.c: 680 - 690
+[src/backend/storage/smgr/md.c:680-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L680-L690)
 
 ## Overview
 mdopen initializes a newly-opened relation by resetting the segment counters for all fork types to mark the relation as not having any open segments.

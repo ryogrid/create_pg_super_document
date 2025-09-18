@@ -1,7 +1,7 @@
 # check_exec
 
 ## Location
-src/bin/pg_upgrade/exec.c: 429 - 459
+[src/bin/pg_upgrade/exec.c:429-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L429-L459)
 
 ## Overview
 Validates the existence, executability, and optionally the version of a specific PostgreSQL executable file within a given directory.

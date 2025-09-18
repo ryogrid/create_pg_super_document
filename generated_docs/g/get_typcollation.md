@@ -1,7 +1,7 @@
 # get_typcollation
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3056 - 3080
+[src/backend/utils/cache/lsyscache.c:3056-3080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3056-L3080)
 
 ## Overview
 Retrieves the default collation OID (typcollation) for a given PostgreSQL data type, which determines the sorting and comparison behavior for values of that type.

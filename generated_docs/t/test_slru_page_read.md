@@ -1,7 +1,7 @@
 # test_slru_page_read
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 92 - 110
+[src/test/modules/test_slru/test_slru.c:92-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L92-L110)
 
 ## Overview
 A PostgreSQL function that reads data from a specific SLRU page, with optional write access control, returning the page contents as text.

@@ -1,7 +1,7 @@
 # convert_saop_to_hashed_saop_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2293 - 2394
+[src/backend/optimizer/util/clauses.c:2293-2394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2293-L2394)
 
 ## Overview
 This static function implements the recursive tree-walking logic to identify and optimize ScalarArrayOpExpr nodes by determining when hash table evaluation is beneficial and setting up the necessary hash function information.

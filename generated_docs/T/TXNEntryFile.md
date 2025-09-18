@@ -1,7 +1,7 @@
 # TXNEntryFile
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 150 - 155
+[src/backend/replication/logical/reorderbuffer.c:150-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L150-L155)
 
 ## Overview
 TXNEntryFile is a virtual file descriptor structure that tracks file operations and maintains the current offset position for reading and writing transaction entry data to disk.

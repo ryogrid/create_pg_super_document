@@ -1,7 +1,7 @@
 # bloom_contains_value
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 407 - 433
+[src/backend/access/brin/brin_bloom.c:407-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L407-L433)
 
 ## Overview
 Checks whether a specific 32-bit value might be contained in the Bloom filter by verifying that all corresponding hash positions have their bits set.

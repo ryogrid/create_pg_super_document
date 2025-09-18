@@ -1,7 +1,7 @@
 # ExecGrant_Parameter
 
 ## Location
-src/backend/catalog/aclchk.c: 2472 - 2614
+[src/backend/catalog/aclchk.c:2472-2614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2472-L2614)
 
 ## Overview
 ExecGrant_Parameter handles GRANT and REVOKE operations on PostgreSQL configuration parameters (GUCs), managing privileges stored in the pg_parameter_acl catalog.

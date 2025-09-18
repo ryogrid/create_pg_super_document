@@ -1,7 +1,7 @@
 # array_unnest
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6242 - 6251
+[src/backend/utils/adt/arrayfuncs.c:6242-6251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6242-L6251)
 
 ## Overview
 Implements the PostgreSQL UNNEST function for arrays, converting a single array into a set of rows containing each element of the array as a separate value.

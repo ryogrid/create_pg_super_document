@@ -1,7 +1,7 @@
 # _selectTablespace
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3506 - 3565
+[src/bin/pg_dump/pg_backup_archiver.c:3506-3565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3506-L3565)
 
 ## Overview
 Sets the default_tablespace setting in the target database to specify where database objects should be created during PostgreSQL database restore operations.

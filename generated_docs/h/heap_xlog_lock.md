@@ -1,7 +1,7 @@
 # heap_xlog_lock
 
 ## Location
-src/backend/access/heap/heapam.c: 10166 - 10236
+[src/backend/access/heap/heapam.c:10166-10236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10166-L10236)
 
 ## Overview
 Handles the replay of tuple locking operations during WAL recovery by updating tuple header information to reflect the lock state without modifying tuple data.

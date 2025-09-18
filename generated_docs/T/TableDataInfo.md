@@ -1,7 +1,7 @@
 # TableDataInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 402 - 403
+[src/bin/pg_dump/pg_dump.h:402-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L402-L403)
 
 ## Overview
 TableDataInfo is a structure used by pg_dump to represent table data that needs to be dumped, providing metadata about the table and optional filtering conditions.

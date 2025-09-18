@@ -1,7 +1,7 @@
 # transformTargetList
 
 ## Location
-src/backend/parser/parse_target.c: 121 - 219
+[src/backend/parser/parse_target.c:121-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L121-L219)
 
 ## Overview
 Transforms a list of ResTarget nodes into a list of TargetEntry nodes, handling star expansion and multiassign expressions for SELECT, UPDATE, and RETURNING clauses.

@@ -1,7 +1,7 @@
 # ExecInitResultTypeTL
 
 ## Location
-src/backend/executor/execTuples.c: 1842 - 1865
+[src/backend/executor/execTuples.c:1842-1865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1842-L1865)
 
 ## Overview
 Initializes the result tuple descriptor for a plan node using its target list, setting up the expected output format for query execution.

@@ -1,7 +1,7 @@
 # tts_virtual_clear
 
 ## Location
-src/backend/executor/execTuples.c: 108 - 129
+[src/backend/executor/execTuples.c:108-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L108-L129)
 
 ## Overview
 Clears the contents of a virtual tuple table slot, freeing any allocated memory and resetting the slot to an empty state.

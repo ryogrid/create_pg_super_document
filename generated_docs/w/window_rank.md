@@ -1,7 +1,7 @@
 # window_rank
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 138 - 157
+[src/backend/utils/adt/windowfuncs.c:138-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L138-L157)
 
 ## Overview
 Implements the RANK() window function, which assigns rank values to rows within a partition, with gaps in ranking when there are tied values.

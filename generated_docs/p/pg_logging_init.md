@@ -1,7 +1,7 @@
 # pg_logging_init
 
 ## Location
-src/common/logging.c: 83 - 162
+[src/common/logging.c:83-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L83-L162)
 
 ## Overview
 Initializes PostgreSQL's logging system by setting up color support, terminal detection, program name, and default log level for client utilities and applications.

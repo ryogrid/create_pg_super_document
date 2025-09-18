@@ -1,7 +1,7 @@
 # GetQuitSignalReason
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 229 - 246
+[src/backend/storage/ipc/pmsignal.c:229-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L229-L246)
 
 ## Overview
 Retrieves the reason for a system shutdown from shared memory, typically called by child processes when they receive a SIGQUIT signal.

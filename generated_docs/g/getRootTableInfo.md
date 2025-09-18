@@ -1,7 +1,7 @@
 # getRootTableInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2603 - 2627
+[src/bin/pg_dump/pg_dump.c:2603-2627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2603-L2627)
 
 ## Overview
 Retrieves the root (top-level) TableInfo for a given partition table by traversing the partition hierarchy upwards.

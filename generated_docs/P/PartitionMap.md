@@ -1,7 +1,7 @@
 # PartitionMap
 
 ## Location
-src/backend/partitioning/partbounds.c: 76 - 85
+[src/backend/partitioning/partbounds.c:76-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L76-L85)
 
 ## Overview
 PartitionMap represents a mapping from partitions of a joining relation to partitions of a merged join relation, used during partition-wise join operations.

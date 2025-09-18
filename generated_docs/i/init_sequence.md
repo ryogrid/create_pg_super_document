@@ -1,7 +1,7 @@
 # init_sequence
 
 ## Location
-src/backend/commands/sequence.c: 1129 - 1189
+[src/backend/commands/sequence.c:1129-1189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1129-L1189)
 
 ## Overview
 Initializes and retrieves sequence table entries by relation OID, managing hash table storage and sequence relation access.

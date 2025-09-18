@@ -1,7 +1,7 @@
 # SetSessionAuthorization
 
 ## Location
-src/backend/utils/init/miscinit.c: 966 - 980
+[src/backend/utils/init/miscinit.c:966-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L966-L980)
 
 ## Overview
 SetSessionAuthorization changes the session authorization user ID during runtime, implementing the backend logic for PostgreSQL's SET SESSION AUTHORIZATION command.

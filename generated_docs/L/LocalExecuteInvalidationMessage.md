@@ -1,7 +1,7 @@
 # LocalExecuteInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 706 - 792
+[src/backend/utils/cache/inval.c:706-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L706-L792)
 
 ## Overview
 Processes a single invalidation message to flush local caches based on the message type, without transmitting the message to other backends.

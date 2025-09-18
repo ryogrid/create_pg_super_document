@@ -1,7 +1,7 @@
 # time_smaller
 
 ## Location
-src/backend/utils/adt/date.c: 1768 - 1782
+[src/backend/utils/adt/date.c:1768-1782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1768-L1782)
 
 ## Overview
 The time_smaller function returns the smaller of two TimeADT values, implementing the minimum operation for PostgreSQL's time data type.

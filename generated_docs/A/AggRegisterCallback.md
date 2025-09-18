@@ -1,7 +1,7 @@
 # AggRegisterCallback
 
 ## Location
-src/backend/executor/nodeAgg.c: 4654 - 4682
+[src/backend/executor/nodeAgg.c:4654-4682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4654-L4682)
 
 ## Overview
 Registers a cleanup callback for an aggregate function to ensure proper cleanup of non-memory resources before the aggregate context is reset.

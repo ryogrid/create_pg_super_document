@@ -1,7 +1,7 @@
 # cidr_out
 
 ## Location
-src/backend/utils/adt/network.c: 173 - 191
+[src/backend/utils/adt/network.c:173-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L173-L191)
 
 ## Overview
 Converts a CIDR (Classless Inter-Domain Routing) network address from internal PostgreSQL format to its external string representation.

@@ -1,7 +1,7 @@
 # PLySavedArgs
 
 ## Location
-src/pl/plpython/plpy_procedure.h: 15 - 22
+[src/pl/plpython/plpy_procedure.h:15-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.h#L15-L22)
 
 ## Overview
 PLySavedArgs is a structure used in PostgreSQL's PL/Python extension to save function arguments for outer recursion levels or set-returning functions, enabling proper context management during nested function calls.

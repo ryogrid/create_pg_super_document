@@ -1,7 +1,7 @@
 # convert_type_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4566 - 4586
+[src/backend/utils/adt/acl.c:4566-4586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4566-L4586)
 
 ## Overview
 Converts a type name expressed as text to its corresponding object identifier (OID).

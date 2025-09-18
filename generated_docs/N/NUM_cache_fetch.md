@@ -1,7 +1,7 @@
 # NUM_cache_fetch
 
 ## Location
-src/backend/utils/adt/formatting.c: 5152 - 5179
+[src/backend/utils/adt/formatting.c:5152-5179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5152-L5179)
 
 ## Overview
 High-level interface to retrieve a parsed numeric format cache entry, either from existing cache or by parsing and caching a new format string.

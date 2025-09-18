@@ -1,7 +1,7 @@
 # has_matching_range
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 921 - 1044
+[src/backend/access/brin/brin_minmax_multi.c:921-1044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L921-L1044)
 
 ## Overview
 Checks if a new value falls within any of the existing ranges in a BRIN minmax multi index using binary search.

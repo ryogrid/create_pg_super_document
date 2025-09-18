@@ -1,7 +1,7 @@
 # subquery_planner
 
 ## Location
-src/backend/optimizer/plan/planner.c: 629 - 1155
+[src/backend/optimizer/plan/planner.c:629-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L629-L1155)
 
 ## Overview
 The subquery_planner function is PostgreSQL's primary per-Query planning routine that performs comprehensive query preprocessing, optimization setup, and delegates to grouping_planner for the main planning work.

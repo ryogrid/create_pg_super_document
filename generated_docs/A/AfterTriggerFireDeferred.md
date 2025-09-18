@@ -1,7 +1,7 @@
 # AfterTriggerFireDeferred
 
 ## Location
-src/backend/commands/trigger.c: 5284 - 5339
+[src/backend/commands/trigger.c:5284-5339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5284-L5339)
 
 ## Overview
 Executes all pending deferred triggers at transaction commit time, ensuring proper snapshot management and handling recursive trigger queuing.

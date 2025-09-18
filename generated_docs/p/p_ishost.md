@@ -1,7 +1,7 @@
 # p_ishost
 
 ## Location
-src/backend/tsearch/wparser_def.c: 629 - 656
+[src/backend/tsearch/wparser_def.c:629-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L629-L656)
 
 ## Overview
 A static function in PostgreSQL's text search parser that attempts to parse a host token by creating a temporary parser copy and checking if the next token is of type HOST.

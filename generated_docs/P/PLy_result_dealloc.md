@@ -1,7 +1,7 @@
 # PLy_result_dealloc
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 92 - 108
+[src/pl/plpython/plpy_resultobject.c:92-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L92-L108)
 
 ## Overview
 Deallocates a PLyResultObject instance, properly cleaning up all its contained Python objects and PostgreSQL resources.

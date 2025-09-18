@@ -1,7 +1,7 @@
 # gistpenalty
 
 ## Location
-src/backend/access/gist/gistutil.c: 723 - 755
+[src/backend/access/gist/gistutil.c:723-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L723-L755)
 
 ## Overview
 Calculates the penalty value for inserting a new entry into a GiST index node by calling the operator class penalty function, with special handling for NULL values and result validation.

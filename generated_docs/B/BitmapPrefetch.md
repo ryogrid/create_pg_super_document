@@ -1,7 +1,7 @@
 # BitmapPrefetch
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 462 - 561
+[src/backend/executor/nodeBitmapHeapscan.c:462-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L462-L561)
 
 ## Overview
 Issues prefetch requests for heap pages identified by the bitmap iterator to improve I/O performance by reading ahead of the main scan.

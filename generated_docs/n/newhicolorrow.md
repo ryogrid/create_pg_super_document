@@ -1,7 +1,7 @@
 # newhicolorrow
 
 ## Location
-src/backend/regex/regc_color.c: 420 - 468
+[src/backend/regex/regc_color.c:420-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L420-L468)
 
 ## Overview
 Creates a new row in the hicolormap by cloning an existing row, used for managing color mappings in PostgreSQL's regex engine.

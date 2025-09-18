@@ -1,7 +1,7 @@
 # pull_exec_paramids_walker
 
 ## Location
-src/backend/partitioning/partprune.c: 3356 - 3379
+[src/backend/partitioning/partprune.c:3356-3379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3356-L3379)
 
 ## Overview
 A tree walker function that recursively traverses expression nodes to identify and collect PARAM_EXEC parameter IDs into a Bitmapset.

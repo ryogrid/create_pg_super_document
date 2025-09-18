@@ -1,7 +1,7 @@
 # SPI_is_cursor_plan
 
 ## Location
-src/backend/executor/spi.c: 1910 - 1947
+[src/backend/executor/spi.c:1910-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1910-L1947)
 
 ## Overview
 Determine whether a prepared SPI plan can be used to open a cursor by checking if it contains exactly one command that returns tuples.

@@ -1,7 +1,7 @@
 # PLyObject_ToDomain
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1099 - 1115
+[src/pl/plpython/plpy_typeio.c:1099-1115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1099-L1115)
 
 ## Overview
 Converts a Python object to a PostgreSQL domain type by delegating to the base type conversion function and then applying domain constraints validation.

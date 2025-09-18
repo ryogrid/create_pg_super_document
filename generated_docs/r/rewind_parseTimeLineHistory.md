@@ -1,7 +1,7 @@
 # rewind_parseTimeLineHistory
 
 ## Location
-src/bin/pg_rewind/timeline.c: 28 - 129
+[src/bin/pg_rewind/timeline.c:28-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/timeline.c#L28-L129)
 
 ## Overview
 Parses a timeline history buffer to construct a list of timeline entries, providing a pg_rewind-specific implementation of timeline history parsing without backend dependencies.

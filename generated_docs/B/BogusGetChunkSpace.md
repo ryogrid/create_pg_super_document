@@ -1,7 +1,7 @@
 # BogusGetChunkSpace
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 309 - 338
+[src/backend/utils/mmgr/mcxt.c:309-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L309-L338)
 
 ## Overview
 BogusGetChunkSpace is a static error-handling function that is called when GetMemoryChunkSpace is invoked with an invalid memory pointer, providing diagnostic information before throwing an error.

@@ -1,7 +1,7 @@
 # PageSetChecksumCopy
 
 ## Location
-src/backend/storage/page/bufpage.c: 1510 - 1541
+[src/backend/storage/page/bufpage.c:1510-1541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1510-L1541)
 
 ## Overview
 Creates a copy of a page with a calculated checksum for safe writing to storage, protecting against concurrent modifications that could invalidate the checksum.

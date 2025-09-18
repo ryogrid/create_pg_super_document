@@ -1,7 +1,7 @@
 # objectsInSchemaToOids
 
 ## Location
-src/backend/catalog/aclchk.c: 849 - 937
+[src/backend/catalog/aclchk.c:849-937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L849-L937)
 
 ## Overview
 Finds all objects of a specified type within given schemas and returns a list of their OIDs, with USAGE privilege checking on the schemas but no privilege checking on individual objects.

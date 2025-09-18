@@ -1,7 +1,7 @@
 # numeric_typmod_precision
 
 ## Location
-src/backend/utils/adt/numeric.c: 925 - 939
+[src/backend/utils/adt/numeric.c:925-939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L925-L939)
 
 ## Overview
 A static inline function that extracts the precision value from a numeric typmod, reversing the encoding performed by make_numeric_typmod.

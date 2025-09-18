@@ -1,7 +1,7 @@
 # AfterTriggersTableData
 
 ## Location
-src/backend/commands/trigger.c: 3936 - 4004
+[src/backend/commands/trigger.c:3936-4004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3936-L4004)
 
 ## Overview
 AfterTriggersTableData is a structure that maintains per-table state for managing after-triggers and transition tables during SQL statement execution in PostgreSQL.

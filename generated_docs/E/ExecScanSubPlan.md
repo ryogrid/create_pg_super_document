@@ -1,7 +1,7 @@
 # ExecScanSubPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 223 - 503
+[src/backend/executor/nodeSubplan.c:223-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L223-L503)
 
 ## Overview
 ExecScanSubPlan executes subplans by scanning through subquery results tuple-by-tuple, handling all sublink types (EXISTS, ANY, ALL, EXPR, MULTIEXPR, ARRAY, ROWCOMPARE) with appropriate SQL semantics.

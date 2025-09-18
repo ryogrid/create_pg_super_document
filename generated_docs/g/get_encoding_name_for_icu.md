@@ -1,7 +1,7 @@
 # get_encoding_name_for_icu
 
 ## Location
-src/common/encnames.c: 472 - 484
+[src/common/encnames.c:472-484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L472-L484)
 
 ## Overview
 Returns the ICU-specific encoding name string for a given PostgreSQL character encoding identifier.

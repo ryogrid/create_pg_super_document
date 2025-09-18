@@ -1,7 +1,7 @@
 # _bt_relbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1023 - 1038
+[src/backend/access/nbtree/nbtpage.c:1023-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1023-L1038)
 
 ## Overview
 _bt_relbuf releases a locked buffer by dropping both the buffer lock and the buffer pin, completing the cleanup of buffer resources.

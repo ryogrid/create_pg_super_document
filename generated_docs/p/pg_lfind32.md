@@ -1,7 +1,7 @@
 # pg_lfind32
 
 ## Location
-src/include/port/pg_lfind.h: 153 - 209
+[src/include/port/pg_lfind.h:153-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_lfind.h#L153-L209)
 
 ## Overview
 The main entry point for optimized linear search of 32-bit integers, implementing a sophisticated multi-tier optimization strategy that automatically selects between SIMD and scalar approaches based on array size and platform capabilities.

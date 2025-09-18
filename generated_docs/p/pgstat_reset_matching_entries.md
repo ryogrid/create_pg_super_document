@@ -1,7 +1,7 @@
 # pgstat_reset_matching_entries
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 1029 - 1058
+[src/backend/utils/activity/pgstat_shmem.c:1029-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L1029-L1058)
 
 ## Overview
 This function scans through the shared hashtable of PostgreSQL statistics, resetting statistics entries that are approved by a provided callback function.

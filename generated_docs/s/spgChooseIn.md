@@ -1,7 +1,7 @@
 # spgChooseIn
 
 ## Location
-src/include/access/spgist.h: 53 - 65
+[src/include/access/spgist.h:53-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L53-L65)
 
 ## Overview
 A struct that serves as input parameter for the SP-GiST opclass choose method, containing information about the datum to be indexed and the current state of the inner tuple being traversed.

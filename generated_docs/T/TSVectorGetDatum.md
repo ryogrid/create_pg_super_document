@@ -1,7 +1,7 @@
 # TSVectorGetDatum
 
 ## Location
-src/include/tsearch/ts_type.h: 130 - 134
+[src/include/tsearch/ts_type.h:130-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L130-L134)
 
 ## Overview
 Converts a TSVector pointer to a PostgreSQL Datum value for use in the function manager interface and SQL operations.

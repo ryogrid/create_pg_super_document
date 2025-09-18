@@ -1,7 +1,7 @@
 # ATTypedTableRecursion
 
 ## Location
-src/backend/commands/tablecmds.c: 6693 - 6737
+[src/backend/commands/tablecmds.c:6693-6737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6693-L6737)
 
 ## Overview
 A specialized recursion function that propagates ALTER TYPE operations from composite types to their dependent typed tables, handling CASCADE/RESTRICT behavior and inheritance recursion.

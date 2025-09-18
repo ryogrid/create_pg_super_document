@@ -1,7 +1,7 @@
 # ginFinishSplit
 
 ## Location
-src/backend/access/gin/ginbtree.c: 672 - 778
+[src/backend/access/gin/ginbtree.c:672-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L672-L778)
 
 ## Overview
 ginFinishSplit completes a B-tree page split by inserting the downlink for the newly created page into the parent, recursively handling splits up the tree until the operation is complete.

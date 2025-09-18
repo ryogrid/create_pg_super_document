@@ -1,7 +1,7 @@
 # pqTraceOutput_FunctionCallResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 483 - 493
+[src/interfaces/libpq/fe-trace.c:483-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L483-L493)
 
 ## Overview
 Outputs a formatted trace message for PostgreSQL's FunctionCallResponse backend message, displaying the result data length and content for function call debugging.

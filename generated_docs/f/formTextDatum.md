@@ -1,7 +1,7 @@
 # formTextDatum
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 52 - 76
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:52-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L52-L76)
 
 ## Overview
 A utility function that constructs a PostgreSQL text datum from a character string, optimizing storage by using short varlena header format when possible.

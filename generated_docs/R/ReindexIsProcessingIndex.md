@@ -1,7 +1,7 @@
 # ReindexIsProcessingIndex
 
 ## Location
-src/backend/catalog/index.c: 4079 - 4089
+[src/backend/catalog/index.c:4079-4089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4079-L4089)
 
 ## Overview
 The  function determines whether an index is currently being reindexed or is pending reindex, serving as a comprehensive check for index unavailability during reindex operations.

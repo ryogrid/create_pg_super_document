@@ -1,7 +1,7 @@
 # get_tablespace_page_costs
 
 ## Location
-src/backend/utils/cache/spccache.c: 182 - 214
+[src/backend/utils/cache/spccache.c:182-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/spccache.c#L182-L214)
 
 ## Overview
 Retrieves the random and sequential page cost parameters for a specified tablespace, falling back to global defaults when tablespace-specific values are not configured.

@@ -1,7 +1,7 @@
 # smgr_redo
 
 ## Location
-src/backend/catalog/storage.c: 965 - 1079
+[src/backend/catalog/storage.c:965-1079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L965-L1079)
 
 ## Overview
 smgr_redo processes Write-Ahead Log (WAL) records for storage manager operations during recovery, handling both relation creation and truncation operations to ensure data consistency.

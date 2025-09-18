@@ -1,7 +1,7 @@
 # AddNewRelationTuple
 
 ## Location
-src/backend/catalog/heap.c: 969 - 1026
+[src/backend/catalog/heap.c:969-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L969-L1026)
 
 ## Overview
 Registers a new relation in the system catalogs by updating the relation descriptor and adding a tuple to pg_class.

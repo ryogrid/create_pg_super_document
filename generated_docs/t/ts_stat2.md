@@ -1,7 +1,7 @@
 # ts_stat2
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2689 - 2726
+[src/backend/utils/adt/tsvector_op.c:2689-2726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2689-L2726)
 
 ## Overview
 A PostgreSQL SQL function that provides statistical information about text search vectors (tsvector) by executing a user-provided SQL query and filtering results based on specified weight classes.

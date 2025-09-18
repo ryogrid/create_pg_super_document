@@ -1,7 +1,7 @@
 # AlterForeignServerOwner
 
 ## Location
-src/backend/commands/foreigncmds.c: 426 - 460
+[src/backend/commands/foreigncmds.c:426-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L426-L460)
 
 ## Overview
 Public interface function for changing a foreign server's owner by server name, providing name resolution and calling the internal implementation.

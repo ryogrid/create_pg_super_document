@@ -1,7 +1,7 @@
 # bind_param_error_callback
 
 ## Location
-src/backend/tcop/postgres.c: 2576 - 2624
+[src/backend/tcop/postgres.c:2576-2624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2576-L2624)
 
 ## Overview
 Error context callback function that provides detailed parameter information when errors occur during bind message parameter parsing.

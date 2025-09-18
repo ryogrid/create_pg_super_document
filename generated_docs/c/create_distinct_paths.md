@@ -1,7 +1,7 @@
 # create_distinct_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4830 - 4899
+[src/backend/optimizer/plan/planner.c:4830-4899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4830-L4899)
 
 ## Overview
 Creates a new upper relation containing execution paths for SELECT DISTINCT evaluation, supporting both serial and parallel execution strategies while handling datatype compatibility requirements.

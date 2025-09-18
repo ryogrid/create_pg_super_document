@@ -1,7 +1,7 @@
 # copy_dest_startup
 
 ## Location
-src/backend/commands/copyto.c: 1226 - 1234
+[src/backend/commands/copyto.c:1226-1234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L1226-L1234)
 
 ## Overview
 A no-operation startup function for the COPY destination receiver that implements the DestReceiver interface's startup callback.

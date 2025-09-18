@@ -1,7 +1,7 @@
 # LockRefindAndRelease
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3112 - 3215
+[src/backend/storage/lmgr/lock.c:3112-3215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3112-L3215)
 
 ## Overview
 LockRefindAndRelease finds a lock in the shared lock table and releases it, ensuring proper cleanup and wakeup of waiting processes.

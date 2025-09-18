@@ -1,7 +1,7 @@
 # pset_bool_string
 
 ## Location
-src/bin/psql/command.c: 5148 - 5154
+[src/bin/psql/command.c:5148-5154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5148-L5154)
 
 ## Overview
 A simple utility function that converts a boolean value to its string representation used in PostgreSQL psql settings.

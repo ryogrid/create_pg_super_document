@@ -1,7 +1,7 @@
 # create_partial_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7279 - 7577
+[src/backend/optimizer/plan/planner.c:7279-7577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7279-L7577)
 
 ## Overview
 Creates a new upper relation for partial aggregation results and populates it with appropriate paths that perform initial phases of aggregation, preparing data for subsequent finalization steps in parallel query processing.

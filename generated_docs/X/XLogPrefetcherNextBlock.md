@@ -1,7 +1,7 @@
 # XLogPrefetcherNextBlock
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 461 - 825
+[src/backend/access/transam/xlogprefetcher.c:461-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L461-L825)
 
 ## Overview
 A callback function that examines the next block reference in the WAL (Write-Ahead Log) and potentially initiates I/O operations to prefetch blocks that will be needed during replay, making future reads faster.

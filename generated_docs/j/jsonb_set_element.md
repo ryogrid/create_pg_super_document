@@ -1,7 +1,7 @@
 # jsonb_set_element
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1677 - 1699
+[src/backend/utils/adt/jsonfuncs.c:1677-1699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1677-L1699)
 
 ## Overview
 A function that sets or updates an element in a JSONB structure at a specified path, creating intermediate containers as needed.

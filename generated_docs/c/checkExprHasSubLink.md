@@ -1,7 +1,7 @@
 # checkExprHasSubLink
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 296 - 308
+[src/backend/rewrite/rewriteManip.c:296-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L296-L308)
 
 ## Overview
 Checks if an expression contains a SubLink node, which represents subqueries within expressions.

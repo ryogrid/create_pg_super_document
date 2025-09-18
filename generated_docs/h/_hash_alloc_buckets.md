@@ -1,7 +1,7 @@
 # _hash_alloc_buckets
 
 ## Location
-src/backend/access/hash/hashpage.c: 992 - 1072
+[src/backend/access/hash/hashpage.c:992-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L992-L1072)
 
 ## Overview
 Allocates a new splitpoint's worth of bucket pages by extending the logical EOF and writing a properly initialized page at the end of the range.

@@ -1,7 +1,7 @@
 # JsonbParseState
 
 ## Location
-src/include/utils/jsonb.h: 319 - 326
+[src/include/utils/jsonb.h:319-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonb.h#L319-L326)
 
 ## Overview
 JsonbParseState maintains conversion state during JSONB parsing from text format or type coercion operations, implementing a stack-based parser state machine.

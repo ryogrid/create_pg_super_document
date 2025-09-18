@@ -1,7 +1,7 @@
 # PortalRunMulti
 
 ## Location
-src/backend/tcop/pquery.c: 1188 - 1379
+[src/backend/tcop/pquery.c:1188-1379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1188-L1379)
 
 ## Overview
 Executes a portal's queries in the general case, handling multiple queries or non-SELECT-like queries with proper snapshot management and destination routing.

@@ -1,7 +1,7 @@
 # flagInhAttrs
 
 ## Location
-src/bin/pg_dump/common.c: 501 - 645
+[src/bin/pg_dump/common.c:501-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L501-L645)
 
 ## Overview
 Identifies inherited column attributes and optimizes their representation in dump output to avoid redundancy and ensure proper restoration.

@@ -1,7 +1,7 @@
 # SPI_getvalue
 
 ## Location
-src/backend/executor/spi.c: 1220 - 1251
+[src/backend/executor/spi.c:1220-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1220-L1251)
 
 ## Overview
 Extracts a specific attribute value from a tuple and converts it to its string representation using the appropriate output function.

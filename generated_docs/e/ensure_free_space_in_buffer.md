@@ -1,7 +1,7 @@
 # ensure_free_space_in_buffer
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1601 - 1701
+[src/backend/access/brin/brin_minmax_multi.c:1601-1701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1601-L1701)
 
 ## Overview
 This function manages buffer space in BRIN (Block Range Index) minmax-multi indexes by ensuring there is sufficient space for at least one new value, performing compaction and range combining as needed.

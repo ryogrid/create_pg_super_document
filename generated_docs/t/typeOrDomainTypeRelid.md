@@ -1,7 +1,7 @@
 # typeOrDomainTypeRelid
 
 ## Location
-src/backend/parser/parse_type.c: 689 - 718
+[src/backend/parser/parse_type.c:689-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L689-L718)
 
 ## Overview
 Gets the associated relation OID (typrelid) for a given type OID, following through domain type chains to find the base composite type.

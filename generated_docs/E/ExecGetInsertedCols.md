@@ -1,7 +1,7 @@
 # ExecGetInsertedCols
 
 ## Location
-src/backend/executor/execUtils.c: 1267 - 1287
+[src/backend/executor/execUtils.c:1267-1287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1267-L1287)
 
 ## Overview
 Returns a bitmap representing the columns being inserted for a given result relation, handling column mapping for child relations in partitioned table hierarchies.

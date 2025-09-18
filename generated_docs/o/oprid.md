@@ -1,7 +1,7 @@
 # oprid
 
 ## Location
-src/backend/parser/parse_oper.c: 238 - 244
+[src/backend/parser/parse_oper.c:238-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L238-L244)
 
 ## Overview
 Extracts the operator OID from an operator tuple structure, providing a simple accessor function for operator identification.

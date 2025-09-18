@@ -1,7 +1,7 @@
 # sha384_bytea
 
 ## Location
-src/backend/utils/adt/cryptohashfuncs.c: 156 - 163
+[src/backend/utils/adt/cryptohashfuncs.c:156-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cryptohashfuncs.c#L156-L163)
 
 ## Overview
 This function computes the SHA-384 cryptographic hash of bytea (binary data) input and returns the result as a bytea value.

@@ -1,7 +1,7 @@
 # end_progress_output
 
 ## Location
-src/bin/pg_upgrade/util.c: 43 - 62
+[src/bin/pg_upgrade/util.c:43-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L43-L62)
 
 ## Overview
 Finalizes progress output formatting by clearing or indenting the current progress line in pg_upgrade utility.

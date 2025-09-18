@@ -1,7 +1,7 @@
 # XLogArchiveIsReadyOrDone
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 664 - 693
+[src/backend/access/transam/xlogarchive.c:664-693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L664-L693)
 
 ## Overview
 Checks if an XLOG segment file has either a .ready or .done status file, indicating it is either queued for archival or already archived.

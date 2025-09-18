@@ -1,7 +1,7 @@
 # ReorderBufferCommit
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2777 - 2798
+[src/backend/replication/logical/reorderbuffer.c:2777-2798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2777-L2798)
 
 ## Overview
 Commits a decoded transaction by replaying its changes through the reorder buffer system.

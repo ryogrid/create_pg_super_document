@@ -1,7 +1,7 @@
 # indonesian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 313 - 403
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:313-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L313-L403)
 
 ## Overview
 The main stemming function for Indonesian text using UTF-8 encoding that implements the Snowball Indonesian stemming algorithm to reduce words to their root forms.

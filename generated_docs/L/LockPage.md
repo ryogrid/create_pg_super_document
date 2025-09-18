@@ -1,7 +1,7 @@
 # LockPage
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 503 - 521
+[src/backend/storage/lmgr/lmgr.c:503-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L503-L521)
 
 ## Overview
 Obtain a page-level lock for individual pages within a relation, primarily used by index access methods to lock specific index pages.

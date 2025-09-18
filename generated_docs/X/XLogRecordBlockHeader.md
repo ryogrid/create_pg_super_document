@@ -1,7 +1,7 @@
 # XLogRecordBlockHeader
 
 ## Location
-src/include/access/xlogrecord.h: 103 - 113
+[src/include/access/xlogrecord.h:103-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecord.h#L103-L113)
 
 ## Overview
 XLogRecordBlockHeader is a structure that provides header information for block data appended to an XLOG record, containing metadata about specific data blocks that are part of a WAL record.

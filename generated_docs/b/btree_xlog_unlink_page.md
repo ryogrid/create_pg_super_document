@@ -1,7 +1,7 @@
 # btree_xlog_unlink_page
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 798 - 936
+[src/backend/access/nbtree/nbtxlog.c:798-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L798-L936)
 
 ## Overview
 Replays a B-tree page unlink operation during WAL recovery, updating sibling links and marking the target page as deleted.

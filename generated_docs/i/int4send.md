@@ -1,7 +1,7 @@
 # int4send
 
 ## Location
-src/backend/utils/adt/int.c: 322 - 339
+[src/backend/utils/adt/int.c:322-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L322-L339)
 
 ## Overview
 Converts a 32-bit integer (int4) to binary format for external transmission in PostgreSQL.

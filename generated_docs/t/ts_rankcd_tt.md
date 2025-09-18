@@ -1,7 +1,7 @@
 # ts_rankcd_tt
 
 ## Location
-src/backend/utils/adt/tsrank.c: 1001 - 1012
+[src/backend/utils/adt/tsrank.c:1001-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L1001-L1012)
 
 ## Overview
 PostgreSQL function that computes the cover density ranking for text search vectors using default weights and normalization method with text vector and query.

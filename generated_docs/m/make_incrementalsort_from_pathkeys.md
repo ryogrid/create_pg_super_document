@@ -1,7 +1,7 @@
 # make_incrementalsort_from_pathkeys
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6382 - 6415
+[src/backend/optimizer/plan/createplan.c:6382-6415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6382-L6415)
 
 ## Overview
 The make_incrementalsort_from_pathkeys function creates an IncrementalSort plan node from pathkey specifications, optimizing for cases where the input data is already partially sorted.

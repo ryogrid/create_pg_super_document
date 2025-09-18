@@ -1,7 +1,7 @@
 # ExecInitLimit
 
 ## Location
-src/backend/executor/nodeLimit.c: 447 - 533
+[src/backend/executor/nodeLimit.c:447-533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLimit.c#L447-L533)
 
 ## Overview
 ExecInitLimit initializes a Limit node's state structure and subplan, setting up expression evaluation, result type information, and WITH TIES comparison functionality if needed.

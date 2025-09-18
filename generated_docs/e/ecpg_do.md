@@ -1,7 +1,7 @@
 # ecpg_do
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 2243 - 2276
+[src/interfaces/ecpg/ecpglib/execute.c:2243-2276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L2243-L2276)
 
 ## Overview
 The main execution function for SQL statements in the ECPG (Embedded SQL in C for PostgreSQL) library that processes variable argument lists and coordinates the complete SQL execution pipeline.

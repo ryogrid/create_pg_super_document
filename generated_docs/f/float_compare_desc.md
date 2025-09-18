@@ -1,7 +1,7 @@
 # float_compare_desc
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 1181 - 1192
+[src/backend/utils/adt/array_selfuncs.c:1181-1192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L1181-L1192)
 
 ## Overview
 Comparison function for sorting float values in descending order, compatible with standard C library sorting functions.

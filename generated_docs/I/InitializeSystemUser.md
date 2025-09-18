@@ -1,7 +1,7 @@
 # InitializeSystemUser
 
 ## Location
-src/backend/utils/init/miscinit.c: 920 - 943
+[src/backend/utils/init/miscinit.c:920-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L920-L943)
 
 ## Overview
 Initializes the system user identifier by combining authentication method and authentication ID into a formatted string for session tracking.

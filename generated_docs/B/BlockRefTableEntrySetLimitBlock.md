@@ -1,7 +1,7 @@
 # BlockRefTableEntrySetLimitBlock
 
 ## Location
-src/common/blkreftable.c: 894 - 964
+[src/common/blkreftable.c:894-964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L894-L964)
 
 ## Overview
 BlockRefTableEntrySetLimitBlock updates a BlockRefTableEntry with a new limit block value and removes any tracked block modifications at or above that limit to maintain consistency with the relation's known length.

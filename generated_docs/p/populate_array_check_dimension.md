@@ -1,7 +1,7 @@
 # populate_array_check_dimension
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2588 - 2615
+[src/backend/utils/adt/jsonfuncs.c:2588-2615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2588-L2615)
 
 ## Overview
 Validates and manages dimensions of multi-dimensional arrays during JSON array population, ensuring consistency across sub-arrays.

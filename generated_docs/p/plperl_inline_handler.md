@@ -1,7 +1,7 @@
 # plperl_inline_handler
 
 ## Location
-src/pl/plperl/plperl.c: 1894 - 1988
+[src/pl/plperl/plperl.c:1894-1988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1894-L1988)
 
 ## Overview
 Handles execution of anonymous Perl code blocks (DO statements) by creating a temporary function environment and executing the provided code.

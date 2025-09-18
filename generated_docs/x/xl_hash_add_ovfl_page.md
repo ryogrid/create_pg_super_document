@@ -1,7 +1,7 @@
 # xl_hash_add_ovfl_page
 
 ## Location
-src/include/access/hash_xlog.h: 80 - 84
+[src/include/access/hash_xlog.h:80-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L80-L84)
 
 ## Overview
 A PostgreSQL WAL record structure that captures the information needed to replay the addition of an overflow page to a hash index bucket chain during recovery.

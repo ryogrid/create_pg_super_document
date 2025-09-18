@@ -1,7 +1,7 @@
 # get_function_rows
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2150 - 2207
+[src/backend/optimizer/util/plancat.c:2150-2207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2150-L2207)
 
 ## Overview
 Estimates the number of rows returned by a set-returning function for query planning purposes.

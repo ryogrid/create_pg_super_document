@@ -1,7 +1,7 @@
 # ginInitConsistentFunction
 
 ## Location
-src/backend/access/gin/ginlogic.c: 227 - 250
+[src/backend/access/gin/ginlogic.c:227-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L227-L250)
 
 ## Overview
 Initializes and configures the appropriate consistent function implementations for a GIN scan key based on the search mode and available opclass functions.

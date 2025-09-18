@@ -1,7 +1,7 @@
 # DbInfo
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 200 - 211
+[src/bin/pg_upgrade/pg_upgrade.h:200-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L200-L211)
 
 ## Overview
 DbInfo is a comprehensive structure that encapsulates all essential information about a PostgreSQL database during the pg_upgrade process, including database metadata, relations, and logical replication slots.

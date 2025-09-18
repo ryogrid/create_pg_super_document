@@ -1,7 +1,7 @@
 # cclasscvec
 
 ## Location
-src/backend/regex/regc_locale.c: 569 - 670
+[src/backend/regex/regc_locale.c:569-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_locale.c#L569-L670)
 
 ## Overview
 The cclasscvec function creates character vectors (cvecs) for POSIX character classes like [:alpha:], [:digit:], etc., with optional case-independent matching support in PostgreSQL's regular expression engine.

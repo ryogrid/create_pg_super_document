@@ -1,7 +1,7 @@
 # transform_MERGE_to_join
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 168 - 394
+[src/backend/optimizer/prep/prepjointree.c:168-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L168-L394)
 
 ## Overview
 Transforms a MERGE statement's jointree to include the target relation by creating an appropriate join between the source and target relations.

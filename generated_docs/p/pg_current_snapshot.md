@@ -1,7 +1,7 @@
 # pg_current_snapshot
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 370 - 419
+[src/backend/utils/adt/xid8funcs.c:370-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L370-L419)
 
 ## Overview
 Returns the current transaction snapshot as a pg_snapshot data type, containing information about currently active transactions.

@@ -1,7 +1,7 @@
 # dummy_callback
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 936 - 946
+[src/backend/access/spgist/spgvacuum.c:936-946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L936-L946)
 
 ## Overview
 A no-op callback function that always returns false, used during SP-GiST vacuum cleanup to perform scanning without deleting any tuples.

@@ -1,7 +1,7 @@
 # pq_sendbyte
 
 ## Location
-src/include/libpq/pqformat.h: 160 - 170
+[src/include/libpq/pqformat.h:160-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L160-L170)
 
 ## Overview
 Appends a single binary byte to a StringInfo buffer for network transmission in PostgreSQL protocol messages.

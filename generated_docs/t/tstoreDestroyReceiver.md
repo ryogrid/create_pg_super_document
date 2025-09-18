@@ -1,7 +1,7 @@
 # tstoreDestroyReceiver
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 229 - 237
+[src/backend/executor/tstoreReceiver.c:229-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L229-L237)
 
 ## Overview
 A cleanup function that destroys a tuplestore destination receiver by freeing its allocated memory when it is no longer needed.

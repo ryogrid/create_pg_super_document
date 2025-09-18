@@ -1,7 +1,7 @@
 # findTypeSubscriptingFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2235 - 2281
+[src/backend/commands/typecmds.c:2235-2281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2235-L2281)
 
 ## Overview
 This function validates and retrieves the OID of a user-specified subscripting function for a PostgreSQL data type, ensuring it meets the required signature constraints and is not a reserved array handler function.

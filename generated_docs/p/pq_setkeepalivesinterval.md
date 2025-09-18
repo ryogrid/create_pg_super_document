@@ -1,7 +1,7 @@
 # pq_setkeepalivesinterval
 
 ## Location
-src/backend/libpq/pqcomm.c: 1749 - 1797
+[src/backend/libpq/pqcomm.c:1749-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1749-L1797)
 
 ## Overview
 Sets the TCP keepalive interval value (time between keepalive probes) for a given port connection using platform-specific implementations.

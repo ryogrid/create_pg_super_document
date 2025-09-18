@@ -1,7 +1,7 @@
 # test_one_vector
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 866 - 883
+[src/test/modules/test_escape/test_escape.c:866-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L866-L883)
 
 ## Overview
 A test orchestration function that sets up the database client encoding for a test vector and runs that vector against all available escape functions.

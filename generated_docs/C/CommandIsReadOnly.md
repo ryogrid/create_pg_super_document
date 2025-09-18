@@ -1,7 +1,7 @@
 # CommandIsReadOnly
 
 ## Location
-src/backend/tcop/utility.c: 94 - 127
+[src/backend/tcop/utility.c:94-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L94-L127)
 
 ## Overview
 CommandIsReadOnly determines whether an executable query is truly read-only, applying a stricter test than XactReadOnly mode to decide if CommandCounterIncrement should be skipped.

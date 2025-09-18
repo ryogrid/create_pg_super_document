@@ -1,7 +1,7 @@
 # print_latex_longtable_text
 
 ## Location
-src/fe_utils/print.c: 2561 - 2590
+[src/fe_utils/print.c:2561-2590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2561-L2590)
 
 ## Overview
 Formats and prints table data using LaTeX's longtable environment, which supports multi-page tables with repeated headers and footers.

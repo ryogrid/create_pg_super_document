@@ -1,7 +1,7 @@
 # AppendAttributeTuples
 
 ## Location
-src/backend/catalog/index.c: 510 - 560
+[src/backend/catalog/index.c:510-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L510-L560)
 
 ## Overview
 Inserts attribute information from an index's tuple descriptor into the pg_attribute system catalog, making the index columns visible to the PostgreSQL system catalogs.
