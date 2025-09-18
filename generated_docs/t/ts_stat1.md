@@ -1,0 +1,46 @@
+# ts_stat1
+
+## Location
+src/backend/utils/adt/tsvector_op.c: 2664 - 2688
+
+## Overview
+PostgreSQL SQL function that returns a set of rows containing text search statistics (lexeme, document count, occurrence count) for all terms found via a SQL query.
+
+## Definition
+
+
+## Detailed Description
+This is a PostgreSQL set-returning function (SRF) that implements the ts_stat(query) SQL function. It takes a SQL query as input parameter, executes it to collect tsvector data, builds comprehensive statistics about lexemes, and returns the results as a set of rows. Each returned row contains three columns: the lexeme (word/term), the number of documents it appears in (ndoc), and the total number of occurrences (nentry).
+
+The function follows PostgreSQL's SRF pattern with initialization on the first call and iteration on subsequent calls. It connects to SPI to execute the provided query, processes all tsvector results through statistical accumulation, and then iterates through the resulting tree structure to return one row per lexeme.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function arguments macro, containing the SQL query as a text parameter
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SRF_IS_FIRSTCALL
+  - SRF_FIRSTCALL_INIT
+  - SPI_connect
+  - ts_stat_sql
+  - PG_GETARG_TEXT_PP
+  - PG_FREE_IF_COPY
+  - ts_setup_firstcall
+  - SPI_finish
+  - SRF_PERCALL_SETUP
+  - ts_process_call
+  - SRF_RETURN_NEXT
+  - SRF_RETURN_DONE
+- Called from (representative examples):
+  - No direct references found (called from SQL)
+
+## Notes and Other Information
+- Exposed as a PostgreSQL SQL function ts_stat(text) for corpus-wide text search analysis
+- Implements the standard SRF pattern with FIRSTCALL/PERCALL phases
+- Uses SPI connection to execute the provided SQL query that must return tsvector data
+- No weight filtering applied (uses NULL for weight parameter in ts_stat_sql)
+- Memory management handled through SRF framework's multi-call memory context
+- Returns composite row type with schema: (word text, ndoc int4, nentry int4)
+- Part of PostgreSQL's text search functionality for analyzing document collections
+- Function continues returning rows until all lexemes in the statistics tree are processed
+- Proper cleanup of SPI resources after query execution completes

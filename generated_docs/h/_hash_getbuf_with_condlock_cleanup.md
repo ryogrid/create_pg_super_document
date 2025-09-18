@@ -1,0 +1,42 @@
+# _hash_getbuf_with_condlock_cleanup
+
+## Location
+src/backend/access/hash/hashpage.c: 96 - 134
+
+## Overview
+Attempts to get a buffer for cleanup operations by trying to acquire a conditional cleanup lock, returning InvalidBuffer if the lock cannot be obtained immediately.
+
+## Definition
+
+
+## Detailed Description
+This function is designed specifically for cleanup operations that should not block. It attempts to acquire a cleanup lock on a hash index page, which is stronger than regular read/write locks and is typically used during maintenance operations like vacuum or page reorganization. The key characteristic is that it uses conditional locking - if the cleanup lock cannot be acquired immediately, the function gives up and returns InvalidBuffer rather than waiting.
+
+The cleanup process follows these steps:
+1. Validates that the block number is not P_NEW
+2. Reads the buffer from disk
+3. Attempts to acquire a cleanup lock conditionally
+4. If the lock fails, releases the buffer and returns InvalidBuffer
+5. If successful, validates the page and returns the locked buffer
+
+## Parameters / Member Variables
+- : The hash index relation to read from
+- : Block number of the page to retrieve (must not be P_NEW)
+- : Bitwise OR of allowed page types for validation by _hash_checkpage
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReadBuffer (buffer manager function to read a page)
+  - ConditionalLockBufferForCleanup (attempts non-blocking cleanup lock)
+  - ReleaseBuffer (releases buffer if lock fails)
+  - _hash_checkpage (validates page contents and type)
+  - P_NEW, InvalidBuffer (constants)
+- Called from (representative examples):
+  - _hash_expandtable (during hash table expansion/cleanup)
+
+## Notes and Other Information
+- Non-blocking nature makes it suitable for cleanup operations that shouldn't interfere with normal operations
+- Cleanup locks are exclusive and stronger than regular read/write locks
+- Returns InvalidBuffer if lock cannot be acquired, allowing caller to skip this page
+- Used primarily during maintenance operations like hash table expansion
+- The conditional locking prevents cleanup operations from becoming bottlenecks

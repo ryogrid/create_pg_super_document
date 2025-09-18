@@ -1,0 +1,34 @@
+# fmtlong
+
+## Location
+src/interfaces/ecpg/test/expected/compat_informix-rfmtlong.c: 27 - 43
+
+## Overview
+A static helper function that wraps the rfmtlong() function to format long integers according to a specified format string and handle return codes.
+
+## Definition
+
+
+## Detailed Description
+The fmtlong function serves as a testing wrapper around the rfmtlong() function in the ECPG Informix compatibility library. It formats a long integer value according to a provided format string, prints the result or error status, and maintains a static counter for successful conversions. This function is primarily used in test code to validate the behavior of the rfmtlong() formatting function.
+
+The function calls rfmtlong() to perform the actual formatting, then examines the return code. If the formatting succeeds (return code 0), it prints the formatted result along with a sequence number. If formatting fails, it delegates error handling to the check_return() function.
+
+## Parameters / Member Variables
+- : The long integer value to be formatted
+- : A pointer to a null-terminated string containing the format specification
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - rfmtlong
+  - printf
+  - check_return
+- Called from (representative examples):
+  - main (multiple times in test scenarios)
+
+## Notes and Other Information
+- This is a static function, meaning it has internal linkage and is only accessible within its compilation unit
+- Uses a static integer counter 'i' to track the number of successful formatting operations
+- The function assumes a buffer size of 30 characters for the formatted output
+- This function is part of the ECPG (Embedded SQL in C for PostgreSQL) test suite for Informix compatibility
+- Located in a test expected output file, indicating it's used for regression testing

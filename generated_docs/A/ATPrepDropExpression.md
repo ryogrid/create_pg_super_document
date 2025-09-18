@@ -1,0 +1,36 @@
+# ATPrepDropExpression
+
+## Location
+src/backend/commands/tablecmds.c: 8473 - 8518
+
+## Overview
+ATPrepDropExpression prepares and validates the DROP EXPRESSION command for ALTER TABLE operations, ensuring that dropping a generated column expression is valid and properly handles inheritance scenarios.
+
+## Definition
+
+
+## Detailed Description
+This function performs preliminary validation for dropping a generated column expression as part of an ALTER TABLE command. It enforces PostgreSQL's inheritance rules by requiring that DROP EXPRESSION operations cascade to child tables when inheritance relationships exist. The function also prevents dropping generation expressions from inherited columns, as these expressions are considered part of the column definition and cannot be selectively removed from inherited columns.
+
+The function implements two key safety checks: first, it rejects ONLY operations when child tables exist (requiring explicit recursion), and second, it prevents dropping expressions from columns that are inherited from parent tables.
+
+## Parameters / Member Variables
+- : The relation (table) being altered
+- : The ALTER TABLE command structure containing the column name and operation details
+- : Boolean flag indicating whether the operation should cascade to child tables
+- : Boolean flag indicating whether this call is part of a recursive operation on child tables
+- : The lock mode to use when accessing related tables
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AlterTableCmd (structure)
+  - find_inheritance_children
+  - SearchSysCacheCopyAttName
+- Called from (representative examples):
+  - ATPrepCmd
+
+## Notes and Other Information
+- The function contains detailed comments explaining why ONLY operations are not implemented for DROP EXPRESSION
+- Generated expressions are treated differently from DEFAULT values in inheritance scenarios
+- The function ensures that inheritance relationships are properly maintained when dropping column expressions
+- Error messages provide clear feedback about unsupported operations and missing columns

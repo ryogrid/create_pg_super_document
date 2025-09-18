@@ -1,0 +1,43 @@
+# exec_command_password
+
+## Location
+src/bin/psql/command.c: 2125 - 2200
+
+## Overview
+Implements the PostgreSQL psql `\password` command that allows users to change their database password or another user's password interactively and securely.
+
+## Definition
+```c
+static backslashResult exec_command_password(PsqlScanState scan_state, bool active_branch)
+```
+
+## Detailed Description
+The `exec_command_password` function handles the `\password` backslash command in psql, providing a secure way to change database user passwords. If no username is specified, it defaults to the current user (CURRENT_USER). The function prompts the user twice for the new password to ensure accuracy, hiding the input for security. It uses libpq's `PQchangePassword` function to actually change the password on the server. The function includes proper error handling for password mismatches, user cancellation via SIGINT, and database errors.
+
+## Parameters / Member Variables
+- `scan_state`: PsqlScanState pointer for parsing command line arguments and options
+- `active_branch`: Boolean indicating if the command should be executed (used for conditional execution in psql scripts)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `psql_scan_slash_option()` - Parses optional username parameter
+  - `PSQLexec()` - Executes SQL query to get CURRENT_USER
+  - `simple_prompt_extended()` - Securely prompts for password input
+  - `PQchangePassword()` - libpq function to change user password
+  - `PQgetvalue()`, `PQclear()` - libpq result handling functions
+  - `initPQExpBuffer()`, `printfPQExpBuffer()`, `termPQExpBuffer()` - Buffer management
+  - `pg_strdup()`, `free()` - Memory management functions
+  - `pg_log_error()`, `pg_log_info()` - Logging functions
+  - `ignore_slash_options()` - Handles unused options when inactive
+- Called from (representative examples):
+  - `exec_command` - Main command dispatcher in psql
+
+## Notes and Other Information
+- Returns `PSQL_CMD_SKIP_LINE` on success, `PSQL_CMD_ERROR` on failure
+- Supports SIGINT cancellation during password prompting through PromptInterruptContext
+- Defaults to CURRENT_USER when no username is provided
+- Validates password confirmation by comparing the two entered passwords
+- Properly cleans up allocated memory and buffers regardless of success/failure
+- Only executes when `active_branch` is true, supporting conditional execution
+- Located in `src/bin/psql/command.c:2125-2200`
+- Password input is hidden from terminal display for security

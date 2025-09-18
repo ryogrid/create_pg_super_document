@@ -1,0 +1,41 @@
+# distribute_quals_to_rels
+
+## Location
+src/backend/optimizer/plan/initsplan.c: 2119 - 2196
+
+## Overview
+A convenience routine that applies distribute_qual_to_rels to each element of an AND'ed list of clauses during query planning.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a wrapper that iterates through a list of qualification clauses and applies distribute_qual_to_rels to each individual clause. It's part of PostgreSQL's query planning phase, specifically handling the distribution of WHERE clause conditions and join conditions to appropriate relations in the query plan. The function maintains the same parameters as distribute_qual_to_rels but operates on a list of clauses rather than a single clause.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global planner state
+- : List of qualification clauses to be distributed
+- : JoinTreeItem representing the current join tree context
+- : SpecialJoinInfo for handling special join conditions
+- : Index indicating the security level for row-level security
+- : Relids representing the scope of qualification applicability
+- : Relids representing outer join scope
+- : Relids that are known to be non-nullable due to outer joins
+- : Relids that are incompatible with the current context
+- : Boolean flag controlling equivalence class creation
+- : Boolean indicating if relation has clones
+- : Boolean indicating if this is a clone relation
+- : Output list for outer join qualifications that need later processing
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - distribute_qual_to_rels
+  - JoinTreeItem
+  - SpecialJoinInfo
+- Called from (representative examples):
+  - deconstruct_distribute
+  - process_security_barrier_quals
+  - deconstruct_distribute_oj_quals
+
+## Notes and Other Information
+This function is a static helper function within the query planner's initialization phase. It simplifies the code by providing a batch processing interface for qualification distribution, eliminating the need for callers to manually iterate through clause lists. The function preserves all the complex parameter passing required by distribute_qual_to_rels, ensuring that each clause is processed with the same context and constraints.

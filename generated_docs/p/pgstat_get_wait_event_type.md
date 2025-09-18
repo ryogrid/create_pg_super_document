@@ -1,0 +1,46 @@
+# pgstat_get_wait_event_type
+
+## Location
+src/backend/utils/activity/wait_event.c: 374 - 431
+
+## Overview
+Returns a string representing the current wait event type that a backend is waiting on, based on the wait event information.
+
+## Definition
+```c
+const char *pgstat_get_wait_event_type(uint32 wait_event_info)
+```
+
+## Detailed Description
+This function translates a numeric wait event information value into a human-readable string representing the wait event type. It extracts the class ID from the wait event information using a bitmask and then uses a switch statement to map the class ID to the corresponding wait event type name. The function handles all major wait event classes in PostgreSQL and returns "???" for unknown or invalid wait event types. If the wait event information is 0, it returns NULL indicating the process is not waiting.
+
+## Parameters / Member Variables
+- `wait_event_info`: A 32-bit unsigned integer containing wait event information from which to extract the type
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - None (uses only constants and control structures)
+- Constants used:
+  - WAIT_EVENT_CLASS_MASK
+  - PG_WAIT_LWLOCK
+  - PG_WAIT_LOCK
+  - PG_WAIT_BUFFERPIN
+  - PG_WAIT_ACTIVITY
+  - PG_WAIT_CLIENT
+  - PG_WAIT_EXTENSION
+  - PG_WAIT_IPC
+  - PG_WAIT_TIMEOUT
+  - PG_WAIT_IO
+  - PG_WAIT_INJECTIONPOINT
+- Called from (representative examples):
+  - pg_stat_get_backend_wait_event_type (in pgstatfuncs.c:778)
+  - pg_isolation_test_session_is_blocked (in waitfuncs.c:59)
+  - WaitEventCustomNew (in wait_event.c:209, 234)
+
+## Notes and Other Information
+- Returns NULL when wait_event_info is 0 (process not waiting)
+- Returns "???" for unknown or invalid wait event class IDs
+- Covers all major PostgreSQL wait event categories: LWLock, Lock, BufferPin, Activity, Client, Extension, IPC, Timeout, IO, and InjectionPoint
+- Used extensively in PostgreSQL's monitoring and statistics reporting system
+- The function performs bitwise masking to extract class information from the wait event info
+- Located at src/backend/utils/activity/wait_event.c:374-431

@@ -1,0 +1,38 @@
+# texticregexeq
+
+## Location
+src/backend/utils/adt/regexp.c: 550 - 563
+
+## Overview
+A PostgreSQL function that performs case-insensitive regular expression matching for text values, returning true if the pattern matches the text.
+
+## Definition
+```c
+Datum texticregexeq(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `texticregexeq` function implements the SQL operator `~*` for PostgreSQL's text data type. It takes a text value and a regular expression pattern, performs case-insensitive pattern matching, and returns true if the pattern matches the text. The function uses PostgreSQL's advanced regular expression engine with case-insensitive flags to evaluate whether the given pattern matches anywhere within the text string.
+
+## Parameters / Member Variables
+- `PG_GETARG_TEXT_PP(0)`: The text value to be tested against the regular expression pattern
+- `PG_GETARG_TEXT_PP(1)`: The regular expression pattern as a text value
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `PG_GETARG_TEXT_PP`: Extracts text argument from function call with potential detoasting
+  - `RE_compile_and_execute`: Core regex compilation and execution function
+  - `VARDATA_ANY`: Gets pointer to the actual data portion of a text variable
+  - `VARSIZE_ANY_EXHDR`: Gets the size of text data excluding the header
+  - `PG_GET_COLLATION`: Gets collation information for the operation
+  - `REG_ADVANCED`: Flag for advanced regular expression features
+  - `REG_ICASE`: Flag for case-insensitive matching
+- Called from (representative examples):
+  - No direct references found in the codebase (likely called through SQL operator dispatch)
+
+## Notes and Other Information
+- This function implements the case-insensitive regex match operator (~*)
+- Uses PostgreSQL's advanced regex engine with case-insensitive matching
+- Handles variable-length text data with proper detoasting support
+- Part of PostgreSQL's comprehensive set of regular expression operators for different data types
+- The function is typically invoked through SQL expressions rather than direct function calls

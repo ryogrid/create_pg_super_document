@@ -1,0 +1,42 @@
+# SortBy
+
+## Location
+src/include/nodes/parsenodes.h: 543 - 551
+
+## Overview
+SortBy is a parse tree node that represents a single sorting specification in ORDER BY clauses, capturing the expression to sort on along with sorting direction and null handling preferences.
+
+## Definition
+
+
+## Detailed Description
+SortBy nodes are fundamental components of PostgreSQL's ORDER BY clause processing. Each SortBy node represents one sorting key in an ORDER BY clause, containing the expression to sort on, the sorting direction (ASC/DESC), null value ordering preferences (NULLS FIRST/LAST), and optional custom operator specifications for advanced sorting. The structure supports both standard sorting (ASC/DESC) and custom operator-based sorting (USING clause). These nodes are created during parsing and later transformed into execution plan sorting specifications.
+
+## Parameters / Member Variables
+- : Standard NodeTag identifying this as a SortBy node
+- : Pointer to the expression that should be evaluated for sorting (can be column references, function calls, etc.)
+- : Enumeration specifying sort direction - ASC (ascending), DESC (descending), USING (custom operator), or default
+- : Enumeration specifying how NULL values should be ordered - NULLS FIRST or NULLS LAST
+- : List containing the name of the operator to use when sortby_dir is SORTBY_USING, NULL otherwise
+- : Parse location of the sort operator in the original query text, or -1 if unknown
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NodeTag (inherited structure member)
+  - Node (base type for sort expression)
+  - SortByDir (enumeration for sort direction)
+  - SortByNulls (enumeration for null ordering)
+  - List (for operator names in USING clause)
+  - ParseLoc (for source location tracking)
+- Called from (representative examples):
+  - transformSortClause (src/backend/parser/parse_clause.c:2743)
+  - addTargetToSortList (src/backend/parser/parse_clause.c:3394)
+  - transformAggregateCall (src/backend/parser/parse_agg.c:139)
+  - transformFuncCall (src/backend/parser/parse_expr.c:1466)
+
+## Notes and Other Information
+- SortBy nodes are created during SQL parsing and are later processed to generate sort specifications for query execution
+- The useOp field is only populated when using custom sorting operators with the USING clause
+- Location tracking helps provide meaningful error messages when sort specifications are invalid
+- SortBy supports both simple column sorting and complex expression-based sorting
+- File location: src/include/nodes/parsenodes.h:543-551

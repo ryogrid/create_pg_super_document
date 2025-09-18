@@ -1,0 +1,30 @@
+# IncrementalSortExecutionStatus
+
+## Location
+src/include/nodes/execnodes.h: 2387 - 2388
+
+## Overview
+An enumeration that tracks the current execution phase of an incremental sort operation, managing state transitions between loading and reading phases for both full and prefix sorting.
+
+## Definition
+
+
+## Detailed Description
+IncrementalSortExecutionStatus manages the execution state machine of PostgreSQL's incremental sort algorithm. Incremental sort is an optimization that leverages existing sort order in input data - when data is already sorted by a prefix of the required sort keys, it can sort smaller groups incrementally rather than performing a full sort. The enum tracks whether the executor is currently loading data into sort states or reading sorted results, and whether it's operating on the full sort or just the prefix sort portion.
+
+## Parameters / Member Variables
+- : Loading phase for full sort - collecting tuples that need complete sorting across all sort keys
+- : Loading phase for prefix sort - collecting tuples within a group that shares the same prefix key values
+- : Reading phase for full sort - returning sorted tuples from the complete sort operation
+- : Reading phase for prefix sort - returning sorted tuples from within a prefix group
+
+## Dependencies
+- Functions called/Symbols referenced: (None - this is a simple enumeration)
+- Called from (representative examples):
+  - IncrementalSortState (used as execution_status field at execnodes.h:2396)
+  - nodeIncrementalSort.c:ExecIncrementalSort() (state transitions throughout)
+  - nodeIncrementalSort.c:switchToPresortedPrefixMode() (assignments at lines 418, 454)
+  - nodeIncrementalSort.c:ExecInitIncrementalSort() (initialization at line 995)
+
+## Notes and Other Information
+This enum is central to the incremental sort execution model, which optimizes sorting performance when input data has partial ordering. The state transitions follow a pattern where the executor alternates between LOAD and READ phases, switching between FULLSORT and PREFIXSORT modes based on the detection of group boundaries in the presorted prefix columns. The algorithm's efficiency comes from avoiding full re-sorting of data that already has useful ordering properties.

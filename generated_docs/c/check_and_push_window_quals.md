@@ -1,0 +1,50 @@
+# check_and_push_window_quals
+
+## Location
+src/backend/optimizer/path/allpaths.c: 2407 - 2481
+
+## Overview
+Analyzes a WHERE clause condition to determine if it can be pushed down as a run condition into WindowFunc nodes for early termination optimization.
+
+## Definition
+```c
+static bool check_and_push_window_quals(Query *subquery, RangeTblEntry *rte, Index rti,
+                                        Node *clause, Bitmapset **run_cond_attrs)
+```
+
+## Detailed Description
+This function serves as the entry point for window function run condition optimization. It examines a qualification clause (typically from a WHERE condition) to see if it references window functions that can benefit from run conditions. The function validates that the clause is a suitable OpExpr with exactly two operands and uses a strict operator function. It then checks both operands of the OpExpr to find Var nodes that reference window functions in the subquery's target list. When such references are found, it calls find_window_run_conditions() to attempt to create run conditions that can terminate window processing early. The optimization is particularly valuable for queries where window functions like row_number() are filtered with comparison operators in outer queries.
+
+## Parameters / Member Variables
+- `subquery`: Query containing the window functions to potentially optimize
+- `rte`: RangeTblEntry for the relation being processed
+- `rti`: Range table index for the relation
+- `clause`: Node representing the qualification clause to analyze (expected to be OpExpr)
+- `run_cond_attrs`: Bitmapset collecting attribute numbers that receive run conditions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsA (type checking macro)
+  - list_length (list utility function)
+  - set_opfuncid (set operator function ID)
+  - func_strict (check if function is strict)
+  - linitial (get first list element)
+  - lsecond (get second list element)
+  - list_nth (get nth list element)
+  - find_window_run_conditions (analyze specific window function)
+  - OpExpr (struct type)
+  - Var (struct type)
+  - TargetEntry (struct type)
+  - WindowFunc (struct type)
+- Called from (representative examples):
+  - set_subquery_pathlist
+
+## Notes and Other Information
+- This is a static function accessible only within allpaths.c
+- Restricts optimization to strict OpExprs to ensure proper NULL handling when window functions are terminated early
+- Returns true if the original clause must be kept, false if it can be safely replaced by the run condition
+- Checks both left and right operands of the OpExpr for window function references
+- Requires exactly 2 operands in the OpExpr for processing
+- The run condition optimization sets window function results to NULL when termination occurs, relying on strict operators to filter these appropriately
+- Located in src/backend/optimizer/path/allpaths.c at lines 2407-2481
+- Part of the broader window function optimization framework in PostgreSQL

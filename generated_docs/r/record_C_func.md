@@ -1,0 +1,39 @@
+# record_C_func
+
+## Location
+src/backend/utils/fmgr/fmgr.c: 539 - 579
+
+## Overview
+Records or updates information about a C function in PostgreSQL's internal CFuncHash hash table, maintaining metadata for efficient function lookup and execution.
+
+## Definition
+
+
+## Detailed Description
+The  function is a critical internal function in PostgreSQL's function manager (fmgr) system that maintains a hash table of C-language functions. This function either creates a new entry or updates an existing entry in the CFuncHash table for a given PostgreSQL function OID. The hash table serves as a cache to avoid repeatedly looking up function metadata from the system catalogs during function execution.
+
+The function first ensures the CFuncHash table exists (creating it if necessary), then searches for or creates an entry keyed by the function's OID. Each entry stores essential metadata including the transaction ID when the function was defined, its tuple identifier, the actual C function pointer, and PostgreSQL function information record.
+
+## Parameters / Member Variables
+- : HeapTuple containing the pg_proc catalog row for this function
+- : PGFunction pointer to the actual C function implementation
+- : Pg_finfo_record pointer containing PostgreSQL-specific function metadata
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_create
+  - hash_search
+  - HeapTupleHeaderGetRawXmin
+  - GETSTRUCT (macro)
+  - HASH_ENTER
+  - HASH_ELEM
+  - HASH_BLOBS
+- Called from (representative examples):
+  - fmgr_info_C_lang
+
+## Notes and Other Information
+- This is a static function, only accessible within fmgr.c
+- The CFuncHash table is created with an initial size of 100 entries
+- The function uses PostgreSQL's generic hash table implementation
+- Transaction visibility information (fn_xmin, fn_tid) is stored to handle catalog changes
+- The hash key is the function OID, enabling O(1) lookup performance

@@ -1,0 +1,35 @@
+# ExecBRUpdateTriggers
+
+## Location
+src/backend/commands/trigger.c: 3147 - 3170
+
+## Overview
+An ABI-compatible wrapper function that provides backward compatibility for the old interface to BEFORE ROW UPDATE trigger execution by delegating to ExecBRUpdateTriggersNew.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a backward-compatibility wrapper for the older interface to BEFORE ROW UPDATE trigger execution. It simply forwards all parameters to ExecBRUpdateTriggersNew with is_merge_update set to false, maintaining ABI compatibility for existing code while ensuring that new functionality is centralized in the newer function.
+
+## Parameters / Member Variables
+- : Executor state containing execution context and memory management
+- : EPQ state for handling concurrent tuple modifications  
+- : Relation information including trigger descriptors and metadata
+- : ItemPointer to the target tuple on disk (NULL if using fdw_trigtuple)
+- : Pre-supplied tuple from FDW (NULL if using tupleid)
+- : TupleTableSlot containing the new tuple values after update
+- : Output parameter for tuple manager operation result
+- : Output parameter for tuple manager failure data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ExecBRUpdateTriggersNew
+- Called from (representative examples):
+  - ExecSimpleRelationUpdate
+
+## Notes and Other Information
+- Marked as deprecated for new code - use ExecBRUpdateTriggersNew directly instead
+- Always passes is_merge_update as false, indicating standard UPDATE behavior
+- Maintains backward compatibility for existing callers that don't need MERGE-specific behavior
+- Return value and semantics are identical to ExecBRUpdateTriggersNew

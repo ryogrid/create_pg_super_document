@@ -1,0 +1,40 @@
+# adjacent_inner_consistent
+
+## Location
+src/backend/utils/adt/rangetypes_spgist.c: 887 - 916
+
+## Overview
+Enhanced version of  that considers previous level centroid information to improve search precision during adjacent range queries.
+
+## Definition
+
+
+## Detailed Description
+This function extends  functionality by incorporating information from the previous traversal level to make more informed decisions about search direction. It addresses situations where the search has already moved in a specific direction at a previous level, potentially ruling out matches in certain directions at the current level.
+
+The function performs a two-step analysis:
+1. **Previous level validation**: Compares the intended search direction (based on argument vs previous centroid) with the actual direction taken (previous vs current centroid)
+2. **Consistency check**: If the intended and actual directions don't match, it indicates we're exploring a branch for the opposite bound's adjacency, and no matches exist in the current direction
+
+This optimization helps avoid unnecessary tree traversals during adjacent range searches by leveraging information from the traversal path.
+
+## Parameters / Member Variables
+- : Type cache entry containing comparison functions for the range type
+- : The argument bound from the search query
+- : The current level's centroid bound
+- : The previous level's centroid bound (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - adjacent_cmp_bounds
+  - range_cmp_bounds
+- Called from (representative examples):
+  - spg_range_quad_inner_consistent
+
+## Notes and Other Information
+- Returns -1 for left search, 1 for right search, 0 for no matches possible
+- When  is NULL, falls back to standard  behavior
+- Contains detailed comments explaining limitations where comparing only two levels isn't foolproof
+- The function acknowledges it could be further optimized by explicitly tracking which bound is being searched rather than deducing from centroids
+- Critical for reducing unnecessary traversals in multi-level adjacent range searches
+- Part of the RANGESTRAT_ADJACENT strategy implementation in SP-GiST indexing

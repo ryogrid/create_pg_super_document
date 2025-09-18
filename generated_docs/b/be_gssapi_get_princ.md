@@ -1,0 +1,33 @@
+# be_gssapi_get_princ
+
+## Location
+src/backend/libpq/be-secure-gssapi.c: 766 - 778
+
+## Overview
+Returns the GSSAPI principal used for authentication on the given connection, or NULL if GSSAPI authentication was not performed.
+
+## Definition
+
+
+## Detailed Description
+This function retrieves the GSSAPI principal name that was used during the authentication process for a specific PostgreSQL backend connection. The function performs safety checks to ensure the port and its GSSAPI structure are valid before accessing the principal information. If GSSAPI authentication was not performed or if the connection is invalid, the function returns NULL.
+
+The principal name is stored in the port's GSSAPI structure (port->gss->princ) and represents the authenticated identity from the GSSAPI authentication exchange.
+
+## Parameters / Member Variables
+- : A pointer to the Port structure representing the client connection. Contains all connection state information including GSSAPI authentication details.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Port (structure access)
+- Called from (representative examples):
+  - pgstat_bestart (backend statistics initialization)
+  - PerformAuthentication (authentication process)
+  - Referenced in libpq-be.h (header declaration)
+
+## Notes and Other Information
+- Returns a const char pointer to prevent modification of the principal string
+- Performs null pointer checks for both port and port->gss to ensure safe access
+- The returned string is managed by the GSSAPI structure and should not be freed by the caller
+- This function is part of PostgreSQL's GSSAPI authentication infrastructure
+- Used primarily for logging, monitoring, and authentication verification purposes

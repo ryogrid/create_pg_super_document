@@ -1,0 +1,43 @@
+# ensure_last_message
+
+## Location
+src/backend/replication/logical/worker.c: 1971 - 2002
+
+## Overview
+ensure_last_message is a static function that validates that a given file position represents the end of a streaming transaction changes file, ensuring data integrity in PostgreSQL logical replication.
+
+## Definition
+```c
+static void ensure_last_message(FileSet *stream_fileset, TransactionId xid, int fileno, off_t offset)
+```
+
+## Detailed Description
+This function performs a critical validation step in PostgreSQL logical replication by verifying that a specified position (fileno and offset) corresponds to the actual end of a streaming transaction changes file. It opens the changes file associated with the given transaction ID, seeks to the end, and compares the actual end position with the expected position parameters. If there is a mismatch, it raises an error indicating unexpected data remains in the file.
+
+The function operates within replication steps (begin_replication_step/end_replication_step) and ensures it runs outside of transaction state, as indicated by the IsTransactionState() assertion.
+
+## Parameters / Member Variables
+- `stream_fileset`: FileSet containing the streaming transaction changes files
+- `xid`: Transaction ID used to identify the specific changes file  
+- `fileno`: Expected file number at the end position
+- `offset`: Expected offset within the file at the end position
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsTransactionState (assertion check)
+  - begin_replication_step
+  - changes_filename (constructs file path)
+  - BufFileOpenFileSet
+  - BufFileSeek
+  - BufFileTell  
+  - BufFileClose
+  - end_replication_step
+- Called from (representative examples):
+  - apply_spooled_messages
+
+## Notes and Other Information
+- This is a static function used internally within the logical replication worker
+- Contains an assertion that ensures it runs outside transaction state
+- Raises an ERROR if validation fails, indicating potential data corruption or incomplete processing
+- Part of PostgreSQL streaming replication infrastructure for handling large transactions
+- File path construction uses MyLogicalRepWorker->subid to identify the subscription context

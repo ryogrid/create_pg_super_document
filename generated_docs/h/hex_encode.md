@@ -1,0 +1,40 @@
+# hex_encode
+
+## Location
+src/backend/utils/adt/encode.c: 162 - 175
+
+## Overview
+Internal utility function that converts binary data to hexadecimal string representation, used as a building block for PostgreSQL's hex encoding functionality.
+
+## Definition
+
+
+## Detailed Description
+The `hex_encode` function performs low-level hexadecimal encoding of binary data. It converts each input byte into two hexadecimal characters using a lookup table. Each byte is split into its high and low 4-bit nibbles, which are then converted to their corresponding hexadecimal characters using the `hextbl` lookup table ("0123456789abcdef").
+
+This is a core utility function that provides efficient hex encoding without memory allocation, requiring the caller to provide a pre-allocated destination buffer of sufficient size (at least 2 * input length).
+
+## Parameters / Member Variables
+- `src`: Pointer to source binary data to be encoded
+- `len`: Length of the source data in bytes
+- `dst`: Pointer to destination buffer for the hexadecimal string (must be pre-allocated with at least 2 * len bytes)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `hextbl` - Static lookup table containing "0123456789abcdef"
+- Called from (representative examples):
+  - `AddFileToBackupManifest` - Backup manifest file handling
+  - `SendBackupManifest` - Backup manifest transmission
+  - `byteaout` - Binary data output formatting
+  - `esc_dec_len` - Escape encoding/decoding operations
+  - `manifest_writer` - Backup manifest writing utilities
+  - `add_file_to_manifest` - Adding files to backup manifests
+  - `finalize_manifest` - Finalizing backup manifests
+
+## Notes and Other Information
+- Returns the exact number of output characters (always 2 * input length)
+- No memory allocation - caller must provide adequately sized destination buffer
+- Uses bitwise operations for efficient nibble extraction: high nibble via right shift by 4 bits, low nibble via bitwise AND with 0xF
+- Part of PostgreSQL's core encoding utilities, heavily used in backup and manifest operations
+- Produces lowercase hexadecimal output (uses 'abcdef' not 'ABCDEF')
+- No null termination of output string - caller responsible if needed

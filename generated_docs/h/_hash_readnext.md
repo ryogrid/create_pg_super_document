@@ -1,0 +1,42 @@
+# _hash_readnext
+
+## Location
+src/backend/access/hash/hashsearch.c: 131 - 196
+
+## Overview
+Advances to the next page in a hash bucket during scanning, with special handling for bucket splits and buffer management.
+
+## Definition
+```c
+static void _hash_readnext(IndexScanDesc scan, Buffer *bufp, Page *pagep, HashPageOpaque *opaquep)
+```
+
+## Detailed Description
+This function moves to the next page in a hash bucket chain during index scanning. It handles the complex case where a bucket split is occurring, allowing the scan to transition from the populated bucket to the bucket being split. The function manages buffer locks and pins carefully, maintaining pins on primary bucket pages throughout the scan while properly releasing overflow page buffers.
+
+When reaching the end of a bucket during a split operation, the function transitions to scanning the split bucket if one exists. It also implements proper interrupt checking and predicate locking for MVCC compliance.
+
+## Parameters / Member Variables
+- `scan`: IndexScanDesc containing the scan state and relation information
+- `bufp`: Pointer to Buffer being updated to point to the next page
+- `pagep`: Pointer to Page being updated to point to the next page content
+- `opaquep`: Pointer to HashPageOpaque being updated with next page's opaque data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BlockNumberIsValid
+  - _hash_getbuf
+  - _hash_relbuf
+  - LockBuffer
+  - BufferGetPage
+  - BufferGetBlockNumber
+  - PredicateLockPage
+  - HashPageGetOpaque
+  - CHECK_FOR_INTERRUPTS
+- Called from (representative examples):
+  - _hash_readprev
+  - _hash_first
+  - _hash_readpage
+
+## Notes and Other Information
+The function maintains pins on primary bucket pages throughout the scan operation for efficiency. During bucket splits, it handles the transition from the populated bucket to the split bucket seamlessly. Interrupt checking is performed while no buffer locks are held to ensure responsiveness. The hashso_buc_split flag tracks whether the scan has transitioned to scanning the split bucket.

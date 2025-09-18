@@ -1,0 +1,51 @@
+# PLyMapping_ToComposite
+
+## Location
+src/pl/plpython/plpy_typeio.c: 1342 - 1406
+
+## Overview
+Converts a Python mapping object (dictionary) to a PostgreSQL composite type by extracting values for each column based on matching keys.
+
+## Definition
+
+
+## Detailed Description
+This function constructs a PostgreSQL composite type from a Python mapping object by iterating through the tuple descriptor's attributes and extracting corresponding values from the mapping using column names as keys. It creates heap tuple structures and handles proper memory management with exception safety. The function validates that all required columns are present in the mapping and provides helpful error messages for missing keys.
+
+The conversion process involves:
+1. Allocation of arrays for datum values and null flags
+2. Iteration through all tuple descriptor attributes
+3. Extraction of values from the Python mapping using attribute names as keys
+4. Individual conversion of each extracted value using appropriate converters
+5. Construction of HeapTuple and final Datum representation
+6. Proper cleanup of temporary structures and memory
+
+## Parameters / Member Variables
+- : PLyObToDatum structure containing composite type conversion context and attribute converters
+- : TupleDesc describing the structure and types of the target composite type
+- : Python mapping object (typically a dictionary) containing the source data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PyMapping_Check (Python API validation)
+  - palloc (PostgreSQL memory allocation)
+  - TupleDescAttr (tuple descriptor attribute access)
+  - PyMapping_GetItemString (Python mapping value extraction)
+  - heap_form_tuple (creates HeapTuple from arrays)
+  - heap_copy_tuple_as_datum (converts HeapTuple to Datum)
+  - heap_freetuple (frees HeapTuple memory)
+  - pfree (PostgreSQL memory deallocation)
+  - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY (exception handling)
+  - Py_XDECREF (Python reference counting)
+- Called from (representative examples):
+  - PLyObject_ToComposite (src/pl/plpython/plpy_typeio.c:1007)
+
+## Notes and Other Information
+- Validates input with PyMapping_Check assertion to ensure proper type handling
+- Handles dropped columns by setting them to null automatically
+- Uses column names from the tuple descriptor as dictionary keys for value lookup
+- Provides user-friendly error messages when required keys are missing from the mapping
+- Includes helpful hints suggesting the use of None values for null columns
+- Uses PostgreSQL's exception handling system to ensure proper Python reference cleanup
+- The volatile qualifier on the loop variable ensures proper behavior across exception boundaries
+- Memory allocation and cleanup is handled carefully to prevent leaks in error conditions

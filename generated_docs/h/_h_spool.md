@@ -1,0 +1,32 @@
+# _h_spool
+
+## Location
+src/backend/access/hash/hashsort.c: 109 - 119
+
+## Overview
+Spools an index entry into the sort file during hash index construction by adding tuples to the sorting state.
+
+## Definition
+
+
+## Detailed Description
+This function serves as an interface to add index tuples to the sorting mechanism during hash index construction. It takes the tuple data (values and null indicators) along with the tuple identifier and passes them to the underlying tuplesort subsystem via . The function acts as a thin wrapper that maintains the abstraction between the hash index building logic and the generic tuple sorting functionality.
+
+## Parameters / Member Variables
+- : Pointer to the HSpool structure managing the sort operation
+- : ItemPointer identifying the heap tuple being indexed
+- : Array of Datum values representing the index key values
+- : Array of boolean flags indicating which values are NULL
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - HSpool (structure type)
+  - tuplesort_putindextuplevalues (adds tuple to sort state)
+- Called from (representative examples):
+  - hashbuildCallback
+
+## Notes and Other Information
+- Called repeatedly during the table scan phase of hash index construction
+- The actual sorting and spooling to disk is handled by the tuplesort subsystem
+- Part of the hash index building pipeline that processes each heap tuple
+- Values and isnull arrays must correspond to the index's key attributes

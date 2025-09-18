@@ -1,0 +1,37 @@
+# pgstat_report_autovac
+
+## Location
+src/backend/utils/activity/pgstat_database.c: 55 - 80
+
+## Overview
+Records the start time of an autovacuum process for a specific database in PostgreSQL's statistics system.
+
+## Definition
+```c
+void pgstat_report_autovac(Oid dboid)
+```
+
+## Detailed Description
+This function is called from the autovacuum process to report the startup of an autovacuum operation on a specific database. It updates the database's statistics to record when the last autovacuum started by setting the `last_autovac_time` field to the current timestamp. The function is designed to work before `InitPostgres` is completed, which is why it requires the database OID to be passed explicitly rather than relying on `MyDatabaseId`. The function uses a locked entry reference to ensure thread-safe access to the shared statistics data.
+
+## Parameters / Member Variables
+- `dboid`: The OID (Object Identifier) of the database for which autovacuum is starting
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgstat_get_entry_ref_locked
+  - GetCurrentTimestamp
+  - pgstat_unlock_entry
+  - PGSTAT_KIND_DATABASE
+  - PgStat_EntryRef
+  - PgStatShared_Database
+- Called from (representative examples):
+  - AutoVacWorkerMain (in src/backend/postmaster/autovacuum.c:1549)
+
+## Notes and Other Information
+- This function is part of PostgreSQL's statistics collection system
+- Located in src/backend/utils/activity/pgstat_database.c:55-80
+- Must be called under the postmaster (not in single-user mode)
+- Uses locked access to shared statistics to ensure consistency
+- Reports the start of autovacuum instantly for consistency with end-of-vacuum reporting
+- Called before InitPostgres completion, hence requires explicit database OID parameter

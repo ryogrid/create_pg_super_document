@@ -1,0 +1,36 @@
+# dump_lo_buf
+
+## Location
+src/bin/pg_dump/pg_backup_archiver.c: 1784 - 1826
+
+## Overview
+A function that flushes the current contents of the Large Object (LO) data buffer during LO restoration, handling both direct database connections and file-based output formats.
+
+## Definition
+
+
+## Detailed Description
+The  function manages the output of accumulated Large Object data stored in the archive handle's buffer. When connected directly to a database, it uses the libpq  function to write data directly to the large object. For file-based output, it formats the binary data as a SQL statement using  and outputs it via . After successfully writing the buffer contents, it resets the buffer usage counter to zero.
+
+## Parameters / Member Variables
+- : Archive handle containing the LO buffer, connection state, and output context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - lo_write
+  - ngettext
+  - pg_log_debug
+  - warn_or_exit_horribly
+  - appendByteaLiteralAHX
+  - ahprintf
+- Called from (representative examples):
+  - TEXT_DUMPALL_HEADER
+  - EndRestoreLO
+  - ahwrite
+
+## Notes and Other Information
+- Handles two distinct output modes: direct database write via lo_write and SQL script generation via ahprintf
+- Includes debug logging with proper pluralization using ngettext
+- Uses a temporary hack by setting writingLO to false to prevent recursive calls to ahwrite
+- Assumes no partial writes when using lo_write - any mismatch in written bytes is treated as an error
+- Always resets the buffer usage counter to zero after processing

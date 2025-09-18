@@ -1,0 +1,42 @@
+# CreateDestReceiver
+
+## Location
+src/backend/tcop/dest.c: 113 - 168
+
+## Overview
+CreateDestReceiver is a factory function that returns the appropriate DestReceiver function set based on the specified destination type for query output.
+
+## Definition
+DestReceiver *CreateDestReceiver(CommandDest dest)
+
+## Detailed Description
+This function serves as the central factory for creating destination receiver objects in PostgreSQL's output management system. It implements a comprehensive switch statement that maps CommandDest enumeration values to their corresponding DestReceiver implementations. The function handles all supported destination types, from simple client output to complex scenarios like tuplestore collection, SQL function returns, and replication streaming. Each destination type gets either a pre-configured static receiver or a dynamically created receiver with specific capabilities.
+
+## Parameters / Member Variables
+- dest: CommandDest enum value specifying the type of destination for query results (e.g., DestRemote for client output, DestNone for discarded output, DestTuplestore for internal collection)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - printtup_create_DR (creates receivers for client output)
+  - unconstify (removes const qualifier for static receivers)
+  - CreateTuplestoreDestReceiver (creates tuplestore collectors)
+  - CreateIntoRelDestReceiver (creates table creation receivers)  
+  - CreateCopyDestReceiver (creates COPY command receivers)
+  - CreateSQLFunctionDestReceiver (creates SQL function return receivers)
+  - CreateTransientRelDestReceiver (creates temporary relation receivers)
+  - CreateTupleQueueDestReceiver (creates tuple queue receivers)
+  - CreateExplainSerializeDestReceiver (creates EXPLAIN serialization receivers)
+  - pg_unreachable (marks unreachable code)
+- Called from (representative examples):
+  - exec_simple_query (for simple query execution)
+  - exec_execute_message (for prepared statement execution)
+  - SPI_execute_plan (for SPI query execution)
+  - Various replication and backup functions
+
+## Notes and Other Information
+- Central factory function for all DestReceiver types in PostgreSQL
+- Uses unconstify macro to safely cast away const from static receiver structs
+- Includes comprehensive coverage of all CommandDest enum values
+- Ends with pg_unreachable() indicating all cases should be handled
+- Critical component in query output routing and management
+- Static receivers are reused for efficiency while dynamic receivers are created per-use

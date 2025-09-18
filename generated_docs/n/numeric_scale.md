@@ -1,0 +1,34 @@
+# numeric_scale
+
+## Location
+src/backend/utils/adt/numeric.c: 4138 - 4151
+
+## Overview
+Returns the scale of a numeric value, which is the count of decimal digits in the fractional part.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL built-in function that extracts the scale (number of digits after the decimal point) from a numeric value. The function handles special numeric values (such as NaN or infinity) by returning NULL. For regular numeric values, it returns the scale as stored in the numeric data structure.
+
+## Parameters / Member Variables
+- The function uses the standard PostgreSQL function calling convention 
+- Input: A single numeric value accessed via 
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  - Extracts numeric argument from function call
+  -  - Checks if numeric value is special (NaN, infinity)
+  -  - Extracts scale from numeric data structure
+  -  - Returns integer result
+  -  - Returns NULL for special values
+- Called from (representative examples):
+  -  - Used in money to numeric conversions
+  -  - Used in numeric to money conversions
+
+## Notes and Other Information
+- Returns NULL for special numeric values (NaN, positive/negative infinity)
+- The scale represents the number of digits to the right of the decimal point
+- Used primarily in type conversion functions between numeric and money types
+- Located in src/backend/utils/adt/numeric.c:4138-4151

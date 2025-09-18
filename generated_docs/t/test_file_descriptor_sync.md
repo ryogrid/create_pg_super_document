@@ -1,0 +1,59 @@
+# test_file_descriptor_sync
+
+## Location
+src/bin/pg_test_fsync/pg_test_fsync.c: 505 - 573
+
+## Overview
+A benchmarking function that tests whether fsync operations can effectively synchronize data written through different file descriptors to the same file, simulating multi-process synchronization scenarios.
+
+## Definition
+static void test_file_descriptor_sync(void)
+
+## Detailed Description
+The test_file_descriptor_sync function performs a critical test to determine the efficiency of cross-descriptor fsync operations in multi-process environments. This test is particularly important for PostgreSQL's multi-process architecture where different processes may need to synchronize writes made by other processes to the same file.
+
+The function performs two contrasting tests:
+
+1. **Normal Behavior Test ("write, fsync, close")**: 
+   - Opens file, writes data, fsyncs on the same descriptor, then closes
+   - This represents the standard, expected behavior for file synchronization
+   - Also includes an additional open/close cycle for consistency with the second test
+
+2. **Cross-Descriptor Sync Test ("write, close, fsync")**:
+   - Opens file, writes data, closes the descriptor
+   - Reopens the same file with a different descriptor
+   - Attempts to fsync using the new descriptor to sync data written by the previous descriptor
+
+By comparing the performance of these two approaches, the test reveals whether the operating system and filesystem can efficiently handle fsync operations on file descriptors that didn't perform the original write operations. Similar performance indicates that fsync can effectively sync data written on different descriptors, which is crucial for multi-process database systems.
+
+## Parameters / Member Variables
+- (No parameters - void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - printf
+  - fflush
+  - open
+  - write
+  - fsync
+  - close
+  - die
+- Macros used:
+  - LABEL_FORMAT
+  - START_TIMER
+  - STOP_TIMER
+  - PG_BINARY
+  - XLOG_BLCKSZ
+- Called from:
+  - main (in pg_test_fsync.c)
+
+## Notes and Other Information
+- Critical for understanding multi-process fsync behavior in PostgreSQL environments
+- Tests a filesystem and OS capability that directly impacts PostgreSQL's multi-process architecture
+- The comment suggests this test might be enhanced with writethrough on supporting platforms
+- Results help determine if separate processes can reliably fsync each other's writes
+- Similar timing between the two tests indicates efficient cross-descriptor fsync support
+- Each test iteration writes exactly XLOG_BLCKSZ bytes to maintain consistency
+- Uses the standard alarm-based timing mechanism for accurate performance measurement
+- Important for PostgreSQL installations where multiple backend processes write to shared files
+- The test design accounts for potential filesystem caching effects by reopening files

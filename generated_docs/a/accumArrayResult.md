@@ -1,0 +1,53 @@
+# accumArrayResult
+
+## Location
+src/backend/utils/adt/arrayfuncs.c: 5338 - 5407
+
+## Overview
+Accumulates one Datum element into an ArrayBuildState structure, handling automatic array growth, memory management, and proper copying of pass-by-reference values.
+
+## Definition
+
+
+## Detailed Description
+This function adds a single element to an ArrayBuildState structure, growing the internal arrays as needed. It supports both the older NULL-pointer scheme and the newer initialized-state scheme for array building. When called with a NULL astate (first call in older scheme), it automatically initializes a new ArrayBuildState.
+
+Key operations performed:
+1. Initializes ArrayBuildState if astate is NULL (older scheme compatibility)
+2. Doubles array capacity when current arrays are full
+3. Properly copies pass-by-reference values into the build context
+4. Detoasts varlena values to avoid later modification issues
+5. Stores the element value and null flag in the arrays
+
+The function ensures that pass-by-reference data is copied into the build context and detoasted if it's a varlena type, preventing issues where the source data might be modified later.
+
+## Parameters / Member Variables
+- : Working state for array building (can be NULL on first call)
+- : The Datum value to append to the array
+- : Whether the new element is NULL
+- : OID of the element type (must be a valid array element type)
+- : Memory context for working state (used only when astate is NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initArrayResult (initializes state when astate is NULL)
+  - AllocSizeIsValid (validates allocation size limits)
+  - repalloc (reallocates arrays when growth is needed)
+  - PG_DETOAST_DATUM_COPY (detoasts and copies varlena values)
+  - datumCopy (copies fixed-length pass-by-reference values)
+- Called from (representative examples):
+  - array_agg_transfn (array aggregation function)
+  - array_positions (finding element positions)
+  - range_agg_transfn (range aggregation)
+  - parse_ident (identifier parsing)
+  - regexp_split_to_array (regular expression splitting)
+
+## Notes and Other Information
+- Supports both older (NULL astate) and newer (initialized astate) usage patterns
+- Automatically doubles array capacity when more space is needed
+- Enforces maximum array size limits (MaxAllocSize)
+- Properly handles both pass-by-value and pass-by-reference data types
+- Detoasts varlena values to prevent later modification of the ArrayBuildState
+- Always returns a valid ArrayBuildState pointer (never NULL)
+- Memory operations are performed in the build state's memory context
+- Element type consistency is enforced via assertion when astate is not NULL

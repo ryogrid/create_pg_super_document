@@ -1,0 +1,38 @@
+# GetSQLLocalTime
+
+## Location
+src/backend/utils/adt/date.c: 362 - 382
+
+## Overview
+GetSQLLocalTime implements the SQL LOCALTIME and LOCALTIME(n) functions, returning the current local time without timezone information.
+
+## Definition
+```c
+TimeADT GetSQLLocalTime(int32 typmod)
+```
+
+## Detailed Description
+This function retrieves the current local time and returns it as a TimeADT value (time without timezone). Unlike GetSQLCurrentTime, this function discards timezone information and returns only the local time component. It supports precision specification through the typmod parameter for controlling fractional seconds precision. The function gets the current time using GetCurrentTimeUsec, converts it to a timezone-agnostic time format using tm2time, and applies precision adjustments.
+
+## Parameters / Member Variables
+- `typmod`: Type modifier that specifies the precision (number of fractional seconds digits) for the returned time value
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetCurrentTimeUsec
+  - tm2time
+  - AdjustTimeForTypmod
+- Types used:
+  - TimeADT
+  - pg_tm
+  - fsec_t
+- Called from (representative examples):
+  - ExecEvalSQLValueFunction
+  - PG_RETURN_TIMETZADT_P
+
+## Notes and Other Information
+- Implements SQL standard LOCALTIME and LOCALTIME(n) functions
+- Returns a TimeADT value (time without timezone) rather than TimeTzADT
+- The result represents local time in the server's timezone but without timezone metadata
+- Precision can be controlled via the typmod parameter for fractional seconds display
+- More efficient than GetSQLCurrentTime when timezone information is not needed

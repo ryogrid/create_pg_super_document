@@ -1,0 +1,56 @@
+# dataPlaceToPageLeafRecompress
+
+## Location
+src/backend/access/gin/gindatapage.c: 978 - 1033
+
+## Overview
+dataPlaceToPageLeafRecompress reconstructs a GIN data leaf page from a disassembled representation, applying all segment modifications and handling format conversions from pre-9.4 uncompressed format.
+
+## Definition
+
+
+## Detailed Description
+This function reassembles a GIN data leaf page by applying all modifications stored in a disassembledLeaf structure to the target buffer. It handles the physical reconstruction of the page content by iterating through all segments and copying modified data to the appropriate locations.
+
+The function includes special handling for format conversion from PostgreSQL pre-9.4 uncompressed format to the modern compressed format. When encountering an uncompressed page, it converts the page header and forces all segments to be rewritten regardless of modification status.
+
+During reassembly, the function tracks whether any modifications have been made and only performs memory copies for segments that need updating or that follow modified segments. Deleted segments are skipped entirely, while other segments have their compressed posting list data copied to the target location. The function concludes by updating the page's data size field with the total size of all assembled segments.
+
+An important constraint is that segment pointers must not point directly to the same buffer being modified, except for unmodified segments whose preceding segments are also unmodified. This ensures memory safety during the reconstruction process.
+
+## Parameters / Member Variables
+- : Target buffer containing the leaf page to be reconstructed
+- : Pointer to disassembledLeaf structure containing segment modifications and data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferGetPage
+  - GinPageIsCompressed
+  - GinPageSetCompressed
+  - GinPageGetOpaque
+  - GinDataLeafPageGetPostingList
+  - GinDataPageSetDataSize
+  - SizeOfGinPostingList
+  - dlist_foreach
+  - dlist_container
+  - memcpy
+  - Assert
+  - leafSegmentInfo (structure type)
+  - dlist_iter (structure type)
+  - InvalidOffsetNumber (constant)
+  - GIN_SEGMENT_UNMODIFIED (constant)
+  - GIN_SEGMENT_DELETE (constant)
+  - GinDataPageMaxDataSize (constant)
+- Called from (representative examples):
+  - dataExecPlaceToPageLeaf
+  - ginVacuumPostingTreeLeaf
+
+## Notes and Other Information
+- Function only updates the target buffer; WAL logging is the caller's responsibility
+- Segment pointers must not reference the same buffer being modified (with specific exceptions)
+- Automatically converts pre-9.4 uncompressed page format to compressed format
+- Only copies segment data when modifications are detected or when following modified segments
+- Deleted segments contribute zero bytes to the final page size
+- Final page size is validated against GinDataPageMaxDataSize limit
+- Function assumes all necessary memory allocations and segment preparations have been completed
+- Format conversion sets maxoff to InvalidOffsetNumber and enables compression flag

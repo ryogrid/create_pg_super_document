@@ -1,0 +1,49 @@
+# set_customscan_references
+
+## Location
+src/backend/optimizer/plan/setrefs.c: 1665 - 1740
+
+## Overview
+Adjusts variable references in a CustomScan plan node during the plan finalization phase to account for range table entry offsets and proper variable referencing, including recursive processing of child plan nodes.
+
+## Definition
+static void set_customscan_references(PlannerInfo *root, CustomScan *cscan, int rtoffset)
+
+## Detailed Description
+This function processes CustomScan nodes during the plan reference adjustment phase in PostgreSQL's query planner. CustomScan nodes allow extensions to implement custom scan methods. The function handles two distinct reference adjustment scenarios:
+
+1. **Custom scan tuple handling**: When the CustomScan has a custom scan target list (custom_scan_tlist) or operates without a specific scan relation (scanrelid == 0), it uses fix_upper_expr() to adjust references to point to the custom scan tuple output.
+
+2. **Standard scan handling**: When using standard relation scanning, it uses fix_scan_list() to adjust references in the conventional manner.
+
+Additionally, this function recursively processes any child plan nodes within the CustomScan's custom_plans list, ensuring that nested plan structures maintain proper variable references.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planner state and context information
+- : The CustomScan plan node whose references need to be adjusted
+- : Range table offset to be applied to relation IDs and variable references
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - build_tlist_index
+  - fix_upper_expr
+  - fix_scan_list
+  - set_plan_refs
+  - offset_relid_set
+  - pfree
+  - lfirst
+  - NUM_EXEC_TLIST
+  - NUM_EXEC_QUAL
+  - INDEX_VAR
+  - NRM_EQUAL
+- Called from (representative examples):
+  - set_plan_refs
+  - fix_scan_list
+
+## Notes and Other Information
+- This is a static function within setrefs.c for internal plan reference adjustment
+- The function supports PostgreSQL's extensibility framework by handling CustomScan nodes created by extensions
+- It recursively processes child plans using set_plan_refs(), allowing for complex nested custom scan structures
+- Custom expression lists (custom_exprs) are properly adjusted along with standard plan elements
+- The custom_relids set is offset to maintain proper relation references
+- Similar structure to set_foreignscan_references but includes child plan processing capability

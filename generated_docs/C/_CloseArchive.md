@@ -1,0 +1,47 @@
+# _CloseArchive
+
+## Location
+src/bin/pg_dump/pg_backup_custom.c: 740 - 783
+
+## Overview
+A mandatory function that finalizes and closes the archive during pg_dump operations, handling the complete archive writing process including header, TOC, and data chunks.
+
+## Definition
+
+
+## Detailed Description
+_CloseArchive is responsible for completing the archive creation process in PostgreSQL's custom dump format. When writing an archive, this function orchestrates the final steps of saving the complete dump file to disk. It follows a specific sequence: writing the archive header, writing the Table of Contents (TOC), and writing all data chunks and large objects.
+
+The function includes an optimization where it attempts to rewrite the TOC after data writing is complete, which updates data offset information. This optimization can significantly improve pg_restore performance, especially during parallel restore operations, though pg_restore can function without it.
+
+The function also handles proper file closure and optional file synchronization to ensure data durability.
+
+## Parameters / Member Variables
+- : ArchiveHandle pointer containing the archive context, file handle, and configuration settings
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - lclContext (local context structure type)
+  - pgoff_t (PostgreSQL offset type)
+  - archModeWrite (archive mode constant)
+  - WriteHead (writes archive header)
+  - ftello (gets current file position)
+  - WriteToc (writes table of contents)
+  - WriteDataChunks (writes all data and large objects)
+  - fseeko (seeks to specific file position)
+  - fclose (closes the file)
+  - fsync_fname (synchronizes file to disk)
+- Called from (representative examples):
+  - InitArchiveFmt_Custom (custom format initialization)
+  - lclTocEntry (directory format TOC entry handling)
+  - InitArchiveFmt_Directory (directory format initialization)  
+  - InitArchiveFmt_Null (null format initialization)
+
+## Notes and Other Information
+- This is a static function specific to the custom archive format implementation
+- Located in src/bin/pg_dump/pg_backup_custom.c at lines 740-783
+- Only performs write operations when archive mode is archModeWrite
+- Includes TOC rewriting optimization for better restore performance
+- Handles optional file synchronization based on dosync setting
+- Part of the mandatory function interface that archive formats must implement
+- The function ensures proper cleanup by setting AH->FH to NULL after closing the file

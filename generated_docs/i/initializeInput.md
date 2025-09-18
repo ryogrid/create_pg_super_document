@@ -1,0 +1,55 @@
+# initializeInput
+
+## Location
+src/bin/psql/input.c: 344 - 412
+
+## Overview
+Initializes the input handling subsystem for psql, setting up readline functionality, history management, and loading previous command history from files.
+
+## Definition
+
+
+## Detailed Description
+The  function is responsible for setting up all input-related functionality in psql, particularly readline support and command history management. When called with appropriate flags, it configures the GNU Readline library for interactive command editing, loads command history from persistent storage, and sets up cleanup handlers.
+
+The function performs several key initialization tasks:
+1. Configures readline with psql-specific settings (such as SQL comment markers)
+2. Determines the appropriate history file location using HISTFILE variable, PSQL_HISTORY environment variable, or default location
+3. Loads existing command history from the determined file
+4. Decodes any encoded newlines in the loaded history entries
+5. Registers cleanup functions to be called on program exit
+
+The readline integration provides users with command editing capabilities, including cursor movement, command completion, and access to command history through keyboard shortcuts.
+
+## Parameters / Member Variables
+- : Integer flag controlling initialization behavior. Currently, bit 0 (flags & 1) enables readline and history functionality.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initialize_readline (sets up readline global variables)
+  - rl_variable_bind (configures readline variables like comment-begin)
+  - rl_initialize (reads ~/.inputrc configuration)
+  - using_history (initializes history functionality)
+  - GetVariable (retrieves psql variables like HISTFILE)
+  - getenv (retrieves environment variables like PSQL_HISTORY)
+  - get_home_path (determines user's home directory)
+  - psprintf (formatted string creation)
+  - pg_strdup (string duplication)
+  - expand_tilde (expands ~ in file paths)
+  - read_history (loads history from file)
+  - decode_history (converts encoded newlines back to actual newlines)
+  - atexit (registers cleanup function)
+  - finishInput (cleanup function registered with atexit)
+  - PSQLHISTORY (default history filename: ".psql_history")
+
+- Called from (representative examples):
+  - startup.c (main psql initialization)
+
+## Notes and Other Information
+- Only available when compiled with USE_READLINE support (requires libreadline or compatible library)
+- History file location priority: HISTFILE variable > PSQL_HISTORY environment > ~/.psql_history default
+- The function sets global variables useReadline and useHistory to control input behavior throughout the program
+- Automatically registers finishInput() as an exit handler to ensure proper cleanup of resources
+- The rl_variable_bind call sets "comment-begin" to "-- " to provide appropriate SQL comment handling in readline
+- History lines are tracked via history_lines_added counter for proper management
+- Tilde expansion is performed on custom history file paths to support ~/path notation

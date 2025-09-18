@@ -1,0 +1,36 @@
+# prohibit_crossdb_refs
+
+## Location
+src/bin/pg_dump/pg_dump.c: 1709 - 1733
+
+## Overview
+Verifies that the connected database name matches a given database name and terminates the program with an error if they don't match, preventing cross-database references in pg_dump operations.
+
+## Definition
+
+
+## Detailed Description
+This function is a safety mechanism in pg_dump that prevents cross-database references, which are not supported in PostgreSQL. It compares the name of the currently connected database (obtained via PQdb()) with a provided database name that was parsed from a user pattern. If the names don't match, it terminates the program with a fatal error message indicating that cross-database references are not implemented.
+
+The function serves as a validation step when processing database object patterns that might contain explicit database qualifiers, ensuring that users don't attempt to reference objects from different databases than the one they're currently connected to.
+
+## Parameters / Member Variables
+- : PGconn pointer to the current database connection
+- : The database name parsed from a user-provided pattern that should match the connected database
+- : The original pattern string provided by the user, used in error messages for context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PQdb (libpq function to get database name from connection)
+  - pg_fatal (error reporting function)
+  - strcmp (standard C string comparison)
+- Called from (representative examples):
+  - fmtQualifiedDumpable
+  - expand_schema_name_patterns  
+  - expand_table_name_patterns
+
+## Notes and Other Information
+- This is a static function within pg_dump.c, indicating it's only used internally within that module
+- The function will terminate the program immediately if a cross-database reference is detected
+- PostgreSQL does not support cross-database queries or references, making this validation necessary
+- The error message includes the original pattern to help users understand what caused the problem

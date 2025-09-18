@@ -1,0 +1,29 @@
+# exec_command_copyright
+
+## Location
+src/bin/psql/command.c: 737 - 748
+
+## Overview
+Implements the psql  command for displaying the PostgreSQL copyright notice.
+
+## Definition
+
+
+## Detailed Description
+The  function handles the  command in psql, which displays the PostgreSQL copyright and license information to the user. This is a simple informational command that delegates the actual copyright display to the  function. The function is straightforward with minimal complexity, serving primarily as a command interface wrapper.
+
+## Parameters / Member Variables
+- : Scanner state for parsing command line arguments (unused in this function)
+- : Boolean indicating whether this command should be executed or just parsed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - print_copyright: Displays the actual copyright notice text
+- Called from (representative examples):
+  - exec_command: Main command dispatcher in psql
+
+## Notes and Other Information
+- Always returns PSQL_CMD_SKIP_LINE regardless of execution success
+- No error handling required as copyright display cannot fail meaningfully
+- Takes no arguments and ignores any command line parameters
+- Part of the psql interactive command system located in src/bin/psql/command.c:737-748

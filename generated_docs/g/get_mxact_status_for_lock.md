@@ -1,0 +1,43 @@
+# get_mxact_status_for_lock
+
+## Location
+src/backend/access/heap/heapam.c: 4485 - 4532
+
+## Overview
+get_mxact_status_for_lock is a static helper function that maps tuple lock modes to their corresponding MultiXactStatus values, distinguishing between update and non-update lock operations.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a translation layer between PostgreSQL's tuple locking modes and MultiXact status values. It consults the tupleLockExtraInfo array to determine the appropriate MultiXactStatus based on the lock mode and whether the operation is an update. The function validates the input parameters and throws an error if an invalid combination is provided.
+
+The function operates by:
+1. Checking the is_update flag to determine which status field to use
+2. Looking up the corresponding status in tupleLockExtraInfo array
+3. Validating that the returned status is valid (not -1)
+4. Returning the appropriate MultiXactStatus value
+
+## Parameters / Member Variables
+- : LockTupleMode indicating the type of lock being requested
+- : Boolean flag indicating whether this is for an update operation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - tupleLockExtraInfo (global array mapping lock modes to status info)
+  - elog (error reporting)
+- Type references:
+  - LockTupleMode (tuple locking mode enum)
+  - MultiXactStatus (multi-transaction status enum)
+- Called from (representative examples):
+  - heap_lock_tuple (tuple locking operations)
+  - compute_new_xmax_infomask (computing new transaction info)
+  - test_lockmode_for_conflict (testing lock conflicts)
+
+## Notes and Other Information
+- Part of PostgreSQL's multi-transaction (MultiXact) system for handling concurrent tuple locks
+- Uses a lookup table approach for efficient mode-to-status mapping
+- Validates input to prevent invalid lock mode/update flag combinations
+- Critical for proper MultiXact member creation and conflict detection
+- Supports both update and non-update lock operations with different status mappings
+- Error handling ensures system consistency by rejecting invalid lock requests

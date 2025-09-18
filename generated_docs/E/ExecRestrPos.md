@@ -1,0 +1,50 @@
+# ExecRestrPos
+
+## Location
+src/backend/executor/execAmi.c: 375 - 416
+
+## Overview
+ExecRestrPos restores the scan position that was previously saved with ExecMarkPos, ensuring that subsequent tuple retrieval continues from the marked position.
+
+## Definition
+
+
+## Detailed Description
+ExecRestrPos is the counterpart to ExecMarkPos, restoring a plan node's scan position to a location that was previously marked. This function is critical for implementing algorithms that need to re-read portions of input data, particularly in MergeJoin operations where duplicate values may require backing up and re-scanning sections of the inner relation.
+
+The function provides strict semantic guarantees: the first ExecProcNode call following a restore operation will yield the same tuple that was returned by the first ExecProcNode call following the corresponding mark operation. This ensures predictable and repeatable access to data streams.
+
+Like ExecMarkPos, this function operates as a dispatcher that delegates to node-type-specific restore functions:
+
+- **IndexScanState**: Restores position within index scans
+- **IndexOnlyScanState**: Restores position within index-only scans
+- **CustomScanState**: Delegates to custom scan provider implementations  
+- **MaterialState**: Restores position within materialized results
+- **SortState**: Restores position within sorted data
+- **ResultState**: Restores position within result nodes
+
+Unlike ExecMarkPos, this function throws a hard error for unsupported node types, since attempting to restore to a non-existent mark position represents a programming error that should be caught.
+
+## Parameters / Member Variables
+- : Pointer to the PlanState node where the position should be restored. Must be of a type that supports mark/restore operations and must have had ExecMarkPos called on it previously.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - nodeTag (node type identification)
+  - ExecIndexRestrPos (index scan position restoration)
+  - ExecIndexOnlyRestrPos (index-only scan position restoration)  
+  - ExecCustomRestrPos (custom scan position restoration)
+  - ExecMaterialRestrPos (material node position restoration)
+  - ExecSortRestrPos (sort node position restoration)
+  - ExecResultRestrPos (result node position restoration)
+- Called from (representative examples):
+  - ExecMergeJoin (merge join operations)
+  - ExecResultRestrPos (result node delegation)
+
+## Notes and Other Information
+- The function provides strong semantic guarantees about tuple retrieval consistency after restore
+- The state of the result TupleTableSlot after restore is unspecified - it may be unchanged, cleared, or loaded with the restored-to tuple
+- Callers should discard any previously returned TupleTableSlot after performing a restore operation
+- Unlike ExecMarkPos, this function throws a hard ERROR for unrecognized node types since restore without a valid mark represents a programming error
+- The mark/restore mechanism is primarily used by MergeJoin when processing duplicate values requires backing up in the input stream
+- Each node type maintains its own internal position tracking mechanism to support the restore functionality

@@ -1,0 +1,36 @@
+# DatumGetMultirangeTypeP
+
+## Location
+src/include/utils/multirangetypes.h: 48 - 53
+
+## Overview
+DatumGetMultirangeTypeP is an inline function that converts a PostgreSQL Datum value to a MultirangeType pointer, handling potential TOAST decompression automatically.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a type conversion utility for PostgreSQL's multirange data types. It takes a Datum (PostgreSQL's universal data type container) and safely converts it to a MultirangeType pointer. The function automatically handles TOAST (The Oversized-Attribute Storage Technique) decompression if the data was stored in compressed or out-of-line format. This is essential for working with potentially large multirange values that may have been stored using PostgreSQL's TOAST mechanism.
+
+The function is implemented as a static inline function in the header file, making it efficiently accessible throughout the codebase without function call overhead.
+
+## Parameters / Member Variables
+- : A Datum value containing a multirange type that needs to be converted to a MultirangeType pointer
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_DETOAST_DATUM (macro for TOAST decompression)
+  - MultirangeType (return type)
+- Called from (representative examples):
+  - multirangesel (multirange selectivity estimation)
+  - range_gist_consistent (GiST index consistency checking)
+  - multirange_gist_compress (GiST index compression)
+  - multirange_gist_consistent (multirange GiST consistency)
+  - compute_range_stats (range statistics computation)
+  - PG_GETARG_MULTIRANGE_P (macro for function argument retrieval)
+
+## Notes and Other Information
+- This is a foundational utility function used extensively in multirange type operations
+- The inline implementation ensures optimal performance for frequent conversions
+- Automatically handles TOAST decompression, making it safe to use with potentially compressed multirange data
+- Part of PostgreSQL's type system infrastructure for multirange types introduced in PostgreSQL 14

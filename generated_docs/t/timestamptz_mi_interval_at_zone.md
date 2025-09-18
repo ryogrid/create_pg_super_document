@@ -1,0 +1,40 @@
+# timestamptz_mi_interval_at_zone
+
+## Location
+src/backend/utils/adt/timestamp.c: 3371 - 3384
+
+## Overview
+Subtracts an interval from a timestamptz (timestamp with time zone) value, performing the calculation in a specified timezone rather than the session timezone.
+
+## Definition
+```c
+Datum timestamptz_mi_interval_at_zone(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function is a PostgreSQL built-in function that implements the subtraction operation between a timestamp with time zone and an interval, with the key difference that it allows specifying a particular timezone for the calculation. It serves as a wrapper around the internal function `timestamptz_mi_interval_internal`, handling the PostgreSQL function call interface by extracting arguments, resolving the timezone, and returning the result in the proper format. This is particularly useful for timezone-aware interval arithmetic where the calculation needs to be performed in a specific timezone context rather than the session's default timezone.
+
+## Parameters / Member Variables
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to:
+  - Argument 0: `TimestampTz timestamp` - The timestamp with time zone from which the interval will be subtracted
+  - Argument 1: `Interval *span` - Pointer to the interval structure containing the time span to subtract
+  - Argument 2: `text *zone` - Text representation of the timezone name in which to perform the calculation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_TIMESTAMPTZ (macro for extracting timestamptz argument)
+  - PG_GETARG_INTERVAL_P (macro for extracting interval pointer argument)
+  - PG_GETARG_TEXT_PP (macro for extracting text argument)
+  - lookup_timezone (function to resolve timezone name to pg_tz structure)
+  - timestamptz_mi_interval_internal (internal implementation function)
+  - PG_RETURN_TIMESTAMP (macro for returning timestamp result)
+- Called from (representative examples):
+  - No direct references found in the codebase (likely called through specialized SQL functions)
+
+## Notes and Other Information
+- This function enables timezone-specific interval subtraction operations
+- The timezone lookup is performed using `lookup_timezone` which converts the text timezone name to a `pg_tz` structure
+- The actual computation logic is delegated to `timestamptz_mi_interval_internal` with the resolved timezone
+- Located in src/backend/utils/adt/timestamp.c:3371-3384
+- Returns a Datum containing the resulting timestamp with time zone
+- Provides more control over timezone handling compared to the basic `timestamptz_mi_interval` function

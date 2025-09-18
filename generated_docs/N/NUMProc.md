@@ -1,0 +1,51 @@
+# NUMProc
+
+## Location
+src/backend/utils/adt/formatting.c: 996 - 1023
+
+## Overview
+A comprehensive processor structure used by PostgreSQL's numeric formatting system to manage the state and context during number-to-character and character-to-number conversion operations.
+
+## Definition
+
+
+## Detailed Description
+The NUMProc structure is a sophisticated state machine used by PostgreSQL's numeric formatting system for bidirectional conversion between numbers and formatted strings. It maintains all the necessary context information during formatting operations, including parsing state, buffer management, locale-specific formatting characters, and position tracking. The structure supports both to_char (number-to-string) and to_number (string-to-number) operations, adapting its behavior based on the is_to_char flag. It handles complex formatting scenarios including locale-specific number formatting, decimal precision control, and currency symbol placement.
+
+## Parameters / Member Variables
+- : Boolean flag indicating the direction of conversion (true for number-to-char, false for char-to-number)
+- : Pointer to NUMDesc structure containing the number format description
+- : Current sign character ('-' or '+')
+- : Flag indicating whether the sign has been written to output
+- : Count of digits written to output
+- : Flag indicating if currently inside the number portion
+- : Current position within the number
+- : Number of spaces to output before the first digit
+- : Flag for to_number operations indicating if decimal point was read
+- : For to_number operations, count of digits after decimal point
+- : For to_number operations, count of digits before decimal point
+- : String buffer containing the number
+- : Pointer to current position in the number string
+- : Input/output buffer for conversion operations
+- : Pointer to current position in the input/output buffer
+- : Pointer to last significant digit after decimal point
+- : Locale-specific negative sign string
+- : Locale-specific positive sign string
+- : Locale-specific decimal point character
+- : Locale-specific thousands separator
+- : Locale-specific currency symbol
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NUMDesc (number format description structure)
+  - decimal (locale decimal point)
+- Called from (representative examples):
+  - DCH_ZONED
+  - NUM_prepare_locale
+  - NUM_numpart_from_char
+  - NUM_numpart_to_char
+  - NUM_eat_non_data_chars
+  - NUM_processor
+
+## Notes and Other Information
+This structure is central to PostgreSQL's numeric formatting functionality in src/backend/utils/adt/formatting.c. It serves as a comprehensive state machine that manages the complex process of converting between numeric values and their formatted string representations. The structure handles locale-specific formatting requirements, maintains parsing state for bidirectional conversions, and provides buffer management for efficient string operations. The numerous pointer fields enable precise tracking of positions during parsing and formatting operations, while the locale-specific fields ensure proper internationalization support.

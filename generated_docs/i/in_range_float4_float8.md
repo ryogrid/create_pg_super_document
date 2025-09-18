@@ -1,0 +1,43 @@
+# in_range_float4_float8
+
+## Location
+src/backend/utils/adt/float.c: 1096 - 1175
+
+## Overview
+A support function for window frame range calculations with float4 (single precision) values that determines if a given value falls within a specified range using a float8 offset for precision.
+
+## Definition
+
+
+## Detailed Description
+This function implements the PostgreSQL in_range support for float4 data types with float8 precision offsets, used primarily in window functions with RANGE frames. It determines whether a float4 value falls within a range defined by a float4 base value plus or minus a float8 offset. The mixed precision design allows for more precise offset calculations while working with single-precision base values.
+
+Like its float8 counterpart, this function handles special floating-point cases including NaN and infinity values according to PostgreSQL's sorting semantics. The function performs range checking by computing base +/- offset in float8 precision and comparing the result with the input value.
+
+## Parameters / Member Variables
+-  (float4): The single-precision value to test for inclusion in the range
+-  (float4): The single-precision base value that defines the center of the range
+-  (float8): The double-precision distance from base that defines the range boundary (must be non-negative and non-NaN)
+-  (bool): If true, compute base - offset; if false, compute base + offset
+-  (bool): If true, test val <= boundary; if false, test val >= boundary
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_FLOAT4 (single-precision argument extraction macro)
+  - PG_GETARG_FLOAT8 (double-precision argument extraction macro)
+  - PG_GETARG_BOOL (boolean argument extraction macro)
+  - isnan (NaN detection)
+  - isinf (infinity detection)
+  - ereport (error reporting)
+  - PG_RETURN_BOOL (boolean return macro)
+- Called from (representative examples):
+  - No direct callers found (likely called through PostgreSQL's function dispatch mechanism)
+
+## Notes and Other Information
+- This function provides float4_float8 variant while letting implicit coercion handle float4_float4 cases
+- Uses mixed precision: float4 for val and base, float8 for offset and internal calculations
+- Rejects negative or NaN offset values with ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE
+- Implements PostgreSQL's NaN sorting semantics (NaN > all non-NaN values)
+- Handles infinite base and offset combinations that would produce NaN results
+- The higher precision offset allows for more accurate range calculations with single-precision data
+- Source location: src/backend/utils/adt/float.c:1096-1175

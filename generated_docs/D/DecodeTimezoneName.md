@@ -1,0 +1,58 @@
+# DecodeTimezoneName
+
+## Location
+src/backend/utils/adt/datetime.c: 3190 - 3244
+
+## Overview
+DecodeTimezoneName interprets timezone strings as either abbreviations or full timezone names, providing a unified interface for timezone resolution with comprehensive error handling.
+
+## Definition
+```c
+int DecodeTimezoneName(const char *tzname, int *offset, pg_tz **tz)
+```
+
+## Detailed Description
+This function serves as the primary entry point for timezone name resolution in PostgreSQL. It implements a two-tier lookup strategy:
+
+1. **Abbreviation lookup**: First attempts to resolve the input as a timezone abbreviation (e.g., "EST", "PST")
+2. **Full name lookup**: If abbreviation lookup fails, attempts to resolve as a full timezone database name (e.g., "America/New_York")
+
+The function handles three types of timezone identifiers:
+- **TZNAME_FIXED_OFFSET**: Static timezone abbreviations with fixed UTC offsets
+- **TZNAME_DYNTZ**: Dynamic timezone abbreviations that reference underlying timezone objects
+- **TZNAME_ZONE**: Full timezone database names
+
+The lookup order prioritizes abbreviations over full names to handle cases where the timezone database contains zone names identical to offset abbreviations.
+
+## Parameters / Member Variables
+- `tzname`: Input timezone name or abbreviation string
+- `offset`: Output UTC offset in seconds (for fixed offset timezones, ISO convention: positive = east)
+- `tz`: Output timezone object pointer (for dynamic or full timezone names)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - downcase_truncate_identifier (string processing function)
+  - DecodeTimezoneAbbrev (timezone abbreviation resolver)
+  - DateTimeParseError (error handling function)
+  - pg_tzset (timezone database lookup function)
+  - ereport, errcode, errmsg (PostgreSQL error reporting)
+  - pg_tz (PostgreSQL timezone type)
+  - DateTimeErrorExtra (error information structure)
+  - TZ, DTZ, DYNTZ (timezone type constants)
+  - TZNAME_FIXED_OFFSET, TZNAME_DYNTZ, TZNAME_ZONE (return type constants)
+
+- Called from (representative examples):
+  - timetz_zone (time with timezone conversion functions)
+  - timestamp_zone, timestamptz_zone (timestamp timezone conversion)
+  - parse_sane_timezone (timezone validation function)
+  - DecodeTimezoneNameToTz (wrapper function)
+
+## Notes and Other Information
+- Returns timezone type constants indicating the kind of identifier found
+- Throws PostgreSQL errors for unrecognized timezone names
+- Input is automatically converted to lowercase for abbreviation lookup
+- Prioritizes abbreviation table over full timezone database for ambiguous names
+- Uses comprehensive error reporting with specific error codes and messages
+- The function ensures that at least one output parameter (*offset or *tz) is set based on the timezone type
+- Fixed offset results use ISO sign convention (positive = east of Greenwich)
+- Dynamic timezones require additional resolution through the underlying timezone object

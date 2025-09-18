@@ -1,0 +1,50 @@
+# _SPI_rollback
+
+## Location
+src/backend/executor/spi.c: 332 - 412
+
+## Overview
+_SPI_rollback is the internal implementation function that handles transaction rollback within the SPI context, supporting both regular rollback and chained rollback operations.
+
+## Definition
+
+
+## Detailed Description
+_SPI_rollback is the core internal function that implements transaction rollback functionality for the SPI (Server Programming Interface). This static function serves as the implementation backend for both SPI_rollback and SPI_rollback_and_chain, with the behavior controlled by the 'chain' parameter.
+
+The function performs comprehensive validation and cleanup:
+1. Validates that the current SPI context permits transaction termination (not in atomic mode)
+2. Ensures no subtransaction is active, preventing violation of subtransaction semantics
+3. Optionally saves transaction characteristics if chaining is requested
+4. Protects portals by holding pinned portals and releasing snapshots before state changes
+5. Aborts the current transaction and immediately starts a new one
+6. Restores transaction characteristics if chaining was requested
+
+The entire operation is wrapped in a PG_TRY/PG_CATCH block to handle errors during rollback. If the rollback itself fails, the function attempts to abort again and ensures a new transaction is started, maintaining database consistency.
+
+## Parameters / Member Variables
+- : boolean parameter that determines whether transaction characteristics should be preserved across the rollback boundary
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SavedTransactionCharacteristics (transaction state structure)
+  - IsSubTransaction (check for active subtransaction)
+  - SaveTransactionCharacteristics (save current transaction properties)
+  - HoldPinnedPortals (protect portals during transaction boundary)
+  - ForgetPortalSnapshots (release portal snapshots)
+  - AbortCurrentTransaction (abort the current transaction)
+  - StartTransactionCommand (start new transaction)
+  - RestoreTransactionCharacteristics (restore transaction properties when chaining)
+  - CopyErrorData/FlushErrorState/ReThrowError (error handling)
+- Called from:
+  - SPI_rollback (with chain=false)
+  - SPI_rollback_and_chain (with chain=true)
+
+## Notes and Other Information
+- This is a static (internal) function not exposed in the public SPI API
+- Shares similar structure and error handling patterns with _SPI_commit
+- Cannot be called in atomic SPI contexts or when subtransactions are active
+- The chain parameter implements SQL standard ROLLBACK AND CHAIN semantics
+- Error handling ensures that even if rollback fails, a new transaction is established
+- Memory context switching ensures proper cleanup during error conditions
+- The internal_xact flag protects the SPI stack entry during transaction state changes

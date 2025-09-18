@@ -1,0 +1,30 @@
+# alloc_edge_table
+
+## Location
+src/backend/optimizer/geqo/geqo_erx.c: 56 - 75
+
+## Overview
+Allocates memory for an edge table used in the GEQO (Genetic Query Optimizer) ERX (Edge Recombination Crossover) algorithm.
+
+## Definition
+
+
+## Detailed Description
+This function allocates memory for an edge table that is used in the ERX crossover operation within PostgreSQL's genetic algorithm-based query optimizer. The function allocates space for  Edge structures, where the extra location allows nodes numbered 1 through n to be indexed directly, with index 0 remaining unused. This indexing scheme is common in genetic algorithms to simplify node referencing.
+
+## Parameters / Member Variables
+- : PlannerInfo pointer containing planning context information
+- : Integer specifying the number of genes (relations) in the genetic algorithm, determining the size of the edge table
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc (memory allocation function)
+  - Edge (data structure type)
+- Called from (representative examples):
+  - geqo (main genetic algorithm function)
+
+## Notes and Other Information
+- The function allocates one extra Edge structure to enable 1-based indexing
+- Uses PostgreSQL's palloc memory allocation which provides automatic cleanup
+- Part of the ERX crossover implementation in the genetic query optimizer
+- The edge table stores connectivity information between nodes in the genetic algorithm's tour representation

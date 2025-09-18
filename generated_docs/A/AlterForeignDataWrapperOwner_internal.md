@@ -1,0 +1,44 @@
+# AlterForeignDataWrapperOwner_internal
+
+## Location
+src/backend/commands/foreigncmds.c: 216 - 285
+
+## Overview
+Internal workhorse function that changes the ownership of a foreign data wrapper, enforcing superuser privileges for both current and new owners while updating the catalog and dependency records.
+
+## Definition
+```c
+static void AlterForeignDataWrapperOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
+```
+
+## Detailed Description
+This static function implements the core logic for changing a foreign data wrapper's owner. It enforces strict security requirements: only superusers can change FDW ownership, and the new owner must also be a superuser. The function performs several key operations: validates permissions, updates the fdwowner field in the pg_foreign_data_wrapper catalog, adjusts any existing ACL (access control list) to reflect the new ownership, updates the catalog tuple, and maintains dependency tracking through changeDependencyOnOwner. The function also triggers post-alter hooks to notify other parts of the system about the ownership change. If the new owner is the same as the current owner, the function skips the update process entirely.
+
+## Parameters / Member Variables
+- `rel`: Open relation handle for pg_foreign_data_wrapper catalog table
+- `tup`: HeapTuple representing the foreign data wrapper record to modify
+- `newOwnerId`: OID of the user who will become the new owner
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Form_pg_foreign_data_wrapper (structure for catalog tuple data)
+  - superuser (checks if current user is superuser)
+  - superuser_arg (checks if specified user is superuser)
+  - heap_getattr (retrieves attribute value from tuple)
+  - aclnewowner (updates ACL ownership)
+  - DatumGetAclP (converts Datum to ACL pointer)
+  - heap_modify_tuple (creates modified tuple)
+  - CatalogTupleUpdate (updates catalog with new tuple)
+  - changeDependencyOnOwner (updates dependency tracking)
+  - InvokeObjectPostAlterHook (triggers post-alter notifications)
+- Called from (representative examples):
+  - AlterForeignDataWrapperOwner (src/backend/commands/foreigncmds.c:307)
+  - AlterForeignDataWrapperOwner_oid (src/backend/commands/foreigncmds.c:338)
+
+## Notes and Other Information
+- Requires superuser privileges for both current user and new owner due to security implications of FDW ownership
+- Only performs updates if the new owner differs from the current owner
+- Properly handles NULL ACLs by skipping ACL updates when no ACL exists
+- Updates both the catalog record and the system dependency tracking to maintain referential integrity
+- Uses array-based tuple modification approach with repl_val, repl_null, and repl_repl arrays
+- This is an internal static function used by the public ownership change functions

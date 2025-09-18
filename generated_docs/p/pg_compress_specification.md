@@ -1,0 +1,41 @@
+# pg_compress_specification
+
+## Location
+src/include/common/compression.h: 32 - 40
+
+## Overview
+A structure that defines compression parameters and options for PostgreSQL's compression subsystem, encompassing algorithm selection, compression level, worker configuration, and parsing state.
+
+## Definition
+
+
+## Detailed Description
+The pg_compress_specification structure serves as a comprehensive configuration container for compression operations throughout PostgreSQL. It encapsulates all necessary parameters for configuring compression algorithms including the specific algorithm to use, compression level settings, parallel worker configuration, and specialized options like long-distance matching for certain algorithms. The structure also includes error handling through a parse_error field that captures any issues encountered during specification parsing.
+
+This structure is widely used across PostgreSQL's backup and restore subsystem, including pg_dump, pg_basebackup, and various streaming backup components. It provides a unified interface for compression configuration that can be serialized to disk and used consistently across different PostgreSQL utilities.
+
+## Parameters / Member Variables
+- : The compression algorithm to use (from pg_compress_algorithm enum)
+- : Bitfield of PG_COMPRESSION_OPTION constants controlling specific features
+- : Compression level setting (algorithm-specific meaning)
+- : Number of worker threads to use for parallel compression
+- : Boolean flag enabling long-distance matching optimization
+- : Error message string if specification parsing failed, NULL otherwise
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_compress_algorithm
+  - PG_COMPRESSION_OPTION_WORKERS
+  - PG_COMPRESSION_OPTION_LONG_DISTANCE
+
+- Called from (representative examples):
+  - parse_compress_specification
+  - validate_compress_specification
+  - bbsink_gzip_new
+  - bbsink_lz4_new
+  - bbsink_zstd_new
+  - CreateBackupStreamer
+  - AllocateCompressor
+
+## Notes and Other Information
+This structure is designed to be persistent and may be stored to disk (as noted in the source comments). Any changes to the structure layout or field ordering must maintain backwards compatibility. The options field uses bitwise OR operations to combine multiple PG_COMPRESSION_OPTION constants. The parse_error field provides detailed error reporting for invalid compression specifications, enabling better user feedback during configuration parsing.

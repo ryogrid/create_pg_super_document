@@ -1,0 +1,33 @@
+# make_jsp_expr_node
+
+## Location
+src/backend/utils/adt/jsonb_gin.c: 370 - 381
+
+## Overview
+Creates a JsonPathGinNode structure for expression nodes with a variable number of arguments in the JSONB GIN indexing system.
+
+## Definition
+
+
+## Detailed Description
+This function constructs a JsonPathGinNode designed to hold complex expressions with multiple arguments. Unlike simple entry nodes, expression nodes require additional space to store an array of argument pointers. The function dynamically calculates the required memory size using offsetof to account for the base structure plus space for nargs argument pointers.
+
+The function sets up the node type and argument count but leaves the actual argument array uninitialized - this is typically filled in by the calling function after node creation. This design pattern allows for flexible creation of various types of expression nodes (logical operators, comparisons, etc.) in the JSONB GIN index system.
+
+## Parameters / Member Variables
+- : JsonPathGinNodeType enum value specifying the type of expression node to create
+- : Integer specifying the number of arguments this expression node will contain
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc (PostgreSQL memory allocation function)
+  - offsetof (C macro for calculating structure member offset)
+  - JsonPathGinNodeType (enum type for different node types)
+  - JsonPathGinNode (the main node structure type)
+
+- Called from:
+  - make_jsp_expr_node_args (creates expression nodes with argument initialization)
+  - make_jsp_expr_node_binary (creates binary expression nodes)
+
+## Notes and Other Information
+The memory allocation uses a flexible array member pattern where the args array size is determined at runtime. The caller is responsible for populating the args array after node creation. This function serves as a foundation for building more complex query expression trees in the JSONB GIN indexing system.

@@ -1,0 +1,42 @@
+# r_remove_possessive_pronoun
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 135 - 146
+
+## Overview
+A static function in the Indonesian stemmer that removes possessive pronoun suffixes from Indonesian words as part of the morphological stemming process.
+
+## Definition
+```c
+static int r_remove_possessive_pronoun(struct SN_env * z)
+```
+
+## Detailed Description
+This function is part of the Snowball stemming algorithm implementation for the Indonesian language. It removes possessive pronoun suffixes by:
+
+1. Setting the 'ket' position to the current cursor position
+2. Checking if the word ends with specific characters (97='a' or 117='u')
+3. Using backward pattern matching to find possessive pronoun suffixes in the predefined array 'a_1'
+4. Removing the matched suffix if found
+5. Decrementing a counter (z->I[1]) to track the removal
+
+The function returns 1 on successful removal, 0 if no possessive pronoun suffix is found, or a negative value on error.
+
+## Parameters / Member Variables
+- `z`: Pointer to SN_env structure containing the stemming environment with word buffer, cursor positions, and counters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_among_b (backward pattern matching function)
+  - slice_del (suffix deletion function)
+  - a_1 (predefined array of possessive pronoun patterns, containing 3 entries)
+- Called from (representative examples):
+  - indonesian_ISO_8859_1_stem (at src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:343)
+  - indonesian_UTF_8_stem (at src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:343)
+
+## Notes and Other Information
+- This is part of PostgreSQL's full-text search capabilities for Indonesian text processing
+- The function checks boundary conditions (z->c - 1 <= z->lb) to ensure safe buffer access
+- Character codes 97 ('a') and 117 ('u') are checked for optimization - Indonesian possessive pronouns commonly end with these characters
+- The counter z->I[1] appears to track the number of suffix removals performed
+- Possessive pronouns in Indonesian include suffixes like '-ku' (my), '-mu' (your), '-nya' (his/her/its)

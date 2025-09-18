@@ -1,0 +1,50 @@
+# AuxiliaryProcessMainCommon
+
+## Location
+src/backend/postmaster/auxprocess.c: 44 - 100
+
+## Overview
+Common initialization code for auxiliary processes such as the background writer, WAL writer, WAL receiver, and startup process, providing essential setup without full InitPostgres initialization.
+
+## Definition
+void AuxiliaryProcessMainCommon(void)
+
+## Detailed Description
+AuxiliaryProcessMainCommon performs the common initialization sequence required by all auxiliary processes in PostgreSQL. Unlike regular backend processes that go through the full InitPostgres initialization, auxiliary processes have a more streamlined startup sequence that focuses on essential services like shared memory access, LWLocks, and process identification without transaction processing capabilities.
+
+The function sets up the minimal infrastructure needed for auxiliary processes to function within the PostgreSQL shared memory environment, including process registration, signal handling, resource management, and statistics collection. It also registers a shutdown callback to ensure proper cleanup when the process terminates.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MemoryContextDelete
+  - init_ps_display
+  - SetProcessingMode (with BootstrapProcessing and NormalProcessing)
+  - InitAuxiliaryProcess
+  - BaseInit
+  - ProcSignalInit
+  - CreateAuxProcessResourceOwner
+  - pgstat_beinit
+  - pgstat_bestart
+  - before_shmem_exit
+  - ShutdownAuxiliaryProcess
+
+- Called from:
+  - BackgroundWriterMain
+  - CheckpointerMain
+  - PgArchiverMain
+  - StartupProcessMain
+  - WalSummarizerMain
+  - WalWriterMain
+  - WalReceiverMain
+
+## Notes and Other Information
+- Must be called under the postmaster (Assert(IsUnderPostmaster))
+- Releases the postmaster's working memory context to prevent memory leaks
+- Sets IgnoreSystemIndexes to true, appropriate for auxiliary processes
+- Creates a PGPROC entry for LWLock usage and shared memory access
+- Establishes a resource owner for managing buffer pins outside transactions
+- Registers ShutdownAuxiliaryProcess as a before-shutdown callback for proper cleanup
+- Transitions from BootstrapProcessing to NormalProcessing mode during initialization

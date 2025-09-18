@@ -1,0 +1,38 @@
+# cidr_abbrev
+
+## Location
+src/backend/utils/adt/network.c: 1240 - 1257
+
+## Overview
+Converts a cidr value to its abbreviated text representation using CIDR-specific formatting that zeroes out host bits.
+
+## Definition
+
+
+## Detailed Description
+The cidr_abbrev function provides an abbreviated representation of a cidr value using pg_inet_cidr_ntop, which specifically formats CIDR network addresses. The key difference from inet_abbrev is that this function uses the CIDR-specific formatter that ensures host bits are properly zeroed out according to CIDR semantics. This means that any host bits beyond the network portion are set to zero in the output, providing a canonical network address representation. The function formats the address with the specified netmask length and returns it as text.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing:
+  - Argument 0: cidr value (accessed via PG_GETARG_INET_PP(0))
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_INET_PP (to extract inet/cidr argument)
+  - pg_inet_cidr_ntop (to format the CIDR address with proper host bit zeroing)
+  - ip_family (to get address family)
+  - ip_addr (to get address data)
+  - ip_bits (to get the netmask length)
+  - cstring_to_text (to convert C string to PostgreSQL text)
+  - PG_RETURN_TEXT_P (to return text result)
+- Called from (representative examples):
+  - No direct references found in the analyzed codebase
+
+## Notes and Other Information
+- Located in src/backend/utils/adt/network.c:1240-1257
+- Uses pg_inet_cidr_ntop instead of pg_inet_net_ntop for CIDR-specific formatting
+- Ensures host bits are properly zeroed according to CIDR standards
+- Provides canonical network address representation for CIDR values
+- The CIDR formatting guarantees that the output represents a proper network address, not a host address
+- Error message specifically mentions "cidr value" rather than "inet value"
+- Uses a temporary buffer sized to handle the longest possible IPv6 address representation

@@ -1,0 +1,41 @@
+# ReleaseCatCacheList
+
+## Location
+src/backend/utils/cache/catcache.c: 2073 - 2078
+
+## Overview
+Decrements the reference count of a catalog cache list, serving as a wrapper function for resource management.
+
+## Definition
+
+
+## Detailed Description
+ReleaseCatCacheList is a simple wrapper function that decrements the reference count of a catalog cache list using the current resource owner. It delegates the actual work to ReleaseCatCacheListWithOwner, passing the CurrentResourceOwner as the owner parameter.
+
+This function is the standard way for code to release a catalog cache list when it no longer needs it. The function ensures proper resource tracking and cleanup, and when the reference count reaches zero, the list may become eligible for removal from the cache.
+
+## Parameters
+- : The CatCList to release (decrement reference count)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReleaseCatCacheListWithOwner
+  - CurrentResourceOwner (global variable)
+- Called from (representative examples):
+  - brinvalidate
+  - ginvalidate  
+  - gistvalidate
+  - hashvalidate
+  - btvalidate
+  - spgvalidate
+  - AddEnumLabel
+  - RenameEnumLabel
+  - transformFrameOffset
+  - ReleaseSysCacheList
+
+## Notes and Other Information
+- This function must be called for every CatCList obtained from SearchCatCacheList
+- Failure to call this function leads to memory leaks and resource owner violations
+- The function is safe to call with NULL pointers (handled by the underlying implementation)
+- Part of PostgreSQL's reference counting system for catalog cache management
+- Always use this function rather than directly manipulating reference counts

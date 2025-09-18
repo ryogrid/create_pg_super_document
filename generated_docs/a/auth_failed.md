@@ -1,0 +1,42 @@
+# auth_failed
+
+## Location
+src/backend/libpq/auth.c: 254 - 351
+
+## Overview
+Handles authentication failure by sending an appropriate error message to the client and terminating the connection, providing different error messages based on the authentication method while balancing security concerns with user experience.
+
+## Definition
+
+
+## Detailed Description
+The  function is responsible for handling authentication failures in PostgreSQL's connection process. It carefully constructs error messages that inform the user about the authentication failure without revealing sensitive security information. The function takes into account the specific authentication method that failed and provides method-specific error messages.
+
+The function implements a security-conscious approach by not revealing detailed failure reasons to potential attackers while still providing useful information to legitimate users. It logs additional details to the postmaster log for administrators to investigate issues.
+
+For EOF status (client disconnection), the function simply exits without sending messages, as there's no client to respond to and logging such events would create noise in logs (especially common with password authentication).
+
+## Parameters / Member Variables
+- : Pointer to the Port structure containing connection and authentication information
+- : Integer status code indicating the type of failure (e.g., STATUS_EOF)
+- : Optional string containing additional details to be logged (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - proc_exit (for STATUS_EOF handling)
+  - psprintf (for formatting error messages)
+  - ereport (for sending the error to client and logs)
+  - gettext_noop (for internationalization)
+  - errdetail_log (for detailed logging)
+- Called from (representative examples):
+  - HOSTNAME_LOOKUP_DETAIL (based on references found)
+- Authentication method constants used:
+  - uaReject, uaImplicitReject, uaTrust, uaIdent, uaPeer
+  - uaPassword, uaMD5, uaSCRAM, uaGSS, uaSSPI
+  - uaPAM, uaBSD, uaLDAP, uaCert, uaRADIUS
+
+## Notes and Other Information
+- The function never returns - it always terminates the process with ereport(FATAL)
+- Different error codes are used: ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION (default) and ERRCODE_INVALID_PASSWORD (for password-based methods)
+- The function includes HBA (Host-Based Authentication) line information in the detailed log to help administrators identify which pg_hba.conf rule was matched
+- Special handling for STATUS_EOF prevents log spam from normal client disconnections during password challenges

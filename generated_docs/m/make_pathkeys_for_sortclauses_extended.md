@@ -1,0 +1,44 @@
+# make_pathkeys_for_sortclauses_extended
+
+## Location
+src/backend/optimizer/path/pathkeys.c: 1371 - 1442
+
+## Overview
+The extended version of pathkey generation that converts SortGroupClauses to pathkeys with additional options for redundancy removal, sortability checking, and equivalence class reference setting.
+
+## Definition
+
+
+## Detailed Description
+The `make_pathkeys_for_sortclauses_extended` function provides comprehensive pathkey generation from SortGroupClause lists with advanced control options. It processes each sort clause to create corresponding PathKey objects, handling cases where sort operators are invalid (unsortable clauses). The function can optionally remove redundant sort clauses from the input list and set equivalence class sort references. 
+
+The function maintains canonical form by eliminating redundant ordering keys and can report whether all clauses were successfully converted to sortable pathkeys. Even when some clauses are unsortable, the function continues processing to identify and potentially remove redundant clauses, optimizing the final sort operation.
+
+## Parameters / Member Variables
+- `root`: PlannerInfo structure containing global planner state and context
+- `sortclauses`: Pointer to list of SortGroupClause nodes (pass-by-reference to allow modification)
+- `tlist`: Target list containing referenced target list entries for the sort clauses
+- `remove_redundant`: If true, removes sort clauses that give rise to redundant pathkeys from the sortclauses list
+- `sortable`: Output parameter set to true if all sort clauses are sortable, false otherwise
+- `set_ec_sortref`: If true, sets the pathkey's EquivalenceClass sortref value when not already initialized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SortGroupClause (struct type)
+  - PathKey (struct type)
+  - get_sortgroupclause_expr
+  - make_pathkey_from_sortop
+  - pathkey_is_redundant
+  - foreach_delete_current
+- Called from (representative examples):
+  - make_pathkeys_for_sortclauses
+  - standard_qp_callback
+  - make_pathkeys_for_window
+
+## Notes and Other Information
+- This is the comprehensive version of pathkey generation with maximum flexibility and control
+- Continues processing even when encountering unsortable clauses to identify redundant ones
+- The canonical form ensures efficient pathkey comparison and eliminates unnecessary sort operations
+- The `remove_redundant` feature helps optimize queries by eliminating unnecessary sort columns
+- Setting equivalence class sort references is important for window function processing and grouping operations
+- Invalid sort operators (OidIsValid check fails) cause clauses to be marked as unsortable but processing continues

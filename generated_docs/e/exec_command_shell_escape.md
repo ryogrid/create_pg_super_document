@@ -1,0 +1,36 @@
+# exec_command_shell_escape
+
+## Location
+src/bin/psql/command.c: 3050 - 3071
+
+## Overview
+Executes shell commands invoked through the `\!` psql meta-command, providing a way to run external commands from within the PostgreSQL interactive terminal.
+
+## Definition
+```c
+static backslashResult exec_command_shell_escape(PsqlScanState scan_state, bool active_branch)
+```
+
+## Detailed Description
+This function handles the execution of the `\!` psql meta-command which allows users to execute shell commands from within the psql interactive session. The function operates conditionally based on the `active_branch` parameter - when true, it parses the command line to extract the shell command and executes it via the `do_shell()` function. When `active_branch` is false (typically in conditional blocks that should not execute), it simply ignores the command line without processing it.
+
+The function follows the standard psql command processing pattern, returning appropriate status codes to indicate success or failure of the operation.
+
+## Parameters / Member Variables
+- `scan_state`: PsqlScanState pointer containing the current parsing state and input buffer for extracting the shell command
+- `active_branch`: Boolean flag indicating whether the command should actually be executed (true) or just skipped (false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - psql_scan_slash_option (to extract the shell command from input)
+  - do_shell (to actually execute the extracted shell command)
+  - ignore_slash_whole_line (to skip processing when not in active branch)
+  - free (to deallocate the extracted command string)
+- Called from (representative examples):
+  - exec_command (main command dispatcher for psql meta-commands)
+
+## Notes and Other Information
+- Returns PSQL_CMD_SKIP_LINE on successful execution or PSQL_CMD_ERROR on failure
+- Uses OT_WHOLE_LINE option type when extracting the command, meaning it captures the entire remainder of the line as the shell command
+- The function properly handles memory management by freeing the allocated command string after execution
+- Part of the psql meta-command processing system, specifically handling the `\!` escape to shell functionality

@@ -1,0 +1,42 @@
+# make_build_data
+
+## Location
+src/backend/statistics/extended_stats.c: 2452 - 2617
+
+## Overview
+Creates and populates a StatsBuildData structure containing evaluated expression values and column data for building extended statistics.
+
+## Definition
+
+
+## Detailed Description
+This function prepares data needed for building extended statistics by evaluating expressions and extracting column values from a sample of table rows. It creates a comprehensive data structure that holds both regular column values and computed expression results, which are then used to build various types of extended statistics (functional dependencies, N-distinct, MCV lists, etc.).
+
+The function allocates a single memory chunk containing arrays for attribute numbers, statistics metadata, and data values/nulls for both columns and expressions. For regular columns, it extracts values directly from the heap tuples. For expressions, it sets up an executor state and evaluates each expression against every sample row, storing the results in the same format as column data.
+
+The resulting StatsBuildData structure provides a uniform interface for accessing both column and expression data during statistics computation, abstracting away the differences between simple column references and complex expressions.
+
+## Parameters / Member Variables
+- : Relation for which statistics are being built
+- : StatExtEntry containing information about the extended statistics object (columns, expressions, types)
+- : Number of sample rows to process
+- : Array of HeapTuple pointers containing the sample data
+- : Array of VacAttrStats for the columns being analyzed
+- : Statistics target controlling the level of detail in statistics
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bms_num_members, bms_next_member, examine_expression, heap_getattr
+  - CreateExecutorState, GetPerTupleExprContext, MakeSingleTupleTableSlot
+  - ExecPrepareExprList, ResetExprContext, ExecStoreHeapTuple, ExecEvalExpr
+  - ExecDropSingleTupleTableSlot, FreeExecutorState
+- Called from (representative examples):
+  - BuildRelationExtStatistics
+
+## Notes and Other Information
+- Allocates all memory in a single chunk for efficient cleanup
+- Uses PostgreSQL's expression evaluation infrastructure for computing expression values
+- Handles memory management carefully to avoid leaks during expression evaluation
+- The resulting data structure is used by various extended statistics building functions
+- Critical for extended statistics that involve expressions, not just simple column combinations
+- Expression evaluation is performed in a per-tuple context that is reset for each row to prevent memory accumulation

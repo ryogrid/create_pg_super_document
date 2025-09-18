@@ -1,0 +1,42 @@
+# SetDatabaseHasLoginEventTriggers
+
+## Location
+src/backend/commands/event_trigger.c: 386 - 422
+
+## Overview
+Sets the pg_database.dathasloginevt flag for the current database to indicate that the database has login event triggers defined.
+
+## Definition
+
+
+## Detailed Description
+This function updates the PostgreSQL system catalog to mark that the current database has login event triggers. It modifies the dathasloginevt flag in the pg_database system catalog table, which serves as an optimization hint for the system to know whether it needs to check for and potentially fire login event triggers when users connect to this database.
+
+The function implements proper locking mechanisms to prevent conflicts with other operations that might be checking or modifying this flag. It uses a shared lock specifically designed to prevent conflicts with EventTriggerOnLogin() which might be trying to reset the same flag. The function performs an in-place update of the catalog tuple only if the flag is not already set, ensuring efficiency.
+
+## Parameters / Member Variables
+This function takes no parameters and operates on the current database (MyDatabaseId).
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open (to open the pg_database relation)
+  - LockSharedObject (to acquire exclusive lock preventing conflicts)
+  - SearchSysCacheLockedCopy1 (to find and lock the database tuple)
+  - HeapTupleIsValid (to validate the found tuple)
+  - GETSTRUCT (to extract the form structure from the tuple)
+  - CatalogTupleUpdate (to update the catalog tuple)
+  - CommandCounterIncrement (to ensure visibility of changes)
+  - UnlockTuple (to release the tuple lock)
+  - table_close (to close the relation)
+  - heap_freetuple (to free the tuple memory)
+- Called from (representative examples):
+  - insert_event_trigger_tuple
+  - AlterEventTrigger
+
+## Notes and Other Information
+- The function uses a custom locking mechanism (LockSharedObject with AccessExclusiveLock) specifically to coordinate with EventTriggerOnLogin()
+- The lock doesn't block database access or other operations; it's specifically for coordinating the dathasloginevt flag modifications
+- Only updates the catalog if the flag is not already set, providing an optimization to avoid unnecessary writes
+- The function operates on the current database context (MyDatabaseId)
+- This flag serves as a performance optimization to avoid checking for login triggers when none exist in a database
+- Memory management is handled properly with heap_freetuple() to prevent memory leaks

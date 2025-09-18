@@ -1,0 +1,42 @@
+# BufferUsageAccumDiff
+
+## Location
+src/backend/executor/instrument.c: 248 - 277
+
+## Overview
+A utility function that accumulates buffer usage statistics by computing the difference between two BufferUsage snapshots and adding that difference to a destination BufferUsage structure.
+
+## Definition
+
+
+## Detailed Description
+BufferUsageAccumDiff is a public function that calculates the incremental buffer usage statistics between two points in time and accumulates those differences into a destination structure. It performs the operation dst += (add - sub) for all buffer usage counters and timing measurements.
+
+This function is essential for PostgreSQL's query instrumentation system, allowing the database to track how much buffer activity occurred during specific operations or time periods. Since BufferUsage counters are monotonically increasing and never reset, this difference-based approach enables precise measurement of resource consumption for individual query operations.
+
+The function handles all three categories of buffer usage (shared, local, and temporary) and their associated timing measurements, using specialized macros for proper time arithmetic.
+
+## Parameters / Member Variables
+- : Pointer to the destination BufferUsage structure that will accumulate the computed differences
+- : Pointer to the BufferUsage structure representing the ending state (higher counter values)
+- : Pointer to the BufferUsage structure representing the starting state (lower counter values)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - INSTR_TIME_ACCUM_DIFF (macro for computing and accumulating timing differences)
+  - BufferUsage (struct type definition)
+- Called from (representative examples):
+  - heap_vacuum_rel
+  - standard_ExplainOneQuery
+  - serializeAnalyzeReceive
+  - ExplainExecuteQuery
+  - InstrStopNode
+  - InstrEndParallelQuery
+
+## Notes and Other Information
+- This is a public function (non-static), making it accessible from other compilation units
+- The function is crucial for PostgreSQL's EXPLAIN functionality to show buffer usage statistics
+- Used extensively in query execution instrumentation to measure resource consumption
+- The difference calculation assumes that 'add' contains values greater than or equal to 'sub'
+- Essential for parallel query execution where statistics from multiple workers need to be aggregated
+- Located in src/backend/executor/instrument.c:248-277

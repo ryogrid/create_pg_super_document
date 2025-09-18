@@ -1,0 +1,39 @@
+# pg_physical_replication_slot_advance
+
+## Location
+src/backend/replication/slotfuncs.c: 463 - 498
+
+## Overview
+A helper function that advances a physical replication slot's restart LSN forward to a specified WAL position.
+
+## Definition
+
+
+## Detailed Description
+This function advances a physical replication slot's restart_lsn to the specified target LSN position. It performs a simple comparison against the current restart_lsn, ensuring that only forward movement is allowed. The function is designed to be called within the context of an acquired replication slot (MyReplicationSlot must be valid).
+
+When advancing the slot, the function:
+1. Compares the target position with the current restart_lsn
+2. Updates the restart_lsn atomically using spinlock protection
+3. Marks the slot as dirty to ensure persistence at the next checkpoint
+4. Wakes up logical WAL senders that may be waiting on logical failover slots
+
+The function ensures data consistency by marking the slot dirty, though the advanced position may still be lost in case of a crash before the next checkpoint.
+
+## Parameters / Member Variables
+- : The target WAL LSN position to advance the slot to. Must not be InvalidXLogRecPtr.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  - Marks the slot as needing to be written to disk
+  -  - Wakes up logical WAL senders waiting on failover slots
+- Called from:
+  -  - Main SQL function for advancing replication slots
+
+## Notes and Other Information
+- This is a static helper function, not directly accessible from SQL
+- Requires MyReplicationSlot to be properly acquired before calling
+- The function only moves the slot forward; backward movement is not supported
+- Uses spinlock protection for thread-safe updates to the slot data
+- The advanced position persists only after the next checkpoint completes
+- Physical slots use restart_lsn as their primary advancement point, unlike logical slots which track confirmed_flush

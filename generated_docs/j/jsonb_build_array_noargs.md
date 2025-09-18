@@ -1,0 +1,34 @@
+# jsonb_build_array_noargs
+
+## Location
+src/backend/utils/adt/jsonb.c: 1258 - 1278
+
+## Overview
+A PostgreSQL function that handles the degenerate case of  when called with zero arguments, returning an empty JSONB array.
+
+## Definition
+
+
+## Detailed Description
+This function is specifically designed to handle the case where  is called without any arguments. It creates an empty JSONB array  by directly constructing the JSONB structure without processing any elements. This is a performance optimization that avoids the overhead of variadic argument processing when no arguments are provided.
+
+## Parameters / Member Variables
+- : Function call information structure (unused in this case since no arguments are expected)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - JsonbInState (struct)
+  - pushJsonbValue
+  - JsonbValueToJsonb
+  - WJB_BEGIN_ARRAY
+  - WJB_END_ARRAY
+  - PG_RETURN_POINTER
+- Called from (representative examples):
+  - No direct callers found (SQL function entry point)
+
+## Notes and Other Information
+- This function is used as an optimization for the zero-argument case of 
+- It directly constructs an empty JSONB array without going through the variadic argument extraction process
+- The resulting JSONB array is always 
+- This is a PostgreSQL internal function that may be called when the SQL parser determines that  has zero arguments
+- Mirrors the functionality of  but for arrays instead of objects

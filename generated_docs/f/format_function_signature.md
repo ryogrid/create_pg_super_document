@@ -1,0 +1,43 @@
+# format_function_signature
+
+## Location
+src/bin/pg_dump/pg_dump.c: 12283 - 12311
+
+## Overview
+Generates a formatted function signature consisting of the function name and argument list, primarily used for referencing functions in pg_dump output.
+
+## Definition
+```c
+static char *format_function_signature(Archive *fout, const FuncInfo *finfo, bool honor_quotes)
+```
+
+## Detailed Description
+This function creates a string representation of a function signature in the format "function_name(arg_type1, arg_type2, ...)". It generates only a minimal list of input argument types, which is sufficient to reference the function but not to define it. The function is used extensively throughout pg_dump to create consistent function references in SQL output and TOC entries.
+
+The function uses PostgreSQL's PQExpBuffer system for efficient string building and handles proper formatting of type names through the getFormattedTypeName utility.
+
+## Parameters / Member Variables
+- `fout`: Archive pointer containing dump context and formatting information
+- `finfo`: FuncInfo structure containing function metadata including name, argument count, and argument types
+- `honor_quotes`: Boolean flag determining whether the function name should be quoted using fmtId (true for SQL commands, false for TOC tags)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initPQExpBuffer
+  - appendPQExpBuffer
+  - appendPQExpBufferStr
+  - appendPQExpBufferChar
+  - fmtId
+  - getFormattedTypeName
+- Called from (representative examples):
+  - dumpFunc
+  - dumpCast
+  - dumpTransform
+  - dumpAgg
+  - fmtQualifiedDumpable
+
+## Notes and Other Information
+- The function is static to pg_dump.c and serves as a utility function for consistent function signature formatting
+- When honor_quotes is false, the function name is never quoted, making it suitable for TOC tags but not SQL commands
+- The function handles variable argument counts through the FuncInfo structure's nargs field and argtypes array
+- Memory management is handled by the PQExpBuffer system, with the caller responsible for freeing the returned string data

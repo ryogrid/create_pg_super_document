@@ -1,0 +1,56 @@
+# PushTransaction
+
+## Location
+src/backend/access/transam/xact.c: 5354 - 5415
+
+## Overview
+PushTransaction creates a new subtransaction state entry and pushes it onto the transaction state stack, initializing all necessary fields for a new subtransaction.
+
+## Definition
+
+
+## Detailed Description
+PushTransaction is a static function responsible for creating and initializing a new subtransaction state node in PostgreSQL's transaction management system. The function performs the following operations:
+
+1. **Memory Allocation**: Allocates a new TransactionStateData structure in TopTransactionContext using MemoryContextAllocZero
+2. **Subtransaction ID Assignment**: 
+   - Increments the global currentSubTransactionId counter
+   - Checks for counter wraparound and raises an error if the limit (2^32-1) is exceeded
+   - Ensures each subtransaction has a unique identifier
+3. **State Initialization**: Initializes the new subtransaction state with:
+   - Invalid full transaction ID (assigned later)
+   - Current subtransaction ID from the counter
+   - Parent pointer to the current transaction state
+   - Incremented nesting level
+   - New GUC nesting level
+   - Inherited savepoint level from parent
+   - Initial state of TRANS_DEFAULT
+   - Block state of TBLOCK_SUBBEGIN
+4. **Context Preservation**: Captures current user ID, security context, and read-only status
+5. **Parallel Processing Setup**: Initializes parallel mode level and inherits parallel child transaction status
+6. **Stack Update**: Sets the new subtransaction as the CurrentTransactionState
+
+The function ensures that AbortSubTransaction and CleanupSubTransaction can handle the subtransaction even if it doesn't yet have a transaction context, resource owner, or XID.
+
+## Parameters / Member Variables
+This function takes no parameters and operates on global transaction state variables.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MemoryContextAllocZero
+  - NewGUCNestLevel
+  - GetUserIdAndSecContext
+  - pfree (on error path)
+  - ereport, errcode, errmsg (on error path)
+- Called from (representative examples):
+  - DefineSavepoint
+  - BeginInternalSubTransaction
+
+## Notes and Other Information
+- The function includes a warning that callers must reassign CurrentTransactionState local pointers after calling this function
+- Uses TopTransactionContext for subtransaction state allocation to ensure persistence across memory context switches
+- Implements a hard limit of 2^32-1 subtransactions per main transaction to prevent counter wraparound
+- The function creates a minimal valid subtransaction state that can be safely handled by abort and cleanup functions
+- Parallel processing flags are carefully managed to track whether the subtransaction is created within a parallel operation
+- The topXidLogged flag is initialized to false, indicating that the top-level XID hasn't been logged yet
+- Located in src/backend/access/transam/xact.c:5354-5415

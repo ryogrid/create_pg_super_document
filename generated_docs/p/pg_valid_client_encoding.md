@@ -1,0 +1,29 @@
+# pg_valid_client_encoding
+
+## Location
+src/common/encnames.c: 485 - 498
+
+## Overview
+Validates whether a given encoding name is a valid client-side character encoding in PostgreSQL.
+
+## Definition
+int pg_valid_client_encoding(const char *name)
+
+## Detailed Description
+This function validates an encoding name string to determine if it represents a valid client-side character encoding. It performs a two-step validation process: first converting the encoding name to an internal encoding identifier using pg_char_to_encoding, then checking if the resulting encoding is valid for frontend (client) use with the PG_VALID_FE_ENCODING macro. Client encodings are those that can be used by PostgreSQL clients to communicate with the server.
+
+## Parameters / Member Variables
+- name: String containing the name of the character encoding to validate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_char_to_encoding (converts encoding name string to internal encoding ID)
+  - PG_VALID_FE_ENCODING (macro for validating frontend/client encodings)
+- Called from (representative examples):
+  - check_client_encoding (src/backend/commands/variable.c:686)
+
+## Notes and Other Information
+- Returns the encoding ID (positive integer) if valid, or -1 if invalid
+- Frontend encodings are a subset of all PostgreSQL encodings that are suitable for client use
+- Used for validating client_encoding parameter settings
+- Located in src/common/encnames.c:485-498

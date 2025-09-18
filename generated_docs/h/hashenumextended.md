@@ -1,0 +1,33 @@
+# hashenumextended
+
+## Location
+src/backend/access/hash/hashfunc.c: 134 - 139
+
+## Overview
+An extended PostgreSQL hash function for enumeration type values that supports a seed value for additional hash customization.
+
+## Definition
+```c
+Datum hashenumextended(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `hashenumextended` function is the extended version of the `hashenum` hash function for PostgreSQL enumeration types. It takes two arguments: the enumeration value (as an OID) and a 64-bit seed value. The function extracts the enumeration value using `PG_GETARG_OID(0)`, casts it to a 32-bit unsigned integer, and passes it along with the seed value (obtained via `PG_GETARG_INT64(1)`) to the `hash_uint32_extended` function. This extended version allows for hash customization through the seed parameter, which is useful for hash partitioning and distributed hash operations.
+
+## Parameters / Member Variables
+- Uses PostgreSQL's function argument macros (`PG_FUNCTION_ARGS`)
+- Accesses the first argument (enumeration value) as an OID via `PG_GETARG_OID(0)`
+- Accesses the second argument (seed value) as a 64-bit integer via `PG_GETARG_INT64(1)`
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_uint32_extended
+  - PG_GETARG_INT64
+- Called from (representative examples):
+  - No direct references found in the codebase
+
+## Notes and Other Information
+- This is the extended version of `hashenum` that supports seeded hashing
+- The seed parameter allows for hash distribution control and is commonly used in partitioned table operations
+- Located in src/backend/access/hash/hashfunc.c at lines 134-139
+- Follows PostgreSQL's pattern of providing both standard and extended versions of hash functions

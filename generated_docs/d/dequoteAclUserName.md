@@ -1,0 +1,31 @@
+# dequoteAclUserName
+
+## Location
+src/bin/pg_dump/dumputils.c: 616 - 654
+
+## Overview
+Transfers a user or group name from an input string into an output buffer, dequoting if needed, and returns a pointer to just past the input name.
+
+## Definition
+
+
+## Detailed Description
+This function processes ACL (Access Control List) user names by extracting them from an input string and placing them into an output buffer with proper dequoting. The function handles both quoted and unquoted user names. For quoted names, it properly processes the PostgreSQL quoting convention where double quotes are escaped as "". The function reads characters until it encounters an unquoted '=' character or reaches the end of the string, which marks the end of the user name portion in ACL entries.
+
+## Parameters / Member Variables
+- `output`: PQExpBuffer that will contain the dequoted user name (cleared at start)
+- `input`: Input string containing the potentially quoted user name
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - resetPQExpBuffer
+  - appendPQExpBufferChar
+- Called from (representative examples):
+  - parseAclItem (src/bin/pg_dump/dumputils.c:436, 448)
+
+## Notes and Other Information
+- This is a static function used internally within dumputils.c
+- The quoting convention matches the backend's acl.c putid() function
+- Handles syntax errors gracefully by returning current position on malformed input
+- Used specifically for parsing ACL entries during PostgreSQL dump operations
+- The function clears the output buffer before processing, unlike quoteAclUserName()

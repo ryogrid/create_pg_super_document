@@ -1,0 +1,36 @@
+# make_placeholder_expr
+
+## Location
+src/backend/optimizer/util/placeholder.c: 54 - 82
+
+## Overview
+Creates a PlaceHolderVar node for a given expression, which is used in PostgreSQL's query optimizer to represent expressions that need to be computed at specific query levels and locations within the join tree.
+
+## Definition
+
+
+## Detailed Description
+The  function constructs a PlaceHolderVar node that wraps an expression with metadata about where it should be evaluated in the query plan. PlaceHolderVars are essential for correctly handling expressions that need to be computed at specific levels in the join tree, particularly when dealing with outer joins and subqueries. The function initializes a new PlaceHolderVar with a unique identifier and sets up the basic structure, leaving some fields for later adjustment by the caller.
+
+The function operates at the global level (root->glob) to ensure it doesn't interfere with query-level specific planning information, since the PHV may be used across different query levels.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global planning state and context
+- : The expression to be wrapped in a PlaceHolderVar
+- : Relids representing the syntactic location (set of relation IDs) where this expression should be attributed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (for creating PlaceHolderVar)
+  - PlaceHolderVar (node type)
+  - PlaceHolderInfo (related structure)
+- Called from (representative examples):
+  - pullup_replace_vars_callback (in prepjointree.c)
+  - add_nullingrels_if_needed (in var.c)
+
+## Notes and Other Information
+- The caller is responsible for adjusting phlevelsup and phnullingrels fields as needed
+- The function assigns a unique identifier (phid) by incrementing root->glob->lastPHId
+- Initial values: phnullingrels is set to NULL, phlevelsup is set to 0
+- The function only touches root->glob to avoid interfering with query-level planning
+- PlaceHolderVars are crucial for maintaining correct expression evaluation semantics in complex queries involving outer joins

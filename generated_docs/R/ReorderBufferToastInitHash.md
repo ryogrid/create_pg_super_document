@@ -1,0 +1,36 @@
+# ReorderBufferToastInitHash
+
+## Location
+src/backend/replication/logical/reorderbuffer.c: 4818 - 4837
+
+## Overview
+Initializes a hash table for TOAST (The Oversized-Attribute Storage Technique) chunk reassembly within a reorder buffer transaction to reconstruct large column values during logical replication.
+
+## Definition
+
+
+## Detailed Description
+This function creates a hash table specifically designed to handle TOAST data reassembly during logical replication. When PostgreSQL stores large column values (typically over 2KB), it uses TOAST to break them into smaller chunks stored in separate TOAST tables. During logical replication, these chunks need to be reassembled to reconstruct the original large values. The hash table uses OIDs as keys to track different TOAST entities and stores ReorderBufferToastEnt structures that maintain the state of chunk reassembly for each large value. The hash table is created in the reorder buffer's memory context to ensure proper memory management.
+
+## Parameters / Member Variables
+- : Pointer to the ReorderBuffer containing the memory context for hash table allocation
+- : Pointer to the ReorderBufferTXN that will own the toast_hash for tracking TOAST reassembly
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_create (creates the hash table with specified parameters)
+  - Assert (ensures toast_hash is NULL before initialization)
+  - HASHCTL (hash table control structure)
+  - ReorderBufferToastEnt (hash table entry structure for TOAST data)
+  - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table configuration flags)
+- Called from (representative examples):
+  - ReorderBufferToastAppendChunk (when first TOAST chunk is encountered)
+
+## Notes and Other Information
+- The function is static, indicating it's only used within reorderbuffer.c
+- Hash table is configured with OID keys (sizeof(Oid)) to identify different TOAST entities
+- Uses a small initial size (5 buckets) as TOAST usage is typically sparse
+- The HASH_BLOBS flag enables efficient handling of binary key data
+- HASH_CONTEXT ensures the hash table is allocated in the reorder buffer's memory context
+- Critical for reconstructing large column values during logical replication decode operations
+- Must only be called when txn->toast_hash is NULL (enforced by Assert)

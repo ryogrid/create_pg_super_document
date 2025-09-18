@@ -1,0 +1,34 @@
+# lexstart
+
+## Location
+src/backend/regex/regc_lex.c: 70 - 98
+
+## Overview
+Initializes lexical analysis setup and scans leading options for regular expression compilation, setting up the appropriate lexical context based on the regex flags.
+
+## Definition
+```c
+static void lexstart(struct vars *v)
+```
+
+## Detailed Description
+The `lexstart` function is responsible for initializing the lexical analysis phase of regular expression compilation. It first processes any prefix options that may affect compilation behavior, then determines the appropriate lexical context based on the compilation flags (cflags) in the vars structure. The function sets the lexical context to one of three modes: quoted (L_Q), extended regular expression (L_ERE), or basic regular expression (L_BRE). After establishing the context, it initializes the token stream by setting up the first token for subsequent parsing.
+
+## Parameters / Member Variables
+- `v`: Pointer to the vars structure containing compilation state, including cflags (compilation flags), nexttype (next token type), and other lexical analysis state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - prefixes
+  - NOERR
+  - INTOCON
+  - next
+- Constants referenced:
+  - REG_QUOTE, REG_EXTENDED, REG_ADVANCED, REG_EXPANDED, REG_NEWLINE, REG_ADVF
+  - L_Q, L_ERE, L_BRE
+  - EMPTY
+- Called from (representative examples):
+  - CNOERR (in regcomp.c)
+
+## Notes and Other Information
+The function uses assertions to ensure mutually exclusive flag combinations are not set simultaneously. The three lexical contexts correspond to different regex syntax modes: quoted mode treats all characters literally, extended mode supports modern regex features, and basic mode provides traditional regex functionality. The function ensures proper initialization of the token stream by calling next() to prepare the first token for the parser.

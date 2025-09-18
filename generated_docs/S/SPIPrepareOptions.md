@@ -1,0 +1,37 @@
+# SPIPrepareOptions
+
+## Location
+src/include/executor/spi.h: 37 - 43
+
+## Overview
+SPIPrepareOptions is a structure that provides optional configuration parameters for the SPI_prepare_extended function, allowing customization of SQL parsing and cursor behavior during statement preparation.
+
+## Definition
+
+
+## Detailed Description
+SPIPrepareOptions serves as a configuration structure for advanced SPI statement preparation scenarios. It enables callers to customize the parsing process by providing custom parser setup hooks, specifying parsing modes, and configuring cursor-specific options. This structure is particularly useful when preparing statements that require non-standard parsing behavior or when working with cursor-based operations that need specific configuration.
+
+The structure follows PostgreSQL's pattern of using optional parameter structures to extend function interfaces without breaking backward compatibility. When passed to SPI_prepare_extended, these options override default parsing and preparation behavior.
+
+## Parameters / Member Variables
+- : Function pointer to a custom parser setup hook that will be called during SQL parsing to configure parser state
+- : Opaque pointer argument passed to the parserSetup hook function, allowing context-specific data to be provided
+- : Enumeration value specifying the raw parsing mode to use during statement preparation (e.g., normal, plpgsql, etc.)
+- : Integer bitmask of cursor-specific options that affect how prepared statements will behave when executed as cursors
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParserSetupHook
+  - RawParseMode
+
+- Called from (representative examples):
+  - SPI_prepare_extended
+
+## Notes and Other Information
+- This structure is designed for advanced SPI usage and is not needed for basic statement preparation
+- The parserSetup hook mechanism allows for sophisticated customization of the parsing process
+- The parseMode parameter is particularly important for procedural languages that need specific parsing behavior
+- cursorOptions allows fine-grained control over cursor behavior for prepared statements
+- All members are optional and can be set to appropriate default values (NULL/0) when not needed
+- The structure provides a clean extension point for future SPI preparation options without API changes

@@ -1,0 +1,48 @@
+# ECPGallocate_desc
+
+## Location
+src/interfaces/ecpg/ecpglib/descriptor.c: 792 - 831
+
+## Overview
+Allocates and initializes a new SQL descriptor with the specified name, adding it to the global descriptor list.
+
+## Definition
+```c
+bool ECPGallocate_desc(int line, const char *name)
+```
+
+## Detailed Description
+This function creates a new SQL descriptor structure, initializing all its fields to appropriate default values. The function allocates memory for both the descriptor structure and its name string, initializes the descriptor with an empty PostgreSQL result set, and adds it to the front of the global descriptor linked list. The function performs comprehensive error checking, ensuring that all memory allocations succeed and properly cleaning up on failure. The newly created descriptor is initialized with a count of -1 (indicating no fields have been described yet), NULL items list, and an empty PGresult structure.
+
+## Parameters / Member Variables
+- `line`: Line number for error reporting purposes in the ECPG preprocessor context
+- `name`: Name to assign to the new descriptor (null-terminated string)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ECPGget_sqlca: Gets the SQLCA structure for error handling
+  - ecpg_init_sqlca: Initializes the SQLCA structure
+  - ecpg_alloc: ECPG-specific memory allocation function
+  - ecpg_free: ECPG-specific memory deallocation function
+  - get_descriptors: Retrieves the current head of the descriptor list
+  - set_descriptors: Updates the head of the descriptor list
+  - PQmakeEmptyPGresult: Creates an empty PostgreSQL result structure
+  - strcpy: Standard string copy function
+  - strlen: Standard string length function
+  - ecpg_raise: Raises ECPG errors with appropriate error codes
+  - ECPG_OUT_OF_MEMORY: Error constant for memory allocation failures
+  - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY: SQL state for out-of-memory conditions
+
+- Called from (representative examples):
+  - Various test programs in src/interfaces/ecpg/test/expected/
+  - ECPG-generated code for ALLOCATE DESCRIPTOR statements
+
+## Notes and Other Information
+- Returns `true` on successful allocation, `false` on error
+- The new descriptor is added to the front of the global descriptor list for O(1) insertion
+- Proper cleanup is performed on any allocation failure to prevent memory leaks
+- The descriptor is initialized with count = -1, items = NULL, and an empty PGresult
+- Error conditions include: SQLCA allocation failure, descriptor memory allocation failure, name memory allocation failure, PGresult creation failure
+- This function is part of the ECPG (Embedded SQL in C) library for PostgreSQL
+- Thread-safe as evidenced by usage in thread-descriptor tests
+- The function is typically called by ECPG-generated code when processing ALLOCATE DESCRIPTOR SQL statements

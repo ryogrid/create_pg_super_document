@@ -1,0 +1,34 @@
+# ExecShutdownForeignScan
+
+## Location
+src/backend/executor/nodeForeignscan.c: 441 - 455
+
+## Overview
+Provides a mechanism for Foreign Data Wrappers (FDWs) to perform cleanup operations, stop asynchronous resource consumption, and release any resources still held when shutting down a foreign scan operation.
+
+## Definition
+```c
+void ExecShutdownForeignScan(ForeignScanState *node)
+```
+
+## Detailed Description
+This function serves as an interface between PostgreSQL's executor and FDW implementations to enable proper resource cleanup during foreign scan shutdown. It checks if the FDW provides a ShutdownForeignScan callback function and invokes it if available. This allows FDWs to perform any necessary cleanup operations such as closing connections, freeing memory, canceling ongoing asynchronous operations, or releasing other resources that were allocated during the scan's execution.
+
+The function is part of PostgreSQL's extensible foreign data wrapper architecture, providing a clean shutdown hook that FDWs can implement to ensure proper resource management.
+
+## Parameters / Member Variables
+- `node`: A pointer to the ForeignScanState containing the state information for the foreign scan operation, including the FDW routine table
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ForeignScanState (structure)
+  - FdwRoutine (structure)
+  - ShutdownForeignScan (FDW callback function)
+- Called from (representative examples):
+  - ExecShutdownNode_walker (in execProcnode.c)
+
+## Notes and Other Information
+- This function is optional for FDWs to implement - it only calls the shutdown callback if the FDW provides one
+- Part of the asynchronous foreign scan infrastructure introduced to support concurrent/parallel foreign scans
+- Should be called during plan node shutdown to ensure proper cleanup of FDW resources
+- Located in src/backend/executor/nodeForeignscan.c:441-455

@@ -1,0 +1,46 @@
+# CreateCachedPlan
+
+## Location
+src/backend/utils/cache/plancache.c: 192 - 275
+
+## Overview
+Creates and initializes a new CachedPlanSource structure, which serves as the foundation for PostgreSQL's plan caching system.
+
+## Definition
+```c
+CachedPlanSource *CreateCachedPlan(RawStmt *raw_parse_tree, const char *query_string, CommandTag commandTag)
+```
+
+## Detailed Description
+CreateCachedPlan is the first phase of a two-step process for creating cached execution plans in PostgreSQL. It creates a CachedPlanSource structure that contains the raw parse tree and other metadata needed for plan creation. The function is designed to be called after raw parsing but before parse analysis and rewrite to optimize memory usage by avoiding unnecessary copying of the parse tree.
+
+The function creates a dedicated memory context for the CachedPlanSource to ensure proper memory management and cleanup in case of errors. Initially, this context is a child of the caller's context, allowing automatic cleanup on error. The cached plan can later be made longer-lived using SaveCachedPlan.
+
+The created CachedPlanSource is initialized with default values for most fields, with the actual planning and optimization occurring later during CompleteCachedPlan or when the plan is first executed.
+
+## Parameters / Member Variables
+- `raw_parse_tree`: The output of raw_parser(), or NULL for empty queries  
+- `query_string`: The original SQL query text (required as of PostgreSQL 8.4)
+- `commandTag`: The command tag identifying the type of SQL statement, or UNKNOWN for empty queries
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AllocSetContextCreate
+  - MemoryContextSwitchTo
+  - palloc0
+  - copyObject
+  - pstrdup
+  - MemoryContextSetIdentifier
+- Called from (representative examples):
+  - PrepareQuery (for PREPARE statements)
+  - _SPI_prepare_plan (SPI interface)
+  - exec_parse_message (protocol message handling)
+
+## Notes and Other Information
+- Part of a two-phase plan creation process (CreateCachedPlan followed by CompleteCachedPlan)
+- Creates a dedicated memory context named "CachedPlanSource" for proper resource management
+- Initializes the magic number CACHEDPLANSOURCE_MAGIC for structure validation
+- All string and tree data is deep-copied to ensure independence from caller's memory
+- The is_complete flag is set to false until CompleteCachedPlan is called
+- Memory context identifier is set to the query string for debugging purposes
+- Critical for PostgreSQL's plan caching infrastructure used in prepared statements, SPI, and protocol-level statement preparation

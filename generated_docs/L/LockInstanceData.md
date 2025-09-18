@@ -1,0 +1,42 @@
+# LockInstanceData
+
+## Location
+src/include/storage/lock.h: 452 - 463
+
+## Overview
+LockInstanceData holds information about a specific lock instance for user-level lock listing functions, providing detailed lock status for monitoring and diagnostics.
+
+## Definition
+
+
+## Detailed Description
+LockInstanceData is a data transfer structure designed to communicate lock state information from PostgreSQL's internal lock manager to user-visible functions. This structure is primarily used by system functions like pg_locks, pg_blocking_pids, and related lock monitoring utilities that provide visibility into the database's locking state.
+
+The structure captures a snapshot of a particular process's involvement with a specific lock, including what types of locks it holds, what it might be waiting for, timing information, and process identification details. This information is essential for lock monitoring, deadlock analysis, and performance troubleshooting.
+
+## Parameters / Member Variables
+- : LOCKTAG identifying the specific object being locked (table, tuple, transaction, etc.)
+- : Bitmask indicating which lock modes this process currently holds on the object
+- : The lock mode this process is waiting to acquire, or invalid if not waiting
+- : Virtual transaction ID of the process holding or requesting the lock
+- : Timestamp when the process started waiting for the lock (if applicable)
+- : Process ID of the backend process involved with this lock
+- : Process ID of the parallel group leader, or same as pid if not in a parallel group
+- : Boolean indicating whether this lock was acquired via the fast-path mechanism
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LOCKTAG
+  - LOCKMASK
+  - LOCKMODE
+  - VirtualTransactionId
+  - TimestampTz
+- Called from (representative examples):
+  - GetLockStatusData
+  - GetBlockerStatusData
+  - GetSingleProcBlockerStatusData
+  - pg_lock_status
+  - pg_blocking_pids
+
+## Notes and Other Information
+LockInstanceData is specifically designed for external consumption rather than internal lock management. It provides a stable interface for lock introspection functions that expose lock information to database administrators and monitoring tools. The structure includes timing information that helps diagnose lock contention issues and the fastpath flag that indicates whether the lock bypassed the normal shared memory lock table for performance optimization.

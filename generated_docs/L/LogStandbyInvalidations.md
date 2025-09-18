@@ -1,0 +1,42 @@
+# LogStandbyInvalidations
+
+## Location
+src/backend/storage/ipc/standby.c: 1462 - 1483
+
+## Overview
+Emits WAL records for cache invalidation messages, primarily used for commits without transaction IDs that contain invalidations.
+
+## Definition
+
+
+## Detailed Description
+LogStandbyInvalidations creates WAL records containing cache invalidation messages that need to be replayed on standby servers. This function is specifically designed for commits that don't have assigned transaction IDs but still need to propagate cache invalidations to maintain consistency across standby servers.
+
+The function constructs an xl_invalidations record containing the database ID, tablespace ID, relation cache initialization file invalidation flag, and the array of invalidation messages. This information is essential for standby servers to maintain proper cache consistency by invalidating the same cache entries that were invalidated on the primary server.
+
+The WAL record uses the XLOG_INVALIDATIONS record type and includes both the header information and the actual invalidation message array.
+
+## Parameters / Member Variables
+- : The number of invalidation messages in the msgs array
+- : An array of SharedInvalidationMessage structures containing the invalidation information to be logged
+- : Boolean flag indicating whether the relation cache initialization file should be invalidated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogBeginInsert
+  - XLogRegisterData
+  - XLogInsert
+  - XLOG_INVALIDATIONS
+  - xl_invalidations
+  - SharedInvalidationMessage
+  - MinSizeOfInvalidations
+- Called from (representative examples):
+  - RecordTransactionCommit
+
+## Notes and Other Information
+- This function is specifically used for commits without transaction IDs that still contain cache invalidations
+- The function captures the current database ID (MyDatabaseId) and tablespace ID (MyDatabaseTableSpace) to provide context for the invalidations
+- Essential for maintaining cache consistency between primary and standby servers in Hot Standby configurations
+- The xl_invalidations structure is zeroed before use to ensure clean initialization
+- Both the header structure and the message array are registered as separate data chunks in the WAL record
+- Located in src/backend/storage/ipc/standby.c:1462-1483

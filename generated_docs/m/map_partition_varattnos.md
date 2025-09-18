@@ -1,0 +1,44 @@
+# map_partition_varattnos
+
+## Location
+src/backend/catalog/partition.c: 222 - 254
+
+## Overview
+Maps variable attribute numbers (varattnos) in expressions from one relation to another within the same partitioning hierarchy, handling cases where column positions differ between partitioned tables and their partitions.
+
+## Definition
+
+
+## Detailed Description
+This function transforms expressions by mapping variable attribute numbers from one relation to another in a partitioning hierarchy. Even though partitioned tables and their partitions must have the same column names and types, their physical attribute numbers (attnums) may differ. The function uses name-based attribute mapping to convert expressions so they reference the correct columns in the target relation.
+
+The function works by:
+1. Building an attribute map using  to match columns by name between relations
+2. Using  to transform all variable references in the expression
+3. Handling whole-row variable references appropriately
+
+## Parameters / Member Variables
+- : List of expression nodes containing variables to be remapped
+- : The range table entry number of the source relation in the expression
+- : Target relation to map attribute numbers to
+- : Source relation to map attribute numbers from
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - build_attrmap_by_name
+  - map_variable_attnos
+  - RelationGetDescr (via macro)
+  - RelationGetForm (via macro)
+- Called from (representative examples):
+  - QueuePartitionConstraintValidation
+  - ATExecAttachPartition
+  - CloneRowTriggersToPartition
+  - CreateTriggerFiringOn
+  - check_default_partition_contents
+  - generate_partition_qual
+
+## Notes and Other Information
+- The function can work on any node tree structure, not just Lists, but uses List type for convenience since most callers work with Lists
+- Both relations must be from the same partitioning hierarchy
+- The function handles NIL input gracefully by returning it unchanged
+- Whole-row variable handling is managed internally and the found_whole_row result is ignored since a target row type is provided

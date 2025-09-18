@@ -1,0 +1,35 @@
+# pg_get_constraintdef_ext
+
+## Location
+src/backend/utils/adt/ruleutils.c: 2143 - 2163
+
+## Overview
+This function provides an extended interface for retrieving the SQL definition of a database constraint, with control over pretty-printing format.
+
+## Definition
+
+
+## Detailed Description
+pg_get_constraintdef_ext is a PostgreSQL built-in function that returns the SQL definition text for a specified constraint. It extends the basic constraint definition retrieval by allowing the caller to control whether the output should be formatted for readability (pretty-printed) or kept in a compact form. This function serves as a wrapper around pg_get_constraintdef_worker, providing a user-accessible interface with formatting options.
+
+## Parameters / Member Variables
+-  (Oid): The object identifier of the constraint to retrieve the definition for
+-  (bool): Flag indicating whether the output should be pretty-printed for readability
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_OID (macro for extracting OID argument)
+  - PG_GETARG_BOOL (macro for extracting boolean argument)
+  - GET_PRETTY_FLAGS (macro for converting boolean to pretty-printing flags)
+  - pg_get_constraintdef_worker (core worker function that generates constraint definition)
+  - string_to_text (utility function for converting C string to PostgreSQL text type)
+  - PG_RETURN_TEXT_P (macro for returning text result)
+  - PG_RETURN_NULL (macro for returning NULL result)
+- Called from:
+  - This function is typically called from SQL queries as a built-in function
+
+## Notes and Other Information
+- This function is exposed to SQL users as pg_get_constraintdef(oid, boolean)
+- Returns NULL if the constraint with the given OID does not exist
+- The pretty-printing option affects formatting such as line breaks and indentation in complex constraint definitions
+- Located in src/backend/utils/adt/ruleutils.c:2143-2163

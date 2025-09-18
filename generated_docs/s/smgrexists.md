@@ -1,0 +1,41 @@
+# smgrexists
+
+## Location
+src/backend/storage/smgr/smgr.c: 398 - 410
+
+## Overview
+Checks whether the underlying file for a specific fork of a relation exists on disk.
+
+## Definition
+
+
+## Detailed Description
+This function determines if the physical file corresponding to a specific fork of a relation exists in the storage system. It acts as a dispatcher that delegates the actual existence check to the appropriate storage manager implementation through the smgrsw function table. The function returns true if the file exists, false otherwise.
+
+The function uses the storage manager switch (smgrsw) to call the appropriate exists method based on the relation's storage manager type (reln->smgr_which). This abstraction allows PostgreSQL to support different storage managers while providing a uniform interface for existence checking.
+
+## Parameters / Member Variables
+- : SMgrRelation pointer representing the relation to check
+- : ForkNumber indicating which fork of the relation to check (main, FSM, VM, etc.)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - smgrsw (storage manager switch table)
+  - SMgrRelation (relation structure type)
+  - ForkNumber (fork identifier type)
+- Called from (representative examples):
+  - heapam_relation_copy_data (heap access method)
+  - visibilitymap_prepare_truncate (visibility map operations)
+  - vm_readbuf (visibility map buffer management)
+  - XLogPrefetcherNextBlock (WAL prefetching)
+  - index_build (index construction)
+  - RelationTruncate (relation truncation operations)
+  - ExtendBufferedRelTo (buffer management)
+  - CreateAndCopyRelationData (relation data copying)
+
+## Notes and Other Information
+- This is a fundamental storage layer function used throughout PostgreSQL for checking file existence before operations
+- The function is used extensively in buffer management, index operations, and relation maintenance
+- Commonly used before attempting file operations to avoid errors or to determine if initialization is needed
+- Part of the storage manager abstraction layer that allows different storage implementations
+- Located in src/backend/storage/smgr/smgr.c:398-410

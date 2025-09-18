@@ -1,0 +1,32 @@
+# inet_same_family
+
+## Location
+src/backend/utils/adt/network.c: 1464 - 1475
+
+## Overview
+Determines whether two inet addresses belong to the same address family (IPv4 or IPv6).
+
+## Definition
+
+
+## Detailed Description
+This function compares two inet addresses to determine if they belong to the same address family. It is used internally to validate that network operations can be performed between two addresses, ensuring they are compatible (both IPv4 or both IPv6). The function extracts the IP family information from each address and performs a simple equality comparison.
+
+## Parameters / Member Variables
+- Uses PostgreSQL's standard function argument mechanism 
+- First argument: inet address (accessed via )
+- Second argument: inet address (accessed via )
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  - macro to extract inet arguments
+  -  - extracts the address family from inet structure
+  -  - macro to return boolean result
+- Called from (representative examples):
+  - Not directly referenced by other functions (likely used through SQL function calls)
+
+## Notes and Other Information
+- This function is typically exposed as a SQL function for network address comparison
+- Returns true if both addresses are from the same family (IPv4 or IPv6), false otherwise
+- Essential for network operations that require address family compatibility
+- Located in src/backend/utils/adt/network.c:1464-1475

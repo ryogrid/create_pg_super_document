@@ -1,0 +1,55 @@
+# insert_event_trigger_tuple
+
+## Location
+src/backend/commands/event_trigger.c: 273 - 355
+
+## Overview
+Inserts a new event trigger tuple into the pg_event_trigger system catalog and records all necessary dependencies for the trigger.
+
+## Definition
+```c
+static Oid insert_event_trigger_tuple(const char *trigname, const char *eventname, Oid evtOwner, Oid funcoid, List *taglist)
+```
+
+## Detailed Description
+insert_event_trigger_tuple is the core function responsible for physically creating the event trigger entry in PostgreSQL's system catalogs. It constructs a tuple for the pg_event_trigger catalog with all the necessary attributes including trigger name, event name, owner, function OID, enabled status, and tag filters. The function handles the complete lifecycle of catalog insertion including acquiring locks, generating a new OID, building the tuple data, inserting it into the catalog, recording dependencies, and invoking post-creation hooks. For login event triggers, it also sets a database-level flag for performance optimization.
+
+## Parameters / Member Variables
+- `trigname`: The name of the event trigger being created
+- `eventname`: The event type (ddl_command_start, ddl_command_end, sql_drop, login, table_rewrite)
+- `evtOwner`: The OID of the user who owns the event trigger
+- `funcoid`: The OID of the function that will be called when the event trigger fires
+- `taglist`: A List of command tags to filter on, or NIL if no filtering
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open() - opens the pg_event_trigger relation with lock
+  - GetNewOidWithIndex() - generates a new unique OID for the trigger
+  - namestrcpy() - copies strings into NameData structures
+  - NameGetDatum() - converts NameData to Datum
+  - ObjectIdGetDatum() - converts OID to Datum
+  - CharGetDatum() - converts char to Datum
+  - filter_list_to_array() - converts tag list to array for storage
+  - heap_form_tuple() - creates a heap tuple from values and nulls arrays
+  - CatalogTupleInsert() - inserts the tuple into the catalog
+  - heap_freetuple() - frees the temporary heap tuple
+  - SetDatabaseHasLoginEventTriggers() - sets database flag for login triggers
+  - recordDependencyOnOwner() - records ownership dependency
+  - recordDependencyOn() - records function dependency
+  - recordDependencyOnCurrentExtension() - records extension dependency if applicable
+  - InvokeObjectPostCreateHook() - invokes post-creation hooks
+  - table_close() - closes the relation and releases lock
+- Called from (representative examples):
+  - CreateEventTrigger() - as the final step in event trigger creation
+
+## Notes and Other Information
+- This is a static function only accessible within event_trigger.c
+- Uses RowExclusiveLock on pg_event_trigger to ensure safe concurrent access
+- Generates a new OID using the EventTriggerOidIndexId unique index
+- Sets the trigger to TRIGGER_FIRES_ON_ORIGIN by default (enabled)
+- For login event triggers, optimizes future lookups by setting a database-level flag
+- Records three types of dependencies: owner dependency, function dependency, and extension dependency
+- Handles NULL tag lists properly by setting the appropriate null flag
+- Returns the newly assigned OID for the event trigger
+- Part of PostgreSQL's dependency tracking system to ensure proper cleanup during DROP operations
+- The function is transactional - if any step fails, the entire operation will be rolled back

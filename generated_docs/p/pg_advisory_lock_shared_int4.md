@@ -1,0 +1,37 @@
+# pg_advisory_lock_shared_int4
+
+## Location
+src/backend/utils/adt/lockfuncs.c: 843 - 860
+
+## Overview
+Acquires a session-scoped shared advisory lock using two 32-bit integer keys, allowing multiple concurrent holders.
+
+## Definition
+```c
+Datum pg_advisory_lock_shared_int4(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function acquires a shared advisory lock that is scoped to the current session. The lock is identified by a combination of two 32-bit integer keys (key1, key2). Shared locks allow multiple processes to hold the same lock simultaneously, but prevent exclusive locks from being acquired. The lock persists until explicitly released or the session ends. The function blocks indefinitely until the lock can be acquired.
+
+## Parameters / Member Variables
+- `key1`: First 32-bit integer component of the lock identifier (PG_GETARG_INT32(0))
+- `key2`: Second 32-bit integer component of the lock identifier (PG_GETARG_INT32(1))
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
+  - LockAcquire: Core lock acquisition function with ShareLock mode and session scope (true)
+  - LOCKTAG: Lock identifier structure
+  - ShareLock: Lock mode constant for shared access
+  - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
+- Called from (representative examples):
+  - No direct references found (likely called via SQL function interface)
+
+## Notes and Other Information
+- Session-scoped locks must be explicitly released or will persist until session end
+- Uses shared lock mode, allowing multiple concurrent shared lock holders
+- Blocks indefinitely until lock acquisition succeeds
+- Compatible with other shared locks but conflicts with exclusive locks
+- Part of PostgreSQL's advisory locking system for application-level coordination
+- Accessible via SQL as pg_advisory_lock_shared(int4, int4)

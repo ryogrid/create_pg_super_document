@@ -1,0 +1,37 @@
+# JsonValueListLength
+
+## Location
+src/backend/utils/adt/jsonpath_exec.c: 3527 - 3532
+
+## Overview
+Returns the number of JSON values stored in a JsonValueList structure, providing an efficient count operation that handles both singleton and list representations.
+
+## Definition
+
+
+## Detailed Description
+This function calculates and returns the total number of JSON values contained within a JsonValueList structure. The JsonValueList is an optimization structure that can store either a single value (singleton) or multiple values in a linked list. The function efficiently determines the count by checking if the list is in singleton mode (returning 1) or by calling list_length() on the underlying list structure.
+
+This function is used throughout the JSON path execution engine to determine the size of result sets and to validate operations that depend on the number of values present.
+
+## Parameters / Member Variables
+- : Pointer to a const JsonValueList structure whose length is to be determined
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - list_length (PostgreSQL list utility function)
+  - JsonValueList (structure type)
+- Called from (representative examples):
+  - jsonb_path_match_internal
+  - jsonb_path_query_first_internal
+  - executeBinaryArithmExpr
+  - getArrayIndex
+  - JsonPathQuery
+  - JsonPathValue
+
+## Notes and Other Information
+- This is a static function internal to the jsonpath execution module
+- The function handles the dual representation efficiently: singleton values return 1 immediately without list traversal
+- Part of the JSON path expression evaluation system in PostgreSQL
+- Used for both validation (ensuring single values where required) and iteration control
+- The JsonValueList structure uses a singleton optimization to avoid list overhead for single values

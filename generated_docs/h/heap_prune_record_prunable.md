@@ -1,0 +1,34 @@
+# heap_prune_record_prunable
+
+## Location
+src/backend/access/heap/pruneheap.c: 1201 - 1214
+
+## Overview
+Records the lowest soon-prunable transaction ID (XID) in the pruning state, which is used to track when a page may need pruning again.
+
+## Definition
+
+
+## Detailed Description
+This function updates the pruning state to record the lowest soon-prunable transaction ID. It maintains the minimum XID among all transactions that may soon become prunable on the page. This information is later used to set the page's prunable XID hint, which helps the system determine when the page might benefit from another pruning pass.
+
+The function follows the same logic as the PageSetPrunable macro but operates on working state rather than directly on the page header, since the page modifications are batched and applied later.
+
+## Parameters / Member Variables
+- : Pointer to the PruneState structure that tracks the current pruning operation state
+- : Transaction ID that should be considered for recording as the prunable XID
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PruneState (structure)
+  - TransactionIdIsNormal
+  - TransactionIdPrecedes
+  - TransactionIdIsValid
+- Called from (representative examples):
+  - heap_prune_record_unchanged_lp_normal
+
+## Notes and Other Information
+- The function includes an assertion that the XID must be normal (not frozen or invalid)
+- Only updates the prunable XID if the new XID is earlier than the currently recorded one
+- Works in conjunction with the PageSetPrunable macro logic
+- Part of PostgreSQL's heap pruning mechanism for HOT (Heap-Only Tuples) cleanup

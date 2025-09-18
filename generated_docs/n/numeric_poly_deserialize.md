@@ -1,0 +1,50 @@
+# numeric_poly_deserialize
+
+## Location
+src/backend/utils/adt/numeric.c: 5755 - 5807
+
+## Overview
+The numeric_poly_deserialize function deserializes a bytea representation back into a PolyNumAggState structure for PostgreSQL's parallel aggregation framework, reconstructing partial aggregate states from serialized data.
+
+## Definition
+```c
+Datum numeric_poly_deserialize(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function is the counterpart to numeric_poly_serialize, responsible for reconstructing a PolyNumAggState structure from its serialized bytea representation. It's a critical component of PostgreSQL's parallel aggregation infrastructure, enabling the reconstruction of partial aggregate states that have been transmitted between processes or stored temporarily.
+
+The function reads the serialized data using PostgreSQL's binary protocol format, extracting the count (N), sum of values (sumX), and sum of squares (sumX2). It handles platform differences by converting the standardized numeric format back to the appropriate internal representation (128-bit integers when available, or accumulator sums otherwise). This ensures compatibility across different architectures while maintaining optimal performance on each platform.
+
+## Parameters / Member Variables
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
+  - Argument 0: bytea pointer (the serialized state to deserialize)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PolyNumAggState (data structure)
+  - AggCheckCallContext (context validation)
+  - StringInfoData (buffer for deserialization)
+  - NumericVar (temporary numeric variable)
+  - PG_GETARG_BYTEA_PP (extract bytea argument)
+  - init_var (numeric variable initialization)
+  - initReadOnlyStringInfo (initialize read buffer)
+  - makePolyNumAggStateCurrentContext (create new state structure)
+  - pq_getmsgint64 (deserialize int64 value)
+  - numericvar_deserialize (deserialize numeric variable)
+  - numericvar_to_int128 (convert numeric to 128-bit int, when HAVE_INT128)
+  - accum_sum_add (add to accumulator sum)
+  - pq_getmsgend (finalize message reading)
+  - free_var (cleanup numeric variable)
+- Called from (representative examples):
+  - No direct references found in the codebase
+
+## Notes and Other Information
+- This function is the complement to numeric_poly_serialize, completing the serialization/deserialization cycle
+- Handles platform differences transparently by converting from standardized numeric format to optimal internal representation
+- Part of PostgreSQL's parallel aggregation system for statistical functions requiring sum-of-squares calculations
+- Uses PostgreSQL's binary protocol format for efficient deserialization
+- The function validates that it's called in an appropriate aggregate context
+- Memory management includes proper cleanup of temporary variables and creation of result in appropriate context
+- Critical for distributed query processing where partial results are received from other processes or nodes
+- Maintains consistency and accuracy of statistical calculations across parallel operations

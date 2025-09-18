@@ -1,0 +1,33 @@
+# assign_transaction_timeout
+
+## Location
+src/backend/tcop/postgres.c: 3683 - 3701
+
+## Overview
+A GUC assign hook function that manages the transaction timeout mechanism when the  configuration parameter is changed during runtime.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a GUC (Grand Unified Configuration) assign hook that is automatically invoked whenever the  parameter is modified. It ensures that transaction timeout behavior is properly managed within active transactions by enabling or disabling the timeout timer based on the new value. When called within an active transaction, it immediately applies the new timeout setting rather than waiting for the next transaction to begin.
+
+## Parameters / Member Variables
+- : The new value for the transaction_timeout parameter (in milliseconds). Values > 0 enable the timeout, while values <= 0 disable it.
+- : Additional context data passed by the GUC system (unused in this implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsTransactionState: Checks if currently within a transaction block
+  - get_timeout_active: Determines if the TRANSACTION_TIMEOUT is currently active
+  - enable_timeout_after: Enables the transaction timeout with specified duration
+  - disable_timeout: Disables the transaction timeout
+  - TRANSACTION_TIMEOUT: Timeout identifier constant
+- Called from (representative examples):
+  - GUC system (via function pointer in guc_hooks.h)
+
+## Notes and Other Information
+- This function only takes action when called within an active transaction state
+- The timeout is managed through PostgreSQL's timeout management system
+- Changes to transaction_timeout outside of transactions will be applied to future transactions automatically
+- Part of the GUC hook mechanism that allows custom behavior when configuration parameters change

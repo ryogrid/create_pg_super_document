@@ -1,0 +1,32 @@
+# CopySearchPathMatcher
+
+## Location
+src/backend/catalog/namespace.c: 3889 - 3910
+
+## Overview
+Creates a deep copy of an existing SearchPathMatcher structure, allocating the result in the current memory context.
+
+## Definition
+
+
+## Detailed Description
+This function performs a deep copy of a SearchPathMatcher structure, creating a new instance with identical configuration but independent memory allocation. It copies all fields including the schema list, catalog/temp namespace flags, and generation number. The function is essential for maintaining separate copies of search path configurations that can be modified independently without affecting the original.
+
+## Parameters / Member Variables
+- : The SearchPathMatcher structure to copy
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchPathMatcher (type)
+  - list_copy
+  - palloc
+- Called from (representative examples):
+  - CopyCachedPlan (src/backend/utils/cache/plancache.c:1593)
+  - RangeVarGetRelid (src/include/catalog/namespace.h:169)
+
+## Notes and Other Information
+- Allocates the result in CurrentMemoryContext rather than allowing caller to specify context
+- Performs a deep copy of the schema list to ensure complete independence from the original
+- Used primarily in plan caching scenarios where search path configurations need to be preserved
+- Part of PostgreSQL's namespace resolution and query plan caching infrastructure
+- Essential for maintaining search path consistency across different execution contexts

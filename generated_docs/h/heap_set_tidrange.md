@@ -1,0 +1,49 @@
+# heap_set_tidrange
+
+## Location
+src/backend/access/heap/heapam.c: 1375 - 1447
+
+## Overview
+Configures a heap table scan to limit scanning to tuples within a specified TID (tuple identifier) range, optimizing scans that only need to examine specific portions of a table.
+
+## Definition
+
+
+## Detailed Description
+The  function restricts a heap table scan to only examine tuples within a specified range of tuple identifiers (TIDs). It calculates the actual block range that needs to be scanned based on the provided minimum and maximum TIDs, handles edge cases like empty relations and invalid ranges, and updates the scan descriptor with the computed limits. This is particularly useful for TID range scans where only specific portions of a table need to be examined, providing significant performance benefits by avoiding unnecessary block reads.
+
+The function performs careful bounds checking against the relation's actual size, handles empty ranges gracefully, and optimizes the scan by calculating the minimum number of blocks that need to be examined to cover the requested TID range.
+
+## Parameters / Member Variables
+- : The table scan descriptor to configure (cast to HeapScanDesc internally)
+- : Pointer to the minimum TID (inclusive) for the scan range
+- : Pointer to the maximum TID (inclusive) for the scan range
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ItemPointerSet
+  - ItemPointerCompare
+  - ItemPointerCopy
+  - ItemPointerGetBlockNumberNoCheck
+  - heap_setscanlimits
+- Data structures used:
+  - HeapScanDesc
+  - TableScanDesc
+  - ItemPointer
+  - ItemPointerData
+  - BlockNumber
+- Constants:
+  - MaxOffsetNumber
+  - FirstOffsetNumber
+- Called from (representative examples):
+  - SampleHeapTupleVisible
+  - HeapScanIsValid
+
+## Notes and Other Information
+- Returns early for relations with no pages () since there are no tuples to scan
+- Creates boundary ItemPointers representing the lowest possible TID  and highest possible TID 
+- Clamps the requested range to the actual bounds of the relation to prevent scanning non-existent blocks
+- Detects empty ranges (where highestItem < lowestItem) and sets up an empty scan with 
+- Could be optimized further by checking offset boundaries (e.g., advancing startBlk if lowestItem offset > MaxOffsetNumber) but such optimizations are currently considered not worth the complexity
+- Sets both the block-level scan limits via  and the exact TID range in / for precise tuple filtering
+- The TID range checking ensures that scans don't attempt to read beyond the actual size of the relation

@@ -1,0 +1,38 @@
+# EstimateReindexStateSpace
+
+## Location
+src/backend/catalog/index.c: 4181 - 4191
+
+## Overview
+Estimates the memory space needed to serialize reindex state information for passing to parallel worker processes during parallel reindex operations.
+
+## Definition
+```c
+Size EstimateReindexStateSpace(void)
+```
+
+## Detailed Description
+This function calculates the amount of memory required to store the serialized reindex state that needs to be shared with parallel workers during a reindex operation. The calculation is based on the size of the SerializedReindexState structure plus space for an array of pending reindexed index OIDs.
+
+The function computes the total size by adding:
+- The base size of SerializedReindexState up to the flexible array member
+- The size needed for the array of pending reindexed index OIDs
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SerializedReindexState (structure type)
+  - mul_size (utility function for safe size multiplication)
+  - list_length (list utility function)
+  - pendingReindexedIndexes (global list variable)
+- Called from (representative examples):
+  - InitializeParallelDSM
+
+## Notes and Other Information
+- This function is part of PostgreSQL's parallel reindex infrastructure
+- The estimation is used to allocate shared memory for parallel worker communication
+- Uses mul_size() for overflow-safe multiplication when calculating array sizes
+- The pendingReindexedIndexes is a global list that tracks indexes currently being reindexed
+- Located in src/backend/catalog/index.c at lines 4181-4191

@@ -1,0 +1,46 @@
+# contain_aggs_of_level_walker
+
+## Location
+src/backend/rewrite/rewriteManip.c: 103 - 149
+
+## Overview
+A recursive tree walker callback function that examines nodes to detect aggregate functions (Aggref and GroupingFunc) at a specific query nesting level.
+
+## Definition
+```c
+static bool contain_aggs_of_level_walker(Node *node, contain_aggs_of_level_context *context)
+```
+
+## Detailed Description
+This static function serves as the core implementation for the contain_aggs_of_level functionality. It operates as a callback for PostgreSQL's tree walking infrastructure, recursively examining each node in an expression tree to identify aggregate functions that belong to the target query level.
+
+The function handles multiple node types with specific logic:
+- For Aggref nodes (regular aggregates): Checks if the agglevelsup matches the target level
+- For GroupingFunc nodes (GROUPING() function): Similar level checking as Aggref
+- For Query nodes (subselects): Recursively descends while adjusting the level context
+- For other nodes: Continues tree traversal using expression_tree_walker
+
+The level tracking mechanism ensures that aggregates are correctly attributed to their proper query scope, which is essential for query optimization and rewriting operations.
+
+## Parameters / Member Variables
+- `node`: The current node being examined in the tree traversal
+- `context`: Context structure containing the target sublevels_up value for comparison
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - contain_aggs_of_level_context (context structure)
+  - Aggref (aggregate function reference node)
+  - GroupingFunc (GROUPING function node)
+  - query_tree_walker (subquery traversal)
+  - expression_tree_walker (general expression traversal)
+- Called from (representative examples):
+  - contain_aggs_of_level (main entry point)
+  - contain_aggs_of_level_walker (recursive self-calls)
+
+## Notes and Other Information
+- Located in src/backend/rewrite/rewriteManip.c:103-149
+- Static function, only accessible within the same compilation unit
+- Uses PostgreSQL's standard tree walker pattern for robust node traversal
+- Handles proper level adjustment when recursing into subqueries
+- Returns true immediately upon finding a matching aggregate (short-circuit evaluation)
+- Critical for maintaining correct aggregate scoping in nested query structures

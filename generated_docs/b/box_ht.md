@@ -1,0 +1,31 @@
+# box_ht
+
+## Location
+src/backend/utils/adt/geo_ops.c: 893 - 907
+
+## Overview
+Returns the height (vertical magnitude) of a BOX geometric type by calculating the difference between the high and low y-coordinates.
+
+## Definition
+
+
+## Detailed Description
+The  function is a static helper function in PostgreSQL's geometric operations module that calculates the height of a BOX object. It computes the vertical distance by subtracting the low y-coordinate from the high y-coordinate using the  function. This is an internal utility function used by other box-related operations that need to determine the vertical extent of a box.
+
+## Parameters / Member Variables
+- : Pointer to a BOX structure containing the geometric box data with high and low coordinate points
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - float8_mi (floating-point subtraction function)
+  - BOX (geometric box data type)
+- Called from (representative examples):
+  - box_height (public function to get box height)
+  - box_ar (box area calculation function)
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the geo_ops.c file
+- The function assumes the BOX structure is properly initialized with valid high and low coordinates
+- Uses PostgreSQL's float8_mi function for proper floating-point arithmetic handling
+- The height is calculated as high.y - low.y, which should always be positive for a properly formed box
+- Complements the box_wd function for complete dimensional analysis of boxes

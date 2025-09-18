@@ -1,0 +1,38 @@
+# allocacl
+
+## Location
+src/backend/utils/adt/acl.c: 426 - 447
+
+## Overview
+Allocates memory for a new Access Control List (ACL) with a specified number of entries, properly initializing the array structure metadata.
+
+## Definition
+
+
+## Detailed Description
+This function creates a new ACL data structure by allocating memory and initializing all the required array metadata. ACLs in PostgreSQL are implemented as variable-length arrays (varlena) containing AclItem structures. The function calculates the appropriate size based on the number of entries, allocates zero-initialized memory using palloc0, and sets up the array dimensions and properties.
+
+The function initializes the ACL as a one-dimensional array with no null values, sets the element type to ACLITEMOID, and configures the array bounds to start at index 1 (following PostgreSQL's array indexing convention). Input validation ensures that negative sizes are rejected with an error.
+
+## Parameters / Member Variables
+- : Number of AclItem entries to allocate space for in the new ACL
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ACL_N_SIZE (macro to calculate total size needed for n ACL items)
+  - palloc0 (allocates zero-initialized memory)
+  - SET_VARSIZE (macro to set the varlena header size)
+  - ARR_LBOUND (macro to access array lower bound)
+  - ARR_DIMS (macro to access array dimensions)
+  - ACLITEMOID (OID constant for AclItem type)
+  - elog (error logging function)
+- Called from (representative examples):
+  - make_empty_acl (creates empty ACLs)
+  - aclcopy (duplicates existing ACLs)
+  - aclconcat (combines multiple ACLs)
+  - acldefault (creates default ACLs)
+  - aclupdate (modifies existing ACLs)
+  - aclnewowner (updates ACL ownership)
+
+## Notes and Other Information
+The function always creates ACLs with dataoffset=0 since ACL arrays never contain null values, and ndim=1 since ACLs are always one-dimensional arrays. The lower bound is set to 1 following PostgreSQL's standard array indexing convention. This is a fundamental utility function used throughout the ACL system for creating new ACL structures.

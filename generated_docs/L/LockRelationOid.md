@@ -1,0 +1,51 @@
+# LockRelationOid
+
+## Location
+src/backend/storage/lmgr/lmgr.c: 108 - 150
+
+## Overview
+LockRelationOid acquires a lock on a relation using only its OID, typically called before opening the relation's relcache entry to ensure consistency.
+
+## Definition
+```c
+void LockRelationOid(Oid relid, LOCKMODE lockmode)
+```
+
+## Detailed Description
+This function is a core component of PostgreSQL's locking system that acquires a lock on a relation using only its OID. It is typically used before attempting to open a relation's relcache entry to ensure the relation remains consistent during access.
+
+The function creates a LOCKTAG using SetLocktagRelationOid(), then calls LockAcquireExtended() to actually acquire the lock. After acquiring the lock, it handles cache invalidation messages to ensure that any stale relcache entries are updated or flushed before use.
+
+A key optimization is that if the lock was already held with the same mode (LOCKACQUIRE_ALREADY_CLEAR is not returned), the function processes invalidation messages and marks the lock as clear. This ensures that relcache entries are current and prevents issues with stale cached data.
+
+The function handles recursive locking scenarios where code might act on tables (usually catalogs) recursively and ensures proper invalidation message processing even in these corner cases.
+
+## Parameters / Member Variables
+- `relid`: The OID of the relation to lock
+- `lockmode`: The type of lock to acquire (e.g., AccessShareLock, RowExclusiveLock, AccessExclusiveLock)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LOCKTAG
+  - LOCALLOCK  
+  - LockAcquireResult
+  - SetLocktagRelationOid
+  - LockAcquireExtended
+  - LOCKACQUIRE_ALREADY_CLEAR
+  - AcceptInvalidationMessages
+  - MarkLockClear
+- Called from (representative examples):
+  - relation_open (src/backend/access/common/relation.c:55)
+  - try_relation_open (src/backend/access/common/relation.c:96)
+  - RangeVarGetRelidExtended (src/backend/catalog/namespace.c:592)
+  - heap_create_with_catalog (src/backend/catalog/heap.c:1258)
+  - index_create (src/backend/catalog/index.c:1061)
+
+## Notes and Other Information
+- Should generally be used before attempting to open a relation's relcache entry
+- Handles cache invalidation to prevent stale relcache entries
+- RangeVarGetRelid() specifically relies on this function for proper cache management  
+- Optimized to skip invalidation processing when the same lock mode was already held
+- Handles recursive table access scenarios properly
+- Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:108-150
+- Critical for maintaining consistency in PostgreSQL's relation access

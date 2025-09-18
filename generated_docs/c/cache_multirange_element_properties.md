@@ -1,0 +1,35 @@
+# cache_multirange_element_properties
+
+## Location
+src/backend/utils/cache/typcache.c: 1682 - 1709
+
+## Overview
+Caches hash function properties for the element type of a multirange type, determining whether the element type supports regular and extended hashing.
+
+## Definition
+```c
+static void cache_multirange_element_properties(TypeCacheEntry *typentry)
+```
+
+## Detailed Description
+This function populates the type cache entry with information about the hashing capabilities of a multirange type's element type. It first ensures that the multirange type information is loaded by calling load_multirangetype_info() if needed. For multirange types, it accesses the element type through the associated range type (typentry->rngtype->rngelemtype). It then looks up the element type's cache entry to check for hash_proc and hash_extended_proc functions. Based on the availability of these hash functions, it sets the appropriate flags (TCFLAGS_HAVE_ELEM_HASHING and TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) in the type cache entry. Finally, it marks that element properties have been checked by setting TCFLAGS_CHECKED_ELEM_PROPERTIES.
+
+## Parameters / Member Variables
+- `typentry`: A pointer to the TypeCacheEntry for the multirange type whose element properties need to be cached
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - load_multirangetype_info
+  - lookup_type_cache
+  - TYPTYPE_MULTIRANGE (type constant)
+  - TYPECACHE_HASH_PROC (cache flag)
+  - TYPECACHE_HASH_EXTENDED_PROC (cache flag)
+  - TCFLAGS_HAVE_ELEM_HASHING (flag constant)
+  - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
+  - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
+- Called from (representative examples):
+  - multirange_element_has_hashing
+  - multirange_element_has_extended_hashing
+
+## Notes and Other Information
+This is a static helper function that implements lazy initialization for multirange element type properties. It follows the same pattern as cache_range_element_properties but handles the more complex indirection required for multirange types (multirange -> range -> element). The function ensures that all necessary type information is loaded before attempting to access element properties, making it robust for use in various contexts within the type cache system. The multirange type system was introduced in PostgreSQL 14 to represent collections of non-overlapping ranges.

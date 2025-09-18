@@ -1,0 +1,41 @@
+# LockHasWaiters
+
+## Location
+src/backend/storage/lmgr/lock.c: 643 - 755
+
+## Overview
+LockHasWaiters determines whether releasing a specific lock would wake up other processes waiting for it, providing essential information for lock release optimization and deadlock detection.
+
+## Definition
+
+
+## Detailed Description
+LockHasWaiters performs a non-intrusive check to determine if other processes are waiting for a lock that the current process holds. It validates that the current process actually owns the specified lock, then examines the shared lock table to check if there are waiters whose lock requests conflict with the specified lock mode. This function is crucial for optimizing lock release operations and understanding contention patterns without actually releasing the lock.
+
+The function operates by first locating the local lock entry in the current backend's hash table, then acquiring a shared lock on the appropriate partition to safely examine the shared lock state. It performs several validation steps to ensure the process actually holds the lock before checking the conflict matrix against waiting processes.
+
+## Parameters / Member Variables
+- : Pointer to LOCKTAG structure identifying the specific lock object (table, relation, etc.)
+- : The specific lock mode to check for waiters (e.g., AccessExclusiveLock, ShareLock)
+- : Boolean indicating whether this is a session-level lock (currently unused in the implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_search (to find LOCALLOCK entry)
+  - LockHashPartitionLock (to get partition lock for safe access)
+  - LWLockAcquire/LWLockRelease (for shared lock table synchronization)
+  - RemoveLocalLock (cleanup on error conditions)
+  - LOCKBIT_ON (macro for lock mode bit manipulation)
+  - MemSet (memory initialization)
+- Data structures used:
+  - LOCALTAG, LOCALLOCK, LOCK, PROCLOCK
+  - LockMethods array and conflict tables
+- Called from (representative examples):
+  - LockHasWaitersRelation (relation-specific wrapper)
+
+## Notes and Other Information
+- Returns false and logs warnings if the process doesn't actually own the specified lock
+- Uses shared locking on the partition to avoid blocking concurrent lock operations
+- The function is read-only and doesn't modify any lock state
+- Critical for implementing efficient lock release strategies in high-concurrency scenarios
+- Relies on the conflict matrix in LockMethods to determine potential waiter conflicts

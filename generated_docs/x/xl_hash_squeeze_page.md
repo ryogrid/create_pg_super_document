@@ -1,0 +1,46 @@
+# xl_hash_squeeze_page
+
+## Location
+src/include/access/hash_xlog.h: 159 - 171
+
+## Overview
+The xl_hash_squeeze_page struct represents the WAL record data for hash index squeeze page operations, which are used to reclaim space by moving tuples from a freed overflow page to other pages.
+
+## Definition
+
+
+## Detailed Description
+This structure contains the necessary information to perform or replay a hash index squeeze page operation during WAL recovery. The squeeze page operation is part of PostgreSQL's hash index management, specifically for reclaiming space when overflow pages are freed. During this operation, tuples from a freed overflow page are moved to other pages in the hash bucket chain, and the freed page is removed from the chain.
+
+The operation involves up to 6 backup blocks:
+- Backup Blk 0: page containing tuples moved from freed overflow page
+- Backup Blk 1: freed overflow page
+- Backup Blk 2: page previous to the freed overflow page
+- Backup Blk 3: page next to the freed overflow page
+- Backup Blk 4: bitmap page containing info of freed overflow page
+- Backup Blk 5: meta page
+
+## Parameters / Member Variables
+- : Block number of the page that was previous to the freed overflow page in the bucket chain
+- : Block number of the page that was next to the freed overflow page in the bucket chain
+- : Number of tuples that were moved from the freed overflow page
+- : Boolean flag indicating whether the page receiving the moved tuples is the same as the primary bucket page
+- : Boolean flag indicating whether the page receiving the moved tuples is the page that was previous to the freed overflow page
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BlockNumber (type)
+  - uint16 (type)
+  - bool (type)
+- Called from (representative examples):
+  - hash_xlog_squeeze_page (WAL replay function)
+  - _hash_freeovflpage (hash overflow page freeing function)
+  - hash_desc (hash WAL record description function)
+  - SizeOfHashSqueezePage (macro for calculating structure size)
+
+## Notes and Other Information
+- This is specifically used for XLOG_HASH_SQUEEZE_PAGE WAL record type
+- The boolean flags help optimize the WAL replay process by indicating the relationship between pages involved in the operation
+- Part of PostgreSQL's hash index access method implementation
+- Critical for maintaining consistency during crash recovery of hash index operations
+- Defined in src/include/access/hash_xlog.h at lines 159-171

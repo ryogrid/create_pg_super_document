@@ -1,0 +1,56 @@
+# IsBinaryCoercibleWithCast
+
+## Location
+src/backend/parser/parse_coerce.c: 3047 - 3154
+
+## Overview
+Extended variant of IsBinaryCoercible that also returns the OID of the pg_cast entry when determining if a source type can be binary-coercible to a target type.
+
+## Definition
+
+
+## Detailed Description
+IsBinaryCoercibleWithCast is the core implementation function that determines binary coercibility between PostgreSQL data types. It performs comprehensive checks including hardwired rules for built-in types and polymorphic type handling, followed by lookup in the pg_cast system catalog.
+
+The function implements multiple fast-path optimizations for common scenarios:
+- Identity coercion (same types)
+- Domain to base type reduction
+- Polymorphic type compatibility (ANY*, ANYELEMENT, ANYCOMPATIBLE variants)
+- Array type coercion to ANYARRAY variants
+- Non-array type coercion to ANYNONARRAY variants
+- Enum type coercion to ANYENUM
+- Range/multirange type coercion to corresponding ANY variants
+- Composite type coercion to RECORD
+
+For types not covered by hardwired rules, it searches pg_cast for an implicit, binary-method cast entry.
+
+## Parameters / Member Variables
+- : The OID of the source data type to convert from
+- : The OID of the target data type to convert to  
+- : Pointer to store the OID of the pg_cast entry if found (set to InvalidOid if hardwired rule or no cast exists)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - getBaseType
+  - type_is_array
+  - type_is_enum
+  - type_is_range
+  - type_is_multirange
+  - ISCOMPLEX
+  - is_complex_array
+  - SearchSysCache2
+  - Form_pg_cast
+  - COERCION_METHOD_BINARY
+  - COERCION_CODE_IMPLICIT
+- Called from (representative examples):
+  - IsBinaryCoercible (src/backend/parser/parse_coerce.c:3036)
+  - CreateCast (src/backend/commands/functioncmds.c:1607, 1623)
+
+## Notes and Other Information
+- This is the workhorse function that implements the actual binary coercion logic
+- Domain types are automatically reduced to their base types for comparison
+- The function handles all polymorphic pseudo-types with specific hardwired rules
+- Only implicit casts with binary method qualify as binary coercible
+- The castoid output parameter allows callers to know which pg_cast entry was used
+- Fast-path optimizations avoid expensive catalog lookups for common type relationships
+- Composite arrays are handled specially for RECORD[] coercion compatibility

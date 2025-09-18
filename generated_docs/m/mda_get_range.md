@@ -1,0 +1,37 @@
+# mda_get_range
+
+## Location
+src/backend/utils/adt/arrayutils.c: 153 - 166
+
+## Overview
+Computes ranges (sub-array dimensions) for an array slice by calculating the span of each dimension from start to end indices.
+
+## Definition
+
+
+## Detailed Description
+This utility function calculates the dimensions (spans) for each axis of a multidimensional array slice. It iterates through all dimensions and computes the range for each by subtracting the start index from the end index and adding 1. The function assumes that the caller has already validated the slice endpoints to prevent integer overflow.
+
+The function is used internally by PostgreSQL's array slicing operations to determine the size of each dimension in the resulting sub-array.
+
+## Parameters / Member Variables
+- `n`: Number of dimensions to process
+- `span`: Output array to store the computed ranges for each dimension
+- `st`: Array of start indices for each dimension
+- `endp`: Array of end indices for each dimension
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - (No external function calls)
+- Called from (representative examples):
+  - array_get_slice
+  - array_set_slice
+  - array_slice_size
+  - array_extract_slice
+  - array_insert_slice
+
+## Notes and Other Information
+- The function assumes caller validation of slice endpoints to prevent overflow
+- Simple computation: span[i] = endp[i] - st[i] + 1 for each dimension
+- Used as a utility function in various array slicing operations throughout PostgreSQL's array handling code
+- Located in src/backend/utils/adt/arrayutils.c:153-166

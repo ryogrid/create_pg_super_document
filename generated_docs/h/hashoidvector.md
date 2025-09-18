@@ -1,0 +1,31 @@
+# hashoidvector
+
+## Location
+src/backend/access/hash/hashfunc.c: 232 - 239
+
+## Overview
+Computes a hash value for an oidvector data structure containing an array of PostgreSQL object identifiers (OIDs).
+
+## Definition
+
+
+## Detailed Description
+This function generates a hash value for an oidvector by hashing its entire array of OID values. The oidvector is a PostgreSQL data type that stores a vector of object identifiers, commonly used in system catalogs. The function calculates the hash by treating the OID array as raw binary data and passing it to the generic hash_any function.
+
+## Parameters / Member Variables
+- : Pointer to the oidvector structure to be hashed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_POINTER: Extract pointer argument from function call
+  - oidvector: PostgreSQL data type for OID vectors
+  - hash_any: Generic hash function for binary data
+- Called from (representative examples):
+  - oidvectorhashfast: Fast hash function used in catalog cache (src/backend/utils/cache/catcache.c:269)
+
+## Notes and Other Information
+- Part of PostgreSQL's hash index infrastructure for oidvector data types
+- Uses the dim1 field of oidvector to determine the number of OIDs to hash
+- Hashes the entire values array as a contiguous block of memory
+- Commonly used in system catalog operations where oidvectors need to be indexed or cached
+- Located in src/backend/access/hash/hashfunc.c:232-239

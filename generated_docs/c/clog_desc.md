@@ -1,0 +1,44 @@
+# clog_desc
+
+## Location
+src/backend/access/rmgrdesc/clogdesc.c: 21 - 43
+
+## Overview
+A PostgreSQL WAL (Write-Ahead Logging) resource manager description function that generates human-readable descriptions of commit log (CLOG) WAL records for debugging and monitoring purposes.
+
+## Definition
+```c
+void clog_desc(StringInfo buf, XLogReaderState *record)
+```
+
+## Detailed Description
+The `clog_desc` function is part of PostgreSQLs WAL resource manager infrastructure, specifically handling the description of commit log operations. It parses WAL records related to CLOG operations and generates descriptive text that explains what each record represents. This function is primarily used for debugging, logging, and WAL analysis tools like `pg_waldump`.
+
+The function handles two main types of CLOG operations:
+- **CLOG_ZEROPAGE**: Operations that zero out a CLOG page, typically when extending the CLOG during transaction ID wraparound or initialization
+- **CLOG_TRUNCATE**: Operations that truncate old CLOG pages during vacuum operations to reclaim space
+
+## Parameters / Member Variables
+- `buf`: A StringInfo buffer where the human-readable description will be appended
+- `record`: An XLogReaderState structure containing the WAL record to be described
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `XLogRecGetData`: Extracts the data portion from the WAL record
+  - `XLogRecGetInfo`: Gets the info byte from the WAL record header
+  - `XLR_INFO_MASK`: Mask used to extract operation type from info byte
+  - `CLOG_ZEROPAGE`: Constant identifying zero page operations
+  - `CLOG_TRUNCATE`: Constant identifying truncate operations
+  - `appendStringInfo`: Function to append formatted text to the StringInfo buffer
+  - `xl_clog_truncate`: Structure type for truncate operation data
+- Called from (representative examples):
+  - WAL description infrastructure (referenced from CLOG resource manager)
+
+## Notes and Other Information
+- This function is part of the rmgrdesc (Resource Manager Description) subsystem
+- Located in `src/backend/access/rmgrdesc/clogdesc.c:21-43`
+- The function uses `memcpy` for safe extraction of data from WAL records to avoid alignment issues
+- Output format varies based on operation type:
+  - ZEROPAGE: "page [page_number]"
+  - TRUNCATE: "page [page_number]; oldestXact [xid]"
+- Essential for WAL analysis and debugging tools that need to interpret CLOG-related WAL records

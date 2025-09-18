@@ -1,0 +1,43 @@
+# SlruSyncFileTag
+
+## Location
+src/backend/access/transam/slru.c: 1828 - 1849
+
+## Overview
+A common implementation function that performs file synchronization (fsync) operations for SLRU (Simple Least Recently Used) segments in PostgreSQL's transaction log system.
+
+## Definition
+
+
+## Detailed Description
+SlruSyncFileTag is a shared implementation function used by individual SLRU subsystems (such as clog, commit timestamp, and multixact) to perform file synchronization operations. The function takes an SLRU control structure and a file tag, constructs the appropriate file path, opens the file, and performs an fsync operation to ensure data is written to disk. This common implementation allows different SLRU subsystems to delegate their sync operations while providing their specific SlruCtl context.
+
+The function opens the file in read-write mode with binary flags, performs the fsync operation while reporting wait events for monitoring purposes, and properly handles error conditions by preserving errno values.
+
+## Parameters / Member Variables
+- : SlruCtl structure containing the SLRU control information needed to build the file path and handle the sync operation
+- : FileTag structure containing the segment number and other file identification information
+- : Character buffer where the constructed file path will be stored
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SlruFileName (constructs the SLRU file name)
+  - OpenTransientFile (opens the file for syncing)
+  - pgstat_report_wait_start (reports wait event start)
+  - pg_fsync (performs the actual file sync)
+  - pgstat_report_wait_end (reports wait event end)
+  - CloseTransientFile (closes the opened file)
+  - PG_BINARY (file open mode flag)
+- Called from (representative examples):
+  - clogsyncfiletag (CLOG sync handler)
+  - committssyncfiletag (commit timestamp sync handler)
+  - multixactoffsetssyncfiletag (multixact offset sync handler)
+  - multixactmemberssyncfiletag (multixact member sync handler)
+  - test_slru_page_sync (test module function)
+
+## Notes and Other Information
+- This function serves as a common sync implementation that individual SLRU subsystems can use by providing their specific SlruCtl structure
+- The function properly handles error conditions by preserving errno across the CloseTransientFile call
+- Wait events are reported during the sync operation to enable monitoring and performance analysis
+- Returns -1 on file open failure, or the result of pg_fsync on success
+- Located in src/backend/access/transam/slru.c at lines 1828-1849

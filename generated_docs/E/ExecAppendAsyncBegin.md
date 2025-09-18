@@ -1,0 +1,45 @@
+# ExecAppendAsyncBegin
+
+## Location
+src/backend/executor/nodeAppend.c: 862 - 913
+
+## Overview
+Initiates asynchronous execution of valid async-capable subplans in an Append node, setting up the initial state and making requests for all available async subplans to begin concurrent execution.
+
+## Definition
+
+
+## Detailed Description
+This function is the entry point for asynchronous execution in Append nodes, enabling PostgreSQL to execute multiple subplans concurrently rather than sequentially. It is part of PostgreSQL's asynchronous query execution infrastructure that allows for improved performance when dealing with multiple data sources or partitions.
+
+The function performs several key initialization steps:
+1. **Runtime Pruning**: If not already done, determines which subplans are valid using runtime partition pruning
+2. **Classification**: Classifies the matching subplans to identify which ones support asynchronous execution
+3. **State Initialization**: Sets up tracking variables for synchronous completion and remaining async operations
+4. **Request Submission**: Issues asynchronous requests for all valid async-capable subplans
+
+The async execution model allows the database to initiate I/O operations or remote queries on multiple subplans simultaneously, then collect results as they become available, significantly improving performance for queries that access multiple partitions or foreign tables.
+
+## Parameters / Member Variables
+- : Pointer to AppendState containing the append node's execution state, async subplan information, and request tracking structures
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ScanDirectionIsForward (direction validation)
+  - ExecFindMatchingSubPlans (runtime pruning support)
+  - classify_matching_subplans (async capability classification)
+  - bms_is_empty (bitmap emptiness check)
+  - bms_num_members (async subplan counting)
+  - bms_next_member (bitmap iteration)
+  - ExecAsyncRequest (async request submission)
+- Called from (representative examples):
+  - ExecAppend (main append execution function)
+
+## Notes and Other Information
+- Only supports forward scans (backward scans not supported for async execution)
+- Requires at least one async-capable subplan to be meaningful
+- Early returns if no valid async subplans are found after pruning
+- Critical for performance when dealing with foreign tables, partitioned tables, or other async-capable data sources
+- Part of PostgreSQL's push towards more concurrent and parallel execution models
+- Works in conjunction with the async request/response infrastructure
+- Essential for modern workloads involving distributed data or multiple storage systems

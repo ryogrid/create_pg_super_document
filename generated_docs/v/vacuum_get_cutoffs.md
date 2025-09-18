@@ -1,0 +1,49 @@
+# vacuum_get_cutoffs
+
+## Location
+src/backend/commands/vacuum.c: 1083 - 1250
+
+## Overview
+Computes OldestXmin and freeze cutoff points for vacuum operations, determining whether an aggressive vacuum is needed based on transaction age thresholds.
+
+## Definition
+```c
+bool
+vacuum_get_cutoffs(Relation rel, const VacuumParams *params,
+                   struct VacuumCutoffs *cutoffs)
+```
+
+## Detailed Description
+The vacuum_get_cutoffs function calculates critical cutoff values that determine how vacuum operations should behave. It computes OldestXmin (oldest transaction that cannot be removed), freeze limits for both regular transactions and multixacts, and determines whether an aggressive vacuum is required.
+
+The function considers various age parameters and system limits to balance performance with wraparound protection. It generates warnings when cutoffs are dangerously far in the past and ensures that computed limits don't exceed safe boundaries. The return value indicates whether the vacuum should be aggressive, meaning it must advance relfrozenxid and relminmxid to prevent transaction ID wraparound.
+
+## Parameters / Member Variables
+- `rel`: Target relation for the vacuum operation
+- `params`: VACUUM parameters containing freeze age settings and other options
+- `cutoffs`: Output structure to be filled with computed cutoff values including OldestXmin, FreezeLimit, MultiXactCutoff, etc.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetOldestNonRemovableTransactionId
+  - GetOldestMultiXactId
+  - ReadNextTransactionId
+  - ReadNextMultiXactId
+  - MultiXactMemberFreezeThreshold
+  - TransactionIdIsNormal
+  - TransactionIdPrecedes
+  - TransactionIdPrecedesOrEquals
+  - MultiXactIdPrecedes
+  - MultiXactIdPrecedesOrEquals
+- Called from (representative examples):
+  - heap_vacuum_rel (src/backend/access/heap/vacuumlazy.c:449)
+  - copy_table_data (src/backend/commands/cluster.c:916)
+
+## Notes and Other Information
+- Returns true if aggressive vacuum is needed, false for non-aggressive vacuum
+- Issues warnings when transaction cutoffs are dangerously old
+- Considers both regular transaction IDs and multixact IDs for comprehensive wraparound protection
+- Uses configuration parameters like autovacuum_freeze_max_age and vacuum_freeze_min_age
+- Computes effective freeze thresholds based on available multixact member space
+- Ensures computed limits never exceed safe boundaries to prevent wraparound issues
+- Location: src/backend/commands/vacuum.c:1083-1250

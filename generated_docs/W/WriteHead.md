@@ -1,0 +1,45 @@
+# WriteHead
+
+## Location
+src/bin/pg_dump/pg_backup_archiver.c: 3951 - 3976
+
+## Overview
+Writes the file header for a custom-format archive in pg_dump, containing magic code, version information, metadata, and timestamps.
+
+## Definition
+
+
+## Detailed Description
+This function creates the standard header for PostgreSQL custom-format archive files. The header contains critical metadata needed for archive identification and proper restoration:
+
+1. **Magic signature**: "PGDMP" identifies the file as a PostgreSQL dump
+2. **Version information**: Major, minor, and revision numbers for format compatibility
+3. **Architecture details**: Integer size and offset size for cross-platform compatibility
+4. **Compression info**: Algorithm specification for compressed archives
+5. **Timestamp**: Complete creation date/time broken down into individual components
+6. **Database metadata**: Original database name, PostgreSQL server version, and pg_dump version
+
+The header format is standardized to ensure archive files can be correctly identified and processed by compatible versions of pg_restore and other PostgreSQL tools.
+
+## Parameters / Member Variables
+- : ArchiveHandle pointer containing archive state, version info, creation metadata, and database connection details
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ARCHIVE_MAJOR, ARCHIVE_MINOR, ARCHIVE_REV (version extraction macros)
+  - WriteBufPtr, WriteBytePtr (low-level binary writing functions)
+  - WriteInt, WriteStr (typed data writing functions)
+  - PQdb (database name extraction from connection)
+  - localtime (timestamp conversion)
+  - struct tm (time structure)
+- Called from:
+  - _CloseArchive (in custom, directory, and tar backup formats)
+
+## Notes and Other Information
+- Function is non-static and used across multiple backup format implementations
+- Uses platform-specific architecture information (intSize, offSize) for cross-platform compatibility
+- Stores complete timestamp information allowing for precise archive creation time tracking
+- Magic code "PGDMP" serves as file format identifier for PostgreSQL dump files
+- Header format must remain backward-compatible across PostgreSQL versions
+- Compression algorithm is stored as part of header metadata for proper decompression during restore
+- Database connection information is preserved to maintain restore context

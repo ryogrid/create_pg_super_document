@@ -1,0 +1,36 @@
+# BlockIdGetBlockNumber
+
+## Location
+src/include/storage/block.h: 103 - 108
+
+## Overview
+BlockIdGetBlockNumber is an inline function that retrieves the original 32-bit block number from a BlockIdData structure by reconstructing it from its high and low 16-bit components.
+
+## Definition
+```c
+static inline BlockNumber BlockIdGetBlockNumber(const BlockIdData *blockId)
+```
+
+## Detailed Description
+BlockIdGetBlockNumber performs the inverse operation of BlockIdSet by reconstructing a full 32-bit BlockNumber from the two 16-bit components stored in a BlockIdData structure. The function combines the bi_hi and bi_lo fields using bit shifting and bitwise OR operations to restore the original block number. This decoding is essential for converting the space-efficient on-disk BlockIdData format back to the computational BlockNumber format used in PostgreSQL's access methods and algorithms.
+
+## Parameters / Member Variables
+- `blockId`: Pointer to the BlockIdData structure from which to extract the block number (const-qualified)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BlockIdData (structure type)
+  - BlockNumber (return type)
+- Called from (representative examples):
+  - ginRedoInsert
+  - gin_desc
+  - PostingItemGetBlockNumber
+  - ItemPointerGetBlockNumberNoCheck
+
+## Notes and Other Information
+- This is a static inline function defined in src/include/storage/block.h for optimal performance
+- The reconstruction formula is: ((BlockNumber) bi_hi << 16) | ((BlockNumber) bi_lo)
+- Returns a BlockNumber (32-bit unsigned integer) representing the original block number
+- The function uses const-qualified parameter indicating it does not modify the input structure
+- Commonly used in GIN index operations, WAL replay, and item pointer management
+- Essential for converting between the space-efficient storage format and the computational format used in algorithms

@@ -1,0 +1,43 @@
+# guc_malloc
+
+## Location
+src/backend/utils/misc/guc.c: 640 - 653
+
+## Overview
+GUC-related memory allocation function that allocates memory in the GUC memory context with configurable error reporting level.
+
+## Definition
+
+
+## Detailed Description
+ is a PostgreSQL-specific memory allocation function designed for GUC (Grand Unified Configuration) system operations. It provides a wrapper around PostgreSQL's memory context allocation system, specifically allocating memory within the . The function is modeled after the standard C library's  but includes PostgreSQL-specific error handling that allows the caller to specify the error level for out-of-memory conditions.
+
+The function uses  with the  flag, which means it will return NULL instead of throwing an error when memory allocation fails. This allows the function to handle the error reporting itself using PostgreSQL's  system.
+
+## Parameters / Member Variables
+- : Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
+- : Number of bytes to allocate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MemoryContextAllocExtended
+  - MCXT_ALLOC_NO_OOM
+  - ereport (called when allocation fails)
+  - errcode, errmsg (for error reporting)
+
+- Called from (representative examples):
+  - check_wal_consistency_checking
+  - check_recovery_target_lsn
+  - check_temp_tablespaces
+  - guc_strdup
+  - add_placeholder_variable
+  - SelectConfigFiles
+  - init_custom_variable
+
+## Notes and Other Information
+- Part of the GUC infrastructure for memory management
+- Uses PostgreSQL's memory context system for proper memory lifecycle management
+- Returns NULL and reports error at specified level if allocation fails
+- Control only returns to caller if error level is less than ERROR
+- Allocates memory specifically in the GUCMemoryContext for configuration-related data
+- Used extensively throughout the GUC system for allocating strings and other configuration data

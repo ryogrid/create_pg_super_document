@@ -1,0 +1,44 @@
+# make_one_rel
+
+## Location
+src/backend/optimizer/path/allpaths.c: 171 - 246
+
+## Overview
+The main entry point for finding all possible access paths for executing a query, returning a single RelOptInfo that represents the join of all base relations in the query.
+
+## Definition
+
+
+## Detailed Description
+This function orchestrates the core path generation process in PostgreSQL's query optimizer. It coordinates several phases of optimization:
+1. Marks base relations for startup cost consideration
+2. Computes size estimates and parallel processing flags for base relations
+3. Calculates the total table pages across all relations
+4. Generates access paths for individual base relations
+5. Constructs access paths for the complete join tree
+
+The function ensures that all base relations and outer-join relations in the query are properly joined and returns a single RelOptInfo representing the entire query's join structure.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global optimizer state and query information
+- : List structure representing the join tree structure to be optimized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - set_base_rel_consider_startup
+  - set_base_rel_sizes
+  - set_base_rel_pathlists
+  - make_rel_from_joinlist
+  - IS_DUMMY_REL (macro)
+  - IS_SIMPLE_REL (macro)
+  - bms_equal
+- Called from (representative examples):
+  - query_planner
+
+## Notes and Other Information
+- Located in src/backend/optimizer/path/allpaths.c:171-246
+- The function includes logic to calculate total_table_pages by iterating through all base relations
+- Contains safeguards against double-counting appendrels (parent relations have pages = 0)
+- Has a known limitation with self-joins being counted multiple times
+- Includes assertion to verify the result joins all and only the query's base + outer-join relations
+- Critical function in the PostgreSQL query optimization pipeline

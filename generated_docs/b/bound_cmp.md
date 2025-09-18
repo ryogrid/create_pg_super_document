@@ -1,0 +1,34 @@
+# bound_cmp
+
+## Location
+src/backend/utils/adt/rangetypes_spgist.c: 186 - 199
+
+## Overview
+Comparison function for sorting range bounds, used as a callback for qsort operations in SP-GiST range quadtree splitting.
+
+## Definition
+static int bound_cmp(const void *a, const void *b, void *arg)
+
+## Detailed Description
+This function provides a comparison interface for sorting RangeBound structures during the picksplit operation of SP-GiST range indexing. It serves as a wrapper around the range_cmp_bounds function, adapting it for use with qsort_arg. The function is essential for finding median values of range bounds when constructing centroid ranges during node splitting operations.
+
+## Parameters / Member Variables
+- a: Pointer to the first RangeBound to compare
+- b: Pointer to the second RangeBound to compare  
+- arg: TypeCacheEntry pointer passed as context for range comparisons
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RangeBound (structure type)
+  - TypeCacheEntry (structure type)
+  - range_cmp_bounds (range bound comparison function)
+- Called from (representative examples):
+  - spg_range_quad_picksplit (via qsort_arg for sorting bounds)
+
+## Notes and Other Information
+- Designed specifically for use with qsort_arg function which requires this exact signature
+- Acts as an adapter between qsort requirements and PostgreSQL's range comparison functions
+- Critical for median calculation in quadtree centroid selection
+- Uses TypeCacheEntry to provide type-specific comparison logic for different range types
+- Returns standard comparison result: negative, zero, or positive integer
+- Located in src/backend/utils/adt/rangetypes_spgist.c:186-199

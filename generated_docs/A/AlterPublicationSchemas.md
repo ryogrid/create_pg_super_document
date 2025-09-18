@@ -1,0 +1,43 @@
+# AlterPublicationSchemas
+
+## Location
+src/backend/commands/publicationcmds.c: 1249 - 1332
+
+## Overview
+AlterPublicationSchemas handles adding, removing, or replacing schemas in a publication, enforcing constraints related to existing table column lists and managing schema locks.
+
+## Definition
+
+
+## Detailed Description
+AlterPublicationSchemas is a static function that manages schema membership in publications based on the specified action (ADD, DROP, or SET). The function enforces the important constraint that schemas cannot be added to publications that already contain tables with column lists, as this combination is not supported. For ADD operations, it validates existing table configurations before adding schemas. For DROP operations, it removes specified schemas. For SET operations, it calculates the difference between existing and new schema lists and performs the necessary additions and removals.
+
+The function maintains proper schema locking throughout the operation to prevent concurrent schema modifications that could lead to inconsistent states. It integrates with the publication system's schema management functions and handles edge cases like empty schema lists in SET operations.
+
+## Parameters / Member Variables
+- : AlterPublicationStmt containing the alteration command details and action type
+- : HeapTuple representing the publication record being modified
+- : List of schema OIDs to be processed (can be NULL for SET operations that remove all schemas)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LockSchemaList: Acquires locks on schemas to prevent concurrent modifications
+  - GetPublicationRelations: Retrieves existing publication relations for validation
+  - SearchSysCache2: Searches system cache for publication-relation mappings
+  - heap_attisnull: Checks if column list attributes are NULL in publication relations
+  - PublicationAddSchemas/PublicationDropSchemas: Core functions for adding/removing schemas from publications
+  - GetPublicationSchemas: Retrieves existing schema OIDs for the publication
+  - list_difference_oid: Calculates differences between schema OID lists
+- Called from (representative examples):
+  - AlterPublication: Main function handling publication alterations
+
+## Notes and Other Information
+- Enforces the constraint that schemas cannot be added when tables with column lists exist in the publication
+- Provides detailed error messages explaining why schema addition is blocked
+- Handles three operation types: AP_AddObjects, AP_DropObjects, and AP_SetObjects
+- Uses proper schema locking to prevent race conditions during concurrent operations
+- SET operations intelligently calculate differences to minimize unnecessary changes
+- Integrates with the publication system's validation framework
+- Handles edge cases where schema lists may be empty (particularly for SET operations)
+- Maintains consistency with existing table-based publication configurations
+- Uses ignore_if_exists flags appropriately for SET operations to handle duplicates gracefully

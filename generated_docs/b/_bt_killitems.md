@@ -1,0 +1,43 @@
+# _bt_killitems
+
+## Location
+src/backend/access/nbtree/nbtutils.c: 4171 - 4366
+
+## Overview
+Marks index tuples as dead (LP_DEAD) based on kill list information from index scan operations, optimizing future scans by marking tuples that reference deleted heap rows.
+
+## Definition
+
+
+## Detailed Description
+This function implements the "kill tuple" optimization for B-tree indexes, which marks index tuples as dead when the scan has determined that their corresponding heap tuples have been deleted. The function processes a list of killed items maintained in the scan state, matching them by heap TID to ensure correctness. It handles both regular tuples and posting list tuples (which contain multiple heap TIDs). The function includes sophisticated logic to handle concurrent modifications: if the page was pinned continuously since reading, no LSN check is needed; if the pin was dropped, it re-reads the page and verifies the LSN hasn't changed to ensure safety. When tuples are successfully marked dead, it sets the BTP_HAS_GARBAGE flag on the page to indicate cleanup is needed.
+
+## Parameters / Member Variables
+- : Index scan descriptor containing scan state and killed items list
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - _bt_lockbuf/_bt_unlockbuf
+  - _bt_getbuf/_bt_relbuf
+  - BufferGetLSNAtomic
+  - PageGetItemId/PageGetItem
+  - BTreeTupleIsPosting
+  - BTreeTupleGetNPosting/BTreeTupleGetPostingN
+  - ItemPointerEquals
+  - ItemIdIsDead/ItemIdMarkDead
+  - BTPageGetOpaque
+  - MarkBufferDirtyHint
+- Called from (representative examples):
+  - btrescan
+  - btendscan
+  - btrestrpos
+  - _bt_steppage
+
+## Notes and Other Information
+- Critical optimization for reducing index bloat and improving scan performance
+- Handles posting list tuples by checking all heap TIDs within the posting list
+- Uses LSN checking to ensure safety when page pins were dropped between read and kill operations
+- Sets BTP_HAS_GARBAGE flag to trigger eventual cleanup by VACUUM
+- Only marks items as dead if they aren't already marked, avoiding redundant WAL logging
+- Part of PostgreSQL's B-tree maintenance and optimization system
+- Located in src/backend/access/nbtree/nbtutils.c:4171-4366

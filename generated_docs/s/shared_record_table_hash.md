@@ -1,0 +1,34 @@
+# shared_record_table_hash
+
+## Location
+src/backend/utils/cache/typcache.c: 241 - 277
+
+## Overview
+A hash function for SharedRecordTableKey structures that generates consistent hash values based on the associated TupleDesc structure.
+
+## Definition
+
+
+## Detailed Description
+This function generates hash values for SharedRecordTableKey structures used in dynamic shared hash tables. It extracts the TupleDesc from the key (handling both shared and local variants) and delegates to hashRowType to compute the actual hash value. This ensures that SharedRecordTableKey structures representing equivalent row types will produce the same hash value, which is essential for proper hash table functionality.
+
+The function works in conjunction with shared_record_table_compare to provide complete hash table key semantics - keys that compare as equal will always hash to the same value, maintaining hash table consistency.
+
+## Parameters / Member Variables
+- `a`: Pointer to the SharedRecordTableKey to hash
+- `size`: Size parameter (unused in this implementation)
+- `arg`: DSA area pointer used to dereference shared TupleDesc pointers
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dsa_get_address (for resolving shared TupleDesc pointers)
+  - hashRowType (for computing the actual hash value)
+- Called from (representative examples):
+  - Hash table operations (indirectly as callback function)
+
+## Notes and Other Information
+- This function is designed to work with PostgreSQL's dynamic shared memory hash tables
+- It properly handles both shared and local TupleDesc references
+- The hash value is computed using hashRowType, ensuring consistency with equalRowTypes comparison semantics
+- The function is static and only used internally within the typcache.c module
+- Returns a uint32 hash value suitable for hash table indexing

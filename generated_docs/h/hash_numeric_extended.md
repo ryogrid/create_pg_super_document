@@ -1,0 +1,42 @@
+# hash_numeric_extended
+
+## Location
+src/backend/utils/adt/numeric.c: 2793 - 2863
+
+## Overview
+Computes a seeded 64-bit hash value for PostgreSQL numeric data types, providing enhanced hash distribution for advanced hash-based operations.
+
+## Definition
+
+
+## Detailed Description
+This function generates a 64-bit hash value for numeric types using a provided seed value, extending the functionality of hash_numeric. It implements the same normalization logic as hash_numeric to ensure numerically equivalent values produce identical hash values, but returns a 64-bit result and incorporates a seed for better hash distribution in advanced scenarios.
+
+The function is particularly useful for hash-based operations that benefit from larger hash spaces or require seeded hashing for security or distribution purposes. Like hash_numeric, it strips leading and trailing zeros and excludes scale from the hash calculation while incorporating the weight via XOR.
+
+## Parameters / Member Variables
+-  (PG_GETARG_NUMERIC(0)): The numeric value to be hashed
+-  (PG_GETARG_INT64(1)): A 64-bit seed value to influence the hash calculation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_NUMERIC (parameter extraction)
+  - PG_GETARG_INT64 (seed extraction)
+  - NUMERIC_IS_SPECIAL (special value detection)
+  - NUMERIC_WEIGHT (decimal point position)
+  - NUMERIC_DIGITS (digit array access)
+  - NUMERIC_NDIGITS (digit count)
+  - hash_any_extended (seeded binary hash function)
+  - UInt64GetDatum/DatumGetUInt64 (64-bit datum conversion)
+  - PG_RETURN_UINT64/PG_RETURN_DATUM (return value macros)
+- Called from (representative examples):
+  - JsonbHashScalarValueExtended (extended JSONB numeric hashing)
+
+## Notes and Other Information
+- Returns seed value for special values (NaN, infinity) to maintain consistency
+- Returns seed-1 for zero values regardless of their representation
+- Uses hash_any_extended instead of hash_any to incorporate the seed
+- Maintains same normalization logic as hash_numeric for consistent equality semantics
+- The weight is XORed with the digit hash result after datum conversion
+- Provides 64-bit hash space for improved distribution in large hash tables
+- Used in advanced hash operations requiring seeded or extended hash values

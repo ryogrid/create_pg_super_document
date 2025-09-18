@@ -1,0 +1,45 @@
+# ginVacuumPostingTreeLeaves
+
+## Location
+src/backend/access/gin/ginvacuum.c: 346 - 408
+
+## Overview
+Traverses all leaf pages of a GIN posting tree from left to right, vacuuming each leaf page and determining if any empty pages exist.
+
+## Definition
+
+
+## Detailed Description
+This static function performs a two-phase operation on GIN posting tree leaf pages. First, it navigates down the posting tree to find the leftmost leaf page by following the first posting item in each internal page until reaching a leaf. Then, it traverses all leaf pages from left to right using rightlinks, calling ginVacuumPostingTreeLeaf() to vacuum each page.
+
+The function uses a temporary memory context (gvs->tmpCxt) for each leaf page vacuum operation, which is reset after processing each page to prevent memory bloat during long vacuum operations. It employs careful locking strategies, starting with shared locks during tree descent and upgrading to exclusive locks for actual vacuuming.
+
+## Parameters / Member Variables
+- : GinVacuumState containing index context, temporary memory context, buffer strategy, and vacuum state
+- : Block number of the root or starting page of the posting tree to begin traversal
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReadBufferExtended (read pages into buffers)
+  - LockBuffer (acquire/release buffer locks with GIN_SHARE, GIN_EXCLUSIVE, GIN_UNLOCK)
+  - BufferGetPage (get page from buffer)
+  - GinPageIsData/GinPageIsLeaf (page type verification)
+  - PageGetMaxOffsetNumber (get maximum offset)
+  - GinDataPageGetPostingItem (get posting item from page)
+  - PostingItemGetBlockNumber (extract block number from posting item)
+  - ginVacuumPostingTreeLeaf (vacuum individual leaf page)
+  - MemoryContextSwitchTo/MemoryContextReset (memory context management)
+  - GinDataLeafPageIsEmpty (check if leaf page is empty)
+  - GinPageGetOpaque (access page opaque data for rightlink)
+  - UnlockReleaseBuffer (release buffer and lock)
+- Called from (representative examples):
+  - ginVacuumPostingTree
+
+## Notes and Other Information
+- Static function, only accessible within ginvacuum.c
+- Returns true if at least one empty page is found during traversal
+- Uses lock upgrade strategy: shared lock for descent, exclusive lock for vacuuming
+- Manages memory efficiently by resetting temporary context after each leaf page
+- Traverses leaf pages using rightlinks, terminating when rightlink is InvalidBlockNumber
+- Essential for the leaf-level vacuum phase before potential page deletion operations
+- Follows standard PostgreSQL buffer management and locking protocols

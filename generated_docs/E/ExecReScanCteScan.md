@@ -1,0 +1,38 @@
+# ExecReScanCteScan
+
+## Location
+src/backend/executor/nodeCtescan.c: 307 - 339
+
+## Overview
+Rescans a Common Table Expression (CTE) scan node by either clearing the underlying tuplestore or rewinding the read pointer, depending on whether the underlying CTE needs to be rescanned.
+
+## Definition
+```c
+void ExecReScanCteScan(CteScanState *node)
+```
+
+## Detailed Description
+ExecReScanCteScan handles the rescan operation for CTE scan nodes in PostgreSQL's executor. The function implements an intelligent rescan strategy that optimizes performance by avoiding unnecessary work when the underlying CTE data hasn't changed.
+
+The function checks if the underlying CTE plan state has changed parameters (chgParam != NULL). If parameters have changed, it completely clears the tuplestore, which implicitly resets all read pointers and marks the CTE as not end-of-file. If no parameters have changed, it simply rewinds the current node's read pointer to reread existing data from the tuplestore.
+
+This dual approach allows multiple CTE scan nodes to efficiently share the same tuplestore while ensuring that parameter changes trigger appropriate data refreshes.
+
+## Parameters / Member Variables
+- `node`: Pointer to the CteScanState structure representing the CTE scan node to be rescanned
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ExecClearTuple
+  - ExecScanReScan
+  - tuplestore_clear
+  - tuplestore_select_read_pointer
+  - tuplestore_rescan
+- Called from (representative examples):
+  - ExecReScan (general executor rescan dispatcher)
+
+## Notes and Other Information
+- Multiple CTE nodes may redundantly clear the same tuplestore, which is acceptable and not expensive
+- The function handles both scenarios: when the underlying CTE needs rescanning and when it can reuse existing tuplestore data
+- Parameter changes (chgParam) are used as the key indicator for determining whether a full rescan is needed
+- The tuplestore clear operation implicitly resets all read pointers, making it safe for multiple concurrent CTE scan nodes

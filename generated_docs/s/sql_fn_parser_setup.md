@@ -1,0 +1,36 @@
+# sql_fn_parser_setup
+
+## Location
+src/backend/executor/functions.c: 265 - 277
+
+## Overview
+Sets up parser hooks for parsing a SQL function body by configuring column reference and parameter reference handlers.
+
+## Definition
+
+
+## Detailed Description
+This function configures a ParseState structure with the necessary hooks for parsing SQL function bodies. It sets up specialized handlers for column references and parameter references that are specific to SQL function parsing context. The function disables the pre-column reference hook, assigns custom post-column reference and parameter reference hooks, and stores the function parse information for use by the hooks.
+
+## Parameters / Member Variables
+- : ParseState structure to configure with SQL function parsing hooks
+- : SQLFunctionParseInfo containing function metadata needed by the parsing hooks
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SQLFunctionParseInfoPtr
+  - sql_fn_post_column_ref
+  - sql_fn_param_ref
+- Called from (representative examples):
+  - fmgr_sql_validator (src/backend/catalog/pg_proc.c:942)
+  - interpret_AS_clause (src/backend/commands/functioncmds.c:934)
+  - interpret_AS_clause (src/backend/commands/functioncmds.c:953)
+  - init_sql_fcache (src/backend/executor/functions.c:717)
+  - inline_function (src/backend/optimizer/util/clauses.c:4687)
+  - inline_set_returning_function (src/backend/optimizer/util/clauses.c:5244)
+
+## Notes and Other Information
+- The function sets p_pre_columnref_hook to NULL, indicating no preprocessing is needed for column references
+- The p_coerce_param_hook is explicitly not used as noted in the comment
+- The pinfo parameter is stored in p_ref_hook_state for access by the registered hook functions
+- This setup is essential for proper parsing of parameter references (, , etc.) within SQL function bodies

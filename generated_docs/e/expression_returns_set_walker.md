@@ -1,0 +1,41 @@
+# expression_returns_set_walker
+
+## Location
+src/backend/nodes/nodeFuncs.c: 764 - 815
+
+## Overview
+A tree walker function that recursively examines expression nodes to detect set-returning functions and operators within an expression tree.
+
+## Definition
+```c
+static bool expression_returns_set_walker(Node *node, void *context)
+```
+
+## Detailed Description
+This static function implements the core logic for detecting set-returning expressions by walking through expression trees recursively. It specifically checks for FuncExpr nodes with the funcretset flag and OpExpr nodes with the opretset flag, which indicate functions and operators that return sets rather than single values. The function includes optimizations to avoid unnecessary recursion for certain node types (Aggref, GroupingFunc, WindowFunc) that are known by the parser to not return sets. It uses PostgreSQL's expression_tree_walker framework for efficient tree traversal and calls itself recursively to examine sub-expressions.
+
+## Parameters / Member Variables
+- `node`: The current expression node being examined for set-returning behavior
+- `context`: Additional context passed through the tree walker (unused in this implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsA (macro for node type checking)
+  - FuncExpr (function call expression node)
+  - OpExpr (operator expression node)
+  - Aggref (aggregate function reference node)
+  - GroupingFunc (grouping function node)
+  - WindowFunc (window function node)
+  - expression_tree_walker (framework function for tree traversal)
+
+- Called from (representative examples):
+  - expression_returns_set (public wrapper function)
+  - Self-recursive calls during tree traversal
+
+## Notes and Other Information
+- The function is declared static, meaning it's only accessible within the nodeFuncs.c file
+- Contains explicit optimizations to skip recursion for node types guaranteed not to return sets
+- Comments indicate that changes to this function should be coordinated with expression_returns_set_rows() in clauses.c and IS_SRF_CALL() in tlist.c
+- The funcretset and opretset flags are set during function/operator lookup and indicate the return type characteristics
+- Part of PostgreSQL's broader framework for handling set-returning functions (SRFs) which require special execution strategies
+- Returns true as soon as any set-returning expression is found, providing early termination for efficiency

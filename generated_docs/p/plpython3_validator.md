@@ -1,0 +1,42 @@
+# plpython3_validator
+
+## Location
+src/pl/plpython/plpy_main.c: 158 - 190
+
+## Overview
+PostgreSQL function that validates PL/Python function definitions during CREATE FUNCTION operations, ensuring syntax correctness and proper compilation.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the validation handler for PL/Python functions and triggers when they are created or modified. It performs several validation steps including access control checks, function body validation (when enabled), and syntax verification by attempting to compile the Python code. The function retrieves the function definition from the system catalog, determines if it's a trigger function, and validates the Python code by invoking the PL/Python compilation process.
+
+## Parameters / Member Variables
+- Uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS)
+- : OID of the function being validated (extracted from arguments)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_OID (extract OID from function arguments)
+  - CheckFunctionValidatorAccess (security check)
+  - PG_RETURN_VOID (return void result)
+  - PLy_initialize (initialize PL/Python environment)
+  - SearchSysCache1 (lookup function in system cache)
+  - HeapTupleIsValid (validate heap tuple)
+  - elog (error logging)
+  - GETSTRUCT (extract structure from heap tuple)
+  - PLy_procedure_is_trigger (check if function is trigger)
+  - ReleaseSysCache (release system cache)
+  - PLy_procedure_get (compile and validate procedure)
+- Called from (representative examples):
+  - PostgreSQL's function validation system during CREATE FUNCTION
+
+## Notes and Other Information
+- Located in src/pl/plpython/plpy_main.c at lines 157-188
+- Returns Datum type following PostgreSQL function call conventions
+- Validation is skipped if check_function_bodies is disabled
+- Performs access control checks before proceeding with validation
+- Part of PostgreSQL's procedural language validation infrastructure
+- Handles both regular functions and trigger functions through PLy_procedure_is_trigger check
+- Uses InvalidOid for trigger validation since triggers aren't bound to specific tables during validation

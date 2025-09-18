@@ -1,0 +1,33 @@
+# compare_scalars_simple
+
+## Location
+src/backend/statistics/extended_stats.c: 919 - 926
+
+## Overview
+A simple comparison function wrapper that compares two Datum values using the provided SortSupport configuration, following the standard qsort interface.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a qsort-compatible comparison wrapper that extracts Datum values from void pointers and delegates the actual comparison to compare_datums_simple. It provides a bridge between the generic qsort interface requirements and PostgreSQL's datum comparison infrastructure. The function is primarily used in contexts where simple scalar values need to be sorted using PostgreSQL's type-specific comparison logic.
+
+## Parameters / Member Variables
+- : Pointer to the first Datum value to compare (cast from const void*)
+- : Pointer to the second Datum value to compare (cast from const void*)
+- : Pointer to SortSupport structure containing comparison configuration (cast from void*)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - compare_datums_simple
+  - SortSupport (type)
+- Called from (representative examples):
+  - statext_mcv_serialize (src/backend/statistics/mcv.c:696, 958)
+
+## Notes and Other Information
+- Follows the standard qsort() comparison function interface signature
+- Assumes the void pointers actually point to Datum values
+- Returns standard comparison result: negative for less-than, zero for equal, positive for greater-than
+- Used primarily in MCV (Most Common Values) statistics serialization where scalar values need sorting
+- The function provides type safety by delegating to compare_datums_simple rather than implementing comparison logic directly
+- Essential for maintaining consistent sorting behavior across PostgreSQL's statistics subsystem

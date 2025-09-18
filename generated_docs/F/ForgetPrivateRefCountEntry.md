@@ -1,0 +1,40 @@
+# ForgetPrivateRefCountEntry
+
+## Location
+src/backend/storage/buffer/bufmgr.c: 438 - 472
+
+## Overview
+ForgetPrivateRefCountEntry releases resources used to track the reference count of a buffer that is no longer pinned and won't be pinned again immediately.
+
+## Definition
+```c
+static void ForgetPrivateRefCountEntry(PrivateRefCountEntry *ref)
+```
+
+## Detailed Description
+This function performs cleanup when a buffer's reference count drops to zero and the tracking entry is no longer needed. It handles both array-based and hash table-based entries differently to maintain optimal performance characteristics.
+
+For entries stored in the PrivateRefCountArray, the function marks the buffer as invalid and optimistically reserves the slot for future use. This reservation strategy helps avoid costly searches for free entries in subsequent operations.
+
+For entries stored in the hash table (overflow entries), the function removes them completely and decrements the overflow counter. This helps maintain accurate statistics about hash table usage and potentially allows future lookups to skip hash table searches entirely.
+
+## Parameters / Member Variables
+- `ref`: Pointer to the PrivateRefCountEntry to be forgotten/released
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_search
+  - HASH_REMOVE
+  - PrivateRefCountEntry (struct type)
+  - REFCOUNT_ARRAY_ENTRIES (macro)
+- Called from (representative examples):
+  - UnpinBufferNoOwner
+
+## Notes and Other Information
+- The function includes an assertion ensuring the refcount is 0 before forgetting
+- Array entries are optimistically reserved for future use rather than just marked free
+- Hash table entries are completely removed to reduce memory usage
+- Properly maintains the PrivateRefCountOverflowed counter for accurate overflow tracking
+- The different handling strategies optimize for the common case of array-based storage
+- Essential for preventing memory leaks in the private reference counting system
+- Part of the buffer unpinning process that ensures proper resource cleanup

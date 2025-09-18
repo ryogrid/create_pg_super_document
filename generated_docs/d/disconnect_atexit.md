@@ -1,0 +1,36 @@
+# disconnect_atexit
+
+## Location
+src/bin/pg_basebackup/pg_recvlogical.c: 178 - 184
+
+## Overview
+The disconnect_atexit function is an atexit handler that ensures proper cleanup of PostgreSQL database connections when the program terminates.
+
+## Definition
+
+
+## Detailed Description
+This is a simple cleanup function designed to be registered with the atexit() system call. It ensures that any active PostgreSQL connection is properly closed when the program exits, whether through normal termination or due to an error condition. The function checks if a global connection handle exists and calls PQfinish() to cleanly close the connection and free associated resources.
+
+This pattern is commonly used in PostgreSQL client utilities to prevent connection leaks and ensure proper cleanup even when the program exits unexpectedly. The function operates on a global  variable that represents the active PostgreSQL connection.
+
+## Parameters / Member Variables
+None - this function takes no parameters and operates on the global  variable.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PQfinish (libpq function to close PostgreSQL connection)
+- Called from (representative examples):
+  - main (in pg_basebackup.c:2814)
+  - main (in pg_receivewal.c:835)  
+  - main (in pg_recvlogical.c:936)
+  - main (in pg_rewind.c:300)
+  - main (in isolationtester.c:151)
+
+## Notes and Other Information
+- Static function registered as an atexit handler in various PostgreSQL utilities
+- Provides cleanup safety net for unexpected program termination
+- Operates on a global connection variable that must be in scope
+- Part of defensive programming practices to prevent resource leaks
+- Used consistently across multiple PostgreSQL client utilities (pg_basebackup, pg_receivewal, pg_recvlogical, pg_rewind, etc.)
+- Simple but important for maintaining connection hygiene in client applications

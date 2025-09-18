@@ -1,0 +1,46 @@
+# accum_sum_combine
+
+## Location
+src/backend/utils/adt/numeric.c: 12270 - 12280
+
+## Overview
+A static utility function that combines one NumericSumAccum accumulator into another, used for merging partial sum results in PostgreSQL's numeric aggregation operations.
+
+## Definition
+
+
+## Detailed Description
+The  function is designed to merge two NumericSumAccum accumulators by adding the final value of the second accumulator (accum2) into the first accumulator (accum). This operation is essential for parallel aggregation and combining partial results in PostgreSQL's numeric sum operations.
+
+The function works by:
+1. Creating a temporary NumericVar to hold the finalized value from accum2
+2. Calling accum_sum_final() to compute the final numeric result from accum2
+3. Adding this final result to accum using accum_sum_add()
+4. Cleaning up the temporary variable
+
+This approach leverages the existing accumulator infrastructure to efficiently combine results without directly manipulating the internal digit arrays.
+
+## Parameters / Member Variables
+- : Target NumericSumAccum accumulator that will receive the combined result
+- : Source NumericSumAccum accumulator whose value will be added to accum
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - init_var (initializes temporary NumericVar)
+  - accum_sum_final (computes final result from accum2)
+  - accum_sum_add (adds the result to target accumulator)
+  - free_var (cleans up temporary variable)
+  - NumericSumAccum (struct type for fast sum accumulation)
+- Called from (representative examples):
+  - numeric_combine
+  - numeric_avg_combine  
+  - numeric_poly_combine
+  - int8_avg_combine
+
+## Notes and Other Information
+- This is a static function, only accessible within src/backend/utils/adt/numeric.c
+- Part of PostgreSQL's optimized numeric aggregation system that uses 32-bit integers for faster accumulation
+- Used primarily in parallel aggregation scenarios where partial results from different workers need to be combined
+- The function preserves the precision and scale requirements of numeric operations
+- Does not handle NaN values - this is managed at higher levels of the aggregation system
+- Location: src/backend/utils/adt/numeric.c:12270-12280

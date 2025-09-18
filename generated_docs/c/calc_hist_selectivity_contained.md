@@ -1,0 +1,45 @@
+# calc_hist_selectivity_contained
+
+## Location
+src/backend/utils/adt/multirangetypes_selfuncs.c: 1131 - 1251
+
+## Overview
+Calculates selectivity of the "var <@ const" operator, estimating the fraction of multiranges that fall within constant lower and upper bounds using histograms.
+
+## Definition
+
+
+## Detailed Description
+This function estimates what fraction of multiranges in the database are contained within (i.e., fall completely inside) a given constant range. It uses two histograms: one for range lower bounds and one for range lengths. The core assumption is that range lengths are independent of the lower bounds, allowing separate analysis of each component.
+
+The algorithm works by:
+1. Finding the relevant bins in the lower bound histogram (ranges with lower bounds > constant upper can't match)
+2. For each relevant bin, calculating what fraction of ranges would be narrow enough to fit within the constant range
+3. Summing these fractions weighted by the bin populations
+
+## Parameters / Member Variables
+- : Type cache entry containing range type information and comparison functions
+- : Lower bound of the constant range for containment testing
+- : Upper bound of the constant range for containment testing  
+- : Array of histogram values for range lower bounds
+- : Number of values in the lower bound histogram
+- : Array of histogram values for range lengths
+- : Number of values in the length histogram
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - rbound_bsearch
+  - get_position
+  - range_cmp_bounds
+  - get_distance
+  - calc_length_hist_frac
+  - RangeBound
+- Called from (representative examples):
+  - calc_hist_selectivity
+
+## Notes and Other Information
+- Implements selectivity estimation for the contained-by operator (<@) on range types
+- Uses linear interpolation for precise bin boundary calculations
+- Handles edge cases where bounds fall outside histogram limits
+- Critical for query optimization when filtering ranges by containment conditions
+- Assumes independence between range start positions and lengths, which is generally reasonable for most real-world data

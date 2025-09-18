@@ -1,0 +1,44 @@
+# check_transaction_read_only
+
+## Location
+src/backend/commands/variable.c: 544 - 582
+
+## Overview
+This function validates changes to the transaction read-only mode setting, enforcing PostgreSQL's transaction isolation rules and preventing invalid mode transitions.
+
+## Definition
+
+
+## Detailed Description
+ is a GUC (Grand Unified Configuration) check hook function that validates attempts to change the transaction read-only mode via  or  commands. The function implements PostgreSQL's transaction isolation semantics by allowing idempotent changes and read-write to read-only transitions at any time, while strictly controlling when read-only transactions can be changed to read-write mode.
+
+The function enforces several key restrictions:
+1. Read-only transactions cannot be changed to read-write within subtransactions
+2. Top-level transactions cannot switch from read-only to read-write after taking their first snapshot
+3. Transactions cannot be set to read-write mode during recovery (hot standby mode)
+
+When not in an active transaction, all changes are permitted since  will be reset by the next .
+
+## Parameters / Member Variables
+- : Pointer to the new boolean value for the transaction read-only setting (false = read-write, true = read-only)
+- : Pointer to extra data (unused in this function, can be NULL)
+- : The source of the configuration change (GucSource enum)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsTransactionState
+  - IsSubTransaction
+  - GUC_check_errcode
+  - GUC_check_errmsg
+  - RecoveryInProgress
+  - GucSource (enum type)
+- Called from (representative examples):
+  - GUC system via function pointer in guc_hooks.h
+
+## Notes and Other Information
+- This is a GUC check hook function, part of PostgreSQL's configuration validation system
+- The function uses global variables , , and  to determine transaction state
+- Error messages are set using  and  for proper error reporting
+- Returns  for valid transitions,  for invalid ones
+- Special handling for parallel worker initialization where changes are always allowed
+- The function is registered in the GUC system to be called whenever the transaction_read_only setting is modified

@@ -1,0 +1,33 @@
+# contain_volatile_functions_not_nextval
+
+## Location
+src/backend/optimizer/util/clauses.c: 673 - 678
+
+## Overview
+A specialized version of volatile function detection designed for COPY operations that ignores nextval() calls while treating all other functions normally.
+
+## Definition
+```c
+bool contain_volatile_functions_not_nextval(Node *clause)
+```
+
+## Detailed Description
+This function provides a specialized variant of volatile function checking specifically tailored for COPY command processing. Unlike the standard `contain_volatile_functions()`, this version deliberately ignores `nextval()` function calls while maintaining normal volatility checking for all other functions.
+
+The special handling of `nextval()` is important in COPY contexts because sequence operations in COPY commands may have different semantic requirements compared to regular query processing. The function delegates the actual tree walking and checking to `contain_volatile_functions_not_nextval_walker()`.
+
+## Parameters / Member Variables
+- `clause`: The node tree to analyze for volatile function content (excluding nextval)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `contain_volatile_functions_not_nextval_walker`: Performs the actual tree walking and volatility checking
+- Called from (representative examples):
+  - `BeginCopyFrom` (at copyfrom.c:1676)
+  - `DebugParallelMode` (referenced in optimizer.h:145)
+
+## Notes and Other Information
+- Specifically designed for use in COPY operations
+- The special treatment of nextval() reflects different semantic requirements in COPY contexts
+- Returns a boolean indicating whether volatile functions (other than nextval) are present
+- Part of the specialized volatility checking infrastructure for bulk operations

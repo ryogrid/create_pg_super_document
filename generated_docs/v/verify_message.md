@@ -1,0 +1,43 @@
+# verify_message
+
+## Location
+src/test/modules/test_shm_mq/test.c: 258 - 273
+
+## Overview
+A utility function that performs byte-by-byte comparison between two messages to verify data integrity in shared memory message queue tests.
+
+## Definition
+```c
+static void verify_message(Size origlen, char *origdata, Size newlen, char *newdata)
+```
+
+## Detailed Description
+This function provides message integrity verification by comparing an original message with a received message to ensure no data corruption occurred during transmission through shared memory queues. It performs two levels of validation:
+
+1. **Length Validation**: Compares the sizes of the original and received messages
+2. **Content Validation**: Performs byte-by-byte comparison of the message data
+
+If any discrepancy is found, the function reports a detailed error indicating the nature of the corruption. For content mismatches, it provides the exact byte offset where the difference was detected, making debugging easier.
+
+## Parameters / Member Variables
+- `origlen` (Size): Length of the original message in bytes
+- `origdata` (char*): Pointer to the original message data
+- `newlen` (Size): Length of the received message in bytes  
+- `newdata` (char*): Pointer to the received message data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ereport: PostgreSQL's error reporting mechanism
+  - errmsg: Creates the main error message
+  - errdetail: Provides additional error detail information
+- Called from (representative examples):
+  - test_shm_mq: Uses verify_message to validate final message integrity after ring traversal
+  - test_shm_mq_pipelined: Optionally uses verify_message for each received message when verify=true
+
+## Notes and Other Information
+- Static function scope - only accessible within the test_shm_mq module
+- Provides detailed error messages with specific corruption information (byte offset, lengths)
+- Essential for validating that shared memory queue operations preserve data integrity
+- Used in both basic and pipelined shared memory queue tests
+- No return value - either succeeds silently or reports an error and aborts
+- Critical for ensuring reliability of PostgreSQL's shared memory message queue infrastructure

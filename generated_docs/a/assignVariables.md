@@ -1,0 +1,33 @@
+# assignVariables
+
+## Location
+src/bin/pgbench/pgbench.c: 1936 - 1971
+
+## Overview
+Processes SQL strings in pgbench by replacing variable placeholders () with their actual values from the variables store.
+
+## Definition
+
+
+## Detailed Description
+The  function is responsible for variable substitution in pgbench SQL commands. It scans through a SQL string looking for variable placeholders that start with ':' and replaces them with their corresponding values from the Variables store. The function handles parsing of variable names, retrieval of variable values, and text replacement in the original SQL string. If a variable is not found in the store, the placeholder is left unchanged and processing continues.
+
+## Parameters / Member Variables
+- : Pointer to the Variables structure containing the variable store with name-value pairs
+- : The input SQL string that may contain variable placeholders (e.g., ":my_var")
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - parseVariable - Parses variable name from placeholder and returns bytes consumed
+  - getVariable - Retrieves variable value from the Variables store
+  - replaceVariable - Performs text replacement of placeholder with actual value
+  - Variables - Structure type for storing variable name-value pairs
+- Called from (representative examples):
+  - sendCommand - Uses assignVariables to prepare SQL before execution
+
+## Notes and Other Information
+- Variable placeholders must start with ':' followed by a valid variable name
+- If a variable is not found in the store, the placeholder remains unchanged
+- The function modifies the input SQL string in place through replaceVariable calls
+- Memory management is handled properly with free() calls for temporary variable names
+- This is a core component of pgbench's variable substitution system, enabling parameterized SQL execution in benchmark scripts

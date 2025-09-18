@@ -1,0 +1,34 @@
+# findFkeyCast
+
+## Location
+src/backend/commands/tablecmds.c: 12183 - 12211
+
+## Overview
+A wrapper function around find_coercion_pathway() specifically designed for foreign key constraint validation that determines if type coercion is possible between source and target types.
+
+## Definition
+
+
+## Detailed Description
+This function determines whether a type conversion (cast) is possible between a source type and target type in the context of foreign key constraints. It serves as a specialized wrapper around the general find_coercion_pathway() function, treating binary coercibility and exact type matches with equal preference. The function handles two scenarios: when types are identical (requiring only relabeling) and when types differ (requiring implicit coercion). If no valid coercion path exists, it raises an error indicating that a previously available cast is no longer available.
+
+## Parameters / Member Variables
+- : OID of the target data type (typically from referenced table column)
+- : OID of the source data type (typically from referencing table column) 
+- : Output parameter that receives the OID of the coercion function, or InvalidOid if no function needed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_coercion_pathway
+  - COERCION_PATH_RELABELTYPE
+  - COERCION_IMPLICIT
+  - COERCION_PATH_NONE
+- Called from (representative examples):
+  - ATAddForeignKeyConstraint
+
+## Notes and Other Information
+- Returns COERCION_PATH_RELABELTYPE for identical types (no actual conversion needed)
+- Only accepts implicit coercion paths, not explicit ones
+- Raises an ERROR if no coercion pathway exists, suggesting a regression in cast availability
+- Part of the foreign key constraint validation process during table alterations
+- The error message indicates this function expects previously working casts to remain available

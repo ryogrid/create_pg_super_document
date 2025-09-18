@@ -1,0 +1,45 @@
+# transformTopLevelStmt
+
+## Location
+src/backend/parser/analyze.c: 248 - 271
+
+## Overview
+Transforms a raw parse tree into a Query tree, handling top-level statement processing including SELECT INTO operations and statement location tracking.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the entry point for transforming top-level SQL statements from their raw parsed form into fully analyzed Query structures. Despite its central role in the parsing pipeline, the function itself is relatively simple and primarily acts as a coordinator.
+
+The main responsibilities include:
+1. Delegating the actual transformation work to transformOptionalSelectInto
+2. Ensuring that SELECT INTO operations are allowed at the top level
+3. Transferring statement location information from the RawStmt to the resulting Query
+4. Setting up the Query structure with proper position tracking for error reporting
+
+The function is specifically designed to handle top-level statements, which have different rules compared to sub-statements (particularly regarding SELECT INTO operations).
+
+## Parameters / Member Variables
+- : Parse state containing context and configuration for the transformation
+- : Raw statement structure containing the parsed SQL along with location information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - transformOptionalSelectInto: Performs the actual statement transformation with SELECT INTO handling
+  - RawStmt: Structure containing the raw parsed statement and location data
+
+- Called from (representative examples):
+  - parse_analyze_fixedparams: Top-level analysis with fixed parameters
+  - parse_analyze_varparams: Top-level analysis with variable parameters
+  - parse_analyze_withcb: Top-level analysis with custom callback
+  - inline_function: Used during query optimization for function inlining
+
+## Notes and Other Information
+- This function specifically handles top-level statements, enabling SELECT INTO operations
+- The main transformation logic is delegated to transformOptionalSelectInto
+- Statement location tracking (stmt_location and stmt_len) is essential for error reporting
+- Unlike transformStmt, this function allows SELECT INTO operations at the top level
+- The function is a thin wrapper that primarily handles location data transfer
+- Part of the parsing pipeline that connects raw parsing with semantic analysis
+- Used exclusively for top-level statements, not for sub-statements or recursive analysis

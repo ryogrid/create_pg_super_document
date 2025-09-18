@@ -1,0 +1,43 @@
+# count_spaces_until
+
+## Location
+src/tools/pg_bsd_indent/io.c: 517 - 549
+
+## Overview
+Calculates where the character position will be after printing text from a buffer starting at a given column position, with support for bounded string processing.
+
+## Definition
+
+
+## Detailed Description
+The  function is a utility in the PostgreSQL BSD indent tool that determines the final column position that would result from printing a specific portion of text starting from a given current position. This function is similar to  but includes boundary checking by accepting an  pointer, allowing it to process only a substring of the buffer.
+
+The function processes each character in the buffer and updates the column position according to the character type:
+- Newlines and form feeds reset position to column 1
+- Tabs advance to the next tab stop based on   
+- Backspace characters move backward one position
+- All other printable characters advance one position
+
+This bounded version is particularly useful when analyzing comment text or partial strings where only a portion of the buffer needs to be considered for positioning calculations.
+
+## Parameters / Member Variables
+- : The current column position to start calculation from (integer)
+- : Pointer to the character buffer to analyze
+- : Pointer marking the end boundary of the text to process
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Uses  global variable for tab stop calculations
+- Called from (representative examples):
+  - : Used in main indentation logic for positioning calculations
+  - : Called by the simpler count_spaces wrapper function
+  - : Used in comment processing for alignment calculations
+
+## Notes and Other Information
+- Originally coded in November 1976 by D A Willcox of CAC
+- Returns the final column position after processing the specified text range
+- Handles special control characters: newline ('\n'), form feed (014 octal), tab ('\t'), and backspace (010 octal)
+- The  parameter allows processing bounded strings without requiring null-termination
+- Processing stops when encountering null terminator or reaching the  pointer, whichever comes first
+- Essential for precise positioning calculations in comment formatting and code alignment
+- More flexible than  due to its ability to process partial strings

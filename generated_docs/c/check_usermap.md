@@ -1,0 +1,47 @@
+# check_usermap
+
+## Location
+src/backend/libpq/hba.c: 2904 - 2958
+
+## Overview
+Validates whether a system user is authorized to connect as a specified PostgreSQL user according to a usermap configuration, supporting both implicit sameuser mapping and explicit usermap file lookups.
+
+## Definition
+
+
+## Detailed Description
+The `check_usermap` function is a core authentication component that validates user mapping in PostgreSQL. It handles two distinct scenarios:
+
+1. **Implicit mapping (sameuser/samerole)**: When `usermap_name` is NULL or empty, the function performs a direct comparison between `pg_user` and `system_user`. This is the traditional "sameuser" authentication mode where the system user must exactly match the PostgreSQL user.
+
+2. **Explicit usermap lookup**: When a usermap name is provided, the function searches through the parsed identity mapping file (`parsed_ident_lines`) to find matching entries. It delegates the actual matching logic to `check_ident_usermap` for each line in the configuration.
+
+The function supports both case-sensitive and case-insensitive matching modes. It returns STATUS_OK for successful authorization or STATUS_ERROR for failures, logging appropriate error messages for troubleshooting.
+
+## Parameters / Member Variables
+- `usermap_name`: Name of the usermap to check against; NULL or empty string triggers implicit sameuser mode
+- `pg_user`: The PostgreSQL username that the client wants to connect as
+- `system_user`: The authenticated system username (from OS, Kerberos, etc.)
+- `case_insensitive`: Boolean flag controlling whether username comparisons should ignore case
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_strcasecmp (for case-insensitive string comparison)
+  - strcmp (for case-sensitive string comparison)  
+  - ereport (for error logging)
+  - check_ident_usermap (for processing usermap file entries)
+  - parsed_ident_lines (global list of parsed identity mapping entries)
+  - STATUS_OK, STATUS_ERROR (return status constants)
+- Called from (representative examples):
+  - pg_GSS_checkauth (GSS/Kerberos authentication)
+  - pg_SSPI_recvauth (Windows SSPI authentication)
+  - ident_inet (ident protocol authentication)
+  - auth_peer (peer authentication)
+  - CheckCertAuth (SSL certificate authentication)
+
+## Notes and Other Information
+- This function is located at src/backend/libpq/hba.c:2904-2958
+- The parsed_ident_lines global variable must be populated by load_ident() before this function can process explicit usermaps
+- Error messages are logged at LOG level to help administrators debug authentication issues
+- The function implements PostgreSQL's user name mapping feature, which is essential for environments where system usernames differ from database usernames
+- Regular expression and group membership features are handled by the check_ident_usermap helper function

@@ -1,0 +1,43 @@
+# make_time
+
+## Location
+src/backend/utils/adt/date.c: 1577 - 1604
+
+## Overview
+Constructs a TIME value from individual hour, minute, and second components with validation and overflow checking.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL constructor function that creates a TIME value from separate hour, minute, and second components. It validates the input values for range and overflow conditions, then converts them into the internal TimeADT representation (microseconds since midnight). The function performs thorough validation to ensure the resulting time value is within acceptable bounds and raises appropriate errors for invalid inputs.
+
+The conversion algorithm matches the  function, ensuring consistency across PostgreSQL's time handling code. It calculates the total microseconds by first converting hours and minutes to total minutes, then to total seconds, then to total microseconds, and finally adding the fractional seconds converted to microseconds.
+
+## Parameters / Member Variables
+-  (int): Hour component (0-23)
+-  (int): Minute component (0-59)  
+-  (double): Second component with fractional seconds (0.0-59.999999)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extracts integer arguments for hour and minute
+  - : Extracts double argument for seconds
+  - : Validates time components for overflow conditions
+  - : Rounds floating-point seconds to nearest integer microseconds
+  - : Returns the constructed TimeADT value as a Datum
+- Constants used:
+  - : Minutes in an hour (60)
+  - : Seconds in a minute (60)
+  - : Microseconds in a second (1,000,000)
+- Types used:
+  - : Internal representation of time values as microseconds since midnight
+
+## Notes and Other Information
+- This function serves as a time constructor for SQL functions and expressions
+- Performs comprehensive validation using  to prevent invalid time values
+- The conversion algorithm explicitly matches  for consistency
+- Handles fractional seconds with microsecond precision
+- Raises  errors for out-of-range values
+- Located in src/backend/utils/adt/date.c:1577-1604
+- Used internally by PostgreSQL for constructing TIME values from components

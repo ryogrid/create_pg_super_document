@@ -1,0 +1,41 @@
+# assign_record_type_identifier
+
+## Location
+src/backend/utils/cache/typcache.c: 2045 - 2085
+
+## Overview
+Assigns a unique identifier for the lifetime of the backend process to track the current tuple descriptor of a composite type, with different behavior for named types versus anonymous RECORD types.
+
+## Definition
+
+
+## Detailed Description
+This function provides a backend-lifetime unique identification system for tuple descriptors of composite types. It handles two distinct cases with different identity semantics:
+
+For named composite types (type_id != RECORDOID), it retrieves the tuple descriptor from the type cache and returns its persistent identifier. This identifier is guaranteed to change if the type's definition changes, enabling detection of type definition modifications.
+
+For RECORD types, the behavior depends on the typmod value. Registered RECORD types (valid typmod) return a stable identifier from the RecordCacheArray that won't change once assigned. Anonymous RECORD types (typmod < 0 or unrecognized) receive a new identifier on each call, reflecting their transient nature.
+
+The function serves PostgreSQL's expanded record infrastructure by providing a way to detect when cached expanded records become invalid due to type definition changes.
+
+## Parameters / Member Variables
+- : OID of the composite type (RECORDOID for record types, or a named composite type OID)
+- : Type modifier specifying the particular variant for RECORD types, or -1 for anonymous records
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - lookup_type_cache
+  - TYPECACHE_TUPDESC (flag constant)
+- Called from (representative examples):
+  - make_expanded_record_from_typeid (src/backend/utils/adt/expandedrecord.c:110)
+  - make_expanded_record_from_tupdesc (src/backend/utils/adt/expandedrecord.c:242)
+  - expanded_record_fetch_tupdesc (src/backend/utils/adt/expandedrecord.c:866)
+
+## Notes and Other Information
+- Returns backend-lifetime unique uint64 identifiers via tupledesc_id_counter increment
+- Named composite type identifiers change when type definitions are modified, enabling cache invalidation
+- Registered RECORD type identifiers remain stable once assigned
+- Anonymous RECORD types always receive new identifiers, reflecting their ephemeral nature
+- Throws ERRCODE_WRONG_OBJECT_TYPE error if a non-composite type OID is provided
+- Part of PostgreSQL's expanded record system for efficient record type handling
+- Identifiers are guaranteed unique only within the current backend process lifetime

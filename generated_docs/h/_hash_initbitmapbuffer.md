@@ -1,0 +1,47 @@
+# _hash_initbitmapbuffer
+
+## Location
+src/backend/access/hash/hashovfl.c: 777 - 841
+
+## Overview
+Initializes a new bitmap page in the PostgreSQL hash index, setting all bits to "1" to indicate that all corresponding overflow pages are "in use".
+
+## Definition
+
+
+## Detailed Description
+This function initializes a bitmap page that tracks the allocation status of overflow pages in a hash index. The bitmap uses a "1" bit to indicate that an overflow page is allocated/in use, and "0" to indicate it's free. During initialization, all bits are set to "1" (0xFF pattern) since no overflow pages are initially free.
+
+The function handles both the page initialization (if needed) and the setup of hash-specific metadata in the page's special space. It properly sets the page boundaries to make the page compressible for WAL logging.
+
+## Parameters / Member Variables
+- : Buffer containing the page to initialize as a bitmap page
+- : Size in bytes of the bitmap data area 
+- : Boolean flag indicating whether to perform basic page initialization
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferGetPage
+  - _hash_pageinit
+  - BufferGetPageSize
+  - HashPageGetOpaque
+  - HashPageGetBitmap
+  - memset
+- Types/Constants referenced:
+  - HashPageOpaque
+  - InvalidBlockNumber
+  - InvalidBucket
+  - LH_BITMAP_PAGE
+  - HASHO_PAGE_ID
+  - PageHeader
+- Called from (representative examples):
+  - hash_xlog_init_bitmap_page
+  - hash_xlog_add_ovfl_page
+  - _hash_addovflpage
+  - _hash_init
+
+## Notes and Other Information
+- All bitmap bits are initially set to "1" (indicating "in use") using memset with 0xFF
+- The function sets pd_lower precisely to the end of bitmap data rather than equal to pd_upper to make the page appear compressible to the WAL system
+- Bitmap pages have LH_BITMAP_PAGE flag in their special space opaque data
+- The prevblkno and nextblkno fields are set to InvalidBlockNumber since bitmap pages don't participate in bucket chains

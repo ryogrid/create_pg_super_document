@@ -1,0 +1,39 @@
+# _bt_drop_lock_and_maybe_pin
+
+## Location
+src/backend/access/nbtree/nbtsearch.c: 61 - 95
+
+## Overview
+This function unlocks a B-tree buffer and conditionally releases the buffer pin to prevent vacuum from being blocked by cursor positioning on a page.
+
+## Definition
+
+
+## Detailed Description
+_bt_drop_lock_and_maybe_pin is a static utility function that implements a two-phase buffer management strategy for B-tree scans. It first unconditionally unlocks the buffer, then conditionally releases the buffer pin based on specific conditions. This approach helps prevent vacuum operations from being blocked when cursors are positioned on pages, which is critical for maintaining good vacuum performance and avoiding deadlocks in concurrent scenarios.
+
+The function implements the concurrent TID recycling safety mechanism described in the nbtree/README. It only releases the buffer pin when it's safe to do so - specifically when using MVCC snapshots, when the relation requires WAL logging, and when the scan doesn't need index tuples.
+
+## Parameters / Member Variables
+- : IndexScanDesc containing the index scan state and configuration
+- : BTScanPos structure containing the current scan position including the buffer reference
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - _bt_unlockbuf
+  - IsMVCCSnapshot
+  - RelationNeedsWAL
+  - ReleaseBuffer
+- Called from (representative examples):
+  - _bt_first
+  - _bt_steppage
+  - _bt_parallel_readpage
+  - _bt_endpoint
+
+## Notes and Other Information
+The conditional pin release logic ensures that the buffer pin is only dropped when it's safe for concurrent operations. The three conditions checked are:
+1. MVCC snapshot is being used (not a catalog snapshot)
+2. The relation requires WAL logging (not a temporary relation)
+3. The scan doesn't need index tuples (xs_want_itup is false)
+
+This careful conditional release prevents issues with concurrent TID recycling while still allowing vacuum to proceed efficiently when safe.

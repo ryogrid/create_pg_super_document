@@ -1,0 +1,39 @@
+# fmtQualifiedId
+
+## Location
+src/fe_utils/string_utils.c: 296 - 312
+
+## Overview
+A convenience wrapper function that constructs a schema-qualified identifier name using the currently configured global encoding setting.
+
+## Definition
+```c
+const char *fmtQualifiedId(const char *schema, const char *id)
+```
+
+## Detailed Description
+The `fmtQualifiedId` function is a simplified interface to `fmtQualifiedIdEnc` that uses the globally configured encoding setting obtained via `getFmtEncoding()`. This function provides backward compatibility and convenience for code that doesnt need to specify encoding explicitly. It delegates all the actual formatting work to `fmtQualifiedIdEnc`, making it essentially a thin wrapper.
+
+The function assumes that `setFmtEncoding()` has been previously called to configure the appropriate encoding for the current context. For new code, it is recommended to use `fmtQualifiedIdEnc()` directly with an explicit encoding parameter for better clarity and control.
+
+## Parameters / Member Variables
+- `schema`: Schema name to prepend to the identifier (can be NULL or empty)
+- `id`: The identifier name to be formatted (required)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `fmtQualifiedIdEnc` (main implementation)
+  - `getFmtEncoding` (to obtain current encoding setting)
+- Called from (representative examples):
+  - `lockTableForWorker` (src/bin/pg_dump/parallel.c:1313)
+  - `restore_toc_entry` (src/bin/pg_dump/pg_backup_archiver.c:1020)
+  - `_disableTriggersIfNecessary` (src/bin/pg_dump/pg_backup_archiver.c:1129)
+  - `fmtQualifiedDumpable` (src/bin/pg_dump/pg_dump.c:178)
+
+## Notes and Other Information
+- This is a convenience wrapper around `fmtQualifiedIdEnc`
+- Requires prior call to `setFmtEncoding()` to configure encoding
+- Recommended to use `fmtQualifiedIdEnc()` directly in new code for explicit encoding control
+- Widely used in pg_dump utilities for database object name formatting
+- Inherits all behavior and limitations from `fmtQualifiedIdEnc`
+- Result should be used immediately before making other formatting function calls

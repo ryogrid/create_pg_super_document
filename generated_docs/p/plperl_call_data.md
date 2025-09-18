@@ -1,0 +1,44 @@
+# plperl_call_data
+
+## Location
+src/pl/plperl/plperl.c: 171 - 181
+
+## Overview
+The plperl_call_data structure manages the runtime context and state information for the duration of a single PL/Perl function call, including support for set-returning functions.
+
+## Definition
+
+
+## Detailed Description
+This structure encapsulates the runtime execution context for a single invocation of a PL/Perl function. It bridges the gap between PostgreSQL's function call infrastructure and the cached procedure information, providing a temporary workspace for function execution.
+
+The structure serves dual purposes: basic function execution (using prodesc and fcinfo) and set-returning function support (using the remaining fields). For set-returning functions, it manages the tuple store that accumulates results across multiple return_next calls, maintains type descriptors for result formatting, and handles domain constraints over composite types.
+
+The tmp_cxt memory context provides a scratch space that can be reset between function calls or used for temporary allocations during execution, ensuring clean memory management without affecting the longer-lived procedure cache.
+
+## Parameters / Member Variables
+- : Pointer to the cached plperl_proc_desc containing the compiled function information and metadata
+- : PostgreSQL's FunctionCallInfo structure containing call arguments, context, and result information
+- : Tuplestore for accumulating results from set-returning functions (NULL for regular functions)
+- : Tuple descriptor defining the structure of returned tuples for set-returning functions
+- : OID of domain type when returning domain-over-composite types (0 for regular composite returns)
+- : Cached domain constraint information for validation of domain-over-composite returns
+- : Temporary memory context for scratch allocations during function execution
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - plperl_proc_desc (procedure descriptor reference)
+  - FunctionCallInfo (PostgreSQL function call info)
+  - Tuplestorestate (set-returning function support)
+- Called from (representative examples):
+  - plperl_call_handler (main function call entry point)
+  - plperl_inline_handler (inline code execution)
+
+## Notes and Other Information
+- Lifetime is limited to a single function call execution
+- Set-returning function fields are only populated when needed, saving memory for regular functions
+- Domain-over-composite support enables proper constraint validation for complex return types
+- Temporary memory context enables efficient cleanup and prevents memory leaks
+- Bridges cached procedure information with runtime execution state
+- Critical for maintaining execution context across multiple return_next calls in SRFs
+- Memory management strategy separates long-term cache from short-term execution context

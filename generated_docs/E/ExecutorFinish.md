@@ -1,0 +1,45 @@
+# ExecutorFinish
+
+## Location
+src/backend/executor/execMain.c: 400 - 408
+
+## Overview
+ExecutorFinish must be called after the last ExecutorRun call to perform cleanup operations such as firing AFTER triggers, providing a hook mechanism for plugins while delegating to the standard implementation.
+
+## Definition
+```c
+void ExecutorFinish(QueryDesc *queryDesc)
+```
+
+## Detailed Description
+ExecutorFinish performs essential cleanup operations that must occur after query execution is complete but before the executor state is torn down. This function is specifically designed to handle operations like firing AFTER triggers that need to be included in performance measurements for tools like EXPLAIN ANALYZE.
+
+The separation between ExecutorFinish and ExecutorEnd serves an important purpose: ExecutorFinish handles cleanup operations that should be included in total runtime measurements, while ExecutorEnd performs the final resource deallocation that should not be measured. This distinction is crucial for accurate performance analysis.
+
+Like other executor interface functions, ExecutorFinish provides extensibility through the ExecutorFinish_hook variable, allowing loadable plugins to intercept and customize the cleanup process. When no hook is installed, it delegates to standard_ExecutorFinish for the default cleanup behavior.
+
+The function is a critical part of the executor lifecycle: ExecutorStart → ExecutorRun (potentially multiple calls) → ExecutorFinish → ExecutorEnd.
+
+## Parameters / Member Variables
+- `queryDesc`: A QueryDesc structure containing the execution context that requires cleanup after execution completion
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - standard_ExecutorFinish (default implementation when no hook is present)
+  - QueryDesc (parameter structure)
+- Called from (representative examples):
+  - EndCopyTo (src/backend/commands/copyto.c:731)
+  - ExecCreateTableAs (src/backend/commands/createas.c:334)
+  - ExplainOnePlan (src/backend/commands/explain.c:705)
+  - ProcessQuery (src/backend/tcop/pquery.c:193)
+  - PortalCleanup (src/backend/commands/portalcmds.c:298)
+  - _SPI_pquery (src/backend/executor/spi.c:2943)
+
+## Notes and Other Information
+- Must be called after all ExecutorRun calls are complete but before ExecutorEnd
+- Specifically designed to handle cleanup operations that should be included in performance timing measurements
+- The hook mechanism allows extensions to perform custom cleanup operations or wrap the standard cleanup behavior
+- Critical for proper AFTER trigger execution and other post-execution cleanup tasks
+- Separate from ExecutorEnd to distinguish between measured cleanup (ExecutorFinish) and unmeasured resource deallocation (ExecutorEnd)
+- Located at src/backend/executor/execMain.c:400-408
+- Part of the standard executor lifecycle sequence that ensures proper query execution and cleanup

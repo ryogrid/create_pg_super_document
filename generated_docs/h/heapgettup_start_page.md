@@ -1,0 +1,39 @@
+# heapgettup_start_page
+
+## Location
+src/backend/access/heap/heapam.c: 721 - 751
+
+## Overview
+heapgettup_start_page is a helper function that prepares page scanning parameters by determining the starting offset and line count for tuple-by-tuple scanning in both forward and backward directions.
+
+## Definition
+
+
+## Detailed Description
+This function initializes the scanning parameters for a heap page that's already loaded in the scan descriptor's current buffer. It calculates the total number of tuples available on the page and sets the appropriate starting offset based on scan direction. For forward scans, it starts from FirstOffsetNumber (the beginning of the page), while for backward scans, it starts from the last offset on the page. The function assumes the buffer is already locked by the caller if necessary and simply extracts the page pointer and computes scanning bounds.
+
+## Parameters / Member Variables
+- `scan`: HeapScanDesc containing initialized scan state with valid current buffer
+- `dir`: ScanDirection indicating forward or backward scanning
+- `linesleft`: Output parameter set to the number of tuples available on the page
+- `lineoff`: Output parameter set to the starting offset number for scanning
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferIsValid
+  - BufferGetPage
+  - PageGetMaxOffsetNumber
+  - ScanDirectionIsForward
+  - FirstOffsetNumber
+- Called from (representative examples):
+  - heapgettup
+
+## Notes and Other Information
+- Assumes scan is already initialized (rs_inited must be true)
+- Requires valid current buffer (rs_cbuf must be valid)
+- Caller is responsible for buffer locking if needed
+- Calculates total line count as MaxOffsetNumber - FirstOffsetNumber + 1
+- For backward scans, lineoff is set to the total number of lines (last offset)
+- Returns the Page pointer extracted from the current buffer
+- Essential helper for tuple-by-tuple scanning as opposed to pagemode scanning
+- Used in conjunction with heapgettup for individual tuple iteration

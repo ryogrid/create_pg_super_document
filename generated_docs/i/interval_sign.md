@@ -1,0 +1,36 @@
+# interval_sign
+
+## Location
+src/backend/utils/adt/timestamp.c: 2514 - 2522
+
+## Overview
+Determines the sign of an interval value, returning -1 for negative intervals, 0 for zero intervals, and 1 for positive intervals.
+
+## Definition
+
+
+## Detailed Description
+The  function is a static helper function that evaluates the sign of an interval data type. It internally uses  to convert the interval to a comparable 128-bit integer representation, then compares this value with zero using . This function is essential for interval arithmetic operations that need to determine the direction or sign of time spans.
+
+## Parameters / Member Variables
+- : A constant pointer to an Interval struct representing the time span to evaluate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - interval_cmp_value
+  - int64_to_int128
+  - int128_compare
+  - INT128 (data type)
+- Called from (representative examples):
+  - interval_mul
+  - in_range_timestamptz_interval
+  - in_range_timestamp_interval
+  - in_range_interval_interval
+  - generate_series_timestamp
+  - generate_series_timestamptz_internal
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the timestamp.c file
+- The function returns standard comparison result values: -1 (negative), 0 (zero), or 1 (positive)
+- Used extensively in interval arithmetic operations and range functions
+- Critical for determining the direction of time series generation and interval multiplication operations

@@ -1,0 +1,46 @@
+# ATExecSetNotNull
+
+## Location
+src/backend/commands/tablecmds.c: 7760 - 7841
+
+## Overview
+ATExecSetNotNull is the execution phase function for the ALTER TABLE ALTER COLUMN SET NOT NULL command, which actually modifies the catalog to mark a column as NOT NULL and determines if data validation is needed.
+
+## Definition
+
+
+## Detailed Description
+This function performs the actual catalog modification to set a column's NOT NULL constraint during ALTER TABLE operations. The function operates in several phases:
+
+1. **Column Lookup**: Uses the system catalog to find the specified column and validates its existence and type (preventing modification of system columns).
+
+2. **Catalog Modification**: If the column is not already NOT NULL, it updates the pg_attribute catalog to set the attnotnull flag to true.
+
+3. **Validation Optimization**: Checks if existing constraints already guarantee that the column contains no NULL values using NotNullImpliedByRelConstraints(). If no such constraint exists, it flags that Phase 3 validation is required.
+
+4. **Post-Alter Processing**: Invokes post-alter hooks and returns the object address of the modified column, or InvalidObjectAddress if no change was made.
+
+The function is designed to be efficient by skipping unnecessary validation when existing constraints already ensure NOT NULL semantics.
+
+## Parameters / Member Variables
+- : AlteredTableInfo structure containing information about the table being altered and tracking validation requirements
+- : The relation being modified
+- : Name of the column to set as NOT NULL
+- : Lock mode for accessing the relation (currently unused in this function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCacheCopyAttName (to lookup column in system catalog)
+  - CatalogTupleUpdate (to update the pg_attribute catalog)
+  - NotNullImpliedByRelConstraints (to check if existing constraints guarantee NOT NULL)
+  - ObjectAddressSubSet (to create return address for the modified column)
+  - InvokeObjectPostAlterHook (to trigger post-alter processing)
+- Called from (representative examples):
+  - ATExecCmd (main ALTER TABLE command execution dispatcher)
+
+## Notes and Other Information
+- Returns InvalidObjectAddress if the column was already NOT NULL, indicating no change was made
+- The function integrates with PostgreSQL's three-phase ALTER TABLE processing: preparation, execution, and validation
+- Phase 3 validation (checking for existing NULL values) is only scheduled if no existing constraint can prove the column is already NULL-free
+- System columns (attnum <= 0) cannot be altered and will generate an error
+- The function uses RowExclusiveLock on the attribute relation to ensure safe concurrent access during catalog updates

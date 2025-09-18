@@ -1,0 +1,45 @@
+# ProcessCopyOptions
+
+## Location
+src/backend/commands/copy.c: 463 - 895
+
+## Overview
+ProcessCopyOptions processes and validates the complete option list for COPY statements, parsing individual DefElem options into a structured CopyFormatOptions output while performing comprehensive compatibility and consistency checking.
+
+## Definition
+
+
+## Detailed Description
+ProcessCopyOptions is the central option processing function for COPY statements, handling the parsing, validation, and normalization of all COPY options. It iterates through a list of DefElem options, extracting values and storing them in a CopyFormatOptions structure. The function performs extensive validation including: detecting conflicting option specifications, enforcing format-specific restrictions (e.g., CSV-only options), validating character constraints (single-byte requirements, forbidden characters), and ensuring directional compatibility (COPY FROM vs COPY TO restrictions). It also sets appropriate defaults for omitted options and performs cross-option validation to ensure the final configuration is internally consistent and operationally valid.
+
+## Parameters / Member Variables
+- : ParseState for generating error messages with precise source location information
+- : Output CopyFormatOptions structure to populate with processed option values (can be NULL for external validation)
+- : Boolean flag indicating COPY FROM (true) vs COPY TO (false) for directional option validation  
+- : List of DefElem structures containing the raw COPY option specifications from the parser
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - defGetString
+  - defGetBoolean  
+  - defGetCopyHeaderChoice
+  - defGetCopyOnErrorChoice
+  - defGetCopyLogVerbosityChoice
+  - errorConflictingDefElem
+  - pg_char_to_encoding
+  - ereport/parser_errposition
+  - palloc0
+  - strlen/strchr/strncmp
+- Called from (representative examples):
+  - BeginCopyFrom
+  - BeginCopyTo
+
+## Notes and Other Information
+- Supports external API usage by allowing opts_out to be NULL for option validation without result storage
+- Enforces strict single-byte character requirements for delimiters, quotes, and escape characters
+- Prohibits newline and carriage return characters in delimiter, null, and default representations
+- Implements comprehensive format-mode restrictions (binary mode limitations, CSV-only options)
+- Sets intelligent defaults: tab delimiter for text mode, comma for CSV; backslash-N for text null, empty string for CSV null
+- Validates character conflicts: delimiter cannot appear in null/default strings, quote character restrictions
+- Contains undocumented 'convert_selectively' option for internal use in binary format processing
+- Performs both individual option validation and cross-option compatibility checking to ensure operational consistency

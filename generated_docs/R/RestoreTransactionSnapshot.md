@@ -1,0 +1,33 @@
+# RestoreTransactionSnapshot
+
+## Location
+src/backend/utils/time/snapmgr.c: 1840 - 1855
+
+## Overview
+Installs a restored snapshot as the current transaction snapshot, typically used when setting up parallel worker processes.
+
+## Definition
+
+
+## Detailed Description
+RestoreTransactionSnapshot is a convenience wrapper function that installs a previously restored snapshot as the active transaction snapshot. This function is primarily used in parallel query execution when a worker process needs to adopt the same MVCC visibility rules that were active in the main process. The function delegates to SetTransactionSnapshot with appropriate parameters for restored snapshots.
+
+The function uses a void pointer for the source_pgproc parameter to avoid including PGPROC declarations in snapmgr.h, maintaining clean header dependencies.
+
+## Parameters / Member Variables
+- : The snapshot structure to install as the transaction snapshot (typically from RestoreSnapshot)
+- : Pointer to the PGPROC structure of the source process (cast to void* for header independence)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SetTransactionSnapshot (core function for installing transaction snapshots)
+  - InvalidPid (constant indicating no specific process ID)
+- Called from (representative examples):
+  - ParallelWorkerMain (parallel worker process initialization)
+  - CreateReplicationSlot (replication slot creation)
+
+## Notes and Other Information
+- This is essentially a thin wrapper around SetTransactionSnapshot with preset parameters
+- The void* parameter type for source_pgproc maintains header file independence
+- Used primarily in parallel execution contexts where workers need to adopt the main process's snapshot
+- The InvalidPid parameter indicates that no specific process ID tracking is needed for this snapshot installation

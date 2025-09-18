@@ -1,0 +1,36 @@
+# make_indexonlyscan
+
+## Location
+src/backend/optimizer/plan/createplan.c: 5576 - 5604
+
+## Overview
+Creates and initializes an IndexOnlyScan plan node for the PostgreSQL query planner, which represents an index-only scan operation that can return results directly from index pages without accessing the heap table.
+
+## Definition
+
+
+## Detailed Description
+This function constructs an IndexOnlyScan plan node, which is an optimization that allows PostgreSQL to satisfy queries entirely from index data without needing to access the underlying heap table. This is particularly efficient when the index contains all the columns needed to answer the query. The function initializes all necessary fields of the IndexOnlyScan structure including scan qualifications, ordering specifications, and the target list that can be computed directly from the index.
+
+## Parameters / Member Variables
+- : Target list of expressions to be computed for this plan node
+- : Qualification conditions that apply to this scan operation
+- : Range table index of the relation being scanned
+- : Object identifier of the index to be used for the scan
+- : Index-specific qualification conditions that can be applied during index traversal
+- : Conditions that need to be rechecked after retrieving tuples from the index
+- : List of expressions for ordering the index scan results
+- : Target list of expressions that can be computed directly from index columns
+- : Direction for scanning the index (forward, backward, or no movement)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (to create the IndexOnlyScan node)
+- Called from (representative examples):
+  - create_indexscan_plan
+
+## Notes and Other Information
+- This is a static function within createplan.c, indicating it's used internally for plan creation
+- Index-only scans are a significant performance optimization as they avoid heap access
+- The function sets up both the basic Plan fields and IndexOnlyScan-specific fields
+- The recheck qualification is important for handling cases where index conditions may not be fully reliable

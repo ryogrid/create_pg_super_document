@@ -1,0 +1,36 @@
+# refnameNamespaceItem
+
+## Location
+src/backend/parser/parse_relation.c: 129 - 199
+
+## Overview
+Searches for a namespace item (table, view, CTE, etc.) that matches a given reference name, supporting both qualified and unqualified names across nested parsing contexts.
+
+## Definition
+
+
+## Detailed Description
+This function performs namespace resolution for relation references in SQL queries. It handles both qualified names (schema.table) and unqualified names (table), searching through the parsing state's namespace stack to find matching items. For qualified names, it converts the schema.relation pair to a relation OID and searches by relid. For unqualified names, it searches by alias or relation name. The function can optionally track nesting depth and will traverse parent parsing states when sublevels_up is provided.
+
+## Parameters / Member Variables
+- : Current parsing state containing the namespace stack
+- : Schema name for qualified references (NULL for unqualified)
+- : The relation/alias name to search for
+- : Source location for error reporting
+- : Optional output parameter for nesting depth (NULL to search current level only)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LookupNamespaceNoError
+  - get_relname_relid
+  - scanNameSpaceForRelid
+  - scanNameSpaceForRefname
+- Called from (representative examples):
+  - errorMissingRTE
+  - Various parser error handling functions in parse_expr.c and parse_target.c
+
+## Notes and Other Information
+- For qualified names, the function performs OID-based lookup rather than name-based to match SQL semantics
+- Returns NULL if no matching namespace item is found
+- Can report ambiguity errors if multiple items match an unqualified name at the same nesting level
+- Part of PostgreSQL's parser namespace resolution system

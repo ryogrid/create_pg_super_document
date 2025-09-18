@@ -1,0 +1,29 @@
+# getFailures
+
+## Location
+src/bin/pgbench/pgbench.c: 4519 - 4529
+
+## Overview
+Returns the total number of failed transactions by summing serialization failures and deadlock failures from the provided statistics data.
+
+## Definition
+
+
+## Detailed Description
+This function calculates the total number of transaction failures in pgbench by aggregating two specific types of failures: serialization failures and deadlock failures. It provides a consolidated count of all transaction failures for reporting purposes. The function is used internally within pgbench for progress reporting and final results display.
+
+## Parameters / Member Variables
+- `stats`: Pointer to a StatsData structure containing transaction statistics including failure counts
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - StatsData (structure type)
+- Called from (representative examples):
+  - printProgressReport (at src/bin/pgbench/pgbench.c:6306)
+  - printResults (at src/bin/pgbench/pgbench.c:6396, 6515)
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the pgbench.c file
+- Returns an int64 value to accommodate potentially large failure counts
+- The function simply adds two failure counters: serialization_failures and deadlock_failures from the StatsData structure
+- Used in both progress reporting during benchmark execution and final results reporting

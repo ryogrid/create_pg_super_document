@@ -1,0 +1,35 @@
+# multi_sort_add_dimension
+
+## Location
+src/backend/statistics/extended_stats.c: 851 - 864
+
+## Overview
+Prepares sort support information for multi-column sorting operations by configuring a specific dimension within a MultiSortSupport structure using the provided sort operator and collation.
+
+## Definition
+
+
+## Detailed Description
+This function initializes a single dimension of a multi-dimensional sort operation by setting up the SortSupport structure at the specified dimension index. It configures the sort support with the current memory context, the specified collation, and prepares the actual sort comparison function using the provided ordering operator. The function is primarily used in PostgreSQL's extended statistics subsystem to enable efficient multi-column sorting operations for statistical calculations.
+
+## Parameters / Member Variables
+- : MultiSortSupport structure containing an array of SortSupport elements for multi-dimensional sorting
+- : Integer index specifying which dimension (column) in the sort operation to configure
+- : OID of the ordering operator to use for comparisons in this dimension
+- : OID of the collation to apply for text comparisons in this dimension
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PrepareSortSupportFromOrderingOp
+  - MultiSortSupport (type)
+  - SortSupport (type)
+- Called from (representative examples):
+  - dependency_degree (src/backend/statistics/dependencies.c:275)
+  - build_mss (src/backend/statistics/mcv.c:366)
+  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:480)
+
+## Notes and Other Information
+- Sets ssup_nulls_first to false, indicating that NULL values are sorted after non-NULL values
+- Uses CurrentMemoryContext for memory allocation context
+- Part of PostgreSQL's extended statistics infrastructure used for multi-variate statistical analysis
+- The function assumes the MultiSortSupport structure has been properly allocated with sufficient dimensions

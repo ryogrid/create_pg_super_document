@@ -1,0 +1,56 @@
+# remove_rel_from_query
+
+## Location
+src/backend/optimizer/plan/analyzejoins.c: 329 - 561
+
+## Overview
+Completely removes a target relation and its associated outer join from all of the planner's data structures after determining the join is unnecessary.
+
+## Definition
+
+
+## Detailed Description
+This function performs the comprehensive cleanup required when a join has been determined to be removable by join_is_removable(). It systematically removes all references to both the target relation (relid) and the outer join (ojrelid) from various planner data structures to ensure the eliminated join doesn't interfere with subsequent planning phases.
+
+The function performs cleanup across multiple data structures:
+
+1. **Attribute Dependencies**: Removes references from other relations' attr_needed arrays
+2. **Global Relation Sets**: Updates all_baserels, outer_join_rels, and all_query_rels
+3. **SpecialJoinInfo Structures**: Updates lefthand/righthand relid sets for nested outer joins
+4. **PlaceHolderVar Management**: Either removes PHVs entirely or updates their eval_at and needed sets
+5. **Join Qualifiers**: Removes or redistributes join clauses, handling pushed-down conditions appropriately
+6. **Equivalence Classes**: Removes relation references from equivalence class structures
+7. **Base Relation Array**: Nullifies the relation entry and frees the RelOptInfo structure
+
+The function is designed to be conservative and only updates parts of the planner's data structures that will actually be consulted later in the planning process.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing all planner state and context
+- : The ID of the base relation being removed from the query
+- : SpecialJoinInfo structure describing the outer join being eliminated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_base_rel: Locates the RelOptInfo for the target relation
+  - bms_union, bms_add_member, bms_del_member: Bitmap set manipulation functions
+  - bms_copy: Creates copies of bitmap sets to avoid modifying shared structures
+  - bms_is_member, bms_is_subset, bms_is_empty: Bitmap set query functions
+  - foreach_delete_current: Safe deletion during list iteration
+  - remove_join_clause_from_rels: Removes join clauses from relation join lists
+  - remove_rel_from_restrictinfo: Updates RestrictInfo relation references
+  - distribute_restrictinfo_to_rels: Redistributes join clauses after modification
+  - remove_rel_from_eclass: Removes relation from equivalence classes
+  - pull_varnos: Extracts variable relation IDs for debugging assertions
+  - RINFO_IS_PUSHED_DOWN: Macro to identify pushed-down restrictions
+
+- Called from (representative examples):
+  - remove_useless_joins: Main join elimination function
+
+## Notes and Other Information
+- The function is not "terribly thorough" by design - it only updates data structures that will be consulted later in planning
+- Special care is taken with PlaceHolderVars, distinguishing between those used at partner relations versus those used in join qualifiers
+- The function handles cloned join clauses that may result from outer join commutation rules
+- SpecialJoinInfo structures require copying before modification since they may share relid sets with other structures
+- The target relation's RelOptInfo is freed at the end to prevent any further access
+- Includes debug assertions to verify that redistributed clauses don't reference the eliminated relation
+- Foreign key references are left for match_foreign_keys_to_quals() to clean up later

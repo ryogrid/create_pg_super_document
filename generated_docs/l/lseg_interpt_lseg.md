@@ -1,0 +1,41 @@
+# lseg_interpt_lseg
+
+## Location
+src/backend/utils/adt/geo_ops.c: 2338 - 2360
+
+## Overview
+Determines whether two line segments intersect and optionally returns the intersection point.
+
+## Definition
+
+
+## Detailed Description
+This internal function calculates whether two line segments intersect. It works by first constructing a line from the second segment, then finding the intersection point between the first segment and this line. Finally, it verifies that the intersection point lies within the bounds of the second segment. If an intersection exists, the function optionally stores the intersection point in the result parameter. The function is designed to be symmetric with lseg_interpt_line() for comprehensive line-segment intersection handling.
+
+## Parameters / Member Variables
+- : Pointer to a Point structure where the intersection point will be stored (can be NULL if only intersection testing is needed)
+- : First line segment
+- : Second line segment
+- Returns: true if segments intersect, false otherwise
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - line_construct (constructs a line from two points)
+  - lseg_sl (calculates slope of line segment)
+  - lseg_interpt_line (finds intersection between segment and line)
+  - lseg_contain_point (checks if point lies within segment)
+- Called from:
+  - path_inter (path intersection operations)
+  - lseg_intersect (segment intersection testing)
+  - lseg_interpt (segment intersection point calculation)
+  - lseg_closept_lseg (closest point between segments)
+  - box_interpt_lseg (box-segment intersection)
+  - poly_overlap_internal (polygon overlap detection)
+  - lseg_inside_poly (segment inside polygon testing)
+
+## Notes and Other Information
+- Located in src/backend/utils/adt/geo_ops.c:2338-2360
+- This is a static function, meaning it's only accessible within the same source file
+- The function is noted to be "almost perfectly symmetric" in design
+- Uses a two-step approach: first find line intersection, then validate segment bounds
+- Critical for various geometric operations involving line segment intersections in PostgreSQL's geometric data types

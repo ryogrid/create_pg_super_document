@@ -1,0 +1,41 @@
+# get_rel_tablespace
+
+## Location
+src/backend/utils/cache/lsyscache.c: 2054 - 2077
+
+## Overview
+Returns the pg_tablespace OID associated with a given relation, indicating which tablespace stores the relation's data files.
+
+## Definition
+
+
+## Detailed Description
+This function retrieves the tablespace OID for a specified relation from the system catalog. Tablespaces in PostgreSQL allow database administrators to define locations in the file system where database objects can be stored. The function performs a system cache lookup on the pg_class catalog using the relation OID and extracts the reltablespace field.
+
+It's important to note that InvalidOid can have two meanings: either the relation doesn't exist, or the relation is stored in the database's default tablespace. When a relation is created without specifying a tablespace, it uses the default tablespace, and the reltablespace field is set to InvalidOid (0).
+
+## Parameters / Member Variables
+- : The OID of the relation whose tablespace OID is to be retrieved
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1 (system cache lookup)
+  - HeapTupleIsValid (tuple validation)
+  - GETSTRUCT (macro to extract struct from tuple)
+  - ReleaseSysCache (cache cleanup)
+  - Form_pg_class (pg_class catalog structure)
+  - ObjectIdGetDatum (OID to Datum conversion)
+
+- Called from (representative examples):
+  - DefineRelation
+  - pg_get_indexdef_worker
+  - pg_get_constraintdef_worker
+
+## Notes and Other Information
+- InvalidOid result can mean either nonexistent relation or default tablespace usage
+- Essential for tablespace management and storage location determination
+- Used in DDL operations like CREATE TABLE and CREATE INDEX
+- Important for generating SQL definitions of database objects
+- Helps PostgreSQL locate physical storage files for relations
+- Default tablespace relations have reltablespace = InvalidOid
+- Located in src/backend/utils/cache/lsyscache.c:2054-2077

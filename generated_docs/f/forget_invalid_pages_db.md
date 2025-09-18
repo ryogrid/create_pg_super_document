@@ -1,0 +1,43 @@
+# forget_invalid_pages_db
+
+## Location
+src/backend/access/transam/xlogutils.c: 202 - 234
+
+## Overview
+Removes all invalid page entries from the hash table for a specific database, typically used when an entire database is being dropped.
+
+## Definition
+```c
+static void forget_invalid_pages_db(Oid dbid)
+```
+
+## Detailed Description
+The `forget_invalid_pages_db` function performs a wholesale cleanup of invalid page references for an entire database. It scans through the invalid page hash table and removes all entries where the database OID matches the specified `dbid`. This function is essential during database drop operations to ensure that no stale invalid page references remain in memory that could interfere with future recovery operations or cause spurious warnings. The function ensures clean separation between databases by completely purging all invalid page tracking data associated with the dropped database.
+
+## Parameters / Member Variables
+- `dbid`: Database OID identifying which database's invalid pages should be removed from tracking
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_seq_init
+  - hash_seq_search
+  - message_level_is_interesting
+  - relpathperm
+  - elog
+  - pfree
+  - hash_search
+  - HASH_SEQ_STATUS
+  - xl_invalid_page
+- Called from (representative examples):
+  - XLogDropDatabase
+
+## Notes and Other Information
+- This is a static function, accessible only within xlogutils.c
+- Returns early if the invalid_page_tab hash table doesn't exist, avoiding unnecessary work
+- Uses hash table sequential scanning to iterate through all entries in the table
+- Compares database OIDs from the RelFileLocator to identify matching entries
+- Includes DEBUG2-level logging for each dropped page when appropriate log level is enabled
+- Performs error checking to detect hash table corruption during removal operations
+- Memory allocated by relpathperm is properly freed to prevent memory leaks
+- Essential for maintaining system integrity when databases are dropped during WAL replay
+- More coarse-grained than forget_invalid_pages, operating at the database level rather than relation level

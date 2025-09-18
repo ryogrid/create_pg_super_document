@@ -1,0 +1,38 @@
+# ComputeExtStatisticsRows
+
+## Location
+src/backend/statistics/extended_stats.c: 265 - 346
+
+## Overview
+ComputeExtStatisticsRows calculates the number of sample rows needed for computing extended statistics on a relation, considering only statistics objects that can actually be built with the available column analysis.
+
+## Definition
+
+
+## Detailed Description
+This function determines the sample size requirements for extended statistics computation during ANALYZE. It examines all extended statistics objects defined for the relation, checks whether each can be computed with the currently analyzed columns, calculates the statistics target for each valid object, and returns a sample size based on the highest target found. The function uses a simple formula of 300 rows per statistics target unit to determine the required sample size. This preprocessing step allows ANALYZE to collect sufficient samples before attempting to build the actual extended statistics.
+
+## Parameters / Member Variables
+- : The relation being analyzed
+- : Number of attributes being analyzed 
+- : Array of per-column statistics information for analyzed attributes
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - fetch_statentries_for_relation
+  - lookup_var_attr_stats
+  - statext_compute_stattarget
+  - bms_num_members
+  - AllocSetContextCreate
+  - MemoryContextDelete
+- Called from:
+  - do_analyze_rel (in src/backend/commands/analyze.c:510)
+
+## Notes and Other Information
+- Returns 0 if no columns are being analyzed
+- Skips statistics objects that cannot be computed with available columns
+- Uses the maximum statistics target among all valid statistics objects
+- Applies a fixed multiplier of 300 to convert statistics target to sample row count
+- Uses a temporary memory context for safe memory management
+- Does not report warnings for incomputable statistics (deferred to BuildRelationExtStatistics)
+- The 300x multiplier ensures sufficient sample size for accurate extended statistics computation

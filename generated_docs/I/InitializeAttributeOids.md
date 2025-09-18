@@ -1,0 +1,34 @@
+# InitializeAttributeOids
+
+## Location
+src/backend/catalog/index.c: 492 - 509
+
+## Overview
+Sets the relation OID (attrelid) for all attributes in an index tuple descriptor to properly associate them with the index relation.
+
+## Definition
+
+
+## Detailed Description
+This function performs a simple but essential task in index creation: it updates the attrelid field of each attribute in the index's tuple descriptor to reference the correct index relation OID. During tuple descriptor construction, the attrelid field is initially set to InvalidOid because the index relation hasn't been created yet. Once the index relation is established and has a valid OID, this function iterates through all attributes in the tuple descriptor and sets their attrelid field to the index's OID. This establishes the proper relationship between the attributes and their parent index relation in PostgreSQL's system catalogs.
+
+## Parameters / Member Variables
+- : Relation pointer to the index relation whose attributes need OID initialization
+- : Integer specifying the number of attributes to process
+- : OID of the index relation to assign to each attribute's attrelid field
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetDescr: Retrieves the tuple descriptor from the index relation
+  - TupleDescAttr: Macro to access individual attributes within the tuple descriptor
+- Called from (representative examples):
+  - index_create: During the index creation process after the relation is established
+  - SerializedReindexState: During reindex operations
+
+## Notes and Other Information
+- This is a static function, only used within the same source file
+- The function is straightforward with no error checking, assuming valid inputs
+- Essential for proper system catalog integrity - attributes must reference their parent relation
+- Called after ConstructTupleDescriptor creates the initial tuple descriptor structure
+- Part of the index creation workflow where relation OIDs are finalized after initial structure creation
+- The function modifies the tuple descriptor in-place rather than returning a new one

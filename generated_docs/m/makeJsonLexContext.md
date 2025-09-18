@@ -1,0 +1,35 @@
+# makeJsonLexContext
+
+## Location
+src/backend/utils/adt/jsonfuncs.c: 538 - 565
+
+## Overview
+This function creates a JsonLexContext for parsing JSON data from a PostgreSQL text datum, serving as a convenient wrapper around makeJsonLexContextCstringLen.
+
+## Definition
+JsonLexContext *makeJsonLexContext(JsonLexContext *lex, text *json, bool need_escapes)
+
+## Detailed Description
+makeJsonLexContext provides a simplified interface for creating JSON lexical contexts from PostgreSQL text values. It handles the common task of converting a text datum into the appropriate format for JSON parsing by automatically detoasting the input data and extracting the raw string content with proper length calculation. The function delegates the actual context creation to makeJsonLexContextCstringLen, passing the extracted string data, length, database encoding, and escape handling preferences. This abstraction shields callers from the complexities of PostgreSQL's variable-length data representation while ensuring proper memory management.
+
+## Parameters / Member Variables
+- `lex`: Existing JsonLexContext to potentially reuse or NULL to allocate a new one
+- `json`: PostgreSQL text datum containing the JSON data to be parsed
+- `need_escapes`: Boolean flag indicating whether escape sequence processing is required during parsing
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_detoast_datum_packed
+  - makeJsonLexContextCstringLen
+  - VARDATA_ANY
+  - VARSIZE_ANY_EXHDR
+  - GetDatabaseEncoding
+- Called from (representative examples):
+  - json_in
+  - json_validate
+  - json_typeof
+  - json_object_keys
+  - get_worker
+
+## Notes and Other Information
+This function is fundamental to PostgreSQL's JSON processing pipeline as it bridges the gap between PostgreSQL's internal text representation and the JSON parser's string-based interface. The automatic detoasting ensures compatibility with both toasted and non-toasted text values, making it safe to use with data of any size. The function is widely used throughout the JSON function library as the standard entry point for text-to-JSON conversion operations.

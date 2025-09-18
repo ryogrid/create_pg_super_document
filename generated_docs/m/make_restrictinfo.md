@@ -1,0 +1,49 @@
+# make_restrictinfo
+
+## Location
+src/backend/optimizer/util/restrictinfo.c: 63 - 111
+
+## Overview
+Creates a RestrictInfo node containing a given subexpression, with proper handling of OR clauses and delegation to make_restrictinfo_internal for standard processing.
+
+## Definition
+
+
+## Detailed Description
+The make_restrictinfo function serves as the primary entry point for creating RestrictInfo nodes that wrap query restriction clauses. It performs special handling for OR clauses by delegating to make_sub_restrictinfos to recursively process the OR structure, while standard clauses are passed to make_restrictinfo_internal. The function requires the caller to provide various flags and metadata about the restriction clause, including security level, relation dependencies, and behavioral characteristics.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planning context and state
+- : The expression to be wrapped in a RestrictInfo node
+- : Flag indicating whether this restriction was pushed down from a higher level
+- : Flag indicating whether this RestrictInfo has clones
+- : Flag indicating whether this RestrictInfo is itself a clone
+- : Flag indicating whether the clause is a pseudoconstant
+- : Security level for row-level security considerations
+- : Set of relation IDs that must be present for this restriction (can be NULL)
+- : Set of relation IDs that are incompatible with this restriction
+- : Set of relation IDs that are outer to this restriction
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - is_orclause
+  - make_sub_restrictinfos
+  - is_andclause
+  - make_restrictinfo_internal
+- Called from (representative examples):
+  - process_equivalence
+  - reconsider_outer_join_clauses
+  - distribute_qual_to_rels
+  - add_base_clause_to_rel
+  - process_implied_equality
+  - build_implied_join_equality
+  - apply_child_basequals
+  - add_join_clause_to_rels
+  - consider_new_or_clause
+  - make_simple_restrictinfo
+
+## Notes and Other Information
+- Special handling for OR clauses: when an OR clause is encountered, it delegates to make_sub_restrictinfos which recursively processes the OR structure with RestrictInfo nodes
+- Includes an assertion that the clause should not be an AND clause, as AND/OR flattening should have handled this case earlier in processing
+- The function initializes only fields that depend on the given subexpression, leaving context-dependent fields to be filled later
+- This is a critical function in PostgreSQL's query optimization process, as RestrictInfo nodes are fundamental data structures used throughout the planner

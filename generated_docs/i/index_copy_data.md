@@ -1,0 +1,42 @@
+# index_copy_data
+
+## Location
+src/backend/commands/tablecmds.c: 15547 - 15603
+
+## Overview
+Copies all data and storage files from an existing relation to a new storage location, handling multiple forks and ensuring proper WAL logging for crash recovery.
+
+## Definition
+
+
+## Detailed Description
+The  function performs a complete copy of relation storage from one location to another, preserving all data forks while maintaining data integrity and consistency. This function is primarily used during tablespace operations when moving relations between different storage locations.
+
+The function operates by first flushing any buffered pages to ensure all data is written to disk, then creates new storage at the destination location and systematically copies all existing forks (main fork plus any additional forks like FSM, VM, etc.). It handles WAL logging appropriately based on relation persistence characteristics and finally cleans up the old storage location.
+
+## Parameters / Member Variables
+- : The source relation whose data is being copied
+- : The target RelFileLocator specifying where the data should be copied to
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FlushRelationBuffers
+  - RelationCreateStorage  
+  - RelationCopyStorage
+  - RelationGetSmgr
+  - smgrexists
+  - smgrcreate
+  - log_smgrcreate
+  - RelationDropStorage
+  - smgrclose
+  - RelationIsPermanent
+- Called from (representative examples):
+  - ATExecSetTableSpace
+
+## Notes and Other Information
+- Requires exclusive lock on the relation to prevent concurrent modifications during copy
+- Handles both permanent and unlogged relations with appropriate WAL logging
+- Creates and copies all relation forks (main, FSM, VM, init) that exist in the source
+- Uses direct file copying rather than tuple-by-tuple copying for performance
+- Automatically schedules cleanup of old storage files after successful copy
+- Part of the ALTER TABLE SET TABLESPACE infrastructure for moving relations between tablespaces

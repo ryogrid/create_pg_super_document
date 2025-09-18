@@ -1,0 +1,35 @@
+# toast_get_compression_id
+
+## Location
+src/backend/access/common/toast_compression.c: 254 - 284
+
+## Overview
+Extracts the compression ID from a varlena (variable-length) data structure, returning the compression method used or an invalid ID if the data is not compressed.
+
+## Definition
+
+
+## Detailed Description
+This function analyzes a varlena data structure to determine its compression method. It handles both externally stored TOAST data and inline compressed data. For external TOAST data stored on disk, it extracts the compression method from the external toast pointer. For inline compressed data, it retrieves the compression method from the toast compression header. If the varlena is not compressed, it returns TOAST_INVALID_COMPRESSION_ID.
+
+## Parameters / Member Variables
+- : Pointer to the varlena structure to examine for compression information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - VARATT_IS_EXTERNAL_ONDISK
+  - VARATT_EXTERNAL_GET_POINTER
+  - VARATT_EXTERNAL_IS_COMPRESSED
+  - VARATT_EXTERNAL_GET_COMPRESS_METHOD
+  - VARATT_IS_COMPRESSED
+  - VARDATA_COMPRESSED_GET_COMPRESS_METHOD
+  - TOAST_INVALID_COMPRESSION_ID
+- Called from (representative examples):
+  - pg_column_compression
+  - CompressionMethodIsValid
+
+## Notes and Other Information
+- Located in src/backend/access/common/toast_compression.c:254-284
+- Returns ToastCompressionId type
+- Handles both external and inline compressed data scenarios
+- Essential for determining compression methods used in PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system

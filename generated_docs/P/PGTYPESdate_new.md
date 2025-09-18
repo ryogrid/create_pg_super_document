@@ -1,0 +1,32 @@
+# PGTYPESdate_new
+
+## Location
+src/interfaces/ecpg/pgtypeslib/datetime.c: 15 - 24
+
+## Overview
+Allocates memory for a new date object and returns a pointer to it for use in PostgreSQL ECPG date handling operations.
+
+## Definition
+```c
+date *PGTYPESdate_new(void)
+```
+
+## Detailed Description
+PGTYPESdate_new is a memory allocation function specifically designed for creating new date objects in the PostgreSQL ECPG (Embedded SQL in C) pgtypeslib. The function allocates memory for a single date structure using the pgtypes_alloc function, which is the standard memory allocator used throughout the pgtypes library. The function handles potential memory allocation failures gracefully by allowing a NULL return value when memory is unavailable.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgtypes_alloc
+  - date (type reference)
+- Called from (representative examples):
+  - main (in test cases)
+  - Various ECPG applications requiring date object allocation
+
+## Notes and Other Information
+- The function can return NULL if memory allocation fails, so callers must check the return value
+- Memory allocated by this function should be freed using PGTYPESdate_free to prevent memory leaks
+- This is part of the ECPG pgtypeslib interface for handling PostgreSQL date types in C applications
+- Located in src/interfaces/ecpg/pgtypeslib/datetime.c:15-24

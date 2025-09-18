@@ -1,0 +1,39 @@
+# DecodeAbort
+
+## Location
+src/backend/replication/logical/decode.c: 850 - 905
+
+## Overview
+DecodeAbort processes ABORT records in PostgreSQL's logical replication, handling transaction rollbacks for both regular transactions and two-phase prepared transactions.
+
+## Definition
+
+
+## Detailed Description
+DecodeAbort handles the abortion of transactions in logical replication by processing WAL abort records. It supports both regular transaction aborts and rollbacks of prepared transactions in two-phase commit scenarios. The function extracts abort information from the WAL record, determines whether the transaction should be processed or skipped, and appropriately handles the rollback through the reorder buffer.
+
+For two-phase transactions, it calls ReorderBufferFinishPrepared with a false commit flag to indicate rollback. For regular transactions, it directly calls ReorderBufferAbort for both the main transaction and all its subtransactions. The function also handles origin tracking for logical replication scenarios involving multiple nodes.
+
+## Parameters / Member Variables
+- : LogicalDecodingContext containing the decoding state and configuration
+- : XLogRecordBuffer containing the WAL record being processed
+- : xl_xact_parsed_abort structure containing parsed abort record data including transaction timing and subtransaction information
+- : TransactionId of the transaction being aborted
+- : Boolean indicating whether this is aborting a prepared transaction (rollback prepared) or a regular transaction abort
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogRecGetOrigin
+  - DecodeTXNNeedSkip
+  - ReorderBufferFinishPrepared
+  - ReorderBufferAbort
+  - UpdateDecodingStats
+- Called from (representative examples):
+  - xact_decode
+
+## Notes and Other Information
+- Handles both regular transaction aborts and rollback prepared operations for two-phase commit
+- Processes origin information when available (XACT_XINFO_HAS_ORIGIN flag) for multi-node logical replication scenarios
+- Ensures all subtransactions are properly aborted before handling the main transaction
+- Critical for maintaining transaction consistency during logical replication failures and rollbacks
+- Updates decoding statistics after processing the abort to track replication progress

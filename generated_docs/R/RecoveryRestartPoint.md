@@ -1,0 +1,37 @@
+# RecoveryRestartPoint
+
+## Location
+src/backend/access/transam/xlog.c: 7544 - 7584
+
+## Overview
+RecoveryRestartPoint evaluates checkpoint records during recovery to determine if they represent safe restart points and stores valid checkpoint information in shared memory for the checkpointer process to use.
+
+## Definition
+```c
+static void RecoveryRestartPoint(const CheckPoint *checkPoint, XLogReaderState *record)
+```
+
+## Detailed Description
+This function is called each time a checkpoint record is read from the WAL during recovery. It acts as a filter to determine whether the checkpoint represents a safe restart point. The function performs validation checks and, if the checkpoint is deemed safe, copies the checkpoint record information to shared memory where it can be accessed by the checkpointer process via CreateRestartPoint.
+
+The function implements a critical safety check by refusing to create restart points when there are unresolved references to invalid pages. This prevents potential data consistency issues that could arise if recovery were restarted from a point where cross-references to dropped relations would be lost.
+
+## Parameters / Member Variables
+- `checkPoint`: Pointer to the CheckPoint structure containing checkpoint record data including the redo LSN
+- `record`: XLogReaderState containing the current position and metadata of the checkpoint record being processed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogHaveInvalidPages
+  - elog (DEBUG2 level)
+  - SpinLockAcquire/SpinLockRelease
+  - CheckPoint (structure)
+- Called from (representative examples):
+  - xlog_redo (when processing XLOG_CHECKPOINT_SHUTDOWN and XLOG_CHECKPOINT_ONLINE records)
+
+## Notes and Other Information
+- This function is executed by the startup process during recovery, while CreateRestartPoint is executed by the checkpointer process
+- The function uses XLogCtl->info_lck spinlock to safely update shared memory checkpoint information
+- Invalid page references are tracked to ensure data consistency across restart points
+- The stored checkpoint information includes ReadRecPtr, EndRecPtr, and the complete CheckPoint structure
+- This is part of PostgreSQL's crash recovery and restart point mechanism for optimizing recovery time

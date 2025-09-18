@@ -1,0 +1,44 @@
+# generate_subscripts
+
+## Location
+src/backend/utils/adt/arrayfuncs.c: 5905 - 5968
+
+## Overview
+generate_subscripts is a set-returning function that generates all valid subscripts for a specified dimension of an array, optionally in reverse order.
+
+## Definition
+```c
+Datum
+generate_subscripts(PG_FUNCTION_ARGS)
+```
+
+SQL signature: generate_subscripts(array anyarray, dim int [, reverse bool])
+
+## Detailed Description
+This function implements PostgreSQL's generate_subscripts() SQL function, which returns a set of integers representing all valid subscripts for a specific dimension of an array. It uses PostgreSQL's set-returning function (SRF) framework to iterate through subscript values from the lower bound to upper bound of the specified dimension. The function supports an optional reverse parameter to return subscripts in descending order. It maintains state across multiple calls using FuncCallContext to track iteration progress.
+
+## Parameters / Member Variables
+- Uses PostgreSQL function call convention via PG_FUNCTION_ARGS:
+  - Argument 0: array (anyarray) - The input array to generate subscripts for
+  - Argument 1: dim (int) - The dimension number (1-based) to generate subscripts for
+  - Argument 2: reverse (bool, optional) - Whether to return subscripts in reverse order (default: false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP (SRF framework macros)
+  - SRF_RETURN_NEXT, SRF_RETURN_DONE (SRF result return macros)
+  - PG_GETARG_ANY_ARRAY_P, PG_GETARG_INT32, PG_GETARG_BOOL (argument access macros)
+  - AARR_NDIM, AARR_LBOUND, AARR_DIMS (array metadata access macros)
+  - AnyArrayType, FuncCallContext, generate_subscripts_fctx (supporting types)
+  - MAXDIM (maximum array dimensions constant)
+- Called from (representative examples):
+  - generate_subscripts_nodir (wrapper function in arrayfuncs.c:5972)
+
+## Notes and Other Information
+- Implements PostgreSQL's generate_subscripts() SQL function for array subscript enumeration
+- Uses the SRF (Set Returning Function) framework for efficient iteration over large ranges
+- Performs bounds checking to ensure the requested dimension exists and is valid
+- Supports both forward and reverse iteration through subscripts
+- Memory context management ensures proper cleanup across multiple function calls
+- Returns subscripts as 1-based integers matching PostgreSQL's array indexing convention
+- Essential for SQL queries that need to iterate over array dimensions programmatically

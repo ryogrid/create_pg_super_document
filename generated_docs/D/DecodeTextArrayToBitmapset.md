@@ -1,0 +1,42 @@
+# DecodeTextArrayToBitmapset
+
+## Location
+src/backend/utils/cache/evtcache.c: 222 - 254
+
+## Overview
+Converts a PostgreSQL text array containing command tag names into a Bitmapset representation for efficient command tag matching in event triggers.
+
+## Definition
+```c
+static Bitmapset *DecodeTextArrayToBitmapset(Datum array)
+```
+
+## Detailed Description
+DecodeTextArrayToBitmapset is a static utility function that processes a PostgreSQL text array (text[]) datum and converts it into a Bitmapset containing CommandTag enumeration values. This function is specifically used in the event trigger cache system to decode the evttags column from the pg_event_trigger system catalog. The function validates that the input is a proper 1-dimensional text array without null elements, then iterates through each text element, converts it to a command tag enum using GetCommandTagEnum(), and adds it to a bitmapset using bms_add_member().
+
+The resulting bitmapset provides an efficient representation for testing whether specific command tags are included in an event trigger's filter set, enabling fast filtering during event trigger execution.
+
+## Parameters / Member Variables
+- `array`: A Datum representing a PostgreSQL text[] array containing command tag names that need to be converted to a bitmapset
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DatumGetArrayTypeP
+  - ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE
+  - deconstruct_array_builtin
+  - TextDatumGetCString
+  - GetCommandTagEnum
+  - bms_add_member
+  - pfree
+- Called from (representative examples):
+  - BuildEventTriggerCache (src/backend/utils/cache/evtcache.c:183)
+
+## Notes and Other Information
+- Validates input array is 1-dimensional, contains no nulls, and has TEXTOID element type
+- Uses deconstruct_array_builtin for efficient array element extraction
+- Converts each text element to C string, maps to CommandTag enum, then frees the string
+- Returns NULL bitmapset if the input array is empty
+- Throws ERROR if array format validation fails
+- Memory management includes proper cleanup of temporary strings and deconstructed array elements
+- Used specifically for processing the evttags column in pg_event_trigger system catalog
+- Part of the event trigger cache optimization system for fast command tag filtering

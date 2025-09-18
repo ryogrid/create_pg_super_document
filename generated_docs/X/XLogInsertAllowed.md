@@ -1,0 +1,34 @@
+# XLogInsertAllowed
+
+## Location
+src/backend/access/transam/xlog.c: 6368 - 6400
+
+## Overview
+XLogInsertAllowed determines whether the current process is permitted to insert new WAL (Write-Ahead Log) records into the transaction log.
+
+## Definition
+
+
+## Detailed Description
+XLogInsertAllowed is a critical function that controls access to WAL insertion operations. It provides a fast-path mechanism for determining write permissions during different database states. The function first checks a local cache variable (LocalXLogInsertAllowed) for unconditional true/false values to avoid repeated expensive checks. If the cached value is indeterminate, it queries the recovery state via RecoveryInProgress(). Once recovery completes, the function optimizes future calls by caching the result as "unconditionally true".
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RecoveryInProgress (to check if system is still recovering)
+  - LocalXLogInsertAllowed (local static variable for caching)
+- Called from (representative examples):
+  - XLogInsertRecord
+  - XLogFlush
+  - XLogBeginInsert
+  - WALAvailability
+
+## Notes and Other Information
+- Ordinarily equivalent to !RecoveryInProgress() but with process-specific overrides
+- Uses LocalXLogInsertAllowed as a performance optimization to avoid repeated recovery state checks
+- Sets LocalXLogInsertAllowed to 1 (unconditionally true) when recovery exits for future fast-path access
+- Essential for WAL write permission control across the PostgreSQL system
+- Located in src/backend/access/transam/xlog.c:6368-6400
+- Performance-critical function called frequently during normal database operations

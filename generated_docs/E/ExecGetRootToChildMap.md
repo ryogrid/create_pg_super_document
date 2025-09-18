@@ -1,0 +1,41 @@
+# ExecGetRootToChildMap
+
+## Location
+src/backend/executor/execUtils.c: 1232 - 1266
+
+## Overview
+Returns the tuple conversion map needed to convert tuples from a root result relation's rowtype to the rowtype of a child relation, handling schema differences between parent and child tables in partitioned table hierarchies.
+
+## Definition
+
+
+## Detailed Description
+This function computes and caches a TupleConversionMap that enables conversion of tuples from the root table's schema to a child table's schema in partitioned table operations. The function implements lazy evaluation - it only computes the conversion map when first requested and caches the result for subsequent calls.
+
+The function handles two main scenarios:
+1. **Partitioned tables**: Child partitions must have compatible column layouts with the parent
+2. **Non-partitioned child tables**: May have additional columns not present in the root table, which are handled gracefully
+
+The conversion map accounts for differences in column order, data types, and presence/absence of columns between the root and child relations. When no conversion is needed (schemas are identical), the function returns NULL as an optimization.
+
+## Parameters / Member Variables
+- : ResultRelInfo structure for the child relation that needs tuple conversion
+- : Executor state containing memory context and other execution information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - build_attrmap_by_name_if_req: Creates attribute mapping between input and output tuple descriptors
+  - convert_tuples_by_name_attrmap: Converts the attribute map into a tuple conversion map
+  - AttrMap: Attribute mapping structure for column correspondence
+- Called from (representative examples):
+  - ExecGetInsertedCols: For converting inserted column bitmaps during partition operations
+  - ExecGetUpdatedCols: For converting updated column bitmaps during partition operations
+  - ExecFindPartition: During tuple routing to determine target partition
+  - CopyFrom: When copying data into partitioned tables
+
+## Notes and Other Information
+- The function uses lazy initialization with the  flag to avoid recomputing the map
+- Memory allocation occurs in the query context () to ensure proper lifetime management
+- For non-partitioned child relations, missing columns in the child are handled by setting 
+- The function assumes the caller has verified that  represents a child relation (assertion check)
+- A NULL return value is valid and indicates no conversion is necessary between root and child schemas

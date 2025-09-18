@@ -1,0 +1,38 @@
+# adjust_appendrel_attrs_multilevel
+
+## Location
+src/backend/optimizer/util/appendinfo.c: 521 - 553
+
+## Overview
+Handles variable translation through multiple levels of inheritance hierarchy, recursively applying transformations from a top-level parent down to a deeply nested child relation.
+
+## Definition
+
+
+## Detailed Description
+This function manages the complex scenario where a child relation is separated from its ultimate parent by multiple inheritance levels. It recursively traverses up the inheritance hierarchy, applying variable translations at each level until it reaches the specified parent relation. The function ensures that expressions referencing variables in ancestor relations are properly translated to reference the corresponding variables in the target child relation, handling the multi-step transformation that may be required in deep inheritance hierarchies.
+
+## Parameters / Member Variables
+- : PlannerInfo containing planning context and relation information
+- : The expression tree node to be transformed  
+- : The target child relation (leaf level in the inheritance hierarchy)
+- : The source parent relation (may be several levels up the hierarchy)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - adjust_appendrel_attrs_multilevel (recursive calls for multi-level traversal)
+  - find_appinfos_by_relids (locates AppendRelInfo structures by relation IDs)
+  - adjust_appendrel_attrs (performs single-level variable translation)
+  - pfree (frees allocated memory)
+- Called from (representative examples):
+  - generate_join_implied_equalities_broken
+  - add_child_rel_equivalences
+  - grouping_planner
+  - get_translated_update_targetlist
+
+## Notes and Other Information
+- Recursively processes inheritance hierarchy by working from child up to ultimate parent
+- Validates that the child relation is actually descended from the specified parent
+- Uses find_appinfos_by_relids to locate the appropriate AppendRelInfo mappings
+- Properly manages memory by freeing temporary AppendRelInfo arrays
+- Essential for complex inheritance scenarios where multiple levels of translation are needed

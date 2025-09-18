@@ -1,0 +1,34 @@
+# index_beginscan_bitmap
+
+## Location
+src/backend/access/index/indexam.c: 287 - 309
+
+## Overview
+The  function initiates a bitmap index scan operation using the amgetbitmap access method, which is optimized for bulk retrieval of matching tuple identifiers.
+
+## Definition
+
+
+## Detailed Description
+This function creates and initializes an index scan descriptor specifically for bitmap scanning operations. Unlike regular index scans that retrieve tuples one by one, bitmap scans are designed to collect all matching tuple identifiers (TIDs) at once and return them as a bitmap. The function internally calls  with specific parameters optimized for bitmap operations (norderbys=0 since bitmap scans don't preserve order). It's simpler than  because bitmap scans don't need heap tuple fetching setup - that's handled separately when the bitmap is later used to fetch actual tuples.
+
+## Parameters / Member Variables
+- : The index relation to be scanned for bitmap creation
+- : The snapshot to use for visibility checking during the scan (must not be InvalidSnapshot)  
+- : Number of scan keys (search conditions) for the scan
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - index_beginscan_internal (internal scan initialization with bitmap-specific parameters)
+  - InvalidSnapshot (constant for validation)
+  - IndexScanDesc (return type structure)
+- Called from (representative examples):
+  - ExecInitBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:303)
+
+## Notes and Other Information
+- Specifically designed for bitmap index scan operations in PostgreSQL's query execution
+- Does not set up heap tuple fetching like regular index scans since bitmap scans work differently
+- The norderbys parameter is hardcoded to 0 because bitmap scans don't preserve tuple ordering
+- Caller must hold appropriate locks on the parent heap relation (though not explicitly passed)
+- Part of PostgreSQL's bitmap scan optimization for OR conditions and bulk operations
+- Located in src/backend/access/index/indexam.c:287-309

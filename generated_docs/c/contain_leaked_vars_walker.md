@@ -1,0 +1,52 @@
+# contain_leaked_vars_walker
+
+## Location
+src/backend/optimizer/util/clauses.c: 1275 - 1455
+
+## Overview
+The `contain_leaked_vars_walker` function is a tree-walking function that recursively traverses expression nodes to detect whether any Var nodes are passed to non-leakproof functions that could potentially leak sensitive data.
+
+## Definition
+```c
+static bool contain_leaked_vars_walker(Node *node, void *context)
+```
+
+## Detailed Description
+This function implements the core logic for detecting potentially leaky expressions in PostgreSQL queries. It performs a depth-first traversal of expression trees, analyzing each node type to determine if it could compromise data security through non-leakproof function calls.
+
+The function uses a comprehensive switch statement to handle different node types appropriately:
+
+- **Safe nodes** (T_Var, T_Const, etc.): Treated as inherently safe but continue traversal to check children
+- **Function-calling nodes** (T_FuncExpr, T_OpExpr, etc.): Check if functions are leakproof and if they operate on variables
+- **Special cases**: SubscriptingRef, RowCompareExpr, and MinMaxExpr receive specialized handling
+- **Unknown nodes**: Conservatively treated as potentially leaky for security
+
+The function is recursive and uses `expression_tree_walker` to continue traversal when the current node doesn't immediately trigger a leak detection.
+
+## Parameters / Member Variables
+- `node`: A Node pointer representing the current expression node being analyzed
+- `context`: A void pointer for additional context information (passed through but not used directly in this function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - nodeTag
+  - check_functions_in_node
+  - contain_leaked_vars_checker
+  - contain_var_clause
+  - getSubscriptingRoutines
+  - get_opcode
+  - get_func_leakproof
+  - lookup_type_cache
+  - expression_tree_walker
+- Called from (representative examples):
+  - contain_leaked_vars
+  - max_parallel_hazard_context (self-recursively)
+
+## Notes and Other Information
+- Returns true if any non-leakproof function is found that operates on variables
+- Static function used internally within the clauses.c module
+- Handles complex expression types including row comparisons, min/max expressions, and array subscripting
+- Uses conservative approach: unknown node types are assumed to be potentially leaky
+- CurrentOfExpr is explicitly treated as non-leaky since TID scans must always be generated
+- Part of PostgreSQL's comprehensive security infrastructure for preventing data leakage
+- Located in src/backend/optimizer/util/clauses.c:1275-1455

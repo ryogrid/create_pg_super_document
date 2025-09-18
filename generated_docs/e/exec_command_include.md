@@ -1,0 +1,38 @@
+# exec_command_include
+
+## Location
+src/bin/psql/command.c: 1702 - 1742
+
+## Overview
+Implements the \i and \ir commands in PostgreSQL's psql client for including and executing SQL scripts from files.
+
+## Definition
+
+
+## Detailed Description
+This function handles the execution of the \i (include) and \ir (include relative) backslash commands in psql. It reads and processes SQL commands from a specified file. The \i command resolves file paths relative to the current working directory, while \ir resolves paths relative to the directory containing the currently executing script. The function validates that a filename argument is provided, expands tilde (~) characters in file paths, and delegates actual file processing to the process_file function. It respects the active_branch parameter for conditional execution.
+
+## Parameters / Member Variables
+- : PsqlScanState pointer that tracks the current parsing state of the psql input
+- : Boolean flag indicating whether this command is being executed in an active conditional branch
+- : String indicating which variant of the command was used ("i", "include", "ir", or "include_relative")
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - psql_scan_slash_option (extracts filename argument from input)
+  - pg_log_error (logs error messages for missing arguments)
+  - strcmp (compares command strings to determine relative vs absolute behavior)
+  - expand_tilde (expands ~ character in file paths)
+  - process_file (reads and executes SQL from the specified file)
+  - ignore_slash_options (skips processing when in inactive branch)
+  - free (deallocates memory for filename string)
+- Called from (representative examples):
+  - exec_command (main command dispatcher in psql)
+
+## Notes and Other Information
+- Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure
+- Supports both short forms (\i, \ir) and long forms (\include, \include_relative)
+- Uses OT_NORMAL option type to extract the filename argument
+- The include_relative flag determines whether file paths are resolved relative to the current script's directory
+- Requires exactly one argument (the filename) - reports an error if missing
+- Part of psql's script execution infrastructure for modular SQL development

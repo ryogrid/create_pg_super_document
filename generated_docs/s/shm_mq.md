@@ -1,0 +1,53 @@
+# shm_mq
+
+## Location
+src/backend/storage/ipc/shm_mq.c: 71 - 136
+
+## Overview
+A shared memory message queue structure that enables efficient inter-process communication in PostgreSQL's parallel processing infrastructure. It provides a lock-free ring buffer for asynchronous message passing between sender and receiver processes.
+
+## Definition
+
+
+## Detailed Description
+The  structure represents the actual message queue stored in shared memory, designed for high-performance communication between parallel processes in PostgreSQL. The implementation uses careful synchronization techniques to achieve lock-free operation for the critical path operations:
+
+- **Atomic Operations**: Uses atomic 64-bit operations for  and  counters to avoid locking during data transfer
+- **Memory Barriers**: Employs memory barriers to ensure proper ordering of ring buffer reads/writes with counter updates
+- **Process Identification**: Tracks sender and receiver processes via PGPROC pointers, protected by mutex but immutable once set
+- **Ring Buffer**: Implements a circular buffer () where the difference between bytes written and read determines available data
+
+The design allows the sender to write to unused portions and the receiver to read unread bytes without coordination, maximizing throughput while maintaining data integrity.
+
+## Parameters / Member Variables
+- : Spinlock protecting mq_receiver and mq_sender fields during initialization
+- : Pointer to the PGPROC of the receiving process (immutable once set)
+- : Pointer to the PGPROC of the sending process (immutable once set)
+- : Atomic counter tracking total bytes consumed by receiver
+- : Atomic counter tracking total bytes produced by sender
+- : Size of the circular buffer (immutable after initialization)
+- : Boolean flag indicating if queue is detached (can only transition false→true)
+- : Offset alignment for the ring buffer data
+- : Flexible array member containing the actual ring buffer data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - slock_t
+  - PGPROC
+  - pg_atomic_uint64
+  - FLEXIBLE_ARRAY_MEMBER
+- Called from (representative examples):
+  - shm_mq_create
+  - shm_mq_attach  
+  - shm_mq_sendv
+  - shm_mq_receive
+  - ExecParallelSetupTupleQueues
+  - InitializeParallelDSM
+
+## Notes and Other Information
+- Critical for PostgreSQL's parallel query execution and logical replication
+- Lock-free design optimizes for high-throughput message passing scenarios
+- Memory barriers and atomic operations ensure correctness on multi-core systems
+- The detached flag provides a clean shutdown mechanism for both sender and receiver
+- Ring buffer size is fixed at creation time and cannot be changed dynamically
+- Used extensively in parallel workers, tuple queues, and parallel apply workers

@@ -1,0 +1,45 @@
+# r_remove_command_suffixes
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1105 - 1123
+
+## Overview
+Removes Tamil imperative/command suffixes from words after validating minimum length and specific character patterns.
+
+## Definition
+
+
+## Detailed Description
+This function handles the removal of Tamil imperative or command suffixes from verbs. The process involves:
+
+1. Validating minimum word length through r_has_min_length to prevent over-stemming
+2. Setting up backward processing from the word end
+3. Performing a specific character check (looking for character value 191 at position c-1)
+4. Using pattern matching to identify command suffix patterns from array a_15 (containing 2 patterns)
+5. Completely removing the matched suffix using slice_del (no replacement, unlike other suffix functions)
+6. Setting the success flag and returning to the start position
+
+This function is more restrictive than other suffix removal functions, requiring both length and specific character validation.
+
+## Parameters / Member Variables
+- : Pointer to the Snowball environment structure containing:
+  - : State flag set to 1 when a command suffix is successfully removed
+  - //: Cursor positions for boundary/current/limit tracking
+  - /: Bracket positions marking the suffix for deletion
+  - : Pointer to character array (used for character value validation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - r_has_min_length (ensures minimum word length before processing)
+  - find_among_b (backward pattern matching using array a_15 with 2 command patterns)
+  - slice_del (completely removes the matched suffix)
+- Called from (representative examples):
+  - tamil_UTF_8_stem (main Tamil stemming function)
+
+## Notes and Other Information
+- Specifically targets Tamil imperative/command verb forms
+- More restrictive than other suffix functions due to additional character validation (checks for character 191)
+- Uses complete suffix removal rather than replacement, indicating command suffixes don't need morphological transformation
+- The a_15 array contains only 2 command suffix patterns, suggesting these are highly specific morphological markers
+- Part of Tamil verb stemming pipeline that handles different verb aspects and moods
+- Character validation (191) likely corresponds to specific Tamil Unicode characters used in command forms

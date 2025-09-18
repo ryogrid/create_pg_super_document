@@ -1,0 +1,37 @@
+# ECPGmake_array_type
+
+## Location
+src/interfaces/ecpg/preproc/type.c: 111 - 120
+
+## Overview
+Creates an ECPGtype structure representing an array type with a specified element type and size in the ECPG preprocessor.
+
+## Definition
+
+
+## Detailed Description
+This function creates a new ECPGtype structure to represent an array type. It leverages ECPGmake_simple_type to create the basic structure with ECPGt_array type, then sets the element type to point to the provided type parameter. This creates a type hierarchy where the array type contains a reference to its element type, allowing for nested arrays and complex type structures.
+
+The function is part of the ECPG type system that handles arrays of various data types, including primitive types, structs, and even nested arrays.
+
+## Parameters / Member Variables
+- : Pointer to ECPGtype structure representing the element type of the array
+- : Character string specifying the array size (can be a constant or expression)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ECPGmake_simple_type
+  - ECPGt_array (enum value)
+  - ECPGtype (struct type)
+
+- Called from (representative examples):
+  - ECPGstruct_member_dup
+  - find_struct_member
+  - find_variable
+
+## Notes and Other Information
+- The function builds upon ECPGmake_simple_type, reusing its initialization logic but specializing it for array types
+- The counter parameter passed to ECPGmake_simple_type is set to 0 for arrays
+- The u.element field is used to store the reference to the element type, establishing the type hierarchy
+- This function enables the creation of complex nested type structures like arrays of structs or multi-dimensional arrays
+- Part of the ECPG (Embedded SQL in C) preprocessor's type management system

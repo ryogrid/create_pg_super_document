@@ -1,0 +1,44 @@
+# add_reloption_kind
+
+## Location
+src/backend/access/common/reloptions.c: 683 - 699
+
+## Overview
+The add_reloption_kind function creates a new relopt_kind value for use in custom relation options by user-defined access methods (AMs).
+
+## Definition
+
+
+## Detailed Description
+This function generates unique relation option kind identifiers for custom access methods that need to define their own relation options. It implements a simple bit-shifting allocation scheme to ensure each custom AM gets a unique identifier. The function tracks the last assigned kind using a static variable and shifts it left by one bit for each new allocation, effectively creating powers-of-2 identifiers.
+
+The function includes safety checks to prevent exceeding the maximum number of relation option kinds (RELOPT_KIND_MAX), ensuring that the enum behavior remains portable across different platforms.
+
+## Parameters / Member Variables
+This function takes no parameters and returns a relopt_kind value.
+
+## Return Value
+- **relopt_kind**: A unique identifier for the new relation option kind, represented as a power-of-2 value
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ereport
+  - errcode
+  - errmsg
+- Constants used:
+  - RELOPT_KIND_MAX
+  - ERROR
+  - ERRCODE_PROGRAM_LIMIT_EXCEEDED
+- Global variables accessed:
+  - last_assigned_kind (static variable)
+- Called from:
+  - GET_STRING_RELOPTION (macro)
+  - create_reloptions_table
+
+## Notes and Other Information
+- The function uses bit-shifting (<<= 1) to generate unique power-of-2 identifiers
+- Each call doubles the value of last_assigned_kind, ensuring uniqueness
+- The maximum limit check prevents overflow and maintains enum portability
+- This function is typically called during extension or custom access method initialization
+- The returned relopt_kind can be used with add_reloption to register custom options
+- Error handling ensures graceful failure when the system limit is exceeded

@@ -1,0 +1,38 @@
+# exec_command_bind
+
+## Location
+src/bin/psql/command.c: 485 - 520
+
+## Overview
+exec_command_bind implements the \bind backslash command that sets query parameters for prepared statement execution in PostgreSQL psql.
+
+## Definition
+
+
+## Detailed Description
+exec_command_bind collects parameter values from the command line arguments and stores them in the global pset structure for use with prepared statements. The function first calls clean_bind_state() to clear any existing parameter bindings, then parses all arguments as parameter values using psql_scan_slash_option(). The parameters are stored in a dynamically allocated array that grows as needed using pg_realloc_array().
+
+When active_branch is false (inside a false \if block), the function calls ignore_slash_options() to consume and discard the arguments without processing them. After successful parameter collection, the function sets pset.bind_flag to true to indicate that parameters are available for the next query execution.
+
+## Parameters / Member Variables
+- `scan_state`: Lexer working state used to parse command line arguments
+- `active_branch`: Boolean indicating whether the command should actually execute (false when inside a false \if block)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - clean_bind_state
+  - psql_scan_slash_option
+  - pg_realloc_array
+  - ignore_slash_options
+  - OT_NORMAL (option type constant)
+- Called from (representative examples):
+  - exec_command (src/bin/psql/command.c:331)
+
+## Notes and Other Information
+- Returns PSQL_CMD_SKIP_LINE on successful completion
+- Parameters are stored in pset.bind_params array with count in pset.bind_nparams
+- Uses dynamic memory allocation that doubles the array size when more space is needed
+- Sets pset.bind_flag to true to signal that bound parameters are available
+- Properly handles conditional execution by ignoring arguments when not in active branch
+- The bound parameters will be used by subsequent query execution that supports prepared statement parameters
+- Memory management includes cleaning previous bindings before setting new ones

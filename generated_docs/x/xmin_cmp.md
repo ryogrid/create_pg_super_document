@@ -1,0 +1,36 @@
+# xmin_cmp
+
+## Location
+src/backend/utils/time/snapmgr.c: 880 - 913
+
+## Overview
+A comparison function for the RegisteredSnapshots pairing heap that orders snapshots by their xmin (minimum transaction ID), ensuring the snapshot with the smallest xmin is at the top of the heap.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a comparison callback for PostgreSQL's pairing heap data structure used to maintain registered snapshots. It implements a three-way comparison that orders SnapshotData objects by their xmin field in ascending order. The function extracts SnapshotData structures from pairing heap nodes using container_of-style macros and compares their xmin values using PostgreSQL's transaction ID comparison functions that handle modular arithmetic properly.
+
+The ordering ensures that snapshots with older (smaller) xmin values are prioritized at the top of the heap, which is crucial for snapshot management and garbage collection decisions.
+
+## Parameters / Member Variables
+- : Pointer to the first pairing heap node containing a SnapshotData structure
+- : Pointer to the second pairing heap node containing a SnapshotData structure  
+- : Unused void pointer argument (required by pairing heap callback interface)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pairingheap_const_container
+  - SnapshotData
+  - TransactionIdPrecedes
+  - TransactionIdFollows
+- Called from (representative examples):
+  - RegisteredSnapshots pairing heap operations (as comparison callback)
+
+## Notes and Other Information
+- Returns 1 if snapshot a has smaller xmin than snapshot b
+- Returns -1 if snapshot a has larger xmin than snapshot b  
+- Returns 0 if both snapshots have equal xmin values
+- Used exclusively as a callback function for the RegisteredSnapshots pairing heap
+- Critical for maintaining proper snapshot ordering for visibility and cleanup operations

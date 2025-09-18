@@ -1,0 +1,45 @@
+# regcollationout
+
+## Location
+src/backend/utils/adt/regproc.c: 1086 - 1143
+
+## Overview
+Converts a collation OID to its corresponding collation name string representation in human-readable format.
+
+## Definition
+
+
+## Detailed Description
+The  function is an output function for the regcollation data type that converts a collation OID (Object Identifier) to a human-readable string representation. It performs the following operations:
+
+1. **Invalid OID handling**: Returns "-" for InvalidOid input
+2. **System catalog lookup**: Searches the pg_collation system catalog to find the collation entry
+3. **Namespace resolution**: Determines if the collation name needs to be schema-qualified based on visibility rules
+4. **Bootstrap mode support**: In bootstrap processing mode, returns only the collation name without namespace qualification
+5. **Fallback handling**: If no matching catalog entry is found, returns the OID as a numeric string
+
+The function ensures that the output string can be parsed back by  by applying appropriate schema qualification when necessary.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument macro containing:
+  -  (Oid): The collation OID to be converted to string format
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extract OID argument from function call
+  - : Look up collation in system cache using COLLOID
+  - : Cast heap tuple to collation form structure
+  - : Check if running in bootstrap mode
+  - : Determine if collation is visible in current search path
+  - : Get namespace name from namespace OID
+  - : Create properly quoted schema.name identifier
+  - : Return C string as PostgreSQL Datum
+- Called from:
+  - Output function for regcollation type (referenced in system catalogs)
+
+## Notes and Other Information
+- This function is part of the regproc family of functions that handle object identifier to name conversions
+- The function handles namespace visibility to ensure the output can be reparsed correctly
+- In bootstrap mode, namespace qualification is skipped for simplicity
+- Memory allocation uses PostgreSQL's palloc system for proper memory management
+- The function is typically used internally by PostgreSQL when displaying regcollation values in query results or system views

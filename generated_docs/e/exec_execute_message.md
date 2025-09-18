@@ -1,0 +1,55 @@
+# exec_execute_message
+
+## Location
+src/backend/tcop/postgres.c: 2101 - 2367
+
+## Overview
+Processes an "Execute" message for a portal, running the actual query execution and returning results to the client in PostgreSQL's extended query protocol.
+
+## Definition
+
+
+## Detailed Description
+This function implements the Execute phase of PostgreSQL's extended query protocol. It executes a previously bound portal (created via Parse and Bind messages) and returns query results to the client. The function handles both complete execution and partial execution with row limits.
+
+Key responsibilities include:
+- Locating the specified portal and validating its existence
+- Handling transaction command detection and processing
+- Setting up appropriate destination receivers for result output
+- Executing the portal with specified row limits
+- Managing transaction state and command completion
+- Comprehensive logging for both statement execution and duration
+- Supporting portal suspension for partial result fetching
+
+The function differentiates between complete portal execution and fetch operations (re-execution of existing portals) and handles transaction control statements specially by committing them immediately.
+
+## Parameters / Member Variables
+- : Name of the portal to execute (empty string for unnamed portal)
+- : Maximum number of rows to return (0 or negative means fetch all rows)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetPortalByName (locate portal by name)
+  - PortalIsValid (validate portal existence)
+  - IsTransactionStmtList (detect transaction control statements)
+  - PortalRun (execute the portal)
+  - CreateDestReceiver (create result destination receiver)
+  - BeginCommand/EndCommand (command lifecycle management)
+  - check_log_statement (statement logging policy check)
+  - finish_xact_command (transaction command completion)
+  - pgstat_report_activity (activity monitoring)
+  - check_log_duration (duration logging)
+- Called from (representative examples):
+  - PostgresMain (main message processing loop)
+
+## Notes and Other Information
+- Supports row-limited execution via max_rows parameter, enabling cursor-like behavior
+- Handles empty query responses for null command portals
+- Implements special handling for transaction control statements (COMMIT/ROLLBACK/etc.)
+- Manages pipelining flags to optimize transaction batching
+- Supports portal suspension when partial results are requested
+- Integrates comprehensive error handling with parameter logging
+- Validates transaction state, rejecting non-transaction-exit commands in aborted transactions  
+- Automatically disables statement timeouts after successful execution
+- Sends appropriate completion messages (CommandComplete or PortalSuspended) based on execution status
+- Distinguishes between initial execution and fetch operations for accurate logging

@@ -1,0 +1,44 @@
+# restriction_is_always_true
+
+## Location
+src/backend/optimizer/plan/initsplan.c: 2740 - 2804
+
+## Overview
+Checks whether a RestrictInfo condition is always true and can be safely removed from query evaluation. This optimization function identifies trivial conditions that don't contribute to result filtering.
+
+## Definition
+
+
+## Detailed Description
+The function analyzes RestrictInfo clauses to determine if they are provably always true, enabling the query planner to eliminate redundant filtering operations. Currently supports two main patterns:
+
+1. **NullTest IS NOT NULL conditions**: Determines if an IS NOT NULL test is redundant because the expression is guaranteed to be non-null
+2. **OR clauses**: Recursively checks OR branches to see if any branch is always true (making the entire OR always true)
+
+The function includes safety checks to avoid incorrect optimizations with clone clauses, where nulling relation bits may not accurately reflect the actual nullability state.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planner state and context information
+- : The RestrictInfo clause to analyze for being always true
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NullTest (struct type for null testing operations)
+  - IS_NOT_NULL (enum value for null test type)
+  - expr_is_nonnullable (determines if expression is guaranteed non-null)
+  - restriction_is_or_clause (checks if restriction is an OR clause)
+  - is_orclause (verifies if node is an OR Boolean expression)
+  - BoolExpr (struct type for Boolean expressions)
+  - restriction_is_always_true (recursive call for OR branch analysis)
+
+- Called from (representative examples):
+  - add_base_clause_to_rel (base relation clause processing)
+  - apply_child_basequals (inheritance hierarchy clause application)
+  - add_join_clause_to_rels (join clause distribution)
+
+## Notes and Other Information
+- Avoids optimization for clone clauses due to unreliable nulling relation information
+- Skips row expressions in NullTest optimization as they can appear NULL/NOT NULL in different contexts  
+- Uses recursive analysis for OR clauses - if any branch is always true, the entire OR is always true
+- Part of PostgreSQL's query optimization infrastructure for eliminating redundant filter conditions
+- Critical for performance as it reduces unnecessary runtime condition evaluations

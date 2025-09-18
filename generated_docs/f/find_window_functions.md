@@ -1,0 +1,33 @@
+# find_window_functions
+
+## Location
+src/backend/optimizer/util/clauses.c: 227 - 238
+
+## Overview
+Locates all WindowFunc nodes in an expression tree and organizes them by their window reference ID (winref) numbers.
+
+## Definition
+
+
+## Detailed Description
+This function performs a comprehensive search through an expression tree to locate all window function nodes (WindowFunc) and organize them into lists grouped by their window reference IDs. It allocates a WindowFuncLists structure that contains an array of lists, where each list corresponds to a specific winref ID and contains all window functions that reference that particular window specification. The function requires the caller to provide an upper bound on the expected winref IDs to properly size the internal data structures.
+
+## Parameters / Member Variables
+- : A Node pointer representing the expression tree to search for window functions
+- : An Index specifying the maximum window reference ID expected in the tree, used to size the internal arrays
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - WindowFuncLists
+  - find_window_functions_walker
+- Called from (representative examples):
+  - grouping_planner
+  - WindowFuncLists
+
+## Notes and Other Information
+- The function allocates memory for the WindowFuncLists structure and its internal arrays
+- Uses palloc0 to initialize the windowFuncs array to NULL pointers
+- The returned structure contains both the organized lists and metadata (numWindowFuncs, maxWinRef)
+- The actual traversal and collection work is delegated to 
+- This is part of the window function processing infrastructure in the PostgreSQL query planner
+- Essential for organizing window functions before creating window execution plans

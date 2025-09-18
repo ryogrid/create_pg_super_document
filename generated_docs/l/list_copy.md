@@ -1,0 +1,41 @@
+# list_copy
+
+## Location
+src/backend/nodes/list.c: 1573 - 1592
+
+## Overview
+Creates a shallow copy of a PostgreSQL list structure, duplicating only the list container and its element pointers but not the actual data elements themselves.
+
+## Definition
+
+
+## Detailed Description
+The  function creates a shallow copy of a PostgreSQL List structure. It allocates a new List with the same type and length as the original, then copies all element pointers using . This is a shallow copy operation, meaning only the list structure and pointers are duplicated - the actual data elements pointed to by the list cells remain the same objects in memory.
+
+The function handles the special case where the input list is  (null) by returning  directly without allocation. After copying, it validates the new list structure using  to ensure consistency.
+
+This function is widely used throughout PostgreSQL for creating working copies of lists that can be modified without affecting the original list structure, while still sharing the underlying data elements.
+
+## Parameters / Member Variables
+- : The source List to be copied. Can be NIL (null), in which case NIL is returned.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - new_list
+  - check_list_invariants
+- Called from (representative examples):
+  - list_concat
+  - list_concat_copy  
+  - list_union
+  - list_difference
+  - copyObjectImpl
+  - get_foreign_key_join_selectivity
+  - preprocess_groupclause
+  - RelationGetIndexList
+
+## Notes and Other Information
+- This is a shallow copy operation - only the list structure is duplicated, not the data elements
+- The function is safe to call with NIL input
+- The copied list maintains the same type (T_List, T_IntList, T_OidList) as the original
+- Memory allocation for the new list is handled by the  function
+- Used extensively throughout the query planner, parser, and various PostgreSQL subsystems for creating working copies of lists

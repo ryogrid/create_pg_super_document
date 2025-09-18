@@ -1,0 +1,48 @@
+# GetXLogReplayRecPtr
+
+## Location
+src/backend/access/transam/xlogrecovery.c: 4540 - 4562
+
+## Overview
+Retrieves the latest WAL replay position and optionally the associated timeline ID, providing safe access to the current recovery progress.
+
+## Definition
+```c
+XLogRecPtr GetXLogReplayRecPtr(TimeLineID *replayTLI)
+```
+
+## Detailed Description
+This function returns the latest position (LSN - Log Sequence Number) in the WAL where recovery has been applied, along with the associated timeline ID if requested. It provides a thread-safe way to access the current replay position by acquiring the appropriate spinlock before reading shared memory variables.
+
+The function is specifically exported to allow components like WALReceiver to read the replay position directly. This is crucial for replication scenarios where various processes need to know how far recovery has progressed, enabling coordination between primary and standby servers.
+
+The replay position represents the end of the last successfully applied WAL record, making it safe to use this position for various replication and recovery operations.
+
+## Parameters / Member Variables
+- `replayTLI`: Optional output parameter (can be NULL) that receives the timeline ID associated with the replay position
+
+Return value:
+- `XLogRecPtr`: The latest WAL replay position (LSN)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SpinLockAcquire
+  - SpinLockRelease
+  - XLogRecoveryCtl->info_lck (spinlock)
+  - XLogRecoveryCtl->lastReplayedEndRecPtr (shared memory variable)
+  - XLogRecoveryCtl->lastReplayedTLI (shared memory variable)
+- Called from (representative examples):
+  - CreateRestartPoint
+  - pg_last_wal_replay_lsn
+  - WalReceiverMain
+  - XLogWalRcvSendReply
+  - GetReplicationApplyDelay
+  - WalSndWaitForWal
+
+## Notes and Other Information
+- Thread-safe function that uses spinlocks to protect shared memory access
+- Critical for replication coordination between primary and standby servers
+- Used by SQL functions like pg_last_wal_replay_lsn() to expose replay progress to users
+- Essential for WAL receiver processes to track and communicate recovery progress
+- The timeline ID parameter allows callers to get both position and timeline atomically
+- Widely used throughout PostgreSQL's replication and recovery infrastructure

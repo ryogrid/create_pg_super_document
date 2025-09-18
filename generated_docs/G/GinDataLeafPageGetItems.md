@@ -1,0 +1,45 @@
+# GinDataLeafPageGetItems
+
+## Location
+src/backend/access/gin/gindatapage.c: 135 - 181
+
+## Overview
+Extracts and returns all TIDs (tuple identifiers) from a GIN data leaf page in ascending order, supporting both compressed and uncompressed page formats.
+
+## Definition
+
+
+## Detailed Description
+This function reads TIDs from a GIN (Generalized Inverted Index) data leaf page and returns them as a single uncompressed array in ascending order. The function handles both compressed and uncompressed page formats automatically.
+
+For compressed pages, it processes posting list segments, optionally skipping segments that contain only TIDs less than or equal to the `advancePast` hint. This optimization allows callers to efficiently retrieve only TIDs of interest when scanning forward through the index.
+
+For uncompressed pages, it simply copies the existing uncompressed TID array.
+
+The function provides an important optimization through the `advancePast` parameter, which serves as a hint to skip posting lists that contain only TIDs the caller has already processed.
+
+## Parameters / Member Variables
+- `page`: The GIN data leaf page to extract TIDs from
+- `nitems`: Output parameter that receives the number of TIDs extracted
+- `advancePast`: Hint indicating caller is only interested in TIDs > advancePast; use ItemPointerSetMin to return all items
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GinPageIsCompressed
+  - GinDataLeafPageGetPostingList
+  - GinDataLeafPageGetPostingListSize
+  - GinNextPostingListSegment
+  - ginCompareItemPointers
+  - ginPostingListDecodeAllSegments
+  - dataLeafPageGetUncompressed
+  - ItemPointerIsValid
+- Called from (representative examples):
+  - startScanEntry
+  - entryLoadMoreItems
+  - GinBtreeDataLeafInsertData
+
+## Notes and Other Information
+- The function may still return items smaller than `advancePast` that are in the same posting list as items of interest, so callers must validate all returned items
+- For compressed pages, the function performs segment-level skipping for efficiency
+- The returned ItemPointer array is allocated with palloc() and must be freed by the caller
+- TIDs are guaranteed to be returned in ascending order regardless of page format

@@ -1,0 +1,41 @@
+# text_char
+
+## Location
+src/backend/utils/adt/char.c: 204 - 227
+
+## Overview
+Converts a PostgreSQL text data type to a "char" (single byte character) with support for octal escape sequences and empty string handling.
+
+## Definition
+```c
+Datum text_char(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function converts a PostgreSQL text value to a "char" data type following specific conversion rules. It handles three main cases: (1) If the text contains exactly 4 characters in the format of a backslash followed by three octal digits (\nnn), it converts the octal sequence to its corresponding character value. (2) If the text has at least one character, it takes the first character. (3) If the text is empty, it returns the null character ('\0'). The function uses the same conversion logic as the charin() function but explicitly handles the empty string case.
+
+## Parameters / Member Variables
+- Uses PG_FUNCTION_ARGS macro to access function arguments
+- `arg1`: The input text value retrieved using PG_GETARG_TEXT_PP(0)
+- `ch`: Pointer to the character data within the text using VARDATA_ANY()
+- `result`: The resulting character value to be returned
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_TEXT_PP (macro for extracting text argument)
+  - VARDATA_ANY (macro for accessing variable-length data)
+  - VARSIZE_ANY_EXHDR (macro for getting size excluding header)
+  - ISOCTAL (macro to check if character is octal digit)
+  - FROMOCTAL (macro to convert octal character to numeric value)
+  - PG_RETURN_CHAR (macro for returning char result)
+
+- Called from (representative examples):
+  - No direct references found in the codebase (likely called via SQL CAST operations)
+
+## Notes and Other Information
+- Supports octal escape sequence parsing for special characters (\nnn format)
+- Handles empty strings by returning null character
+- Uses PostgreSQL's variable-length data access macros for safe text processing
+- The octal conversion follows the pattern: (first_digit << 6) + (second_digit << 3) + third_digit
+- Used internally by PostgreSQL's type conversion system for text to char casts
+- The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS interface

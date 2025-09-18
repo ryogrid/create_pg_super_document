@@ -1,0 +1,34 @@
+# sampler_random_fract
+
+## Location
+src/backend/utils/misc/sampling.c: 241 - 265
+
+## Overview
+Generates a uniformly distributed random floating-point value in the range (0, 1), ensuring the result is never exactly 0.0.
+
+## Definition
+```c
+double sampler_random_fract(pg_prng_state *randstate)
+```
+
+## Detailed Description
+This function provides a random floating-point number generator specifically designed for sampling algorithms. It uses PostgreSQL's internal PRNG to generate values in the range [0.0, 1.0) and then rejects any result that equals exactly 0.0, ensuring the returned value is always in the open interval (0, 1). This is crucial for sampling algorithms that require strictly positive probabilities and avoid division by zero or logarithm of zero operations.
+
+## Parameters / Member Variables
+- `randstate`: Pointer to an initialized pg_prng_state structure containing the random number generator state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_prng_double
+  - pg_prng_state (type)
+  - ReservoirStateData (type)
+- Called from (representative examples):
+  - acquire_sample_rows
+  - BlockSampler_Next
+  - reservoir_init_selection_state
+  - reservoir_get_next_S
+  - anl_random_fract
+  - anl_init_selection_state
+
+## Notes and Other Information
+The function uses a do-while loop with the unlikely() macro to optimize for the common case where pg_prng_double() doesn't return 0.0. This approach ensures mathematical correctness for sampling algorithms while maintaining good performance. The function is widely used throughout PostgreSQL's sampling infrastructure, including table analysis, block sampling, and reservoir sampling algorithms.

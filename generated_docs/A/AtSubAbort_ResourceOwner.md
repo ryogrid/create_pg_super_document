@@ -1,0 +1,31 @@
+# AtSubAbort_ResourceOwner
+
+## Location
+src/backend/access/transam/xact.c: 1898 - 1910
+
+## Overview
+AtSubAbort_ResourceOwner is a static function that restores the current resource owner to the transaction's main resource owner during subtransaction abort processing.
+
+## Definition
+static void AtSubAbort_ResourceOwner(void)
+
+## Detailed Description
+This function is part of PostgreSQL's subtransaction abort mechanism. When a subtransaction is being aborted, this function ensures that the CurrentResourceOwner global variable is properly restored to point to the main transaction's resource owner (curTransactionOwner). This is critical for proper resource cleanup and management during the abort process, ensuring that resources are tracked and released correctly.
+
+The function is simple but essential - it retrieves the current transaction state and sets the global CurrentResourceOwner to the transaction's main resource owner, effectively undoing any resource owner changes that may have occurred during the subtransaction.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CurrentTransactionState (global variable)
+  - TransactionState (type)
+- Called from (representative examples):
+  - AbortSubTransaction
+
+## Notes and Other Information
+- This function is static and only used within the transaction management subsystem
+- It's specifically called during subtransaction abort processing to ensure proper resource owner restoration
+- The function assumes that CurrentTransactionState is valid and properly initialized
+- Part of a coordinated set of AtSubAbort_* functions that handle different aspects of subtransaction cleanup

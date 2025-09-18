@@ -1,0 +1,39 @@
+# getTSConfigurations
+
+## Location
+src/bin/pg_dump/pg_dump.c: 9597 - 9661
+
+## Overview
+This function reads all text search configurations from the PostgreSQL system catalogs and returns them in a TSConfigInfo structure array for use by pg_dump.
+
+## Definition
+TSConfigInfo *getTSConfigurations(Archive *fout, int *numTSConfigs)
+
+## Detailed Description
+The getTSConfigurations function is part of the pg_dump utility that extracts metadata about text search configurations from the pg_ts_config system catalog. Text search configurations are the top-level objects that define how text search operates by associating parsers with dictionaries for different token types.
+
+The function constructs a SQL query to select all relevant fields from pg_ts_config, executes the query, and processes each result row to populate a TSConfigInfo structure. Each configuration object contains information about its name, namespace, owner, and the parser it uses. Configurations coordinate the text search process by defining which parser to use and how different token types should be processed by various dictionaries.
+
+## Parameters / Member Variables
+- : Pointer to Archive structure representing the output destination for the dump
+- : Pointer to integer that will be set to the total number of configurations retrieved
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ExecuteSqlQuery: Executes the SQL query against the database
+  - pg_malloc: Allocates memory for the TSConfigInfo array
+  - atooid: Converts string OID values to Oid type
+  - AssignDumpId: Assigns unique dump ID to each configuration object
+  - findNamespace: Looks up namespace information for the configuration
+  - getRoleName: Retrieves role name for the configuration owner
+  - selectDumpableObject: Determines if the configuration should be included in dump
+- Called from (representative examples):
+  - getSchemaData: Main schema data collection function
+
+## Notes and Other Information
+- The function queries pg_ts_config system catalog to retrieve configuration metadata including name, namespace, owner, and parser reference
+- Configurations are the highest level objects in the text search hierarchy, coordinating parsers and dictionaries
+- Each configuration references a specific parser (cfgparser) that defines how text is tokenized
+- The actual mapping of token types to dictionaries is stored separately in pg_ts_config_map
+- Memory is allocated for the entire array of configurations at once using pg_malloc
+- The TSConfigInfo structure contains both dump object metadata and configuration-specific parser reference

@@ -1,0 +1,36 @@
+# execute_attr_map_cols
+
+## Location
+src/backend/access/common/tupconvert.c: 252 - 298
+
+## Overview
+Converts a bitmap of columns according to an attribute mapping, transforming column references from input schema to output schema while accommodating PostgreSQL's system column numbering.
+
+## Definition
+
+
+## Detailed Description
+This function performs column bitmap conversion using an attribute map () to translate column references from one schema representation to another. The function is designed to handle PostgreSQL's column numbering system which includes both system columns (negative numbers) and user columns (positive numbers), with all bitmaps offset by .
+
+The conversion process iterates through each possible output column position and determines the corresponding input column using the attribute map. System columns (negative attribute numbers) are mapped directly without transformation, while user columns are mapped according to the  array. The function builds a new bitmap containing only those output columns whose corresponding input columns are present in the input bitmap.
+
+## Parameters / Member Variables
+- : Pointer to an AttrMap structure containing the mapping from output column positions to input column numbers
+- : Input bitmap representing a set of columns, offset by FirstLowInvalidHeapAttributeNumber
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bms_is_member (checks if a column is present in the input bitmap)
+  - bms_add_member (adds a column to the output bitmap)
+  - AttrMap (attribute mapping structure)
+  - FirstLowInvalidHeapAttributeNumber (system constant for column numbering offset)
+- Called from (representative examples):
+  - ExecGetInsertedCols (src/backend/executor/execUtils.c:1280)
+  - ExecGetUpdatedCols (src/backend/executor/execUtils.c:1301)
+
+## Notes and Other Information
+- The function includes a fast path optimization for NULL input, returning NULL immediately
+- System columns (attribute numbers < 0) are handled specially with direct mapping
+- Attribute number 0 is skipped as it's invalid in PostgreSQL's column numbering
+- The bitmap offset handling ensures compatibility with RangeTblEntry column bitmaps and other PostgreSQL structures that use this numbering convention
+- Used primarily in executor utilities for determining which columns are involved in INSERT and UPDATE operations

@@ -1,0 +1,43 @@
+# initArrayResultWithSize
+
+## Location
+src/backend/utils/adt/arrayfuncs.c: 5298 - 5337
+
+## Overview
+Initializes an ArrayBuildState structure with a specified initial array size, providing fine-grained control over memory allocation for array building operations.
+
+## Definition
+
+
+## Detailed Description
+This function creates and initializes an ArrayBuildState structure for building arrays incrementally, allowing the caller to specify the initial size of the allocated arrays. It performs the core initialization work for array building, setting up memory contexts, allocating initial storage for element values and null flags, and retrieving type information.
+
+The function supports flexible memory management through the subcontext parameter:
+- When subcontext=true: creates a separate AllocSet context named "accumArrayResult"
+- When subcontext=false: uses the provided rcontext directly
+
+The function allocates arrays for both element values (Datum) and null flags (bool) based on the specified initial size, and retrieves type-specific information including length, pass-by-value status, and alignment requirements.
+
+## Parameters / Member Variables
+- : OID of the array element type (must be a valid array element type)
+- : Memory context where working state should be kept  
+- : Flag determining whether to use a separate memory context for this build state
+- : Initial size for the allocated value and null arrays
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AllocSetContextCreate (creates new memory context when subcontext=true)
+  - MemoryContextAlloc (allocates memory for state structure and arrays)
+  - get_typlenbyvalalign (retrieves type information for the element type)
+- Called from (representative examples):
+  - initArrayResult (wrapper function with default sizes)
+  - array_agg_combine (combining array aggregation states)
+  - array_agg_deserialize (deserializing array aggregation states)
+
+## Notes and Other Information
+- This is the core initialization function that does the actual work for array building setup
+- The ArrayBuildState structure contains all necessary information for incrementally building arrays
+- Memory allocation is performed in the specified context (either rcontext or a new subcontext)
+- Type information is cached in the state structure for efficient element handling
+- The initial size can be tuned based on expected number of elements to optimize memory usage
+- Arrays will be automatically resized if more elements are added than the initial size

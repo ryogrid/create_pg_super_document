@@ -1,0 +1,33 @@
+# has_database_privilege_id_name
+
+## Location
+src/backend/utils/adt/acl.c: 3098 - 3120
+
+## Overview
+Checks database privileges for a specific user given the user's role ID, database name, and privilege name.
+
+## Definition
+
+
+## Detailed Description
+This SQL-callable function determines whether a user (specified by role OID) has specific privileges on a database (specified by name). It's part of PostgreSQL's access control privilege checking system. The function converts the textual database name to an OID, converts the privilege string to an internal privilege bitmask, and then performs the actual privilege check using the standard object access control mechanism.
+
+## Parameters / Member Variables
+- : Role OID of the user whose privileges are being checked
+- : Text name of the database to check privileges on  
+- : Text string specifying the privilege type to check (e.g., "CREATE", "CONNECT", "TEMPORARY")
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - convert_database_name: Converts database name to OID
+  - convert_database_priv_string: Converts privilege string to AclMode bitmask
+  - object_aclcheck: Performs the actual privilege check
+  - AclResult: Enum type for access control results
+- Called from (representative examples):
+  - This function is typically called from SQL queries using the has_database_privilege() function
+
+## Notes and Other Information
+- Returns a boolean Datum: true if the user has the specified privilege, false otherwise
+- Part of the has_database_privilege family of functions that provide different parameter combinations
+- The function performs error checking through the convert_* helper functions
+- Located in src/backend/utils/adt/acl.c:3098-3120

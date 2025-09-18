@@ -1,0 +1,51 @@
+# PredicateLockShmemSize
+
+## Location
+src/backend/storage/lmgr/predicate.c: 1347 - 1408
+
+## Overview
+PredicateLockShmemSize calculates the total shared memory space required for all predicate locking data structures used in PostgreSQL's serializable snapshot isolation implementation.
+
+## Definition
+```c
+Size PredicateLockShmemSize(void)
+```
+
+## Detailed Description
+This function estimates the shared memory requirements for the entire predicate locking system by calculating the space needed for each component and summing them together. The calculations must exactly match the allocations performed in InitPredicateLocks() to ensure sufficient memory is available during startup.
+
+The function calculates memory for:
+
+1. **Predicate Lock Target Hash Table**: Uses NPREDICATELOCKTARGETENTS() to determine the number of PREDICATELOCKTARGET entries
+2. **Predicate Lock Hash Table**: Assumes 2x the target entries for PREDICATELOCK structs (2 transactions per target)
+3. **Safety Margin**: Adds 10% extra space since NPREDICATELOCKTARGETENTS is only an estimate
+4. **Transaction List**: Space for SERIALIZABLEXACT structures, assuming 10x (MaxBackends + max_prepared_xacts)
+5. **Transaction XID Table**: Hash table for SERIALIZABLEXID entries
+6. **RW-Conflict Pool**: Conflict tracking structures, assuming 5x the transaction count
+7. **Finished Transaction List**: Header for completed serializable transactions
+8. **Serial SLRU Components**: SerialControlData structure and SLRU buffer space
+
+The function uses PostgreSQL's size calculation utilities (add_size, mul_size) to safely handle potential overflow conditions.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NPREDICATELOCKTARGETENTS
+  - hash_estimate_size
+  - add_size
+  - mul_size
+  - SimpleLruShmemSize
+  - Various size constants (PredXactListDataSize, RWConflictPoolHeaderDataSize, etc.)
+- Called from (representative examples):
+  - CalculateShmemSize
+
+## Notes and Other Information
+- This is a public function accessible outside predicate.c
+- Critical for PostgreSQL startup memory planning - must be called before shared memory allocation
+- Size calculations must exactly match the allocation logic in InitPredicateLocks()
+- Includes a 10% safety margin to account for estimation uncertainties in NPREDICATELOCKTARGETENTS
+- The sizing assumptions mirror those in InitPredicateLocks(): 2 xacts per target, 10 predicate locking transactions per backend, 5 conflicts per transaction
+- Uses PostgreSQL's overflow-safe arithmetic functions to prevent integer overflow
+- Part of the shared memory size calculation infrastructure used during database cluster startup

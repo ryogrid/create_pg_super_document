@@ -1,0 +1,41 @@
+# SimpleLruWritePage
+
+## Location
+src/backend/access/transam/slru.c: 729 - 742
+
+## Overview
+Public wrapper function that provides external callers access to SLRU page writing functionality without exposing internal flush operations.
+
+## Definition
+
+
+## Detailed Description
+SimpleLruWritePage serves as a public interface to the internal SLRU page writing mechanism. It acts as a thin wrapper around SlruInternalWritePage, specifically designed for external callers who need to write individual pages but don't require the advanced flush operations available through the internal interface.
+
+The function performs basic validation to ensure the slot contains valid data (not empty) before delegating the actual write operation to SlruInternalWritePage with NULL for the flush data parameter. This design pattern provides a clean separation between internal operations (which may need flush capabilities for checkpoints) and external operations (which typically write individual pages as needed).
+
+This function is commonly used during bootstrap operations and WAL replay when specific SLRU pages need to be written to disk to ensure data consistency and durability.
+
+## Parameters / Member Variables
+- : SlruCtl control structure containing SLRU configuration and shared state
+- : Integer slot number identifying which buffer slot contains the page to write
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SlruInternalWritePage
+  - SLRU_PAGE_EMPTY (status constant)
+- Called from (representative examples):
+  - BootStrapCLOG
+  - clog_redo
+  - ActivateCommitTs
+  - commit_ts_redo
+  - BootStrapMultiXact
+  - multixact_redo
+  - BootStrapSUBTRANS
+
+## Notes and Other Information
+- Always passes NULL as the fdata parameter to SlruInternalWritePage, meaning it never participates in checkpoint flush operations
+- Used extensively during database bootstrap and WAL replay operations
+- Provides the primary public interface for SLRU page writing in PostgreSQL subsystems like CLOG, commit timestamps, multixact, and subtransaction status
+- Requires the appropriate bank lock to be held by the caller (inherited requirement from SlruInternalWritePage)
+- Part of PostgreSQL's transaction status management infrastructure

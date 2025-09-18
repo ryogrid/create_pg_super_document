@@ -1,0 +1,32 @@
+# get_sortgroupclause_tle
+
+## Location
+src/backend/optimizer/util/tlist.c: 367 - 378
+
+## Overview
+Finds the targetlist entry matching the given SortGroupClause by ressortgroupref and returns it.
+
+## Definition
+TargetEntry *get_sortgroupclause_tle(SortGroupClause *sgClause, List *targetList)
+
+## Detailed Description
+This function serves as a convenience wrapper around get_sortgroupref_tle(). It extracts the tleSortGroupRef field from a SortGroupClause structure and uses it to locate the corresponding TargetEntry in the provided target list. This is commonly needed during query planning when the system needs to find the actual expression associated with a sort or grouping clause.
+
+## Parameters / Member Variables
+- : Pointer to a SortGroupClause structure containing the sort/group reference information
+- : List of TargetEntry nodes to search within
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_sortgroupref_tle
+  - SortGroupClause (structure type)
+- Called from (representative examples):
+  - build_pertrans_for_aggref
+  - query_is_distinct_for
+  - create_groupingsets_plan
+  - create_windowagg_plan
+  - make_sort_from_sortclauses
+  - get_sortgroupclause_expr
+
+## Notes and Other Information
+This function is a simple wrapper that provides a more convenient interface when working with SortGroupClause structures. It's widely used throughout the PostgreSQL optimizer and executor for operations involving sorting and grouping.

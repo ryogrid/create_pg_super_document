@@ -1,0 +1,52 @@
+# pg_cursor
+
+## Location
+src/backend/utils/mmgr/portalmem.c: 1131 - 1170
+
+## Overview
+SQL-callable function that returns information about all available cursors (portals) in the current session.
+
+## Definition
+
+
+## Detailed Description
+pg_cursor is a system function that provides information about all visible cursors (portals) currently active in the PostgreSQL session. This function is designed to be called from SQL and returns a set of rows containing details about each cursor, including its name, source text, options, and creation time.
+
+The function scans through the global PortalHashTable and collects information about portals that meet certain visibility criteria:
+1. The portal must be marked as visible (portal->visible == true)
+2. The portal must have source text available (indicating PortalDefineQuery has been called)
+
+For each qualifying portal, the function returns a tuple containing six pieces of information: cursor name, source SQL text, and three boolean flags indicating cursor options (HOLD, BINARY, SCROLL), plus the creation timestamp.
+
+The function uses PostgreSQL's set-returning function (SRF) infrastructure to return multiple rows, materializing all results in a tuplestore during a single scan to avoid consistency issues.
+
+## Parameters
+- : Standard PostgreSQL function arguments macro, providing access to function call context including result info
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - InitMaterializedSRF
+  - hash_seq_init
+  - hash_seq_search
+  - CStringGetTextDatum
+  - BoolGetDatum
+  - TimestampTzGetDatum
+  - tuplestore_putvalues
+- Data types used:
+  - ReturnSetInfo
+  - HASH_SEQ_STATUS
+  - PortalHashEnt
+  - Portal
+  - Datum
+- Constants used:
+  - CURSOR_OPT_HOLD
+  - CURSOR_OPT_BINARY
+  - CURSOR_OPT_SCROLL
+
+## Notes and Other Information
+- This function is typically exposed as a system view or function that users can query to see active cursors
+- The function only reports 'visible' portals, filtering out internal or temporary portals
+- The tuplestore approach ensures consistent results even if the portal hash table changes during execution
+- The function returns 6 columns: name, statement, is_holdable, is_binary, is_scrollable, creation_time
+- Portals without source text are excluded, which filters out incomplete or internal portals
+- The function is defined in src/backend/utils/mmgr/portalmem.c:1131-1170

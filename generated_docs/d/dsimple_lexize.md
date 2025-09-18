@@ -1,0 +1,38 @@
+# dsimple_lexize
+
+## Location
+src/backend/tsearch/dict_simple.c: 75 - 105
+
+## Overview
+Performs lexical analysis on input text using a simple dictionary by converting text to lowercase, checking against stopwords, and returning appropriate lexemes based on dictionary configuration.
+
+## Definition
+
+
+## Detailed Description
+The  function is the core lexical analysis routine for PostgreSQL's simple dictionary. It takes an input word, converts it to lowercase, and applies the dictionary's rules to determine the appropriate lexical output. The function implements a three-stage decision process: first checking if the word is empty or matches a stopword (in which case it returns an empty lexeme array to indicate rejection), then checking if the dictionary is configured to accept words (returning the lowercase word as a lexeme), or finally reporting the word as unrecognized by returning NULL. This function is essential for text search operations, as it determines which words are indexed and how they are normalized.
+
+## Parameters / Member Variables
+- : A DictSimple pointer containing the dictionary configuration (stoplist and accept flag)
+- : A char pointer to the input text to be processed
+- : An int32 specifying the length of the input text
+- Returns a Datum containing a pointer to a TSLexeme array (or NULL for unrecognized words)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DictSimple (structure type for dictionary state)
+  - TSLexeme (structure type for lexical output)
+  - lowerstr_with_len (converts text to lowercase with specified length)
+  - searchstoplist (checks if word exists in stopword list)
+  - palloc0 (PostgreSQL memory allocation with zero initialization)
+  - pfree (PostgreSQL memory deallocation)
+- Called from (representative examples):
+  - No direct references found (likely called through PostgreSQL's function manager)
+
+## Notes and Other Information
+- Returns an array of TSLexeme structures with at least 2 elements (the last being NULL-terminated)
+- Implements three possible outcomes: stopword rejection (empty array), word acceptance (single lexeme), or unrecognized word (NULL return)
+- The function always creates lowercase versions of input text for consistent processing
+- Memory management includes proper cleanup with pfree() for rejected words
+- Part of PostgreSQL's text search dictionary framework
+- Located in src/backend/tsearch/dict_simple.c:75-105

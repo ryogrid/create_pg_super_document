@@ -1,0 +1,34 @@
+# InitCompressorNone
+
+## Location
+src/bin/pg_dump/compress_none.c: 66 - 86
+
+## Overview
+Initializes the compressor state for the "none" compression method, setting up function pointers for uncompressed data handling in pg_dump.
+
+## Definition
+void InitCompressorNone(CompressorState *cs, const pg_compress_specification compression_spec)
+
+## Detailed Description
+This function serves as the public interface for initializing the "none" compression implementation in pg_dump. It sets up the compressor state structure by assigning the appropriate function pointers for reading, writing, and finalizing data operations when no compression is desired. The function configures the compressor state to use the none-specific implementations of the compressor API, effectively creating a pass-through compression layer.
+
+## Parameters / Member Variables
+- : Compressor state structure to be initialized with function pointers and configuration
+- : Compression specification containing configuration details for the compression method
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CompressorState (struct type)
+  - pg_compress_specification (struct type)
+  - ReadDataFromArchiveNone (function pointer assignment)
+  - WriteDataToArchiveNone (function pointer assignment)  
+  - EndCompressorNone (function pointer assignment)
+- Called from (representative examples):
+  - AllocateCompressor
+
+## Notes and Other Information
+- This function is part of the public interface for the none compression module
+- Sets up a complete compressor API implementation for uncompressed data
+- The compression_spec parameter is stored but not otherwise used in the none implementation
+- All function pointers are set to none-specific implementations that perform no compression
+- Located in src/bin/pg_dump/compress_none.c:66-86

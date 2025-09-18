@@ -1,0 +1,45 @@
+# _bt_bottomupdel_pass
+
+## Location
+src/backend/access/nbtree/nbtdedup.c: 307 - 432
+
+## Overview
+Performs bottom-up index deletion to remove duplicate index tuples and nearby tuples that correspond to deleted heap tuples, aiming to prevent unnecessary page splits caused by MVCC version churn.
+
+## Definition
+
+
+## Detailed Description
+This function implements bottom-up index deletion, a technique to remove index tuples whose corresponding heap tuples have been deleted or updated. The primary goal is to prevent page splits caused by MVCC version churn from UPDATE operations that don't logically modify indexed columns.
+
+The function works by:
+1. Scanning through page tuples and grouping duplicates into intervals
+2. Passing these intervals to the table access method (tableam) to determine which heap TIDs are deletable
+3. Physically deleting the identified tuples from the index page
+
+The approach is qualitative rather than quantitative - it focuses on preventing unnecessary splits rather than maximizing the number of deleted tuples. The function returns advisory information about whether the operation was successful enough to avoid a page split.
+
+## Parameters / Member Variables
+- : The index relation being processed
+- : Buffer containing the index page to process
+- : The heap relation associated with the index
+- : Size of new item to be inserted (used for space target calculation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Initializes pending interval for duplicate detection
+  - : Adds tuple's heap TIDs to current interval
+  - : Finalizes interval and moves TIDs to delete state
+  - : Asks tableam which TIDs are deletable and performs deletion
+  - : Calculates remaining free space after deletion
+
+- Called from (representative examples):
+  - Called before  in insertion code paths to attempt bottom-up deletion first
+
+## Notes and Other Information
+- Returns true to indicate success (page split likely avoided), false to suggest deduplication should be attempted instead
+- The space target for deletion is set to max(BLCKSZ/16, newitemsz) to ensure sufficient space is freed
+- Even with zero promising tuples, the function may return true to avoid useless deduplication
+- The function unconditionally returns true when no intervals are found to prevent deduplication
+- Success threshold is based on freeing at least max(BLCKSZ/24, newitemsz) space
+- This technique is particularly effective for workloads with frequent UPDATEs that don't change indexed columns

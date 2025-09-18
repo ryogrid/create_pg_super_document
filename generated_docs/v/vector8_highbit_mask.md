@@ -1,0 +1,40 @@
+# vector8_highbit_mask
+
+## Location
+src/include/port/simd.h: 309 - 337
+
+## Overview
+A function that returns a bitmask representing which bytes in a Vector8 have their high bit (most significant bit) set.
+
+## Definition
+static inline uint32 vector8_highbit_mask(const Vector8 v)
+
+## Detailed Description
+This function extracts the high bit from each byte in a Vector8 and returns them as a compact 32-bit bitmask. Each bit in the returned value corresponds to one byte in the input vector, with the bit set if that bytes high bit was set. The function uses platform-specific optimizations:
+- SSE2: Uses _mm_movemask_epi8() which directly extracts high bits into a mask
+- NEON: Implements a complex sequence using bit manipulation, vector shifting, and bit extraction due to lack of direct equivalent instruction
+- No fallback implementation provided (only available on SIMD platforms)
+
+This function is particularly useful for radix tree operations and other data structures that need to quickly identify which bytes have certain characteristics.
+
+## Parameters / Member Variables
+- v: The Vector8 to extract high bit mask from
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Vector8 (type)
+  - _mm_movemask_epi8 (SSE2 intrinsic)
+  - vld1q_u8, vandq_u8, vshrq_n_s8, vextq_u8, vaddvq_u16, vzip1q_u8 (NEON intrinsics)
+  - USE_SSE2, USE_NEON (preprocessor conditions)
+- Called from (representative examples):
+  - RT_NODE_16_SEARCH_EQ
+  - RT_NODE_16_GET_INSERTPOS
+
+## Notes and Other Information
+- Implemented as a static inline function for performance optimization
+- Returns a uint32 where each bit represents the high bit of the corresponding input byte
+- The NEON implementation is notably complex due to architecture differences
+- NEON version includes optimization comment about faster alternatives that were avoided for convenience
+- Critical for radix tree node operations in PostgreSQL
+- Only available on SIMD-capable platforms (no scalar fallback)
+- Part of PostgreSQLs SIMD abstraction layer for efficient bit manipulation operations

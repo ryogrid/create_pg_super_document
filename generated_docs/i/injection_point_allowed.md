@@ -1,0 +1,36 @@
+# injection_point_allowed
+
+## Location
+src/test/modules/injection_points/injection_points.c: 137 - 158
+
+## Overview
+A static function that evaluates runtime conditions to determine whether a named injection point should be allowed to execute.
+
+## Definition
+
+
+## Detailed Description
+This function implements the conditional logic for injection points in PostgreSQL's testing framework. It takes an  structure and evaluates the specified conditions to determine if the injection point should be triggered. The function supports different condition types including process ID-based filtering and always-allow conditions. This allows for fine-grained control over when injection points are activated, enabling targeted testing scenarios.
+
+## Parameters / Member Variables
+- : Pointer to an  structure containing the condition type and associated parameters to evaluate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (struct type defining condition parameters)
+  -  (enum value for process ID-based conditions)
+  -  (enum value for always-allow conditions)
+  -  (global variable containing current process ID)
+- Called from:
+  -  (at src/test/modules/injection_points/injection_points.c:182)
+  -  (at src/test/modules/injection_points/injection_points.c:193)  
+  -  (at src/test/modules/injection_points/injection_points.c:211)
+
+## Notes and Other Information
+- This is a static function, only accessible within injection_points.c
+- Currently supports two condition types:
+  - : Only allows execution if current process ID matches the specified PID
+  - : Always allows execution (no filtering)
+- Returns  if the injection point should execute,  otherwise
+- The function uses a switch statement pattern that can be easily extended for additional condition types
+- Part of PostgreSQL's testing infrastructure for creating controlled test environments

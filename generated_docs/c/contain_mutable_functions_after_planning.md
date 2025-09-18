@@ -1,0 +1,39 @@
+# contain_mutable_functions_after_planning
+
+## Location
+src/backend/optimizer/util/clauses.c: 490 - 537
+
+## Overview
+A wrapper function that safely tests for mutable functions in expressions from outside the planner by first running the expression through planning phases.
+
+## Definition
+```c
+bool contain_mutable_functions_after_planning(Expr *expr)
+```
+
+## Detailed Description
+This function provides a safe interface for checking expression mutability from contexts outside the query planner. It addresses two critical issues that can affect mutability analysis:
+
+1. **Function Default Arguments**: The planner inserts default arguments for functions, which can significantly impact volatility analysis. For example, a function with a `default now()` parameter becomes volatile even if the base function is immutable.
+
+2. **Function Inlining**: Inline-able functions are expanded during planning, potentially revealing that they are less volatile than their declared volatility level. This is particularly important for polymorphic functions, which must be conservatively marked with the most volatile behavior across all possible input types, but may be more stable for specific input types after inlining.
+
+The function first applies `expression_planner()` to normalize the expression, then delegates to `contain_mutable_functions()` for the actual mutability check.
+
+## Parameters / Member Variables
+- `expr`: The expression to test for mutable functions, which will be processed through the planner first
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - expression_planner
+  - contain_mutable_functions
+- Called from (representative examples):
+  - cookDefault (catalog/heap.c)
+  - CheckPredicate (commands/indexcmds.c)
+  - ComputeIndexAttrs (commands/indexcmds.c)
+
+## Notes and Other Information
+- Designed specifically for use outside the planner context where expressions may not have been fully processed
+- The function assumes that `expression_planner()` will not modify its input (read-only processing)
+- Critical for index creation and constraint validation where accurate volatility assessment is essential
+- Part of the public interface (non-static function) for mutability testing across PostgreSQL subsystems

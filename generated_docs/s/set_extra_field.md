@@ -1,0 +1,39 @@
+# set_extra_field
+
+## Location
+src/backend/utils/misc/guc.c: 794 - 813
+
+## Overview
+A static utility function in PostgreSQL's GUC system that safely assigns a new 'extra' data structure to a field of a GUC configuration item, handling memory management by freeing the previous value if it's no longer referenced.
+
+## Definition
+
+
+## Detailed Description
+The  function provides a memory-safe way to update 'extra' data fields within PostgreSQL's GUC configuration management system. It performs assignment of a new extra data pointer to a specified field while ensuring proper cleanup of the previous value. The function uses  to check if the old value is still referenced elsewhere in the configuration structure (including stacked states) before freeing it, preventing memory leaks while avoiding premature deallocation of shared extra data.
+
+This function is part of the internal GUC infrastructure that manages additional data associated with configuration parameters. Extra data structures can contain type-specific information, validation functions, or other auxiliary data needed for parameter management.
+
+## Parameters / Member Variables
+- : Pointer to the generic GUC configuration structure containing the field to be updated
+- : Pointer to the void* field that will be updated with the new extra data
+- : The new extra data pointer to assign to the field
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - config_generic (structure type)
+  - extra_field_used (checks if old value is still referenced)
+  - guc_free (frees memory allocated for old extra data)
+- Called from (representative examples):
+  - set_stack_value
+  - discard_stack_value
+  - ResetAllOptions
+  - AtEOXact_GUC
+  - newval (in configuration validation and assignment contexts)
+
+## Notes and Other Information
+- This is a static function, only accessible within src/backend/utils/misc/guc.c
+- Provides memory-safe management of auxiliary data structures associated with GUC parameters
+- Works in conjunction with  to ensure proper reference counting
+- Part of PostgreSQL's sophisticated configuration parameter management system
+- Essential for preventing memory leaks when updating extra data fields

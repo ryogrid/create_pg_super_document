@@ -1,0 +1,40 @@
+# BumpReset
+
+## Location
+src/backend/utils/mmgr/bump.c: 243 - 277
+
+## Overview
+Resets a Bump memory context by freeing all allocated memory blocks except the keeper block, effectively returning the context to its initial empty state.
+
+## Definition
+
+
+## Detailed Description
+BumpReset performs a bulk deallocation operation that is the primary strength of the Bump allocation strategy. The function iterates through all blocks in the context's doubly-linked list, freeing non-keeper blocks entirely and marking the keeper block as empty for reuse. This approach allows for very efficient cleanup of all allocated memory in O(n) time where n is the number of blocks, rather than having to track and free individual allocations.
+
+After freeing the blocks, the function resets the nextBlockSize to the initial block size, preparing the context for future allocation cycles. The function includes debugging assertions to verify the context's integrity both before and after the reset operation.
+
+## Parameters / Member Variables
+- `context`: The Bump memory context to reset (cast internally to BumpContext*)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BumpIsValid
+  - BumpCheck (in MEMORY_CONTEXT_CHECKING builds)
+  - dlist_foreach_modify
+  - dlist_container
+  - IsKeeperBlock
+  - BumpBlockMarkEmpty
+  - BumpBlockFree
+  - dlist_is_empty
+  - dlist_has_next
+  - dlist_head_node
+- Called from (representative examples):
+  - BumpDelete
+  - BOGUS_MCTX (via function pointer)
+
+## Notes and Other Information
+- The reset operation preserves the keeper block which contains the context header, making the context immediately reusable
+- Memory context checking is performed if MEMORY_CONTEXT_CHECKING is defined, adding validation overhead in debug builds
+- The function ensures exactly one block remains after reset (the keeper block) through assertions
+- This operation is much more efficient than individual chunk deallocation, making Bump contexts ideal for scenarios with bulk allocation/deallocation patterns

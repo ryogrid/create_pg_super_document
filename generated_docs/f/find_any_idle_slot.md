@@ -1,0 +1,28 @@
+# find_any_idle_slot
+
+## Location
+src/fe_utils/parallel_slot.c: 179 - 195
+
+## Overview
+find_any_idle_slot is a static utility function that searches through a parallel slot array to find the first available (idle) slot for use in parallel operations.
+
+## Definition
+
+
+## Detailed Description
+This function performs a linear search through the slots in a ParallelSlotArray to locate the first slot that is not currently in use. It iterates through all slots sequentially, checking the inUse flag of each slot. The function returns immediately upon finding the first idle slot, making it efficient for cases where idle slots are commonly available early in the array.
+
+## Parameters / Member Variables
+- : A const pointer to the ParallelSlotArray structure containing the slots to search through
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParallelSlotArray (structure type)
+- Called from (representative examples):
+  - ParallelSlotsGetIdle
+
+## Notes and Other Information
+- Returns the zero-based index of the first idle slot, or -1 if all slots are busy
+- Uses a simple linear search algorithm with O(n) time complexity
+- The function is static, meaning it's only accessible within the parallel_slot.c compilation unit
+- The search is performed from index 0 to numslots-1, so lower-indexed slots are preferred for allocation

@@ -1,0 +1,51 @@
+# array_set
+
+## Location
+src/backend/utils/adt/arrayfuncs.c: 3163 - 3200
+
+## Overview
+A backwards compatibility wrapper function for array_set_element that provides element assignment for detoasted/flattened varlena arrays using the legacy ArrayType pointer interface.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a legacy API wrapper around the more general  function, maintaining backwards compatibility for code that expects to work with  pointers directly. It bridges the gap between the older direct pointer interface and the newer, more flexible Datum-based interface.
+
+Key characteristics:
+- **Legacy compatibility**: Preserves existing APIs that depend on direct ArrayType pointer access
+- **Limited scope**: Only works with detoasted/flattened varlena arrays due to the ArrayType* parameter constraint
+- **Wrapper implementation**: Simply converts between pointer and Datum representations while delegating actual work
+
+The function converts the input ArrayType pointer to a Datum, calls  to perform the actual assignment, and converts the result back to an ArrayType pointer.
+
+## Parameters / Member Variables
+- : Pointer to the ArrayType structure containing the source array
+- : Number of subscript dimensions provided for element assignment
+- : Array of integer subscript values specifying the target element position
+- : The new value to assign to the specified array element
+- : Boolean indicating whether the new value is NULL
+- : Type length for the array type (from pg_type.typlen)
+- : Type length for individual array elements  
+- : Boolean indicating whether array elements are passed by value
+- : Alignment requirement for array elements (from pg_type.typalign)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - array_set_element (performs the actual element assignment)
+  - PointerGetDatum (converts ArrayType* to Datum)
+  - DatumGetArrayTypeP (converts result Datum back to ArrayType*)
+- Called from:
+  - pg_extension_config_dump
+  - GUCArrayAdd
+  - GUCArrayDelete
+  - GUCArrayReset
+
+## Notes and Other Information
+- This is explicitly a backwards compatibility function maintained to support existing code
+- Only works with detoasted and flattened varlena arrays due to the ArrayType* parameter type restriction
+- New code should prefer using  directly for greater flexibility and expanded array support
+- Returns a new ArrayType rather than modifying the original array in place
+- Critical for PostgreSQL's configuration system (GUC arrays) and extension management
+- The function adds minimal overhead as it's essentially a type conversion wrapper
+- Located in 

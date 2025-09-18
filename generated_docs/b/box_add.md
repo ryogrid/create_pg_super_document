@@ -1,0 +1,36 @@
+# box_add
+
+## Location
+src/backend/utils/adt/geo_ops.c: 4231 - 4245
+
+## Overview
+The box_add function translates a BOX by adding a Point offset to both corners, effectively moving the entire box in 2D space.
+
+## Definition
+Datum box_add(PG_FUNCTION_ARGS)
+
+## Detailed Description
+This function performs vector addition between a BOX and a Point, translating the box by the specified offset. It takes a BOX and a Point as arguments and returns a new BOX where both the high and low corners have been translated by adding the Point's coordinates. The operation effectively moves the entire box in 2D space while preserving its size and shape. The function uses point_add_point to perform coordinate-wise addition on both corners of the box.
+
+## Parameters / Member Variables
+- PG_FUNCTION_ARGS: Standard PostgreSQL function arguments containing:
+  - Argument 0: BOX (box) - the box to be translated
+  - Argument 1: Point (p) - the translation vector/offset
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_BOX_P (BOX argument extraction)
+  - PG_GETARG_POINT_P (Point argument extraction)
+  - palloc (memory allocation)
+  - point_add_point (adds the point offset to each corner)
+  - PG_RETURN_BOX_P (return value packaging)
+- Called from (representative examples):
+  - No direct callers found in the codebase
+
+## Notes and Other Information
+- The function allocates memory for a new BOX result using palloc
+- Applies the same translation to both high and low corners of the box
+- Preserves the box's dimensions and orientation
+- Part of PostgreSQL's geometric data type arithmetic operations
+- The operation is commutative: box + point = point + box
+- Located in src/backend/utils/adt/geo_ops.c at lines 4231-4245

@@ -1,0 +1,31 @@
+# text_position_get_match_pos
+
+## Location
+src/backend/utils/adt/varlena.c: 1479 - 1494
+
+## Overview
+Returns the character-based position (1-based offset) of the current match found in a text search operation.
+
+## Definition
+
+
+## Detailed Description
+This function converts the byte-based position of a match to a character-based position and returns it as a 1-based offset. The function performs multibyte character length calculation to accurately determine the character position, which is essential for proper Unicode and multibyte character set support. It updates the internal reference point tracking within the TextPositionState to optimize subsequent position calculations by avoiding recalculation from the beginning of the string.
+
+## Parameters / Member Variables
+- : Pointer to a TextPositionState structure containing the search state, match information, and position tracking data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TextPositionState (structure accessed and modified)
+  - pg_mbstrlen_with_len (multibyte string length calculation)
+- Called from (representative examples):
+  - text_position (main text position function)
+
+## Notes and Other Information
+- This is a static function, accessible only within varlena.c
+- Returns a 1-based character position (not 0-based)
+- Handles multibyte characters correctly using pg_mbstrlen_with_len
+- Updates the state's refpoint and refpos fields to cache position information for efficiency
+- The function assumes that last_match has been set by a previous search operation
+- Used primarily by PostgreSQL's text position functions for finding substring locations in text data

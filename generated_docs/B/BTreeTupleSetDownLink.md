@@ -1,0 +1,36 @@
+# BTreeTupleSetDownLink
+
+## Location
+src/include/access/nbtree.h: 562 - 576
+
+## Overview
+Sets the downlink block number in a pivot tuple, establishing the connection between an internal B-tree page and its child page.
+
+## Definition
+static inline void BTreeTupleSetDownLink(IndexTuple pivot, BlockNumber blkno)
+
+## Detailed Description
+This function sets the downlink block number in a pivot tuple's ItemPointer (t_tid field). In B-tree internal pages, pivot tuples contain downlinks that point to child pages. The function uses ItemPointerSetBlockNumber() to store the specified block number in the tuple's t_tid field, which is repurposed from its normal role of storing heap tuple location to instead store child page references in pivot tuples.
+
+The function is implemented as a static inline function for performance, as it's used during B-tree construction, page splitting, and structural modifications.
+
+## Parameters / Member Variables
+- pivot: IndexTuple representing a pivot tuple to modify
+- blkno: BlockNumber specifying the block number of the child page to link to
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ItemPointerSetBlockNumber
+- Called from (representative examples):
+  - _bt_insert_parent
+  - _bt_newlevel
+  - _bt_mark_page_halfdead
+  - _bt_buildadd
+  - _bt_uppershutdown
+  - btree_xlog_mark_page_halfdead
+
+## Notes and Other Information
+- This is the counterpart to BTreeTupleGetDownLink, used for modifying rather than reading downlink information
+- Used during B-tree construction, page splitting operations, and structural modifications
+- The function directly modifies the pivot tuple's t_tid field to establish parent-child relationships in the B-tree structure
+- Performance-critical function implemented as static inline for efficiency during bulk operations and frequent structural changes

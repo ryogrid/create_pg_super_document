@@ -1,0 +1,48 @@
+# CheckpointerShmemInit
+
+## Location
+src/backend/postmaster/checkpointer.c: 904 - 946
+
+## Overview
+Allocates and initializes the shared memory structures used by the checkpointer process for inter-process communication and coordination.
+
+## Definition
+```c
+void CheckpointerShmemInit(void)
+```
+
+## Detailed Description
+This function is responsible for setting up the checkpointer's shared memory segment during PostgreSQL startup. It allocates shared memory using the size calculated by CheckpointerShmemSize() and initializes all the necessary synchronization primitives and data structures.
+
+On first initialization (when the shared memory segment is newly created), the function:
+1. Zeros out the entire allocated memory space to ensure clean initialization
+2. Initializes the spinlock for protecting critical sections
+3. Sets the maximum number of checkpoint requests the ring buffer can hold
+4. Initializes condition variables for checkpointer coordination
+
+The function uses PostgreSQL's shared memory infrastructure and handles both the case where shared memory is being created for the first time and when attaching to existing shared memory.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CheckpointerShmemSize
+  - ShmemInitStruct
+  - MemSet
+  - SpinLockInit
+  - ConditionVariableInit
+  - Min
+  - NBuffers (global variable)
+  - MAX_CHECKPOINT_REQUESTS
+  - CheckpointerShmemStruct (struct type)
+- Called from (representative examples):
+  - CreateOrAttachShmemStructs
+
+## Notes and Other Information
+- Sets the global CheckpointerShmem pointer to the allocated shared memory
+- The "found" parameter from ShmemInitStruct indicates whether this is a new allocation or attachment to existing memory
+- Initializes two condition variables: start_cv and done_cv for checkpointer coordination
+- Ensures the entire requests array is zeroed, which is important for CompactCheckpointerRequestQueue operation
+- The max_requests field is set to the minimum of NBuffers and MAX_CHECKPOINT_REQUESTS
+- Part of the shared memory subsystem initialization during PostgreSQL startup

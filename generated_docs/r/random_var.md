@@ -1,0 +1,53 @@
+# random_var
+
+## Location
+src/backend/utils/adt/numeric.c: 11339 - 11521
+
+## Overview
+Generates a uniformly distributed random numeric value within a specified range [rmin, rmax] using PostgreSQL's internal NumericVar representation.
+
+## Definition
+
+
+## Detailed Description
+This function generates a random numeric value uniformly distributed within the closed interval [rmin, rmax]. The implementation uses sophisticated algorithms to ensure true uniform distribution while handling PostgreSQL's variable-precision decimal arithmetic. 
+
+The function works by:
+1. Computing the range length (rmax - rmin) and validating bounds
+2. Handling the special case of empty ranges (rmin == rmax)
+3. For non-empty ranges, generating a random value in [0, range_length] and then shifting it to the target range
+
+The core challenge is generating uniform random values for arbitrary-precision decimals. The algorithm addresses this by:
+- Using the first 4 NBASE digits to form a 64-bit integer for efficient random generation
+- Setting remaining digits to '9' to create a slightly larger range
+- Using rejection sampling to ensure true uniform distribution
+- Handling decimal scale requirements by ensuring the final digit is a multiple of the appropriate power of 10
+
+## Parameters / Member Variables
+- : Pointer to PostgreSQL's pseudo-random number generator state
+- : Pointer to NumericVar representing the minimum bound of the range (inclusive)
+- : Pointer to NumericVar representing the maximum bound of the range (inclusive)
+- : Pointer to NumericVar where the generated random value will be stored
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - sub_var (computes range length)
+  - init_var, alloc_var, free_var (memory management)
+  - set_var_from_var (copying values)
+  - pg_prng_uint64_range (random number generation)
+  - cmp_var (comparison for rejection sampling)
+  - add_var (shifting result to target range)
+  - strip_var (removing leading/trailing zeros)
+  - Constants: NUMERIC_NEG, NUMERIC_POS, NBASE, DEC_DIGITS
+- Called from (representative examples):
+  - random_numeric (public numeric random function)
+  - NUMERIC_CAN_BE_SHORT (numeric optimization checks)
+
+## Notes and Other Information
+- Static function internal to numeric.c, not part of the public API
+- Implements rejection sampling to ensure uniform distribution with probability of rejection less than 1e-13
+- Handles arbitrary precision decimals while maintaining efficiency through 64-bit arithmetic where possible
+- Validates that rmin <= rmax, throwing an error for invalid ranges
+- Properly handles decimal scale by ensuring the final digit aligns with the required precision
+- The algorithm is optimized for performance by processing digits in groups of 4 when possible
+- Memory allocation and cleanup is handled internally with proper error handling

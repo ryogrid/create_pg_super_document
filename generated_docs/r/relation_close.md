@@ -1,0 +1,48 @@
+# relation_close
+
+## Location
+src/backend/access/common/relation.c: 205 - 216
+
+## Overview
+Closes a relation and optionally releases the specified lock, serving as the counterpart to the relation opening functions.
+
+## Definition
+
+
+## Detailed Description
+The `relation_close` function provides the standard interface for closing relations that were previously opened with any of the relation opening functions. It performs two main operations:
+
+1. **Relation Cleanup**: Delegates to RelationClose() to handle the actual relation cache cleanup, reference count management, and any necessary cleanup of relation-specific resources
+2. **Lock Release**: If a lockmode other than NoLock is specified, releases the corresponding lock on the relation using the lock information stored in the relation descriptor
+
+The function is designed to be symmetric with the relation opening functions - if a lock was acquired during opening, the same lock type should typically be specified for release during closing. However, it's often appropriate to hold locks beyond relation_close, in which case NoLock should be passed and the lock will be automatically released at transaction end.
+
+## Parameters / Member Variables
+- `relation`: The relation descriptor to close, as returned by any relation opening function
+- `lockmode`: The type of lock to release (NoLock means no lock release)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationClose - Performs the actual relation cache cleanup
+  - UnlockRelationId - Releases the specified lock on the relation
+  - LockRelId - Structure type for lock relation identifier
+  - MAX_LOCKMODES - Maximum lock mode constant for validation
+
+- Called from (representative examples):
+  - table_close - Table-specific closing function
+  - sequence_close - Sequence-specific closing function
+  - Various catalog functions during relation manipulation
+  - analyze_rel - Analysis operations cleanup
+  - cluster_rel - Clustering operations cleanup
+  - vacuum_rel - Vacuum operations cleanup
+  - Command processing functions for DDL operations
+  - Size calculation functions in dbsize.c
+
+## Notes and Other Information
+- The function extracts lock relation ID from the relation descriptor before closing, since the descriptor becomes invalid after RelationClose()
+- It's often sensible to hold locks beyond relation_close; locks held beyond closing are automatically released at transaction end
+- The function should be called with the same lock mode that was used when opening the relation, unless there's a specific reason to hold the lock longer
+- Does not return a value (void function) since relation closing is expected to always succeed
+- Essential for proper resource management and preventing relation cache leaks
+- The lock release is conditional - passing NoLock allows keeping the lock for transaction-duration locking strategies
+- Used extensively throughout PostgreSQL for proper cleanup in both normal operations and error recovery paths

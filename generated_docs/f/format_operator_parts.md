@@ -1,0 +1,47 @@
+# format_operator_parts
+
+## Location
+src/backend/utils/adt/regproc.c: 806 - 838
+
+## Overview
+Decomposes an operator OID into its constituent parts (schema name, operator name, and argument types) returned as separate lists for use in object identity operations.
+
+## Definition
+
+
+## Detailed Description
+The  function breaks down an operator into its structural components rather than returning a formatted string. This function is specifically designed for use by PostgreSQL's object identity system, which needs to handle object names and arguments as separate entities.
+
+The function queries the pg_operator system catalog and populates two output lists:  containing the schema name and operator name, and  containing the formatted argument type names. This decomposed format is particularly useful for operations that need to manipulate or compare individual components of operator identities.
+
+## Parameters / Member Variables
+- : The OID of the operator to decompose
+- : Output parameter - pointer to a List that will contain schema name and operator name
+- : Output parameter - pointer to a List that will contain formatted argument type names  
+- : If true, function returns silently for invalid operator OIDs; if false, throws an error
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1
+  - HeapTupleIsValid
+  - elog
+  - GETSTRUCT
+  - get_namespace_name_or_temp
+  - list_make2
+  - pstrdup
+  - NameStr
+  - lappend
+  - format_type_be_qualified
+  - ReleaseSysCache
+- Called from (representative examples):
+  - getObjectIdentityParts (src/backend/catalog/objectaddress.c:5045)
+
+## Notes and Other Information
+- This function is primarily used by PostgreSQL's object addressing system
+- Returns void - results are provided through output parameters (objnames and objargs)
+- The objnames list contains exactly two elements: [schema_name, operator_name]
+- The objargs list contains 1-2 elements depending on whether the operator is unary or binary
+- Uses qualified type names for arguments to ensure uniqueness
+- The missing_ok parameter allows graceful handling of invalid operator OIDs
+- Does not allocate return strings - caller is responsible for list memory management
+- Located in src/backend/utils/adt/regproc.c:806-838

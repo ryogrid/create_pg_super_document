@@ -1,0 +1,36 @@
+# base_yy_extra_type
+
+## Location
+src/backend/parser/gramparse.h: 35 - 56
+
+## Overview
+A structure that extends the core scanner's YY_EXTRA data to support one-token lookahead functionality and grammar state management in PostgreSQL's parser.
+
+## Definition
+
+
+## Detailed Description
+The  structure serves as an extended version of the flex scanner's YY_EXTRA data, specifically designed for PostgreSQL's base parser functionality. It builds upon the  by adding lookahead capabilities and grammar-specific state management. This structure enables the parser to implement one-token lookahead, which is essential for resolving certain parsing ambiguities in SQL syntax. The structure maintains both the core scanning functionality and additional state needed for advanced parsing operations, including storing the final parse tree result.
+
+## Parameters / Member Variables
+- : Embedded core scanner extra data containing fundamental scanning state
+- : Boolean flag indicating whether lookahead token information is currently valid
+- : Stores the token code for the one-token lookahead
+- : Contains the semantic value (yylval) associated with the lookahead token
+- : Location information (yylloc) for the lookahead token
+- : Pointer to the end position of the current token in the input buffer
+- : Character that needs to be restored at the lookahead_end position
+- : List pointer where the final parsing result (parse tree) is stored
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - core_yy_extra_type
+  - core_YYSTYPE
+  - YYLTYPE
+- Called from (representative examples):
+  - pg_yyget_extra
+  - raw_parser
+  - base_yylex
+
+## Notes and Other Information
+This structure is specifically designed for the base parser layer and implements a sophisticated lookahead mechanism that allows the parser to peek at the next token without consuming it. This capability is crucial for handling SQL syntax ambiguities where the parser needs to make decisions based on upcoming tokens. The structure follows PostgreSQL's layered parser architecture, where the base parser builds upon the core scanner functionality while adding its own specialized features. The parsetree member serves as the final output container for the completed parse operation, making this structure a central component in PostgreSQL's SQL parsing pipeline.

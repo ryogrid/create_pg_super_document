@@ -1,0 +1,43 @@
+# get_rel_relispartition
+
+## Location
+src/backend/utils/cache/lsyscache.c: 2027 - 2053
+
+## Overview
+Returns the relispartition flag associated with a given relation, indicating whether the relation is a partition of a partitioned table.
+
+## Definition
+
+
+## Detailed Description
+This function retrieves the relispartition boolean flag for a specified relation from the system catalog. The relispartition field indicates whether a relation is a partition of a partitioned table in PostgreSQL's table partitioning feature. This information is crucial for determining partition relationships and handling partition-specific operations.
+
+The function performs a system cache lookup on the pg_class catalog using the relation OID and extracts the relispartition field. When a table is created as a partition of a partitioned table, this flag is set to true, allowing PostgreSQL to differentiate between regular tables and partition tables.
+
+## Parameters / Member Variables
+- : The OID of the relation to check for partition status
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1 (system cache lookup)
+  - HeapTupleIsValid (tuple validation)
+  - GETSTRUCT (macro to extract struct from tuple)
+  - ReleaseSysCache (cache cleanup)
+  - Form_pg_class (pg_class catalog structure)
+  - ObjectIdGetDatum (OID to Datum conversion)
+
+- Called from (representative examples):
+  - index_concurrently_swap
+  - filter_partitions
+  - get_rel_sync_entry
+  - check_rel_can_be_partition
+  - get_partition_qual_relid
+
+## Notes and Other Information
+- Returns false if the relation does not exist
+- Essential for partition management and partitioning operations
+- Used in logical replication to handle partition-specific logic
+- Part of PostgreSQL's table partitioning infrastructure introduced in version 10
+- Helps distinguish between partitioned tables (parents) and partitions (children)
+- Critical for partition pruning and constraint exclusion optimizations
+- Located in src/backend/utils/cache/lsyscache.c:2027-2053

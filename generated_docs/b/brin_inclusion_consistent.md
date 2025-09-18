@@ -1,0 +1,55 @@
+# brin_inclusion_consistent
+
+## Location
+src/backend/access/brin/brin_inclusion.c: 250 - 473
+
+## Overview
+BRIN inclusion consistent function that determines whether a BRIN index tuple could contain values matching a scan key predicate.
+
+## Definition
+```c
+Datum brin_inclusion_consistent(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function is the consistent handler for BRIN inclusion operator classes, implementing the core logic for index scans. It evaluates whether a page range represented by a BRIN tuple could possibly contain tuples satisfying a given scan key. The function handles multiple strategy classes: placement strategies (left/right, above/below), overlap and containment strategies, contained-by strategies, adjacency, and basic comparison operations. For placement strategies, it uses logical negation of converse operators. The function accounts for special cases like empty elements and unmergeable values, ensuring accurate scan results while minimizing false positives.
+
+## Parameters / Member Variables
+- `bdesc` (BrinDesc *): BRIN index descriptor containing metadata and operator class information  
+- `column` (BrinValues *): BRIN values structure representing the current page range
+- `key` (ScanKey): Scan key containing the search predicate with strategy, argument, and metadata
+- `colloid` (Oid): Collation OID for comparison operations
+- `subtype` (Oid): Subtype OID from the scan key for polymorphic operators
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - inclusion_get_strategy_procinfo
+  - FunctionCall2Coll  
+  - DatumGetBool
+  - PG_GET_COLLATION
+  - PG_NARGS
+  - PG_RETURN_BOOL
+  - PG_RETURN_DATUM
+  - elog
+- Constants:
+  - INCLUSION_UNMERGEABLE
+  - INCLUSION_UNION
+  - INCLUSION_CONTAINS_EMPTY
+  - Strategy number constants (RT*StrategyNumber)
+- Data structures:
+  - BrinDesc
+  - BrinValues  
+  - ScanKey
+  - FmgrInfo
+- Called from (representative examples):
+  - No direct references found (typically called via BRIN framework during index scans)
+
+## Notes and Other Information
+- Uses the old function signature with only three arguments (asserted via PG_NARGS())
+- Returns true for ranges marked as containing unmergeable elements (conservative approach)
+- Implements placement strategies by negating results of converse operators
+- Handles empty elements specially in contained-by and comparison strategies
+- For contained-by strategies, uses overlap test first, then checks contains-empty flag
+- Adjacent strategy combines overlap test with actual adjacency operator call
+- Basic comparison strategies account for empty elements being considered less than others
+- Contains extensive strategy-specific logic optimized for different geometric and set operations

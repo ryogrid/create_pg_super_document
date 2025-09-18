@@ -1,0 +1,39 @@
+# CreateSubscriberOptions
+
+## Location
+src/bin/pg_basebackup/pg_createsubscriber.c: 35 - 48
+
+## Overview
+CreateSubscriberOptions is a struct that holds command-line options and configuration parameters for the pg_createsubscriber utility, which converts a PostgreSQL standby server into a logical replication subscriber.
+
+## Definition
+
+
+## Detailed Description
+CreateSubscriberOptions serves as the central configuration structure for the pg_createsubscriber command-line utility. This struct encapsulates all the necessary parameters required to transform a standby PostgreSQL server into a logical replication subscriber. The structure holds connection information, database and publication specifications, and operational parameters that control the conversion process. It is used throughout the pg_createsubscriber.c module to pass configuration data between functions during the subscriber creation workflow.
+
+## Parameters / Member Variables
+- : Path to the PostgreSQL configuration file to be used during the conversion process
+- : Connection string used to connect to the publisher database server
+- : Directory path for Unix-domain sockets, if Unix sockets are being used for connections
+- : Port number on which the subscriber server will listen for connections
+- : Username to be used when connecting to the subscriber database
+- : List of database names that will be included in the logical replication setup
+- : List of publication names on the publisher that will be replicated
+- : List of subscription names to be created on the subscriber
+- : List of replication slot names to be used for logical replication
+- : Timeout value (in seconds) after which the recovery process will be stopped
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SimpleStringList (used for storing lists of names)
+- Called from (representative examples):
+  - get_sub_conninfo (src/bin/pg_basebackup/pg_createsubscriber.c:315)
+  - store_pub_sub_info (src/bin/pg_basebackup/pg_createsubscriber.c:433)
+  - modify_subscriber_sysid (src/bin/pg_basebackup/pg_createsubscriber.c:629)
+  - start_standby_server (src/bin/pg_basebackup/pg_createsubscriber.c:1443)
+  - wait_for_end_recovery (src/bin/pg_basebackup/pg_createsubscriber.c:1511)
+  - main (src/bin/pg_basebackup/pg_createsubscriber.c:1897)
+
+## Notes and Other Information
+This structure is specifically designed for the pg_createsubscriber utility and is not used elsewhere in the PostgreSQL codebase. The struct uses SimpleStringList for managing multiple database, publication, subscription, and replication slot names, allowing for flexible configuration of multiple objects in a single operation. The structure is closely related to LogicalRepInfo, which uses CreateSubscriberOptions as a member to store configuration data alongside runtime information during the subscriber creation process.

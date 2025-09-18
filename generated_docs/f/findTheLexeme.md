@@ -1,0 +1,33 @@
+# findTheLexeme
+
+## Location
+src/backend/tsearch/dict_thesaurus.c: 657 - 675
+
+## Overview
+Searches for a lexeme in the thesaurus dictionary's compiled word list and returns associated lexeme information if found.
+
+## Definition
+
+
+## Detailed Description
+The  function performs a binary search lookup on the thesaurus dictionary's sorted array of lexemes (). It searches for a specific lexeme string and returns a pointer to the corresponding  structure if the lexeme is found in the thesaurus. The function uses a temporary  structure as a search key and employs the  comparison function for the binary search operation.
+
+## Parameters / Member Variables
+- : Pointer to the  structure containing the compiled thesaurus data
+- : The lexeme string to search for in the thesaurus dictionary
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (structure type)
+  -  (structure type for search key and array elements)
+  -  (comparison function for binary search)
+  -  (standard C library binary search function)
+- Called from:
+  -  (at src/backend/tsearch/dict_thesaurus.c:838)
+  -  (at src/backend/tsearch/dict_thesaurus.c:853)
+
+## Notes and Other Information
+- Returns NULL if the dictionary has no words () or if the lexeme is not found
+- The function assumes that  array is properly sorted for binary search to work correctly
+- This is a static function, only used internally within the thesaurus dictionary module
+- The returned  pointer provides access to the lexeme's substitution patterns and variants

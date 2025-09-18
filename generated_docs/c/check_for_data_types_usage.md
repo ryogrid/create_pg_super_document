@@ -1,0 +1,44 @@
+# check_for_data_types_usage
+
+## Location
+src/bin/pg_upgrade/check.c: 338 - 537
+
+## Overview
+Detects whether there are any stored columns depending on given problematic data types across all databases in a cluster and generates a report if incompatible types are found.
+
+## Definition
+
+
+## Detailed Description
+This function performs comprehensive data type usage validation during PostgreSQL cluster upgrades. It executes a series of configurable checks to identify columns that use data types with inconsistent on-disk representations across PostgreSQL server versions. The function uses a recursive Common Table Expression (CTE) to handle nested type dependencies including domains, arrays, composite types, and ranges that may wrap the problematic base types.
+
+For each check that applies to the current cluster version, the function connects to every database and searches for stored columns in tables, materialized views, and indexes (but not regular views since they don't involve storage). When problematic columns are found, detailed reports are written to specified output files and the upgrade process is terminated with a fatal error.
+
+The checks are driven by a DataTypesUsageChecks structure array that defines the metadata, SQL queries, version thresholds, and output files for each validation.
+
+## Parameters / Member Variables
+- : Pointer to ClusterInfo structure containing database cluster information and connection details
+- : Array of DataTypesUsageChecks structures defining the validation rules, each containing status messages, base queries, report filenames, and version hooks
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - prep_status
+  - pg_malloc0
+  - connectToServer
+  - executeQueryOrDie
+  - initPQExpBuffer
+  - pg_log
+  - fopen_priv
+  - PQfinish
+  - pg_free
+  - check_ok
+- Called from (representative examples):
+  - check_and_dump_old_cluster
+
+## Notes and Other Information
+- Uses recursive CTE queries to handle complex type hierarchies including domains, arrays, composite types, and ranges
+- Excludes temporary tables (pg_temp_*, pg_toast_temp_*) and system catalogs from checks
+- Searches only stored relations (tables, materialized views, indexes) and skips views
+- Terminates the upgrade process with pg_fatal() if any problematic data types are detected
+- Supports version-specific checks through threshold_version and version_hook mechanisms
+- Reports are appended to output files to handle findings across multiple databases

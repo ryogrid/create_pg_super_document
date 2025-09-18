@@ -1,0 +1,41 @@
+# hashline_number
+
+## Location
+src/interfaces/ecpg/preproc/output.c: 94 - 135
+
+## Overview
+Generates a C preprocessor line directive string that maps generated code back to the original source file and line number.
+
+## Definition
+```c
+char *hashline_number(void)
+```
+
+## Detailed Description
+This function creates a properly formatted C preprocessor line directive (`#line`) that maintains the correspondence between generated C code and the original ECPG source file. It constructs a string containing the current line number and filename, with proper escaping of backslashes and quotes in the filename. The function includes debug mode handling and returns either a formatted line directive or an empty string based on the current state. The returned string must be freed by the caller.
+
+## Parameters / Member Variables
+- No parameters (void function)
+- Uses global variables:
+  - `input_filename`: Current input filename
+  - `base_yylineno`: Current line number in the input file
+  - `base_yydebug`: Debug mode flag (when YYDEBUG is defined)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - mm_alloc (memory allocation)
+  - sprintf
+  - strlen
+  - strcat
+  - EMPTY (constant for empty string)
+  - CHAR_BIT (system constant)
+- Called from:
+  - output_line_number (src/interfaces/ecpg/preproc/output.c:12)
+
+## Notes and Other Information
+- Returns dynamically allocated memory that must be freed by the caller
+- Handles special characters in filenames by escaping backslashes and quotes
+- Skips line directive generation in debug mode (when YYDEBUG is enabled and base_yydebug is true)
+- Uses careful memory allocation calculation to handle worst-case filename escaping
+- Essential for maintaining source-to-generated code mapping for debugging and error reporting
+- Part of the ECPG preprocessor's line tracking mechanism

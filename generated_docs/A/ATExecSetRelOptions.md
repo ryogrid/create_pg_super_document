@@ -1,0 +1,50 @@
+# ATExecSetRelOptions
+
+## Location
+src/backend/commands/tablecmds.c: 15049 - 15252
+
+## Overview
+ATExecSetRelOptions executes the ALTER TABLE SET/RESET/REPLACE relation options commands, updating storage parameters and configuration options for database relations and their associated TOAST tables.
+
+## Definition
+```c
+static void ATExecSetRelOptions(Relation rel, List *defList, AlterTableType operation, LOCKMODE lockmode)
+```
+
+## Detailed Description
+This function implements the execution phase for ALTER TABLE commands that modify relation options (reloptions). It handles three types of operations: setting new options, resetting options to defaults, and completely replacing the options list. The function validates the new options based on the relation kind (table, view, index, etc.), updates the pg_class system catalog, and also processes any associated TOAST table.
+
+The function follows a comprehensive workflow: it retrieves existing options, transforms the new option list, validates the options against the relation type, updates the system catalog, and handles TOAST table options separately. Special validation is performed for views with CHECK OPTION to ensure they are auto-updatable.
+
+## Parameters / Member Variables
+- `rel`: The relation being modified  
+- `defList`: List of DefElem structures containing the new option definitions
+- `operation`: Type of operation (AT_SetRelOptions, AT_ResetRelOptions, or AT_ReplaceRelOptions)
+- `lockmode`: Lock mode for accessing related objects
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - transformRelOptions: Processes and validates the option list
+  - heap_reloptions: Validates options for heap tables
+  - partitioned_table_reloptions: Validates options for partitioned tables  
+  - view_reloptions: Validates options for views
+  - index_reloptions: Validates options for indexes
+  - get_view_query: Retrieves the query definition for views
+  - view_query_is_auto_updatable: Checks if view supports CHECK OPTION
+  - SearchSysCacheLocked1: Looks up relation tuple in system cache
+  - CatalogTupleUpdate: Updates the pg_class system catalog
+  - heap_modify_tuple: Creates modified version of heap tuple
+  - InvokeObjectPostAlterHook: Triggers post-alter hooks
+  - errdetail_relkind_not_supported: Generates error details for unsupported relation kinds
+
+- Called from (representative examples):
+  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+
+## Notes and Other Information
+- Supports different relation kinds: regular tables, partitioned tables, materialized views, views, indexes, and TOAST tables
+- Automatically handles TOAST table option updates when modifying the main table
+- Performs special validation for views with CHECK OPTION to ensure auto-updatability
+- Uses relation-specific validation functions based on the relation kind
+- Updates are propagated to relation caches during post-commit cache invalidation
+- Handles three operation types: setting new options, resetting to defaults, and complete replacement
+- Maintains transactional safety by using appropriate locking and system catalog updates

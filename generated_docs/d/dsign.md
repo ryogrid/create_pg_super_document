@@ -1,0 +1,34 @@
+# dsign
+
+## Location
+src/backend/utils/adt/float.c: 1398 - 1420
+
+## Overview
+The dsign function returns the sign of a double-precision floating-point number, returning -1 for negative values, 0 for zero, and 1 for positive values.
+
+## Definition
+
+
+## Detailed Description
+The dsign function implements the mathematical sign function for double-precision floating-point numbers (float8). It takes a single float8 argument and returns:
+- 1.0 if the argument is greater than zero
+- -1.0 if the argument is less than zero  
+- 0.0 if the argument is equal to zero
+
+This is a PostgreSQL SQL-callable function that follows the PostgreSQL function calling convention, accepting arguments via PG_FUNCTION_ARGS and returning a Datum value using PG_RETURN_FLOAT8.
+
+## Parameters / Member Variables
+- : The input double-precision floating-point number whose sign is to be determined
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_FLOAT8 (macro to extract float8 argument)
+  - PG_RETURN_FLOAT8 (macro to return float8 result)
+- Called from (representative examples):
+  - No direct references found in the codebase
+
+## Notes and Other Information
+- This function is part of PostgreSQL's floating-point arithmetic operations
+- The function handles all three cases of the sign function explicitly with simple conditional logic
+- Located in src/backend/utils/adt/float.c which contains various floating-point utility functions
+- Follows standard PostgreSQL function conventions for SQL-callable functions

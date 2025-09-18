@@ -1,0 +1,43 @@
+# koi8r_to_iso
+
+## Location
+src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c: 547 - 562
+
+## Overview
+Converts a string from KOI8-R (Cyrillic) encoding to ISO-8859-5 encoding using a character conversion table.
+
+## Definition
+
+
+## Detailed Description
+This function performs character encoding conversion from KOI8-R (a Russian/Cyrillic character encoding) to ISO-8859-5 (Latin/Cyrillic encoding). It uses a lookup table  to map characters from the high bit range (128-255) between the two encodings. The function leverages the generic  conversion mechanism that handles single-byte charset conversions between ASCII-superset encodings.
+
+The conversion process validates the encoding arguments, performs the character-by-character translation using the conversion table, and returns the number of successfully converted bytes.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing:
+  -  (arg 2): Source string in KOI8-R encoding (unsigned char*)
+  -  (arg 3): Destination buffer for ISO-8859-5 output (unsigned char*)
+  -  (arg 4): Length of source string (int)
+  -  (arg 5): If true, don't throw error on conversion failure (bool)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  - Extract string arguments
+  -  - Extract integer argument
+  -  - Extract boolean argument
+  -  - Validate encoding parameters
+  -  - Generic single-byte charset conversion function
+  -  - Return integer result
+  -  - Static conversion table (128 bytes)
+- Called from:
+  - PostgreSQL encoding conversion system (via function registry)
+
+## Notes and Other Information
+- Located in 
+- Part of PostgreSQL's multi-byte character support system
+- Uses a 128-byte lookup table starting from character code 128 (0x80)
+- ASCII characters (0-127) are copied directly without conversion
+- The conversion table handles the mapping between KOI8-R and ISO-8859-5 Cyrillic character sets
+- Returns the number of input bytes successfully processed
+- Registered as PG_FUNCTION_INFO_V1 for PostgreSQL function call interface

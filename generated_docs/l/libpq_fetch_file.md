@@ -1,0 +1,46 @@
+# libpq_fetch_file
+
+## Location
+src/bin/pg_rewind/libpq_source.c: 635 - 674
+
+## Overview
+Fetches a single file from a remote PostgreSQL server and returns it as a malloc'd buffer using the pg_read_binary_file function.
+
+## Definition
+```c
+static char *libpq_fetch_file(rewind_source *source, const char *path, size_t *filesize)
+```
+
+## Detailed Description
+This function retrieves a file from a remote PostgreSQL cluster by executing the pg_read_binary_file SQL function via libpq. It takes a rewind_source (which contains a database connection), a file path, and an optional pointer to store the file size. The function uses parameterized queries for safety and returns the file contents as a null-terminated string in a malloc'd buffer.
+
+The function performs error checking to ensure the SQL query succeeds and returns exactly one tuple with non-null data. It handles memory allocation for the result buffer and adds a null terminator for string safety, even though the file might be binary data.
+
+## Parameters / Member Variables
+- `source`: Pointer to rewind_source structure containing the database connection
+- `path`: File path on the remote server to fetch
+- `filesize`: Optional output parameter to receive the size of the fetched file (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PQexecParams (executes parameterized SQL query)
+  - PQresultStatus (checks query result status)
+  - PQresultErrorMessage (gets error message from failed query)
+  - PQntuples (gets number of result tuples)
+  - PQgetisnull (checks if result value is NULL)
+  - PQgetlength (gets length of result value)
+  - PQgetvalue (gets result value data)
+  - PQclear (cleans up result)
+  - pg_malloc (PostgreSQL memory allocation)
+  - pg_fatal (PostgreSQL fatal error reporting)
+  - pg_log_debug (PostgreSQL debug logging)
+- Called from (representative examples):
+  - init_libpq_source (src/bin/pg_rewind/libpq_source.c:91)
+
+## Notes and Other Information
+- This is a static function used internally within the pg_rewind utility
+- The function uses binary format (format code 1) for the SQL result to handle binary files correctly
+- Memory allocated by this function must be freed by the caller using pg_free or free
+- The function adds a null terminator even for binary files, which is safe but may not be necessary for all use cases
+- Error handling uses pg_fatal which terminates the program on failure
+- The function logs successful file fetches at debug level for troubleshooting purposes

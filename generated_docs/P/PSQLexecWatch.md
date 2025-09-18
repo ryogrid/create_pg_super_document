@@ -1,0 +1,48 @@
+# PSQLexecWatch
+
+## Location
+src/bin/psql/common.c: 675 - 704
+
+## Overview
+PSQLexecWatch is a specialized function in psql designed to execute queries for the \watch command, providing timing information and proper result processing for repeated query execution.
+
+## Definition
+
+
+## Detailed Description
+PSQLexecWatch is specifically designed to support psql's \watch command functionality. It executes a query and processes its results with the following characteristics:
+
+- Executes the query through ExecQueryAndProcessResults() with full result processing
+- Provides timing information when timing is enabled (pset.timing)
+- Uses PrintTiming() to display elapsed execution time
+- Supports customizable output formatting through printQueryOpt parameter
+- Allows output redirection to specified file stream
+- Implements proper cancellation handling for interactive use
+- Returns status codes to indicate execution success, repeatability, or error conditions
+
+The function is optimized for repeated execution scenarios and provides detailed control over result display and formatting, making it ideal for monitoring queries that need to be run periodically.
+
+## Parameters / Member Variables
+- : The SQL query string to be executed
+- : Pointer to printQueryOpt structure containing formatting options for query results
+- : FILE pointer for output destination (can be different from stdout)
+- : Minimum number of rows threshold for result processing behavior
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - printQueryOpt (structure type for formatting options)
+  - SetCancelConn (sets up query cancellation handling)
+  - ExecQueryAndProcessResults (main query execution and result processing)
+  - ResetCancelConn (cleans up cancellation setup)
+  - PrintTiming (displays timing information)
+
+- Called from (representative examples):
+  - do_watch (implements the \watch command functionality)
+
+## Notes and Other Information
+- Returns 1 on successful execution, 0 if query cannot be repeated (e.g., due to interrupt), -1 on error
+- Timing display is conditional on pset.timing setting
+- Validates database connection before proceeding with query execution
+- Designed specifically for the \watch command's repeated execution model
+- Supports output redirection separate from standard query execution
+- Integrates cancellation handling to allow graceful interruption during watch operations

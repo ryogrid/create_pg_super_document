@@ -1,0 +1,54 @@
+# ExecInitJsonCoercion
+
+## Location
+src/backend/executor/execExpr.c: 4538 - 4560
+
+## Overview
+Initializes a EEOP_JSONEXPR_COERCION step to coerce the value given in resv to the specified RETURNING type for JSON expressions.
+
+## Definition
+
+
+## Detailed Description
+ExecInitJsonCoercion sets up a specialized coercion step for PostgreSQL's JSON expressions that converts JSON values to the target data types specified in the RETURNING clause. This function creates a single EEOP_JSONEXPR_COERCION evaluation step with all necessary configuration for the json_populate_type() function.
+
+The function handles several specialized coercion scenarios:
+- **Quote handling**: Can omit quotes from JSON string values when coercing to non-string types
+- **EXISTS operation optimization**: Special handling for JSON_EXISTS operations with integer and domain type optimizations
+- **Error context management**: Supports soft error handling through ErrorSaveContext
+- **Domain constraints**: Recognizes when domain constraint checking is required
+- **Type-specific optimizations**: Special casting logic for boolean results in EXISTS operations
+
+The coercion step utilizes a cache (json_coercion_cache) that gets populated during execution for performance optimization.
+
+## Parameters / Member Variables
+- : ExprState structure being built for expression evaluation
+- : JsonReturning structure specifying the target type and type modifier
+- : ErrorSaveContext pointer for soft error handling, can be NULL for hard errors
+- : Boolean indicating whether to remove quotes from JSON string values during coercion
+- : Boolean indicating whether this is for a JSON_EXISTS operation requiring special handling
+- : Datum pointer where the coerced result value should be stored
+- : Boolean pointer where the result null flag should be stored
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - getBaseType
+  - DomainHasConstraints
+  - ExprEvalPushStep
+  - EEOP_JSONEXPR_COERCION
+  - JsonReturning
+  - ErrorSaveContext
+  - ExprEvalStep
+  - INT4OID
+- Called from (representative examples):
+  - ExecInitJsonExpr (three different call sites for main result, ON ERROR, and ON EMPTY coercions)
+
+## Notes and Other Information
+- Located in src/backend/executor/execExpr.c (lines 4538-4560)
+- This is a static helper function used exclusively by ExecInitJsonExpr
+- The json_coercion_cache field is initialized as NULL and gets populated during execution for performance
+- Implements special optimizations for JSON_EXISTS operations, including direct casting to INT4 for boolean results
+- Supports domain constraint checking when the target type is a domain type
+- The exists_cast_to_int optimization handles the common case where JSON_EXISTS results need to be converted to integers
+- Essential for PostgreSQL's JSON/SQL standard compliance, enabling proper type coercion for JSON_VALUE and JSON_QUERY operations
+- Works in conjunction with the json_populate_type() function during actual execution

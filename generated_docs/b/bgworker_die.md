@@ -1,0 +1,38 @@
+# bgworker_die
+
+## Location
+src/backend/postmaster/bgworker.c: 709 - 722
+
+## Overview
+A standard SIGTERM signal handler for background worker processes that terminates the worker with a FATAL error message.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the default signal handler for SIGTERM in background worker processes. When invoked, it performs proper signal handling by masking signals and then terminates the worker process with a FATAL error report that includes the worker type name. This ensures graceful shutdown of background workers when they receive termination signals from the system or administrator commands.
+
+The function follows PostgreSQL's standard pattern for signal handlers by first blocking all signals to prevent race conditions, then reporting the termination reason before exiting.
+
+## Parameters / Member Variables
+- Uses  macro which expands to the standard signal handler parameters (typically )
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - sigprocmask (signal masking)
+  - SIG_SETMASK (signal mask operation)
+  - ereport (error reporting)
+  - errcode (error code generation)
+  - errmsg (error message formatting)
+- Global variables accessed:
+  - BlockSig (signal mask)
+  - MyBgworkerEntry (current worker's entry)
+- Called from:
+  - BackgroundWorkerMain (registered as SIGTERM handler)
+
+## Notes and Other Information
+- This is a static function internal to bgworker.c
+- Uses the FATAL error level which causes the process to exit
+- The error message includes the worker's bgw_type for identification
+- Proper signal handling is ensured by masking all signals before proceeding
+- This is the standard way PostgreSQL background workers handle termination requests

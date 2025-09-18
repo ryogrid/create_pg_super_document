@@ -1,0 +1,64 @@
+# map_locale
+
+## Location
+src/port/win32setlocale.c: 111 - 171
+
+## Overview
+A static helper function that maps problematic locale names on Windows to their correct equivalents using a locale mapping table.
+
+## Definition
+
+
+## Detailed Description
+The  function performs string substitution on locale names to fix Windows-specific locale naming issues. It searches through a provided mapping table for locale name patterns that need to be replaced. The function supports both simple string replacement and more complex pattern matching where it can replace text between two delimiters (like a simplified regex "start.*end" replacement).
+
+The function uses a static buffer to store the modified locale name, avoiding dynamic memory allocation. If a match is found in the mapping table, it constructs a new locale string by copying the prefix, inserting the replacement text, and appending the suffix. If no matches are found, it returns the original locale string unchanged.
+
+## Parameters / Member Variables
+- : Pointer to an array of  structures that define the mapping rules
+- LANG=C.UTF-8
+LANGUAGE=
+LC_CTYPE="C.UTF-8"
+LC_NUMERIC="C.UTF-8"
+LC_TIME="C.UTF-8"
+LC_COLLATE="C.UTF-8"
+LC_MONETARY="C.UTF-8"
+LC_MESSAGES="C.UTF-8"
+LC_PAPER="C.UTF-8"
+LC_NAME="C.UTF-8"
+LC_ADDRESS="C.UTF-8"
+LC_TELEPHONE="C.UTF-8"
+LC_MEASUREMENT="C.UTF-8"
+LC_IDENTIFICATION="C.UTF-8"
+LC_ALL=: The input locale string that may need to be transformed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (standard C library function)
+  -  (standard C library function)
+  -  (standard C library function)
+  -  (structure type)
+  -  (constant defining buffer size)
+- Called from:
+  -  (twice, for different mapping scenarios)
+
+## Notes and Other Information
+- Returns a pointer to a static buffer  when a replacement is made, or the original LANG=C.UTF-8
+LANGUAGE=
+LC_CTYPE="C.UTF-8"
+LC_NUMERIC="C.UTF-8"
+LC_TIME="C.UTF-8"
+LC_COLLATE="C.UTF-8"
+LC_MONETARY="C.UTF-8"
+LC_MESSAGES="C.UTF-8"
+LC_PAPER="C.UTF-8"
+LC_NAME="C.UTF-8"
+LC_ADDRESS="C.UTF-8"
+LC_TELEPHONE="C.UTF-8"
+LC_MEASUREMENT="C.UTF-8"
+LC_IDENTIFICATION="C.UTF-8"
+LC_ALL= pointer when no replacement is needed
+- The static buffer has a maximum size of  (100 characters)
+- Returns NULL if the resulting locale name would exceed the buffer size
+- Supports two types of replacements: single string replacement and start/end delimiter replacement
+- The function is Windows-specific and part of the port layer for locale handling

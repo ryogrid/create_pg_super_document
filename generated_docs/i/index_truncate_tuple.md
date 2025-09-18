@@ -1,0 +1,56 @@
+# index_truncate_tuple
+
+## Location
+src/backend/access/common/indextuple.c: 576 - 608
+
+## Overview
+Creates a palloc'd copy of an index tuple containing only the first specified number of attributes, effectively truncating the tuple while preserving its structure and essential data.
+
+## Definition
+
+
+## Detailed Description
+The  function creates a truncated copy of an index tuple, keeping only the first  attributes while discarding the rest. This function is primarily used in B-tree operations where shorter tuple variants are needed for internal nodes or when space optimization is required.
+
+The function performs several important operations:
+1. Validates that the requested number of attributes doesn't exceed the source tuple's attributes
+2. For the trivial case where no truncation is needed (leavenatts equals source attributes), it simply calls 
+3. Creates a temporary tuple descriptor with the reduced attribute count
+4. Uses  to extract values and null indicators from the source
+5. Uses  to create a new tuple with only the specified attributes
+6. Preserves the original tuple identifier (t_tid) in the truncated tuple
+7. Cleans up the temporary descriptor to prevent memory leaks
+
+The function is designed to be safe for use while holding buffer locks since it never performs external table access and doesn't handle EXTERNAL TOAST values.
+
+## Parameters / Member Variables
+- : TupleDesc describing the structure of the source tuple
+- : The original IndexTuple to be truncated
+- : Number of leading attributes to retain in the truncated tuple (must be ≤ sourceDescriptor->natts)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - INDEX_MAX_KEYS
+  - CopyIndexTuple
+  - TupleDescSize
+  - TupleDescCopy
+  - index_deform_tuple
+  - index_form_tuple
+  - IndexTupleSize
+  - palloc
+  - pfree
+  - Assert
+
+- Called from (representative examples):
+  - _bt_truncate
+  - IndexTupleHasVarwidths
+
+## Notes and Other Information
+- The function guarantees that the truncated tuple will be no larger than the original tuple
+- It's safe to use the truncated tuple with the original tuple descriptor, but callers must avoid accessing truncated attributes
+- Special care must be taken when using  with truncated tuples
+- The function is designed to be called while holding buffer locks since it doesn't perform external operations
+- Memory management is carefully handled to prevent leaks - the temporary descriptor is explicitly freed
+- If PostgreSQL ever supports EXTERNAL TOAST values in index tuples, this function would need to be revisited
+- The function preserves the tuple identifier (t_tid) from the source tuple
+- Located in src/backend/access/common/indextuple.c at lines 576-608

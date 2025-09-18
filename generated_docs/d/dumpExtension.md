@@ -1,0 +1,45 @@
+# dumpExtension
+
+## Location
+src/bin/pg_dump/pg_dump.c: 10792 - 10919
+
+## Overview
+Generates SQL commands to recreate a PostgreSQL extension during database restore, with different strategies for regular dumps versus binary upgrade scenarios.
+
+## Definition
+
+
+## Detailed Description
+The  function creates SQL statements to restore PostgreSQL extensions. It handles two distinct scenarios: regular dumps where it creates extensions using  allowing for flexible version handling, and binary upgrade mode where it precisely recreates the exact extension state including version, configuration, and dependencies.
+
+In regular mode, the function intentionally omits version specification to use the destination installation's default version. In binary upgrade mode, it creates an empty extension with exact metadata and relies on  to add individual objects. The function also handles extension dependencies and configuration arrays while preserving OID relationships during binary upgrades.
+
+## Parameters / Member Variables
+- : Archive structure representing the dump destination and containing connection/output information
+- : Pointer to ExtensionInfo structure containing extension metadata including name, namespace, version, configuration, condition, and dependencies
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - fmtId
+  - appendStringLiteralAH
+  - findObjectByDumpId
+  - appendPQExpBufferChar
+  - ArchiveEntry
+  - dumpComment
+  - dumpSecLabel
+  - createPQExpBuffer
+  - destroyPQExpBuffer
+  - appendPQExpBuffer
+  - appendPQExpBufferStr
+  - pg_strdup
+- Called from (representative examples):
+  - dumpDumpableObject (in pg_dump.c:10541)
+
+## Notes and Other Information
+- Skips processing entirely in data-only dump mode ()
+- Uses  clause in regular mode to allow pre-existing extensions
+- Binary upgrade mode calls  function
+- Handles extension configuration arrays () and conditions () as-is during binary upgrade
+- Processes extension dependencies, particularly other extensions in the dependency chain
+- Supports dumping extension comments and security labels based on component flags
+- Memory management includes proper cleanup of allocated resources and formatted strings

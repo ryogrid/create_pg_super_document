@@ -1,0 +1,32 @@
+# multixactoffsetssyncfiletag
+
+## Location
+src/backend/access/transam/multixact.c: 3567 - 3575
+
+## Overview
+multixactoffsetssyncfiletag is an entrypoint function for sync.c to synchronize multixact offsets files to disk using the SLRU synchronization infrastructure.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a wrapper around SlruSyncFileTag specifically for multixact offsets files. It is called by the sync.c subsystem when PostgreSQL needs to ensure that multixact offset SLRU pages are properly synchronized to disk. The function delegates the actual synchronization work to the generic SLRU sync mechanism while providing the correct control structure (MultiXactOffsetCtl) for multixact offsets.
+
+## Parameters / Member Variables
+- : Pointer to a FileTag structure identifying the specific file to be synchronized
+- : Character pointer to the file path for the file being synchronized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SlruSyncFileTag
+  - MultiXactOffsetCtl
+  - FileTag (type)
+- Called from:
+  - Referenced by SizeOfMultiXactTruncate in src/include/access/multixact.h
+
+## Notes and Other Information
+- Part of the file synchronization infrastructure used by PostgreSQL's sync.c
+- Specifically handles multixact offset files within the SLRU (Simple LRU) system
+- Returns an integer result from the underlying SlruSyncFileTag function
+- Provides a type-safe interface for multixact offset file synchronization
+- Located in src/backend/access/transam/multixact.c:3567-3575

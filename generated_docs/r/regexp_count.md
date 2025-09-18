@@ -1,0 +1,54 @@
+# regexp_count
+
+## Location
+src/backend/utils/adt/regexp.c: 1092 - 1134
+
+## Overview
+A PostgreSQL SQL function that returns the number of matches of a regular expression pattern within a string.
+
+## Definition
+```c
+Datum regexp_count(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function implements the PostgreSQL SQL function `regexp_count(string, pattern [, start [, flags]])` that counts how many times a regular expression pattern matches within a given string. It supports optional parameters for specifying the starting position and regex flags to control matching behavior.
+
+The function internally uses the `setup_regexp_matches()` function to perform the actual pattern matching with the global flag enabled, allowing it to find all matches in the string. The result is the total count of non-overlapping matches found.
+
+Key behaviors:
+- Starts searching from position 1 by default (can be overridden with start parameter)
+- Uses PostgreSQL's built-in regex engine with POSIX extended regular expressions
+- Supports various regex flags but explicitly prohibits the 'g' (global) flag from user specification
+- Automatically enables global matching internally to count all matches
+
+## Parameters / Member Variables
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
+  - `str` (arg 0): The target string to search within
+  - `pattern` (arg 1): The regular expression pattern to match
+  - `start` (arg 2, optional): Starting character position for search (1-based, defaults to 1)
+  - `flags` (arg 3, optional): Regex flags string (e.g., 'i' for case-insensitive)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `PG_GETARG_TEXT_PP` (macro for extracting text arguments)
+  - `PG_GETARG_TEXT_PP_IF_EXISTS` (macro for optional text arguments)
+  - `PG_GETARG_INT32` (macro for extracting integer arguments)
+  - `PG_NARGS` (macro for getting argument count)
+  - `parse_re_flags` (parses regex flags string)
+  - `setup_regexp_matches` (performs the actual regex matching)
+  - `PG_GET_COLLATION` (gets current collation)
+  - `PG_RETURN_INT32` (macro for returning integer result)
+- Called from:
+  - `regexp_count_no_start` (3-argument wrapper)
+  - `regexp_count_no_flags` (2-argument wrapper)
+  - SQL queries using `regexp_count()` function
+
+## Notes and Other Information
+- Located in `src/backend/utils/adt/regexp.c:1092-1134`
+- The start parameter must be positive (>= 1), following SQL standard 1-based indexing
+- Users cannot specify the 'g' (global) flag directly as it's automatically enabled internally
+- Returns 0 if no matches are found
+- The function is strict with respect to NULL arguments (returns NULL if any required argument is NULL)
+- Part of PostgreSQL's SQL standard regex functionality
+- The function can handle multi-byte character encodings correctly

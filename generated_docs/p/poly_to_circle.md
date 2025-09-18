@@ -1,0 +1,41 @@
+# poly_to_circle
+
+## Location
+src/backend/utils/adt/geo_ops.c: 5285 - 5306
+
+## Overview
+Converts a polygon to its approximate equivalent circle by calculating the centroid as the center and the average distance from vertices to center as the radius.
+
+## Definition
+
+
+## Detailed Description
+The `poly_to_circle` function performs a polygon-to-circle conversion using a simple averaging algorithm. It first calculates the polygon's centroid by averaging the coordinates of all vertices to determine the circle's center. Then it computes the average distance from all vertices to this center point to establish the circle's radius.
+
+The function operates in two phases: first summing all vertex coordinates and dividing by the vertex count to find the center, then calculating the mean distance from each vertex to this center. The resulting circle provides a reasonable approximation of the polygon's size and position, though the algorithm has known limitations as noted in the source comments.
+
+## Parameters / Member Variables
+- `result` (CIRCLE*): Pointer to the output circle structure that will be filled with computed values (must be pre-allocated)
+- `poly` (POLYGON*): Pointer to the input polygon structure containing vertices and vertex count
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Assert (assertion macro for debugging)
+  - point_add_point (vector addition of two points)
+  - float8_div (floating-point division)
+  - float8_pl (floating-point addition)
+  - point_dt (distance calculation between two points)
+- Data types referenced:
+  - CIRCLE, POLYGON (geometric data structures)
+
+- Called from (representative examples):
+  - poly_center (calculates polygon center point)
+  - poly_circle (public interface for polygon-to-circle conversion)
+
+## Notes and Other Information
+- This is a static (internal) function not directly exposed as a PostgreSQL function
+- The algorithm uses simple arithmetic means which may not produce optimal results for all polygon shapes
+- The source code includes a TODO comment suggesting the algorithm should use weighted means of line segments rather than straight vertex averaging for better accuracy
+- The function assumes the input polygon has at least one vertex (enforced by Assert)
+- The result parameter must be pre-allocated by the caller; this function only fills in the values
+- For irregular polygons, the resulting circle may not closely approximate the original shape due to the simplistic averaging approach

@@ -1,0 +1,39 @@
+# pg_inet_net_pton
+
+## Location
+src/backend/utils/adt/inet_net_pton.c: 62 - 96
+
+## Overview
+Converts network numbers from presentation format to network format, supporting both IPv4 and IPv6 addresses with CIDR notation.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a dispatcher that converts network addresses from human-readable string format to binary network format. It accepts various input formats including hexadecimal octets, hexadecimal strings, decimal octets, and CIDR notation (with /CIDR suffix). The function automatically detects the address family and delegates to the appropriate IPv4 or IPv6 conversion function based on the address family parameter and size argument.
+
+The function was originally authored by Paul Vixie (ISC) in June 1996 and has been adapted for PostgreSQL use. It handles both network address parsing (when size is -1) and CIDR block parsing (when size is specified).
+
+## Parameters / Member Variables
+- : Address family specification (PGSQL_AF_INET for IPv4, PGSQL_AF_INET6 for IPv6)
+- : Source string containing the network address in presentation format
+- : Destination buffer to store the converted binary network address
+- : Size of the destination buffer in bytes, or -1 for network address parsing
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - inet_net_pton_ipv4 (for IPv4 network parsing)
+  - inet_cidr_pton_ipv4 (for IPv4 CIDR parsing)
+  - inet_net_pton_ipv6 (for IPv6 network parsing)
+  - inet_cidr_pton_ipv6 (for IPv6 CIDR parsing)
+  - PGSQL_AF_INET (IPv4 address family constant)
+  - PGSQL_AF_INET6 (IPv6 address family constant)
+  - EAFNOSUPPORT (error constant for unsupported address family)
+- Called from (representative examples):
+  - network_in (src/backend/utils/adt/network.c:93)
+
+## Notes and Other Information
+- Returns the number of bits in the network specification (either inferred classfully or specified with CIDR notation)
+- Returns -1 on failure with errno set appropriately (ENOENT indicates invalid network specification)
+- The size parameter determines the parsing mode: -1 for network address parsing, positive value for CIDR block parsing
+- Supports both IPv4 and IPv6 address families through delegation to specialized parsing functions

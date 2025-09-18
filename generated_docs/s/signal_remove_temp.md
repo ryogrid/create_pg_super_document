@@ -1,0 +1,36 @@
+# signal_remove_temp
+
+## Location
+src/test/regress/pg_regress.c: 479 - 499
+
+## Overview
+A signal handler function that performs cleanup of temporary socket directories when pg_regress receives termination signals, then re-raises the original signal.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a signal handler for various termination signals during pg_regress execution. When a signal is received, it first calls remove_temp() to clean up the temporary socket directory and associated files, then restores the default signal handler and re-raises the same signal to maintain proper signal handling semantics. This ensures that temporary directories are cleaned up even when the program is terminated unexpectedly by signals.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL signal handler argument macro, typically expands to include the signal number via postgres_signal_arg
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - remove_temp
+  - pqsignal
+  - raise (system call)
+  - SIG_DFL (constant)
+  - postgres_signal_arg (global variable)
+  - SIGNAL_ARGS (macro)
+- Called from (representative examples):
+  - make_temp_sockdir (installed as signal handler for SIGINT, SIGTERM, SIGQUIT, SIGHUP)
+
+## Notes and Other Information
+- Function is marked static (internal to pg_regress.c)
+- Implements the common pattern of cleanup-then-reraise for signal handlers
+- Uses pqsignal to restore default signal handling before re-raising
+- Installed as handler for multiple signals: SIGINT, SIGTERM, SIGQUIT, SIGHUP
+- Essential for proper cleanup during abnormal program termination
+- Works in conjunction with remove_temp() to ensure no temporary files are left behind
+- Located in src/test/regress/pg_regress.c:479-499

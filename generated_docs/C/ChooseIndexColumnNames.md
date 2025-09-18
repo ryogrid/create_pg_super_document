@@ -1,0 +1,44 @@
+# ChooseIndexColumnNames
+
+## Location
+src/backend/commands/indexcmds.c: 2632 - 2692
+
+## Overview
+ChooseIndexColumnNames generates unique column names for an index by processing IndexElem nodes and resolving name conflicts by appending numeric suffixes when necessary.
+
+## Definition
+
+
+## Detailed Description
+ChooseIndexColumnNames takes a list of IndexElem nodes representing the columns/expressions in an index and produces a list of unique string names for those columns. It handles three types of column specifications:
+1. Explicitly named columns (using indexcolname)
+2. Simple column references (using the column's name)
+3. Expression-based columns (defaulting to "expr")
+
+When name conflicts arise, the function automatically resolves them by appending numeric suffixes (e.g., "col", "col1", "col2"). The function also ensures generated names comply with PostgreSQL's NAMEDATALEN limit by truncating the original name when necessary to make room for the numeric suffix.
+
+## Parameters / Member Variables
+- : A List of IndexElem nodes representing the columns/expressions that will comprise the index
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IndexElem (structure representing an index column/expression)
+  - NAMEDATALEN (PostgreSQL's maximum name length constant)
+  - pg_mbcliplen (multibyte-aware string clipping function)
+  - lfirst (list iteration macro)
+  - foreach (list iteration macro)
+  - lappend (list append function)
+  - pstrdup (PostgreSQL's string duplication function)
+  - strcmp (string comparison function)
+- Called from:
+  - DefineIndex (src/backend/commands/indexcmds.c:814)
+
+## Notes and Other Information
+- This is a static function internal to indexcmds.c
+- Returns a List of plain char* strings, not String nodes
+- The conflict resolution algorithm is simple: append increasing integers starting from 1
+- Uses pg_mbcliplen to handle multibyte character encodings properly when truncating names
+- Ensures uniqueness within the scope of a single index's columns
+- The "expr" default name is used for expression-based index columns that don't have explicit names
+- All returned strings are palloc'd and must be freed by the caller
+- Names are generated in the same order as the input IndexElem list

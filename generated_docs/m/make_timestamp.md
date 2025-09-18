@@ -1,0 +1,42 @@
+# make_timestamp
+
+## Location
+src/backend/utils/adt/timestamp.c: 654 - 673
+
+## Overview
+PostgreSQL SQL function constructor that creates a timestamp (without timezone) from individual date and time components.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL SQL-callable function that constructs a timestamp value from separate year, month, day, hour, minute, and second components. This function serves as the SQL interface to the internal timestamp creation functionality.
+
+The function extracts six parameters from the PostgreSQL function call arguments using the PG_GETARG macros, then delegates the actual timestamp construction to . It returns the result as a PostgreSQL Datum using the PG_RETURN_TIMESTAMP macro.
+
+This function corresponds to the SQL function  that can be called from SQL queries.
+
+## Parameters / Member Variables
+- Function takes 6 PostgreSQL function arguments accessed via PG_GETARG macros:
+  -  (int32): The year component
+  -  (int32): The month component (1-12)
+  -  (int32): The day component (1-31)
+  -  (int32): The hour component (0-23)
+  -  (int32): The minute component (0-59)
+  -  (float8): The second component with fractional precision
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_INT32 (macro)
+  - PG_GETARG_FLOAT8 (macro)
+  - make_timestamp_internal
+  - PG_RETURN_TIMESTAMP (macro)
+- Called from:
+  - SQL queries (via function call mechanism)
+
+## Notes and Other Information
+- This is a PostgreSQL built-in SQL function accessible from SQL statements
+- Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
+- All validation and error handling is performed by the underlying make_timestamp_internal function
+- Returns a timestamp without timezone information
+- Can be called from SQL as: SELECT make_timestamp(2023, 12, 25, 10, 30, 45.5);

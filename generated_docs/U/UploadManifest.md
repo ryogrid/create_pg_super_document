@@ -1,0 +1,50 @@
+# UploadManifest
+
+## Location
+src/backend/replication/walsender.c: 683 - 746
+
+## Overview
+Handles the UPLOAD_MANIFEST replication command by receiving incremental backup manifest data from the client via PostgreSQL's COPY protocol and processing it for subsequent incremental backup operations.
+
+## Definition
+
+
+## Detailed Description
+UploadManifest implements the server-side handling of the UPLOAD_MANIFEST replication command, which is part of PostgreSQL's incremental backup functionality. The function:
+
+1. Sets up a resource owner and memory context for manifest processing
+2. Sends a CopyInResponse message to initiate COPY protocol communication
+3. Receives manifest data packets from the client using HandleUploadManifestPacket
+4. Finalizes the manifest processing and stores it in a persistent memory context
+5. Cleans up old manifest data and resources
+
+The function uses PostgreSQL's COPY protocol to efficiently transfer potentially large manifest files from backup clients. The manifest contains metadata about files in previous backups, enabling incremental backup operations by identifying which files have changed.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ResourceOwnerCreate
+  - AllocSetContextCreate
+  - CreateIncrementalBackupInfo
+  - pq_beginmessage
+  - pq_sendbyte
+  - pq_sendint16
+  - pq_endmessage_reuse
+  - pq_flush
+  - HandleUploadManifestPacket
+  - FinalizeIncrementalManifest
+  - MemoryContextDelete
+  - MemoryContextSetParent
+  - WalSndResourceCleanup
+- Called from:
+  - exec_replication_command
+
+## Notes and Other Information
+- The function is static and only used within the walsender module
+- Requires a resource owner for cryptohash operations during manifest parsing
+- Uses a temporary memory context that is later reparented to CacheMemoryContext for persistence
+- Manages global variables uploaded_manifest and uploaded_manifest_mcxt to store the processed manifest
+- Part of PostgreSQL's incremental backup infrastructure introduced for efficient backup operations
+- The manifest data received contains file metadata that helps determine which files need to be included in incremental backups

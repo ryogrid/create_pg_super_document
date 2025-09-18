@@ -1,0 +1,39 @@
+# btrestrpos
+
+## Location
+src/backend/access/nbtree/nbtree.c: 479 - 536
+
+## Overview
+Restores a B-tree index scan to the position previously saved by btmarkpos, handling both simple within-page and complex cross-page restoration scenarios.
+
+## Definition
+
+
+## Detailed Description
+The btrestrpos function restores a B-tree index scan to a previously marked position. It implements two different restoration strategies depending on whether the scan has moved to a different page since the mark was set. For simple cases where the scan remained on the same page, it only restores the item index. For complex cases where the scan moved to a different page, it performs a full position restoration including buffer handling, killed items processing, and tuple workspace copying. The function also handles array key reinitialization when necessary.
+
+## Parameters / Member Variables
+- : The IndexScanDesc structure representing the scan to be restored to its marked position
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BTScanPosIsValid
+  - _bt_killitems
+  - BTScanPosUnpinIfPinned
+  - BTScanPosIsPinned
+  - IncrBufferRefCount
+  - _bt_start_array_keys
+  - BTScanPosInvalidate
+  - IndexScanDesc
+  - BTScanOpaque
+  - BTScanPosData
+  - BTScanPosItem
+- Called from (representative examples):
+  - bthandler
+
+## Notes and Other Information
+- Uses markItemIndex >= 0 as an indicator that the scan hasn't moved to a new page since marking
+- Performs full buffer management including reference count increments and killed items processing for cross-page restoration
+- Copies both position data structure and tuple workspace (currTuples) when restoring from a different page
+- Reinitializes array keys using _bt_start_array_keys when scan involves array operations
+- The function complements the lazy marking approach used in btmarkpos by handling the complex restoration logic only when needed

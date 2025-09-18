@@ -1,0 +1,58 @@
+# pg_wal_summary_contents
+
+## Location
+src/backend/backup/walsummaryfuncs.c: 69 - 176
+
+## Overview
+A PostgreSQL system function that reads and returns the detailed contents of a specific WAL summary file, including information about modified blocks for each relation fork.
+
+## Definition
+
+
+## Detailed Description
+This function reads the contents of a specified WAL summary file identified by timeline ID, start LSN, and end LSN. It parses the summary file using the BlockRefTableReader infrastructure to extract information about modified database blocks. The function returns a result set containing details about each relation fork and the specific blocks that were modified, including both individual block numbers and limit blocks that indicate truncation points. The output includes relation identifiers, fork numbers, block numbers, and flags indicating whether each entry represents a limit block.
+
+## Parameters / Member Variables
+- Input parameters:
+  - Timeline ID (int64): Timeline identifier for the WAL summary file
+  - Start LSN: Starting log sequence number of the summary file  
+  - End LSN: Ending log sequence number of the summary file
+- Returns a set of tuples with 6 attributes (NUM_SUMMARY_ATTS = 6):
+  - Relation number (ObjectId)
+  - Tablespace OID (ObjectId)  
+  - Database OID (ObjectId)
+  - Fork number (int16)
+  - Block number (int64)
+  - Is limit block (boolean)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - InitMaterializedSRF (initializes set-returning function)
+  - PG_GETARG_INT64, PG_GETARG_LSN (parameter extraction macros)
+  - OpenWalSummaryFile (opens WAL summary file)
+  - CreateBlockRefTableReader (creates block reference table reader)
+  - ReadWalSummary (callback function for reading WAL summary data)
+  - ReportWalSummaryError (error reporting callback)
+  - BlockRefTableReaderNextRelation (iterates over relations)
+  - BlockRefTableReaderGetBlocks (gets modified block numbers)
+  - BlockNumberIsValid (validates block numbers)
+  - DestroyBlockRefTableReader (cleanup)
+  - FileClose (closes file)
+  - Various Datum conversion functions (ObjectIdGetDatum, Int16GetDatum, Int64GetDatum, BoolGetDatum)
+- Data types/structures used:
+  - WalSummaryFile, WalSummaryIO (WAL summary file handling)
+  - BlockRefTableReader (block reference table reader)
+  - RelFileLocator (relation file locator)
+  - ForkNumber (relation fork identifier)
+  - MAX_BLOCKS_PER_CALL (constant for batch processing)
+- Called from:
+  - Available as SQL system function (no direct code references found)
+
+## Notes and Other Information
+- Validates timeline ID to ensure it's within valid range (1 to PG_INT32_MAX)
+- Uses batch processing with MAX_BLOCKS_PER_CALL to efficiently read block lists
+- Handles both individual modified blocks and limit blocks (truncation points)
+- Limit blocks are marked with a boolean flag to distinguish them from regular modified blocks
+- Includes interrupt checking for query cancellation during long operations
+- Performs proper resource cleanup by destroying the reader and closing files
+- The function provides detailed visibility into WAL summary file contents for backup and recovery operations

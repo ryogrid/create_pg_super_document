@@ -1,0 +1,45 @@
+# aclcheck_error_type
+
+## Location
+src/backend/catalog/aclchk.c: 3024 - 3035
+
+## Overview
+Specialized error reporting function for type-related access control failures, with special handling for array types to display the underlying element type in error messages.
+
+## Definition
+```c
+void aclcheck_error_type(AclResult aclerr, Oid typeOid)
+```
+
+## Detailed Description
+This function provides specialized error reporting for PostgreSQL type access control violations. Its key feature is intelligent handling of array types - when given an array type OID, it automatically resolves to the underlying element type for clearer error messages.
+
+For example, instead of showing "permission denied for type _int4" (the internal array type name), it will show "permission denied for type integer" (the element type name). This makes error messages much more user-friendly since users typically think in terms of element types rather than the internal array type representations.
+
+The function uses get_element_type() to detect if the given type is an array and extract its element type. If it's not an array type, get_element_type() returns InvalidOid and the original type is used. The type name is formatted using format_type_be() for consistent, user-readable output.
+
+## Parameters / Member Variables
+- `aclerr`: The result code from an ACL check (AclResult enum: ACLCHECK_OK, ACLCHECK_NO_PRIV, ACLCHECK_NOT_OWNER)
+- `typeOid`: The OID of the PostgreSQL type for which access was checked
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_element_type (to resolve array types to element types)
+  - aclcheck_error (for actual error reporting)
+  - format_type_be (for formatted type name display)
+  - OBJECT_TYPE constant
+- Called from (representative examples):
+  - check_object_ownership (src/backend/catalog/objectaddress.c:2406)
+  - AggregateCreate (src/backend/catalog/pg_aggregate.c:591)
+  - compute_return_type (src/backend/commands/functioncmds.c:160)
+  - DefineOperator (src/backend/commands/operatorcmds.c:194)
+  - DefineRelation (src/backend/commands/tablecmds.c:881)
+  - DefineDomain (src/backend/commands/typecmds.c:790)
+
+## Notes and Other Information
+- This function never returns for error conditions - it delegates to aclcheck_error which throws an exception
+- Primary benefit is user-friendly error messages for array types by showing element type names instead of internal array type names
+- Uses format_type_be() for consistent type name formatting across PostgreSQL
+- Automatically handles both simple types and array types with the same interface
+- Part of the family of specialized aclcheck_error functions (aclcheck_error, aclcheck_error_col, aclcheck_error_type)
+- Essential for operations involving type permissions like aggregate creation, operator definition, and domain creation

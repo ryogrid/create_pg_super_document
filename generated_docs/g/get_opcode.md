@@ -1,0 +1,41 @@
+# get_opcode
+
+## Location
+src/backend/utils/cache/lsyscache.c: 1285 - 1309
+
+## Overview
+Retrieves the regproc ID of the function that implements a given operator, providing the link between operator OIDs and their underlying implementation functions.
+
+## Definition
+```c
+RegProcedure get_opcode(Oid opno)
+```
+
+## Detailed Description
+This function performs a system catalog lookup to find the implementation function (procedure) for a specified operator. It accesses the pg_operator system catalog through the system cache and retrieves the oprcode field, which contains the RegProcedure (function OID) that actually implements the operator's behavior. The function handles invalid operator OIDs gracefully by returning InvalidOid rather than throwing an error, making it suitable for cases where the operator may not exist.
+
+## Parameters / Member Variables
+- `opno`: The OID of the operator to look up
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1 (system cache lookup)
+  - HeapTupleIsValid (tuple validation)
+  - GETSTRUCT (tuple structure access)
+  - ReleaseSysCache (cache cleanup)
+  - Form_pg_operator (catalog tuple structure)
+  - InvalidOid (null OID constant)
+- Called from (representative examples):
+  - set_opfuncid (operator function ID setting)
+  - op_strict (operator strictness checking)
+  - op_volatile (operator volatility checking)
+  - cost_qual_eval_walker (query cost evaluation)
+  - Various BRIN, btree, and executor modules
+
+## Notes and Other Information
+- Returns InvalidOid if the specified operator OID is not found, allowing graceful error handling
+- Uses system cache for performance optimization when accessing pg_operator catalog
+- The returned RegProcedure can be used to call the operator's implementation function
+- Essential for the query executor and optimizer to determine how operators are actually computed
+- Widely used throughout PostgreSQL's execution engine for operator resolution
+- Different from get_opname which returns the operator's name rather than its implementation

@@ -1,0 +1,50 @@
+# expand_schema_name_patterns
+
+## Location
+src/bin/pg_dump/pg_dump.c: 1449 - 1507
+
+## Overview
+Finds the OIDs of all schemas matching the given list of patterns and appends them to the provided OID list for use in pg_dump filtering operations.
+
+## Definition
+
+
+## Detailed Description
+This function processes a list of schema name patterns (which may include wildcards) and resolves them to actual schema OIDs by querying the PostgreSQL system catalog pg_namespace. It supports pattern matching through the processSQL    ePattern function and can handle both simple names and qualified names with database specifications.
+
+The function performs the following operations for each pattern:
+1. Constructs a SELECT query against pg_catalog.pg_namespace
+2. Processes the pattern using processSQL    ePattern to handle wildcards and special characters
+3. Validates that qualified names don't have too many components (database.schema format)
+4. Executes the query and collects matching schema OIDs
+5. Optionally enforces strict matching (fails if no matches found)
+
+The function accumulates all matching OIDs in the provided oids list, allowing duplicates which are handled by the caller.
+
+## Parameters / Member Variables
+- : Archive structure containing database connection and dump context
+- : SimpleStringList containing schema name patterns to match (may include wildcards)
+- : SimpleOidList to append matching schema OIDs to
+- : Boolean flag that causes failure if any pattern matches no schemas
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
+  - processSQL    ePattern (pattern matching and SQL generation)
+  - GetConnection (database connection retrieval)
+  - ExecuteSqlQuery (query execution)
+  - prohibit_crossdb_refs (cross-database reference validation)
+  - simple_oid_list_append (OID list management)
+  - atooid (string to OID conversion)
+  - pg_fatal (error reporting)
+- Called from (representative examples):
+  - main (in pg_dump.c at lines 879, 885)
+  - fmtQualifiedDumpable (in pg_dump.c at line 186)
+
+## Notes and Other Information
+- The function allows duplicate OIDs in the result list, as duplicates are handled by the caller
+- Qualified schema names are validated to prevent improper cross-database references
+- Pattern matching supports standard SQL wildcards through the processSQL    ePattern function
+- When strict_names is true, the function will terminate with a fatal error if any pattern produces no matches
+- The function builds separate queries for each pattern rather than trying to combine them into a single query
+- Cross-database references are explicitly prohibited and will cause fatal errors when detected

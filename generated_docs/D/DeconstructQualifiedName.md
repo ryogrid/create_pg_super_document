@@ -1,0 +1,46 @@
+# DeconstructQualifiedName
+
+## Location
+src/backend/catalog/namespace.c: 3301 - 3354
+
+## Overview
+Parses a possibly-qualified name expressed as a list of String nodes and extracts the schema name and object name components.
+
+## Definition
+```c
+void DeconstructQualifiedName(const List *names, char **nspname_p, char **objname_p)
+```
+
+## Detailed Description
+DeconstructQualifiedName takes a list of String nodes representing a qualified name (like "schema.table" or "database.schema.table") and breaks it down into its component parts. It handles 1, 2, or 3-part names: unqualified names (object only), schema-qualified names (schema.object), and fully-qualified names (database.schema.object). For 3-part names, it validates that the database name matches the current database, since PostgreSQL does not support cross-database references. The function sets the output parameters to point to the extracted schema and object names, with the schema name set to NULL for unqualified names.
+
+## Parameters / Member Variables
+- `names`: A List of String nodes representing the qualified name components
+- `nspname_p`: Output parameter for schema name (set to NULL if no explicit schema)  
+- `objname_p`: Output parameter for object name
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - list_length
+  - strVal
+  - linitial
+  - lsecond
+  - lthird
+  - get_database_name
+  - NameListToString
+  - ereport
+- Called from (representative examples):
+  - FuncnameGetCandidates
+  - OpernameGetOprid
+  - OpernameGetCandidates
+  - get_statistics_object_oid
+  - LookupTypeNameExtended
+
+## Notes and Other Information
+- Supports 1-part (object), 2-part (schema.object), and 3-part (database.schema.object) qualified names
+- For 3-part names, validates the database component matches the current database
+- Cross-database references are explicitly not supported and will raise an error
+- Too many name components (more than 3) will result in a syntax error
+- The function modifies the output parameters rather than returning values
+- Widely used throughout the PostgreSQL codebase for parsing qualified object names
+- Located in src/backend/catalog/namespace.c:3301-3354

@@ -1,0 +1,49 @@
+# replace_vars_in_jointree
+
+## Location
+src/backend/optimizer/prep/prepjointree.c: 2368 - 2473
+
+## Overview
+Helper routine for perform_pullup_replace_vars that recursively processes every expression in the jointree structure, performing variable replacement without modifying the jointree structure itself.
+
+## Definition
+```c
+static void replace_vars_in_jointree(Node *jtnode,
+                                    pullup_replace_vars_context *context)
+```
+
+## Detailed Description
+This function recursively traverses the jointree structure and performs variable replacement on all expressions contained within it, while preserving the tree structure itself. It handles different types of jointree nodes (RangeTblRef, FromExpr, JoinExpr) and applies appropriate variable replacement logic to each.
+
+The function has special handling for:
+- **LATERAL subqueries**: Processes expressions in LATERAL subqueries that might reference the target subquery being pulled up
+- **Different RTE types**: Handles various range table entry types (relations with tablesample, subqueries, functions, table functions, values lists)
+- **Join expressions**: Applies special PHV wrapping rules for full outer joins to maintain proper expression attribution
+- **Recursive processing**: Calls itself recursively to process nested jointree structures
+
+The function is careful to use PlaceHolderVars (PHVs) appropriately, particularly forcing their use in full outer join quals to prevent planning failures.
+
+## Parameters / Member Variables
+- `jtnode`: The jointree node to process (can be RangeTblRef, FromExpr, JoinExpr, or NULL)
+- `context`: Context structure containing substitution mappings and control flags for the replacement operation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pullup_replace_vars
+  - pullup_replace_vars_subquery
+  - rt_fetch
+  - nodeTag
+  - RangeTblRef, FromExpr, JoinExpr
+  - Various RTE types (RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc.)
+  - TableSampleClause, TableFunc
+  - JOIN_FULL
+- Called from (representative examples):
+  - perform_pullup_replace_vars
+  - replace_vars_in_jointree (recursive calls)
+
+## Notes and Other Information
+- Recursively calls itself to process nested jointree structures (FromExpr fromlist and JoinExpr left/right args)
+- Forces PHV wrapping for expressions in full outer join quals to prevent planning issues
+- Only processes LATERAL RTEs that are not the target subquery itself
+- Includes assertions to validate that certain RTE types should not be marked LATERAL
+- Handles the ugly necessity of processing expressions without changing the underlying jointree structure

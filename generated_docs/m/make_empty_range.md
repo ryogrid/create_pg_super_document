@@ -1,0 +1,33 @@
+# make_empty_range
+
+## Location
+src/backend/utils/adt/rangetypes.c: 2165 - 2186
+
+## Overview
+Creates and returns an empty range of the specified type by constructing dummy bounds and calling make_range with the empty flag set to true.
+
+## Definition
+
+
+## Detailed Description
+The `make_empty_range` function provides a convenient way to create an empty range of any range type. It constructs dummy lower and upper bounds with default values (both set to 0, non-infinite, non-inclusive) and then calls `make_range` with the empty flag set to true. Since the range is explicitly marked as empty, the actual bound values are irrelevant and ignored. This function is essential for range operations that need to return empty results, such as when ranges don't intersect or when performing set operations that yield no result.
+
+## Parameters / Member Variables
+- `typcache`: Type cache entry specifying the range type for which to create an empty range
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - make_range
+- Called from (representative examples):
+  - range_minus_internal
+  - range_intersect_internal
+  - multirange_get_union_range
+  - multirange_agg_transfn
+  - range_merge_from_multirange
+
+## Notes and Other Information
+- The dummy bound values (both set to 0) are meaningless since the range is marked as empty
+- Empty ranges have a standardized representation regardless of the input bound values
+- This function is a convenience wrapper around `make_range` for the common case of creating empty ranges
+- Empty ranges are crucial for representing "no result" conditions in range arithmetic operations
+- The function always passes NULL as the error context, indicating hard error handling rather than soft errors

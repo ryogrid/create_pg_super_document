@@ -1,0 +1,30 @@
+# GetTempNamespaceState
+
+## Location
+src/backend/catalog/namespace.c: 3805 - 3820
+
+## Overview
+Fetches the status of the session's temporary namespace, specifically designed for conveying state to parallel workers.
+
+## Definition
+
+
+## Detailed Description
+This function retrieves the OIDs of the current session's temporary namespace and its associated toast namespace. It's primarily intended for internal use in parallel processing scenarios where worker processes need access to the main session's temporary namespace information. The function directly accesses the global variables  and  to return their current values.
+
+## Parameters / Member Variables
+- : Output parameter that receives the OID of the session's temporary namespace (0 if no temp namespace exists)
+- : Output parameter that receives the OID of the session's temporary toast namespace (0 if no temp namespace exists)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - myTempNamespace (global variable)
+  - myTempToastNamespace (global variable)
+- Called from (representative examples):
+  - InitializeParallelDSM (src/backend/access/transam/parallel.c:346)
+  - RangeVarGetRelid (src/include/catalog/namespace.h:162)
+
+## Notes and Other Information
+- This function is specifically designed for parallel processing and is not intended for general-purpose access
+- Returns 0 for both namespace OIDs if the session has not created a temporary namespace
+- Part of PostgreSQL's namespace management system for temporary objects

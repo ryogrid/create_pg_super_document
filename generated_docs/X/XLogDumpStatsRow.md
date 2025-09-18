@@ -1,0 +1,38 @@
+# XLogDumpStatsRow
+
+## Location
+src/bin/pg_waldump/pg_waldump.c: 585 - 625
+
+## Overview
+A utility function in pg_waldump that displays a single row of statistical information for WAL record counts and sizes, typically for a specific resource manager (rmgr) or record type.
+
+## Definition
+
+
+## Detailed Description
+XLogDumpStatsRow formats and prints a single statistical row showing record counts and data sizes for WAL analysis. It calculates percentage values for each metric relative to the total and displays them in a formatted table row. The function handles division by zero cases by setting percentages to 0 when totals are zero. The output includes the name/identifier, record count with percentage, record length with percentage, full page image (FPI) length with percentage, and total length with percentage.
+
+## Parameters / Member Variables
+- : String identifier for the row (typically rmgr name or record type)
+- : Number of records for this category
+- : Total number of records across all categories
+- : Total record length (bytes) for this category
+- : Total record length across all categories
+- : Total full page image length (bytes) for this category
+- : Total FPI length across all categories
+- : Total combined length (bytes) for this category
+- : Total combined length across all categories
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - printf (standard C library function)
+  - INT64_MODIFIER (PostgreSQL macro for platform-specific 64-bit integer formatting)
+- Called from (representative examples):
+  - XLogDumpDisplayStats
+
+## Notes and Other Information
+- This is a static function, only accessible within the pg_waldump.c file
+- Uses careful division-by-zero protection when calculating percentages
+- Formats output in a consistent tabular format with fixed-width columns
+- Part of the pg_waldump utility for analyzing PostgreSQL Write-Ahead Log files
+- The formatted output shows both absolute values and percentages for easy comparison across categories

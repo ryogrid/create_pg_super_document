@@ -1,0 +1,50 @@
+# ExecBuildProjectionInfo
+
+## Location
+src/backend/executor/execExpr.c: 362 - 521
+
+## Overview
+Builds a ProjectionInfo node for evaluating a target list in a given expression context and storing results into a tuple slot, implementing efficient projection through compiled expression evaluation.
+
+## Definition
+
+
+## Detailed Description
+ExecBuildProjectionInfo creates a ProjectionInfo node that efficiently evaluates a list of target entries (projection expressions) and stores the results in a specified tuple slot. The function implements an optimized projection mechanism by:
+
+1. **Fast-path optimization**: For simple Var expressions that reference non-system attributes, it uses specialized ASSIGN_*_VAR opcodes (EEOP_ASSIGN_INNER_VAR, EEOP_ASSIGN_OUTER_VAR, EEOP_ASSIGN_SCAN_VAR) to directly copy values without full expression evaluation.
+
+2. **Safety validation**: When inputDesc is provided, it performs compatibility checks between Var expressions and the input tuple descriptor to ensure the relation hasn't changed since plan creation.
+
+3. **Expression compilation**: For complex expressions, it compiles them into an ExprState that can be efficiently executed, with special handling for variable-length data types to ensure read-only access.
+
+4. **Embedded ExprState**: The function embeds an ExprState directly into the ProjectionInfo structure to avoid extra memory allocation.
+
+## Parameters / Member Variables
+- : List of TargetEntry nodes representing the expressions to be projected
+- : Expression context providing the evaluation environment (variable values, memory context, etc.)
+- : TupleTableSlot where the projection results will be stored
+- : Parent PlanState node for context and error reporting
+- : Optional input tuple descriptor for safety validation of Var expressions (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (to create ProjectionInfo)
+  - ExecCreateExprSetupSteps (expression setup)
+  - ExecInitExprRec (expression compilation)
+  - ExprEvalPushStep (step compilation)
+  - ExecReadyExpr (finalize expression)
+  - get_typlen (type length checking)
+  - TupleDescAttr (tuple descriptor access)
+- Called from (representative examples):
+  - ExecAssignProjectionInfo
+  - ExecInitInsertProjection
+  - ExecInitPartitionInfo
+  - ExecInitSubPlan
+
+## Notes and Other Information
+- **Version compatibility**: Prior to PostgreSQL v10, targetList was a list of ExprStates; now it should be the planner-created target list since compilation happens in this function
+- **Performance optimization**: The fast-path for simple Vars significantly improves performance for common projection scenarios
+- **Memory management**: The function embeds ExprState into ProjectionInfo to reduce memory allocation overhead
+- **Safety checks**: Input descriptor validation helps catch schema changes that could cause runtime errors
+- **Read-only enforcement**: Variable-length projected columns are made read-only to prevent modification issues when referenced multiple times in upper plan nodes

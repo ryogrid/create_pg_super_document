@@ -1,0 +1,35 @@
+# init_spawned_worker_win32
+
+## Location
+src/bin/pg_dump/parallel.c: 874 - 896
+
+## Overview
+Windows-specific thread entry point function that initializes and runs a worker thread for parallel backup operations in pg_dump.
+
+## Definition
+static unsigned __stdcall init_spawned_worker_win32(WorkerInfo *wi)
+
+## Detailed Description
+This function serves as the thread entry point for Windows worker threads in pg_dump's parallel backup system. It acts as a wrapper around the platform-independent RunWorker function, handling Windows-specific thread initialization and cleanup requirements.
+
+The function extracts the ArchiveHandle and ParallelSlot from the WorkerInfo structure, frees the temporary WorkerInfo allocation, executes the main worker logic via RunWorker, and properly terminates the thread using Windows-specific thread exit functions.
+
+## Parameters / Member Variables
+- wi: Pointer to WorkerInfo structure containing the ArchiveHandle and ParallelSlot needed for worker initialization
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RunWorker
+  - WorkerInfo (type)
+  - ParallelSlot (type)
+  - ParallelState (type)
+- Called from (representative examples):
+  - ParallelBackupStart
+
+## Notes and Other Information
+- Windows-specific function using __stdcall calling convention
+- Static function - only accessible within the parallel.c compilation unit
+- Frees the WorkerInfo structure to prevent memory leaks
+- Uses _endthreadex(0) for proper Windows thread termination
+- Returns 0 to satisfy the function signature requirements, though the thread exits before returning
+- Part of the Windows threading implementation that parallels the Unix fork-based approach

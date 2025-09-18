@@ -1,0 +1,51 @@
+# relation_mark_replica_identity
+
+## Location
+src/backend/commands/tablecmds.c: 16672 - 16759
+
+## Overview
+Updates a table's replica identity configuration by modifying the relreplident field and managing per-index indisreplident flags to control logical replication behavior.
+
+## Definition
+```c
+static void relation_mark_replica_identity(Relation rel, char ri_type, Oid indexOid, bool is_internal)
+```
+
+## Detailed Description
+relation_mark_replica_identity is responsible for updating a table's replica identity settings, which determine how PostgreSQL identifies rows for logical replication purposes. The function performs two main operations:
+
+1. **Updates pg_class.relreplident**: Sets the table's overall replica identity type (NOTHING, DEFAULT, USING INDEX, or FULL)
+2. **Manages index flags**: Updates the indisreplident flag for all indexes on the table, ensuring only the specified index (if any) is marked as the replica identity index
+
+The function handles all replica identity types but requires special handling when ri_type is REPLICA_IDENTITY_INDEX, where indexOid must specify a valid, suitable index. For other types, indexOid should be InvalidOid.
+
+The function ensures transactional consistency by updating both catalog tables (pg_class and pg_index) and invalidating the relation cache to ensure all sessions see the updated replica identity configuration before performing any UPDATE or DELETE operations.
+
+## Parameters / Member Variables
+- `rel`: The relation whose replica identity is being updated
+- `ri_type`: The replica identity type (character: 'd' for default, 'n' for nothing, 'f' for full, 'i' for index)
+- `indexOid`: OID of the index to use as replica identity (required for REPLICA_IDENTITY_INDEX, InvalidOid otherwise)
+- `is_internal`: Boolean flag indicating whether this is an internal operation (affects hook invocation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCacheCopy1: Retrieves catalog tuple copies for modification
+  - CatalogTupleUpdate: Updates modified tuples in catalog tables
+  - RelationGetIndexList: Gets list of all indexes on the relation
+  - InvokeObjectPostAlterHookArg: Triggers post-alter hooks with additional arguments
+  - CacheInvalidateRelcache: Invalidates relation cache entries
+  - heap_freetuple: Frees heap tuple memory
+  - Form_pg_class: Structure for pg_class catalog entries
+  - Form_pg_index: Structure for pg_index catalog entries
+
+- Called from (representative examples):
+  - ATExecReplicaIdentity: Main ALTER TABLE REPLICA IDENTITY command handler
+
+## Notes and Other Information
+- The caller must hold an exclusive lock on the relation to prevent concurrent modifications
+- The function updates both pg_class and pg_index catalogs transactionally
+- Cache invalidation ensures all sessions refresh replica identity settings before DML operations
+- The indisreplident flag is set only for the specified index and cleared for all others
+- Post-alter hooks are invoked for each modified index with the is_internal parameter
+- Error handling includes cache lookup failures for both relations and indexes
+- The function is optimized to only update catalog entries when values actually change

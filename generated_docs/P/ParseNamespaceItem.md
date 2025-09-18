@@ -1,0 +1,53 @@
+# ParseNamespaceItem
+
+## Location
+src/include/parser/parse_node.h: 284 - 318
+
+## Overview
+ParseNamespaceItem represents an element in the parser's namespace list, defining how table and column names are visible and accessible during SQL parsing operations.
+
+## Definition
+
+
+## Detailed Description
+ParseNamespaceItem is a crucial structure in PostgreSQL's name resolution system during SQL parsing. It represents a single entry in the parser's namespace that determines how table and column names can be referenced in queries. The structure handles complex visibility rules that distinguish between qualified and unqualified name references, implements LATERAL visibility semantics, and manages the relationship between namespace items and the underlying range table entries.
+
+The visibility flags (p_rel_visible and p_cols_visible) implement SQL's complex scoping rules where, for example, a JOIN without an alias makes the joined tables visible for qualified references but hides their individual columns for unqualified references. This prevents ambiguity while maintaining SQL standard compliance.
+
+## Parameters / Member Variables
+- : Alias structure containing table name and column names exposed by this namespace item
+- : Pointer to the underlying RangeTblEntry that this namespace item represents
+- : Index position of the relation in the range table for quick lookup
+- : Pointer to permission information entry for the relation
+- : Array of per-column information, parallel to p_names->colnames
+- : Whether the relation name can be used in qualified references
+- : Whether column names are accessible via unqualified references
+- : Whether this item is only visible to LATERAL subexpressions
+- : Whether the join type permits actual use of LATERAL references
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Alias (for p_names field)
+  - RangeTblEntry (for p_rte field)
+  - RTEPermissionInfo (for p_perminfo field)
+  - ParseNamespaceColumn (for p_nscolumns array)
+
+- Called from (representative examples):
+  - buildNSItemFromTupleDesc
+  - buildNSItemFromLists
+  - addRangeTableEntry functions
+  - scanNameSpaceForRefname
+  - refnameNamespaceItem
+  - transformFromClauseItem
+  - setNamespaceColumnVisibility
+
+## Notes and Other Information
+ParseNamespaceItem implements sophisticated visibility semantics required by SQL standards. The separation of p_rel_visible and p_cols_visible flags handles cases like:
+
+1. JOINs without aliases: Tables remain visible for qualified access (table.column) but columns are hidden for unqualified access to prevent ambiguity
+2. Subqueries without aliases: Columns remain visible for unqualified access but the auto-generated relation name is hidden
+3. Special constructs like NEW/OLD in rules may have only one visibility flag set
+
+The LATERAL-related flags (p_lateral_only, p_lateral_ok) implement SQL:2008 LATERAL semantics, ensuring proper scoping of lateral references while providing clear error messages when lateral references are used incorrectly.
+
+The p_nscolumns array provides detailed per-column information needed for constructing proper Var nodes during name resolution, including handling of dropped columns and type information.

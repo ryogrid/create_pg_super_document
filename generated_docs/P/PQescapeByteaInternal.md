@@ -1,0 +1,39 @@
+# PQescapeByteaInternal
+
+## Location
+src/interfaces/libpq/fe-exec.c: 4418 - 4513
+
+## Overview
+PQescapeByteaInternal converts binary data to a string representation suitable for inclusion in SQL statements as bytea literals, supporting both hexadecimal and traditional escape formats.
+
+## Definition
+
+
+## Detailed Description
+PQescapeByteaInternal is the core implementation function for bytea escaping in libpq. It supports two encoding formats: hexadecimal (\\x followed by hex digits) and traditional escape format (using octal sequences for non-printable characters). In escape mode, it applies these transformations: null bytes become \\000, single quotes are doubled, backslashes are escaped appropriately based on standard_conforming_strings setting, and non-printable characters (< 0x20 or > 0x7e) become octal escape sequences (\\ooo). The function calculates the required output buffer size, allocates memory, and performs the encoding while handling the differences between standard and non-standard string modes.
+
+## Parameters / Member Variables
+- : PostgreSQL connection handle for error reporting (may be NULL)
+- : Source binary data to be escaped
+- : Length of the source data in bytes
+- : Pointer to store the length of the resulting escaped string
+- : Whether standard_conforming_strings is enabled (affects backslash doubling)
+- : If true, use hexadecimal format; if false, use traditional escape format
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - malloc
+  - hextbl (static hex character lookup table)
+  - libpq_append_conn_error (for error reporting)
+- Called from (representative examples):
+  - PQescapeByteaConn
+  - PQescapeBytea
+
+## Notes and Other Information
+- Returns a newly allocated string that must be freed by the caller
+- Returns NULL on memory allocation failure, with error stored in connection if provided
+- Hex format produces shorter output for most binary data (\\x + 2 chars per byte)
+- Traditional escape format uses octal sequences (\\nnn) for non-printable characters
+- Handles standard_conforming_strings setting correctly for backslash escaping
+- Essential for safely embedding binary data in PostgreSQL SQL statements
+- Used internally by the public PQescapeBytea functions to provide bytea escaping functionality

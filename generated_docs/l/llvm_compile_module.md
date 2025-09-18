@@ -1,0 +1,50 @@
+# llvm_compile_module
+
+## Location
+src/backend/jit/llvm/llvmjit.c: 733 - 863
+
+## Overview
+Compiles the currently pending LLVM module by performing inlining, optimization, and code emission, creating a handle for runtime function lookups.
+
+## Definition
+
+
+## Detailed Description
+This function orchestrates the complete compilation pipeline for an LLVM module:
+
+1. **ORC JIT Selection**: Chooses between optimized (llvm_opt3_orc) and unoptimized (llvm_opt0_orc) JIT compilers based on PGJIT_OPT3 flag
+2. **Inlining Phase**: Optionally performs function inlining if PGJIT_INLINE flag is set, with timing instrumentation
+3. **Bitcode Dumping**: Optionally dumps bitcode files for debugging (controlled by jit_dump_bitcode)
+4. **Optimization**: Calls llvm_optimize_module to apply optimization passes with timing measurement
+5. **Code Emission**: Handles module emission differently based on LLVM version:
+   - **LLVM > 11**: Uses ThreadSafeModule and lazy compilation via LLVMOrcLLJITAddLLVMIRModuleWithRT
+   - **LLVM ≤ 11**: Uses eager compilation via LLVMOrcAddEagerlyCompiledIR
+6. **Handle Management**: Creates and tracks compilation handles for cleanup and symbol lookup
+
+The function includes comprehensive timing instrumentation for performance analysis and debugging output.
+
+## Parameters / Member Variables
+- : LLVMJitContext pointer containing the module to compile, optimization flags, and instrumentation counters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LLVMJitHandle (handle structure)
+  - PGJIT_OPT3 (optimization level flag)
+  - PGJIT_INLINE (inlining flag)
+  - llvm_optimize_module (optimization function)
+  - llvm_error_message (error handling)
+  - llvm_resolve_symbol (symbol resolution)
+  - INSTR_TIME_* macros (timing instrumentation)
+  - MemoryContextAlloc (memory management)
+- Called from (representative examples):
+  - llvm_get_function
+
+## Notes and Other Information
+- The function transfers ownership of the LLVM module to the ORC JIT compiler
+- For LLVM > 11, code emission is lazy - actual compilation happens when symbols are first requested
+- For LLVM ≤ 11, compilation is eager - all code is compiled immediately
+- Timing information is collected for three phases: inlining, optimization, and emission
+- Handles are stored in TopMemoryContext for persistence across PostgreSQL memory context switches
+- Debug output provides detailed timing breakdown for performance analysis
+- Bitcode files can be dumped both before and after optimization for debugging purposes
+- The function sets context->compiled = true and context->module = NULL after successful compilation

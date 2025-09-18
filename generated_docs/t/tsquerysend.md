@@ -1,0 +1,49 @@
+# tsquerysend
+
+## Location
+src/backend/utils/adt/tsquery.c: 1189 - 1226
+
+## Overview
+Serializes a TSQuery structure into binary format for network transmission or storage purposes.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL binary output function that converts a TSQuery data structure into its binary representation. This function is part of PostgreSQL's full-text search functionality and is used for efficiently transmitting TSQuery objects over the network or storing them in binary format.
+
+The binary format includes:
+- A uint32 containing the number of operators/operands in the query
+- For each operand (QI_VAL): type, weight, prefix flag, and null-terminated operand text
+- For each operator (QI_OPR): type, operator code (OP_AND, OP_PHRASE, OP_OR, OP_NOT), and distance for phrase operators
+
+The function processes the query items in prefix notation, ensuring proper serialization of the entire query tree structure.
+
+## Parameters / Member Variables
+This function uses PostgreSQL's function call convention:
+- Uses  to retrieve the TSQuery input parameter
+- Returns serialized binary data via 
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_TSQUERY: Extract TSQuery from function arguments
+  - GETQUERY: Get query items array from TSQuery
+  - GETOPERAND: Get operand string data from TSQuery
+  - pq_begintypsend: Initialize binary output buffer
+  - pq_sendint32: Send 32-bit integer
+  - pq_sendint8: Send 8-bit integer  
+  - pq_sendint16: Send 16-bit integer
+  - pq_sendstring: Send null-terminated string
+  - pq_endtypsend: Finalize binary output buffer
+  - PG_FREE_IF_COPY: Free input if it's a copy
+  - PG_RETURN_BYTEA_P: Return binary data
+
+- Called from (representative examples):
+  - No direct references found in codebase (likely called via PostgreSQL's type system)
+
+## Notes and Other Information
+- This is a standard PostgreSQL binary output function for the TSQuery type
+- The binary format preserves all query structure information including operator types, operand weights, and phrase distances
+- Used internally by PostgreSQL for network communication and binary storage
+- Counterpart to  which deserializes the binary format back to TSQuery
+- Located in src/backend/utils/adt/tsquery.c:1189-1226

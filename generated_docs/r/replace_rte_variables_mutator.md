@@ -1,0 +1,47 @@
+# replace_rte_variables_mutator
+
+## Location
+src/backend/rewrite/rewriteManip.c: 1393 - 1488
+
+## Overview
+The core mutator function that implements the recursive tree walking and variable replacement logic for replace_rte_variables, handling different node types and maintaining sublevel tracking.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the recursive workhorse for replace_rte_variables, implementing the actual tree traversal and node replacement logic. It handles several specific node types with special processing:
+
+1. **Var nodes**: Checks if the variable matches the target RTE (by varno and varlevelsup), and if so, invokes the callback to perform the replacement. It also tracks whether SubLinks are being inserted during replacement.
+
+2. **CurrentOfExpr nodes**: Detects WHERE CURRENT OF expressions that apply to views and raises an error since this feature is not yet implemented in PostgreSQL.
+
+3. **Query nodes**: Handles subqueries by incrementing sublevels_up, managing SubLink tracking across sublevel boundaries, and recursively processing the query tree.
+
+4. **All other nodes**: Uses the standard expression_tree_mutator for recursive processing.
+
+The function carefully manages the SubLink tracking state, preserving and restoring context across recursive calls to maintain accurate hasSubLinks information.
+
+## Parameters / Member Variables
+- : The current node being processed in the expression tree
+- : Contains callback function, target RTE information, sublevel tracking, and SubLink state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - checkExprHasSubLink
+  - query_tree_mutator
+  - expression_tree_mutator
+  - replace_rte_variables_context (struct)
+  - CurrentOfExpr (node type)
+- Called from (representative examples):
+  - replace_rte_variables
+  - pullup_replace_vars_callback
+  - ReplaceVarsFromTargetList_callback
+  - replace_rte_variables_mutator (recursive calls)
+
+## Notes and Other Information
+- The function is publicly exposed (unlike typical mutator functions) because callbacks often need to recurse directly to it on sub-expressions
+- WHERE CURRENT OF on views is explicitly not supported and will raise an error
+- SubLink tracking is carefully managed across recursive calls to ensure accurate query metadata
+- The function handles both planned and unplanned subquery contexts appropriately
+- Recursive calls to itself occur when processing Query nodes and through expression_tree_mutator for general expression processing

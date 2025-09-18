@@ -1,0 +1,36 @@
+# PgArchWakeup
+
+## Location
+src/backend/postmaster/pgarch.c: 280 - 296
+
+## Overview
+PgArchWakeup wakes up the PostgreSQL archiver process by setting its process latch, signaling it to check for new WAL files to archive.
+
+## Definition
+```c
+void PgArchWakeup(void)
+```
+
+## Detailed Description
+This function provides a mechanism to wake up the sleeping archiver process when new WAL files are available for archiving. It retrieves the archiver's process number from shared memory and sets the corresponding process latch. The function is designed to be safe even without acquiring ProcArrayLock, as setting the wrong process latch or no latch at all will not cause system failure - the archiver will be relaunched and resume normal operation. This approach prioritizes performance over strict synchronization since archiver wake-up is not critical for system correctness.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SetLatch: Sets the process latch to wake up the target process
+  - INVALID_PROC_NUMBER: Constant indicating invalid process number
+  - PgArch: Global shared memory structure containing archiver state
+  - ProcGlobal: Global process array structure
+- Called from (representative examples):
+  - XLogArchiveNotify: Notifies archiver when new WAL files are ready
+
+## Notes and Other Information
+- Does not acquire ProcArrayLock for performance reasons
+- Safe even if wrong process latch is set due to race conditions
+- Uses the pgprocno field from shared memory to identify target process
+- Only attempts to set latch if process number is valid
+- Part of PostgreSQL's WAL archiving notification system
+- The archiver will be automatically relaunched if communication fails
+- Provides non-blocking wake-up mechanism for archiver process

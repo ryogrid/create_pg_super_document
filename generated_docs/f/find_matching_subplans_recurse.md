@@ -1,0 +1,44 @@
+# find_matching_subplans_recurse
+
+## Location
+src/backend/executor/execPartition.c: 2366 - 2418
+
+## Overview
+A recursive worker function for ExecFindMatchingSubPlans that processes partition hierarchies to identify valid (non-prunable) subplans.
+
+## Definition
+
+
+## Detailed Description
+This function is the core recursive engine that traverses partition hierarchies to determine which subplans should be executed. It operates by first determining which partitions should be included based on the current pruning context, then translating those partitions into subplan indexes or recursively processing sub-partitions.
+
+The function handles two execution modes:
+1. **Initial pruning**: Uses initial_pruning_steps when PARAM_EXEC parameters are not yet available
+2. **Runtime pruning**: Uses exec_pruning_steps when all parameters can be evaluated
+
+For each partition found to be valid, the function either adds the corresponding subplan index to the result set or recursively processes sub-partitions if the partition has been further partitioned. The function includes protection against stack overflow due to deeply nested partition hierarchies.
+
+## Parameters / Member Variables
+- : Overall partition pruning data structure containing all partitioning information
+- : Specific partitioned relation pruning data for the current level in the hierarchy
+- : Boolean indicating whether this is initial pruning (true) or runtime pruning (false)
+- : Output parameter - pointer to bitmapset that accumulates valid subplan indexes
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - check_stack_depth
+  - get_matching_partitions
+  - bms_next_member
+  - bms_add_member
+  - find_matching_subplans_recurse (recursive call)
+- Called from (representative examples):
+  - ExecFindMatchingSubPlans
+  - find_matching_subplans_recurse (recursive calls)
+
+## Notes and Other Information
+- The function is defined in src/backend/executor/execPartition.c:2366-2418
+- Includes stack depth checking to prevent stack overflow in deeply nested partition hierarchies
+- Handles cases where the planner has already pruned all sub-partitions for a partition
+- The function modifies the validsubplans bitmapset in-place, accumulating results across recursive calls
+- Static function scope indicates it's an internal implementation detail of the partition pruning system
+- Properly handles partition-to-subplan mapping through the subplan_map and subpart_map arrays

@@ -1,0 +1,54 @@
+# CheckTableForSerializableConflictIn
+
+## Location
+src/backend/storage/lmgr/predicate.c: 4409 - 4490
+
+## Overview
+CheckTableForSerializableConflictIn handles serializable conflict detection for DDL operations that perform mass deletion like TRUNCATE or DROP TABLE on entire tables.
+
+## Definition
+
+
+## Detailed Description
+This function detects serializable conflicts when performing DDL-style logical mass delete operations such as TRUNCATE or DROP TABLE. These operations can occur within serializable transactions and must be properly serialized under SSI (Serializable Snapshot Isolation).
+
+The function handles the unique characteristics of mass deletion operations:
+- These operations don't operate entirely within snapshot isolation bounds but must maintain serializability
+- They logically occur after any reads that saw rows destroyed by these operations
+- Any predicate lock of any granularity on the heap relation creates a read-write conflict
+- Index predicate locks are ignored since mass deletion will also truncate/drop indexes
+
+The function performs a comprehensive scan of all predicate lock targets:
+1. Acquires all necessary locks in proper order to prevent deadlocks
+2. Scans through all predicate lock targets in the hash table
+3. For matching targets (same database and relation), flags conflicts with other serializable transactions
+4. Releases locks in reverse acquisition order
+
+An important optimization allows early exit when no serializable transactions are running, since the caller holds ACCESS EXCLUSIVE lock preventing new relevant locks from being acquired.
+
+## Parameters / Member Variables
+- : The heap relation being truncated or dropped (must be a heap relation, not an index)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TransactionIdIsValid
+  - SerializationNeededForWrite
+  - hash_seq_init
+  - hash_seq_search
+  - GET_PREDICATELOCKTARGETTAG_RELATION
+  - GET_PREDICATELOCKTARGETTAG_DB
+  - RWConflictExists
+  - FlagRWConflict
+  - PredicateLockHashPartitionLockByIndex
+- Called from (representative examples):
+  - heap_drop_with_catalog
+  - ExecuteTruncateGuts
+
+## Notes and Other Information
+- This is a public function exported via predicate.h for use by DDL operations
+- The function assumes the caller holds ACCESS EXCLUSIVE lock on the relation
+- Currently does not actually drop existing predicate locks on truncated/dropped tables (noted as potential source of false positives)
+- Uses comprehensive locking strategy: acquires all partition locks and serializable xact hash lock
+- Only processes heap relations; index relations are explicitly rejected with assertion
+- Sets MyXactDidWrite=true to track that the transaction has performed writes
+- Located in src/backend/storage/lmgr/predicate.c:4409-4490

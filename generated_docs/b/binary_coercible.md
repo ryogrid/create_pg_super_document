@@ -1,0 +1,34 @@
+# binary_coercible
+
+## Location
+src/test/regress/regress.c: 1291 - 1297
+
+## Overview
+A PostgreSQL regression test function that checks whether one data type can be binary-coercible to another data type without requiring an explicit cast.
+
+## Definition
+
+
+## Detailed Description
+The  function is a simple PostgreSQL test utility that determines if a source data type can be implicitly converted (binary coerced) to a target data type. Binary coercion is a form of implicit type conversion where the internal representation of the data remains the same, but PostgreSQL treats it as a different type. This is the most efficient form of type conversion since no data transformation is required.
+
+The function serves as a wrapper around PostgreSQL's internal  function, making this capability accessible for testing purposes in the regression test suite.
+
+## Parameters / Member Variables
+-  (Oid): The OID of the source data type
+-  (Oid): The OID of the target data type to convert to
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extract OID parameter from function arguments
+  - : Internal PostgreSQL function to check binary coercibility
+  - : Return boolean result
+- Called from (representative examples):
+  - Referenced in  at src/test/regress/regress.c:1289
+
+## Notes and Other Information
+- Located in the regression test suite ()
+- Binary coercion is typically allowed between types with identical internal representations
+- Common examples include coercion between domains and their base types, or between types in the same type family
+- Returns true if binary coercion is possible, false otherwise
+- This is a lightweight wrapper function that exposes internal PostgreSQL type system functionality for testing

@@ -1,0 +1,48 @@
+# ForgetDatabaseSyncRequests
+
+## Location
+src/backend/storage/smgr/md.c: 1430 - 1447
+
+## Overview
+Cancels all pending fsync and unlink requests for an entire database by registering a filter request that removes database-specific sync operations.
+
+## Definition
+```c
+void ForgetDatabaseSyncRequests(Oid dbid)
+```
+
+## Detailed Description
+The ForgetDatabaseSyncRequests function is used to cancel all pending sync requests (both fsync and unlink operations) for an entire database. This is typically called during database drop operations or when recovering from database creation failures.
+
+When a database is being dropped or when database creation fails, all pending sync operations for that database become unnecessary and should be removed from the pending operations queue. This function uses a filter-based approach to efficiently remove all sync requests related to the specified database.
+
+The function creates a FileTag with the database OID and uses special marker values (InvalidForkNumber and InvalidBlockNumber) to indicate that this is a database-wide operation. It then registers a SYNC_FILTER_REQUEST that instructs the sync system to remove all pending operations matching the database OID.
+
+This bulk cancellation approach is much more efficient than individually canceling sync requests for each relation in the database.
+
+## Parameters / Member Variables
+- `dbid`: Oid (Object identifier) of the database for which to cancel all sync requests
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - INIT_MD_FILETAG
+  - InvalidForkNumber
+  - InvalidBlockNumber
+  - RegisterSyncRequest
+  - SYNC_FILTER_REQUEST
+- Called from (representative examples):
+  - createdb_failure_callback
+  - dropdb
+  - dbase_redo
+  - Referenced in MD_H header file
+
+## Notes and Other Information
+- Public function (not static), available to other modules via md.h header
+- Uses InvalidForkNumber and InvalidBlockNumber as wildcards to match all files in the database
+- Uses retryOnError=true to ensure filter requests are reliably processed
+- Critical for efficient database drop operations
+- Prevents unnecessary I/O operations during database cleanup
+- Used in both normal operations (dropdb) and error recovery (createdb_failure_callback)
+- Part of PostgreSQL's crash recovery system (dbase_redo)
+- Significantly improves performance during database drop by bulk-canceling sync requests
+- Essential for maintaining consistency during database lifecycle operations

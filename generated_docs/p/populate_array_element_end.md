@@ -1,0 +1,38 @@
+# populate_array_element_end
+
+## Location
+src/backend/utils/adt/jsonfuncs.c: 2708 - 2750
+
+## Overview
+A JSON parsing callback function that handles the end of array elements during JSON array population, specifically for the populate_array_json() function.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a JSON semantic action callback that is invoked when the JSON parser reaches the end of an array element. It is specifically designed to work with the populate_array_json() functionality. The function constructs a JsValue structure representing the completed array element and delegates the actual element processing to populate_array_element(). It handles both null values and non-null values, managing different representations based on whether the element is a scalar value or a complex JSON structure.
+
+## Parameters / Member Variables
+- : A void pointer that is cast to PopulateArrayState, containing the parsing state and context information
+- : A boolean flag indicating whether the current array element is null
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PopulateArrayState (state structure)
+  - PopulateArrayContext (context structure)
+  - JsValue (value representation structure)
+  - JSON_TOKEN_NULL (token constant)
+  - populate_array_element (element processing function)
+  - JSON_SEM_ACTION_FAILED (error return value)
+  - JSON_SUCCESS (success return value)
+  - JsonParseErrorType (return type)
+- Called from (representative examples):
+  - JsObjectFree
+  - populate_array_json
+
+## Notes and Other Information
+- This is a static function within jsonfuncs.c, indicating it's an internal implementation detail
+- The function operates at the lexical level depth corresponding to the target array dimension
+- It handles both scalar elements (using element_scalar) and complex elements (using element_start and length calculations)
+- The function is part of the JSON semantic action callback system used by PostgreSQL's JSON parser
+- Error handling is delegated to the populate_array_element function, with this function only reporting failures

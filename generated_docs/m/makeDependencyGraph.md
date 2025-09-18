@@ -1,0 +1,37 @@
+# makeDependencyGraph
+
+## Location
+src/backend/parser/parse_cte.c: 648 - 669
+
+## Overview
+Identifies cross-references between WITH RECURSIVE items and sorts them into an order that eliminates forward references using topological sorting.
+
+## Definition
+
+
+## Detailed Description
+This function analyzes the dependencies between CTEs in a recursive WITH clause to determine a safe processing order. It performs a two-step process:
+
+1. **Dependency Analysis**: For each CTE, it walks through the CTE's query tree using makeDependencyGraphWalker to identify which other CTEs it references. This builds up the dependency relationships in the CteState structure.
+
+2. **Topological Sorting**: After all dependencies are identified, it calls TopologicalSort to arrange the CTEs in an order where each CTE is processed only after all the CTEs it depends on have been processed.
+
+This ordering is crucial for recursive WITH clauses because it ensures that when a CTE is being analyzed, all the CTEs it references have already been analyzed and their types determined.
+
+## Parameters / Member Variables
+- : CteState structure containing the array of CTE items and dependency tracking information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeDependencyGraphWalker - walks through CTE query trees to find dependencies
+  - TopologicalSort - sorts CTE items based on their dependencies
+- Called from (representative examples):
+  - transformWithClause - called when processing recursive WITH clauses to determine processing order
+
+## Notes and Other Information
+- The function is static and only used within parse_cte.c
+- Sets cstate->curitem to track which CTE is currently being analyzed
+- Maintains cstate->innerwiths to track nested WITH clauses during analysis
+- The Assert ensures that innerwiths is properly cleaned up after each CTE analysis
+- Essential for preventing forward reference errors in recursive WITH clauses
+- The topological sort will detect and report circular dependencies between CTEs

@@ -1,0 +1,41 @@
+# dlist_push_head
+
+## Location
+src/include/lib/ilist.h: 347 - 363
+
+## Overview
+Inserts a new node at the beginning of a doubly-linked list, automatically handling both initialized and uninitialized list states.
+
+## Definition
+
+
+## Detailed Description
+The  function adds a new node to the front of a doubly-linked list by updating the necessary pointer relationships. It intelligently handles uninitialized lists by checking if the head's next pointer is NULL and automatically calling  to convert it to a proper circular structure. The function then inserts the new node between the head and the current first element, updating all four relevant pointers: the new node's next and prev pointers, the old first element's prev pointer, and the head's next pointer. After insertion, it calls  to validate list integrity in debug builds.
+
+## Parameters / Member Variables
+- : Pointer to the  structure representing the list to insert into
+- : Pointer to the  structure to be inserted at the beginning of the list
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dlist_head (structure type)
+  - dlist_node (structure type)
+  - dlist_init (initialization function)
+  - dlist_check (integrity validation function)
+- Called from (representative examples):
+  - CreateParallelContext (src/backend/access/transam/parallel.c:193)
+  - XLogPrefetcherAddFilter (src/backend/access/transam/xlogprefetcher.c:872)
+  - rebuild_database_list (src/backend/postmaster/autovacuum.c:1041)
+  - AutoVacWorkerMain (src/backend/postmaster/autovacuum.c:1513)
+  - BackendStartup (src/backend/postmaster/postmaster.c:3623)
+  - SyncRepQueueInsert (src/backend/replication/syncrep.c:399)
+  - BecomeLockGroupLeader (src/backend/storage/lmgr/proc.c:1913)
+
+## Notes and Other Information
+- The function is implemented as a static inline function for performance efficiency
+- Automatically initializes uninitialized lists (NULL head) by calling 
+- Maintains proper doubly-linked list invariants by updating all necessary pointer relationships
+- Includes integrity checking via  in debug builds
+- Commonly used in PostgreSQL's parallel processing, autovacuum, replication, and memory management subsystems
+- The node being inserted should not already be part of another list to avoid corruption
+- Located in src/include/lib/ilist.h:347-363

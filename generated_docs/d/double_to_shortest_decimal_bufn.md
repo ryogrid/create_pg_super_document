@@ -1,0 +1,46 @@
+# double_to_shortest_decimal_bufn
+
+## Location
+src/common/d2s.c: 1015 - 1052
+
+## Overview
+Converts a double-precision floating-point number to its shortest decimal representation as an unterminated string, implementing the core algorithm for efficient double-to-string conversion.
+
+## Definition
+
+
+## Detailed Description
+This function performs the core conversion of IEEE 754 double-precision floating-point numbers to their shortest decimal string representation. It implements an optimized algorithm that:
+
+1. Decodes the IEEE 754 bit representation into sign, mantissa, and exponent components
+2. Handles special cases (infinity, NaN, zero) early for efficiency
+3. Uses specialized small integer optimization for common cases
+4. Falls back to the general d2d (double-to-decimal) algorithm for complex cases
+5. Formats the result using an optimized character output routine
+
+The function stores the result as an unterminated string to avoid unnecessary null termination overhead when the caller will process the string further.
+
+## Parameters / Member Variables
+- : The double-precision floating-point number to convert
+- : Caller-provided buffer to store the decimal string (must be at least DOUBLE_SHORTEST_DECIMAL_LEN-1 bytes)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extracts IEEE 754 bit representation
+  - : Handles special values (infinity, NaN, zero)
+  - : Optimized conversion for small integers
+  - : General double-to-decimal conversion algorithm
+  - : Formats the floating decimal as character string
+  - : Constant defining mantissa bit count
+  - : Constant defining exponent bit count
+  - : Structure for intermediate decimal representation
+- Called from:
+  - : Higher-level wrapper function
+
+## Notes and Other Information
+- Returns the number of bytes stored in the result buffer
+- The result string is NOT null-terminated; callers must handle termination
+- Buffer must be pre-allocated by caller with sufficient space
+- Implements the Ryu algorithm for efficient double-to-string conversion
+- Handles both normalized and subnormal floating-point numbers uniformly
+- Special cases (±infinity, NaN, ±0) are processed early for performance

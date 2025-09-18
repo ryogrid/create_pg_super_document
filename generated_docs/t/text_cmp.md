@@ -1,0 +1,38 @@
+# text_cmp
+
+## Location
+src/backend/utils/adt/varlena.c: 1594 - 1618
+
+## Overview
+Internal comparison function that extracts variable-length string data from PostgreSQL text objects and delegates to varstr_cmp for actual comparison logic.
+
+## Definition
+
+
+## Detailed Description
+`text_cmp` serves as a wrapper function that handles PostgreSQL's text data type comparison by extracting the raw string data and lengths from text objects, then calling `varstr_cmp` to perform the actual comparison. This function abstracts the variable-length data extraction process, using VARDATA_ANY and VARSIZE_ANY_EXHDR macros to handle both short-header and long-header varlena formats transparently.
+
+## Parameters / Member Variables
+- `arg1`: First text object to compare
+- `arg2`: Second text object to compare  
+- `collid`: OID of the collation to use for comparison
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - varstr_cmp
+  - VARDATA_ANY (macro)
+  - VARSIZE_ANY_EXHDR (macro)
+- Called from (representative examples):
+  - texteq
+  - textne
+  - text_lt
+  - text_le
+  - text_gt
+  - text_ge
+  - bttextcmp
+
+## Notes and Other Information
+- Static function serving as internal implementation detail
+- Handles varlena data format abstraction for text comparison operations
+- Returns standard comparison result: -1 (less), 0 (equal), or 1 (greater)
+- Central hub for all PostgreSQL text comparison operators and functions

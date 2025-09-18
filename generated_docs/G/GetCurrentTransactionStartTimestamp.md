@@ -1,0 +1,37 @@
+# GetCurrentTransactionStartTimestamp
+
+## Location
+src/backend/access/transam/xact.c: 867 - 875
+
+## Overview
+Returns the timestamp when the current transaction was started.
+
+## Definition
+
+
+## Detailed Description
+GetCurrentTransactionStartTimestamp is a simple accessor function that returns the transaction start timestamp stored in the global variable xactStartTimestamp. This timestamp represents the exact moment when the current transaction began and is crucial for various PostgreSQL operations including MVCC (Multi-Version Concurrency Control), time-based SQL functions, and maintaining temporal consistency within transactions. The returned timestamp remains constant throughout the entire transaction, ensuring that all time-related operations within a single transaction see a consistent view of "now".
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - xactStartTimestamp (global variable)
+- Called from (representative examples):
+  - InitializeParallelDSM (src/backend/access/transam/parallel.c:351)
+  - timetz_zone (src/backend/utils/adt/date.c:3086,3094)
+  - GetCurrentTimeUsec (src/backend/utils/adt/datetime.c:389)
+  - pg_timezone_abbrevs (src/backend/utils/adt/datetime.c:5075)
+  - pg_timezone_names (src/backend/utils/adt/datetime.c:5149)
+  - now (src/backend/utils/adt/timestamp.c:1620)
+  - GetSQLCurrentTimestamp (src/backend/utils/adt/timestamp.c:1676)
+  - GetSQLLocalTimestamp (src/backend/utils/adt/timestamp.c:1690)
+
+## Notes and Other Information
+- The timestamp is set once at transaction start and remains constant throughout the transaction
+- Used by SQL functions like NOW(), CURRENT_TIMESTAMP, and related time functions
+- Essential for maintaining consistent temporal semantics within transactions
+- Located in src/backend/access/transam/xact.c:867-875
+- Simple getter function with no side effects or error conditions
+- Critical component of PostgreSQL's transaction timestamp management system

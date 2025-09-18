@@ -1,0 +1,39 @@
+# gistbeginscan
+
+## Location
+src/backend/access/gist/gistscan.c: 74 - 126
+
+## Overview
+Initializes and begins a scan operation on a GiST (Generalized Search Tree) index, setting up all necessary data structures and memory contexts for the scan lifecycle.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the entry point for GiST index scanning operations, implementing the index access method API for PostgreSQL. It creates and initializes an IndexScanDesc structure along with GiST-specific opaque data (GISTScanOpaque) that contains all the state information needed throughout the scan's lifetime. The function establishes memory contexts for efficient memory management, sets up distance tracking arrays for ORDER BY operations, and prepares workspace for scan keys. All memory allocations are performed in the scan-lifetime context to ensure automatic cleanup when the scan ends.
+
+The function follows PostgreSQL's index AM (Access Method) interface, making it pluggable into the query executor's index scanning framework. It defers some initialization work to gistrescan() since the exact scan parameters may not be known until the actual scan begins.
+
+## Parameters / Member Variables
+- : The relation (table/index) being scanned
+- : Number of scan keys (WHERE clause conditions)
+- : Number of ORDER BY expressions for nearest-neighbor queries
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetIndexScan
+  - initGISTstate
+  - createTempGistContext
+  - MemoryContextSwitchTo
+  - palloc0
+  - palloc
+  - memset
+- Called from (representative examples):
+  - gisthandler
+
+## Notes and Other Information
+- This function only initializes the scan structure; actual scanning begins with gistrescan()
+- Memory management uses hierarchical contexts: scanCxt contains all scan-lifetime data
+- Supports both regular index scans and index-only scans (though index-only scan fields are initialized in gistrescan)
+- The killed items tracking mechanism is initialized but not allocated until needed
+- Part of PostgreSQL's pluggable index access method architecture

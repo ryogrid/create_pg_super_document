@@ -1,0 +1,33 @@
+# LOCALLOCKOWNER
+
+## Location
+src/include/storage/lock.h: 414 - 424
+
+## Overview
+LOCALLOCKOWNER tracks ownership and reference counts for locks held by specific resource owners, enabling proper lock management and cleanup per transaction or session.
+
+## Definition
+
+
+## Detailed Description
+LOCALLOCKOWNER is a critical component of PostgreSQL's resource management system that tracks how many times a particular lock has been acquired by a specific resource owner. This structure enables proper hierarchical lock management where locks can be held at different levels (session-level or transaction-level) and ensures correct cleanup when transactions abort or complete.
+
+The structure supports PostgreSQL's nested transaction model by allowing locks to be associated with different resource owners. When a subtransaction aborts, only locks held by that specific resource owner are released, while parent transaction locks remain intact. The reference counting mechanism (nLocks) handles cases where the same lock is acquired multiple times by the same owner.
+
+## Parameters / Member Variables
+- : Pointer to the ResourceOwnerData structure that owns this lock; NULL indicates the lock is held at session level rather than transaction level
+- : Reference count indicating how many times this lock has been acquired by the specified owner
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ResourceOwnerData
+- Called from (representative examples):
+  - LockAcquireExtended
+  - LockRelease
+  - GrantLockLocal
+  - LockReleaseAll
+  - LockReassignOwner
+  - AtPrepare_Locks
+
+## Notes and Other Information
+The distinction between session-level (owner = NULL) and transaction-level locks is crucial for PostgreSQL's MVCC implementation. Session-level locks survive transaction boundaries, while transaction-level locks are automatically released on transaction end. The reference counting mechanism prevents premature lock release when the same lock is acquired multiple times within the same resource owner context, ensuring proper lock lifecycle management in complex transaction hierarchies.

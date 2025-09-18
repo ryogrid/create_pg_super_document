@@ -1,0 +1,47 @@
+# describeOperators
+
+## Location
+src/bin/psql/describe.c: 770 - 910
+
+## Overview
+Implements the \do psql command to describe PostgreSQL operators, displaying their names, argument types, result types, and optionally their underlying functions and descriptions.
+
+## Definition
+
+
+## Detailed Description
+This function generates and executes a complex SQL query to retrieve operator information from PostgreSQL system catalogs. It constructs a detailed view of operators including their schema, name, left/right argument types, result type, and descriptions. The function supports pattern matching for both operator names and argument types, with special handling for prefix operators (when only one argument pattern is provided).
+
+The function builds a SQL query that joins pg_operator with pg_namespace and optionally with pg_type tables for argument type filtering. It includes backward compatibility support for postfix operators (dead code as of PostgreSQL 14 but maintained for older server versions) and provides fallback comment lookup from the operator's underlying function for operators without direct comments.
+
+The query results are formatted and displayed using psql's standard table printing mechanisms with appropriate column headers and internationalization support.
+
+## Parameters / Member Variables
+- : Pattern to match operator names (can be NULL for all operators)
+- : Array of patterns to match argument types (can contain "-" for no argument)
+- : Number of argument patterns provided (0-2, additional patterns ignored)
+- : If true, includes the underlying function name in output
+- : If true, includes system schema operators (pg_catalog, information_schema)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initPQExpBuffer (initialize query buffer)
+  - printfPQExpBuffer (format SQL query)
+  - validateSQLNamePattern (validate and add pattern matching clauses)
+  - map_typename_pattern (normalize type name patterns)
+  - PSQLexec (execute SQL query)
+  - printQuery (display results)
+  - termPQExpBuffer (cleanup query buffer)
+- Called from (representative examples):
+  - exec_command_dfo (src/bin/psql/command.c:1066) - handles \do command
+  - Declared in DESCRIBE_H (src/bin/psql/describe.h:30)
+
+## Notes and Other Information
+- Supports complex operator filtering by both name and argument type patterns
+- Handles unary prefix operators when num_arg_patterns == 1 by adding "o.oprleft = 0" constraint
+- Uses coalesce() to provide fallback comment lookup from operator's function (legacy support)
+- Maintains compatibility with pre-PostgreSQL 14 servers by including postfix operator support
+- Argument patterns of "-" specifically indicate no argument should exist for that position
+- Results are ordered by schema, name, left arg type, and right arg type for consistent display
+- Returns boolean success/failure status like other psql describe functions
+- The verbose flag adds the "Function" column showing the underlying implementation function

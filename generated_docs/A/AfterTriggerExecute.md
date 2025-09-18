@@ -1,0 +1,56 @@
+# AfterTriggerExecute
+
+## Location
+src/backend/commands/trigger.c: 4355 - 4629
+
+## Overview
+Executes a single after-trigger function by fetching the required tuples and calling the trigger with proper context setup and memory management.
+
+## Definition
+```c
+static void AfterTriggerExecute(EState *estate, AfterTriggerEvent event, ResultRelInfo *relInfo, ResultRelInfo *src_relInfo, ResultRelInfo *dst_relInfo, TriggerDesc *trigdesc, FmgrInfo *finfo, Instrumentation *instr, MemoryContext per_tuple_context, TupleTableSlot *trig_tuple_slot1, TupleTableSlot *trig_tuple_slot2)
+```
+
+## Detailed Description
+This function is the core execution engine for individual after-trigger events. It handles the complex process of fetching the appropriate tuples (old and/or new) from the heap, setting up the trigger context, and executing the trigger function. The function supports multiple scenarios including regular heap tables, foreign tables (with FDW tuple fetching), and cross-partition updates in partitioned tables. It performs tuple conversion when necessary for partitioned tables, manages transition tables for triggers that need them, and handles proper memory cleanup. The function also supports EXPLAIN ANALYZE instrumentation and implements caching optimizations for repeated trigger executions on the same relation.
+
+## Parameters / Member Variables
+- `estate`: Executor state containing transaction and relation information
+- `event`: The specific after-trigger event being processed
+- `relInfo`: ResultRelInfo for the main target relation
+- `src_relInfo`: ResultRelInfo for source partition (cross-partition updates)
+- `dst_relInfo`: ResultRelInfo for destination partition (cross-partition updates)
+- `trigdesc`: Working copy of the relation's trigger descriptor
+- `finfo`: Array of fmgr lookup cache entries for trigger functions
+- `instr`: Array of EXPLAIN ANALYZE instrumentation nodes (can be NULL)
+- `per_tuple_context`: Memory context for trigger function execution
+- `trig_tuple_slot1`: Scratch slot for tg_trigtuple (foreign tables)
+- `trig_tuple_slot2`: Scratch slot for tg_newtuple (foreign tables)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetTriggerSharedData
+  - InstrStartNode
+  - GetCurrentFDWTuplestore
+  - tuplestore_gettupleslot
+  - ExecFetchSlotHeapTuple
+  - ExecGetTriggerOldSlot
+  - ExecGetTriggerNewSlot
+  - table_tuple_fetch_row_version
+  - ExecGetChildToRootMap
+  - execute_attr_map_slot
+  - ExecCopySlot
+  - ExecCallTriggerFunc
+  - heap_freetuple
+  - ExecClearTuple
+  - InstrStopNode
+- Called from (representative examples):
+  - afterTriggerInvokeEvents
+
+## Notes and Other Information
+- Handles graceful scenarios where triggers may have been dropped since event queuing
+- Supports both row-level triggers and transition table processing
+- Implements efficient memory management with proper cleanup of temporary tuples
+- Critical for cross-partition update support in partitioned tables
+- The function is highly optimized for performance with caching mechanisms
+- Proper handling of foreign table trigger execution through FDW interfaces

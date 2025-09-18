@@ -1,0 +1,55 @@
+# DeadLockReport
+
+## Location
+src/backend/storage/lmgr/deadlock.c: 1072 - 1143
+
+## Overview
+Reports a detected deadlock with detailed information for both client and server log, including process IDs, lock types, and query details.
+
+## Definition
+```c
+void DeadLockReport(void)
+```
+
+## Detailed Description
+DeadLockReport is responsible for formatting and reporting deadlock information when a deadlock is detected in PostgreSQL. The function constructs detailed error messages that include:
+
+1. **Client-facing information**: A formatted list of processes and the locks they are waiting for, showing the circular dependency that forms the deadlock
+2. **Server log information**: Extended details including the current query strings being executed by each process involved in the deadlock
+
+The function iterates through the global `deadlockDetails` array to build comprehensive error messages. It uses `StringInfo` buffers to construct the messages and ultimately calls `ereport(ERROR, ...)` to report the deadlock as a PostgreSQL error with error code `ERRCODE_T_R_DEADLOCK_DETECTED`.
+
+## Parameters / Member Variables
+This function takes no parameters but operates on global state:
+- Uses global `deadlockDetails` array containing information about processes involved in the deadlock
+- Uses global `nDeadlockDetails` indicating the number of processes in the deadlock cycle
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initStringInfo
+  - resetStringInfo  
+  - DescribeLockTag
+  - appendStringInfoChar
+  - appendStringInfo
+  - GetLockmodeName
+  - appendBinaryStringInfo
+  - pgstat_get_backend_current_activity
+  - pgstat_report_deadlock
+  - ereport
+  - errcode
+  - errmsg
+  - errdetail_internal
+  - errdetail_log
+  - errhint
+  - DEADLOCK_INFO (struct type)
+  - ERRCODE_T_R_DEADLOCK_DETECTED
+
+- Called from (representative examples):
+  - WaitOnLock (src/backend/storage/lmgr/lock.c:1872)
+
+## Notes and Other Information
+- The function generates two separate message buffers: one sanitized for client consumption and another with full query details for server logs
+- The error reporting includes a hint directing users to check the server log for complete query details
+- This function is part of PostgreSQL's deadlock detection and resolution mechanism
+- The function calls `pgstat_report_deadlock()` to update statistics about deadlock occurrences
+- The function assumes that deadlock detection has already been performed and the `deadlockDetails` global array has been populated

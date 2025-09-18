@@ -1,0 +1,40 @@
+# startScan
+
+## Location
+src/backend/access/gin/ginget.c: 603 - 654
+
+## Overview
+Initializes a GIN index scan by starting all scan entries and implementing fuzzy search optimizations to control result set size for performance.
+
+## Definition
+
+
+## Detailed Description
+The startScan function orchestrates the initialization of a complete GIN index scan operation. It performs two main phases: first, it initializes all individual scan entries using startScanEntry, and second, it applies fuzzy search optimizations when GinFuzzySearchLimit is configured.
+
+The fuzzy search optimization is a crucial performance feature that prevents queries from returning excessively large result sets. When all scan entries predict results larger than the fuzzy search threshold (totalentries * GinFuzzySearchLimit), the function reduces the predicted result counts by dividing them by the number of total entries. This heuristic approach trades some recall for significantly improved performance, particularly beneficial for queries involving very common terms.
+
+After handling the fuzzy search logic and obtaining final entry frequency estimates, the function completes the scan initialization by calling startScanKey for each scan key, which partitions entries into required and additional sets for optimal scanning.
+
+## Parameters / Member Variables
+- : Index scan descriptor containing scan context, snapshot information, and opaque scan state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - startScanEntry
+  - startScanKey
+- Data types used:
+  - IndexScanDesc
+  - GinScanOpaque
+  - GinState
+- Global variables:
+  - GinFuzzySearchLimit (configuration parameter)
+- Called from:
+  - gingetbitmap
+
+## Notes and Other Information
+- The fuzzy search reduction is a heuristic optimization that may affect query completeness but significantly improves performance for queries with very common terms
+- The decision to reduce results is based on all entries exceeding the threshold, ensuring the optimization only applies when genuinely needed
+- The reduction factor (dividing by totalentries) is a simple but effective way to scale down large result sets
+- This function bridges the gap between entry-level initialization (startScanEntry) and key-level optimization (startScanKey)
+- Essential for GIN bitmap scan operations, as called from gingetbitmap

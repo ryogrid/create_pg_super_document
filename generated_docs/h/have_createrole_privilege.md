@@ -1,0 +1,32 @@
+# have_createrole_privilege
+
+## Location
+src/backend/commands/user.c: 122 - 131
+
+## Overview
+A utility function that checks whether the current user has the CREATEROLE privilege required to manage database roles.
+
+## Definition
+
+
+## Detailed Description
+This is a simple wrapper function that determines if the currently connected user has the CREATEROLE privilege. It serves as a convenience function used throughout the role management subsystem to enforce access control. The function internally calls  with the current user's ID obtained via . This privilege check is essential for operations like creating, altering, or dropping database roles, ensuring that only authorized users can perform these administrative tasks.
+
+## Parameters / Member Variables
+- None (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - has_createrole_privilege
+  - GetUserId
+- Called from (representative examples):
+  - AlterRole
+  - AlterRoleSet
+  - DropRole
+  - RenameRole
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the user.c source file
+- The function is a simple one-liner that abstracts the privilege checking logic
+- CREATEROLE is one of the fundamental superuser-like privileges in PostgreSQL
+- Used as a security gate before allowing role management operations

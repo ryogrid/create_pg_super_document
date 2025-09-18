@@ -1,0 +1,49 @@
+# report_result
+
+## Location
+src/test/modules/test_escape/test_escape.c: 119 - 155
+
+## Overview
+A test reporting function that outputs test results in a structured format, managing test counters and controlling output verbosity based on configuration settings.
+
+## Definition
+```c
+static void
+report_result(pe_test_config *tc,
+              bool success,
+              const char *testname,
+              const char *details,
+              const char *subname,
+              const char *resultdesc)
+```
+
+## Detailed Description
+The `report_result` function is a central component of PostgreSQL's test escape module that handles test result reporting. It follows the TAP (Test Anything Protocol) format for output, producing standardized "ok" or "not ok" messages with test numbers. The function manages test counting, failure tracking, and output verbosity control.
+
+The function increments the test counter for each call and conditionally prints test details and results based on the verbosity level configured in the test configuration. For successful tests, details and results may be suppressed based on verbosity settings, while failed tests are always reported and increment the failure counter.
+
+## Parameters / Member Variables
+- `tc`: Pointer to pe_test_config structure containing test configuration and counters
+- `success`: Boolean indicating whether the test passed (true) or failed (false)
+- `testname`: String identifier for the test category or function being tested
+- `details`: Detailed information about the test (printed based on verbosity settings)
+- `subname`: Sub-test or specific test case identifier within the test category
+- `resultdesc`: Description of the test result or what was being verified
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pe_test_config (struct type)
+  - printf (standard library function)
+- Called from (representative examples):
+  - test_gb18030_page_multiple
+  - test_gb18030_json
+  - test_psql_parse
+  - test_one_vector_escape
+
+## Notes and Other Information
+- This is a static function, accessible only within the test_escape.c file
+- Follows TAP (Test Anything Protocol) output format with "ok" and "not ok" messages
+- Automatically manages test numbering by incrementing tc->test_count
+- Tracks failures by incrementing tc->failure_count for unsuccessful tests
+- Verbosity control: verbosity <= 0 suppresses details for successful tests, verbosity < 0 suppresses result output for successful tests
+- Part of PostgreSQL's testing infrastructure, not core database functionality

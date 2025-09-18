@@ -1,0 +1,40 @@
+# ExecInitTableFunctionResult
+
+## Location
+src/backend/executor/execSRF.c: 56 - 100
+
+## Overview
+Prepares a table function call in FROM clause (ROWS FROM syntax) for execution by initializing the necessary state structures and determining the execution strategy based on whether the function returns a set.
+
+## Definition
+
+
+## Detailed Description
+ExecInitTableFunctionResult is responsible for setting up the execution state for table functions used in FROM clauses. The function creates a SetExprState node and configures it based on the type of expression provided. It handles two main execution paths:
+
+1. **FuncExpr path**: When the expression is a FuncExpr (the normal case for table function references), it extracts function metadata, initializes argument expressions, and calls init_sexpr to set up the function call infrastructure.
+
+2. **General expression path**: When the planner has transformed the function call (through constant-folding or inlining), it falls back to using the general ExecEvalExpr() mechanism via ExecInitExpr.
+
+The function is specifically designed for nodeFunctionscan.c and handles the initialization phase of table function execution, preparing all necessary state for subsequent calls to retrieve function results.
+
+## Parameters / Member Variables
+- : The expression tree representing the table function call (typically a FuncExpr)
+- : The expression context providing memory context and execution environment
+- : The parent PlanState node for proper integration into the execution tree
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (SetExprState creation)
+  - IsA (type checking for FuncExpr)
+  - ExecInitExprList (argument initialization)
+  - init_sexpr (function call setup)
+  - ExecInitExpr (fallback expression initialization)
+- Called from (representative examples):
+  - ExecInitFunctionScan (src/backend/executor/nodeFunctionscan.c:349)
+
+## Notes and Other Information
+- The function assumes that table function references are normally FuncExpr nodes, but provides fallback handling for optimized cases
+- Set-returning functions are only supported in the FuncExpr path; the general expression path cannot handle buried set-returning functions
+- The state->funcReturnsSet flag is properly initialized to indicate whether the function can return multiple rows
+- Uses the per-query memory context from the expression context for function state allocation

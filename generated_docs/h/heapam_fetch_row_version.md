@@ -1,0 +1,38 @@
+# heapam_fetch_row_version
+
+## Location
+src/backend/access/heap/heapam_handler.c: 181 - 204
+
+## Overview
+This function retrieves a specific tuple from a heap relation using its tuple identifier (TID) and stores it in a table slot, serving as a callback for non-modifying operations on individual tuples in the heap access method.
+
+## Definition
+
+
+## Detailed Description
+heapam_fetch_row_version is a static callback function used by the heap access method to fetch a specific tuple version from a heap relation. It acts as a wrapper around the lower-level heap_fetch function, providing the interface expected by the table access method layer. The function attempts to retrieve the tuple identified by the given TID, checks its visibility according to the provided snapshot, and if successful, stores the tuple in the provided table slot with proper buffer management.
+
+The function ensures that the slot is of the correct type (BufferHeapTupleTableSlot) and handles the buffer pin transfer from the heap_fetch operation to the slot, maintaining proper resource management.
+
+## Parameters / Member Variables
+- : The heap relation from which to fetch the tuple
+- : ItemPointer containing the tuple identifier (block number and offset) of the target tuple
+- : Snapshot used for visibility checking to determine if the tuple version is visible to the current transaction
+- : TupleTableSlot where the fetched tuple will be stored (must be a BufferHeapTupleTableSlot)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferHeapTupleTableSlot (type cast)
+  - TTS_IS_BUFFERTUPLE (assertion check)
+  - heap_fetch (core tuple fetching)
+  - ExecStorePinnedBufferHeapTuple (slot storage)
+  - RelationGetRelid (relation OID retrieval)
+- Called from (representative examples):
+  - SampleHeapTupleVisible
+
+## Notes and Other Information
+- This is a static function serving as a callback in the table access method interface
+- The function assumes the slot parameter is of type BufferHeapTupleTableSlot and asserts this with TTS_IS_BUFFERTUPLE
+- On successful fetch, the function transfers the buffer pin from heap_fetch to the slot, ensuring proper buffer reference management
+- Returns true if the tuple was successfully fetched and is visible according to the snapshot, false otherwise
+- Part of the heap access method handler callbacks for non-modifying tuple operations

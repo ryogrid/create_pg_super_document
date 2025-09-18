@@ -1,0 +1,58 @@
+# transformPartitionBound
+
+## Location
+src/backend/parser/parse_utilcmd.c: 3985 - 4138
+
+## Overview
+Transforms and validates a partition bound specification according to the parent table's partitioning strategy (hash, list, or range).
+
+## Definition
+```c
+PartitionBoundSpec *transformPartitionBound(ParseState *pstate, Relation parent, PartitionBoundSpec *spec)
+```
+
+## Detailed Description
+This function processes partition bound specifications by validating them against the parent relation's partitioning strategy and transforming raw parse nodes into properly validated partition bounds. It handles three partitioning strategies: hash, list, and range partitioning. For hash partitioning, it validates modulus and remainder values. For list partitioning, it transforms individual list values and removes duplicates. For range partitioning, it transforms both lower and upper bound specifications. The function also handles default partitions, with special restrictions for hash partitioning.
+
+The transformation process includes type checking, expression parsing, and ensuring that the partition bound specification matches the expected format for the given partitioning strategy. The function creates a copy of the input specification to avoid modifying the original parse tree.
+
+## Parameters / Member Variables
+- `pstate`: ParseState for error reporting and expression transformation context
+- `parent`: The parent partitioned relation that defines the partitioning scheme
+- `spec`: The raw partition bound specification from the parser to be transformed and validated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetPartitionKey
+  - get_partition_strategy
+  - get_partition_natts
+  - get_partition_exprs
+  - copyObject
+  - ereport
+  - errcode
+  - errmsg
+  - parser_errposition
+  - exprLocation
+  - get_attname
+  - deparse_expression
+  - deparse_context_for
+  - get_partition_col_typid
+  - get_partition_col_typmod
+  - get_partition_col_collation
+  - transformPartitionBoundValue
+  - transformPartitionRangeBounds
+  - equal
+  - lappend
+  - elog
+- Called from (representative examples):
+  - DefineRelation (in src/backend/commands/tablecmds.c:1108)
+  - transformPartitionCmd (in src/backend/parser/parse_utilcmd.c:3942)
+
+## Notes and Other Information
+- Hash partitioning does not support default partitions and will generate an error if attempted
+- For list partitioning, duplicate values are automatically removed from the specification
+- Range partitioning requires exact match between the number of bounds and partition key attributes
+- The function preserves the original input by creating a copy using copyObject
+- Validates that modulus values for hash partitioning are positive and remainder values are less than modulus
+- For expression-based partitioning columns, uses deparse_expression to generate readable column names for error messages
+- Returns a fully transformed PartitionBoundSpec ready for use by the execution system

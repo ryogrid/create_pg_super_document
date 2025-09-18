@@ -1,0 +1,57 @@
+# getFuncs
+
+## Location
+src/bin/pg_dump/pg_dump.c: 6607 - 6805
+
+## Overview
+The getFuncs function retrieves all user-defined functions from the PostgreSQL system catalogs and returns them in a FuncInfo structure array for use by pg_dump, excluding aggregates and internally dependent functions.
+
+## Definition
+
+
+## Detailed Description
+This function is part of pg_dump's catalog reading functionality that handles regular functions (non-aggregates). It implements sophisticated filtering logic to determine which functions should be included in the dump. The function constructs complex SQL queries that vary based on PostgreSQL version, filtering out aggregates, internally dependent functions (like range type constructors), and system functions in pg_catalog unless they meet specific criteria.
+
+The filtering criteria include functions used by casts or transforms, functions that are part of extensions in binary-upgrade mode, and functions with custom privileges different from their initial privileges. The function handles version-specific changes in PostgreSQL's function identification (proisagg vs prokind) and supports both older and newer privilege management systems.
+
+Each function is represented by a FuncInfo structure containing comprehensive metadata including OID, name, namespace, language, argument types, return type, owner, and access control information.
+
+## Parameters / Member Variables
+- : Archive structure containing connection information and dump configuration options
+- : Pointer to integer that will be set to the number of functions found
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - createPQExpBuffer
+  - appendPQExpBuffer
+  - appendPQExpBufferStr
+  - appendPQExpBufferChar
+  - ExecuteSqlQuery
+  - PQntuples
+  - pg_malloc0
+  - PQfnumber
+  - PQgetvalue
+  - atooid
+  - AssignDumpId
+  - pg_strdup
+  - findNamespace
+  - getRoleName
+  - atoi
+  - parseOidArray
+  - selectDumpableObject
+  - PQgetisnull
+  - PQclear
+  - destroyPQExpBuffer
+- Called from (representative examples):
+  - getSchemaData
+
+## Notes and Other Information
+- Excludes aggregate functions (handled separately by getAggregates)
+- Filters out internally dependent functions like range type constructors
+- System functions in pg_catalog are excluded unless they meet special criteria (used by casts/transforms, extension members, custom privileges)
+- Uses version-specific SQL queries to handle PostgreSQL evolution (proisagg vs prokind field)
+- Supports binary upgrade mode with special handling for extension-dependent functions
+- Handles both parameterized and non-parameterized functions with proper argument type parsing
+- Uses DO_FUNC object type identifier for dump object classification
+- Preserves ACL information for functions with custom privileges
+- Memory allocation uses pg_malloc0 for zero-initialized structures

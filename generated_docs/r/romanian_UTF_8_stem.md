@@ -1,0 +1,55 @@
+# romanian_UTF_8_stem
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 912 - 967
+
+## Overview
+The romanian_UTF_8_stem function is the main entry point for Romanian text stemming using UTF-8 encoding, implementing the complete Snowball stemming algorithm for Romanian language morphology.
+
+## Definition
+```c
+extern int romanian_UTF_8_stem(struct SN_env * z)
+```
+
+## Detailed Description
+This function orchestrates the complete Romanian stemming process through a carefully sequenced pipeline:
+
+1. **Preprocessing**: Calls r_prelude() to normalize characters and prepare the word
+2. **Region Marking**: Uses r_mark_regions() to identify morphological boundaries (R1, R2, RV regions)
+3. **Suffix Processing**: Executes multiple suffix removal phases:
+   - r_step_0(): Initial suffix processing
+   - r_standard_suffix(): Standard morphological suffix removal
+   - r_verb_suffix(): Verb-specific suffix handling (conditional on flag I[3])
+   - r_vowel_suffix(): Final vowel and consonant-vowel suffix cleanup
+4. **Postprocessing**: Applies r_postlude() for final character transformations
+
+The algorithm uses backtracking markers (m2-m6) to ensure each phase can be attempted independently while preserving cursor position for subsequent steps.
+
+## Parameters / Member Variables
+- `z`: Pointer to the Snowball environment structure containing:
+  - The word being stemmed
+  - Cursor positions and boundaries 
+  - Character group definitions
+  - Morphological region boundaries
+  - Processing flags and state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - r_prelude (character preprocessing)
+  - r_mark_regions (morphological region identification)  
+  - r_step_0 (initial suffix processing)
+  - r_standard_suffix (standard suffix removal)
+  - r_verb_suffix (verb suffix processing)
+  - r_vowel_suffix (vowel suffix cleanup)
+  - r_postlude (final transformations)
+- Called from (representative examples):
+  - External stemming interface functions
+  - Text processing pipelines requiring Romanian stemming
+
+## Notes and Other Information
+- This is the UTF-8 variant of the Romanian stemmer, handling Unicode characters properly
+- The function follows the standard Snowball algorithm structure used across language stemmers
+- Uses conditional logic (I[3] flag) to determine whether verb suffix processing should be applied
+- Returns 1 on successful completion, negative values indicate errors
+- The stemming preserves the original word boundaries while processing only the stem content
+- Each processing phase is designed to be independent and reversible via cursor position management

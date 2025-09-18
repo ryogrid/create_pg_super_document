@@ -1,0 +1,34 @@
+# ExecMergeTupleDumpOuter
+
+## Location
+src/backend/executor/nodeMergejoin.c: 546 - 557
+
+## Overview
+ExecMergeTupleDumpOuter is a debug utility function that prints the current outer tuple in a merge join operation to stdout for debugging purposes.
+
+## Definition
+
+
+## Detailed Description
+ExecMergeTupleDumpOuter is a debugging utility function within the merge join executor that provides formatted output of the current outer tuple. This function is typically used during development and debugging to inspect the state of merge join operations by displaying the outer tuple content.
+
+The function checks if the outer tuple slot contains a valid tuple and prints either the tuple contents (using MJ_debugtup) or "(nil)" if the slot is empty. This helps developers understand the data flow and tuple processing during merge join execution, particularly when troubleshooting join logic or performance issues.
+
+## Parameters / Member Variables
+- : MergeJoinState structure containing the merge join execution state, specifically accessing the outer tuple slot
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MergeJoinState (merge join state structure)
+  - TupIsNull (macro to check if tuple slot is null)
+  - MJ_debugtup (debug macro to print tuple contents)
+  - printf (standard C library function for formatted output)
+- Called from (representative examples):
+  - ExecMergeTupleDump (general tuple dumping function that calls this for outer tuple display)
+
+## Notes and Other Information
+- This is a debug-only function typically compiled conditionally based on debug build settings
+- Part of a suite of debugging utilities for merge join operations including similar functions for inner and marked tuples
+- The output format includes a header "==== outer tuple ====" for clear identification in debug logs
+- Used primarily during PostgreSQL development and debugging rather than in production environments
+- The function assumes the mergestate parameter is valid and contains a properly initialized outer tuple slot

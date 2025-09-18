@@ -1,0 +1,46 @@
+# check_temp_tablespaces
+
+## Location
+src/backend/commands/tablespace.c: 1198 - 1305
+
+## Overview
+Validates new values for the temp_tablespaces GUC parameter, ensuring all specified tablespace names exist and the user has CREATE permission on them.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a check hook for the temp_tablespaces GUC variable. It parses the comma-separated list of tablespace names and validates each one. The validation process includes:
+
+1. **Syntax validation**: Ensures the string can be parsed as a comma-separated list of identifiers
+2. **Existence check**: Verifies each named tablespace exists in the system catalogs (when in a transaction)
+3. **Permission validation**: Confirms the current user has CREATE permission on each tablespace
+4. **Special handling**: Allows empty strings and explicit database default tablespace references
+
+The function behaves differently based on the GUC source - for test scenarios (PGC_S_TEST), it issues NOTICEs instead of errors for missing tablespaces. When outside a transaction or not connected to a database, it accepts values on faith since catalog access isn't possible.
+
+## Parameters
+- : Pointer to the new string value for temp_tablespaces GUC
+- : Output parameter where validation results are stored for later use by assign_temp_tablespaces
+- : Source of the GUC change (interactive, config file, test, etc.)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SplitIdentifierString
+  - GUC_check_errdetail
+  - IsTransactionState
+  - get_tablespace_oid
+  - object_aclcheck
+  - aclcheck_error
+  - guc_malloc
+  - list_free
+- Called from (representative examples):
+  - GUC system (referenced in src/include/utils/guc_hooks.h:157)
+
+## Notes and Other Information
+- Returns false if validation fails, true if successful
+- Creates a temp_tablespaces_extra structure in *extra containing validated tablespace OIDs
+- Allows empty tablespace names which signify the database's default tablespace
+- Converts explicit database default tablespace references to InvalidOid for consistency
+- Different error handling based on GUC source: hard errors for interactive use, notices for tests
+- Memory allocated for the extra structure uses guc_malloc with LOG level

@@ -1,0 +1,41 @@
+# AtSubCleanup_Memory
+
+## Location
+src/backend/access/transam/xact.c: 1979 - 2013
+
+## Overview
+AtSubCleanup_Memory is a static function that performs memory context cleanup when a subtransaction completes, deleting subtransaction-local memory contexts and restoring the parent transaction's context.
+
+## Definition
+static void AtSubCleanup_Memory(void)
+
+## Detailed Description
+This function handles memory context cleanup specifically for subtransactions. Unlike AtCleanup_Memory which deals with top-level transactions, this function manages the memory context hierarchy when a subtransaction completes (either by commit or abort).
+
+The function first asserts that we are dealing with a subtransaction (must have a parent), then switches the current memory context back to the parent transaction's context to avoid operating in a context that's about to be deleted. It resets the TransactionAbortContext for potential reuse and then deletes the subtransaction's local memory context, which also recursively deletes any memory contexts belonging to nested child subtransactions.
+
+After cleanup, it updates the global CurTransactionContext to point to the parent transaction's context and clears the subtransaction's context pointer to prevent dangling references.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CurrentTransactionState (global variable)
+  - TransactionState (type)
+  - MemoryContextSwitchTo (memory context function)
+  - MemoryContextReset (memory context function)
+  - MemoryContextDelete (memory context function)
+  - CurTransactionContext (global memory context)
+  - TransactionAbortContext (global memory context)
+- Called from (representative examples):
+  - CleanupSubTransaction
+
+## Notes and Other Information
+- This function is static and only used within the transaction management subsystem
+- Contains an assertion to ensure it's only called for subtransactions (not top-level transactions)
+- Critical for preventing memory leaks by properly releasing all subtransaction-local memory
+- The memory context switch to the parent context is essential to avoid operating in a context that will be deleted
+- Deleting the subtransaction context also recursively deletes contexts from any nested child subtransactions
+- Resets the abort context for reuse rather than deleting it, maintaining consistency with other cleanup functions
+- Part of the subtransaction cleanup process that runs after commit or abort processing is complete

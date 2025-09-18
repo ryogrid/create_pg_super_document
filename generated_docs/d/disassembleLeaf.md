@@ -1,0 +1,47 @@
+# disassembleLeaf
+
+## Location
+src/backend/access/gin/gindatapage.c: 1370 - 1443
+
+## Overview
+disassembleLeaf disassembles a GIN data leaf page into a structured disassembledLeaf representation that can be manipulated and later reassembled.
+
+## Definition
+
+
+## Detailed Description
+This static function takes a GIN data leaf page and converts it into a disassembledLeaf structure that provides a more convenient representation for manipulation operations. The function handles both compressed (9.4+ format) and uncompressed (pre-9.4 format) page formats differently:
+
+For compressed pages, it creates a leafSegmentInfo entry for each posting list segment on the page, preserving the original segment structure. Each segment is marked as GIN_SEGMENT_UNMODIFIED initially.
+
+For uncompressed pages, it creates a single segment containing all the ItemPointer entries from the page, marked as GIN_SEGMENT_REPLACE since the old format needs to be converted. Empty uncompressed pages result in no segments.
+
+The resulting disassembledLeaf structure uses a doubly-linked list to track all segments, making it easy to insert, modify, or remove segments during page manipulation operations.
+
+## Parameters / Member Variables
+- : The GIN data leaf page to be disassembled
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc0
+  - palloc
+  - dlist_init
+  - dlist_push_tail
+  - GinPageIsCompressed
+  - GinDataLeafPageGetPostingList
+  - GinDataLeafPageGetPostingListSize
+  - GinNextPostingListSegment
+  - dataLeafPageGetUncompressed
+  - memcpy
+- Called from (representative examples):
+  - dataBeginPlaceToPageLeaf
+  - ginVacuumPostingTreeLeaf
+
+## Notes and Other Information
+- This is a static function, only accessible within gindatapage.c
+- The function allocates memory for the disassembledLeaf structure and its components using palloc/palloc0
+- Handles backward compatibility by supporting both compressed and uncompressed page formats
+- Sets the oldformat flag to indicate whether the original page was in pre-9.4 format
+- The disassembledLeaf structure uses a doubly-linked list (dlist) for efficient segment management
+- Located in src/backend/access/gin/gindatapage.c at lines 1370-1443
+- Part of the infrastructure for advanced leaf page manipulation operations like splits and vacuuming

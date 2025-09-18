@@ -1,0 +1,61 @@
+# RelationFindReplTupleByIndex
+
+## Location
+src/backend/executor/execReplication.c: 176 - 304
+
+## Overview
+Searches for a specific tuple in a relation using an index scan, locks the tuple if found, and returns the tuple data in the output slot, designed specifically for replication scenarios.
+
+## Definition
+```c
+bool RelationFindReplTupleByIndex(Relation rel, Oid idxoid, LockTupleMode lockmode, TupleTableSlot *searchslot, TupleTableSlot *outslot)
+```
+
+## Detailed Description
+This function performs an index-based search for a tuple matching the values in the search slot, with built-in tuple locking and concurrency handling for replication scenarios. It is the primary interface for locating and locking tuples during logical replication operations.
+
+The function works through several phases:
+1. **Setup**: Opens the specified index with RowExclusiveLock and determines if the index is safe to skip duplicate checking (primary key or replica identity index)
+2. **Scan Preparation**: Builds a scan key using `build_replindex_scan_key()` and starts an index scan with a dirty snapshot
+3. **Tuple Search**: Iterates through matching index entries, performing equality checks when necessary for non-primary/non-replica-identity indexes
+4. **Concurrency Handling**: Waits for any blocking transactions and retries the search if needed
+5. **Tuple Locking**: Attempts to lock the found tuple in the requested mode, handling various concurrency scenarios including updates, deletes, and moved partitions
+
+The function includes sophisticated retry logic to handle concurrent modifications, making it robust for multi-user environments where tuples may be modified during the search process.
+
+## Parameters / Member Variables
+- `rel`: The base relation to search in
+- `idxoid`: OID of the index to use for the search
+- `lockmode`: The tuple locking mode to apply if a matching tuple is found
+- `searchslot`: TupleTableSlot containing the values to search for
+- `outslot`: TupleTableSlot to store the found tuple data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - index_open (to open the index relation)
+  - GetRelationIdentityOrPK (to check if index is primary key/replica identity)
+  - InitDirtySnapshot (to initialize snapshot for scanning)
+  - build_replindex_scan_key (to build the scan key)
+  - index_beginscan (to start the index scan)
+  - index_rescan (to restart scan with keys)
+  - index_getnext_slot (to retrieve tuples from index)
+  - tuples_equal (to compare tuples when needed)
+  - ExecMaterializeSlot (to materialize the output slot)
+  - XactLockTableWait (to wait for blocking transactions)
+  - table_tuple_lock (to lock the found tuple)
+  - GetCurrentCommandId (to get current command ID for locking)
+  - index_endscan (to end the index scan)
+  - index_close (to close the index relation)
+
+- Called from (representative examples):
+  - FindReplTupleInLocalRel
+  - exec_rt_fetch
+
+## Notes and Other Information
+- Returns true if a matching tuple was found and successfully locked, false otherwise
+- Uses a dirty snapshot to see all committed and uncommitted changes
+- Optimizes equality checking by skipping it for primary key and replica identity indexes
+- Includes comprehensive retry logic for handling concurrent updates, deletes, and partition moves
+- Maintains index lock until transaction commit for consistency
+- Designed specifically for logical replication scenarios where precise tuple identification and locking is critical
+- Handles moved partitions as a special case of concurrent updates

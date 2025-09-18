@@ -1,0 +1,38 @@
+# ItemPointerGetOffsetNumberNoCheck
+
+## Location
+src/include/storage/itemptr.h: 114 - 123
+
+## Overview
+Extracts the offset number from an ItemPointerData structure without performing validity checks.
+
+## Definition
+static inline OffsetNumber ItemPointerGetOffsetNumberNoCheck(const ItemPointerData *pointer)
+
+## Detailed Description
+ItemPointerGetOffsetNumberNoCheck is a low-level utility function that directly accesses the ip_posid field of an ItemPointerData structure to retrieve the offset number. This function performs no validation and simply returns the raw offset value stored in the pointer. The offset number represents the position of a tuple within a specific page/block, typically ranging from 1 to the maximum number of items that can fit on a page.
+
+Like other NoCheck functions, this is designed for performance-critical scenarios where pointer validity has already been established or where raw access to the offset is needed regardless of validity.
+
+## Parameters / Member Variables
+- pointer: A pointer to an ItemPointerData structure from which to extract the offset number
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - (None - direct field access)
+- Called from (representative examples):
+  - ItemPointerCompare
+  - ItemPointerInc
+  - ItemPointerDec
+  - table_tuple_get_latest_tid
+  - BTreeTupleIsPivot
+  - ItemPointerGetOffsetNumber
+  - GinItemPointerGetOffsetNumber
+
+## Notes and Other Information
+- This is an inline function for maximum performance
+- Directly accesses the ip_posid field without any safety checks
+- The NoCheck suffix indicates this is the unchecked version
+- Returns an OffsetNumber type representing the tuple position within a page
+- Used extensively in tuple comparison and manipulation functions
+- OffsetNumber values typically start from 1 (not 0) for valid tuples

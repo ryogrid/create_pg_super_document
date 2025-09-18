@@ -1,0 +1,45 @@
+# CreateComments
+
+## Location
+src/backend/commands/comment.c: 143 - 237
+
+## Overview
+Creates, updates, or deletes comments for database objects by manipulating the pg_description system catalog table.
+
+## Definition
+
+
+## Detailed Description
+CreateComments manages object comments in the pg_description catalog table. It performs insert, update, or delete operations based on the comment parameter: inserts new comments, updates existing ones, or deletes entries when the comment is NULL or empty. The function uses a systematic scan with composite keys (object OID, class OID, subobject ID) to locate existing entries and handles all tuple operations through the catalog interface functions.
+
+The function treats empty strings as NULL comments, effectively deleting any existing comment. It uses heap tuple operations and the catalog update functions to maintain consistency with PostgreSQL's MVCC model.
+
+## Parameters / Member Variables
+- : Object identifier of the target database object
+- : OID of the system catalog containing the object (e.g., RelationRelationId for tables)
+- : Sub-object identifier (e.g., column number for column comments, 0 for object-level comments)
+- : Comment text to store, or NULL to delete existing comment
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open: Opens the pg_description relation for modification
+  - systable_beginscan: Initiates indexed scan for existing comment
+  - systable_getnext: Retrieves matching tuples from the scan
+  - CatalogTupleDelete: Removes existing comment tuple
+  - heap_modify_tuple: Creates updated tuple with new comment
+  - CatalogTupleUpdate: Updates existing tuple in catalog
+  - heap_form_tuple: Creates new tuple for insertion
+  - CatalogTupleInsert: Inserts new comment tuple
+  - heap_freetuple: Frees allocated tuple memory
+- Called from (representative examples):
+  - CommentObject: Main COMMENT ON command handler
+  - DefineIndex: Adds comments during index creation
+  - CreateStatistics: Adds comments during statistics object creation
+  - CreateExtensionInternal: Handles extension object comments
+
+## Notes and Other Information
+- Uses DescriptionObjIndexId for efficient lookups by (objoid, classoid, objsubid)
+- Assumes only one matching tuple exists per key combination
+- Empty strings are normalized to NULL for consistent behavior
+- Acquires RowExclusiveLock on pg_description to prevent concurrent modifications
+- Memory management includes proper cleanup of temporary heap tuples

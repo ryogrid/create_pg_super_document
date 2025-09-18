@@ -1,0 +1,46 @@
+# StatsBuildData
+
+## Location
+src/include/statistics/extended_stats_internal.h: 61 - 69
+
+## Overview
+StatsBuildData is a unified structure that encapsulates all the essential data needed for building PostgreSQL extended statistics, providing a standardized interface for various statistical computation algorithms.
+
+## Definition
+
+
+## Detailed Description
+StatsBuildData serves as a central data container that provides a unified representation of the raw data used for building various types of extended statistics in PostgreSQL. This structure aggregates all necessary information including the actual data values, NULL indicators, attribute information, and statistical metadata into a single, convenient interface. It enables different statistical algorithms (MCV, dependencies, n-distinct) to work with a consistent data format, promoting code reuse and maintainability. The structure organizes data in a column-wise format where each attribute's values and null indicators are stored in separate arrays, facilitating efficient processing of multi-column statistics.
+
+## Parameters / Member Variables
+- : The total number of rows (tuples) in the dataset being analyzed
+- : The number of attributes (columns) included in the statistics
+- : Pointer to an array of AttrNumber values identifying the specific columns being analyzed
+- : Pointer to an array of VacAttrStats pointers, containing per-attribute statistical information and metadata
+- : Pointer to a two-dimensional array where values[i][j] contains the j-th row's value for the i-th attribute
+- : Pointer to a two-dimensional boolean array where nulls[i][j] indicates if the j-th row's value for the i-th attribute is NULL
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - VacAttrStats (referenced for per-attribute statistics metadata)
+- Called from (representative examples):
+  - DependencyGenerator (src/backend/statistics/dependencies.c:73)
+  - dependency_degree (src/backend/statistics/dependencies.c:221)
+  - statext_dependencies_build (src/backend/statistics/dependencies.c:348)
+  - BuildRelationExtStatistics (src/backend/statistics/extended_stats.c:163)
+  - build_sorted_items (src/backend/statistics/extended_stats.c:986)
+  - make_build_data (src/backend/statistics/extended_stats.c:2456, 2471, 2486, 2487)
+  - statext_mcv_build (src/backend/statistics/mcv.c:180)
+  - build_mss (src/backend/statistics/mcv.c:347)
+  - statext_ndistinct_build (src/backend/statistics/mvdistinct.c:88)
+  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:425)
+
+## Notes and Other Information
+- Central data structure for all extended statistics building operations in PostgreSQL
+- Provides a unified interface that abstracts the complexity of multi-column data organization
+- Enables efficient column-wise access patterns needed for statistical computations
+- Used across multiple statistics types: dependencies, MCV lists, and n-distinct estimates
+- The two-dimensional array layout (values[attr][row]) optimizes for attribute-wise processing
+- Integrates with PostgreSQL's ANALYZE infrastructure through VacAttrStats
+- Located in src/include/statistics/extended_stats_internal.h as part of the core extended statistics framework
+- Essential for the make_build_data function that constructs these structures from raw table data

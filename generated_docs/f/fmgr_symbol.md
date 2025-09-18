@@ -1,0 +1,49 @@
+# fmgr_symbol
+
+## Location
+src/backend/utils/fmgr/fmgr.c: 281 - 348
+
+## Overview
+This function returns the module and C function name that provides the implementation of a given PostgreSQL function ID, supporting both core binary functions and extension shared objects.
+
+## Definition
+
+
+## Detailed Description
+fmgr_symbol queries the PostgreSQL system catalog (pg_proc) to determine how a function with the given OID is implemented. It returns pointers to the module name and function name through output parameters. The function handles different language implementations:
+
+- For security-defined functions or functions with configuration parameters, it returns "fmgr_security_definer" as a wrapper
+- For INTERNAL language functions, it returns the function name from prosrc with mod=NULL (core binary)
+- For C language functions, it returns both the shared library name (probin) and function name (prosrc)
+- For SQL language functions, it returns "fmgr_sql" as the handler with mod=NULL
+- For unknown languages, it returns NULL for both mod and fn
+
+The returned strings are allocated in the current memory context using pstrdup.
+
+## Parameters / Member Variables
+- : The OID of the function to look up in pg_proc catalog
+- : Output parameter for module/library name (NULL for core binary functions)
+- : Output parameter for C function name (NULL if no known implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1
+  - HeapTupleIsValid
+  - elog
+  - GETSTRUCT
+  - heap_attisnull
+  - FmgrHookIsNeeded
+  - pstrdup
+  - SysCacheGetAttrNotNull
+  - TextDatumGetCString
+  - ReleaseSysCache
+- Called from (representative examples):
+  - llvm_function_reference (in JIT compilation)
+  - fmgr_info_set_expr (function info setup)
+
+## Notes and Other Information
+- This function is essential for PostgreSQL's function manager (fmgr) system
+- It bridges the gap between function OIDs and their actual implementations
+- The function handles security considerations by wrapping security-definer functions
+- Memory management is handled through pstrdup allocation in the current context
+- The function distinguishes between core PostgreSQL functions and extension functions

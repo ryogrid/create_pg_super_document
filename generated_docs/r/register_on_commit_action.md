@@ -1,0 +1,36 @@
+# register_on_commit_action
+
+## Location
+src/backend/commands/tablecmds.c: 17522 - 17557
+
+## Overview
+Registers an ON COMMIT action for a newly-created temporary table, storing the action in a backend-local data structure for execution at transaction commit.
+
+## Definition
+```c
+void register_on_commit_action(Oid relid, OnCommitAction action)
+```
+
+## Detailed Description
+This function implements the registration mechanism for ON COMMIT actions on temporary tables, supporting CREATE TEMP TABLE statements with ON COMMIT DROP, DELETE ROWS, or PRESERVE ROWS clauses. It creates an OnCommitItem structure in cache memory context to track the relation and its associated action, along with subtransaction information for proper cleanup. The function optimizes by only registering relations that require actual commit-time processing.
+
+## Parameters / Member Variables
+- `relid`: Object identifier of the temporary table requiring ON COMMIT processing
+- `action`: The specific ON COMMIT action to perform (DROP, DELETE ROWS, PRESERVE ROWS, or NOOP)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetCurrentSubTransactionId
+  - MemoryContextSwitchTo
+  - palloc
+  - lcons
+- Called from (representative examples):
+  - heap_create_with_catalog
+
+## Notes and Other Information
+- Only processes actions that require commit-time handling (excludes NOOP and PRESERVE ROWS)
+- Uses CacheMemoryContext to ensure registrations survive across transaction boundaries
+- Processes actions in reverse registration order using lcons for list prepending
+- Tracks subtransaction IDs for proper cleanup in case of subtransaction rollback
+- Backend-local storage is sufficient since temp tables are session-specific
+- Critical component of PostgreSQL's temporary table lifecycle management

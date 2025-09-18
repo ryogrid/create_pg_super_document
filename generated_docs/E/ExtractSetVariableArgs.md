@@ -1,0 +1,38 @@
+# ExtractSetVariableArgs
+
+## Location
+src/backend/utils/misc/guc_funcs.c: 167 - 191
+
+## Overview
+Extracts and returns the string value to be assigned for a VariableSetStmt, handling different types of SET operations and returning NULL for RESET operations.
+
+## Definition
+
+
+## Detailed Description
+This function is a utility that extracts the appropriate value from a VariableSetStmt based on its kind. It serves as a central point for converting SET statement arguments into string values that can be used by the GUC (Grand Unified Configuration) system. The function handles two main cases:
+
+- **VAR_SET_VALUE**: Uses flatten_set_variable_args to convert the argument list into a single string value
+- **VAR_SET_CURRENT**: Retrieves the current value of the specified configuration parameter
+- **Other cases**: Returns NULL (typically for RESET operations)
+
+The returned string is palloc'd and must be freed by the caller.
+
+## Parameters / Member Variables
+- : Pointer to VariableSetStmt structure containing the SET command details
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - flatten_set_variable_args
+  - GetConfigOptionByName
+- Called from (representative examples):
+  - ExecSetVariableStmt (in src/backend/utils/misc/guc_funcs.c:63)
+  - AlterSetting (in src/backend/catalog/pg_db_role_setting.c:32)
+  - update_proconfig_value (in src/backend/commands/functioncmds.c:657)
+  - AlterSystemSetConfigFile (in src/backend/utils/misc/guc.c:4634)
+
+## Notes and Other Information
+- This function is exported and used by various ALTER commands like ALTER ROLE SET
+- Returns palloc'd memory that must be freed by caller
+- Designed to handle the complexity of converting different argument formats into consistent string values
+- Serves as an abstraction layer between SET statement parsing and GUC value assignment

@@ -1,0 +1,57 @@
+# ExecParallelSetupTupleQueues
+
+## Location
+src/backend/executor/execParallel.c: 535 - 586
+
+## Overview
+ExecParallelSetupTupleQueues creates and configures shared memory message queues that enable parallel worker processes to return result tuples to the main backend process.
+
+## Definition
+
+
+## Detailed Description
+This static function establishes the communication infrastructure for parallel query execution by setting up tuple queues in shared memory. Each parallel worker process gets its own dedicated message queue to send result tuples back to the coordinator process.
+
+The function operates in two modes:
+1. **Initial setup** (reinitialize = false): Allocates new shared memory space for the queues and registers them in the shared memory table of contents
+2. **Reinitialization** (reinitialize = true): Looks up previously allocated queue space for reuse
+
+Key operations performed:
+- Allocates an array of shared memory queue handles for tracking
+- Either allocates or looks up shared memory space for the actual queues
+- Creates individual message queues for each worker with fixed size (PARALLEL_TUPLE_QUEUE_SIZE)
+- Sets the current process (MyProc) as the receiver for all queues
+- Attaches to each queue to get handles for communication
+- Registers the queue space in the shared memory table of contents for worker access
+
+The function ensures that parallel workers have a reliable mechanism to stream result tuples back to the coordinating process without contention.
+
+## Parameters / Member Variables
+- : Parallel context structure containing:
+  - : Number of parallel worker processes
+  - : Shared memory table of contents for key-value storage
+  - : Dynamic shared memory segment
+- : Boolean flag indicating whether to allocate new queues (false) or reuse existing ones (true)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc (memory allocation)
+  - shm_toc_allocate (allocate shared memory space)
+  - shm_toc_lookup (find existing shared memory space)
+  - shm_toc_insert (register shared memory space)
+  - shm_mq_create (create message queue)
+  - shm_mq_set_receiver (set queue receiver process)
+  - shm_mq_attach (attach to queue for communication)
+  - mul_size (safe size multiplication)
+  - PARALLEL_TUPLE_QUEUE_SIZE, PARALLEL_KEY_TUPLE_QUEUE (constants)
+- Called from:
+  - ExecInitParallelPlan (during initial parallel plan setup)
+  - ExecParallelReinitialize (when reinitializing parallel execution)
+
+## Notes and Other Information
+- Returns NULL if no workers are configured (pcxt->nworkers == 0)
+- Each worker gets a fixed-size message queue (PARALLEL_TUPLE_QUEUE_SIZE bytes)
+- The main process becomes the receiver for all worker queues
+- Queue handles are returned as an array for subsequent tuple reading operations
+- The shared memory space is registered with PARALLEL_KEY_TUPLE_QUEUE for worker discovery
+- This function is essential for establishing the data flow from workers back to the coordinator

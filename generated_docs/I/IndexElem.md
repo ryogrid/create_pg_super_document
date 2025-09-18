@@ -1,0 +1,37 @@
+# IndexElem
+
+## Location
+src/include/nodes/parsenodes.h: 780 - 791
+
+## Overview
+IndexElem represents an index parameter used in CREATE INDEX statements and ON CONFLICT clauses, defining either a table column or expression to be indexed along with its indexing options.
+
+## Definition
+
+
+## Detailed Description
+IndexElem is a fundamental structure in PostgreSQL's parser nodes that represents individual elements (columns or expressions) to be indexed. It can represent either a simple column index (where name is specified and expr is NULL) or an expression index (where expr is specified and name is NULL). The structure encapsulates all the necessary information for creating an index on a particular element, including collation rules, operator classes, sorting preferences, and null handling behavior.
+
+## Parameters / Member Variables
+- : NodeTag identifier for this node type
+- : Name of the table column to index (NULL for expression indexes)
+- : Expression tree to index (NULL for simple column indexes)
+- : Custom name for the index column (NULL uses default naming)
+- : List specifying the collation to use (NIL for default)
+- : List specifying the desired operator class (NIL for default)
+- : Operator class-specific options (NIL if none)
+- : Sort direction specification (ASC/DESC/default)
+- : NULL value ordering specification (FIRST/LAST/default)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SortByDir (enum for ordering direction)
+  - SortByNulls (enum for null ordering)
+- Called from (representative examples):
+  - ComputeIndexAttrs (builds index attribute information)
+  - ChooseIndexColumnNames (determines column names for indexes)
+  - transformIndexConstraint (processes index constraints)
+  - transformIndexStmt (transforms CREATE INDEX statements)
+
+## Notes and Other Information
+IndexElem is crucial for PostgreSQL's index creation process, serving as the intermediate representation between parsed SQL and the internal index structures. The structure supports both traditional column-based indexes and more complex expression-based indexes. When processing CREATE INDEX statements, the parser creates IndexElem nodes for each indexed element, which are later processed by the index creation subsystem to build the actual index structures.

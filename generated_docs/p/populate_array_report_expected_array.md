@@ -1,0 +1,51 @@
+# populate_array_report_expected_array
+
+## Location
+src/backend/utils/adt/jsonfuncs.c: 2508 - 2557
+
+## Overview
+A helper function that generates detailed error messages when JSON array processing encounters unexpected non-array values during array population operations.
+
+## Definition
+
+
+## Detailed Description
+The  function is a diagnostic helper function used during JSON/JSONB array processing operations. When the array population process expects to find a JSON array but encounters a different JSON value type, this function generates appropriate error messages with contextual information to help users identify the problematic data.
+
+The function provides two types of error reporting:
+1. **Simple case (ndim <= 0)**: Reports a basic "expected JSON array" error
+2. **Complex case (ndim > 0)**: Reports the error with specific array indices showing exactly where in the multi-dimensional array structure the problem occurred
+
+The function constructs detailed error hints that include:
+- The column name (if available)
+- Array element indices showing the path to the problematic location
+- Context-appropriate error messages
+
+## Parameters / Member Variables
+- : PopulateArrayContext pointer containing:
+  - : Column name for error context (can be NULL)
+  - : Error handling context for soft errors
+  - : Total number of dimensions in the array
+  - : Array of current dimension counters
+- : Current dimension level where the error occurred
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (PostgreSQL error reporting function)
+  -  (string buffer initialization)
+  -  (string buffer appending)
+- Called from (representative examples):
+  - 
+  - 
+  - 
+  - 
+  - 
+
+## Notes and Other Information
+- This is a static helper function used internally within the JSON functions module
+- Located in 
+- The function uses PostgreSQL's  mechanism for error reporting, which supports both hard errors and soft error contexts
+- Error code used: 
+- The function constructs array index paths like "[0][1][2]" to show users exactly where in nested arrays the error occurred
+- The function always returns void and never returns normally - it always raises an error
+- Supports both named columns (when  is set) and anonymous array contexts

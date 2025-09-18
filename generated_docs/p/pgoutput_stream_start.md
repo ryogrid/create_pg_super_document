@@ -1,0 +1,40 @@
+# pgoutput_stream_start
+
+## Location
+src/backend/replication/pgoutput/pgoutput.c: 1783 - 1814
+
+## Overview
+pgoutput_stream_start is a callback function that handles the start of streaming for large transactions in PostgreSQL logical replication, outputting stream start messages to the replication protocol.
+
+## Definition
+
+
+## Detailed Description
+pgoutput_stream_start is a callback function in the pgoutput logical replication output plugin that handles the START STREAM event for large transactions that are being streamed in chunks rather than being buffered entirely in memory. When a transaction is large enough to trigger streaming mode, this function is called at the beginning of each stream chunk. It writes a stream start message to the logical replication protocol, handles replication origin information appropriately (only sending it for the first stream of a transaction), and sets internal state to indicate that streaming is active.
+
+## Parameters / Member Variables
+- : Logical decoding context containing output plugin state and configuration
+- : ReorderBufferTXN structure representing the transaction being streamed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LogicalDecodingContext
+  - ReorderBufferTXN
+  - PGOutputData
+  - InvalidRepOriginId
+  - rbtxn_is_streamed
+  - OutputPluginPrepareWrite
+  - logicalrep_write_stream_start
+  - send_repl_origin
+  - OutputPluginWrite
+- Called from (representative examples):
+  - _PG_output_plugin_init (registered as callback)
+
+## Notes and Other Information
+- This is a static function, only accessible within the pgoutput.c file
+- Part of the streaming transaction feature that allows processing of large transactions without excessive memory usage
+- Includes an assertion to prevent nesting of streaming transactions
+- Only sends replication origin information for the first stream of a transaction to avoid redundancy
+- Sets the in_streaming flag in PGOutputData to track streaming state
+- Uses the logical replication protocol message format for communicating with subscribers
+- Critical for handling large transactions efficiently in logical replication scenarios

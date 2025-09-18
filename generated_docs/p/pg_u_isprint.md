@@ -1,0 +1,43 @@
+# pg_u_isprint
+
+## Location
+src/common/unicode_category.c: 279 - 289
+
+## Overview
+Determines whether a Unicode character is printable, meaning it can be displayed or printed and includes both graphical characters and whitespace characters.
+
+## Definition
+```c
+bool pg_u_isprint(pg_wchar code)
+```
+
+## Detailed Description
+This function identifies Unicode printable characters by combining graphical characters (visible symbols) and blank characters (spaces and tabs). A character is considered printable if it:
+1. Is NOT a control character (PG_U_CONTROL category)
+2. Is either a graphical character (as determined by pg_u_isgraph) OR a blank character (as determined by pg_u_isblank)
+
+This encompasses all characters that would typically appear in printed text, including letters, numbers, punctuation, symbols, spaces, and tabs, but excludes non-printing control characters like null, line feeds, and other formatting controls.
+
+## Parameters / Member Variables
+- `code`: The Unicode character code point (pg_wchar) to test for printable character properties
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - unicode_category (internal Unicode category determination function)
+  - pg_u_isgraph (graphical character detection function)
+  - pg_u_isblank (blank character detection function)
+  - pg_unicode_category (Unicode category type)
+  - PG_U_CONTROL (Unicode category constant for control characters)
+- Called from (representative examples):
+  - pg_wc_isprint (regex locale wrapper function)
+  - icu_test (test function)
+  - pg_unicode_category (Unicode category interface)
+
+## Notes and Other Information
+- Returns true for all characters suitable for display or printing
+- Combines graphical and blank characters while excluding control characters
+- Part of PostgreSQL's internal Unicode character classification system
+- Located in src/common/unicode_category.c:279-289
+- Printable characters = graphical characters + blank characters - control characters
+- Provides platform-independent Unicode character classification for PostgreSQL text processing
+- Essential for text validation and display operations within PostgreSQL

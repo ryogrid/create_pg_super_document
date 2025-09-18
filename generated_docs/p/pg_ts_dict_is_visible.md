@@ -1,0 +1,35 @@
+# pg_ts_dict_is_visible
+
+## Location
+src/backend/catalog/namespace.c: 5034 - 5047
+
+## Overview
+A PostgreSQL system function that determines whether a text search dictionary is visible in the current search path, returning NULL if the dictionary does not exist.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a PostgreSQL system function that checks the visibility of a text search dictionary within the current schema search path. It takes a dictionary OID as input and returns a boolean value indicating whether the dictionary is accessible from the current context. The function handles missing dictionaries gracefully by returning NULL instead of throwing an error, making it suitable for use in SQL queries where the existence of the dictionary is uncertain.
+
+The function leverages the internal  function to perform the actual visibility check, which considers the current namespace search path and handles namespace precedence rules to determine if the specified dictionary would be found when referenced by name.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing:
+  - Argument 0:  - The object identifier of the text search dictionary to check
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (macro for extracting OID argument)
+  -  (internal visibility checking function)
+  -  (macro for returning NULL)
+  -  (macro for returning boolean result)
+- Called from:
+  - Available as SQL system function 
+
+## Notes and Other Information
+- Returns boolean  if the dictionary is visible,  if not visible, or  if the dictionary doesn't exist
+- The visibility determination follows PostgreSQL's standard namespace search path resolution
+- This function is part of PostgreSQL's text search infrastructure
+- Located in 
+- The function uses the "Ext" variant of the visibility checker to handle missing objects gracefully

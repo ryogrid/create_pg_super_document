@@ -1,0 +1,44 @@
+# set_backtrace
+
+## Location
+src/backend/utils/error/elog.c: 1116 - 1156
+
+## Overview
+Captures call stack backtrace information and attaches it to PostgreSQL error data for debugging purposes.
+
+## Definition
+```c
+static void set_backtrace(ErrorData *edata, int num_skip)
+```
+
+## Detailed Description
+This static function is the core implementation for capturing call stack backtraces in PostgreSQL's error reporting system. It uses system-provided backtrace facilities (when available) to capture the current execution stack, formats it into a human-readable string, and attaches it to the error data structure. The function supports skipping a specified number of inner stack frames to avoid showing internal backtrace support functions in the output. When backtrace support is not available at compile time, it provides a fallback message indicating that backtrace generation is not supported.
+
+## Parameters / Member Variables
+- `edata`: Pointer to ErrorData structure where backtrace will be stored
+- `num_skip`: Number of innermost stack frames to skip in the backtrace output
+- Return value: void (no return value)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ErrorData (struct type for error information)
+  - lengthof (macro for array length calculation)
+  - initStringInfo (string buffer initialization)
+  - appendStringInfo (formatted string append)
+  - appendStringInfoString (string append)
+  - backtrace (system function for stack capture - when HAVE_BACKTRACE_SYMBOLS defined)
+  - backtrace_symbols (system function for symbol resolution - when HAVE_BACKTRACE_SYMBOLS defined)
+- Called from (representative examples):
+  - errfinish (error finalization function)
+  - errbacktrace (public backtrace interface)
+
+## Notes and Other Information
+- Static function - only accessible within elog.c
+- Conditional compilation based on HAVE_BACKTRACE_SYMBOLS availability
+- Captures up to 100 stack frames when backtrace support is available
+- Each frame is formatted with newline prefix for readability
+- Properly manages memory by freeing backtrace_symbols result
+- Stores final backtrace string in edata->backtrace field
+- Gracefully handles cases where backtrace_symbols returns NULL
+- Requires that this function and related functions are not inlined for accurate backtraces
+- Located in src/backend/utils/error/elog.c:1116-1156

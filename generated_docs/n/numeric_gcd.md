@@ -1,0 +1,41 @@
+# numeric_gcd
+
+## Location
+src/backend/utils/adt/numeric.c: 3537 - 3579
+
+## Overview
+Calculates the greatest common divisor (GCD) of two numeric values using the Euclidean algorithm.
+
+## Definition
+```c
+Datum numeric_gcd(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `numeric_gcd` function implements the mathematical greatest common divisor operation for PostgreSQL numeric data types. It takes two numeric arguments and returns their GCD using the Euclidean algorithm. The function handles special cases including NaN and infinity values by returning NaN for any input containing special values. The core computation is performed using internal numeric variables and the `gcd_var()` helper function to ensure precision and efficiency.
+
+## Parameters / Member Variables
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
+  - `num1` (Numeric): First numeric value for GCD calculation
+  - `num2` (Numeric): Second numeric value for GCD calculation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `PG_GETARG_NUMERIC`: Extracts numeric arguments from function call context
+  - `NUMERIC_IS_SPECIAL`: Checks for NaN and infinity values
+  - `make_result`: Converts NumericVar to Numeric result
+  - `init_var_from_num`: Initializes NumericVar from Numeric input
+  - `init_var`: Initializes empty NumericVar for result
+  - `gcd_var`: Performs actual GCD computation on NumericVar types
+  - `free_var`: Releases memory allocated for NumericVar
+  - `PG_RETURN_NUMERIC`: Returns numeric result to caller
+- Called from (representative examples):
+  - No direct references found (likely called via SQL function dispatch)
+
+## Notes and Other Information
+- Part of the "Advanced math functions" section in PostgreSQL numeric implementation
+- Returns NaN for any input containing NaN or infinity values
+- Uses internal NumericVar representation for precise arithmetic operations
+- Implements the mathematically standard Euclidean algorithm for GCD calculation
+- Memory management includes proper cleanup of temporary NumericVar structures
+- Located in src/backend/utils/adt/numeric.c alongside other advanced mathematical functions

@@ -1,0 +1,32 @@
+# sql_fn_param_ref
+
+## Location
+src/backend/executor/functions.c: 394 - 409
+
+## Overview
+Parser callback function for handling ParamRef nodes ( symbols) in SQL function bodies.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a callback for processing parameter references (, , etc.) encountered during SQL function parsing. It validates that the parameter number is within the valid range for the function's declared parameters and delegates the actual parameter node creation to sql_fn_make_param. This function ensures that only valid parameter numbers are processed and provides proper error handling for out-of-range parameter references.
+
+## Parameters / Member Variables
+- : ParseState containing parser context and hook state information
+- : ParamRef node representing the parameter reference () to be processed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParamRef
+  - SQLFunctionParseInfoPtr
+  - sql_fn_make_param
+- Called from (representative examples):
+  - sql_fn_parser_setup (src/backend/executor/functions.c:269)
+
+## Notes and Other Information
+- Validates parameter numbers are positive and within the function's argument count (1 to nargs)
+- Returns NULL for invalid parameter numbers, allowing the parser to handle the error appropriately
+- Acts as a thin validation wrapper around sql_fn_make_param for parameter reference processing
+- Parameter numbering follows PostgreSQL's 1-based indexing convention for function parameters
+- The location information from the ParamRef is passed through to sql_fn_make_param for error reporting

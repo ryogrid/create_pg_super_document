@@ -1,0 +1,32 @@
+# compareDoubles
+
+## Location
+src/backend/utils/adt/geo_spgist.c: 93 - 106
+
+## Overview
+A static comparator function used by qsort for comparing floating-point values in the context of SP-GiST geometric index performance optimizations.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a simple floating-point comparator for the qsort library function. It's specifically designed for use in geometric indexing operations where performance optimization is the primary concern rather than strict floating-point correctness. The function compares two float8 (double-precision floating-point) values and returns the standard comparison result expected by qsort.
+
+The implementation deliberately avoids using PostgreSQL's floating-point macros that handle special cases like NaN or infinity, as noted in the comments. This design choice prioritizes performance over comprehensive floating-point handling since this comparator is only used to improve index performance, not to ensure correctness of floating-point operations.
+
+## Parameters / Member Variables
+- : Pointer to the first float8 value to compare
+- : Pointer to the second float8 value to compare
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - None (uses only basic C operations)
+- Called from (representative examples):
+  - spg_box_quad_picksplit (multiple times for sorting coordinates)
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the geo_spgist.c file
+- The function intentionally does not handle special floating-point cases (NaN, infinity) for performance reasons
+- Used specifically in the context of SP-GiST (Space-Partitioned Generalized Search Tree) index operations
+- Returns standard qsort comparison values: -1 (less than), 0 (equal), 1 (greater than)
+- The comment emphasizes that this affects index performance, not correctness, indicating it's used in optimization paths

@@ -1,0 +1,32 @@
+# TableFuncNext
+
+## Location
+src/backend/executor/nodeTableFuncscan.c: 54 - 80
+
+## Overview
+TableFuncNext is a static helper function that serves as the core tuple retrieval mechanism for table function scans, fetching tuples from a tuplestore for subsequent processing.
+
+## Definition
+
+
+## Detailed Description
+TableFuncNext implements a lazy evaluation strategy for table function execution. On the first call, it triggers the execution of the entire table function via tfuncFetchRows(), storing all resulting tuples in a tuplestore. Subsequent calls simply retrieve the next tuple from this pre-populated tuplestore. This approach ensures that the table function is executed only once while allowing efficient sequential access to its results.
+
+The function operates as a workhorse for ExecTableFuncScan, handling the low-level mechanics of tuple retrieval and maintaining the scan state across multiple calls.
+
+## Parameters / Member Variables
+- : TableFuncScanState structure containing the scan state, including the tuplestore and scan tuple slot
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TableFuncScanState (struct type)
+  - tfuncFetchRows (function to fetch all rows from table function)
+  - tuplestore_gettupleslot (function to retrieve next tuple from tuplestore)
+- Called from:
+  - ExecTableFuncScan
+
+## Notes and Other Information
+- Uses a lazy initialization pattern - the tuplestore is only populated on first access
+- The function is static, indicating it's only used within the nodeTableFuncscan.c file
+- Implements a pull-based model where tuples are retrieved on demand from a pre-populated store
+- The tuplestore approach allows for potential rewind operations and multiple scans of the same result set

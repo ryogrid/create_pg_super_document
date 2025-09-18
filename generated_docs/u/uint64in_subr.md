@@ -1,0 +1,38 @@
+# uint64in_subr
+
+## Location
+src/backend/utils/adt/numutils.c: 987 - 1043
+
+## Overview
+Converts a string to an unsigned 64-bit integer using PostgreSQL's strtou64() function with error handling and optional partial parsing support.
+
+## Definition
+
+
+## Detailed Description
+This function provides string-to-unsigned-64-bit-integer conversion using PostgreSQL's custom strtou64() function for parsing. Similar to uint32in_subr, it offers flexible parsing with optional partial string processing and comprehensive error handling. The function is designed to handle the full range of 64-bit unsigned integers consistently across different platforms.
+
+Unlike uint32in_subr, this function doesn't require additional platform compatibility checks since it uses PostgreSQL's own strtou64() implementation rather than the standard library's strtoul(). This ensures consistent behavior across all supported platforms and architectures.
+
+## Parameters / Member Variables
+- : Input string containing the integer representation to convert
+- : Optional pointer to store the location where parsing stopped; if NULL, entire string must be valid
+- : Type name string used in error messages for better diagnostics  
+- : Error context node for soft error handling; if NULL, errors are thrown via ereport()
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strtou64 (PostgreSQL's 64-bit unsigned integer parsing function)
+  - ereturn (error return macro for soft error handling)
+- Called from (representative examples):
+  - xid8in (64-bit transaction ID input function)
+
+## Notes and Other Information
+- Uses PostgreSQL's custom strtou64() function rather than standard library functions
+- Provides consistent 64-bit unsigned integer parsing across all platforms
+- Supports partial string parsing when endloc parameter is provided
+- Handles EINVAL and ERANGE errors from strtou64() appropriately
+- Used for parsing PostgreSQL's 64-bit transaction ID (xid8) type
+- Simpler implementation than uint32in_subr due to consistent strtou64() behavior
+- Allows trailing whitespace when endloc is NULL
+- No additional platform-specific range checking required

@@ -1,0 +1,48 @@
+# pg_database_collation_actual_version
+
+## Location
+src/backend/commands/dbcommands.c: 2737 - 2780
+
+## Overview
+pg_database_collation_actual_version is a PostgreSQL SQL function that returns the actual collation version for a specified database by querying the system collation library.
+
+## Definition
+
+
+## Detailed Description
+This function implements the SQL function `pg_database_collation_actual_version(database_oid)` which returns the current version string from the system collation library for a given database. The function:
+
+1. Takes a database OID as input via PG_GETARG_OID(0)
+2. Looks up the database record in the system cache using SearchSysCache1()
+3. Retrieves the collation provider type (datlocprovider) from the database record
+4. Based on the provider type, fetches either the datcollate (for COLLPROVIDER_LIBC) or datlocale attribute
+5. Calls get_collation_actual_version() to query the system collation library for the current version
+6. Returns the version string as a PostgreSQL text datum, or NULL if no version is available
+
+This function is typically used for monitoring collation version changes that might affect index integrity after system collation library updates.
+
+## Parameters / Member Variables
+- Input: Database OID (via PG_FUNCTION_ARGS framework)
+- Returns: Text datum containing the collation version string, or NULL
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_OID
+  - SearchSysCache1
+  - SysCacheGetAttrNotNull
+  - get_collation_actual_version
+  - TextDatumGetCString
+  - ReleaseSysCache
+  - cstring_to_text
+  - PG_RETURN_TEXT_P
+  - PG_RETURN_NULL
+- Called from (representative examples):
+  - SQL queries (exposed as SQL function)
+
+## Notes and Other Information
+- Exposed as a SQL-callable function for database administration and monitoring
+- Handles both COLLPROVIDER_LIBC and other collation provider types appropriately
+- Returns NULL when the collation library doesn't provide version information
+- Used in conjunction with stored collation versions in pg_database.datcollversion for detecting mismatches
+- Part of PostgreSQL's collation version tracking system for maintaining data integrity
+- Function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS framework

@@ -1,0 +1,34 @@
+# deccmp
+
+## Location
+src/interfaces/ecpg/compatlib/informix.c: 167 - 172
+
+## Overview
+Compares two decimal numbers and returns an integer indicating their relative ordering, providing Informix-compatible decimal comparison functionality.
+
+## Definition
+```c
+int deccmp(decimal *arg1, decimal *arg2)
+```
+
+## Detailed Description
+The `deccmp` function implements decimal comparison for Informix compatibility in ECPG. It serves as a simple wrapper around the `deccall2` helper function, which handles the conversion to numeric types and calls `PGTYPESnumeric_cmp` to perform the actual comparison. The function returns standard comparison semantics: negative for less than, zero for equal, and positive for greater than.
+
+## Parameters / Member Variables
+- `arg1`: Pointer to the first decimal operand for comparison
+- `arg2`: Pointer to the second decimal operand for comparison
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - deccall2
+  - PGTYPESnumeric_cmp
+- Called from (representative examples):
+  - main (in test programs)
+  - ECPG applications using Informix decimal compatibility
+
+## Notes and Other Information
+- Part of the public Informix decimal compatibility API
+- Returns < 0 if arg1 < arg2, 0 if arg1 = arg2, > 0 if arg1 > arg2
+- Memory management and null handling are handled by the `deccall2` wrapper
+- Essential for implementing conditional logic and sorting with decimal values
+- Provides seamless migration path for applications using Informix decimal comparisons

@@ -1,0 +1,42 @@
+# get_ts_parser_oid
+
+## Location
+src/backend/catalog/namespace.c: 2716 - 2773
+
+## Overview
+Finds a text search parser by its possibly qualified name and returns its OID, with optional error handling for missing parsers.
+
+## Definition
+
+
+## Detailed Description
+This function resolves a text search parser name (which may be schema-qualified) to its object identifier (OID). It supports both fully qualified names (schema.parser) and unqualified names that are resolved using the search path. The function handles two main scenarios:
+
+1. **Schema-qualified names**: When a schema is explicitly specified, it looks up the parser directly in that specific schema using the system cache.
+2. **Unqualified names**: When no schema is specified, it searches through the active search path to find the first matching parser, excluding temporary namespaces.
+
+The function uses the TSPARSERNAMENSP system cache to efficiently locate parsers by name and namespace combination.
+
+## Parameters
+- : A List containing the parser name, possibly schema-qualified (e.g., ["public", "default"] or just ["default"])
+- : If true, returns InvalidOid when parser is not found; if false, throws an error
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DeconstructQualifiedName
+  - LookupExplicitNamespace  
+  - GetSysCacheOid2
+  - recomputeNamespacePath
+  - NameListToString
+- Called from (representative examples):
+  - get_object_address
+  - DefineTSConfiguration
+  - ts_token_type_byname
+  - ts_parse_byname
+
+## Notes and Other Information
+- Returns InvalidOid for non-existent parsers when missing_ok is true
+- Throws ERRCODE_UNDEFINED_OBJECT error when missing_ok is false and parser doesn't exist
+- Skips temporary namespaces during search path traversal
+- Part of PostgreSQL's text search infrastructure for full-text search functionality
+- Located in src/backend/catalog/namespace.c at lines 2716-2773

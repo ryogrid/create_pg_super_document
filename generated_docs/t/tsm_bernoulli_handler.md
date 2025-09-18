@@ -1,0 +1,37 @@
+# tsm_bernoulli_handler
+
+## Location
+src/backend/access/tablesample/bernoulli.c: 65 - 85
+
+## Overview
+This function creates a TsmRoutine descriptor for the BERNOULLI tablesample method, which implements statistical sampling based on the Bernoulli distribution.
+
+## Definition
+```c
+Datum tsm_bernoulli_handler(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `tsm_bernoulli_handler` function serves as the entry point for the BERNOULLI tablesample method. It creates and initializes a TsmRoutine structure that defines the behavior of the Bernoulli sampling algorithm. The function sets up all the necessary callback functions and parameters needed for PostgreSQL's tablesample infrastructure to perform Bernoulli sampling on table data. The Bernoulli method samples each tuple independently with a given probability, providing a statistically sound way to obtain random samples from large tables.
+
+## Parameters / Member Variables
+- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+- Returns: Datum containing pointer to initialized TsmRoutine structure
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (creates TsmRoutine node)
+  - list_make1_oid (creates parameter type list)
+  - bernoulli_samplescangetsamplesize (sample size calculation callback)
+  - bernoulli_initsamplescan (scan initialization callback)
+  - bernoulli_beginsamplescan (scan begin callback)
+  - bernoulli_nextsampletuple (tuple sampling callback)
+- Called from (representative examples):
+  - No direct callers found (likely called through PostgreSQL's function call mechanism)
+
+## Notes and Other Information
+- The function sets parameterTypes to FLOAT4OID, indicating it accepts a float4 parameter (the sampling percentage)
+- Both repeatable_across_queries and repeatable_across_scans are set to true, ensuring consistent sampling behavior
+- NextSampleBlock is set to NULL, indicating this method works at the tuple level rather than block level
+- EndSampleScan is set to NULL, indicating no cleanup is needed when scanning ends
+- This is a PostgreSQL extension function that integrates with the tablesample infrastructure

@@ -1,0 +1,36 @@
+# json_unique_object_field_start
+
+## Location
+src/backend/utils/adt/json.c: 1639 - 1663
+
+## Overview
+A callback function used during JSON parsing to handle the start of object fields while checking for unique field names within JSON objects.
+
+## Definition
+
+
+## Detailed Description
+This function is a specialized JSON parsing callback that ensures object field names are unique within their containing objects. It operates as part of the JSON validation framework and is called when the parser encounters the beginning of an object field. The function maintains a stack-based tracking system to monitor object nesting levels and uses a key collision detection mechanism to identify duplicate field names. When a duplicate is found, it marks the parsing state as non-unique and cleans up the object tracking stack.
+
+## Parameters / Member Variables
+- : Void pointer to JsonUniqueParsingState containing the parsing context and uniqueness tracking information
+- : Character pointer to the field name being processed
+- : Boolean indicating whether the field value is null (currently unused in the implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - json_unique_check_key
+  - pfree
+- Data types referenced:
+  - JsonUniqueParsingState
+  - JsonUniqueStackEntry
+  - JSON_SUCCESS
+- Called from (representative examples):
+  - json_validate
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the json.c source file
+- The function follows the JsonParseErrorType callback signature required by the JSON parsing framework
+- When uniqueness is violated, the function performs cleanup by popping and freeing all stack entries
+- The function returns JSON_SUCCESS in all cases, as the uniqueness violation is recorded in the state rather than reported as a parse error
+- Part of PostgreSQL's JSON validation infrastructure for ensuring well-formed JSON objects

@@ -1,0 +1,35 @@
+# get_typalign
+
+## Location
+src/backend/utils/cache/lsyscache.c: 2399 - 2418
+
+## Overview
+Retrieves the alignment requirement for a specified PostgreSQL data type from the system catalog.
+
+## Definition
+
+
+## Detailed Description
+This function performs a system catalog lookup to retrieve the alignment requirement for a given data type. Type alignment specifies the memory alignment boundary that values of this type must respect when stored in memory or on disk. The function queries the pg_type system catalog using the syscache mechanism for efficient access. If the type is not found in the catalog, it returns a default alignment of TYPALIGN_INT as a fallback value.
+
+## Parameters / Member Variables
+- : The OID of the data type whose alignment requirement is to be retrieved
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1
+  - HeapTupleIsValid
+  - GETSTRUCT
+  - ReleaseSysCache
+  - ObjectIdGetDatum
+  - Form_pg_type
+  - TYPALIGN_INT
+- Called from (representative examples):
+  - (No direct references found in the analyzed codebase)
+
+## Notes and Other Information
+- Returns one of four possible alignment values: 'c' (char/byte), 's' (short/2-byte), 'i' (int/4-byte), or 'd' (double/8-byte)
+- The default return value TYPALIGN_INT ('i') provides 4-byte alignment for unknown types
+- Part of the lsyscache.c module which provides cached access to frequently-needed system catalog information
+- This function is used internally by PostgreSQL's type system to ensure proper memory alignment when handling values
+- Proper alignment is crucial for performance and correctness on architectures that require aligned memory access

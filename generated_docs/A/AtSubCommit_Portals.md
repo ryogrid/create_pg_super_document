@@ -1,0 +1,43 @@
+# AtSubCommit_Portals
+
+## Location
+src/backend/utils/mmgr/portalmem.c: 943 - 978
+
+## Overview
+Pre-subcommit processing function that reassigns portals created or used in the current subtransaction to the parent subtransaction during subtransaction commit.
+
+## Definition
+
+
+## Detailed Description
+AtSubCommit_Portals is called during subtransaction commit to properly transfer portal ownership from the committing subtransaction to its parent. This function iterates through all portals in the portal hash table and updates their subtransaction identifiers and resource ownership. The function ensures that portals created in a subtransaction remain accessible after the subtransaction commits by reassigning them to the parent transaction context.
+
+The function performs two main operations:
+1. For portals created in the current subtransaction (createSubid == mySubid), it updates the createSubid to parentSubid, sets the createLevel to parentLevel, and transfers resource ownership to the parent transaction's resource owner.
+2. For portals that were active in the current subtransaction (activeSubid == mySubid), it updates the activeSubid to parentSubid.
+
+## Parameters
+- : The subtransaction ID of the subtransaction being committed
+- : The subtransaction ID of the parent subtransaction
+- : The nesting level of the parent subtransaction
+- : The resource owner of the parent transaction context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_seq_init
+  - hash_seq_search
+  - ResourceOwnerNewParent
+- Data types used:
+  - SubTransactionId
+  - ResourceOwner
+  - HASH_SEQ_STATUS
+  - PortalHashEnt
+  - Portal
+- Called from:
+  - CommitSubTransaction (src/backend/access/transam/xact.c:5091)
+
+## Notes and Other Information
+- This function operates on the global PortalHashTable which contains all active portals
+- The function is part of the subtransaction commit protocol and ensures portal consistency across transaction boundaries
+- Resource ownership transfer is critical for proper cleanup when the parent transaction eventually commits or aborts
+- The function is defined in src/backend/utils/mmgr/portalmem.c:943-978

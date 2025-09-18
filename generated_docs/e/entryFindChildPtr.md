@@ -1,0 +1,46 @@
+# entryFindChildPtr
+
+## Location
+src/backend/access/gin/ginentrypage.c: 405 - 445
+
+## Overview
+Finds the offset of a child pointer (downlink) to a specific block number within a non-leaf GIN index page, using optimization hints from previously stored offset information.
+
+## Definition
+
+
+## Detailed Description
+This function searches for a child pointer (downlink) to a specific block number within a non-leaf page of a GIN index. It employs a multi-stage search strategy for efficiency:
+
+1. First, it checks if the previously stored offset still points to the correct child pointer, which would be the case if the page hasn't been modified.
+2. If the stored offset is invalid, it searches to the right of the stored position, optimizing for the common case where entries are inserted rather than deleted.
+3. As a last resort, it performs a complete linear scan of the page from the beginning.
+
+The function is designed to handle page modifications that might have occurred since the offset was stored, such as insertions or deletions that could shift child pointers to different positions.
+
+## Parameters / Member Variables
+- : GinBtree structure (currently unused in function body)
+- : The non-leaf page to search within
+- : The block number of the child page being searched for
+- : Previously stored offset number that might point to the target child pointer, used as optimization hint
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PageGetMaxOffsetNumber
+  - GinPageIsLeaf
+  - GinPageIsData
+  - FirstOffsetNumber
+  - PageGetItem
+  - PageGetItemId
+  - GinGetDownlink
+  - InvalidOffsetNumber
+- Called from (representative examples):
+  - ginPrepareEntryScan
+
+## Notes and Other Information
+- This is a static function internal to the GIN entry page implementation
+- The function assumes the input page is a non-leaf, non-data page (verified by assertions)
+- Uses a three-phase search strategy: stored position check, rightward search, complete scan
+- Returns InvalidOffsetNumber if the child pointer is not found on the page
+- Optimized for the common case where page modifications involve insertions rather than deletions
+- Critical for maintaining parent-child relationships during index traversal after page splits or modifications

@@ -1,0 +1,30 @@
+# avg_pool
+
+## Location
+src/backend/optimizer/geqo/geqo_misc.c: 34 - 56
+
+## Overview
+The avg_pool function calculates the average fitness value (worth) of all chromosomes in a genetic algorithm population pool.
+
+## Definition
+
+
+## Detailed Description
+This function computes the arithmetic mean of the worth values for all chromosomes in the given pool. It's specifically designed for use in debug printouts within PostgreSQL's GEQO (Genetic Query Optimizer) system. The function includes special handling to prevent overflow when the pool contains multiple occurrences of DBL_MAX values by dividing each worth value by the pool size before accumulation rather than dividing the sum at the end.
+
+## Parameters / Member Variables
+- : A pointer to the Pool structure containing the population of chromosomes whose average fitness is to be calculated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Pool (structure type)
+  - elog (for error reporting)
+- Called from (representative examples):
+  - print_gen
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the geqo_misc.c file
+- The function is primarily used for debugging purposes in GEQO
+- Special overflow prevention is implemented for cases where pool contains DBL_MAX values
+- The function will throw an ERROR if the pool size is zero or negative
+- Performance and precision are deliberately traded off since this is only used for debug output

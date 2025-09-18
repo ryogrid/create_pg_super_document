@@ -1,0 +1,44 @@
+# PLySequence_ToArray
+
+## Location
+src/pl/plpython/plpy_typeio.c: 1133 - 1192
+
+## Overview
+Converts a Python sequence (or nested lists) to a PostgreSQL SQL array, handling multi-dimensional arrays through recursive traversal.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the main entry point for converting Python sequence objects into PostgreSQL array data structures. It validates that the input is a sequence, initializes array dimension tracking, and delegates the recursive traversal to PLySequence_ToArray_recurse. The function supports multi-dimensional arrays by recognizing nested Python lists and maintains PostgreSQL's convention of returning zero-dimensional arrays for empty inputs.
+
+The conversion process involves:
+1. Null handling - returns appropriate null datum for Python None
+2. Sequence validation - ensures input is a valid Python sequence
+3. Dimension initialization - sets up tracking for array dimensions
+4. Recursive element collection - traverses nested structures to collect elements
+5. Array construction - builds the final PostgreSQL array with proper bounds
+
+## Parameters / Member Variables
+- : PLyObToDatum structure containing array element type information and conversion context
+- : Python object representing the sequence to be converted
+- : Pointer to boolean flag indicating whether the result should be treated as SQL NULL
+- : Boolean flag indicating whether this conversion is happening within an array context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PLySequence_ToArray_recurse (recursive traversal helper)
+  - construct_empty_array (creates empty array for zero elements)
+  - makeMdArrayResult (constructs final multi-dimensional array)
+  - PySequence_Check (Python API validation)
+  - PySequence_Length (Python API length retrieval)
+- Called from (representative examples):
+  - PLy_output_setup_func (src/pl/plpython/plpy_typeio.c:359)
+
+## Notes and Other Information
+- For historical compatibility, accepts any Python sequence type at the top level, not just lists
+- Multi-dimensional arrays are only recognized when using true Python list objects
+- Uses depth-first traversal to collect elements into ArrayBuildState
+- Follows PostgreSQL convention of returning zero-dimensional arrays for empty inputs
+- Maximum array dimensions limited by MAXDIM constant
+- Array lower bounds are set to 1 following SQL standard conventions

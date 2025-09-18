@@ -1,0 +1,45 @@
+# TranslateSocketError
+
+## Location
+src/backend/port/win32/socket.c: 56 - 156
+
+## Overview
+TranslateSocketError is a static function that converts Windows socket error codes (WSAxxx) to their equivalent POSIX errno values, providing cross-platform compatibility for PostgreSQL network operations on Windows.
+
+## Definition
+```c
+static void TranslateSocketError(void)
+```
+
+## Detailed Description
+This function serves as an error translation layer between Windows Winsock API and POSIX-compliant error handling in PostgreSQL. It retrieves the last socket error using WSAGetLastError() and maps it to the appropriate errno value using a comprehensive switch statement. The mapping handles direct correspondences as well as "near-miss" error codes that need translation to sensible Berkeley socket universe equivalents.
+
+The function covers a wide range of socket error conditions including connection errors, network unavailability, protocol issues, and resource limitations. For unrecognized error codes, it logs a notice and defaults to EINVAL.
+
+## Parameters / Member Variables
+This function takes no parameters and returns no values. It operates as a side-effect function that modifies the global errno variable.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - WSAGetLastError (Windows Winsock API)
+  - ereport (PostgreSQL error reporting)
+  - errmsg_internal (PostgreSQL internal error messaging)
+  - Various errno constants (EINVAL, EINPROGRESS, EISCONN, etc.)
+
+- Called from (representative examples):
+  - pgwin32_waitforsinglesocket
+  - pgwin32_socket
+  - pgwin32_bind
+  - pgwin32_listen
+  - pgwin32_accept
+  - pgwin32_connect
+  - pgwin32_recv
+  - pgwin32_send
+  - pgwin32_select
+
+## Notes and Other Information
+- This is a Windows-specific function located in src/backend/port/win32/socket.c
+- The mapping leverages the fact that win32_port.h redefines Berkeley error symbols to match WSAxxx values where there is direct correspondence
+- Handles over 20 different Windows socket error codes
+- For unknown error codes, logs a NOTICE-level message before defaulting to EINVAL
+- Critical for maintaining POSIX-compliant error handling across PostgreSQLs cross-platform socket operations

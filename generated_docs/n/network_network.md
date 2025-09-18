@@ -1,0 +1,37 @@
+# network_network
+
+## Location
+src/backend/utils/adt/network.c: 1330 - 1373
+
+## Overview
+Extracts the network portion of an IP address by zeroing out all host bits, effectively returning the network address of a subnet.
+
+## Definition
+
+
+## Detailed Description
+This function computes the network address from a given inet or cidr address by applying the network mask to zero out the host portion. It takes an IP address with a prefix length and returns the network address by preserving only the network bits (as specified by the prefix length) and setting all host bits to zero. The function works by applying a bitwise AND operation with appropriate masks to each byte of the address, effectively extracting only the network portion while maintaining the original prefix length and address family.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing the inet/cidr input network address
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extracts inet argument from function arguments
+  - : Allocates zero-initialized memory for the result
+  - : Gets the prefix length (netmask bits) of the address
+  - : Gets pointer to the raw address bytes
+  - : Gets/sets the address family
+  - : Sets the variable size header for the inet type
+  - : Returns the inet result
+- Called from (representative examples):
+  -  (src/backend/utils/adt/network.c:1692)
+
+## Notes and Other Information
+- The algorithm processes address bytes sequentially, applying network masks
+- For each byte, it determines how many network bits to preserve and creates appropriate masks
+- Uses bitwise AND operations to zero out host bits beyond the network prefix
+- The resulting address represents the network identifier for the subnet
+- Preserves the original address family and prefix length in the result
+- Essential for network operations like routing table lookups and subnet identification
+- Located in src/backend/utils/adt/network.c:1330-1373

@@ -1,0 +1,1 @@
+Documentation for encrypt_password symbol

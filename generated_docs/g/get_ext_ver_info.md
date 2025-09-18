@@ -1,0 +1,49 @@
+# get_ext_ver_info
+
+## Location
+src/backend/commands/extension.c: 1143 - 1175
+
+## Overview
+Finds or creates an ExtensionVersionInfo structure for a specified version name, maintaining a list of version information for extension management.
+
+## Definition
+```c
+static ExtensionVersionInfo *get_ext_ver_info(const char *versionname, List **evi_list)
+```
+
+## Detailed Description
+This function manages a collection of ExtensionVersionInfo structures that represent different versions of an extension and their relationships. It implements a simple cache/registry pattern where version information is stored in a list and retrieved by name.
+
+The function serves two purposes:
+1. **Lookup**: If a version with the given name already exists in the list, it returns the existing ExtensionVersionInfo
+2. **Creation**: If no matching version exists, it creates a new ExtensionVersionInfo with default values
+
+When creating new version information, the function initializes the structure with default values suitable for later use in Dijkstra's algorithm for finding update paths. This includes setting up distance tracking fields and marking the version as not installable initially.
+
+The function uses a linear search through the version list, which the comments acknowledge could become O(N²) for extensions with many versions, though this is noted as acceptable for current use cases.
+
+## Parameters / Member Variables
+- `versionname`: The name/identifier of the extension version to find or create
+- `evi_list`: Pointer to a List pointer containing ExtensionVersionInfo structures (modified if new version is created)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strcmp (string comparison for version name lookup)
+  - palloc (memory allocation for new ExtensionVersionInfo)
+  - pstrdup (duplicate version name string)
+  - lappend (append new version info to list)
+  - lfirst (access list cell contents)
+- Called from:
+  - get_ext_ver_list (multiple calls for building version graph)
+  - identify_update_path (for path finding)
+  - CreateExtensionInternal (during extension installation)
+
+## Notes and Other Information
+- This is a static function within the extension.c module
+- Uses O(N) search time which could become O(N²) for extensions with many versions
+- The comment suggests this could be optimized with a hash table if performance becomes an issue
+- Initializes new version info with values suitable for Dijkstra's algorithm (distance tracking)
+- The `reachable` field is initialized to NIL (empty list) for storing reachable versions
+- The `installable` flag defaults to false and is set elsewhere based on available scripts
+- Memory allocated by this function (ExtensionVersionInfo and version name) should be freed by the caller context
+- This function is part of PostgreSQL's extension update path calculation system

@@ -1,0 +1,44 @@
+# add_tablespace_footer
+
+## Location
+src/bin/psql/describe.c: 3549 - 3613
+
+## Overview
+A utility function that adds tablespace information to the footer of table descriptions in psql's \d command output.
+
+## Definition
+
+
+## Detailed Description
+The  function is a specialized utility that enhances psql's describe output by adding tablespace information to relation descriptions. It only operates on relation types that support tablespaces and only displays non-default tablespaces to avoid cluttering the output for users not utilizing custom tablespaces.
+
+The function performs a targeted query to pg_tablespace to retrieve the tablespace name and formats it appropriately for display. It provides two formatting modes: it can either add the tablespace information as a new footer line or append it to the existing footer content (useful for index descriptions where tablespace information is appended to the index definition).
+
+The function includes proper error handling and resource cleanup, ensuring that any database query failures don't affect the overall describe operation.
+
+## Parameters / Member Variables
+- : Pointer to the printTableContent structure that manages the table formatting and footer information
+- : Character representing the relation kind (table, index, materialized view, etc.) to determine if tablespace information is applicable
+- : OID of the tablespace to describe. If 0 (default tablespace), no information is displayed
+- : Boolean flag controlling formatting - if true, adds tablespace info as a new footer line; if false, appends to the current footer
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initPQExpBuffer: Initialize buffer for SQL query construction
+  - printfPQExpBuffer: Format SQL query to retrieve tablespace name
+  - PSQLexec: Execute the tablespace lookup query
+  - printTableAddFooter: Add new footer line to table display
+  - printTableSetFooter: Replace existing footer content
+  - termPQExpBuffer: Clean up query buffer resources
+  - PQclear: Free PostgreSQL result set
+- Called from (representative examples):
+  - describeOneTableDetails: Multiple locations for different relation types (tables, indexes, toast tables)
+
+## Notes and Other Information
+- The function is marked static, indicating it's only used within the describe.c file
+- Only displays tablespace information for relation types that support tablespaces: tables, materialized views, indexes, partitioned tables/indexes, and TOAST tables
+- Intentionally ignores the default tablespace (OID 0) to avoid unnecessary information for users not using custom tablespaces
+- Supports internationalization with proper gettext integration for translatable strings
+- Includes translator comments to provide context for proper localization
+- The dual formatting modes (newline vs append) allow for flexible integration with different types of relation descriptions
+- Gracefully handles query failures by simply not adding tablespace information rather than failing the entire describe operation

@@ -1,0 +1,45 @@
+# hash_agg_enter_spill_mode
+
+## Location
+src/backend/executor/nodeAgg.c: 1882 - 1916
+
+## Overview
+Transitions hash aggregation into "spill mode" where new groups are no longer added to hash tables but are instead written to disk for later processing, enabling memory-bounded aggregation.
+
+## Definition
+```c
+static void hash_agg_enter_spill_mode(AggState *aggstate)
+```
+
+## Detailed Description
+This function orchestrates the transition from in-memory hash aggregation to disk-based spilling when memory limits are exceeded. It performs several critical operations:
+
+1. **State Transition**: Sets the hash_spill_mode flag to true, preventing new group creation in hash tables
+2. **Expression Recompilation**: Calls hashagg_recompile_expressions() to generate optimized expressions for spill mode that include null pointer checks
+3. **Spill Infrastructure Setup**: On first spill, initializes the disk-based storage system including:
+   - Creating a logical tape set for managing spilled data
+   - Allocating spill structures for each hash table  
+   - Initializing individual spill contexts with appropriate parameters
+
+The function ensures that hash aggregation can continue processing even when memory constraints prevent storing all groups in memory simultaneously. Future tuples that would create new groups get spilled to disk instead of being processed immediately.
+
+## Parameters / Member Variables
+- `aggstate`: The aggregate state that will be transitioned to spill mode, containing hash tables and spill management structures
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AggState
+  - hashagg_recompile_expressions
+  - LogicalTapeSetCreate
+  - HashAggSpill
+  - AggStatePerHash
+  - hashagg_spill_init
+- Called from (representative examples):
+  - hash_agg_check_limits
+
+## Notes and Other Information
+- Once spill mode is activated, no new groups can be created in any hash table during the current phase
+- The function includes assertion checks to ensure clean state during first-time spill initialization  
+- Spill structures are initialized for each hash table (setno) with appropriate parameters for group estimation and entry sizing
+- This is a one-way transition - once entered, spill mode remains active for the current aggregation phase
+- Critical for PostgreSQL's ability to handle large aggregation operations that exceed available memory

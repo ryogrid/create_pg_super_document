@@ -1,0 +1,34 @@
+# IsReservedName
+
+## Location
+src/backend/catalog/catalog.c: 247 - 272
+
+## Overview
+IsReservedName is a utility function that determines whether a given name starts with the reserved "pg_" prefix used for PostgreSQL system objects.
+
+## Definition
+
+
+## Detailed Description
+This function performs a simple but critical check to determine if an object name begins with the "pg_" prefix, which is reserved for PostgreSQL system objects. The function is optimized for speed with direct character comparisons rather than string functions. The pg_ prefix reservation applies to different classes of objects including schemas, tablespaces (as of version 8.0), and roles (as of version 9.6). This naming convention helps prevent conflicts between user-defined objects and system objects.
+
+## Parameters / Member Variables
+- : A null-terminated string containing the object name to check
+
+## Dependencies
+- Functions called/Symbols referenced: None (uses only basic character comparisons)
+- Called from (representative examples):
+  - CreateSchemaCommand (src/backend/commands/schemacmds.c:106)
+  - CreateRole (src/backend/commands/user.c:351)
+  - CreateTableSpace (src/backend/commands/tablespace.c:280)
+  - RenameSchema (src/backend/commands/schemacmds.c:286)
+  - RenameRole (src/backend/commands/user.c:1383, 1390)
+  - RenameTableSpace (src/backend/commands/tablespace.c:967)
+  - pg_replication_origin_create (src/backend/replication/logical/origin.c:1282)
+  - check_rolespec_name (src/backend/utils/adt/acl.c:5586)
+
+## Notes and Other Information
+- The function uses direct character array indexing for performance optimization
+- Returns true if the name starts with exactly "pg_", false otherwise
+- This check is essential for maintaining the separation between system and user objects
+- The reserved prefix policy has evolved over PostgreSQL versions, expanding from schemas and tablespaces to include roles

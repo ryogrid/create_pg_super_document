@@ -1,0 +1,35 @@
+# contiguous_pages_to_segment_bin
+
+## Location
+src/backend/utils/mmgr/dsa.c: 119 - 131
+
+## Overview
+Calculates the lowest segment bin that might contain segments with n contiguous free pages, used for optimizing memory allocation in PostgreSQL's Dynamic Shared Area (DSA) system.
+
+## Definition
+
+
+## Detailed Description
+This inline static function is a key optimization component in PostgreSQL's DSA memory management system. It determines which segment bin should be searched first when looking for n contiguous free pages. The function implements a logarithmic binning strategy where segments are organized into bins based on their largest contiguous free space. By returning the lowest bin that *might* contain the required pages, it allows the allocation algorithm to skip bins that definitely cannot satisfy the request, significantly improving allocation performance.
+
+The function uses bit manipulation to efficiently calculate the appropriate bin number. For n=0, it returns bin 0. For other values, it uses the position of the leftmost set bit plus one to determine the bin, ensuring that larger requests are directed to higher-numbered bins that are more likely to contain larger free regions.
+
+## Parameters / Member Variables
+- : The number of contiguous pages requested for allocation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_leftmost_one_pos_size_t
+  - DSA_NUM_SEGMENT_BINS
+- Called from (representative examples):
+  - create_internal
+  - get_best_segment
+  - make_new_segment
+  - rebin_segment
+
+## Notes and Other Information
+- This is a static inline function for performance optimization in hot allocation paths
+- The function implements a power-of-2 based binning strategy for efficient memory management
+- The result is capped at DSA_NUM_SEGMENT_BINS - 1 to ensure valid bin indices
+- Essential for the DSA's segment organization and allocation efficiency
+- Located in src/backend/utils/mmgr/dsa.c:119-131

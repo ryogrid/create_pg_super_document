@@ -1,0 +1,52 @@
+# try_mergejoin_path
+
+## Location
+src/backend/optimizer/path/joinpath.c: 920 - 1025
+
+## Overview
+Evaluates and potentially adds a merge join path to the joinrel's pathlist, handling both regular and partial execution modes with comprehensive validation and cost estimation.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the main entry point for considering merge join strategies during query planning. It handles both regular and partial execution modes, delegating partial merge joins to try_partial_mergejoin_path when appropriate. The function performs validation checks specific to merge joins, including parameterization validation and sort key optimization.
+
+Key features include checking if explicit sorting can be skipped when input paths are already appropriately ordered, validating parameterization constraints for non-nestloop joins, and using the two-phase optimization approach with initial cost estimation followed by full path creation only for promising candidates.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global planning context and configuration
+- : Target RelOptInfo representing the join relation where the path will be added
+- : Path structure for the outer (left) relation in the merge join
+- : Path structure for the inner (right) relation in the merge join
+- : List of PathKey structures representing the required output ordering
+- : List of merge join clauses that define the join conditions
+- : List of PathKey structures for required outer relation sorting (NULL if no sort needed)
+- : List of PathKey structures for required inner relation sorting (NULL if no sort needed)
+- : JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
+- : JoinPathExtraData containing additional join-specific information and constraints
+- : Boolean flag indicating whether to create a partial path for parallel execution
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - try_partial_mergejoin_path
+  - bms_is_member
+  - PATH_REQ_OUTER
+  - calc_non_nestloop_required_outer
+  - bms_overlap
+  - pathkeys_contained_in
+  - initial_cost_mergejoin
+  - add_path_precheck
+  - create_mergejoin_path
+  - add_path
+  - bms_free
+- Called from (representative examples):
+  - sort_inner_and_outer
+  - generate_mergejoin_paths
+
+## Notes and Other Information
+- Optimizes sort operations by checking if input paths are already appropriately ordered
+- Uses calc_non_nestloop_required_outer for parameterization validation specific to non-nestloop joins
+- Delegates to try_partial_mergejoin_path for partial execution modes to handle parallel-specific constraints
+- Implements the same two-phase cost optimization approach as other join path functions
+- Critical for generating efficient merge join execution plans, especially when input relations are pre-sorted

@@ -1,0 +1,36 @@
+# logicalrep_write_origin
+
+## Location
+src/backend/replication/logical/proto.c: 385 - 400
+
+## Overview
+This function writes an ORIGIN message to the logical replication output stream, used to track replication origin information during logical replication.
+
+## Definition
+
+
+## Detailed Description
+The  function serializes replication origin information into the logical replication stream. It creates a message with the  type, followed by the origin LSN position and the origin name string. This function is essential for tracking the provenance of replicated changes, allowing subscribers to understand where specific changes originated from in a multi-master or cascading replication setup.
+
+The message format includes a message type byte, the 64-bit LSN where the origin was recorded, and a null-terminated string containing the origin name. This information enables proper handling of changes that may have originated from different replication sources.
+
+## Parameters / Member Variables
+- : StringInfo buffer where the serialized ORIGIN message will be written
+- : Null-terminated string containing the name of the replication origin
+- : XLogRecPtr indicating the LSN position associated with this origin
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pq_sendbyte
+  - LOGICAL_REP_MSG_ORIGIN
+  - pq_sendint64
+  - pq_sendstring
+- Called from (representative examples):
+  - send_repl_origin
+
+## Notes and Other Information
+- Part of PostgreSQL's replication origin tracking system
+- Essential for preventing replication loops in multi-master setups
+- The origin parameter should be a valid null-terminated string
+- Located in src/backend/replication/logical/proto.c:385-400
+- Uses PostgreSQL's binary protocol functions for message serialization

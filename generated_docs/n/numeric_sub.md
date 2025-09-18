@@ -1,0 +1,40 @@
+# numeric_sub
+
+## Location
+src/backend/utils/adt/numeric.c: 2941 - 2960
+
+## Overview
+PostgreSQL function that performs subtraction of two numeric values, implementing the SQL minus operator (-) for the NUMERIC data type.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL built-in function that subtracts one numeric value from another. It serves as the implementation for the SQL subtraction operator (-) when applied to NUMERIC data types. This function is a thin wrapper around , providing the standard PostgreSQL function interface for numeric subtraction operations.
+
+The function extracts two NUMERIC arguments from the function call arguments, performs the subtraction operation by delegating to , and returns the result as a Datum. It handles all special cases including NaN and infinity values through the underlying implementation.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing:
+  - First argument (index 0): The minuend (numeric value to subtract from)
+  - Second argument (index 1): The subtrahend (numeric value to subtract)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extracts NUMERIC arguments from function call
+  - : Performs the actual subtraction operation
+  - : Returns the result as a PostgreSQL Datum
+  - : PostgreSQL's internal numeric data type
+
+- Called from (representative examples):
+  - : BRIN index distance calculation
+  - : Database size calculation utilities
+  - : LSN (Log Sequence Number) operations
+  - : Numeric range operations
+
+## Notes and Other Information
+- This function is registered in PostgreSQL's system catalogs and can be called directly from SQL
+- Error handling is managed by the underlying  function
+- The function handles all special numeric cases including NaN, positive/negative infinity
+- Location: 
+- Part of PostgreSQL's comprehensive numeric arithmetic implementation

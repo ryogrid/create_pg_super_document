@@ -1,0 +1,53 @@
+# option_parse_int
+
+## Location
+src/fe_utils/option_utils.c: 50 - 89
+
+## Overview
+Parses and validates integer values from command-line option arguments with range checking.
+
+## Definition
+
+
+## Detailed Description
+This utility function provides robust parsing of integer command-line option values with comprehensive validation. It converts string arguments to integers while performing range validation and error handling. The function handles trailing whitespace gracefully and provides informative error messages for invalid input.
+
+The parsing process includes:
+1. Converting the string to integer using strtoint()
+2. Skipping trailing whitespace
+3. Validating that no non-whitespace characters remain
+4. Checking that the value falls within the specified range
+5. Storing the result if parsing succeeds
+
+On success, the function returns true and optionally stores the parsed value. On failure, it logs an appropriate error message and returns false.
+
+## Parameters / Member Variables
+- : String containing the option argument to parse
+- : Name of the option (used in error messages)
+- : Minimum allowed value (inclusive)
+- : Maximum allowed value (inclusive)
+- : Optional pointer to store the parsed integer value (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strtoint
+  - isspace
+  - pg_log_error
+  - errno (global variable)
+  - ERANGE (macro)
+- Called from (representative examples):
+  - main (in initdb)
+  - main (in pg_amcheck)
+  - main (in pg_basebackup)
+  - main (in pg_dump)
+  - main (in pgbench)
+  - main (in various other client utilities)
+
+## Notes and Other Information
+- Returns true on successful parsing, false on error
+- The result parameter can be NULL if only validation is needed
+- Automatically handles trailing whitespace in input
+- Uses strtoint() for conversion, which is PostgreSQL's safe integer parsing function
+- Provides detailed error messages that include the option name and acceptable range
+- Part of the fe_utils library for consistent option parsing across PostgreSQL tools
+- Essential for validating numeric parameters in command-line utilities

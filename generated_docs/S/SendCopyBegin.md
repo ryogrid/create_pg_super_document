@@ -1,0 +1,36 @@
+# SendCopyBegin
+
+## Location
+src/backend/commands/copyto.c: 133 - 149
+
+## Overview
+SendCopyBegin is a static function that initiates the COPY TO protocol by sending a CopyOutResponse message to the frontend client, establishing the format and column information for the data transfer.
+
+## Definition
+
+
+## Detailed Description
+This function is responsible for starting the frontend copy-out operation by sending the initial protocol message that informs the client about the format of the data that will be sent. It constructs a CopyOutResponse message containing the overall format (binary or text), the number of columns, and the format for each individual column. The function sets up the communication protocol between PostgreSQL backend and the client for COPY TO operations, ensuring both sides understand the data format before actual data transmission begins.
+
+## Parameters / Member Variables
+- : Pointer to CopyToState structure containing the state information for the copy operation, including format options, attribute list, and destination settings
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - list_length (to get number of attributes)
+  - pq_beginmessage (to start building the protocol message)
+  - pq_sendbyte (to send the overall format byte)
+  - pq_sendint16 (to send column count and per-column formats)
+  - pq_endmessage (to finalize and send the message)
+  - PqMsg_CopyOutResponse (message type constant)
+  - COPY_FRONTEND (destination type constant)
+- Called from (representative examples):
+  - DR_copy (in copyto.c:118)
+  - DoCopyTo (in copyto.c:757)
+
+## Notes and Other Information
+- The function sets the copy destination to COPY_FRONTEND after sending the begin message
+- Format value of 0 indicates text format, 1 indicates binary format
+- The same format is applied to all columns in the current implementation
+- This is part of the PostgreSQL frontend/backend protocol for COPY operations
+- The function is static, meaning it's only accessible within the copyto.c file

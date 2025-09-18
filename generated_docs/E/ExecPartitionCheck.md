@@ -1,0 +1,44 @@
+# ExecPartitionCheck
+
+## Location
+src/backend/executor/execMain.c: 1794 - 1846
+
+## Overview
+Validates that a tuple meets the partition constraint for a given result relation, optionally emitting an error if the constraint fails.
+
+## Definition
+```c
+bool ExecPartitionCheck(ResultRelInfo *resultRelInfo, TupleTableSlot *slot,
+                       EState *estate, bool emitError)
+```
+
+## Detailed Description
+ExecPartitionCheck is a core function in PostgreSQL's partition constraint validation system. It evaluates whether a tuple satisfies the partition constraint of a target relation. The function performs lazy initialization of the partition check expression on first invocation, preparing and caching the expression state tree for subsequent evaluations. The constraint evaluation treats NULL results as success, following PostgreSQL's constraint handling conventions. When a constraint violation occurs and error emission is requested, the function delegates to ExecPartitionCheckEmitError for detailed error reporting.
+
+## Parameters / Member Variables
+- `resultRelInfo`: ResultRelInfo structure containing relation metadata and cached partition check expression
+- `slot`: TupleTableSlot containing the tuple to be validated against the partition constraint
+- `estate`: Execution state containing query context and per-tuple expression evaluation context
+- `emitError`: Boolean flag indicating whether to emit an error on constraint violation or simply return false
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetPartitionQual
+  - ExecPrepareCheck
+  - GetPerTupleExprContext
+  - ExecCheck
+  - ExecPartitionCheckEmitError
+- Called from (representative examples):
+  - CopyFrom
+  - ExecBRInsertTriggers
+  - ExecFindPartition
+  - ExecSimpleRelationInsert
+  - ExecInsert
+  - ExecUpdateAct
+
+## Notes and Other Information
+- The function implements lazy initialization, building the partition check expression only on first access
+- Memory context management ensures the prepared expression persists for the query lifetime
+- NULL constraint evaluation results are treated as success, consistent with cataloged constraint handling
+- The function is critical for maintaining partition constraint integrity during INSERT and UPDATE operations
+- Error handling is delegated to ExecPartitionCheckEmitError when constraint violations occur and error emission is requested

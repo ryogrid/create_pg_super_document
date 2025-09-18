@@ -1,0 +1,38 @@
+# AcquireExecutorLocks
+
+## Location
+src/backend/utils/cache/plancache.c: 1772 - 1827
+
+## Overview
+Acquires or releases locks needed for execution of a cached plan by iterating through the statement list and locking/unlocking all relations referenced in the plan.
+
+## Definition
+
+
+## Detailed Description
+This function is responsible for managing locks on relations that are referenced in a cached execution plan. It traverses through a list of planned statements and either acquires or releases appropriate locks on all relations mentioned in the range table entries (RTEs) of each statement. For utility statements that contain embedded queries (like EXPLAIN), it delegates to ScanQueryForLocks to handle the locking. The function operates at the plan execution level, ensuring that all necessary table locks are held before plan execution begins or properly released afterward.
+
+## Parameters / Member Variables
+- : List of PlannedStmt structures representing the cached plan statements
+- : Boolean flag indicating whether to acquire locks (true) or release them (false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PlannedStmt
+  - CMD_UTILITY
+  - UtilityContainsQuery
+  - ScanQueryForLocks
+  - RTE_RELATION
+  - RTE_SUBQUERY
+  - LockRelationOid
+  - UnlockRelationOid
+- Called from (representative examples):
+  - StmtPlanRequiresRevalidation
+  - CheckCachedPlan
+
+## Notes and Other Information
+- The function only processes RTE_RELATION and RTE_SUBQUERY entries that have valid relation OIDs
+- For utility statements, it only processes those containing embedded queries via UtilityContainsQuery
+- The function doesn't actually open relations, so it won't fail if a relation has been dropped
+- Lock acquisition is transient and non-conflicting in case of dropped relations
+- This is a static function within the plan cache module, indicating it's an internal implementation detail

@@ -1,0 +1,41 @@
+# ChooseIndexName
+
+## Location
+src/backend/commands/indexcmds.c: 2543 - 2597
+
+## Overview
+ChooseIndexName is a static function that selects an appropriate name for a PostgreSQL index based on the table name, column names, and index type (primary key, exclusion constraint, unique constraint, or regular index).
+
+## Definition
+
+
+## Detailed Description
+ChooseIndexName generates index names following PostgreSQL's naming conventions by delegating to ChooseRelationName with different suffixes based on the index type:
+- Primary key indexes use the "pkey" suffix without column-specific naming
+- Exclusion constraint indexes use the "excl" suffix with column names
+- Regular constraint indexes use the "key" suffix with column names  
+- Non-constraint indexes use the "idx" suffix with column names
+
+The function uses ChooseIndexNameAddition to create a column-based name component for most index types, except primary keys which have standardized naming.
+
+## Parameters / Member Variables
+- : The name of the table for which the index is being created
+- : The OID of the namespace (schema) containing the table
+- : List of column names that the index covers
+- : List of exclusion operator names (non-NIL for exclusion constraints)
+- : Boolean flag indicating if this is a primary key index
+- : Boolean flag indicating if this index backs a constraint
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ChooseRelationName (called multiple times with different suffixes)
+  - ChooseIndexNameAddition (called to generate column-based name components)
+- Called from:
+  - DefineIndex (src/backend/commands/indexcmds.c:821)
+
+## Notes and Other Information
+- This is a static function internal to indexcmds.c
+- The comment notes that the argument list is "pretty ad-hoc", suggesting this interface evolved over time
+- Primary key naming is standardized and doesn't include column names in the index name
+- The function handles four distinct index naming scenarios with appropriate suffixes
+- Uses different conflict resolution strategies (true/false for the last parameter to ChooseRelationName) depending on index type

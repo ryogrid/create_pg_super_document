@@ -1,0 +1,35 @@
+# boolle
+
+## Location
+src/backend/utils/adt/bool.c: 259 - 267
+
+## Overview
+The boolle function implements the less-than-or-equal-to comparison operator (<=) for Boolean values in PostgreSQL, returning true if the first Boolean argument is less than or equal to the second.
+
+## Definition
+```c
+Datum boolle(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function provides the implementation for the Boolean less-than-or-equal-to operator in PostgreSQL's type system. It follows PostgreSQL's Boolean ordering where false < true, so the function returns true when the first argument is less than or equal to the second argument. This means it returns true in three cases: when both arguments are false, when both arguments are true, or when the first argument is false and the second is true.
+
+## Parameters / Member Variables
+- Uses PG_FUNCTION_ARGS macro which provides access to function arguments
+- Argument 0: First Boolean value to compare
+- Argument 1: Second Boolean value to compare
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_BOOL (macro to extract Boolean arguments)
+  - PG_RETURN_BOOL (macro to return Boolean result)
+- Called from (representative examples):
+  - No direct references found in the codebase (likely called through PostgreSQL's function dispatch system)
+
+## Notes and Other Information
+- Located in src/backend/utils/adt/bool.c:259-267
+- Part of PostgreSQL's Boolean data type implementation
+- Boolean comparison follows the ordering: false < true
+- Returns true when arg1 <= arg2 (false <= false, false <= true, true <= true)
+- Returns false only when arg1 is true and arg2 is false
+- Integrated into PostgreSQL's operator system for the '<=' operator on Boolean types

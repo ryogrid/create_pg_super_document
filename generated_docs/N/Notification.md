@@ -1,0 +1,46 @@
+# Notification
+
+## Location
+src/backend/commands/async.c: 381 - 387
+
+## Overview
+The Notification structure represents a pending NOTIFY event in PostgreSQL's asynchronous notification system, storing both the channel name and optional payload data for a notification that will be delivered when the current transaction commits.
+
+## Definition
+
+
+## Detailed Description
+The Notification structure is a core component of PostgreSQL's asynchronous notification system. It represents a single NOTIFY event that has been issued within a transaction but not yet delivered. The structure uses a flexible array member design to store variable-length channel names and payload data in a single memory allocation.
+
+This structure is part of the outbound notify state management system that ensures NOTIFY commands are only executed upon transaction commit, not when initially issued. Each Notification contains both the channel name and an optional payload, with their lengths explicitly tracked to handle binary data properly.
+
+The structure is designed for memory efficiency, storing the channel name and payload data consecutively in the flexible array member , with both strings being null-terminated for compatibility with C string functions.
+
+## Parameters / Member Variables
+- : Length of the channel name string (not including null terminator)
+- : Length of the payload string (not including null terminator) 
+- : Flexible array member containing the null-terminated channel name followed immediately by the null-terminated payload string
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member declaration)
+  
+- Called from (representative examples):
+  - NotificationHash (hash table operations)
+  - Async_Notify (main notification processing)
+  - asyncQueueNotificationToEntry (queue management)
+  - asyncQueueAddEntries (queue processing)
+  - AtSubCommit_Notify (subtransaction handling)
+  - AsyncExistsPendingNotify (duplicate detection)
+  - AddEventToPendingNotifies (event management)
+  - notification_hash (hash function)
+  - notification_match (comparison function)
+
+## Notes and Other Information
+- This structure is kept in CurTransactionContext and is part of a list of pending notifications
+- Duplicate notifications within the same transaction are detected and discarded using hash table lookups
+- In subtransactions, each level maintains its own notification list that gets merged with the parent upon successful commit
+- The structure supports both channel-only notifications (empty payload) and notifications with payload data
+- Memory layout: [Notification header][channel_name\0][payload\0]
+- The notification system guarantees delivery order matches the order of NOTIFY commands issued
+- Failed subtransactions simply discard their notification lists without affecting parent transactions

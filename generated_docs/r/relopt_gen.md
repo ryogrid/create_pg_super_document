@@ -1,0 +1,37 @@
+# relopt_gen
+
+## Location
+src/include/access/reloptions.h: 64 - 73
+
+## Overview
+relopt_gen is the base structure that holds shared data common to all relation option types in PostgreSQL's reloption system, serving as the foundation for type-specific option structures.
+
+## Definition
+
+
+## Detailed Description
+The relopt_gen structure serves as the generic base for all relation option definitions in PostgreSQL. It contains the common metadata that every relation option must have, regardless of its specific data type (bool, int, real, enum, or string). This structure is embedded as the first member in all type-specific relation option structures (relopt_bool, relopt_int, relopt_real, etc.), allowing them to be treated polymorphically through the common relopt_gen interface.
+
+The structure is designed with the name field first specifically to serve as a list termination marker when processing arrays of relation options. The kinds field uses bitmasks to specify which types of database objects (heap tables, indexes, etc.) can use this particular option.
+
+## Parameters / Member Variables
+- : The name of the relation option as it appears in SQL statements; must be the first field as it's used as a null-termination marker for option arrays
+- : A human-readable description of what this option does
+- : A bitmask of relopt_kind values indicating which database object types (heap, toast, btree, etc.) can use this option
+- : The lock level required on the relation when this option is modified
+- : The length of the name string for optimization purposes
+- : The data type of this option (RELOPT_TYPE_BOOL, RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM, or RELOPT_TYPE_STRING)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bits32
+  - relopt_type
+- Called from (representative examples):
+  - add_reloption
+  - add_bool_reloption
+  - add_int_reloption
+  - add_real_reloption
+  - allocate_reloption
+
+## Notes and Other Information
+This structure is the cornerstone of PostgreSQL's relation options system, enabling type-safe handling of diverse option types while maintaining a unified interface. All specific option types (relopt_bool, relopt_int, etc.) embed this structure as their first member, allowing for polymorphic access through casting. The name field's position is critical for the option parsing machinery that relies on null-terminated arrays.

@@ -1,0 +1,37 @@
+# pg_advisory_xact_lock_shared_int4
+
+## Location
+src/backend/utils/adt/lockfuncs.c: 861 - 879
+
+## Overview
+Acquires a transaction-scoped shared advisory lock using two 32-bit integer keys, allowing multiple concurrent holders within the transaction scope.
+
+## Definition
+```c
+Datum pg_advisory_xact_lock_shared_int4(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function acquires a shared advisory lock that is automatically scoped to the current transaction. The lock is identified by a combination of two 32-bit integer keys (key1, key2). Shared locks allow multiple processes to hold the same lock simultaneously, but prevent exclusive locks from being acquired. Unlike session-scoped advisory locks, transaction-scoped locks are automatically released when the transaction ends (either by commit or rollback). The function blocks indefinitely until the lock can be acquired.
+
+## Parameters / Member Variables
+- `key1`: First 32-bit integer component of the lock identifier (PG_GETARG_INT32(0))
+- `key2`: Second 32-bit integer component of the lock identifier (PG_GETARG_INT32(1))
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
+  - LockAcquire: Core lock acquisition function with ShareLock mode and transaction scope (false)
+  - LOCKTAG: Lock identifier structure
+  - ShareLock: Lock mode constant for shared access
+  - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
+- Called from (representative examples):
+  - No direct references found (likely called via SQL function interface)
+
+## Notes and Other Information
+- Transaction-scoped locks are automatically released at transaction end
+- Uses shared lock mode, allowing multiple concurrent shared lock holders
+- Blocks indefinitely until lock acquisition succeeds
+- Compatible with other shared locks but conflicts with exclusive locks
+- Part of PostgreSQL's advisory locking system for application-level coordination
+- Accessible via SQL as pg_advisory_xact_lock_shared(int4, int4)

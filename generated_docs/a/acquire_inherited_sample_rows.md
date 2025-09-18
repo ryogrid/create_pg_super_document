@@ -1,0 +1,50 @@
+# acquire_inherited_sample_rows
+
+## Location
+src/backend/commands/analyze.c: 1345 - 1608
+
+## Overview
+Acquires sample rows from an inheritance tree by collecting samples proportionally from all inheritance children, handling tuple conversion between different table structures as needed.
+
+## Definition
+
+
+## Detailed Description
+The acquire_inherited_sample_rows function extends the sampling capability to inheritance hierarchies, collecting rows from all tables in an inheritance tree rather than just a single table. It discovers all inheritance children using find_all_inheritors, then samples from each child proportionally to its block count relative to the total blocks across all children.
+
+The function handles several complex scenarios: it validates that analyzable children exist, manages different table types (regular tables, foreign tables, materialized views), and performs tuple conversion when child tables have different column structures than the parent. For foreign tables, it consults the Foreign Data Wrapper (FDW) to determine if analysis is supported.
+
+Sampling is distributed proportionally based on each child's block count, ensuring that larger child tables contribute more samples. When child table schemas differ from the parent, the function converts tuples using column name matching to maintain compatibility.
+
+## Parameters / Member Variables
+- : The parent relation of the inheritance tree
+- : Error reporting level for progress messages
+- : Caller-allocated array to store sampled tuples from all children
+- : Target total number of rows to sample across all children
+- : Output parameter for estimated total live rows across all children
+- : Output parameter for estimated total dead rows across all children
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_all_inheritors
+  - acquire_sample_rows
+  - CommandCounterIncrement
+  - SetRelationHasSubclass
+  - GetFdwRoutineForRelation
+  - equalRowTypes
+  - convert_tuples_by_name
+  - execute_attr_map_tuple
+  - free_conversion_map
+  - heap_freetuple
+- Called from (representative examples):
+  - do_analyze_rel
+
+## Notes and Other Information
+- Fails if no analyzable child tables exist in the inheritance hierarchy
+- Handles foreign tables by consulting their FDW analyze hooks
+- Performs automatic tuple conversion when child schemas differ from parent schema
+- Distributes sample size proportionally based on relative block counts of children
+- Updates relhassubclass catalog flag if no children are found
+- Maintains table locks on children to preserve TOAST table references
+- Provides detailed progress reporting for multi-child table analysis
+- Ignores temp tables from other backends and non-analyzable table types

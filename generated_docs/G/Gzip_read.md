@@ -1,0 +1,34 @@
+# Gzip_read
+
+## Location
+src/bin/pg_dump/compress_gzip.c: 255 - 284
+
+## Overview
+Reads data from a gzip-compressed file handle and handles compression-related errors appropriately.
+
+## Definition
+
+
+## Detailed Description
+This function provides a wrapper around zlib's gzread() function for reading compressed data. It reads up to 'size' bytes from the gzip file into the provided buffer. The function includes comprehensive error handling to distinguish between EOF conditions and actual read errors. When gzread() returns zero or negative values, it checks whether the file has reached EOF using gzeof(), and if not, it reports the specific error using gzerror(). This ensures that applications can properly handle both normal end-of-file conditions and error situations.
+
+## Parameters / Member Variables
+- : Pointer to the buffer where read data will be stored
+- : Maximum number of bytes to read
+- : Compressed file handle containing the gzip file pointer in private_data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - gzread
+  - gzeof
+  - gzerror
+  - strerror
+  - pg_fatal
+- Called from (representative examples):
+  - No direct references found in the codebase
+
+## Notes and Other Information
+- Returns the actual number of bytes read, or 0 on EOF
+- Distinguishes between Z_ERRNO errors (system errors) and zlib-specific errors
+- Uses CompressFileHandle structure to access the underlying gzFile
+- Part of the Compress File API for handling gzip-compressed files in pg_dump/pg_restore

@@ -1,0 +1,45 @@
+# list_sort
+
+## Location
+src/backend/nodes/list.c: 1674 - 1690
+
+## Overview
+Sorts a PostgreSQL list in-place using a user-provided comparator function, based on the standard library qsort algorithm.
+
+## Definition
+
+
+## Detailed Description
+The  function sorts a PostgreSQL List structure in-place using a user-provided comparison function. It's a wrapper around the standard library's  function, providing the same O(N log N) time complexity and similar behavior regarding sort stability (no guarantees for equal keys).
+
+The function is designed to work with PostgreSQL's List structure by accepting a comparator function that receives  arguments, allowing the comparator to use  and related macros directly without type casting. The comparator function should return a negative value if the first element is less than the second, zero if they're equal, and a positive value if the first is greater.
+
+The function includes an optimization to skip sorting when the list has fewer than two elements, and validates the list structure before proceeding with the sort operation.
+
+## Parameters / Member Variables
+- : The List to sort in-place. Must be a valid List structure (not NIL).
+- : A comparator function of type  that takes two  arguments and returns an integer indicating their relative ordering (negative, zero, or positive).
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - check_list_invariants
+  - qsort (standard library function)
+  - list_length (indirectly referenced)
+- Called from (representative examples):
+  - perform_base_backup
+  - WalSummariesAreComplete
+  - heap_truncate_find_FKs
+  - GetPublicationRelations
+  - create_append_path
+  - expand_grouping_sets
+  - RelationGetIndexList
+
+## Notes and Other Information
+- Sorts the list in-place, modifying the original list structure
+- Based on standard library qsort(), providing O(N log N) performance
+- No stability guarantees for equal elements (like qsort)
+- Comparator function receives  arguments for convenient use with  family of macros
+- Optimized to skip sorting for lists with 0 or 1 elements
+- Commonly used for sorting relation lists, path lists, and other collections that need ordering
+- The comparator function should follow standard qsort conventions for return values
+- List structure integrity is validated before sorting

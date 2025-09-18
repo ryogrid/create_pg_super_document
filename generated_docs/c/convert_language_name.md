@@ -1,0 +1,31 @@
+# convert_language_name
+
+## Location
+src/backend/utils/adt/acl.c: 3765 - 3776
+
+## Overview
+Converts a procedural language name from text format to its corresponding OID in the PostgreSQL system catalogs.
+
+## Definition
+
+
+## Detailed Description
+This is a support function for the has_language_privilege family of functions. It takes a language name as a PostgreSQL text type and converts it to the corresponding language OID by looking up the language in the system catalogs. The function is static, indicating it's only used within the acl.c file. It uses PostgreSQL's standard text-to-cstring conversion and then calls get_language_oid to perform the actual lookup.
+
+## Parameters / Member Variables
+-  (text*): The name of the procedural language as a PostgreSQL text type
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - text_to_cstring: Converts PostgreSQL text type to a C string
+  - get_language_oid: Looks up the language OID by name (with error if not found)
+- Called from (representative examples):
+  - has_language_privilege_name_name: Checks language privileges using role name and language name
+  - has_language_privilege_name: Checks language privileges for current user using language name
+  - has_language_privilege_id_name: Checks language privileges using role OID and language name
+
+## Notes and Other Information
+- This is a static helper function, not exposed outside of acl.c
+- The second parameter to get_language_oid is false, meaning it will throw an error if the language doesn't exist
+- Part of PostgreSQL's privilege checking infrastructure for procedural languages
+- Located in src/backend/utils/adt/acl.c:3765-3776

@@ -1,0 +1,48 @@
+# PredicateLockPageSplit
+
+## Location
+src/backend/storage/lmgr/predicate.c: 3134 - 3218
+
+## Overview
+Handles the transfer of predicate locks from an old page to a new page during page splits in PostgreSQL's serializable snapshot isolation implementation.
+
+## Definition
+
+
+## Detailed Description
+PredicateLockPageSplit is a critical function in PostgreSQL's predicate locking system that maintains serializable isolation guarantees during page split operations. When a page is split (due to overflow or other reasons), any existing predicate locks on the old page must be copied to the new page to ensure that serializable transactions continue to detect potential conflicts correctly.
+
+The function performs several key operations:
+1. Early bailout if no serializable transactions are running
+2. Verification that predicate locking is needed for the relation
+3. Creation of predicate lock target tags for both old and new pages  
+4. Atomic transfer of locks from old page to new page under exclusive lock
+5. Fallback to relation-level locks if page-level lock entries are exhausted
+
+The function handles the case where the predicate lock table becomes full by promoting page locks to relation locks, ensuring that serialization conflicts are still detected even when resources are constrained.
+
+## Parameters / Member Variables
+- : The relation containing the pages being split
+- : Block number of the original page before the split
+- : Block number of the newly created page after the split
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PredicateLockingNeededForRelation
+  - BlockNumberIsValid
+  - SET_PREDICATELOCKTARGETTAG_PAGE
+  - TransferPredicateLocksToNewTarget
+  - GetParentPredicateLockTag
+  - LWLockAcquire/LWLockRelease
+- Called from (representative examples):
+  - ginPlaceToPage (GIN index splits)
+  - gistplacetopage (GiST index splits)
+  - _hash_splitbucket (hash index splits)
+  - _bt_insertonpg (B-tree index splits)
+
+## Notes and Other Information
+- This function affects ALL serializable transactions, regardless of the isolation level of the transaction performing the page split
+- The function may leave local lock copies inconsistent with shared memory, but this is acceptable since the new locks provide equivalent or stronger conflict detection
+- Memory barriers from LWLock acquisition ensure safe concurrent access during the serializable transaction check
+- Skip processing for temporary tables and toast tables as they don't require predicate locking
+- The function is essential for maintaining the correctness of PostgreSQL's serializable snapshot isolation implementation

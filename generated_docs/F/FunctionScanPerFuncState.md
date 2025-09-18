@@ -1,0 +1,42 @@
+# FunctionScanPerFuncState
+
+## Location
+src/backend/executor/nodeFunctionscan.c: 35 - 43
+
+## Overview
+FunctionScanPerFuncState is a structure that holds runtime data for each function being scanned in PostgreSQL's function scan executor node, managing the state and result data for individual functions during query execution.
+
+## Definition
+
+
+## Detailed Description
+FunctionScanPerFuncState is a per-function state structure used within PostgreSQL's function scan execution framework. It encapsulates all the necessary runtime information needed to execute and manage the results of a single function call during query processing. This structure is particularly important for handling set-returning functions (SRFs) and managing their result sets efficiently.
+
+The structure maintains both the execution state of the function expression and the storage mechanism for its results. It supports functions that return multiple rows by using a tuple store to cache results, and tracks metadata such as the expected column count and total row count when available.
+
+## Parameters / Member Variables
+- : Pointer to SetExprState containing the state of the expression being evaluated, managing the function's execution context
+- : TupleDesc describing the function's result type structure, defining the schema of returned tuples
+- : Integer representing the expected number of result columns from the function
+- : Pointer to Tuplestorestate that holds the complete function result set for set-returning functions
+- : 64-bit integer tracking the number of rows in the result set, or -1 if the count is not known
+- : Pointer to TupleTableSlot for holding individual function result tuples, may be NULL
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SetExprState
+  - Tuplestorestate
+- Called from (representative examples):
+  - FunctionNext
+  - ExecInitFunctionScan
+  - ExecEndFunctionScan
+  - ExecReScanFunctionScan
+  - FunctionScanState
+
+## Notes and Other Information
+- This structure is defined in src/backend/executor/nodeFunctionscan.c at lines 35-43
+- Part of PostgreSQL's executor framework for handling function scans in query execution
+- Designed to efficiently handle both scalar functions and set-returning functions (SRFs)
+- The rowcount field being -1 indicates that the total number of rows is unknown until the function completes execution
+- Used as a component within the larger FunctionScanState structure for managing multiple functions in a single scan operation
+- Critical for memory management and result caching in function scan operations

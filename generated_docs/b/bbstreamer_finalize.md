@@ -1,0 +1,41 @@
+# bbstreamer_finalize
+
+## Location
+src/bin/pg_basebackup/bbstreamer.h: 136 - 143
+
+## Overview
+This function finalizes a bbstreamer object by calling its finalize callback, allowing the streamer to perform cleanup operations and complete any pending work.
+
+## Definition
+
+
+## Detailed Description
+bbstreamer_finalize is a static inline function that provides a standardized interface for finalizing any bbstreamer implementation. It acts as a wrapper around the finalize callback function pointer in the bbstreamer's operations structure (bbs_ops->finalize). This function is called once at the end of data processing to give each bbstreamer in the pipeline a chance to perform cleanup operations such as closing files, flushing buffers, writing final data, or releasing resources.
+
+The function performs a basic assertion to ensure the streamer is not NULL before delegating to the appropriate finalize handler based on the streamer's type. This is part of the three-callback architecture of bbstreamers: content (for processing data), finalize (for cleanup), and free (for memory deallocation).
+
+## Parameters / Member Variables
+- : Pointer to the bbstreamer object to be finalized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bbstreamer (struct type)
+  - Assert (assertion macro)
+
+- Called from (representative examples):
+  - bbstreamer_gzip_decompressor_finalize
+  - bbstreamer_recovery_injector_finalize
+  - bbstreamer_lz4_compressor_finalize
+  - bbstreamer_tar_parser_finalize
+  - bbstreamer_zstd_compressor_finalize
+  - ReceiveArchiveStream
+  - ReceiveArchiveStreamChunk
+  - ReceiveTarFile
+
+## Notes and Other Information
+- This is a static inline function defined in bbstreamer.h, making it available to all bbstreamer implementations
+- Part of the three-phase bbstreamer lifecycle: content processing, finalization, and memory cleanup
+- Called exactly once per streamer instance, typically after all content has been processed
+- Different bbstreamer types use finalization for various purposes: compression streamers may flush remaining data, file writers may close handles, parsers may process trailing data
+- The Assert macro ensures defensive programming by catching NULL streamer pointers in debug builds
+- This function is critical for proper resource management in the pg_basebackup streaming architecture

@@ -1,0 +1,41 @@
+# calc_nestloop_required_outer
+
+## Location
+src/backend/optimizer/util/pathnode.c: 2378 - 2404
+
+## Overview
+Computes the required outer relation set for a nested loop join path by determining which relations must be available as parameters from outside the join.
+
+## Definition
+```c
+Relids calc_nestloop_required_outer(Relids outerrelids,
+                                   Relids outer_paramrels,
+                                   Relids innerrelids,
+                                   Relids inner_paramrels)
+```
+
+## Detailed Description
+This function calculates the set of relations that must be provided as parameters from outside a nested loop join. It handles the parameter dependencies between the outer and inner sides of the join, ensuring that the inner path can receive parameters from the outer path but not vice versa. The function combines parameter requirements from both sides and removes relations that will be satisfied by the outer side of the join. The result must not share storage with the input parameters to avoid memory corruption.
+
+## Parameters / Member Variables
+- `outerrelids`: Set of relation IDs that will be provided by the outer side of the join
+- `outer_paramrels`: Set of relation IDs that the outer path requires as parameters
+- `innerrelids`: Set of relation IDs that will be provided by the inner side of the join
+- `inner_paramrels`: Set of relation IDs that the inner path requires as parameters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bms_overlap (to check for invalid parameter dependencies)
+  - bms_copy (to copy parameter sets)
+  - bms_union (to combine parameter requirements)
+  - bms_del_members (to remove satisfied parameters)
+  - Assert (for debugging parameter constraint validation)
+- Called from (representative examples):
+  - try_nestloop_path (in joinpath.c)
+
+## Notes and Other Information
+- The function enforces the constraint that outer paths cannot depend on inner relations through an assertion
+- When the inner path is not parameterized, the function simply returns a copy of the outer path's parameter requirements
+- The function uses top-level parent relation IDs even when considering child joins for consistency
+- Memory management is important: the result is allocated separately and does not share storage with inputs
+- This is a core utility function for nested loop join planning in the PostgreSQL query optimizer

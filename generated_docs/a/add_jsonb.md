@@ -1,0 +1,37 @@
+# add_jsonb
+
+## Location
+src/backend/utils/adt/jsonb.c: 1016 - 1048
+
+## Overview
+A static helper function that appends JSON text for a given value to a JsonbInState result structure, serving as a thin wrapper around datum_to_jsonb_internal.
+
+## Definition
+
+
+## Detailed Description
+The add_jsonb function is a utility function that converts a PostgreSQL Datum value into JSONB format and appends it to an existing JsonbInState structure. It acts as a convenient wrapper around the more complex datum_to_jsonb_internal function by handling the type categorization step automatically. The function first validates the input type, then categorizes the PostgreSQL type into its corresponding JSON type category, and finally delegates the actual conversion work to datum_to_jsonb_internal.
+
+## Parameters / Member Variables
+- : The PostgreSQL Datum value to be converted to JSONB
+- : Boolean flag indicating whether the value is NULL
+- : Pointer to JsonbInState structure where the converted JSONB data will be appended
+- : The PostgreSQL OID representing the data type of the value
+- : Boolean flag indicating whether this value represents a scalar key in a JSON object
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - json_categorize_type
+  - datum_to_jsonb_internal
+  - JsonbInState
+  - JsonTypeCategory
+  - JSONTYPE_NULL
+- Called from (representative examples):
+  - jsonb_build_object_worker
+  - jsonb_build_array_worker
+
+## Notes and Other Information
+- This function includes input validation to ensure val_type is not InvalidOid
+- For NULL values, the function sets tcategory to JSONTYPE_NULL and outfuncoid to InvalidOid
+- The function is designed as a convenience wrapper; for scenarios where the same type will be processed multiple times, it's more efficient to call json_categorize_type once and use datum_to_jsonb_internal directly
+- The function is static, meaning it's only accessible within the jsonb.c compilation unit

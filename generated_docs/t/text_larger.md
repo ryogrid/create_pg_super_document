@@ -1,0 +1,33 @@
+# text_larger
+
+## Location
+src/backend/utils/adt/varlena.c: 2571 - 2582
+
+## Overview
+A comparison function that returns the lexicographically larger of two text values according to the specified collation.
+
+## Definition
+Datum text_larger(PG_FUNCTION_ARGS)
+
+## Detailed Description
+This function implements a max operation for text data types. It compares two text arguments using the current collation and returns whichever text value is lexicographically larger. The comparison is collation-aware, meaning the result depends on the locale-specific sorting rules of the collation in use. This function is typically used in aggregate operations or as a support function for operators that need to determine the maximum text value.
+
+## Parameters / Member Variables
+- arg1: First text value to compare (retrieved via PG_GETARG_TEXT_PP(0))
+- arg2: Second text value to compare (retrieved via PG_GETARG_TEXT_PP(1))
+- result: Pointer to the larger of the two input text values
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - text_cmp
+  - PG_GET_COLLATION
+  - PG_RETURN_TEXT_P
+- Called from (representative examples):
+  - No direct references found in the codebase (likely used through SQL function calls)
+
+## Notes and Other Information
+- Uses text_cmp for the actual comparison logic with collation support
+- Returns a pointer to one of the input arguments rather than creating a new text object for efficiency
+- The function respects locale-specific collation rules for text comparison
+- Commonly used in MAX aggregate functions or comparison operators for text types
+- Located in src/backend/utils/adt/varlena.c:2571-2582

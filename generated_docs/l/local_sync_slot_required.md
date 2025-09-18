@@ -1,0 +1,45 @@
+# local_sync_slot_required
+
+## Location
+src/backend/replication/logical/slotsync.c: 364 - 416
+
+## Overview
+Helper function that determines whether a local synchronized slot should be retained by checking if it exists in the remote slots list and validating its invalidation status.
+
+## Definition
+```c
+static bool local_sync_slot_required(ReplicationSlot *local_slot, List *remote_slots)
+```
+
+## Detailed Description
+This function implements the logic to determine if a local synchronized replication slot is still required and should be kept. It performs two key checks:
+
+1. **Existence check**: Verifies if the local slot has a corresponding remote slot with the same name
+2. **Invalidation status check**: Ensures that if the remote slot is valid, the local slot should also be valid
+
+The function returns false in two scenarios:
+- The local slot does not exist in the remote slots list (indicating it was dropped on the primary)
+- The local slot is invalidated while the corresponding remote slot is still valid (indicating a synchronization issue)
+
+In all other cases, it returns true, meaning the local slot should be retained.
+
+## Parameters / Member Variables
+- : Pointer to the local ReplicationSlot to be checked
+- : List of RemoteSlot structures representing slots from the primary server
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - foreach_ptr (macro for iterating over list)
+  - strcmp
+  - NameStr (macro to extract string from Name structure)
+  - SpinLockAcquire
+  - SpinLockRelease
+  - RS_INVAL_NONE (invalidation status constant)
+- Called from:
+  - drop_local_obsolete_slots
+
+## Notes and Other Information
+- Uses spinlock protection when accessing the local slot's invalidation status to ensure thread safety
+- The function name matching is case-sensitive using strcmp
+- Returns true if the slot should be kept, false if it should be dropped
+- This is a key component in the slot cleanup logic that removes obsolete synchronized slots

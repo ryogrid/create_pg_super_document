@@ -1,0 +1,45 @@
+# RemoveConstraintById
+
+## Location
+src/backend/catalog/pg_constraint.c: 612 - 702
+
+## Overview
+Deletes a single constraint record from the system catalog by constraint OID, handling necessary cleanup and metadata updates for both relation and domain constraints.
+
+## Definition
+
+
+## Detailed Description
+RemoveConstraintById is responsible for removing a constraint entry from the pg_constraint system catalog. The function performs different cleanup operations depending on the type of constraint being removed:
+
+1. **Relation constraints**: Opens the relation with exclusive lock and updates metadata. For CHECK constraints, it decrements the relchecks count in pg_class to force relcache invalidation.
+2. **Domain constraints**: Currently performs minimal processing (marked as TODO for future enhancement).
+
+The function ensures proper locking semantics by holding AccessExclusiveLock on the target relation until transaction end, preventing concurrent modifications during constraint removal.
+
+## Parameters / Member Variables
+- : The OID of the constraint to be removed from the pg_constraint catalog
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open
+  - SearchSysCache1
+  - HeapTupleIsValid
+  - elog
+  - GETSTRUCT
+  - OidIsValid
+  - SearchSysCacheCopy1
+  - CatalogTupleUpdate
+  - heap_freetuple
+  - CatalogTupleDelete
+  - ReleaseSysCache
+  - table_close
+- Called from (representative examples):
+  - doDeletion (dependency.c:1396)
+
+## Notes and Other Information
+- The function expects the constraint to exist; missing constraints trigger an ERROR
+- For CHECK constraints on relations, the relchecks counter in pg_class is decremented to trigger relcache rebuilding
+- Domain constraint removal is currently minimal and marked for future enhancement
+- Maintains proper lock hierarchy: AccessExclusiveLock on target relation, RowExclusiveLock on catalogs
+- The constraint's relation lock is held until transaction end to ensure consistency

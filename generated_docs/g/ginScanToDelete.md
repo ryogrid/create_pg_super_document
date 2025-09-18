@@ -1,0 +1,51 @@
+# ginScanToDelete
+
+## Location
+src/backend/access/gin/ginvacuum.c: 247 - 345
+
+## Overview
+Recursively scans a GIN posting tree to identify and delete empty pages while maintaining proper locking to prevent deadlocks and ensure consistency.
+
+## Definition
+
+
+## Detailed Description
+This recursive static function traverses a GIN posting tree to locate and delete empty pages. It implements a sophisticated locking protocol that maintains exclusive locks on the path from root to current page and keeps the left sibling locked to avoid deadlocks with concurrent ginStepRight() operations. The function uses a DataPageDeleteStack structure to track the deletion context and parent-child relationships during traversal.
+
+For internal pages, the function recursively processes all child pages. For leaf pages, it uses GinDataLeafPageIsEmpty() to determine emptiness, while for internal pages it checks if maxoff is less than FirstOffsetNumber. Empty pages are only deleted if they have a valid left sibling and are not the rightmost page, ensuring tree structure integrity.
+
+## Parameters / Member Variables
+- : GinVacuumState containing index context, buffer strategy, and vacuum statistics
+- : Block number of the current page being scanned
+- : Boolean indicating whether the current page is the root of the posting tree
+- : DataPageDeleteStack pointer representing the parent context in the deletion stack
+- : Offset in the parent page that points to the current page (used for deletion)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DataPageDeleteStack (struct for tracking deletion context)
+  - ReadBufferExtended (read page into buffer)
+  - LockBuffer (acquire/release buffer locks)
+  - BufferGetPage (get page from buffer)
+  - GinPageIsData/GinPageIsLeaf (page type checks)
+  - GinPageGetOpaque (access page opaque data)
+  - GinDataPageGetPostingItem (get posting item from page)
+  - PostingItemGetBlockNumber (extract block number)
+  - GinPageRightMost (check if page is rightmost)
+  - GinDataLeafPageIsEmpty (check if leaf page is empty)
+  - ginDeletePage (delete empty page)
+  - BufferGetBlockNumber (get block number from buffer)
+  - UnlockReleaseBuffer/ReleaseBuffer (buffer management)
+- Called from (representative examples):
+  - ginScanToDelete (recursive self-call)
+  - ginVacuumPostingTree
+
+## Notes and Other Information
+- Static function, only accessible within ginvacuum.c
+- Implements recursive tree traversal with careful lock management
+- Uses DataPageDeleteStack to maintain deletion context across recursive calls
+- Never deletes leftmost or rightmost pages to preserve tree structure
+- Returns true if the current page was deleted, false otherwise
+- Reuses DataPageDeleteStack structures to minimize memory allocation
+- Handles special unlocking of leftBuffer when reaching rightmost pages
+- Critical for maintaining posting tree integrity during vacuum operations

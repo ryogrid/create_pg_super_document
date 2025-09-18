@@ -1,0 +1,34 @@
+# prefixjoinsel
+
+## Location
+src/backend/utils/adt/like_support.c: 912 - 920
+
+## Overview
+A selectivity estimation function for prefix matching join operations in PostgreSQL's query planner.
+
+## Definition
+
+
+## Detailed Description
+ is a join selectivity estimation function that provides selectivity estimates for prefix matching operations in join conditions. It serves as a wrapper function that delegates the actual selectivity calculation to the generic  function, specifying the pattern type as prefix pattern () and indicating that this is not a negated match (false).
+
+The function returns a selectivity estimate as a floating-point value between 0 and 1, representing the expected fraction of rows that will match the join condition. This is particularly useful for operators that perform prefix-based matching, such as string prefix operations. The estimate helps PostgreSQL's query planner determine the most efficient join order and execution strategy. Currently, the underlying implementation uses a simple default selectivity value rather than performing sophisticated pattern analysis.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument macro that provides access to function call information including operator arguments, though this specific function doesn't directly access individual arguments
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Generic pattern matching join selectivity function  
+  - : Enum value indicating prefix pattern type
+- Called from:
+  - No direct callers found (likely referenced through PostgreSQL's operator selectivity system)
+
+## Notes and Other Information
+- Located in 
+- Part of PostgreSQL's cost-based query optimization system
+- Returns the default selectivity estimate of 0.005 (0.5%) for prefix matching joins
+- The current implementation is a placeholder that doesn't perform actual pattern analysis
+- Works in conjunction with PostgreSQL's operator class system for prefix-based operators
+- Used for estimating selectivity of expressions involving string prefix matching operations
+- Prefix matching is commonly used in text search and string comparison scenarios

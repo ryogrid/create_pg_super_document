@@ -1,0 +1,48 @@
+# adjustBox
+
+## Location
+src/backend/access/gist/gistproc.c: 146 - 163
+
+## Overview
+Expands a BOX to include another BOX by updating its coordinates to encompass the minimum bounding rectangle that contains both boxes.
+
+## Definition
+```c
+static void adjustBox(BOX *b, const BOX *addon)
+```
+
+## Detailed Description
+This function modifies an existing BOX structure in-place to ensure it encompasses both the original box and an additional "addon" box. It effectively computes the union of two boxes by adjusting the coordinates of the first box to include the second box's extent.
+
+The function works by comparing each coordinate pair:
+- For high coordinates (top-right corner): takes the maximum values to ensure the expanded box reaches the furthest extents
+- For low coordinates (bottom-left corner): takes the minimum values to ensure the expanded box covers the nearest extents
+
+This operation is fundamental in spatial indexing algorithms where bounding boxes need to be incrementally expanded to accommodate new entries or when merging spatial regions.
+
+## Parameters / Member Variables
+- `b`: Input/Output parameter - pointer to the BOX structure that will be modified to include the addon box
+- `addon`: Input parameter - pointer to the BOX structure that should be included in the adjusted box (read-only)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BOX (data type)
+  - float8_lt (for comparing coordinates to determine if expansion is needed)
+  - float8_gt (for comparing coordinates to determine if expansion is needed)
+- Called from (representative examples):
+  - gist_box_union
+  - fallbackSplit (multiple times)
+  - gist_box_picksplit
+  - PLACE_LEFT
+  - PLACE_RIGHT
+
+## Notes and Other Information
+- This is a static function, only accessible within gistproc.c
+- The function modifies the first box parameter in-place rather than creating a new box
+- Unlike rt_box_union, this function modifies an existing box rather than creating a union in a separate output parameter
+- The operation is not commutative in terms of which box gets modified - adjustBox(a, b) modifies 'a' to include 'b'
+- Essential for maintaining bounding box integrity during R-tree node updates and splits
+- Used extensively in GiST split algorithms and union operations
+- Located in src/backend/access/gist/gistproc.c:146-163
+- The coordinate comparisons ensure that the box only expands when necessary, maintaining efficiency
+- Critical component of spatial index maintenance operations in PostgreSQL's GiST implementation

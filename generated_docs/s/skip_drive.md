@@ -1,0 +1,44 @@
+# skip_drive
+
+## Location
+src/port/path.c: 68 - 84
+
+## Overview
+A static utility function that skips over the drive portion of a file path, handling both Windows drive letters and UNC paths.
+
+## Definition
+```c
+static char *skip_drive(const char *path)
+```
+
+## Detailed Description
+The skip_drive function is designed to handle platform-specific path prefixes by skipping over drive specifications in file paths. It handles two types of drive specifications:
+
+1. **UNC paths**: Paths starting with two directory separators (e.g., "\\\\server\\share") - it skips past the server name portion
+2. **Windows drive letters**: Paths with a drive letter followed by a colon (e.g., "C:") - it skips past the drive letter and colon
+
+The function returns a pointer to the portion of the path after the drive specification, allowing subsequent path processing functions to work with the path component independent of the drive.
+
+## Parameters / Member Variables
+- `path`: Input file path string that may contain a drive specification
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IS_DIR_SEP (macro for checking directory separators)
+- Called from (representative examples):
+  - has_drive_prefix
+  - first_dir_separator
+  - last_dir_separator
+  - join_path_components
+  - canonicalize_path_enc
+  - path_contains_parent_reference
+  - get_progname
+  - trim_directory
+  - trim_trailing_separator
+
+## Notes and Other Information
+- This is a static function internal to src/port/path.c
+- Handles cross-platform path compatibility by abstracting drive specifications
+- Uses the IS_DIR_SEP macro to handle different directory separator characters across platforms
+- For UNC paths, it skips past the server name but stops at the first directory separator after the server name
+- Essential for path manipulation functions that need to work with the directory structure independent of drive specifications

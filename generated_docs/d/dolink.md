@@ -1,0 +1,48 @@
+# dolink
+
+## Location
+src/timezone/zic.c: 1004 - 1105
+
+## Overview
+Creates a link (hard link, symbolic link, or file copy) from a target file to a linkname, implementing a fallback strategy when preferred linking methods fail.
+
+## Definition
+
+
+## Detailed Description
+The  function implements a comprehensive linking strategy for timezone files. It attempts to create links in the following priority order:
+1. Hard link (via )
+2. Symbolic link (if hard linking fails and HAVE_SYMLINK is defined)
+3. File copy (as final fallback)
+
+The function handles special cases like removing existing links, creating necessary directories, and managing symbolic link preservation. It also supports a "remove only" mode when target is "-".
+
+The function carefully manages error conditions and provides appropriate warnings when fallback methods are used. It ensures that directories are not used as link targets and handles the case where the linkname should remain a symbolic link if it was one previously.
+
+## Parameters / Member Variables
+- : The path to the source file to be linked, or "-" for remove-only operation
+- : The path where the link should be created
+- : Boolean flag indicating whether to preserve existing symbolic link behavior
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - itsdir (checks if target is a directory)
+  - itssymlink (checks if linkname is a symbolic link)
+  - hardlinkerr (attempts to create hard link)
+  - relname (generates relative path for symbolic links)
+  - mkdirs (creates necessary parent directories)
+  - symlink (POSIX system call for symbolic links)
+  - warning (outputs warning messages)
+  - close_file (closes files safely)
+  - Standard C library functions: strcmp, remove, strerror, fopen, getc, putc, free
+- Called from:
+  - main (three times, at lines 836, 846, and 851 in src/timezone/zic.c)
+
+## Notes and Other Information
+- This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code
+- Implements a robust fallback strategy: hard link → symbolic link → file copy
+- Handles security considerations for running with elevated privileges
+- Provides detailed error messages and warnings for troubleshooting
+- Supports both absolute and relative symbolic links
+- The function exits the program on critical errors rather than returning error codes
+- Conditional compilation with HAVE_SYMLINK macro for systems without symbolic link support

@@ -1,0 +1,40 @@
+# network_hostmask
+
+## Location
+src/backend/utils/adt/network.c: 1416 - 1463
+
+## Overview
+Generates the hostmask for a given network address, returning an address where host bits are set to 1 and network bits are set to 0 (inverse of netmask).
+
+## Definition
+
+
+## Detailed Description
+This function creates the hostmask corresponding to a given inet or cidr network address. It generates the inverse of a netmask by setting the host bits (bits beyond the network prefix length) to 1 and leaving network bits as 0. The function calculates the number of host bits by subtracting the prefix length from the maximum possible bits for the address family, then processes the address from the least significant byte backwards to set the appropriate host bits. This is useful for determining the host portion of an address and for certain network calculations that require the inverse of the traditional subnet mask.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing the inet/cidr input network address
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Extracts inet argument from function arguments
+  - : Allocates zero-initialized memory for the result
+  - : Gets the size of the IP address in bytes
+  - : Gets the prefix length (netmask bits) of the address
+  - : Gets the maximum possible bits for the address family
+  - : Gets pointer to the raw address bytes
+  - : Gets/sets the address family
+  - : Sets the variable size header for the inet type
+  - : Returns the inet result
+- Called from (representative examples):
+  - No direct callers found (SQL-level function)
+
+## Notes and Other Information
+- Creates the inverse of a netmask, highlighting the host portion of addresses
+- Processes bytes from the end of the address backwards (least significant to most significant)
+- Calculates host bits as: maximum_bits - network_prefix_length
+- For partial bytes, uses right-shift operations to create the appropriate mask
+- Sets the bits field to maximum (32 for IPv4, 128 for IPv6) in the result
+- Useful for network analysis and understanding address space allocation within subnets
+- Complements the functionality provided by network_netmask function
+- Located in src/backend/utils/adt/network.c:1416-1463

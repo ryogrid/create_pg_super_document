@@ -1,0 +1,47 @@
+# pq_sendint32
+
+## Location
+src/include/libpq/pqformat.h: 144 - 151
+
+## Overview
+Appends a binary 32-bit unsigned integer to a StringInfo buffer for network transmission in PostgreSQL protocol messages.
+
+## Definition
+```c
+static inline void pq_sendint32(StringInfo buf, uint32 i)
+```
+
+## Detailed Description
+`pq_sendint32` is an inline function that appends a 32-bit unsigned integer to a StringInfo buffer. This is one of the most frequently used functions in PostgreSQL's protocol layer, appearing throughout logical replication, data type serialization, authentication, and general protocol communication. The function ensures proper buffer space allocation through `enlargeStringInfo` before writing the integer in network byte order using `pq_writeint32`. Its 32-bit capacity makes it ideal for representing object IDs, transaction IDs, array dimensions, message lengths, and most numeric protocol fields.
+
+## Parameters / Member Variables
+- `buf`: StringInfo buffer where the 32-bit integer will be appended
+- `i`: The 32-bit unsigned integer value to append to the buffer
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - enlargeStringInfo
+  - pq_writeint32
+- Called from (representative examples):
+  - printsimple_startup
+  - printtup
+  - sendAuthRequest
+  - pq_sendcountedtext
+  - logicalrep_write_begin
+  - logicalrep_write_insert
+  - logicalrep_write_update
+  - array_send
+  - int4send
+  - numeric_serialize
+  - record_send
+  - pq_sendint
+
+## Notes and Other Information
+- Defined as a static inline function for optimal performance
+- Most heavily used integer sending function in PostgreSQL protocol
+- Critical for logical replication message formatting
+- Used extensively in data type serialization functions
+- Handles network byte order conversion automatically
+- Essential for PostgreSQL's wire protocol compatibility
+- The 32-bit size accommodates most PostgreSQL internal identifiers and counters
+- Used in both client-server and replication protocols

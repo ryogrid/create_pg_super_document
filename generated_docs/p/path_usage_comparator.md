@@ -1,0 +1,34 @@
+# path_usage_comparator
+
+## Location
+src/backend/optimizer/path/indxpath.c: 1493 - 1525
+
+## Overview
+A qsort comparator function used to sort PathClauseUsage structures in increasing order of index access cost, with selectivity as a secondary sort criterion.
+
+## Definition
+
+
+## Detailed Description
+This static comparator function is used by qsort to order PathClauseUsage entries based on their associated bitmap tree node costs. It first compares the access costs of two PathClauseUsage structures, and if the costs are equal, it uses selectivity as a tiebreaker. The function implements a standard three-way comparison returning -1, 0, or 1 to indicate the relative ordering of the two elements.
+
+The function extracts cost and selectivity information by calling cost_bitmap_tree_node() on the path member of each PathClauseUsage structure, then performs the comparison logic to determine the proper sort order.
+
+## Parameters / Member Variables
+- : Pointer to the first PathClauseUsage pointer being compared
+- : Pointer to the second PathClauseUsage pointer being compared
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - cost_bitmap_tree_node
+  - PathClauseUsage
+  - Cost
+  - Selectivity
+- Called from (representative examples):
+  - choose_bitmap_and
+
+## Notes and Other Information
+- This is a static function local to indxpath.c
+- Used specifically for sorting PathClauseUsage arrays to optimize bitmap index scan planning
+- The comparison prioritizes cost over selectivity, which aligns with PostgreSQL's cost-based optimization strategy
+- Returns standard qsort comparator values: -1 (a < b), 0 (a == b), 1 (a > b)

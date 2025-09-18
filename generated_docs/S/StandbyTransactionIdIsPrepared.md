@@ -1,0 +1,31 @@
+# StandbyTransactionIdIsPrepared
+
+## Location
+src/backend/access/transam/twophase.c: 1459 - 1486
+
+## Overview
+StandbyTransactionIdIsPrepared verifies whether a specific transaction ID corresponds to a prepared transaction during database recovery operations.
+
+## Definition
+bool StandbyTransactionIdIsPrepared(TransactionId xid)
+
+## Detailed Description
+This function is specifically designed for use during recovery mode to confirm if a given transaction ID (xid) represents a prepared transaction that exists in the two-phase commit system. It performs validation by reading the two-phase commit state file from disk and verifying that the transaction ID in the file header matches the requested transaction ID. The function returns false if two-phase commit is disabled (max_prepared_xacts <= 0) or if no corresponding prepared transaction file exists.
+
+## Parameters / Member Variables
+- `xid`: The transaction ID to check for prepared status. Must be a valid transaction ID.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReadTwoPhaseFile
+  - TransactionIdEquals
+  - TwoPhaseFileHeader
+- Called from (representative examples):
+  - KnownAssignedXidsRemovePreceding
+  - StandbyReleaseOldLocks
+
+## Notes and Other Information
+- This function is specifically used during recovery operations, not normal runtime
+- Returns false immediately if two-phase commit is disabled (max_prepared_xacts <= 0)
+- Uses ReadTwoPhaseFile with the 'missing_ok' parameter set to true, allowing graceful handling of non-existent files
+- Memory allocated for the file buffer is properly freed after validation

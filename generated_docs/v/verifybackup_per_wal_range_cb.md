@@ -1,0 +1,43 @@
+# verifybackup_per_wal_range_cb
+
+## Location
+src/bin/pg_verifybackup/pg_verifybackup.c: 577 - 609
+
+## Overview
+Records details extracted from the backup manifest for one WAL range and maintains them in a linked list for later verification during the backup verification process.
+
+## Definition
+```c
+static void verifybackup_per_wal_range_cb(JsonManifestParseContext *context,
+                                          TimeLineID tli,
+                                          XLogRecPtr start_lsn, XLogRecPtr end_lsn)
+```
+
+## Detailed Description
+This function serves as a callback during backup manifest parsing for WAL (Write-Ahead Log) range entries. When the JSON manifest parser encounters a WAL range specification, it calls this function to record the timeline ID and LSN (Log Sequence Number) range information. The function allocates a new manifest_wal_range structure, initializes it with the provided WAL range data, and appends it to a doubly-linked list maintained in the manifest data structure. This linked list preserves the order of WAL ranges as they appear in the manifest for subsequent verification operations.
+
+## Parameters / Member Variables
+- `context`: Parsing context containing private data with the manifest structure
+- `tli`: Timeline ID identifying the specific timeline for this WAL range
+- `start_lsn`: Starting Log Sequence Number (XLogRecPtr) for this WAL range
+- `end_lsn`: Ending Log Sequence Number (XLogRecPtr) for this WAL range
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc
+- Types referenced:
+  - JsonManifestParseContext
+  - TimeLineID
+  - XLogRecPtr
+  - manifest_data
+  - manifest_wal_range
+- Called from (representative examples):
+  - parse_manifest_file
+
+## Notes and Other Information
+- This is a static callback function specifically designed for use with the JSON manifest parser
+- The function maintains WAL ranges in a doubly-linked list structure for efficient traversal
+- WAL ranges represent contiguous segments of transaction log data that should be present in the backup
+- The linked list preserves the chronological order of WAL ranges as specified in the manifest
+- Memory allocation uses palloc, which is PostgreSQL's memory management function
+- This function is part of the pg_verifybackup utility's WAL verification pipeline

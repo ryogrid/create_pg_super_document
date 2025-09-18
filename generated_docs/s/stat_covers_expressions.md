@@ -1,0 +1,30 @@
+# stat_covers_expressions
+
+## Location
+src/backend/statistics/extended_stats.c: 1168 - 1208
+
+## Overview
+Tests whether a statistics object covers all expressions in a given list, returning true if all expressions are covered by the statistic.
+
+## Definition
+
+
+## Detailed Description
+This static function evaluates whether a statistics object contains all the expressions from a provided list. It iterates through each expression in the input list and uses  to locate the expression within the statistics object. If any expression is not found, the function returns false immediately. When all expressions are successfully located, it returns true. The function also optionally populates a bitmap set with the indexes of the found expressions if the  parameter is provided.
+
+## Parameters / Member Variables
+- : Pointer to StatisticExtInfo structure containing the statistics object to check
+- : List of Node expressions to verify coverage for
+- : Optional output parameter - if non-NULL, populated with bitmap of expression indexes found in the statistics object
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - stat_find_expression
+  - bms_add_member
+  - StatisticExtInfo
+- Called from (representative examples):
+  - choose_best_statistics
+  - statext_mcv_clauselist_selectivity
+
+## Notes and Other Information
+This function is part of the extended statistics infrastructure in PostgreSQL and is used to determine if a particular statistics object can provide useful information for a set of expressions. It's typically called during query planning to identify which statistics objects are applicable for selectivity estimation.

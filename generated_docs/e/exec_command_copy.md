@@ -1,0 +1,34 @@
+# exec_command_copy
+
+## Location
+src/bin/psql/command.c: 715 - 736
+
+## Overview
+Implements the psql  command for executing COPY operations that transfer data between PostgreSQL tables and files.
+
+## Definition
+
+
+## Detailed Description
+The  function handles the  command in psql, which provides a client-side implementation of the COPY command. Unlike the server-side COPY command,  runs on the client and can access files on the client machine. The function parses the entire remaining command line as a single argument and delegates the actual copy operation to the  function.
+
+This command is essential for data import/export operations in psql, allowing users to transfer data between PostgreSQL tables and local files with various formatting options and conditions.
+
+## Parameters / Member Variables
+- : Scanner state for parsing the command line arguments
+- : Boolean indicating whether this command should be executed or just parsed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - psql_scan_slash_option: Parses the entire command line using OT_WHOLE_LINE option
+  - do_copy: Performs the actual copy operation
+  - ignore_slash_whole_line: Skips parsing when not in active branch
+- Called from (representative examples):
+  - exec_command: Main command dispatcher in psql
+
+## Notes and Other Information
+- Uses OT_WHOLE_LINE parsing mode to capture the complete COPY command syntax
+- Client-side operation that can access local files, unlike server-side COPY
+- Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure
+- Memory management handled properly with free() for the parsed option string
+- Part of the psql interactive command system located in src/bin/psql/command.c:715-736

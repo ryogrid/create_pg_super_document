@@ -1,0 +1,46 @@
+# add_exact_object_address
+
+## Location
+src/backend/catalog/dependency.c: 2533 - 2557
+
+## Overview
+A public utility function that adds a complete ObjectAddress structure to an ObjectAddresses array, providing a convenient interface for adding pre-constructed object references.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a public interface for adding ObjectAddress entries to an ObjectAddresses collection when the caller already has a complete ObjectAddress structure. Unlike the static add_object_address function that takes individual components, this function accepts a pointer to an existing ObjectAddress and copies its entire contents.
+
+The function follows the same memory management strategy as add_object_address, doubling the array capacity when expansion is needed and using repalloc for memory reallocation. It includes the same assertion that the 'extras' array should be NULL during expansion.
+
+This is the preferred interface for external callers throughout the PostgreSQL codebase when they need to add object dependencies and already have ObjectAddress structures available, which is common during catalog operations and dependency tracking.
+
+## Parameters / Member Variables
+- : Pointer to a complete ObjectAddress structure to be copied into the array
+- : Pointer to the ObjectAddresses structure to modify
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - repalloc (memory reallocation)
+  - ObjectAddresses (struct type)
+  - ObjectAddress (struct type)
+  - Assert (debugging macro)
+- Called from (representative examples):
+  - heap_create_with_catalog
+  - index_create
+  - AggregateCreate
+  - ProcedureCreate
+  - CreateConstraintEntry
+  - GenerateTypeDependencies
+  - InsertExtensionTuple
+
+## Notes and Other Information
+- Public function (non-static) - available to external callers
+- Uses structure copy (*item = *object) for efficient copying
+- Same array growth strategy as add_object_address (doubling)
+- Extensively used throughout catalog operations for dependency tracking
+- Preferred interface when ObjectAddress structures are already available
+- Does not perform duplicate checking - caller responsibility
+- Memory managed through PostgreSQL's palloc/repalloc system
+- Critical for maintaining object dependency relationships during DDL operations

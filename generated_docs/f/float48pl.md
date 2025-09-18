@@ -1,0 +1,38 @@
+# float48pl
+
+## Location
+src/backend/utils/adt/float.c: 3777 - 3785
+
+## Overview
+Performs addition between a float4 (single-precision) and float8 (double-precision) value, returning a float8 result.
+
+## Definition
+```c
+Datum float48pl(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `float48pl` function implements mixed-precision floating-point addition for PostgreSQL. It takes a float4 (4-byte single-precision) value as the first argument and a float8 (8-byte double-precision) value as the second argument. The function promotes the float4 value to float8 precision and then performs addition using the `float8_pl` function, which includes overflow checking.
+
+This function is part of PostgreSQL's mixed-precision arithmetic operators that handle operations between different floating-point precisions. The result is always returned in the higher precision format (float8) to prevent loss of precision.
+
+## Parameters / Member Variables
+- `arg1`: float4 value (first operand) - single-precision floating-point number
+- `arg2`: float8 value (second operand) - double-precision floating-point number
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_FLOAT4
+  - PG_GETARG_FLOAT8
+  - float8_pl (performs the actual addition with overflow checking)
+- Called from (representative examples):
+  - Used in SQL expressions mixing float4 and float8 types
+  - PostgreSQL operator system for "+" operator between float4 and float8
+
+## Notes and Other Information
+- Part of PostgreSQL's mixed-precision arithmetic operator family (float48pl, float48mi, float48mul, float48div)
+- Promotes the float4 argument to float8 precision before performing the operation
+- Inherits overflow detection from float8_pl, which throws an error if the result overflows to infinity
+- The function signature follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS
+- Result precision is determined by the higher-precision operand (float8)
+- Ensures mathematical operations between different float types are handled consistently

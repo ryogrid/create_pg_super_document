@@ -1,0 +1,35 @@
+# make_rfile
+
+## Location
+src/bin/pg_combinebackup/reconstruct.c: 510 - 532
+
+## Overview
+Allocates and performs basic initialization of an rfile structure for reading backup files, with optional handling for missing files.
+
+## Definition
+
+
+## Detailed Description
+This function creates and initializes a basic rfile structure for reading backup files. It allocates memory for the rfile, duplicates the filename string, and opens the file in read-only binary mode. The function provides flexible error handling through the missing_ok parameter: when set to true, it gracefully returns NULL if the file doesn't exist rather than terminating with a fatal error.
+
+This function serves as the foundation for both full backup files and incremental backup files, providing the basic file handle and structure that other functions build upon to add format-specific metadata and functionality.
+
+## Parameters / Member Variables
+- `filename`: Path to the backup file to open and initialize
+- `missing_ok`: If true, return NULL instead of fatal error when file doesn't exist
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_malloc0
+  - pstrdup
+  - open
+  - pg_free
+  - pg_fatal
+  - PG_BINARY
+  - O_RDONLY
+- Called from (representative examples):
+  - make_incremental_rfile
+  - reconstruct_from_incremental_file
+
+## Notes and Other Information
+The function opens files in binary mode (PG_BINARY) which is essential for reading PostgreSQL's block-oriented backup files correctly across different platforms. The missing_ok parameter allows callers to distinguish between optional files (like when checking if a full backup exists before looking for an incremental one) and required files that should cause fatal errors if missing.

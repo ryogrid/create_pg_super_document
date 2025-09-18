@@ -1,0 +1,72 @@
+# InitPostgres
+
+## Location
+src/backend/utils/init/postinit.c: 738 - 1261
+
+## Overview
+InitPostgres performs comprehensive initialization of a PostgreSQL backend process, setting up database connections, user authentication, system catalogs, and all necessary infrastructure for normal database operations.
+
+## Definition
+
+
+## Detailed Description
+InitPostgres is the main initialization function for PostgreSQL backend processes that handles the complete setup required for database operations. It performs authentication, establishes database connections, initializes system catalogs, sets up user sessions, and configures the runtime environment.
+
+The function supports multiple initialization modes including bootstrap mode, standalone backends, autovacuum processes, background workers, and regular client connections. It handles both database and user specification by name or OID, with special logic for different process types.
+
+The initialization process includes setting up shared memory structures, timeout handlers, transaction management, relation caches, authentication, database validation, permission checks, GUC parameter processing, and session state initialization. The function ensures proper sequencing of these operations to maintain system integrity and security.
+
+## Parameters / Member Variables
+- : Name of the database to connect to (NULL for OID-based specification)
+- : OID of the database to connect to (InvalidOid for name-based specification)
+- : Name of the role to connect as (NULL for OID-based specification)
+- : OID of the role to connect as (InvalidOid for name-based specification)
+- : Control flags including INIT_PG_LOAD_SESSION_LIBS, INIT_PG_OVERRIDE_ALLOW_CONNS, INIT_PG_OVERRIDE_ROLE_LOGIN
+- : Optional output buffer for actual database name (must be NAMEDATALEN size if provided)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - InitProcessPhase2
+  - SharedInvalBackendInit
+  - ProcSignalInit
+  - RegisterTimeout (various timeout types)
+  - CreateAuxProcessResourceOwner
+  - StartupXLOG
+  - RelationCacheInitialize
+  - InitCatalogCache
+  - InitPlanCache
+  - EnablePortalManager
+  - pgstat_beinit
+  - RelationCacheInitializePhase2
+  - SetCurrentStatementStartTimestamp
+  - StartTransactionCommand
+  - GetTransactionSnapshot
+  - PerformAuthentication
+  - InitializeSessionUserId
+  - InitializeSystemUser
+  - GetDatabaseTuple
+  - LockSharedObject
+  - CheckMyDatabase
+  - process_startup_options
+  - process_settings
+  - InitializeSearchPath
+  - InitializeClientEncoding
+  - InitializeSession
+- Called from (representative examples):
+  - BootstrapModeMain
+  - AutoVacWorkerMain
+  - BackgroundWorkerInitializeConnection
+  - ReplSlotSyncWorkerMain
+  - PostgresMain
+
+## Notes and Other Information
+- Must be called after BaseInit and InitProcess
+- Function behavior varies significantly based on process type (bootstrap, standalone, autovacuum, background worker, regular backend)
+- Performs critical security checks including authentication, connection limits, and privilege validation
+- Establishes transaction context and acquires database locks to prevent concurrent drops
+- Initializes system catalogs in multiple phases with careful dependency management
+- Processes GUC parameters and applies database/role-specific settings
+- Sets up shared memory visibility and process registration
+- Critical function in PostgreSQL's startup sequence with complex error handling and cleanup logic
+- The order of operations is extremely important and carefully designed to handle failure scenarios
+- Special handling for WAL senders, autovacuum processes, and background workers

@@ -1,0 +1,44 @@
+# tt_setup_firstcall
+
+## Location
+src/backend/tsearch/wparser.c: 47 - 76
+
+## Overview
+Initializes function context and retrieves token type information for PostgreSQL text search parser functions during their first call.
+
+## Definition
+
+
+## Detailed Description
+This function sets up the necessary data structures and context for PostgreSQL text search parser functions that return token type information. It is called during the first invocation of functions like  and  to initialize the function context with token type data from the specified parser. The function operates in the multi-call context memory to persist data across multiple function calls.
+
+The function performs several key operations:
+1. Validates that the parser has a lextype method defined
+2. Switches to the multi-call memory context for persistent storage
+3. Allocates and initializes a TSTokenTypeStorage structure
+4. Retrieves the list of token types by calling the parser's lextype function
+5. Sets up tuple descriptor and attribute metadata for the return type
+
+## Parameters / Member Variables
+- : Function call context structure used for multi-call functions
+- : Function call information containing metadata about the function call
+- : OID of the text search parser to retrieve token types from
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - lookup_ts_parser_cache
+  - OidFunctionCall1
+  - get_call_result_type
+  - TupleDescGetAttInMetadata
+  - MemoryContextSwitchTo
+  - palloc
+- Called from (representative examples):
+  - ts_token_type_byid
+  - ts_token_type_byname
+
+## Notes and Other Information
+- This is a static function internal to the wparser.c module
+- The function expects the parser to have a valid lextype method, throwing an error if not found
+- Uses PostgreSQL's multi-call function framework for returning sets of rows
+- Memory allocation is done in the multi-call memory context to ensure persistence across calls
+- The lextype function is called with a dummy argument (Datum 0) as required by the interface

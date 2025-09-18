@@ -1,0 +1,37 @@
+# ParameterAclCreate
+
+## Location
+src/backend/catalog/pg_parameter_acl.c: 68 - 110
+
+## Overview
+ParameterAclCreate adds a new tuple to the pg_parameter_acl system catalog, creating an ACL entry for a configuration parameter with a null (default) access control list.
+
+## Definition
+Oid ParameterAclCreate(const char *parameter)
+
+## Detailed Description
+This function creates a new entry in the pg_parameter_acl catalog for the specified configuration parameter. It first validates that the parameter name is suitable for ACL entries using check_GUC_name_for_parameter_acl, then converts the name to the standardized form. The function opens the pg_parameter_acl relation with RowExclusiveLock, generates a new OID using GetNewOidWithIndex, and creates a tuple with the parameter name and a null ACL field. The tuple is inserted into the catalog using CatalogTupleInsert. The function relies on the unique index to prevent duplicate entries rather than taking stronger locks, and maintains the lock until transaction commit for consistency.
+
+## Parameters / Member Variables
+- : The name of the configuration parameter for which to create an ACL entry (caller should verify no entry exists)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - check_GUC_name_for_parameter_acl
+  - convert_GUC_name_for_parameter_acl
+  - GetNewOidWithIndex
+  - cstring_to_text
+  - heap_form_tuple
+  - CatalogTupleInsert
+  - heap_freetuple
+- Called from (representative examples):
+  - objectNamesToOids
+
+## Notes and Other Information
+- Creates entries with null ACL fields, representing default permissions
+- Uses RowExclusiveLock on the pg_parameter_acl relation during insertion
+- Prevents cluttering the catalog by validating parameter names before insertion
+- Relies on unique index constraints rather than stronger locking to handle concurrent insertions
+- Maintains catalog locks until transaction commit for consistency
+- Returns the newly created entry's OID for further reference
+- Part of PostgreSQL's parameter-level access control infrastructure introduced for fine-grained security

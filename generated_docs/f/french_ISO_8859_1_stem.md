@@ -1,0 +1,64 @@
+# french_ISO_8859_1_stem
+
+## Location
+src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c: 1153 - 1248
+
+## Overview  
+The french_ISO_8859_1_stem function is the main entry point for French word stemming using the Snowball algorithm for ISO-8859-1 encoded text.
+
+## Definition
+
+
+## Detailed Description
+This function implements the complete French stemming algorithm by orchestrating the following phases:
+1. **Prelude**: Character preprocessing and normalization (r_prelude)  
+2. **Region marking**: Identifies morphological boundaries R1, R2, RV (r_mark_regions)
+3. **Suffix removal**: Attempts suffix removal in priority order:
+   - Standard suffixes (r_standard_suffix)
+   - Verb suffixes starting with 'i' (r_i_verb_suffix) 
+   - General verb suffixes (r_verb_suffix)
+   - Residual suffixes (r_residual_suffix)
+4. **Character corrections**: Handles special case replacements:
+   - 'Y' → 'i' (s_33)
+   - 'ç' (0xE7) → 'c' (s_34)
+5. **Cleanup operations**:
+   - Undouble consonants (r_un_double)
+   - Remove accents (r_un_accent)  
+6. **Postlude**: Final character case processing (r_postlude)
+
+The function uses a sophisticated backtracking mechanism to try different suffix removal strategies in priority order.
+
+## Parameters / Member Variables
+- : Pointer to the Snowball environment structure containing:
+  - Input text and processing cursors
+  - Morphological region boundaries (R1, R2, RV)
+  - String manipulation state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - r_prelude (text preprocessing)
+  - r_mark_regions (morphological boundary identification)
+  - r_standard_suffix (standard suffix removal)
+  - r_i_verb_suffix (verb suffixes starting with 'i')
+  - r_verb_suffix (general verb suffix removal)
+  - r_residual_suffix (residual suffix handling)
+  - r_un_double (consonant undoubling)
+  - r_un_accent (accent removal)
+  - r_postlude (final processing)
+  - slice_from_s (string replacement)
+  - s_33 (replacement string 'i')
+  - s_34 (replacement string 'c')
+
+- Called from (representative examples):
+  - External stemming interfaces
+  - PostgreSQL full-text search dictionaries
+
+## Notes and Other Information
+- This is the main entry point for French stemming in PostgreSQL's full-text search
+- Designed specifically for ISO-8859-1 character encoding (Western European)  
+- Uses multiple cursor position save/restore operations to handle backtracking
+- The algorithm follows the official Snowball French stemmer specification
+- Returns 1 on successful completion, negative values indicate errors
+- The function modifies the input text in-place within the SN_env structure
+- Character constants like 0xE7 (ç) are specific to ISO-8859-1 encoding
+- Processing order is critical: suffix removal before cleanup operations

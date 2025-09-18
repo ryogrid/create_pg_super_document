@@ -1,0 +1,41 @@
+# index_rescan
+
+## Location
+src/backend/access/index/indexam.c: 352 - 377
+
+## Overview
+The  function restarts an existing index scan with potentially new scan keys and ordering specifications, resetting the scan state while preserving the scan descriptor.
+
+## Definition
+
+
+## Detailed Description
+This function allows restarting an active index scan with new search parameters without requiring complete scan teardown and recreation. It validates that the new key counts match the original scan setup, releases any resources from previous table accesses, resets scan state flags, and delegates to the access method-specific rescan implementation. The function is more efficient than ending and restarting a scan when only the search conditions need to change. It maintains the same scan descriptor while allowing the underlying index access method to reinitialize its internal scan state with the new parameters.
+
+## Parameters / Member Variables
+- : The active IndexScanDesc to be restarted
+- : Array of new scan keys (search conditions), can be NULL to keep existing keys
+- : Number of scan keys (must match scan->numberOfKeys from original beginscan)
+- : Array of new ordering keys, can be NULL to keep existing ordering  
+- : Number of ordering keys (must match scan->numberOfOrderBys from original beginscan)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SCAN_CHECKS (macro for scan descriptor validation)
+  - CHECK_SCAN_PROCEDURE (macro to verify amrescan procedure exists)  
+  - table_index_fetch_reset (reset heap tuple fetching resources)
+  - ScanKey (scan key structure type)
+  - IndexScanDesc (scan descriptor structure type)
+- Called from (representative examples):
+  - systable_beginscan (src/backend/access/index/genam.c:444)
+  - systable_beginscan_ordered (src/backend/access/index/genam.c:702)
+  - ExecReScanIndexScan (src/backend/executor/nodeIndexscan.c:585)
+  - ExecReScanBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:165)
+
+## Notes and Other Information
+- Key count constraints: nkeys and norderbys must exactly match the original beginscan parameters
+- Passing NULL for keys/orderbys preserves existing search conditions from the original scan
+- Resets scan state flags like kill_prior_tuple and xs_heap_continue for safety
+- More efficient than ending and restarting scans when only search parameters change
+- Commonly used in nested loop joins and parameter changes during query execution
+- Located in src/backend/access/index/indexam.c:352-377

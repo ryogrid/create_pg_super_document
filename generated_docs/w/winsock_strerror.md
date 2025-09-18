@@ -1,0 +1,44 @@
+# winsock_strerror
+
+## Location
+src/interfaces/libpq/win32.c: 277 - 320
+
+## Overview
+winsock_strerror is a function that provides human-readable error descriptions for Windows socket error codes, using both a static lookup table and dynamic loading of Windows system DLLs as fallback mechanisms.
+
+## Definition
+
+
+## Detailed Description
+This function implements a two-tier approach to resolving Windows socket error codes into descriptive text messages. It first attempts to find the error code in a static lookup table using LookupWSErrorMessage(). If that fails, it iteratively loads Windows system DLLs (netmsg.dll, winsock.dll, ws2_32.dll, etc.) and uses the Windows FormatMessage() API to retrieve the error description from the system.
+
+The function employs a lazy-loading strategy for the DLLs, loading each library only once when needed and caching the handles for subsequent calls. If all lookup methods fail, it generates a generic "unrecognized socket error" message with the numeric error code. The function always appends the hexadecimal and decimal error code to the end of the message for debugging purposes.
+
+The implementation prioritizes efficiency by checking the static table first (fastest), then progressively trying system DLLs, and finally falling back to a generic message format.
+
+## Parameters / Member Variables
+- `err`: The socket error code to look up and describe
+- `strerrbuf`: Buffer where the error description string will be written
+- `buflen`: Size of the destination buffer to prevent overflow
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LookupWSErrorMessage (internal lookup function)
+  - DLLS_SIZE (macro defining size of dlls array)
+  - libpq_gettext (localization function)
+  - LoadLibraryEx (Windows API)
+  - FormatMessage (Windows API)
+  - sprintf (standard C library)
+  - strlen (standard C library)
+- Called from (representative examples):
+  - SOCK_STRERROR (macro in libpq-int.h)
+
+## Notes and Other Information
+- Returns a pointer to the strerrbuf parameter containing the error description
+- Uses FORMAT_MESSAGE_FROM_SYSTEM and FORMAT_MESSAGE_FROM_HMODULE flags for FormatMessage()
+- Reserves 64 bytes at the end of the buffer for appending error code information
+- Implements lazy loading of Windows system DLLs using LoadLibraryEx with LOAD_LIBRARY_AS_DATAFILE flag
+- The dlls array contains handles to various Windows socket-related libraries including netmsg.dll, winsock.dll, ws2_32.dll, wsock32n.dll, mswsock.dll, ws2help.dll, and ws2thk.dll
+- Ensures null termination of the result string and prevents buffer overflow
+- Uses MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT) to request English error messages
+- Part of the Windows-specific implementation in PostgreSQL's libpq client library

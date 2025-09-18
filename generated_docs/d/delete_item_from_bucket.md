@@ -1,0 +1,42 @@
+# delete_item_from_bucket
+
+## Location
+src/backend/lib/dshash.c: 1035 - 1062
+
+## Overview
+Removes a specific hash table item from its bucket chain by searching for the exact item pointer.
+
+## Definition
+```c
+static bool
+delete_item_from_bucket(dshash_table *hash_table,
+                        dshash_table_item *item,
+                        dsa_pointer *bucket_head)
+```
+
+## Detailed Description
+This function searches through a hash bucket's linked list to find and remove a specific item identified by its memory address. Unlike delete_key_from_bucket which searches by key comparison, this function performs a direct pointer comparison to locate the exact item to delete. When found, it removes the item from the chain and frees its memory.
+
+## Parameters / Member Variables
+- `hash_table`: Pointer to the dynamic shared hash table structure
+- `item`: Pointer to the specific item to be deleted
+- `bucket_head`: Pointer to the head of the bucket chain to search in
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DsaPointerIsValid
+  - dsa_get_address
+  - dsa_free
+  - dshash_table (type)
+  - dshash_table_item (type)
+  - dsa_pointer (type)
+- Called from (representative examples):
+  - delete_item
+
+## Notes and Other Information
+- This is a static function, only used internally within dshash.c
+- Returns true if deletion was successful, false if the item was not found in the bucket
+- Uses pointer identity rather than key equality for item identification
+- Efficiently handles linked list manipulation using pointer-to-pointer technique
+- Properly deallocates memory by freeing the deleted item
+- Useful when you have a direct reference to the item to be deleted

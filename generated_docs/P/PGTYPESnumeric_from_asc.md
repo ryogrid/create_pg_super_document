@@ -1,0 +1,38 @@
+# PGTYPESnumeric_from_asc
+
+## Location
+src/interfaces/ecpg/pgtypeslib/numeric.c: 321 - 342
+
+## Overview
+Converts a string representation of a numeric value into a PostgreSQL numeric type structure for use in ECPG applications.
+
+## Definition
+```c
+numeric *PGTYPESnumeric_from_asc(char *str, char **endptr)
+```
+
+## Detailed Description
+This function parses a string containing a numeric value and creates a PostgreSQL numeric type structure. It allocates memory for a new numeric structure and uses the internal `set_var_from_str` function to parse the string and populate the numeric value. The function handles memory allocation failures and parsing errors gracefully by returning NULL and cleaning up allocated memory when necessary.
+
+## Parameters / Member Variables
+- `str`: Input string containing the numeric value to be parsed
+- `endptr`: Optional pointer to a char pointer that will be set to point to the first character after the parsed numeric value; if NULL, an internal pointer is used instead
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgtypes_alloc (for memory allocation)
+  - set_var_from_str (for string parsing)
+  - PGTYPESnumeric_free (for cleanup on error)
+  - numeric (type definition)
+- Called from (representative examples):
+  - deccvasc (Informix compatibility function)
+  - ecpg_get_data (ECPG data retrieval)
+  - PGTYPESnumeric_from_double (numeric conversion)
+  - Various test functions
+
+## Notes and Other Information
+- Returns NULL on memory allocation failure or parsing error
+- Automatically cleans up allocated memory if parsing fails
+- Part of the ECPG pgtypes library for PostgreSQL embedded SQL
+- The endptr parameter follows the same convention as standard C library functions like strtol()
+- Located in src/interfaces/ecpg/pgtypeslib/numeric.c:321-342

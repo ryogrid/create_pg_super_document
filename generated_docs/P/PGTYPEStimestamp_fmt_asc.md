@@ -1,0 +1,37 @@
+# PGTYPEStimestamp_fmt_asc
+
+## Location
+src/interfaces/ecpg/pgtypeslib/timestamp.c: 782 - 796
+
+## Overview
+Formats a PostgreSQL timestamp into an ASCII string representation according to a specified format string.
+
+## Definition
+```c
+int PGTYPEStimestamp_fmt_asc(timestamp *ts, char *output, int str_len, const char *fmtstr)
+```
+
+## Detailed Description
+This function converts a PostgreSQL timestamp value into a formatted ASCII string representation. It internally converts the timestamp to date and time components, calculates the day of the week, and uses a formatting replacement function to generate the final string according to the provided format specification. The function is part of the ECPG (Embedded SQL in C for PostgreSQL) pgtypes library, which provides C interface functions for PostgreSQL data types.
+
+## Parameters / Member Variables
+- `ts`: Pointer to the timestamp value to be formatted
+- `output`: Buffer to store the resulting formatted string
+- `str_len`: Maximum length of the output buffer
+- `fmtstr`: Format string specifying how the timestamp should be formatted
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PGTYPESdate_from_timestamp
+  - PGTYPESdate_dayofweek
+  - timestamp2tm
+  - dttofmtasc_replace
+- Called from (representative examples):
+  - dttofmtasc (in compatlib)
+  - main (in test cases)
+
+## Notes and Other Information
+- Returns an integer status code indicating success or failure
+- The function converts timestamp to intermediate representations (date, day of week, tm structure) before final formatting
+- Part of the ECPG pgtypes library for embedded SQL applications
+- Used extensively in test cases for timestamp formatting validation

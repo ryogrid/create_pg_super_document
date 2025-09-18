@@ -1,0 +1,45 @@
+# DoPortalRunFetch
+
+## Location
+src/backend/tcop/pquery.c: 1478 - 1671
+
+## Overview
+DoPortalRunFetch implements the core logic for fetching rows from a portal with support for various fetch directions (forward, backward, absolute, relative) and different count values.
+
+## Definition
+
+
+## Detailed Description
+DoPortalRunFetch is the internal implementation that handles the complexity of portal row fetching operations. It serves as the guts of PortalRunFetch with the portal context already established. The function supports multiple fetch directions and interprets negative count values as direction reversals. It handles special cases like FETCH_ALL (retrieving all remaining rows) and optimizes various fetch patterns.
+
+The function implements SQL cursor semantics for different fetch operations:
+- FETCH_FORWARD/FETCH_BACKWARD: Standard directional fetching
+- FETCH_ABSOLUTE: Positioning to an absolute row number from the start
+- FETCH_RELATIVE: Moving relative to the current position
+- Zero count handling: Re-fetching the current row per SQL standard
+
+For absolute positioning, the function optimizes by choosing whether to rewind and scan forward or scan from the current position based on which approach requires fewer row movements.
+
+## Parameters / Member Variables
+- : The portal from which to fetch rows
+- : The fetch direction (FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE)
+- : Number of rows to fetch; negative values reverse direction, FETCH_ALL means all rows
+- : Destination receiver for the fetched rows
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DoPortalRewind
+  - PortalRunSelect
+  - Portal structure and its fields (strategy, portalPos, atStart, atEnd)
+  - FetchDirection enum values
+  - DestReceiver and DestNone
+  - Portal strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_RETURNING, etc.)
+- Called from (representative examples):
+  - PortalRunFetch
+
+## Notes and Other Information
+- The function enforces NO SCROLL cursor restrictions by disallowing backwards movement
+- Optimizes MOVE BACKWARD ALL operations by converting them to rewind operations
+- Handles edge cases like fetching when positioned at the end of the result set
+- Returns the number of rows processed, suitable for use in SQL result tags
+- Uses None_Receiver for internal positioning operations that don't need to return data to the client

@@ -1,0 +1,34 @@
+# typmap
+
+## Location
+src/backend/bootstrap/bootstrap.c: 143 - 162
+
+## Overview
+A utility structure used during PostgreSQL's bootstrap process to cache type information from the pg_type catalog.
+
+## Definition
+
+
+## Detailed Description
+The  structure is a bootstrap-time caching mechanism used to store type information during PostgreSQL's initialization phase. As noted by the comment "a hack", this is a specialized structure that serves as a temporary mapping between type OIDs and their complete pg_type catalog data.
+
+This struct is used primarily in the bootstrap process to avoid repeated lookups to the pg_type system catalog when type information is needed. The structure stores both the OID of the type and a complete copy of the type's row data from pg_type, providing fast access to type metadata during database initialization.
+
+## Parameters / Member Variables
+- : The Object Identifier (OID) of the type from the pg_type catalog
+- : A complete copy of the type's FormData_pg_type structure containing all type metadata from pg_type
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MAXATTR (used in related arrays)
+- Called from (representative examples):
+  - populate_typ_list (creates and populates typmap instances)
+  - gettype (searches through typmap instances)
+  - boot_get_type_io_data (accesses typmap data)
+
+## Notes and Other Information
+- This structure is marked as "a hack" in the source code, indicating it's a pragmatic solution rather than an elegant design
+- Used exclusively during bootstrap phase when the database system catalog is being constructed
+- Stored in a global List called  for quick lookup during bootstrap operations
+- The structure enables efficient type lookups without repeatedly querying the pg_type catalog during initialization
+- Part of PostgreSQL's bootstrap machinery in 

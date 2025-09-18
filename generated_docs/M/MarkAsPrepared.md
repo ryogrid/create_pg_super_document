@@ -1,0 +1,34 @@
+# MarkAsPrepared
+
+## Location
+src/backend/access/transam/twophase.c: 530 - 551
+
+## Overview
+Marks a GlobalTransaction as fully valid and registers it with the global ProcArray, completing the transition to the prepared state in two-phase commit.
+
+## Definition
+
+
+## Detailed Description
+MarkAsPrepared is the final step in preparing a transaction for two-phase commit. It marks the GlobalTransaction as valid, making it visible to other parts of the system, and adds the transaction's PGPROC entry to the global ProcArray. This registration ensures that TransactionIdIsInProgress() will recognize the transaction XID as still running, which is crucial for maintaining proper transaction isolation and visibility. The function provides flexibility in lock management, allowing callers to indicate whether they already hold the required TwoPhaseStateLock.
+
+## Parameters / Member Variables
+- : The GlobalTransaction structure to mark as prepared
+- : Boolean flag indicating whether the caller already holds TwoPhaseStateLock
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GlobalTransaction
+  - ProcArrayAdd
+  - GetPGProcByNumber
+- Called from (representative examples):
+  - EndPrepare
+  - RecoverPreparedTransactions
+
+## Notes and Other Information
+- This is a static function used internally within the two-phase commit system
+- Sets the valid flag to true, making the prepared transaction visible system-wide
+- The lock_held parameter allows for optimization when the caller already holds the necessary lock
+- Adding to ProcArray is essential for proper transaction visibility and conflict detection
+- Must be called after all other preparation steps are complete (including GXactLoadSubxactData if needed)
+- The transaction becomes eligible for COMMIT PREPARED or ROLLBACK PREPARED after this call

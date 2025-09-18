@@ -1,0 +1,46 @@
+# create_seqscan_plan
+
+## Location
+src/backend/optimizer/plan/createplan.c: 2917 - 2954
+
+## Overview
+Creates a sequential scan plan node for scanning a base relation with specified target list and restriction clauses.
+
+## Definition
+
+
+## Detailed Description
+The  function is responsible for creating a  plan node that represents a sequential scan operation on a base relation. This function is part of PostgreSQL's query planner infrastructure and converts a path representation into an executable plan node. The function performs several important steps:
+
+1. Validates that the target relation is a base relation (not a join or subquery)
+2. Orders the qualification clauses for optimal execution
+3. Extracts actual boolean expressions from RestrictInfo structures
+4. Handles parameterized paths by replacing outer-relation variables with nestloop parameters
+5. Creates the final SeqScan node and copies generic path information
+
+The sequential scan is the most basic access method in PostgreSQL, reading every tuple in a relation from beginning to end.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global planner state and context information
+- : The chosen Path representing the sequential scan, containing cost estimates and relation information
+- : Target list specifying which columns/expressions should be returned by the scan
+- : List of RestrictInfo nodes representing WHERE clause conditions to be applied during the scan
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - order_qual_clauses
+  - extract_actual_clauses
+  - replace_nestloop_params
+  - make_seqscan
+  - copy_generic_path_info
+  - RTE_RELATION (enum value)
+  - SeqScan (struct type)
+- Called from (representative examples):
+  - create_scan_plan
+
+## Notes and Other Information
+- This function is static and only used within the createplan.c module
+- Includes assertion checks to ensure the path represents a valid base relation
+- Handles both regular and parameterized sequential scans
+- The function follows PostgreSQL's pattern of separating path optimization from plan creation
+- Sequential scans are typically chosen when no suitable indexes are available or when the optimizer estimates that scanning the entire table would be more efficient than index-based access

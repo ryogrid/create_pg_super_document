@@ -1,0 +1,38 @@
+# coerce_to_specific_type
+
+## Location
+src/backend/parser/parse_coerce.c: 1257 - 1272
+
+## Overview
+A convenience function that coerces an expression node to a specific data type for SQL constructs that require a particular type, ensuring the input is not a set-returning expression.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a simplified wrapper around , providing type coercion functionality for SQL constructs that need arguments of a specific data type. It automatically uses a default typmod of -1 (meaning no specific type modifier is required) and delegates the actual coercion work to the more general  function.
+
+The function is commonly used throughout the PostgreSQL parser when processing SQL constructs like LIMIT clauses, XML expressions, JSON functions, and range table functions that have strict type requirements for their arguments.
+
+## Parameters / Member Variables
+- : ParseState pointer for error reporting and context; may be NULL if no special unknown-Param processing is needed
+- : The input expression node to be coerced
+- : The OID of the target data type to coerce to
+- : Name of the SQL construct (for error messages), e.g., "LIMIT", "XMLELEMENT"
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - coerce_to_specific_type_typmod
+- Called from (representative examples):
+  - interpret_function_parameter_list (src/backend/commands/functioncmds.c:409)
+  - transformRangeTableFunc (src/backend/parser/parse_clause.c:720, 728, 790, 848)
+  - transformRangeTableSample (src/backend/parser/parse_clause.c:977, 996)
+  - transformLimitClause (src/backend/parser/parse_clause.c:1892)
+  - transformXmlExpr (src/backend/parser/parse_expr.c:2435, 2442, 2447, 2453, 2458, 2461, 2464, 2472)
+  - transformJsonValueExpr (src/backend/parser/parse_expr.c:3301)
+
+## Notes and Other Information
+- This is a thin wrapper function that provides a simpler interface when no specific type modifier is needed
+- The actual type coercion logic, including error handling for incompatible types and set-returning expressions, is implemented in 
+- Widely used across the parser for enforcing type constraints in various SQL constructs
+- Part of PostgreSQL's type coercion system located in src/backend/parser/parse_coerce.c

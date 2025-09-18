@@ -1,0 +1,36 @@
+# numeric_typmod_precision
+
+## Location
+src/backend/utils/adt/numeric.c: 925 - 939
+
+## Overview
+A static inline function that extracts the precision value from a numeric typmod, reversing the encoding performed by make_numeric_typmod.
+
+## Definition
+```c
+static inline int numeric_typmod_precision(int32 typmod)
+```
+
+## Detailed Description
+This function decodes the precision component from a typmod value by reversing the encoding scheme used in make_numeric_typmod. It first subtracts VARHDRSZ to remove the historical offset, then right-shifts by 16 bits to move the precision from the upper 16 bits to the lower bits, and finally applies a 0xffff mask to ensure only the lower 16 bits are retained.
+
+## Parameters / Member Variables
+- `typmod`: The encoded typmod value from which to extract precision
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - VARHDRSZ (constant)
+- Called from (representative examples):
+  - numeric_maximum_size (at src/backend/utils/adt/numeric.c:960)
+  - numeric_support (at src/backend/utils/adt/numeric.c:1216, 1217)
+  - numeric (at src/backend/utils/adt/numeric.c:1276)
+  - numerictypmodout (at src/backend/utils/adt/numeric.c:1374)
+  - apply_typmod (at src/backend/utils/adt/numeric.c:7935)
+  - apply_typmod_special (at src/backend/utils/adt/numeric.c:8028)
+
+## Notes and Other Information
+- This is a static inline function, meaning it's only visible within the numeric.c compilation unit
+- The function performs the inverse operation of the precision encoding in make_numeric_typmod
+- The 0xffff mask ensures the result is constrained to 16 bits (0-65535 range)
+- Should only be called on typmods that have been validated with is_valid_numeric_typmod
+- The maximum precision for NUMERIC type is 1000, so most of the 16-bit range is unused

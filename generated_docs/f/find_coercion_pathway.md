@@ -1,0 +1,54 @@
+# find_coercion_pathway
+
+## Location
+src/backend/parser/parse_coerce.c: 3155 - 3317
+
+## Overview
+Searches for a coercion pathway between two scalar data types, determining the method and function needed for type conversion based on the specified coercion context.
+
+## Definition
+
+
+## Detailed Description
+find_coercion_pathway is the core function for determining how to convert between PostgreSQL data types. It implements a comprehensive search strategy that considers multiple coercion mechanisms and respects coercion context restrictions.
+
+The function follows a hierarchical search strategy:
+1. **Domain resolution**: Reduces domain types to their base types for comparison
+2. **pg_cast lookup**: Searches the system catalog for explicit cast definitions
+3. **Array coercion**: Attempts element-wise array conversion using recursive calls
+4. **I/O coercion**: Falls back to string-based conversion through input/output functions
+5. **PL/pgSQL special case**: Allows I/O coercion for PL/pgSQL assignments when no other path exists
+
+The function returns one of several path types indicating the coercion method required, along with a function OID when applicable.
+
+## Parameters / Member Variables
+- : The OID of the target data type to convert to
+- : The OID of the source data type to convert from
+- : The coercion context (implicit, assignment, explicit, or PL/pgSQL) that determines available casts
+- : Pointer to store the OID of the coercion function (set to InvalidOid for non-function coercions)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - getBaseType
+  - SearchSysCache2
+  - get_element_type
+  - find_coercion_pathway (recursive call)
+  - TypeCategory
+  - Form_pg_cast
+  - CoercionContext enums (COERCION_IMPLICIT, COERCION_ASSIGNMENT, COERCION_EXPLICIT, COERCION_PLPGSQL)
+  - CoercionPathType enums (COERCION_PATH_NONE, COERCION_PATH_FUNC, COERCION_PATH_RELABELTYPE, etc.)
+- Called from (representative examples):
+  - coerce_type (src/backend/parser/parse_coerce.c:413)
+  - can_coerce_type (src/backend/parser/parse_coerce.c:596)
+  - func_get_detail (src/backend/parser/parse_func.c:1504)
+  - ri_HashCompareOp (src/backend/utils/adt/ri_triggers.c:2966)
+
+## Notes and Other Information
+- Currently handles only scalar types, not polymorphic types or composite type casts
+- Domain types are automatically reduced to base types before processing
+- COERCION_PATH_RELABELTYPE doesn't guarantee zero-effort conversion due to potential domain constraints
+- Array coercion is disabled for oidvector and int2vector to prevent inappropriate captures
+- I/O coercion provides fallback compatibility, especially for string type conversions
+- The function uses enum ordering to efficiently check coercion context compatibility
+- Recursive calls enable element-wise array coercion when direct array casts aren't available
+- PL/pgSQL context gets special treatment allowing I/O coercion as last resort

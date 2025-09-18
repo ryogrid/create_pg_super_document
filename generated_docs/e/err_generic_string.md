@@ -1,0 +1,41 @@
+# err_generic_string
+
+## Location
+src/backend/utils/error/elog.c: 1512 - 1547
+
+## Overview
+A function that sets individual ErrorData string fields identified by PG_DIAG_xxx codes, specifically designed for non-localized string fields to avoid translation considerations.
+
+## Definition
+int err_generic_string(int field, const char *str)
+
+## Detailed Description
+The err_generic_string function provides a low-level interface for setting specific string fields in PostgreSQL's ErrorData structure. It uses a switch statement to handle different diagnostic field types (PG_DIAG_xxx codes) and delegates the actual field setting to the set_errdata_field helper function. The function intentionally only supports fields that don't require localized strings, ensuring no translation complexities arise. Most callers should prefer higher-level abstractions like errtablecol() rather than calling this function directly.
+
+## Parameters / Member Variables
+- field: An integer code (PG_DIAG_xxx constant) identifying which ErrorData field to set
+- str: The string value to assign to the specified field
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ErrorData (structure type)
+  - CHECK_STACK_DEPTH (macro for stack validation)
+  - set_errdata_field (helper function for field assignment)
+  - PG_DIAG_SCHEMA_NAME, PG_DIAG_TABLE_NAME, PG_DIAG_COLUMN_NAME, PG_DIAG_DATATYPE_NAME, PG_DIAG_CONSTRAINT_NAME (diagnostic field constants)
+  - elog (for error reporting on unsupported fields)
+- Called from (representative examples):
+  - errdatatype (in domains.c)
+  - errdomainconstraint (in domains.c)
+  - errtable (in relcache.c)
+  - errtablecolname (in relcache.c)
+  - errtableconstraint (in relcache.c)
+  - PLy_elog_impl (in plpy_elog.c)
+  - PLy_output (in plpy_plpymodule.c)
+
+## Notes and Other Information
+- The function always returns 0, indicating the return value is not significant
+- Supports only a specific set of diagnostic fields: schema, table, column, datatype, and constraint names
+- Throws an ERROR if an unsupported field ID is provided
+- Does not increment recursion_depth, unlike some other error functions
+- Located in src/backend/utils/error/elog.c:1512-1547
+- Part of PostgreSQL's error reporting infrastructure for providing structured diagnostic information

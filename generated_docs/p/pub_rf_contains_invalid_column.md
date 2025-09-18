@@ -1,0 +1,48 @@
+# pub_rf_contains_invalid_column
+
+## Location
+src/backend/commands/publicationcmds.c: 258 - 333
+
+## Overview
+Validates whether a publication's row filter expression references only columns that are part of the table's REPLICA IDENTITY.
+
+## Definition
+
+
+## Detailed Description
+This function performs validation to ensure that all columns referenced in a publication's row filter WHERE clause are part of the table's REPLICA IDENTITY. This validation is critical for logical replication because only columns in the REPLICA IDENTITY are guaranteed to be available on the subscriber side for filtering operations.
+
+The function first checks for REPLICA IDENTITY FULL, which includes all columns and thus allows any column reference in the row filter. For partitioned tables with pubviaroot enabled, it finds the topmost published ancestor and uses that table's row filter expression while validating against the actual partition's REPLICA IDENTITY.
+
+The validation process involves retrieving the row filter expression from the pg_publication_rel catalog, converting it from text to a Node tree, and then using a tree walker to examine all column references in the expression.
+
+## Parameters / Member Variables
+- : OID of the publication to validate
+- : The relation being validated for row filter compatibility
+- : List of ancestor relations (used for partitioned tables)
+- : Boolean indicating whether to publish via partition root
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetTopMostAncestorInPublication
+  - SearchSysCache2
+  - SysCacheGetAttr
+  - RelationGetIndexAttrBitmap
+  - stringToNode
+  - TextDatumGetCString
+  - contain_invalid_rfcolumn_walker
+  - REPLICA_IDENTITY_FULL
+  - INDEX_ATTR_BITMAP_IDENTITY_KEY
+  - rf_context
+- Called from (representative examples):
+  - RelationBuildPublicationDesc
+  - MAX_RELCACHE_INVAL_MSGS (referenced in header)
+
+## Notes and Other Information
+- Returns true if any referenced column is NOT in the replica identity, false if all columns are valid
+- Short-circuits validation for REPLICA IDENTITY FULL since all columns are allowed
+- Handles complex partitioning scenarios where row filters are inherited from ancestors
+- Uses system cache lookups to retrieve row filter expressions from pg_publication_rel
+- Creates a bitmap of REPLICA IDENTITY columns for efficient validation
+- Returns false if no row filter is defined (rfisnull case)
+- Located in src/backend/commands/publicationcmds.c:258-333

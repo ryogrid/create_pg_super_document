@@ -1,0 +1,46 @@
+# XLogReaderAllocate
+
+## Location
+src/backend/access/transam/xlogreader.c: 106 - 160
+
+## Overview
+This function allocates and initializes a new XLogReaderState structure for reading WAL (Write-Ahead Log) records from PostgreSQL transaction log files.
+
+## Definition
+```c
+XLogReaderState *XLogReaderAllocate(int wal_segment_size, const char *waldir, XLogReaderRoutine *routine, void *private_data)
+```
+
+## Detailed Description
+`XLogReaderAllocate` creates and initializes a new XLogReaderState structure which serves as the main context for reading WAL records. The function allocates memory for the reader state, read buffer, error message buffer, and initial record buffer. It also initializes the WAL segment information and sets up caller-provided callback routines. The function uses MCXT_ALLOC_NO_OOM flag to handle out-of-memory conditions gracefully by returning NULL rather than throwing an error.
+
+## Parameters / Member Variables
+- `wal_segment_size`: Size of WAL segments in bytes (typically 16MB)
+- `waldir`: Directory path where WAL files are located (can be NULL)
+- `routine`: Pointer to XLogReaderRoutine structure containing callback functions for page reading operations
+- `private_data`: Opaque pointer to caller-specific data that will be passed to callback functions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc_extended (memory allocation with flags)
+  - WALOpenSegmentInit (initializes WAL segment context)
+  - allocate_recordbuf (allocates initial record buffer)
+  - MCXT_ALLOC_NO_OOM (memory allocation flag)
+  - MCXT_ALLOC_ZERO (memory allocation flag)
+  - MAX_ERRORMSG_LEN (constant for error message buffer size)
+- Called from (representative examples):
+  - InitWalRecovery
+  - StartReplication 
+  - XLogInsertRecord
+  - main (pg_waldump utility)
+  - StartupDecodingContext
+  - SummarizeWAL
+
+## Notes and Other Information
+- Returns NULL if memory allocation fails, allowing graceful error handling
+- The readBuf is allocated with XLOG_BLCKSZ size and MAXALIGN alignment for efficient I/O operations
+- Error message buffer is initialized with null terminator
+- All numeric fields are zero-initialized due to MCXT_ALLOC_ZERO flag
+- The function properly cleans up partial allocations on failure (pfree calls)
+- Initial record buffer is allocated with minimal size and can grow as needed
+- This is the primary entry point for creating WAL readers in PostgreSQL

@@ -1,0 +1,56 @@
+# _bt_getstackbuf
+
+## Location
+src/backend/access/nbtree/nbtinsert.c: 2319 - 2443
+
+## Overview
+_bt_getstackbuf re-finds and locks a parent page containing the downlink to a specified child page, updating the stack information to reflect any changes due to concurrent operations.
+
+## Definition
+
+
+## Detailed Description
+This function addresses a fundamental challenge in concurrent B-tree operations: the location of parent-child relationships may change between the time a descent path is recorded and when it needs to be used later. The function performs several key operations:
+
+1. **Initial Position**: Starts searching from the position recorded in the provided stack (bts_blkno and bts_offset), which represents where the downlink was expected to be found.
+
+2. **Incomplete Split Handling**: If the target page has an incomplete split (marked by BTP_INCOMPLETE_SPLIT flag), it calls _bt_finish_split() to complete the split before proceeding.
+
+3. **Linear Search Strategy**: Performs a two-phase linear search for the pivot tuple containing the downlink to the child page:
+   - First phase: Searches rightward from the starting position (handling rightward movement due to insertions)
+   - Second phase: Searches leftward from the starting position (handling leftward movement, though limited)
+
+4. **Rightward Page Movement**: If the pivot tuple is not found on the current page, moves to the next page to the right and continues searching, since concurrent operations can only move pivot tuples rightward.
+
+5. **Stack Update**: Updates the stack's bts_blkno and bts_offset fields to reflect the actual current location of the pivot tuple.
+
+The function ensures that callers can reliably find parent-child relationships even in the presence of concurrent page splits and other structural changes.
+
+## Parameters / Member Variables
+- : The B-tree index relation being searched
+- : The heap relation referenced by the index (required for potential incomplete split completion)
+- : BTStack containing the expected location of the pivot tuple (updated with actual location)
+- : Block number of the child page whose parent downlink needs to be found
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - _bt_getbuf (to acquire write locks on parent pages)
+  - _bt_finish_split (to complete incomplete splits when encountered)
+  - BTreeTupleGetDownLink (to extract downlink block numbers from pivot tuples)
+  - PageGetItemId, PageGetItem (for accessing page items)
+  - P_INCOMPLETE_SPLIT, P_IGNORE, P_RIGHTMOST (page status flags)
+  - Various offset number manipulation functions
+- Called from (representative examples):
+  - _bt_insert_parent (to re-find parent page during split completion)
+  - _bt_lock_subtree_parent (for page deletion operations)
+
+## Notes and Other Information
+- Returns a write-locked buffer containing the parent page, or InvalidBuffer if not found
+- The search algorithm is optimized for the common case where the pivot tuple hasn't moved far
+- Handles the "moving right" property of Lehman & Yao B-trees where concurrent operations can only push pivot tuples rightward
+- The function is designed to be resilient to concurrent page splits and other structural modifications
+- Automatically handles incomplete splits by completing them before continuing the search
+- Updates stack information to provide accurate positioning for subsequent operations like pivot tuple insertion
+- The two-phase search (right first, then left) is tuned to the probability distribution of where pivot tuples are likely to be found
+- Part of the larger mechanism that enables lock-coupling in concurrent B-tree operations
+- Critical for maintaining consistency during complex operations like page splits that span multiple tree levels

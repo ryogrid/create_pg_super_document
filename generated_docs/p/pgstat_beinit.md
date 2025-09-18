@@ -1,0 +1,34 @@
+# pgstat_beinit
+
+## Location
+src/backend/utils/activity/backend_status.c: 247 - 272
+
+## Overview
+Initializes the backend statistics state for a process and sets up the cleanup hook for process exit.
+
+## Definition
+```c
+void pgstat_beinit(void)
+```
+
+## Detailed Description
+This function performs the initial setup of backend statistics tracking for a process. It validates that MyProcNumber has been set to a valid value, assigns the process's entry in the shared BackendStatusArray, and registers a shutdown hook to ensure proper cleanup when the process exits. This function must be called after MyProcNumber is set but before any transactions begin, as the exit hook needs to run after the last transaction.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Assert (for MyProcNumber validation)
+  - INVALID_PROC_NUMBER
+  - NumBackendStatSlots
+  - BackendStatusArray
+  - MyBEEntry (global variable set)
+  - on_shmem_exit
+  - pgstat_beshutdown_hook
+- Called from:
+  - AuxiliaryProcessMainCommon
+  - InitPostgres
+
+## Notes and Other Information
+The function includes important assertions to ensure MyProcNumber is valid and within the expected range. It's crucial that MyDatabaseId may not be set yet when this function is called, which is why the shutdown hook must be careful about database-specific cleanup. This function is called from both regular backend initialization (InitPostgres) and auxiliary process initialization.

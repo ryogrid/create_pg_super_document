@@ -1,0 +1,36 @@
+# NumLWLocksForNamedTranches
+
+## Location
+src/backend/storage/lmgr/lwlock.c: 408 - 422
+
+## Overview
+Computes the total number of lightweight locks required by all registered named tranches for allocation in the main LWLock array.
+
+## Definition
+
+
+## Detailed Description
+This function iterates through all registered named LWLock tranche requests and calculates the cumulative number of locks required. Named tranches allow extensions and different PostgreSQL subsystems to register their lightweight lock requirements during system initialization. The function provides the total count that needs to be allocated in the main LWLock array to accommodate all named tranche requests.
+
+The function accesses global arrays that store the tranche registration information, summing up the num_lwlocks field from each registered tranche request.
+
+## Parameters / Member Variables
+- None (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - None (simple arithmetic computation)
+- Global variables accessed:
+  - NamedLWLockTrancheRequests (counter of registered tranches)
+  - NamedLWLockTrancheRequestArray (array of tranche requests)
+- Called from:
+  - LWLockShmemSize (src/backend/storage/lmgr/lwlock.c:430)
+  - InitializeLWLocks (src/backend/storage/lmgr/lwlock.c:495)
+
+## Notes and Other Information
+- Returns the total count of locks needed across all named tranches
+- Used during shared memory sizing calculations and LWLock array initialization
+- Part of the extensible LWLock tranche system that allows modules to register lock requirements
+- The named tranche system enables clean separation between core PostgreSQL locks and extension-specific locks
+- This count is added to the base LWLock requirements to determine the total LWLock array size
+- Function is typically called during system startup before the main LWLock array is allocated

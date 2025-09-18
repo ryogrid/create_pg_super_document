@@ -1,0 +1,30 @@
+# PQcancelSocket
+
+## Location
+src/interfaces/libpq/fe-cancel.c: 295 - 306
+
+## Overview
+Retrieves the socket file descriptor from a cancel connection, allowing direct access to the underlying socket for query cancellation operations.
+
+## Definition
+
+
+## Detailed Description
+PQcancelSocket is a utility function that extracts the socket file descriptor from a PostgreSQL cancel connection object. It serves as a wrapper around PQsocket, specifically designed to work with PGcancelConn structures used for query cancellation. This function enables applications to access the underlying socket for advanced socket operations or monitoring during the cancellation process.
+
+## Parameters / Member Variables
+- : A pointer to a constant PGcancelConn structure representing the cancel connection from which to extract the socket
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PQsocket
+  - PGcancelConn (type)
+- Called from (representative examples):
+  - test_cancel (in libpq_pipeline test module)
+  - libpqsrv_cancel (libpq backend-frontend helpers)
+
+## Notes and Other Information
+- Returns the socket file descriptor as an integer
+- The function provides a type-safe way to access the socket from a cancel connection
+- Primarily used in testing scenarios and backend-frontend helper functions
+- The socket can be used for polling, monitoring connection status, or implementing custom timeout mechanisms during query cancellation

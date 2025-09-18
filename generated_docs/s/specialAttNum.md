@@ -1,0 +1,32 @@
+# specialAttNum
+
+## Location
+src/backend/parser/parse_relation.c: 3514 - 3532
+
+## Overview
+This static function checks if an attribute name corresponds to a PostgreSQL system attribute and returns its attribute number.
+
+## Definition
+
+
+## Detailed Description
+The  function determines whether a given attribute name is a special system attribute (such as "xmin", "xmax", "ctid", etc.) and returns the corresponding attribute number if found. It uses  to look up the attribute name in the system attribute catalog. This function only identifies potential system attributes by name - the caller is responsible for ensuring that the attribute actually exists in the target relation. System attributes have negative attribute numbers to distinguish them from regular user-defined attributes.
+
+## Parameters / Member Variables
+- : The name of the attribute to check for being a system attribute
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SystemAttributeByName
+  - InvalidAttrNumber
+  - FormData_pg_attribute
+- Called from (representative examples):
+  - attnameAttNum
+  - scanRTEForColumn
+
+## Notes and Other Information
+- This is a static function, only accessible within parse_relation.c
+- Returns InvalidAttrNumber if the attribute name is not a system attribute
+- System attributes have negative attribute numbers (e.g., ctid = -1, xmin = -4)
+- The function only validates the name pattern, not whether the attribute exists in a specific relation
+- Added by Thomas Lockhart in 2000 to support system attribute recognition

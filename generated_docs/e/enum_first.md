@@ -1,0 +1,38 @@
+# enum_first
+
+## Location
+src/backend/utils/adt/enum.c: 437 - 465
+
+## Overview
+A PostgreSQL built-in function that returns the first (minimum) value of an enum type.
+
+## Definition
+```c
+Datum enum_first(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `enum_first` function implements the SQL function that returns the first value in the sort order of an enum type. It determines the enum type from the function call expression tree rather than examining the actual argument value, which means the argument can even be NULL. The function uses `enum_endpoint` with `ForwardScanDirection` to efficiently find the minimum enum value using the pg_enum system catalog's sort order index.
+
+The function includes proper error handling for cases where the enum type cannot be determined or when the enum contains no values.
+
+## Parameters / Member Variables
+- `fcinfo`: Function call information structure containing metadata about the function call
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_fn_expr_argtype
+  - enum_endpoint
+  - ForwardScanDirection
+  - ereport
+  - format_type_be
+  - PG_RETURN_OID
+- Called from:
+  - SQL queries using enum_first() function
+
+## Notes and Other Information
+- This is a PostgreSQL built-in function accessible from SQL
+- The actual argument value is not examined; the function derives the enum type from the expression tree
+- Raises an error if the enum type cannot be determined from the calling context
+- Raises an error if the enum type contains no values
+- Returns the OID of the first enum value, which can be used in SQL operations

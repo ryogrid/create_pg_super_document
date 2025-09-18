@@ -1,0 +1,43 @@
+# slice_to
+
+## Location
+src/backend/snowball/libstemmer/utilities.c: 448 - 465
+
+## Overview
+A function in the Snowball stemming library that copies the current slice (between bra and ket positions) from the working buffer to a destination buffer.
+
+## Definition
+
+
+## Detailed Description
+The  function extracts the currently selected slice (the substring between  and  positions) from the working buffer and copies it to the provided destination buffer. The function handles memory management by expanding the destination buffer if necessary and properly setting its size. If the slice boundaries are invalid, it cleans up the destination buffer and returns NULL.
+
+This function is essential for extracting parts of words during stemming operations, allowing stemmers to save portions of the original word for later use or analysis.
+
+## Parameters / Member Variables
+- : Pointer to the Snowball environment structure containing the working string and cursor positions
+- : Destination buffer where the slice will be copied (may be reallocated if too small)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - slice_check (validates slice boundaries before operation)
+  - lose_s (cleans up buffer memory on error)
+  - CAPACITY (macro to get buffer capacity)
+  - increase_size (expands buffer if needed)
+  - memmove (copies memory safely)
+  - SET_SIZE (macro to set buffer size)
+  - symbol (character type used in buffers)
+- Called from (representative examples):
+  - r_undouble (in Danish stemmer)
+  - r_tidy (in Finnish stemmer) 
+  - among (utility function for pattern matching)
+
+## Notes and Other Information
+- Returns the destination buffer pointer on success, NULL on error
+- Automatically handles memory reallocation if the destination buffer is too small
+- Performs boundary checking via slice_check to ensure valid slice operations
+- The slice length is calculated as 
+- Uses memmove for safe memory copying that handles overlapping regions
+- Part of the external API for Snowball stemmer implementations
+- The destination buffer uses the Snowball variable-length string format with embedded size and capacity
+- On error, cleans up the destination buffer to prevent memory leaks

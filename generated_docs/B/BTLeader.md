@@ -1,0 +1,41 @@
+# BTLeader
+
+## Location
+src/backend/access/nbtree/nbtsort.c: 165 - 194
+
+## Overview
+BTLeader is a structure that contains status and convenience pointers for the leader process in parallel B-tree index builds, providing access to shared state and coordinating worker processes.
+
+## Definition
+
+
+## Detailed Description
+BTLeader serves as the coordinator structure for the leader process in parallel B-tree index construction. It maintains references to the parallel execution context and provides convenient access to shared state that would otherwise require TOC (Table of Contents) lookups. The leader process uses this structure to manage worker coordination and track resource usage during the parallel build process.
+
+The structure includes pointers to both primary and secondary shared tuplesort states, with the secondary state used specifically for unique index builds. It also maintains tracking information for WAL and buffer usage statistics across all participants.
+
+## Parameters / Member Variables
+- : Pointer to the parallel context managing the parallel execution
+- : Exact number of worker processes successfully launched, plus one if the leader participates as a worker (excludes leader in DISABLE_LEADER_PARTICIPATION builds)
+- : Pointer to the BTShared structure containing shared state for the entire build
+- : Pointer to the shared tuplesort-managed state passed to each process tuplesort
+- : Pointer to the corresponding btspool2 shared state, used only when building unique indexes
+- : The snapshot used by the scan if an MVCC snapshot is required
+- : Pointer to WAL usage statistics tracking structure
+- : Pointer to buffer usage statistics tracking structure
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParallelContext
+  - BTShared
+  - Sharedsort
+  - WalUsage
+  - BufferUsage
+- Called from (representative examples):
+  - BTBuildState
+  - _bt_begin_parallel
+  - _bt_end_parallel
+  - _bt_leader_participate_as_worker
+
+## Notes and Other Information
+BTLeader is specifically designed for the leader process in parallel index builds and provides convenience pointers to avoid repeated TOC lookups during the build process. The nparticipanttuplesorts field accounts for both worker processes and the leader if it participates as a worker, with the leader participation controlled by the DISABLE_LEADER_PARTICIPATION build configuration. The structure maintains separate sharedsort and sharedsort2 pointers to handle the additional sorting requirements of unique indexes.

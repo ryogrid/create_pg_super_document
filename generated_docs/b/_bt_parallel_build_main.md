@@ -1,0 +1,46 @@
+# _bt_parallel_build_main
+
+## Location
+src/backend/access/nbtree/nbtsort.c: 1740 - 1861
+
+## Overview
+Entry point function executed by parallel worker processes during B-tree index construction, responsible for setting up the worker environment and coordinating the parallel sorting process.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the main entry point for parallel worker processes during B-tree index builds. It performs the complete workflow for a worker process:
+
+1. **Environment Setup**: Establishes the worker's execution context by setting up debug query strings and reporting activity status
+2. **Shared State Access**: Retrieves shared state information from the table of contents (TOC) in the dynamic shared memory segment
+3. **Resource Initialization**: Opens required relations (heap and index) with appropriate lock modes and initializes BTSpool structures for sorting
+4. **Parallel Coordination**: Attaches to shared tuplesort states and prepares for parallel execution
+5. **Work Execution**: Delegates the actual scanning and sorting work to 
+6. **Statistics Reporting**: Tracks and reports buffer usage and WAL statistics for the parallel execution
+7. **Cleanup**: Releases resources including relation locks
+
+The function handles both unique and non-unique index builds, setting up secondary spools when necessary for unique constraint processing.
+
+## Parameters / Member Variables
+- : Dynamic shared memory segment containing shared state for the parallel build operation
+- : Shared memory table of contents for locating various shared data structures within the segment
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - shm_toc_lookup
+  - pgstat_report_activity
+  - table_open/index_open
+  - tuplesort_attach_shared
+  - InstrStartParallelQuery/InstrEndParallelQuery
+  - _bt_parallel_scan_and_sort
+  - table_close/index_close
+- Called from (representative examples):
+  - Parallel worker processes launched during B-tree index creation
+
+## Notes and Other Information
+- Function assumes worker process has been properly initialized with appropriate status flags (PROC_IN_SAFE_IC or none)
+- Supports both concurrent and non-concurrent index builds with different locking strategies
+- Memory allocation for sorting is divided among worker processes based on maintenance_work_mem
+- Includes conditional compilation support for B-tree build statistics collection
+- Worker process responsibility ends after calling this function - no further coordination required

@@ -1,0 +1,43 @@
+# check_parameter_resolution_walker
+
+## Location
+src/backend/parser/parse_param.c: 286 - 329
+
+## Overview
+A tree-walking function that validates parameter symbols match their assigned types throughout a fully-analyzed query tree, ensuring consistent parameter type resolution.
+
+## Definition
+
+
+## Detailed Description
+This static function serves as a tree walker that traverses a fully-analyzed query tree to verify that parameter symbols are consistently typed. It addresses the issue where some parameters might remain UNKNOWN if there was insufficient context to force their coercion, while other instances of the same parameter might have been coerced to specific types elsewhere in the query.
+
+For each Param node of PARAM_EXTERN kind, the function validates that:
+1. The parameter ID is within valid bounds (1 to numParams)
+2. The parameter's type matches the type stored in the VarParamState
+
+If inconsistencies are found, appropriate errors are reported with precise location information. The function recursively processes Query nodes and expression trees to ensure complete validation.
+
+## Parameters / Member Variables
+- : Current node being examined in the tree traversal
+- : ParseState containing parser state and VarParamState information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Param
+  - PARAM_EXTERN
+  - VarParamState
+  - query_tree_walker
+  - expression_tree_walker
+  - check_parameter_resolution_walker (recursive)
+- Called from (representative examples):
+  - check_variable_parameters
+  - check_parameter_resolution_walker (recursive)
+
+## Notes and Other Information
+- This is a static function used internally within the parameter resolution system
+- Located in src/backend/parser/parse_param.c:286-329
+- Returns false to continue tree traversal (standard walker pattern)
+- Generates specific error codes: ERRCODE_UNDEFINED_PARAMETER and ERRCODE_AMBIGUOUS_PARAMETER
+- Handles both regular expression trees and Query substructures recursively
+- Part of PostgreSQL's variable parameter type resolution and validation framework

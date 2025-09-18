@@ -1,0 +1,33 @@
+# free_statement
+
+## Location
+src/interfaces/ecpg/ecpglib/execute.c: 96 - 110
+
+## Overview
+A static cleanup function that deallocates all memory associated with an ECPG statement structure and its components.
+
+## Definition
+```c
+static void free_statement(struct statement *stmt)
+```
+
+## Detailed Description
+The `free_statement` function performs comprehensive cleanup of an ECPG statement structure. It deallocates all associated memory including input and output variable lists, the SQL command string, statement name, and optionally the saved locale information (on systems without uselocale). The function handles NULL input gracefully and ensures complete cleanup to prevent memory leaks in ECPG applications.
+
+## Parameters / Member Variables
+- `stmt`: Pointer to the statement structure to be freed (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - statement (struct type)
+  - free_variable
+  - ecpg_free
+- Called from (representative examples):
+  - ecpg_do_epilogue
+
+## Notes and Other Information
+- Safely handles NULL input by returning early
+- Conditionally frees oldlocale member based on HAVE_USELOCALE macro availability
+- Part of ECPG's resource management system for prepared statements
+- Ensures complete cleanup of both input and output variable lists
+- Critical for preventing memory leaks in applications using ECPG prepared statements

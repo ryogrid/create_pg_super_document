@@ -1,0 +1,34 @@
+# simple_heap_insert
+
+## Location
+src/backend/access/heap/heapam.c: 2673 - 2685
+
+## Overview
+simple_heap_insert is a simplified wrapper around heap_insert() that provides default parameters for basic tuple insertion, primarily used for system catalog modifications.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a convenience wrapper for heap_insert() with default parameters. It automatically supplies the current command ID using GetCurrentCommandId(true) and sets options to 0 with no bulk insert state. The function is designed for straightforward tuple insertions where the caller doesn't need to specify custom insertion options or provide bulk insert optimization state. It's the recommended interface for most system catalog operations where simplicity is preferred over fine-grained control.
+
+## Parameters / Member Variables
+- : The target heap relation where the tuple will be inserted
+- : The HeapTuple to be inserted into the relation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - heap_insert
+  - GetCurrentCommandId
+- Called from:
+  - InsertOneTuple (bootstrap.c)
+  - CatalogTupleInsert (indexing.c)
+  - CatalogTupleInsertWithInfo (indexing.c)
+
+## Notes and Other Information
+- This is the preferred function for system catalog modifications
+- Provides no access to speedup options or bulk insert state that heap_insert offers
+- Uses GetCurrentCommandId(true) to automatically obtain the current command ID
+- Sets insertion options to 0 (no special flags)
+- Passes NULL for bulk insert state parameter
+- More suitable for single-tuple insertions in system catalogs than heap_insert

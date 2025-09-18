@@ -1,0 +1,42 @@
+# get_op_opfamily_strategy
+
+## Location
+src/backend/utils/cache/lsyscache.c: 83 - 107
+
+## Overview
+Retrieves the strategy number of an operator within a specified operator family, or returns 0 if the operator is not a member of that family.
+
+## Definition
+
+
+## Detailed Description
+This function looks up an operator in the pg_amop system catalog to determine its strategy number within a given operator family. Strategy numbers define the semantic meaning of operators within an operator family (e.g., 1 for less-than, 2 for less-equal, 3 for equal, etc.). The function only considers search operators (AMOP_SEARCH), not ordering operators. If the operator is not found in the specified family, it returns 0.
+
+## Parameters / Member Variables
+- : The OID of the operator to look up
+- : The OID of the operator family to search within
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache3 (system cache lookup function)
+  - HeapTupleIsValid (checks if tuple is valid)
+  - GETSTRUCT (extracts structure from heap tuple)
+  - ReleaseSysCache (releases cache reference)
+  - Form_pg_amop (structure type for pg_amop catalog)
+  - AMOP_SEARCH (constant for search operator type)
+  - CharGetDatum (datum conversion function)
+- Called from (representative examples):
+  - ComputeIndexAttrs (src/backend/commands/indexcmds.c:2103)
+  - match_rowcompare_to_indexcol (src/backend/optimizer/path/indxpath.c:2757)
+  - expand_indexqual_rowcompare (src/backend/optimizer/path/indxpath.c:2880)
+  - get_actual_variable_range (src/backend/utils/adt/selfuncs.c:6205)
+  - btcostestimate (src/backend/utils/adt/selfuncs.c:6963)
+  - RelationGetExclusionInfo (src/backend/utils/cache/relcache.c:5697)
+
+## Notes and Other Information
+- Strategy numbers are specific to each operator family and define the semantic meaning of operators
+- Common strategy numbers include: 1 (less-than), 2 (less-equal), 3 (equal), 4 (greater-equal), 5 (greater-than)
+- Returns 0 when the operator is not found in the family, which can be used as a boolean test
+- Only searches for search operators (AMOP_SEARCH), excluding ordering operators (AMOP_ORDER)
+- Uses proper cache management with SearchSysCache3/ReleaseSysCache pair
+- The strategy number is retrieved from the amopstrategy field of the pg_amop catalog entry

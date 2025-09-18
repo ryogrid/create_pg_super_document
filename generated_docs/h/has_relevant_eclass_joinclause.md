@@ -1,0 +1,38 @@
+# has_relevant_eclass_joinclause
+
+## Location
+src/backend/optimizer/path/equivclass.c: 3163 - 3206
+
+## Overview
+Detects whether there exists an EquivalenceClass that could produce a join clause involving a given relation and any other relation in the query.
+
+## Definition
+
+
+## Detailed Description
+This function is a single-relation variant of have_relevant_eclass_joinclause that determines if a given relation could potentially be joined with any other relation in the query via an equivalence class-derived join clause. It treats the "other relation" as implicitly being "everything else in the query", making it useful for determining whether a relation has any potential for equivalence class-based joins at all.
+
+The function examines equivalence classes that mention the given relation and checks if any of them also reference other relations (indicated by ec_relids not being a subset of the input relation's relids). Like its two-relation counterpart, this is designed as a lightweight heuristic that may produce false positives but avoids expensive detailed checks.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing global planning state and equivalence class information
+- : RelOptInfo to check for potential join clauses with any other relations
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_eclass_indexes_for_relids
+  - bms_next_member
+  - list_nth
+  - list_length
+  - bms_is_subset
+- Called from (representative examples):
+  - build_join_rel
+
+## Notes and Other Information
+- Single-relation variant of have_relevant_eclass_joinclause
+- Implicitly considers "everything else in the query" as the potential join partner
+- Optimistic heuristic that may produce false positives
+- Only examines multi-member equivalence classes
+- Checks if equivalence class spans beyond the input relation
+- Part of PostgreSQL's join planning optimization framework
+- Located in src/backend/optimizer/path/equivclass.c:3163-3206

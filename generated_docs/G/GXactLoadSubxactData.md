@@ -1,0 +1,36 @@
+# GXactLoadSubxactData
+
+## Location
+src/backend/access/transam/twophase.c: 504 - 529
+
+## Overview
+Loads subtransaction data into a GlobalTransaction's associated PGPROC structure, handling the subtransaction list for prepared transactions with nested transactions.
+
+## Definition
+
+
+## Detailed Description
+GXactLoadSubxactData is responsible for populating the subtransaction information in a prepared transaction's PGPROC entry. This function handles the case where a transaction being prepared for two-phase commit contains subtransactions (nested transactions). It copies the subtransaction IDs into the PGPROC's cached subxid array, handling overflow situations where there are more subtransactions than can be cached. The function sets appropriate flags to indicate whether the subtransaction list has overflowed the cache limit.
+
+## Parameters / Member Variables
+- : The GlobalTransaction structure whose PGPROC needs subtransaction data
+- : The number of subtransactions to load
+- : Array of TransactionId values representing the subtransactions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GlobalTransaction
+  - PGPROC
+  - GetPGProcByNumber
+  - PGPROC_MAX_CACHED_SUBXIDS
+- Called from (representative examples):
+  - StartPrepare
+  - RecoverPreparedTransactions
+
+## Notes and Other Information
+- This is a static function used internally within the two-phase commit system
+- Must be called before MarkAsPrepared() to ensure proper initialization
+- Handles subtransaction list overflow by setting the overflowed flag and truncating to PGPROC_MAX_CACHED_SUBXIDS
+- No additional locking is required since the GlobalTransaction is not yet marked as valid
+- Uses memcpy for efficient copying of subtransaction ID arrays
+- Essential for maintaining transaction visibility and lock information for prepared transactions with nested transactions

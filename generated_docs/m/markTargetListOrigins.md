@@ -1,0 +1,37 @@
+# markTargetListOrigins
+
+## Location
+src/backend/parser/parse_target.c: 318 - 342
+
+## Overview
+Marks targetlist columns that are simple Vars with their source table OID and column number for frontend communication purposes.
+
+## Definition
+```c
+void
+markTargetListOrigins(ParseState *pstate, List *targetlist)
+```
+
+## Detailed Description
+This function iterates through a target list and marks target entries that correspond to simple Var expressions with information about their source table and column. The marking process involves recording the originating table's OID and the column number from which the target entry derives. This metadata is primarily used when sending query results to the frontend, allowing clients to understand the provenance of result columns. The function delegates the actual marking work to markTargetListOrigin for each individual TargetEntry.
+
+## Parameters / Member Variables
+- `pstate`: ParseState structure containing parser state and context information  
+- `targetlist`: List of TargetEntry nodes to be marked with origin information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - markTargetListOrigin
+  - lfirst (macro)
+  - TargetEntry
+  - Var
+- Called from (representative examples):
+  - transformSelectStmt
+  - transformReturningList
+
+## Notes and Other Information
+- Only used for SELECT targetlists and RETURNING lists since origin information is only needed when sending results to the frontend
+- The function casts tle->expr to Var*, indicating it expects simple variable references rather than complex expressions
+- Origin marking helps clients understand which table and column each result column comes from
+- Essential for tools and applications that need to track data provenance in query results
+- Works in conjunction with markTargetListOrigin which performs the actual metadata assignment for individual entries

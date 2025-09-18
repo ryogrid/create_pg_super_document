@@ -1,0 +1,38 @@
+# update_ps_display_precheck
+
+## Location
+src/backend/utils/misc/ps_status.c: 343 - 368
+
+## Overview
+A helper function that determines whether updating the process title is necessary and possible based on current configuration and runtime conditions.
+
+## Definition
+
+
+## Detailed Description
+This internal function performs prerequisite checks before attempting to update the process status display. It validates three key conditions that must be met for process title updates to proceed:
+
+1. The update_process_title configuration parameter must be enabled
+2. The process must be running under the postmaster (not in standalone backend mode)
+3. On platforms using argv clobbering (PS_USE_CLOBBER_ARGV), the ps_buffer must be properly initialized
+
+The function serves as a common validation point used by multiple ps_display functions to avoid redundant checks and ensure consistent behavior across the process status display subsystem.
+
+## Parameters / Member Variables
+- None (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - update_process_title (global configuration variable)
+  - IsUnderPostmaster (global process state variable)  
+  - ps_buffer (global buffer pointer, when PS_USE_CLOBBER_ARGV is defined)
+- Called from (representative examples):
+  - set_ps_display_suffix (src/backend/utils/misc/ps_status.c:375)
+  - set_ps_display_remove_suffix (src/backend/utils/misc/ps_status.c:425)
+  - set_ps_display_with_len (src/backend/utils/misc/ps_status.c:457)
+
+## Notes and Other Information
+- Declared as static, making it internal to the ps_status.c module
+- Returns false if any prerequisite condition is not met, allowing callers to skip costly process title update operations
+- The PS_USE_CLOBBER_ARGV conditional compilation ensures platform-specific checks are only performed when relevant
+- Centralizes the common validation logic used by multiple process status display functions

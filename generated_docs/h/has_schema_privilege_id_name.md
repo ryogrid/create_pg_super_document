@@ -1,0 +1,39 @@
+# has_schema_privilege_id_name
+
+## Location
+src/backend/utils/adt/acl.c: 3913 - 3935
+
+## Overview
+Checks user privileges on a schema given a role ID, schema name as text, and privilege type as text.
+
+## Definition
+Datum has_schema_privilege_id_name(PG_FUNCTION_ARGS)
+
+## Detailed Description
+This function is a PostgreSQL system function that verifies whether a specified role has a particular privilege on a given schema. It takes three parameters: a role OID (Object Identifier), a schema name as text, and a privilege type specified as text. The function first converts the schema name to its corresponding OID, then converts the privilege string to the appropriate mode, and finally performs access control checking to determine if the role has the requested privilege on the schema.
+
+Unlike other variants in this family, this function does not handle missing schemas explicitly - it relies on convert_schema_name to handle schema name resolution, which may throw an error if the schema does not exist.
+
+## Parameters / Member Variables
+- roleid (Oid): The Object Identifier of the role whose privileges are being checked
+- schemaname (text*): Text representation of the schema name
+- priv_type_text (text*): Text representation of the privilege type (e.g. USAGE, CREATE)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - convert_schema_name
+  - convert_schema_priv_string
+  - object_aclcheck
+  - PG_GETARG_OID
+  - PG_GETARG_TEXT_PP
+  - AclResult (type)
+- Called from (representative examples):
+  - No direct references found in codebase
+
+## Notes and Other Information
+- This is one of the PostgreSQL privilege checking functions accessible from SQL
+- Uses object_aclcheck instead of object_aclcheck_ext, so it does not handle missing objects gracefully
+- Schema name resolution may throw an error if the schema does not exist
+- Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
+- Part of the Access Control List (ACL) system in PostgreSQL
+- Located in src/backend/utils/adt/acl.c:3913-3935

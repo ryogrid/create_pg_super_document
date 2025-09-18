@@ -1,0 +1,32 @@
+# optional_setsockopt
+
+## Location
+src/interfaces/libpq/fe-cancel.c: 432 - 463
+
+## Overview
+A static helper function that conditionally sets socket options, providing graceful handling of optional socket configuration parameters.
+
+## Definition
+
+
+## Detailed Description
+optional_setsockopt is an internal utility function in the libpq cancel mechanism that wraps the standard setsockopt() system call with additional logic to handle optional socket options. The function treats negative values as a signal to skip the socket option entirely, allowing callers to pass -1 or other negative values to indicate that a particular socket option should not be set. If a non-negative value is provided, it attempts to set the socket option and returns false if the operation fails.
+
+## Parameters / Member Variables
+- : File descriptor of the socket on which to set the option
+- : Protocol level identifier (e.g., SOL_SOCKET, IPPROTO_TCP)  
+- : Socket option identifier (e.g., SO_KEEPALIVE, TCP_NODELAY)
+- : The value to set for the socket option, or negative to skip setting
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - setsockopt (system call for setting socket options)
+- Called from (representative examples):
+  - PQcancel (src/interfaces/libpq/fe-cancel.c:507, 514, 523, 532, 555)
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the fe-cancel.c compilation unit
+- The function provides a convenient way to handle optional socket configurations without cluttering the calling code with conditional logic
+- Returns true for success or when the option is skipped (negative value), false only when setsockopt actually fails
+- Used extensively in PQcancel to configure socket options like keepalive settings in a robust manner
+- Location: src/interfaces/libpq/fe-cancel.c:432-463

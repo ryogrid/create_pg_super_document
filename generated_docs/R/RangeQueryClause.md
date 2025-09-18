@@ -1,0 +1,41 @@
+# RangeQueryClause
+
+## Location
+src/backend/optimizer/path/clausesel.c: 31 - 39
+
+## Overview
+A data structure used for accumulating information about possible range-query clause pairs during selectivity estimation in PostgreSQL's query optimizer.
+
+## Definition
+
+
+## Detailed Description
+The RangeQueryClause structure is used by PostgreSQL's query optimizer to identify and optimize range queries (conditions like ) during selectivity estimation. When the optimizer encounters multiple clauses that potentially form range conditions on the same variable, it uses this structure to group them together and calculate more accurate selectivity estimates.
+
+The structure maintains information about both lower and upper bounds for a given variable, allowing the optimizer to recognize when clauses can be combined into a single range condition rather than treating them as independent predicates. This optimization is crucial for accurate cardinality estimation, which directly impacts query plan quality.
+
+The structure is organized as a linked list, where each node represents a different variable that has potential range conditions. For each variable, the structure tracks whether lower and/or upper bounds have been found, along with their respective selectivity values.
+
+## Parameters / Member Variables
+- : Pointer to the next RangeQueryClause in the linked list, enabling multiple variables to be tracked simultaneously
+- : Node representing the common variable referenced by the range clauses (e.g., a column reference)
+- : Boolean flag indicating whether a lower-bound clause (var > something) has been identified for this variable
+- : Boolean flag indicating whether an upper-bound clause (var < something) has been identified for this variable  
+- : Selectivity estimate for the lower-bound clause, representing the fraction of rows expected to satisfy the condition
+- : Selectivity estimate for the upper-bound clause, representing the fraction of rows expected to satisfy the condition
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Node (PostgreSQL's base node type)
+  - Selectivity (PostgreSQL's selectivity type)
+- Called from (representative examples):
+  - clauselist_selectivity_ext (src/backend/optimizer/path/clausesel.c:127, 271)
+  - addRangeClause (src/backend/optimizer/path/clausesel.c:427, 430, 498)
+
+## Notes and Other Information
+- The structure is defined in src/backend/optimizer/path/clausesel.c:31-39
+- Used internally by the query optimizer for selectivity estimation and is not exposed to user code
+- The selectivity values stored represent the fraction of rows expected to satisfy each bound condition
+- When both bounds are present, the optimizer can calculate a more accurate combined selectivity for the range condition
+- The addRangeClause function handles the logic for identifying matching variables and updating bound information
+- Part of PostgreSQL's cost-based optimization system that helps choose efficient query execution plans

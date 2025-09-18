@@ -1,0 +1,44 @@
+# write_target_range
+
+## Location
+src/bin/pg_rewind/file_ops.c: 88 - 129
+
+## Overview
+Writes a buffer of data to a specific offset range in the currently open target file, with progress reporting and dry-run support.
+
+## Definition
+
+
+## Detailed Description
+This function writes a specified buffer to a target file at a given offset. It performs robust error handling with retry logic for partial writes, ensuring all data is written successfully. The function updates global progress tracking and respects the dry_run mode. It seeks to the specified position in the file and then writes the data in a loop to handle cases where the write system call doesn't write all requested bytes in a single operation. The function maintains the file open after writing to allow for subsequent operations.
+
+## Parameters / Member Variables
+- : Pointer to the buffer containing data to write
+- : File offset position where writing should start (off_t type)
+- : Number of bytes to write from the buffer
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - lseek (system call)
+  - write (system call) 
+  - progress_report
+  - pg_fatal
+- Global variables used:
+  - fetch_done (progress tracking counter)
+  - dry_run (configuration flag)
+  - dstfd (static file descriptor)
+  - dstpath (static path buffer for error reporting)
+- Called from (representative examples):
+  - process_queued_fetch_requests
+  - local_queue_fetch_file
+  - local_queue_fetch_range
+  - createBackupLabel
+
+## Notes and Other Information
+- Part of pg_rewind utility's file operations module (src/bin/pg_rewind/file_ops.c)
+- Implements robust write logic with partial write handling
+- Updates progress tracking for user feedback during long operations
+- Uses ENOSPC (no space left on device) as default error when write() fails without setting errno
+- Critical for applying file differences during PostgreSQL data directory synchronization
+- Maintains file position for subsequent writes without reopening
+- Essential component of pg_rewind's block-level file copying mechanism

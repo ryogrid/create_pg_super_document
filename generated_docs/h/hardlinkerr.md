@@ -1,0 +1,30 @@
+# hardlinkerr
+
+## Location
+src/timezone/zic.c: 996 - 1003
+
+## Overview
+Creates a hard link from target to linkname, following any symbolic links in the target path, and returns an error code indicating success or failure.
+
+## Definition
+
+
+## Detailed Description
+The  function creates a hard link using the POSIX  system call with the  flag. This means that if the target is a symbolic link, the hard link will be created to the file that the symbolic link points to, rather than to the symbolic link itself. The function provides a simple wrapper around  that converts the return value to a more convenient error reporting format.
+
+## Parameters / Member Variables
+- : The path to the existing file to which a hard link should be created
+- : The path where the new hard link should be created
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - linkat (POSIX system call for creating hard links)
+- Called from:
+  - dolink (twice, at lines 1034 and 1039 in src/timezone/zic.c)
+
+## Notes and Other Information
+- This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code
+- Returns 0 on success, or the errno value on failure
+- Uses AT_FDCWD to specify current working directory for both target and linkname paths
+- The AT_SYMLINK_FOLLOW flag ensures that symbolic links in the target are resolved before creating the hard link
+- This function is used as a fallback or alternative linking mechanism in the timezone compilation process

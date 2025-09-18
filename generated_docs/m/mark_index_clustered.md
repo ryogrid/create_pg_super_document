@@ -1,0 +1,47 @@
+# mark_index_clustered
+
+## Location
+src/backend/commands/cluster.c: 560 - 632
+
+## Overview
+Updates the pg_index system catalog to mark a specified index as the clustered index for a table, clearing the clustered flag from all other indexes on the same table.
+
+## Definition
+
+
+## Detailed Description
+The mark_index_clustered function manages the indisclustered flag in the pg_index system catalog, which indicates which index (if any) a table is clustered on. This metadata is used by subsequent CLUSTER operations to determine the default clustering index when no specific index is specified.
+
+The function performs several key operations:
+1. **Validation**: Ensures the operation is not being applied to a partitioned table (not supported)
+2. **Optimization**: Skips the operation if the target index is already marked as clustered
+3. **Catalog Update**: Iterates through all indexes on the relation, clearing the indisclustered flag from existing clustered indexes and setting it on the new target index
+4. **Hook Invocation**: Triggers post-alter hooks for each modified index to notify extensions and other components
+
+When indexOid is InvalidOid, the function clears the clustered flag from all indexes, effectively removing any clustering designation from the table.
+
+## Parameters / Member Variables
+- : Relation structure representing the table whose indexes are being modified
+- : OID of the index to mark as clustered, or InvalidOid to clear all clustered flags
+- : Boolean flag indicating whether this is an internal operation (affects hook behavior)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_index_isclustered
+  - table_open/table_close
+  - RelationGetIndexList
+  - SearchSysCacheCopy1
+  - CatalogTupleUpdate
+  - InvokeObjectPostAlterHookArg
+  - heap_freetuple
+- Called from (representative examples):
+  - rebuild_relation
+  - ATExecClusterOn
+  - ATExecDropCluster
+
+## Notes and Other Information
+- Explicitly prevents marking indexes as clustered on partitioned tables since clustering is performed at the partition level
+- Performs redundant validation on index validity even though this should have been checked earlier, following defensive programming practices
+- Uses RowExclusiveLock on pg_index to ensure exclusive access during catalog updates
+- Invokes object post-alter hooks for all processed indexes, not just the one being marked clustered, to ensure complete notification coverage
+- The function is transactional and will be rolled back if the containing transaction fails

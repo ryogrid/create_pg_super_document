@@ -1,0 +1,57 @@
+# RelationTruncate
+
+## Location
+src/backend/catalog/storage.c: 288 - 448
+
+## Overview
+RelationTruncate physically truncates a relation to a specified number of blocks, handling WAL logging, buffer management, and coordination with auxiliary structures like FSM and visibility map.
+
+## Definition
+```c
+void RelationTruncate(Relation rel, BlockNumber nblocks)
+```
+
+## Detailed Description
+RelationTruncate is responsible for physically truncating a PostgreSQL relation (table) to a specified number of blocks. This is a complex operation that involves multiple components:
+
+1. **Buffer Management**: Clears any cached block information and invalidates buffers for blocks that will be removed
+2. **Multi-Fork Handling**: Truncates not just the main relation fork, but also associated structures:
+   - Main fork (MAIN_FORKNUM) - the actual table data
+   - Free Space Map (FSM_FORKNUM) - tracks free space in pages
+   - Visibility Map (VISIBILITYMAP_FORKNUM) - tracks page visibility for VACUUM optimization
+3. **WAL Logging**: Creates XLOG_SMGR_TRUNCATE WAL records when the relation requires WAL logging
+4. **Checkpoint Coordination**: Uses DELAY_CHKPT_START and DELAY_CHKPT_COMPLETE flags to ensure proper ordering with concurrent checkpoints
+5. **Critical Section Protection**: Executes the actual truncation within a critical section to ensure atomicity
+
+The function ensures data consistency by WAL-logging the truncation before performing it, and uses checkpoint delay mechanisms to prevent race conditions with concurrent checkpoint operations.
+
+## Parameters / Member Variables
+- `rel`: The Relation to be truncated
+- `nblocks`: The target number of blocks after truncation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetSmgr
+  - smgrnblocks
+  - smgrexists
+  - FreeSpaceMapPrepareTruncateRel
+  - visibilitymap_prepare_truncate
+  - RelationPreTruncate
+  - XLogBeginInsert
+  - XLogRegisterData
+  - XLogInsert
+  - XLogFlush
+  - smgrtruncate2
+  - FreeSpaceMapVacuumRange
+- Called from (representative examples):
+  - heapam_relation_nontransactional_truncate
+  - lazy_truncate_heap
+  - spgvacuumscan
+  - RelationTruncateIndexes
+
+## Notes and Other Information
+- The function operates in a critical section to prevent interrupts during the truncation process
+- Checkpoint delay flags are used to ensure proper coordination with concurrent checkpoints
+- FSM vacuum is performed after truncation to update upper-level FSM pages
+- The operation handles multiple relation forks simultaneously for efficiency
+- WAL flush is performed immediately after logging to ensure durability before physical truncation

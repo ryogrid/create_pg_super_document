@@ -1,0 +1,38 @@
+# LogOpts
+
+## Location
+src/bin/pg_upgrade/pg_upgrade.h: 316 - 329
+
+## Overview
+LogOpts is a configuration structure that manages logging and output options for the pg_upgrade utility, controlling verbosity, log file handling, and output directory organization.
+
+## Definition
+
+
+## Detailed Description
+LogOpts centralizes all logging and output configuration for the pg_upgrade process. It manages both the behavioral aspects of logging (verbosity levels, log retention) and the organizational structure of output files through a hierarchy of directories. The structure enables pg_upgrade to provide comprehensive logging while maintaining organized output for debugging and audit purposes.
+
+## Parameters / Member Variables
+- : FILE pointer for internal logging operations, used for detailed diagnostic output
+- : Boolean flag controlling verbosity level; when true, enables detailed progress and diagnostic messages
+- : Boolean flag determining whether log files should be preserved after successful completion
+- : Root directory path (typically "pg_upgrade_output.d") containing all upgrade-related output
+- : Base output directory path with timestamp, providing unique storage for each upgrade run
+- : Directory path specifically designated for database dump files during the upgrade process
+- : Directory path for storing various log files generated during upgrade operations
+- : Boolean indicator of whether stdout is connected to a terminal (tty), affecting output formatting
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FILE
+  - transferMode (indirectly through related structures)
+- Called from (representative examples):
+  - OSInfo (as part of larger configuration structures)
+
+## Notes and Other Information
+- This structure is essential for pg_upgrade's comprehensive logging and output management strategy
+- The directory hierarchy (rootdir/basedir/dumpdir, logdir) provides organized storage for different types of output files
+- The isatty flag enables appropriate output formatting for both interactive and non-interactive usage
+- Log retention behavior can be controlled to aid in troubleshooting failed upgrades while cleaning up successful ones
+- Verbose mode provides detailed progress information crucial for monitoring long-running upgrade operations
+- Internal logging provides diagnostic information separate from user-facing progress messages

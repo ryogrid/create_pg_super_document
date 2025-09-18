@@ -1,0 +1,45 @@
+# preprocess_qual_conditions
+
+## Location
+src/backend/optimizer/plan/planner.c: 1258 - 1301
+
+## Overview
+The preprocess_qual_conditions function recursively traverses the query's join tree structure to locate and preprocess all qualification conditions (WHERE and JOIN/ON clauses) using preprocess_expression.
+
+## Definition
+```c
+static void preprocess_qual_conditions(PlannerInfo *root, Node *jtnode)
+```
+
+## Detailed Description
+The preprocess_qual_conditions function implements a recursive tree-walking algorithm that systematically visits every node in the query's jointree structure to identify and preprocess qualification expressions. It handles three main types of join tree nodes:
+
+1. **RangeTblRef nodes**: Simple table references with no qualification conditions requiring no processing
+2. **FromExpr nodes**: FROM clause expressions containing a list of relations and an optional WHERE clause - recursively processes each fromlist item and then preprocesses the quals field
+3. **JoinExpr nodes**: Explicit JOIN expressions with left/right arguments and JOIN conditions - recursively processes both child nodes and then preprocesses the quals field (ON clause)
+
+The function serves as a specialized dispatcher that identifies qualification contexts within the join tree and applies preprocess_expression with EXPRKIND_QUAL context to ensure proper canonical processing of all WHERE and JOIN conditions. This recursive approach ensures that complex nested join structures are thoroughly processed while maintaining the tree structure integrity.
+
+## Parameters / Member Variables
+- `root`: PlannerInfo structure containing planning context and state information for the current query
+- `jtnode`: Node pointer representing the current position in the join tree being processed (can be NULL for empty conditions)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - preprocess_expression (qualification expression preprocessing)
+  - preprocess_qual_conditions (recursive self-calls for tree traversal)
+  - IsA macro (node type checking)
+  - nodeTag (node type identification for error reporting)
+- Called from (representative examples):
+  - subquery_planner (main qual preprocessing)
+  - standard_qp_extra (additional processing)
+  - preprocess_qual_conditions (recursive self-calls)
+
+## Notes and Other Information
+- Essential component of the comprehensive expression preprocessing pipeline in subquery_planner
+- Ensures all qualification conditions undergo the same preprocessing transformations (constant folding, SubLink expansion, etc.)
+- Handles the structural complexity of PostgreSQL's join tree representation uniformly
+- Includes error handling for unexpected node types in the join tree
+- Works in conjunction with preprocess_expression to maintain consistent qual processing across the entire query
+- Part of the critical path for query optimization ensuring all conditions are in canonical form before planning
+- Located in src/backend/optimizer/plan/planner.c:1258-1301

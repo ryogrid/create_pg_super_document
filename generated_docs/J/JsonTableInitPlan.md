@@ -1,0 +1,55 @@
+# JsonTableInitPlan
+
+## Location
+src/backend/utils/adt/jsonpath_exec.c: 4193 - 4239
+
+## Overview
+Recursively initializes JsonTablePlanState structures for evaluating jsonpath expressions in JsonTablePlan nodes and their child plans.
+
+## Definition
+```c
+static JsonTablePlanState *JsonTableInitPlan(JsonTableExecContext *cxt, JsonTablePlan *plan, JsonTablePlanState *parentstate, List *args, MemoryContext mcxt)
+```
+
+## Detailed Description
+JsonTableInitPlan is a recursive function that creates and initializes JsonTablePlanState structures for different types of JsonTablePlan nodes. It handles two main plan types:
+
+1. **JsonTablePathScan**: For path scanning operations, it:
+   - Extracts the jsonpath from the plan's path constant value
+   - Creates a dedicated memory context for execution
+   - Initializes current row pattern state (initially null)
+   - Maps column indices to the plan state in the execution context
+   - Recursively initializes any child plans
+
+2. **JsonTableSiblingJoin**: For sibling join operations, it:
+   - Recursively initializes both left and right child plans
+   - Maintains the parent state relationship
+
+The function builds a tree structure of plan states that mirrors the logical structure of the JSON_TABLE plan, enabling proper execution flow and context management.
+
+## Parameters / Member Variables
+- `cxt`: JsonTableExecContext pointer containing the overall execution context
+- `plan`: JsonTablePlan pointer to the plan node being initialized
+- `parentstate`: JsonTablePlanState pointer to the parent plan state (can be NULL for root)
+- `args`: List pointer containing JsonPathVariable arguments for jsonpath evaluation
+- `mcxt`: MemoryContext for memory allocation context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc0 (zero-initialized memory allocation)
+  - DatumGetJsonPathP (jsonpath extraction from Datum)
+  - AllocSetContextCreate (memory context creation)
+  - PointerGetDatum (NULL pointer to Datum conversion)
+  - IsA (type checking macro)
+- Called from (representative examples):
+  - JsonTableInitOpaque (root plan initialization)
+  - JsonTableInitPlan (recursive calls for child plans)
+
+## Notes and Other Information
+- This is a static recursive function within jsonpath_exec.c
+- The function creates separate memory contexts for each JsonTablePathScan to manage memory efficiently
+- Column mapping (colMin to colMax range) allows direct lookup of plan states by column index
+- The function handles the tree structure of nested and sibling JSON table plans
+- Initial row pattern state is set to null/invalid, indicating no pattern has been evaluated yet
+- The recursive nature allows for complex nested JSON_TABLE structures with multiple levels
+- Memory context naming uses "JsonTableExecContext" for easier debugging and memory tracking

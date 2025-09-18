@@ -1,0 +1,43 @@
+# maybe_reread_subscription
+
+## Location
+src/backend/replication/logical/worker.c: 3875 - 4003
+
+## Overview
+maybe_reread_subscription checks for changes in subscription configuration and triggers appropriate worker actions including restart or termination when parameters have changed.
+
+## Definition
+
+
+## Detailed Description
+This function validates and updates the current subscription configuration by comparing the cached subscription data with the current state in the system catalog. It handles various scenarios including subscription removal, disabling, and parameter changes that require worker restart. The function manages transaction state appropriately, ensuring proper memory context usage and configuration updates. When significant changes are detected (connection parameters, publications, owner privileges), it triggers worker exit to allow the launcher to restart with updated configuration. It also handles synchronous_commit setting changes and validates that critical parameters like database ID haven't changed unexpectedly.
+
+## Parameters / Member Variables
+None - This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsTransactionState
+  - StartTransactionCommand
+  - GetSubscription
+  - ApplyLauncherForgetWorkerStartTime
+  - apply_worker_exit
+  - FreeSubscription
+  - SetConfigOption
+  - CommitTransactionCommand
+- Called from (representative examples):
+  - LogicalRepApplyLoop (at line 3638)
+  - apply_handle_commit_internal (at line 2288)
+  - begin_replication_step (at line 517)
+  - pa_can_start (in applyparallelworker.c at line 280)
+
+## Notes and Other Information
+- This is a public function (not static) that can be called from other modules
+- Uses MySubscriptionValid flag to avoid unnecessary work when cache is current
+- Handles transaction management by starting/committing transactions as needed
+- Compares multiple subscription parameters: conninfo, name, slotname, binary, stream, passwordrequired, origin, owner, publications
+- Validates that critical parameters like twophasestate and dbid haven't changed unexpectedly
+- Different log messages for parallel vs regular apply workers
+- Updates synchronous_commit configuration when subscription changes
+- Memory management uses ApplyContext for permanent allocations
+- Exits cleanly on subscription removal or disabling to prevent resource leaks

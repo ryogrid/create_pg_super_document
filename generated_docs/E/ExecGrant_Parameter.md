@@ -1,0 +1,43 @@
+# ExecGrant_Parameter
+
+## Location
+src/backend/catalog/aclchk.c: 2472 - 2614
+
+## Overview
+ExecGrant_Parameter handles GRANT and REVOKE operations on PostgreSQL configuration parameters (GUCs), managing privileges stored in the pg_parameter_acl catalog.
+
+## Definition
+
+
+## Detailed Description
+ExecGrant_Parameter implements privilege management for PostgreSQL configuration parameters. This function allows granting SET and ALTER SYSTEM privileges on specific GUC parameters to non-superuser roles. Unlike other objects, parameters are treated as owned by the bootstrap superuser (BOOTSTRAP_SUPERUSERID) and use a dedicated pg_parameter_acl catalog for storing ACLs.
+
+The function includes an optimization where if the new ACL matches the default privileges, it removes the catalog entry entirely rather than storing a redundant default ACL. This keeps the parameter ACL catalog compact by only storing non-default privilege grants.
+
+## Parameters / Member Variables
+- : Internal representation of the GRANT/REVOKE statement containing parameter names/OIDs, grantees, privileges, and options
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open, table_close (with ParameterAclRelationId)
+  - SearchSysCache1, ReleaseSysCache (with PARAMETERACLOID)
+  - SysCacheGetAttr, SysCacheGetAttrNotNull
+  - TextDatumGetCString (for parameter name extraction)
+  - acldefault, aclmembers, aclequal
+  - select_best_grantor
+  - restrict_and_check_grant (with OBJECT_PARAMETER_ACL)
+  - merge_acl_with_grant
+  - heap_modify_tuple, CatalogTupleUpdate, CatalogTupleDelete
+  - updateAclDependencies
+  - recordExtensionInitPriv
+  - CommandCounterIncrement
+- Called from:
+  - ExecGrantStmt_oids (when processing parameter privileges)
+
+## Notes and Other Information
+- All parameters are treated as owned by BOOTSTRAP_SUPERUSERID regardless of who created them
+- Uses PARAMETERACLOID syscache for efficient parameter ACL lookups
+- Supports ACL_ALL_RIGHTS_PARAMETER_ACL privilege set (SET and ALTER SYSTEM)
+- Optimizes storage by deleting catalog entries when ACL equals default privileges
+- Part of PostgreSQL's security model allowing delegation of parameter management to non-superusers
+- Parameter names are stored as text values and must be extracted using TextDatumGetCString

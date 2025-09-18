@@ -1,0 +1,41 @@
+# bitmap_scan_cost_est
+
+## Location
+src/backend/optimizer/path/indxpath.c: 1526 - 1559
+
+## Overview
+Estimates the cost of executing a bitmap scan with a single index path, which could be a BitmapAnd or BitmapOr node, by creating a dummy BitmapHeapPath and calculating its cost.
+
+## Definition
+```c
+static Cost bitmap_scan_cost_est(PlannerInfo *root, RelOptInfo *rel, Path *ipath)
+```
+
+## Detailed Description
+This static function provides a cost estimation for bitmap scan execution by setting up a temporary BitmapHeapPath structure and using the existing cost_bitmap_heap_scan() function to calculate the total cost. The function creates a dummy BitmapHeapPath with the provided index path as the bitmap qualifier, then calls the standard costing function to get an accurate cost estimate.
+
+The function explicitly disables parallelism (sets parallel_workers to 0) to get a baseline cost estimate without parallel processing considerations, as parallel bitmap heap paths are evaluated separately at a later stage in the planning process.
+
+## Parameters / Member Variables
+- `root`: PlannerInfo structure containing planning context and global information
+- `rel`: RelOptInfo structure representing the relation being scanned
+- `ipath`: Path structure representing the index path (could be BitmapAnd or BitmapOr)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - cost_bitmap_heap_scan
+  - get_loop_count
+  - PATH_REQ_OUTER
+  - BitmapHeapPath
+  - Cost
+- Called from (representative examples):
+  - choose_bitmap_and
+  - bitmap_and_cost_est
+
+## Notes and Other Information
+- This is a static function local to indxpath.c
+- Creates a temporary BitmapHeapPath structure purely for cost estimation purposes
+- Explicitly sets parallel_workers to 0 to exclude parallelism from the cost calculation
+- Uses the rel->reltarget as the path target and inherits param_info from the input index path
+- Returns only the total_cost field from the calculated BitmapHeapPath
+- Part of PostgreSQL's cost-based optimization system for bitmap index scans

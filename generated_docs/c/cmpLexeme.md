@@ -1,0 +1,35 @@
+# cmpLexeme
+
+## Location
+src/backend/tsearch/dict_thesaurus.c: 356 - 371
+
+## Overview
+A static comparison function that compares two TheLexeme structures by their lexeme strings, handling NULL lexemes appropriately.
+
+## Definition
+
+
+## Detailed Description
+This function implements a comparison function for TheLexeme structures that can be used for sorting or searching operations. It performs a three-way comparison similar to strcmp, but with special handling for NULL lexemes. The function follows the standard comparison function convention where it returns negative, zero, or positive values to indicate the relative ordering of the two lexemes.
+
+The comparison logic prioritizes NULL lexemes as "greater than" non-NULL lexemes, ensuring consistent ordering behavior when dealing with incomplete or uninitialized lexeme entries in the thesaurus dictionary processing.
+
+## Parameters / Member Variables
+- `a`: Pointer to the first TheLexeme structure to compare
+- `b`: Pointer to the second TheLexeme structure to compare
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strcmp (standard C library function)
+  - TheLexeme (structure type)
+- Called from (representative examples):
+  - cmpLexemeQ
+  - cmpTheLexeme  
+  - compileTheLexeme
+
+## Notes and Other Information
+- Returns 0 if both lexemes are NULL or if both lexemes are identical strings
+- Returns 1 if the first lexeme is NULL and the second is not (NULL > non-NULL)
+- Returns -1 if the second lexeme is NULL and the first is not (non-NULL < NULL)
+- For non-NULL lexemes, delegates to strcmp for standard string comparison
+- This function is used internally within the thesaurus dictionary implementation for maintaining sorted lexeme lists and performing efficient lookups

@@ -1,0 +1,40 @@
+# OnConflictSetState
+
+## Location
+src/include/nodes/execnodes.h: 407 - 415
+
+## Overview
+OnConflictSetState holds the executor state for an ON CONFLICT DO UPDATE operation, managing tuple storage and projection during conflict resolution.
+
+## Definition
+
+
+## Detailed Description
+OnConflictSetState manages the execution state for PostgreSQL's ON CONFLICT DO UPDATE functionality (also known as UPSERT). When an INSERT statement encounters a conflict with existing data, this structure provides the necessary state to perform the UPDATE portion of the operation.
+
+The structure maintains tuple slots for both the existing conflicting tuple and the projection target, along with the projection information needed to compute the updated values and any WHERE clause conditions that must be evaluated.
+
+## Parameters / Member Variables
+- : NodeTag identifier for the structure type
+- : Tuple slot to store the existing target tuple that conflicts with the insert
+- : Tuple slot for the CONFLICT ... SET ... projection target 
+- : ProjectionInfo structure containing projection instructions for ON CONFLICT DO UPDATE SET operations
+- : Expression state for evaluating the WHERE clause in ON CONFLICT DO UPDATE
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NodeTag
+  - TupleTableSlot
+  - ProjectionInfo
+  - ExprState
+- Called from (representative examples):
+  - ExecInitModifyTable
+  - ExecInitPartitionInfo
+  - ResultRelInfo
+
+## Notes and Other Information
+- Essential component of PostgreSQL's UPSERT (INSERT ... ON CONFLICT DO UPDATE) functionality
+- Provides efficient conflict resolution by maintaining separate slots for existing and projected tuples
+- The WHERE clause support allows conditional updates during conflict resolution
+- Works closely with ResultRelInfo to manage per-relation conflict handling
+- Part of PostgreSQL's advanced INSERT capabilities for handling duplicate key scenarios

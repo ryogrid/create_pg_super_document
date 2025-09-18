@@ -1,0 +1,52 @@
+# TransactionIdIsCurrentTransactionId
+
+## Location
+src/backend/access/transam/xact.c: 938 - 1038
+
+## Overview
+Determines whether a given transaction ID belongs to the current transaction context, including the main transaction and any subtransactions or parallel worker transactions.
+
+## Definition
+bool TransactionIdIsCurrentTransactionId(TransactionId xid)
+
+## Detailed Description
+This function checks if a specified transaction ID (XID) belongs to the current transaction context. It handles several complex scenarios:
+
+1. **Special Transaction IDs**: Always returns false for BootstrapTransactionId, InvalidTransactionId, and FrozenTransactionId, as these are never considered "current"
+2. **Top-level Transaction**: Checks if the XID matches the current top-level transaction
+3. **Parallel Workers**: Uses a sorted array (ParallelCurrentXids) with binary search to efficiently check XIDs in parallel worker contexts
+4. **Subtransactions**: Traverses the transaction state stack to check the current subtransaction, its parents, and their subcommitted children, using binary search on the sorted childXids arrays
+
+The function is critical for PostgreSQL's MVCC (Multi-Version Concurrency Control) system, helping determine tuple visibility and transaction ownership throughout the system.
+
+## Parameters / Member Variables
+- : The TransactionId to check against the current transaction context
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TransactionState (type)
+  - TransactionIdIsNormal
+  - TransactionIdEquals
+  - GetTopTransactionIdIfAny
+  - nParallelCurrentXids, ParallelCurrentXids (parallel processing globals)
+  - CurrentTransactionState (global variable)
+  - TRANS_ABORT (transaction state constant)
+  - FullTransactionIdIsValid, XidFromFullTransactionId
+  - TransactionIdPrecedes
+- Called from (representative examples):
+  - heap_delete, heap_update, heap_lock_tuple
+  - HeapTupleSatisfiesSelf, HeapTupleSatisfiesUpdate, HeapTupleSatisfiesMVCC
+  - compute_new_xmax_infomask, test_lockmode_for_conflict
+  - FreezeMultiXactId, DoesMultiXactIdConflict
+  - heapam_tuple_lock, heapam_relation_copy_for_cluster
+  - ExecCheckTupleVisible, ExecOnConflictUpdate, ExecMergeMatched
+  - MultiXactIdIsRunning, TransactionIdIsInProgress
+
+## Notes and Other Information
+- Essential for PostgreSQL's MVCC implementation and tuple visibility determination
+- Uses binary search algorithms for efficient lookups in sorted XID arrays
+- Handles complex nested transaction hierarchies and parallel processing scenarios
+- Special handling during bootstrap mode where all tuples are considered committed
+- Skips aborted subtransactions when traversing the transaction state stack
+- The childXids arrays are maintained in sorted order to enable binary search optimization
+- Critical performance component as it's called frequently during tuple visibility checks and heap operations

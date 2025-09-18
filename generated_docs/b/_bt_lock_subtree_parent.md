@@ -1,0 +1,56 @@
+# _bt_lock_subtree_parent
+
+## Location
+src/backend/access/nbtree/nbtpage.c: 2813 - 2953
+
+## Overview
+This recursive function determines the height of the subtree that can be safely deleted and locks the parent of the subtree root, establishing the boundaries for safe page deletion in B-tree indexes.
+
+## Definition
+
+
+## Detailed Description
+_bt_lock_subtree_parent is a recursive function that implements the core logic for determining whether B-tree page deletion is safe by analyzing the relationship between pages and their parents. The function starts from a target child page and works its way up the tree, checking whether each level can be safely deleted according to B-tree deletion rules.
+
+The key principle is that a page can only be deleted if it's not the rightmost child of its parent, OR if the parent can also be deleted (in which case the entire subtree is removed). The function recursively applies this rule up the tree until it finds a safe deletion boundary.
+
+Key operations include:
+1. Using _bt_getstackbuf to locate and lock the parent page containing the downlink to the child
+2. Checking if the child is the rightmost child of its parent
+3. If not rightmost, the deletion is safe and the function returns successfully
+4. If rightmost, checking if the parent can also be deleted (parent must have only one child and not be rightmost itself)
+5. Recursively calling itself with the parent as the new child to check the next level up
+6. Updating the topparent and topparentrightsib references to reflect the actual root of the deletable subtree
+
+## Parameters
+- : The B-tree index relation being processed
+- : The heap relation (needed for potential page allocation during stack operations)
+- : Block number of the child page being evaluated for deletion
+- : Search stack leading to the child page (updated during processing)
+- : Output parameter - buffer for the parent of the subtree root (locked for caller)
+- : Output parameter - offset of the pivot tuple containing the downlink to be removed
+- : Input/output parameter - block number of the subtree root (updated as recursion proceeds)
+- : Input/output parameter - right sibling of the subtree root (updated as recursion proceeds)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - _bt_getstackbuf (locates and locks parent page containing downlink to child)
+  - BufferGetPage, BTPageGetOpaque (page access functions)
+  - PageGetMaxOffsetNumber (gets highest offset number on page)
+  - P_INCOMPLETE_SPLIT, P_RIGHTMOST, P_FIRSTDATAKEY (page flag and position checks)
+  - _bt_leftsib_splitflag (checks if left sibling has incomplete split)
+  - _bt_relbuf (releases buffer locks)
+  - _bt_lock_subtree_parent (recursive call to itself)
+- Called from:
+  - _bt_mark_page_halfdead (initiates subtree deletion process)
+  - _bt_lock_subtree_parent (recursive calls)
+
+## Notes and Other Information
+- Returns false if deletion is unsafe at any level (preserves entire subtree)
+- Returns true when a safe deletion boundary is found (locks subtree parent for caller)
+- Implements recursive algorithm that may traverse multiple levels of the index
+- Updates stack entries to reflect current downlink positions during processing
+- Handles index corruption gracefully by logging warnings and aborting deletion
+- Releases locks before recursive calls to avoid deadlocks, relying on leaf page lock for consistency
+- Avoids completing incomplete splits to minimize disk space usage during VACUUM
+- The function establishes both the height of the deletable subtree and provides the locked parent buffer needed for the actual deletion operation

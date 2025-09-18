@@ -1,0 +1,46 @@
+# rpytime
+
+## Location
+src/timezone/zic.c: 3801 - 3864
+
+## Overview
+Computes the date (in seconds since January 1, 1970, 00:00 LOCAL time) for a given timezone rule in a specific year.
+
+## Definition
+```c
+static zic_t rpytime(const struct rule *rp, zic_t wantedy)
+```
+
+## Detailed Description
+The `rpytime` function calculates the exact timestamp when a timezone rule takes effect in a given year. It handles complex date calculations including leap years, day-of-week dependencies, and special calendar cases like February 29th in non-leap years. The function performs several key operations:
+
+1. Handles boundary cases for minimum and maximum representable times
+2. Calculates day offset from epoch year through efficient year cycling
+3. Advances through months to reach the target month
+4. Handles special February 29th cases in non-leap years
+5. Processes day-of-week rules (e.g., "last Sunday", "first Monday >= 8th")
+6. Validates that computed dates fall within valid month boundaries
+7. Converts final day offset to seconds and adds time-of-day component
+
+## Parameters / Member Variables
+- `rp`: Pointer to a timezone rule structure containing month, day, time, and day-code information
+- `wantedy`: The target year for which to compute the rule timestamp
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `isleap`: Check if year is a leap year
+  - `oadd`: Overflow-safe addition for day calculations
+  - `tadd`: Overflow-safe addition for time calculations
+  - `error`: Error reporting function
+  - `warning`: Warning message function
+- Called from (representative examples):
+  - `inzsub`: Timezone initialization subprocess
+  - `years_of_observations`: Year range calculation function
+
+## Notes and Other Information
+- Returns `min_time` or `max_time` for boundary year values (ZIC_MIN/ZIC_MAX)
+- Handles negative years and implements efficient year cycling using YEARSPERREPEAT
+- Includes special handling for February 29th in non-leap years based on rule type
+- Validates day-of-week rules to ensure dates remain within month boundaries
+- Uses EPOCH_YEAR (1970) as the reference point for all calculations
+- The "nod to Margaret O." comment refers to a humorous variable name for day offset

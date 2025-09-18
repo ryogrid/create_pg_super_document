@@ -1,0 +1,43 @@
+# rbt_begin_iterate
+
+## Location
+src/backend/lib/rbtree.c: 802 - 825
+
+## Overview
+Initializes an RBTreeIterator structure to prepare for traversing a red-black tree in a specified order (left-right or right-left).
+
+## Definition
+
+
+## Detailed Description
+This function sets up an iterator state for traversing a red-black tree. It initializes the RBTreeIterator structure with the appropriate iterator function pointer based on the requested traversal order. The function supports two traversal orders: LeftRightWalk (in-order: left, self, right) and RightLeftWalk (reverse in-order: right, self, left). After calling this function, the caller should repeatedly call rbt_iterate() to get successive nodes until NULL is returned.
+
+The iterator maintains internal state to track the current position in the tree traversal. If the tree is modified during iteration, the behavior of subsequent rbt_iterate() calls becomes undefined. However, multiple concurrent iterators on the same tree are supported.
+
+## Parameters / Member Variables
+- : Pointer to the RBTree structure to iterate over
+- : RBTOrderControl enum value specifying the traversal order (LeftRightWalk or RightLeftWalk)  
+- : Pointer to RBTreeIterator structure that will be initialized with iteration state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RBTree (tree structure)
+  - RBTOrderControl (traversal order enum)
+  - RBTreeIterator (iterator state structure)
+  - RBTNIL (sentinel node constant)
+  - LeftRightWalk (traversal order constant)
+  - rbt_left_right_iterator (left-right iterator function)
+  - RightLeftWalk (traversal order constant) 
+  - rbt_right_left_iterator (right-left iterator function)
+  - elog (error logging function)
+- Called from (representative examples):
+  - ginBeginBAScan (src/backend/access/gin/ginbulk.c:259)
+  - testleftright (src/test/modules/test_rbtree/test_rbtree.c:173, 181)
+  - testrightleft (src/test/modules/test_rbtree/test_rbtree.c:213, 221)
+
+## Notes and Other Information
+- The iterator state is stored in an opaque RBTreeIterator struct that callers should not modify directly
+- Tree modifications during traversal result in unspecified behavior for subsequent iterations
+- Multiple concurrent iterators on the same tree are supported and safe
+- The function will error out with elog(ERROR) if an unrecognized traversal order is specified
+- The iterator is considered "over" immediately if the tree root is RBTNIL (empty tree)

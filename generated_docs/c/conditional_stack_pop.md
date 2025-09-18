@@ -1,0 +1,37 @@
+# conditional_stack_pop
+
+## Location
+src/fe_utils/conditional.c: 69 - 83
+
+## Overview
+Removes and deallocates the topmost conditional branch from the conditional stack, representing exit from a nested conditional block.
+
+## Definition
+
+
+## Detailed Description
+This function implements a typical stack pop operation by removing the head element from the conditional stack's linked list structure. It safely handles the case of an empty stack by checking if the head pointer is NULL before attempting to remove an element. When an element is successfully removed, the function updates the stack's head pointer to point to the next element and deallocates the memory of the removed element using free(). The function returns a boolean value indicating whether a pop operation actually occurred, which is useful for error handling and loop termination conditions.
+
+## Parameters / Member Variables
+- `cstack`: ConditionalStack pointer to the stack from which to pop the topmost element
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - free (standard library function to deallocate memory)
+  - IfStackElem (structure type for stack elements)
+- Called from (representative examples):
+  - advanceConnectionState (in pgbench)
+  - executeMetaCommand (in pgbench)
+  - CheckConditional (in pgbench)
+  - HandleSlashCmds (in psql)
+  - exec_command_endif (in psql)
+  - MainLoop (in psql)
+  - conditional_stack_reset (for clearing entire stack)
+
+## Notes and Other Information
+- Returns false if the stack is empty (no element to pop), true if an element was successfully removed
+- Safe to call on an empty stack - will not cause errors, just returns false
+- Used when exiting \endif blocks or when cleaning up after conditional processing errors
+- The complementary operation to conditional_stack_push, maintaining proper stack discipline
+- Essential for preventing memory leaks as it properly deallocates stack elements created by push operations
+- Used by conditional_stack_reset to iteratively empty the entire stack

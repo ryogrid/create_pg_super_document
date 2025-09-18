@@ -1,0 +1,40 @@
+# LookupCollation
+
+## Location
+src/backend/parser/parse_type.c: 515 - 539
+
+## Overview
+LookupCollation is a function that looks up a collation by name and returns its OID, with support for error location reporting during parsing.
+
+## Definition
+```c
+Oid LookupCollation(ParseState *pstate, List *collnames, int location)
+```
+
+## Detailed Description
+This function serves as a wrapper around get_collation_oid() that adds parser error location tracking. It takes a list of collation names (which may be schema-qualified) and resolves them to a collation OID. The function sets up error position callbacks to provide accurate error reporting when collation lookup fails during SQL parsing.
+
+The function conditionally sets up parser error callbacks only when a ParseState is provided, making it usable in contexts both with and without full parser state tracking.
+
+## Parameters / Member Variables
+- `pstate`: ParseState pointer for error location tracking; can be NULL if error position tracking is not needed
+- `collnames`: List of strings representing the collation name (possibly schema-qualified)
+- `location`: Character position in the source query for error reporting
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParseCallbackState
+  - setup_parser_errposition_callback
+  - get_collation_oid
+  - cancel_parser_errposition_callback
+- Called from (representative examples):
+  - resolve_unique_index_expr
+  - transformCollateClause
+  - GetColumnDefCollation
+  - transformColumnType
+
+## Notes and Other Information
+- The function provides a thin wrapper around get_collation_oid() with added error position tracking
+- Error callbacks are only set up when pstate is non-NULL, allowing the function to work in various parsing contexts
+- Returns InvalidOid if the collation cannot be found (behavior inherited from get_collation_oid)
+- Located in src/backend/parser/parse_type.c:515-539

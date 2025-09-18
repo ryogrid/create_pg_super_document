@@ -1,0 +1,43 @@
+# recoveryPausesHere
+
+## Location
+src/backend/access/transam/xlogrecovery.c: 2925 - 2981
+
+## Overview
+Pauses WAL recovery and waits until the shared recoveryPauseState is set to RECOVERY_NOT_PAUSED, allowing administrators to inspect the database state during recovery.
+
+## Definition
+
+
+## Detailed Description
+This function implements the core pause mechanism during PostgreSQL WAL recovery. It enters a waiting loop that continues until recovery is explicitly resumed by a user or administrator. The function provides different behavior and messaging depending on whether the pause occurs at the end of recovery (when recovery targets are reached) or during intermediate recovery steps.
+
+The function performs several safety checks before pausing:
+- Only pauses when users can connect (LocalHotStandbyActive is true)
+- Skips pausing if standby promotion has been triggered
+- Provides appropriate log messages with hints for resuming recovery
+
+During the pause loop, it periodically checks for interrupts and standby triggers while confirming the paused state. The implementation uses a condition variable with timeout for efficient waiting.
+
+## Parameters / Member Variables
+- : Boolean indicating whether the pause occurs at the end of recovery due to recovery_target_action=pause (true) or during intermediate recovery (false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetRecoveryPauseState
+  - RECOVERY_NOT_PAUSED
+  - HandleStartupProcInterrupts
+  - CheckForStandbyTrigger
+  - ConfirmRecoveryPaused
+  - ConditionVariableTimedSleep
+  - ConditionVariableCancelSleep
+- Called from (representative examples):
+  - PerformWalRecovery
+  - WaitForWALToBecomeAvailable
+
+## Notes and Other Information
+- This is a static function within xlogrecovery.c, not exposed as a public API
+- Uses a 1000ms timeout on the condition variable to periodically check exit conditions
+- Provides user-friendly log messages with hints about using pg_wal_replay_resume() to continue
+- The pause mechanism is essential for point-in-time recovery scenarios where administrators need to inspect database state before proceeding
+- Location: src/backend/access/transam/xlogrecovery.c:2925-2981

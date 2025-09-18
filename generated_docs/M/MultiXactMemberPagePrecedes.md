@@ -1,0 +1,35 @@
+# MultiXactMemberPagePrecedes
+
+## Location
+src/backend/access/transam/multixact.c: 3289 - 3308
+
+## Overview
+MultiXactMemberPagePrecedes determines whether one MultiXact member page number is "older" than another for truncation purposes, using a page-based comparison method.
+
+## Definition
+
+
+## Detailed Description
+This function compares two MultiXact member page numbers to determine their relative age for cleanup and truncation operations. It converts page numbers to their corresponding MultiXact offset ranges and uses MultiXactOffsetPrecedes to determine precedence. The function ensures that page1 precedes page2 by checking that the starting offset of page1 precedes both the starting offset of page2 and the ending offset of page2's range.
+
+The function is specifically designed for MultiXact member pages, which store the actual member information (transaction IDs and lock modes) referenced by MultiXact IDs. Unlike some other precedence functions, there is no "invalid page number" concept, so the comparison uses the page numbers directly.
+
+## Parameters / Member Variables
+- : First page number to compare (int64)
+- : Second page number to compare (int64)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MultiXactOffsetPrecedes
+  - MultiXactOffset (type)
+  - MULTIXACT_MEMBERS_PER_PAGE (constant)
+- Called from (representative examples):
+  - debug_elog6
+  - MultiXactShmemInit
+
+## Notes and Other Information
+- This is a static function internal to multixact.c
+- The function performs range-based comparison by converting page numbers to offset ranges
+- It ensures that the entire range of page1 precedes the entire range of page2
+- Used in MultiXact cleanup and truncation logic to determine which pages can be safely removed
+- The comparison logic accounts for the wrap-around nature of MultiXact offsets

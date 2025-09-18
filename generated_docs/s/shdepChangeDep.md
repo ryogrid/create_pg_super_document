@@ -1,0 +1,49 @@
+# shdepChangeDep
+
+## Location
+src/backend/catalog/pg_shdepend.c: 206 - 315
+
+## Overview
+Internal function that updates shared dependency records when the referenced object changes, handling ownership and tablespace dependency modifications.
+
+## Definition
+
+
+## Detailed Description
+This is a core internal function that handles updating pg_shdepend entries when a referenced shared object changes (such as during owner or tablespace changes). It performs intelligent dependency management by: 1) searching for existing dependency entries, 2) handling pinned objects appropriately (not creating dependencies for them), 3) updating existing entries or creating new ones as needed, and 4) cleaning up when dependencies are no longer required. The function ensures there is only one entry per dependent object and dependency type.
+
+## Parameters / Member Variables
+- : Already opened pg_shdepend relation with appropriate lock
+- : OID of the catalog containing the dependent object
+- : OID of the dependent object
+- : Sub-object ID (typically 0 for most objects)
+- : OID of the catalog containing the new referenced object
+- : OID of the new referenced object
+- : Type of shared dependency (SHARED_DEPENDENCY_OWNER or SHARED_DEPENDENCY_TABLESPACE)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - classIdGetDbId
+  - shdepLockAndCheckObject
+  - ScanKeyInit
+  - systable_beginscan
+  - systable_getnext
+  - systable_endscan
+  - heap_copytuple
+  - IsPinnedObject
+  - CatalogTupleDelete
+  - CatalogTupleUpdate
+  - heap_form_tuple
+  - CatalogTupleInsert
+  - heap_freetuple
+- Called from (representative examples):
+  - changeDependencyOnOwner
+  - changeDependencyOnTablespace
+
+## Notes and Other Information
+- Static function - internal use only within pg_shdepend.c
+- Enforces single dependency entry constraint - errors if multiple matches found
+- Handles three scenarios: update existing entry, delete entry (for pinned objects), or insert new entry
+- Uses heap_copytuple to make modifiable copies of catalog tuples
+- Properly locks referenced objects to prevent them from being dropped during the operation
+- Located in src/backend/catalog/pg_shdepend.c:206-315

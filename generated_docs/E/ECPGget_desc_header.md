@@ -1,0 +1,44 @@
+# ECPGget_desc_header
+
+## Location
+src/interfaces/ecpg/ecpglib/descriptor.c: 84 - 107
+
+## Overview
+Retrieves the header information (field count) from an SQL descriptor in ECPG, providing the number of columns in a prepared statement or cursor result set.
+
+## Definition
+
+
+## Detailed Description
+This function is part of the ECPG (Embedded SQL in C for PostgreSQL) library's dynamic descriptor interface. It retrieves header information from a named SQL descriptor, specifically returning the number of fields/columns available in the descriptor's associated result set. The function handles proper SQLCA initialization, error management, and logging as part of ECPG's comprehensive embedded SQL implementation.
+
+The function locates the specified descriptor, validates its existence, and extracts the field count using PostgreSQL's libpq PQnfields() function. It also updates the SQLCA structure to indicate successful execution.
+
+## Parameters / Member Variables
+- : Source code line number for error reporting and debugging purposes
+- : Name of the SQL descriptor to query for header information  
+- : Pointer to integer where the number of fields/columns will be stored
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ECPGget_sqlca
+  - sqlca_t
+  - ecpg_raise
+  - ECPG_OUT_OF_MEMORY
+  - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY
+  - ecpg_init_sqlca
+  - ecpg_result_by_descriptor
+  - PQnfields
+  - ecpg_log
+- Called from (representative examples):
+  - Various test programs in ECPG test suite
+  - SQL DESCRIBE statement implementations
+  - Dynamic SQL execution contexts
+
+## Notes and Other Information
+- Returns true on success, false on failure
+- Automatically initializes SQLCA and handles error conditions
+- Sets sqlca->sqlerrd[2] to 1 to indicate successful descriptor access  
+- Provides debug logging showing the number of attributes found
+- Essential component of ECPG's SQL3-compliant dynamic descriptor management
+- Used extensively in ECPG test cases for descriptor validation

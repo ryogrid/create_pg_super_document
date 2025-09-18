@@ -1,0 +1,52 @@
+# heap_xlog_inplace
+
+## Location
+src/backend/access/heap/heapam.c: 10297 - 10337
+
+## Overview
+Handles the replay of in-place tuple updates during WAL recovery by directly replacing tuple data without changing the tuple's location or creating new tuple versions.
+
+## Definition
+```c
+static void heap_xlog_inplace(XLogReaderState *record)
+```
+
+## Detailed Description
+The `heap_xlog_inplace` function processes in-place tuple update operations during PostgreSQL's WAL recovery. This function is specifically designed for a special class of updates where the tuple data can be modified directly without creating a new tuple version or changing the tuple's physical location on the page.
+
+In-place updates are a PostgreSQL optimization used in specific scenarios where:
+1. **No MVCC concerns**: The update doesn't affect transaction visibility (typically system catalog updates)
+2. **Same-size data**: The new tuple data has exactly the same length as the original data
+3. **No concurrency issues**: The update can be performed atomically without affecting other transactions
+
+Key characteristics of in-place updates:
+1. **Direct data replacement**: The tuple's data portion is directly overwritten with new data
+2. **Length validation**: Ensures the old and new data have identical lengths to maintain page structure
+3. **Header preservation**: The tuple header remains unchanged, only the data portion is modified
+4. **No versioning**: Unlike regular updates, no new tuple version is created
+
+This operation is primarily used for system catalog maintenance and other specialized scenarios where MVCC semantics are not required.
+
+## Parameters / Member Variables
+- `record`: XLogReaderState pointer containing the WAL record with in-place update information, including the target tuple offset and the new tuple data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogRecGetData (extracts xl_heap_inplace structure from WAL record)
+  - XLogReadBufferForRedo (reads and locks target buffer for redo operations)
+  - XLogRecGetBlockData (retrieves the new tuple data from the WAL record)
+  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page-level tuple access functions)
+  - ItemIdGetLength (retrieves the current tuple length for validation)
+  - memcpy (performs the actual data replacement)
+  - PageSetLSN, MarkBufferDirty (page maintenance operations)
+- Called from (representative examples):
+  - heap_redo (main heap WAL replay dispatcher)
+
+## Notes and Other Information
+- **Length Validation**: Critical safety check ensures old and new tuple data have identical lengths to prevent page corruption
+- **Data-Only Updates**: Only the tuple's data portion (after t_hoff) is modified; the header remains unchanged
+- **System Usage**: Primarily used for system catalog updates and other scenarios where MVCC semantics are not required
+- **Atomic Operation**: The entire data replacement is performed as a single atomic memcpy operation
+- **No Transaction Effects**: Since this doesn't create new tuple versions, it doesn't affect transaction visibility or MVCC semantics
+- **Error Handling**: Includes PANIC-level validation for both tuple existence and length consistency
+- **Recovery Simplicity**: One of the simpler WAL replay operations due to its straightforward data replacement nature

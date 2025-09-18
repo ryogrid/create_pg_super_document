@@ -1,0 +1,44 @@
+# pg_cryptohash_free
+
+## Location
+src/common/cryptohash_openssl.c: 326 - 348
+
+## Overview
+Securely frees a cryptographic hash context, clearing all sensitive data from memory before deallocating the context structure.
+
+## Definition
+```c
+void pg_cryptohash_free(pg_cryptohash_ctx *ctx)
+```
+
+## Detailed Description
+The pg_cryptohash_free function safely deallocates a cryptographic hash context by first securely clearing all data in the context structure and then freeing the allocated memory. The function uses explicit_bzero to ensure that sensitive cryptographic state information is completely removed from memory, preventing potential security vulnerabilities where hash state data might persist in freed memory and be accessible to attackers.
+
+This function is essential for proper cleanup of cryptographic operations and follows security best practices by ensuring that no cryptographic material remains in memory after the context is no longer needed.
+
+## Parameters / Member Variables
+- `ctx`: Pointer to the cryptographic hash context to be freed (can be NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - explicit_bzero (secure memory clearing function)
+  - FREE (memory deallocation macro)
+  - pg_cryptohash_ctx (context structure type)
+- Called from (representative examples):
+  - FreeBackupManifest
+  - scram_mock_salt
+  - cryptohash_internal
+  - pg_checksum_init (error cleanup)
+  - pg_checksum_final
+  - ResOwnerReleaseCryptoHash
+  - pg_hmac_free
+  - pg_md5_hash
+
+## Notes and Other Information
+- Safe to call with NULL pointer (function returns immediately)
+- Uses explicit_bzero for secure memory clearing to prevent sensitive data from persisting in freed memory
+- Should be called for every successfully created hash context to prevent memory leaks
+- Part of PostgreSQL's secure memory management practices for cryptographic operations
+- The context becomes completely invalid after calling this function
+- Used extensively in error cleanup paths to ensure proper resource cleanup even when operations fail
+- Critical for security: prevents potential information disclosure through memory analysis attacks

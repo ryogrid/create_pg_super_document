@@ -1,0 +1,38 @@
+# dropstate
+
+## Location
+src/backend/regex/regc_nfa.c: 226 - 241
+
+## Overview
+Completely removes a state from an NFA by freeing all its incoming and outgoing arcs, then deallocating the state itself.
+
+## Definition
+
+
+## Detailed Description
+The  function performs complete removal of a state from an NFA structure. It systematically deletes all arcs connected to the state by iterating through the state's incoming arcs (ins) and outgoing arcs (outs), calling  for each one. After all arcs are removed, it calls  to deallocate the state itself. This ensures proper cleanup and prevents memory leaks when states need to be removed during NFA optimization or error handling.
+
+## Parameters / Member Variables
+- : Pointer to the NFA structure containing the state
+- : Pointer to the state to be dropped/removed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - freearc
+  - freestate
+- Called from (representative examples):
+  - pullback (in regc_nfa.c)
+  - pushfwd (in regc_nfa.c)
+  - fixempties (in regc_nfa.c)
+  - fixconstraintloops (in regc_nfa.c)
+  - clonesuccessorstates (in regc_nfa.c)
+  - cleanup (in regc_nfa.c)
+  - charclasscomplement (in regcomp.c)
+  - cbracket (in regcomp.c)
+
+## Notes and Other Information
+- Essential for NFA optimization and cleanup operations
+- Must be called carefully as it completely removes the state from the NFA
+- Used during NFA simplification processes like empty state removal
+- Critical for maintaining NFA integrity during transformations
+- The state becomes invalid after this call and should not be referenced again

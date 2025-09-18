@@ -1,0 +1,41 @@
+# filter_event_trigger
+
+## Location
+src/backend/commands/event_trigger.c: 594 - 619
+
+## Overview
+Determines whether a given event trigger should be fired based on session replication role and registered command tags.
+
+## Definition
+```c
+static bool filter_event_trigger(CommandTag tag, EventTriggerCacheItem *item)
+```
+
+## Detailed Description
+This function implements the filtering logic for event triggers, deciding whether an event trigger should fire for a specific command. It applies two main filters: session replication role filtering (to handle primary/replica scenarios) and command tag filtering (to match specific DDL commands). The function ensures that event triggers respect the replication configuration and only fire for the commands they are designed to handle.
+
+## Parameters / Member Variables
+- `tag`: CommandTag representing the DDL command being executed
+- `item`: EventTriggerCacheItem containing the event trigger's configuration and properties
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - EventTriggerCacheItem (cache structure type)
+  - CommandTag (command identification type)
+  - SessionReplicationRole (global replication role variable)
+  - SESSION_REPLICATION_ROLE_REPLICA (replication role constant)
+  - TRIGGER_FIRES_ON_ORIGIN (trigger firing mode constant)
+  - TRIGGER_FIRES_ON_REPLICA (trigger firing mode constant)
+  - bms_is_empty (bitmap set emptiness check)
+  - bms_is_member (bitmap set membership test)
+- Called from (representative examples):
+  - EventTriggerCommonSetup
+
+## Notes and Other Information
+- This is a static internal function, not exposed outside event_trigger.c
+- Implements two-level filtering: replication role and command tag matching
+- Returns false to filter out (skip) the trigger, true to allow firing
+- Handles the distinction between origin and replica firing modes for replication scenarios
+- Uses bitmap sets (bms) for efficient command tag matching
+- Assumes that disabled event triggers are already filtered out at a higher level
+- Critical for ensuring event triggers behave correctly in replication environments

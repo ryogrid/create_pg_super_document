@@ -1,0 +1,33 @@
+# GetReplicationTransferLatency
+
+## Location
+src/backend/replication/walreceiverfuncs.c: 394 - 407
+
+## Overview
+Calculates and returns the network transfer latency in milliseconds between the primary and standby servers during WAL replication.
+
+## Definition
+
+
+## Detailed Description
+This function measures the network latency by calculating the time difference between when a message was sent from the primary server (lastMsgSendTime) and when it was received by the standby server (lastMsgReceiptTime). The measurement includes actual network transmission time plus any clock differences and timezone variations between the servers. This metric is essential for monitoring replication performance and diagnosing network-related issues in streaming replication setups.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - WalRcvData (shared memory structure)
+  - TimestampDifferenceMilliseconds (time difference calculation)
+- Called from (representative examples):
+  - ProcessWalSndrMessage (multiple calls in walreceiver process)
+
+## Notes and Other Information
+- Returns transfer latency in milliseconds based on message timestamps
+- Includes clock differences and timezone variations between servers
+- Thread-safe through spinlock protection of walrcv mutex
+- Used for monitoring network performance in replication environments
+- Complementary to GetReplicationApplyDelay which measures apply lag
+- Essential metric for diagnosing replication bottlenecks
+- May show negative values if clocks are significantly out of sync
+- Located in src/backend/replication/walreceiverfuncs.c:394-407

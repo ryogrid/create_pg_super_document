@@ -1,0 +1,43 @@
+# print_function_sqlbody
+
+## Location
+src/backend/utils/adt/ruleutils.c: 3510 - 3563
+
+## Overview
+A static helper function that appends the formatted SQL body of a function to a string buffer, handling both single statements and atomic blocks.
+
+## Definition
+```c
+static void print_function_sqlbody(StringInfo buf, HeapTuple proctup)
+```
+
+## Detailed Description
+This function extracts and formats the SQL body of a PostgreSQL function from its prosqlbody attribute. It handles two cases: functions with single SQL statements and functions with multiple statements wrapped in atomic blocks. For multi-statement functions, it formats them as "BEGIN ATOMIC ... END" blocks with proper indentation. The function sets up a deparse namespace context with function name and argument information to properly resolve references within the SQL body, and acquires necessary locks on referenced relations before deparsing queries.
+
+## Parameters / Member Variables
+- `buf`: StringInfo buffer where the formatted SQL body will be appended
+- `proctup`: HeapTuple containing the function's metadata from the pg_proc system catalog
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - deparse_namespace
+  - Form_pg_proc
+  - get_func_arg_info
+  - SysCacheGetAttrNotNull
+  - stringToNode
+  - TextDatumGetCString
+  - AcquireRewriteLocks (called twice)
+  - get_query_def (called twice)
+  - PRETTYFLAG_INDENT
+  - WRAP_COLUMN_DEFAULT
+- Called from (representative examples):
+  - pg_get_functiondef
+  - pg_get_function_sqlbody
+
+## Notes and Other Information
+- The function distinguishes between single Query nodes and List nodes containing multiple statements
+- For atomic blocks, statements are formatted with indentation and semicolon separators
+- Acquires at least AccessShareLock on relations referenced in the queries for safety
+- Uses different formatting flags for single statements vs. atomic blocks (no indentation for single statements)
+- The deparse namespace is populated with function name and argument names to enable proper variable resolution
+- This function is essential for reconstructing CREATE FUNCTION statements with SQL function bodies

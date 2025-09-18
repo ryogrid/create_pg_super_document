@@ -1,0 +1,48 @@
+# rewrite_heap_tuple
+
+## Location
+src/backend/access/heap/rewriteheap.c: 341 - 542
+
+## Overview
+Rewrites and inserts a tuple into the new heap during a table rewrite operation, handling tuple visibility information, update chains, and cross-references between old and new tuple locations.
+
+## Definition
+
+
+## Detailed Description
+The `rewrite_heap_tuple` function is responsible for processing individual tuples during a heap rewrite operation. It copies visibility information from the original tuple to the new tuple, applies freezing to old transactions, and manages complex update chain relationships. The function handles the intricate task of maintaining tuple update chains across the rewrite by using hash tables to track unresolved tuple references and old-to-new TID mappings.
+
+The function manages update chains by checking if a tuple is part of an update chain and either resolves existing forward references or creates new mapping entries for future resolution. It uses a loop to process cascading tuple chain resolutions, where resolving one tuple may trigger the resolution of previously unresolved tuples that were waiting for this tuple's location.
+
+## Parameters / Member Variables
+- `state`: The RewriteState structure containing rewrite context, hash tables, and configuration parameters
+- `old_tuple`: The original HeapTuple from the old heap relation that serves as the source
+- `new_tuple`: The new HeapTuple to be written to the new heap relation (modified by this function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - heap_freeze_tuple
+  - ItemPointerSetInvalid
+  - HeapTupleHeaderIsOnlyLocked
+  - HeapTupleHeaderIndicatesMovedPartitions
+  - ItemPointerEquals
+  - HeapTupleHeaderGetUpdateXid
+  - hash_search
+  - heap_copytuple
+  - raw_heap_insert
+  - logical_rewrite_heap_tuple
+  - TransactionIdPrecedes
+  - HeapTupleHeaderGetXmin
+  - heap_freetuple
+- Called from (representative examples):
+  - reform_and_rewrite_tuple
+
+## Notes and Other Information
+- Copies transaction visibility information from old to new tuple while clearing HOT status bits
+- Applies tuple freezing to prevent transaction wraparound issues in the new heap
+- Manages complex update chain resolution using two hash tables: rs_unresolved_tups and rs_old_new_tid_map
+- Handles cascading chain resolution through a loop that processes newly resolved tuples
+- Integrates with logical replication by calling logical_rewrite_heap_tuple for change tracking
+- Uses temporary memory context switching to ensure proper memory management
+- May defer tuple insertion if it's part of an unresolved update chain
+- Properly handles tuple freeing to prevent memory leaks in complex chain scenarios

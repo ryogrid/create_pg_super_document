@@ -1,0 +1,43 @@
+# ox2
+
+## Location
+src/backend/optimizer/geqo/geqo_ox2.c: 49 - 113
+
+## Overview
+The ox2 function implements position crossover (OX2) operation for the Genetic Query Optimizer (GEQO) in PostgreSQL, combining genetic material from two parent tours to generate an offspring tour.
+
+## Definition
+
+
+## Detailed Description
+The ox2 function performs a position crossover operation, which is one of the genetic recombination techniques used in GEQO. This crossover method creates an offspring by inheriting cities from selected positions of tour1, while filling the remaining positions with cities from tour2 in their original order (skipping cities already selected from tour1). The function randomly selects a subset of positions (between num_gene/3 and 2*num_gene/3) from tour1 to inherit, then consolidates these selections and fills remaining positions from tour2.
+
+The algorithm works in several phases:
+1. Initialize the city table to track used cities and selection list
+2. Randomly determine the number of positions to inherit from tour1
+3. Randomly select positions from tour1 and mark corresponding cities as used
+4. Consolidate the selected cities to adjacent positions in the selection list
+5. Generate the offspring by placing selected cities or inheriting from tour2
+
+## Parameters / Member Variables
+- : PlannerInfo pointer containing query planning context and random number generation state
+- : First parent tour (gene sequence) contributing selected positions to offspring
+- : Second parent tour (gene sequence) providing remaining cities in order
+- : Output buffer to store the resulting gene sequence after crossover
+- : Number of genes (cities/relations) in each tour
+- : Working array of City structures used to track city usage and selection
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - geqo_randint (for random number generation)
+  - Gene (typedef for int representing a city/relation)
+  - City (struct with used and select_list fields)
+- Called from (representative examples):
+  - geqo (main genetic algorithm function in geqo_main.c:216)
+
+## Notes and Other Information
+- This is one of several crossover operators available in PostgreSQL's GEQO implementation
+- The function assumes tours are permutations of integers from 1 to num_gene
+- Uses the city_table as a working space to avoid conflicts and track city usage
+- The random selection ensures genetic diversity while maintaining valid tour permutations
+- Part of PostgreSQL's genetic algorithm approach to solving complex join ordering problems when many relations are involved in a query

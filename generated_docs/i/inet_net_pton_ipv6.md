@@ -1,0 +1,34 @@
+# inet_net_pton_ipv6
+
+## Location
+src/backend/utils/adt/inet_net_pton.c: 429 - 433
+
+## Overview
+A wrapper function that converts IPv6 network numbers from presentation format to network format, specifically designed for handling networks without size constraints.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a simplified interface to  for IPv6 network address conversion. It acts as a wrapper that calls  with a fixed size parameter of 16 bytes (NS_IN6ADDRSZ), which is the standard size for IPv6 addresses. This function is used when size validation is not required and the caller expects to work with full IPv6 addresses.
+
+The function delegates all the actual parsing work to , providing a simpler interface for cases where the destination buffer size is known to be adequate for IPv6 addresses.
+
+## Parameters / Member Variables
+- : Input string containing the IPv6 network address in presentation format (human-readable form)
+- : Output buffer where the converted network address will be stored in binary network format
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - inet_cidr_pton_ipv6
+  - NS_IN6ADDRSZ (constant: 16)
+- Called from (representative examples):
+  - pg_inet_net_pton
+
+## Notes and Other Information
+- This is a static function internal to the inet_net_pton.c file
+- Returns the number of bits in the network mask, or -1 on error
+- The function assumes the destination buffer is large enough to hold a full IPv6 address (16 bytes)
+- Part of PostgreSQL's network address handling infrastructure
+- Originally derived from ISC (Internet Systems Consortium) code
+- Used specifically when size constraints don't need to be validated (size parameter is -1 in the caller)

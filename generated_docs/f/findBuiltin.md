@@ -1,0 +1,39 @@
+# findBuiltin
+
+## Location
+src/bin/pgbench/pgbench.c: 6156 - 6191
+
+## Overview
+Searches for a built-in benchmark script by name, supporting partial name matching, and returns the script if unambiguous.
+
+## Definition
+```c
+static const BuiltinScript *findBuiltin(const char *name)
+```
+
+## Detailed Description
+The `findBuiltin` function implements a smart lookup mechanism for built-in benchmark scripts in pgbench. It accepts a script name (or partial name prefix) and searches through the global `builtin_script` array using prefix matching. If exactly one script matches the provided name/prefix, it returns a pointer to that BuiltinScript. If no matches are found or multiple scripts match (ambiguous), it logs an appropriate error message, displays the list of available scripts, and terminates the program. This allows users to specify built-in scripts using abbreviated names as long as they are unambiguous.
+
+## Parameters / Member Variables
+- `name`: The name or prefix of the built-in script to search for
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strlen (standard library)
+  - strncmp (standard library) 
+  - lengthof (macro)
+  - pg_log_error
+  - listAvailableScripts
+  - exit (standard library)
+  - builtin_script (global array)
+- Called from (representative examples):
+  - main (multiple locations in src/bin/pgbench/pgbench.c: 6786, 6887, 6928, 6994, 7052)
+
+## Notes and Other Information
+- Uses prefix matching, allowing users to specify partial script names (e.g., "tpc" for "tpcb-like")
+- Returns NULL only in error cases before calling exit(1), making it effectively non-NULL for successful calls
+- Error handling includes specific messages for "not found" vs "ambiguous" cases
+- Automatically displays available scripts list when lookup fails to help users
+- Located in src/bin/pgbench/pgbench.c at lines 6156-6191
+- Multiple calls from main() indicate this is used extensively for script selection in various benchmark scenarios
+- The function ensures user-friendly script selection while maintaining precision through disambiguation

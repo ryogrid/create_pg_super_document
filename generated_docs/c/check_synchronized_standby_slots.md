@@ -1,0 +1,40 @@
+# check_synchronized_standby_slots
+
+## Location
+src/backend/replication/slot.c: 2488 - 2543
+
+## Overview
+GUC check_hook for the synchronized_standby_slots configuration parameter that validates the slot names and prepares configuration data for use by the system.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a GUC (Grand Unified Configuration) check hook for the synchronized_standby_slots parameter. It validates the provided slot names using validate_sync_standby_slots, then transforms the parsed slot names into a SyncStandbySlotsConfigData structure that can be efficiently used at runtime. The function handles empty configuration strings, allocates memory using guc_malloc (required for GUC extra values), and stores the slot names in a contiguous memory layout for optimal access. If validation fails or memory allocation fails, appropriate cleanup is performed.
+
+## Parameters / Member Variables
+- `newval`: Pointer to the new GUC value string being set
+- `extra`: Output parameter that receives the prepared SyncStandbySlotsConfigData structure
+- `source`: The source of the GUC value change (command line, config file, etc.)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - validate_sync_standby_slots (for validating slot names)
+  - pstrdup (for creating modifiable copy)
+  - list_free (for cleaning up parsed list)
+  - guc_malloc (for allocating GUC extra data)
+  - list_length (for getting slot count)
+  - strcpy/strlen (for string operations)
+  - pfree (for memory cleanup)
+  - foreach_ptr (macro for list iteration)
+  - SyncStandbySlotsConfigData (configuration structure)
+- Called from (representative examples):
+  - GUC system (referenced in guc_hooks.h)
+
+## Notes and Other Information
+- This function is called by PostgreSQL's GUC system when the synchronized_standby_slots parameter is being set or changed
+- Uses guc_malloc instead of palloc because GUC extra values have different memory management requirements
+- Transforms list of slot names into a packed structure for efficient runtime access
+- Returns true for empty configuration strings (allowing the parameter to be cleared)
+- Performs proper cleanup of temporary memory allocations on both success and failure paths
+- The resulting SyncStandbySlotsConfigData structure contains both the count of slots and the slot names in a contiguous memory layout

@@ -1,0 +1,37 @@
+# MergeMatchKind
+
+## Location
+src/include/nodes/primnodes.h: 1999 - 2000
+
+## Overview
+An enumeration type that defines the different match conditions for WHEN clauses in PostgreSQL MERGE statements, specifying whether a row is matched, not matched by source, or not matched by target.
+
+## Definition
+
+
+## Detailed Description
+MergeMatchKind is a fundamental enumeration used in PostgreSQL's MERGE statement implementation to categorize the three distinct matching scenarios that can occur when merging data from a source table into a target table. This enum is used throughout both the parser and execution phases to distinguish between different WHEN clause conditions.
+
+The enum values correspond to the SQL standard MERGE statement syntax:
+- : Represents rows that exist in both source and target tables (matching join condition)
+- : Represents rows that exist only in the target table (no corresponding source row)  
+- : Represents rows that exist only in the source table (no corresponding target row)
+
+This enumeration is central to the MERGE statement's conditional logic, allowing different actions (INSERT, UPDATE, DELETE, DO NOTHING) to be applied based on the match status of each row.
+
+## Parameters / Member Variables
+- : Indicates a row exists in both source and target tables based on the merge join condition
+- : Indicates a row exists in the target table but has no matching row in the source table
+- : Indicates a row exists in the source table but has no matching row in the target table
+
+## Dependencies
+- Functions called/Symbols referenced: (None - this is a basic enum type)
+- Used by:
+  -  (in parser nodes for raw MERGE statement representation)
+  -  (in execution nodes for transformed MERGE statement representation)
+
+## Notes and Other Information
+- The constant  is defined as  to provide the total count of enum values
+- This enum bridges the gap between SQL MERGE syntax and PostgreSQL's internal execution representation
+- The transformation from  (parser representation) to  (execution representation) preserves the  value to maintain the semantic meaning of the WHEN condition
+- Located at src/include/nodes/primnodes.h:1994-1999

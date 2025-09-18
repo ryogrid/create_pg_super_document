@@ -1,0 +1,54 @@
+# pg_promote
+
+## Location
+src/backend/access/transam/xlogfuncs.c: 669 - 714
+
+## Overview
+Promotes a standby PostgreSQL server to become a primary server, optionally waiting for the promotion to complete within a specified time limit.
+
+## Definition
+```c
+Datum pg_promote(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function initiates the promotion of a standby server to a primary server. Promotion is the process by which a read-only standby server transitions to become a read-write primary server, typically used in failover scenarios.
+
+The function works by creating a promotion signal file and sending a SIGUSR1 signal to the postmaster process. The postmaster detects this signal and begins the promotion process, which involves:
+- Stopping WAL replay
+- Writing an end-of-recovery record
+- Transitioning to normal read-write operations
+
+The function has two modes of operation:
+1. **Asynchronous mode** (wait=false): Returns immediately after initiating promotion
+2. **Synchronous mode** (wait=true): Waits up to the specified number of seconds for promotion to complete
+
+If waiting is requested, the function polls the recovery status every 100ms for the specified duration. If promotion doesn't complete within the timeout, it returns false and issues a warning.
+
+## Parameters / Member Variables
+-  (bool): Whether to wait for promotion to complete before returning
+-  (int32): Maximum time in seconds to wait for promotion (must be positive)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_BOOL, PG_GETARG_INT32 (parameter extraction macros)
+  - RecoveryInProgress (checks if server is in recovery mode)
+  - AllocateFile, FreeFile (file operations for promotion signal)
+  - kill (sends signal to postmaster process)
+  - unlink (removes promotion signal file on error)
+  - ResetLatch, WaitLatch (waiting mechanism when wait=true)
+  - ereport (error reporting)
+  - PROMOTE_SIGNAL_FILE (constant for signal file path)
+- Called from (representative examples):
+  - No direct callers found in the codebase (likely called via SQL function interface)
+
+## Notes and Other Information
+- Can only be executed when the server is in recovery mode (standby server)
+- Returns an error if called on a server that's not in recovery
+- The wait_seconds parameter must be positive (> 0)
+- Uses a polling interval of 100ms (WAITS_PER_SECOND = 10) when waiting
+- Creates a promotion signal file that the postmaster monitors
+- Returns true if promotion succeeds (or is initiated when wait=false)
+- Returns false if promotion doesn't complete within the specified timeout
+- Essential function for PostgreSQL high-availability and failover scenarios
+- Defined in src/backend/access/transam/xlogfuncs.c:669-749

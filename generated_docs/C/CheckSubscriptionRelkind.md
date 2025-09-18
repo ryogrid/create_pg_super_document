@@ -1,0 +1,41 @@
+# CheckSubscriptionRelkind
+
+## Location
+src/backend/executor/execReplication.c: 743 - 752
+
+## Overview
+A validation function that checks whether a relation kind is supported as a logical replication target, ensuring only regular tables and partitioned tables can be used for subscription operations.
+
+## Definition
+
+
+## Detailed Description
+CheckSubscriptionRelkind is a utility function in PostgreSQL's logical replication system that validates whether a specific relation kind (relkind) can be used as a target for logical replication operations. The function enforces that only regular relations (RELKIND_RELATION) and partitioned tables (RELKIND_PARTITIONED_TABLE) are supported as logical replication targets. If an unsupported relation kind is encountered, the function raises an error with appropriate error codes and messages.
+
+This function is part of the executor's replication infrastructure and serves as a critical validation point to prevent logical replication operations on unsupported object types like views, indexes, sequences, or other non-table objects.
+
+## Parameters / Member Variables
+- : A character representing the relation kind to be validated (e.g., 'r' for regular table, 'p' for partitioned table)
+- : The namespace (schema) name of the relation, used only for error reporting
+- : The relation name, used only for error reporting
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RELKIND_RELATION (constant for regular table relation kind)
+  - RELKIND_PARTITIONED_TABLE (constant for partitioned table relation kind)
+  - ereport (error reporting function)
+  - errcode (error code specification)
+  - errmsg (error message formatting)
+  - errdetail_relkind_not_supported (utility function for generating relation kind error details)
+- Called from (representative examples):
+  - CreateSubscription (in subscription creation commands)
+  - logicalrep_rel_open (when opening relations for logical replication)
+  - apply_handle_tuple_routing (during tuple routing in logical replication worker)
+  - exec_rt_fetch (in executor runtime fetch operations)
+
+## Notes and Other Information
+- The function only allows RELKIND_RELATION and RELKIND_PARTITIONED_TABLE as valid targets for logical replication
+- Error reporting includes both a general error message and specific details about why the relation kind is not supported
+- The nspname and relname parameters are purely for error reporting and do not affect the validation logic
+- This function is a key component in PostgreSQL's logical replication security and consistency model
+- Located in src/backend/executor/execReplication.c at lines 743-752

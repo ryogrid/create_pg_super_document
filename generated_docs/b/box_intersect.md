@@ -1,0 +1,39 @@
+# box_intersect
+
+## Location
+src/backend/utils/adt/geo_ops.c: 908 - 932
+
+## Overview
+Returns the overlapping portion of two boxes, or NULL if they do not intersect.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL geometric operation that computes the intersection of two BOX objects. It first checks if the boxes overlap using the  function. If they don't overlap, it returns NULL. If they do overlap, it calculates the intersection box by taking the minimum of the high coordinates and maximum of the low coordinates for both x and y dimensions. The resulting box represents the overlapping rectangular area between the two input boxes.
+
+## Parameters / Member Variables
+- Uses  macro to access function arguments:
+  - : First BOX object (argument 0)
+  - : Second BOX object (argument 1)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_BOX_P (macro to extract BOX arguments)
+  - BOX (geometric box data type)
+  - box_ov (function to check if boxes overlap)
+  - palloc (PostgreSQL memory allocation function)
+  - float8_min (minimum of two float8 values)
+  - float8_max (maximum of two float8 values)
+  - PG_RETURN_BOX_P (macro to return BOX result)
+  - PG_RETURN_NULL (macro to return NULL)
+- Called from (representative examples):
+  - No direct references found (likely called via SQL function interface)
+
+## Notes and Other Information
+- This is a public PostgreSQL function accessible via SQL as the intersection operator
+- Uses PostgreSQL's function calling convention with PG_FUNCTION_ARGS
+- Allocates memory for the result box using palloc, which is managed by PostgreSQL's memory context system
+- The intersection algorithm ensures the result box has the correct geometric properties by taking appropriate min/max values
+- Returns NULL when boxes don't intersect, following PostgreSQL's convention for geometric operations
+- Part of the "Funky operations" section in the geometric operations module

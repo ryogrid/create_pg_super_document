@@ -1,0 +1,31 @@
+# smgrinit
+
+## Location
+src/backend/storage/smgr/smgr.c: 154 - 171
+
+## Overview
+Initializes all storage managers during backend startup and registers the shutdown cleanup function.
+
+## Definition
+```c
+void smgrinit(void)
+```
+
+## Detailed Description
+The `smgrinit` function is responsible for initializing all storage managers in the PostgreSQL storage system. It is called during backend startup (both normal and standalone cases), but not during postmaster start, ensuring that any resources created are backend-local. The function iterates through all available storage managers in the `smgrsw` array and calls their respective initialization functions if they exist. Additionally, it registers the `smgrshutdown` function to be called during process exit to ensure proper cleanup of storage manager resources.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - on_proc_exit
+  - smgrshutdown
+- Called from (representative examples):
+  - BaseInit (src/backend/utils/init/postinit.c:672)
+
+## Notes and Other Information
+- This function is called once per backend process during initialization
+- Resources created here are backend-local, not shared across the entire PostgreSQL instance
+- The function ensures proper cleanup by registering smgrshutdown as an exit handler
+- Each storage manager in the smgrsw array may have its own initialization routine

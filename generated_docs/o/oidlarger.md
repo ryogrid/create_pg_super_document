@@ -1,0 +1,32 @@
+# oidlarger
+
+## Location
+src/backend/utils/adt/oid.c: 326 - 334
+
+## Overview
+The  function returns the larger of two OID (Object Identifier) values, implementing a maximum function for the OID data type.
+
+## Definition
+
+
+## Detailed Description
+This function compares two OID values and returns the larger one. It performs a numerical comparison between the two input OIDs and uses a ternary operator to select the maximum value. The function follows PostgreSQL's standard function calling convention and returns an OID result using the  macro. This function is typically used in SQL contexts where finding the maximum OID value is needed.
+
+## Parameters / Member Variables
+- : The first OID operand for comparison
+- : The second OID operand for comparison
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  (macro for extracting OID arguments)
+  -  (macro for returning OID results)
+- Called from (representative examples):
+  - SQL aggregate functions or expressions requiring maximum OID values
+  - PostgreSQL's built-in function dispatch system
+
+## Notes and Other Information
+- This function is part of PostgreSQL's built-in function set for the OID data type
+- The function is located in 
+- OID comparisons are straightforward numerical comparisons since OIDs are unsigned integers
+- The function name follows PostgreSQL's naming convention for utility functions on data types
+- Useful for finding the maximum OID in queries or system catalog operations

@@ -1,0 +1,52 @@
+# HandleStartupProcInterrupts
+
+## Location
+src/backend/postmaster/startup.c: 154 - 202
+
+## Overview
+A central interrupt handling function that processes various signals and requests sent to the startup process during PostgreSQL recovery operations.
+
+## Definition
+void HandleStartupProcInterrupts(void)
+
+## Detailed Description
+HandleStartupProcInterrupts serves as the primary interrupt processing function for the startup process during PostgreSQL recovery. It handles multiple types of interrupts and system events in a coordinated manner:
+
+1. **SIGHUP Processing**: When got_SIGHUP is set, it calls StartupRereadConfig() to reload configuration files and potentially restart the WAL receiver if critical settings changed.
+
+2. **Shutdown Requests**: Checks the shutdown_requested flag and immediately exits with status code 1 if shutdown was requested via SIGTERM.
+
+3. **Postmaster Health Monitoring**: Implements emergency bailout logic if the postmaster process has died, using PostmasterIsAlive() checks. On systems with POSTMASTER_POLL_RATE_LIMIT, this check is performed at reduced frequency to minimize overhead.
+
+4. **Barrier Event Processing**: Handles process signal barriers through ProcessProcSignalBarrier() when ProcSignalBarrierPending is set.
+
+5. **Memory Context Logging**: Processes memory context logging requests via ProcessLogMemoryContextInterrupt() when LogMemoryContextPending is set.
+
+The function is called frequently during recovery operations to ensure prompt handling of administrative requests and system events while maintaining recovery progress.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - StartupRereadConfig (handles configuration reloading)
+  - proc_exit (terminates process with exit code)
+  - PostmasterIsAlive (checks if postmaster process is still alive)
+  - ProcessProcSignalBarrier (processes barrier events)
+  - ProcessLogMemoryContextInterrupt (handles memory context logging)
+  - POSTMASTER_POLL_RATE_LIMIT (conditional compilation macro for rate limiting)
+- Called from (representative examples):
+  - PerformWalRecovery (during WAL recovery operations)
+  - recoveryPausesHere (when recovery is paused)
+  - recoveryApplyDelay (during recovery delay periods)
+  - WaitForWALToBecomeAvailable (while waiting for WAL data)
+
+## Notes and Other Information
+- Central point for processing startup process interrupts during recovery
+- Handles multiple types of system events and administrative requests
+- Implements rate-limited postmaster health checking on systems that support it
+- Must be called regularly during recovery operations to ensure responsiveness
+- Part of PostgreSQL's recovery process management and coordination system
+- Ensures prompt handling of configuration changes, shutdown requests, and system events
+- Emergency bailout mechanism provides automatic cleanup when postmaster fails
+- Static counter for postmaster polling helps reduce system call overhead on some platforms

@@ -1,0 +1,45 @@
+# terminate_brin_buildstate
+
+## Location
+src/backend/access/brin/brin.c: 1707 - 1751
+
+## Overview
+Releases all resources associated with a BrinBuildState structure, including buffers, descriptors, and memory allocations used during BRIN index construction.
+
+## Definition
+```c
+static void terminate_brin_buildstate(BrinBuildState *state)
+```
+
+## Detailed Description
+This static function performs cleanup operations for a BrinBuildState that was used during BRIN index building or maintenance. It properly releases the current insert buffer if one exists, records any remaining free space in the Free Space Map for efficient future use, frees the BRIN tuple descriptor and associated memory tuple, and finally deallocates the state structure itself. This ensures proper resource management and prevents memory leaks during BRIN operations.
+
+## Parameters / Member Variables
+- `state`: Pointer to the BrinBuildState structure to be cleaned up and deallocated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferIsInvalid
+  - BufferGetPage
+  - PageGetFreeSpace
+  - BufferGetBlockNumber
+  - ReleaseBuffer
+  - RecordPageWithFreeSpace
+  - FreeSpaceMapVacuumRange
+  - brin_free_desc
+  - pfree
+- Types referenced:
+  - BrinBuildState
+  - Page
+  - Size
+  - BlockNumber
+- Called from (representative examples):
+  - brinbuild
+  - brinsummarize
+
+## Notes and Other Information
+- This is a static function only accessible within the brin.c module
+- The function ensures that any remaining free space in the last used index buffer is recorded in the Free Space Map
+- Proper cleanup includes both buffer management and memory deallocation
+- The Free Space Map vacuum operation helps maintain accurate free space information for future insertions
+- Essential for preventing resource leaks during BRIN index operations

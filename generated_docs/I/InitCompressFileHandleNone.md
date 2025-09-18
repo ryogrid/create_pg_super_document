@@ -1,0 +1,42 @@
+# InitCompressFileHandleNone
+
+## Location
+src/bin/pg_dump/compress_none.c: 201 - 215
+
+## Overview
+A public interface function that initializes a CompressFileHandle structure for uncompressed file operations in PostgreSQL's pg_dump utility.
+
+## Definition
+
+
+## Detailed Description
+The `InitCompressFileHandleNone` function serves as the main initialization entry point for the "none" compression implementation in pg_dump. It sets up a CompressFileHandle structure by assigning appropriate function pointers for all file operations (open, read, write, close, etc.) to their uncompressed equivalents. This function implements the compression abstraction layer's interface, allowing pg_dump to work with uncompressed files using the same API as compressed files. All function pointers are set to the corresponding "_none" variants that handle uncompressed file operations.
+
+## Parameters / Member Variables
+- `CFH`: Pointer to CompressFileHandle structure to initialize
+- `compression_spec`: Compression specification parameter (unused for none compression but required for interface consistency)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CompressFileHandle (structure type)
+  - pg_compress_specification (structure type)
+  - open_none (function pointer assignment)
+  - open_write_none (function pointer assignment)
+  - read_none (function pointer assignment)
+  - write_none (function pointer assignment)
+  - gets_none (function pointer assignment)
+  - getc_none (function pointer assignment)
+  - close_none (function pointer assignment)
+  - eof_none (function pointer assignment)
+  - get_error_none (function pointer assignment)
+- Called from (representative examples):
+  - InitCompressFileHandle (main compression dispatcher)
+
+## Notes and Other Information
+- This is a public interface function (not static), available to other modules
+- Part of the compression abstraction layer that allows uniform handling of compressed and uncompressed files
+- The compression_spec parameter is accepted for interface consistency but not used in the none implementation
+- Initializes private_data to NULL, which will later hold the FILE pointer when a file is opened
+- Each function pointer corresponds to a specific file operation, providing a complete file I/O interface
+- This function must be called before using any file operations on the CompressFileHandle
+- The function follows a pattern where each compression method (none, gzip, lz4, etc.) provides its own initialization function

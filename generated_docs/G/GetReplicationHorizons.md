@@ -1,0 +1,43 @@
+# GetReplicationHorizons
+
+## Location
+src/backend/storage/ipc/procarray.c: 2047 - 2068
+
+## Overview
+GetReplicationHorizons provides visibility horizon information specifically for hot standby feedback messages, enabling efficient replication coordination between primary and standby servers.
+
+## Definition
+```c
+void
+GetReplicationHorizons(TransactionId *xmin, TransactionId *catalog_xmin)
+```
+
+## Detailed Description
+This function computes and returns two distinct transaction horizons used in PostgreSQL's hot standby feedback mechanism. The feedback system allows standby servers to inform the primary about which transactions they still need, preventing the primary from vacuuming away data that standbys are still using.
+
+The function deliberately separates data and catalog horizons:
+- **xmin (shared_oldest_nonremovable_raw)**: The horizon for regular data tables, excluding the influence of replication slot catalog requirements
+- **catalog_xmin (slot_catalog_xmin)**: The horizon specifically for catalog tables based on replication slot needs
+
+This separation is crucial because it allows the primary server to be more aggressive in cleaning up regular data tables while being appropriately conservative with catalog data that logical replication slots might need for decoding.
+
+The function specifically avoids using `shared_oldest_nonremovable` because that value already incorporates the catalog horizon, which would make the feedback less granular and less efficient.
+
+## Parameters / Member Variables
+- `xmin`: Output parameter for the transaction horizon for regular data tables
+- `catalog_xmin`: Output parameter for the transaction horizon for catalog tables
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ComputeXidHorizons
+  - ComputeXidHorizonsResult (struct type)
+- Called from:
+  - XLogWalRcvSendHSFeedback (in walreceiver.c)
+
+## Notes and Other Information
+- Essential for hot standby feedback mechanism in streaming replication
+- The separation of data and catalog horizons enables more efficient vacuum behavior on the primary
+- Used exclusively in replication contexts, not for local vacuum decisions
+- The "raw" horizon excludes replication slot influence to provide cleaner feedback boundaries
+- Critical for maintaining consistency in replication while allowing optimal cleanup on the primary server
+- The function design reflects PostgreSQL's sophisticated approach to balancing replication needs with storage efficiency

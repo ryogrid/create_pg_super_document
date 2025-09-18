@@ -1,0 +1,33 @@
+# dlist_node_init
+
+## Location
+src/include/lib/ilist.h: 325 - 335
+
+## Overview
+Initializes a doubly-linked list node to a detached state by setting its pointers to NULL, enabling safe detection of unlinked nodes.
+
+## Definition
+
+
+## Detailed Description
+The  function initializes a doubly-linked list node by setting both its  and  pointers to NULL. This creates a detached node state that can be safely detected using . The function is specifically designed for scenarios where it's necessary to determine whether a node is currently linked to a list or exists in an unattached state. This initialization is particularly useful in resource management and transaction processing where nodes may be temporarily detached and later reattached to lists.
+
+## Parameters / Member Variables
+- : Pointer to the  structure that will be initialized to a detached state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dlist_node (structure type)
+- Called from (representative examples):
+  - MarkAsPreparingGuts (src/backend/access/transam/twophase.c:446)
+  - InitPredicateLocks (src/backend/storage/lmgr/predicate.c:1264)
+  - GetSerializableTransactionSnapshotInt (src/backend/storage/lmgr/predicate.c:1855)
+  - InitProcess (src/backend/storage/lmgr/proc.c:384)
+  - InitAuxiliaryProcess (src/backend/storage/lmgr/proc.c:582)
+
+## Notes and Other Information
+- This function is implemented as a static inline function for performance efficiency
+- The NULL pointer initialization enables the use of  to check node status
+- Primarily used in PostgreSQL's transaction management and predicate locking systems
+- Essential for safe node lifecycle management where nodes may exist independently of lists
+- Located in src/include/lib/ilist.h:325-335

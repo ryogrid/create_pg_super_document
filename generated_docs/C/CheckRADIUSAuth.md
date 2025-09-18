@@ -1,0 +1,56 @@
+# CheckRADIUSAuth
+
+## Location
+src/backend/libpq/auth.c: 2847 - 2941
+
+## Overview
+Main entry point for RADIUS-based authentication that coordinates the entire RADIUS authentication process including server iteration and credential validation.
+
+## Definition
+
+
+## Detailed Description
+This static function orchestrates the complete RADIUS authentication workflow for a client connection. It validates configuration parameters, requests a password from the client, and iterates through configured RADIUS servers attempting authentication until one succeeds or all fail.
+
+The function supports multiple RADIUS server configurations with corresponding secrets, ports, and identifiers. It implements a failover mechanism where if one server fails, it tries the next server in the list. The function handles parameter validation, password length restrictions, and manages the iteration logic for multiple server configurations.
+
+Key responsibilities include:
+- Validating RADIUS configuration parameters
+- Requesting password from the client using AUTH_REQ_PASSWORD
+- Enforcing password length limits (RADIUS_MAX_PASSWORD_LENGTH)  
+- Iterating through configured RADIUS servers with their corresponding secrets, ports, and identifiers
+- Calling PerformRadiusTransaction for each server attempt
+- Setting authentication identity on successful authentication
+- Managing memory cleanup for password data
+
+## Parameters / Member Variables
+- : Pointer to the Port structure containing client connection information and HBA (Host-Based Authentication) configuration including RADIUS server details
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - sendAuthRequest (to request password from client)
+  - recv_password_packet (to receive password response)
+  - PerformRadiusTransaction (to perform actual RADIUS authentication)
+  - set_authn_id (to set authentication identity on success)
+  - list_head, lnext (for list traversal)
+  - ereport, errmsg (for logging)
+  - pfree (for memory cleanup)
+- Constants referenced:
+  - AUTH_REQ_PASSWORD
+  - STATUS_OK, STATUS_ERROR, STATUS_EOF
+  - RADIUS_MAX_PASSWORD_LENGTH
+- Types referenced:
+  - Port, radius_packet
+- Called from:
+  - Main authentication logic at src/backend/libpq/auth.c:631
+
+## Notes and Other Information
+- This is a static function, only visible within the auth.c compilation unit
+- Implements struct alignment verification for radius_packet at compile time
+- Supports flexible RADIUS server configuration where secrets, ports, and identifiers can be:
+  - Length 0: use defaults
+  - Length 1: reuse same value for all servers  
+  - Same length as servers: use corresponding values
+- Password is cleared from memory after authentication attempt regardless of success/failure
+- Returns STATUS_OK on successful authentication, STATUS_ERROR on failure
+- Part of PostgreSQL's external authentication infrastructure for RADIUS servers

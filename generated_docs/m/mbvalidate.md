@@ -1,0 +1,36 @@
+# mbvalidate
+
+## Location
+src/fe_utils/mbprint.c: 392 - 405
+
+## Overview
+Validates and sanitizes multibyte character strings by removing invalid byte sequences according to the specified encoding, ensuring safe text processing in PostgreSQL frontend utilities.
+
+## Definition
+
+
+## Detailed Description
+mbvalidate provides encoding validation for multibyte character strings, removing any characters that are not valid according to the specified encoding rules. Currently, the function specifically handles UTF-8 encoding validation through the mb_utf_validate function. For other encodings, the function serves as a framework where additional validation routines can be added as needed.
+
+The function operates in-place, modifying the input string to remove invalid sequences. This ensures that subsequent text processing operations will not encounter malformed multibyte sequences that could cause errors or incorrect display behavior.
+
+## Parameters / Member Variables
+- : Input/output multibyte character string to validate and modify in-place
+- : Character encoding identifier that determines which validation routine to apply
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_UTF8: Encoding constant for UTF-8 identification
+  - mb_utf_validate: UTF-8 specific validation function that removes invalid sequences
+- Called from (representative examples):
+  - printTableAddHeader: For validating table header text before formatting
+  - printTableAddCell: For validating table cell content before display
+  - lineptr: Through header inclusion for line text validation
+
+## Notes and Other Information
+- The function currently only implements UTF-8 validation, with a framework for adding other encodings
+- The comment suggests this functionality may be redundant with existing validation elsewhere in PostgreSQL
+- Validation is performed in-place, modifying the original string
+- The function always returns the input pointer, making it suitable for use in expression contexts
+- Additional encoding validation routines should be added to the else branch as needed
+- This is part of PostgreSQL's frontend utilities for ensuring safe text display across different character encodings

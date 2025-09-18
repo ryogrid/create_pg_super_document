@@ -1,0 +1,45 @@
+# brin_xlog_revmap_extend
+
+## Location
+src/backend/access/brin/brin_xlog.c: 208 - 268
+
+## Overview
+Replays a BRIN revmap page extension operation during WAL recovery, updating the metapage and initializing the new revmap page.
+
+## Definition
+
+
+## Detailed Description
+This function handles the replay of a BRIN revmap page extension during crash recovery. When a BRIN index needs to extend its revmap (reverse mapping from heap block numbers to summary pages), this operation is logged in WAL. During recovery, this function:
+
+1. Extracts the xl_brin_revmap_extend record from the WAL entry
+2. Updates the metapage to reflect the new lastRevmapPage value
+3. Initializes the target block as a new revmap page
+4. Sets appropriate LSNs and marks buffers dirty
+
+The function ensures that the BRIN index's revmap structure is correctly reconstructed during recovery, maintaining the mapping between heap blocks and their corresponding summary pages.
+
+## Parameters / Member Variables
+- : XLogReaderState pointer containing the WAL record being replayed, including the revmap extension data and affected block information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogRecGetData: Extract record data from WAL
+  - XLogRecGetBlockTag: Get block information from WAL record
+  - XLogReadBufferForRedo: Read and prepare buffer for redo operation
+  - XLogInitBufferForRedo: Initialize buffer for redo operation
+  - BufferGetPage: Get page from buffer
+  - PageGetContents: Get page contents
+  - brin_page_init: Initialize BRIN page with specific type
+  - PageSetLSN: Set LSN on page
+  - MarkBufferDirty: Mark buffer as modified
+  - UnlockReleaseBuffer: Release buffer locks
+- Called from (representative examples):
+  - brin_redo: Main BRIN WAL replay dispatcher function
+
+## Notes and Other Information
+- This is a static function used only within the BRIN WAL replay subsystem
+- The function handles both metapage updates and new revmap page initialization atomically
+- Includes assertion checks to validate that the target block matches the expected value
+- Properly handles pd_lower setting on metapage to prevent data loss during page compression
+- Part of PostgreSQL's crash recovery mechanism for BRIN indexes

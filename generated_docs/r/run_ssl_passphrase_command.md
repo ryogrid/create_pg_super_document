@@ -1,0 +1,40 @@
+# run_ssl_passphrase_command
+
+## Location
+src/backend/libpq/be-secure-common.c: 40 - 113
+
+## Overview
+Executes the configured SSL passphrase command to retrieve passwords for encrypted SSL keys, substituting placeholders with provided prompts.
+
+## Definition
+```c
+int run_ssl_passphrase_command(const char *prompt, bool is_server_start, char *buf, int size)
+```
+
+## Detailed Description
+This function executes the external command specified by the `ssl_passphrase_command` configuration parameter to retrieve passphrases for encrypted SSL private keys. The command is run with placeholder substitution where `%p` in the command string is replaced with the provided prompt. The function handles secure execution of the external process, reads the passphrase from its stdout, and performs proper cleanup including memory zeroing for security. Error handling varies based on whether this is called during server startup or runtime operation.
+
+## Parameters / Member Variables
+- `prompt`: The prompt string to substitute for %p placeholder in the SSL passphrase command
+- `is_server_start`: Boolean flag determining error message log level (ERROR for startup, LOG for runtime)
+- `buf`: Buffer to store the retrieved passphrase
+- `size`: Size of the buffer in bytes
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - replace_percent_placeholders
+  - OpenPipeStream
+  - ClosePipeStream
+  - explicit_bzero
+  - wait_result_to_str
+  - errdetail_internal
+  - pg_strip_crlf
+- Called from (representative examples):
+  - ssl_external_passwd_cb
+
+## Notes and Other Information
+- The function performs secure memory handling by using explicit_bzero() to clear sensitive data
+- Trailing newlines and carriage returns are automatically stripped from the command output
+- Error logging level is contextual: ERROR during server startup, LOG during runtime operations
+- The function returns the length of the retrieved passphrase
+- Proper error handling ensures the pipe is closed and memory is cleaned up even on failure

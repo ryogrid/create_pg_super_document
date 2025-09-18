@@ -1,0 +1,45 @@
+# r_combo_suffix
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 771 - 818
+
+## Overview
+A specialized suffix processing function in the Romanian Snowball stemming algorithm that handles complex combination suffixes requiring multi-character replacements and state tracking through flag management.
+
+## Definition
+
+
+## Detailed Description
+The r_combo_suffix function processes complex Romanian suffix combinations that require sophisticated handling beyond simple deletion or single-character replacement. This function is designed to handle compound suffixes that are characteristic of Romanian morphology, where multiple morphological elements combine to form complex endings.
+
+Key operational aspects:
+1. Uses test position saving (m_test1) to enable potential backtracking
+2. Employs a larger automaton (a_2 with 46 entries) to recognize complex suffix patterns
+3. Validates matches are within the R1 region using r_R1()
+4. Performs multi-character replacements based on pattern matching:
+   - Cases 1-2: 4-character replacements (s_11, s_12)
+   - Cases 3-6: 2-character replacements (s_13, s_14, s_15, s_16)
+5. Sets a processing flag (z->I[3] = 1) to indicate combination suffix processing occurred
+6. Restores cursor position after processing
+
+The function is essential for handling Romanian words with complex morphological structures where standard suffix removal would be insufficient or incorrect.
+
+## Parameters / Member Variables
+- : Pointer to SN_env structure containing the stemming environment, including cursor position, string boundaries, working buffers, and integer flags array
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - r_R1: Validates that the operation is within the R1 region
+  - find_among_b: Searches for complex suffix patterns in the a_2 automaton
+  - slice_from_s: Replaces suffix with specified multi-character strings
+- Called from (representative examples):
+  - r_standard_suffix: Invoked as part of the standard suffix processing pipeline for both ISO-8859-2 and UTF-8 Romanian stemmers
+
+## Notes and Other Information
+- Specific to Romanian language stemming with implementations for both ISO-8859-2 and UTF-8 encodings
+- The function sets z->I[3] = 1 as a state flag to communicate successful combination processing to other stemming functions
+- Uses position restoration (z->c = z->l - m_test1) to maintain proper cursor positioning after transformation
+- Handles 46 different complex suffix patterns, indicating the morphological richness of Romanian combinations
+- Critical for accurate stemming of Romanian compound words and complex morphological forms
+- The multi-character replacements (s_11 through s_16) contain Romanian-specific character sequences that maintain linguistic validity
+- Part of a coordinated stemming strategy where combination processing precedes or complements standard suffix handling

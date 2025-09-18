@@ -1,0 +1,55 @@
+# build_path_tlist
+
+## Location
+src/backend/optimizer/plan/createplan.c: 826 - 865
+
+## Overview
+Builds a target list (list of TargetEntry nodes) from a Path's pathtarget, handling nestloop parameter replacement for parameterized paths.
+
+## Definition
+```c
+static List *build_path_tlist(PlannerInfo *root, Path *path)
+```
+
+## Detailed Description
+build_path_tlist constructs a proper target list for plan nodes by converting the expressions in a Path's pathtarget into TargetEntry nodes. The function handles the important case of parameterized paths where lateral references in the target list expressions need to be replaced with Param nodes representing nestloop parameters. It also preserves sortgroupref information from the pathtarget for proper handling of GROUP BY and ORDER BY references.
+
+The function iterates through each expression in the path's pathtarget, creates TargetEntry nodes with appropriate resource numbers, and maintains the sortgroupref mapping. This is essential for converting the path-based representation used during optimization into the target list format required by plan nodes during execution.
+
+## Parameters / Member Variables
+- `root`: PlannerInfo structure containing planner context and state information
+- `path`: The Path node whose pathtarget expressions will be converted into a target list
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - replace_nestloop_params
+  - makeTargetEntry
+- Called from (representative examples):
+  - create_scan_plan
+  - create_gating_plan
+  - create_append_plan
+  - create_merge_append_plan
+  - create_group_result_plan
+  - create_project_set_plan
+  - create_unique_plan
+  - create_gather_plan
+  - create_gather_merge_plan
+  - create_projection_plan
+  - create_group_plan
+  - create_agg_plan
+  - create_groupingsets_plan
+  - create_minmaxagg_plan
+  - create_windowagg_plan
+  - create_recursiveunion_plan
+  - create_nestloop_plan
+  - create_mergejoin_plan
+  - create_hashjoin_plan
+
+## Notes and Other Information
+- Almost equivalent to make_tlist_from_pathtarget() but includes special handling for nestloop parameter replacement
+- Only applies nestloop parameter replacement when the path is parameterized (path->param_info is not NULL)
+- Preserves sortgroupref information from the pathtarget to maintain proper GROUP BY and ORDER BY semantics
+- Creates TargetEntry nodes with sequential resource numbers starting from 1
+- Essential for converting optimizer path representations into executable plan target lists
+- The function is widely used throughout plan creation for various node types requiring target list construction
+- Located at src/backend/optimizer/plan/createplan.c:826-865

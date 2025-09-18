@@ -1,0 +1,38 @@
+# gistfillbuffer
+
+## Location
+src/backend/access/gist/gistutil.c: 33 - 57
+
+## Overview
+Writes an array of index tuples to a GiST page with no control over free space management, used for efficient bulk insertion of tuples.
+
+## Definition
+```c
+void gistfillbuffer(Page page, IndexTuple *itup, int len, OffsetNumber off)
+```
+
+## Detailed Description
+This function performs a straightforward bulk insertion of index tuples into a GiST page. It iterates through the provided array of index tuples and adds each one to the page using PageAddItem. The function does not perform any free space checking or management - it assumes there is sufficient space on the page for all tuples. If any tuple cannot be added (PageAddItem returns InvalidOffsetNumber), it throws an ERROR. The function automatically handles offset number management, either starting from a specified offset or determining the next available offset based on the page's current state.
+
+## Parameters / Member Variables
+- `page`: The target page where index tuples will be written
+- `itup`: Array of IndexTuple pointers to be inserted into the page
+- `len`: Number of tuples in the itup array
+- `off`: Starting offset number for insertion; if InvalidOffsetNumber, automatically determines the next available offset
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PageIsEmpty
+  - PageGetMaxOffsetNumber
+  - OffsetNumberNext
+  - IndexTupleSize
+  - PageAddItem
+  - FirstOffsetNumber
+  - InvalidOffsetNumber
+- Called from (representative examples):
+  - gistplacetopage
+  - gist_indexsortbuild_levelstate_add
+  - gistRedoPageSplitRecord
+
+## Notes and Other Information
+This is a low-level utility function that assumes the caller has already verified that sufficient space exists on the page. It's primarily used during page splits, bulk loading operations, and WAL replay where space calculations have been done beforehand. The function will terminate the entire operation with an ERROR if any single tuple cannot be inserted, making it unsuitable for scenarios where graceful handling of space exhaustion is required.

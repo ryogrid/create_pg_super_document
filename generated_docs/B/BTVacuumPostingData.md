@@ -1,0 +1,36 @@
+# BTVacuumPostingData
+
+## Location
+src/include/access/nbtree.h: 903 - 912
+
+## Overview
+BTVacuumPostingData is a state structure used during B-tree VACUUM operations to represent how to process a posting list tuple when some (but not all) of its TIDs are to be deleted.
+
+## Definition
+
+
+## Detailed Description
+This structure manages the vacuum process for posting list tuples in B-tree indexes. When VACUUM determines that only some TIDs in a posting list tuple need to be deleted (rather than the entire tuple), this structure maintains the state needed for the operation. The convention is that the itup field contains the original posting list tuple on input and a palloc()'d final tuple used to overwrite the existing tuple on output.
+
+## Parameters / Member Variables
+- : IndexTuple that will be or was updated during the vacuum operation
+- : OffsetNumber indicating the offset of the tuple being updated
+- : Number of TIDs that were deleted from the posting list
+- : Flexible array member containing the TIDs that are to be deleted
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FLEXIBLE_ARRAY_MEMBER
+  - IndexTuple
+  - OffsetNumber
+- Called from (representative examples):
+  - _bt_delitems_delete_check
+  - btreevacuumposting
+  - btree_xlog_updates
+  - BTVacuumPosting
+
+## Notes and Other Information
+- This structure is essential for partial posting list cleanup during VACUUM operations
+- The flexible array member deletetids allows for variable-length storage of TID information
+- Used in WAL logging to describe the final state of the updated tuple
+- Part of the B-tree access method implementation for efficient index maintenance

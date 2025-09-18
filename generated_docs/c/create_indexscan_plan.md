@@ -1,0 +1,69 @@
+# create_indexscan_plan
+
+## Location
+src/backend/optimizer/plan/createplan.c: 3006 - 3201
+
+## Overview
+Creates an index scan plan node for scanning a base relation using an index, supporting both regular IndexScan and IndexOnlyScan operations.
+
+## Definition
+```c
+static Scan *
+create_indexscan_plan(PlannerInfo *root,
+                      IndexPath *best_path,
+                      List *tlist,
+                      List *scan_clauses,
+                      bool indexonly)
+```
+
+## Detailed Description
+The `create_indexscan_plan` function creates either an `IndexScan` or `IndexOnlyScan` plan node depending on the `indexonly` parameter. This function performs complex qualification preprocessing that is common to both scan types. Key operations include:
+
+1. **Index Qualification Processing**: Extracts and processes index qualification expressions, substituting index variables for table variables and handling nested loop parameters.
+
+2. **ORDER BY Processing**: Handles index-based ordering by looking up sort operators for ORDER BY expressions when applicable.
+
+3. **Qualification Filtering**: Determines which scan clauses need to be checked at execution time (qpqual) versus those automatically handled by the index. This includes:
+   - Removing pseudoconstant clauses
+   - Eliminating clauses redundant with index conditions
+   - Checking for clauses implied by index qualifications
+
+4. **Index-Only Scan Optimization**: For index-only scans, marks columns that the index access method cannot return as resjunk to avoid generating references to unavailable columns.
+
+The function supports both forward and backward index scans and handles complex scenarios like parameterized paths and ORDER BY optimization.
+
+## Parameters / Member Variables
+- `root`: PlannerInfo structure containing global planner state and context information
+- `best_path`: IndexPath representing the chosen index access path with cost estimates and index information
+- `tlist`: Target list specifying which columns/expressions should be returned by the scan
+- `scan_clauses`: List of RestrictInfo nodes representing WHERE clause conditions
+- `indexonly`: Boolean flag indicating whether to create an IndexOnlyScan (true) or regular IndexScan (false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - fix_indexqual_references
+  - fix_indexorderby_references
+  - is_redundant_with_indexclauses
+  - contain_mutable_functions
+  - predicate_implied_by
+  - order_qual_clauses
+  - extract_actual_clauses
+  - replace_nestloop_params
+  - get_opfamily_member
+  - make_indexonlyscan
+  - make_indexscan
+  - copy_generic_path_info
+  - IndexPath, IndexOptInfo, PathKey (struct types)
+  - ForwardScanDirection, BackwardScanDirection (enum values)
+- Called from (representative examples):
+  - create_scan_plan
+  - create_bitmap_subplan
+
+## Notes and Other Information
+- This function serves a dual purpose, creating both IndexScan and IndexOnlyScan nodes based on the `indexonly` parameter
+- Includes sophisticated logic to minimize runtime qualification checking by leveraging index capabilities
+- Handles complex cases like OR'd index conditions and parameterized index scans
+- The qualification processing logic mirrors `extract_nonindex_conditions()` in costsize.c for consistency
+- Index-only scans can provide significant performance benefits when all required columns are available in the index
+- Supports both B-tree style ordered scans and unordered index access methods
+- The function validates scan direction and ensures proper handling of outer-relation variables in nested loops

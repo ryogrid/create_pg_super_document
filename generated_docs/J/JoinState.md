@@ -1,0 +1,38 @@
+# JoinState
+
+## Location
+src/include/nodes/execnodes.h: 2086 - 2093
+
+## Overview
+JoinState is a superclass for state nodes of join plans in PostgreSQL's executor, providing common state information and functionality shared by all join operation types.
+
+## Definition
+
+
+## Detailed Description
+JoinState serves as the base structure for all join execution state nodes in PostgreSQL's executor. It inherits from PlanState and adds join-specific state information. This structure provides the common foundation for nested loop joins, merge joins, hash joins, and other join algorithms. The structure maintains the join type, optimization flags, and join qualification expressions that are evaluated during join processing.
+
+## Parameters / Member Variables
+-   PID TTY          TIME CMD
+ 5459 ?        00:00:00 bash
+ 5492 ?        00:00:00 ps
+21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common execution state information
+- : The type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
+- : Boolean flag indicating whether to skip to the next outer tuple after finding one inner match (optimization for certain join types)
+- : Pointer to ExprState containing JOIN qualification expressions that are evaluated in addition to the base plan's qualification expressions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PlanState (inherited base structure)
+  - JoinType (enum for join types)
+  - ExprState (for join qualification expressions)
+- Called from (representative examples):
+  - NestLoopState (inherits from JoinState)
+  - MergeJoinState (inherits from JoinState)
+  - HashJoinState (inherits from JoinState)
+
+## Notes and Other Information
+- This is an abstract base structure - actual join execution uses specific subclasses like NestLoopState, MergeJoinState, or HashJoinState
+- The single_match optimization is particularly useful for semi-joins and anti-joins where only the existence of a match matters
+- Join qualifications in joinqual are evaluated separately from the base plan qualifications in ps.qual
+- The structure is defined in src/include/nodes/execnodes.h at lines 2086-2093

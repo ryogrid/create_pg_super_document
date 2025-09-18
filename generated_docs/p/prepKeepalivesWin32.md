@@ -1,0 +1,36 @@
+# prepKeepalivesWin32
+
+## Location
+src/interfaces/libpq/fe-connect.c: 2323 - 2352
+
+## Overview
+Prepares and configures TCP keepalive parameters for Windows systems by parsing connection parameters and applying them via the Windows-specific keepalive interface.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a preparation and coordination layer for configuring TCP keepalives on Windows systems. It extracts keepalive configuration parameters from the PostgreSQL connection structure, parses and validates them, and then delegates the actual socket configuration to the pqSetKeepalivesWin32 function. 
+
+The function handles two key keepalive parameters: idle time (how long to wait before sending the first keepalive probe) and interval time (time between subsequent probes). It uses the pqParseIntParam utility to safely convert string parameters to integers, providing proper error handling and connection error reporting if parsing fails or if the underlying Windows socket configuration fails.
+
+## Parameters / Member Variables
+- : Pointer to the PGconn structure representing the PostgreSQL connection. The function accesses the , , and  fields from this structure.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pqParseIntParam (parses integer parameters from connection strings)
+  - pqSetKeepalivesWin32 (applies keepalive settings to Windows socket)
+  - libpq_append_conn_error (appends error messages to connection)
+  - WSAGetLastError (retrieves Windows socket error codes)
+- Called from (representative examples):
+  - CONNECTION_FAILED (connection establishment process)
+
+## Notes and Other Information
+- Windows-specific function, conditionally compiled for Windows platforms only
+- Returns 1 on success, 0 on failure with appropriate error messages
+- Initializes idle and interval parameters to -1, allowing pqSetKeepalivesWin32 to apply default values when parameters are not specified
+- Part of the PostgreSQL libpq connection establishment process
+- Provides a clean separation between parameter parsing/validation and actual socket configuration
+- Handles both cases where keepalive parameters are explicitly set or left to system defaults
+- Error messages include specific Windows API function names and error codes for debugging

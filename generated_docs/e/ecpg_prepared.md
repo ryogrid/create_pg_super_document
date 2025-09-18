@@ -1,0 +1,33 @@
+# ecpg_prepared
+
+## Location
+src/interfaces/ecpg/ecpglib/prepare.c: 357 - 367
+
+## Overview
+A utility function that retrieves the SQL command text associated with a named prepared statement in the ECPG library.
+
+## Definition
+
+
+## Detailed Description
+ provides a lookup mechanism to retrieve the original SQL command text from a prepared statement by its name within a specific database connection. The function searches through the connection's list of prepared statements to find the named statement and returns a pointer to the stored command string. This functionality is useful for debugging, logging, or when applications need to inspect the SQL commands associated with their prepared statements. The function returns a direct pointer to the internal command string, so the caller should not modify or free the returned memory.
+
+## Parameters / Member Variables
+- : Name of the prepared statement whose command text should be retrieved
+- : Pointer to the database connection structure containing the prepared statements
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ecpg_find_prepared_statement (locate the named prepared statement in the connection's list)
+  - prepared_statement (structure type for prepared statement data)
+- Called from (representative examples):
+  - ecpg_do_prologue (during statement execution setup)
+  - ECPGprepared_statement (public API for retrieving prepared statement information)
+
+## Notes and Other Information
+- Returns a pointer to the SQL command string if the prepared statement is found, NULL if not found
+- The returned pointer references internal memory and should not be modified or freed by the caller
+- Used primarily for introspection and debugging purposes within the ECPG library
+- The function performs a simple lookup without any side effects on the prepared statement
+- Part of the internal ECPG API, primarily used by other ECPG library functions
+- Essential for statement execution when the original command text needs to be referenced or logged

@@ -1,0 +1,37 @@
+# ExecReScanProjectSet
+
+## Location
+src/backend/executor/nodeProjectSet.c: 337 - 350
+
+## Overview
+ExecReScanProjectSet resets a ProjectSet node to restart execution from the beginning, handling SRF state cleanup and child node rescanning.
+
+## Definition
+```c
+void ExecReScanProjectSet(ProjectSetState *node)
+```
+
+## Detailed Description
+ExecReScanProjectSet implements the rescan functionality for ProjectSet nodes, which is necessary when a plan needs to be re-executed (such as in nested loop joins or other scenarios requiring multiple passes through the data).
+
+The function performs two key operations:
+1. **SRF State Reset**: Clears any incompletely-evaluated SRFs by setting `pending_srf_tuples` to false, ensuring that any partially-consumed set-returning functions start fresh
+2. **Child Plan Rescanning**: Conditionally rescans the outer child plan, but only if parameter changes haven't already triggered a rescan
+
+The conditional rescanning logic optimizes performance by avoiding redundant rescans when the executor framework has already scheduled a rescan due to parameter changes.
+
+## Parameters / Member Variables
+- `node`: The ProjectSetState to be rescanned
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - outerPlanState
+  - ExecReScan
+- Called from (representative examples):
+  - ExecReScan (as part of plan tree rescanning)
+
+## Notes and Other Information
+- The chgParam check prevents double-rescanning when parameters have changed
+- Resetting pending_srf_tuples is crucial for SRF correctness across rescans
+- Part of the standard executor rescan protocol used throughout PostgreSQL's executor
+- ProjectSet nodes don't maintain complex state that requires extensive cleanup during rescan

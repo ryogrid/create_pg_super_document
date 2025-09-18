@@ -1,0 +1,45 @@
+# asyncQueueProcessPageEntries
+
+## Location
+src/backend/commands/async.c: 2016 - 2107
+
+## Overview
+Processes notification entries from a page buffer, filtering and delivering relevant notifications to the frontend while respecting transaction visibility rules.
+
+## Definition
+```c
+static bool asyncQueueProcessPageEntries(volatile QueuePosition *current,
+                                       QueuePosition stop,
+                                       char *page_buffer,
+                                       Snapshot snapshot)
+```
+
+## Detailed Description
+This function fetches notifications from the shared notification queue beginning at a specified position and delivers relevant ones to the frontend. It processes entries from a single page that has already been loaded into a page buffer from shared memory. The function implements crucial transaction visibility logic by checking if notification transactions are committed and visible according to the provided snapshot.
+
+The function advances through queue entries until it reaches the stop position, encounters an uncommitted transaction, or reaches the end of the page. For each entry, it validates the transaction state using MVCC snapshot visibility rules before delivering notifications. Only notifications from committed transactions that are visible to the current snapshot are delivered to listening frontends.
+
+## Parameters / Member Variables
+- `current`: Pointer to current queue position, advanced as entries are processed
+- `stop`: Target queue position where processing should halt
+- `page_buffer`: Buffer containing the loaded page from shared memory
+- `snapshot`: MVCC snapshot used to determine transaction visibility
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - QUEUE_POS_EQUAL: Compares queue positions for equality
+  - QUEUE_POS_OFFSET: Calculates offset within page from queue position
+  - asyncQueueAdvance: Advances queue position to next entry
+  - XidInMVCCSnapshot: Tests if transaction is visible in snapshot
+  - TransactionIdDidCommit: Verifies if transaction committed
+  - IsListeningOn: Checks if current backend listens on channel
+  - NotifyMyFrontEnd: Delivers notification to frontend
+- Called from:
+  - asyncQueueReadAllNotifications: Main notification processing routine
+
+## Notes and Other Information
+- Returns true when stop position is reached or uncommitted transaction encountered, false when page processing is complete
+- Implements proper MVCC visibility semantics by testing XidInMVCCSnapshot before TransactionIdDidCommit
+- Filters notifications by database OID to only process relevant messages
+- Handles transaction aborts/crashes by ignoring their notifications
+- Must advance current position before processing to handle potential failures gracefully

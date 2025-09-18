@@ -1,0 +1,36 @@
+# IsPartialXLogFileName
+
+## Location
+src/include/access/xlog_internal.h: 192 - 199
+
+## Overview
+IsPartialXLogFileName validates whether a given filename follows the PostgreSQL partial WAL segment file naming convention (standard WAL name with ".partial" suffix).
+
+## Definition
+
+
+## Detailed Description
+IsPartialXLogFileName checks if a filename represents a partial WAL segment file by verifying three criteria: the total filename length matches the standard WAL filename length plus the ".partial" suffix length, the first 24 characters are valid hexadecimal digits, and the filename ends with ".partial". Partial WAL files are used by pg_receivewal and during archive recovery when a WAL segment might not be complete yet but needs to be archived or processed.
+
+## Parameters / Member Variables
+- : The filename string to validate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLOG_FNAME_LEN
+  - strlen (standard C library)
+  - strspn (standard C library)
+  - strcmp (standard C library)
+- Called from (representative examples):
+  - RemoveOldXlogFiles
+  - CleanupPriorWALFiles
+  - SetWALFileNameForCleanup
+  - FundEndOfXLOG
+  - KillExistingXLOG
+
+## Notes and Other Information
+- This is an inline function defined in xlog_internal.h for performance
+- Used specifically for identifying incomplete WAL segments that have the ".partial" suffix
+- Critical during WAL streaming replication and archive recovery processes
+- Ensures proper handling of partial WAL files that shouldn't be treated as complete segments
+- The validation pattern is TTTTTTTTFFFFFFFFSSSSSSSS.partial where the first 24 chars are hexadecimal

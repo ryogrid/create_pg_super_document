@@ -1,0 +1,46 @@
+# pg_fe_scram_build_secret
+
+## Location
+src/interfaces/libpq/fe-auth-scram.c: 892 - 930
+
+## Overview
+Builds a new SCRAM secret from a plain text password by performing SASLprep normalization, generating a random salt, and creating the SCRAM authentication secret.
+
+## Definition
+
+
+## Detailed Description
+This function creates a SCRAM (Salted Challenge Response Authentication Mechanism) secret suitable for storage and use in PostgreSQL authentication. It performs the complete process of converting a plain text password into a SCRAM secret by first normalizing the password using SASLprep (RFC 4013), generating a cryptographically secure random salt, and then invoking the core SCRAM secret building functionality with SHA-256 hashing.
+
+The function handles password normalization gracefully - if SASLprep normalization fails due to invalid UTF-8 or prohibited characters, it proceeds with the original password as recommended by the SCRAM specification. This ensures compatibility with a wide range of password formats while maintaining security best practices.
+
+## Parameters / Member Variables
+- : The plain text password to be converted into a SCRAM secret
+- : The number of PBKDF2 iterations to use for key derivation (higher values increase security but require more computation)
+- : Output parameter that will point to an error message string if the function fails
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_saslprep
+  - libpq_gettext
+  - pg_strong_random
+  - scram_build_secret
+  - free
+- Constants used:
+  - SCRAM_DEFAULT_SALT_LEN
+  - PG_SHA256
+  - SCRAM_SHA_256_KEY_LEN
+  - SASLPREP_OOM
+  - SASLPREP_SUCCESS
+- Called from (representative examples):
+  - Functions in fe-auth.c that handle password processing
+
+## Notes and Other Information
+- Returns a dynamically allocated string containing the SCRAM secret on success, NULL on failure
+- The caller is responsible for freeing the returned string
+- Uses SHA-256 as the hash algorithm (PG_SHA256)
+- Generates a 16-byte random salt (SCRAM_DEFAULT_SALT_LEN)
+- SASLprep normalization is applied but failures are handled gracefully
+- Part of PostgreSQL's client-side authentication infrastructure in libpq
+- The returned secret format is suitable for storage in PostgreSQL's system catalogs
+- Error messages are internationalized using libpq_gettext

@@ -1,0 +1,53 @@
+# int64_div_fast_to_numeric
+
+## Location
+src/backend/utils/adt/numeric.c: 4320 - 4404
+
+## Overview
+Efficiently converts the result of val1/(10^log10val2) to PostgreSQL's Numeric data type, providing much faster division than normal numeric division.
+
+## Definition
+```c
+Numeric int64_div_fast_to_numeric(int64 val1, int log10val2)
+```
+
+## Detailed Description
+This function performs an optimized conversion of an integer division by a power of 10 to Numeric format. Instead of performing actual division, it manipulates the weight and scale of the numeric representation to achieve the same result much more efficiently. The function handles negative log10val2 values and uses compile-time constants to optimize multiplication operations.
+
+The optimization works by:
+1. Calculating how much to adjust the weight (w = log10val2 / DEC_DIGITS)
+2. Determining any remaining division needed (m = log10val2 % DEC_DIGITS)
+3. If remainder exists, multiplying the dividend by 10^(DEC_DIGITS - m) and adjusting weight
+4. Setting the final weight and decimal scale appropriately
+
+For cases where multiplication might overflow, the function falls back to either 128-bit integer arithmetic (if available) or full numeric arithmetic to maintain precision.
+
+## Parameters / Member Variables
+- `val1`: The dividend (numerator) as a 64-bit signed integer
+- `log10val2`: The log base 10 of the divisor (i.e., to divide by 10^log10val2)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - init_var
+  - int64_to_numericvar
+  - int128_to_numericvar (when HAVE_INT128 is defined)
+  - mul_var
+  - make_result
+  - free_var
+  - pg_mul_s64_overflow
+  - StaticAssertDecl
+  - DEC_DIGITS (constant)
+- Called from (representative examples):
+  - time_part_common
+  - timetz_part_common
+  - timestamp_part_common
+  - timestamptz_part_common
+  - interval_part_common
+
+## Notes and Other Information
+- Located in src/backend/utils/adt/numeric.c:4320-4404
+- This function is specifically optimized for time/date calculations where division by powers of 10 is common
+- Uses compile-time static arrays for power-of-10 multiplication based on DEC_DIGITS configuration
+- Includes overflow protection with fallback to either 128-bit integers or full numeric arithmetic
+- The optimization significantly improves performance for timestamp and interval part extraction operations
+- Supports DEC_DIGITS values of 1, 2, or 4 (typical PostgreSQL configurations)

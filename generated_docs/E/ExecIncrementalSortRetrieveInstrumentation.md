@@ -1,0 +1,41 @@
+# ExecIncrementalSortRetrieveInstrumentation
+
+## Location
+src/backend/executor/nodeIncrementalSort.c: 1233 - 1246
+
+## Overview
+Transfers incremental sort instrumentation statistics from shared memory to private process memory for later analysis and reporting.
+
+## Definition
+
+
+## Detailed Description
+This function is responsible for collecting and preserving performance statistics from parallel incremental sort operations. It operates by:
+
+1. Checking if shared instrumentation data exists (shared_info is not NULL)
+2. Calculating the total size needed to store all worker statistics
+3. Allocating private memory to hold the complete SharedIncrementalSortInfo structure
+4. Copying the entire shared memory structure, including statistics from all parallel workers, into the allocated private memory
+5. Updating the node's shared_info pointer to reference the private copy
+
+This function is typically called at the end of a parallel incremental sort operation to preserve statistics that would otherwise be lost when the shared memory segment is deallocated. The retrieved statistics can then be used for performance analysis, EXPLAIN output, or other instrumentation purposes.
+
+## Parameters / Member Variables
+- : Pointer to the IncrementalSortState structure from which to retrieve shared instrumentation data
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc (memory allocation)
+  - memcpy (memory copy operation)
+  - offsetof (macro for calculating structure member offsets)
+- Data types referenced:
+  - SharedIncrementalSortInfo
+  - IncrementalSortInfo
+- Called from (representative examples):
+  - ExecParallelRetrieveInstrumentation (src/backend/executor/execParallel.c:1068)
+
+## Notes and Other Information
+- This function gracefully handles cases where no shared instrumentation exists by returning early if shared_info is NULL
+- The size calculation accounts for the variable-length array of per-worker IncrementalSortInfo structures within SharedIncrementalSortInfo
+- After this function executes, the statistics are preserved in private memory and will remain accessible even after the parallel query execution context is torn down
+- This is part of PostgreSQL's broader instrumentation infrastructure that provides detailed performance metrics for query execution analysis

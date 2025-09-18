@@ -1,0 +1,33 @@
+# ssl_external_passwd_cb
+
+## Location
+src/backend/libpq/be-secure-openssl.c: 1116 - 1135
+
+## Overview
+A callback function that collects SSL certificate passphrases using an external command specified by ssl_passphrase_command.
+
+## Definition
+
+
+## Detailed Description
+This function implements OpenSSL's password callback interface to retrieve passphrases for encrypted SSL certificates and private keys. It serves as a bridge between OpenSSL's internal passphrase requests and PostgreSQL's external passphrase command mechanism. The function uses the same prompt text as OpenSSL's internal password callback ("Enter PEM pass phrase:") to maintain consistency. It delegates the actual passphrase collection to run_ssl_passphrase_command(), which executes the command specified in the ssl_passphrase_command configuration parameter.
+
+## Parameters / Member Variables
+- : Buffer to store the retrieved passphrase
+- : Maximum size of the buffer
+- : Read/write flag (0 for reading, 1 for writing) - function asserts this is always 0
+- : User-defined data passed to the callback (unused in this implementation)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - run_ssl_passphrase_command (executes external command to get passphrase)
+- Called from (representative examples):
+  - default_openssl_tls_init (src/backend/libpq/be-secure-openssl.c:1752)
+  - default_openssl_tls_init (src/backend/libpq/be-secure-openssl.c:1757)
+
+## Notes and Other Information
+- Returns the length of the passphrase retrieved, or -1 on error
+- Uses Assert() to ensure rwflag is 0, as PostgreSQL only needs to read passphrases
+- The prompt string matches OpenSSL's internal prompt for consistency
+- Enables secure passphrase collection through external commands rather than interactive input
+- Part of PostgreSQL's SSL certificate management system for automated deployments

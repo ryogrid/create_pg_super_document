@@ -1,0 +1,43 @@
+# AddInvalidationMessage
+
+## Location
+src/backend/utils/cache/inval.c: 291 - 330
+
+## Overview
+AddInvalidationMessage is a static function that adds an invalidation message to a specified subgroup within an invalidation message group, managing dynamic memory allocation for message storage arrays.
+
+## Definition
+
+
+## Detailed Description
+This function is responsible for adding invalidation messages to either the catalog cache (CatCacheMsgs) or relation cache (RelCacheMsgs) subgroups within an invalidation message group. It manages the underlying storage array dynamically, automatically expanding the array when needed. The function assumes that the target group is the last active one and can append messages to the end of the relevant InvalMessageArray.
+
+The function handles two scenarios for memory management:
+1. Initial allocation: Creates a new storage array with an initial size of 32 messages in TopTransactionContext
+2. Array expansion: Doubles the current array size when the existing capacity is exceeded
+
+## Parameters / Member Variables
+- : Pointer to the InvalidationMsgsGroup where the message will be added
+- : Integer identifier specifying the subgroup type (CatCacheMsgs or RelCacheMsgs)
+- : Pointer to the SharedInvalidationMessage to be added to the group
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MemoryContextAlloc (for initial array allocation)
+  - repalloc (for array expansion)
+- Data structures used:
+  - InvalidationMsgsGroup
+  - SharedInvalidationMessage
+  - InvalMessageArray
+- Called from:
+  - AddCatcacheInvalidationMessage
+  - AddCatalogInvalidationMessage
+  - AddRelcacheInvalidationMessage
+  - AddSnapshotInvalidationMessage
+
+## Notes and Other Information
+- This is a static function, only accessible within the inval.c file
+- Memory allocation occurs in TopTransactionContext to ensure proper cleanup
+- The function uses an initial array size of 32 messages and doubles the size on expansion
+- The function assumes thread-safe operation within PostgreSQL's single-threaded backend model
+- Part of PostgreSQL's cache invalidation subsystem that ensures cache consistency across transactions

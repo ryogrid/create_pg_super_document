@@ -1,0 +1,43 @@
+# log_newpage_buffer
+
+## Location
+src/backend/access/transam/xloginsert.c: 1237 - 1269
+
+## Overview
+log_newpage_buffer writes a WAL record containing a full image of a page for crash recovery, operating on a buffer and automatically extracting the page location information.
+
+## Definition
+```c
+XLogRecPtr log_newpage_buffer(Buffer buffer, bool page_std)
+```
+
+## Detailed Description
+This function creates a Write-Ahead Log (WAL) record that contains a complete image of a page for crash recovery purposes. It serves as a wrapper around the lower-level `log_newpage` function by automatically extracting the relation file locator, fork number, and block number from the provided buffer. The function must be called within a critical section after the caller has initialized and marked the buffer as dirty. The function will set the page LSN (Log Sequence Number) as part of the WAL logging process.
+
+The function supports optimization for standard page layouts by allowing unused space between pd_lower and pd_upper to be excluded from the WAL record when page_std is set to true, resulting in smaller WAL records.
+
+## Parameters / Member Variables
+- `buffer`: The buffer containing the page to be logged to WAL
+- `page_std`: Boolean flag indicating whether the page follows standard layout (allows optimization by excluding unused space from WAL record)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - BufferGetPage (to extract the page from the buffer)
+  - BufferGetTag (to extract relation file locator, fork number, and block number)
+  - log_newpage (the underlying function that creates the WAL record)
+- Called from (representative examples):
+  - brinbuildempty (BRIN index empty page creation)
+  - brin_initialize_empty_new_buffer (BRIN buffer initialization)
+  - ginbuildempty (GIN index empty page creation)
+  - gistbuildempty (GiST index empty page creation)
+  - lazy_scan_new_or_empty (vacuum operations)
+  - visibilitymap_prepare_truncate (visibility map operations)
+  - RelationCopyStorageUsingBuffer (relation storage operations)
+  - FreeSpaceMapPrepareTruncateRel (free space map operations)
+
+## Notes and Other Information
+- Must be called within a critical section (CritSectionCount > 0)
+- The caller is responsible for initializing the buffer and marking it dirty before calling this function
+- The function automatically sets the page LSN as part of the WAL logging process
+- When page_std is true, unused space in standard page layouts is excluded from the WAL record for efficiency
+- This is a higher-level interface compared to log_newpage, automatically handling buffer tag extraction

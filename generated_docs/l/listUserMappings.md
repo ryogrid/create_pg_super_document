@@ -1,0 +1,42 @@
+# listUserMappings
+
+## Location
+src/bin/psql/describe.c: 5875 - 5929
+
+## Overview
+Lists user mappings for foreign servers in the PostgreSQL database, showing which users are mapped to which foreign servers, with optional FDW options.
+
+## Definition
+bool listUserMappings(const char *pattern, bool verbose)
+
+## Detailed Description
+This function queries the pg_user_mappings system view to display information about user mappings configured for foreign servers. User mappings define how local PostgreSQL users authenticate to remote servers through foreign data wrappers. The function shows the server name and the mapped user name. In verbose mode, it additionally displays the FDW-specific options associated with each mapping, such as authentication credentials or connection parameters, formatted as key-value pairs. This implements the \deu psql command functionality.
+
+## Parameters / Member Variables
+- `pattern`: Optional SQL pattern to filter server names (can be NULL to show all user mappings)
+- `verbose`: Boolean flag to control whether to show additional detailed information (FDW options)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - initPQExpBuffer
+  - printfPQExpBuffer
+  - appendPQExpBuffer
+  - appendPQExpBufferStr
+  - validateSQLNamePattern
+  - termPQExpBuffer
+  - PSQLexec
+  - printQuery
+  - PQclear
+  - gettext_noop
+- Called from (representative examples):
+  - exec_command_d (psql command dispatcher)
+
+## Notes and Other Information
+- Returns false if pattern validation fails or query execution fails
+- Uses the pg_user_mappings view which provides a filtered view of user mappings based on user privileges
+- In verbose mode, displays user mapping options using pg_options_to_table() for proper formatting
+- Pattern matching applies to both server name and user name fields
+- Orders results first by server name, then by user name for consistent output
+- Uses internationalization support for all column headers and titles
+- The pg_user_mappings view only shows mappings that the current user has privileges to see
+- This function corresponds to the \deu command in psql for listing user mappings

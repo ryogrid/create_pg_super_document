@@ -1,0 +1,39 @@
+# r_post_process_last_consonants
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 1864 - 1894
+
+## Overview
+Performs post-processing of last consonants in Turkish words by applying consonant transformations based on phonetic rules specific to Turkish language stemming.
+
+## Definition
+
+
+## Detailed Description
+This function is part of the Turkish Snowball stemmer that handles post-processing of final consonants in Turkish words. It uses backward matching to find specific consonant patterns at the end of words and replaces them according to Turkish phonological rules. The function works by:
+
+1. Setting the cursor position (ket) to the current position
+2. Using find_among_b to search for patterns in array a_23 (containing 'b', 'c', 'd', 'ğ')
+3. Applying appropriate consonant transformations based on the matched pattern:
+   - 'b' → 'p' (devoicing)
+   - 'c' → 'ç' (devoicing)
+   - 'd' → 't' (devoicing) 
+   - 'ğ' → 'k' (devoicing)
+
+These transformations follow Turkish consonant devoicing rules where voiced consonants become voiceless at word boundaries.
+
+## Parameters / Member Variables
+- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_among_b (Snowball library function for backward pattern matching)
+  - slice_from_s (Snowball library function for string replacement)
+- Called from:
+  - r_postlude (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2058)
+
+## Notes and Other Information
+- This is a static function within the Turkish stemmer implementation
+- Returns 1 on success, 0 if no pattern matches, or negative value on error
+- Part of the final cleanup phase in Turkish word stemming
+- Generated automatically by Snowball 2.2.0 stemmer generator

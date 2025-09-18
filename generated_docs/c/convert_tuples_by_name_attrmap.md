@@ -1,0 +1,38 @@
+# convert_tuples_by_name_attrmap
+
+## Location
+src/backend/access/common/tupconvert.c: 124 - 153
+
+## Overview
+Creates a tuple conversion map using a pre-built attribute map, providing the core tuple conversion infrastructure setup functionality.
+
+## Definition
+
+
+## Detailed Description
+This function creates and initializes a  structure using a provided attribute map. It serves as the core implementation for tuple conversion setup, taking a pre-built  and combining it with input/output tuple descriptors to create a complete conversion map with preallocated workspace arrays.
+
+The function assumes the attribute map has already been validated and is non-NULL, focusing purely on the mechanical setup of the conversion infrastructure needed for efficient tuple conversion operations.
+
+## Parameters
+- : Input tuple descriptor defining the source tuple structure
+- : Output tuple descriptor defining the target tuple structure  
+- : Pre-built attribute mapping between input and output columns (must be non-NULL)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TupleConversionMap (struct)
+  - AttrMap (struct)
+  - palloc
+  - Assert
+- Called from (representative examples):
+  - convert_tuples_by_name
+  - ExecGetRootToChildMap
+
+## Notes and Other Information
+- The function asserts that attrMap is non-NULL, expecting validation to have occurred upstream
+- Preallocates workspace arrays (outvalues, outisnull, invalues, inisnull) for efficient conversion
+- Position 0 in the invalues/inisnull arrays is reserved for NULL values
+- The output workspace is sized based on outdesc->natts, while input workspace includes +1 for NULL
+- Memory allocation occurs in the caller's memory context
+- The map references the provided descriptors and attribute map, so they must remain valid for the map's lifetime

@@ -1,0 +1,42 @@
+# StandbyAcquireAccessExclusiveLock
+
+## Location
+src/backend/storage/ipc/standby.c: 985 - 1033
+
+## Overview
+StandbyAcquireAccessExclusiveLock acquires AccessExclusive locks during recovery replay to maintain consistency between the primary and standby servers in PostgreSQL's hot standby mode.
+
+## Definition
+void StandbyAcquireAccessExclusiveLock(TransactionId xid, Oid dbOid, Oid relOid)
+
+## Detailed Description
+This function is a core component of PostgreSQL's hot standby locking mechanism. It acquires AccessExclusive locks during WAL replay to ensure that standby queries cannot access relations that were exclusively locked on the primary server. The function manages lock state through hash tables (RecoveryLockHash and RecoveryLockXidHash) to efficiently track and deduplicate locks reported in checkpoints and WAL records. All locks are held by the Startup process using a single virtual transaction, acting as a proxy for the original transactions that held these locks on the primary.
+
+## Parameters / Member Variables
+- : Transaction ID that originally held the lock on the primary server
+- : Database OID of the relation (InvalidOid for shared relations)
+- : Relation OID of the table/index being locked
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TransactionIdIsValid
+  - TransactionIdDidCommit
+  - TransactionIdDidAbort
+  - hash_search
+  - SET_LOCKTAG_RELATION
+  - LockAcquire
+  - RecoveryLockXidEntry
+  - RecoveryLockEntry
+  - xl_standby_lock
+  - LOCKTAG
+- Called from (representative examples):
+  - standby_redo (src/backend/storage/ipc/standby.c:1176)
+  - lock_twophase_standby_recover (src/backend/storage/lmgr/lock.c:4374)
+
+## Notes and Other Information
+- Only tracks AccessExclusive locks, which are held by one transaction on one relation
+- Uses session locks rather than normal locks to avoid needing ResourceOwners
+- Performs deduplication to handle checkpoint re-reporting of existing locks
+- Skips processing for invalid, committed, or aborted transactions
+- Hash table entries link locks to their original transaction IDs for efficient cleanup
+- Part of the recovery locking infrastructure that prevents query conflicts in hot standby mode

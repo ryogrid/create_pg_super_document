@@ -1,0 +1,35 @@
+# pg_encoding_mbcliplen
+
+## Location
+src/backend/utils/mb/mbutils.c: 1093 - 1124
+
+## Overview
+Clips a multi-byte string to a specified length limit with a given encoding, ensuring the result remains valid by not breaking multi-byte character boundaries.
+
+## Definition
+
+
+## Detailed Description
+This function calculates the maximum number of bytes that can be taken from a multi-byte string without exceeding the specified limit and without breaking multi-byte character boundaries. It handles different character encodings by using the appropriate mblen function for each encoding to determine character byte lengths. For single-byte encodings, it optimizes by calling the simpler cliplen function directly.
+
+The function iterates through the string character by character, accumulating the byte length until adding the next character would exceed the limit. It ensures that the clipped string remains valid in the specified encoding by respecting multi-byte character boundaries.
+
+## Parameters / Member Variables
+- : The character encoding identifier (e.g., UTF-8, EUC_JP, etc.)
+- : Pointer to the input multi-byte string to be clipped
+- : The length of the input string in bytes
+- : The maximum number of bytes allowed in the result
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_encoding_max_length
+  - cliplen
+  - pg_wchar_table (array access for mblen function pointer)
+- Called from (representative examples):
+  - pg_mbcliplen
+
+## Notes and Other Information
+- The function assumes the input string is valid in the specified encoding
+- For single-byte encodings, it delegates to the more efficient cliplen function
+- The function stops when either the limit is reached or the end of string is encountered
+- Returns the actual number of bytes that can be safely taken without breaking character boundaries

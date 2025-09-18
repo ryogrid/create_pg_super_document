@@ -1,0 +1,55 @@
+# pg_sequence_parameters
+
+## Location
+src/backend/commands/sequence.c: 1741 - 1784
+
+## Overview
+A SQL-callable function that returns sequence parameters as a composite tuple, primarily used by system views and information schema to expose sequence metadata to users.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL built-in function that provides programmatic access to sequence parameters stored in the pg_sequence system catalog. It performs permission checks and returns all sequence parameters as a structured tuple that can be used in SQL queries.
+
+The function enforces access control by checking that the calling user has at least SELECT, UPDATE, or USAGE privileges on the sequence. This ensures that sequence parameters are only accessible to authorized users.
+
+The returned tuple contains seven fields representing all sequence parameters:
+1. **start_value** (bigint): The starting value of the sequence
+2. **minimum_value** (bigint): The minimum value the sequence can reach
+3. **maximum_value** (bigint): The maximum value the sequence can reach  
+4. **increment** (bigint): The step size for value generation
+5. **cycle_option** (boolean): Whether the sequence cycles when reaching bounds
+6. **cache_size** (bigint): Number of values cached in memory
+7. **data_type** (oid): The data type OID of the sequence
+
+## Parameters / Member Variables
+- Function takes a single OID argument representing the sequence relation ID (accessed via PG_GETARG_OID(0))
+- Returns a Datum representing a heap tuple with sequence parameters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_OID
+  - pg_class_aclcheck
+  - GetUserId
+  - get_rel_name
+  - get_call_result_type
+  - SearchSysCache1
+  - HeapTupleIsValid
+  - GETSTRUCT
+  - Int64GetDatum
+  - BoolGetDatum
+  - ObjectIdGetDatum
+  - ReleaseSysCache
+  - heap_form_tuple
+  - HeapTupleGetDatum
+- Called from:
+  - No direct references found (likely called via SQL function interface)
+
+## Notes and Other Information
+- This function is designed to be called from SQL as a system function
+- Access control is enforced using the standard PostgreSQL ACL system with SELECT, UPDATE, or USAGE privileges required
+- The function was originally created for use by the information schema but can be used by any authorized client
+- Proper error handling includes permission denied errors and cache lookup failures
+- Memory management follows PostgreSQL conventions with system cache tuple release
+- Located in src/backend/commands/sequence.c:1741-1784

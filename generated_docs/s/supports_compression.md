@@ -1,0 +1,44 @@
+# supports_compression
+
+## Location
+src/bin/pg_dump/compress_io.c: 88 - 123
+
+## Overview
+This function checks whether support for a specific compression algorithm is implemented in pg_dump/restore tools and returns an error message if the algorithm is not supported.
+
+## Definition
+
+
+## Detailed Description
+The  function validates whether a given compression algorithm is available in the current build of PostgreSQL's pg_dump/restore utilities. It checks compile-time flags to determine if specific compression libraries (libz, LZ4, ZSTD) were included during the build process. The function returns NULL on success (indicating the algorithm is supported) or a malloc'ed error string that can be used in error messages when the algorithm is not supported.
+
+The function supports four compression algorithms:
+- PG_COMPRESSION_NONE (always supported)
+- PG_COMPRESSION_GZIP (requires HAVE_LIBZ)
+- PG_COMPRESSION_LZ4 (requires USE_LZ4)
+- PG_COMPRESSION_ZSTD (requires USE_ZSTD)
+
+## Parameters / Member Variables
+- : A pg_compress_specification structure containing the compression algorithm and related configuration to be validated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_compress_algorithm_name
+  - psprintf
+  - pg_compress_specification
+  - pg_compress_algorithm
+  - PG_COMPRESSION_NONE
+  - PG_COMPRESSION_GZIP
+  - PG_COMPRESSION_LZ4
+  - PG_COMPRESSION_ZSTD
+- Called from (representative examples):
+  - RestoreArchive (src/bin/pg_dump/pg_backup_archiver.c:374)
+  - ReadHead (src/bin/pg_dump/pg_backup_archiver.c:4050)
+  - main (src/bin/pg_dump/pg_dump.c:806)
+
+## Notes and Other Information
+- The function returns a malloc'ed string on failure, so the caller is responsible for freeing the memory
+- The availability of compression algorithms depends on compile-time configuration and linked libraries
+- PG_COMPRESSION_NONE is always supported as it represents no compression
+- The error message is internationalized using the _() macro
+- Located in src/bin/pg_dump/compress_io.c at lines 88-123

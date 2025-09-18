@@ -1,0 +1,44 @@
+# find_or_make_matching_shared_tupledesc
+
+## Location
+src/backend/utils/cache/typcache.c: 2756 - 2867
+
+## Overview
+Searches for an existing shared tuple descriptor that matches the given descriptor, or creates a new one if none exists, managing shared record type registries.
+
+## Definition
+
+
+## Detailed Description
+This function manages shared tuple descriptors in a multi-process PostgreSQL environment. It first attempts to find an existing shared tuple descriptor that matches the input descriptor by searching the shared record table. If found, it returns the existing shared descriptor. If not found, it allocates a new typmod number, creates a shared copy of the tuple descriptor using , and registers it in both the typmod table and record table for future reuse. The function includes proper error handling and cleanup, with transaction-like semantics using PostgreSQL's PG_TRY/PG_CATCH mechanism to ensure consistency. It also handles race conditions where another process might create a matching descriptor concurrently.
+
+## Parameters / Member Variables
+- : The tuple descriptor to find or create a shared version of
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dshash_find (searches shared hash tables)
+  - dshash_find_or_insert (finds or creates hash table entries)
+  - dshash_release_lock (releases hash table locks)
+  - dshash_delete_key (removes hash table entries)
+  - dsa_get_address (converts shared pointers to addresses)
+  - dsa_free (frees shared memory)
+  - share_tupledesc (creates shared tuple descriptor copies)
+  - pg_atomic_fetch_add_u32 (atomic increment for typmod generation)
+- Data structures used:
+  - SharedRecordTableKey
+  - SharedRecordTableEntry
+  - SharedTypmodTableEntry
+  - dsa_pointer
+  - TupleDesc
+- Called from (representative examples):
+  - assign_record_type_typmod (when assigning typmod to record types)
+
+## Notes and Other Information
+- Returns NULL if not attached to a SharedRecordTypmodRegistry
+- Returned tuple descriptors are not reference counted (tdrefcount == -1)
+- Shared descriptors exist as long as the backend remains attached to the session
+- Includes race condition handling for concurrent descriptor creation
+- Uses atomic operations for typmod generation to ensure uniqueness
+- Implements proper cleanup in error scenarios to prevent memory leaks
+- The function is static and only used within the typcache.c module

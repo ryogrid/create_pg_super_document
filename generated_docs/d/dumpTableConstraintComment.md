@@ -1,0 +1,50 @@
+# dumpTableConstraintComment
+
+## Location
+src/bin/pg_dump/pg_dump.c: 17549 - 17575
+
+## Overview
+Dumps comments associated with table constraints, handling the proper formatting and dependency management for constraint comment restoration.
+
+## Definition
+
+
+## Detailed Description
+The  function is a specialized utility for dumping comments on table constraints. It was split out as a separate function because constraint comments need to be handled in two different contexts:
+
+1. **Inline with CREATE TABLE**: When constraints are defined as part of the initial table creation
+2. **Separate ALTER commands**: When constraints are added separately via ALTER TABLE statements
+
+The function constructs a properly formatted comment identifier string in the form "CONSTRAINT constraint_name ON table_name" and then delegates to the general  function. It carefully manages the dependency relationship, using either the constraint's own dumpId (for separately dumped constraints) or the table's dumpId (for constraints created inline with the table) to ensure comments are restored in the correct order.
+
+Key aspects:
+- **Proper Formatting**: Creates the standard PostgreSQL comment format for constraint objects
+- **Dependency Management**: Uses appropriate dumpId based on whether constraint is dumped separately or inline
+- **Namespace Handling**: Properly qualifies the table name and includes namespace information
+- **Component Control**: Respects the DUMP_COMPONENT_COMMENT flag to control whether comments are included
+
+## Parameters / Member Variables
+- : Archive pointer containing dump options and output context
+- : ConstraintInfo structure containing:
+  - Constraint name and metadata
+  - Associated table information (contable)
+  - Dump flags indicating whether to dump comments
+  - Separation flag indicating dump method (inline vs separate)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - createPQExpBuffer
+  - fmtId
+  - dumpComment
+  - destroyPQExpBuffer
+- Called from (representative examples):
+  - dumpTableSchema
+  - dumpConstraint
+
+## Notes and Other Information
+- Only processes comments if DUMP_COMPONENT_COMMENT flag is set
+- Uses the constraint's dumpId if dumped separately, otherwise uses the table's dumpId for dependency ordering
+- The comment format follows PostgreSQL's standard: "CONSTRAINT constraint_name ON table_name"
+- Essential for maintaining complete schema documentation during database restoration
+- Part of pg_dump's comprehensive comment preservation system
+- Works in coordination with the general comment dumping infrastructure

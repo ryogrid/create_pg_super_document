@@ -1,0 +1,41 @@
+# FlagSxactUnsafe
+
+## Location
+src/backend/storage/lmgr/predicate.c: 699 - 730
+
+## Overview
+Marks a read-only serializable transaction as unsafe and cleans up its possible unsafe conflict records.
+
+## Definition
+
+
+## Detailed Description
+This function flags a read-only serializable transaction as unsafe by setting the SXACT_FLAG_RO_UNSAFE flag and then cleans up all possible unsafe conflicts associated with the transaction. Once a read-only transaction is determined to be unsafe (meaning it cannot use a safe snapshot), there's no need to track potential conflicts anymore, so all records in the possibleUnsafeConflicts list are released back to the pool.
+
+## Parameters / Member Variables
+- : Pointer to the read-only serializable transaction to be flagged as unsafe
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SxactIsReadOnly
+  - SxactIsROSafe
+  - dlist_foreach_modify
+  - dlist_container
+  - ReleaseRWConflict
+- Types referenced:
+  - SERIALIZABLEXACT
+  - dlist_mutable_iter
+  - RWConflict
+  - RWConflictData
+- Constants referenced:
+  - SXACT_FLAG_RO_UNSAFE
+- Called from (representative examples):
+  - ReleasePredicateLocks
+
+## Notes and Other Information
+- Asserts that the transaction is read-only and not already flagged as safe
+- Sets the SXACT_FLAG_RO_UNSAFE flag to mark the transaction as unsafe
+- Iterates through possibleUnsafeConflicts using dlist_foreach_modify for safe deletion
+- Releases all conflict records back to the RWConflictPool
+- Part of PostgreSQL's safe snapshot optimization for read-only transactions
+- Located in src/backend/storage/lmgr/predicate.c:699-730

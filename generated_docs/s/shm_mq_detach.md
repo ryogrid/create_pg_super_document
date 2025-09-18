@@ -1,0 +1,42 @@
+# shm_mq_detach
+
+## Location
+src/backend/storage/ipc/shm_mq.c: 843 - 881
+
+## Overview
+Detaches from a shared memory message queue and destroys the associated handle, performing necessary cleanup operations to ensure proper resource management and communication with counterpart processes.
+
+## Definition
+```c
+void shm_mq_detach(shm_mq_handle *mqh)
+```
+
+## Detailed Description
+This function performs a comprehensive cleanup sequence when detaching from a shared memory message queue. It ensures that any pending data is properly committed, notifies the counterpart process of the detachment, cancels any registered cleanup callbacks, and releases all associated local memory resources.
+
+The detachment process follows a specific sequence: first, any pending send data is committed to ensure data consistency; then the internal detachment mechanism is triggered to notify other processes; any dynamic shared memory (DSM) segment callbacks are cancelled; and finally, local memory buffers and the handle itself are freed.
+
+## Parameters / Member Variables
+- `mqh`: Handle to the shared memory message queue to detach from, containing queue pointer, pending data information, and associated resources
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - shm_mq_inc_bytes_written
+  - shm_mq_detach_internal
+  - cancel_on_dsm_detach
+  - shm_mq_detach_callback
+  - pfree
+- Called from (representative examples):
+  - LaunchParallelWorkers
+  - DestroyParallelContext
+  - HandleParallelMessage
+  - ExecParallelFinish
+  - tqueueShutdownReceiver
+
+## Notes and Other Information
+- Ensures any pending send data is committed before detachment to prevent data loss
+- Properly notifies counterpart processes to avoid hanging waits
+- Handles cleanup of DSM segment callbacks to prevent memory leaks
+- Critical for proper resource management in PostgreSQL's parallel processing framework
+- Used extensively in parallel query execution, tuple queues, and logical replication
+- Must be called to avoid resource leaks when done with a message queue

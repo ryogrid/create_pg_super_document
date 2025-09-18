@@ -1,0 +1,37 @@
+# PgArchShmemInit
+
+## Location
+src/backend/postmaster/pgarch.c: 168 - 196
+
+## Overview
+PgArchShmemInit allocates and initializes the shared memory structure used by the PostgreSQL archiver subsystem.
+
+## Definition
+```c
+void PgArchShmemInit(void)
+```
+
+## Detailed Description
+This function is responsible for setting up the shared memory segment for the PostgreSQL archiver process. It allocates a shared memory structure named "Archiver Data" and initializes it on first access. The function uses PostgreSQL's shared memory infrastructure to create or attach to the archiver's shared state, which includes process information and control flags. During initialization, it sets up atomic variables for thread-safe communication with the archiver process.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ShmemInitStruct: Allocates or attaches to named shared memory structure
+  - PgArchShmemSize: Returns the required size for archiver shared memory
+  - MemSet: Zeros out memory region
+  - pg_atomic_init_u32: Initializes atomic unsigned 32-bit integer
+  - PgArchData: Structure type for archiver shared memory data
+  - INVALID_PROC_NUMBER: Constant indicating invalid process number
+- Called from (representative examples):
+  - CreateOrAttachShmemStructs: Main shared memory initialization function
+
+## Notes and Other Information
+- Sets the global PgArch pointer to the allocated shared memory
+- Initializes pgprocno field to INVALID_PROC_NUMBER on first run
+- Initializes force_dir_scan atomic flag to 0 for controlling directory scanning
+- Uses the "found" parameter to determine if this is first-time initialization
+- Part of the PostgreSQL server startup sequence
+- Must be called after PgArchShmemSize during shared memory setup

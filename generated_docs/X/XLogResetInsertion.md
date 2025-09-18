@@ -1,0 +1,40 @@
+# XLogResetInsertion
+
+## Location
+src/backend/access/transam/xloginsert.c: 222 - 241
+
+## Overview
+XLogResetInsertion resets all WAL record construction buffers and state variables to their initial values, cleaning up after WAL record construction is complete or aborted.
+
+## Definition
+void XLogResetInsertion(void)
+
+## Detailed Description
+XLogResetInsertion performs comprehensive cleanup of the WAL record construction state, restoring the system to a clean state ready for the next WAL record construction cycle. This function is essential for maintaining proper WAL insertion state management.
+
+The function performs the following cleanup operations:
+1. **Buffer State Reset**: Marks all registered buffers as not in use by setting in_use flag to false
+2. **Counter Reset**: Resets data chunk counter (num_rdatas) and maximum block ID counter (max_registered_block_id)
+3. **Data Chain Reset**: Resets the main data chain length and pointer to the head
+4. **Flag Reset**: Clears insertion flags and the begininsert_called flag
+
+This cleanup ensures that subsequent WAL record construction starts with a clean slate and prevents interference between different WAL record construction operations.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogRecData: Referenced when resetting mainrdata_last pointer
+- Called from (representative examples):
+  - XLogInsert: Called after successful WAL record insertion to clean up state
+  - XLogInsert: Called on error paths to ensure cleanup even when insertion fails
+  - AbortTransaction: Called during transaction abort to clean up any pending WAL state
+  - AbortSubTransaction: Called during subtransaction abort for cleanup
+
+## Notes and Other Information
+- Essential for proper WAL state management - must be called after every WAL record construction cycle
+- Called both on successful completion (via XLogInsert) and on error/abort paths
+- Ensures that failed WAL record construction doesn't leave the system in an inconsistent state
+- The function resets global state variables that are shared across all WAL record construction operations
+- Part of the WAL insertion cleanup protocol along with XLogInsert completion

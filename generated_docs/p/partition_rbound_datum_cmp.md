@@ -1,0 +1,51 @@
+# partition_rbound_datum_cmp
+
+## Location
+src/backend/partitioning/partbounds.c: 3556 - 3586
+
+## Overview
+Compares a range partition bound against a tuple's partitioning key values to determine the relative ordering for tuple routing and partition pruning operations.
+
+## Definition
+
+
+## Detailed Description
+The  function performs a comparison between a range partition boundary and the partitioning key values from a tuple. This is a critical function used for tuple routing (determining which partition a tuple belongs to) and partition pruning (eliminating partitions that cannot contain matching tuples).
+
+The comparison algorithm:
+1. **Special boundary handling**: Immediately returns -1 for MINVALUE bounds and +1 for MAXVALUE bounds, since these represent infinite boundaries
+2. **Column-by-column comparison**: For concrete values, compares each partitioning column using the appropriate comparison function with collation
+3. **Early termination**: Stops at the first non-equal column and returns the comparison result
+
+This function differs from  in that it compares a bound against tuple data rather than another bound, and it doesn't need to handle lower/upper bound distinctions since tuples don't have such concepts.
+
+The function returns:
+- **Negative value** if the range bound is less than the tuple values
+- **0** if they are equal
+- **Positive value** if the range bound is greater than the tuple values
+
+## Parameters / Member Variables
+- : Array of comparison functions for each partitioning column
+- : Array of collation OIDs for each partitioning column  
+- : Array of datum values from the range bound
+- : Array of datum kinds (VALUE/MINVALUE/MAXVALUE) from the range bound
+- : Array of datum values from the tuple's partitioning key
+- : Number of partitioning attributes in the tuple
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FunctionCall2Coll (comparison function invocation)
+  - DatumGetInt32 (result extraction)
+  - PARTITION_RANGE_DATUM_MINVALUE / PARTITION_RANGE_DATUM_MAXVALUE (constants)
+- Called from (representative examples):
+  - get_partition_for_tuple (tuple routing)
+  - partition_range_datum_bsearch (binary search operations)
+  - get_matching_range_bounds (partition pruning)
+
+## Notes and Other Information
+- This is a public function, accessible from other modules as declared in partbounds.h
+- Critical for runtime tuple routing performance in partitioned tables
+- MINVALUE boundaries are always considered smaller than any tuple data
+- MAXVALUE boundaries are always considered larger than any tuple data  
+- Used extensively in both executor (for INSERT/UPDATE routing) and optimizer (for partition pruning) components
+- The function assumes tuple_datums contains exactly n_tuple_datums valid partitioning key values

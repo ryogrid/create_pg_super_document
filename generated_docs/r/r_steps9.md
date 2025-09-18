@@ -1,0 +1,45 @@
+# r_steps9
+
+## Location
+src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2830 - 2861
+
+## Overview
+A static function that implements step 9 of the Greek language stemming algorithm, performing suffix pattern matching and replacement with specific character validation checks.
+
+## Definition
+static int r_steps9(struct SN_env * z)
+
+## Detailed Description
+The r_steps9 function performs morphological transformations for step 9 in Greek stemming with enhanced validation:
+
+1. Sets the cursor position (ket) to current position
+2. Performs bounds checking (minimum 7 characters from left boundary)
+3. Validates the character at position c-1 using bit operations to ensure it meets specific criteria
+4. Uses find_among_b to search backward through predefined suffix patterns (a_21 array with 3 entries)
+5. If a match is found, deletes the matched suffix
+6. Resets counter I[0] = 0
+7. Attempts pattern matching with a_19 array (4 entries) and performs string replacement
+8. As fallback, validates specific character values (181 or 189) and uses a_20 array (2 entries) for alternative replacement
+
+The function includes sophisticated character validation using bitwise operations, indicating language-specific character set requirements for Greek text processing.
+
+## Parameters / Member Variables
+- `z`: Pointer to SN_env structure containing the stemming environment, including:
+  - String buffer and cursor positions (c, ket, bra, l, lb)
+  - Character array p for string content
+  - Integer array I[0] for state tracking
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - find_among_b (backward string pattern matching)
+  - slice_del (suffix deletion)
+  - slice_from_s (string replacement)
+- Called from (representative examples):
+  - greek_UTF_8_stem
+
+## Notes and Other Information
+- Returns 1 on successful execution, 0 on no match or validation failure, negative on errors
+- Part of automatically generated Snowball stemmer code for Greek language
+- Uses bitwise validation (-1610481664 >> (z->p[z->c - 1] & 0x1f)) & 1 for character checking
+- Implements Greek-specific character validation for UTF-8 encoded text
+- Uses predefined arrays (a_19, a_20, a_21) and string constants (s_62, s_63)

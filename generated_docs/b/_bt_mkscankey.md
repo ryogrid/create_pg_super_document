@@ -1,0 +1,54 @@
+# _bt_mkscankey
+
+## Location
+src/backend/access/nbtree/nbtutils.c: 129 - 220
+
+## Overview
+Builds an insertion scan key that contains comparison data from an index tuple as well as comparator routines appropriate to the key datatypes, intended for use with _bt_compare() and _bt_truncate().
+
+## Definition
+
+
+## Detailed Description
+This function constructs a BTScanInsert structure that serves as a specialized scan key for B-tree operations. The scan key contains comparison data extracted from the provided index tuple along with appropriate comparator functions for each key datatype. The resulting structure is optimized for use in B-tree comparison operations (_bt_compare) and truncation operations (_bt_truncate).
+
+The function handles several important cases:
+- When a NULL index tuple is passed, it initializes the scankey as if an "all truncated" pivot tuple was provided
+- It may need to share lock the metapage to determine if keys are expected to be unique (heapkeyspace index)
+- For NULL tuple cases, it assumes heapkeyspace=true and allequalimage=false
+- It handles truncated attributes and non-key attributes by omitting them from the final scan key
+- In NULLS NOT DISTINCT mode, it pretends there are no null keys for full uniqueness checking
+
+## Parameters / Member Variables
+- : The index relation for which to build the scan key
+- : The index tuple containing comparison data, or NULL for utility operations
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RelationGetDescr
+  - IndexRelationGetNumberOfKeyAttributes  
+  - BTreeTupleGetNAtts
+  - IndexRelationGetNumberOfAttributes
+  - _bt_metaversion
+  - BTreeTupleGetHeapTID
+  - index_getprocinfo
+  - index_getattr
+  - ScanKeyEntryInitializeWithInfo
+  - BTScanInsertData
+  - BTORDER_PROC
+  - SK_ISNULL
+  - SK_BT_INDOPTION_SHIFT
+
+- Called from (representative examples):
+  - _bt_doinsert (B-tree insertion operations)
+  - _bt_pagedel (Page deletion operations)
+  - _bt_leafbuild (Leaf page building during index creation)
+  - tuplesort_begin_cluster (Cluster sorting operations)
+  - tuplesort_begin_index_btree (B-tree index sorting)
+
+## Notes and Other Information
+- The function assumes heapkeyspace index behavior when caller passes a NULL tuple, which is useful for index build operations that don't have access to the metapage yet
+- Key attributes are extracted only up to the number of key attributes (indnkeyatts), excluding non-key attributes
+- Truncated attributes are defensively represented as NULL values in the scan key
+- The scantid field is set to the heap TID from the tuple if available and the index is heapkeyspace
+- The function handles both regular insertion scenarios and utility operations that may not have complete tuple data

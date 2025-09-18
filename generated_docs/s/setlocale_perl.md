@@ -1,0 +1,40 @@
+# setlocale_perl
+
+## Location
+src/pl/plperl/plperl.c: 4181 - 4247
+
+## Overview
+A static function that wraps the standard setlocale() function to properly notify Perl about locale changes in PostgreSQL's PL/Perl environment.
+
+## Definition
+```c
+static char *setlocale_perl(int category, char *locale)
+```
+
+## Detailed Description
+The `setlocale_perl` function is a wrapper around the standard C library `setlocale()` function that ensures Perl's internal locale handling is properly synchronized when PostgreSQL changes locale settings. When a locale change is requested, this function first calls the standard `setlocale()` to perform the actual locale change, then notifies Perl about the change by calling appropriate Perl locale update functions (`new_ctype`, `new_collate`, `new_numeric`) depending on which locale category was modified.
+
+This synchronization is critical because Perl maintains its own internal locale state, and if PostgreSQL changes the system locale without notifying Perl, it can lead to inconsistencies in string operations, character classification, and numeric formatting within PL/Perl code.
+
+## Parameters / Member Variables
+- `category`: The locale category to set (LC_CTYPE, LC_COLLATE, LC_NUMERIC, LC_ALL, etc.)
+- `locale`: The locale string to set (e.g., "C", "en_US.UTF-8", NULL to query current setting)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dTHX (Perl threading context macro)
+  - setlocale (standard C library function, called multiple times)
+  - new_ctype (Perl locale update function, conditionally compiled)
+  - new_collate (Perl locale update function, conditionally compiled)  
+  - new_numeric (Perl locale update function, conditionally compiled)
+- Called from (representative examples):
+  - PLPERL_RESTORE_LOCALE (macro)
+
+## Notes and Other Information
+- This is a static function with internal linkage, only visible within plperl.c
+- Uses conditional compilation based on locale support macros (USE_LOCALE_CTYPE, USE_LOCALE_COLLATE, USE_LOCALE_NUMERIC)
+- Handles LC_ALL category specially by querying individual locale categories after setting
+- The function returns the same value as the underlying setlocale() call
+- Critical for maintaining consistency between PostgreSQL's locale settings and Perl's internal locale state
+- Located in src/pl/plperl/plperl.c at lines 4181-4247
+- Part of the PL/Perl procedural language extension's locale management system

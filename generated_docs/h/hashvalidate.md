@@ -1,0 +1,52 @@
+# hashvalidate
+
+## Location
+src/backend/access/hash/hashvalidate.c: 47 - 274
+
+## Overview
+The hashvalidate function is a validator for hash operator classes that checks the consistency and completeness of hash access method operator families, ensuring all required operators and support functions are properly defined and have correct signatures.
+
+## Definition
+```c
+bool hashvalidate(Oid opclassoid)
+```
+
+## Detailed Description
+The hashvalidate function performs comprehensive validation of a hash operator class by examining its associated operator family. It validates that:
+
+1. **Support Functions**: All hash functions (HASHSTANDARD_PROC, HASHEXTENDED_PROC) have matching left/right types and correct signatures, and options functions (HASHOPTIONS_PROC) have proper signatures.
+
+2. **Operators**: All operators have valid strategy numbers (1 to HTMaxStrategyNumber), proper boolean return signatures, and no unsupported ORDER BY specifications.
+
+3. **Completeness**: The operator family contains hash functions for all data types that have operators, and all possible combinations of supported data types have corresponding operators.
+
+4. **Cross-type Support**: Built-in hash operator families should have complete cross-type operator coverage.
+
+The function reports validation errors as INFO messages and returns false if any issues are found, making it useful for system integrity checks and debugging operator family definitions.
+
+## Parameters / Member Variables
+- `opclassoid`: The OID of the hash operator class to validate
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1
+  - SearchSysCacheList1
+  - check_hash_func_signature
+  - check_amoptsproc_signature
+  - check_amop_signature
+  - identify_opfamily_groups
+  - list_append_unique_oid
+  - list_member_oid
+  - format_procedure
+  - format_operator
+  - format_type_be
+  - ReleaseCatCacheList
+  - ReleaseSysCache
+- Called from (representative examples):
+  - hashhandler (in hash access method interface)
+
+## Notes and Other Information
+- The validation covers the entire operator family, so some checks are redundant when validating multiple operator classes in the same family, but this duplication is accepted to keep the amvalidate API simple.
+- The function expects hash operator families to be complete with all cross-type operators for built-in types.
+- Hash access method only supports equality operators (strategy number 1) and does not support ORDER BY operations.
+- Located in src/backend/access/hash/hashvalidate.c:47-274.

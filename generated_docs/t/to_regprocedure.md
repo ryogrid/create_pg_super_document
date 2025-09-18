@@ -1,0 +1,42 @@
+# to_regprocedure
+
+## Location
+src/backend/utils/adt/regproc.c: 278 - 298
+
+## Overview
+Converts a procedure name with arguments from text to regprocedure OID, returning NULL instead of throwing an error if the procedure is not found.
+
+## Definition
+```c
+Datum to_regprocedure(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `to_regprocedure` function provides a safe conversion from text to regprocedure OID type. Unlike `regprocedurein`, which throws an error when a procedure is not found, this function returns NULL instead. It serves as a user-friendly wrapper around `regprocedurein` with error handling.
+
+The function:
+1. Converts the input text to a C string
+2. Sets up an error save context to catch any errors
+3. Calls `regprocedurein` through `DirectInputFunctionCallSafe`
+4. Returns NULL if the conversion fails, or the resulting OID if successful
+
+This function is typically used in SQL contexts where NULL handling is preferred over exception throwing, such as in CASE statements or WHERE clauses.
+
+## Parameters / Member Variables
+- Input parameter (via `PG_GETARG_TEXT_PP(0)`): Text containing procedure signature "name(arg_types)"
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `text_to_cstring`: Converts PostgreSQL text type to C string
+  - `regprocedurein`: Core procedure name resolution function
+  - `DirectInputFunctionCallSafe`: Safe function call wrapper with error context
+  - `ErrorSaveContext`: Error handling context structure
+- Called from (representative examples):
+  - No direct references found (likely used via SQL function calls)
+
+## Notes and Other Information
+- Provides NULL-returning semantics instead of error-throwing for missing procedures
+- Uses PostgreSQL's error save context mechanism for safe error handling
+- Commonly used in SQL queries where conditional procedure lookup is needed
+- Part of PostgreSQL's "to_" family of conversion functions that return NULL on failure
+- The function signature follows PostgreSQL's fmgr (function manager) calling convention

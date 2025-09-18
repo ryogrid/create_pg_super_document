@@ -1,0 +1,51 @@
+# pg_get_constraintdef_worker
+
+## Location
+src/backend/utils/adt/ruleutils.c: 2173 - 2576
+
+## Overview
+This is the core worker function that generates SQL constraint definitions by parsing constraint metadata from the system catalogs and producing the appropriate constraint clause text.
+
+## Definition
+
+
+## Detailed Description
+pg_get_constraintdef_worker is the central function responsible for converting PostgreSQL constraint metadata into human-readable SQL constraint definitions. It handles all constraint types including foreign keys, primary keys, unique constraints, check constraints, not null constraints, triggers, and exclusion constraints. The function retrieves constraint information from pg_constraint system catalog using MVCC snapshots and generates appropriate SQL text based on the constraint type and formatting options.
+
+The function supports generating either just the constraint clause (e.g., 'CHECK (age > 0)') or a complete ALTER TABLE command (e.g., 'ALTER TABLE users ADD CONSTRAINT age_check CHECK (age > 0)'). It also handles various formatting options for pretty-printing and can optionally suppress errors for missing constraints.
+
+## Parameters / Member Variables
+-  (Oid): The object identifier of the constraint to process
+-  (bool): Whether to generate a complete ALTER TABLE/ALTER DOMAIN command or just the constraint clause
+-  (int): Formatting flags that control pretty-printing behavior such as indentation and line breaks
+-  (bool): If true, return NULL for non-existent constraints instead of throwing an error
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RegisterSnapshot/UnregisterSnapshot (MVCC transaction snapshot management)
+  - table_open/table_close (system catalog access)
+  - systable_beginscan/systable_getnext/systable_endscan (system catalog scanning)
+  - SysCacheGetAttrNotNull/SysCacheGetAttr (system cache attribute retrieval)
+  - decompile_column_index_array (column list decompilation)
+  - generate_qualified_relation_name/generate_relation_name (relation name generation)
+  - generate_qualified_type_name (type name generation)
+  - quote_identifier (SQL identifier quoting)
+  - deparse_expression_pretty (expression decompilation)
+  - pg_get_indexdef_worker (index definition generation for exclusion constraints)
+  - Various constraint type constants (CONSTRAINT_FOREIGN, CONSTRAINT_PRIMARY, etc.)
+- Called from (representative examples):
+  - pg_get_constraintdef (basic constraint definition function)
+  - pg_get_constraintdef_ext (extended constraint definition function)
+  - pg_get_constraintdef_command (command generation function)
+
+## Notes and Other Information
+- Uses MVCC snapshots to ensure consistent reads of constraint metadata
+- Handles all PostgreSQL constraint types with specialized logic for each
+- For foreign key constraints, generates complete REFERENCES clauses with match types and referential actions
+- For primary key and unique constraints, includes INCLUDE columns and index options when in fullCommand mode
+- For check constraints, deparses stored expressions back into readable SQL
+- For exclusion constraints, delegates to pg_get_indexdef_worker for complex index-based constraint syntax
+- Supports constraint attributes like DEFERRABLE, INITIALLY DEFERRED, and NOT VALID
+- Returns dynamically allocated strings that must be freed by the caller
+- Located in src/backend/utils/adt/ruleutils.c:2173-2576
+- This is a static (internal) function not directly exposed to SQL users

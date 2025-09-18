@@ -1,0 +1,44 @@
+# get_rel_persistence
+
+## Location
+src/backend/utils/cache/lsyscache.c: 2078 - 2099
+
+## Overview
+Returns the persistence attribute (relpersistence) of a given relation, indicating whether the relation is permanent, temporary, or unlogged.
+
+## Definition
+
+
+## Detailed Description
+This function retrieves the persistence attribute of a relation from the PostgreSQL system catalog (pg_class). The persistence attribute determines the storage characteristics and durability properties of the relation:
+- 'p' for permanent relations (normal tables)
+- 't' for temporary relations 
+- 'u' for unlogged relations
+
+The function performs a system cache lookup to efficiently retrieve this information without directly accessing the catalog table.
+
+## Parameters / Member Variables
+- : The OID (Object Identifier) of the relation whose persistence attribute is to be retrieved
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SearchSysCache1 (system cache lookup)
+  - HeapTupleIsValid (tuple validation)
+  - elog (error logging)
+  - GETSTRUCT (macro to extract structure from tuple)
+  - ReleaseSysCache (cache cleanup)
+  - Form_pg_class (pg_class tuple structure)
+- Called from (representative examples):
+  - index_drop
+  - DefineIndex
+  - ReindexIndex
+  - ReindexTable
+  - ReindexMultipleInternal
+  - RangeVarCallbackForLockTable
+  - set_rel_consider_parallel
+
+## Notes and Other Information
+- The function will throw an ERROR if the relation OID is not found in the system catalog
+- Uses PostgreSQL's system cache for efficient lookup
+- The persistence attribute is crucial for determining relation behavior during crash recovery and logging
+- Part of the low-level system cache API (lsyscache.c) that provides convenient access to catalog information

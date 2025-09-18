@@ -1,0 +1,32 @@
+# pg_nextpower2_64
+
+## Location
+src/include/port/pg_bitutils.h: 212 - 234
+
+## Overview
+Returns the next higher power of 2 above the given number, or the number itself if it's already a power of 2.
+
+## Definition
+static inline uint64 pg_nextpower2_64(uint64 num)
+
+## Detailed Description
+This function efficiently computes the next power of 2 for 64-bit unsigned integers. It uses bit manipulation techniques to determine if the input is already a power of 2, and if not, calculates the next higher power of 2. The implementation leverages the mathematical property that a power of 2 has only one bit set, making the bitwise AND operation between the number and its predecessor equal to zero.
+
+## Parameters / Member Variables
+- num: The input 64-bit unsigned integer for which to find the next power of 2. Must be greater than 0 and not exceed PG_UINT64_MAX / 2 + 1.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_leftmost_one_pos64 (to find the position of the leftmost set bit)
+  - PG_UINT64_MAX (maximum value constant for bounds checking)
+- Called from (representative examples):
+  - SH_COMPUTE_SIZE (hash table size computation)
+  - SH_GROW (hash table growth operations)
+  - pg_nextpower2_size_t (size_t variant wrapper)
+
+## Notes and Other Information
+- The function includes an assertion to ensure the input is within valid bounds
+- Uses efficient bit manipulation: checks if (num & (num - 1)) == 0 to detect existing powers of 2
+- For non-power-of-2 inputs, shifts 1 left by (leftmost bit position + 1) to get the next power of 2
+- Commonly used in hash table implementations and memory allocation routines where power-of-2 sizes are preferred
+- The upper bound restriction prevents integer overflow in the result

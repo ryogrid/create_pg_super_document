@@ -1,0 +1,37 @@
+# SerializeMetrics
+
+## Location
+src/backend/commands/explain.c: 53 - 58
+
+## Overview
+SerializeMetrics is a struct that tracks instrumentation data for PostgreSQL's SERIALIZE option in EXPLAIN commands, capturing performance metrics during result serialization.
+
+## Definition
+
+
+## Detailed Description
+The SerializeMetrics structure is used to collect and store performance instrumentation data when PostgreSQL executes queries with the SERIALIZE option enabled in EXPLAIN commands. This struct provides comprehensive metrics about the serialization process, including the volume of data serialized, the time taken for serialization, and detailed buffer usage statistics. It serves as a container for monitoring the efficiency and resource consumption of the result serialization phase, which is crucial for performance analysis and optimization of query execution plans.
+
+## Parameters / Member Variables
+- : A 64-bit unsigned integer that tracks the total number of bytes that have been serialized during the operation
+- : An instr_time structure that measures the total time spent in the serialization process, stored in platform-specific time units
+- : A BufferUsage structure that contains detailed statistics about buffer access patterns during serialization, including shared buffer hits/reads, local buffer operations, temporary block operations, and associated timing information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - instr_time (time measurement type)
+  - BufferUsage (buffer access statistics type)
+- Called from (representative examples):
+  - ExplainOnePlan
+  - ExplainPrintSerialize
+  - SerializeDestReceiver
+  - serializeAnalyzeStartup
+  - CreateExplainSerializeDestReceiver
+  - GetSerializationMetrics
+
+## Notes and Other Information
+- This struct is defined in src/backend/commands/explain.c at lines 53-58
+- It's specifically used for instrumentation when the SERIALIZE option is enabled in EXPLAIN commands
+- The metrics collected help in understanding the performance characteristics of result serialization
+- The struct integrates timing information (instr_time) with buffer usage statistics (BufferUsage) to provide comprehensive serialization metrics
+- Used in conjunction with BYTES_TO_KILOBYTES macro for formatting output in explain plans

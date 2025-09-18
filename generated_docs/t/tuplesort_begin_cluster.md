@@ -1,0 +1,49 @@
+# tuplesort_begin_cluster
+
+## Location
+src/backend/utils/sort/tuplesortvariants.c: 243 - 351
+
+## Overview
+Initializes a Tuplesortstate for cluster operations that sort heap tuples according to a B-tree index ordering, used primarily for the CLUSTER command to reorganize table data.
+
+## Definition
+
+
+## Detailed Description
+This function creates a specialized tuplesort state for cluster operations, which sort heap tuples according to the ordering defined by a B-tree index. It builds the necessary infrastructure to compare tuples based on the index's key attributes, handling both simple column references and complex index expressions. The function sets up execution state and expression evaluation context when the index contains expressions, ensuring proper tuple comparison during the clustering process. It configures sort support for each index key attribute, respecting the index's collation, null ordering, and sort direction.
+
+## Parameters / Member Variables
+- : Tuple descriptor for the heap tuples being sorted
+- : B-tree index relation that defines the sort ordering (must be BTREE_AM_OID)
+- : Amount of memory (in KB) available for sorting operations
+- : Coordination structure for parallel sorting operations
+- : Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - tuplesort_begin_common
+  - TuplesortstateGetPublic
+  - IndexRelationGetNumberOfKeyAttributes
+  - BuildIndexInfo
+  - _bt_mkscankey
+  - CreateExecutorState
+  - MakeSingleTupleTableSlot
+  - GetPerTupleExprContext
+  - removeabbrev_cluster
+  - comparetup_cluster
+  - comparetup_cluster_tiebreak
+  - writetup_cluster
+  - readtup_cluster
+  - freestate_cluster
+  - PrepareSortSupportFromIndexRel
+- Called from (representative examples):
+  - heapam_relation_copy_for_cluster (heapam_handler.c:731)
+
+## Notes and Other Information
+- Requires the index relation to be a B-tree index (asserts BTREE_AM_OID)
+- Handles complex index expressions by setting up an executor state and expression context
+- Disables datum1 optimization when the leading attribute is an expression (ii_IndexAttrNumbers[0] == 0)
+- Respects index-specific sort properties like DESC ordering and NULLS FIRST/LAST
+- Creates a TuplesortClusterArg structure to store cluster-specific arguments including IndexInfo and TupleDesc
+- The function assumes TupleDesc doesn't need copying and stores it directly
+- Uses the index's scan key information to configure sort support for each key attribute

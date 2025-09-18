@@ -1,0 +1,30 @@
+# ResetDecoder
+
+## Location
+src/backend/access/transam/xlogreader.c: 1605 - 1638
+
+## Overview
+ResetDecoder is a private function that resets the XLogReaderState's internal decoding state, clearing all decoded records and buffers when moving to a new read position.
+
+## Definition
+
+
+## Detailed Description
+ResetDecoder provides a clean slate for XLog reading operations by completely resetting the decoder's internal state. The function clears the decoded record queue, freeing any oversized records that were dynamically allocated, resets decode buffers to their initial empty state, and clears any pending error conditions. This ensures that when the XLogReader moves to a new position, there are no stale decoded records or error states that could interfere with subsequent operations.
+
+## Parameters / Member Variables
+- `state`: XLogReaderState containing the decoding context to be reset
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DecodedXLogRecord (structure type)
+  - pfree (for freeing oversized records)
+- Called from (representative examples):
+  - XLogBeginRead
+
+## Notes and Other Information
+- This is a private static function within xlogreader.c, not exposed to external modules
+- Handles memory management by freeing only oversized records (normal records are managed in a pre-allocated pool)
+- Resets both the decode queue and decode buffers to ensure consistent state
+- Clears error message buffer and deferred error flags
+- Essential for maintaining clean state when seeking to different positions in WAL

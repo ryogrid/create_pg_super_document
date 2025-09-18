@@ -1,0 +1,50 @@
+# AlterEventTrigger
+
+## Location
+src/backend/commands/event_trigger.c: 423 - 474
+
+## Overview
+Implements the ALTER EVENT TRIGGER command to enable, disable, or modify the firing mode of an existing event trigger in PostgreSQL.
+
+## Definition
+
+
+## Detailed Description
+This function handles the SQL command "ALTER EVENT TRIGGER foo ENABLE|DISABLE|ENABLE ALWAYS|REPLICA" by modifying the evtenabled field in the pg_event_trigger system catalog. It provides a way to change the firing behavior of event triggers without dropping and recreating them.
+
+The function performs several key operations: validates that the event trigger exists, checks that the current user has ownership permissions, updates the trigger's enabled status in the catalog, and handles special optimization for login event triggers. For login event triggers that are being enabled, it also calls SetDatabaseHasLoginEventTriggers() to set a database-level flag that optimizes login performance by indicating the presence of login triggers.
+
+The function supports different enabling modes including completely disabled, enabled for normal operations, enabled always (even during recovery), and enabled only for replica operations.
+
+## Parameters / Member Variables
+- : Pointer to AlterEventTrigStmt structure containing:
+  - : Name of the event trigger to alter
+  - : New enabled status (TRIGGER_DISABLED, TRIGGER_FIRES_ON_ORIGIN, TRIGGER_FIRES_ALWAYS, or TRIGGER_FIRES_ON_REPLICA)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open (to open the pg_event_trigger relation)
+  - SearchSysCacheCopy1 (to find the event trigger by name)
+  - CStringGetDatum (to convert trigger name to Datum)
+  - HeapTupleIsValid (to validate the found tuple)
+  - GETSTRUCT (to extract the form structure from the tuple)
+  - object_ownercheck (to verify ownership permissions)
+  - GetUserId (to get current user ID)
+  - aclcheck_error (to report permission errors)
+  - CatalogTupleUpdate (to update the catalog tuple)
+  - namestrcmp (to compare event type names)
+  - SetDatabaseHasLoginEventTriggers (to set database flag for login triggers)
+  - InvokeObjectPostAlterHook (to invoke post-alter hooks)
+  - heap_freetuple (to free tuple memory)
+  - table_close (to close the relation)
+- Called from (representative examples):
+  - standard_ProcessUtility (main utility command processor)
+
+## Notes and Other Information
+- Returns the OID of the altered event trigger
+- Requires ownership of the event trigger to perform alterations
+- Special handling for login event triggers to maintain the pg_database.dathasloginevt optimization flag
+- The function operates on a copy of the tuple, allowing safe in-place modification
+- Supports all standard trigger firing modes: disabled, normal, always, and replica-only
+- Post-alter hooks are invoked to allow other subsystems to respond to the change
+- Memory management includes proper cleanup of the tuple copy

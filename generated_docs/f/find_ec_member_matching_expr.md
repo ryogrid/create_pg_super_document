@@ -1,0 +1,47 @@
+# find_ec_member_matching_expr
+
+## Location
+src/backend/optimizer/path/equivclass.c: 759 - 832
+
+## Overview
+Locates an EquivalenceMember within an EquivalenceClass that matches a given expression, ignoring binary-compatible RelabelType nodes for flexible matching.
+
+## Definition
+
+
+## Detailed Description
+This function searches through the members of an EquivalenceClass to find one that matches the given expression. The matching logic is designed to be flexible for sort expression identification by ignoring binary-compatible relabeling operations (RelabelType nodes).
+
+Key features of the matching algorithm:
+
+1. **RelabelType Stripping**: Both the target expression and candidate member expressions have RelabelType nodes removed before comparison. This allows matching of expressions that are functionally equivalent but may have different type labels due to binary-compatible casting.
+
+2. **Constant Member Exclusion**: Members marked as constants are ignored since sorting by constant values doesn't make practical sense.
+
+3. **Child Member Filtering**: Child EquivalenceMembers are only considered if their relation set is a subset of the provided relids parameter, ensuring that child members are only matched when they're relevant to the current context.
+
+4. **Exact Expression Matching**: After stripping RelabelType nodes, uses equal() for exact structural comparison of expressions.
+
+This function is commonly used in sort operation planning where the planner needs to determine if a sort expression already has a corresponding EquivalenceMember that could be utilized for optimization purposes.
+
+## Parameters / Member Variables
+- : EquivalenceClass to search within
+- : Target expression to find a match for
+- : Relation set limiting which child members can be considered
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IsA
+  - bms_is_subset
+  - equal
+- Called from (representative examples):
+  - relation_can_be_sorted_early
+  - prepare_sort_from_pathkeys
+  - make_unique_from_pathkeys
+
+## Notes and Other Information
+- Returns NULL if no matching member is found
+- RelabelType stripping enables matching of binary-compatible expressions that may have different exposed types
+- Child members must have relids that are a subset of the provided relids parameter to be considered
+- Constant members are automatically excluded from consideration as they're not useful for sorting operations
+- The function is essential for sort optimization, allowing the planner to reuse existing EquivalenceClass relationships

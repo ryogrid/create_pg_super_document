@@ -1,0 +1,46 @@
+# Variables
+
+## Location
+src/bin/pgbench/pgbench.c: 345 - 346
+
+## Overview
+The Variables structure is a container that manages a dynamic array of Variable instances for client-side variable storage in pgbench, providing efficient organization and lookup capabilities.
+
+## Definition
+
+
+## Detailed Description
+The Variables structure serves as a comprehensive variable management container in pgbench, implementing a dynamic array of Variable structures with built-in capacity management and optional sorting. This design allows efficient variable storage, lookup, and manipulation during benchmark execution.
+
+The structure maintains both the current count (nvars) and maximum capacity (max_vars) to support dynamic growth without frequent reallocations. The vars_sorted flag enables optimization of lookup operations by indicating whether the array is maintained in sorted order by variable name, allowing for binary search algorithms when appropriate.
+
+This container is fundamental to pgbench's variable system, supporting script-based benchmarks that require variable storage and manipulation across multiple database operations.
+
+## Parameters / Member Variables
+- : Pointer to dynamically allocated array of Variable structures containing the actual variable data
+- : Current number of variables stored in the array
+- : Maximum number of variables that can be stored without reallocating the vars array (must always be >= nvars)
+- : Boolean flag indicating whether the variables are sorted by name for optimized lookups
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Variable (struct type for individual variables)
+- Called from (representative examples):
+  - lookupVariable (for variable search operations)
+  - getVariable (for variable retrieval)
+  - enlargeVariables (for dynamic array expansion)
+  - lookupCreateVariable (for variable creation)
+  - putVariable (for variable assignment)
+  - putVariableValue (for value assignment)
+  - assignVariables (for bulk variable assignment)
+  - getQueryParams (for parameter extraction)
+  - runShellCommand (for shell command variable context)
+  - evaluateSleep (for sleep evaluation with variables)
+
+## Notes and Other Information
+- Located in src/bin/pgbench/pgbench.c at lines 332-345
+- Part of pgbench's client state management system (referenced in ConnectionStateEnum)
+- Designed for efficient memory management with capacity-based growth strategy
+- Supports both sorted and unsorted modes for different performance characteristics
+- Used extensively throughout pgbench for managing per-client variable state during benchmark execution
+- The max_vars >= nvars invariant ensures memory safety and proper capacity management

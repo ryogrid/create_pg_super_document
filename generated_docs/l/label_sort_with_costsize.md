@@ -1,0 +1,37 @@
+# label_sort_with_costsize
+
+## Location
+src/backend/optimizer/plan/createplan.c: 5447 - 5478
+
+## Overview
+A utility function that estimates and labels the cost of a Sort plan node when it doesn't have a directly corresponding Path node, primarily used for EXPLAIN output.
+
+## Definition
+
+
+## Detailed Description
+This function is used in PostgreSQL's query planner to retroactively calculate and assign cost estimates to Sort plan nodes that were created without corresponding Path nodes. The function uses the cost_sort() function to estimate sorting costs based on the left subtree's characteristics and then assigns these costs to the Sort plan node. This is particularly important for providing accurate cost information in EXPLAIN output, even when the Sort node was created through plan manipulation rather than direct path-to-plan conversion.
+
+The function specifically handles Sort nodes (not IncrementalSort nodes) and calculates costs based on the input from the left subtree, including total cost, number of rows, and row width.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planner state and configuration
+- : The Sort plan node to be labeled with cost information
+- : Tuple limit for the sort operation (pass -1 if no limit), used by cost_sort for more accurate estimation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - cost_sort (to calculate sorting costs)
+  - Sort (plan node type being processed)
+- Called from (representative examples):
+  - create_append_plan
+  - create_merge_append_plan
+  - create_unique_plan
+  - create_mergejoin_plan
+
+## Notes and Other Information
+- This is a static function within createplan.c, indicating it's for internal use within that module
+- The function includes an assertion to ensure it only processes Sort nodes, not IncrementalSort nodes
+- The cost calculation considers work_mem settings for memory-based sorting operations
+- The function preserves parallel safety characteristics from the input plan
+- Used primarily for labeling purposes to provide accurate cost information for EXPLAIN queries

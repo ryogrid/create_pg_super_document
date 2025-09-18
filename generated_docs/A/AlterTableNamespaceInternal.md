@@ -1,0 +1,51 @@
+# AlterTableNamespaceInternal
+
+## Location
+src/backend/commands/tablecmds.c: 17278 - 17314
+
+## Overview
+AlterTableNamespaceInternal performs the core work of moving a table or materialized view to another namespace by relocating the relation itself and all its dependent objects to the new schema.
+
+## Definition
+
+
+## Detailed Description
+This function implements the low-level mechanics of namespace relocation for tables and materialized views. It systematically moves all components and dependencies of a relation to the target schema:
+
+1. Updates the pg_class row and pg_depend entries for the main relation
+2. Relocates the table's row type (composite type) if it exists
+3. Moves all associated indexes to the new namespace
+4. Relocates owned sequences to the new namespace  
+5. Updates constraint namespaces for all table constraints
+
+The function ensures atomicity by tracking all moved objects in the objsMoved parameter, allowing for proper rollback if needed. It uses RowExclusiveLock on the pg_class catalog to ensure consistency during the relocation process.
+
+## Parameters / Member Variables
+- : The Relation structure representing the table or materialized view being moved
+- : The OID of the source namespace (current schema)
+- : The OID of the target namespace (destination schema)
+- : ObjectAddresses structure to track all objects moved during the operation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open
+  - AlterRelationNamespaceInternal
+  - AlterTypeNamespaceInternal
+  - AlterIndexNamespaces
+  - AlterSeqNamespaces
+  - AlterConstraintNamespaces
+  - table_close
+
+- Called from (representative examples):
+  - AlterTableNamespace (high-level ALTER TABLE SET SCHEMA handler)
+  - AlterObjectNamespace_oid (generic object namespace alteration)
+
+## Notes and Other Information
+- Requires objsMoved parameter to be non-NULL for proper object tracking
+- Uses RowExclusiveLock on RelationRelationId (pg_class) during the operation
+- Handles composite types associated with tables by moving them to the same namespace
+- Systematically processes all dependent object types: indexes, sequences, constraints
+- The function is the "guts" of table namespace relocation as noted in the comment
+- Maintains referential integrity by ensuring all dependent objects move together
+- Uses AccessExclusiveLock when moving sequences to prevent concurrent access issues
+- Part of a coordinated effort where the high-level function handles validation and this function performs the actual work

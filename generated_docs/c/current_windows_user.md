@@ -1,0 +1,37 @@
+# current_windows_user
+
+## Location
+src/test/regress/pg_regress.c: 949 - 998
+
+## Overview
+Retrieves the account name and domain/realm name for the currently logged-in Windows user using Windows Security APIs.
+
+## Definition
+```c
+static void current_windows_user(const char **acct, const char **dom)
+```
+
+## Detailed Description
+The `current_windows_user` function obtains the current Windows user's account and domain information by using the Windows Security API. It opens a handle to the current process token, retrieves the token user information containing the user's Security Identifier (SID), then uses that SID to look up the corresponding account name and domain name. The function is based on the implementation used in PostgreSQL's SSPI authentication system (pg_SSPI_recvauth) and stores the results in static buffers for return to the caller.
+
+This function is primarily used for SSPI (Security Support Provider Interface) authentication setup during PostgreSQL regression testing on Windows systems, allowing the test framework to determine the current user's credentials for authentication configuration.
+
+## Parameters / Member Variables
+- `acct`: Output parameter that receives a pointer to the account name string
+- `dom`: Output parameter that receives a pointer to the domain/realm name string
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bail (for error handling)
+  - pg_malloc (for memory allocation)
+- Called from (representative examples):
+  - config_sspi_auth
+
+## Notes and Other Information
+- Windows-specific function that uses Win32 API calls (OpenProcessToken, GetTokenInformation, LookupAccountSid)
+- Uses static buffers (MAXPGPATH size) to store the account and domain names
+- The returned string pointers remain valid until the next call to the function
+- Calls bail() on any Windows API errors, terminating the program with appropriate error messages
+- Part of the PostgreSQL regression testing framework's Windows SSPI authentication support
+- Based on the pg_SSPI_recvauth() implementation from PostgreSQL's main authentication system
+- Only compiled and used on Windows platforms

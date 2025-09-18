@@ -1,0 +1,44 @@
+# RT_NODE_16_SEARCH_EQ
+
+## Location
+src/include/lib/radixtree.h: 983 - 1041
+
+## Overview
+RT_NODE_16_SEARCH_EQ is a macro that resolves to a function for searching a node16 structure to find a child pointer corresponding to a specific key chunk.
+
+## Definition
+```c
+#define RT_NODE_16_SEARCH_EQ RT_MAKE_NAME(node_16_search_eq)
+
+// The actual function signature:
+static inline RT_PTR_ALLOC * RT_NODE_16_SEARCH_EQ(RT_NODE_16 * node, uint8 chunk)
+```
+
+## Detailed Description
+RT_NODE_16_SEARCH_EQ is part of PostgreSQL's templated radix tree implementation that provides optimized searching within node16 structures. This function implements both SIMD-accelerated and scalar search algorithms to find a child pointer corresponding to a given key chunk. The SIMD version uses vector operations to compare the search key against multiple stored chunks simultaneously, while the scalar version provides a fallback for platforms without SIMD support. The function includes assertion checking to verify that both implementations produce identical results when both are available.
+
+## Parameters / Member Variables
+- `node`: Pointer to the RT_NODE_16 structure to search within
+- `chunk`: 8-bit key chunk value to search for in the node's chunk array
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RT_MAKE_NAME (macro for name generation)
+  - vector8_broadcast (SIMD function for replicating values)
+  - vector8_load (SIMD function for loading vector data)
+  - vector8_eq (SIMD function for parallel comparison)
+  - vector8_highbit_mask (SIMD function for extracting comparison results)
+  - pg_rightmost_one_pos32 (utility function for bit position finding)
+  - Assert (debug assertion macro)
+- Called from (representative examples):
+  - RT_NODE_SEARCH (general node search dispatcher)
+
+## Notes and Other Information
+- Implements dual code paths: optimized SIMD version and scalar fallback for compatibility
+- SIMD implementation processes chunks in parallel using 8-byte vectors
+- Scalar implementation uses simple linear search through the chunk array
+- Both implementations are compiled when USE_ASSERT_CHECKING is enabled to verify correctness
+- Returns pointer to the child slot if found, NULL if the chunk is not present in the node
+- Function is marked inline for performance optimization since it's in the critical search path
+- The SIMD version masks off invalid entries beyond the actual count to prevent false matches
+- Uses bitfield operations to convert SIMD comparison results to array indices efficiently

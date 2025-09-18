@@ -1,0 +1,33 @@
+# run_named_permutations
+
+## Location
+src/test/isolation/isolationtester.c: 486 - 498
+
+## Overview
+Executes specific named permutations that are explicitly defined in the test specification rather than generating all possible permutations automatically.
+
+## Definition
+
+
+## Detailed Description
+This function runs predefined permutations that are explicitly specified in the test configuration. Unlike  which generates all possible step orderings automatically, this function executes only the specific permutations that have been manually defined in the test specification. This allows test writers to focus on particular scenarios or problematic interleavings without running the full combinatorial explosion of all possibilities.
+
+The function iterates through the array of predefined permutations in the test spec and executes each one by calling  with the pre-arranged sequence of steps.
+
+## Parameters / Member Variables
+- : Pointer to the test specification containing the named permutations to execute
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TestSpec (struct type)
+  - Permutation (struct type)
+  - run_permutation
+- Called from (representative examples):
+  - run_testspec
+
+## Notes and Other Information
+- Provides a more targeted testing approach compared to exhaustive permutation generation
+- Allows test authors to specify exactly which step orderings to test
+- More efficient than full permutation testing when only specific scenarios need validation
+- Part of the isolation testing framework for PostgreSQL concurrency testing
+- Complements the automatic permutation generation functionality

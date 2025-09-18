@@ -1,0 +1,46 @@
+# ParallelBitmapHeapState
+
+## Location
+src/include/nodes/execnodes.h: 1784 - 1793
+
+## Overview
+ParallelBitmapHeapState is a shared state structure that coordinates parallel bitmap heap scan operations across multiple worker processes, managing synchronized access to TID bitmap iterators and prefetching coordination.
+
+## Definition
+
+
+## Detailed Description
+ParallelBitmapHeapState manages the coordination of parallel bitmap heap scan operations where multiple worker processes collaborate to scan heap pages identified by a shared TID bitmap. The structure maintains shared iterators for both current scanning and prefetch operations, ensuring that worker processes don't duplicate work while maximizing I/O efficiency through coordinated prefetching. It uses dynamic shared area (DSA) pointers to reference shared bitmap iterators, mutual exclusion mechanisms to coordinate access, and condition variables for worker synchronization.
+
+## Parameters / Member Variables
+- : DSA pointer to the shared TID bitmap iterator for scanning current pages
+- : DSA pointer to the shared TID bitmap iterator for prefetching ahead of current page
+- : Spinlock for mutual exclusion when accessing prefetching variables and shared state
+- : Number of pages the prefetch iterator is ahead of the current iterator
+- : Current target prefetch distance for optimal I/O performance
+- : SharedBitmapState indicating the current state of the TID bitmap (e.g., building, ready, done)
+- : Condition variable for coordinating worker processes during state transitions
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dsa_pointer
+  - slock_t
+  - SharedBitmapState
+  - ConditionVariable
+- Called from (representative examples):
+  - BitmapHeapNext
+  - ExecBitmapHeapInitializeDSM
+  - ExecBitmapHeapInitializeWorker
+  - BitmapDoneInitializingSharedState
+  - BitmapAdjustPrefetchIterator
+  - BitmapPrefetch
+
+## Notes and Other Information
+- Essential for parallel bitmap heap scans where multiple workers collaborate on scanning heap pages
+- The prefetch mechanism optimizes I/O by reading ahead of the current scan position to reduce seek time
+- Dynamic shared area (DSA) pointers allow the iterators to be shared across process boundaries
+- The mutex protects critical sections where multiple workers might modify shared prefetch state
+- Condition variables enable efficient waiting when workers need to synchronize on bitmap state changes
+- The prefetch target is dynamically adjusted based on I/O patterns and system performance
+- This structure is allocated in shared memory and accessible to all participating worker processes
+- Used in conjunction with BitmapHeapScanState for the complete parallel bitmap scan implementation

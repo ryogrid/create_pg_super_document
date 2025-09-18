@@ -1,0 +1,35 @@
+# optionListToArray
+
+## Location
+src/backend/commands/foreigncmds.c: 66 - 120
+
+## Overview
+Converts a list of DefElem structures into a text array format that is used for storing options in PostgreSQL system catalogs such as pg_foreign_data_wrapper, pg_foreign_server, pg_user_mapping, and pg_foreign_table.
+
+## Definition
+
+
+## Detailed Description
+This static function transforms a linked list of DefElem structures (representing option name-value pairs) into a PostgreSQL text array datum. Each option is formatted as "name=value" and stored as a text element in the array. The function performs validation to ensure that option names do not contain "=" characters, which would make the format ambiguous. If the input list is empty, the function returns PointerGetDatum(NULL). The resulting array is typically stored directly in database system catalogs without further processing, so validation should be performed before calling this function.
+
+## Parameters / Member Variables
+- : A List of DefElem structures containing option name-value pairs to be converted into array format
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ArrayBuildState (type used for building arrays)
+  - DefElem (structure representing option definitions)  
+  - defGetString (extracts string value from DefElem)
+  - SET_VARSIZE (sets the size of a variable-length type)
+  - VARDATA (gets pointer to data portion of variable-length type)
+  - accumArrayResult (accumulates elements into array result)
+  - makeArrayResult (finalizes and returns the array result)
+- Called from (representative examples):
+  - transformGenericOptions (src/backend/commands/foreigncmds.c:190)
+
+## Notes and Other Information
+- The function validates that option names do not contain "=" characters to prevent ambiguous parsing of the "name=value" format
+- Memory allocation is handled through PostgreSQL's memory context system
+- The array elements are stored in text format with each element being "name=value"
+- This is an internal static function used exclusively within the foreign data wrapper command processing module
+- The function properly handles empty option lists by returning NULL datum

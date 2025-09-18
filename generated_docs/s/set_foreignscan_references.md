@@ -1,0 +1,46 @@
+# set_foreignscan_references
+
+## Location
+src/backend/optimizer/plan/setrefs.c: 1578 - 1664
+
+## Overview
+Adjusts variable references in a ForeignScan plan node during the plan finalization phase to account for range table entry offsets and proper variable referencing.
+
+## Definition
+
+
+## Detailed Description
+This function is part of the plan reference adjustment phase in PostgreSQL's query planner. It processes ForeignScan nodes to ensure that all variable references, expressions, and relation IDs are properly adjusted for execution. The function handles two distinct cases:
+
+1. **Custom scan tuple handling**: When the ForeignScan has a custom scan target list (fdw_scan_tlist) or operates without a specific scan relation (scanrelid == 0), it uses fix_upper_expr() to adjust references to point to the foreign scan tuple output.
+
+2. **Standard scan handling**: When using standard relation scanning, it uses fix_scan_list() to adjust references in the conventional manner.
+
+The function ensures that all expressions within the ForeignScan node properly reference the correct variables and relations after plan tree modifications.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planner state and context information
+- : The ForeignScan plan node whose references need to be adjusted
+- : Range table offset to be applied to relation IDs and variable references
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - build_tlist_index
+  - fix_upper_expr
+  - fix_scan_list
+  - offset_relid_set
+  - pfree
+  - NUM_EXEC_TLIST
+  - NUM_EXEC_QUAL
+  - INDEX_VAR
+  - NRM_EQUAL
+- Called from (representative examples):
+  - set_plan_refs
+  - fix_scan_list
+
+## Notes and Other Information
+- This is a static function within setrefs.c, indicating it's used internally for plan reference adjustment
+- The function handles both custom FDW scan tuple formats and standard relation scanning scenarios
+- All FDW-specific expression lists (fdw_exprs, fdw_recheck_quals) are properly adjusted
+- Relation ID sets (fs_relids, fs_base_relids) are offset to maintain proper relation references
+- The resultRelation field is also adjusted if it represents a valid relation

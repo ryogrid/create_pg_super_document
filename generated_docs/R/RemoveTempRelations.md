@@ -1,0 +1,46 @@
+# RemoveTempRelations
+
+## Location
+src/backend/catalog/namespace.c: 4598 - 4623
+
+## Overview
+RemoveTempRelations removes all relations within a specified temporary namespace while preserving the namespace itself, used for cleanup during backend shutdown or when reusing pre-existing temporary namespaces.
+
+## Definition
+
+
+## Detailed Description
+This internal function performs a comprehensive cleanup of all database objects within a temporary namespace. It uses PostgreSQL's dependency deletion mechanism with specific flags to:
+
+- Remove all relations and objects within the target namespace
+- Preserve the namespace itself (SKIP_ORIGINAL flag)
+- Perform cascading deletion of dependent objects
+- Execute as an internal, quiet operation
+- Skip deletion of extensions that might own temporary objects
+
+The function is typically called in two scenarios:
+1. During backend shutdown to clean up temporary relations created during the session
+2. When beginning to use a pre-existing temporary namespace to remove objects left behind by crashed backends
+
+## Parameters / Member Variables
+- : The OID of the temporary namespace whose contents should be removed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - performDeletion
+  - DROP_CASCADE
+  - PERFORM_DELETION_INTERNAL
+  - PERFORM_DELETION_QUIETLY
+  - PERFORM_DELETION_SKIP_ORIGINAL
+  - PERFORM_DELETION_SKIP_EXTENSIONS
+- Called from (representative examples):
+  - InitTempTableNamespace
+  - RemoveTempRelationsCallback
+  - ResetTempTableNamespace
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the namespace.c file
+- The function uses ObjectAddress structure to identify the target namespace for deletion
+- The SKIP_ORIGINAL flag ensures the namespace container itself is not deleted, allowing it to be reused
+- The SKIP_EXTENSIONS flag prevents accidental deletion of extensions that might own temporary objects
+- Part of PostgreSQL's temporary object lifecycle management system

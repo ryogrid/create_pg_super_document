@@ -1,0 +1,57 @@
+# spgChooseOut
+
+## Location
+src/include/access/spgist.h: 74 - 105
+
+## Overview
+A struct that serves as output parameter for the SP-GiST opclass choose method, containing the decision about how to proceed with tree traversal or modification during insertion.
+
+## Definition
+
+
+## Detailed Description
+spgChooseOut is an output structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is filled by the opclass choose method to indicate how the insertion process should proceed. The structure uses a tagged union design where the resultType field determines which member of the union is valid. The choose method can decide to descend into an existing node, add a new node, or split the current tuple.
+
+## Parameters / Member Variables
+- : Enum value indicating which action to take (spgMatchNode, spgAddNode, or spgSplitTuple)
+- : Union containing action-specific data:
+  
+  **For spgMatchNode (descend into existing node):**
+  - : Index of the child node to descend into (0-based)
+  - : Amount to increment the current level by when descending
+  - : New datum value to be stored at the leaf level
+  
+  **For spgAddNode (add new node to current tuple):**
+  - : Label value for the new child node
+  - : Position where the new node should be inserted (0-based index)
+  
+  **For spgSplitTuple (split current tuple into two levels):**
+  - : Whether new upper-level tuple should have a prefix
+  - : Prefix value for new upper-level tuple (if applicable)
+  - : Number of child nodes in new upper-level tuple
+  - : Array of labels for new upper-level tuple's children
+  - : Which child node gets the original tuple content
+  - : Whether new lower-level tuple should have a prefix  
+  - : Prefix value for new lower-level tuple (if applicable)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - spgChooseResultType (enum defining action types)
+  - Datum (PostgreSQL generic data value type)
+  - bool (PostgreSQL boolean type)
+- Called from (representative examples):
+  - spgSplitNodeAction (src/backend/access/spgist/spgdoinsert.c:1717)
+  - spgdoinsert (src/backend/access/spgist/spgdoinsert.c:2161)
+  - spg_kd_choose (src/backend/access/spgist/spgkdtreeproc.c:57)
+  - spg_quad_choose (src/backend/access/spgist/spgquadtreeproc.c:118)
+  - spg_text_choose (src/backend/access/spgist/spgtextproc.c:187)
+  - spg_box_quad_choose (src/backend/utils/adt/geo_spgist.c:420)
+  - inet_spg_choose (src/backend/utils/adt/network_spgist.c:71)
+
+## Notes and Other Information
+- This struct is part of the SP-GiST index access method interface
+- It works in conjunction with spgChooseIn to allow opclass choose methods to receive input parameters and return decisions
+- The union design ensures type safety while supporting multiple different actions
+- The spgSplitTuple action is the most complex, allowing the opclass to restructure the tree by creating two levels from one
+- Different opclasses may use different subsets of these actions based on their tree organization strategy
+- The structure enables efficient tree modification without requiring multiple round trips between the core SP-GiST code and the opclass

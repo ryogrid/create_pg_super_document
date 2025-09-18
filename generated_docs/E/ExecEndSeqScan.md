@@ -1,0 +1,35 @@
+# ExecEndSeqScan
+
+## Location
+src/backend/executor/nodeSeqscan.c: 184 - 211
+
+## Overview
+ExecEndSeqScan performs cleanup operations for a sequential scan node by closing the table scan and freeing associated resources.
+
+## Definition
+```c
+void ExecEndSeqScan(SeqScanState *node)
+```
+
+## Detailed Description
+ExecEndSeqScan handles the termination and cleanup of a sequential scan operation. Its primary responsibility is to properly close the table scan descriptor if one exists, ensuring that any resources allocated during the scan are properly freed. The function retrieves the current scan descriptor from the node state and calls table_endscan to perform the actual cleanup. This follows PostgreSQL's resource management pattern where each initialization function has a corresponding cleanup function.
+
+## Parameters / Member Variables
+- `node`: SeqScanState pointer containing the scan state with the scan descriptor to be cleaned up
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_endscan
+  - SeqScanState
+  - TableScanDesc
+- Called from (representative examples):
+  - ExecEndNode
+  - NODESEQSCAN_H
+
+## Notes and Other Information
+- Returns void as it performs cleanup operations only
+- Includes a null check before calling table_endscan to handle cases where no scan was initiated
+- Part of PostgreSQL's resource management lifecycle (Init -> Exec -> End)
+- Essential for preventing resource leaks in long-running transactions
+- The function is minimal by design, focusing only on scan-specific cleanup
+- Other cleanup operations (like expression context and tuple slots) are handled by higher-level cleanup functions

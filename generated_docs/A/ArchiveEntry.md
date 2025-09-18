@@ -1,0 +1,48 @@
+# ArchiveEntry
+
+## Location
+src/bin/pg_dump/pg_backup_archiver.c: 1222 - 1280
+
+## Overview
+ArchiveEntry creates a new Table of Contents (TOC) entry that serves as the central metadata repository for all database objects during PostgreSQL dump operations, managing object information, dependencies, and dump context.
+
+## Definition
+
+
+## Detailed Description
+ArchiveEntry is a fundamental function in the pg_dump archiver that creates and initializes new TOC entries for database objects being dumped. Despite its name suggesting a simple table of contents, this function actually creates comprehensive metadata records that serve as the primary repository for all information about database objects during the dump process.
+
+The function performs several critical operations: it allocates memory for a new TocEntry structure, links it into the archive's doubly-linked TOC list, copies object metadata from the provided ArchiveOpts structure, manages object dependencies, and calls format-specific archive entry handlers. The TOC entry becomes the authoritative record for the object throughout the dump and restore process.
+
+The function maintains archive statistics by incrementing the TOC count and tracking the maximum dump ID. It carefully manages memory allocation for variable-length fields like object names, statements, and dependency arrays. The resulting TOC entry contains all necessary information for both dumping the object's data and recreating the object during restore.
+
+## Parameters / Member Variables
+- : Archive pointer representing the current dump session context
+- : PostgreSQL system catalog identifier for the database object
+- : Unique identifier for this object within the dump session
+- : ArchiveOpts structure containing all metadata and options for the object being archived
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_malloc0 (for TocEntry allocation)
+  - pg_malloc (for dependencies array allocation)
+  - pg_strdup (for string duplication)
+  - memcpy (for copying dependency arrays)
+  - AH->ArchiveEntryPtr (format-specific entry handler)
+- Called from (representative examples):
+  - dumpTableData
+  - dumpDatabase
+  - dumpNamespace
+  - dumpFunc
+  - dumpIndex
+  - dumpConstraint
+  - dumpSequence
+
+## Notes and Other Information
+- The TOC was originally designed as a table of contents but has evolved into the complete metadata repository
+- Each TOC entry is linked into a doubly-linked list for efficient traversal during restore operations
+- The function handles optional fields gracefully, only allocating memory and copying data when present
+- Dependencies between objects are tracked through the dependencies array, enabling proper restore ordering
+- Format-specific handlers can perform additional processing on the TOC entry after creation
+- The hadDumper flag tracks whether the object has associated data dumping functionality
+- Memory management is carefully handled to prevent leaks while supporting variable-length object metadata

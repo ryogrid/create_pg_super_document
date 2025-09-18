@@ -1,0 +1,39 @@
+# JitContext
+
+## Location
+src/include/jit/jit.h: 57 - 63
+
+## Overview
+JitContext is the main context structure that tracks the state and configuration of JIT compilation operations in PostgreSQL.
+
+## Definition
+
+
+## Detailed Description
+JitContext serves as the primary coordination structure for PostgreSQL's JIT compilation system. It maintains configuration flags that determine what types of JIT operations should be performed, and includes an embedded JitInstrumentation structure to track performance metrics for the JIT operations. This context is typically associated with query execution state and is used throughout the query lifecycle to guide JIT compilation decisions and collect performance data.
+
+## Parameters / Member Variables
+- : Bitfield containing PGJIT_* flags that control JIT behavior:
+  - PGJIT_NONE (0): No JIT operations
+  - PGJIT_PERFORM (1 << 0): Enable basic JIT compilation
+  - PGJIT_OPT3 (1 << 1): Enable level 3 optimizations
+  - PGJIT_INLINE (1 << 2): Enable function inlining
+  - PGJIT_EXPR (1 << 3): Enable expression compilation
+  - PGJIT_DEFORM (1 << 4): Enable tuple deforming compilation
+- : Embedded JitInstrumentation structure for tracking performance metrics
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - JitInstrumentation (embedded structure for performance tracking)
+- Called from (representative examples):
+  - jit_release_context
+  - llvm_release_context
+  - JitProviderCallbacks (as function parameter type)
+  - EState (embedded in execution state)
+
+## Notes and Other Information
+- Typically embedded within EState (execution state) to provide JIT context for query execution
+- The flags field is a crucial control mechanism that determines the aggressiveness of JIT optimizations
+- Used by JIT provider implementations (like LLVM) to maintain provider-specific state
+- Provides the interface between PostgreSQL's generic JIT framework and specific JIT implementations
+- Central to the cost-based JIT compilation decisions made during query planning and execution

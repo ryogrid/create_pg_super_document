@@ -1,0 +1,40 @@
+# expand_dbname_patterns
+
+## Location
+src/bin/pg_dump/pg_dumpall.c: 1528 - 1580
+
+## Overview
+Finds a list of database names that match the given patterns by querying the PostgreSQL system catalog and expanding pattern-based database name specifications.
+
+## Definition
+
+
+## Detailed Description
+This function processes a list of database name patterns and expands them into actual database names by querying the  system catalog. It's designed for use in pg_dumpall to allow users to specify database selection patterns rather than explicit database names. The function is similar in concept to  in pg_dump.c.
+
+For each pattern provided, the function constructs and executes a SQL query that uses PostgreSQL's pattern matching capabilities. The function validates that database name patterns don't contain improper qualified names (dotted names) since database names should be simple identifiers. All matching database names are appended to the output list, with duplicate entries being acceptable since the list is only used for membership testing.
+
+## Parameters / Member Variables
+- : Active PostgreSQL database connection used to execute queries
+- : Input list containing database name patterns to expand
+- : Output list where matching database names will be appended
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SimpleStringList (data structure)
+  - SimpleStringListCell (iterator structure)  
+  - processSQL PatternPattern (pattern matching utility)
+  - PQfinish (PostgreSQL connection cleanup)
+  - exit_nicely (graceful exit function)
+  - executeQuery (query execution wrapper)
+  - simple_string_list_append (list manipulation)
+  - resetPQExpBuffer (buffer reset utility)
+- Called from (representative examples):
+  - main (in pg_dumpall.c at line 515)
+
+## Notes and Other Information
+- The function returns early if no patterns are provided (patterns->head == NULL)
+- Multiple SELECT queries may result in duplicate entries in the output list, but this is intentional and acceptable
+- Database name patterns containing dots (qualified names) are rejected as improper since database names should be simple identifiers
+- Part of the pg_dumpall utility's pattern-based database selection mechanism
+- Uses PostgreSQL's standard pattern matching syntax for database name expansion

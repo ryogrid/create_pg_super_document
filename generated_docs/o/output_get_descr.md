@@ -1,0 +1,49 @@
+# output_get_descr
+
+## Location
+src/interfaces/ecpg/preproc/descriptor.c: 181 - 213
+
+## Overview
+Generates C code for retrieving individual item values from an SQL descriptor at a specified index position.
+
+## Definition
+
+
+## Detailed Description
+This function is part of the ECPG preprocessor that generates runtime C code for SQL descriptor item operations. It processes assignments to retrieve specific descriptor item values and outputs the corresponding ECPGget_desc function call. The function handles various descriptor item types and generates appropriate type information for each variable assignment.
+
+The generated code follows this pattern:
+- Outputs the beginning of an ECPGget_desc call with descriptor name and index
+- Processes each assignment in the global assignments list
+- For each assignment, finds the target variable and generates type information
+- Handles special cases for nullable and key_member items with warnings
+- Uses get_dtype to map descriptor item types to runtime constants
+- Uses ECPGdump_a_type to generate variable type information
+- Terminates the descriptor list with ECPGd_EODT marker
+
+## Parameters / Member Variables
+- : The name of the SQL descriptor from which to retrieve item values
+- : The index position of the descriptor item to retrieve
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - struct assignment (assignment structure for descriptor operations)
+  - find_variable (function to locate variable definitions)
+  - mm_strdup (memory management string duplication)
+  - ECPGd_nullable, ECPGd_key_member (descriptor item type constants)
+  - mmerror (error reporting with PARSE_ERROR and ET_WARNING)
+  - get_dtype (function to convert descriptor types to runtime constants)
+  - ECPGdump_a_type (function to generate variable type information)
+  - drop_assignments (function to clean up assignment list)
+  - whenever_action (function to handle WHENEVER clause processing)
+- Called from (representative examples):
+  - No direct callers found in current analysis
+
+## Notes and Other Information
+- This function is part of the ECPG preprocessor code generation system
+- It outputs to base_yyout, which is the main output stream for generated C code
+- Special handling for nullable (always 1) and key_member (always 0) items with warnings
+- The function uses a zero string for certain type dump operations
+- ECPGd_EODT marks the end of the descriptor type list in generated code
+- The whenever_action(2 | 1) call combines multiple error handling modes
+- This handles individual descriptor items, complementing output_get_descr_header for header operations

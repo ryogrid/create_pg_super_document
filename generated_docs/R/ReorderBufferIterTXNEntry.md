@@ -1,0 +1,35 @@
+# ReorderBufferIterTXNEntry
+
+## Location
+src/backend/replication/logical/reorderbuffer.c: 158 - 165
+
+## Overview
+ReorderBufferIterTXNEntry is a structure that supports k-way in-order iteration of transaction changes, containing all necessary information to track and iterate through changes from a specific transaction.
+
+## Definition
+
+
+## Detailed Description
+This structure is a key component of PostgreSQL's logical replication system that enables k-way merging of changes from multiple transactions in LSN order. When decoding WAL records for logical replication, changes from different transactions need to be processed in the correct chronological order based on their Log Sequence Numbers (LSN). This structure maintains the state for one transaction's stream of changes during the merge process, including the current change being processed, the transaction context, file information for spilled changes, and WAL segment information. The k-way merge algorithm uses multiple instances of this structure to efficiently combine changes from different transactions while maintaining proper ordering.
+
+## Parameters / Member Variables
+- : XLogRecPtr containing the Log Sequence Number of the current change, used for ordering changes across transactions
+- : Pointer to the current ReorderBufferChange being processed from this transaction stream
+- : Pointer to the ReorderBufferTXN structure representing the transaction this entry corresponds to
+- : TXNEntryFile structure managing the file descriptor and offset for reading spilled transaction changes from disk
+- : XLogSegNo representing the WAL segment number associated with the current change
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - XLogRecPtr (PostgreSQL WAL Log Sequence Number type)
+  - ReorderBufferChange (change record structure)
+  - ReorderBufferTXN (transaction state structure)
+  - TXNEntryFile (file management structure)
+  - XLogSegNo (WAL segment number type)
+- Called from (representative examples):
+  - ReorderBufferIterTXNState (at src/backend/replication/logical/reorderbuffer.c:172)
+  - ReorderBufferIterTXNInit (at src/backend/replication/logical/reorderbuffer.c:1318)
+  - ReorderBufferIterTXNNext (at src/backend/replication/logical/reorderbuffer.c:1411)
+
+## Notes and Other Information
+This structure is essential for the k-way merge algorithm used in logical replication decoding. Multiple ReorderBufferIterTXNEntry structures are maintained simultaneously, each representing a different transaction's change stream. The merge algorithm uses the LSN values to determine the correct order for processing changes across all transactions. The file component is particularly important when transactions have been spilled to disk due to memory constraints, allowing the iterator to seamlessly read changes from persistent storage when needed.

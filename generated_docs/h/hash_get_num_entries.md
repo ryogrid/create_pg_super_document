@@ -1,0 +1,39 @@
+# hash_get_num_entries
+
+## Location
+src/backend/utils/hash/dynahash.c: 1344 - 1387
+
+## Overview
+Returns the total number of entries currently stored in a PostgreSQL dynamic hash table, handling both partitioned and non-partitioned tables.
+
+## Definition
+
+
+## Detailed Description
+This function provides a way to query the current number of entries in a hash table. For non-partitioned tables, it simply returns the nentries count from the single freelist. For partitioned tables, it sums the nentries counts across all freelists (NUM_FREELISTS) to provide the total count.
+
+The function is designed to be called when the caller has appropriate locks on the table partitions, as it does not acquire mutexes internally for performance reasons. This design assumes that the caller has ensured exclusive access or is comfortable with potentially reading slightly inconsistent intermediate values during concurrent modifications.
+
+## Parameters / Member Variables
+- : Pointer to the hash table structure (HTAB) whose entry count should be returned
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IS_PARTITIONED (macro to determine if the hash table is partitioned)
+  - NUM_FREELISTS (constant defining the number of freelists in partitioned tables)
+- Called from (representative examples):
+  - XLogHaveInvalidPages (in transaction log utilities)
+  - GetLockStatusData (in lock manager for status reporting)
+  - GetPredicateLockStatusData (in predicate locking system)
+  - hash_stats (for hash table statistics reporting)
+  - compute_array_stats (in array type analysis)
+  - compute_tsvector_stats (in text search statistics)
+  - Various estimation functions for space planning
+
+## Notes and Other Information
+- Returns a long integer representing the total entry count
+- Does not acquire mutexes for performance reasons - caller must ensure appropriate locking
+- For partitioned tables, iterates through all freelists to sum their entry counts
+- Widely used throughout PostgreSQL for statistics, monitoring, and space estimation
+- The function assumes the caller has established proper synchronization if exact counts are required
+- Used extensively in system administration and monitoring functions

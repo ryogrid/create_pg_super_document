@@ -1,0 +1,35 @@
+# substitute_actual_parameters
+
+## Location
+src/backend/optimizer/util/clauses.c: 4907 - 4919
+
+## Overview
+Replaces Param nodes in an expression tree with their corresponding actual parameter values, serving as a wrapper function for the parameter substitution process.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a convenience wrapper for the parameter substitution process during function inlining. It sets up the necessary context structure containing the parameter information and delegates the actual tree traversal and substitution work to substitute_actual_parameters_mutator. The function is part of the SQL function inlining mechanism, where parameter references (, , etc.) in the function body need to be replaced with the actual argument expressions provided in the function call.
+
+The usecounts array is updated during the substitution process to track how many times each parameter is referenced, which is used by the calling code to determine whether inlining is safe (parameters used multiple times must not be expensive or volatile).
+
+## Parameters / Member Variables
+- : The expression tree containing Param nodes to be substituted
+- : Number of function arguments/parameters
+- : List of actual argument expressions to substitute
+- : Array to track usage count of each parameter (output parameter)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - substitute_actual_parameters_context (context structure for parameter substitution)
+  - substitute_actual_parameters_mutator (performs the actual tree traversal and substitution)
+- Called from:
+  - inline_function (during SQL function inlining process)
+
+## Notes and Other Information
+- This is a static function used internally within clauses.c
+- Acts as a simple wrapper that sets up context for the actual mutator function
+- The usecounts array is modified during substitution to track parameter usage patterns
+- Part of the larger function inlining optimization infrastructure
+- Located in src/backend/optimizer/util/clauses.c at lines 4907-4919

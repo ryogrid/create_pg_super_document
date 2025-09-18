@@ -1,0 +1,47 @@
+# KnownAssignedXidsGetAndSetXmin
+
+## Location
+src/backend/storage/ipc/procarray.c: 5126 - 5181
+
+## Overview
+KnownAssignedXidsGetAndSetXmin retrieves an array of known assigned transaction IDs while simultaneously updating the minimum transaction ID (xmin) to the lowest value encountered during the scan.
+
+## Definition
+
+
+## Detailed Description
+This function extends the functionality of KnownAssignedXidsGet by not only retrieving known assigned transaction IDs but also updating the provided xmin value to reflect the lowest transaction ID found during the scan. The function iterates through the KnownAssignedXids array, which is maintained in sorted order, and performs several key operations:
+
+1. Captures the head and tail positions of the KnownAssignedXids array at the start to ensure a consistent view
+2. Uses a read barrier to synchronize with concurrent KnownAssignedXidsAdd operations
+3. Skips invalid entries in the array (gaps)
+4. Updates xmin with the first valid transaction ID if it precedes the current xmin value
+5. Filters out transaction IDs that are greater than or equal to xmax
+6. Populates the output array with qualifying transaction IDs
+
+The function is critical for snapshot creation and transaction visibility determination in PostgreSQL's Hot Standby implementation.
+
+## Parameters / Member Variables
+- : Output array where retrieved transaction IDs will be stored. Caller must ensure sufficient space.
+- : Pointer to the minimum transaction ID value. Will be updated to the lowest transaction ID found if applicable.
+- : Maximum transaction ID threshold. Transaction IDs >= this value are filtered out.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_read_barrier
+  - TransactionIdPrecedes
+  - TransactionIdFollowsOrEquals
+  - TransactionIdIsValid (implicit)
+- Called from (representative examples):
+  - xc_slow_answer_inc
+  - GetSnapshotData
+  - KnownAssignedXidsGet
+
+## Notes and Other Information
+- This is a static function accessible only within procarray.c
+- Requires ProcArrayLock to be held in at least shared mode by the caller
+- The function relies on the sorted property of the KnownAssignedXids array for optimization
+- Only the first valid transaction ID is checked for xmin updates since the array is sorted
+- Uses memory barriers for safe concurrent access to shared data structures
+- Part of PostgreSQL's Hot Standby recovery mechanism for managing transaction visibility on standby servers
+- The function may miss newly-added transaction IDs during iteration, but these would be >= xmax and thus irrelevant

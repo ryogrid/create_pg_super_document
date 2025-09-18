@@ -1,0 +1,47 @@
+# make_window_input_target
+
+## Location
+src/backend/optimizer/plan/planner.c: 6081 - 6200
+
+## Overview
+Generates the appropriate PathTarget for initial input to WindowAgg nodes, containing all values needed to evaluate window functions, compute the final target list, and perform any required final sort step.
+
+## Definition
+
+
+## Detailed Description
+This function computes the target to be computed by the node just below the first WindowAgg when the query has window functions. The resulting tlist must contain all values needed to evaluate the window functions, compute the final target list, and perform any required final sort step. If multiple WindowAggs are needed, each intermediate one adds its window function results onto this base tlist; only the topmost WindowAgg computes the actual desired target list.
+
+The function is similar to make_group_input_target but with key differences:
+- It does not flatten window PARTITION BY/ORDER BY clauses to avoid multiple evaluations
+- It preserves GROUP BY clauses that were left unflattened by make_group_input_target
+- It does not flatten Aggref expressions since those are computed below the window functions
+
+The algorithm collects sortgroupref numbers from window PARTITION/ORDER BY clauses and GROUP BY clauses, then constructs a target containing non-flattenable items while extracting Vars and Aggrefs from flattenable columns.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing query planning information
+- : The query's final target list in PathTarget form
+- : List of active windows previously identified by select_active_windows
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - create_empty_pathtarget
+  - get_pathtarget_sortgroupref
+  - bms_add_member
+  - bms_is_member
+  - add_column_to_pathtarget
+  - pull_var_clause
+  - add_new_columns_to_pathtarget
+  - set_pathtarget_cost_width
+  - list_free
+- Called from:
+  - grouping_planner (src/backend/optimizer/plan/planner.c:1594)
+  - standard_qp_extra (src/backend/optimizer/plan/planner.c:214)
+
+## Notes and Other Information
+- This is a static function within planner.c
+- The function assumes root->parse->hasWindowFuncs is true
+- Uses PVC_INCLUDE_AGGREGATES flag to ensure Aggrefs are placed in the Agg node's tlist
+- Uses PVC_RECURSE_WINDOWFUNCS to make sure WindowFunc input expressions are available
+- The comment notes some redundant cost calculation occurs at the end

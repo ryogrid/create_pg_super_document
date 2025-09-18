@@ -1,0 +1,52 @@
+# comparetup_heap_tiebreak
+
+## Location
+src/backend/utils/sort/tuplesortvariants.c: 1104 - 1157
+
+## Overview
+A specialized static function that performs comprehensive multi-column comparison for heap tuples when the primary sort key comparison results in equality.
+
+## Definition
+```c
+static int comparetup_heap_tiebreak(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+```
+
+## Detailed Description
+This function implements the detailed tiebreaking logic for heap tuple comparisons within PostgreSQL's tuplesort framework. It is called by comparetup_heap when the primary sort key comparison yields equality, requiring examination of additional sort columns to determine the final ordering.
+
+The function performs two distinct phases of comparison. First, if abbreviated keys are being used for the primary sort column, it extracts the full attribute values and performs a complete comparison using ApplySortAbbrevFullComparator. This is necessary because abbreviated keys may have false equality (different values that abbreviate to the same representation).
+
+In the second phase, the function iterates through all remaining sort keys (beyond the first), extracting attribute values from the MinimalTuple structures and comparing them using ApplySortComparator. The function reconstructs HeapTupleData structures from the MinimalTuple format to enable attribute extraction via heap_getattr.
+
+The function ensures stable sorting by examining all specified sort columns in order until a definitive comparison result is found, or returns 0 if all columns are equal.
+
+## Parameters / Member Variables
+- `a`: Pointer to the first SortTuple to compare
+- `b`: Pointer to the second SortTuple to compare
+- `state`: Tuplesortstate containing sorting context, key specifications, and tuple descriptor information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TuplesortstateGetPublic
+  - heap_getattr
+  - ApplySortAbbrevFullComparator
+  - ApplySortComparator
+  - HeapTupleData (struct type)
+  - MinimalTuple (type)
+  - HeapTupleHeader (type)
+  - MINIMAL_TUPLE_OFFSET (constant)
+  - TupleDesc (type)
+  - SortSupport (type)
+- Called from (representative examples):
+  - comparetup_heap
+  - tuplesort_begin_heap (via CLUSTER_SORT macro)
+
+## Notes and Other Information
+- This is a static function, only accessible within the tuplesortvariants.c file
+- Returns integer comparison result: negative if a < b, zero if a == b, positive if a > b
+- Handles both abbreviated and non-abbreviated sort key scenarios
+- Reconstructs HeapTupleData from MinimalTuple format by adjusting memory pointers and lengths
+- Processes multiple sort keys in sequence until a non-equal comparison is found
+- Essential for maintaining sort stability and correctness in multi-column sorting scenarios
+- Part of the heap tuple sorting specialization within the broader tuplesort framework
+- Used in table clustering operations through the CLUSTER_SORT macro

@@ -1,0 +1,41 @@
+# scanPendingInsert
+
+## Location
+src/backend/access/gin/ginget.c: 1824 - 1914
+
+## Overview
+Scans the entire GIN pending list to collect all matching heap row TIDs into a bitmap, coordinating between pending list processing and consistent function evaluation.
+
+## Definition
+```c
+static void scanPendingInsert(IndexScanDesc scan, TIDBitmap *tbm, int64 *ntids)
+```
+
+## Detailed Description
+This function implements the complete pending list scan workflow for GIN bitmap index scans. It starts by acquiring the pending list head from the metapage, then iterates through all heap rows in the pending list using scanGetCandidate. For each row, it calls collectMatchesForHeapRow to determine entry matches, then applies the boolean consistent functions to make final match decisions.
+
+The function properly handles predicate locking on the metapage to coordinate with fast-update insertions, and manages memory contexts to control allocation during consistent function calls. Successfully matching rows are added to the provided TID bitmap with appropriate recheck flags.
+
+## Parameters / Member Variables
+- `scan`: Index scan descriptor containing scan configuration and state
+- `tbm`: TID bitmap to collect matching tuple identifiers
+- `ntids`: Output parameter to count the number of matching TIDs found
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReadBuffer
+  - PredicateLockPage
+  - LockBuffer
+  - BufferGetPage
+  - GinPageGetMeta
+  - UnlockReleaseBuffer
+  - scanGetCandidate
+  - collectMatchesForHeapRow
+  - MemoryContextSwitchTo
+  - MemoryContextReset
+  - tbm_add_tuples
+- Called from (representative examples):
+  - gingetbitmap
+
+## Notes and Other Information
+Key entry point for pending list processing in GIN bitmap scans. The predicate locking ensures proper concurrency control with fast-update operations. Memory context management is essential to prevent memory leaks during consistent function evaluation, as these functions may allocate significant temporary memory. The function gracefully handles empty pending lists by returning immediately.

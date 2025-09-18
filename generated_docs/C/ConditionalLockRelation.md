@@ -1,0 +1,43 @@
+# ConditionalLockRelation
+
+## Location
+src/backend/storage/lmgr/lmgr.c: 275 - 309
+
+## Overview
+ConditionalLockRelation attempts to acquire an additional lock on an already-open relation without blocking, returning immediately if the lock cannot be obtained.
+
+## Definition
+```c
+bool ConditionalLockRelation(Relation relation, LOCKMODE lockmode)
+```
+
+## Detailed Description
+This function is the non-blocking variant of LockRelation. It attempts to acquire a lock on an already-open relation using LockAcquireExtended with the dontWait parameter set to true. If the lock cannot be acquired immediately, it returns false without blocking. If successful, it handles invalidation messages similar to LockRelation to maintain cache consistency. This function is useful when lock contention might cause performance issues and the caller can handle the case where the lock is not available.
+
+## Parameters / Member Variables
+- `relation`: Pointer to an already-open Relation structure containing the relation information and lock details
+- `lockmode`: The lock mode to acquire (e.g., AccessShareLock, RowExclusiveLock, etc.)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
+  - LockAcquireExtended (performs the actual lock acquisition with extended options)
+  - AcceptInvalidationMessages (processes cache invalidation messages)
+  - MarkLockClear (marks the local lock state as clear)
+- Types referenced:
+  - Relation (relation descriptor structure)
+  - LOCKTAG (lock tag structure)
+  - LOCALLOCK (local lock information)
+  - LockAcquireResult (result of lock acquisition)
+  - LOCKMODE (enumeration of lock modes)
+- Called from (representative examples):
+  - lazy_truncate_heap (in vacuumlazy.c:2581)
+
+## Notes and Other Information
+- Returns true if lock was successfully acquired, false if lock was not available
+- This is specifically for adding locks to already-open relations - never use with relation_open(foo, NoLock)
+- The function uses dontWait=true in LockAcquireExtended to avoid blocking
+- Includes the same cache invalidation handling as LockRelation when the lock is successfully acquired
+- Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
+- Commonly used in vacuum operations where lock contention should be avoided to prevent blocking other operations
+- The non-blocking behavior makes it suitable for opportunistic locking scenarios

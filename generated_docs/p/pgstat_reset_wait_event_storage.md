@@ -1,0 +1,37 @@
+# pgstat_reset_wait_event_storage
+
+## Location
+src/backend/utils/activity/wait_event.c: 362 - 373
+
+## Overview
+Resets wait event storage location back to a local variable, typically called during backend shutdown.
+
+## Definition
+```c
+void pgstat_reset_wait_event_storage(void)
+```
+
+## Detailed Description
+This function resets the wait event reporting storage location by setting the global my_wait_event_info pointer back to the address of local_my_wait_event_info. This is typically called during backend shutdown to prevent the wait event reporting mechanism from trying to access shared memory locations that may become invalid. It effectively switches from shared memory storage back to local process storage for wait event information.
+
+## Parameters / Member Variables
+- None (takes no parameters)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - None (simple assignment operation)
+- Global variables accessed:
+  - my_wait_event_info (modified)
+  - local_my_wait_event_info (referenced)
+- Called from (representative examples):
+  - ProcKill (in proc.c:915)
+  - AuxiliaryProcKill (in proc.c:996)
+
+## Notes and Other Information
+- Expected to be called during backend shutdown phase
+- Serves as the cleanup counterpart to pgstat_set_wait_event_storage()
+- Prevents access to potentially invalid shared memory locations after shutdown
+- Switches wait event storage from shared memory back to local process memory
+- The function performs a simple pointer assignment to local_my_wait_event_info
+- Part of PostgreSQL's graceful shutdown and cleanup procedures
+- Located at src/backend/utils/activity/wait_event.c:362-373

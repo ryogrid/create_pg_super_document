@@ -1,0 +1,35 @@
+# get_pkglib_path
+
+## Location
+src/port/path.c: 955 - 963
+
+## Overview
+Constructs the full path to PostgreSQL's package library directory by calculating a relative path from the executable location.
+
+## Definition
+
+
+## Detailed Description
+This function determines the absolute path to PostgreSQL's package library directory (pkglibdir) based on the location of the current executable. It uses the  function to compute the path by using the compile-time constants PKGLIBDIR and PGBINDIR to establish the relative relationship between the binary directory and the package library directory.
+
+The function is essential for PostgreSQL installations to locate shared libraries and extension modules at runtime, particularly in relocatable installations where the actual installation path may differ from the compile-time paths.
+
+## Parameters / Member Variables
+- : Input parameter containing the full path to the current executable
+- : Output buffer where the computed package library path will be stored (must be at least MAXPGPATH bytes)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - make_relative_path
+  - PKGLIBDIR (compile-time constant)
+  - PGBINDIR (compile-time constant)
+- Called from (representative examples):
+  - getInstallationPaths (src/backend/postmaster/postmaster.c:1457)
+  - InitStandaloneProcess (src/backend/utils/init/miscinit.c:218)
+  - get_configdata (src/common/config_info.c:90, 120)
+
+## Notes and Other Information
+- Part of PostgreSQL's path resolution system for relocatable installations
+- The function assumes ret_path buffer is sufficiently large (MAXPGPATH)
+- Used during server startup and by utilities that need to locate shared libraries
+- The actual path computation is delegated to make_relative_path which handles the complex logic of path resolution

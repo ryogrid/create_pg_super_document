@@ -1,0 +1,30 @@
+# bms_overlap
+
+## Location
+src/backend/nodes/bitmapset.c: 582 - 607
+
+## Overview
+Tests whether two bitmap sets have any common members by checking if their intersection is non-empty.
+
+## Definition
+
+
+## Detailed Description
+This function determines if two bitmap sets have any bits in common by performing a bitwise AND operation on corresponding words and checking if any result is non-zero. The function handles NULL inputs by treating them as empty sets, which means any comparison involving a NULL set will return false (empty sets cannot overlap with anything). The implementation is optimized to only check the shorter of the two sets, since any bits beyond the shorter set's range cannot contribute to an overlap. The function returns immediately upon finding the first overlapping bit, making it efficient for cases where sets have early overlaps.
+
+## Parameters / Member Variables
+- `a`: The first bitmap set to test for overlap (can be NULL, representing an empty set)
+- `b`: The second bitmap set to test for overlap (can be NULL, representing an empty set)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bms_is_valid_set (validation function for bitmap sets)
+- Called from (representative examples):
+  - heap_update (heap access method for update operations)
+  - has_partition_attrs (partitioning attribute analysis)
+  - ExecUpdateLockMode (executor lock mode determination)
+  - generate_join_implied_equalities (join equality generation)
+  - join_is_legal (join legality checking)
+
+## Notes and Other Information
+This function is extensively used throughout PostgreSQL's query optimizer and execution engine to test for conflicts, dependencies, and relationships between sets of identifiers. Common use cases include checking if two relations share attributes, if join conditions affect overlapping column sets, if outer join conditions conflict with other constraints, and if parameter dependencies exist between different parts of a query plan. The function's efficiency is crucial since it's called frequently during query planning and execution, particularly in complex join scenarios and partitioned table operations.

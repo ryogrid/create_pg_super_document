@@ -1,0 +1,45 @@
+# jsonb_path_query_array_internal
+
+## Location
+src/backend/utils/adt/jsonpath_exec.c: 591 - 606
+
+## Overview
+Internal implementation function that executes a JSONPath expression against a JSONB document and returns all matching values wrapped in a JSONB array.
+
+## Definition
+```c
+static Datum jsonb_path_query_array_internal(FunctionCallInfo fcinfo, bool tz)
+```
+
+## Detailed Description
+This static function serves as the core implementation for JSONPath array query operations. It extracts function arguments, executes the JSONPath expression using `executeJsonPath`, collects all matching values in a JsonValueList, and wraps the results in a JSONB array. The function supports both timezone-aware and timezone-unaware operations based on the `tz` parameter.
+
+## Parameters / Member Variables
+- `fcinfo`: Function call information structure containing:
+  - Argument 0: JSONB document to query
+  - Argument 1: JSONPath expression to execute  
+  - Argument 2: JSONB variables for the path expression
+  - Argument 3: Boolean flag for silent mode (suppresses errors)
+- `tz`: Boolean flag indicating whether to use timezone-aware datetime operations
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_JSONB_P (argument extraction)
+  - PG_GETARG_JSONPATH_P (path argument extraction)
+  - PG_GETARG_BOOL (boolean argument extraction)
+  - executeJsonPath (core path execution)
+  - getJsonPathVariableFromJsonb (variable resolver)
+  - countVariablesFromJsonb (variable counter)
+  - wrapItemsInArray (array wrapper)
+  - JsonbValueToJsonb (conversion function)
+  - PG_RETURN_JSONB_P (return macro)
+- Called from (representative examples):
+  - jsonb_path_query_array
+  - jsonb_path_query_array_tz
+
+## Notes and Other Information
+- This is a static internal function not exposed outside the module
+- Results are always returned as a JSONB array, even if no matches are found
+- The silent parameter controls error handling during path execution
+- Located in src/backend/utils/adt/jsonpath_exec.c:591-606
+- Uses JsonValueList to collect intermediate results before array wrapping

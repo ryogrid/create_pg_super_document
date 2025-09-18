@@ -1,0 +1,35 @@
+# is_funcclause
+
+## Location
+src/include/nodes/nodeFuncs.h: 69 - 75
+
+## Overview
+A static inline utility function that checks whether a given clause is a FuncExpr (function expression) node in PostgreSQL's parse tree.
+
+## Definition
+
+
+## Detailed Description
+This function provides a type-safe way to determine if a clause represents a function call expression in PostgreSQL's parse tree. It uses the IsA() macro to perform runtime type checking, ensuring that the provided clause is not NULL and is specifically a FuncExpr node type. This is commonly used in optimizer and planner code where different types of clauses need to be handled differently based on their node type.
+
+## Parameters / Member Variables
+- : A pointer to a parse tree node that needs to be checked. Can be NULL, in which case the function returns false.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FuncExpr (node type)
+  - IsA (macro for type checking)
+- Called from (representative examples):
+  - clause_selectivity_ext
+  - clause_is_strict_for
+  - array_unnest_support
+  - generate_series_int4_support
+  - generate_series_int8_support
+  - like_regex_support
+  - network_subset_support
+
+## Notes and Other Information
+- This is a static inline function defined in nodeFuncs.h, making it available to any file that includes this header
+- The function is NULL-safe, returning false when clause is NULL
+- Part of a family of similar type-checking functions for different node types in PostgreSQL's parse tree
+- Commonly used in selectivity estimation, predicate testing, and function support routines

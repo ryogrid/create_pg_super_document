@@ -1,0 +1,32 @@
+# bbstreamer_recovery_injector_finalize
+
+## Location
+src/bin/pg_basebackup/bbstreamer_inject.c: 200 - 208
+
+## Overview
+Performs end-of-stream processing for the recovery injector bbstreamer by forwarding the finalization call to the next bbstreamer in the chain.
+
+## Definition
+
+
+## Detailed Description
+This function implements the finalize operation for the bbstreamer_recovery_injector. It serves as a simple pass-through function that forwards the finalization call to the next bbstreamer in the processing chain. The function follows the standard bbstreamer pattern of delegating finalization responsibilities to subsequent streamers, ensuring proper cleanup and termination of the entire streaming pipeline.
+
+This is a standard implementation for bbstreamer finalization that doesn't require any special cleanup logic specific to the recovery injector functionality.
+
+## Parameters / Member Variables
+- : The bbstreamer instance being finalized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bbstreamer_finalize
+  - bbstreamer (struct type)
+- Called from (representative examples):
+  - No direct references found (likely called via function pointer in operations table)
+
+## Notes and Other Information
+- Static function used as part of the bbstreamer_recovery_injector operations table
+- Simple pass-through implementation that delegates to the next bbstreamer in the chain
+- No special cleanup required for recovery injector state
+- Part of the standard bbstreamer lifecycle management
+- Located in src/bin/pg_basebackup/bbstreamer_inject.c:200-208

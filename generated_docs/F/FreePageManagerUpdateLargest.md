@@ -1,0 +1,29 @@
+# FreePageManagerUpdateLargest
+
+## Location
+src/backend/utils/mmgr/freepage.c: 366 - 378
+
+## Overview
+Updates the cached size of the largest contiguous run of free pages when the cache has been marked dirty.
+
+## Definition
+
+
+## Detailed Description
+This function is a lazy cache update mechanism for tracking the largest contiguous block of free pages available in a FreePageManager. The function only performs work when the  flag is set, indicating that the cached value may be stale due to recent page allocations or deallocations.
+
+When called, it recomputes the actual largest contiguous page run by calling  and updates the cached value in . After the update, it clears the dirty flag to indicate the cache is now current.
+
+## Parameters / Member Variables
+- : Pointer to the FreePageManager structure whose largest contiguous pages cache needs updating
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FreePageManager (struct type)
+  - FreePageManagerLargestContiguous
+- Called from (representative examples):
+  - FreePageManagerGet
+  - FreePageManagerPut
+
+## Notes and Other Information
+This is an internal static function that implements a lazy evaluation pattern for performance optimization. Rather than recalculating the largest contiguous block size on every page operation, the function only updates when necessary, reducing computational overhead in scenarios with frequent page management operations.

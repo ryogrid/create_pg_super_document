@@ -1,0 +1,55 @@
+# check_relation_updatable
+
+## Location
+src/backend/replication/logical/worker.c: 2485 - 2525
+
+## Overview
+Validates that a logical replication target relation is updatable by checking for proper replica identity or primary key configuration and provides detailed error messages when requirements are not met.
+
+## Definition
+```c
+static void check_relation_updatable(LogicalRepRelMapEntry *rel)
+```
+
+## Detailed Description
+This function serves as a critical validation checkpoint for logical replication operations that require tuple identification (UPDATE and DELETE operations). It ensures that the target relation has the necessary infrastructure to uniquely identify tuples for modification or deletion.
+
+The function implements a tiered validation approach:
+
+1. **Partitioned Table Bypass**: For partitioned tables, the function returns early as updateability is determined at the individual partition level
+2. **Quick Updatable Check**: If the relation is already marked as updatable in the relation mapping, no further validation is needed
+3. **Detailed Analysis**: When the relation appears non-updatable, it performs a deeper analysis to provide specific error messages based on the actual configuration issue
+
+The function provides two distinct error scenarios:
+- When a replica identity or primary key exists but the publisher didn't send the required columns
+- When the relation lacks both replica identity and primary key infrastructure entirely
+
+This validation is essential for maintaining data consistency in logical replication by preventing operations that could result in incorrect or incomplete tuple identification.
+
+## Parameters / Member Variables
+- `rel`: LogicalRepRelMapEntry structure containing information about the replicated relation mapping, including local and remote relation details
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - OidIsValid (macro)
+  - GetRelationIdentityOrPK
+  - ereport (macro)
+  - errcode (macro)
+  - errmsg (macro)
+  - LogicalRepRelMapEntry (data structure)
+  - RELKIND_PARTITIONED_TABLE (constant)
+  - ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE (constant)
+- Called from (representative examples):
+  - apply_handle_update
+  - apply_handle_delete
+  - apply_handle_tuple_routing
+
+## Notes and Other Information
+- This is a static function within the logical replication worker module
+- Only called for UPDATE and DELETE operations where tuple identification is required
+- Provides user-friendly error messages that include both local and remote relation names
+- Implements performance optimization by checking the cached updatable flag before expensive validation
+- Critical for preventing data corruption in logical replication scenarios
+- Part of PostgreSQL's replica identity enforcement mechanism
+- The function intentionally uses slower validation in error cases to provide more accurate diagnostics
+- Handles the distinction between missing replica identity configuration and missing replica identity data

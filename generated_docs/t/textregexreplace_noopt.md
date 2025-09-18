@@ -1,0 +1,38 @@
+# textregexreplace_noopt
+
+## Location
+src/backend/utils/adt/regexp.c: 642 - 657
+
+## Overview
+A PostgreSQL function that performs regular expression-based text replacement with default options (case-sensitive, replace first occurrence only).
+
+## Definition
+```c
+Datum textregexreplace_noopt(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+The `textregexreplace_noopt` function implements a simplified version of PostgreSQL's regular expression replacement functionality. It takes a source text, a regular expression pattern, and a replacement string, then returns a new text value with the first occurrence of the pattern replaced by the replacement string. This function uses default options: case-sensitive matching and replaces only the first match. It serves as a convenience wrapper around the more complex `replace_text_regexp` function with predefined parameters.
+
+## Parameters / Member Variables
+- `PG_GETARG_TEXT_PP(0)`: The source text string to search and replace within
+- `PG_GETARG_TEXT_PP(1)`: The regular expression pattern to match
+- `PG_GETARG_TEXT_PP(2)`: The replacement string to substitute for matches
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `PG_GETARG_TEXT_PP`: Extracts text arguments with potential detoasting
+  - `replace_text_regexp`: Core function that performs the actual regex replacement
+  - `PG_RETURN_TEXT_P`: Returns a text value from the function
+  - `PG_GET_COLLATION`: Gets collation information for the operation
+  - `REG_ADVANCED`: Flag for advanced regular expression features
+- Called from (representative examples):
+  - No direct references found in the codebase (likely called through SQL function dispatch)
+
+## Notes and Other Information
+- Uses default replacement options: case-sensitive matching, first occurrence only
+- Serves as a simplified interface to the more complex regex replacement functionality
+- The function parameters to replace_text_regexp are: (text, pattern, replacement, flags, collation, start_search, max_replacements)
+- Uses 0 for start_search (beginning of string) and 1 for max_replacements (first match only)
+- Part of PostgreSQL's comprehensive regular expression replacement functionality
+- Typically called through SQL regexp_replace() function without options parameter

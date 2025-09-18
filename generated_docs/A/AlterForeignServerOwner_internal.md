@@ -1,0 +1,43 @@
+# AlterForeignServerOwner_internal
+
+## Location
+src/backend/commands/foreigncmds.c: 349 - 425
+
+## Overview
+Internal workhorse function for changing a foreign server's owner, performing ownership validation checks and updating catalog records.
+
+## Definition
+
+
+## Detailed Description
+This internal function handles the core logic for changing the ownership of a foreign server. It performs comprehensive permission checks to ensure the operation is authorized, validates that the new owner has appropriate privileges on the associated foreign-data wrapper, and updates both the server ownership and access control list (ACL) in the catalog. The function follows PostgreSQL's standard pattern for ownership changes by checking current ownership, validating permissions, and updating dependency records.
+
+## Parameters / Member Variables
+- : Relation object for the pg_foreign_server catalog table
+- : HeapTuple representing the foreign server record to be modified  
+- : Object ID of the new owner to be assigned to the foreign server
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - superuser: Check if current user has superuser privileges
+  - object_ownercheck: Verify current user owns the foreign server
+  - check_can_set_role: Validate ability to become the new owner
+  - object_aclcheck: Check new owner has USAGE privilege on FDW
+  - GetForeignDataWrapper: Retrieve FDW information for error reporting
+  - aclnewowner: Update ACL with new owner information
+  - heap_modify_tuple: Create modified tuple with new ownership
+  - CatalogTupleUpdate: Update the catalog record
+  - changeDependencyOnOwner: Update ownership dependency records
+  - InvokeObjectPostAlterHook: Trigger post-alter hooks
+- Called from (representative examples):
+  - AlterForeignServerOwner: Public interface for ownership changes
+  - AlterForeignServerOwner_oid: OID-based ownership change wrapper
+
+## Notes and Other Information
+- Only updates ownership if the current and new owners differ
+- Superusers can bypass most permission checks
+- Non-superusers must own the server and be able to become the new owner
+- New owner must have USAGE privilege on the associated foreign-data wrapper
+- Handles ACL updates only when existing ACL is non-null
+- Uses standard PostgreSQL catalog update patterns with tuple modification
+- Triggers post-alter hooks for proper event notification

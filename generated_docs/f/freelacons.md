@@ -1,0 +1,40 @@
+# freelacons
+
+## Location
+src/backend/regex/regcomp.c: 2430 - 2446
+
+## Overview
+Deallocates the memory used by a lookaround-constraint sub-regular expression vector, freeing both individual compiled NFAs and the array itself.
+
+## Definition
+
+
+## Detailed Description
+The freelacons function is responsible for properly cleaning up memory allocated for lookaround constraint structures (lacons) in PostgreSQL's regex engine. It serves as the cleanup counterpart to newlacon, ensuring that all dynamically allocated memory associated with lookaround assertions is properly freed.
+
+The function performs a two-step cleanup process:
+1. Iterates through the lacons array (skipping index 0) and frees any compiled NFAs (cnfa structures) that were allocated for individual lookaround constraints
+2. Frees the entire lacons array itself
+
+The iteration starts from index 1 because index 0 is intentionally unused in the lacons array design. For each lacon entry, it checks if a compiled NFA exists (using NULLCNFA) and frees it if present. This ensures that no memory leaks occur from partially processed or completed lookaround constraints.
+
+## Parameters / Member Variables
+- : pointer to the array of subre structures representing the lacons
+- : total number of elements in the lacons array (including the unused 0th element)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - NULLCNFA - Macro to check if cnfa structure is null/empty
+  - freecnfa - Frees compiled NFA structures
+  - FREE - Deallocates main array memory
+- Called from (representative examples):
+  - freev - Main vars structure cleanup function
+  - rfree - Regex structure cleanup function
+
+## Notes and Other Information
+- Skips index 0 in the array as it's intentionally unused in the lacon design
+- Safely handles partially initialized lacons by checking NULLCNFA before freeing
+- Part of the comprehensive memory management system for regex compilation
+- Essential for preventing memory leaks in regex patterns with lookaround assertions
+- The assert(n > 0) ensures the function is not called with invalid array sizes
+- Memory cleanup is performed in reverse dependency order (cnfas first, then array)

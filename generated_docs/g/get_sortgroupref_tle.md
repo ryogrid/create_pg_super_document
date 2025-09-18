@@ -1,0 +1,44 @@
+# get_sortgroupref_tle
+
+## Location
+src/backend/optimizer/util/tlist.c: 345 - 366
+
+## Overview
+Finds and returns the target list entry that matches a given SortGroupRef index.
+
+## Definition
+
+
+## Detailed Description
+This function searches through a target list to find the TargetEntry that has a matching ressortgroupref value. The ressortgroupref field is used to link target list entries with ORDER BY, GROUP BY, and DISTINCT clauses. When the parser processes these clauses, it assigns unique reference numbers to expressions that need to be sorted or grouped, and this function provides a way to locate the corresponding target list entry.
+
+The function performs a linear search through the target list and returns the first matching entry. If no matching entry is found, it raises an ERROR with the message "ORDER/GROUP BY expression not found in targetlist", indicating a serious internal inconsistency in the query planning process.
+
+This is a utility function that's essential for connecting the abstract sorting/grouping requirements with the actual expressions in the target list.
+
+## Parameters / Member Variables
+- : The SortGroupRef index value to search for
+- : The target list to search through
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - foreach (macro for list iteration)
+  - lfirst (to extract list cell content)
+  - elog (for error reporting)
+  - TargetEntry (struct type)
+  - Index (type alias)
+- Called from (representative examples):
+  - convert_subquery_pathkeys
+  - prepare_sort_from_pathkeys
+  - make_unique_from_pathkeys
+  - get_sortgroupclause_tle
+  - transformDistinctOnClause
+  - get_rule_sortgroupclause
+
+## Notes and Other Information
+- Throws an ERROR if the sortref is not found, which should never happen in correct code
+- Returns NULL after the error (unreachable code, kept for compiler satisfaction)
+- Used extensively in sorting and grouping operations throughout the optimizer
+- The SortGroupRef mechanism allows the same expression to be referenced from multiple clauses
+- Linear search is acceptable since target lists are typically small
+- Essential for implementing ORDER BY, GROUP BY, DISTINCT, and window function operations

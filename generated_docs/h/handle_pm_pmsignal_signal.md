@@ -1,0 +1,41 @@
+# handle_pm_pmsignal_signal
+
+## Location
+src/backend/postmaster/postmaster.c: 2076 - 2085
+
+## Overview
+Signal handler that processes SIGUSR1 signals from child processes and pg_ctl to notify the postmaster of pending 'pmsignals'.
+
+## Definition
+```c
+static void handle_pm_pmsignal_signal(SIGNAL_ARGS)
+```
+
+## Detailed Description
+handle_pm_pmsignal_signal is a signal handler function that responds to SIGUSR1 signals sent to the postmaster. This signal serves dual purposes:
+
+1. **Child Process Communication**: Child processes use SIGUSR1 to notify the postmaster of 'pmsignals' - internal communication messages that require the postmaster's attention
+2. **External Tool Communication**: pg_ctl uses SIGUSR1 to request the postmaster to check for logrotate and promote files
+
+The handler sets a global flag (pending_pm_pmsignal) and wakes up the postmaster's main event loop by setting its latch. This ensures the postmaster will process the pending signals in its main loop rather than handling them directly in the signal handler context, which is safer and more reliable.
+
+The function follows PostgreSQL's pattern of minimal signal handlers that defer actual work to the main event loop.
+
+## Parameters / Member Variables
+- Uses SIGNAL_ARGS macro which expands to the standard signal handler parameters (typically int sig)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SetLatch
+  - SIGNAL_ARGS (macro)
+- Called from (representative examples):
+  - PostmasterMain (as signal handler registration)
+
+## Notes and Other Information
+- Static function - only accessible within postmaster.c
+- Uses async-signal-safe operations only (setting boolean flag and latch)
+- Part of PostgreSQL's inter-process communication system
+- Critical for postmaster responsiveness to child process events
+- The actual signal processing happens later in the main event loop, not in the handler itself
+- Registered as SIGUSR1 handler during PostmasterMain initialization
+- Essential for operations like log rotation and standby promotion triggered by pg_ctl

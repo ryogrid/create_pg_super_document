@@ -1,0 +1,55 @@
+# AlterOpFamilyAdd
+
+## Location
+src/backend/commands/opclasscmds.c: 881 - 1029
+
+## Overview
+Implements the ADD portion of ALTER OPERATOR FAMILY commands by adding new operators and support functions to an existing operator family.
+
+## Definition
+
+
+## Detailed Description
+AlterOpFamilyAdd processes the addition of operators and support functions to an existing operator family. It validates each item in the provided list, ensuring operator and function numbers are within valid ranges for the access method, resolves operator and function references, and creates the necessary catalog entries.
+
+Key aspects:
+- Processes operators (OPCLASS_ITEM_OPERATOR) and functions (OPCLASS_ITEM_FUNCTION)
+- Requires explicit argument types for operators (unlike CREATE OPERATOR CLASS)
+- Creates soft dependencies (ref_is_hard = false) historically for ALTER ADD operations
+- Prohibits STORAGE type specification (only allowed in CREATE OPERATOR CLASS)
+- Allows access method-specific validation through amadjustmembers callback
+- Creates pg_amop and pg_amproc entries with family-level dependencies
+
+## Parameters / Member Variables
+- : ALTER OPERATOR FAMILY statement containing context information
+- : OID of the access method
+- : OID of the operator family being modified
+- : Maximum allowed operator strategy number for this access method
+- : Maximum allowed support function number for this access method  
+- : Special function number for options processing function
+- : List of CreateOpClassItem objects representing operators/functions to add
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetIndexAmRoutineByAmId
+  - LookupOperWithArgs
+  - LookupFuncWithArgs
+  - get_opfamily_oid
+  - assignOperTypes
+  - assignProcTypes
+  - addFamilyMember
+  - processTypesSpec
+  - storeOperators
+  - storeProcedures
+  - EventTriggerCollectAlterOpFam
+- Called from (representative examples):
+  - AlterOpFamily (when isDrop is false)
+
+## Notes and Other Information
+- Unlike DefineOpClass, this function requires explicit operator argument types - no defaulting to the opclass input type
+- Creates soft dependencies on the operator family rather than hard dependencies like CREATE OPERATOR CLASS
+- STORAGE type specification is explicitly prohibited with a syntax error
+- The access method can override dependency choices and perform additional validation via amadjustmembers
+- Event triggers are notified of the changes for proper extension support
+- Uses InvalidOid for opclass parameter when calling amadjustmembers since this operates at family level
+- Function performs immediate validation of operator/function existence and number ranges

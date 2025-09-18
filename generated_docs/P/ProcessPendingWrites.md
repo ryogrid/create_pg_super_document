@@ -1,0 +1,47 @@
+# ProcessPendingWrites
+
+## Location
+src/backend/replication/walsender.c: 1618 - 1671
+
+## Overview
+ProcessPendingWrites is a blocking function that waits until all pending network writes are completed while actively processing client replies, checking timeouts, and handling configuration changes.
+
+## Definition
+```c
+static void ProcessPendingWrites(void)
+```
+
+## Detailed Description
+This function implements the "slow path" for WAL sender operations when there are pending writes that need to be flushed to the client. It enters a loop that continues until all pending writes are cleared (`pq_is_send_pending()` returns false). During this waiting period, it actively maintains the connection by processing incoming replies, checking for timeouts, sending keepalives, and handling configuration reload requests.
+
+The function uses PostgreSQL`s wait event infrastructure to efficiently wait for socket writability or readability, computing appropriate sleep times to balance responsiveness with resource usage. It ensures proper cleanup by resetting latches and reactivating them upon completion so the main WAL sender loop can continue.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ProcessRepliesIfAny (handles incoming client messages)
+  - WalSndCheckTimeOut (verifies connection timeout status)
+  - WalSndKeepaliveIfNecessary (sends keepalive messages)
+  - pq_is_send_pending (checks for pending output)
+  - WalSndComputeSleeptime (calculates optimal wait time)
+  - GetCurrentTimestamp (gets current time for calculations)
+  - WalSndWait (waits for socket events)
+  - ResetLatch/SetLatch (manages latch state)
+  - ProcessConfigFile (handles configuration reloads)
+  - SyncRepInitConfig (reinitializes sync replication config)
+  - pq_flush_if_writable (attempts to flush pending data)
+  - WalSndShutdown (shuts down on flush failure)
+- Called from (representative examples):
+  - WalSndWriteData (when taking the slow path for blocked writes)
+  - WALSND_LOGICAL_LAG_TRACK_INTERVAL_MS (in lag tracking context)
+
+## Notes and Other Information
+- This is the "slow path" counterpart to the fast path in WalSndWriteData
+- Implements a comprehensive event loop that handles multiple concerns simultaneously
+- Uses WL_SOCKET_WRITEABLE and WL_SOCKET_READABLE wait events for efficient I/O multiplexing
+- Handles configuration reloads (SIGHUP) seamlessly during the wait loop
+- Critical for preventing deadlocks when the client is not consuming data quickly enough
+- Maintains connection health through active keepalive and timeout management
+- Ensures proper latch management for integration with the main WAL sender event loop

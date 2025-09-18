@@ -1,0 +1,42 @@
+# makeDictionaryDependencies
+
+## Location
+src/backend/commands/tsearchcmds.c: 307 - 341
+
+## Overview
+This function creates pg_depend entries for a new text search dictionary, establishing dependencies on owner, namespace, template, and extension to ensure proper cascading behavior.
+
+## Definition
+```c
+static ObjectAddress makeDictionaryDependencies(HeapTuple tuple)
+```
+
+## Detailed Description
+The function establishes a complete dependency graph for a newly created text search dictionary by recording dependencies in the pg_depend system catalog. It extracts dictionary information from the provided HeapTuple and creates dependency records for the dictionary's owner (user/role), namespace, and template. Additionally, it records the dictionary's membership in the current extension if executed within an extension context.
+
+Unlike parser dependencies, dictionary dependencies include an ownership dependency which is handled separately through recordDependencyOnOwner(). The namespace and template dependencies use normal dependency strength, ensuring the dictionary will be automatically dropped if its namespace or template are dropped.
+
+## Parameters / Member Variables
+- `tuple`: HeapTuple containing the pg_ts_dict row data for the new dictionary
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Form_pg_ts_dict: Type cast to access dictionary tuple fields
+  - ObjectAddressSet: Sets up object address structures
+  - recordDependencyOnOwner: Records ownership dependency between dictionary and owner
+  - recordDependencyOnCurrentExtension: Records extension membership
+  - new_object_addresses: Creates new ObjectAddresses collection
+  - add_exact_object_address: Adds object to dependency collection
+  - record_object_address_dependencies: Records all dependencies with specified strength
+  - free_object_addresses: Cleans up ObjectAddresses collection
+- Called from (representative examples):
+  - DefineTSDictionary: Called after inserting new dictionary tuple to establish dependencies
+
+## Notes and Other Information
+- This is a static function, only accessible within tsearchcmds.c
+- Records four types of dependencies: owner, extension, namespace, and template
+- Owner dependency is handled separately from namespace/template dependencies
+- Uses DEPENDENCY_NORMAL strength for namespace and template dependencies
+- The function returns the ObjectAddress of the dictionary itself for potential use by callers
+- Template dependency ensures dictionary is dropped if its template is removed
+- Ownership dependency enables proper permission and ownership tracking

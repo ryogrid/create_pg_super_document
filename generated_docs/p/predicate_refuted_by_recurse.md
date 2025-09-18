@@ -1,0 +1,59 @@
+# predicate_refuted_by_recurse
+
+## Location
+src/backend/optimizer/util/predtest.c: 531 - 825
+
+## Overview
+Recursively performs the core logical refutation testing between clauses and predicates using comprehensive case analysis of AND/OR expression structures and NOT-clause handling.
+
+## Definition
+```c
+static bool predicate_refuted_by_recurse(Node *clause, Node *predicate, bool weak)
+```
+
+## Detailed Description
+This function implements the recursive core logic for predicate refutation testing. It handles all combinations of AND-expressions, OR-expressions, and atomic expressions using these logical rules:
+
+- **atom A R=> atom B**: Uses predicate_refuted_by_simple_clause for base cases
+- **atom A R=> AND-expr B**: A must refute any of Bs components
+- **atom A R=> OR-expr B**: A must refute each of Bs components  
+- **AND-expr A R=> atom B**: Any of As components must refute B
+- **AND-expr A R=> AND-expr B**: A must refute any of Bs components, OR any of As components must refute B
+- **AND-expr A R=> OR-expr B**: A must refute each of Bs components
+- **OR-expr A R=> atom B**: Each of As components must refute B
+- **OR-expr A R=> AND-expr B**: Each of As components must refute any of Bs components
+- **OR-expr A R=> OR-expr B**: A must refute each of Bs components
+
+The function includes special handling for NOT-clauses:
+- **A R=> NOT B** if A implies B
+- **NOT A R=> B** if B implies A (with appropriate strong/weak handling)
+
+## Parameters / Member Variables
+- `clause`: The clause/restriction that is assumed to be true (may contain RestrictInfo nodes)
+- `predicate`: The predicate expression to be disproven (shown false)
+- `weak`: Boolean indicating whether to use weak (true) or strong (false) refutation semantics
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - predicate_classify (classifies expressions as AND/OR/ATOM)
+  - predicate_refuted_by_simple_clause (handles atom R=> atom base cases)
+  - predicate_implied_by_recurse (used for NOT-clause handling)
+  - extract_not_arg (extracts argument from NOT-type clauses)
+  - extract_strong_not_arg (extracts argument from strong NOT clauses)
+  - iterate_begin/iterate_end (macros for iterating over AND/OR components)
+  - PredIterInfoData (structure for iteration state)
+  - PredClass enumeration (CLASS_AND, CLASS_OR, CLASS_ATOM)
+- Called from (representative examples):
+  - predicate_refuted_by (top-level entry point)
+  - predicate_refuted_by_recurse (recursive self-calls)
+
+## Notes and Other Information
+- Static function - internal implementation detail of predtest.c
+- Handles complex logical expressions by breaking them down systematically with refutation rules
+- Automatically strips RestrictInfo wrappers from clause nodes
+- Special logic for NOT-clauses leverages implication testing for refutation proofs
+- Uses comprehensive case analysis to ensure all logical combinations are covered
+- Critical for query optimization in constraint-based table exclusion and partition pruning
+- Strong NOT-clause handling allows proving refutation when the NOTs argument is false
+- The logic applies equally to both strong and weak refutation modes
+- Designed to work with flattened AND/OR expressions from eval_const_expressions()

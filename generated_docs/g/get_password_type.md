@@ -1,0 +1,1 @@
+Documentation for get_password_type symbol

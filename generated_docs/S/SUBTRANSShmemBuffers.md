@@ -1,0 +1,37 @@
+# SUBTRANSShmemBuffers
+
+## Location
+src/backend/access/transam/subtrans.c: 201 - 213
+
+## Overview
+Calculates the optimal number of shared memory buffers for the SUBTRANS system, using auto-tuning based on shared buffers or enforcing configured limits.
+
+## Definition
+```c
+static int
+SUBTRANSShmemBuffers(void)
+```
+
+## Detailed Description
+SUBTRANSShmemBuffers determines the appropriate number of shared memory buffers to allocate for the SUBTRANS (subtransaction) Simple LRU system. The function implements an intelligent auto-tuning mechanism when subtransaction_buffers is set to 0 (auto mode), using a ratio-based calculation that allocates 2MB of SUBTRANS buffers for every 1GB of shared buffers, capped at 8MB.
+
+When a specific buffer count is configured via subtransaction_buffers, the function enforces reasonable bounds by ensuring the value falls between a minimum of 16 buffers and the maximum allowed by the SLRU system (SLRU_MAX_ALLOWED_BUFFERS).
+
+## Parameters / Member Variables
+This function takes no parameters and returns an integer representing the number of buffers to allocate.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SimpleLruAutotuneBuffers (performs auto-tuning calculation with 512KB/1024KB parameters)
+  - SLRU_MAX_ALLOWED_BUFFERS (maximum buffer limit for SLRU systems)
+  - subtransaction_buffers (global configuration variable)
+- Called from (representative examples):
+  - SUBTRANSShmemSize (to calculate total shared memory requirements)
+  - SUBTRANSShmemInit (during SUBTRANS initialization)
+
+## Notes and Other Information
+- The auto-tuning algorithm uses SimpleLruAutotuneBuffers(512, 1024) which implements a 2MB per 1GB ratio with an 8MB cap
+- Minimum buffer count is enforced at 16 to ensure adequate performance for basic subtransaction operations
+- Part of PostgreSQL's shared memory initialization sequence during server startup
+- The buffer count directly affects performance of nested transaction operations
+- Static function used internally within the SUBTRANS subsystem for memory management

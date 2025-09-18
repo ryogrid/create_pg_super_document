@@ -1,0 +1,40 @@
+# extract_grouping_collations
+
+## Location
+src/backend/optimizer/util/tlist.c: 489 - 513
+
+## Overview
+Extracts collation OIDs from grouping column expressions in a SortGroupClause list and returns them as an array for use in planning GROUP BY operations.
+
+## Definition
+
+
+## Detailed Description
+This utility function processes a list of SortGroupClause structures alongside a target list to extract the collation OIDs from the expressions of grouping columns. For each SortGroupClause, it locates the corresponding TargetEntry in the target list, then extracts the collation OID from that entry's expression using exprCollation(). The function creates and returns a dynamically allocated array containing these collation OIDs in the same order as they appear in the input list.
+
+This function is essential for query planning as it provides the collation information needed for proper comparison and sorting of grouped data. The collation determines how text data should be compared and ordered, which is crucial for correct grouping behavior in multi-lingual or case-sensitive scenarios.
+
+## Parameters / Member Variables
+- : A List of SortGroupClause structures representing the grouping columns
+- : A List of TargetEntry structures containing the target expressions to extract collations from
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - list_length (to determine array size)
+  - palloc (for memory allocation)
+  - lfirst (for list iteration)
+  - get_sortgroupclause_tle (to find corresponding TargetEntry)
+  - exprCollation (to extract collation from expression)
+  - SortGroupClause (structure type)
+  - TargetEntry (structure type)
+- Called from (representative examples):
+  - create_group_plan (src/backend/optimizer/plan/createplan.c:2265)
+  - create_agg_plan (src/backend/optimizer/plan/createplan.c:2333)
+  - create_groupingsets_plan (src/backend/optimizer/plan/createplan.c:2491, 2530)
+
+## Notes and Other Information
+- The returned array is allocated with palloc() and becomes the caller's responsibility to manage
+- Requires both the SortGroupClause list and the target list to properly resolve expressions and their collations
+- Works in conjunction with extract_grouping_ops and extract_grouping_cols to provide complete grouping information
+- Essential for proper handling of collation-sensitive grouping operations
+- Located in src/backend/optimizer/util/tlist.c:489-513

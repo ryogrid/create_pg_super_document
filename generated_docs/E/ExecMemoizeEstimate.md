@@ -1,0 +1,39 @@
+# ExecMemoizeEstimate
+
+## Location
+src/backend/executor/nodeMemoize.c: 1190 - 1210
+
+## Overview
+Estimates the shared memory space required to propagate memoize execution statistics across parallel worker processes.
+
+## Definition
+
+
+## Detailed Description
+ExecMemoizeEstimate is a parallel query support function that calculates the shared memory requirements for propagating memoize execution statistics from worker processes back to the leader process. The function is only relevant when instrumentation is enabled and parallel workers are being used. It estimates the memory needed to store MemoizeInstrumentation data for each worker process in a shared memory structure (SharedMemoizeInfo).
+
+The function performs memory size calculations using PostgreSQL's safe arithmetic functions to prevent overflow, then registers the estimated chunk size and number of keys with the shared memory table of contents (TOC) estimator.
+
+## Parameters / Member Variables
+- : Pointer to the MemoizeState structure containing the memoize execution state and instrumentation settings
+- : Pointer to the ParallelContext structure containing parallel execution context including the number of workers
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - mul_size (safe multiplication for memory size calculations)
+  - add_size (safe addition for memory size calculations) 
+  - shm_toc_estimate_chunk (estimates shared memory chunk requirements)
+  - shm_toc_estimate_keys (estimates shared memory key requirements)
+- Types referenced:
+  - MemoizeState (memoize execution state structure)
+  - ParallelContext (parallel execution context)
+  - MemoizeInstrumentation (memoize statistics structure)
+  - SharedMemoizeInfo (shared memory info structure)
+- Called from:
+  - ExecParallelEstimate (main parallel execution estimator)
+
+## Notes and Other Information
+- Only performs estimation when instrumentation is enabled (node->ss.ps.instrument is true) and parallel workers are present (pcxt->nworkers > 0)
+- The estimated memory size includes space for one MemoizeInstrumentation structure per worker plus the SharedMemoizeInfo header
+- Uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow in size calculations
+- Part of PostgreSQL's parallel query execution framework for memoize operations

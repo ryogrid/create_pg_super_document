@@ -1,0 +1,36 @@
+# pg_vsprintf
+
+## Location
+src/port/snprintf.c: 214 - 229
+
+## Overview
+pg_vsprintf is PostgreSQL's portable implementation of vsprintf that formats a string into an unbounded buffer using a va_list argument.
+
+## Definition
+
+
+## Detailed Description
+pg_vsprintf provides a portable alternative to the standard vsprintf function. Unlike pg_vsnprintf which takes a buffer size limit, pg_vsprintf assumes the output buffer is large enough to hold the entire formatted string. It formats the format string `fmt` with the variable arguments contained in `args` and stores the result in the buffer `str`. The function sets the PrintfTarget's bufend to NULL to indicate unlimited buffer mode, allowing dopr() to write without bounds checking. This function should only be used when you can guarantee the buffer is sufficiently large.
+
+## Parameters
+- `str`: Output buffer where the formatted string will be stored (must be large enough for result)
+- `fmt`: Format string containing text and format specifiers
+- `args`: Variable arguments list containing values to be formatted according to fmt
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PrintfTarget (struct for managing output formatting)
+  - dopr (internal function that performs the actual formatting work)
+- Called from (representative examples):
+  - pg_sprintf (wrapper function for sprintf functionality)
+  - vsprintf (when PostgreSQL's implementation is used instead of system's)
+  - printf (indirectly through PostgreSQL printf wrappers)
+
+## Notes and Other Information
+- Returns the number of characters written (not counting the null terminator) if successful, or -1 on failure
+- WARNING: This function performs no buffer bounds checking - the caller must ensure the buffer is large enough
+- The PrintfTarget.bufend is set to NULL to indicate unlimited buffer mode to dopr()
+- Always null-terminates the output string
+- Should be avoided in favor of pg_vsnprintf for safer code - only use when buffer size is definitively known to be sufficient
+- Part of PostgreSQL's portable printf implementation providing consistent behavior across platforms
+- The nchars field is initialized but not really used since there's no buffer limit to track overflow

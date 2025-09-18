@@ -1,0 +1,39 @@
+# AffixNodeData
+
+## Location
+src/include/tsearch/dicts/spell.h: 136 - 137
+
+## Overview
+AffixNodeData is a structure that represents data stored in nodes of a prefix tree (Trie) used to efficiently store and organize affix lists in PostgreSQL's ISpell dictionary system.
+
+## Definition
+
+
+## Detailed Description
+AffixNodeData serves as the data component of nodes in a prefix tree (Trie) structure used to organize affix rules in ISpell dictionaries. Each node contains character value information, the number of affixes associated with that node, pointers to the actual affix data, and references to child nodes in the tree. This tree structure enables efficient prefix-based lookups of affix rules during word normalization and spell checking operations.
+
+The structure uses bit fields to pack the character value and affix count into a single 32-bit integer, optimizing memory usage. The  field stores an 8-bit character value, while  stores the count of affixes in a 24-bit field, allowing for up to 16 million affixes per node (though practical limits are much lower).
+
+## Parameters / Member Variables
+- : 8-bit character value representing the character at this node in the trie
+- : 24-bit count indicating the number of affixes stored at this node
+- : Pointer to an array of AFFIX pointers containing the actual affix data
+- : Pointer to child AffixNode, enabling tree traversal
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AFFIX (affix structure type)
+  - AffixNode (parent node structure)
+- Called from (representative examples):
+  - mkANode (creates affix nodes)
+  - mkVoidAffix (creates empty affix nodes)  
+  - NISortAffixes (sorts affix data)
+  - FindAffixes (searches for matching affixes)
+  - NormalizeSubWord (uses affixes for word normalization)
+
+## Notes and Other Information
+- Part of the AffixNode structure which uses this as its data array
+- Optimized memory layout using bit fields for efficient storage
+- Enables fast prefix-based searches in affix trees
+- Critical component of PostgreSQL's text search spell checking functionality
+- Works in conjunction with SPNode/SPNodeData for complete dictionary functionality

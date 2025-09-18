@@ -1,0 +1,37 @@
+# expand_appendrel_subquery
+
+## Location
+src/backend/optimizer/util/inherit.c: 799 - 841
+
+## Overview
+Creates RelOptInfo structures for child relations of an appendrel baserel that represents a flattened UNION ALL subquery.
+
+## Definition
+
+
+## Detailed Description
+This function handles the expansion of subquery relations that have been flattened into appendrel structures. When a UNION ALL subquery is flattened during query planning, the parent subquery becomes an appendrel baserel, and its component subqueries become child relations listed in root->append_rel_list. This function creates the necessary RelOptInfo structures for each child subquery so that the planner can generate execution plans for them.
+
+The function iterates through all append relations in the planner's append_rel_list, identifies those that belong to the current parent relation, and builds RelOptInfo structures for each child. If a child relation is itself an inherited relation (either a table inheritance or another subquery), the function recursively expands it as well.
+
+## Parameters / Member Variables
+- : PlannerInfo structure containing planner state including append_rel_list
+- : RelOptInfo for the parent subquery relation (the flattened UNION ALL)
+- : RangeTblEntry for the parent subquery relation  
+- : Range table index of the parent relation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - build_simple_rel (creates RelOptInfo for child relations)
+  - expand_inherited_rtentry (recursively handles inherited child relations)
+  - AppendRelInfo (data structure for append relation information)
+- Called from (representative examples):
+  - expand_inherited_rtentry
+
+## Notes and Other Information
+- Only processes append relations that match the current parent relation ID (rti)
+- Uses Assert statements to verify child RTE exists and is properly indexed
+- Handles nested inheritance where child relations may themselves be inherited
+- Part of PostgreSQL's subquery flattening and UNION ALL optimization system  
+- The rte->inh flag indicates this is an inheritable relation (flattened UNION ALL)
+- Located in src/backend/optimizer/util/inherit.c at lines 799-841

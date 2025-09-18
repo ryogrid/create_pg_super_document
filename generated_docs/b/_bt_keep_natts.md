@@ -1,0 +1,46 @@
+# _bt_keep_natts
+
+## Location
+src/backend/access/nbtree/nbtutils.c: 4802 - 4875
+
+## Overview
+The _bt_keep_natts function determines the minimum number of key attributes that must be retained when creating a truncated pivot tuple during B-tree page splits.
+
+## Definition
+```c
+static int _bt_keep_natts(Relation rel, IndexTuple lastleft, IndexTuple firstright, BTScanInsert itup_key)
+```
+
+## Detailed Description
+This function analyzes two tuples that enclose a split point and determines how many leading key attributes are required to properly distinguish between them. It performs attribute-by-attribute comparison using the provided scan key to find the first differing attribute position.
+
+The algorithm works by:
+1. Checking if the index uses heapkeyspace (required for safe truncation)
+2. Comparing corresponding attributes from both tuples using the scan key's comparison functions
+3. Stopping at the first attribute where values differ (including null vs non-null)
+4. Returning the number of attributes needed to maintain proper ordering
+
+For non-heapkeyspace indexes, the function always returns the full number of key attributes since truncation could break search operations where truncated attributes are treated as minus infinity.
+
+The function may return a value one greater than the number of key attributes, indicating that a heap TID tiebreaker is needed when all key attributes are equal between the two tuples.
+
+## Parameters / Member Variables
+- `rel`: Relation object for the B-tree index
+- `lastleft`: Last tuple that will remain on the left page after split
+- `firstright`: First tuple that will go to the right page after split  
+- `itup_key`: Insertion scan key containing comparison functions and collation info
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IndexRelationGetNumberOfKeyAttributes
+  - index_getattr
+  - FunctionCall2Coll
+  - DatumGetInt32
+  - _bt_keep_natts_fast
+  - BTScanInsert (type)
+  - ScanKey (type)
+- Called from (representative examples):
+  - _bt_truncate
+
+## Notes and Other Information
+This function is critical for B-tree suffix truncation optimization. It ensures that truncated pivot tuples retain just enough information to maintain correct ordering while maximizing space savings. The function includes an assertion to verify consistency with _bt_keep_natts_fast() for indexes that support fast equality image comparisons. The heapkeyspace requirement reflects the need for proper handling of truncated attributes in comparison operations.

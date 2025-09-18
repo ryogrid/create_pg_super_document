@@ -1,0 +1,34 @@
+# fsync_fname
+
+## Location
+src/common/file_utils.c: 378 - 433
+
+## Overview
+A wrapper function that performs filesystem synchronization on a file or directory, handling OS-specific errors appropriately for directories.
+
+## Definition
+
+
+## Detailed Description
+ is a high-level wrapper around  that provides a simplified interface for synchronizing files or directories to persistent storage. The function delegates to  with default parameters, specifically using  for the ignore_nonexistent parameter and  log level via . When synchronizing directories, it gracefully handles errors that indicate the operating system doesn't allow or require directory synchronization, which is common on some filesystems.
+
+## Parameters / Member Variables
+- : Path to the file or directory to synchronize
+- : Boolean flag indicating whether the target is a directory (true) or file (false)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - fsync_fname_ext
+  - data_sync_elevel
+- Called from (representative examples):
+  - CheckPointLogicalRewriteHeap
+  - SimpleLruWriteAll
+  - CheckPointTwoPhase
+  - CreateDirAndVersionFile
+  - SnapBuildSerialize
+  - copydir
+  - sync_pgdata
+  - durable_rename
+
+## Notes and Other Information
+This function is widely used throughout PostgreSQL for ensuring data durability during critical operations like checkpoints, replication slot management, and database directory operations. It's particularly important for crash recovery guarantees and maintaining ACID properties. The function is part of PostgreSQL's file descriptor management subsystem and provides a consistent interface across different operating systems with varying fsync capabilities.

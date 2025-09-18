@@ -1,0 +1,33 @@
+# bitlt
+
+## Location
+src/backend/utils/adt/varbit.c: 889 - 903
+
+## Overview
+Implements the "less than" comparison operator for PostgreSQL bit string data types, returning true if the first bit string is lexicographically smaller than the second.
+
+## Definition
+
+
+## Detailed Description
+The  function is a PostgreSQL function that implements the "<" operator for bit string comparisons. It takes two VarBit (variable-length bit string) arguments and returns a boolean result indicating whether the first argument is lexicographically less than the second. The function uses the internal  helper function to perform the actual comparison and returns true if the comparison result is negative (< 0).
+
+## Parameters / Member Variables
+- : The first VarBit argument (left operand of the < operator)
+- : The second VarBit argument (right operand of the < operator)
+- : Boolean variable storing the comparison result
+
+## Dependencies
+- Functions called/Symbols referenced:
+  -  - macro to extract VarBit arguments from function call
+  -  - internal comparison function that returns <0, 0, or >0
+  -  - macro to free copied arguments if necessary
+  -  - macro to return boolean result
+- Called from (representative examples):
+  - No direct references found (likely called via SQL operator dispatch)
+
+## Notes and Other Information
+- This function is part of PostgreSQL's bit string comparison operator family
+- The comparison is lexicographical, considering all bits including trailing zeros
+- Memory management is handled through PG_FREE_IF_COPY to prevent leaks in btree operations
+- Located in src/backend/utils/adt/varbit.c:889-903

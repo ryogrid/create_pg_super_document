@@ -1,0 +1,39 @@
+# has_bypassrls_privilege
+
+## Location
+src/backend/catalog/aclchk.c: 4247 - 4270
+
+## Overview
+Checks whether a specified role has BYPASSRLS (Bypass Row Level Security) privilege or is a superuser, determining if the role can bypass row-level security policies.
+
+## Definition
+```c
+bool has_bypassrls_privilege(Oid roleid)
+```
+
+## Detailed Description
+This function determines if a role has the BYPASSRLS privilege, which allows the role to bypass row-level security (RLS) policies on tables. Row-level security is a feature that restricts which rows a user can see or modify based on policies defined on the table. The function first checks if the role is a superuser (who automatically bypass all security restrictions), then examines the `rolbypassrls` attribute in the pg_authid system catalog to determine if the role has been granted the specific BYPASSRLS privilege.
+
+## Parameters / Member Variables
+- `roleid`: The OID of the role whose BYPASSRLS privilege is being checked
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - superuser_arg
+  - Form_pg_authid
+  - Acl
+- Called from (representative examples):
+  - CreateRole
+  - AlterRole
+  - RI_Initial_Check
+  - check_enable_rls
+
+## Notes and Other Information
+- Located in src/backend/catalog/aclchk.c:4247-4270
+- Returns true if the role has BYPASSRLS privilege or is a superuser, false otherwise
+- Critical for PostgreSQL's Row Level Security (RLS) enforcement system
+- The BYPASSRLS privilege is stored in the `rolbypassrls` field of pg_authid
+- Used during role creation/alteration and RLS policy evaluation
+- Superusers automatically have this privilege regardless of the rolbypassrls setting
+- Essential component of PostgreSQL's fine-grained security model
+- Allows privileged roles to see all data regardless of RLS policies

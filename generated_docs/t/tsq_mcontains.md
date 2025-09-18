@@ -1,0 +1,43 @@
+# tsq_mcontains
+
+## Location
+src/backend/utils/adt/tsquery_op.c: 307 - 353
+
+## Overview
+Implements the PostgreSQL text search query containment operator, determining if the first TSQuery contains all the terms present in the second TSQuery.
+
+## Definition
+```c
+Datum tsq_mcontains(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function implements the @> (contains) operator for TSQuery objects. It extracts all textual values from both input queries, removes duplicates by sorting and using qunique, then performs a containment check to determine if the first query contains all terms present in the second query. The algorithm works by comparing sorted arrays of unique query terms, making it efficient for large queries with many repeated terms. The function returns true if every term in the second query exists in the first query, false otherwise.
+
+## Parameters / Member Variables
+- Function follows PostgreSQL's PG_FUNCTION_ARGS convention:
+  - Argument 0: `query` - The TSQuery that should contain the terms
+  - Argument 1: `ex` - The TSQuery whose terms should be contained
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PG_GETARG_TSQUERY (PostgreSQL macro to extract TSQuery arguments)
+  - collectTSQueryValues (extracts string values from TSQuery)
+  - qsort (standard C sorting function)
+  - cmp_string (string comparison function for sorting)
+  - qunique (PostgreSQL utility to remove duplicates from sorted arrays)
+  - strcmp (standard C string comparison)
+  - PG_RETURN_BOOL (PostgreSQL macro to return boolean result)
+- Types referenced:
+  - TSQuery (text search query structure)
+  - Datum (PostgreSQL generic data type)
+- Called from (representative examples):
+  - tsq_mcontained (at src/backend/utils/adt/tsquery_op.c:356, implements the reverse containment operator)
+
+## Notes and Other Information
+- This is a PostgreSQL SQL function accessible as the @> operator for TSQuery types
+- The algorithm has O(n log n + m log m) time complexity due to sorting, where n and m are the number of terms in each query
+- Duplicate terms in queries are automatically eliminated, making the containment check more efficient
+- The containment check uses an optimized algorithm that takes advantage of both arrays being sorted
+- Short-circuits early if the second query has more unique terms than the first (impossible to contain)
+- Memory allocation is handled by PostgreSQL's memory management system and automatically freed at function end

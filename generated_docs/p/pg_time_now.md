@@ -1,0 +1,39 @@
+# pg_time_now
+
+## Location
+src/bin/pgbench/pgbench.c: 851 - 860
+
+## Overview
+A static inline function that returns the current time in microseconds as a pg_time_usec_t value, primarily used by pgbench for timing operations.
+
+## Definition
+
+
+## Detailed Description
+pg_time_now is a utility function in pgbench that provides a convenient way to obtain the current time with microsecond precision. It acts as a wrapper around PostgreSQL's instrumentation time functions, converting the result to a standardized microsecond timestamp format. This function is essential for pgbench's timing measurements, allowing accurate benchmarking of database operations by providing high-precision timestamps for performance analysis.
+
+## Parameters / Member Variables
+- No parameters (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - instr_time (type for time measurement)
+  - INSTR_TIME_SET_CURRENT (macro to set current time)
+  - pg_time_usec_t (return type for microsecond timestamps)
+  - INSTR_TIME_GET_MICROSEC (macro to extract microseconds)
+
+- Called from (representative examples):
+  - pg_time_now_lazy
+  - advanceConnectionState
+  - doLog
+  - initPopulateTable
+  - runInitSteps
+  - set_random_seed
+  - main
+  - threadRun
+
+## Notes and Other Information
+- This function is marked as static inline for performance optimization, avoiding function call overhead
+- Used extensively throughout pgbench for timing measurements during benchmark execution
+- Provides microsecond precision timing which is crucial for accurate performance benchmarking
+- The function is a key component of pgbench's timing infrastructure, enabling precise measurement of database operation latencies

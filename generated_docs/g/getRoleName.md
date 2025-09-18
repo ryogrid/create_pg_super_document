@@ -1,0 +1,43 @@
+# getRoleName
+
+## Location
+src/bin/pg_dump/pg_dump.c: 9946 - 9981
+
+## Overview
+Looks up the name of a PostgreSQL role given its OID using binary search on a pre-populated sorted array.
+
+## Definition
+```c
+static const char *getRoleName(const char *roleoid_str)
+```
+
+## Detailed Description
+This function performs efficient role name lookup by converting a string OID to a numeric OID and then using binary search to find the corresponding role name in a sorted array (`rolenames`). The function assumes that role names have been pre-loaded and sorted by OID in the global `rolenames` array during pg_dump initialization. It uses a standard binary search algorithm for O(log n) lookup performance. The function is designed to always succeed in current usage contexts and will terminate the program with an error if a role OID cannot be found, indicating a serious inconsistency in the dump process.
+
+## Parameters / Member Variables
+- `roleoid_str`: String representation of the role OID to look up
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - atooid
+  - pg_fatal (on error)
+- Global variables accessed:
+  - `rolenames`: Array of RoleNameItem structures sorted by OID
+  - `nrolenames`: Number of entries in the rolenames array
+- Called from (representative examples):
+  - fmtQualifiedDumpable
+  - dumpDatabase
+  - getNamespaces
+  - getTypes
+  - getForeignDataWrappers
+  - getForeignServers
+  - getDefaultACLs
+
+## Notes and Other Information
+- This is a static function local to pg_dump.c
+- The function expects the global `rolenames` array to be pre-populated and sorted by OID
+- Uses binary search for efficient lookup in large role collections
+- Terminates the program on lookup failure rather than returning an error code
+- The returned string pointer points to memory owned by the rolenames array
+- Role names are cached to avoid repeated database queries during dump operations
+- The function is critical for resolving role ownership information throughout the dump process

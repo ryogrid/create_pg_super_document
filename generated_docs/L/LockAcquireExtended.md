@@ -1,0 +1,53 @@
+# LockAcquireExtended
+
+## Location
+src/backend/storage/lmgr/lock.c: 780 - 1182
+
+## Overview
+LockAcquireExtended is the core lock acquisition implementation in PostgreSQL that handles all aspects of acquiring locks including fast-path optimization, conflict detection, waiting, and error handling with extended configuration options.
+
+## Definition
+
+
+## Detailed Description
+LockAcquireExtended is the comprehensive lock acquisition function that implements PostgreSQL's sophisticated locking mechanism. It handles the complete lifecycle of lock acquisition including validation, fast-path optimization for relation locks, conflict detection, shared memory management, and integration with WAL logging for standby servers.
+
+The function employs several optimization strategies: it first checks for existing local locks to avoid shared memory operations, attempts fast-path acquisition for eligible relation locks, and only falls back to the full shared lock table when necessary. It manages memory allocation for lock ownership tracking and handles various error conditions gracefully.
+
+For locks that conflict with the fast-path mechanism, it transfers existing fast-path locks to the shared table. The function integrates with PostgreSQL's deadlock detection system and can optionally wait for lock availability or return immediately based on the dontWait parameter.
+
+## Parameters / Member Variables
+- : Pointer to LOCKTAG structure uniquely identifying the lockable object
+- : The specific lock mode to acquire (ShareLock, ExclusiveLock, etc.)
+- : If true, acquire lock for session rather than current transaction
+- : If true, return immediately if lock cannot be acquired without waiting
+- : If true, generate ERROR on memory exhaustion; if false, return LOCKACQUIRE_NOT_AVAIL
+- : Optional output parameter to receive pointer to LOCALLOCK entry
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SetupLockInTable (creates/finds shared lock and proclock entries)
+  - LockCheckConflicts (checks for conflicts with existing locks)
+  - GrantLock, GrantLockLocal (grants locks in shared and local tables)
+  - WaitOnLock (handles waiting for lock availability)
+  - FastPathGrantRelationLock (attempts fast-path acquisition)
+  - FastPathTransferRelationLocks (migrates fast-path locks to shared table)
+  - LogAccessExclusiveLock (WAL logging for standby replay)
+  - RecoveryInProgress (recovery state checking)
+- Data structures used:
+  - LOCALLOCK, LOCK, PROCLOCK (core lock structures)
+  - LOCALLOCKOWNER (ownership tracking)
+  - LockMethods array (lock method configuration)
+- Called from (representative examples):
+  - LockAcquire (public API wrapper)
+  - LockRelationOid, LockRelation (relation locking)
+  - ConditionalLockRelation (non-blocking relation locks)
+
+## Notes and Other Information
+- Returns LOCKACQUIRE_OK on success, LOCKACQUIRE_ALREADY_HELD for existing locks, LOCKACQUIRE_NOT_AVAIL when unavailable
+- Implements fast-path optimization for relation locks to reduce contention on shared lock table
+- Integrates with WAL logging to ensure lock acquisition can be replayed on standby servers
+- Handles memory allocation failures gracefully when reportMemoryError is false
+- Enforces recovery-time restrictions preventing strong locks during database recovery
+- Uses partition locking to reduce contention on the shared lock hash table
+- Critical for maintaining ACID properties and preventing race conditions in concurrent access

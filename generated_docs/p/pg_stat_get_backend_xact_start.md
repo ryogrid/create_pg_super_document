@@ -1,0 +1,36 @@
+# pg_stat_get_backend_xact_start
+
+## Location
+src/backend/utils/adt/pgstatfuncs.c: 835 - 856
+
+## Overview
+Returns the timestamp when the current transaction started for a specific backend process.
+
+## Definition
+```c
+Datum pg_stat_get_backend_xact_start(PG_FUNCTION_ARGS)
+```
+
+## Detailed Description
+This function retrieves the start timestamp of the currently active transaction for a backend process identified by its process number. It accesses the backend status entry and returns the st_xact_start_timestamp field, which records when the current transaction began. The function returns NULL when backend information is unavailable, when the user lacks sufficient privileges, or when the backend is not currently in a transaction.
+
+## Parameters / Member Variables
+- `procNumber` (int32): The process number identifying the target backend process
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgstat_get_beentry_by_proc_number
+  - HAS_PGSTAT_PERMISSIONS
+  - PG_RETURN_TIMESTAMPTZ
+- Data types used:
+  - PgBackendStatus
+  - TimestampTz
+
+## Notes and Other Information
+- Returns NULL if backend information is not available
+- Returns NULL if the user has insufficient privileges to view the backend information
+- Returns NULL if the backend is not currently in a transaction (st_xact_start_timestamp == 0)
+- The timestamp represents when the current transaction started, which may be different from when the current query started
+- Used by pg_stat_activity view to show transaction start times
+- Helps identify long-running transactions that may be holding locks or causing performance issues
+- A transaction can span multiple queries, so this timestamp may be older than the activity start timestamp

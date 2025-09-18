@@ -1,0 +1,37 @@
+# dropRoles
+
+## Location
+src/bin/pg_dump/pg_dumpall.c: 740 - 786
+
+## Overview
+The dropRoles function generates SQL DROP ROLE statements for all non-system roles in a PostgreSQL database, used by pg_dumpall to create scripts that clean up existing roles before restoration.
+
+## Definition
+
+
+## Detailed Description
+The dropRoles function is part of PostgreSQL's pg_dumpall utility and generates SQL statements to drop existing database roles. It queries the system catalogs to retrieve all role names (excluding PostgreSQL system roles starting with 'pg_' for server versions 9.6 and later), then outputs DROP ROLE statements for each found role.
+
+The function handles different PostgreSQL server versions: for version 9.6 and later, it excludes system roles using a regular expression filter, while earlier versions include all roles. The generated DROP statements can optionally include "IF EXISTS" clauses based on the global  flag, making the script more robust when roles may not exist during restoration.
+
+## Parameters / Member Variables
+- : PostgreSQL database connection handle used to execute queries
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - printfPQExpBuffer (format SQL query strings)
+  - executeQuery (execute SQL queries against the database)
+  - fmtId (format SQL identifiers with proper quoting)
+  - createPQExpBuffer, destroyPQExpBuffer (manage query buffers)
+  - PQfnumber, PQntuples, PQgetvalue, PQclear (PostgreSQL result set handling)
+- Called from:
+  - main (in src/bin/pg_dump/pg_dumpall.c as part of the dump process)
+
+## Notes and Other Information
+- Function is marked as , indicating it's only used within pg_dumpall.c
+- Uses global variables: , , , and  (output file)
+- Handles version differences: PostgreSQL 9.6+ excludes system roles with  filter
+- Outputs SQL statements to the global output file pointer 
+- The roles are processed in alphabetical order (ORDER BY 1)
+- Includes appropriate SQL comments to identify the DROP ROLE section in the output
+- Part of pg_dumpall's role management functionality for database cluster restoration

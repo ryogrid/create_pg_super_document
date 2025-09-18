@@ -1,0 +1,33 @@
+# jsonb_path_match
+
+## Location
+src/backend/utils/adt/jsonpath_exec.c: 497 - 502
+
+## Overview
+SQL function wrapper that evaluates a JSONPath predicate expression against a JSONB value and returns a boolean result.
+
+## Definition
+
+
+## Detailed Description
+ is a PostgreSQL SQL function wrapper that provides the interface for evaluating JSONPath predicate expressions against JSONB data. This function serves as the entry point for the  SQL function and delegates the actual work to  with timezone handling disabled (false parameter).
+
+The function follows PostgreSQL's standard function calling convention using  and returns a  value that represents the boolean result of the JSONPath predicate evaluation.
+
+## Parameters / Member Variables
+- : Standard PostgreSQL function argument structure containing:
+  - JSONB value to evaluate
+  - JSONPath expression as text
+  - Optional variables for path evaluation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - jsonb_path_match_internal
+- Called from (representative examples):
+  - SQL function calls through PostgreSQL's function manager
+
+## Notes and Other Information
+- This is a thin wrapper function that provides the SQL interface
+- The actual logic is implemented in 
+- Timezone handling is disabled (false parameter) unlike 
+- Located in 

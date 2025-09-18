@@ -1,0 +1,44 @@
+# gingetbitmap
+
+## Location
+src/backend/access/gin/ginget.c: 1918 - 1969
+
+## Overview
+The  function is the core bitmap scan implementation for GIN (Generalized Inverted Index) indexes, responsible for collecting all matching tuple IDs into a TIDBitmap during index scans.
+
+## Definition
+
+
+## Detailed Description
+This function performs a complete bitmap scan of a GIN index, collecting all tuples that satisfy the scan conditions into the provided TIDBitmap. The function implements a two-phase scanning strategy: first scanning the pending list for recently inserted items that haven't been integrated into the main index structure, then scanning the main index itself.
+
+The function handles concurrent access considerations by ensuring the pending list is scanned before the main index to prevent missing entries due to concurrent cleanup operations. It supports both exact tuple references and lossy page references for efficient bitmap storage.
+
+## Parameters / Member Variables
+- : An IndexScanDesc structure containing the scan state and conditions for the GIN index scan
+- : A TIDBitmap structure where matching tuple IDs and page references will be collected
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ginFreeScanKeys
+  - ginNewScanKey
+  - GinIsVoidRes
+  - scanPendingInsert
+  - startScan
+  - ItemPointerSetMin
+  - scanGetItem
+  - ItemPointerIsLossyPage
+  - tbm_add_page
+  - ItemPointerGetBlockNumber
+  - tbm_add_tuples
+- Called from (representative examples):
+  - ginhandler (GIN access method handler)
+  - Referenced in GinScanOpaque structure
+
+## Notes and Other Information
+- The function returns the total number of tuples/pages added to the bitmap
+- Supports lossy page-level bitmap entries when individual tuple tracking becomes inefficient
+- The two-phase scan (pending list first, then main index) is critical for correctness in concurrent environments
+- Duplicate visits to the same tuple are harmless as they just re-set the same bit in the bitmap
+- This dual-scanning approach is one reason why GIN indexes cannot support the amgettuple API (tuple-at-a-time retrieval)
+- The function handles void (unsatisfiable) query conditions by returning early with zero results

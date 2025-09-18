@@ -1,0 +1,44 @@
+# pg_atomic_fetch_and_u32
+
+## Location
+src/include/port/atomics.h: 391 - 404
+
+## Overview
+Atomically performs a bitwise AND operation between a 32-bit unsigned atomic variable and a given value, returning the original value before the operation.
+
+## Definition
+```c
+static inline uint32
+pg_atomic_fetch_and_u32(volatile pg_atomic_uint32 *ptr, uint32 and_)
+```
+
+## Detailed Description
+This function performs an atomic fetch-and-AND operation on a 32-bit unsigned integer. It atomically applies a bitwise AND operation between the value pointed to by `ptr` and the value `and_`, storing the result back to the location pointed to by `ptr`, and returns the original value that was stored at that location before the operation.
+
+The operation provides full memory barrier semantics, ensuring that all memory operations before this call are completed before the bitwise AND operation, and all memory operations after this call happen after the operation. This function is particularly useful for atomically clearing specific bits in a value while preserving others, which is common in flag management and bit manipulation scenarios.
+
+The function is implemented as a wrapper around `pg_atomic_fetch_and_u32_impl`, which contains the platform-specific implementation.
+
+## Parameters / Member Variables
+- `ptr`: Pointer to the atomic 32-bit unsigned integer variable to be modified
+- `and_`: The 32-bit unsigned integer value to AND with the atomic variable
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_atomic_uint32 (type definition)
+  - AssertPointerAlignment (alignment check)
+  - pg_atomic_fetch_and_u32_impl (platform-specific implementation)
+- Called from (representative examples):
+  - LWLockWaitListUnlock (src/backend/storage/lmgr/lwlock.c:913)
+  - LWLockDequeueSelf (src/backend/storage/lmgr/lwlock.c:1107)
+  - test_atomic_uint32 (src/test/regress/regress.c:793-796)
+
+## Notes and Other Information
+- Returns the value that was stored before the bitwise AND operation
+- Provides full barrier semantics, making it suitable for synchronization and coordination
+- The pointer must be 4-byte aligned as enforced by AssertPointerAlignment
+- Commonly used for atomically clearing bits in flag variables and status registers
+- Particularly useful in lock management where specific status bits need to be cleared atomically
+- The operation follows standard bitwise AND semantics: result bit is 1 only if both operand bits are 1
+- Often used in conjunction with other atomic operations to implement complex state management
+- Essential for implementing atomic bit manipulation in concurrent data structures

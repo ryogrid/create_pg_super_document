@@ -1,0 +1,51 @@
+# RenameConstraintById
+
+## Location
+src/backend/catalog/pg_constraint.c: 703 - 754
+
+## Overview
+Renames an existing constraint in the system catalog, performing duplicate name checking and updating the pg_constraint catalog entry.
+
+## Definition
+void RenameConstraintById(Oid conId, const char *newname)
+
+## Detailed Description
+RenameConstraintById modifies the name of an existing constraint identified by its OID. The function is designed as an internal utility rather than a user-exposed function, primarily used when renaming indexes associated with constraints. It performs comprehensive duplicate name validation before executing the rename operation:
+
+1. **Relation constraints**: Checks if the new name conflicts with existing constraints on the same relation
+2. **Domain constraints**: Validates the new name against existing domain constraints  
+
+The function updates the constraint name in-place and triggers post-alter hooks for proper event notification. It's designed with future extensibility in mind for potential ALTER TABLE RENAME CONSTRAINT functionality.
+
+## Parameters / Member Variables
+- : The OID of the constraint to be renamed
+- : The new name to assign to the constraint (const char pointer)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - table_open
+  - SearchSysCacheCopy1  
+  - HeapTupleIsValid
+  - elog
+  - GETSTRUCT
+  - OidIsValid
+  - ConstraintNameIsUsed
+  - ereport
+  - get_rel_name
+  - format_type_be
+  - namestrcpy
+  - CatalogTupleUpdate
+  - InvokeObjectPostAlterHook
+  - heap_freetuple
+  - table_close
+- Called from (representative examples):
+  - rename_constraint_internal (tablecmds.c:4001)
+  - RenameRelationInternal (tablecmds.c:4215)
+
+## Notes and Other Information
+- Not intended as a user-exposed function - lacks permission checking
+- Performs duplicate name validation for user-friendliness before renaming
+- Works with both relation constraints and domain constraints
+- Triggers post-alter hooks for proper event notification to other subsystems
+- Uses SearchSysCacheCopy1 to get a modifiable copy of the constraint tuple
+- Currently used primarily for index-associated constraint renaming but designed for broader future use

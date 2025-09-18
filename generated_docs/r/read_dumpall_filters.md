@@ -1,0 +1,52 @@
+# read_dumpall_filters
+
+## Location
+src/bin/pg_dump/pg_dumpall.c: 2043 - 2090
+
+## Overview
+Reads database filter patterns from a file or STDIN to configure which databases should be excluded from pg_dumpall operations.
+
+## Definition
+```c
+static void read_dumpall_filters(const char *filename, SimpleStringList *pattern)
+```
+
+## Detailed Description
+This function parses a filter file to extract database exclusion patterns for pg_dumpall operations. It supports reading from a specified file or from STDIN (when filename is "-"). The function implements strict validation rules:
+
+1. **Only exclusion filters are allowed** - include filters are rejected with an error
+2. **Only database object types are supported** - other object types (tables, functions, etc.) are rejected
+3. **Database exclusion patterns are collected** - valid database exclusion patterns are added to the provided pattern list
+
+The function uses PostgreSQL's generic filter infrastructure (FilterStateData, filter_init, filter_read_item) to parse the filter file format. It performs comprehensive validation and error reporting, terminating the program if invalid filters are encountered.
+
+## Parameters / Member Variables
+- `filename`: Path to filter file, or "-" to read from STDIN
+- `pattern`: SimpleStringList to store valid database exclusion patterns
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FilterStateData
+  - FilterCommandType
+  - FilterObjectType
+  - filter_init
+  - filter_read_item
+  - FILTER_COMMAND_TYPE_INCLUDE
+  - pg_log_filter_error
+  - filter_object_type_name
+  - exit_nicely
+  - FILTER_OBJECT_TYPE_* (various constants)
+  - simple_string_list_append
+  - filter_free
+- Called from (representative examples):
+  - main (pg_dumpall)
+
+## Notes and Other Information
+- This is a static function within pg_dumpall.c for internal use
+- Part of pg_dumpall's filter system for selective database dumping
+- Uses PostgreSQL's generic filter parsing infrastructure for consistency
+- Implements fail-fast validation - any unsupported filter type causes immediate program termination
+- Memory management includes proper cleanup of allocated object names and filter state
+- The restriction to database-only filters reflects pg_dumpall's scope as a cluster-wide dump utility
+- Filter file format follows the same conventions as other PostgreSQL utilities like pg_dump
+- Supports the "-" filename convention for reading filters from STDIN, enabling pipeline usage

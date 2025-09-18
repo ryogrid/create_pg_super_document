@@ -1,0 +1,44 @@
+# btinsert
+
+## Location
+src/backend/access/nbtree/nbtree.c: 182 - 205
+
+## Overview
+The btinsert function inserts an index tuple into a B-tree index by forming the tuple from provided values and delegating the actual insertion to the core B-tree insertion logic.
+
+## Definition
+
+
+## Detailed Description
+The btinsert function serves as the main entry point for inserting tuples into B-tree indexes. It acts as a wrapper that handles the conversion of raw column values into a properly formatted index tuple, then delegates the complex insertion logic to the internal _bt_doinsert function. The function forms an index tuple from the provided column values and null flags, sets the tuple's heap pointer to reference the corresponding heap tuple, and then performs the actual insertion while handling uniqueness constraints and other insertion policies.
+
+This function is part of PostgreSQL's index access method interface and is called whenever a new tuple needs to be added to a B-tree index, such as during INSERT operations, index creation, or tuple updates that affect indexed columns.
+
+## Parameters / Member Variables
+- : The B-tree index relation where the tuple will be inserted
+- : Array of Datum values for each indexed column
+- : Array of boolean flags indicating which values are NULL
+- : ItemPointer to the heap tuple this index entry references
+- : The heap relation containing the actual tuple data
+- : Specifies how to handle uniqueness constraints during insertion
+- : Boolean indicating whether the index values have changed (optimization hint)
+- : Metadata about the index structure and properties
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - index_form_tuple (creates index tuple from values)
+  - RelationGetDescr (gets relation descriptor)
+  - _bt_doinsert (performs the actual B-tree insertion)
+  - pfree (frees allocated memory)
+  - IndexUniqueCheck, IndexInfo (type definitions)
+- Called from (representative examples):
+  - bthandler (registered as aminsert callback)
+  - Index maintenance operations during INSERT/UPDATE queries
+
+## Notes and Other Information
+- Returns a boolean indicating success/failure of the insertion operation
+- Memory management is handled properly by freeing the constructed index tuple
+- The function abstracts away the complexity of B-tree insertion from the access method interface
+- Supports uniqueness checking and handles various insertion scenarios
+- The indexUnchanged parameter allows for optimizations when index values haven't actually changed
+- Part of the standard PostgreSQL index access method framework

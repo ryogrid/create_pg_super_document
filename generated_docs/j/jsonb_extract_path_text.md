@@ -1,0 +1,31 @@
+# jsonb_extract_path_text
+
+## Location
+src/backend/utils/adt/jsonfuncs.c: 1492 - 1497
+
+## Overview
+A PostgreSQL function that extracts a JSONB value at a specified path, returning the result as text format.
+
+## Definition
+
+
+## Detailed Description
+The  function serves as a wrapper that extracts values from JSONB data structures using a path specification and converts the result to text format. It internally delegates to  with the  parameter set to , ensuring the result is returned as a text string rather than maintaining the JSONB data type. This function is useful when you need the extracted value as a plain text representation.
+
+## Parameters / Member Variables
+- Uses PostgreSQL's standard function call interface () which contains:
+  - The JSONB input data
+  - Variable number of path elements specifying the extraction path
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - get_jsonb_path_all (with )
+- Called from (representative examples):
+  - SQL function calls via PostgreSQL's function call interface
+
+## Notes and Other Information
+- Located in src/backend/utils/adt/jsonfuncs.c:1492-1497
+- This is a thin wrapper function that provides the text-converting variant of JSONB path extraction
+- The actual path extraction logic is implemented in 
+- Returns text data type, converting the extracted JSONB value to its string representation
+- Companion function to , differing only in the output format

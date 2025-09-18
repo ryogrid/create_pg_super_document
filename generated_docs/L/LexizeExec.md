@@ -1,0 +1,57 @@
+# LexizeExec
+
+## Location
+src/backend/tsearch/ts_parse.c: 173 - 354
+
+## Overview
+Executes lexical analysis on parsed tokens using configured dictionaries, handling both single-word and multi-word dictionary processing modes.
+
+## Definition
+```c
+static TSLexeme *LexizeExec(LexizeData *ld, ParsedLex **correspondLexem)
+```
+
+## Detailed Description
+LexizeExec is the core function for lexical analysis in PostgreSQL's text search system. It processes ParsedLex tokens through a configuration of dictionaries, operating in two distinct modes:
+
+**Normal Mode (curDictId == InvalidOid):**
+- Processes tokens from the towork queue sequentially
+- For each token type, tries all configured dictionaries in order
+- If a dictionary sets getnext=true, switches to multi-word mode
+- Returns the first successful lexeme result
+
+**Multi-word Mode (curDictId is valid):**
+- A specific dictionary is requesting additional words to form compound lexemes
+- Continues processing subsequent tokens with the same dictionary
+- Validates that the dictionary can handle each token type
+- Returns to normal mode when the dictionary finishes or fails
+
+The function manages state through the LexizeData structure and can recursively call itself when switching between modes. It handles filtering lexemes (TSL_FILTER), temporary results, and proper cleanup of processed tokens.
+
+## Parameters / Member Variables
+- `ld`: Pointer to LexizeData structure containing parsing state, configuration, and work queues
+- `correspondLexem`: Double pointer to receive the list of processed lexemes that generated the result
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RemoveHead (removes processed tokens from work queue)
+  - lookup_ts_dictionary_cache (retrieves dictionary cache entries)
+  - FunctionCall4 (calls dictionary lexize functions)
+  - setNewTmpRes (stores temporary results during multi-word processing)
+  - moveToWaste (moves processed tokens to waste list)
+  - setCorrLex (manages corresponding lexeme list)
+  - DatumGetObjectId (extracts ObjectId from Datum)
+- Called from (representative examples):
+  - parsetext (main text parsing function at line 402)
+  - hlparsetext (highlighting text parsing at line 590)
+  - Self-recursive calls (lines 226, 288, 341)
+
+## Notes and Other Information
+- This is a static function, only accessible within the ts_parse.c compilation unit
+- The function implements a finite state machine for dictionary processing
+- Recursive calls handle mode transitions and state resets
+- Supports filtering lexemes where dictionaries can transform input before further processing
+- Multi-word processing allows dictionaries to build compound terms from multiple tokens
+- Proper memory management ensures temporary results are cleaned up
+- The function can handle dictionaries that don't recognize certain lexeme types by skipping them
+- State management is crucial for maintaining consistency across recursive calls
