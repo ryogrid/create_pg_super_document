@@ -46,10 +46,10 @@ The `r_step5a` function implements a sophisticated four-phase transformation pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[eq_s_b](../e/eq_s_b.md)`: Checks for exact string match backwards
-  - `[find_among_b](../f/find_among_b.md)`: Searches backwards for patterns in the given array
-  - `[slice_del](../s/slice_del.md)`: Deletes the substring between bra and ket
-  - `[slice_from_s](../s/slice_from_s.md)`: Replaces the substring with specified string
+  - [eq_s_b](../e/eq_s_b.md): Checks for exact string match backwards
+  - [find_among_b](../f/find_among_b.md): Searches backwards for patterns in the given array
+  - [slice_del](../s/slice_del.md): Deletes the substring between bra and ket
+  - [slice_from_s](../s/slice_from_s.md): Replaces the substring with specified string
   - `s_72`: Greek string "αγαμε" for phase 1 matching
   - `s_73`: Greek string "αγαμ" for phase 1 replacement
   - `s_74`: Greek string "αμε" for phase 3 matching
@@ -57,7 +57,7 @@ The `r_step5a` function implements a sophisticated four-phase transformation pro
   - `a_35`: Array of 5 patterns for phase 2 matching
   - `a_36`: Array of 12 patterns for phase 4 matching
 - Called from (representative examples):
-  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function at line 3577
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md): Main Greek stemming function at line 3577
 
 ## Notes and Other Information
 - This is step 5a in the Greek stemming algorithm, featuring the most sophisticated backtracking logic

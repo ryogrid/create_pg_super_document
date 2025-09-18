@@ -20,13 +20,13 @@ The `network_send` function is a static helper function that serializes network 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pq_begintypsend](../p/pq_begintypsend.md)`: Initializes the binary output buffer
-  - `[pq_sendbyte](../p/pq_sendbyte.md)`: Writes single bytes to the binary message buffer
-  - `[pq_endtypsend](../p/pq_endtypsend.md)`: Finalizes and returns the binary output buffer as bytea
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes the binary output buffer
+  - [pq_sendbyte](../p/pq_sendbyte.md): Writes single bytes to the binary message buffer
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes and returns the binary output buffer as bytea
   - `ip_family`, `ip_bits`, `ip_addr`, `ip_addrsize`: Inet structure accessor macros
 - Called from (representative examples):
-  - `[inet_send](../i/inet_send.md)`: Public function for inet type binary serialization
-  - `[cidr_send](../c/cidr_send.md)`: Public function for cidr type binary serialization
+  - [inet_send](../i/inet_send.md): Public function for inet type binary serialization
+  - [cidr_send](../c/cidr_send.md): Public function for cidr type binary serialization
 
 ## Notes and Other Information
 - The external binary format consists of: family byte, bits byte, is_cidr byte, address length byte, followed by address bytes in network byte order

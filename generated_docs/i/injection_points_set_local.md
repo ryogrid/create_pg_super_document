@@ -21,12 +21,12 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[injection_init_shmem](injection_init_shmem.md)`
-  - `[before_shmem_exit](../b/before_shmem_exit.md)` 
-  - `[injection_points_cleanup](injection_points_cleanup.md)`
+  - [injection_init_shmem](injection_init_shmem.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md) 
+  - [injection_points_cleanup](injection_points_cleanup.md)
   - `PG_RETURN_VOID`
 - Called from (representative examples):
-  - `[injection_points_wakeup](injection_points_wakeup.md)` (src/test/modules/injection_points/injection_points.c:362)
+  - [injection_points_wakeup](injection_points_wakeup.md) (src/test/modules/injection_points/injection_points.c:362)
 
 ## Notes and Other Information
 - Sets the global variable `injection_point_local` to true to enable process-specific injection point conditions

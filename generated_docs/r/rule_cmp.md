@@ -26,9 +26,9 @@ The function handles NULL pointer cases by treating NULL as "less than" any vali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[rule](rule.md)` (struct type for timezone rules)
+  - [rule](rule.md) (struct type for timezone rules)
 - Called from (representative examples):
-  - `[stringzone](../s/stringzone.md)` (used for sorting rules when generating timezone strings)
+  - [stringzone](../s/stringzone.md) (used for sorting rules when generating timezone strings)
 
 ## Notes and Other Information
 - Returns -1 if `a` should sort before `b`

@@ -26,19 +26,19 @@ This ensures that the aggregation state is properly allocated in long-lived memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[AggCheckCallContext](../A/AggCheckCallContext.md)`: Verify that function is called in aggregate context and get aggregate memory context
-  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)`: Switch to specified memory context
+  - [AggCheckCallContext](../A/AggCheckCallContext.md): Verify that function is called in aggregate context and get aggregate memory context
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switch to specified memory context
   - `makeStringInfo`: Create and initialize a new StringInfo structure
   - `elog`: Log error message
 - Types referenced:
-  - `[FunctionCallInfo](../F/FunctionCallInfo.md)`: Function call information structure
+  - [FunctionCallInfo](../F/FunctionCallInfo.md): Function call information structure
   - `StringInfo`: Dynamic string buffer structure
-  - `[MemoryContext](../M/MemoryContext.md)`: Memory context type
+  - [MemoryContext](../M/MemoryContext.md): Memory context type
 - Called from (representative examples):
-  - `[string_agg_transfn](../s/string_agg_transfn.md)`: Main transition function for string_agg
-  - `[string_agg_combine](../s/string_agg_combine.md)`: Combine function for parallel string_agg
-  - `[string_agg_deserialize](../s/string_agg_deserialize.md)`: Deserialize function for string_agg
-  - `[bytea_string_agg_transfn](../b/bytea_string_agg_transfn.md)`: Transition function for bytea string aggregation
+  - [string_agg_transfn](../s/string_agg_transfn.md): Main transition function for string_agg
+  - [string_agg_combine](../s/string_agg_combine.md): Combine function for parallel string_agg
+  - [string_agg_deserialize](../s/string_agg_deserialize.md): Deserialize function for string_agg
+  - [bytea_string_agg_transfn](../b/bytea_string_agg_transfn.md): Transition function for bytea string aggregation
 
 ## Notes and Other Information
 - Located in `src/backend/utils/adt/varlena.c:5162-5185`

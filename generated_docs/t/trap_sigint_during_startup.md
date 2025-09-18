@@ -32,13 +32,13 @@ The function operates on these global variables:
 - Functions called/Symbols referenced:
   - `SIGNAL_ARGS` (signal handler argument macro)
   - `kill` (system call to send signals to processes)
-  - `[write_stderr](../w/write_stderr.md)` (error output function)
+  - [write_stderr](../w/write_stderr.md) (error output function)
   - `SIG_DFL` (default signal handler constant)
-  - `[pqsignal](../p/pqsignal.md)` (PostgreSQL signal handling utility)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL signal handling utility)
   - `raise` (standard C function to raise signals)
 
 - Called from:
-  - `[do_start](../d/do_start.md)` (installed as signal handler during server startup)
+  - [do_start](../d/do_start.md) (installed as signal handler during server startup)
 
 ## Notes and Other Information
 - This handler is specifically designed for use during server startup phase only

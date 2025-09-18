@@ -23,12 +23,12 @@ This function compares two bit masks byte by byte and bit by bit to determine ho
 - Functions called/Symbols referenced:
   - Uses only standard C operations (XOR, bit shifting, modulo, division)
 - Called from (representative examples):
-  - `[inet_merge](../i/inet_merge.md)` - for calculating the common prefix when merging networks
-  - `[calc_inet_union_params](../c/calc_inet_union_params.md)` - in GiST index union calculations
-  - `[inet_gist_penalty](../i/inet_gist_penalty.md)` - for GiST index penalty calculations
-  - `[inet_spg_choose](../i/inet_spg_choose.md)` - in SP-GiST index choose operations
-  - `[inet_spg_picksplit](../i/inet_spg_picksplit.md)` - in SP-GiST index split operations
-  - `[inet_hist_match_divider](../i/inet_hist_match_divider.md)` - for histogram matching in selectivity estimation
+  - [inet_merge](../i/inet_merge.md) - for calculating the common prefix when merging networks
+  - [calc_inet_union_params](../c/calc_inet_union_params.md) - in GiST index union calculations
+  - [inet_gist_penalty](../i/inet_gist_penalty.md) - for GiST index penalty calculations
+  - [inet_spg_choose](../i/inet_spg_choose.md) - in SP-GiST index choose operations
+  - [inet_spg_picksplit](../i/inet_spg_picksplit.md) - in SP-GiST index split operations
+  - [inet_hist_match_divider](../i/inet_hist_match_divider.md) - for histogram matching in selectivity estimation
 
 ## Notes and Other Information
 - Returns a value from 0 to n indicating the number of matching leading bits

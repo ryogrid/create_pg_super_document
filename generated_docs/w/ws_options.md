@@ -27,8 +27,8 @@ The structure is initialized in the main function and populated based on command
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):
-  - `[main](../m/main.md)` function at src/bin/pg_walsummary/pg_walsummary.c:64 (structure instantiation and initialization)
-  - `[dump_one_relation](../d/dump_one_relation.md)` function at src/bin/pg_walsummary/pg_walsummary.c:129 (passed as parameter to control output behavior)
+  - [main](../m/main.md) function at src/bin/pg_walsummary/pg_walsummary.c:64 (structure instantiation and initialization)
+  - [dump_one_relation](../d/dump_one_relation.md) function at src/bin/pg_walsummary/pg_walsummary.c:129 (passed as parameter to control output behavior)
 
 ## Notes and Other Information
 - The structure is allocated on the stack in the main function and initialized to zero using `memset`

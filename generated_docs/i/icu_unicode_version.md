@@ -29,9 +29,9 @@ This conditional compilation approach allows the function to exist in all Postgr
   - `PG_RETURN_NULL()` (macro to return NULL value, when ICU disabled)
   - `U_UNICODE_VERSION` (ICU constant with Unicode version, when ICU enabled)
 - Called from (representative examples):
-  - `[icu_test](icu_test.md)` in src/common/unicode/category_test.c:136
-  - `[icu_test](icu_test.md)` in src/common/unicode/category_test.c:144
-  - `[main](../m/main.md)` in src/common/unicode/category_test.c:229
+  - [icu_test](icu_test.md) in src/common/unicode/category_test.c:136
+  - [icu_test](icu_test.md) in src/common/unicode/category_test.c:144
+  - [main](../m/main.md) in src/common/unicode/category_test.c:229
 
 ## Notes and Other Information
 - This is a SQL-callable function that can be invoked from PostgreSQL queries

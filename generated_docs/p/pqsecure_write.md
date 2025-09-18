@@ -29,13 +29,13 @@ The function implements a sophisticated error handling strategy:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pgtls_write](pgtls_write.md)` (when SSL is in use)
-  - `[pg_GSS_write](pg_GSS_write.md)` (when GSS encryption is enabled)
-  - `[pqsecure_raw_write](pqsecure_raw_write.md)` (for unencrypted connections)
+  - [pgtls_write](pgtls_write.md) (when SSL is in use)
+  - [pg_GSS_write](pg_GSS_write.md) (when GSS encryption is enabled)
+  - [pqsecure_raw_write](pqsecure_raw_write.md) (for unencrypted connections)
   - `USE_SSL` (preprocessor macro)
   - `ENABLE_GSS` (preprocessor macro)
 - Called from (representative examples):
-  - `[pqSendSome](pqSendSome.md)` (in fe-misc.c:855, 863)
+  - [pqSendSome](pqSendSome.md) (in fe-misc.c:855, 863)
   - `pgunlock_thread` (referenced in libpq-int.h:769)
 
 ## Notes and Other Information

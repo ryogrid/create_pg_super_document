@@ -27,7 +27,7 @@ This function is a PostgreSQL encoding conversion procedure that converts text f
   - `PG_GETARG_INT32`: Extracts 32-bit integer arguments
   - `PG_GETARG_BOOL`: Extracts boolean arguments
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validates source and destination encodings
-  - `[UtfToLocal](../U/UtfToLocal.md)`: Core conversion function for UTF-8 to local encoding
+  - [UtfToLocal](../U/UtfToLocal.md): Core conversion function for UTF-8 to local encoding
   - `PG_RETURN_INT32`: Returns 32-bit integer result
   - `shift_jis_2004_from_unicode_tree`: Conversion mapping tree from Unicode to Shift JIS 2004
   - `ULmapSHIFT_JIS_2004_combined`: Combined Unicode to local character mapping table

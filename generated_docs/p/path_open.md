@@ -19,7 +19,7 @@ The `path_open` function is a PostgreSQL built-in function that takes a PATH geo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PATH](../P/PATH.md)`: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
   - `PG_GETARG_PATH_P_COPY`: Macro to get a copy of the path argument from function parameters
   - `PG_RETURN_PATH_P`: Macro to return a path result
 - Called from (representative examples):

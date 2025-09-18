@@ -24,13 +24,13 @@ This function serves as a process exit callback that is automatically registered
   - `NOTICE` - PostgreSQL logging level constant
   - `LOG` - PostgreSQL logging level constant  
   - `ereport` - PostgreSQL error/message reporting function
-  - `[errmsg](../e/errmsg.md)` - PostgreSQL message formatting function
+  - [errmsg](../e/errmsg.md) - PostgreSQL message formatting function
   - `IsPostmasterEnvironment` - Global variable indicating if running in postmaster context
   - `lock_files` - Global list containing paths of all created lockfiles
   - `foreach`, `lfirst` - PostgreSQL list iteration macros
   - `NIL` - PostgreSQL empty list constant
 - Called from (representative examples):
-  - `[CreateLockFile](../C/CreateLockFile.md)` - Registered as proc_exit callback when lockfiles are created
+  - [CreateLockFile](../C/CreateLockFile.md) - Registered as proc_exit callback when lockfiles are created
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the miscinit.c compilation unit

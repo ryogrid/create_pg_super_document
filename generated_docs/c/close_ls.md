@@ -24,12 +24,12 @@ This PostgreSQL built-in function computes the point on a line segment that is c
   - `PG_GETARG_LINE_P` - Extracts line argument from function parameters
   - `PG_GETARG_LSEG_P` - Extracts line segment argument from function parameters
   - `LINE` - Line data type definition
-  - `[LSEG](../L/LSEG.md)` - Line segment data type definition
-  - `[Point](../P/Point.md)` - [Point](../P/Point.md) data type definition
-  - `[lseg_sl](../l/lseg_sl.md)` - Gets slope of line segment
-  - `[line_sl](../l/line_sl.md)` - Gets slope of line
-  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation function
-  - `[lseg_closept_line](../l/lseg_closept_line.md)` - Core geometric function that performs closest point calculation
+  - [LSEG](../L/LSEG.md) - Line segment data type definition
+  - [Point](../P/Point.md) - [Point](../P/Point.md) data type definition
+  - [lseg_sl](../l/lseg_sl.md) - Gets slope of line segment
+  - [line_sl](../l/line_sl.md) - Gets slope of line
+  - [palloc](../p/palloc.md) - PostgreSQL memory allocation function
+  - [lseg_closept_line](../l/lseg_closept_line.md) - Core geometric function that performs closest point calculation
   - `isnan` - Standard C library function to check for NaN values
   - `PG_RETURN_POINT_P` - Returns point result from PostgreSQL function
 - Called from (representative examples):

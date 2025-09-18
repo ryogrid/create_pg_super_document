@@ -27,7 +27,7 @@ The function ensures that the order and content of list elements are properly re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[_jumbleNode](_jumbleNode.md)` - Recursively process Node elements in generic lists
+  - [_jumbleNode](_jumbleNode.md) - Recursively process Node elements in generic lists
   - `JUMBLE_FIELD_SINGLE` - Macro to jumble single scalar values
   - `lfirst` - Extract Node pointer from list cell (implicit in foreach)
   - `lfirst_int` - Extract integer value from list cell
@@ -35,7 +35,7 @@ The function ensures that the order and content of list elements are properly re
   - `lfirst_xid` - Extract XID value from list cell
   - `elog` - Error logging for unrecognized list types
 - Called from (representative examples):
-  - `[_jumbleNode](_jumbleNode.md)` - When processing T_List, T_IntList, T_OidList, or T_XidList nodes
+  - [_jumbleNode](_jumbleNode.md) - When processing T_List, T_IntList, T_OidList, or T_XidList nodes
 
 ## Notes and Other Information
 - The function uses a switch statement to handle the four supported list types in PostgreSQL

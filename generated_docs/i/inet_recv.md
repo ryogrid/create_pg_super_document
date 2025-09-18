@@ -20,7 +20,7 @@ The `inet_recv` function serves as the binary input function for PostgreSQL's in
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER`: Extracts the StringInfo buffer pointer from function arguments
-  - `[network_recv](../n/network_recv.md)`: Core deserialization function for network addresses
+  - [network_recv](../n/network_recv.md): Core deserialization function for network addresses
   - `PG_RETURN_INET_P`: Returns the deserialized inet value as a PostgreSQL Datum
 - Called from (representative examples):
   - PostgreSQL binary protocol handlers when receiving inet values

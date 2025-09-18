@@ -23,18 +23,18 @@ The function is designed to return zero-filled memory, which is important for in
 - Functions called/Symbols referenced:
   - `calloc` (standard C library function for zero-initialized allocation)
 - Called from (representative examples):
-  - `[pgtypes_fmt_replace](pgtypes_fmt_replace.md)`
-  - `[PGTYPESdate_new](../P/PGTYPESdate_new.md)`
-  - `[PGTYPESdate_fmt_asc](../P/PGTYPESdate_fmt_asc.md)`
+  - [pgtypes_fmt_replace](pgtypes_fmt_replace.md)
+  - [PGTYPESdate_new](../P/PGTYPESdate_new.md)
+  - [PGTYPESdate_fmt_asc](../P/PGTYPESdate_fmt_asc.md)
   - `PGTYPESdate_defmt_asc`
-  - `[PGTYPEStimestamp_defmt_scan](../P/PGTYPEStimestamp_defmt_scan.md)`
-  - `[PGTYPESinterval_new](../P/PGTYPESinterval_new.md)`
-  - `[PGTYPESinterval_from_asc](../P/PGTYPESinterval_from_asc.md)`
+  - [PGTYPEStimestamp_defmt_scan](../P/PGTYPEStimestamp_defmt_scan.md)
+  - [PGTYPESinterval_new](../P/PGTYPESinterval_new.md)
+  - [PGTYPESinterval_from_asc](../P/PGTYPESinterval_from_asc.md)
   - `digitbuf_alloc`
-  - `[PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)`
-  - `[PGTYPESdecimal_new](../P/PGTYPESdecimal_new.md)`
-  - `[get_str_from_var](../g/get_str_from_var.md)`
-  - `[PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)`
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
+  - [PGTYPESdecimal_new](../P/PGTYPESdecimal_new.md)
+  - [get_str_from_var](../g/get_str_from_var.md)
+  - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
   - `un_fmt_comb`
 
 ## Notes and Other Information

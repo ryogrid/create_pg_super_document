@@ -38,10 +38,10 @@ The `array_set_element` function creates a new array identical to the input arra
   - `ArrayCastAndSet`: Sets element value in fixed-length arrays
   - `PG_DETOAST_DATUM`: Detoasts varlena elements before insertion
   - `VARATT_IS_EXTERNAL_EXPANDED`: Checks for expanded array format
-  - `[array_set_element_expanded](array_set_element_expanded.md)`: Handles expanded array assignments
+  - [array_set_element_expanded](array_set_element_expanded.md): Handles expanded array assignments
   - `DatumGetArrayTypeP`: Converts datum to ArrayType pointer
   - `ARR_NDIM`, `ARR_DIMS`, `ARR_LBOUND`, `ARR_ELEMTYPE`: Array metadata
-  - `[construct_md_array](../c/construct_md_array.md)`: Creates new arrays from empty arrays
+  - [construct_md_array](../c/construct_md_array.md): Creates new arrays from empty arrays
   - `ArrayGetNItems`, `ArrayCheckBounds`: Array validation functions
   - `ARR_OVERHEAD_WITHNULLS`, `ARR_OVERHEAD_NONULLS`: Size calculations
   - `ArrayGetOffset`: Calculates linear offset from subscripts
@@ -49,9 +49,9 @@ The `array_set_element` function creates a new array identical to the input arra
   - `att_addlength_datum`, `att_align_nominal`: Data size/alignment
   - `array_set_isnull`, `array_bitmap_copy`: Null bitmap management
 - Called from (representative examples):
-  - `[array_set](array_set.md)`: Array assignment operations
-  - `[array_subscript_assign](array_subscript_assign.md)`: Subscripted assignment operations
-  - `[array_append](array_append.md)`, `array_prepend`: Array modification functions
+  - [array_set](array_set.md): Array assignment operations
+  - [array_subscript_assign](array_subscript_assign.md): Subscripted assignment operations
+  - [array_append](array_append.md), `array_prepend`: Array modification functions
 
 ## Notes and Other Information
 - Always returns a new array; never modifies the original (except for writable expanded arrays)

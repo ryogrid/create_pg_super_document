@@ -19,13 +19,13 @@ This function deserializes client connection information from a binary buffer th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[SerializedClientConnectionInfo](../S/SerializedClientConnectionInfo.md)` - Structure type for the serialized format
-  - `[MemoryContextStrdup](../M/MemoryContextStrdup.md)` - Memory context-aware string duplication function
+  - [SerializedClientConnectionInfo](../S/SerializedClientConnectionInfo.md) - Structure type for the serialized format
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) - Memory context-aware string duplication function
   - `TopMemoryContext` - Long-lived memory context for process lifetime allocations
   - `MyClientConnectionInfo` - Global variable to store restored connection info
   - `memcpy` - Standard memory copy function
 - Called from (representative examples):
-  - `[ParallelWorkerMain](../P/ParallelWorkerMain.md)` - When parallel workers initialize client connection context
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) - When parallel workers initialize client connection context
   - `INIT_PG_OVERRIDE_ROLE_LOGIN` - In role login override scenarios
 
 ## Notes and Other Information

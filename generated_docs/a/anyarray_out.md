@@ -21,7 +21,7 @@ The `anyarray_out` function serves as the output conversion function for Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[array_out](array_out.md)` (located in `src/backend/utils/adt/arrayfuncs.c:1016-1200`) - the main array output function that handles array-to-text conversion
+  - [array_out](array_out.md) (located in `src/backend/utils/adt/arrayfuncs.c:1016-1200`) - the main array output function that handles array-to-text conversion
 - Called from (representative examples):
   - Type system operations when outputting anyarray pseudo-type values
   - Polymorphic function return value formatting

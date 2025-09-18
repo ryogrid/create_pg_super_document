@@ -23,15 +23,15 @@ Similar to its counterpart `get_foreign_data_wrapper_oid`, this function provide
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GetSysCacheOid1`: Retrieves OID from system cache using single key lookup
-  - `[CStringGetDatum](../C/CStringGetDatum.md)`: Converts C string to PostgreSQL Datum for cache lookup
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum for cache lookup
   - `OidIsValid`: Checks if the returned OID is valid
   - `ereport`: Reports error when server not found and missing_ok is false
 - Called from (representative examples):
-  - `[objectNamesToOids](../o/objectNamesToOids.md)`: For ACL (Access Control List) operations
-  - `[get_object_address_unqualified](get_object_address_unqualified.md)`: For object address resolution
-  - `[CreateForeignServer](../C/CreateForeignServer.md)`: During foreign server creation to check for duplicates
-  - `[GetForeignServerByName](../G/GetForeignServerByName.md)`: For retrieving complete foreign server information
-  - `[convert_server_name](../c/convert_server_name.md)`: For ACL name conversion operations
+  - [objectNamesToOids](../o/objectNamesToOids.md): For ACL (Access Control List) operations
+  - [get_object_address_unqualified](get_object_address_unqualified.md): For object address resolution
+  - [CreateForeignServer](../C/CreateForeignServer.md): During foreign server creation to check for duplicates
+  - [GetForeignServerByName](../G/GetForeignServerByName.md): For retrieving complete foreign server information
+  - [convert_server_name](../c/convert_server_name.md): For ACL name conversion operations
 
 ## Notes and Other Information
 - Uses the `FOREIGNSERVERNAME` cache for efficient lookups

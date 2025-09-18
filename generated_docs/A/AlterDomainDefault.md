@@ -31,23 +31,23 @@ The function handles special cases like NULL defaults (treated as DROP DEFAULT) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `makeTypeNameFromNameList` (name resolution)
-  - `[typenameTypeId](../t/typenameTypeId.md)` (type OID lookup)
+  - [typenameTypeId](../t/typenameTypeId.md) (type OID lookup)
   - `table_open` (catalog access)
   - `SearchSysCacheCopy1` (domain tuple lookup)
-  - `[checkDomainOwner](../c/checkDomainOwner.md)` (permission validation)
-  - `[make_parsestate](../m/make_parsestate.md)` (expression parsing setup)
-  - `[cookDefault](../c/cookDefault.md)` (default expression processing)
-  - `[deparse_expression](../d/deparse_expression.md)` (expression to text conversion)
-  - `[nodeToString](../n/nodeToString.md)` (AST serialization)
-  - `[heap_modify_tuple](../h/heap_modify_tuple.md)` (tuple modification)
-  - `[CatalogTupleUpdate](../C/CatalogTupleUpdate.md)` (catalog update)
-  - `[GenerateTypeDependencies](../G/GenerateTypeDependencies.md)` (dependency rebuilding)
+  - [checkDomainOwner](../c/checkDomainOwner.md) (permission validation)
+  - [make_parsestate](../m/make_parsestate.md) (expression parsing setup)
+  - [cookDefault](../c/cookDefault.md) (default expression processing)
+  - [deparse_expression](../d/deparse_expression.md) (expression to text conversion)
+  - [nodeToString](../n/nodeToString.md) (AST serialization)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (tuple modification)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog update)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md) (dependency rebuilding)
   - `InvokeObjectPostAlterHook` (post-alter hooks)
   - `ObjectAddressSet` (result address setup)
-  - `[heap_freetuple](../h/heap_freetuple.md)` (memory cleanup)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
   
 - Called from (representative examples):
-  - `[ProcessUtilitySlow](../P/ProcessUtilitySlow.md)` (src/backend/tcop/utility.c:1350)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1350)
 
 ## Notes and Other Information
 - The function maintains both binary (typdefaultbin) and textual (typdefault) representations of the default value

@@ -29,7 +29,7 @@ The function takes a const pointer parameter, indicating it does not modify the 
   - `ConditionVariableBroadcast` (src/backend/storage/lmgr/condition_variable.c:321, 324, 352)
   - `LWLockWakeup` (src/backend/storage/lmgr/lwlock.c:978, 997)
   - `LWLockDequeueSelf` (src/backend/storage/lmgr/lwlock.c:1104)
-  - `[proclist_pop_head_node_offset](proclist_pop_head_node_offset.md)` (src/include/storage/proclist.h:177)
+  - [proclist_pop_head_node_offset](proclist_pop_head_node_offset.md) (src/include/storage/proclist.h:177)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for optimal performance

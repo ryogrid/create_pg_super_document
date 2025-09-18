@@ -31,11 +31,11 @@ This function takes no parameters and operates on shared transaction state.
   - `LWLockRelease` (XidGenLock)
   - `TransactionIdIsNormal`
   - `TransactionIdIsValid`
-  - `[TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)`
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - `SearchSysCacheExists1` (DATABASEOID)
-  - `[ObjectIdGetDatum](../O/ObjectIdGetDatum.md)`
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - `[vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)` (src/backend/commands/vacuum.c:1780)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md) (src/backend/commands/vacuum.c:1780)
 
 ## Notes and Other Information
 - Returns `true` if any of the following conditions are met:

@@ -25,21 +25,21 @@ The flag parameter controls tie-breaking behavior: -1 sorts the hypothetical row
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[OSAPerGroupState](../O/OSAPerGroupState.md)`: Ordered-set aggregate per-group state structure
-  - `[AggCheckCallContext](../A/AggCheckCallContext.md)`: Validates aggregate calling context
-  - `[hypothetical_check_argtypes](hypothetical_check_argtypes.md)`: Validates argument type consistency
+  - [OSAPerGroupState](../O/OSAPerGroupState.md): Ordered-set aggregate per-group state structure
+  - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate calling context
+  - [hypothetical_check_argtypes](hypothetical_check_argtypes.md): Validates argument type consistency
   - `ExecClearTuple`: Clears tuple slot contents
-  - `[ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)`: Stores virtual tuple in slot
-  - `[tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)`: Adds tuple to sort operation
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md): Stores virtual tuple in slot
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md): Adds tuple to sort operation
   - `tuplesort_performsort`: Completes the sorting operation
-  - `[tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)`: Retrieves next tuple from sort
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md): Retrieves next tuple from sort
   - `slot_getattr`: Extracts attribute value from tuple slot
-  - `[DatumGetInt32](../D/DatumGetInt32.md)`: Extracts int32 value from Datum
+  - [DatumGetInt32](../D/DatumGetInt32.md): Extracts int32 value from Datum
   - `CHECK_FOR_INTERRUPTS`: Allows query cancellation
 - Called from (representative examples):
-  - `[hypothetical_rank_final](hypothetical_rank_final.md)`: Final function for rank() hypothetical-set aggregate
-  - `[hypothetical_percent_rank_final](hypothetical_percent_rank_final.md)`: Final function for percent_rank() hypothetical-set aggregate
-  - `[hypothetical_cume_dist_final](hypothetical_cume_dist_final.md)`: Final function for cume_dist() hypothetical-set aggregate
+  - [hypothetical_rank_final](hypothetical_rank_final.md): Final function for rank() hypothetical-set aggregate
+  - [hypothetical_percent_rank_final](hypothetical_percent_rank_final.md): Final function for percent_rank() hypothetical-set aggregate
+  - [hypothetical_cume_dist_final](hypothetical_cume_dist_final.md): Final function for cume_dist() hypothetical-set aggregate
 
 ## Notes and Other Information
 - This is a security-sensitive function that validates argument types before processing

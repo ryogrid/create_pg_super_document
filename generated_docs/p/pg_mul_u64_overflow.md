@@ -31,7 +31,7 @@ When overflow is detected, the function sets a dummy value (0x5EED) to the resul
   - `HAVE_INT128` (preprocessor macro for 128-bit integer support)
   - `PG_UINT64_MAX` (maximum value for 64-bit unsigned integer)
 - Called from (representative examples):
-  - `[numericvar_to_uint64](../n/numericvar_to_uint64.md)` at src/backend/utils/adt/numeric.c:8210
+  - [numericvar_to_uint64](../n/numericvar_to_uint64.md) at src/backend/utils/adt/numeric.c:8210
 
 ## Notes and Other Information
 - The function uses conditional compilation with multiple fallback strategies based on platform capabilities

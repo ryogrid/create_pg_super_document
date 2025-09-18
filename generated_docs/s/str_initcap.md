@@ -28,20 +28,20 @@ The function uses a `wasalnum` flag to track whether the previous character was 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[lc_ctype_is_c](../l/lc_ctype_is_c.md)`: Check if collation uses C/POSIX locale
-  - `[asc_initcap](../a/asc_initcap.md)`: ASCII-only initial capitalization
-  - `[pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)`: Get locale information from collation OID
-  - `[icu_to_uchar](../i/icu_to_uchar.md)`, `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
-  - `[unicode_strtitle](../u/unicode_strtitle.md)`: Built-in Unicode title case conversion
-  - `[initcap_wbnext](../i/initcap_wbnext.md)`: Custom word boundary iterator for built-in provider
-  - `[WordBoundaryState](../W/WordBoundaryState.md)`: State structure for word boundary detection
-  - `[char2wchar](../c/char2wchar.md)`, `wchar2char`: Wide character conversion functions
+  - [lc_ctype_is_c](../l/lc_ctype_is_c.md): Check if collation uses C/POSIX locale
+  - [asc_initcap](../a/asc_initcap.md): ASCII-only initial capitalization
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md): Get locale information from collation OID
+  - [icu_to_uchar](../i/icu_to_uchar.md), `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
+  - [unicode_strtitle](../u/unicode_strtitle.md): Built-in Unicode title case conversion
+  - [initcap_wbnext](../i/initcap_wbnext.md): Custom word boundary iterator for built-in provider
+  - [WordBoundaryState](../W/WordBoundaryState.md): State structure for word boundary detection
+  - [char2wchar](../c/char2wchar.md), `wchar2char`: Wide character conversion functions
   - `towlower_l`, `towupper_l`, `iswalnum_l`: Locale-aware wide character functions
   - `tolower_l`, `toupper_l`, `isalnum_l`: Locale-aware character functions
-  - `[pg_tolower](../p/pg_tolower.md)`, `pg_toupper`: PostgreSQL's ASCII case conversion
+  - [pg_tolower](../p/pg_tolower.md), `pg_toupper`: PostgreSQL's ASCII case conversion
 - Called from (representative examples):
-  - `[initcap](../i/initcap.md)`: SQL INITCAP() function implementation
-  - `[str_initcap_z](str_initcap_z.md)`: Null-terminated string wrapper
+  - [initcap](../i/initcap.md): SQL INITCAP() function implementation
+  - [str_initcap_z](str_initcap_z.md): Null-terminated string wrapper
 
 ## Notes and Other Information
 - Returns a palloc'd, null-terminated string that must be freed by the caller

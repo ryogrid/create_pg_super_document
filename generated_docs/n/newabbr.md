@@ -31,12 +31,12 @@ The function maintains a global character pool for all timezone abbreviations us
 - Functions called/Symbols referenced:
   - `GRANDPARENTED`: Special constant for legacy timezone abbreviations
   - `is_alpha`: Character classification function for alphabetic characters
-  - `[warning](../w/warning.md)`: Warning message function for validation issues
-  - `[error](../e/error.md)`: Error reporting function for fatal conditions
+  - [warning](../w/warning.md): Warning message function for validation issues
+  - [error](../e/error.md): Error reporting function for fatal conditions
   - `strlen`: Standard C string length function
   - `strcpy`: Standard C string copy function
 - Called from (representative examples):
-  - `[addtype](../a/addtype.md)`: Function that adds new timezone types
+  - [addtype](../a/addtype.md): Function that adds new timezone types
 
 ## Notes and Other Information
 - Uses global variables `chars` (character array) and `charcnt` (character count) for storage

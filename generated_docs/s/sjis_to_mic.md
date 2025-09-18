@@ -27,7 +27,7 @@ The function uses PostgreSQLs `PG_FUNCTION_ARGS` macro to access arguments:
   - `PG_SJIS`: Encoding constant for Shift_JIS
   - `PG_MULE_INTERNAL`: Encoding constant for Mule Internal Code
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validates encoding conversion parameters
-  - `[sjis2mic](sjis2mic.md)`: Core conversion function that performs the actual character-by-character conversion with complex mapping logic
+  - [sjis2mic](sjis2mic.md): Core conversion function that performs the actual character-by-character conversion with complex mapping logic
   - `PG_RETURN_INT32`: Returns integer result to PostgreSQL
 - Called from (representative examples):
   - `PGEUCALTCODE`: Referenced in the same source file

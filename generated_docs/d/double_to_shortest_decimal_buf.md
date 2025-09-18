@@ -20,13 +20,13 @@ The function includes an assertion to verify that the conversion result fits wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[double_to_shortest_decimal_bufn](double_to_shortest_decimal_bufn.md)`: Core conversion function for unterminated strings
+  - [double_to_shortest_decimal_bufn](double_to_shortest_decimal_bufn.md): Core conversion function for unterminated strings
   - `DOUBLE_SHORTEST_DECIMAL_LEN`: Maximum buffer size constant
   - `Assert`: Debug assertion macro for bounds checking
 - Called from (representative examples):
-  - `[outDouble](../o/outDouble.md)`: Node output formatting function
-  - `[float8out_internal](../f/float8out_internal.md)`: Float8 datatype output function
-  - `[double_to_shortest_decimal](double_to_shortest_decimal.md)`: Memory-allocating wrapper function
+  - [outDouble](../o/outDouble.md): Node output formatting function
+  - [float8out_internal](../f/float8out_internal.md): Float8 datatype output function
+  - [double_to_shortest_decimal](double_to_shortest_decimal.md): Memory-allocating wrapper function
 
 ## Notes and Other Information
 - Returns the string length (excluding the null terminator)

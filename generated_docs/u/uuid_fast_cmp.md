@@ -21,13 +21,13 @@ The `uuid_fast_cmp` function is a static comparison function optimized for use w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[DatumGetUUIDP](../D/DatumGetUUIDP.md)`: Macro to extract UUID pointer from Datum
-  - `[uuid_internal_cmp](uuid_internal_cmp.md)`: Internal function performing the actual UUID comparison
-  - `[pg_uuid_t](../p/pg_uuid_t.md)`: UUID data type structure
+  - [DatumGetUUIDP](../D/DatumGetUUIDP.md): Macro to extract UUID pointer from Datum
+  - [uuid_internal_cmp](uuid_internal_cmp.md): Internal function performing the actual UUID comparison
+  - [pg_uuid_t](../p/pg_uuid_t.md): UUID data type structure
   - `SortSupport`: Sort support framework interface
 - Called from (representative examples):
-  - `[uuid_sortsupport](uuid_sortsupport.md)`: Set as the primary comparator function
-  - `[uuid_sortsupport](uuid_sortsupport.md)`: Set as the full comparator when abbreviation is enabled
+  - [uuid_sortsupport](uuid_sortsupport.md): Set as the primary comparator function
+  - [uuid_sortsupport](uuid_sortsupport.md): Set as the full comparator when abbreviation is enabled
   - Sort operations requiring high-performance UUID comparison
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ The conversion is necessary because SP-GiST operations work with text datums int
 - Functions called/Symbols referenced:
   - `PG_GETARG_NAME`
   - `NameStr` (macro)
-  - `[formTextDatum](../f/formTextDatum.md)`
+  - [formTextDatum](../f/formTextDatum.md)
   - `strlen`
   - `PG_RETURN_DATUM`
 - Called from (representative examples):

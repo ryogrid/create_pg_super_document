@@ -27,15 +27,15 @@ The function manages resource cleanup including releasing postmaster child slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - `slist_foreach_modify` - Iterates through background worker list
-  - `[GetCurrentTimestamp](../G/GetCurrentTimestamp.md)` - Records crash timestamp for restart timing
-  - `[HandleChildCrash](../H/HandleChildCrash.md)` - Initiates crash recovery for abnormal exits
-  - `[ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md)` - Releases allocated process slot
-  - `[BackgroundWorkerStopNotifications](../B/BackgroundWorkerStopNotifications.md)` - Cancels worker notifications
-  - `[ReportBackgroundWorkerExit](../R/ReportBackgroundWorkerExit.md)` - Reports worker termination
-  - `[LogChildExit](../L/LogChildExit.md)` - Logs worker exit information
-  - `[dlist_delete](../d/dlist_delete.md)` - Removes worker from backend list
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) - Records crash timestamp for restart timing
+  - [HandleChildCrash](../H/HandleChildCrash.md) - Initiates crash recovery for abnormal exits
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md) - Releases allocated process slot
+  - [BackgroundWorkerStopNotifications](../B/BackgroundWorkerStopNotifications.md) - Cancels worker notifications
+  - [ReportBackgroundWorkerExit](../R/ReportBackgroundWorkerExit.md) - Reports worker termination
+  - [LogChildExit](../L/LogChildExit.md) - Logs worker exit information
+  - [dlist_delete](../d/dlist_delete.md) - Removes worker from backend list
 - Called from (representative examples):
-  - `[process_pm_child_exit](../p/process_pm_child_exit.md)` - Child exit processing function
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) - Child exit processing function
 
 ## Notes and Other Information
 - Returns `true` if the PID belonged to a background worker, `false` otherwise

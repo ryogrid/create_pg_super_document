@@ -25,12 +25,12 @@ This layered approach ensures that not only does the CPU have the necessary inst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[xsave_available](../x/xsave_available.md)` at Line 97
-  - `[zmm_regs_available](../z/zmm_regs_available.md)` at Line 98  
-  - `[avx512_popcnt_available](../a/avx512_popcnt_available.md)` at Line 99
+  - [xsave_available](../x/xsave_available.md) at Line 97
+  - [zmm_regs_available](../z/zmm_regs_available.md) at Line 98  
+  - [avx512_popcnt_available](../a/avx512_popcnt_available.md) at Line 99
 - Called from (representative examples):
   - `TRY_POPCNT_FAST` at src/include/port/pg_bitutils.h:315
-  - `[choose_popcount_functions](../c/choose_popcount_functions.md)` at src/port/pg_bitutils.c:174
+  - [choose_popcount_functions](../c/choose_popcount_functions.md) at src/port/pg_bitutils.c:174
 
 ## Notes and Other Information
 - This is a public function (not static), making it available to other compilation units

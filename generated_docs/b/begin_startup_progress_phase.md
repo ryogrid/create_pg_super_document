@@ -23,8 +23,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called:
-  - `[disable_startup_progress_timeout](../d/disable_startup_progress_timeout.md)()` (disables current timeout)
-  - `[enable_startup_progress_timeout](../e/enable_startup_progress_timeout.md)()` (enables new timeout with current timestamp)
+  - [disable_startup_progress_timeout](../d/disable_startup_progress_timeout.md)() (disables current timeout)
+  - [enable_startup_progress_timeout](../e/enable_startup_progress_timeout.md)() (enables new timeout with current timestamp)
 
 - [Variables](../V/Variables.md) accessed:
   - `log_startup_progress_interval` (configuration variable for feature enable/disable check)

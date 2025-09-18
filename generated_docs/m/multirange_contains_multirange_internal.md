@@ -31,12 +31,12 @@ For non-empty multiranges, the function ensures every range in `mr2` is containe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract bounds from multirange ranges
-  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds
-  - `[range_bounds_contains](../r/range_bounds_contains.md)` - Test if one range contains another
+  - [multirange_get_bounds](multirange_get_bounds.md) - Extract bounds from multirange ranges
+  - [range_cmp_bounds](../r/range_cmp_bounds.md) - Compare range bounds
+  - [range_bounds_contains](../r/range_bounds_contains.md) - Test if one range contains another
 - Called from (representative examples):
-  - `[multirange_contains_multirange](multirange_contains_multirange.md)` - Direct wrapper function
-  - `[multirange_contained_by_multirange](multirange_contained_by_multirange.md)` - With reversed arguments
+  - [multirange_contains_multirange](multirange_contains_multirange.md) - Direct wrapper function
+  - [multirange_contained_by_multirange](multirange_contained_by_multirange.md) - With reversed arguments
   - `PG_RETURN_MULTIRANGE_P` - Referenced in header files
 
 ## Notes and Other Information

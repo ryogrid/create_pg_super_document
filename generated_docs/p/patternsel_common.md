@@ -40,16 +40,16 @@ This sophisticated approach enables PostgreSQL to make informed decisions about 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `get_restriction_variable`: Extracts variable and constant from operation arguments
-  - `[pattern_fixed_prefix](pattern_fixed_prefix.md)`: Extracts fixed prefix and estimates remainder selectivity
-  - `[var_eq_const](../v/var_eq_const.md)`: Estimates selectivity for exact equality comparisons
+  - [pattern_fixed_prefix](pattern_fixed_prefix.md): Extracts fixed prefix and estimates remainder selectivity
+  - [var_eq_const](../v/var_eq_const.md): Estimates selectivity for exact equality comparisons
   - `histogram_selectivity`: Applies pattern to histogram entries for selectivity estimation
-  - `[prefix_selectivity](prefix_selectivity.md)`: Estimates selectivity for prefix-based range operations
+  - [prefix_selectivity](prefix_selectivity.md): Estimates selectivity for prefix-based range operations
   - `mcv_selectivity`: Analyzes most-common-values against the pattern
   - `ReleaseVariableStats`: Frees variable statistics resources
   - `CLAMP_PROBABILITY`: Ensures result stays within valid probability range
 - Called from (representative examples):
-  - `[like_regex_support](../l/like_regex_support.md)`: Pattern support dispatcher for selectivity requests
-  - `[patternsel](patternsel.md)`: Main entry point for pattern selectivity estimation
+  - [like_regex_support](../l/like_regex_support.md): Pattern support dispatcher for selectivity requests
+  - [patternsel](patternsel.md): Main entry point for pattern selectivity estimation
 
 ## Notes and Other Information
 - Supports TEXT, NAME, BPCHAR (char), and BYTEA data types

@@ -25,18 +25,18 @@ Starting from PostgreSQL 8.0, the function modifies the original list structure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IsPointerList`: Validates that the list contains pointer elements
-  - `[new_list](../n/new_list.md)`: Creates a new list structure with specified type and initial capacity
-  - `[new_head_cell](../n/new_head_cell.md)`: Internal helper function to create space for a new head element
+  - [new_list](../n/new_list.md): Creates a new list structure with specified type and initial capacity
+  - [new_head_cell](../n/new_head_cell.md): Internal helper function to create space for a new head element
   - `linitial`: Macro to access/set the first element of the list
-  - `[check_list_invariants](../c/check_list_invariants.md)`: Debug function to verify list structural integrity
+  - [check_list_invariants](../c/check_list_invariants.md): Debug function to verify list structural integrity
 
 - Called from (representative examples):
-  - `[gistFindPath](../g/gistFindPath.md)`: GiST index path finding operations
-  - `[find_expr_references_walker](../f/find_expr_references_walker.md)`: Expression dependency analysis
-  - `[ExplainNode](../E/ExplainNode.md)`: Query plan explanation functionality
-  - `[sort_inner_and_outer](../s/sort_inner_and_outer.md)`: Join path optimization
+  - [gistFindPath](../g/gistFindPath.md): GiST index path finding operations
+  - [find_expr_references_walker](../f/find_expr_references_walker.md): Expression dependency analysis
+  - [ExplainNode](../E/ExplainNode.md): Query plan explanation functionality
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md): Join path optimization
   - `transformCaseExpr`: CASE expression parsing
-  - `[RewriteQuery](../R/RewriteQuery.md)`: Query rewrite operations
+  - [RewriteQuery](../R/RewriteQuery.md): Query rewrite operations
   - Multiple other optimizer and parser functions
 
 ## Notes and Other Information

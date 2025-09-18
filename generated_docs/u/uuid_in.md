@@ -23,12 +23,12 @@ The function allocates memory for a new UUID structure and delegates the actual 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc](../p/palloc.md)` (memory allocation)
-  - `[string_to_uuid](../s/string_to_uuid.md)` (actual UUID parsing logic)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [string_to_uuid](../s/string_to_uuid.md) (actual UUID parsing logic)
   - `PG_GETARG_CSTRING` (argument retrieval macro)
   - `PG_RETURN_UUID_P` (return value macro)
 - Types used:
-  - `[pg_uuid_t](../p/pg_uuid_t.md)` (internal UUID structure)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (internal UUID structure)
 - Called from:
   - PostgreSQL type system (automatically during type coercion)
 

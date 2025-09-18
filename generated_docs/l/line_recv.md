@@ -25,8 +25,8 @@ The binary format ensures efficient transmission and storage while maintaining f
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER`: Extracts StringInfo pointer from function arguments
-  - `[palloc](../p/palloc.md)`: Allocates memory for LINE structure
-  - `[pq_getmsgfloat8](../p/pq_getmsgfloat8.md)`: Reads float8 value from binary message buffer
+  - [palloc](../p/palloc.md): Allocates memory for LINE structure
+  - [pq_getmsgfloat8](../p/pq_getmsgfloat8.md): Reads float8 value from binary message buffer
   - `FPzero`: Tests if floating-point value is zero
   - `ereport`: Reports error for invalid binary representation
   - `PG_RETURN_LINE_P`: Returns LINE pointer as Datum

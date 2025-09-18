@@ -30,18 +30,18 @@ This function takes no parameters but operates on several global state variables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[compute_code_target](../c/compute_code_target.md)`: Calculate target column for code alignment
-  - `[compute_label_target](../c/compute_label_target.md)`: Calculate target column for label alignment  
-  - `[count_spaces](../c/count_spaces.md)`: Count spaces for column calculations
-  - `[count_spaces_until](../c/count_spaces_until.md)`: Count spaces from start position to target
-  - `[dump_line](../d/dump_line.md)`: Output the current line buffer
-  - `[fill_buffer](../f/fill_buffer.md)`: Read more input when buffer is exhausted
+  - [compute_code_target](../c/compute_code_target.md): Calculate target column for code alignment
+  - [compute_label_target](../c/compute_label_target.md): Calculate target column for label alignment  
+  - [count_spaces](../c/count_spaces.md): Count spaces for column calculations
+  - [count_spaces_until](../c/count_spaces_until.md): Count spaces from start position to target
+  - [dump_line](../d/dump_line.md): Output the current line buffer
+  - [fill_buffer](../f/fill_buffer.md): Read more input when buffer is exhausted
   - `CHECK_SIZE_COM`: Macro to ensure comment buffer has sufficient space
   - `sc_size`: Size of saved comment buffer
   - `lbrace`: Token type for left brace
 
 - Called from (representative examples):
-  - `[directives](../d/directives.md)`: Main processing function in indent.c:1187
+  - [directives](../d/directives.md): Main processing function in indent.c:1187
   - Referenced in `nitems`: Header definition in indent.h:50
 
 ## Notes and Other Information

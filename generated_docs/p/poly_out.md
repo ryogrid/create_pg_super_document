@@ -23,7 +23,7 @@ The function is straightforward and delegates the actual formatting work to the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POLYGON_P`: Macro to extract POLYGON argument from function call
-  - `[path_encode](path_encode.md)`: Core function that handles the coordinate formatting
+  - [path_encode](path_encode.md): Core function that handles the coordinate formatting
   - `PATH_CLOSED`: Constant indicating closed path formatting
   - `PG_RETURN_CSTRING`: Returns the formatted string result
 - Called from (representative examples):

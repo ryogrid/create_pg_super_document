@@ -32,12 +32,12 @@ The function is used as the foundation for both encrypted reading functions (whi
   - `SOCK_ERRNO_SET` (macro for setting socket errno)
   - `SOCK_ERRNO` (macro for getting socket errno)
   - `SOCK_STRERROR` (macro for socket error strings)
-  - `[libpq_append_conn_error](../l/libpq_append_conn_error.md)` (for error message formatting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error message formatting)
   - `PG_STRERROR_R_BUFLEN` (buffer size constant)
 - Called from (representative examples):
-  - `[pqsecure_read](pqsecure_read.md)` (in fe-secure.c:201)
-  - `[pg_GSS_read](pg_GSS_read.md)` (in fe-secure-gssapi.c:332, 365)
-  - `[my_sock_read](../m/my_sock_read.md)` (in fe-secure-openssl.c:1913)
+  - [pqsecure_read](pqsecure_read.md) (in fe-secure.c:201)
+  - [pg_GSS_read](pg_GSS_read.md) (in fe-secure-gssapi.c:332, 365)
+  - [my_sock_read](../m/my_sock_read.md) (in fe-secure-openssl.c:1913)
 
 ## Notes and Other Information
 - Returns the number of bytes read on success, 0 on EOF, or -1 on error

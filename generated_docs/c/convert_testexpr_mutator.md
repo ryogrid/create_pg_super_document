@@ -28,16 +28,16 @@ The function includes careful error checking and uses `copyObject` to avoid crea
 ## Dependencies
 - Functions called/Symbols referenced:
   - `copyObject`
-  - `[list_nth](../l/list_nth.md)` 
+  - [list_nth](../l/list_nth.md) 
   - `expression_tree_mutator`
-  - `[convert_testexpr_mutator](convert_testexpr_mutator.md)` (recursive call)
+  - [convert_testexpr_mutator](convert_testexpr_mutator.md) (recursive call)
 - Types referenced:
   - `Param`
   - `SubLink`
   - `PARAM_SUBLINK`
-  - `[convert_testexpr_context](convert_testexpr_context.md)`
+  - [convert_testexpr_context](convert_testexpr_context.md)
 - Called from (representative examples):
-  - `[convert_testexpr](convert_testexpr.md)` (src/backend/optimizer/plan/subselect.c:650)
+  - [convert_testexpr](convert_testexpr.md) (src/backend/optimizer/plan/subselect.c:650)
   - Self (recursive calls during tree traversal)
 
 ## Notes and Other Information

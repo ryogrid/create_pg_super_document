@@ -24,7 +24,7 @@ The function is marked with `pg_attribute_always_inline` to ensure compiler inli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ApplyInt32SortComparator](../A/ApplyInt32SortComparator.md)` - Performs the actual 32-bit integer comparison of datum values
+  - [ApplyInt32SortComparator](../A/ApplyInt32SortComparator.md) - Performs the actual 32-bit integer comparison of datum values
   - `[state](../s/state.md)->base.comparetup_tiebreak` - Fallback function for comparing additional sort keys
   - `SortTuple` - Structure representing a tuple being sorted
   - `Tuplesortstate` - State structure containing sort configuration

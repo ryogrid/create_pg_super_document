@@ -27,19 +27,19 @@ The function only applies to normal finite values and uses PostgreSQL's internal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md)`: Validates the typmod parameter
-  - `[numeric_typmod_precision](../n/numeric_typmod_precision.md)`: Extracts precision from typmod
-  - `[numeric_typmod_scale](../n/numeric_typmod_scale.md)`: Extracts scale from typmod  
-  - `[round_var](../r/round_var.md)`: Rounds the numeric value to specified scale
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md): Validates the typmod parameter
+  - [numeric_typmod_precision](../n/numeric_typmod_precision.md): Extracts precision from typmod
+  - [numeric_typmod_scale](../n/numeric_typmod_scale.md): Extracts scale from typmod  
+  - [round_var](../r/round_var.md): Rounds the numeric value to specified scale
   - `ereturn`: Soft error return mechanism
   - `DEC_DIGITS`: Macro defining digits per internal digit unit
   - `NumericDigit`: Type for individual numeric digits
 
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric value validation
-  - `[numeric_in](../n/numeric_in.md)`: Text input parsing
-  - `[numeric_recv](../n/numeric_recv.md)`: Binary input parsing
-  - `[numeric](../n/numeric.md)`: Type coercion function
+  - [numeric_in](../n/numeric_in.md): Text input parsing
+  - [numeric_recv](../n/numeric_recv.md): Binary input parsing
+  - [numeric](../n/numeric.md): Type coercion function
 
 ## Notes and Other Information
 - Returns `true` on success, `false` on failure when using soft error handling

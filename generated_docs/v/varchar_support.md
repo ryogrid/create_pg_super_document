@@ -26,7 +26,7 @@ This function is part of PostgreSQL's planner support infrastructure that allows
   - `FuncExpr`: Function expression node type
   - `lsecond`: Macro to get the second element of a list
   - `exprTypmod`: Extracts type modifier from an expression
-  - `[DatumGetInt32](../D/DatumGetInt32.md)`: Converts Datum to int32 value
+  - [DatumGetInt32](../D/DatumGetInt32.md): Converts Datum to int32 value
   - `relabel_to_typmod`: Creates a relabeling node with new type modifier
   - `VARHDRSZ`: Constant representing variable header size
 

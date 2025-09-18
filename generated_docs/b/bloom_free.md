@@ -21,8 +21,8 @@ This function provides proper cleanup for Bloom filter resources and should be c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pfree](../p/pfree.md)`: PostgreSQL memory deallocation function
-  - `[bloom_filter](bloom_filter.md)`: The filter structure type
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation function
+  - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
   - `roles_is_member_of`: ACL role membership checking cleanup

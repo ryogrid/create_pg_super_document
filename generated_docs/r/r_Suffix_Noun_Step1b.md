@@ -32,11 +32,11 @@ The function is part of the systematic Arabic morphological analysis that remove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[find_among_b](../f/find_among_b.md)` (Snowball backward pattern matching function)
-  - `[len_utf8](../l/len_utf8.md)` (UTF-8 string length calculation)
-  - `[slice_del](../s/slice_del.md)` (Snowball suffix deletion function)
+  - [find_among_b](../f/find_among_b.md) (Snowball backward pattern matching function)
+  - [len_utf8](../l/len_utf8.md) (UTF-8 string length calculation)
+  - [slice_del](../s/slice_del.md) (Snowball suffix deletion function)
 - Called from (representative examples):
-  - `[arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md)` (main Arabic stemming function)
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md) (main Arabic stemming function)
 
 ## Notes and Other Information
 - This function specifically targets the Arabic suffix ن (nun) character

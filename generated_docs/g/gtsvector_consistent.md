@@ -33,17 +33,17 @@ The function handles special cases such as empty queries (returns false) and ALL
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TSQUERY`: Extracts TSQuery from function arguments
-  - `[DatumGetPointer](../D/DatumGetPointer.md)`: Converts Datum to pointer
+  - [DatumGetPointer](../D/DatumGetPointer.md): Converts Datum to pointer
   - `ISSIGNKEY`: Checks if entry contains signature data
   - `ISALLTRUE`: Checks if signature has all bits set
   - `TS_execute`: Executes tsquery matching with callback functions
   - `GETQUERY`: Extracts query tree from TSQuery
-  - `[checkcondition_bit](../c/checkcondition_bit.md)`: Callback for signature-based matching
-  - `[checkcondition_arr](../c/checkcondition_arr.md)`: Callback for array-based matching
+  - [checkcondition_bit](../c/checkcondition_bit.md): Callback for signature-based matching
+  - [checkcondition_arr](../c/checkcondition_arr.md): Callback for array-based matching
   - `GETARR`: Gets array data from SignTSVector
   - `ARRNELEM`: Gets number of array elements
 - Called from (representative examples):
-  - `[gtsvector_consistent_oldsig](gtsvector_consistent_oldsig.md)`: Wrapper for backward compatibility
+  - [gtsvector_consistent_oldsig](gtsvector_consistent_oldsig.md): Wrapper for backward compatibility
   - GiST index operations during query processing
 
 ## Notes and Other Information

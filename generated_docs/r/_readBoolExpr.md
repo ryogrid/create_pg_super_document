@@ -30,7 +30,7 @@ The function provides comprehensive error handling for unrecognized boolean oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - `READ_LOCALS` (macro for local node reading setup)
-  - `[pg_strtok](../p/pg_strtok.md)` (tokenization function)
+  - [pg_strtok](../p/pg_strtok.md) (tokenization function)
   - `strncmp` (string comparison)
   - `AND_EXPR`, `OR_EXPR`, `NOT_EXPR` (enum constants)
   - `READ_NODE_FIELD` (macro for reading node list fields)

@@ -25,9 +25,9 @@ This design provides security isolation between users in trusted mode while allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[GetUserId](../G/GetUserId.md)` (retrieves current user ID for trusted mode)
-  - `[hash_search](../h/hash_search.md)` (searches/creates hash table entries)
-  - `[pltcl_init_interp](pltcl_init_interp.md)` (initializes new interpreters)
+  - [GetUserId](../G/GetUserId.md) (retrieves current user ID for trusted mode)
+  - [hash_search](../h/hash_search.md) (searches/creates hash table entries)
+  - [pltcl_init_interp](pltcl_init_interp.md) (initializes new interpreters)
   - `InvalidOid` (constant for untrusted mode key)
   - `HASH_ENTER` (hash table operation flag)
 - Called from (representative examples):

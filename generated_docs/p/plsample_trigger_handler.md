@@ -38,15 +38,15 @@ The function serves as an educational template demonstrating proper trigger hand
   - `CALLED_AS_TRIGGER` (validate trigger context)
   - `SPI_connect`, `SPI_register_trigger_data`, `SPI_finish` (SPI interface)
   - `SPI_getrelname`, `SPI_getnspname` (relation name functions)
-  - `[SearchSysCache1](../S/SearchSysCache1.md)`, `ReleaseSysCache` (system catalog access)
-  - `[SysCacheGetAttr](../S/SysCacheGetAttr.md)`, `DirectFunctionCall1`, `textout` (source extraction)
+  - [SearchSysCache1](../S/SearchSysCache1.md), `ReleaseSysCache` (system catalog access)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md), `DirectFunctionCall1`, `textout` (source extraction)
   - `TRIGGER_FIRED_BY_*` macros (event type detection)
   - `TRIGGER_FIRED_BEFORE/AFTER/INSTEAD` (timing detection)
   - `TRIGGER_FIRED_FOR_ROW/STATEMENT` (level detection)
   - `PG_TRY`, `PG_CATCH`, `PG_RE_THROW`, `PG_END_TRY` (exception handling)
   - `ereport(NOTICE)` (logging and output)
 - Called from:
-  - `[plsample_call_handler](plsample_call_handler.md)` (when handling trigger function calls)
+  - [plsample_call_handler](plsample_call_handler.md) (when handling trigger function calls)
 
 ## Notes and Other Information
 - Located in `src/test/modules/plsample/plsample.c:205-354`

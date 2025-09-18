@@ -25,8 +25,8 @@ Each registered event handler is represented by a `PGEvent` structure that conta
 - Functions called/Symbols referenced:
   - PGEventProc (function pointer type for event callbacks)
 - Called from (representative examples):
-  - `[PQregisterEventProc](PQregisterEventProc.md)()` - registers new event handlers
-  - `[dupEvents](../d/dupEvents.md)()` - duplicates event handlers when copying results
+  - [PQregisterEventProc](PQregisterEventProc.md)() - registers new event handlers
+  - [dupEvents](../d/dupEvents.md)() - duplicates event handlers when copying results
   - Used in `pg_result` and `pg_conn` structures for event management
 
 ## Notes and Other Information

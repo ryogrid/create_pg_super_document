@@ -23,7 +23,7 @@ The `dist_bp` function is a PostgreSQL built-in function that computes the minim
 - Functions called/Symbols referenced:
   - `PG_GETARG_BOX_P` - Extracts BOX argument from function call
   - `PG_GETARG_POINT_P` - Extracts Point argument from function call
-  - `[box_closept_point](../b/box_closept_point.md)` - Computes closest point on box to given point
+  - [box_closept_point](../b/box_closept_point.md) - Computes closest point on box to given point
   - `PG_RETURN_FLOAT8` - Returns float8 result
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

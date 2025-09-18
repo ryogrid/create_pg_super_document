@@ -21,7 +21,7 @@ The implementation mirrors other hash functions in the same file: it extracts th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[cryptohash_internal](../c/cryptohash_internal.md)`: Internal utility function that performs the actual SHA-512 hash computation
+  - [cryptohash_internal](../c/cryptohash_internal.md): Internal utility function that performs the actual SHA-512 hash computation
   - `PG_SHA512`: Constant identifier for the SHA-512 algorithm
   - `PG_GETARG_BYTEA_PP`: Macro to extract bytea argument from function call
   - `PG_RETURN_BYTEA_P`: Macro to return bytea result from function

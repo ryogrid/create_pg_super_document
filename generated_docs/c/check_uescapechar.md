@@ -29,11 +29,11 @@ Any other character is considered valid and returns `true`.
 ## Dependencies
 - Functions called/Symbols referenced:
   - `isxdigit`: Standard C library function to check for hexadecimal digits
-  - `[scanner_isspace](../s/scanner_isspace.md)`: PostgreSQL scanner function to check for whitespace characters
+  - [scanner_isspace](../s/scanner_isspace.md): PostgreSQL scanner function to check for whitespace characters
 
 - Called from (representative examples):
-  - `[base_yylex](../b/base_yylex.md)`: Main lexer function in the backend parser
-  - `[filtered_base_yylex](../f/filtered_base_yylex.md)`: ECPG preprocessor lexer filter function
+  - [base_yylex](../b/base_yylex.md): Main lexer function in the backend parser
+  - [filtered_base_yylex](../f/filtered_base_yylex.md): ECPG preprocessor lexer filter function
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same compilation unit

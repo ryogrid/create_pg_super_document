@@ -24,13 +24,13 @@ The function only advances the `oldestClogXid` forward - it will never move it b
 ## Dependencies
 - Functions called/Symbols referenced:
   - `LWLockAcquire` (XactTruncationLock, LW_EXCLUSIVE)
-  - `[TransactionIdPrecedes](../T/TransactionIdPrecedes.md)`
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - `LWLockRelease` (XactTruncationLock)
 - Called from (representative examples):
-  - `[TruncateCLOG](../T/TruncateCLOG.md)` (src/backend/access/transam/clog.c:1021)
-  - `[clog_redo](../c/clog_redo.md)` (src/backend/access/transam/clog.c:1137)
-  - `[BootStrapXLOG](../B/BootStrapXLOG.md)` (src/backend/access/transam/xlog.c:5055)
-  - `[StartupXLOG](../S/StartupXLOG.md)` (src/backend/access/transam/xlog.c:5531)
+  - [TruncateCLOG](../T/TruncateCLOG.md) (src/backend/access/transam/clog.c:1021)
+  - [clog_redo](../c/clog_redo.md) (src/backend/access/transam/clog.c:1137)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md) (src/backend/access/transam/xlog.c:5055)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5531)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction wraparound prevention system

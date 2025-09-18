@@ -21,16 +21,16 @@ The `ginGetStats` function reads statistical information from a GIN index's meta
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GinStatsData` (structure for returning statistical data)
-  - `[GinMetaPageData](../G/GinMetaPageData.md)` (structure containing metadata on the metapage)
-  - `[ReadBuffer](../R/ReadBuffer.md)` (function to read a buffer from storage)
-  - `[LockBuffer](../L/LockBuffer.md)`/`UnlockReleaseBuffer` (buffer locking functions)
-  - `[BufferGetPage](../B/BufferGetPage.md)` (function to get page from buffer)
+  - [GinMetaPageData](../G/GinMetaPageData.md) (structure containing metadata on the metapage)
+  - [ReadBuffer](../R/ReadBuffer.md) (function to read a buffer from storage)
+  - [LockBuffer](../L/LockBuffer.md)/`UnlockReleaseBuffer` (buffer locking functions)
+  - [BufferGetPage](../B/BufferGetPage.md) (function to get page from buffer)
   - `GinPageGetMeta` (macro to extract metadata from a GIN metapage)
   - `GIN_METAPAGE_BLKNO` (constant for metapage block number)
   - `GIN_SHARE` (constant for shared lock mode)
 - Called from (representative examples):
-  - `[ginNewScanKey](ginNewScanKey.md)` (scan initialization)
-  - `[gincostestimate](gincostestimate.md)` (query cost estimation)
+  - [ginNewScanKey](ginNewScanKey.md) (scan initialization)
+  - [gincostestimate](gincostestimate.md) (query cost estimation)
 
 ## Notes and Other Information
 - Acquires only a shared lock on the metapage, allowing concurrent reads

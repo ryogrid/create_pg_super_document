@@ -24,7 +24,7 @@ The `cstring_recv` function serves as the binary input conversion function for P
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER` (macro for extracting pointer argument)
-  - `[pq_getmsgtext](../p/pq_getmsgtext.md)` (function to extract text from message buffer)
+  - [pq_getmsgtext](../p/pq_getmsgtext.md) (function to extract text from message buffer)
   - `PG_RETURN_CSTRING` (macro for returning cstring result)
 - Called from (representative examples):
   - PostgreSQL's binary protocol message handling

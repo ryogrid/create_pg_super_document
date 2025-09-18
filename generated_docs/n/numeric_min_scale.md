@@ -20,9 +20,9 @@ The `numeric_min_scale` function is a PostgreSQL built-in function that calculat
 - Functions called/Symbols referenced:
   - `PG_GETARG_NUMERIC` - Extracts numeric argument from function call
   - `NUMERIC_IS_SPECIAL` - Checks if numeric value is special (NaN, infinity)
-  - `[init_var_from_num](../i/init_var_from_num.md)` - Converts external Numeric to internal NumericVar
-  - `[get_min_scale](../g/get_min_scale.md)` - Calculates the actual minimum scale
-  - `[free_var](../f/free_var.md)` - Releases memory allocated for NumericVar
+  - [init_var_from_num](../i/init_var_from_num.md) - Converts external Numeric to internal NumericVar
+  - [get_min_scale](../g/get_min_scale.md) - Calculates the actual minimum scale
+  - [free_var](../f/free_var.md) - Releases memory allocated for NumericVar
   - `PG_RETURN_INT32` - Returns integer result
   - `PG_RETURN_NULL` - Returns NULL for special values
 - Called from (representative examples):

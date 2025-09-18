@@ -20,7 +20,7 @@ This function is part of PostgreSQL's type I/O system and is called when VARCHAR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[textsend](../t/textsend.md)`: Performs the actual conversion of text data to binary format
+  - [textsend](../t/textsend.md): Performs the actual conversion of text data to binary format
 
 - Called from (representative examples):
   - PostgreSQL binary protocol output handlers

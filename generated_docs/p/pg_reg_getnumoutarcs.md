@@ -22,11 +22,11 @@ This function counts the number of outgoing regular (non-LACON) arcs from a spec
 - Functions called/Symbols referenced:
   - `regex_t` (structure type)
   - `REMAGIC` (magic number constant)
-  - `[guts](../g/guts.md)` (internal regex structure)
-  - `[cnfa](../c/cnfa.md)` (compiled NFA structure)
-  - `[traverse_lacons](../t/traverse_lacons.md)` (helper function for LACON traversal)
+  - [guts](../g/guts.md) (internal regex structure)
+  - [cnfa](../c/cnfa.md) (compiled NFA structure)
+  - [traverse_lacons](../t/traverse_lacons.md) (helper function for LACON traversal)
 - Called from (representative examples):
-  - `[regex_arc_t](../r/regex_arc_t.md)` (referenced in regexport.h)
+  - [regex_arc_t](../r/regex_arc_t.md) (referenced in regexport.h)
 
 ## Notes and Other Information
 - The function includes validation to ensure the regex pointer is not NULL and has the correct magic number (REMAGIC)

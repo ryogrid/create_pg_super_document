@@ -25,15 +25,15 @@ The function uses PostgreSQL's standard function call mechanism, ensuring proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[stringToQualifiedNameList](../s/stringToQualifiedNameList.md)` (parses function name)
-  - `[LookupFuncName](../L/LookupFuncName.md)` (resolves function OID)
-  - `[object_aclcheck](../o/object_aclcheck.md)` (checks execution permissions) 
-  - `[SearchSysCache1](../S/SearchSysCache1.md)` (retrieves function metadata)
-  - `[fmgr_info](../f/fmgr_info.md)` and `FunctionCallInvoke` (function call mechanism)
-  - `[start_proc_error_callback](../s/start_proc_error_callback.md)` (error context callback)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md) (parses function name)
+  - [LookupFuncName](../L/LookupFuncName.md) (resolves function OID)
+  - [object_aclcheck](../o/object_aclcheck.md) (checks execution permissions) 
+  - [SearchSysCache1](../S/SearchSysCache1.md) (retrieves function metadata)
+  - [fmgr_info](../f/fmgr_info.md) and `FunctionCallInvoke` (function call mechanism)
+  - [start_proc_error_callback](../s/start_proc_error_callback.md) (error context callback)
   - Various PostgreSQL system functions for validation and execution
 - Called from (representative examples):
-  - `[pltcl_init_interp](../p/pltcl_init_interp.md)` (during interpreter initialization)
+  - [pltcl_init_interp](../p/pltcl_init_interp.md) (during interpreter initialization)
 
 ## Notes and Other Information
 - Uses GUC parameters `pltcl.start_proc` (trusted) or `pltclu.start_proc` (untrusted) to determine which function to call

@@ -28,15 +28,15 @@ When an empty string is provided as the tablespace name, it sets the default_tab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[fmtId](../f/fmtId.md)` - Formats PostgreSQL identifiers with proper quoting
-  - `[RestoringToDB](../R/RestoringToDB.md)` - Checks if restoring directly to database vs script output
-  - `[PQexec](../P/PQexec.md)` - Executes SQL command on database connection
-  - `[warn_or_exit_horribly](../w/warn_or_exit_horribly.md)` - Error handling for restore operations
-  - `[ahprintf](../a/ahprintf.md)` - Outputs formatted text to archive handle
+  - [fmtId](../f/fmtId.md) - Formats PostgreSQL identifiers with proper quoting
+  - [RestoringToDB](../R/RestoringToDB.md) - Checks if restoring directly to database vs script output
+  - [PQexec](../P/PQexec.md) - Executes SQL command on database connection
+  - [warn_or_exit_horribly](../w/warn_or_exit_horribly.md) - Error handling for restore operations
+  - [ahprintf](../a/ahprintf.md) - Outputs formatted text to archive handle
 - Data types referenced:
-  - `[RestoreOptions](../R/RestoreOptions.md)` - Structure containing restore configuration options
+  - [RestoreOptions](../R/RestoreOptions.md) - Structure containing restore configuration options
 - Called from (representative examples):
-  - `[_printTocEntry](../p/_printTocEntry.md)` - TOC entry output function that manages object creation context
+  - [_printTocEntry](../p/_printTocEntry.md) - TOC entry output function that manages object creation context
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_backup_archiver.c  

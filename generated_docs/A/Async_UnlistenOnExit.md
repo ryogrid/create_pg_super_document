@@ -22,11 +22,11 @@ The function is designed to be called automatically by PostgreSQL's exit callbac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[Exec_UnlistenAllCommit](../E/Exec_UnlistenAllCommit.md)()` - Removes all channels from the backend's listen list
-  - `[asyncQueueUnregister](../a/asyncQueueUnregister.md)()` - Removes the backend from the shared notification queue
+  - [Exec_UnlistenAllCommit](../E/Exec_UnlistenAllCommit.md)() - Removes all channels from the backend's listen list
+  - [asyncQueueUnregister](../a/asyncQueueUnregister.md)() - Removes the backend from the shared notification queue
 - Called from:
   - `NotificationHash` - Likely during hash table cleanup operations
-  - `[Exec_ListenPreCommit](../E/Exec_ListenPreCommit.md)()` - Registered as an exit callback when first LISTEN is performed
+  - [Exec_ListenPreCommit](../E/Exec_ListenPreCommit.md)() - Registered as an exit callback when first LISTEN is performed
 
 ## Notes and Other Information
 - This is a static function, only accessible within async.c

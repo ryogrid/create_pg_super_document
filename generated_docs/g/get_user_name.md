@@ -24,13 +24,13 @@ The function returns a pointer to either a system-managed buffer (Unix) or a sta
   - `geteuid` (Unix systems)
   - `getpwuid` (Unix systems) 
   - `GetUserName` (Windows systems)
-  - `[psprintf](../p/psprintf.md)`
+  - [psprintf](../p/psprintf.md)
   - `strerror`
   - `GetLastError` (Windows systems)
 - Called from (representative examples):
-  - `[get_user_info](get_user_info.md)` (src/bin/pg_upgrade/util.c:335)
-  - `[get_user_name_or_exit](get_user_name_or_exit.md)` (src/common/username.c:79)
-  - `[config_sspi_auth](../c/config_sspi_auth.md)` (src/test/regress/pg_regress.c:1024)
+  - [get_user_info](get_user_info.md) (src/bin/pg_upgrade/util.c:335)
+  - [get_user_name_or_exit](get_user_name_or_exit.md) (src/common/username.c:79)
+  - [config_sspi_auth](../c/config_sspi_auth.md) (src/test/regress/pg_regress.c:1024)
 
 ## Notes and Other Information
 - The function handles platform differences transparently - Unix systems use POSIX user ID resolution while Windows uses native API calls

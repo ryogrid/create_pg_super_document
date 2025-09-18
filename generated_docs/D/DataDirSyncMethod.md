@@ -19,9 +19,9 @@ The DataDirSyncMethod enumeration defines synchronization strategies used by Pos
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Called from (representative examples):
-  - `[sync_pgdata](../s/sync_pgdata.md)` at src/common/file_utils.c:99
-  - `[sync_dir_recurse](../s/sync_dir_recurse.md)` at src/common/file_utils.c:220
-  - `[parse_sync_method](../p/parse_sync_method.md)` at src/fe_utils/option_utils.c:90
+  - [sync_pgdata](../s/sync_pgdata.md) at src/common/file_utils.c:99
+  - [sync_dir_recurse](../s/sync_dir_recurse.md) at src/common/file_utils.c:220
+  - [parse_sync_method](../p/parse_sync_method.md) at src/fe_utils/option_utils.c:90
   - Used in pg_basebackup, pg_combinebackup, pg_upgrade utilities
   - Referenced in function signatures at src/include/common/file_utils.h:38-39
 

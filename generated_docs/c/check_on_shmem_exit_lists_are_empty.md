@@ -25,7 +25,7 @@ This function takes no parameters.
   - Checks `before_shmem_exit_index` and `on_shmem_exit_index` (global indices)
 
 - Called from (representative examples):
-  - `[BackendInitialize](../B/BackendInitialize.md)` (during backend process initialization)
+  - [BackendInitialize](../B/BackendInitialize.md) (during backend process initialization)
   - `PG_END_ENSURE_ERROR_CLEANUP` (error cleanup macro)
 
 ## Notes and Other Information

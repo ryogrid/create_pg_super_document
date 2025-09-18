@@ -25,10 +25,10 @@ The function handles the case where no non-null inputs were processed by returni
   - `PolyNumAggState` (polymorphic aggregate state structure)
   - `Numeric` (PostgreSQL numeric type)
   - `init_var` (variable initialization)
-  - `[int128_to_numericvar](../i/int128_to_numericvar.md)` (128-bit to numeric conversion)
-  - `[make_result](../m/make_result.md)` (result creation)
-  - `[free_var](../f/free_var.md)` (variable cleanup)
-  - `[numeric_sum](numeric_sum.md)` (fallback sum function)
+  - [int128_to_numericvar](../i/int128_to_numericvar.md) (128-bit to numeric conversion)
+  - [make_result](../m/make_result.md) (result creation)
+  - [free_var](../f/free_var.md) (variable cleanup)
+  - [numeric_sum](numeric_sum.md) (fallback sum function)
   - `HAVE_INT128` (compilation flag)
 - Called from (representative examples):
   - No direct references found in the indexed codebase

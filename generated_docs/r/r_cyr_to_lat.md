@@ -32,11 +32,11 @@ The mapping includes all standard Serbian Cyrillic letters to their Latin counte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[find_among](../f/find_among.md)`: Searches for patterns in the input string
-  - `[slice_from_s](../s/slice_from_s.md)`: Replaces matched text with new string
-  - `[skip_utf8](../s/skip_utf8.md)`: Advances position by one UTF-8 character
+  - [find_among](../f/find_among.md): Searches for patterns in the input string
+  - [slice_from_s](../s/slice_from_s.md): Replaces matched text with new string
+  - [skip_utf8](../s/skip_utf8.md): Advances position by one UTF-8 character
 - Called from (representative examples):
-  - `[serbian_UTF_8_stem](../s/serbian_UTF_8_stem.md)`: Main stemming function
+  - [serbian_UTF_8_stem](../s/serbian_UTF_8_stem.md): Main stemming function
 
 ## Notes and Other Information
 - This is an auto-generated function from Snowball stemming language specification

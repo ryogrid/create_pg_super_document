@@ -29,18 +29,18 @@ The `mic2latin` function performs the reverse conversion of `latin2mic`, convert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Reports invalid character encoding errors
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Reports invalid character encoding errors
   - `PG_MULE_INTERNAL`: Constant identifier for MIC encoding
   - `IS_HIGHBIT_SET`: Macro to check if the high bit (0x80) is set in a character
   - `pg_mule_mblen`: Returns the byte length of a MIC character sequence
-  - `[report_untranslatable_char](../r/report_untranslatable_char.md)`: Reports characters that cannot be translated between encodings
+  - [report_untranslatable_char](../r/report_untranslatable_char.md): Reports characters that cannot be translated between encodings
 
 - Called from (representative examples):
-  - `[mic_to_koi8r](mic_to_koi8r.md)`: MIC to KOI8-R conversion
-  - `[mic_to_latin1](mic_to_latin1.md)`: MIC to Latin1 conversion
-  - `[mic_to_latin2](mic_to_latin2.md)`: MIC to Latin2 conversion
-  - `[mic_to_latin3](mic_to_latin3.md)`: MIC to Latin3 conversion
-  - `[mic_to_latin4](mic_to_latin4.md)`: MIC to Latin4 conversion
+  - [mic_to_koi8r](mic_to_koi8r.md): MIC to KOI8-R conversion
+  - [mic_to_latin1](mic_to_latin1.md): MIC to Latin1 conversion
+  - [mic_to_latin2](mic_to_latin2.md): MIC to Latin2 conversion
+  - [mic_to_latin3](mic_to_latin3.md): MIC to Latin3 conversion
+  - [mic_to_latin4](mic_to_latin4.md): MIC to Latin4 conversion
 
 ## Notes and Other Information
 - Returns the number of input bytes consumed, which may be less than input length if `noError` is true and an error occurs

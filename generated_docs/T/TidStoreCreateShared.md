@@ -22,18 +22,18 @@ The function creates an AllocSetContext for storing radix tree metadata locally,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc0](../p/palloc0.md)`
+  - [palloc0](../p/palloc0.md)
   - `AllocSetContextCreate`
-  - `[dsa_create_ext](../d/dsa_create_ext.md)`
+  - [dsa_create_ext](../d/dsa_create_ext.md)
   - `shared_ts_create`
   - `DSA_DEFAULT_INIT_SEGMENT_SIZE`
   - `DSA_MAX_SEGMENT_SIZE`
   - `DSA_MIN_SEGMENT_SIZE`
   - `ALLOCSET_SMALL_SIZES`
 - Called from (representative examples):
-  - `[parallel_vacuum_init](../p/parallel_vacuum_init.md)` (src/backend/commands/vacuumparallel.c:379)
-  - `[parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md)` (src/backend/commands/vacuumparallel.c:483)
-  - `[test_create](../t/test_create.md)` (src/test/modules/test_tidstore/test_tidstore.c:110)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (src/backend/commands/vacuumparallel.c:379)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md) (src/backend/commands/vacuumparallel.c:483)
+  - [test_create](../t/test_create.md) (src/test/modules/test_tidstore/test_tidstore.c:110)
 
 ## Notes and Other Information
 - The returned TidStore object is allocated in backend-local memory, but the TID data lives in shared memory

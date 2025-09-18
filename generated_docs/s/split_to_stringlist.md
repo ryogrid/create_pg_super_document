@@ -21,13 +21,13 @@ This function tokenizes a delimited string using the standard C library `strtok`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_strdup](../p/pg_strdup.md)` - PostgreSQL string duplication function
+  - [pg_strdup](../p/pg_strdup.md) - PostgreSQL string duplication function
   - `strtok` - Standard C library string tokenization function
-  - `[add_stringlist_item](../a/add_stringlist_item.md)` - Function to append items to the string list
+  - [add_stringlist_item](../a/add_stringlist_item.md) - Function to append items to the string list
   - `free` - Standard C library memory deallocation function
   - `_stringlist` - Structure type for linked list nodes
 - Called from (representative examples):
-  - `[regression_main](../r/regression_main.md)` - in pg_regress for parsing test lists and configuration options
+  - [regression_main](../r/regression_main.md) - in pg_regress for parsing test lists and configuration options
 
 ## Notes and Other Information
 - This is a static function local to `src/test/regress/pg_regress.c`

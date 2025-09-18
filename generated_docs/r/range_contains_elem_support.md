@@ -26,7 +26,7 @@ The function examines the function call expression and attempts to find a simpli
   - `SupportRequestSimplify` (struct type for planner optimization requests)
   - `FuncExpr` (expression node representing function calls)
   - `lsecond` (macro to get second element from a list)
-  - `[find_simplified_clause](../f/find_simplified_clause.md)` (function to find simplified expression alternatives)
+  - [find_simplified_clause](../f/find_simplified_clause.md) (function to find simplified expression alternatives)
 - Called from:
   - No direct references found (likely registered as an operator support function)
 

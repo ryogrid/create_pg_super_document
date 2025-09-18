@@ -30,11 +30,11 @@ This function takes no parameters and returns:
   - `OidIsValid` (macro for OID validation)
   - `ereport` (error reporting function)
   - `table_open` (system catalog access)
-  - `[GetNewOidWithIndex](../G/GetNewOidWithIndex.md)` (OID generation function)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (OID generation function)
   - `table_close` (system catalog cleanup)
   
 - Called from (representative examples):
-  - `[DefineRange](../D/DefineRange.md)` (src/backend/commands/typecmds.c:1524)
+  - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1524)
 
 ## Notes and Other Information
 - This function is specifically for range types introduced in PostgreSQL 14's multirange feature

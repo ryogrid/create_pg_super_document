@@ -23,11 +23,11 @@ The forced directory scan bypasses any caching or optimization that the archiver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_atomic_write_membarrier_u32](../p/pg_atomic_write_membarrier_u32.md)`: Atomically writes a 32-bit value with memory barrier semantics
+  - [pg_atomic_write_membarrier_u32](../p/pg_atomic_write_membarrier_u32.md): Atomically writes a 32-bit value with memory barrier semantics
   - `PgArch->force_dir_scan`: Global archiver state variable accessed atomically
 
 - Called from (representative examples):
-  - `[XLogArchiveNotify](../X/XLogArchiveNotify.md)`: Called when important WAL files need immediate archival attention
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md): Called when important WAL files need immediate archival attention
   - External modules that need to ensure prompt archival of specific files
 
 ## Notes and Other Information

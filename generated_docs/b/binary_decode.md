@@ -25,7 +25,7 @@ Similar to its encoding counterpart, the function performs decoding length estim
   - `PG_GETARG_DATUM` - Extract datum argument from function call
   - `TextDatumGetCString` - Convert text datum to C string
   - `pg_find_encoding` - Find encoding structure by name
-  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation
+  - [palloc](../p/palloc.md) - PostgreSQL memory allocation
   - `SET_VARSIZE` - Set variable-length data size
   - `PG_RETURN_BYTEA_P` - Return bytea result from function
 - Data structures used:

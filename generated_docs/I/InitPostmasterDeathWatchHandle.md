@@ -41,10 +41,10 @@ This function takes no parameters.
   - `DuplicateHandle` - Windows API to duplicate process handle (Windows)
   - `GetCurrentProcess` - Windows API to get current process handle (Windows)
   - `ereport` - PostgreSQL error reporting
-  - `[errcode_for_file_access](../e/errcode_for_file_access.md)`, `errcode_for_socket_access` - PostgreSQL error codes
+  - [errcode_for_file_access](../e/errcode_for_file_access.md), `errcode_for_socket_access` - PostgreSQL error codes
 
 - Called from (representative examples):
-  - `[PostmasterMain](../P/PostmasterMain.md)` - During postmaster initialization
+  - [PostmasterMain](../P/PostmasterMain.md) - During postmaster initialization
   - `SignalChildren` - During shutdown process
 
 ## Notes and Other Information

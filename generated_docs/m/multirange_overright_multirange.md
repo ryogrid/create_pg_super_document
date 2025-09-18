@@ -25,10 +25,10 @@ Similar to `multirange_overright_range`, this function extracts the first range 
 - Functions called/Symbols referenced:
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange from function arguments
   - `MultirangeIsEmpty` - Check if multirange is empty
-  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache for range type
+  - [multirange_get_typcache](multirange_get_typcache.md) - Get type cache for range type
   - `MultirangeTypeGetOid` - Get OID of multirange type
-  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract bounds from multirange
-  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds
+  - [multirange_get_bounds](multirange_get_bounds.md) - Extract bounds from multirange
+  - [range_cmp_bounds](../r/range_cmp_bounds.md) - Compare range bounds
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator system)
 

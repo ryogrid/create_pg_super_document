@@ -22,15 +22,15 @@ This function is typically called during the cleanup phase of vacuum operations,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[index_vacuum_cleanup](../i/index_vacuum_cleanup.md)`: Core function that performs the actual index cleanup operations
-  - `[IndexVacuumInfo](../I/IndexVacuumInfo.md)`: Structure type containing vacuum context information
-  - `[IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)`: Structure type containing bulk deletion statistics
+  - [index_vacuum_cleanup](../i/index_vacuum_cleanup.md): Core function that performs the actual index cleanup operations
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md): Structure type containing vacuum context information
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md): Structure type containing bulk deletion statistics
   - `ereport`: PostgreSQL error/message reporting function
   - `RelationGetRelationName`: Utility function to get relation name for reporting
 
 - Called from (representative examples):
-  - `[lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md)`: Called during heap vacuum lazy cleanup phase
-  - `[parallel_vacuum_process_one_index](../p/parallel_vacuum_process_one_index.md)`: Called during parallel vacuum processing
+  - [lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md): Called during heap vacuum lazy cleanup phase
+  - [parallel_vacuum_process_one_index](../p/parallel_vacuum_process_one_index.md): Called during parallel vacuum processing
 
 ## Notes and Other Information
 - The function always returns the `IndexBulkDeleteResult` structure, which may be the same as the input or a new/modified structure from `index_vacuum_cleanup`

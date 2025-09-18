@@ -27,7 +27,7 @@ This is a PostgreSQL SQL function that can be called from SQL queries to convert
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MACADDR_P`: Retrieves the input macaddr parameter
-  - `[palloc0](../p/palloc0.md)`: Allocates zero-initialized memory for the result
+  - [palloc0](../p/palloc0.md): Allocates zero-initialized memory for the result
   - `PG_RETURN_MACADDR8_P`: Returns the macaddr8 result
 - Types referenced:
   - `macaddr`: Input 6-byte MAC address type

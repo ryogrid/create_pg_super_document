@@ -22,19 +22,19 @@ The `ginUpdateStats` function writes updated statistical information to a GIN in
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GinStatsData` (structure containing statistical data to write)
-  - `[GinMetaPageData](../G/GinMetaPageData.md)` (structure representing metadata on the metapage)
-  - `[ReadBuffer](../R/ReadBuffer.md)`, `LockBuffer`, `UnlockReleaseBuffer` (buffer management functions)
-  - `[BufferGetPage](../B/BufferGetPage.md)`, `MarkBufferDirty` (page access and modification functions)
+  - [GinMetaPageData](../G/GinMetaPageData.md) (structure representing metadata on the metapage)
+  - [ReadBuffer](../R/ReadBuffer.md), `LockBuffer`, `UnlockReleaseBuffer` (buffer management functions)
+  - [BufferGetPage](../B/BufferGetPage.md), `MarkBufferDirty` (page access and modification functions)
   - `GinPageGetMeta` (macro to extract metadata from a GIN metapage)
   - `START_CRIT_SECTION`, `END_CRIT_SECTION` (critical section management)
   - `RelationNeedsWAL` (function to check if WAL logging is required)
-  - `[ginxlogUpdateMeta](ginxlogUpdateMeta.md)` (structure for WAL record data)
-  - `[XLogBeginInsert](../X/XLogBeginInsert.md)`, `XLogRegisterData`, `XLogRegisterBuffer`, `XLogInsert` (WAL logging functions)
-  - `[PageSetLSN](../P/PageSetLSN.md)` (function to set page log sequence number)
+  - [ginxlogUpdateMeta](ginxlogUpdateMeta.md) (structure for WAL record data)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), `XLogRegisterData`, `XLogRegisterBuffer`, `XLogInsert` (WAL logging functions)
+  - [PageSetLSN](../P/PageSetLSN.md) (function to set page log sequence number)
   - `GIN_METAPAGE_BLKNO`, `GIN_EXCLUSIVE` (constants for metapage and lock mode)
 - Called from (representative examples):
-  - `[ginbuild](ginbuild.md)` (during index construction)
-  - `[ginvacuumcleanup](ginvacuumcleanup.md)` (during vacuum operations)
+  - [ginbuild](ginbuild.md) (during index construction)
+  - [ginvacuumcleanup](ginvacuumcleanup.md) (during vacuum operations)
 
 ## Notes and Other Information
 - Acquires an exclusive lock on the metapage to prevent concurrent modifications

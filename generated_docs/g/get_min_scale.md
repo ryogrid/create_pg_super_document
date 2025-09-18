@@ -23,8 +23,8 @@ The `get_min_scale` function determines the minimum number of decimal places nee
   - `DEC_DIGITS` - Constant defining digits per NumericDigit group
   - `NumericDigit` - Type for individual digit groups in numeric representation
 - Called from (representative examples):
-  - `[numeric_min_scale](../n/numeric_min_scale.md)` - Public function that exposes this functionality
-  - `[numeric_trim_scale](../n/numeric_trim_scale.md)` - Function that trims unnecessary decimal places
+  - [numeric_min_scale](../n/numeric_min_scale.md) - Public function that exposes this functionality
+  - [numeric_trim_scale](../n/numeric_trim_scale.md) - Function that trims unnecessary decimal places
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside numeric.c

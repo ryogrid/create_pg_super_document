@@ -28,15 +28,15 @@ The function includes special handling to avoid negative zero results on some pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - `isinf`: Tests if slope is infinite (vertical line)
-  - `[float8_mi](../f/float8_mi.md)`: Floating-point subtraction
-  - `[float8_mul](../f/float8_mul.md)`: Floating-point multiplication
+  - [float8_mi](../f/float8_mi.md): Floating-point subtraction
+  - [float8_mul](../f/float8_mul.md): Floating-point multiplication
 - Called from (representative examples):
-  - `[line_in](line_in.md)`: When converting two-point input format
-  - `[line_construct_pp](line_construct_pp.md)`: When constructing line from two points
-  - `[lseg_interpt_lseg](lseg_interpt_lseg.md)`: Line segment intersection calculations
-  - `[lseg_interpt_line](lseg_interpt_line.md)`: Line segment to line intersection
-  - `[line_closept_point](line_closept_point.md)`: Finding closest point on line
-  - `[lseg_closept_point](lseg_closept_point.md)`: Finding closest point on line segment
+  - [line_in](line_in.md): When converting two-point input format
+  - [line_construct_pp](line_construct_pp.md): When constructing line from two points
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md): Line segment intersection calculations
+  - [lseg_interpt_line](lseg_interpt_line.md): Line segment to line intersection
+  - [line_closept_point](line_closept_point.md): Finding closest point on line
+  - [lseg_closept_point](lseg_closept_point.md): Finding closest point on line segment
 
 ## Notes and Other Information
 - Part of PostgreSQL's geometric data type system in `src/backend/utils/adt/geo_ops.c`

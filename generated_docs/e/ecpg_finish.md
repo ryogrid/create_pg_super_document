@@ -19,15 +19,15 @@ This function implements comprehensive connection cleanup for the ECPG library. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ecpg_deallocate_all_conn](ecpg_deallocate_all_conn.md)` (cleans up prepared statements)
-  - `[PQfinish](../P/PQfinish.md)` (closes PostgreSQL connection)
+  - [ecpg_deallocate_all_conn](ecpg_deallocate_all_conn.md) (cleans up prepared statements)
+  - [PQfinish](../P/PQfinish.md) (closes PostgreSQL connection)
   - `pthread_getspecific` (checks thread-specific connection)
   - `pthread_setspecific` (updates thread-specific connection)
-  - `[ecpg_log](ecpg_log.md)` (logs connection closure)
+  - [ecpg_log](ecpg_log.md) (logs connection closure)
   - `ecpg_free` (frees allocated memory)
 - Called from (representative examples):
-  - `[ECPGconnect](../E/ECPGconnect.md)` (on connection failure)
-  - `[ECPGdisconnect](../E/ECPGdisconnect.md)` (for explicit disconnection)
+  - [ECPGconnect](../E/ECPGconnect.md) (on connection failure)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (for explicit disconnection)
 
 ## Notes and Other Information
 - This is a static function, only accessible within connect.c

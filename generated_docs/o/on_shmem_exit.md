@@ -23,18 +23,18 @@ The function manages an internal list (`on_shmem_exit_list`) of registered callb
 ## Dependencies
 - Functions called/Symbols referenced:
   - `MAX_ON_EXITS` (constant defining maximum number of exit callbacks)
-  - `[atexit_callback](../a/atexit_callback.md)` (the actual cleanup function registered with atexit)
+  - [atexit_callback](../a/atexit_callback.md) (the actual cleanup function registered with atexit)
   - `ereport` (error reporting)
   - `atexit` (standard C library function)
 
 - Called from (representative examples):
-  - `[PGReserveSemaphores](../P/PGReserveSemaphores.md)` (semaphore resource management)
-  - `[PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)` (shared memory initialization)
-  - `[AutoVacWorkerMain](../A/AutoVacWorkerMain.md)` (autovacuum worker processes)
+  - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (semaphore resource management)
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md) (shared memory initialization)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker processes)
   - `InitProcess` (process initialization in shared memory)
-  - `[InitBufferPoolAccess](../I/InitBufferPoolAccess.md)` (buffer pool management)
+  - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md) (buffer pool management)
   - `dsm_postmaster_startup` (dynamic shared memory)
-  - `[WalReceiverMain](../W/WalReceiverMain.md)` (WAL receiver process)
+  - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver process)
 
 ## Notes and Other Information
 - This is the middle tier of PostgreSQL's three-tiered exit callback system: before_shmem_exit → on_shmem_exit → on_proc_exit

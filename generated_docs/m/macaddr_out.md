@@ -23,7 +23,7 @@ The function allocates a fixed-size buffer of 32 characters, which is sufficient
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MACADDR_P`: PostgreSQL macro to extract macaddr pointer from function arguments
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - `snprintf`: Standard C library function for formatted string output
   - `PG_RETURN_CSTRING`: PostgreSQL macro to return C string
 - Called from (representative examples):

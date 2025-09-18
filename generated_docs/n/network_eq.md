@@ -30,7 +30,7 @@ For cidr types, subnet bits are always zero, so equality depends primarily on th
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INET_PP`: Macro to extract inet pointer from function arguments
-  - `[network_cmp_internal](network_cmp_internal.md)`: Core network comparison function that returns ordering (-1, 0, 1)
+  - [network_cmp_internal](network_cmp_internal.md): Core network comparison function that returns ordering (-1, 0, 1)
   - `PG_RETURN_BOOL`: Macro to return boolean result from PostgreSQL function
 
 - Called from (representative examples):

@@ -31,7 +31,7 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pgtypes_alloc](pgtypes_alloc.md)` (for temporary buffer allocation)
+  - [pgtypes_alloc](pgtypes_alloc.md) (for temporary buffer allocation)
   - `strlen` (for string length calculation)
   - `memcpy` (for string copying)
   - `free` (for memory deallocation)
@@ -53,7 +53,7 @@ Key features include:
     - `INT64_FORMAT`
 - Called from (representative examples):
   - `un_fmt_comb`
-  - `[dttofmtasc_replace](../d/dttofmtasc_replace.md)`
+  - [dttofmtasc_replace](../d/dttofmtasc_replace.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on buffer overflow or other formatting errors, or ENOMEM on memory allocation failure

@@ -19,9 +19,9 @@ The `intset_num_entries` function provides a simple accessor to retrieve the tot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[IntegerSet](../I/IntegerSet.md)`: Structure type being accessed
+  - [IntegerSet](../I/IntegerSet.md): Structure type being accessed
 - Called from (representative examples):
-  - `[gistvacuum_delete_empty_pages](../g/gistvacuum_delete_empty_pages.md)`: Used in GiST index vacuum operations to check if the set has entries
+  - [gistvacuum_delete_empty_pages](../g/gistvacuum_delete_empty_pages.md): Used in GiST index vacuum operations to check if the set has entries
   - Various test functions in test_integerset module for validation
 
 ## Notes and Other Information

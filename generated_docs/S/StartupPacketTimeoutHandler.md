@@ -25,7 +25,7 @@ The timeout mechanism protects the server from clients that send incomplete star
 - Functions called/Symbols referenced:
   - `_exit` (system call for immediate process termination)
 - Called from (representative examples):
-  - `[BackendInitialize](../B/BackendInitialize.md)` (registered as timeout handler during startup packet processing)
+  - [BackendInitialize](../B/BackendInitialize.md) (registered as timeout handler during startup packet processing)
 
 ## Notes and Other Information
 - This function is specifically designed for startup packet timeout scenarios and should not be used as a general timeout handler

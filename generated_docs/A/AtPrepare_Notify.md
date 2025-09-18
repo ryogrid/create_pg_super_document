@@ -27,7 +27,7 @@ The function checks two global variables: `pendingActions` (which tracks pending
   - `pendingNotifies` - Global variable tracking pending NOTIFY operations
   - `ERRCODE_FEATURE_NOT_SUPPORTED` - PostgreSQL error code constant
 - Called from:
-  - `[PrepareTransaction](../P/PrepareTransaction.md)()` - Main transaction preparation function
+  - [PrepareTransaction](../P/PrepareTransaction.md)() - Main transaction preparation function
   - Referenced in `src/include/commands/async.h` - Header file declaration
 
 ## Notes and Other Information

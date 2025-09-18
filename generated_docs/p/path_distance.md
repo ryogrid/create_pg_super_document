@@ -21,12 +21,12 @@ The function handles both open and closed paths correctly - for closed paths, it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PATH](../P/PATH.md)`: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
   - `PG_GETARG_PATH_P`: Macro to get path arguments from function parameters
-  - `[LSEG](../L/LSEG.md)`: Line segment data type for distance calculations
-  - `[statlseg_construct](../s/statlseg_construct.md)`: Function to construct line segments from points
-  - `[lseg_closept_lseg](../l/lseg_closept_lseg.md)`: Function to calculate distance between two line segments
-  - `[float8_lt](../f/float8_lt.md)`: Float comparison utility for minimum tracking
+  - [LSEG](../L/LSEG.md): Line segment data type for distance calculations
+  - [statlseg_construct](../s/statlseg_construct.md): Function to construct line segments from points
+  - [lseg_closept_lseg](../l/lseg_closept_lseg.md): Function to calculate distance between two line segments
+  - [float8_lt](../f/float8_lt.md): Float comparison utility for minimum tracking
 - Called from (representative examples):
   - No direct references found in the codebase
 

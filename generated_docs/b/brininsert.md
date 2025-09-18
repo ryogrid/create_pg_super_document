@@ -38,19 +38,19 @@ The function implements a retry loop to handle concurrent updates, as other proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[initialize_brin_insertstate](../i/initialize_brin_insertstate.md)()` (initializes insertion state if needed)
+  - [initialize_brin_insertstate](../i/initialize_brin_insertstate.md)() (initializes insertion state if needed)
   - `BrinGetAutoSummarize()` (checks if auto-summarization is enabled)
-  - `[ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)()` (extracts block number from TID)
-  - `[ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)()` (extracts offset from TID)
-  - `[brinGetTupleForHeapBlock](brinGetTupleForHeapBlock.md)()` (retrieves BRIN tuple for a page range)
-  - `[AutoVacuumRequestWork](../A/AutoVacuumRequestWork.md)()` (requests background summarization)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)() (extracts block number from TID)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)() (extracts offset from TID)
+  - [brinGetTupleForHeapBlock](brinGetTupleForHeapBlock.md)() (retrieves BRIN tuple for a page range)
+  - [AutoVacuumRequestWork](../A/AutoVacuumRequestWork.md)() (requests background summarization)
   - `AllocSetContextCreate()` (creates temporary memory context)
-  - `[brin_deform_tuple](brin_deform_tuple.md)()` (converts BRIN tuple to memory format)
-  - `[add_values_to_range](../a/add_values_to_range.md)()` (updates summary with new values)
-  - `[brin_copy_tuple](brin_copy_tuple.md)()` (creates copy of BRIN tuple)
-  - `[brin_form_tuple](brin_form_tuple.md)()` (converts memory tuple to disk format)
-  - `[brin_can_do_samepage_update](brin_can_do_samepage_update.md)()` (checks if in-place update is possible)
-  - `[brin_doupdate](brin_doupdate.md)()` (performs the actual tuple update)
+  - [brin_deform_tuple](brin_deform_tuple.md)() (converts BRIN tuple to memory format)
+  - [add_values_to_range](../a/add_values_to_range.md)() (updates summary with new values)
+  - [brin_copy_tuple](brin_copy_tuple.md)() (creates copy of BRIN tuple)
+  - [brin_form_tuple](brin_form_tuple.md)() (converts memory tuple to disk format)
+  - [brin_can_do_samepage_update](brin_can_do_samepage_update.md)() (checks if in-place update is possible)
+  - [brin_doupdate](brin_doupdate.md)() (performs the actual tuple update)
   - Memory management functions (`MemoryContextSwitchTo()`, `MemoryContextReset()`, etc.)
 
 - Called from (representative examples):

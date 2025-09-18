@@ -19,8 +19,8 @@ This function provides a simplified version of `makeInt128AggState()` that alloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc0](../p/palloc0.md)`: Allocates zero-initialized memory in current context
-  - `[Int128AggState](../I/Int128AggState.md)`: The state structure type being allocated
+  - [palloc0](../p/palloc0.md): Allocates zero-initialized memory in current context
+  - [Int128AggState](../I/Int128AggState.md): The state structure type being allocated
 - Called from (representative examples):
   - Used via `makePolyNumAggStateCurrentContext` macro for polynomial numeric aggregates
 

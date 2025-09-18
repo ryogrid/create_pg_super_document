@@ -37,21 +37,21 @@ This function takes no parameters but operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_pgpid](../g/get_pgpid.md)` (check for existing server process)
-  - `[read_post_opts](../r/read_post_opts.md)` (load startup options)
-  - `[find_other_exec_or_die](../f/find_other_exec_or_die.md)` (locate postgres executable)
-  - `[unlimit_core_size](../u/unlimit_core_size.md)` (remove core file limits, if supported)
-  - `[start_postmaster](../s/start_postmaster.md)` (launch server process)
-  - `[trap_sigint_during_startup](../t/trap_sigint_during_startup.md)` (SIGINT signal handler)
-  - `[pqsignal](../p/pqsignal.md)` (PostgreSQL signal handling)
-  - `[wait_for_postmaster_start](../w/wait_for_postmaster_start.md)` (monitor startup progress)
-  - `[print_msg](../p/print_msg.md)` (status output)
-  - `[write_stderr](../w/write_stderr.md)` (error output)
+  - [get_pgpid](../g/get_pgpid.md) (check for existing server process)
+  - [read_post_opts](../r/read_post_opts.md) (load startup options)
+  - [find_other_exec_or_die](../f/find_other_exec_or_die.md) (locate postgres executable)
+  - [unlimit_core_size](../u/unlimit_core_size.md) (remove core file limits, if supported)
+  - [start_postmaster](../s/start_postmaster.md) (launch server process)
+  - [trap_sigint_during_startup](../t/trap_sigint_during_startup.md) (SIGINT signal handler)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL signal handling)
+  - [wait_for_postmaster_start](../w/wait_for_postmaster_start.md) (monitor startup progress)
+  - [print_msg](../p/print_msg.md) (status output)
+  - [write_stderr](../w/write_stderr.md) (error output)
   - Platform-specific functions: `getppid`, `setenv` (Unix), `CloseHandle` (Windows)
 
 - Called from:
-  - `[main](../m/main.md)` (direct start command)
-  - `[do_restart](do_restart.md)` (during restart operations)
+  - [main](../m/main.md) (direct start command)
+  - [do_restart](do_restart.md) (during restart operations)
 
 ## Notes and Other Information
 - The function warns but continues if another server appears to be running (except during restarts)

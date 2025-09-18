@@ -29,7 +29,7 @@ The conversion process validates the encoding arguments, performs the character-
   - `PG_GETARG_INT32` - Extract integer argument
   - `PG_GETARG_BOOL` - Extract boolean argument
   - `CHECK_ENCODING_CONVERSION_ARGS` - Validate encoding parameters
-  - `[local2local](../l/local2local.md)` - Generic single-byte charset conversion function
+  - [local2local](../l/local2local.md) - Generic single-byte charset conversion function
   - `PG_RETURN_INT32` - Return integer result
   - `win12512iso` - Static conversion table (128 bytes)
 - Called from:

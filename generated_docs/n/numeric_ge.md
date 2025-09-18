@@ -24,7 +24,7 @@ The function extracts two NUMERIC arguments from the function call arguments, de
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_NUMERIC` (macro to extract NUMERIC arguments)
-  - `[cmp_numerics](../c/cmp_numerics.md)` (core comparison logic function)
+  - [cmp_numerics](../c/cmp_numerics.md) (core comparison logic function)
   - `PG_FREE_IF_COPY` (memory management macro)
   - `PG_RETURN_BOOL` (macro to return boolean result)
 - Called from:

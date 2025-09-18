@@ -33,11 +33,11 @@ The function uses cursor management and boundary checking to ensure safe string 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[find_among_b](../f/find_among_b.md)`: Backward search for suffix patterns in arrays
-  - `[slice_del](../s/slice_del.md)`: Delete the substring between bra and ket
-  - `[slice_from_s](../s/slice_from_s.md)`: Replace substring with a specific string
+  - [find_among_b](../f/find_among_b.md): Backward search for suffix patterns in arrays
+  - [slice_del](../s/slice_del.md): Delete the substring between bra and ket
+  - [slice_from_s](../s/slice_from_s.md): Replace substring with a specific string
 - Called from (representative examples):
-  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)` at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3619
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3619
 
 ## Notes and Other Information
 - This function is part of the automatically generated Snowball stemmer code for Greek language

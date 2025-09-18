@@ -27,8 +27,8 @@ The cleanup technique uses array compaction by moving the last element to fill g
   - `elog` (for warning messages)
   - Global arrays: `seq_scan_tables`, `seq_scan_level`, `num_seq_scans`
 - Called from (representative examples):
-  - `[CommitSubTransaction](../C/CommitSubTransaction.md)` (src/backend/access/transam/xact.c:5135)
-  - `[AbortSubTransaction](AbortSubTransaction.md)` (src/backend/access/transam/xact.c:5299)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5135)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5299)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's resource cleanup infrastructure for subtransactions

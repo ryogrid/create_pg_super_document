@@ -21,7 +21,7 @@ The `bpchartypmodout` function serves as the type modifier output function for P
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Extracts 32-bit integer argument from function call context
-  - `[anychar_typmodout](../a/anychar_typmodout.md)`: Generic function for converting character type modifiers to string format
+  - [anychar_typmodout](../a/anychar_typmodout.md): Generic function for converting character type modifiers to string format
   - `PG_RETURN_CSTRING`: Returns the formatted type modifier string
 - Called from (representative examples):
   - No direct callers found in the codebase (typically called by PostgreSQL's type system)

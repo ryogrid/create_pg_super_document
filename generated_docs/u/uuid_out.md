@@ -23,13 +23,13 @@ The function manually converts each byte of the UUID data to hexadecimal charact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc](../p/palloc.md)` (memory allocation for output string)
+  - [palloc](../p/palloc.md) (memory allocation for output string)
   - `PG_GETARG_UUID_P` (argument retrieval macro for UUID)
   - `PG_RETURN_CSTRING` (return value macro for C string)
 - Constants used:
   - `UUID_LEN` (length of UUID in bytes, typically 16)
 - Types used:
-  - `[pg_uuid_t](../p/pg_uuid_t.md)` (internal UUID structure)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (internal UUID structure)
 - Called from:
   - PostgreSQL type system (automatically during type output)
 

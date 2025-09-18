@@ -23,9 +23,9 @@ This function implements the "contained by" operation for multiranges and ranges
 - Functions called/Symbols referenced:
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange from function arguments
   - `PG_GETARG_RANGE_P` - Extract range from function arguments  
-  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache entry for the multirange type
+  - [multirange_get_typcache](multirange_get_typcache.md) - Get type cache entry for the multirange type
   - `MultirangeTypeGetOid` - Get the OID of the multirange type
-  - `[range_contains_multirange_internal](../r/range_contains_multirange_internal.md)` - Perform the actual containment check
+  - [range_contains_multirange_internal](../r/range_contains_multirange_internal.md) - Perform the actual containment check
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator framework)
 

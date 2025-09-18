@@ -23,9 +23,9 @@ This record is typically created automatically by the `PG_FUNCTION_INFO_V1` macr
 - Functions called/Symbols referenced:
   - Used by `PGFInfoFunction` typedef
 - Called from (representative examples):
-  - `[fetch_finfo_record](../f/fetch_finfo_record.md)` at src/backend/utils/fmgr/fmgr.c:454
-  - `[fmgr_info_C_lang](../f/fmgr_info_C_lang.md)` at src/backend/utils/fmgr/fmgr.c:353
-  - `[record_C_func](../r/record_C_func.md)` at src/backend/utils/fmgr/fmgr.c:540
+  - [fetch_finfo_record](../f/fetch_finfo_record.md) at src/backend/utils/fmgr/fmgr.c:454
+  - [fmgr_info_C_lang](../f/fmgr_info_C_lang.md) at src/backend/utils/fmgr/fmgr.c:353
+  - [record_C_func](../r/record_C_func.md) at src/backend/utils/fmgr/fmgr.c:540
   - `PG_FUNCTION_INFO_V1` macro at src/include/fmgr.h:417
 
 ## Notes and Other Information

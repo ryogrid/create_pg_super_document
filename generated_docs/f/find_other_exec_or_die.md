@@ -31,13 +31,13 @@ The error handling differentiates between two failure scenarios:
   - `find_other_exec` (core executable location function)
   - `find_my_exec` (function to determine current executable path)
   - `strlcpy` (safe string copy utility)
-  - `[write_stderr](../w/write_stderr.md)` (error output function)
+  - [write_stderr](../w/write_stderr.md) (error output function)
   - `MAXPGPATH` (maximum path length constant)
 
 - Called from:
-  - `[do_init](../d/do_init.md)` (when initializing a database cluster)
-  - `[do_start](../d/do_start.md)` (when starting the PostgreSQL server)
-  - `[adjust_data_dir](../a/adjust_data_dir.md)` (when adjusting data directory paths)
+  - [do_init](../d/do_init.md) (when initializing a database cluster)
+  - [do_start](../d/do_start.md) (when starting the PostgreSQL server)
+  - [adjust_data_dir](../a/adjust_data_dir.md) (when adjusting data directory paths)
 
 ## Notes and Other Information
 - This function implements a "fail-fast" approach - if required executables are not available, it's better to terminate immediately than attempt to continue

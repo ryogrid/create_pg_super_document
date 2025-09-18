@@ -29,8 +29,8 @@ This mechanism ensures that apply workers and parallel apply workers maintain co
   - `table_states_validity` (static global variable)
 - Called from (representative examples):
   - Registered as callback via `CacheRegisterSyscacheCallback()` in:
-    - `[ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)` (src/backend/replication/logical/applyparallelworker.c:965)
-    - `[SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md)` (src/backend/replication/logical/worker.c:4739)
+    - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:965)
+    - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md) (src/backend/replication/logical/worker.c:4739)
 
 ## Notes and Other Information
 - This is a PostgreSQL syscache invalidation callback with the standard signature

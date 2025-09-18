@@ -20,11 +20,11 @@ The `numeric_trim_scale` function is a PostgreSQL built-in function that creates
 - Functions called/Symbols referenced:
   - `PG_GETARG_NUMERIC` - Extracts numeric argument from function call
   - `NUMERIC_IS_SPECIAL` - Checks if numeric value is special (NaN, infinity)
-  - `[duplicate_numeric](../d/duplicate_numeric.md)` - Creates a copy of special numeric values
-  - `[init_var_from_num](../i/init_var_from_num.md)` - Converts external Numeric to internal NumericVar
-  - `[get_min_scale](../g/get_min_scale.md)` - Calculates the minimum required scale
-  - `[make_result](../m/make_result.md)` - Converts NumericVar back to external Numeric format
-  - `[free_var](../f/free_var.md)` - Releases memory allocated for NumericVar
+  - [duplicate_numeric](../d/duplicate_numeric.md) - Creates a copy of special numeric values
+  - [init_var_from_num](../i/init_var_from_num.md) - Converts external Numeric to internal NumericVar
+  - [get_min_scale](../g/get_min_scale.md) - Calculates the minimum required scale
+  - [make_result](../m/make_result.md) - Converts NumericVar back to external Numeric format
+  - [free_var](../f/free_var.md) - Releases memory allocated for NumericVar
   - `PG_RETURN_NUMERIC` - Returns numeric result
 - Called from (representative examples):
   - Currently no direct references found in the analyzed codebase

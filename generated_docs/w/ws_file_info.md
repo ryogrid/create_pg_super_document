@@ -27,7 +27,7 @@ This structure is primarily used as callback argument data in file reading opera
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):
-  - `[walsummary_read_callback](walsummary_read_callback.md)` function at src/bin/pg_walsummary/pg_walsummary.c:248 (used as callback argument to access file information during read operations)
+  - [walsummary_read_callback](walsummary_read_callback.md) function at src/bin/pg_walsummary/pg_walsummary.c:248 (used as callback argument to access file information during read operations)
 
 ## Notes and Other Information
 - The structure is used as callback argument data (`callback_arg`) in the WAL summary file reading infrastructure

@@ -23,11 +23,11 @@ The function operates by setting up a conversion context and delegating the actu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[convert_testexpr_mutator](convert_testexpr_mutator.md)`
-  - `[convert_testexpr_context](convert_testexpr_context.md)` (struct)
+  - [convert_testexpr_mutator](convert_testexpr_mutator.md)
+  - [convert_testexpr_context](convert_testexpr_context.md) (struct)
 - Called from (representative examples):
-  - `[build_subplan](../b/build_subplan.md)` (src/backend/optimizer/plan/subselect.c:439, 499)
-  - `[convert_ANY_sublink_to_join](convert_ANY_sublink_to_join.md)` (src/backend/optimizer/plan/subselect.c:1344)
+  - [build_subplan](../b/build_subplan.md) (src/backend/optimizer/plan/subselect.c:439, 499)
+  - [convert_ANY_sublink_to_join](convert_ANY_sublink_to_join.md) (src/backend/optimizer/plan/subselect.c:1344)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's subquery handling mechanism and works closely with the subquery planning infrastructure. The conversion is necessary because the parser creates placeholder parameters that need to be resolved to actual query results during execution planning. The function is static and only used internally within the subselect.c module.

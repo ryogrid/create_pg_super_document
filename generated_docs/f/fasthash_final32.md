@@ -28,12 +28,12 @@ The function serves as a convenient wrapper for applications that need 32-bit ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[fasthash_state](fasthash_state.md)` (hash state structure)
-  - `[fasthash_final64](fasthash_final64.md)` (64-bit hash finalization)
-  - `[fasthash_reduce32](fasthash_reduce32.md)` (64-bit to 32-bit reduction using Fermat residue)
+  - [fasthash_state](fasthash_state.md) (hash state structure)
+  - [fasthash_final64](fasthash_final64.md) (64-bit hash finalization)
+  - [fasthash_reduce32](fasthash_reduce32.md) (64-bit to 32-bit reduction using Fermat residue)
 - Called from (representative examples):
-  - `[spcachekey_hash](../s/spcachekey_hash.md)` (in src/backend/catalog/namespace.c:270)
-  - `[hash_string](../h/hash_string.md)` (in src/include/common/hashfn_unstable.h:404)
+  - [spcachekey_hash](../s/spcachekey_hash.md) (in src/backend/catalog/namespace.c:270)
+  - [hash_string](../h/hash_string.md) (in src/include/common/hashfn_unstable.h:404)
 
 ## Notes and Other Information
 - Provides the best of both worlds: 64-bit hash quality in a 32-bit result

@@ -21,19 +21,19 @@ The function follows PostgreSQL's convention of including the program name in er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_user_name](get_user_name.md)`
+  - [get_user_name](get_user_name.md)
   - `fprintf`
   - `exit`
 - Called from (representative examples):
-  - `[main](../m/main.md)` (src/backend/main/main.c:197)
-  - `[get_id](get_id.md)` (src/bin/initdb/initdb.c:825)
-  - `[main](../m/main.md)` (src/bin/pg_amcheck/pg_amcheck.c:510)
-  - `[main](../m/main.md)` (src/bin/pgbench/pgbench.c:7103)
-  - `[main](../m/main.md)` (src/bin/scripts/clusterdb.c:165)
-  - `[main](../m/main.md)` (src/bin/scripts/createdb.c:185)
-  - `[main](../m/main.md)` (src/bin/scripts/createuser.c:225)
-  - `[main](../m/main.md)` (src/bin/scripts/reindexdb.c:235)
-  - `[main](../m/main.md)` (src/bin/scripts/vacuumdb.c:395)
+  - [main](../m/main.md) (src/backend/main/main.c:197)
+  - [get_id](get_id.md) (src/bin/initdb/initdb.c:825)
+  - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:510)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:7103)
+  - [main](../m/main.md) (src/bin/scripts/clusterdb.c:165)
+  - [main](../m/main.md) (src/bin/scripts/createdb.c:185)
+  - [main](../m/main.md) (src/bin/scripts/createuser.c:225)
+  - [main](../m/main.md) (src/bin/scripts/reindexdb.c:235)
+  - [main](../m/main.md) (src/bin/scripts/vacuumdb.c:395)
 
 ## Notes and Other Information
 - This function is widely used across PostgreSQL command-line utilities as a standard way to obtain the current user name

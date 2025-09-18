@@ -23,15 +23,15 @@ This function is essential for maintaining accurate error context during vacuum 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[LVRelState](../L/LVRelState.md)` (vacuum relation state structure)
-  - `[LVSavedErrInfo](../L/LVSavedErrInfo.md)` (saved error info structure)
+  - [LVRelState](../L/LVRelState.md) (vacuum relation state structure)
+  - [LVSavedErrInfo](../L/LVSavedErrInfo.md) (saved error info structure)
 - Called from (representative examples):
-  - `[lazy_scan_heap](../l/lazy_scan_heap.md)` (src/backend/access/heap/vacuumlazy.c:855)
-  - `[lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)` (src/backend/access/heap/vacuumlazy.c:2124)
-  - `[lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md)` (src/backend/access/heap/vacuumlazy.c:2211)
-  - `[lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md)` (src/backend/access/heap/vacuumlazy.c:2444)
-  - `[lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md)` (src/backend/access/heap/vacuumlazy.c:2495)
-  - `[lazy_truncate_heap](../l/lazy_truncate_heap.md)` (src/backend/access/heap/vacuumlazy.c:2562)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (src/backend/access/heap/vacuumlazy.c:855)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md) (src/backend/access/heap/vacuumlazy.c:2124)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md) (src/backend/access/heap/vacuumlazy.c:2211)
+  - [lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md) (src/backend/access/heap/vacuumlazy.c:2444)
+  - [lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md) (src/backend/access/heap/vacuumlazy.c:2495)
+  - [lazy_truncate_heap](../l/lazy_truncate_heap.md) (src/backend/access/heap/vacuumlazy.c:2562)
 
 ## Notes and Other Information
 - The function conditionally saves current error state only if a save structure is provided (non-NULL)

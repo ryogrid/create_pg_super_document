@@ -23,8 +23,8 @@ The `statlseg_construct` function is an internal utility function that initializ
 - Functions called/Symbols referenced:
   - Direct field access only - no function calls
 - Data types used:
-  - `[LSEG](../L/LSEG.md)` - line segment data type
-  - `[Point](../P/Point.md)` - geometric point data type
+  - [LSEG](../L/LSEG.md) - line segment data type
+  - [Point](../P/Point.md) - geometric point data type
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's not externally visible and is typically inlined at compile time

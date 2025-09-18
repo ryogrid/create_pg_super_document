@@ -29,12 +29,12 @@ This function is essential for vectorized comparison and search operations where
   - `vdupq_n_u8` (NEON implementation)
   - UINT64CONST (fallback implementation)
 - Called from (representative examples):
-  - `[RT_NODE_16_SEARCH_EQ](../R/RT_NODE_16_SEARCH_EQ.md)` (radix tree equality search operations)
-  - `[RT_NODE_16_GET_INSERTPOS](../R/RT_NODE_16_GET_INSERTPOS.md)` (radix tree insertion position finding)
-  - `[vector8_has](vector8_has.md)` (SIMD-based element existence checking)
-  - `[vector8_has_le](vector8_has_le.md)` (SIMD-based less-than-or-equal comparison)
-  - `[vector8_is_highbit_set](vector8_is_highbit_set.md)` (high bit detection operations)
-  - `[is_valid_ascii](../i/is_valid_ascii.md)` (ASCII validation routines)
+  - [RT_NODE_16_SEARCH_EQ](../R/RT_NODE_16_SEARCH_EQ.md) (radix tree equality search operations)
+  - [RT_NODE_16_GET_INSERTPOS](../R/RT_NODE_16_GET_INSERTPOS.md) (radix tree insertion position finding)
+  - [vector8_has](vector8_has.md) (SIMD-based element existence checking)
+  - [vector8_has_le](vector8_has_le.md) (SIMD-based less-than-or-equal comparison)
+  - [vector8_is_highbit_set](vector8_is_highbit_set.md) (high bit detection operations)
+  - [is_valid_ascii](../i/is_valid_ascii.md) (ASCII validation routines)
 
 ## Notes and Other Information
 - This is a static inline function defined in `src/include/port/simd.h` for optimal performance

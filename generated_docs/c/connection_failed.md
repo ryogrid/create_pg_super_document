@@ -19,7 +19,7 @@ This function implements the core logic for handling connection failures in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[select_next_encryption_method](../s/select_next_encryption_method.md)`: Selects the next encryption method to attempt (called with `false` parameter)
+  - [select_next_encryption_method](../s/select_next_encryption_method.md): Selects the next encryption method to attempt (called with `false` parameter)
   - `Assert`: Debug assertion to verify the failed method is not currently active
 
 - Called from (representative examples):

@@ -49,16 +49,16 @@ This design allows PostgreSQL to provide a unified hash interface regardless of 
   - `pg_sha512_ctx` (SHA-512 context structure)
 
 - Called from (representative examples):
-  - `[pg_cryptohash_create](pg_cryptohash_create.md)` (allocates and initializes context)
-  - `[pg_cryptohash_init](pg_cryptohash_init.md)` (initializes hash computation)
-  - `[pg_cryptohash_update](pg_cryptohash_update.md)` (processes data chunks)
-  - `[pg_cryptohash_final](pg_cryptohash_final.md)` (finalizes hash and retrieves result)
-  - `[pg_cryptohash_free](pg_cryptohash_free.md)` (deallocates context)
-  - `[pg_cryptohash_error](pg_cryptohash_error.md)` (retrieves error information)
-  - `[scram_mock_salt](../s/scram_mock_salt.md)` (SCRAM authentication)
-  - `[cryptohash_internal](../c/cryptohash_internal.md)` (internal cryptographic operations)
-  - `[pg_hmac_init](pg_hmac_init.md)` (HMAC operations)
-  - `[pg_md5_hash](pg_md5_hash.md)` (MD5 hashing convenience functions)
+  - [pg_cryptohash_create](pg_cryptohash_create.md) (allocates and initializes context)
+  - [pg_cryptohash_init](pg_cryptohash_init.md) (initializes hash computation)
+  - [pg_cryptohash_update](pg_cryptohash_update.md) (processes data chunks)
+  - [pg_cryptohash_final](pg_cryptohash_final.md) (finalizes hash and retrieves result)
+  - [pg_cryptohash_free](pg_cryptohash_free.md) (deallocates context)
+  - [pg_cryptohash_error](pg_cryptohash_error.md) (retrieves error information)
+  - [scram_mock_salt](../s/scram_mock_salt.md) (SCRAM authentication)
+  - [cryptohash_internal](../c/cryptohash_internal.md) (internal cryptographic operations)
+  - [pg_hmac_init](pg_hmac_init.md) (HMAC operations)
+  - [pg_md5_hash](pg_md5_hash.md) (MD5 hashing convenience functions)
 
 ## Notes and Other Information
 - This structure is internal to the cryptohash implementation and should not be accessed directly by client code

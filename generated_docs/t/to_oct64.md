@@ -23,7 +23,7 @@ Like its 32-bit counterpart `to_oct32`, this function serves as a wrapper around
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[convert_to_base](../c/convert_to_base.md)` (internal utility function for base conversion)
+  - [convert_to_base](../c/convert_to_base.md) (internal utility function for base conversion)
   - `PG_RETURN_TEXT_P` (PostgreSQL macro for returning text values)
   - `PG_GETARG_INT64` (PostgreSQL macro for extracting int64 arguments)
 

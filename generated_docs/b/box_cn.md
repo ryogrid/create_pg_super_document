@@ -18,14 +18,14 @@ The `box_cn` function is a static helper function that computes the center point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[Point](../P/Point.md)`: PostgreSQL geometric point data type
-  - `[BOX](../B/BOX.md)`: PostgreSQL geometric box data type
-  - `[float8_pl](../f/float8_pl.md)`: PostgreSQL's safe floating-point addition function
-  - `[float8_div](../f/float8_div.md)`: PostgreSQL's safe floating-point division function
+  - [Point](../P/Point.md): PostgreSQL geometric point data type
+  - [BOX](../B/BOX.md): PostgreSQL geometric box data type
+  - [float8_pl](../f/float8_pl.md): PostgreSQL's safe floating-point addition function
+  - [float8_div](../f/float8_div.md): PostgreSQL's safe floating-point division function
 - Called from (representative examples):
-  - `[box_distance](box_distance.md)`: Function to calculate distance between box centers
-  - `[box_center](box_center.md)`: Function that returns the center point of a box
-  - `[box_interpt_lseg](box_interpt_lseg.md)`: Box-line segment intersection function
+  - [box_distance](box_distance.md): Function to calculate distance between box centers
+  - [box_center](box_center.md): Function that returns the center point of a box
+  - [box_interpt_lseg](box_interpt_lseg.md): Box-line segment intersection function
   - `PATH_CLOSED`: Path operations
 
 ## Notes and Other Information

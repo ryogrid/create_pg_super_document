@@ -25,7 +25,7 @@ This is one of several wrapper functions created to satisfy PostgreSQL's opr_san
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[copy_replication_slot](../c/copy_replication_slot.md)` - The main slot copying implementation, called with logical_slot=true
+  - [copy_replication_slot](../c/copy_replication_slot.md) - The main slot copying implementation, called with logical_slot=true
 - Called from:
   - SQL interface - directly callable as pg_copy_logical_replication_slot(src_slot_name, dst_slot_name)
 

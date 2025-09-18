@@ -23,8 +23,8 @@ The function is declared as `static inline` for optimal performance since it's c
   - `hexlookup` - Static lookup table for character to hex digit conversion
 - Called from (representative examples):
   - `hex_decode_safe` - Safe hex decoding function
-  - `[hex_decode](../h/hex_decode.md)` (in ecpglib) - ECPG hex decoding functionality
-  - `[PQunescapeBytea](../P/PQunescapeBytea.md)` - libpq bytea unescaping function
+  - [hex_decode](../h/hex_decode.md) (in ecpglib) - ECPG hex decoding functionality
+  - [PQunescapeBytea](../P/PQunescapeBytea.md) - libpq bytea unescaping function
 
 ## Notes and Other Information
 - Returns true if the character is a valid hex digit, false otherwise

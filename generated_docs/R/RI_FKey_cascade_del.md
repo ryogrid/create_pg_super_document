@@ -24,14 +24,14 @@ The function uses RowExclusiveLock on the foreign key relation since it will per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ri_CheckTrigger](../r/ri_CheckTrigger.md)`: Validates the trigger call context
-  - `[ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)`: Retrieves constraint metadata
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md): Validates the trigger call context
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md): Retrieves constraint metadata
   - `table_open`: Opens the foreign key relation with RowExclusiveLock
-  - `[ri_BuildQueryKey](../r/ri_BuildQueryKey.md)`: Builds query cache key
-  - `[ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md)`: Retrieves cached query plan
-  - `[ri_GenerateQual](../r/ri_GenerateQual.md)`: Generates WHERE clause conditions
-  - `[ri_PlanCheck](../r/ri_PlanCheck.md)`: Prepares and caches the DELETE query plan
-  - `[ri_PerformCheck](../r/ri_PerformCheck.md)`: Executes the cascaded delete operation
+  - [ri_BuildQueryKey](../r/ri_BuildQueryKey.md): Builds query cache key
+  - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md): Retrieves cached query plan
+  - [ri_GenerateQual](../r/ri_GenerateQual.md): Generates WHERE clause conditions
+  - [ri_PlanCheck](../r/ri_PlanCheck.md): Prepares and caches the DELETE query plan
+  - [ri_PerformCheck](../r/ri_PerformCheck.md): Executes the cascaded delete operation
   - SPI functions: `SPI_connect`, `SPI_finish`
   - Various utility functions for name quoting and type handling
   - `RI_PLAN_CASCADE_ONDELETE`: Query plan type constant

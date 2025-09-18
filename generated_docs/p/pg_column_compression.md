@@ -26,11 +26,11 @@ Like `pg_column_size`, it caches the type length information for efficiency.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_fn_expr_argtype](../g/get_fn_expr_argtype.md)`: Get the OID of the argument's data type
-  - `[get_typlen](../g/get_typlen.md)`: Get the storage length of a data type
-  - `[MemoryContextAlloc](../M/MemoryContextAlloc.md)`: Allocate memory for caching type information
-  - `[toast_get_compression_id](../t/toast_get_compression_id.md)`: Extract compression ID from varlena header
-  - `[DatumGetPointer](../D/DatumGetPointer.md)`: Convert datum to pointer
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md): Get the OID of the argument's data type
+  - [get_typlen](../g/get_typlen.md): Get the storage length of a data type
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocate memory for caching type information
+  - [toast_get_compression_id](../t/toast_get_compression_id.md): Extract compression ID from varlena header
+  - [DatumGetPointer](../D/DatumGetPointer.md): Convert datum to pointer
   - `cstring_to_text`: Convert C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P`: Macro to return a text result
   - `PG_RETURN_NULL`: Macro to return NULL

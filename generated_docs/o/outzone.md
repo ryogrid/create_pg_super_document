@@ -35,11 +35,11 @@ The function handles complex scenarios like:
 - Functions called/Symbols referenced:
   - `emalloc` (memory allocation wrapper)
   - `INITIALIZE` (macro for variable initialization)
-  - `[updateminmax](../u/updateminmax.md)` (updates minimum/maximum year ranges)
-  - `[stringzone](../s/stringzone.md)` (generates POSIX timezone string representation)
-  - `[warning](../w/warning.md)` (issues warning messages)
+  - [updateminmax](../u/updateminmax.md) (updates minimum/maximum year ranges)
+  - [stringzone](../s/stringzone.md) (generates POSIX timezone string representation)
+  - [warning](../w/warning.md) (issues warning messages)
 - Called from (representative examples):
-  - `[main](../m/main.md)` (primary entry point of the zic timezone compiler)
+  - [main](../m/main.md) (primary entry point of the zic timezone compiler)
 
 ## Notes and Other Information
 - Sets global variables like `timecnt`, `typecnt`, and `charcnt` for timezone data counts

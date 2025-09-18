@@ -21,8 +21,8 @@ The `tsquery_and` function is a PostgreSQL built-in function that performs a log
   - `PG_FREE_IF_COPY` - Frees memory if arguments were copied
   - `PG_RETURN_POINTER` - Returns pointer result for optimization cases
   - `PG_RETURN_TSQUERY` - Returns TSQuery result
-  - `[join_tsqueries](../j/join_tsqueries.md)` - Helper function to combine queries with operator
-  - `[QTN2QT](../Q/QTN2QT.md)` - Converts query tree node back to TSQuery format
+  - [join_tsqueries](../j/join_tsqueries.md) - Helper function to combine queries with operator
+  - [QTN2QT](../Q/QTN2QT.md) - Converts query tree node back to TSQuery format
   - `QTNFree` - Frees query tree node memory
   - `OP_AND` - AND operator constant
   - `TSQuery` - Text search query data type

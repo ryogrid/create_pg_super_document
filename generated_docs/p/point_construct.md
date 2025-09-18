@@ -21,14 +21,14 @@ The `point_construct` function is a simple inline utility function that initiali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[Point](../P/Point.md)` - PostgreSQL's 2D point data structure
+  - [Point](../P/Point.md) - PostgreSQL's 2D point data structure
 - Called from (representative examples):
-  - `[line_interpt_line](../l/line_interpt_line.md)` - Calculate intersection point of two lines
-  - `[construct_point](../c/construct_point.md)` - High-level point construction function  
-  - `[point_add_point](point_add_point.md)` - [Point](../P/Point.md) addition operation
-  - `[point_sub_point](point_sub_point.md)` - [Point](../P/Point.md) subtraction operation
-  - `[point_mul_point](point_mul_point.md)` - [Point](../P/Point.md) multiplication operation
-  - `[point_div_point](point_div_point.md)` - [Point](../P/Point.md) division operation
+  - [line_interpt_line](../l/line_interpt_line.md) - Calculate intersection point of two lines
+  - [construct_point](../c/construct_point.md) - High-level point construction function  
+  - [point_add_point](point_add_point.md) - [Point](../P/Point.md) addition operation
+  - [point_sub_point](point_sub_point.md) - [Point](../P/Point.md) subtraction operation
+  - [point_mul_point](point_mul_point.md) - [Point](../P/Point.md) multiplication operation
+  - [point_div_point](point_div_point.md) - [Point](../P/Point.md) division operation
 
 ## Notes and Other Information
 - This is an internal utility function marked as `static inline` for performance optimization

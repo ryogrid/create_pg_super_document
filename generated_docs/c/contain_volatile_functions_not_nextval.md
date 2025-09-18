@@ -21,10 +21,10 @@ The special handling of `nextval()` is important in COPY contexts because sequen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[contain_volatile_functions_not_nextval_walker](contain_volatile_functions_not_nextval_walker.md)`: Performs the actual tree walking and volatility checking
+  - [contain_volatile_functions_not_nextval_walker](contain_volatile_functions_not_nextval_walker.md): Performs the actual tree walking and volatility checking
 - Called from (representative examples):
-  - `[BeginCopyFrom](../B/BeginCopyFrom.md)` (at copyfrom.c:1676)
-  - `[DebugParallelMode](../D/DebugParallelMode.md)` (referenced in optimizer.h:145)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (at copyfrom.c:1676)
+  - [DebugParallelMode](../D/DebugParallelMode.md) (referenced in optimizer.h:145)
 
 ## Notes and Other Information
 - Specifically designed for use in COPY operations

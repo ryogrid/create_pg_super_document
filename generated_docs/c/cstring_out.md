@@ -21,7 +21,7 @@ The `cstring_out` function serves as the output conversion function for PostgreS
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING` (macro for extracting cstring argument)
-  - `[pstrdup](../p/pstrdup.md)` (PostgreSQL memory-managed string duplication)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL memory-managed string duplication)
   - `PG_RETURN_CSTRING` (macro for returning cstring result)
 - Called from (representative examples):
   - Manual invocation in SQL queries like `SELECT cstring_out(some_cstring_value)`

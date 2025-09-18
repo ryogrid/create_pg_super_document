@@ -30,17 +30,17 @@ The function includes comprehensive error handling and security measures, includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[sendAuthRequest](../s/sendAuthRequest.md)`: Request password from client
-  - `[recv_password_packet](../r/recv_password_packet.md)`: Receive password from client
-  - `[InitializeLDAPConnection](../I/InitializeLDAPConnection.md)`: Establish LDAP connection
-  - `[FormatSearchFilter](../F/FormatSearchFilter.md)`: Format LDAP search filter with username
-  - `[errdetail_for_ldap](../e/errdetail_for_ldap.md)`: Generate LDAP error details
-  - `[set_authn_id](../s/set_authn_id.md)`: Set authenticated identity
+  - [sendAuthRequest](../s/sendAuthRequest.md): Request password from client
+  - [recv_password_packet](../r/recv_password_packet.md): Receive password from client
+  - [InitializeLDAPConnection](../I/InitializeLDAPConnection.md): Establish LDAP connection
+  - [FormatSearchFilter](../F/FormatSearchFilter.md): Format LDAP search filter with username
+  - [errdetail_for_ldap](../e/errdetail_for_ldap.md): Generate LDAP error details
+  - [set_authn_id](../s/set_authn_id.md): Set authenticated identity
   - `ldap_simple_bind_s`: LDAP simple bind operation
   - `ldap_search_s`: LDAP search operation
   - `ldap_count_entries`, `ldap_first_entry`, `ldap_get_dn`: LDAP result processing
   - `ldap_unbind`: Close LDAP connection
-  - `[psprintf](../p/psprintf.md)`, `pstrdup`, `pfree`: PostgreSQL string utilities
+  - [psprintf](../p/psprintf.md), `pstrdup`, `pfree`: PostgreSQL string utilities
 - Called from (representative examples):
   - Authentication dispatch logic in auth.c at line 625
 

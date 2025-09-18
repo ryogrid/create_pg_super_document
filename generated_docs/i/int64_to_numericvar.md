@@ -27,7 +27,7 @@ The algorithm extracts digits by repeated division, building the result from the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[alloc_var](../a/alloc_var.md)`: Allocate memory for numeric variable digits
+  - [alloc_var](../a/alloc_var.md): Allocate memory for numeric variable digits
   - `NBASE`: Numeric digit base constant (typically 10000)
   - `NUMERIC_NEG`: Constant representing negative sign
   - `NUMERIC_POS`: Constant representing positive sign  
@@ -37,12 +37,12 @@ The algorithm extracts digits by repeated division, building the result from the
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric creation path
   - `width_bucket_numeric`: Width bucket calculation
-  - `[numeric_fac](../n/numeric_fac.md)`: Factorial computation
-  - `[int64_to_numeric](int64_to_numeric.md)`: Public int64 conversion interface
-  - `[int64_div_fast_to_numeric](int64_div_fast_to_numeric.md)`: Fast division with numeric result
-  - `[numeric_stddev_internal](../n/numeric_stddev_internal.md)`: Statistical functions
-  - `[set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md)`: Non-decimal string parsing
-  - `[sqrt_var](../s/sqrt_var.md)`: Square root computation
+  - [numeric_fac](../n/numeric_fac.md): Factorial computation
+  - [int64_to_numeric](int64_to_numeric.md): Public int64 conversion interface
+  - [int64_div_fast_to_numeric](int64_div_fast_to_numeric.md): Fast division with numeric result
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md): Statistical functions
+  - [set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md): Non-decimal string parsing
+  - [sqrt_var](../s/sqrt_var.md): Square root computation
 
 ## Notes and Other Information
 - Allocates space for up to 20 decimal digits to handle the full int64 range safely

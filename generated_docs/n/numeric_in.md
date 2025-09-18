@@ -29,18 +29,18 @@ The function performs comprehensive syntax validation, handles typmod constraint
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[make_result](../m/make_result.md)`: Creates Numeric result from NumericVar
-  - `[make_result_opt_error](../m/make_result_opt_error.md)`: Creates Numeric result with error handling
-  - `[set_var_from_str](../s/set_var_from_str.md)`: Parses decimal string representation
-  - `[set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md)`: Parses non-decimal integer strings
-  - `[apply_typmod](../a/apply_typmod.md)`: Applies type modifier constraints
-  - `[apply_typmod_special](../a/apply_typmod_special.md)`: Applies constraints to special values
-  - `[pg_strncasecmp](../p/pg_strncasecmp.md)`: Case-insensitive string comparison
+  - [make_result](../m/make_result.md): Creates Numeric result from NumericVar
+  - [make_result_opt_error](../m/make_result_opt_error.md): Creates Numeric result with error handling
+  - [set_var_from_str](../s/set_var_from_str.md): Parses decimal string representation
+  - [set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md): Parses non-decimal integer strings
+  - [apply_typmod](../a/apply_typmod.md): Applies type modifier constraints
+  - [apply_typmod_special](../a/apply_typmod_special.md): Applies constraints to special values
+  - [pg_strncasecmp](../p/pg_strncasecmp.md): Case-insensitive string comparison
   - `init_var`/`free_var`: NumericVar memory management
 - Called from (representative examples):
-  - `[make_const](../m/make_const.md)`: Parser constant creation
-  - `[numeric_to_number](numeric_to_number.md)`: Formatting operations
-  - `[jsonb_in_scalar](../j/jsonb_in_scalar.md)`: JSON numeric conversion
+  - [make_const](../m/make_const.md): Parser constant creation
+  - [numeric_to_number](numeric_to_number.md): Formatting operations
+  - [jsonb_in_scalar](../j/jsonb_in_scalar.md): JSON numeric conversion
   - `pg_lsn_*`: LSN arithmetic operations
 
 ## Notes and Other Information

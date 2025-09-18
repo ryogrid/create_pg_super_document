@@ -29,13 +29,13 @@ The `param_ids` parameter is used to distinguish between the left-hand side (LHS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[test_opexpr_is_hashable](test_opexpr_is_hashable.md)` (validates individual operator expressions)
-  - `[is_andclause](../i/is_andclause.md)` (checks if expression is a Boolean AND)
+  - [test_opexpr_is_hashable](test_opexpr_is_hashable.md) (validates individual operator expressions)
+  - [is_andclause](../i/is_andclause.md) (checks if expression is a Boolean AND)
 - Types referenced:
   - `OpExpr` (operator expression node type)
   - `BoolExpr` (Boolean expression node type)
 - Called from (representative examples):
-  - `[build_subplan](../b/build_subplan.md)` (src/backend/optimizer/plan/subselect.c:519)
+  - [build_subplan](../b/build_subplan.md) (src/backend/optimizer/plan/subselect.c:519)
 
 ## Notes and Other Information
 This function works together with `subplan_is_hashable`/`subpath_is_hashable` to determine complete feasibility of hash-based ANY SubLink execution. While those functions check memory constraints, this function validates the expression structure. The restriction to OpExpr and AND-of-OpExpr patterns reflects the practical limitations of hash-based execution - more complex expressions would require evaluation for each hash probe, eliminating the performance benefits of hashing. The function is part of PostgreSQL's comprehensive optimization strategy for IN/ANY subqueries, allowing the optimizer to choose the most efficient execution method based on both data characteristics and expression complexity.

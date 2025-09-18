@@ -24,7 +24,7 @@ The comparison logic relies on `interval_cmp_internal` which returns a value les
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P` - Extract interval arguments from function call
-  - `[interval_cmp_internal](interval_cmp_internal.md)` - Internal function for comparing intervals (located at src/backend/utils/adt/timestamp.c:2505-2513)
+  - [interval_cmp_internal](interval_cmp_internal.md) - Internal function for comparing intervals (located at src/backend/utils/adt/timestamp.c:2505-2513)
   - `PG_RETURN_INTERVAL_P` - Return the smaller interval result
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL SQL function dispatch)

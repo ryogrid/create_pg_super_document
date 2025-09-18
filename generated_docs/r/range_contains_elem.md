@@ -23,9 +23,9 @@ This function tests whether a PostgreSQL range type contains a specific element 
 - Functions called/Symbols referenced:
   - `PG_GETARG_RANGE_P` - macro to extract range argument
   - `PG_GETARG_DATUM` - macro to extract element value argument
-  - `[range_get_typcache](range_get_typcache.md)` - function to get type cache entry for range operations
+  - [range_get_typcache](range_get_typcache.md) - function to get type cache entry for range operations
   - `RangeTypeGetOid` - function to get the OID of the range type
-  - `[range_contains_elem_internal](range_contains_elem_internal.md)` - internal function that performs actual containment logic
+  - [range_contains_elem_internal](range_contains_elem_internal.md) - internal function that performs actual containment logic
   - `PG_RETURN_BOOL` - macro to return boolean result
 
 - Called from (representative examples):

@@ -25,7 +25,7 @@ The implementation uses PostgreSQL's variable-length data structures and follows
 ## Dependencies
 - Functions called/Symbols referenced:
   - `VARSIZE_ANY_EXHDR`: Macro to get the size of variable-length data excluding header
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - `SET_VARSIZE`: Macro to set the size of a variable-length object
   - `VARDATA`: Macro to get pointer to the data portion of a variable-length object
   - `VARDATA_ANY`: Macro to get data pointer for any variable-length format
@@ -33,8 +33,8 @@ The implementation uses PostgreSQL's variable-length data structures and follows
   - `VARHDRSZ`: Constant representing variable-length header size
 
 - Called from (representative examples):
-  - `[textcat](textcat.md)`: Main text concatenation function
-  - `[text_overlay](text_overlay.md)`: Text overlay/replacement function
+  - [textcat](textcat.md): Main text concatenation function
+  - [text_overlay](text_overlay.md): Text overlay/replacement function
   - `DatumGetVarStringPP`: Variable string processing function
 
 ## Notes and Other Information

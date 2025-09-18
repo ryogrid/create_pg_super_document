@@ -30,14 +30,14 @@ This function takes no parameters and returns a newly allocated OID.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[RecoveryInProgress](../R/RecoveryInProgress.md)`
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - `LWLockAcquire` (OidGenLock, LW_EXCLUSIVE)
-  - `[XLogPutNextOid](../X/XLogPutNextOid.md)`
+  - [XLogPutNextOid](../X/XLogPutNextOid.md)
   - `LWLockRelease` (OidGenLock)
   - Constants: `FirstNormalObjectId`, `FirstGenbkiObjectId`, `VAR_OID_PREFETCH`
 - Called from (representative examples):
-  - `[GetNewOidWithIndex](GetNewOidWithIndex.md)` (src/backend/catalog/catalog.c:435, 450)
-  - `[GetNewRelFileNumber](GetNewRelFileNumber.md)` (src/backend/catalog/catalog.c:580)
+  - [GetNewOidWithIndex](GetNewOidWithIndex.md) (src/backend/catalog/catalog.c:435, 450)
+  - [GetNewRelFileNumber](GetNewRelFileNumber.md) (src/backend/catalog/catalog.c:580)
 
 ## Notes and Other Information
 - **Not for direct use**: The function should generally not be called directly; instead use `GetNewOidWithIndex()` or `GetNewRelFileNumber()` which provide additional uniqueness guarantees

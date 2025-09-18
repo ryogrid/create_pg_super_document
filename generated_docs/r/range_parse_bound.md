@@ -31,13 +31,13 @@ The parsing continues until reaching a range delimiter (comma for bound separati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[StringInfoData](../S/StringInfoData.md)` (string buffer structure)
+  - [StringInfoData](../S/StringInfoData.md) (string buffer structure)
   - `initStringInfo` (initialize string buffer)
   - `appendStringInfoChar` (append character to string buffer)
   - `ereturn` (error return macro for controlled error contexts)
 - Called from:
-  - `[range_parse](range_parse.md)` (src/backend/utils/adt/rangetypes.c:2373) - for lower bound parsing
-  - `[range_parse](range_parse.md)` (src/backend/utils/adt/rangetypes.c:2388) - for upper bound parsing
+  - [range_parse](range_parse.md) (src/backend/utils/adt/rangetypes.c:2373) - for lower bound parsing
+  - [range_parse](range_parse.md) (src/backend/utils/adt/rangetypes.c:2388) - for upper bound parsing
 
 ## Notes and Other Information
 - This is a static function visible only within rangetypes.c

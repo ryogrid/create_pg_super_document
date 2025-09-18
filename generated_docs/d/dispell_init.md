@@ -26,19 +26,19 @@ The function ensures that both dictionary and affix files are provided (as they 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc0](../p/palloc0.md)`: Allocates zero-initialized memory
-  - `[NIStartBuild](../N/NIStartBuild.md)`: Initializes the NIspell object structure
-  - `[NISortDictionary](../N/NISortDictionary.md)`: Sorts dictionary entries for optimal lookup
-  - `[NISortAffixes](../N/NISortAffixes.md)`: Sorts affix rules for optimal lookup  
-  - `[NIFinishBuild](../N/NIFinishBuild.md)`: Finalizes the NIspell object after loading
-  - `[NIImportDictionary](../N/NIImportDictionary.md)`: Loads dictionary data from file
+  - [palloc0](../p/palloc0.md): Allocates zero-initialized memory
+  - [NIStartBuild](../N/NIStartBuild.md): Initializes the NIspell object structure
+  - [NISortDictionary](../N/NISortDictionary.md): Sorts dictionary entries for optimal lookup
+  - [NISortAffixes](../N/NISortAffixes.md): Sorts affix rules for optimal lookup  
+  - [NIFinishBuild](../N/NIFinishBuild.md): Finalizes the NIspell object after loading
+  - [NIImportDictionary](../N/NIImportDictionary.md): Loads dictionary data from file
   - `NIImportAffixes`: Loads affix rules from file
-  - `[get_tsearch_config_filename](../g/get_tsearch_config_filename.md)`: Resolves configuration file paths
-  - `[defGetString](defGetString.md)`: Extracts string values from DefElem structures
-  - `[readstoplist](../r/readstoplist.md)`: Loads stopword list from file
-  - `[lowerstr](../l/lowerstr.md)`: Function for lowercase string processing
+  - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md): Resolves configuration file paths
+  - [defGetString](defGetString.md): Extracts string values from DefElem structures
+  - [readstoplist](../r/readstoplist.md): Loads stopword list from file
+  - [lowerstr](../l/lowerstr.md): Function for lowercase string processing
   - `DictISpell`: Main dictionary structure type
-  - `[DefElem](../D/DefElem.md)`: Configuration element structure
+  - [DefElem](../D/DefElem.md): Configuration element structure
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL function call mechanism)
 

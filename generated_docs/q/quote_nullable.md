@@ -20,7 +20,7 @@ The `quote_nullable` function extends the functionality of `quote_literal` by ha
 - Functions called/Symbols referenced:
   - `cstring_to_text` - Converts C string to PostgreSQL text type
   - `PG_RETURN_TEXT_P` - Macro for returning text values from PostgreSQL functions
-  - `[quote_literal](quote_literal.md)` - Function for quoting non-NULL text literals
+  - [quote_literal](quote_literal.md) - Function for quoting non-NULL text literals
   - `PG_RETURN_DATUM` - Macro for returning generic PostgreSQL datums
   - `DirectFunctionCall1` - Macro for calling PostgreSQL functions directly
 - Called from (representative examples):

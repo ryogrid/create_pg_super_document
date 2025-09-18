@@ -22,9 +22,9 @@ The function extracts the string data from the input buffer, applies any type mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pq_getmsgtext](../p/pq_getmsgtext.md)`: Extracts text data from the binary message buffer
-  - `[varchar_input](varchar_input.md)`: Validates and converts the string to VARCHAR format
-  - `[pfree](../p/pfree.md)`: Frees the temporary string memory
+  - [pq_getmsgtext](../p/pq_getmsgtext.md): Extracts text data from the binary message buffer
+  - [varchar_input](varchar_input.md): Validates and converts the string to VARCHAR format
+  - [pfree](../p/pfree.md): Frees the temporary string memory
   - `PG_RETURN_VARCHAR_P`: Returns the VARCHAR result
 
 - Called from (representative examples):

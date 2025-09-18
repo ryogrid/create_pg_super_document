@@ -24,15 +24,15 @@ The core logic involves parsing the format string into FormatNode structures usi
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strlen` - Calculate format string length
-  - `[palloc](../p/palloc.md)` - Allocate memory for large format strings
+  - [palloc](../p/palloc.md) - Allocate memory for large format strings
   - `parse_format` - Parse format string into FormatNode structures
   - `DCH_cache_fetch` - Retrieve cached format entry for reusable formats
   - `DCH_datetime_type` - Analyze parsed format to determine datetime component types
-  - `[pfree](../p/pfree.md)` - Free allocated memory for uncached formats
+  - [pfree](../p/pfree.md) - Free allocated memory for uncached formats
   - `DCH_CACHE_SIZE` - Maximum size for cached format strings
   - `DCH_ZONED` - Flag indicating timezone components
 - Called from (representative examples):
-  - `[jspIsMutableWalker](../j/jspIsMutableWalker.md)` - JSON path mutability analysis
+  - [jspIsMutableWalker](../j/jspIsMutableWalker.md) - JSON path mutability analysis
   - Header definitions in formatting.h
 
 ## Notes and Other Information

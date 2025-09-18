@@ -32,19 +32,19 @@ The function follows PostgreSQL's standard function interface pattern, extractin
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P` - Extract interval arguments from function call
-  - `[palloc](../p/palloc.md)` - Allocate memory for result interval
+  - [palloc](../p/palloc.md) - Allocate memory for result interval
   - `INTERVAL_IS_NOBEGIN` - Check if interval represents negative infinity
   - `INTERVAL_IS_NOEND` - Check if interval represents positive infinity
   - `INTERVAL_NOT_FINITE` - Check if interval is infinite (either direction)
   - `INTERVAL_NOBEGIN` - Set result to negative infinity
   - `INTERVAL_NOEND` - Set result to positive infinity
   - `memcpy` - Copy interval data for infinite values
-  - `[finite_interval_pl](../f/finite_interval_pl.md)` - Perform addition of finite intervals
+  - [finite_interval_pl](../f/finite_interval_pl.md) - Perform addition of finite intervals
   - `ereport` - PostgreSQL error reporting function
   - `PG_RETURN_INTERVAL_P` - Return the result interval
 - Called from (representative examples):
-  - `[interval_lerp](interval_lerp.md)` - Interval linear interpolation (src/backend/utils/adt/orderedsetaggs.c:519)
-  - `[in_range_interval_interval](in_range_interval_interval.md)` - Range checking function (src/backend/utils/adt/timestamp.c:3906)
+  - [interval_lerp](interval_lerp.md) - Interval linear interpolation (src/backend/utils/adt/orderedsetaggs.c:519)
+  - [in_range_interval_interval](in_range_interval_interval.md) - Range checking function (src/backend/utils/adt/timestamp.c:3906)
 
 ## Notes and Other Information
 - Implements PostgreSQL's + operator for intervals in SQL expressions

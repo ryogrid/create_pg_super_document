@@ -33,17 +33,17 @@ The final array is sorted and deduplicated to enable efficient binary search ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)`: Checks if tuple contains posting list
-  - `[BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)`: Validates tuple type (assertion)
-  - `[BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)`: Gets count of TIDs in posting list
-  - `[BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)`: Extracts specific TID from posting list
-  - `[ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)`: Extracts block number from TID
-  - `[repalloc](../r/repalloc.md)`: Resizes array when more space is needed
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md): Checks if tuple contains posting list
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md): Validates tuple type (assertion)
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md): Gets count of TIDs in posting list
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md): Extracts specific TID from posting list
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from TID
+  - [repalloc](../r/repalloc.md): Resizes array when more space is needed
   - `qsort`: Sorts the block array for binary search efficiency
-  - `[qunique](../q/qunique.md)`: Removes duplicates from sorted array
+  - [qunique](../q/qunique.md): Removes duplicates from sorted array
   - `_bt_blk_cmp`: Comparison function for block number sorting
 - Called from (representative examples):
-  - `[_bt_simpledel_pass](_bt_simpledel_pass.md)`: To get blocks for deletion candidate identification
+  - [_bt_simpledel_pass](_bt_simpledel_pass.md): To get blocks for deletion candidate identification
 
 ## Notes and Other Information
 - Always includes the newitem's table block as an optimization for recent locality

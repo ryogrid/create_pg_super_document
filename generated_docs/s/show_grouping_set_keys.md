@@ -28,20 +28,20 @@ This function displays the specific grouping keys for individual grouping sets w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[show_sort_group_keys](show_sort_group_keys.md)`: Displays sort key information when sortnode is present
-  - `[ExplainOpenGroup](../E/ExplainOpenGroup.md)`: Opens grouping sections in the EXPLAIN output structure
-  - `[ExplainCloseGroup](../E/ExplainCloseGroup.md)`: Closes grouping sections in the EXPLAIN output structure
-  - `[ExplainPropertyText](../E/ExplainPropertyText.md)`: Displays simple text properties (for empty grouping sets)
-  - `[ExplainPropertyListNested](../E/ExplainPropertyListNested.md)`: Displays nested list properties for grouping keys
-  - `[get_tle_by_resno](../g/get_tle_by_resno.md)`: Retrieves target list entries by result number
-  - `[deparse_expression](../d/deparse_expression.md)`: Converts expression nodes to readable string representation
+  - [show_sort_group_keys](show_sort_group_keys.md): Displays sort key information when sortnode is present
+  - [ExplainOpenGroup](../E/ExplainOpenGroup.md): Opens grouping sections in the EXPLAIN output structure
+  - [ExplainCloseGroup](../E/ExplainCloseGroup.md): Closes grouping sections in the EXPLAIN output structure
+  - [ExplainPropertyText](../E/ExplainPropertyText.md): Displays simple text properties (for empty grouping sets)
+  - [ExplainPropertyListNested](../E/ExplainPropertyListNested.md): Displays nested list properties for grouping keys
+  - [get_tle_by_resno](../g/get_tle_by_resno.md): Retrieves target list entries by result number
+  - [deparse_expression](../d/deparse_expression.md): Converts expression nodes to readable string representation
   - `lfirst`: List traversal macro for accessing list elements
   - `lfirst_int`: List traversal macro for integer elements
   - `lappend`: Appends elements to lists
   - `elog`: Error logging function for missing target entries
   - Constants: `AGG_HASHED`, `AGG_MIXED`, `EXPLAIN_FORMAT_TEXT`, `NIL`
 - Called from (representative examples):
-  - `[show_grouping_sets](show_grouping_sets.md)`: Called twice per grouping set chain - once for main set (line 2645) and once for each chained aggregation (line 2653)
+  - [show_grouping_sets](show_grouping_sets.md): Called twice per grouping set chain - once for main set (line 2645) and once for each chained aggregation (line 2653)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's EXPLAIN command infrastructure located in src/backend/commands/explain.c:2661-2738

@@ -36,17 +36,17 @@ The function uses sophisticated backtracking and position management to handle c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[find_among_b](../f/find_among_b.md)`: Searches backwards for patterns in the given array
-  - `[slice_del](../s/slice_del.md)`: Deletes the substring between bra and ket
-  - `[slice_from_s](../s/slice_from_s.md)`: Replaces the substring with specified string
-  - `[in_grouping_b_U](../i/in_grouping_b_U.md)`: Checks if character belongs to specified Unicode group backwards
+  - [find_among_b](../f/find_among_b.md): Searches backwards for patterns in the given array
+  - [slice_del](../s/slice_del.md): Deletes the substring between bra and ket
+  - [slice_from_s](../s/slice_from_s.md): Replaces the substring with specified string
+  - [in_grouping_b_U](../i/in_grouping_b_U.md): Checks if character belongs to specified Unicode group backwards
   - `a_33`: Array of 4 suffix patterns for initial matching
   - `a_34`: Array of 36 suffix patterns for final processing
   - `g_v`: Greek vowel grouping definition
   - `s_70`: Greek string "ικ" (ik) for conditional replacement
   - `s_71`: Greek string "ικ" (ik) for final replacement
 - Called from (representative examples):
-  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function at line 3571
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md): Main Greek stemming function at line 3571
 
 ## Notes and Other Information
 - This is step 4 in the Greek stemming algorithm, featuring the most complex logic of the step functions processed

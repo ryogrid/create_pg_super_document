@@ -27,23 +27,23 @@ The function performs comprehensive validation of the requested changes, updates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[LookupOperWithArgs](../L/LookupOperWithArgs.md)`: Resolves operator name to OID
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md): Resolves operator name to OID
   - `SearchSysCacheCopy1`: Retrieves operator tuple from system catalog
-  - `[defGetQualifiedName](../d/defGetQualifiedName.md)`: Extracts qualified names from DefElem options
-  - `[defGetBoolean](../d/defGetBoolean.md)`: Extracts boolean values from DefElem options  
-  - `[object_ownercheck](../o/object_ownercheck.md)`: Verifies user ownership permissions
-  - `[ValidateRestrictionEstimator](../V/ValidateRestrictionEstimator.md)`: Validates restriction selectivity estimator function
-  - `[ValidateJoinEstimator](../V/ValidateJoinEstimator.md)`: Validates join selectivity estimator function
-  - `[ValidateOperatorReference](../V/ValidateOperatorReference.md)`: Validates commutator/negator operator references
-  - `[OperatorValidateParams](../O/OperatorValidateParams.md)`: Performs logical consistency validation
-  - `[heap_modify_tuple](../h/heap_modify_tuple.md)`: Creates modified catalog tuple
-  - `[CatalogTupleUpdate](../C/CatalogTupleUpdate.md)`: Updates the catalog with changes
-  - `[makeOperatorDependencies](../m/makeOperatorDependencies.md)`: Updates dependency relationships
-  - `[OperatorUpd](../O/OperatorUpd.md)`: Updates back-references in related operators
+  - [defGetQualifiedName](../d/defGetQualifiedName.md): Extracts qualified names from DefElem options
+  - [defGetBoolean](../d/defGetBoolean.md): Extracts boolean values from DefElem options  
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies user ownership permissions
+  - [ValidateRestrictionEstimator](../V/ValidateRestrictionEstimator.md): Validates restriction selectivity estimator function
+  - [ValidateJoinEstimator](../V/ValidateJoinEstimator.md): Validates join selectivity estimator function
+  - [ValidateOperatorReference](../V/ValidateOperatorReference.md): Validates commutator/negator operator references
+  - [OperatorValidateParams](../O/OperatorValidateParams.md): Performs logical consistency validation
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates modified catalog tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the catalog with changes
+  - [makeOperatorDependencies](../m/makeOperatorDependencies.md): Updates dependency relationships
+  - [OperatorUpd](../O/OperatorUpd.md): Updates back-references in related operators
   - `InvokeObjectPostAlterHook`: Triggers post-alter event hooks
 
 - Called from (representative examples):
-  - `[ProcessUtilitySlow](../P/ProcessUtilitySlow.md)`: Main utility command processing entry point
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processing entry point
 
 ## Notes and Other Information
 - **Security**: Requires ownership of the operator being modified

@@ -18,7 +18,7 @@ The `bbstreamer_plain_writer_free` function is responsible for freeing memory al
 ## Dependencies
 - Functions called/Symbols referenced:
   - `Assert` (PostgreSQL assertion macro)
-  - `[pfree](../p/pfree.md)` (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
   - Referenced as callback in `bbstreamer_plain_writer_ops` vtable
   - Called indirectly through bbstreamer cleanup routines

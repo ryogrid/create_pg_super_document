@@ -32,9 +32,9 @@ The `BrinInsertState` structure being cleaned up contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[brinRevmapTerminate](brinRevmapTerminate.md)()` (terminates revmap access structure)
-  - `[pfree](../p/pfree.md)()` (frees the insertion state structure)
-  - `[BrinInsertState](../B/BrinInsertState.md)` (structure type)
+  - [brinRevmapTerminate](brinRevmapTerminate.md)() (terminates revmap access structure)
+  - [pfree](../p/pfree.md)() (frees the insertion state structure)
+  - [BrinInsertState](../B/BrinInsertState.md) (structure type)
   - `IndexInfo` (structure type)
 
 - Called from (representative examples):

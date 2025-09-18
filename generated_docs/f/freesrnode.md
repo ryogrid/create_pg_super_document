@@ -23,12 +23,12 @@ The function ensures proper cleanup by clearing all pointers and flags, preventi
 ## Dependencies
 - Functions called/Symbols referenced:
   - `NULLCNFA`: Macro to check if CNFA structure is null/empty
-  - `[freecnfa](freecnfa.md)`: Function to free CNFA structures
+  - [freecnfa](freecnfa.md): Function to free CNFA structures
   - `FREE`: Memory deallocation macro
-  - `[cnfa](../c/cnfa.md)`: CNFA structure member
+  - [cnfa](../c/cnfa.md): CNFA structure member
   - `subre`: Sub-regular expression structure type
 - Called from (representative examples):
-  - `[parse](../p/parse.md)`: Main regex parsing function
+  - [parse](../p/parse.md): Main regex parsing function
   - `ARCV`: Arc vector processing functions
   - `freesubre`: Parent subRE cleanup function
 

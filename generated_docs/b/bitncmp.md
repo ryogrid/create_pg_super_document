@@ -24,14 +24,14 @@ This function performs bit-level comparison between two byte arrays (bit masks) 
   - `memcmp` - standard C library function for byte comparison
   - `IS_HIGHBIT_SET` - macro to check if the high bit of a byte is set
 - Called from (representative examples):
-  - `[network_cmp_internal](../n/network_cmp_internal.md)` - internal network comparison function
-  - `[network_sub](../n/network_sub.md)` - subnet containment check
-  - `[network_subeq](../n/network_subeq.md)` - subnet containment or equality check
-  - `[network_sup](../n/network_sup.md)` - supernet containment check
-  - `[network_supeq](../n/network_supeq.md)` - supernet containment or equality check
-  - `[network_overlap](../n/network_overlap.md)` - network overlap check
-  - `[inet_gist_consistent](../i/inet_gist_consistent.md)` - GiST index consistency check
-  - `[inet_spg_choose](../i/inet_spg_choose.md)` - SP-GiST index choose function
+  - [network_cmp_internal](../n/network_cmp_internal.md) - internal network comparison function
+  - [network_sub](../n/network_sub.md) - subnet containment check
+  - [network_subeq](../n/network_subeq.md) - subnet containment or equality check
+  - [network_sup](../n/network_sup.md) - supernet containment check
+  - [network_supeq](../n/network_supeq.md) - supernet containment or equality check
+  - [network_overlap](../n/network_overlap.md) - network overlap check
+  - [inet_gist_consistent](../i/inet_gist_consistent.md) - GiST index consistency check
+  - [inet_spg_choose](../i/inet_spg_choose.md) - SP-GiST index choose function
 
 ## Notes and Other Information
 - Returns <0 if left mask is less than right mask, >0 if greater, 0 if equal

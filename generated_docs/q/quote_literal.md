@@ -19,12 +19,12 @@ The `quote_literal` function is a PostgreSQL SQL function that converts input te
 ## Dependencies
 - Functions called/Symbols referenced:
   - `VARDATA` - Macro to get the data portion of a PostgreSQL variable-length type
-  - `[quote_literal_internal](quote_literal_internal.md)` - Core function that performs the actual quoting logic
+  - [quote_literal_internal](quote_literal_internal.md) - Core function that performs the actual quoting logic
   - `SET_VARSIZE` - Macro to set the size of a variable-length PostgreSQL type
   - `PG_RETURN_TEXT_P` - Macro for returning text values from PostgreSQL functions
 - Called from (representative examples):
-  - `[get_publications_str](../g/get_publications_str.md)` - Function in subscription commands for publication name quoting
-  - `[quote_nullable](quote_nullable.md)` - Function that handles NULL values in addition to literal quoting
+  - [get_publications_str](../g/get_publications_str.md) - Function in subscription commands for publication name quoting
+  - [quote_nullable](quote_nullable.md) - Function that handles NULL values in addition to literal quoting
 
 ## Notes and Other Information
 - This function is exposed as a SQL function that can be called directly from SQL queries

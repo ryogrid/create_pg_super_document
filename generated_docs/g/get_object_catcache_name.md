@@ -21,11 +21,11 @@ The function accesses the object property metadata for the given class and retur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_object_property_data](get_object_property_data.md)`: Retrieves object property metadata
+  - [get_object_property_data](get_object_property_data.md): Retrieves object property metadata
   - `ObjectPropertyType`: Structure containing object property information
 - Called from (representative examples):
-  - `[AlterObjectRename_internal](../A/AlterObjectRename_internal.md)`: Used during object renaming to check name conflicts
-  - `[AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)`: Used during namespace changes to validate names
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md): Used during object renaming to check name conflicts
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md): Used during namespace changes to validate names
   - `ObjectAddressSet`: Used in object address construction for name-based lookups
 
 ## Notes and Other Information

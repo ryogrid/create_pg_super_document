@@ -19,7 +19,7 @@ This function is called when an encryption method (SSL, GSSAPI, or plaintext) fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[select_next_encryption_method](../s/select_next_encryption_method.md)`: Selects the next encryption method to attempt
+  - [select_next_encryption_method](../s/select_next_encryption_method.md): Selects the next encryption method to attempt
   - `Assert`: Debug assertion to verify failed method is not current method
   - Encryption method constants: `ENC_SSL`
 

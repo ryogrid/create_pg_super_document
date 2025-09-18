@@ -25,13 +25,13 @@ The function includes comprehensive assertion checking in debug builds to verify
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[vector8_broadcast](vector8_broadcast.md)` (to create comparison vector)
-  - `[vector8_eq](vector8_eq.md)` (SIMD equality comparison, SIMD path)
-  - `[vector8_is_highbit_set](vector8_is_highbit_set.md)` (to check for matches, SIMD path)
-  - `[vector8_has_zero](vector8_has_zero.md)` (to detect zero bytes after XOR, fallback path)
+  - [vector8_broadcast](vector8_broadcast.md) (to create comparison vector)
+  - [vector8_eq](vector8_eq.md) (SIMD equality comparison, SIMD path)
+  - [vector8_is_highbit_set](vector8_is_highbit_set.md) (to check for matches, SIMD path)
+  - [vector8_has_zero](vector8_has_zero.md) (to detect zero bytes after XOR, fallback path)
 - Called from (representative examples):
-  - `[pg_lfind8](../p/pg_lfind8.md)` (SIMD-optimized linear search for 8-bit values)
-  - `[vector8_has_zero](vector8_has_zero.md)` (as part of zero detection logic)
+  - [pg_lfind8](../p/pg_lfind8.md) (SIMD-optimized linear search for 8-bit values)
+  - [vector8_has_zero](vector8_has_zero.md) (as part of zero detection logic)
 
 ## Notes and Other Information
 - This is a static inline function defined in `src/include/port/simd.h` for optimal performance

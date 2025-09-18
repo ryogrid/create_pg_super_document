@@ -28,8 +28,8 @@ The function is designed to be called by PostgreSQL's type system when subscript
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_RETURN_POINTER` (PostgreSQL return macro)
-  - `[jsonb_subscript_transform](jsonb_subscript_transform.md)` (transform function)
-  - `[jsonb_exec_setup](jsonb_exec_setup.md)` (execution setup function)
+  - [jsonb_subscript_transform](jsonb_subscript_transform.md) (transform function)
+  - [jsonb_exec_setup](jsonb_exec_setup.md) (execution setup function)
 - Data structures referenced:
   - `SubscriptRoutines`
 - Called from:

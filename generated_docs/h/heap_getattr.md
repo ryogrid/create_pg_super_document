@@ -35,14 +35,14 @@ This design ensures compatibility with schema evolution while maintaining perfor
 ## Dependencies
 - Functions called/Symbols referenced:
   - `HeapTupleHeaderGetNatts` - macro to get the number of attributes in the tuple header
-  - `[getmissingattr](../g/getmissingattr.md)` - function to retrieve missing attribute default values
-  - `[fastgetattr](../f/fastgetattr.md)` - optimized function for existing user attribute retrieval
-  - `[heap_getsysattr](heap_getsysattr.md)` - specialized function for system attribute access
+  - [getmissingattr](../g/getmissingattr.md) - function to retrieve missing attribute default values
+  - [fastgetattr](../f/fastgetattr.md) - optimized function for existing user attribute retrieval
+  - [heap_getsysattr](heap_getsysattr.md) - specialized function for system attribute access
 - Called from (representative examples):
   - `SPI_getbinval` - SPI interface for binary value retrieval
-  - `[GetAttributeByName](../G/GetAttributeByName.md)` - utility function for named attribute access
-  - `[ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md)` - executor support for field selection
-  - `[CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)` - catalog cache entry creation
+  - [GetAttributeByName](../G/GetAttributeByName.md) - utility function for named attribute access
+  - [ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md) - executor support for field selection
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md) - catalog cache entry creation
 
 ## Notes and Other Information
 - **Universal interface**: Unlike `fastgetattr`, this function can safely handle any attribute number including system attributes

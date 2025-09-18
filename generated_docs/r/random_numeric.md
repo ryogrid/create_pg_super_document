@@ -22,13 +22,13 @@ The `random_numeric` function generates random numeric values within the specifi
   - `NUMERIC_IS_SPECIAL` - Checks if numeric value is special (NaN, infinity)
   - `NUMERIC_IS_NAN` - Specifically checks for NaN values
   - `ereport` - Reports errors with detailed error codes and messages
-  - `[init_var_from_num](../i/init_var_from_num.md)` - Converts external Numeric to internal NumericVar
+  - [init_var_from_num](../i/init_var_from_num.md) - Converts external Numeric to internal NumericVar
   - `init_var` - Initializes a NumericVar structure
-  - `[random_var](random_var.md)` - Performs the actual random generation between NumericVars
-  - `[make_result](../m/make_result.md)` - Converts NumericVar back to external Numeric format
-  - `[free_var](../f/free_var.md)` - Releases memory allocated for NumericVar
+  - [random_var](random_var.md) - Performs the actual random generation between NumericVars
+  - [make_result](../m/make_result.md) - Converts NumericVar back to external Numeric format
+  - [free_var](../f/free_var.md) - Releases memory allocated for NumericVar
 - Called from (representative examples):
-  - `[numeric_random](../n/numeric_random.md)` - Public SQL function interface in pseudorandomfuncs.c
+  - [numeric_random](../n/numeric_random.md) - Public SQL function interface in pseudorandomfuncs.c
   - Referenced in numeric.h header for external use
 
 ## Notes and Other Information

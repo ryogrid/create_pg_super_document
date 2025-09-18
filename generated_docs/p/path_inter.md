@@ -21,14 +21,14 @@ The function handles both open and closed paths correctly - for closed paths, it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PATH](../P/PATH.md)`: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
   - `PG_GETARG_PATH_P`: Macro to get path arguments from function parameters
-  - `[BOX](../B/BOX.md)`: Bounding box data type for optimization
-  - `[LSEG](../L/LSEG.md)`: Line segment data type for intersection testing
-  - `[float8_max](../f/float8_max.md)`/`float8_min`: Float comparison utilities for bounding box calculation
-  - `[box_ov](../b/box_ov.md)`: Function to test bounding box overlap
-  - `[statlseg_construct](../s/statlseg_construct.md)`: Function to construct line segments from points
-  - `[lseg_interpt_lseg](../l/lseg_interpt_lseg.md)`: Function to test line segment intersection
+  - [BOX](../B/BOX.md): Bounding box data type for optimization
+  - [LSEG](../L/LSEG.md): Line segment data type for intersection testing
+  - [float8_max](../f/float8_max.md)/`float8_min`: Float comparison utilities for bounding box calculation
+  - [box_ov](../b/box_ov.md): Function to test bounding box overlap
+  - [statlseg_construct](../s/statlseg_construct.md): Function to construct line segments from points
+  - [lseg_interpt_lseg](../l/lseg_interpt_lseg.md): Function to test line segment intersection
 - Called from (representative examples):
   - No direct references found in the codebase
 

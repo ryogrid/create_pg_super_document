@@ -29,8 +29,8 @@ The conversion process utilizes a radix tree (`gb18030_from_unicode_tree`) for e
   - `PG_GETARG_INT32`
   - `PG_GETARG_BOOL`
   - `CHECK_ENCODING_CONVERSION_ARGS`
-  - `[UtfToLocal](../U/UtfToLocal.md)`
-  - `[conv_utf8_to_18030](../c/conv_utf8_to_18030.md)`
+  - [UtfToLocal](../U/UtfToLocal.md)
+  - [conv_utf8_to_18030](../c/conv_utf8_to_18030.md)
   - `PG_RETURN_INT32`
 - Data structures referenced:
   - `gb18030_from_unicode_tree`

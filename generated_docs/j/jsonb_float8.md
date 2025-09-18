@@ -21,11 +21,11 @@ This function performs type conversion from JSONB to float8 (double-precision fl
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_JSONB_P` - extracts JSONB argument from function call
-  - `[JsonbExtractScalar](../J/JsonbExtractScalar.md)` - extracts scalar value from JSONB root
-  - `[cannotCastJsonbValue](../c/cannotCastJsonbValue.md)` - throws error for invalid type conversions
+  - [JsonbExtractScalar](../J/JsonbExtractScalar.md) - extracts scalar value from JSONB root
+  - [cannotCastJsonbValue](../c/cannotCastJsonbValue.md) - throws error for invalid type conversions
   - `DirectFunctionCall1` - calls another PostgreSQL function directly
-  - `[numeric_float8](../n/numeric_float8.md)` - converts numeric to float8
-  - `[NumericGetDatum](../N/NumericGetDatum.md)` - wraps numeric value as Datum
+  - [numeric_float8](../n/numeric_float8.md) - converts numeric to float8
+  - [NumericGetDatum](../N/NumericGetDatum.md) - wraps numeric value as Datum
   - `PG_FREE_IF_COPY` - frees memory if input was copied
   - `PG_RETURN_DATUM` - returns the result Datum
 - Called from (representative examples):

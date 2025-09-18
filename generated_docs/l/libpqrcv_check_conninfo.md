@@ -24,14 +24,14 @@ When `must_use_password` is true (typically for non-superuser connections), the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PQconninfoParse](../P/PQconninfoParse.md)` (parse and validate connection string syntax)
-  - `[PQconninfoFree](../P/PQconninfoFree.md)` (free parsed connection options)
-  - `[PQfreemem](../P/PQfreemem.md)` (free libpq-allocated error messages)
-  - `[pstrdup](../p/pstrdup.md)` (duplicate error message string)
+  - [PQconninfoParse](../P/PQconninfoParse.md) (parse and validate connection string syntax)
+  - [PQconninfoFree](../P/PQconninfoFree.md) (free parsed connection options)
+  - [PQfreemem](../P/PQfreemem.md) (free libpq-allocated error messages)
+  - [pstrdup](../p/pstrdup.md) (duplicate error message string)
   - `ereport` (report errors with appropriate error codes)
 
 - Called from (representative examples):
-  - `[libpqrcv_connect](libpqrcv_connect.md)` (before establishing connections)
+  - [libpqrcv_connect](libpqrcv_connect.md) (before establishing connections)
   - Registered in `PQWalReceiverFunctions` table as `walrcv_check_conninfo`
   - Used during subscription setup and validation
 

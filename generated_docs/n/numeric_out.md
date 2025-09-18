@@ -28,15 +28,15 @@ The function follows PostgreSQL's standard output function conventions and ensur
   - `NUMERIC_IS_SPECIAL`: Checks if value is NaN or infinity
   - `NUMERIC_IS_PINF`: Tests for positive infinity
   - `NUMERIC_IS_NINF`: Tests for negative infinity  
-  - `[init_var_from_num](../i/init_var_from_num.md)`: Converts Numeric to NumericVar format
-  - `[get_str_from_var](../g/get_str_from_var.md)`: Generates string from NumericVar
-  - `[pstrdup](../p/pstrdup.md)`: Duplicates string in appropriate memory context
+  - [init_var_from_num](../i/init_var_from_num.md): Converts Numeric to NumericVar format
+  - [get_str_from_var](../g/get_str_from_var.md): Generates string from NumericVar
+  - [pstrdup](../p/pstrdup.md): Duplicates string in appropriate memory context
 - Called from (representative examples):
-  - `[numeric_to_cstring](numeric_to_cstring.md)`: Database size formatting
-  - `[numeric_to_char](numeric_to_char.md)`: Text formatting operations
-  - `[jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md)`: JSON output formatting
-  - `[JsonbValueAsText](../J/JsonbValueAsText.md)`: JSON value extraction
-  - `[numeric_float8](numeric_float8.md)`/`numeric_float4`: Float conversion functions
+  - [numeric_to_cstring](numeric_to_cstring.md): Database size formatting
+  - [numeric_to_char](numeric_to_char.md): Text formatting operations
+  - [jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md): JSON output formatting
+  - [JsonbValueAsText](../J/JsonbValueAsText.md): JSON value extraction
+  - [numeric_float8](numeric_float8.md)/`numeric_float4`: Float conversion functions
 
 ## Notes and Other Information
 - Returns palloced strings that are automatically freed by PostgreSQL's memory management

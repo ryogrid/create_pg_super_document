@@ -24,9 +24,9 @@ This function is similar to `int4_accum_inv` in that it uses conditional compila
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (polymorphic aggregate state structure)
-  - `[do_int128_discard](../d/do_int128_discard.md)` (128-bit integer discard operation)
-  - `[do_numeric_discard](../d/do_numeric_discard.md)` (numeric discard operation)
-  - `[int64_to_numeric](int64_to_numeric.md)` (conversion function)
+  - [do_int128_discard](../d/do_int128_discard.md) (128-bit integer discard operation)
+  - [do_numeric_discard](../d/do_numeric_discard.md) (numeric discard operation)
+  - [int64_to_numeric](int64_to_numeric.md) (conversion function)
   - `PG_GETARG_INT64` (argument extraction macro)
   - `HAVE_INT128` (compilation flag)
 - Called from (representative examples):

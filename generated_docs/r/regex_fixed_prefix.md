@@ -23,12 +23,12 @@ The function delegates the actual prefix extraction to the `regexp_fixed_prefix`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[regexp_fixed_prefix](regexp_fixed_prefix.md)`: Core regex engine function that extracts literal prefix from regex pattern
+  - [regexp_fixed_prefix](regexp_fixed_prefix.md): Core regex engine function that extracts literal prefix from regex pattern
   - `DatumGetTextPP`/`TextDatumGetCString`: Extract pattern string from Const node
-  - `[regex_selectivity](regex_selectivity.md)`: Estimate selectivity of regex pattern or remaining portion
-  - `[string_to_const](../s/string_to_const.md)`: Create Const node for extracted prefix
+  - [regex_selectivity](regex_selectivity.md): Estimate selectivity of regex pattern or remaining portion
+  - [string_to_const](../s/string_to_const.md): Create Const node for extracted prefix
 - Called from (representative examples):
-  - `[pattern_fixed_prefix](../p/pattern_fixed_prefix.md)`: Generic pattern prefix extraction function
+  - [pattern_fixed_prefix](../p/pattern_fixed_prefix.md): Generic pattern prefix extraction function
 
 ## Notes and Other Information
 - This is a static function located in `src/backend/utils/adt/like_support.c:1099-1166`

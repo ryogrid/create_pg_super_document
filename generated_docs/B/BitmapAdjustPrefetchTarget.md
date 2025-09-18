@@ -35,7 +35,7 @@ For parallel scans, the function uses optimistic concurrency control with an unl
 - Functions called/Symbols referenced:
   - `SpinLockAcquire`/`SpinLockRelease`: Protect shared state updates in parallel mode
 - Called from (representative examples):
-  - `[BitmapHeapNext](BitmapHeapNext.md)`: Called after successfully processing each bitmap result block
+  - [BitmapHeapNext](BitmapHeapNext.md): Called after successfully processing each bitmap result block
 
 ## Notes and Other Information
 - Only compiled when USE_PREFETCH is defined, making prefetching optional

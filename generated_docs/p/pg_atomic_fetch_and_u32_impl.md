@@ -25,9 +25,9 @@ The function is marked as `static inline` to encourage compiler optimization thr
 ## Dependencies
 - Functions called/Symbols referenced:
   - `__sync_fetch_and_and` (GCC sync builtin)
-  - `[pg_atomic_uint32](pg_atomic_uint32.md)` (PostgreSQL atomic type)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (PostgreSQL atomic type)
 - Called from (representative examples):
-  - `[pg_atomic_fetch_and_u32](pg_atomic_fetch_and_u32.md)`
+  - [pg_atomic_fetch_and_u32](pg_atomic_fetch_and_u32.md)
 
 ## Notes and Other Information
 - Uses GCC's legacy sync builtin functions for maximum compatibility

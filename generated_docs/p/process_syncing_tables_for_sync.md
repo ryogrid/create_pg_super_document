@@ -29,21 +29,21 @@ The function includes careful transaction management and error handling to ensur
 ## Dependencies
 - Functions called/Symbols referenced:
   - `SpinLockAcquire()`/`SpinLockRelease()`
-  - `[IsTransactionState](../I/IsTransactionState.md)()`
-  - `[StartTransactionCommand](../S/StartTransactionCommand.md)()`
-  - `[UpdateSubscriptionRelState](../U/UpdateSubscriptionRelState.md)()`
+  - [IsTransactionState](../I/IsTransactionState.md)()
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)()
+  - [UpdateSubscriptionRelState](../U/UpdateSubscriptionRelState.md)()
   - `walrcv_endstreaming()`
-  - `[ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)()`
-  - `[ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)()`
-  - `[CommitTransactionCommand](../C/CommitTransactionCommand.md)()`
-  - `[pgstat_report_stat](pgstat_report_stat.md)()`
-  - `[ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)()`
-  - `[replorigin_session_reset](../r/replorigin_session_reset.md)()`
-  - `[replorigin_drop_by_name](../r/replorigin_drop_by_name.md)()`
+  - [ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)()
+  - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)()
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)()
+  - [pgstat_report_stat](pgstat_report_stat.md)()
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)()
+  - [replorigin_session_reset](../r/replorigin_session_reset.md)()
+  - [replorigin_drop_by_name](../r/replorigin_drop_by_name.md)()
   - `finish_sync_worker()`
   - Constants: `SUBREL_STATE_CATCHUP`, `SUBREL_STATE_SYNCDONE`, `NAMEDATALEN`, `InvalidRepOriginId`
 - Called from (representative examples):
-  - `[process_syncing_tables](process_syncing_tables.md)` (src/backend/replication/logical/tablesync.c:707)
+  - [process_syncing_tables](process_syncing_tables.md) (src/backend/replication/logical/tablesync.c:707)
 
 ## Notes and Other Information
 - This function implements the final phase of table synchronization in PostgreSQL logical replication

@@ -21,7 +21,7 @@ The function calls `SN_close_env(z, 0)`, where the second parameter (0) correspo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[SN_close_env](../S/SN_close_env.md)`: Generic Snowball environment cleanup function
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through function pointers or dynamic loading)
 

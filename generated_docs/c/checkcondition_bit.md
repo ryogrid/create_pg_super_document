@@ -27,7 +27,7 @@ This approach enables efficient filtering of index subtrees during query process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[SignTSVector](../S/SignTSVector.md)`: TSVector signature structure type
+  - [SignTSVector](../S/SignTSVector.md): TSVector signature structure type
   - `GETBIT`: Macro to check if a specific bit is set in the signature
   - `GETSIGN`: Macro to extract the bit signature from SignTSVector
   - `HASHVAL`: Macro to compute hash position within signature length
@@ -36,7 +36,7 @@ This approach enables efficient filtering of index subtrees during query process
   - `ExecPhraseData`: Execution phrase data structure
   - `TSTernaryValue`: Return type enum (`TS_NO`, `TS_MAYBE`, `TS_YES`)
 - Called from (representative examples):
-  - `[gtsvector_consistent](../g/gtsvector_consistent.md)`: Main consistency checking function for TSVector GiST operations
+  - [gtsvector_consistent](../g/gtsvector_consistent.md): Main consistency checking function for TSVector GiST operations
 
 ## Notes and Other Information
 - Implements probabilistic membership testing using bloom filter principles

@@ -27,9 +27,9 @@ The function performs bounds checking to prevent infinite interval addition and 
   - `PG_GETARG_INTERVAL_P`: Extracts Interval argument from function call  
   - `INTERVAL_NOT_FINITE`: Macro to check for infinite intervals
   - `ereport`: PostgreSQL error reporting function
-  - `[errcode](../e/errcode.md)`: Error code specification
-  - `[errmsg](../e/errmsg.md)`: Error message specification
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - [errcode](../e/errcode.md): Error code specification
+  - [errmsg](../e/errmsg.md): Error message specification
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - `PG_RETURN_TIMETZADT_P`: Returns TimeTzADT result to caller
 - Constants referenced:
   - `USECS_PER_DAY`: Microseconds per day constant

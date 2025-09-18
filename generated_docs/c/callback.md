@@ -23,7 +23,7 @@ This function is designed to be passed as a callback parameter to functions that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[print_addr](../p/print_addr.md)` (called twice: at line 49 for address, at line 51 for mask)
+  - [print_addr](../p/print_addr.md) (called twice: at line 49 for address, at line 51 for mask)
   - `printf` (for formatting output)
 - Called from (representative examples):
   - Extensively used throughout PostgreSQL codebase as a callback function pattern

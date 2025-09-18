@@ -24,8 +24,8 @@ It's the caller's responsibility to ensure that there are actually n characters 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)`: Returns maximum bytes per character for current database encoding
-  - `[pg_mblen](../p/pg_mblen.md)`: Returns the byte length of the multibyte character at a given position
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md): Returns maximum bytes per character for current database encoding
+  - [pg_mblen](../p/pg_mblen.md): Returns the byte length of the multibyte character at a given position
 
 - Called from (representative examples):
   - `appendStringInfoRegexpSubstr`: Used for regexp substring operations

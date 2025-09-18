@@ -23,11 +23,11 @@ The `numeric_gcd` function implements the mathematical greatest common divisor o
 - Functions called/Symbols referenced:
   - `PG_GETARG_NUMERIC`: Extracts numeric arguments from function call context
   - `NUMERIC_IS_SPECIAL`: Checks for NaN and infinity values
-  - `[make_result](../m/make_result.md)`: Converts NumericVar to Numeric result
-  - `[init_var_from_num](../i/init_var_from_num.md)`: Initializes NumericVar from Numeric input
+  - [make_result](../m/make_result.md): Converts NumericVar to Numeric result
+  - [init_var_from_num](../i/init_var_from_num.md): Initializes NumericVar from Numeric input
   - `init_var`: Initializes empty NumericVar for result
-  - `[gcd_var](../g/gcd_var.md)`: Performs actual GCD computation on NumericVar types
-  - `[free_var](../f/free_var.md)`: Releases memory allocated for NumericVar
+  - [gcd_var](../g/gcd_var.md): Performs actual GCD computation on NumericVar types
+  - [free_var](../f/free_var.md): Releases memory allocated for NumericVar
   - `PG_RETURN_NUMERIC`: Returns numeric result to caller
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

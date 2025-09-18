@@ -21,12 +21,12 @@ The `lseg_recv` function is a PostgreSQL binary input function that deserializes
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER` - macro to extract StringInfo buffer argument
-  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation function
-  - `[pq_getmsgfloat8](../p/pq_getmsgfloat8.md)` - reads a float8 value from the message buffer (called 4 times for x1,y1,x2,y2)
+  - [palloc](../p/palloc.md) - PostgreSQL memory allocation function
+  - [pq_getmsgfloat8](../p/pq_getmsgfloat8.md) - reads a float8 value from the message buffer (called 4 times for x1,y1,x2,y2)
   - `PG_RETURN_LSEG_P` - macro to return LSEG pointer result
 - Data types used:
   - `StringInfo` - buffer type for binary message data
-  - `[LSEG](../L/LSEG.md)` - line segment data type
+  - [LSEG](../L/LSEG.md) - line segment data type
 
 ## Notes and Other Information
 - This is a standard PostgreSQL binary receive function, following the convention of `[typename]_recv`

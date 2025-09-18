@@ -21,7 +21,7 @@ The function is a thin wrapper around the generic `patternjoinsel` function, spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[patternjoinsel](../p/patternjoinsel.md)`: Core pattern matching join selectivity function
+  - [patternjoinsel](../p/patternjoinsel.md): Core pattern matching join selectivity function
   - `Pattern_Type_Like`: Enum value indicating LIKE pattern type
 - Called from (representative examples):
   - [Query](../Q/Query.md) planner when estimating costs for joins with NOT LIKE conditions

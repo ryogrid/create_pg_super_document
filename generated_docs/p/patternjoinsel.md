@@ -24,15 +24,15 @@ The `patternjoinsel` function provides a basic selectivity estimate for pattern-
   - `DEFAULT_MATCH_SEL` - Default selectivity constant (0.005)
   - `Pattern_Type` - Enum type for pattern matching types
 - Called from (representative examples):
-  - `[regexeqjoinsel](../r/regexeqjoinsel.md)` - Regular expression join selectivity
-  - `[icregexeqjoinsel](../i/icregexeqjoinsel.md)` - Case-insensitive regex join selectivity
-  - `[likejoinsel](../l/likejoinsel.md)` - LIKE pattern join selectivity
-  - `[prefixjoinsel](prefixjoinsel.md)` - Prefix pattern join selectivity
-  - `[iclikejoinsel](../i/iclikejoinsel.md)` - Case-insensitive LIKE join selectivity
-  - `[regexnejoinsel](../r/regexnejoinsel.md)` - Negated regex join selectivity
-  - `[icregexnejoinsel](../i/icregexnejoinsel.md)` - Negated case-insensitive regex join selectivity
-  - `[nlikejoinsel](../n/nlikejoinsel.md)` - Negated LIKE join selectivity
-  - `[icnlikejoinsel](../i/icnlikejoinsel.md)` - Negated case-insensitive LIKE join selectivity
+  - [regexeqjoinsel](../r/regexeqjoinsel.md) - Regular expression join selectivity
+  - [icregexeqjoinsel](../i/icregexeqjoinsel.md) - Case-insensitive regex join selectivity
+  - [likejoinsel](../l/likejoinsel.md) - LIKE pattern join selectivity
+  - [prefixjoinsel](prefixjoinsel.md) - Prefix pattern join selectivity
+  - [iclikejoinsel](../i/iclikejoinsel.md) - Case-insensitive LIKE join selectivity
+  - [regexnejoinsel](../r/regexnejoinsel.md) - Negated regex join selectivity
+  - [icregexnejoinsel](../i/icregexnejoinsel.md) - Negated case-insensitive regex join selectivity
+  - [nlikejoinsel](../n/nlikejoinsel.md) - Negated LIKE join selectivity
+  - [icnlikejoinsel](../i/icnlikejoinsel.md) - Negated case-insensitive LIKE join selectivity
 
 ## Notes and Other Information
 - Returns 0.005 (DEFAULT_MATCH_SEL) for normal patterns or 0.995 (1.0 - DEFAULT_MATCH_SEL) for negated patterns

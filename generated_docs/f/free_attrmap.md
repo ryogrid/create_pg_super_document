@@ -19,16 +19,16 @@ The `free_attrmap` function is the complementary cleanup function to `make_attrm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pfree](../p/pfree.md)` (memory deallocation function)
-  - `[AttrMap](../A/AttrMap.md)` (structure type)
+  - [pfree](../p/pfree.md) (memory deallocation function)
+  - [AttrMap](../A/AttrMap.md) (structure type)
 - Called from (representative examples):
-  - `[build_attrmap_by_position](../b/build_attrmap_by_position.md)`
-  - `[build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)`
-  - `[free_conversion_map](free_conversion_map.md)`
-  - `[DefineIndex](../D/DefineIndex.md)`
-  - `[MergeAttributes](../M/MergeAttributes.md)`
+  - [build_attrmap_by_position](../b/build_attrmap_by_position.md)
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [free_conversion_map](free_conversion_map.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
   - `logicalrep_relmap_free_entry`
-  - `[get_rel_sync_entry](../g/get_rel_sync_entry.md)`
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - Must be called to prevent memory leaks when an AttrMap is no longer needed

@@ -31,12 +31,12 @@ The function follows the standard PostgreSQL tree walker pattern, returning true
 ## Dependencies
 - Functions called/Symbols referenced:
   - `check_functions_in_node`: Checks functions in the current node
-  - `[contain_volatile_functions_not_nextval_checker](contain_volatile_functions_not_nextval_checker.md)`: Specialized volatility checker function
+  - [contain_volatile_functions_not_nextval_checker](contain_volatile_functions_not_nextval_checker.md): Specialized volatility checker function
   - `query_tree_walker`: Handles recursive traversal of Query nodes
   - `expression_tree_walker`: Handles recursive traversal of expression nodes
 - Called from (representative examples):
   - `max_parallel_hazard_context` (at clauses.c:100)
-  - `[contain_volatile_functions_not_nextval](contain_volatile_functions_not_nextval.md)` (at clauses.c:675)
+  - [contain_volatile_functions_not_nextval](contain_volatile_functions_not_nextval.md) (at clauses.c:675)
   - Recursive self-calls (at clauses.c:709, 713)
 
 ## Notes and Other Information

@@ -19,11 +19,11 @@ The `intset_new_internal_node` function creates a new internal node for the Inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[MemoryContextAlloc](../M/MemoryContextAlloc.md)`: Memory allocation in specific context
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in specific context
   - `GetMemoryChunkSpace`: Function to get allocated memory size
-  - `[intset_internal_node](intset_internal_node.md)`: Structure type for internal nodes
+  - [intset_internal_node](intset_internal_node.md): Structure type for internal nodes
 - Called from (representative examples):
-  - `[intset_update_upper](intset_update_upper.md)`: Used when updating upper levels of the B-tree
+  - [intset_update_upper](intset_update_upper.md): Used when updating upper levels of the B-tree
 
 ## Notes and Other Information
 - This is a static function, only accessible within the integerset.c file

@@ -22,7 +22,7 @@ The `bitle` function is a PostgreSQL function that implements the "<=" operator 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_VARBIT_P` - macro to extract VarBit arguments from function call
-  - `[bit_cmp](bit_cmp.md)` - internal comparison function that returns <0, 0, or >0
+  - [bit_cmp](bit_cmp.md) - internal comparison function that returns <0, 0, or >0
   - `PG_FREE_IF_COPY` - macro to free copied arguments if necessary
   - `PG_RETURN_BOOL` - macro to return boolean result
 - Called from (representative examples):

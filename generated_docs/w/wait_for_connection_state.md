@@ -29,23 +29,23 @@ The function uses parameterized queries to safely check the process status and i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PQexecParams](../P/PQexecParams.md)()` - execute parameterized SQL queries
-  - `[PQresultStatus](../P/PQresultStatus.md)()` - get query result status
-  - `[PQntuples](../P/PQntuples.md)()` - get number of result rows
-  - `[PQnfields](../P/PQnfields.md)()` - get number of result columns
-  - `[PQgetvalue](../P/PQgetvalue.md)()` - extract result value
-  - `[PQclear](../P/PQclear.md)()` - free result memory
-  - `[PQerrorMessage](../P/PQerrorMessage.md)()` - get connection error message
-  - `[psprintf](../p/psprintf.md)()` - formatted string allocation
-  - `[pfree](../p/pfree.md)()` - memory deallocation
-  - `[pg_usleep](../p/pg_usleep.md)()` - microsecond sleep function
+  - [PQexecParams](../P/PQexecParams.md)() - execute parameterized SQL queries
+  - [PQresultStatus](../P/PQresultStatus.md)() - get query result status
+  - [PQntuples](../P/PQntuples.md)() - get number of result rows
+  - [PQnfields](../P/PQnfields.md)() - get number of result columns
+  - [PQgetvalue](../P/PQgetvalue.md)() - extract result value
+  - [PQclear](../P/PQclear.md)() - free result memory
+  - [PQerrorMessage](../P/PQerrorMessage.md)() - get connection error message
+  - [psprintf](../p/psprintf.md)() - formatted string allocation
+  - [pfree](../p/pfree.md)() - memory deallocation
+  - [pg_usleep](../p/pg_usleep.md)() - microsecond sleep function
   - `pg_fatal_impl()` - fatal error reporting
   - `PGRES_TUPLES_OK` - successful query result constant
   - `INT4OID`, `TEXTOID` - parameter type OIDs
 
 - Called from:
-  - `[send_cancellable_query_impl](../s/send_cancellable_query_impl.md)()` - waits for "idle" state before sending query
-  - `[send_cancellable_query_impl](../s/send_cancellable_query_impl.md)()` - waits for "PgSleep" event after sending sleep query
+  - [send_cancellable_query_impl](../s/send_cancellable_query_impl.md)() - waits for "idle" state before sending query
+  - [send_cancellable_query_impl](../s/send_cancellable_query_impl.md)() - waits for "PgSleep" event after sending sleep query
 
 ## Notes and Other Information
 - Part of the libpq pipeline testing framework, not used in production code

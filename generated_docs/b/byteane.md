@@ -23,7 +23,7 @@ The function follows the same memory-efficient design as other bytea comparison 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[toast_raw_datum_size](../t/toast_raw_datum_size.md)`: Gets the size of a potentially toasted datum
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md): Gets the size of a potentially toasted datum
   - `DatumGetByteaPP`: Converts Datum to bytea pointer with detoasting
   - `VARDATA_ANY`: Macro to get variable-length data portion
   - `memcmp`: Standard C library function for memory comparison

@@ -19,7 +19,7 @@ The `intset_memory_usage` function provides the total memory footprint of an Int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[IntegerSet](../I/IntegerSet.md)`: Structure type being accessed
+  - [IntegerSet](../I/IntegerSet.md): Structure type being accessed
 - Called from (representative examples):
   - Various test functions in test_integerset module for memory usage validation and testing
 

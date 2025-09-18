@@ -35,22 +35,22 @@ The function performs comprehensive validation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING`: Extract C string argument
-  - `[parseNumericOid](../p/parseNumericOid.md)`: Parse numeric OID from string
+  - [parseNumericOid](../p/parseNumericOid.md): Parse numeric OID from string
   - `PG_RETURN_OID`: Return OID result
   - `IsBootstrapProcessingMode`: Check if in bootstrap mode
   - `elog`: Log error message
-  - `[parseNameAndArgTypes](../p/parseNameAndArgTypes.md)`: Parse operator name and argument types
+  - [parseNameAndArgTypes](../p/parseNameAndArgTypes.md): Parse operator name and argument types
   - `PG_RETURN_NULL`: Return NULL result
   - `ereturn`: Return with error context
-  - `[errcode](../e/errcode.md)`: Set error code
-  - `[errmsg](../e/errmsg.md)`: Set error message
-  - `[errhint](../e/errhint.md)`: Set error hint
-  - `[OpernameGetOprid](../O/OpernameGetOprid.md)`: Get operator OID by name and argument types
+  - [errcode](../e/errcode.md): Set error code
+  - [errmsg](../e/errmsg.md): Set error message
+  - [errhint](../e/errhint.md): Set error hint
+  - [OpernameGetOprid](../O/OpernameGetOprid.md): Get operator OID by name and argument types
   - `OidIsValid`: Check if OID is valid
   - `FUNC_MAX_ARGS`: Maximum function arguments constant
 
 - Called from (representative examples):
-  - `[to_regoperator](../t/to_regoperator.md)`: Safe version that returns NULL on error (src/backend/utils/adt/regproc.c:700)
+  - [to_regoperator](../t/to_regoperator.md): Safe version that returns NULL on error (src/backend/utils/adt/regproc.c:700)
 
 ## Notes and Other Information
 - This function differs from `regoperin` by requiring explicit argument types to handle operator overloading

@@ -23,7 +23,7 @@ This function serves as a wrapper around the internal `convert_to_base` utility 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[convert_to_base](../c/convert_to_base.md)` (internal utility function for base conversion)
+  - [convert_to_base](../c/convert_to_base.md) (internal utility function for base conversion)
   - `PG_RETURN_TEXT_P` (PostgreSQL macro for returning text values)
   - `PG_GETARG_INT32` (PostgreSQL macro for extracting int32 arguments)
 

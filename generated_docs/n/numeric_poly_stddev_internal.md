@@ -20,18 +20,18 @@ The `numeric_poly_stddev_internal` function serves as an adapter between the 128
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[numeric_stddev_internal](numeric_stddev_internal.md)` (core variance/standard deviation calculation)
-  - `[int128_to_numericvar](../i/int128_to_numericvar.md)` (converts 128-bit integer to NumericVar)
-  - `[accum_sum_add](../a/accum_sum_add.md)` (adds numeric values to accumulator)
+  - [numeric_stddev_internal](numeric_stddev_internal.md) (core variance/standard deviation calculation)
+  - [int128_to_numericvar](../i/int128_to_numericvar.md) (converts 128-bit integer to NumericVar)
+  - [accum_sum_add](../a/accum_sum_add.md) (adds numeric values to accumulator)
   - `init_var` (initializes NumericVar)
-  - `[free_var](../f/free_var.md)` (frees NumericVar memory)
-  - `[Int128AggState](../I/Int128AggState.md)` (128-bit integer aggregate state)
-  - `[NumericAggState](../N/NumericAggState.md)` (numeric aggregate state)
+  - [free_var](../f/free_var.md) (frees NumericVar memory)
+  - [Int128AggState](../I/Int128AggState.md) (128-bit integer aggregate state)
+  - [NumericAggState](../N/NumericAggState.md) (numeric aggregate state)
 - Called from (representative examples):
-  - `[numeric_poly_var_samp](numeric_poly_var_samp.md)` (sample variance)
-  - `[numeric_poly_stddev_samp](numeric_poly_stddev_samp.md)` (sample standard deviation)
-  - `[numeric_poly_var_pop](numeric_poly_var_pop.md)` (population variance)
-  - `[numeric_poly_stddev_pop](numeric_poly_stddev_pop.md)` (population standard deviation)
+  - [numeric_poly_var_samp](numeric_poly_var_samp.md) (sample variance)
+  - [numeric_poly_stddev_samp](numeric_poly_stddev_samp.md) (sample standard deviation)
+  - [numeric_poly_var_pop](numeric_poly_var_pop.md) (population variance)
+  - [numeric_poly_stddev_pop](numeric_poly_stddev_pop.md) (population standard deviation)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the numeric.c file

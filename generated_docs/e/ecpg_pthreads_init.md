@@ -20,11 +20,11 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - `pthread_once` (POSIX threads library function)
-  - `[ecpg_actual_connection_init](ecpg_actual_connection_init.md)` (initialization callback function)
+  - [ecpg_actual_connection_init](ecpg_actual_connection_init.md) (initialization callback function)
 - Called from (representative examples):
-  - `[ecpg_get_connection_nr](ecpg_get_connection_nr.md)` (to ensure key is initialized before use)
+  - [ecpg_get_connection_nr](ecpg_get_connection_nr.md) (to ensure key is initialized before use)
   - `ecpg_get_connection` (connection management)
-  - `[ECPGconnect](../E/ECPGconnect.md)` (when establishing new connections)
+  - [ECPGconnect](../E/ECPGconnect.md) (when establishing new connections)
   - `ecpg_do_prologue` (before SQL execution)
 
 ## Notes and Other Information

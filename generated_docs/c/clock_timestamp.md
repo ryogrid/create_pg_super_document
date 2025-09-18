@@ -21,7 +21,7 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[GetCurrentTimestamp](../G/GetCurrentTimestamp.md)`: Retrieves the current system timestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md): Retrieves the current system timestamp
   - `PG_RETURN_TIMESTAMPTZ`: PostgreSQL macro to return a timestamptz value
 
 - Called from (representative examples):

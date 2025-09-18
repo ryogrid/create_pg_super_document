@@ -27,15 +27,15 @@ For each publication found, it creates a PublicationInfo structure containing al
 - Functions called/Symbols referenced:
   - `DumpOptions`, `PublicationInfo` (data structures)
   - `createPQExpBuffer`, `appendPQExpBufferStr` (query building)
-  - `[ExecuteSqlQuery](../E/ExecuteSqlQuery.md)` (SQL execution)
-  - `[PQfnumber](../P/PQfnumber.md)`, `PQgetvalue`, `PQntuples` (result processing)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (SQL execution)
+  - [PQfnumber](../P/PQfnumber.md), `PQgetvalue`, `PQntuples` (result processing)
   - `pg_malloc`, `pg_strdup` (memory management)
-  - `[AssignDumpId](../A/AssignDumpId.md)` (dump object ID assignment)
-  - `[getRoleName](getRoleName.md)` (owner name resolution)
-  - `[selectDumpableObject](../s/selectDumpableObject.md)` (dumpability determination)
+  - [AssignDumpId](../A/AssignDumpId.md) (dump object ID assignment)
+  - [getRoleName](getRoleName.md) (owner name resolution)
+  - [selectDumpableObject](../s/selectDumpableObject.md) (dumpability determination)
   - `atooid` (OID conversion)
 - Called from (representative examples):
-  - `[getSchemaData](getSchemaData.md)` (main schema information gathering)
+  - [getSchemaData](getSchemaData.md) (main schema information gathering)
 
 ## Notes and Other Information
 - Returns NULL and sets *numPublications to 0 if publications are disabled via `--no-publications` option

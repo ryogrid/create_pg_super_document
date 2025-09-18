@@ -21,7 +21,7 @@ The function is part of PostgreSQL's type system infrastructure, specifically ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[btnametextcmp](../b/btnametextcmp.md)` - comparison function for name vs text
+  - [btnametextcmp](../b/btnametextcmp.md) - comparison function for name vs text
   - `CmpCall` - macro for calling comparison functions
 - Called from:
   - SQL queries using >= operator between name and text types

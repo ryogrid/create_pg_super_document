@@ -33,8 +33,8 @@ This function implements PostgreSQL's lockfile creation mechanism, which prevent
   - Constants: `LOCK_FILE_LINE_SHMEM_KEY`, `INT64_FORMAT`, `MAXPGPATH`
   - Global variables: `DataDir`, `MyStartTime`, `PostPortNumber`, `lock_files`
 - Called from (representative examples):
-  - `[CreateDataDirLockFile](CreateDataDirLockFile.md)` - Creates data directory lockfile ($DATADIR/postmaster.pid)  
-  - `[CreateSocketLockFile](CreateSocketLockFile.md)` - Creates Unix socket lockfile ($SOCKFILE.lock)
+  - [CreateDataDirLockFile](CreateDataDirLockFile.md) - Creates data directory lockfile ($DATADIR/postmaster.pid)  
+  - [CreateSocketLockFile](CreateSocketLockFile.md) - Creates Unix socket lockfile ($SOCKFILE.lock)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to miscinit.c compilation unit

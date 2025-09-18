@@ -26,15 +26,15 @@ This approach provides consistent distance computation for geometric objects tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[computeDistance](../c/computeDistance.md)`
-  - `[DatumGetBoxP](../D/DatumGetBoxP.md)`
-  - `[DatumGetPointP](../D/DatumGetPointP.md)`
+  - [computeDistance](../c/computeDistance.md)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md)
+  - [DatumGetPointP](../D/DatumGetPointP.md)
   - `GeoStrategyNumberOffset`
   - `PointStrategyNumberGroup`
 - Called from (representative examples):
-  - `[gist_box_distance](gist_box_distance.md)`
-  - `[gist_circle_distance](gist_circle_distance.md)`
-  - `[gist_poly_distance](gist_poly_distance.md)`
+  - [gist_box_distance](gist_box_distance.md)
+  - [gist_circle_distance](gist_circle_distance.md)
+  - [gist_poly_distance](gist_poly_distance.md)
 
 ## Notes and Other Information
 - Static function with internal linkage, not exposed outside gistproc.c

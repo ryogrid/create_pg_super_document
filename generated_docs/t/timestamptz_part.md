@@ -24,7 +24,7 @@ Unlike its timestamp counterpart, this function handles timezone-aware timestamp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[timestamptz_part_common](timestamptz_part_common.md)` (shared implementation for timestamptz field extraction)
+  - [timestamptz_part_common](timestamptz_part_common.md) (shared implementation for timestamptz field extraction)
 - Called from (representative examples):
   - SQL function `date_part()` when used with timestamptz arguments
   - PostgreSQL function call infrastructure

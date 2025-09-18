@@ -22,12 +22,12 @@ The `newNode` function allocates zero-initialized memory for a new node structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc0](../p/palloc0.md)` (memory allocation with zero initialization)
+  - [palloc0](../p/palloc0.md) (memory allocation with zero initialization)
   - `Assert` (debugging assertion macro)
 - Called from (representative examples):
   - `makeNode` (macro wrapper)
-  - `[_copyExtensibleNode](../c/_copyExtensibleNode.md)`
-  - `[_readExtensibleNode](../r/_readExtensibleNode.md)`
+  - [_copyExtensibleNode](../c/_copyExtensibleNode.md)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md)
 
 ## Notes and Other Information
 - Uses `palloc0` to ensure the allocated memory is zero-initialized

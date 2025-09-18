@@ -38,13 +38,13 @@ The function uses error contexts for proper error handling and can return false 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_strncasecmp](../p/pg_strncasecmp.md)` (case-insensitive string comparison)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
   - `RANGE_EMPTY_LITERAL` (constant for "EMPTY" keyword)
   - `RANGE_EMPTY`, `RANGE_LB_INC`, `RANGE_UB_INC`, `RANGE_LB_INF`, `RANGE_UB_INF` (range flag constants)
-  - `[range_parse_bound](range_parse_bound.md)` (function to parse individual range bounds)
+  - [range_parse_bound](range_parse_bound.md) (function to parse individual range bounds)
   - `ereturn` (error return macro for controlled error contexts)
 - Called from:
-  - `[range_in](range_in.md)` (src/backend/utils/adt/rangetypes.c:107)
+  - [range_in](range_in.md) (src/backend/utils/adt/rangetypes.c:107)
 
 ## Notes and Other Information
 - This is a static function visible only within rangetypes.c

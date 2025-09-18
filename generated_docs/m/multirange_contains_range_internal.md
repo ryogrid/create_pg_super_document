@@ -25,14 +25,14 @@ This function determines if a multirange completely contains a given range. It i
 - Functions called/Symbols referenced:
   - `RangeIsEmpty` - Check if a range is empty
   - `MultirangeIsEmpty` - Check if a multirange is empty
-  - `[range_deserialize](../r/range_deserialize.md)` - Extract bounds from range structure
-  - `[multirange_bsearch_match](multirange_bsearch_match.md)` - Perform binary search with custom comparison
-  - `[multirange_range_contains_bsearch_comparison](multirange_range_contains_bsearch_comparison.md)` - Comparison function for binary search
+  - [range_deserialize](../r/range_deserialize.md) - Extract bounds from range structure
+  - [multirange_bsearch_match](multirange_bsearch_match.md) - Perform binary search with custom comparison
+  - [multirange_range_contains_bsearch_comparison](multirange_range_contains_bsearch_comparison.md) - Comparison function for binary search
   - `RangeBound` - Structure for representing range boundaries
 - Called from (representative examples):
-  - `[multirange_contains_range](multirange_contains_range.md)` - Public SQL function wrapper
-  - `[range_contained_by_multirange](../r/range_contained_by_multirange.md)` - Inverse containment operation
-  - `[range_gist_consistent_leaf_multirange](../r/range_gist_consistent_leaf_multirange.md)` - GiST index consistency checking
+  - [multirange_contains_range](multirange_contains_range.md) - Public SQL function wrapper
+  - [range_contained_by_multirange](../r/range_contained_by_multirange.md) - Inverse containment operation
+  - [range_gist_consistent_leaf_multirange](../r/range_gist_consistent_leaf_multirange.md) - GiST index consistency checking
 
 ## Notes and Other Information
 - Handles empty ranges as a special case - they are considered contained by any multirange

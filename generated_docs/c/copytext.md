@@ -21,8 +21,8 @@ The `copytext` function is a PostgreSQL C function that creates a complete copy 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`: Macro to extract a text argument (handles both packed and unpacked formats)
-  - `[text](../t/text.md)`: PostgreSQL's variable-length text data type
-  - `[palloc](../p/palloc.md)`: PostgreSQL's memory allocation function
+  - [text](../t/text.md): PostgreSQL's variable-length text data type
+  - [palloc](../p/palloc.md): PostgreSQL's memory allocation function
   - `VARSIZE_ANY_EXHDR`: Macro to get the size excluding header from any varlena format
   - `VARHDRSZ`: Constant for the size of a full varlena header
   - `SET_VARSIZE`: Macro to set the total size in the varlena header
@@ -32,7 +32,7 @@ The `copytext` function is a PostgreSQL C function that creates a complete copy 
   - `PG_RETURN_TEXT_P`: Macro to return a text value
   - `PG_FUNCTION_INFO_V1`: Macro for function metadata (referenced at line 87)
 - Called from (representative examples):
-  - `[makepoint](../m/makepoint.md)`: Referenced from the makepoint function context
+  - [makepoint](../m/makepoint.md): Referenced from the makepoint function context
 
 ## Notes and Other Information
 - Located in `src/tutorial/funcs.c:64-89`

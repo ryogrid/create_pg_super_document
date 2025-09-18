@@ -26,17 +26,17 @@ The function follows SQL standard behavior for edge cases: if the starting posit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[text_substring](text_substring.md)`: Internal function that performs the actual substring extraction
+  - [text_substring](text_substring.md): Internal function that performs the actual substring extraction
   - `PG_GETARG_DATUM`: Extracts the source text datum
   - `PG_GETARG_INT32`: Extracts integer arguments for position and length
   - `PG_RETURN_TEXT_P`: Returns the resulting text substring
 
 - Called from (representative examples):
-  - `[textregexsubstr](textregexsubstr.md)`: Regular expression substring extraction
-  - `[build_regexp_match_result](../b/build_regexp_match_result.md)`: Building results from regexp matches
-  - `[build_regexp_split_result](../b/build_regexp_split_result.md)`: Building results from regexp splits
-  - `[regexp_substr](../r/regexp_substr.md)`: Regular expression-based substring function
-  - `[build_test_match_result](../b/build_test_match_result.md)`: Test module for regex functionality
+  - [textregexsubstr](textregexsubstr.md): Regular expression substring extraction
+  - [build_regexp_match_result](../b/build_regexp_match_result.md): Building results from regexp matches
+  - [build_regexp_split_result](../b/build_regexp_split_result.md): Building results from regexp splits
+  - [regexp_substr](../r/regexp_substr.md): Regular expression-based substring function
+  - [build_test_match_result](../b/build_test_match_result.md): Test module for regex functionality
 
 ## Notes and Other Information
 - This function is typically called through SQL's SUBSTRING function

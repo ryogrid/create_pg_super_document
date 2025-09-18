@@ -23,7 +23,7 @@ The function uses the `FORMAT_PROC_FORCE_QUALIFY` flag (0x02) to force qualifica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[format_procedure_extended](format_procedure_extended.md)`: Core formatting function with extended options
+  - [format_procedure_extended](format_procedure_extended.md): Core formatting function with extended options
   - `FORMAT_PROC_FORCE_QUALIFY`: Flag constant to force schema qualification (0x02)
 - Called from (representative examples):
   - `FORMAT_OPERATOR_FORCE_QUALIFY`: Macro reference in regproc header

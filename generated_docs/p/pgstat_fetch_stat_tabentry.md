@@ -23,9 +23,9 @@ This design pattern allows the statistics system to be lazy - tables don't need 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[IsSharedRelation](../I/IsSharedRelation.md)` - Determines if the relation is a shared system catalog
-  - `[pgstat_fetch_stat_tabentry_ext](pgstat_fetch_stat_tabentry_ext.md)` - Extended version that handles both shared and regular relations
-  - `[PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md)` - Structure type for table statistics entries
+  - [IsSharedRelation](../I/IsSharedRelation.md) - Determines if the relation is a shared system catalog
+  - [pgstat_fetch_stat_tabentry_ext](pgstat_fetch_stat_tabentry_ext.md) - Extended version that handles both shared and regular relations
+  - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md) - Structure type for table statistics entries
 
 - Called from (representative examples):
   - `PG_STAT_GET_RELENTRY_INT64` - SQL function for retrieving 64-bit integer statistics

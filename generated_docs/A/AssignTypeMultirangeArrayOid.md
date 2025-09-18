@@ -30,11 +30,11 @@ This function takes no parameters and returns:
   - `OidIsValid` (macro for OID validation)
   - `ereport` (error reporting function)
   - `table_open` (system catalog access)
-  - `[GetNewOidWithIndex](../G/GetNewOidWithIndex.md)` (OID generation function)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (OID generation function)
   - `table_close` (system catalog cleanup)
   
 - Called from (representative examples):
-  - `[DefineRange](../D/DefineRange.md)` (src/backend/commands/typecmds.c:1525)
+  - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1525)
 
 ## Notes and Other Information
 - This function is specifically for the array types of multirange types, creating a three-level type hierarchy: base type → multirange type → multirange array type

@@ -24,11 +24,11 @@ The function follows a two-step conversion process: first extracting the numeric
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_JSONB_P`: Extracts JSONB argument from function arguments
-  - `[JsonbExtractScalar](../J/JsonbExtractScalar.md)`: Extracts scalar value from JSONB structure
-  - `[cannotCastJsonbValue](../c/cannotCastJsonbValue.md)`: Raises error for invalid type conversions
+  - [JsonbExtractScalar](../J/JsonbExtractScalar.md): Extracts scalar value from JSONB structure
+  - [cannotCastJsonbValue](../c/cannotCastJsonbValue.md): Raises error for invalid type conversions
   - `DirectFunctionCall1`: Calls a PostgreSQL function with one argument
-  - `[numeric_int8](../n/numeric_int8.md)`: Converts numeric to bigint with range checking
-  - `[NumericGetDatum](../N/NumericGetDatum.md)`: Converts numeric to datum format
+  - [numeric_int8](../n/numeric_int8.md): Converts numeric to bigint with range checking
+  - [NumericGetDatum](../N/NumericGetDatum.md): Converts numeric to datum format
   - `PG_FREE_IF_COPY`: Frees memory if input was copied
   - `PG_RETURN_DATUM`: Returns the converted value as Datum
 - Called from (representative examples):

@@ -23,7 +23,7 @@ This function implements the inequality comparison operator between a DATE and a
 - Functions called/Symbols referenced:
   - `PG_GETARG_DATEADT`: Extracts DATE argument from function call
   - `PG_GETARG_TIMESTAMPTZ`: Extracts TIMESTAMPTZ argument from function call
-  - `[date_cmp_timestamptz_internal](date_cmp_timestamptz_internal.md)`: Performs the actual date comparison logic
+  - [date_cmp_timestamptz_internal](date_cmp_timestamptz_internal.md): Performs the actual date comparison logic
   - `PG_RETURN_BOOL`: Returns boolean result as PostgreSQL Datum
 - Called from: 
   - This function is typically invoked through PostgreSQL's operator system for the '<>' or '!=' operator between DATE and TIMESTAMPTZ types

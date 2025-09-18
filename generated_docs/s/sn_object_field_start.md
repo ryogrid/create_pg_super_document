@@ -22,13 +22,13 @@ This function is a critical component of the JSON null-stripping functionality i
 ## Dependencies
 - Functions called/Symbols referenced:
   - `appendStringInfoCharMacro` - Macro to append single characters to the string buffer
-  - `[escape_json](../e/escape_json.md)` - Function to properly escape field names for JSON output
-  - `[StripnullState](../S/StripnullState.md)` - State structure for null-stripping operations
+  - [escape_json](../e/escape_json.md) - Function to properly escape field names for JSON output
+  - [StripnullState](../S/StripnullState.md) - State structure for null-stripping operations
   - `JSON_SUCCESS` - Success return code constant
   - `JsonParseErrorType` - Return type for JSON parsing operations
 
 - Called from (representative examples):
-  - `[json_strip_nulls](../j/json_strip_nulls.md)` - Main function that orchestrates JSON null stripping
+  - [json_strip_nulls](../j/json_strip_nulls.md) - Main function that orchestrates JSON null stripping
   - `JsObjectFree` - Object cleanup function
 
 ## Notes and Other Information

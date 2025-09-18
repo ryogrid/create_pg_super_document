@@ -33,13 +33,13 @@ The function includes error handling for cases where the apply worker disappears
   - `logicalrep_worker_find()`
   - `logicalrep_worker_wakeup_ptr()`
   - `LWLockRelease()`
-  - `[WaitLatch](../W/WaitLatch.md)()`
-  - `[ResetLatch](../R/ResetLatch.md)()`
-  - `[LogicalRepWorker](../L/LogicalRepWorker.md)`
+  - [WaitLatch](../W/WaitLatch.md)()
+  - [ResetLatch](../R/ResetLatch.md)()
+  - [LogicalRepWorker](../L/LogicalRepWorker.md)
   - `MyLogicalRepWorker`
   - `InvalidOid`
 - Called from (representative examples):
-  - `[LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)` (src/backend/replication/logical/tablesync.c:1585)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (src/backend/replication/logical/tablesync.c:1585)
 
 ## Notes and Other Information
 - Returns `true` when the worker reaches the expected state

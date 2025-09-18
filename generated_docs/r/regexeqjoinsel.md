@@ -24,7 +24,7 @@ The `regexeqjoinsel` function estimates the selectivity for regular expression p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[patternjoinsel](../p/patternjoinsel.md)` - Generic pattern join selectivity estimation function
+  - [patternjoinsel](../p/patternjoinsel.md) - Generic pattern join selectivity estimation function
   - `Pattern_Type_Regex` - Enum value for case-sensitive regex pattern type
 - Called from (representative examples):
   - No direct references found (likely called via function pointer from operator catalog)

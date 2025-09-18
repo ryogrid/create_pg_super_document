@@ -26,11 +26,11 @@ Array keys contain arrays of integers, signature keys contain bit signatures for
 - Called from (representative examples):
   - `GETENTRY`: Macro to extract SignTSVector from GiST entry vector
   - `ISARRKEY`, `ISSIGNKEY`, `ISALLTRUE`: Macros to test flag values
-  - `[gtsvector_compress](../g/gtsvector_compress.md)`: Compression function for GiST entries
-  - `[gtsvector_union](../g/gtsvector_union.md)`: Union operation for combining index keys
-  - `[gtsvector_consistent](../g/gtsvector_consistent.md)`: Consistency check function
-  - `[gtsvector_penalty](../g/gtsvector_penalty.md)`: Penalty calculation for index insertion
-  - `[gtsvector_picksplit](../g/gtsvector_picksplit.md)`: Node splitting algorithm
+  - [gtsvector_compress](../g/gtsvector_compress.md): Compression function for GiST entries
+  - [gtsvector_union](../g/gtsvector_union.md): Union operation for combining index keys
+  - [gtsvector_consistent](../g/gtsvector_consistent.md): Consistency check function
+  - [gtsvector_penalty](../g/gtsvector_penalty.md): Penalty calculation for index insertion
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md): Node splitting algorithm
 
 ## Notes and Other Information
 - The structure supports three distinct key types controlled by flag bits:

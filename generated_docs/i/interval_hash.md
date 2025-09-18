@@ -21,9 +21,9 @@ This function generates a hash value for an Interval by first converting the int
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P`: Extracts Interval argument from function call context
-  - `[interval_cmp_value](interval_cmp_value.md)`: Converts interval to standardized 128-bit span representation
-  - `[int128_to_int64](int128_to_int64.md)`: Converts 128-bit span to 64-bit for hashing compatibility
-  - `[hashint8](../h/hashint8.md)`: Computes hash value for the 64-bit span
+  - [interval_cmp_value](interval_cmp_value.md): Converts interval to standardized 128-bit span representation
+  - [int128_to_int64](int128_to_int64.md): Converts 128-bit span to 64-bit for hashing compatibility
+  - [hashint8](../h/hashint8.md): Computes hash value for the 64-bit span
   - `DirectFunctionCall1`: Calls hashint8 with the span value
   - `Int64GetDatumFast`: Converts int64 to PostgreSQL Datum format
   - `Interval`: PostgreSQL interval data type structure

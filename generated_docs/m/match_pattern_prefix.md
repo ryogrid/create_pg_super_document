@@ -32,15 +32,15 @@ This optimization enables PostgreSQL to use indexes efficiently for pattern quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pattern_fixed_prefix](../p/pattern_fixed_prefix.md)`: Extracts fixed prefix from patterns
-  - `[get_collation_isdeterministic](../g/get_collation_isdeterministic.md)`: Checks if collation is deterministic
-  - `[op_in_opfamily](../o/op_in_opfamily.md)`: Verifies operator support in index operator family
+  - [pattern_fixed_prefix](../p/pattern_fixed_prefix.md): Extracts fixed prefix from patterns
+  - [get_collation_isdeterministic](../g/get_collation_isdeterministic.md): Checks if collation is deterministic
+  - [op_in_opfamily](../o/op_in_opfamily.md): Verifies operator support in index operator family
   - `make_opclause`: Creates operator expression nodes
-  - `[make_greater_string](make_greater_string.md)`: Generates upper bound for range constraints
-  - `[lc_collate_is_c](../l/lc_collate_is_c.md)`: Checks for C locale collation
-  - `[fmgr_info](../f/fmgr_info.md)`: Gets function manager info for operators
+  - [make_greater_string](make_greater_string.md): Generates upper bound for range constraints
+  - [lc_collate_is_c](../l/lc_collate_is_c.md): Checks for C locale collation
+  - [fmgr_info](../f/fmgr_info.md): Gets function manager info for operators
 - Called from (representative examples):
-  - `[like_regex_support](../l/like_regex_support.md)`: Main pattern support dispatcher
+  - [like_regex_support](../l/like_regex_support.md): Main pattern support dispatcher
 
 ## Notes and Other Information
 - Returns NIL if no optimization is possible (e.g., no fixed prefix, unsupported data type)

@@ -22,9 +22,9 @@ The `uuid_ne` function is a PostgreSQL built-in function that compares two UUID 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_UUID_P`: Macro to extract UUID arguments from function call
-  - `[uuid_internal_cmp](uuid_internal_cmp.md)`: Internal function performing the actual UUID comparison
+  - [uuid_internal_cmp](uuid_internal_cmp.md): Internal function performing the actual UUID comparison
   - `PG_RETURN_BOOL`: Macro to return boolean result
-  - `[pg_uuid_t](../p/pg_uuid_t.md)`: UUID data type structure
+  - [pg_uuid_t](../p/pg_uuid_t.md): UUID data type structure
 - Called from (representative examples):
   - SQL queries using UUID != or <> operators
   - Conditional expressions in stored procedures

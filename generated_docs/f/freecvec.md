@@ -21,12 +21,12 @@ The function is designed to work with `cvec` structures that were allocated by `
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[cvec](../c/cvec.md)` (structure type)
+  - [cvec](../c/cvec.md) (structure type)
   - `FREE` (memory deallocation macro)
 - Called from (representative examples):
   - `getcvec` (src/backend/regex/regc_cvec.c:123)
   - `REPLACEARC` (src/backend/regex/regcomp.c:249)
-  - `[freev](freev.md)` (src/backend/regex/regcomp.c:606, 608)
+  - [freev](freev.md) (src/backend/regex/regcomp.c:606, 608)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (regc_cvec.c)

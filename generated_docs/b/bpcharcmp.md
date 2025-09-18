@@ -22,8 +22,8 @@ The `bpcharcmp` function performs a three-way comparison between two BpChar valu
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_BPCHAR_PP` - Extract BpChar arguments from function call
-  - `[bcTruelen](bcTruelen.md)` - Calculate true length of BpChar (excluding trailing spaces)
-  - `[varstr_cmp](../v/varstr_cmp.md)` - Perform collation-aware string comparison
+  - [bcTruelen](bcTruelen.md) - Calculate true length of BpChar (excluding trailing spaces)
+  - [varstr_cmp](../v/varstr_cmp.md) - Perform collation-aware string comparison
   - `VARDATA_ANY` - Get pointer to variable-length data
   - `PG_GET_COLLATION` - Get current collation for comparison
   - `PG_FREE_IF_COPY` - Free memory if argument was copied

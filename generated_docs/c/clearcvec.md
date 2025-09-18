@@ -21,7 +21,7 @@ This function is typically used when a `cvec` needs to be reused for a new set o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[cvec](cvec.md)` (structure type)
+  - [cvec](cvec.md) (structure type)
   - `assert` (for NULL pointer validation)
 - Called from (representative examples):
   - `newcvec` (src/backend/regex/regc_cvec.c:58)

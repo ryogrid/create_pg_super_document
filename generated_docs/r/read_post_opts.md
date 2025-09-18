@@ -30,14 +30,14 @@ This function takes no parameters but operates on several global variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `RESTART_COMMAND` (constant)
-  - `[readfile](readfile.md)` (utility function to read file contents)
-  - `[write_stderr](../w/write_stderr.md)` (error output function)
-  - `[free_readfile](../f/free_readfile.md)` (cleanup function)
-  - `[pg_strdup](../p/pg_strdup.md)` (string duplication utility)
+  - [readfile](readfile.md) (utility function to read file contents)
+  - [write_stderr](../w/write_stderr.md) (error output function)
+  - [free_readfile](../f/free_readfile.md) (cleanup function)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication utility)
 
 - Called from:
-  - `[do_start](../d/do_start.md)` (main start operation function)
-  - `[pgwin32_ServiceMain](../p/pgwin32_ServiceMain.md)` (Windows service main function)
+  - [do_start](../d/do_start.md) (main start operation function)
+  - [pgwin32_ServiceMain](../p/pgwin32_ServiceMain.md) (Windows service main function)
 
 ## Notes and Other Information
 - This function is critical for the RESTART operation to maintain consistency between server stops and starts

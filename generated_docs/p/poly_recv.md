@@ -24,12 +24,12 @@ This approach prioritizes security and correctness over performance, as validati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pq_getmsgint](pq_getmsgint.md)`: Reads int32 from binary message buffer
-  - `[pq_getmsgfloat8](pq_getmsgfloat8.md)`: Reads float8 from binary message buffer  
+  - [pq_getmsgint](pq_getmsgint.md): Reads int32 from binary message buffer
+  - [pq_getmsgfloat8](pq_getmsgfloat8.md): Reads float8 from binary message buffer  
   - `ereport`: PostgreSQL error reporting for invalid data
-  - `[palloc0](palloc0.md)`: PostgreSQL memory allocation with zero initialization
+  - [palloc0](palloc0.md): PostgreSQL memory allocation with zero initialization
   - `SET_VARSIZE`: Sets the variable-length structure size
-  - `[make_bound_box](../m/make_bound_box.md)`: Calculates the polygons bounding box
+  - [make_bound_box](../m/make_bound_box.md): Calculates the polygons bounding box
   - `PG_RETURN_POLYGON_P`: Returns the polygon result
 - Called from (representative examples):
   - This is a PostgreSQL type receive function, typically called by the binary protocol handler and COPY BINARY operations

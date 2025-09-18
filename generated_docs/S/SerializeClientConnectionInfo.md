@@ -20,13 +20,13 @@ This function takes the current backend's client connection information (stored 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[SerializedClientConnectionInfo](SerializedClientConnectionInfo.md)` - Structure type for the serialized format
+  - [SerializedClientConnectionInfo](SerializedClientConnectionInfo.md) - Structure type for the serialized format
   - `PG_USED_FOR_ASSERTS_ONLY` - Macro for parameters only used in debug assertions
   - `MyClientConnectionInfo` - Global variable containing current client connection info
   - `memcpy` - Standard memory copy function
   - `strlen` - Standard string length function
 - Called from (representative examples):
-  - `[InitializeParallelDSM](../I/InitializeParallelDSM.md)` - During parallel query setup
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) - During parallel query setup
   - `INIT_PG_OVERRIDE_ROLE_LOGIN` - In role login override scenarios
 
 ## Notes and Other Information

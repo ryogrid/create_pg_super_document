@@ -23,11 +23,11 @@ The structure is defined in `src/common/f2s.c`, which is part of PostgreSQL's ad
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a simple struct definition)
 - Called from (representative examples):
-  - `[f2d](f2d.md)`: The main function that converts IEEE 754 binary format to this decimal representation
-  - `[to_chars_f](../t/to_chars_f.md)`: Uses this structure to format the decimal representation into a string
-  - `[to_chars](../t/to_chars.md)`: Another formatting function that processes this structure
-  - `[f2d_small_int](f2d_small_int.md)`: Optimized path for small integers
-  - `[float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md)`: High-level entry point for float to string conversion
+  - [f2d](f2d.md): The main function that converts IEEE 754 binary format to this decimal representation
+  - [to_chars_f](../t/to_chars_f.md): Uses this structure to format the decimal representation into a string
+  - [to_chars](../t/to_chars.md): Another formatting function that processes this structure
+  - [f2d_small_int](f2d_small_int.md): Optimized path for small integers
+  - [float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md): High-level entry point for float to string conversion
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's implementation of the Ryu algorithm, which provides fast and accurate floating-point to string conversion

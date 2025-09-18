@@ -27,12 +27,12 @@ The function properly handles UTF-16 surrogate pairs for characters beyond the B
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[hexval_n](../h/hexval_n.md)`: Converts hexadecimal digit sequences to numeric values
-  - `[isxdigits_n](../i/isxdigits_n.md)`: Validates that a sequence contains valid hexadecimal digits
+  - [hexval_n](../h/hexval_n.md): Converts hexadecimal digit sequences to numeric values
+  - [isxdigits_n](../i/isxdigits_n.md): Validates that a sequence contains valid hexadecimal digits
   - `is_valid_unicode_codepoint`: Validates Unicode code point values
   - `is_utf16_surrogate_first/second`: Handles UTF-16 surrogate pair validation
   - `surrogate_pair_to_codepoint`: Combines UTF-16 surrogate pairs into code points
-  - `[pg_unicode_to_server](../p/pg_unicode_to_server.md)`: Converts Unicode to server encoding
+  - [pg_unicode_to_server](../p/pg_unicode_to_server.md): Converts Unicode to server encoding
   - `cstring_to_text_with_len`: Creates PostgreSQL text result
   - `MAX_UNICODE_EQUIVALENT_STRING`: Buffer size constant
 - Called from (representative examples):

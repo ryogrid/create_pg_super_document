@@ -36,15 +36,15 @@ The function is essential for timezone compiler operations where output director
 - Functions called/Symbols referenced:
   - `ecpyalloc`: Safe memory allocation and string copying function
   - `mkdir`: System call to create directories with MKDIR_UMASK permissions
-  - `[itsdir](../i/itsdir.md)`: Check if a path is an existing directory
-  - `[error](../e/error.md)`: Error reporting function
+  - [itsdir](../i/itsdir.md): Check if a path is an existing directory
+  - [error](../e/error.md): Error reporting function
   - `strerror`: Convert errno to string
   - `strchr`: Standard C string search function
   - `free`: Standard C memory deallocation
 - Called from (representative examples):
-  - `[change_directory](../c/change_directory.md)`: Directory change operations
-  - `[dolink](../d/dolink.md)`: File linking operations
-  - `[writezone](../w/writezone.md)`: Timezone data file writing
+  - [change_directory](../c/change_directory.md): Directory change operations
+  - [dolink](../d/dolink.md): File linking operations
+  - [writezone](../w/writezone.md): Timezone data file writing
 
 ## Notes and Other Information
 - Exits with EXIT_FAILURE on irrecoverable directory creation errors

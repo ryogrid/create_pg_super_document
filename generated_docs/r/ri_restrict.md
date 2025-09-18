@@ -24,23 +24,23 @@ The query built is of the form: `SELECT 1 FROM [ONLY] <fktable> x WHERE  = fkatt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ri_FetchConstraintInfo](ri_FetchConstraintInfo.md)`: Retrieves constraint metadata
+  - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md): Retrieves constraint metadata
   - `table_open`: Opens the foreign key relation
-  - `[ri_Check_Pk_Match](ri_Check_Pk_Match.md)`: Checks for matching primary key (NO ACTION only)
-  - `[ri_BuildQueryKey](ri_BuildQueryKey.md)`: Builds query cache key
-  - `[ri_FetchPreparedPlan](ri_FetchPreparedPlan.md)`: Retrieves cached query plan
-  - `[ri_GenerateQual](ri_GenerateQual.md)`: Generates WHERE clause conditions
-  - `[ri_PlanCheck](ri_PlanCheck.md)`: Prepares and caches the query plan
-  - `[ri_PerformCheck](ri_PerformCheck.md)`: Executes the constraint check query
+  - [ri_Check_Pk_Match](ri_Check_Pk_Match.md): Checks for matching primary key (NO ACTION only)
+  - [ri_BuildQueryKey](ri_BuildQueryKey.md): Builds query cache key
+  - [ri_FetchPreparedPlan](ri_FetchPreparedPlan.md): Retrieves cached query plan
+  - [ri_GenerateQual](ri_GenerateQual.md): Generates WHERE clause conditions
+  - [ri_PlanCheck](ri_PlanCheck.md): Prepares and caches the query plan
+  - [ri_PerformCheck](ri_PerformCheck.md): Executes the constraint check query
   - SPI functions: `SPI_connect`, `SPI_finish`
   - Various utility functions for name quoting and type handling
 
 - Called from (representative examples):
-  - `[RI_FKey_noaction_del](../R/RI_FKey_noaction_del.md)`: NO ACTION DELETE constraints  
-  - `[RI_FKey_restrict_del](../R/RI_FKey_restrict_del.md)`: RESTRICT DELETE constraints
-  - `[RI_FKey_noaction_upd](../R/RI_FKey_noaction_upd.md)`: NO ACTION UPDATE constraints
-  - `[RI_FKey_restrict_upd](../R/RI_FKey_restrict_upd.md)`: RESTRICT UPDATE constraints
-  - `[ri_set](ri_set.md)`: SET NULL/DEFAULT constraint handling
+  - [RI_FKey_noaction_del](../R/RI_FKey_noaction_del.md): NO ACTION DELETE constraints  
+  - [RI_FKey_restrict_del](../R/RI_FKey_restrict_del.md): RESTRICT DELETE constraints
+  - [RI_FKey_noaction_upd](../R/RI_FKey_noaction_upd.md): NO ACTION UPDATE constraints
+  - [RI_FKey_restrict_upd](../R/RI_FKey_restrict_upd.md): RESTRICT UPDATE constraints
+  - [ri_set](ri_set.md): SET NULL/DEFAULT constraint handling
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside ri_triggers.c

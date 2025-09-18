@@ -25,13 +25,13 @@ The function uses a simple loop that continues calling `psql_scan_slash_option()
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option`: Scans for the next slash command option from the input
   - `OT_NORMAL`: Option type constant for normal command options
-  - `[PsqlScanState](../P/PsqlScanState.md)`: Scanner state structure type
+  - [PsqlScanState](../P/PsqlScanState.md): Scanner state structure type
 
 - Called from (representative examples):
-  - `[exec_command_bind](../e/exec_command_bind.md)`: When \bind commands are in inactive branches
-  - `[exec_command_connect](../e/exec_command_connect.md)`: When \connect commands are in inactive branches
-  - `[exec_command_set](../e/exec_command_set.md)`: When \set commands are in inactive branches
-  - `[exec_command_pset](../e/exec_command_pset.md)`: When \pset commands are in inactive branches
+  - [exec_command_bind](../e/exec_command_bind.md): When \bind commands are in inactive branches
+  - [exec_command_connect](../e/exec_command_connect.md): When \connect commands are in inactive branches
+  - [exec_command_set](../e/exec_command_set.md): When \set commands are in inactive branches
+  - [exec_command_pset](../e/exec_command_pset.md): When \pset commands are in inactive branches
 
 ## Notes and Other Information
 - This function is part of psql's conditional command processing infrastructure

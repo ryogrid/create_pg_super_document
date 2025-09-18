@@ -24,13 +24,13 @@ This function implements equality comparison for multiranges by performing eleme
 ## Dependencies
 - Functions called/Symbols referenced:
   - `MultirangeTypeGetOid` - Get the OID of multirange types for validation
-  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract bounds from specific ranges within multiranges
-  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare individual range bounds for equality
+  - [multirange_get_bounds](multirange_get_bounds.md) - Extract bounds from specific ranges within multiranges
+  - [range_cmp_bounds](../r/range_cmp_bounds.md) - Compare individual range bounds for equality
   - `RangeBound` - Structure for representing range boundaries
   - `elog` - PostgreSQL error logging function
 - Called from (representative examples):
-  - `[multirange_eq](multirange_eq.md)` - Public SQL equality function wrapper
-  - `[multirange_ne_internal](multirange_ne_internal.md)` - Negated equality for inequality operations
+  - [multirange_eq](multirange_eq.md) - Public SQL equality function wrapper
+  - [multirange_ne_internal](multirange_ne_internal.md) - Negated equality for inequality operations
 
 ## Notes and Other Information
 - Performs type checking to ensure both multiranges are of compatible types

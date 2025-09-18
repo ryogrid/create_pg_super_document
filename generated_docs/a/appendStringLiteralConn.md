@@ -25,18 +25,18 @@ For strings without special escape sequences, the function delegates to libpq's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PQserverVersion](../P/PQserverVersion.md)` (check server version for escape syntax support)
+  - [PQserverVersion](../P/PQserverVersion.md) (check server version for escape syntax support)
   - `appendPQExpBufferChar` (buffer character append operations)
   - `ESCAPE_STRING_SYNTAX` (escape string marker constant)
-  - `[appendStringLiteral](appendStringLiteral.md)` (fallback for escape string cases)
-  - `[PQclientEncoding](../P/PQclientEncoding.md)` (get connection encoding)
-  - `[enlargePQExpBuffer](../e/enlargePQExpBuffer.md)` (buffer space management)
-  - `[PQescapeStringConn](../P/PQescapeStringConn.md)` (libpq string escaping)
+  - [appendStringLiteral](appendStringLiteral.md) (fallback for escape string cases)
+  - [PQclientEncoding](../P/PQclientEncoding.md) (get connection encoding)
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (buffer space management)
+  - [PQescapeStringConn](../P/PQescapeStringConn.md) (libpq string escaping)
 - Called from (representative examples):
-  - `[append_db_pattern_cte](append_db_pattern_cte.md)` (src/bin/pg_amcheck/pg_amcheck.c:1557)
-  - `[emitShSecLabels](../e/emitShSecLabels.md)` (src/bin/pg_dump/dumputils.c:710)
-  - `[dumpRoles](../d/dumpRoles.md)` (src/bin/pg_dump/pg_dumpall.c:945, 957)
-  - `[create_logical_replication_slots](../c/create_logical_replication_slots.md)` (src/bin/pg_upgrade/pg_upgrade.c:957, 959)
+  - [append_db_pattern_cte](append_db_pattern_cte.md) (src/bin/pg_amcheck/pg_amcheck.c:1557)
+  - [emitShSecLabels](../e/emitShSecLabels.md) (src/bin/pg_dump/dumputils.c:710)
+  - [dumpRoles](../d/dumpRoles.md) (src/bin/pg_dump/pg_dumpall.c:945, 957)
+  - [create_logical_replication_slots](../c/create_logical_replication_slots.md) (src/bin/pg_upgrade/pg_upgrade.c:957, 959)
 
 ## Notes and Other Information
 - Preferred over `appendStringLiteral` when database connection is available

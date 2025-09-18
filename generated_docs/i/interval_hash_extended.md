@@ -23,9 +23,9 @@ This function generates an extended hash value for an Interval by converting the
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P`: Extracts Interval argument from function call context
   - `PG_GETARG_DATUM`: Extracts seed argument from function call context
-  - `[interval_cmp_value](interval_cmp_value.md)`: Converts interval to standardized 128-bit span representation
-  - `[int128_to_int64](int128_to_int64.md)`: Converts 128-bit span to 64-bit for hashing compatibility
-  - `[hashint8extended](../h/hashint8extended.md)`: Computes extended hash value for the 64-bit span and seed
+  - [interval_cmp_value](interval_cmp_value.md): Converts interval to standardized 128-bit span representation
+  - [int128_to_int64](int128_to_int64.md): Converts 128-bit span to 64-bit for hashing compatibility
+  - [hashint8extended](../h/hashint8extended.md): Computes extended hash value for the 64-bit span and seed
   - `DirectFunctionCall2`: Calls hashint8extended with span and seed values
   - `Int64GetDatumFast`: Converts int64 to PostgreSQL Datum format
   - `Interval`: PostgreSQL interval data type structure

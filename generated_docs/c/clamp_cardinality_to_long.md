@@ -30,10 +30,10 @@ A key insight in this function is handling the precision issues when long is 64-
   - `LONG_MAX`: C standard library constant for maximum long value
 
 - Called from (representative examples):
-  - `[buildSubPlanHash](../b/buildSubPlanHash.md)`: Building hash tables for subplans
-  - `[create_setop_plan](create_setop_plan.md)`: Creating set operation plans
-  - `[create_recursiveunion_plan](create_recursiveunion_plan.md)`: Creating recursive union plans
-  - `[make_agg](../m/make_agg.md)`: Creating aggregation nodes
+  - [buildSubPlanHash](../b/buildSubPlanHash.md): Building hash tables for subplans
+  - [create_setop_plan](create_setop_plan.md): Creating set operation plans
+  - [create_recursiveunion_plan](create_recursiveunion_plan.md): Creating recursive union plans
+  - [make_agg](../m/make_agg.md): Creating aggregation nodes
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/costsize.c:254-283

@@ -24,19 +24,19 @@ The function initializes parsing structures, looks up the appropriate text searc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[headline_json_value](../h/headline_json_value.md)`: Action function for processing individual JSON string values
-  - `[transform_json_string_values](transform_json_string_values.md)`: Core JSON transformation function
-  - `[lookup_ts_config_cache](../l/lookup_ts_config_cache.md)`: Retrieves cached text search configuration
-  - `[lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)`: Retrieves cached text search parser
+  - [headline_json_value](../h/headline_json_value.md): Action function for processing individual JSON string values
+  - [transform_json_string_values](transform_json_string_values.md): Core JSON transformation function
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md): Retrieves cached text search configuration
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md): Retrieves cached text search parser
   - `deserialize_deflist`: Parses headline options from text format
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation
-  - `[palloc0](../p/palloc0.md)`: PostgreSQL zero-initialized memory allocation
-  - `[pfree](../p/pfree.md)`: PostgreSQL memory deallocation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
+  - [palloc0](../p/palloc0.md): PostgreSQL zero-initialized memory allocation
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation
   - Various PostgreSQL macros: `PG_GETARG_*`, `PG_FREE_IF_COPY`, `PG_RETURN_TEXT_P`
 - Called from (representative examples):
-  - `[ts_headline_json](ts_headline_json.md)`: Wrapper using current default configuration
-  - `[ts_headline_json_byid](ts_headline_json_byid.md)`: Wrapper without options parameter
-  - `[ts_headline_json_opt](ts_headline_json_opt.md)`: Wrapper using current default configuration with options
+  - [ts_headline_json](ts_headline_json.md): Wrapper using current default configuration
+  - [ts_headline_json_byid](ts_headline_json_byid.md): Wrapper without options parameter
+  - [ts_headline_json_opt](ts_headline_json_opt.md): Wrapper using current default configuration with options
 
 ## Notes and Other Information
 - Located in src/backend/tsearch/wparser.c at lines 443-490

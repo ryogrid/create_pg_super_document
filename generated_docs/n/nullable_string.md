@@ -28,11 +28,11 @@ This function is part of the node deserialization machinery that allows PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pstrdup](../p/pstrdup.md)` (for duplicating empty strings)
-  - `[debackslash](../d/debackslash.md)` (for removing escape sequences)
+  - [pstrdup](../p/pstrdup.md) (for duplicating empty strings)
+  - [debackslash](../d/debackslash.md) (for removing escape sequences)
 - Called from (representative examples):
   - `READ_STRING_FIELD` (macro for reading string fields)
-  - `[_readExtensibleNode](../r/_readExtensibleNode.md)` (for extensible node deserialization)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md) (for extensible node deserialization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the readfuncs.c compilation unit

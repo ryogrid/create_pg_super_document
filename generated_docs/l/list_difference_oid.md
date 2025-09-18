@@ -23,13 +23,13 @@ The function iterates through each OID element in `list1` and checks if that OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IsOidList` - Asserts that both input lists are OID lists
-  - `[list_copy](list_copy.md)` - Creates a copy of list1 when list2 is NIL
-  - `[list_member_oid](list_member_oid.md)` - Checks OID membership in list2
+  - [list_copy](list_copy.md) - Creates a copy of list1 when list2 is NIL
+  - [list_member_oid](list_member_oid.md) - Checks OID membership in list2
   - `lfirst_oid` - Extracts OID values from list cells
   - `lappend_oid` - Appends OID elements to the result list
-  - `[check_list_invariants](../c/check_list_invariants.md)` - Validates the final result list
+  - [check_list_invariants](../c/check_list_invariants.md) - Validates the final result list
 - Called from (representative examples):
-  - `[AlterPublicationSchemas](../A/AlterPublicationSchemas.md)` (src/backend/commands/publicationcmds.c:1309)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md) (src/backend/commands/publicationcmds.c:1309)
 
 ## Notes and Other Information
 - Both input lists must be OID lists (verified by assertions)

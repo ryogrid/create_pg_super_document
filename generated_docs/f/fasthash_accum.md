@@ -31,14 +31,14 @@ This function is particularly useful for processing variable-length data or when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[fasthash_combine](fasthash_combine.md)` (combines the accumulated data into the hash)
-  - `[fasthash_state](fasthash_state.md)` (structure type being operated on)
+  - [fasthash_combine](fasthash_combine.md) (combines the accumulated data into the hash)
+  - [fasthash_state](fasthash_state.md) (structure type being operated on)
   - `FH_SIZEOF_ACCUM` (constant defining maximum accumulator size: sizeof(uint64))
   - `memcpy` (for efficient copying of aligned data)
   - `Assert` (validates input length constraint)
 - Called from (representative examples):
-  - `[fasthash_accum_cstring_unaligned](fasthash_accum_cstring_unaligned.md)` (src/include/common/hashfn_unstable.h:235)
-  - `[fasthash64](fasthash64.md)` (src/include/common/hashfn_unstable.h:371, 376)
+  - [fasthash_accum_cstring_unaligned](fasthash_accum_cstring_unaligned.md) (src/include/common/hashfn_unstable.h:235)
+  - [fasthash64](fasthash64.md) (src/include/common/hashfn_unstable.h:371, 376)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization due to frequent usage in hashing operations

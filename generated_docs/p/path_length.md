@@ -21,10 +21,10 @@ The function uses `float8_pl` for floating-point addition to ensure proper handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PATH](../P/PATH.md)`: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
   - `PG_GETARG_PATH_P`: Macro to get path argument from function parameters
-  - `[point_dt](point_dt.md)`: Function to calculate Euclidean distance between two points
-  - `[float8_pl](../f/float8_pl.md)`: Floating-point addition utility for accumulating distances
+  - [point_dt](point_dt.md): Function to calculate Euclidean distance between two points
+  - [float8_pl](../f/float8_pl.md): Floating-point addition utility for accumulating distances
 - Called from (representative examples):
   - No direct references found in the codebase
 

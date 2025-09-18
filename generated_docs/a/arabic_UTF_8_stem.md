@@ -30,19 +30,19 @@ The function operates in several main phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[r_Checks1](../r/r_Checks1.md)` - Initial validation and setup checks
-  - `[r_Normalize_pre](../r/r_Normalize_pre.md)` - Pre-processing text normalization
-  - `[r_Suffix_Verb_Step1](../r/r_Suffix_Verb_Step1.md)` - First stage verb suffix removal
+  - [r_Checks1](../r/r_Checks1.md) - Initial validation and setup checks
+  - [r_Normalize_pre](../r/r_Normalize_pre.md) - Pre-processing text normalization
+  - [r_Suffix_Verb_Step1](../r/r_Suffix_Verb_Step1.md) - First stage verb suffix removal
   - `[r_Suffix_Verb_Step2a](../r/r_Suffix_Verb_Step2a.md)/2b/2c` - Second stage verb suffix processing variants
   - `[r_Suffix_Noun_Step1a](../r/r_Suffix_Noun_Step1a.md)/1b` - First stage noun suffix removal variants  
   - `[r_Suffix_Noun_Step2a](../r/r_Suffix_Noun_Step2a.md)/2b/2c1/2c2` - Second stage noun suffix processing variants
-  - `[r_Suffix_Noun_Step3](../r/r_Suffix_Noun_Step3.md)` - Third stage noun suffix processing
-  - `[r_Suffix_All_alef_maqsura](../r/r_Suffix_All_alef_maqsura.md)` - Arabic alef maqsura character normalization
+  - [r_Suffix_Noun_Step3](../r/r_Suffix_Noun_Step3.md) - Third stage noun suffix processing
+  - [r_Suffix_All_alef_maqsura](../r/r_Suffix_All_alef_maqsura.md) - Arabic alef maqsura character normalization
   - `[r_Prefix_Step1](../r/r_Prefix_Step1.md)/2` - General prefix removal stages
   - `[r_Prefix_Step3a_Noun](../r/r_Prefix_Step3a_Noun.md)/3b_Noun` - Noun-specific prefix removal
   - `[r_Prefix_Step3_Verb](../r/r_Prefix_Step3_Verb.md)/4_Verb` - Verb-specific prefix removal
-  - `[r_Normalize_post](../r/r_Normalize_post.md)` - Final post-processing normalization
-  - `[skip_b_utf8](../s/skip_b_utf8.md)` - UTF-8 aware character skipping utility
+  - [r_Normalize_post](../r/r_Normalize_post.md) - Final post-processing normalization
+  - [skip_b_utf8](../s/skip_b_utf8.md) - UTF-8 aware character skipping utility
 - Called from:
   - External PostgreSQL text search integration (exact callers not visible in this file)
 

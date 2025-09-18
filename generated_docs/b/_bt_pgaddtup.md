@@ -27,11 +27,11 @@ The function creates a truncated copy of the index tuple when needed, setting th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[BTreeTupleSetNAtts](../B/BTreeTupleSetNAtts.md)`: Sets the number of attributes in the tuple to 0
+  - [BTreeTupleSetNAtts](../B/BTreeTupleSetNAtts.md): Sets the number of attributes in the tuple to 0
   - `PageAddItem`: Adds the item to the specified page
-  - `[IndexTupleData](../I/IndexTupleData.md)`: Tuple structure for index entries
+  - [IndexTupleData](../I/IndexTupleData.md): Tuple structure for index entries
 - Called from (representative examples):
-  - `[_bt_split](_bt_split.md)`: Multiple calls during page splitting operations
+  - [_bt_split](_bt_split.md): Multiple calls during page splitting operations
 
 ## Notes and Other Information
 - Only truncates tuples when `newfirstdataitem` is true for internal page splits

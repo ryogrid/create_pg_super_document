@@ -30,8 +30,8 @@ This mixing function serves dual purposes in the fasthash algorithm: it's used d
 - Functions called/Symbols referenced:
   - None (uses only basic arithmetic and bitwise operations)
 - Called from (representative examples):
-  - `[fasthash_combine](fasthash_combine.md)` (src/include/common/hashfn_unstable.h:130)
-  - `[fasthash_final64](fasthash_final64.md)` (src/include/common/hashfn_unstable.h:327)
+  - [fasthash_combine](fasthash_combine.md) (src/include/common/hashfn_unstable.h:130)
+  - [fasthash_final64](fasthash_final64.md) (src/include/common/hashfn_unstable.h:327)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for optimal performance since it's a critical hot path in hash calculations

@@ -24,7 +24,7 @@ The function performs validation on each character by checking if it's within th
 - Functions called/Symbols referenced:
   - `hexlookup` (static lookup table for hex digit conversion)
 - Called from (representative examples):
-  - `[macaddr8_in](../m/macaddr8_in.md)` (multiple times for parsing MAC address components)
+  - [macaddr8_in](../m/macaddr8_in.md) (multiple times for parsing MAC address components)
   - `lobits` macro (indirectly referenced)
 
 ## Notes and Other Information

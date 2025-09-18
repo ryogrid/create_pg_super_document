@@ -35,7 +35,7 @@ enum _dumpPreparedQueries
 - Functions called/Symbols referenced:
   - Part of the `_dumpPreparedQueries` enumeration
 - Called from (representative examples):
-  - `[setup_connection](../s/setup_connection.md)` function in pg_dump.c for array allocation and prepared statement initialization
+  - [setup_connection](../s/setup_connection.md) function in pg_dump.c for array allocation and prepared statement initialization
 
 ## Notes and Other Information
 This constant is crucial for pg_dump's performance optimization through prepared statements. It ensures that the prepared statement arrays are correctly sized to accommodate all defined queries. The comment "must be last" is a critical maintenance note - adding new prepared queries requires inserting them before NUM_PREP_QUERIES, not after. This pattern is a common C idiom for maintaining counts of enumerated items automatically.

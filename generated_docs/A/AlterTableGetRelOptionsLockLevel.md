@@ -23,11 +23,11 @@ The lock level determination is crucial for PostgreSQL's MVCC system, as differe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[initialize_reloptions](../i/initialize_reloptions.md)`: Initializes the global relation options array if needed
+  - [initialize_reloptions](../i/initialize_reloptions.md): Initializes the global relation options array if needed
   - `AccessExclusiveLock`: Default lock mode constant returned when defList is NIL
-  - `[DefElem](../D/DefElem.md)`: Structure type used to represent option definitions
+  - [DefElem](../D/DefElem.md): Structure type used to represent option definitions
 - Called from (representative examples):
-  - `[AlterTableGetLockLevel](AlterTableGetLockLevel.md)`: Main function for determining ALTER TABLE lock levels
+  - [AlterTableGetLockLevel](AlterTableGetLockLevel.md): Main function for determining ALTER TABLE lock levels
   - `GET_STRING_RELOPTION`: Macro that references this function
 
 ## Notes and Other Information

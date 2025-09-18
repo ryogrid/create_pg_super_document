@@ -23,9 +23,9 @@ For leaf entries, it calculates the exact distance between two points. For inter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[computeDistance](../c/computeDistance.md)`
+  - [computeDistance](../c/computeDistance.md)
   - `GIST_LEAF`
-  - `[DatumGetBoxP](../D/DatumGetBoxP.md)`
+  - [DatumGetBoxP](../D/DatumGetBoxP.md)
   - `PG_GETARG_POINT_P`
   - `GeoStrategyNumberOffset`
   - `PointStrategyNumberGroup`

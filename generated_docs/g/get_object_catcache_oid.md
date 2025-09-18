@@ -21,16 +21,16 @@ The function consults the object property metadata for the given class and retur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_object_property_data](get_object_property_data.md)`: Retrieves object property metadata
+  - [get_object_property_data](get_object_property_data.md): Retrieves object property metadata
   - `ObjectPropertyType`: Structure containing object property information
 - Called from (representative examples):
-  - `[ExecGrant_common](../E/ExecGrant_common.md)`: Used in privilege granting operations
-  - `[object_aclmask_ext](../o/object_aclmask_ext.md)`: Used in access control mask computation
-  - `[object_ownercheck](../o/object_ownercheck.md)`: Used in ownership verification
-  - `[DropObjectById](../D/DropObjectById.md)`: Used during object deletion
-  - `[get_catalog_object_by_oid_extended](get_catalog_object_by_oid_extended.md)`: Used for cached object lookups
-  - `[AlterObjectRename_internal](../A/AlterObjectRename_internal.md)`: Used during object renaming
-  - `[AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)`: Used during namespace changes
+  - [ExecGrant_common](../E/ExecGrant_common.md): Used in privilege granting operations
+  - [object_aclmask_ext](../o/object_aclmask_ext.md): Used in access control mask computation
+  - [object_ownercheck](../o/object_ownercheck.md): Used in ownership verification
+  - [DropObjectById](../D/DropObjectById.md): Used during object deletion
+  - [get_catalog_object_by_oid_extended](get_catalog_object_by_oid_extended.md): Used for cached object lookups
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md): Used during object renaming
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md): Used during namespace changes
 
 ## Notes and Other Information
 - Returns an integer cache ID that can be used with PostgreSQL's catcache system

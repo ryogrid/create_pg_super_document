@@ -25,9 +25,9 @@ The function uses the standard psql option parsing mechanism and delegates the a
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option` - Parse attribute string from command line
   - `do_pset` - Set the tableattr print option
-  - `[ignore_slash_options](../i/ignore_slash_options.md)` - Skip option parsing when not in active branch
+  - [ignore_slash_options](../i/ignore_slash_options.md) - Skip option parsing when not in active branch
 - Called from:
-  - `[exec_command](exec_command.md)` - Main command dispatcher for `\T` command
+  - [exec_command](exec_command.md) - Main command dispatcher for `\T` command
 
 ## Notes and Other Information
 - Only affects output when psql is set to HTML format (`\H` command)

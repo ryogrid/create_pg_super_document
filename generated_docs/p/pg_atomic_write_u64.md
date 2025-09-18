@@ -23,15 +23,15 @@ The function is implemented as an inline wrapper around the platform-specific im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_atomic_write_u64_impl](pg_atomic_write_u64_impl.md)`
+  - [pg_atomic_write_u64_impl](pg_atomic_write_u64_impl.md)
   - `AssertPointerAlignment` (when PG_HAVE_ATOMIC_U64_SIMULATION is not defined)
-  - `[pg_atomic_uint64](pg_atomic_uint64.md)` (type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
-  - `[table_block_parallelscan_reinitialize](../t/table_block_parallelscan_reinitialize.md)` (src/backend/access/table/tableam.c:411)
-  - `[StartupCLOG](../S/StartupCLOG.md)` (src/backend/access/transam/clog.c:885)
-  - `[AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)` (src/backend/access/transam/xlog.c:2087)
-  - `[XLogWrite](../X/XLogWrite.md)` (src/backend/access/transam/xlog.c:2583)
+  - [table_block_parallelscan_reinitialize](../t/table_block_parallelscan_reinitialize.md) (src/backend/access/table/tableam.c:411)
+  - [StartupCLOG](../S/StartupCLOG.md) (src/backend/access/transam/clog.c:885)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md) (src/backend/access/transam/xlog.c:2087)
+  - [XLogWrite](../X/XLogWrite.md) (src/backend/access/transam/xlog.c:2583)
   - `InitProcess` (src/backend/storage/lmgr/proc.c:407)
 
 ## Notes and Other Information

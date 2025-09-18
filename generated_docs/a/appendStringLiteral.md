@@ -26,17 +26,17 @@ This function is equivalent to libpq's `PQescapeStringInternal` but works with P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[enlargePQExpBuffer](../e/enlargePQExpBuffer.md)` (buffer management)
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (buffer management)
   - `IS_HIGHBIT_SET` (ASCII detection macro)
   - `SQL_STR_DOUBLE` (character escaping decision macro)
-  - `[PQmblen](../P/PQmblen.md)` (multibyte character length calculation)
-  - `[pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)` (multibyte character validation)
-  - `[pg_encoding_set_invalid](../p/pg_encoding_set_invalid.md)` (invalid sequence generation)
+  - [PQmblen](../P/PQmblen.md) (multibyte character length calculation)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (multibyte character validation)
+  - [pg_encoding_set_invalid](../p/pg_encoding_set_invalid.md) (invalid sequence generation)
 - Called from (representative examples):
   - `appendStringLiteralAH` (src/bin/pg_dump/pg_backup.h:337)
-  - `[appendStringLiteralConn](appendStringLiteralConn.md)` (src/fe_utils/string_utils.c:460)
-  - `[appendReloptionsArray](appendReloptionsArray.md)` (src/fe_utils/string_utils.c:1015)
-  - `[escape_append_literal](../e/escape_append_literal.md)` (src/test/modules/test_escape/test_escape.c:383)
+  - [appendStringLiteralConn](appendStringLiteralConn.md) (src/fe_utils/string_utils.c:460)
+  - [appendReloptionsArray](appendReloptionsArray.md) (src/fe_utils/string_utils.c:1015)
+  - [escape_append_literal](../e/escape_append_literal.md) (src/test/modules/test_escape/test_escape.c:383)
 
 ## Notes and Other Information
 - Pre-allocates buffer space (2 * input_length + 2) to minimize reallocations

@@ -27,14 +27,14 @@ The function is designed to work with PostgreSQLs sorting infrastructure, return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[DatumGetCString](../D/DatumGetCString.md)`: Extracts C string from Datum values
+  - [DatumGetCString](../D/DatumGetCString.md): Extracts C string from Datum values
   - `IsTLHistoryFileName`: Checks if a filename represents a timeline history file
   - `strcmp`: Standard C library string comparison function
 
 - Called from (representative examples):
-  - `[pgarch_readyXlog](../p/pgarch_readyXlog.md)`: Uses this comparator when sorting WAL files for archival
-  - `[PgArchiverMain](../P/PgArchiverMain.md)`: Part of the archiver main loop that processes files in priority order
-  - `[arch_files_state](../a/arch_files_state.md)`: Used in the archival file state management
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md): Uses this comparator when sorting WAL files for archival
+  - [PgArchiverMain](../P/PgArchiverMain.md): Part of the archiver main loop that processes files in priority order
+  - [arch_files_state](../a/arch_files_state.md): Used in the archival file state management
 
 ## Notes and Other Information
 - This is a static function, meaning its only accessible within the pgarch.c source file

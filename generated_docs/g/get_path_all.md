@@ -30,16 +30,16 @@ The function converts path components to both string and integer representations
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP` - PostgreSQL macro to get text argument
   - `PG_GETARG_ARRAYTYPE_P` - PostgreSQL macro to get array argument
-  - `[array_contains_nulls](../a/array_contains_nulls.md)` - Function to check for NULL elements in array
-  - `[deconstruct_array_builtin](../d/deconstruct_array_builtin.md)` - Function to deconstruct PostgreSQL array
+  - [array_contains_nulls](../a/array_contains_nulls.md) - Function to check for NULL elements in array
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) - Function to deconstruct PostgreSQL array
   - `TextDatumGetCString` - Function to convert text datum to C string
   - `strtoint` - PostgreSQL function to parse integers safely
-  - `[get_worker](get_worker.md)` - Common worker function for JSON extraction operations
+  - [get_worker](get_worker.md) - Common worker function for JSON extraction operations
   - `PG_RETURN_TEXT_P` - PostgreSQL macro to return text result
   - `PG_RETURN_NULL` - PostgreSQL macro to return NULL
 - Called from (representative examples):
-  - `[json_extract_path](../j/json_extract_path.md)` - JSON path extraction returning JSON
-  - `[json_extract_path_text](../j/json_extract_path_text.md)` - JSON path extraction returning text
+  - [json_extract_path](../j/json_extract_path.md) - JSON path extraction returning JSON
+  - [json_extract_path_text](../j/json_extract_path_text.md) - JSON path extraction returning text
   - `JsObjectFree` - JSON object cleanup function
 
 ## Notes and Other Information

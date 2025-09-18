@@ -21,13 +21,13 @@ The `exec_command_pset` function handles the `\pset` backslash command in psql, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option()` - Parses command arguments (parameter name and value)
-  - `[pset_value_string](../p/pset_value_string.md)()` - Gets string representation of current parameter values
+  - [pset_value_string](../p/pset_value_string.md)() - Gets string representation of current parameter values
   - `do_pset()` - Actually sets the specified parameter to the given value
   - `printf()` - Displays parameter names and values
   - `free()` - Memory management
-  - `[ignore_slash_options](../i/ignore_slash_options.md)()` - Handles unused options when inactive
+  - [ignore_slash_options](../i/ignore_slash_options.md)() - Handles unused options when inactive
 - Called from (representative examples):
-  - `[exec_command](exec_command.md)` - Main command dispatcher in psql
+  - [exec_command](exec_command.md) - Main command dispatcher in psql
 
 ## Notes and Other Information
 - Returns `PSQL_CMD_SKIP_LINE` on success, `PSQL_CMD_ERROR` on failure

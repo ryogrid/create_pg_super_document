@@ -32,15 +32,15 @@ The function distinguishes between logical and physical slots: logical slots use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[CheckSlotPermissions](../C/CheckSlotPermissions.md)` - Validates user permissions for slot operations
-  - `[ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)` - Acquires exclusive access to the slot
-  - `[GetFlushRecPtr](../G/GetFlushRecPtr.md)` - Gets the current WAL flush position
-  - `[GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)` - Gets the current WAL replay position during recovery
-  - `[pg_logical_replication_slot_advance](pg_logical_replication_slot_advance.md)` - Advances logical replication slots
-  - `[pg_physical_replication_slot_advance](pg_physical_replication_slot_advance.md)` - Advances physical replication slots
-  - `[ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)` - Recomputes global minimum xmin across all slots
-  - `[ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)` - Recomputes global minimum LSN across all slots
-  - `[ReplicationSlotRelease](../R/ReplicationSlotRelease.md)` - Releases the acquired slot
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md) - Validates user permissions for slot operations
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md) - Acquires exclusive access to the slot
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md) - Gets the current WAL flush position
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md) - Gets the current WAL replay position during recovery
+  - [pg_logical_replication_slot_advance](pg_logical_replication_slot_advance.md) - Advances logical replication slots
+  - [pg_physical_replication_slot_advance](pg_physical_replication_slot_advance.md) - Advances physical replication slots
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md) - Recomputes global minimum xmin across all slots
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md) - Recomputes global minimum LSN across all slots
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md) - Releases the acquired slot
 - Called from:
   - SQL interface - directly callable as pg_replication_slot_advance(slot_name, lsn)
 

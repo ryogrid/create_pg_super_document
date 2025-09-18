@@ -29,9 +29,9 @@ The function handles empty inputs by returning false, following PostgreSQL's ran
 - Functions called/Symbols referenced:
   - `RangeIsEmpty` - Check if the input range is empty
   - `MultirangeIsEmpty` - Check if the input multirange is empty
-  - `[range_deserialize](range_deserialize.md)` - Extract bounds from the range structure
-  - `[multirange_get_bounds](../m/multirange_get_bounds.md)` - Get bounds of the last range in the multirange (using `mr->rangeCount - 1`)
-  - `[range_cmp_bounds](range_cmp_bounds.md)` - Compare the upper bounds to determine overleft relationship
+  - [range_deserialize](range_deserialize.md) - Extract bounds from the range structure
+  - [multirange_get_bounds](../m/multirange_get_bounds.md) - Get bounds of the last range in the multirange (using `mr->rangeCount - 1`)
+  - [range_cmp_bounds](range_cmp_bounds.md) - Compare the upper bounds to determine overleft relationship
   - `PG_RETURN_BOOL` - Return the boolean result
   - `RangeBound` - Structure for range boundary representation
 - Called from (representative examples):

@@ -23,11 +23,11 @@ The function includes boundary validation (`z->c > z->lb`) to ensure processing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching for suffix identification
-  - `[slice_del](../s/slice_del.md)`: Complete suffix removal function  
-  - `[slice_from_s](../s/slice_from_s.md)`: String replacement using predefined constants
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching for suffix identification
+  - [slice_del](../s/slice_del.md): Complete suffix removal function  
+  - [slice_from_s](../s/slice_from_s.md): String replacement using predefined constants
 - Called from (representative examples):
-  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function as the final step in the stemming pipeline
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md): Main Greek stemming function as the final step in the stemming pipeline
 
 ## Notes and Other Information
 - Serves as the final cleanup phase in the Greek stemming algorithm after `r_step1` and `r_steps1`

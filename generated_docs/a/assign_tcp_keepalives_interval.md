@@ -22,7 +22,7 @@ The tcp_keepalives_interval parameter controls the time interval between individ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pq_setkeepalivesinterval](../p/pq_setkeepalivesinterval.md)`: Sets the actual TCP keepalive interval socket option
+  - [pq_setkeepalivesinterval](../p/pq_setkeepalivesinterval.md): Sets the actual TCP keepalive interval socket option
   - `MyProcPort`: Global variable representing the current client connection port
 - Called from (representative examples):
   - GUC system when parameter value is assigned or changed

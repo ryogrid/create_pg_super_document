@@ -24,13 +24,13 @@ The function implements a caching mechanism for the SPI plan to avoid repeated p
 - Functions called/Symbols referenced:
   - `SPI_connect/SPI_finish` - Database connection management
   - `[SPI_prepare](../S/SPI_prepare.md)/SPI_keepplan` - Prepared statement management
-  - `[SPI_execute_plan](../S/SPI_execute_plan.md)` - [Query](../Q/Query.md) execution
-  - `[make_ruledef](../m/make_ruledef.md)` - Core rule formatting function
+  - [SPI_execute_plan](../S/SPI_execute_plan.md) - [Query](../Q/Query.md) execution
+  - [make_ruledef](../m/make_ruledef.md) - Core rule formatting function
   - `initStringInfo` - String buffer initialization
-  - `[ObjectIdGetDatum](../O/ObjectIdGetDatum.md)` - OID to Datum conversion
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - OID to Datum conversion
 - Called from (representative examples):
-  - `[pg_get_ruledef](pg_get_ruledef.md)` - Basic rule definition retrieval
-  - `[pg_get_ruledef_ext](pg_get_ruledef_ext.md)` - Extended rule definition retrieval
+  - [pg_get_ruledef](pg_get_ruledef.md) - Basic rule definition retrieval
+  - [pg_get_ruledef_ext](pg_get_ruledef_ext.md) - Extended rule definition retrieval
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/ruleutils.c:575-656

@@ -27,21 +27,21 @@ If the entire query becomes empty after stopword removal, the function can optio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[maketree](../m/maketree.md)`: Converts flat TSQuery to tree structure
-  - `[clean_stopword_intree](clean_stopword_intree.md)`: Recursively removes stopwords from tree
-  - `[calcstrlen](calcstrlen.md)`: Calculates string storage requirements for cleaned tree
-  - `[plaintree](../p/plaintree.md)`: Converts cleaned tree back to flat QueryItem array
+  - [maketree](../m/maketree.md): Converts flat TSQuery to tree structure
+  - [clean_stopword_intree](clean_stopword_intree.md): Recursively removes stopwords from tree
+  - [calcstrlen](calcstrlen.md): Calculates string storage requirements for cleaned tree
+  - [plaintree](../p/plaintree.md): Converts cleaned tree back to flat QueryItem array
   - `GETQUERY`: Macro to access QueryItem array from TSQuery
   - `GETOPERAND`: Macro to access operand strings from TSQuery
   - `COMPUTESIZE`: Macro to calculate total TSQuery size
   - `SET_VARSIZE`: Macro to set variable-length object size
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
   - `memcpy`: Memory copying for operand strings
   - `ereport`: Error/notice reporting system
   - Various type constants: `TSQuery`, `NODE`, `QueryItem`, `QueryOperand`, `QI_VAL`, `NOTICE`, `HDRSIZETQ`
 
 - Called from (representative examples):
-  - `[parse_tsquery](../p/parse_tsquery.md)`: Main TSQuery parsing function in tsquery.c:936
+  - [parse_tsquery](../p/parse_tsquery.md): Main TSQuery parsing function in tsquery.c:936
 
 ## Notes and Other Information
 - This is the main public interface for TSQuery stopword cleanup in PostgreSQL

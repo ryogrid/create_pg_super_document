@@ -22,7 +22,7 @@ This function is part of PostgreSQL's type input/output framework and is typical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[oidrecv](../o/oidrecv.md)`: Binary receive function for OID type that performs the actual conversion
+  - [oidrecv](../o/oidrecv.md): Binary receive function for OID type that performs the actual conversion
 
 - Called from (representative examples):
   - No direct references found (typically called via PostgreSQL's type system during binary I/O)

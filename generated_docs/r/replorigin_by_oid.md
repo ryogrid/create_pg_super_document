@@ -26,12 +26,12 @@ The function supports optional error handling through the missing_ok parameter -
 ## Dependencies
 - Functions called/Symbols referenced:
   - `OidIsValid`: Validates that the provided OID is valid
-  - `[SearchSysCache1](../S/SearchSysCache1.md)`: Searches the system cache for the origin catalog entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the origin catalog entry
   - `text_to_cstring`: Converts PostgreSQL text type to C string
-  - `[ReleaseSysCache](../R/ReleaseSysCache.md)`: Releases the system cache tuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache tuple
   - `ereport`: Reports errors when origin is not found and missing_ok is false
 - Called from (representative examples):
-  - `[send_repl_origin](../s/send_repl_origin.md)`: When sending replication origin information in logical replication output
+  - [send_repl_origin](../s/send_repl_origin.md): When sending replication origin information in logical replication output
   - Various catalog and administrative functions that need to display origin names
 
 ## Notes and Other Information

@@ -24,14 +24,14 @@ On platforms without 128-bit support, it falls back to using the standard `numer
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (polymorphic aggregate state structure)
   - `init_var` (variable initialization)
-  - `[int128_to_numericvar](../i/int128_to_numericvar.md)` (128-bit to numeric conversion)
-  - `[int64_to_numeric](../i/int64_to_numeric.md)` (int64 to numeric conversion)
-  - `[NumericGetDatum](../N/NumericGetDatum.md)` (numeric to datum conversion)
-  - `[make_result](../m/make_result.md)` (result creation)
-  - `[free_var](../f/free_var.md)` (variable cleanup)
+  - [int128_to_numericvar](../i/int128_to_numericvar.md) (128-bit to numeric conversion)
+  - [int64_to_numeric](../i/int64_to_numeric.md) (int64 to numeric conversion)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (numeric to datum conversion)
+  - [make_result](../m/make_result.md) (result creation)
+  - [free_var](../f/free_var.md) (variable cleanup)
   - `DirectFunctionCall2` (direct function call mechanism)
-  - `[numeric_div](numeric_div.md)` (numeric division function)
-  - `[numeric_avg](numeric_avg.md)` (fallback average function)
+  - [numeric_div](numeric_div.md) (numeric division function)
+  - [numeric_avg](numeric_avg.md) (fallback average function)
   - `HAVE_INT128` (compilation flag)
 - Called from (representative examples):
   - No direct references found in the indexed codebase

@@ -20,8 +20,8 @@ This function is specifically designed for parallel restore operations in the pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[parallel_restore](../p/parallel_restore.md)` - Core function that performs the actual data restoration
-  - `[TocEntry](../T/TocEntry.md)` - Type definition for table of contents entries
+  - [parallel_restore](../p/parallel_restore.md) - Core function that performs the actual data restoration
+  - [TocEntry](../T/TocEntry.md) - Type definition for table of contents entries
 - Called from (representative examples):
   - Referenced in `lclTocEntry` structure initialization
   - Set up by `InitArchiveFmt_Directory` as part of directory format handler registration

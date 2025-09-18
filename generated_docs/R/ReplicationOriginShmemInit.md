@@ -31,15 +31,15 @@ The function gracefully handles the case where max_replication_slots is 0 by ret
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ShmemInitStruct](../S/ShmemInitStruct.md)`: Allocates or attaches to named shared memory segment
-  - `[ReplicationOriginShmemSize](ReplicationOriginShmemSize.md)`: Calculates required memory size
+  - [ShmemInitStruct](../S/ShmemInitStruct.md): Allocates or attaches to named shared memory segment
+  - [ReplicationOriginShmemSize](ReplicationOriginShmemSize.md): Calculates required memory size
   - `MemSet`: Zeros out memory (used only during first initialization)
   - `LWLockInitialize`: Initializes lightweight locks for each replication state
-  - `[ConditionVariableInit](../C/ConditionVariableInit.md)`: Initializes condition variables for coordination
+  - [ConditionVariableInit](../C/ConditionVariableInit.md): Initializes condition variables for coordination
   - `max_replication_slots`: Global configuration parameter
   - `LWTRANCHE_REPLICATION_ORIGIN_STATE`: Tranche ID constant for lock management
 - Called from (representative examples):
-  - `[CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)`: During PostgreSQL startup shared memory initialization
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md): During PostgreSQL startup shared memory initialization
 
 ## Notes and Other Information
 - Only performs initialization if max_replication_slots > 0

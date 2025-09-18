@@ -25,7 +25,7 @@ The key difference from the newer functions is in the handling of "ESCAPE NULL" 
 - Functions called/Symbols referenced:
   - `PG_ARGISNULL` (macro for checking NULL arguments)
   - `PG_GETARG_TEXT_PP` (macro for extracting text arguments)
-  - `[similar_escape_internal](similar_escape_internal.md)` (performs the actual pattern conversion)
+  - [similar_escape_internal](similar_escape_internal.md) (performs the actual pattern conversion)
   - `PG_RETURN_TEXT_P` (macro for returning text result)
   - `PG_RETURN_NULL` (macro for returning NULL result)
 - Called from:

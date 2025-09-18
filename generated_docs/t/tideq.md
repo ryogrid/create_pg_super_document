@@ -24,7 +24,7 @@ The `tideq` function compares two ItemPointer structures for equality and return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ItemPointerCompare](../I/ItemPointerCompare.md)`: Low-level function that compares two ItemPointer structures
+  - [ItemPointerCompare](../I/ItemPointerCompare.md): Low-level function that compares two ItemPointer structures
   - `PG_RETURN_BOOL`: PostgreSQL macro to return boolean datum
 - Called from (representative examples):
   - PostgreSQL query executor when processing TID equality conditions in WHERE clauses

@@ -35,13 +35,13 @@ Key behaviors:
   - `PG_GETARG_TEXT_PP_IF_EXISTS` (macro for optional text arguments)
   - `PG_GETARG_INT32` (macro for extracting integer arguments)
   - `PG_NARGS` (macro for getting argument count)
-  - `[parse_re_flags](../p/parse_re_flags.md)` (parses regex flags string)
-  - `[setup_regexp_matches](../s/setup_regexp_matches.md)` (performs the actual regex matching)
+  - [parse_re_flags](../p/parse_re_flags.md) (parses regex flags string)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md) (performs the actual regex matching)
   - `PG_GET_COLLATION` (gets current collation)
   - `PG_RETURN_INT32` (macro for returning integer result)
 - Called from:
-  - `[regexp_count_no_start](regexp_count_no_start.md)` (3-argument wrapper)
-  - `[regexp_count_no_flags](regexp_count_no_flags.md)` (2-argument wrapper)
+  - [regexp_count_no_start](regexp_count_no_start.md) (3-argument wrapper)
+  - [regexp_count_no_flags](regexp_count_no_flags.md) (2-argument wrapper)
   - SQL queries using `regexp_count()` function
 
 ## Notes and Other Information

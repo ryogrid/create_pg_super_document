@@ -30,11 +30,11 @@ The function includes several safety checks and optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ClosestMatchState](../C/ClosestMatchState.md)` (struct type)
+  - [ClosestMatchState](../C/ClosestMatchState.md) (struct type)
   - `MAX_LEVENSHTEIN_STRLEN` (constant)
-  - `[varstr_levenshtein_less_equal](../v/varstr_levenshtein_less_equal.md)` (distance calculation function)
+  - [varstr_levenshtein_less_equal](../v/varstr_levenshtein_less_equal.md) (distance calculation function)
 - Called from (representative examples):
-  - `[postgresql_fdw_validator](../p/postgresql_fdw_validator.md)` in src/backend/foreign/foreign.c:653
+  - [postgresql_fdw_validator](../p/postgresql_fdw_validator.md) in src/backend/foreign/foreign.c:653
 
 ## Notes and Other Information
 - The function takes no action if strings are NULL, empty, or exceed `MAX_LEVENSHTEIN_STRLEN`

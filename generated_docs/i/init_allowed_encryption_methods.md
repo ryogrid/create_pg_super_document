@@ -19,8 +19,8 @@ This function sets up the encryption negotiation state machine by analyzing the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[libpq_append_conn_error](../l/libpq_append_conn_error.md)`: Appends error message when GSSAPI is required over Unix socket
-  - `[select_next_encryption_method](../s/select_next_encryption_method.md)`: Selects the next encryption method to try
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md): Appends error message when GSSAPI is required over Unix socket
+  - [select_next_encryption_method](../s/select_next_encryption_method.md): Selects the next encryption method to try
   - Encryption method constants: `ENC_SSL`, `ENC_GSSAPI`, `ENC_PLAINTEXT`, `ENC_ERROR`
   - Conditional compilation flags: `USE_SSL`, `ENABLE_GSS`
 

@@ -20,20 +20,20 @@ The `CatalogCacheComputeTupleHashValue` function serves as a tuple-oriented wrap
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CatCache`: Structure type containing cache configuration including key column numbers and tuple descriptor
-  - `[fastgetattr](../f/fastgetattr.md)`: High-performance function for extracting attribute values from tuples
-  - `[CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md)`: Core hash computation function that combines individual key hashes
+  - [fastgetattr](../f/fastgetattr.md): High-performance function for extracting attribute values from tuples
+  - [CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md): Core hash computation function that combines individual key hashes
 - Called from (representative examples):
-  - `[SearchCatCacheList](../S/SearchCatCacheList.md)`: Used when building or searching catalog cache lists
-  - `[PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md)`: Used during cache invalidation to compute hash of tuples being removed
+  - [SearchCatCacheList](../S/SearchCatCacheList.md): Used when building or searching catalog cache lists
+  - [PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md): Used during cache invalidation to compute hash of tuples being removed
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CatCache`: Structure type containing cache configuration including key column numbers and tuple descriptor
-  - `[fastgetattr](../f/fastgetattr.md)`: High-performance function for extracting attribute values from tuples
-  - `[CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md)`: Core hash computation function that combines individual key hashes
+  - [fastgetattr](../f/fastgetattr.md): High-performance function for extracting attribute values from tuples
+  - [CatalogCacheComputeHashValue](CatalogCacheComputeHashValue.md): Core hash computation function that combines individual key hashes
 - Called from (representative examples):
-  - `[SearchCatCacheList](../S/SearchCatCacheList.md)`: Used when building or searching catalog cache lists
-  - `[PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md)`: Used during cache invalidation to compute hash of tuples being removed
+  - [SearchCatCacheList](../S/SearchCatCacheList.md): Used when building or searching catalog cache lists
+  - [PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md): Used during cache invalidation to compute hash of tuples being removed
 
 ## Notes and Other Information
 - The function uses a fallthrough switch statement similar to `CatalogCacheComputeHashValue` for efficient key extraction

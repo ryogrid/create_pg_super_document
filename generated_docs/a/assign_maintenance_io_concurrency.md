@@ -25,7 +25,7 @@ The function only triggers reconfiguration when running in the startup process (
 ## Dependencies
 - Functions called/Symbols referenced:
   - `AmStartupProcess`: Checks if the current process is the startup process responsible for recovery
-  - `[XLogPrefetchReconfigure](../X/XLogPrefetchReconfigure.md)`: Reconfigures the WAL recovery prefetching system with new settings
+  - [XLogPrefetchReconfigure](../X/XLogPrefetchReconfigure.md): Reconfigures the WAL recovery prefetching system with new settings
   - `USE_PREFETCH`: Preprocessor macro that indicates prefetch support is compiled in
 - Called from (representative examples):
   - GUC system infrastructure (referenced in `src/include/utils/guc_hooks.h`)

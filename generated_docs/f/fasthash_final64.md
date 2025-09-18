@@ -30,11 +30,11 @@ The finalizer ensures good hash distribution by applying bit manipulation operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[fasthash_state](fasthash_state.md)` (hash state structure)
-  - `[fasthash_mix](fasthash_mix.md)` (bit mixing function for final hash value refinement)
+  - [fasthash_state](fasthash_state.md) (hash state structure)
+  - [fasthash_mix](fasthash_mix.md) (bit mixing function for final hash value refinement)
 - Called from (representative examples):
-  - `[fasthash_final32](fasthash_final32.md)` (in src/include/common/hashfn_unstable.h:350)
-  - `[fasthash64](fasthash64.md)` (in src/include/common/hashfn_unstable.h:377)
+  - [fasthash_final32](fasthash_final32.md) (in src/include/common/hashfn_unstable.h:350)
+  - [fasthash64](fasthash64.md) (in src/include/common/hashfn_unstable.h:377)
 
 ## Notes and Other Information
 - Returns a full 64-bit hash value

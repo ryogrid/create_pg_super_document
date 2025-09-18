@@ -23,15 +23,15 @@ The function operates on the assumption that UUIDs are transmitted in their raw 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc](../p/palloc.md)` (memory allocation for UUID structure)
-  - `[pq_getmsgbytes](../p/pq_getmsgbytes.md)` (reads bytes from message buffer) 
+  - [palloc](../p/palloc.md) (memory allocation for UUID structure)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md) (reads bytes from message buffer) 
   - `memcpy` (copies binary data)
   - `PG_GETARG_POINTER` (argument retrieval macro)
   - `PG_RETURN_POINTER` (return value macro)
 - Constants used:
   - `UUID_LEN` (UUID length in bytes, typically 16)
 - Types used:
-  - `[pg_uuid_t](../p/pg_uuid_t.md)` (internal UUID structure)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (internal UUID structure)
   - `StringInfo` (PostgreSQL message buffer type)
 - Called from:
   - PostgreSQL type system (automatically during binary protocol communication)

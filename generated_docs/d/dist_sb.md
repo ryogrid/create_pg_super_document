@@ -23,7 +23,7 @@ The `dist_sb` function is a PostgreSQL built-in function that computes the minim
 - Functions called/Symbols referenced:
   - `PG_GETARG_LSEG_P` - Extracts LSEG argument from function call
   - `PG_GETARG_BOX_P` - Extracts BOX argument from function call
-  - `[box_closept_lseg](../b/box_closept_lseg.md)` - Computes closest point between box and line segment
+  - [box_closept_lseg](../b/box_closept_lseg.md) - Computes closest point between box and line segment
   - `PG_RETURN_FLOAT8` - Returns float8 result
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

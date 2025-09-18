@@ -30,7 +30,7 @@ This function is part of PostgreSQL's portable SIMD abstraction layer that provi
   - `vorrq_u8` (NEON intrinsic)
   - Vector8 type
 - Called from (representative examples):
-  - `[is_valid_ascii](../i/is_valid_ascii.md)` (ASCII validation utility)
+  - [is_valid_ascii](../i/is_valid_ascii.md) (ASCII validation utility)
 
 ## Notes and Other Information
 - Defined as static inline for optimal performance

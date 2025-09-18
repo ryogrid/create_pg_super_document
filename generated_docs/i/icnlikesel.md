@@ -24,7 +24,7 @@ The `icnlikesel` function estimates the selectivity (fraction of rows that will 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[patternsel](../p/patternsel.md)` - Generic pattern selectivity estimation function
+  - [patternsel](../p/patternsel.md) - Generic pattern selectivity estimation function
   - `Pattern_Type_Like_IC` - Enum value for case-insensitive LIKE pattern type
 - Called from (representative examples):
   - No direct references found (likely called via function pointer from operator catalog)

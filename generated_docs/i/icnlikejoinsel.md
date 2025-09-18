@@ -21,7 +21,7 @@ The function is a thin wrapper around the generic `patternjoinsel` function, spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[patternjoinsel](../p/patternjoinsel.md)`: Core pattern matching join selectivity function
+  - [patternjoinsel](../p/patternjoinsel.md): Core pattern matching join selectivity function
   - `Pattern_Type_Like_IC`: Enum value indicating case-insensitive LIKE pattern type
   - `Pattern_Prefix_Status`: Type related to pattern prefix analysis
 - Called from (representative examples):

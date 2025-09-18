@@ -32,12 +32,12 @@ The function includes both an Assert and a runtime check for encoding validity t
   - `pg_wchar_table[].maxmblen`: Maximum character length field for the encoding
 
 - Called from (representative examples):
-  - `[CopyConvertBuf](../C/CopyConvertBuf.md)`: Buffer sizing for COPY operations (copyfromparse.c)
-  - `[type_maximum_size](../t/type_maximum_size.md)`: Maximum size calculation for data types (format_type.c)
-  - `[ascii](../a/ascii.md)`, `chr`: String manipulation functions in Oracle compatibility layer
-  - `[pg_encoding_mbcliplen](pg_encoding_mbcliplen.md)`: String clipping with multibyte awareness (mbutils.c)
-  - `[pg_verify_mbstr_len](pg_verify_mbstr_len.md)`: String length verification functions
-  - `[parse_identifier](parse_identifier.md)`: Identifier parsing in psql tab completion
+  - [CopyConvertBuf](../C/CopyConvertBuf.md): Buffer sizing for COPY operations (copyfromparse.c)
+  - [type_maximum_size](../t/type_maximum_size.md): Maximum size calculation for data types (format_type.c)
+  - [ascii](../a/ascii.md), `chr`: String manipulation functions in Oracle compatibility layer
+  - [pg_encoding_mbcliplen](pg_encoding_mbcliplen.md): String clipping with multibyte awareness (mbutils.c)
+  - [pg_verify_mbstr_len](pg_verify_mbstr_len.md): String length verification functions
+  - [parse_identifier](parse_identifier.md): Identifier parsing in psql tab completion
   - `MIN_RIGHT_CUT`: Result formatting in libpq protocol handling
 
 ## Notes and Other Information

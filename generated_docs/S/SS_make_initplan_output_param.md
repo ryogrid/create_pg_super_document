@@ -26,9 +26,9 @@ The function is a thin wrapper around `generate_new_exec_param` and handles the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[generate_new_exec_param](../g/generate_new_exec_param.md)`: Creates a new execution parameter with the specified type information
+  - [generate_new_exec_param](../g/generate_new_exec_param.md): Creates a new execution parameter with the specified type information
 - Called from (representative examples):
-  - `[preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md)`: Used when converting MIN/MAX aggregates to initplans
+  - [preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md): Used when converting MIN/MAX aggregates to initplans
   - Referenced in `src/include/optimizer/subselect.h`: Function prototype declaration
 
 ## Notes and Other Information

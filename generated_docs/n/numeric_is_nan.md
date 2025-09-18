@@ -28,9 +28,9 @@ NaN values in PostgreSQL's numeric type represent undefined or invalid mathemati
 - Functions called/Symbols referenced:
   - `NUMERIC_IS_NAN`: Macro that performs the actual NaN check on the Numeric structure
 - Called from (representative examples):
-  - `[executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)`: JSON path execution with NaN handling
-  - `[pg_lsn_pli](../p/pg_lsn_pli.md)`: PostgreSQL LSN (Log Sequence Number) arithmetic operations
-  - `[pg_lsn_mii](../p/pg_lsn_mii.md)`: LSN arithmetic with NaN validation
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md): JSON path execution with NaN handling
+  - [pg_lsn_pli](../p/pg_lsn_pli.md): PostgreSQL LSN (Log Sequence Number) arithmetic operations
+  - [pg_lsn_mii](../p/pg_lsn_mii.md): LSN arithmetic with NaN validation
   - Various numeric utility functions via `PG_RETURN_NUMERIC` header
 
 ## Notes and Other Information

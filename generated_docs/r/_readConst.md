@@ -31,8 +31,8 @@ This function supports PostgreSQL's comprehensive type system by preserving all 
 - Functions called/Symbols referenced:
   - `READ_LOCALS` (macro for local node reading setup)
   - `READ_OID_FIELD`, `READ_INT_FIELD`, `READ_BOOL_FIELD`, `READ_LOCATION_FIELD` (field reading macros)
-  - `[pg_strtok](../p/pg_strtok.md)` (tokenization function)
-  - `[readDatum](readDatum.md)` (for deserializing the actual constant value)
+  - [pg_strtok](../p/pg_strtok.md) (tokenization function)
+  - [readDatum](readDatum.md) (for deserializing the actual constant value)
   - `READ_DONE` (macro for node reading completion)
 - Called from (representative examples):
   - Used internally by the node reading system for Const node deserialization

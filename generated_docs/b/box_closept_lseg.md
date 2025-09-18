@@ -22,17 +22,17 @@ This static function computes the closest point on or inside a box to a given li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[Point](../P/Point.md)` - [Point](../P/Point.md) data type definition
-  - `[BOX](../B/BOX.md)` - Box data type definition
-  - `[LSEG](../L/LSEG.md)` - Line segment data type definition
-  - `[box_interpt_lseg](box_interpt_lseg.md)` - Checks for intersection between box and line segment
-  - `[statlseg_construct](../s/statlseg_construct.md)` - Constructs a line segment from two points
-  - `[lseg_closept_lseg](../l/lseg_closept_lseg.md)` - Calculates closest point between two line segments
-  - `[float8_lt](../f/float8_lt.md)` - Compares two float8 values for less-than relationship
+  - [Point](../P/Point.md) - [Point](../P/Point.md) data type definition
+  - [BOX](../B/BOX.md) - Box data type definition
+  - [LSEG](../L/LSEG.md) - Line segment data type definition
+  - [box_interpt_lseg](box_interpt_lseg.md) - Checks for intersection between box and line segment
+  - [statlseg_construct](../s/statlseg_construct.md) - Constructs a line segment from two points
+  - [lseg_closept_lseg](../l/lseg_closept_lseg.md) - Calculates closest point between two line segments
+  - [float8_lt](../f/float8_lt.md) - Compares two float8 values for less-than relationship
 - Called from (representative examples):
-  - `[dist_sb](../d/dist_sb.md)` - Distance between line segment and box
-  - `[dist_bs](../d/dist_bs.md)` - Distance between box and line segment  
-  - `[close_sb](../c/close_sb.md)` - Closest point on line segment to box
+  - [dist_sb](../d/dist_sb.md) - Distance between line segment and box
+  - [dist_bs](../d/dist_bs.md) - Distance between box and line segment  
+  - [close_sb](../c/close_sb.md) - Closest point on line segment to box
 
 ## Notes and Other Information
 - This is a static (internal) function within the geometric operations module

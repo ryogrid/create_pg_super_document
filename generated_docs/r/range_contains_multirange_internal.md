@@ -25,14 +25,14 @@ This function determines if a single range completely contains a multirange. It 
 - Functions called/Symbols referenced:
   - `MultirangeIsEmpty` - Check if a multirange is empty
   - `RangeIsEmpty` - Check if a range is empty
-  - `[range_deserialize](range_deserialize.md)` - Extract bounds from range structure
-  - `[multirange_get_bounds](../m/multirange_get_bounds.md)` - Get bounds from specific ranges within multirange
-  - `[range_bounds_contains](range_bounds_contains.md)` - Check if one set of bounds contains another
+  - [range_deserialize](range_deserialize.md) - Extract bounds from range structure
+  - [multirange_get_bounds](../m/multirange_get_bounds.md) - Get bounds from specific ranges within multirange
+  - [range_bounds_contains](range_bounds_contains.md) - Check if one set of bounds contains another
   - `RangeBound` - Structure for representing range boundaries
 - Called from (representative examples):
-  - `[range_contains_multirange](range_contains_multirange.md)` - Public SQL function wrapper
-  - `[multirange_contained_by_range](../m/multirange_contained_by_range.md)` - Inverse containment operation
-  - `[range_gist_consistent_int_multirange](range_gist_consistent_int_multirange.md)` - GiST index consistency checking (multiple locations)
+  - [range_contains_multirange](range_contains_multirange.md) - Public SQL function wrapper
+  - [multirange_contained_by_range](../m/multirange_contained_by_range.md) - Inverse containment operation
+  - [range_gist_consistent_int_multirange](range_gist_consistent_int_multirange.md) - GiST index consistency checking (multiple locations)
 
 ## Notes and Other Information
 - Uses an optimization: instead of computing the full union, it only checks the overall bounds

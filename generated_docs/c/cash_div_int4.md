@@ -22,7 +22,7 @@ The function follows PostgreSQL's standard function calling convention and is pa
 - Functions called/Symbols referenced:
   - `PG_GETARG_CASH`: Extracts Cash value from function arguments
   - `PG_GETARG_INT32`: Extracts int32 value from function arguments
-  - `[cash_div_int64](cash_div_int64.md)`: Internal helper function for safe Cash division
+  - [cash_div_int64](cash_div_int64.md): Internal helper function for safe Cash division
   - `PG_RETURN_CASH`: Returns Cash value as function result
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL operator interface)

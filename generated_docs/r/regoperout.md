@@ -29,20 +29,20 @@ The function performs several sophisticated operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_OID`: Extract OID argument from function call
-  - `[pstrdup](../p/pstrdup.md)`: Duplicate a C string with palloc
-  - `[SearchSysCache1](../S/SearchSysCache1.md)`: Search system cache for operator tuple
+  - [pstrdup](../p/pstrdup.md): Duplicate a C string with palloc
+  - [SearchSysCache1](../S/SearchSysCache1.md): Search system cache for operator tuple
   - `HeapTupleIsValid`: Check if heap tuple is valid
   - `Form_pg_operator`: Cast to pg_operator structure
   - `GETSTRUCT`: Extract structure from heap tuple
   - `NameStr`: Extract name from Name structure
   - `IsBootstrapProcessingMode`: Check if in bootstrap mode
-  - `[OpernameGetCandidates](../O/OpernameGetCandidates.md)`: Find operator candidates by name
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md): Find operator candidates by name
   - `list_make1`: Create single-element list
-  - `[makeString](../m/makeString.md)`: Create String node
-  - `[get_namespace_name](../g/get_namespace_name.md)`: Get namespace name by OID
-  - `[quote_identifier](../q/quote_identifier.md)`: Quote SQL identifier if needed
-  - `[ReleaseSysCache](../R/ReleaseSysCache.md)`: Release system cache tuple
-  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocator
+  - [makeString](../m/makeString.md): Create String node
+  - [get_namespace_name](../g/get_namespace_name.md): Get namespace name by OID
+  - [quote_identifier](../q/quote_identifier.md): Quote SQL identifier if needed
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Release system cache tuple
+  - [palloc](../p/palloc.md): PostgreSQL memory allocator
   - `sprintf`: Format string
   - `snprintf`: Safe string formatting
   - `PG_RETURN_CSTRING`: Return C string from function

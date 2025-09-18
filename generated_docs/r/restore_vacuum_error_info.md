@@ -20,13 +20,13 @@ This function ensures that error context information remains consistent and accu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[LVRelState](../L/LVRelState.md)` (vacuum relation state structure)
-  - `[LVSavedErrInfo](../L/LVSavedErrInfo.md)` (saved error info structure)
+  - [LVRelState](../L/LVRelState.md) (vacuum relation state structure)
+  - [LVSavedErrInfo](../L/LVSavedErrInfo.md) (saved error info structure)
 - Called from (representative examples):
-  - `[lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)` (src/backend/access/heap/vacuumlazy.c:2183)
-  - `[lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md)` (src/backend/access/heap/vacuumlazy.c:2284)
-  - `[lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md)` (src/backend/access/heap/vacuumlazy.c:2453)
-  - `[lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md)` (src/backend/access/heap/vacuumlazy.c:2502)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md) (src/backend/access/heap/vacuumlazy.c:2183)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md) (src/backend/access/heap/vacuumlazy.c:2284)
+  - [lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md) (src/backend/access/heap/vacuumlazy.c:2453)
+  - [lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md) (src/backend/access/heap/vacuumlazy.c:2502)
 
 ## Notes and Other Information
 - Must be used with error state previously saved by `update_vacuum_error_info`

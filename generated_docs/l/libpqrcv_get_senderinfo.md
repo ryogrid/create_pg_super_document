@@ -25,9 +25,9 @@ The function safely handles cases where host or port information is unavailable,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PQhost](../P/PQhost.md)` (get hostname from libpq connection)
-  - `[PQport](../P/PQport.md)` (get port from libpq connection)
-  - `[pstrdup](../p/pstrdup.md)` (duplicate hostname string using PostgreSQL memory management)
+  - [PQhost](../P/PQhost.md) (get hostname from libpq connection)
+  - [PQport](../P/PQport.md) (get port from libpq connection)
+  - [pstrdup](../p/pstrdup.md) (duplicate hostname string using PostgreSQL memory management)
   - `strlen` (check string length)
   - `atoi` (convert port string to integer)
 

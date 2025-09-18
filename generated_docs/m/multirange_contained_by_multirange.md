@@ -24,9 +24,9 @@ The function cleverly implements the "contained by" logic by reversing the argum
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange from function arguments
-  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache for range type
+  - [multirange_get_typcache](multirange_get_typcache.md) - Get type cache for range type
   - `MultirangeTypeGetOid` - Get OID of multirange type
-  - `[multirange_contains_multirange_internal](multirange_contains_multirange_internal.md)` - Internal containment logic (with reversed arguments)
+  - [multirange_contains_multirange_internal](multirange_contains_multirange_internal.md) - Internal containment logic (with reversed arguments)
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator system)
 

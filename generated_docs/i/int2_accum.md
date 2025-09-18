@@ -22,9 +22,9 @@ This function serves as the transition function for various statistical aggregat
 ## Dependencies
 - Functions called/Symbols referenced:
   - `makePolyNumAggState`: Creates new aggregate state when needed
-  - `[do_int128_accum](../d/do_int128_accum.md)`: Performs 128-bit integer accumulation (when `HAVE_INT128` is defined)
-  - `[do_numeric_accum](../d/do_numeric_accum.md)`: Performs numeric accumulation (fallback)
-  - `[int64_to_numeric](int64_to_numeric.md)`: Converts integer to numeric type
+  - [do_int128_accum](../d/do_int128_accum.md): Performs 128-bit integer accumulation (when `HAVE_INT128` is defined)
+  - [do_numeric_accum](../d/do_numeric_accum.md): Performs numeric accumulation (fallback)
+  - [int64_to_numeric](int64_to_numeric.md): Converts integer to numeric type
   - `PG_GETARG_INT16`: Extracts smallint argument
 - Called from (representative examples):
   - Used as transition function in aggregate definitions for `var_pop(int2)`

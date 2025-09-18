@@ -27,13 +27,13 @@ This function is typically called via the `confirm_query_canceled(conn)` macro w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PQgetResult](../P/PQgetResult.md)()` - retrieve query result
-  - `[PQresultStatus](../P/PQresultStatus.md)()` - get result status code
-  - `[PQresultErrorField](../P/PQresultErrorField.md)()` - extract specific error field
-  - `[PQerrorMessage](../P/PQerrorMessage.md)()` - get connection error message
-  - `[PQclear](../P/PQclear.md)()` - free result memory
-  - `[PQisBusy](../P/PQisBusy.md)()` - check if connection has pending operations
-  - `[PQconsumeInput](../P/PQconsumeInput.md)()` - read available input from connection
+  - [PQgetResult](../P/PQgetResult.md)() - retrieve query result
+  - [PQresultStatus](../P/PQresultStatus.md)() - get result status code
+  - [PQresultErrorField](../P/PQresultErrorField.md)() - extract specific error field
+  - [PQerrorMessage](../P/PQerrorMessage.md)() - get connection error message
+  - [PQclear](../P/PQclear.md)() - free result memory
+  - [PQisBusy](../P/PQisBusy.md)() - check if connection has pending operations
+  - [PQconsumeInput](../P/PQconsumeInput.md)() - read available input from connection
   - `pg_fatal_impl()` - report fatal test errors
   - `PGRES_FATAL_ERROR` - result status constant
   - `PG_DIAG_SQLSTATE` - diagnostic field identifier

@@ -28,9 +28,9 @@ The function uses "NoCheck" variants of ItemPointer accessor functions because u
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_DATUM`: Extracts datum arguments from function call
-  - `[ItemPointerCompare](../I/ItemPointerCompare.md)`: Compares two ItemPointers for ordering
-  - `[ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)`: Gets block number from ItemPointer without validation
-  - `[ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)`: Gets offset number from ItemPointer without validation
+  - [ItemPointerCompare](../I/ItemPointerCompare.md): Compares two ItemPointers for ordering
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md): Gets block number from ItemPointer without validation
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md): Gets offset number from ItemPointer without validation
   - `MaxHeapTuplesPerPage`: Constant defining maximum tuples per heap page
   - `PG_RETURN_FLOAT8`: Returns float8 result from PostgreSQL function
 - Called from (representative examples):

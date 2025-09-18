@@ -23,10 +23,10 @@ The `tidout` function converts an internal ItemPointer structure to a human-read
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)`: Extracts block number from ItemPointer without validation
-  - `[ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)`: Extracts offset number from ItemPointer without validation
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md): Extracts block number from ItemPointer without validation
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md): Extracts offset number from ItemPointer without validation
   - `snprintf`: Standard library function for formatted string output
-  - `[pstrdup](../p/pstrdup.md)`: PostgreSQL string duplication function for memory management
+  - [pstrdup](../p/pstrdup.md): PostgreSQL string duplication function for memory management
   - `PG_RETURN_CSTRING`: PostgreSQL macro to return C string as datum
 - Called from (representative examples):
   - PostgreSQL type system when converting TID values to string for display

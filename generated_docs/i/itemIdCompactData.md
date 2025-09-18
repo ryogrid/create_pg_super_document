@@ -25,8 +25,8 @@ The structure is typically used in arrays (e.g., `itemIdCompactData itemidbase[M
 - Functions called/Symbols referenced: None (this is a data structure definition)
 - Used by:
   - `itemIdCompact` (typedef pointer to this struct)
-  - `[PageRepairFragmentation](../P/PageRepairFragmentation.md)` (uses arrays of this structure for heap page defragmentation)
-  - `[PageIndexMultiDelete](../P/PageIndexMultiDelete.md)` (uses this structure for index page tuple deletion and compaction)
+  - [PageRepairFragmentation](../P/PageRepairFragmentation.md) (uses arrays of this structure for heap page defragmentation)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (uses this structure for index page tuple deletion and compaction)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's buffer page management system located in `src/backend/storage/page/bufpage.c`

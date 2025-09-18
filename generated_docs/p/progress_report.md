@@ -46,10 +46,10 @@ The function formats progress as both absolute numbers and percentages, making i
   - Global variables: `opts.show_progress`, `opts.verbose`, `last_progress_report`, `progress_since_last_stderr`
 
 - Called from (representative examples):
-  - `[main](../m/main.md)` function in pg_amcheck.c during relation checking loops
-  - `[scan_file](../s/scan_file.md)` function in pg_checksums.c
-  - `[ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)` and related functions in pg_basebackup.c
-  - `[verify_backup_checksums](../v/verify_backup_checksums.md)` in pg_verifybackup.c
+  - [main](../m/main.md) function in pg_amcheck.c during relation checking loops
+  - [scan_file](../s/scan_file.md) function in pg_checksums.c
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md) and related functions in pg_basebackup.c
+  - [verify_backup_checksums](../v/verify_backup_checksums.md) in pg_verifybackup.c
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within its source file

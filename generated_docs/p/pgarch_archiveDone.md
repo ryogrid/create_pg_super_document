@@ -29,12 +29,12 @@ The function intentionally uses a non-durable rename operation to avoid extra I/
   - `StatusFilePath`: Constructs file paths for status files (both `.ready` and `.done`)
   - `rename`: Standard C library function for file renaming
   - `ereport`: PostgreSQL error reporting mechanism (for warning on rename failure)
-  - `[errcode_for_file_access](../e/errcode_for_file_access.md)`: Provides appropriate error code for file operations
-  - `[errmsg](../e/errmsg.md)`: Creates formatted error messages
+  - [errcode_for_file_access](../e/errcode_for_file_access.md): Provides appropriate error code for file operations
+  - [errmsg](../e/errmsg.md): Creates formatted error messages
 
 - Called from (representative examples):
-  - `[pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md)`: The main archiver loop calls this after successful file archival
-  - `[arch_files_state](../a/arch_files_state.md)`: Used in archival file state management
+  - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md): The main archiver loop calls this after successful file archival
+  - [arch_files_state](../a/arch_files_state.md): Used in archival file state management
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgarch.c source file

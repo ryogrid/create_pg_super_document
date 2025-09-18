@@ -26,8 +26,8 @@ This function is part of PostgreSQL's family of safe comparison routines designe
 - Functions called/Symbols referenced:
   - None (performs direct arithmetic operations)
 - Called from (representative examples):
-  - `[cmpOffsetNumbers](../c/cmpOffsetNumbers.md)` at src/backend/access/heap/vacuumlazy.c:1391
-  - `[cmpOffsetNumbers](../c/cmpOffsetNumbers.md)` at src/backend/access/spgist/spgdoinsert.c:114
+  - [cmpOffsetNumbers](../c/cmpOffsetNumbers.md) at src/backend/access/heap/vacuumlazy.c:1391
+  - [cmpOffsetNumbers](../c/cmpOffsetNumbers.md) at src/backend/access/spgist/spgdoinsert.c:114
 
 ## Notes and Other Information
 - The function is designed for use in qsort() comparator functions and other sorting contexts requiring offset number comparisons

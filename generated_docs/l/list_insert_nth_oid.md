@@ -27,7 +27,7 @@ The function enforces type safety by asserting that the target list contains onl
   - `IsOidList`: Validates that the list contains Oid elements
   - `insert_new_cell`: Internal helper function to create and position a new list cell
   - `lfirst_oid`: Macro to access the Oid value of a list cell
-  - `[check_list_invariants](../c/check_list_invariants.md)`: Debug function to verify list structural integrity
+  - [check_list_invariants](../c/check_list_invariants.md): Debug function to verify list structural integrity
 
 - Called from (representative examples):
   - `forfive`: Macro for five-way list iteration

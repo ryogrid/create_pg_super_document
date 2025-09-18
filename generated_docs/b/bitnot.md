@@ -25,7 +25,7 @@ The `bitnot` function implements bitwise logical NOT operation on a single varia
   - `VARBITS` - Gets pointer to bit data
   - `VARBITEND` - Gets pointer to end of bit data
   - `VARBIT_PAD_LAST` - Zeros padding bits in final byte
-  - `[palloc](../p/palloc.md)` - Allocates memory for result
+  - [palloc](../p/palloc.md) - Allocates memory for result
   - `PG_RETURN_VARBIT_P` - Returns VarBit result
 - Called from (representative examples):
   - Available as SQL operator `~` for bit strings

@@ -33,22 +33,22 @@ The function supports two primary formatting flags:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[SearchSysCache1](../S/SearchSysCache1.md)`: System catalog lookup for procedure information
+  - [SearchSysCache1](../S/SearchSysCache1.md): System catalog lookup for procedure information
   - `HeapTupleIsValid`: Validates catalog lookup results
   - `Form_pg_proc`: Procedure catalog structure access
   - `IsBootstrapProcessingMode`: Bootstrap mode check (not supported)
-  - `[FunctionIsVisible](../F/FunctionIsVisible.md)`: Determines if procedure is visible in current search path
-  - `[get_namespace_name](../g/get_namespace_name.md)`: Retrieves schema name for qualification
+  - [FunctionIsVisible](../F/FunctionIsVisible.md): Determines if procedure is visible in current search path
+  - [get_namespace_name](../g/get_namespace_name.md): Retrieves schema name for qualification
   - `quote_qualified_identifier`: Properly quotes schema-qualified identifiers
-  - `[format_type_be](format_type_be.md)`: Formats argument types
-  - `[format_type_be_qualified](format_type_be_qualified.md)`: Formats argument types with schema qualification
+  - [format_type_be](format_type_be.md): Formats argument types
+  - [format_type_be_qualified](format_type_be_qualified.md): Formats argument types with schema qualification
   - `initStringInfo`: String buffer initialization
-  - `[ReleaseSysCache](../R/ReleaseSysCache.md)`: System catalog cache cleanup
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): System catalog cache cleanup
 - Called from (representative examples):
-  - `[format_procedure](format_procedure.md)`: Simple procedure formatting wrapper
-  - `[format_procedure_qualified](format_procedure_qualified.md)`: Schema-qualified procedure formatting wrapper
-  - `[getObjectDescription](../g/getObjectDescription.md)`: Object description generation
-  - `[getObjectIdentityParts](../g/getObjectIdentityParts.md)`: Object identity component extraction
+  - [format_procedure](format_procedure.md): Simple procedure formatting wrapper
+  - [format_procedure_qualified](format_procedure_qualified.md): Schema-qualified procedure formatting wrapper
+  - [getObjectDescription](../g/getObjectDescription.md): Object description generation
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md): Object identity component extraction
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be managed within PostgreSQL's memory context

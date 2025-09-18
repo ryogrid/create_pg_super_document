@@ -30,15 +30,15 @@ The function handles both regular index tuples and posting list tuples (used in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[_bt_deadblocks](_bt_deadblocks.md)`: Gets array of table blocks pointed to by dead tuples
-  - `[_bt_delitems_delete_check](_bt_delitems_delete_check.md)`: Performs actual deletion after tableam validation
-  - `[BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)`: Checks if tuple is a posting list tuple
-  - `[BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)`: Gets number of TIDs in posting list
-  - `[BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)`: Gets specific TID from posting list
-  - `[ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)`: Extracts block number from TID
+  - [_bt_deadblocks](_bt_deadblocks.md): Gets array of table blocks pointed to by dead tuples
+  - [_bt_delitems_delete_check](_bt_delitems_delete_check.md): Performs actual deletion after tableam validation
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md): Checks if tuple is a posting list tuple
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md): Gets number of TIDs in posting list
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md): Gets specific TID from posting list
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from TID
   - `_bt_blk_cmp`: Comparison function for binary search of blocks
 - Called from (representative examples):
-  - `[_bt_delete_or_dedup_one_page](_bt_delete_or_dedup_one_page.md)`: As the first deletion strategy
+  - [_bt_delete_or_dedup_one_page](_bt_delete_or_dedup_one_page.md): As the first deletion strategy
 
 ## Notes and Other Information
 - Leverages locality effects where multiple index tuples often point to the same table blocks

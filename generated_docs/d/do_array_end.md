@@ -20,7 +20,7 @@ This function serves as a semantic action callback that gets invoked when the JS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[DoState](../D/DoState.md)` (struct type for parser state)
+  - [DoState](../D/DoState.md) (struct type for parser state)
   - `JSON_SUCCESS` (return value constant)
   - `JsonParseErrorType` (return type enum)
   - `printf` (standard C library function for output)

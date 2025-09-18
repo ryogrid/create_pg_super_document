@@ -25,12 +25,12 @@ The `CatalogCacheComputeHashValue` function creates a composite hash value from 
   - `CatCache`: Structure type containing cache metadata and function pointers
   - `CACHE_elog`: Debug logging macro for cache operations
   - `DEBUG2`: Debug level constant
-  - `[pg_rotate_left32](../p/pg_rotate_left32.md)`: Bit rotation utility function for hash mixing
+  - [pg_rotate_left32](../p/pg_rotate_left32.md): Bit rotation utility function for hash mixing
 - Called from (representative examples):
-  - `[CatalogCacheComputeTupleHashValue](CatalogCacheComputeTupleHashValue.md)`: Computes hash for tuple-based lookups
-  - `[SearchCatCacheInternal](../S/SearchCatCacheInternal.md)`: Used during cache search operations
-  - `[GetCatCacheHashValue](../G/GetCatCacheHashValue.md)`: Public interface for hash computation
-  - `[SearchCatCacheList](../S/SearchCatCacheList.md)`: Used for list-based cache searches
+  - [CatalogCacheComputeTupleHashValue](CatalogCacheComputeTupleHashValue.md): Computes hash for tuple-based lookups
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md): Used during cache search operations
+  - [GetCatCacheHashValue](../G/GetCatCacheHashValue.md): Public interface for hash computation
+  - [SearchCatCacheList](../S/SearchCatCacheList.md): Used for list-based cache searches
 
 ## Notes and Other Information
 - Supports up to 4 lookup keys, which covers all PostgreSQL system catalog key combinations

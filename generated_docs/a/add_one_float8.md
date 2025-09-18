@@ -24,7 +24,7 @@ The `add_one_float8` function is a PostgreSQL C function that takes a single dou
   - `PG_RETURN_FLOAT8`: Macro to return a double-precision floating-point value
   - `PG_FUNCTION_INFO_V1`: Macro for function metadata (referenced at line 44)
 - Called from (representative examples):
-  - `[add_one](add_one.md)`: Referenced from the add_one function context
+  - [add_one](add_one.md): Referenced from the add_one function context
 
 ## Notes and Other Information
 - Located in `src/tutorial/funcs.c:36-46`

@@ -18,12 +18,12 @@ The `numeric_stddev_pop` function is a PostgreSQL aggregate function finalizer t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[numeric_stddev_internal](numeric_stddev_internal.md)` (performs the actual variance/standard deviation calculation)
-  - `[NumericAggState](../N/NumericAggState.md)` (aggregate state structure)
+  - [numeric_stddev_internal](numeric_stddev_internal.md) (performs the actual variance/standard deviation calculation)
+  - [NumericAggState](../N/NumericAggState.md) (aggregate state structure)
   - `Numeric` (PostgreSQL numeric data type)
   - `PG_RETURN_NUMERIC` (macro for returning numeric values)
 - Called from (representative examples):
-  - `[numeric_poly_stddev_pop](numeric_poly_stddev_pop.md)` (polymorphic variant)
+  - [numeric_poly_stddev_pop](numeric_poly_stddev_pop.md) (polymorphic variant)
 
 ## Notes and Other Information
 - This is a PostgreSQL aggregate function finalizer, called at the end of aggregation

@@ -30,7 +30,7 @@ This function is part of PostgreSQL's portable SIMD abstraction layer for high-p
   - `vorrq_u32` (NEON intrinsic)
   - Vector32 type
 - Called from (representative examples):
-  - `[pg_lfind32_simd_helper](../p/pg_lfind32_simd_helper.md)` (optimized linear search helper)
+  - [pg_lfind32_simd_helper](../p/pg_lfind32_simd_helper.md) (optimized linear search helper)
 
 ## Notes and Other Information
 - Defined as static inline for optimal performance

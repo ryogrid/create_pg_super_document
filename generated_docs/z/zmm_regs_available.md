@@ -29,7 +29,7 @@ The function requires XSAVE intrinsics to be available and returns false if they
 - Functions called/Symbols referenced:
   - `_xgetbv()` (XSAVE intrinsic for reading extended control registers)
 - Called from (representative examples):
-  - `[pg_popcount_avx512_available](../p/pg_popcount_avx512_available.md)` at src/port/pg_popcount_avx512_choose.c:98
+  - [pg_popcount_avx512_available](../p/pg_popcount_avx512_available.md) at src/port/pg_popcount_avx512_choose.c:98
 
 ## Notes and Other Information
 - This is a static inline function, only visible within the compilation unit

@@ -23,14 +23,14 @@ The function follows a careful algorithm: it iterates through each non-dropped c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[make_attrmap](../m/make_attrmap.md)` (creates the basic attribute map structure)
-  - `[format_type_with_typemod](../f/format_type_with_typemod.md)` (formats type names for error messages)
-  - `[check_attrmap_match](../c/check_attrmap_match.md)` (checks for one-to-one mapping)
-  - `[free_attrmap](../f/free_attrmap.md)` (frees the map if no conversion needed)
+  - [make_attrmap](../m/make_attrmap.md) (creates the basic attribute map structure)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md) (formats type names for error messages)
+  - [check_attrmap_match](../c/check_attrmap_match.md) (checks for one-to-one mapping)
+  - [free_attrmap](../f/free_attrmap.md) (frees the map if no conversion needed)
   - `ereport` (error reporting)
   - `TupleDescAttr` (accesses tuple descriptor attributes)
 - Called from (representative examples):
-  - `[convert_tuples_by_position](../c/convert_tuples_by_position.md)`
+  - [convert_tuples_by_position](../c/convert_tuples_by_position.md)
 
 ## Notes and Other Information
 - Dropped columns are ignored in both input and output and marked as 0 in the mapping

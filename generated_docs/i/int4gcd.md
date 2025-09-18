@@ -20,7 +20,7 @@ The `int4gcd` function serves as the PostgreSQL SQL function interface for compu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[int4gcd_internal](int4gcd_internal.md)`: Internal GCD implementation that performs the actual computation
+  - [int4gcd_internal](int4gcd_internal.md): Internal GCD implementation that performs the actual computation
   - `PG_GETARG_INT32()`: PostgreSQL macro to extract int32 arguments
   - `PG_RETURN_INT32()`: PostgreSQL macro to return int32 result
 - Called from (representative examples):

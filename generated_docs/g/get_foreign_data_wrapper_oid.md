@@ -23,14 +23,14 @@ The function provides flexible error handling through the `missing_ok` parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - `GetSysCacheOid1`: Retrieves OID from system cache using single key lookup
-  - `[CStringGetDatum](../C/CStringGetDatum.md)`: Converts C string to PostgreSQL Datum for cache lookup
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum for cache lookup
   - `OidIsValid`: Checks if the returned OID is valid
   - `ereport`: Reports error when FDW not found and missing_ok is false
 - Called from (representative examples):
-  - `[objectNamesToOids](../o/objectNamesToOids.md)`: For ACL (Access Control List) operations
-  - `[get_object_address_unqualified](get_object_address_unqualified.md)`: For object address resolution
-  - `[GetForeignDataWrapperByName](../G/GetForeignDataWrapperByName.md)`: For retrieving complete FDW information
-  - `[convert_foreign_data_wrapper_name](../c/convert_foreign_data_wrapper_name.md)`: For ACL name conversion operations
+  - [objectNamesToOids](../o/objectNamesToOids.md): For ACL (Access Control List) operations
+  - [get_object_address_unqualified](get_object_address_unqualified.md): For object address resolution
+  - [GetForeignDataWrapperByName](../G/GetForeignDataWrapperByName.md): For retrieving complete FDW information
+  - [convert_foreign_data_wrapper_name](../c/convert_foreign_data_wrapper_name.md): For ACL name conversion operations
 
 ## Notes and Other Information
 - Uses the `FOREIGNDATAWRAPPERNAME` cache for efficient lookups

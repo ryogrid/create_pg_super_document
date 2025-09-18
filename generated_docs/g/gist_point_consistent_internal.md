@@ -26,11 +26,11 @@ The strategy-based approach allows the same function to handle multiple types of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[FPlt](../F/FPlt.md)`: Floating-point less-than comparison macro
-  - `[FPgt](../F/FPgt.md)`: Floating-point greater-than comparison macro  
-  - `[FPeq](../F/FPeq.md)`: Floating-point equality comparison macro
-  - `[FPle](../F/FPle.md)`: Floating-point less-than-or-equal comparison macro
-  - `[FPge](../F/FPge.md)`: Floating-point greater-than-or-equal comparison macro
+  - [FPlt](../F/FPlt.md): Floating-point less-than comparison macro
+  - [FPgt](../F/FPgt.md): Floating-point greater-than comparison macro  
+  - [FPeq](../F/FPeq.md): Floating-point equality comparison macro
+  - [FPle](../F/FPle.md): Floating-point less-than-or-equal comparison macro
+  - [FPge](../F/FPge.md): Floating-point greater-than-or-equal comparison macro
   - `RTLeftStrategyNumber`: Strategy constant for left-of queries
   - `RTRightStrategyNumber`: Strategy constant for right-of queries
   - `RTAboveStrategyNumber`: Strategy constant for above queries
@@ -38,7 +38,7 @@ The strategy-based approach allows the same function to handle multiple types of
   - `RTSameStrategyNumber`: Strategy constant for equality queries
   - `elog`: Error logging for unrecognized strategies
 - Called from (representative examples):
-  - `[gist_point_consistent](gist_point_consistent.md)`: Main point consistency checking function
+  - [gist_point_consistent](gist_point_consistent.md): Main point consistency checking function
 
 ## Notes and Other Information
 - Implements different logic for leaf vs. internal nodes, especially for the 'same' strategy

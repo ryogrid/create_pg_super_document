@@ -22,11 +22,11 @@ The `copy_file_by_range` function utilizes the Linux `copy_file_range` system ca
   - `open` - System call for file opening
   - `copy_file_range` - Linux system call for efficient file copying
   - `close` - System call for file closing
-  - `[checksum_file](checksum_file.md)` - Calculate checksum of the copied file
+  - [checksum_file](checksum_file.md) - Calculate checksum of the copied file
   - `pg_file_create_mode` - File creation permissions
   - `SSIZE_MAX` - Maximum value for ssize_t type
 - Called from:
-  - `[copy_file](copy_file.md)` (src/bin/pg_combinebackup/copy_file.c:88) - as COPY_METHOD_COPY_FILE_RANGE strategy
+  - [copy_file](copy_file.md) (src/bin/pg_combinebackup/copy_file.c:88) - as COPY_METHOD_COPY_FILE_RANGE strategy
 
 ## Notes and Other Information
 - Linux-specific optimization requiring HAVE_COPY_FILE_RANGE compile-time support

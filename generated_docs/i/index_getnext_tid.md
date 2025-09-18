@@ -32,13 +32,13 @@ The function returns NULL when no more matching tuples exist, indicating the end
   - `SCAN_CHECKS` (macro for scan validation)
   - `CHECK_SCAN_PROCEDURE` (macro to verify amgettuple procedure exists)
   - `table_index_fetch_reset` (resets heap fetch resources)
-  - `[ItemPointerIsValid](../I/ItemPointerIsValid.md)` (validates tuple identifier)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (validates tuple identifier)
   - `pgstat_count_index_tuples` (updates index usage statistics)
   - `ScanDirection` (enumeration type)
-  - `[IndexScanDesc](../I/IndexScanDesc.md)` (scan descriptor type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)
 - Called from (representative examples):
-  - `[index_getnext_slot](index_getnext_slot.md)` (src/backend/access/index/indexam.c:682)
-  - `[IndexOnlyNext](../I/IndexOnlyNext.md)` (src/backend/executor/nodeIndexonlyscan.c:120)
+  - [index_getnext_slot](index_getnext_slot.md) (src/backend/access/index/indexam.c:682)
+  - [IndexOnlyNext](../I/IndexOnlyNext.md) (src/backend/executor/nodeIndexonlyscan.c:120)
   - `get_actual_variable_endpoint` (src/backend/utils/adt/selfuncs.c:6409)
 
 ## Notes and Other Information

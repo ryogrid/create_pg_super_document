@@ -21,15 +21,15 @@ The function consults the object property metadata and returns the `attnum_oid` 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_object_property_data](get_object_property_data.md)`: Retrieves object property metadata
+  - [get_object_property_data](get_object_property_data.md): Retrieves object property metadata
   - `ObjectPropertyType`: Structure containing object property information
 - Called from (representative examples):
-  - `[object_ownercheck](../o/object_ownercheck.md)`: Used in ownership verification to locate the OID column
-  - `[DropObjectById](../D/DropObjectById.md)`: Used during object deletion to identify the OID column
+  - [object_ownercheck](../o/object_ownercheck.md): Used in ownership verification to locate the OID column
+  - [DropObjectById](../D/DropObjectById.md): Used during object deletion to identify the OID column
   - `pg_identify_object`: Used in object identification routines
-  - `[AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)`: Used during ownership changes
-  - `[EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)`: Used in event trigger processing
-  - `[pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)`: Used in DDL command event triggers
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md): Used during ownership changes
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md): Used in event trigger processing
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md): Used in DDL command event triggers
 
 ## Notes and Other Information
 - Returns an `AttrNumber` (typically a small positive integer) indicating the column position

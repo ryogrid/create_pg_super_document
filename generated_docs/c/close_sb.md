@@ -23,11 +23,11 @@ This PostgreSQL built-in function computes the point on or inside a box that is 
 - Functions called/Symbols referenced:
   - `PG_GETARG_LSEG_P` - Extracts line segment argument from function parameters
   - `PG_GETARG_BOX_P` - Extracts box argument from function parameters
-  - `[LSEG](../L/LSEG.md)` - Line segment data type definition
-  - `[BOX](../B/BOX.md)` - Box data type definition
-  - `[Point](../P/Point.md)` - [Point](../P/Point.md) data type definition
-  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation function
-  - `[box_closept_lseg](../b/box_closept_lseg.md)` - Core geometric function that performs the closest point calculation
+  - [LSEG](../L/LSEG.md) - Line segment data type definition
+  - [BOX](../B/BOX.md) - Box data type definition
+  - [Point](../P/Point.md) - [Point](../P/Point.md) data type definition
+  - [palloc](../p/palloc.md) - PostgreSQL memory allocation function
+  - [box_closept_lseg](../b/box_closept_lseg.md) - Core geometric function that performs the closest point calculation
   - `isnan` - Standard C library function to check for NaN values
   - `PG_RETURN_POINT_P` - Returns point result from PostgreSQL function
 - Called from (representative examples):

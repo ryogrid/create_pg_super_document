@@ -23,15 +23,15 @@ The serialization includes the count (N) and the sum (sumX) in a standardized fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (structure type)
-  - `[AggCheckCallContext](../A/AggCheckCallContext.md)` (validates aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - `init_var` (initializes NumericVar)
-  - `[pq_begintypsend](../p/pq_begintypsend.md)` (begins binary output buffer)
-  - `[pq_sendint64](../p/pq_sendint64.md)` (sends 64-bit integer)
-  - `[int128_to_numericvar](int128_to_numericvar.md)` (converts int128 to numeric, when HAVE_INT128)
-  - `[accum_sum_final](../a/accum_sum_final.md)` (finalizes sum for numeric version)
-  - `[numericvar_serialize](../n/numericvar_serialize.md)` (serializes numeric variable)
-  - `[pq_endtypsend](../p/pq_endtypsend.md)` (finalizes binary output)
-  - `[free_var](../f/free_var.md)` (cleans up NumericVar)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (begins binary output buffer)
+  - [pq_sendint64](../p/pq_sendint64.md) (sends 64-bit integer)
+  - [int128_to_numericvar](int128_to_numericvar.md) (converts int128 to numeric, when HAVE_INT128)
+  - [accum_sum_final](../a/accum_sum_final.md) (finalizes sum for numeric version)
+  - [numericvar_serialize](../n/numericvar_serialize.md) (serializes numeric variable)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary output)
+  - [free_var](../f/free_var.md) (cleans up NumericVar)
 - Called from (representative examples):
   - No direct references found (likely referenced through PostgreSQL's aggregate serialization system)
 

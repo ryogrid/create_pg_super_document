@@ -38,13 +38,13 @@ When no more pages are available for prefetching, the function cleanly terminate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[tbm_iterate](../t/tbm_iterate.md)`/`tbm_shared_iterate`: Advance prefetch iterator to get next bitmap result
-  - `[tbm_end_iterate](../t/tbm_end_iterate.md)`/`tbm_end_shared_iterate`: Clean up exhausted iterators
-  - `[PrefetchBuffer](../P/PrefetchBuffer.md)`: Issue asynchronous buffer prefetch request to storage layer
+  - [tbm_iterate](../t/tbm_iterate.md)/`tbm_shared_iterate`: Advance prefetch iterator to get next bitmap result
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)/`tbm_end_shared_iterate`: Clean up exhausted iterators
+  - [PrefetchBuffer](../P/PrefetchBuffer.md): Issue asynchronous buffer prefetch request to storage layer
   - `VM_ALL_VISIBLE`: Check visibility map to determine if page needs reading
   - `SpinLockAcquire`/`SpinLockRelease`: Coordinate shared prefetch state in parallel mode
 - Called from (representative examples):
-  - `[BitmapHeapNext](BitmapHeapNext.md)`: Called after determining there's more work on current page
+  - [BitmapHeapNext](BitmapHeapNext.md): Called after determining there's more work on current page
 
 ## Notes and Other Information
 - Only compiled when USE_PREFETCH is defined, making prefetching completely optional

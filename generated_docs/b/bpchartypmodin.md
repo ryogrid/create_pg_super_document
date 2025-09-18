@@ -21,7 +21,7 @@ The `bpchartypmodin` function serves as the type modifier input function for Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_ARRAYTYPE_P`: Extracts ArrayType argument from function call context
-  - `[anychar_typmodin](../a/anychar_typmodin.md)`: Generic function for processing character type modifiers
+  - [anychar_typmodin](../a/anychar_typmodin.md): Generic function for processing character type modifiers
   - `PG_RETURN_INT32`: Returns the processed type modifier as a 32-bit integer
 - Called from (representative examples):
   - No direct callers found in the codebase (typically called by PostgreSQL's type system)

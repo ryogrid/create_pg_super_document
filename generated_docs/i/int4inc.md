@@ -21,7 +21,7 @@ The `int4inc` function implements an increment operation for PostgreSQL 32-bit i
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Macro to extract 32-bit integer argument from function context
-  - `[pg_add_s32_overflow](../p/pg_add_s32_overflow.md)`: Safe addition function that detects overflow when adding 1 to the input
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md): Safe addition function that detects overflow when adding 1 to the input
   - `ereport`: PostgreSQL error reporting mechanism
   - `PG_RETURN_INT32`: Macro to return 32-bit integer result
 - Called from (representative examples):

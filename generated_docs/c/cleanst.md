@@ -26,7 +26,7 @@ This transition is crucial because it changes how subsequent memory operations w
   - `subre`: Sub-regular expression structure type
 - Called from (representative examples):
   - `CNOERR`: Main compilation flow after markst()
-  - `[freev](../f/freev.md)`: Variable cleanup during error handling
+  - [freev](../f/freev.md): Variable cleanup during error handling
 
 ## Notes and Other Information
 - Must be called after markst() as the second phase of the cleanup process

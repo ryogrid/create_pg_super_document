@@ -20,9 +20,9 @@ This function performs the reverse operation of int2vectorin, converting an inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[int2vector](int2vector.md)` (data type)
-  - `[palloc](../p/palloc.md)` (memory allocation)
-  - `[pg_itoa](../p/pg_itoa.md)` (integer to ASCII conversion)
+  - [int2vector](int2vector.md) (data type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pg_itoa](../p/pg_itoa.md) (integer to ASCII conversion)
   - `PG_RETURN_CSTRING` (return C-string macro)
 - Called from (representative examples):
   - PostgreSQL type input/output system

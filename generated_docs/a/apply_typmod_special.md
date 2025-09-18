@@ -29,17 +29,17 @@ The function operates on packed numeric representations for efficiency and conve
 - Functions called/Symbols referenced:
   - `NUMERIC_IS_SPECIAL`: Macro to check if value is special (NaN/Inf)
   - `NUMERIC_IS_NAN`: Macro to check if value is NaN
-  - `[is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md)`: Validates typmod parameter
-  - `[numeric_typmod_precision](../n/numeric_typmod_precision.md)`: Extracts precision from typmod
-  - `[numeric_typmod_scale](../n/numeric_typmod_scale.md)`: Extracts scale from typmod
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md): Validates typmod parameter
+  - [numeric_typmod_precision](../n/numeric_typmod_precision.md): Extracts precision from typmod
+  - [numeric_typmod_scale](../n/numeric_typmod_scale.md): Extracts scale from typmod
   - `ereturn`: Soft error return mechanism
   - `Numeric`: PostgreSQL's packed numeric type
 
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric validation path
-  - `[numeric_in](../n/numeric_in.md)`: Text input parsing for special values
-  - `[numeric_recv](../n/numeric_recv.md)`: Binary input parsing for special values
-  - `[numeric](../n/numeric.md)`: Type coercion for special values
+  - [numeric_in](../n/numeric_in.md): Text input parsing for special values
+  - [numeric_recv](../n/numeric_recv.md): Binary input parsing for special values
+  - [numeric](../n/numeric.md): Type coercion for special values
 
 ## Notes and Other Information
 - NaN values are allowed regardless of precision/scale restrictions (historical PostgreSQL behavior)

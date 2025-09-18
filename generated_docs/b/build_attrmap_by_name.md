@@ -23,19 +23,19 @@ The function iterates through each non-dropped column in the output descriptor, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[make_attrmap](../m/make_attrmap.md)` (creates the basic attribute map structure)
+  - [make_attrmap](../m/make_attrmap.md) (creates the basic attribute map structure)
   - `TupleDescAttr` (accesses tuple descriptor attributes)
   - `NameStr` (extracts name from pg_attribute)
   - `strcmp` (string comparison for name matching)
-  - `[format_type_be](../f/format_type_be.md)` (formats type names for error messages)
+  - [format_type_be](../f/format_type_be.md) (formats type names for error messages)
   - `ereport` (error reporting)
 - Called from (representative examples):
-  - `[build_attrmap_by_name_if_req](build_attrmap_by_name_if_req.md)`
-  - `[map_partition_varattnos](../m/map_partition_varattnos.md)`
-  - `[DefineIndex](../D/DefineIndex.md)`
-  - `[DefineRelation](../D/DefineRelation.md)`
-  - `[ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)`
-  - `[expandTableLikeClause](../e/expandTableLikeClause.md)`
+  - [build_attrmap_by_name_if_req](build_attrmap_by_name_if_req.md)
+  - [map_partition_varattnos](../m/map_partition_varattnos.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
 
 ## Notes and Other Information
 - Uses an optimized circular search algorithm starting from the last successful match position

@@ -22,12 +22,12 @@ The function assumes that `setFmtEncoding()` has been previously called to confi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[fmtQualifiedIdEnc](fmtQualifiedIdEnc.md)` (main implementation)
-  - `[getFmtEncoding](../g/getFmtEncoding.md)` (to obtain current encoding setting)
+  - [fmtQualifiedIdEnc](fmtQualifiedIdEnc.md) (main implementation)
+  - [getFmtEncoding](../g/getFmtEncoding.md) (to obtain current encoding setting)
 - Called from (representative examples):
-  - `[lockTableForWorker](../l/lockTableForWorker.md)` (src/bin/pg_dump/parallel.c:1313)
-  - `[restore_toc_entry](../r/restore_toc_entry.md)` (src/bin/pg_dump/pg_backup_archiver.c:1020)
-  - `[_disableTriggersIfNecessary](../d/_disableTriggersIfNecessary.md)` (src/bin/pg_dump/pg_backup_archiver.c:1129)
+  - [lockTableForWorker](../l/lockTableForWorker.md) (src/bin/pg_dump/parallel.c:1313)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (src/bin/pg_dump/pg_backup_archiver.c:1020)
+  - [_disableTriggersIfNecessary](../d/_disableTriggersIfNecessary.md) (src/bin/pg_dump/pg_backup_archiver.c:1129)
   - `fmtQualifiedDumpable` (src/bin/pg_dump/pg_dump.c:178)
 
 ## Notes and Other Information

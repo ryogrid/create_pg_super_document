@@ -21,15 +21,15 @@ The function accesses the object property metadata and returns the `attnum_name`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[get_object_property_data](get_object_property_data.md)`: Retrieves object property metadata
+  - [get_object_property_data](get_object_property_data.md): Retrieves object property metadata
   - `ObjectPropertyType`: Structure containing object property information
 - Called from (representative examples):
-  - `[ExecGrant_common](../E/ExecGrant_common.md)`: Used in privilege operations to access object names
+  - [ExecGrant_common](../E/ExecGrant_common.md): Used in privilege operations to access object names
   - `pg_identify_object`: Used in object identification to retrieve names
-  - `[AlterObjectRename_internal](../A/AlterObjectRename_internal.md)`: Used during object renaming to locate the name column
-  - `[AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)`: Used during namespace changes to access names
-  - `[AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)`: Used during ownership changes to identify objects
-  - `[EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)`: Used in event trigger processing to get object names
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md): Used during object renaming to locate the name column
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md): Used during namespace changes to access names
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md): Used during ownership changes to identify objects
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md): Used in event trigger processing to get object names
 
 ## Notes and Other Information
 - Returns an `AttrNumber` indicating the column position of the name field

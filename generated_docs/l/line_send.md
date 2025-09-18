@@ -25,9 +25,9 @@ The binary format is more efficient than text representation for network transmi
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_LINE_P`: Extracts LINE pointer from function arguments
-  - `[pq_begintypsend](../p/pq_begintypsend.md)`: Initializes StringInfo buffer for binary output
-  - `[pq_sendfloat8](../p/pq_sendfloat8.md)`: Writes float8 value to binary buffer
-  - `[pq_endtypsend](../p/pq_endtypsend.md)`: Finalizes binary buffer and returns bytea
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes StringInfo buffer for binary output
+  - [pq_sendfloat8](../p/pq_sendfloat8.md): Writes float8 value to binary buffer
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes binary buffer and returns bytea
   - `PG_RETURN_BYTEA_P`: Returns bytea as Datum
 - Called from (representative examples):
   - PostgreSQL binary protocol system (no direct function references found)

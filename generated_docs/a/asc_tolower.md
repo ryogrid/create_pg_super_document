@@ -24,11 +24,11 @@ The function is safe to use with UTF-8 and other multibyte encodings because `pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pnstrdup](../p/pnstrdup.md)`: Create a null-terminated copy of the input buffer
+  - [pnstrdup](../p/pnstrdup.md): Create a null-terminated copy of the input buffer
   - `pg_ascii_tolower`: Convert single ASCII character to lowercase
 - Called from (representative examples):
-  - `[str_tolower](../s/str_tolower.md)`: Main collation-aware lowercase function (for C/POSIX collations)
-  - `[asc_tolower_z](asc_tolower_z.md)`: Null-terminated string wrapper
+  - [str_tolower](../s/str_tolower.md): Main collation-aware lowercase function (for C/POSIX collations)
+  - [asc_tolower_z](asc_tolower_z.md): Null-terminated string wrapper
 
 ## Notes and Other Information
 - Returns a palloc'd, null-terminated string that must be freed by the caller

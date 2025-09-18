@@ -22,9 +22,9 @@ The function allocates a `win32_deadchild_waitinfo` structure to store the proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[palloc](palloc.md)` - PostgreSQL memory allocation
+  - [palloc](palloc.md) - PostgreSQL memory allocation
   - `RegisterWaitForSingleObject` - Windows API for asynchronous wait
-  - `[pgwin32_deadchild_callback](pgwin32_deadchild_callback.md)` - Callback function executed when child dies
+  - [pgwin32_deadchild_callback](pgwin32_deadchild_callback.md) - Callback function executed when child dies
   - `ereport` - PostgreSQL error reporting
   - `GetLastError` - Windows API for error code retrieval
 

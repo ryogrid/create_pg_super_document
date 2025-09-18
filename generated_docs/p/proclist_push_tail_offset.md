@@ -25,7 +25,7 @@ The function includes several assertion checks to ensure list integrity and that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[proclist_node_get](proclist_node_get.md)` (to retrieve proclist_node pointers)
+  - [proclist_node_get](proclist_node_get.md) (to retrieve proclist_node pointers)
   - `INVALID_PROC_NUMBER` (constant indicating an invalid process number)
   - `proclist_head` (data structure type)
   - `proclist_node` (data structure type)

@@ -24,8 +24,8 @@ The function performs a simple but critical operation: it checks if the entry ke
 - Functions called/Symbols referenced:
   - `PG_DETOAST_DATUM`: PostgreSQL macro to decompress TOAST-compressed data
   - `gistentryinit`: Initializes a new GiST entry structure
-  - `[SignTSVector](../S/SignTSVector.md)`: TSVector signature structure type
-  - `[GISTENTRY](../G/GISTENTRY.md)`: GiST entry structure type
+  - [SignTSVector](../S/SignTSVector.md): TSVector signature structure type
+  - [GISTENTRY](../G/GISTENTRY.md): GiST entry structure type
 - Called from:
   - GiST index operations (no direct references found in current analysis)
 

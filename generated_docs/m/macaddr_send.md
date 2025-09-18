@@ -23,9 +23,9 @@ This function is the counterpart to `macaddr_recv` and is used when MAC address 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MACADDR_P`: PostgreSQL macro to extract macaddr pointer from function arguments
-  - `[pq_begintypsend](../p/pq_begintypsend.md)`: PostgreSQL function to initialize binary output buffer
-  - `[pq_sendbyte](../p/pq_sendbyte.md)`: PostgreSQL function to append a single byte to the output buffer
-  - `[pq_endtypsend](../p/pq_endtypsend.md)`: PostgreSQL function to finalize binary output buffer
+  - [pq_begintypsend](../p/pq_begintypsend.md): PostgreSQL function to initialize binary output buffer
+  - [pq_sendbyte](../p/pq_sendbyte.md): PostgreSQL function to append a single byte to the output buffer
+  - [pq_endtypsend](../p/pq_endtypsend.md): PostgreSQL function to finalize binary output buffer
   - `PG_RETURN_BYTEA_P`: PostgreSQL macro to return binary data as bytea
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via PostgreSQL type system during binary protocol operations)

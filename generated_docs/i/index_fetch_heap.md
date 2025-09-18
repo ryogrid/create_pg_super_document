@@ -30,10 +30,10 @@ The function returns true if a visible tuple was found, false otherwise. Multipl
 - Functions called/Symbols referenced:
   - `table_index_fetch_tuple` (retrieves heap tuple from TID)
   - `pgstat_count_heap_fetch` (updates heap access statistics)
-  - `[IndexScanDesc](../I/IndexScanDesc.md)` (scan descriptor type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)
 - Called from (representative examples):
-  - `[index_getnext_slot](index_getnext_slot.md)` (src/backend/access/index/indexam.c:697)
-  - `[IndexOnlyNext](../I/IndexOnlyNext.md)` (src/backend/executor/nodeIndexonlyscan.c:168)
+  - [index_getnext_slot](index_getnext_slot.md) (src/backend/access/index/indexam.c:697)
+  - [IndexOnlyNext](../I/IndexOnlyNext.md) (src/backend/executor/nodeIndexonlyscan.c:168)
   - `get_actual_variable_endpoint` (src/backend/utils/adt/selfuncs.c:6418)
 
 ## Notes and Other Information

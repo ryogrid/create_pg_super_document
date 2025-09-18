@@ -23,7 +23,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called:
-  - `[GetCurrentTimestamp](../G/GetCurrentTimestamp.md)()` (timestamp utility function)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)() (timestamp utility function)
   - `TimestampTzPlusMilliseconds()` (timestamp arithmetic function)
   - `enable_timeout_every()` (timeout management function)
 

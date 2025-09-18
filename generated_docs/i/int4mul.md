@@ -22,7 +22,7 @@ The `int4mul` function implements the multiplication operation for PostgreSQL 32
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Macro to extract 32-bit integer arguments from function context
-  - `[pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)`: Safe multiplication function that detects overflow conditions
+  - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md): Safe multiplication function that detects overflow conditions
   - `ereport`: PostgreSQL error reporting mechanism
   - `PG_RETURN_INT32`: Macro to return 32-bit integer result
 - Called from (representative examples):

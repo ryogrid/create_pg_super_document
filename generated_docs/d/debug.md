@@ -26,7 +26,7 @@ The output format shows the debug number and line count, followed by the string 
   - `SIZE` (macro from header.h:11 - extracts size from symbol string)
   - `printf` (standard C library function)
 - Called from (representative examples):
-  - `[slice_check](../s/slice_check.md)` function in utilities.c:415
+  - [slice_check](../s/slice_check.md) function in utilities.c:415
   - Various PostgreSQL components for debugging purposes
   - Test and diagnostic utilities across the codebase
 

@@ -28,7 +28,7 @@ This function takes no parameters and returns a boolean value indicating SSE 4.2
   - `__cpuid` (Microsoft intrinsic, conditional)
 
 - Called from (representative examples):
-  - `[pg_comp_crc32c_choose](pg_comp_crc32c_choose.md)` (in src/port/pg_crc32c_sse42_choose.c:56)
+  - [pg_comp_crc32c_choose](pg_comp_crc32c_choose.md) (in src/port/pg_crc32c_sse42_choose.c:56)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

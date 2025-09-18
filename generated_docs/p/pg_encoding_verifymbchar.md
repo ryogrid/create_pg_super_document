@@ -35,7 +35,7 @@ The verification follows these rules:
   - `pg_wchar_table[].mbverifychar`: Encoding-specific character verification function
 
 - Called from (representative examples):
-  - `[LocalToUtf](../L/LocalToUtf.md)`: Character encoding conversion functions (conv.c)
+  - [LocalToUtf](../L/LocalToUtf.md): Character encoding conversion functions (conv.c)
   - Multiple Japanese encoding converters: `euc_jis_20042shift_jis_2004`, `shift_jis_20042euc_jis_2004`, etc.
   - Korean encoding converters: `euc_kr2mic`, `mic2euc_kr`
   - Chinese encoding converters: `euc_tw2big5`, `big52euc_tw`, etc.

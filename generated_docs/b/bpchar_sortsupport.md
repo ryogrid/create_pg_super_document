@@ -24,8 +24,8 @@ The `bpchar_sortsupport` function sets up optimized sorting support for BpChar d
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER` - Extract SortSupport pointer from function arguments
-  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)` - Switch to appropriate memory context for sort support setup
-  - `[varstr_sortsupport](../v/varstr_sortsupport.md)` - [Initialize](../I/Initialize.md) generic variable-length string sort support
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) - Switch to appropriate memory context for sort support setup
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) - [Initialize](../I/Initialize.md) generic variable-length string sort support
   - `PG_RETURN_VOID` - Return void result
   - `BPCHAROID` - Object ID constant for BpChar data type
 - Called from (representative examples):

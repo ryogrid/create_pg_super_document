@@ -23,10 +23,10 @@ This function takes two inet addresses and returns the smallest CIDR (Classless 
 - Functions called/Symbols referenced:
   - `PG_GETARG_INET_PP` - macro to extract inet arguments
   - `ip_family` - extracts the address family from inet structure
-  - `[bitncommon](../b/bitncommon.md)` - calculates common leading bits between two addresses
+  - [bitncommon](../b/bitncommon.md) - calculates common leading bits between two addresses
   - `ip_addr` - extracts the address portion from inet structure
   - `ip_bits` - extracts the mask length from inet structure
-  - `[cidr_set_masklen_internal](../c/cidr_set_masklen_internal.md)` - creates new CIDR with specified mask length
+  - [cidr_set_masklen_internal](../c/cidr_set_masklen_internal.md) - creates new CIDR with specified mask length
   - `PG_RETURN_INET_P` - macro to return inet result
   - `ereport` - [error](../e/error.md) reporting function
 - Called from (representative examples):

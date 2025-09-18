@@ -28,18 +28,18 @@ The function automatically detects the appropriate conversion method based on th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[lc_ctype_is_c](../l/lc_ctype_is_c.md)`: Check if collation uses C/POSIX locale
-  - `[asc_toupper](../a/asc_toupper.md)`: ASCII-only uppercase conversion
-  - `[pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)`: Get locale information from collation OID
-  - `[icu_to_uchar](../i/icu_to_uchar.md)`, `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
+  - [lc_ctype_is_c](../l/lc_ctype_is_c.md): Check if collation uses C/POSIX locale
+  - [asc_toupper](../a/asc_toupper.md): ASCII-only uppercase conversion
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md): Get locale information from collation OID
+  - [icu_to_uchar](../i/icu_to_uchar.md), `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
   - `unicode_strupper`: Built-in Unicode uppercase conversion
-  - `[char2wchar](../c/char2wchar.md)`, `wchar2char`: Wide character conversion functions
+  - [char2wchar](../c/char2wchar.md), `wchar2char`: Wide character conversion functions
   - `towupper_l`, `toupper_l`: Locale-aware case conversion
-  - `[pg_toupper](../p/pg_toupper.md)`: PostgreSQL's ASCII case conversion
+  - [pg_toupper](../p/pg_toupper.md): PostgreSQL's ASCII case conversion
 - Called from (representative examples):
-  - `[upper](../u/upper.md)`: SQL UPPER() function implementation
-  - `[seq_search_localized](seq_search_localized.md)`: Localized pattern searching
-  - `[str_toupper_z](str_toupper_z.md)`: Null-terminated string wrapper
+  - [upper](../u/upper.md): SQL UPPER() function implementation
+  - [seq_search_localized](seq_search_localized.md): Localized pattern searching
+  - [str_toupper_z](str_toupper_z.md): Null-terminated string wrapper
 
 ## Notes and Other Information
 - Returns a palloc'd, null-terminated string that must be freed by the caller

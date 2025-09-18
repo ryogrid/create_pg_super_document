@@ -24,16 +24,16 @@ This function is used both as a direct interface for callers who already know th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md)` - Structure type for table statistics entries (return type)
-  - `[pgstat_fetch_entry](pgstat_fetch_entry.md)` - Generic statistics entry retrieval function
+  - [PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md) - Structure type for table statistics entries (return type)
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md) - Generic statistics entry retrieval function
   - `PGSTAT_KIND_RELATION` - Constant identifying the statistics entry type as relation statistics
   - `PgStat_TableStatus` - Structure type referenced in the broader context
 
 - Called from (representative examples):
-  - `[do_autovacuum](../d/do_autovacuum.md)` - Multiple calls during autovacuum processing to get relation statistics
-  - `[recheck_relation_needs_vacanalyze](../r/recheck_relation_needs_vacanalyze.md)` - When determining if a relation needs vacuum/analyze
+  - [do_autovacuum](../d/do_autovacuum.md) - Multiple calls during autovacuum processing to get relation statistics
+  - [recheck_relation_needs_vacanalyze](../r/recheck_relation_needs_vacanalyze.md) - When determining if a relation needs vacuum/analyze
   - `pgstat_copy_relation_stats` - When copying relation statistics
-  - `[pgstat_fetch_stat_tabentry](pgstat_fetch_stat_tabentry.md)` - The simpler wrapper function
+  - [pgstat_fetch_stat_tabentry](pgstat_fetch_stat_tabentry.md) - The simpler wrapper function
 
 ## Notes and Other Information
 - This is the more efficient version compared to `pgstat_fetch_stat_tabentry()` because it avoids the runtime `IsSharedRelation()` check

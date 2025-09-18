@@ -23,17 +23,17 @@ The deserialized state can then be used in further aggregate operations, making 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (structure type)
-  - `[AggCheckCallContext](../A/AggCheckCallContext.md)` (validates aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - `PG_GETARG_BYTEA_PP` (extracts bytea argument)
   - `init_var` (initializes NumericVar)
-  - `[initReadOnlyStringInfo](initReadOnlyStringInfo.md)` (initializes read buffer)
+  - [initReadOnlyStringInfo](initReadOnlyStringInfo.md) (initializes read buffer)
   - `makePolyNumAggStateCurrentContext` (creates new state)
-  - `[pq_getmsgint64](../p/pq_getmsgint64.md)` (reads 64-bit integer from buffer)
-  - `[numericvar_deserialize](../n/numericvar_deserialize.md)` (deserializes numeric variable)
-  - `[numericvar_to_int128](../n/numericvar_to_int128.md)` (converts numeric to int128, when HAVE_INT128)
-  - `[accum_sum_add](../a/accum_sum_add.md)` (adds to sum for numeric version)
-  - `[pq_getmsgend](../p/pq_getmsgend.md)` (validates buffer end)
-  - `[free_var](../f/free_var.md)` (cleans up NumericVar)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (reads 64-bit integer from buffer)
+  - [numericvar_deserialize](../n/numericvar_deserialize.md) (deserializes numeric variable)
+  - [numericvar_to_int128](../n/numericvar_to_int128.md) (converts numeric to int128, when HAVE_INT128)
+  - [accum_sum_add](../a/accum_sum_add.md) (adds to sum for numeric version)
+  - [pq_getmsgend](../p/pq_getmsgend.md) (validates buffer end)
+  - [free_var](../f/free_var.md) (cleans up NumericVar)
 - Called from (representative examples):
   - No direct references found (likely referenced through PostgreSQL's aggregate deserialization system)
 

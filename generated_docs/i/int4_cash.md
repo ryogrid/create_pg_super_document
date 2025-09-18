@@ -28,11 +28,11 @@ The function ensures that the multiplication does not cause integer overflow by 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Extract int32 from function arguments
-  - `[PGLC_localeconv](../P/PGLC_localeconv.md)`: Get locale conversion information
-  - `[int8mul](int8mul.md)`: Multiply two int64 values with overflow checking
+  - [PGLC_localeconv](../P/PGLC_localeconv.md): Get locale conversion information
+  - [int8mul](int8mul.md): Multiply two int64 values with overflow checking
   - `DirectFunctionCall2`: Call a 2-argument PostgreSQL function
-  - `[Int64GetDatum](../I/Int64GetDatum.md)`: Convert int64 to Datum
-  - `[DatumGetInt64](../D/DatumGetInt64.md)`: Extract int64 from Datum
+  - [Int64GetDatum](../I/Int64GetDatum.md): Convert int64 to Datum
+  - [DatumGetInt64](../D/DatumGetInt64.md): Extract int64 from Datum
   - `PG_RETURN_CASH`: Return a Cash value
 - Called from (representative examples):
   - No direct references found in codebase

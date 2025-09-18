@@ -23,7 +23,7 @@ The function determines whether to use single-byte or multi-byte processing base
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP` - Extract text arguments from function call
-  - `[pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)` - Determine if database uses single-byte or multi-byte encoding
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) - Determine if database uses single-byte or multi-byte encoding
   - `SB_do_like_escape` - Handle escape conversion for single-byte encodings
   - `MB_do_like_escape` - Handle escape conversion for multi-byte encodings
   - `PG_RETURN_TEXT_P` - Return text result

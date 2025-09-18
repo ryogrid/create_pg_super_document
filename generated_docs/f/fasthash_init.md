@@ -28,11 +28,11 @@ The fasthash algorithm is a modification of the fast-hash implementation origina
 ## Dependencies
 - Functions called/Symbols referenced:
   - `memset` (standard C library function)
-  - `[fasthash_state](fasthash_state.md)` (structure type)
+  - [fasthash_state](fasthash_state.md) (structure type)
 - Called from (representative examples):
-  - `[spcachekey_hash](../s/spcachekey_hash.md)` (src/backend/catalog/namespace.c:259)
-  - `[fasthash64](fasthash64.md)` (src/include/common/hashfn_unstable.h:364)
-  - `[hash_string](../h/hash_string.md)` (src/include/common/hashfn_unstable.h:396)
+  - [spcachekey_hash](../s/spcachekey_hash.md) (src/backend/catalog/namespace.c:259)
+  - [fasthash64](fasthash64.md) (src/include/common/hashfn_unstable.h:364)
+  - [hash_string](../h/hash_string.md) (src/include/common/hashfn_unstable.h:396)
 
 ## Notes and Other Information
 - This function is declared as `static inline` for performance, as it's a simple initialization routine that benefits from inlining

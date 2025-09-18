@@ -23,9 +23,9 @@ The function follows the standard C library comparator convention, returning a n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ScalarMCVItem](../S/ScalarMCVItem.md)` (struct)
+  - [ScalarMCVItem](../S/ScalarMCVItem.md) (struct)
 - Called from (representative examples):
-  - `[compute_scalar_stats](compute_scalar_stats.md)` (used as qsort comparator)
+  - [compute_scalar_stats](compute_scalar_stats.md) (used as qsort comparator)
 
 ## Notes and Other Information
 This is a minimal comparator that only considers the `first` field of `ScalarMCVItem` structures. The function is designed for use with `qsort()` or `qsort_r()` and provides deterministic sorting based on position values. The `arg` parameter is included to match the standard comparator interface but is not used in this implementation.

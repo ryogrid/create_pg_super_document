@@ -25,7 +25,7 @@ The `bitxor` function implements bitwise logical XOR (exclusive OR) operation be
   - `SET_VARSIZE` - Sets size in result VarBit structure
   - `VARBITS` - Gets pointer to bit data
   - `VARBITBYTES` - Gets byte count for iteration
-  - `[palloc](../p/palloc.md)` - Allocates memory for result
+  - [palloc](../p/palloc.md) - Allocates memory for result
   - `ereport`, `errcode`, `errmsg` - Error reporting functions
   - `PG_RETURN_VARBIT_P` - Returns VarBit result
 - Called from (representative examples):

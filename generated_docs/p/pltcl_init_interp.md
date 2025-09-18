@@ -29,11 +29,11 @@ The function handles both trusted and untrusted interpreter modes, with trusted 
   - `Tcl_CreateSlave` (creates subsidiary interpreter)
   - `Tcl_InitHashTable` (initializes query hash table)
   - `Tcl_CreateObjCommand` (registers PostgreSQL-specific commands)
-  - `[call_pltcl_start_proc](../c/call_pltcl_start_proc.md)` (calls language start procedure)
+  - [call_pltcl_start_proc](../c/call_pltcl_start_proc.md) (calls language start procedure)
   - `Tcl_DeleteInterp` (cleanup on error)
   - Various pltcl command functions (pltcl_elog, pltcl_quote, etc.)
 - Called from (representative examples):
-  - `[pltcl_fetch_interp](pltcl_fetch_interp.md)` (when a new interpreter is needed)
+  - [pltcl_fetch_interp](pltcl_fetch_interp.md) (when a new interpreter is needed)
 
 ## Notes and Other Information
 - Uses PostgreSQL's exception handling (PG_TRY/PG_CATCH) to ensure proper cleanup

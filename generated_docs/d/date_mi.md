@@ -26,8 +26,8 @@ The function includes error checking to prevent subtraction of infinite date val
   - `PG_GETARG_DATEADT` - Macro to extract DateADT arguments from function call
   - `DATE_NOT_FINITE` - Macro to test if date is infinite
   - `ereport` - PostgreSQL error reporting function
-  - `[errcode](../e/errcode.md)` - Error code specification macro
-  - `[errmsg](../e/errmsg.md)` - Error message specification macro
+  - [errcode](../e/errcode.md) - Error code specification macro
+  - [errmsg](../e/errmsg.md) - Error message specification macro
   - `PG_RETURN_INT32` - Macro to return a 32-bit integer result
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL operator interface)

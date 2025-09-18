@@ -23,14 +23,14 @@ The `euc_tw2mic` function converts EUC-TW encoded text to Mule Internal Code (MI
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IS_HIGHBIT_SET`: Macro to check if high bit is set in a byte
-  - `[pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)`: Verify multibyte character validity for PG_EUC_TW
-  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Report invalid encoding sequences
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md): Verify multibyte character validity for PG_EUC_TW
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Report invalid encoding sequences
   - `SS2`: Single Shift 2 character constant for plane switching
   - `LC_CNS11643_1`, `LC_CNS11643_2`, `LC_CNS11643_3`: CNS character plane constants  
   - `LCPRV2_B`: MULE private charset code for extended planes
   - `PG_EUC_TW`: Encoding identifier constant
 - Called from:
-  - `[euc_tw_to_mic](euc_tw_to_mic.md)`: Main wrapper function for EUC-TW to MIC conversion
+  - [euc_tw_to_mic](euc_tw_to_mic.md): Main wrapper function for EUC-TW to MIC conversion
 
 ## Notes and Other Information
 - Handles ASCII characters (single-byte) by passing them through unchanged

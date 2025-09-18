@@ -23,10 +23,10 @@ The function extracts the bounds from the last range of each multirange (which r
 - Functions called/Symbols referenced:
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange arguments (used twice)
   - `MultirangeIsEmpty` - Check if multiranges are empty
-  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache information
+  - [multirange_get_typcache](multirange_get_typcache.md) - Get type cache information
   - `MultirangeTypeGetOid` - Get OID of multirange type
-  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract bounds from multiranges (used twice)
-  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds
+  - [multirange_get_bounds](multirange_get_bounds.md) - Extract bounds from multiranges (used twice)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md) - Compare range bounds
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)
 

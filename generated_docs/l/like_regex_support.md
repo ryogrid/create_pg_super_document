@@ -24,17 +24,17 @@ The function is designed to work with different pattern types (LIKE, ILIKE, rege
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[patternsel_common](../p/patternsel_common.md)`: For selectivity estimation calculations
-  - `[match_pattern_prefix](../m/match_pattern_prefix.md)`: For converting patterns to index conditions
-  - `[is_opclause](../i/is_opclause.md)`: To check if the node is an operator expression
-  - `[is_funcclause](../i/is_funcclause.md)`: To check if the node is a function call expression
+  - [patternsel_common](../p/patternsel_common.md): For selectivity estimation calculations
+  - [match_pattern_prefix](../m/match_pattern_prefix.md): For converting patterns to index conditions
+  - [is_opclause](../i/is_opclause.md): To check if the node is an operator expression
+  - [is_funcclause](../i/is_funcclause.md): To check if the node is a function call expression
   - `lsecond`: To access the second argument in argument lists
 - Called from (representative examples):
-  - `[textlike_support](../t/textlike_support.md)`: LIKE operator support
-  - `[texticlike_support](../t/texticlike_support.md)`: ILIKE operator support  
-  - `[textregexeq_support](../t/textregexeq_support.md)`: Regex match operator support
-  - `[texticregexeq_support](../t/texticregexeq_support.md)`: Case-insensitive regex support
-  - `[text_starts_with_support](../t/text_starts_with_support.md)`: Text prefix support
+  - [textlike_support](../t/textlike_support.md): LIKE operator support
+  - [texticlike_support](../t/texticlike_support.md): ILIKE operator support  
+  - [textregexeq_support](../t/textregexeq_support.md): Regex match operator support
+  - [texticregexeq_support](../t/texticregexeq_support.md): Case-insensitive regex support
+  - [text_starts_with_support](../t/text_starts_with_support.md): Text prefix support
 
 ## Notes and Other Information
 - This is a static function internal to the like_support.c module

@@ -29,17 +29,17 @@ The function includes sophisticated logic for handling archive library changes, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)`: Handles process synchronization barriers
-  - `[ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)`: Processes memory context logging requests  
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md): Handles process synchronization barriers
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md): Processes memory context logging requests  
   - `ProcessConfigFile`: Reloads configuration file with PGC_SIGHUP context
-  - `[proc_exit](../p/proc_exit.md)`: Terminates the current process cleanly
-  - `[pstrdup](../p/pstrdup.md)`: Duplicates a string in PostgreSQL memory context
-  - `[pfree](../p/pfree.md)`: Frees memory allocated in PostgreSQL memory context
+  - [proc_exit](../p/proc_exit.md): Terminates the current process cleanly
+  - [pstrdup](../p/pstrdup.md): Duplicates a string in PostgreSQL memory context
+  - [pfree](../p/pfree.md): Frees memory allocated in PostgreSQL memory context
   - `ereport`: PostgreSQL logging and error reporting mechanism
 
 - Called from (representative examples):
-  - `[pgarch_MainLoop](../p/pgarch_MainLoop.md)`: Called periodically during the main archiver loop
-  - `[pgarch_ArchiverCopyLoop](../p/pgarch_ArchiverCopyLoop.md)`: Called during file copying operations
+  - [pgarch_MainLoop](../p/pgarch_MainLoop.md): Called periodically during the main archiver loop
+  - [pgarch_ArchiverCopyLoop](../p/pgarch_ArchiverCopyLoop.md): Called during file copying operations
 
 ## Notes and Other Information  
 - This is a static function, only accessible within the pgarch.c source file

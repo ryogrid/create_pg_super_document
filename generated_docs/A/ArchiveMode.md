@@ -28,9 +28,9 @@ The `ArchiveMode` enum specifies the operational mode for archive handling in pg
 - Functions called/Symbols referenced:
   - None (primitive enum type)
 - Called from (representative examples):
-  - `[CreateArchive](../C/CreateArchive.md)` function in pg_backup_archiver.c for setting up new archives
+  - [CreateArchive](../C/CreateArchive.md) function in pg_backup_archiver.c for setting up new archives
   - `_archiveHandle` struct as a member variable to track current mode
-  - `[main](../m/main.md)` function in pg_dump.c for determining operation mode
+  - [main](../m/main.md) function in pg_dump.c for determining operation mode
   - [Archive](Archive.md) allocation and handling functions
 
 ## Notes and Other Information

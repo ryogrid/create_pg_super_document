@@ -23,9 +23,9 @@ The function uses PostgreSQL's efficient `pg_popcount` function to count set bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_popcount](../p/pg_popcount.md)`: Efficiently counts set bits in a memory region
+  - [pg_popcount](../p/pg_popcount.md): Efficiently counts set bits in a memory region
   - `BITS_PER_BYTE`: Constant for converting between bits and bytes
-  - `[bloom_filter](bloom_filter.md)`: The filter structure type
+  - [bloom_filter](bloom_filter.md): The filter structure type
 
 - Called from (representative examples):
   - `create_and_test_bloom`: Test module validation and performance analysis

@@ -17,16 +17,16 @@ The `box_ar` function is a static helper function that computes the area of a BO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[box_wd](box_wd.md)`: Function to get the width of the box
-  - `[box_ht](box_ht.md)`: Function to get the height of the box  
-  - `[float8_mul](../f/float8_mul.md)`: PostgreSQL's safe floating-point multiplication function
+  - [box_wd](box_wd.md): Function to get the width of the box
+  - [box_ht](box_ht.md): Function to get the height of the box  
+  - [float8_mul](../f/float8_mul.md): PostgreSQL's safe floating-point multiplication function
 - Called from (representative examples):
-  - `[box_lt](box_lt.md)`: Box less-than comparison function
-  - `[box_gt](box_gt.md)`: Box greater-than comparison function
-  - `[box_eq](box_eq.md)`: Box equality comparison function
-  - `[box_le](box_le.md)`: Box less-than-or-equal comparison function
-  - `[box_ge](box_ge.md)`: Box greater-than-or-equal comparison function
-  - `[box_area](box_area.md)`: Public function that returns box area
+  - [box_lt](box_lt.md): Box less-than comparison function
+  - [box_gt](box_gt.md): Box greater-than comparison function
+  - [box_eq](box_eq.md): Box equality comparison function
+  - [box_le](box_le.md): Box less-than-or-equal comparison function
+  - [box_ge](box_ge.md): Box greater-than-or-equal comparison function
+  - [box_area](box_area.md): Public function that returns box area
   - `PATH_CLOSED`: Path operations
 
 ## Notes and Other Information

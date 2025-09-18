@@ -25,13 +25,13 @@ The memory barrier semantics make this function more expensive than the regular 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `[pg_atomic_write_membarrier_u64_impl](pg_atomic_write_membarrier_u64_impl.md)`
+  - [pg_atomic_write_membarrier_u64_impl](pg_atomic_write_membarrier_u64_impl.md)
   - `AssertPointerAlignment` (when PG_HAVE_ATOMIC_U64_SIMULATION is not defined)
-  - `[pg_atomic_uint64](pg_atomic_uint64.md)` (type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
-  - `[StartupXLOG](../S/StartupXLOG.md)` (src/backend/access/transam/xlog.c:5596)
-  - `[StartupXLOG](../S/StartupXLOG.md)` (src/backend/access/transam/xlog.c:5599)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5596)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5599)
 
 ## Notes and Other Information
 - The memory barrier semantics make this function more expensive but provide stronger ordering guarantees than regular atomic writes
